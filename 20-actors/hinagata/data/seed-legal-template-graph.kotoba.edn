@@ -48,6 +48,7 @@
  {:lt/id "jx.au" :lt/kind :jurisdiction :lt/label "Australia" :jurisdiction/code "AU" :jurisdiction/system :common-law :lt/sourcing :authoritative}
  {:lt/id "jx.ca" :lt/kind :jurisdiction :lt/label "Canada" :jurisdiction/code "CA" :jurisdiction/system :mixed :lt/sourcing :authoritative}
  {:lt/id "jx.ae" :lt/kind :jurisdiction :lt/label "United Arab Emirates" :jurisdiction/code "AE" :jurisdiction/system :mixed :lt/sourcing :authoritative}
+ {:lt/id "jx.it" :lt/kind :jurisdiction :lt/label "Italy" :jurisdiction/code "IT" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  ;; coverage wave 23 — major economies on more continents (Latin America / SE Asia / Africa)
  {:lt/id "jx.mx" :lt/kind :jurisdiction :lt/label "Mexico" :jurisdiction/code "MX" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.id" :lt/kind :jurisdiction :lt/label "Indonesia" :jurisdiction/code "ID" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
@@ -295,6 +296,11 @@
  {:lt/id "st.ae-etl-2021" :lt/kind :statute :lt/label "UAE Electronic Transactions & Trust Services Law — electronic signature" :statute/citation "Federal Decree-Law 46/2021, Art. 17" :statute/instrument "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)" :statute/jurisdiction "jx.ae" :statute/url "https://uaelegislation.gov.ae/en/legislations/1530" :lt/sourcing :authoritative}
  {:lt/id "st.ae-labour-8" :lt/kind :statute :lt/label "UAE Labour Law Art. 8 — written employment contract" :statute/citation "Federal Decree-Law 33/2021, Art. 8" :statute/instrument "UAE Labour Law (Federal Decree-Law No. 33 of 2021)" :statute/jurisdiction "jx.ae" :statute/url "https://uaelegislation.gov.ae/en/legislations/1538" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 25 (/loop): Italy (G7 economy) + Italian-language templates ───
+ {:lt/id "st.it-cc-1325" :lt/kind :statute :lt/label "Italy Codice Civile Art. 1325 — requisiti del contratto" :statute/citation "Codice Civile, Art. 1325" :statute/instrument "Codice Civile (Italy)" :statute/jurisdiction "jx.it" :statute/url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262" :lt/sourcing :authoritative}
+ {:lt/id "st.it-cc-2118" :lt/kind :statute :lt/label "Italy Codice Civile Art. 2118 — recesso dal contratto di lavoro (notice)" :statute/citation "Codice Civile, Art. 2118" :statute/instrument "Codice Civile (Italy)" :statute/jurisdiction "jx.it" :statute/url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262" :lt/sourcing :authoritative}
+ {:lt/id "st.it-cad-21" :lt/kind :statute :lt/label "Italy Codice dell'Amministrazione Digitale Art. 21 — firma elettronica" :statute/citation "D.Lgs. 82/2005 (CAD), Art. 21" :statute/instrument "Codice dell'Amministrazione Digitale (Italy)" :statute/jurisdiction "jx.it" :statute/url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -400,6 +406,9 @@
  ;; coverage wave 19 — lift hi/ar to "ok" with employment translations
  {:lt/id "tmpl.employment-hi" :lt/kind :template :lt/label "रोजगार अनुबंध (Employment, HI)" :template/title "रोजगार अनुबंध" :template/lang "hi" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.employment-ar" :lt/kind :template :lt/label "عقد عمل (Employment, AR)" :template/title "عقد عمل" :template/lang "ar" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ ;; coverage wave 25 — Italian-language templates
+ {:lt/id "tmpl.nda-it" :lt/kind :template :lt/label "Accordo di riservatezza (Mutual NDA, IT)" :template/title "Accordo di riservatezza reciproco" :template/lang "it" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.employment-it" :lt/kind :template :lt/label "Contratto di lavoro (Employment, IT)" :template/title "Contratto di lavoro subordinato" :template/lang "it" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.joint-venture" :lt/kind :template :lt/label "Joint Venture Agreement" :template/title "Joint Venture Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.saas-subscription" :lt/kind :template :lt/label "SaaS Subscription Agreement" :template/title "SaaS Subscription Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.escrow" :lt/kind :template :lt/label "Escrow Agreement" :template/title "Escrow Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
@@ -642,6 +651,13 @@
  {:en/from "tmpl.employment-ar" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-ar" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
 
+ ;; coverage wave 25 — Italian template composition
+ {:en/from "tmpl.nda-it" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-it" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-it" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-it" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-it" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
  ;; coverage wave 21 — JV / SaaS / escrow template composition
  {:en/from "tmpl.joint-venture" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.joint-venture" :en/to "cl.jv-governance" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -704,6 +720,9 @@
  {:en/from "cl.signature-esign" :en/to "st.ng-evidence-93" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
  {:en/from "cl.signature-esign" :en/to "st.ae-etl-2021" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.ae-civil-246" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.good-faith" :en/to "st.it-cc-1325" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "st.it-cc-2118" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.it-cad-21" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  ;; coverage wave 23 — bind MX/ID/NG statutes
  {:en/from "cl.good-faith" :en/to "st.mx-ccf-1796" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.id-kuhperdata-1320" :en/kind :cites-statute :en/force :referenced :en/binding-load 0.5 :en/sourcing :authoritative}
@@ -942,6 +961,8 @@
  {:en/from "tmpl.nda-ar" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.employment-hi" :en/to "jx.in" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.employment-ar" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.nda-it" :en/to "jx.it" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.employment-it" :en/to "jx.it" :en/kind :governed-by :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "tmpl.joint-venture" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.saas-subscription" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.escrow" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
@@ -1113,6 +1134,9 @@
  {:en/from "st.ae-civil-246" :en/to "jx.ae" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.ae-etl-2021" :en/to "jx.ae" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.ae-labour-8" :en/to "jx.ae" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.it-cc-1325" :en/to "jx.it" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.it-cc-2118" :en/to "jx.it" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.it-cad-21" :en/to "jx.it" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.eu-scc-2021" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
@@ -1127,6 +1151,8 @@
  {:en/from "tmpl.nda-ar" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-hi" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-ar" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-it" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-it" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-fr" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-de" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-es" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}

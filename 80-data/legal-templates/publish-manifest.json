@@ -4,7 +4,7 @@
   "schema": "legal-template-ontology@0.1.0",
   "license": "Apache-2.0 + etzhayyim Charter Rider v3.0",
   "note": "Public legal-document template commons. Every body is content-addressed (CIDv1 raw/sha2-256) and free to copy + adapt. NOT legal advice (G1).",
-  "templateCount": 51,
+  "templateCount": 53,
   "templates": [
     {
       "id": "tmpl.cc-content-license",
@@ -16,9 +16,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidwgkdnycai3hx4rlotbhtlihqf36tgukuuuuuwyrt6wdpoovnwcq",
-      "bodySha256": "0x763286dc0808d9efc8add309e6b41e05dfa66a2a94a5296c467eb0dee755b614",
-      "bytes": 2605,
+      "bodyCid": "bafkreignucug2zlykpiz63ul36h3yqsp5attnkfm5qafphebpfeyclckxm",
+      "bodySha256": "0xcda0a86d657853d19f6e8bdf8fbc424fe82736a8acec00579c817949812c4abb",
+      "bytes": 2683,
       "clauseCount": 3,
       "statutes": [
         {
@@ -88,6 +88,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -141,9 +147,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreich6xx7dccjvsvsst54o2gchgryxrzbmwluygbvtmuruzos3nvloq",
-      "bodySha256": "0x47f5eff18849acab294fbc768c239a38bc72165974c18359b291a65d2db6ab74",
-      "bytes": 3750,
+      "bodyCid": "bafkreialirircc67veergogz2u2ygqywjemotcjd7vwze7hrmlt2q4teju",
+      "bodySha256": "0x0b4451110bdfa9091338d9d5358343164918e98923fd6d927cf162e7a872644d",
+      "bytes": 3828,
       "clauseCount": 7,
       "statutes": [
         {
@@ -297,6 +303,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -350,9 +362,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibmr7nlzzoekszudqu6tzq5567hnsl2fun5jnrtibtmxhx2j3ugau",
-      "bodySha256": "0x2c8fdabce5c454b341c29e9e61defbe76c97a2d1bd4b6334066cb9efa4ee8605",
-      "bytes": 3092,
+      "bodyCid": "bafkreiekqkig6bv4bkigydsh3z5chlzqwdggpbya64zluqvcrlmcningom",
+      "bodySha256": "0x8a82906f06bc0a906c0e47de7a23af30b0cc678700f732ba42a28ad826a1a673",
+      "bytes": 3170,
       "clauseCount": 4,
       "statutes": [
         {
@@ -464,6 +476,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -517,9 +535,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiejkntytizqk6nwwz5gn4uhm3fz7hs7xchw3slec3sdljah73hx2m",
-      "bodySha256": "0x89536789a330579b6b67a66f28766cb9f9e5fb88f6dc96416e435a407fecf7d3",
-      "bytes": 4727,
+      "bodyCid": "bafkreiaq4ceh7f5waner4ozz54ntjpral3g6wcbskifai5xgic6rvcvdfy",
+      "bodySha256": "0x10e0887f97b603491e3b39ef1b34be205ecdeb0832520a0476e640bd1a8aa32e",
+      "bytes": 4855,
       "clauseCount": 9,
       "statutes": [
         {
@@ -673,6 +691,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -739,6 +763,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1083"
         },
         {
+          "id": "st.it-cc-1325",
+          "citation": "Codice Civile, Art. 1325",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -780,9 +810,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreifuaa4ytxavi3yxh4copz62ai2y5xuwxlpqztexlcu2mplnz4hmcu",
-      "bodySha256": "0xb4003989dc1546f173f04e7e7da02358ede96badf0ccc9758a9a63d6dcf0ec15",
-      "bytes": 2938,
+      "bodyCid": "bafkreid2csmybc627yjtdt5kmrfnlwvvgzhpdjig5ohhe2dqwwyofqcfha",
+      "bodySha256": "0x7a1499808bdafe1331cfaa644ad5dab5364ef1a506eb8e726870b5b0e2c04538",
+      "bytes": 3016,
       "clauseCount": 3,
       "statutes": [
         {
@@ -876,6 +906,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -929,9 +965,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreiakejpyyml4zhgtqzckqug5mtxz3gttto764acvkdth3fzgz3pxfm",
-      "bodySha256": "0x0a225f8c317cc9cd38644a850dd64ef9d9a739bbfee005550e67d9726cedf72b",
-      "bytes": 3554,
+      "bodyCid": "bafkreihkt6qg2v3y77ienvv6fqnsheedfsoenbsp7fjgyl5aktb6sqtaim",
+      "bodySha256": "0xea9fa06d5778ffd046d6be2c1b2390832c9c46864ff9526c2fa054c3e9426043",
+      "bytes": 3682,
       "clauseCount": 6,
       "statutes": [
         {
@@ -987,6 +1023,12 @@
           "citation": "Federal Law 5/1985, Art. 246",
           "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1083"
+        },
+        {
+          "id": "st.it-cc-1325",
+          "citation": "Codice Civile, Art. 1325",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -1067,6 +1109,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -1120,9 +1168,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicewhgt4dnxrolxa3ojbku53vky2gqyb6klvcyma6ji4dod5zdwri",
-      "bodySha256": "0x44b1cd3e0db78b97706dc90aa9ddd558d1a180f94ba8b0c07928e0dc3ee4768a",
-      "bytes": 2338,
+      "bodyCid": "bafkreiahuxtbzk5tatg2mb4k4wgkjhrut3k7cnk6nqbhsjk7hizjanbhna",
+      "bodySha256": "0x07a5e61cabb304cda6078ae58ca49e349ed5f1355e6c0279255f3a3290342768",
+      "bytes": 2416,
       "clauseCount": 2,
       "statutes": [
         {
@@ -1180,6 +1228,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -1233,9 +1287,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreicp7fj7pxtbrrpjma5x2iinhb3r5l42ykjgco32f4pf42yhsmohoi",
-      "bodySha256": "0x4ff953f7de618c5e9603b7d210d38771eaf9ac292613b7a2f1e5e6b07931c772",
-      "bytes": 3553,
+      "bodyCid": "bafkreig4mcz6fd7g4zlwjnb3ttb7a2rajee3v5pufrey3p6r6ntlbokdzi",
+      "bodySha256": "0xdc60b3e28fe6e65764b43b9cc3f06a204909baf5f42c498dbfd1f366b0b943ca",
+      "bytes": 3631,
       "clauseCount": 5,
       "statutes": [
         {
@@ -1371,6 +1425,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -1424,9 +1484,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreidocrdiflcw26vdn3zyn5lbtmcljhum4m3dg4hgd6qldkdldhkoyu",
-      "bodySha256": "0x6e144682ac56d7aa36ef386f5619b04b49e8ce3363370e61fa0b1a86b19d4ec5",
-      "bytes": 3509,
+      "bodyCid": "bafkreiep2rpsujcyf64pg6mjpkfupuyonhk274u5eh5pk7a3ivw4djrzoe",
+      "bodySha256": "0x8fd45f2a24582fb8f379897a8b47d30e69d5aff29d21faf57c1b456dc1a63971",
+      "bytes": 3587,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1560,6 +1620,12 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
         },
         {
           "id": "st.id-ite-11",
@@ -1615,9 +1681,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreibm25djjomkel6hv6touvzm2ncj3cxs3htqay2dsjawow5e3qcedi",
-      "bodySha256": "0x2cd74694b98a22fc7afa6ea572cd3449d8af2d9e70063439241675ba4dc0441a",
-      "bytes": 3513,
+      "bodyCid": "bafkreihpmsnlausr7ngtoy5ml5sglh4zpyfjjptdvovwyxe7mmej555ztq",
+      "bodySha256": "0xef649ab05251fb4d3763ac5f64659f997e0a94be63abab6c5c9f63089ef7b99c",
+      "bytes": 3591,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1753,6 +1819,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -1806,9 +1878,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreihaxt6zzh3wncixhwkv2w2pqb3h2xew2kwpp4u6qlgv3xig4rgka4",
-      "bodySha256": "0xe0bcfd9c9f76689173d955d5b4f80767d5c96d2acf7f29e82cd5ddd06e44ca07",
-      "bytes": 3746,
+      "bodyCid": "bafkreidqnhjbuaswzz6nkrjjwsmwb5owotiak7nqa5aapndtz67hvzn6fy",
+      "bodySha256": "0x7069d21a0256ce7cd54529b49960f5d674d0057db0074007b473cfbe7ae5be2e",
+      "bytes": 3824,
       "clauseCount": 5,
       "statutes": [
         {
@@ -1950,6 +2022,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -2003,9 +2081,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreig2nyjtnbgtver6u4qbpbocm3i2m3guiubawok557osxgcptxlowi",
-      "bodySha256": "0xda6e133684d3a923ea7201785c266d1a66cd445020b395defdd2b984f9dd6eb2",
-      "bytes": 2948,
+      "bodyCid": "bafkreibmdk7ukt2fnydkzkenc34e2kxvfuznkmwk2ve6atw6qdmpcghrgi",
+      "bodySha256": "0x2c1abf454f456e06aca88d16f84d2af52d32d532cad549e04ede80d8f118f132",
+      "bytes": 3026,
       "clauseCount": 2,
       "statutes": [
         {
@@ -2117,6 +2195,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -2170,9 +2254,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreifpkqqq5yx7damxoohkbk2xktkyoop4bm24nvchiqtfit6s7fa5rm",
-      "bodySha256": "0xaf54210ee2ff18197738ea0ab5754d58739fc0b35c6d4474426544fd2f941d8b",
-      "bytes": 5073,
+      "bodyCid": "bafkreierhbqhf7i2plodkj2cjherqvn5tpvkvsamduwqbh755adbzoqmz4",
+      "bodySha256": "0x91386072fd1a7adc35274249c91855bd9beaaac80c1d2d009ffde8061cba0ccf",
+      "bytes": 5251,
       "clauseCount": 7,
       "statutes": [
         {
@@ -2272,6 +2356,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
+          "id": "st.it-cc-2118",
+          "citation": "Codice Civile, Art. 2118",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
           "id": "st.mx-lft-47",
           "citation": "Ley Federal del Trabajo, Art. 47",
           "instrument": "Ley Federal del Trabajo (Mexico)",
@@ -2348,6 +2438,12 @@
           "citation": "Federal Law 5/1985, Art. 246",
           "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1083"
+        },
+        {
+          "id": "st.it-cc-1325",
+          "citation": "Codice Civile, Art. 1325",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -2428,6 +2524,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -2481,9 +2583,9 @@
       "jurisdictions": [
         "ES"
       ],
-      "bodyCid": "bafkreighhncc25kv6jgdvkdpxnbn7fxpv3uyv72uvuvdwk5ekgpjsqymim",
-      "bodySha256": "0xc73b442d7555f24c3aa86fbb42df96efaee98aff54ad2a3b2ba4519e99430c43",
-      "bytes": 3183,
+      "bodyCid": "bafkreidehj55uepoi36gh3xu5lvevwzddn4xt7yqbbesp34lhlad3b3lxa",
+      "bodySha256": "0x643a7bda11ee46fc63eef4eaea4adb231b7979ff10084927ef8b3ac03d876bb8",
+      "bytes": 3261,
       "clauseCount": 3,
       "statutes": [
         {
@@ -2607,6 +2709,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -2660,9 +2768,9 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreich7jfbvv32556if24gfjse5dc644tnxazqnsvxvag4p4tpq5y7uq",
-      "bodySha256": "0x47fa4a1ad77aef7c82eb862a644e8c5ee726db83306cab7a80dc7f26f8771fa4",
-      "bytes": 3686,
+      "bodyCid": "bafkreigb2t3jcr6zhyeyvlwfyyzfoipoayknbamuaienqyvy7smetra2je",
+      "bodySha256": "0xc1d4f69147d93e098aaec5c6325721ee0614d081940208d862b8fc9849c41a49",
+      "bytes": 3814,
       "clauseCount": 3,
       "statutes": [
         {
@@ -2750,6 +2858,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
+          "id": "st.it-cc-2118",
+          "citation": "Codice Civile, Art. 2118",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
           "id": "st.mx-lft-47",
           "citation": "Ley Federal del Trabajo, Art. 47",
           "instrument": "Ley Federal del Trabajo (Mexico)",
@@ -2834,6 +2948,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -2887,9 +3007,9 @@
       "jurisdictions": [
         "IN"
       ],
-      "bodyCid": "bafkreienbsy5crtrsb2gweyo6wuofs46osipvbbmvoka5m4qrvue5grovu",
-      "bodySha256": "0x8d0cb1d1467190746b130ef5a8e2cb9e7490fa842cab940eb3908d684e9a2ead",
-      "bytes": 2972,
+      "bodyCid": "bafkreihdspngkpaz7rlysow4kipvn2ksqkuedm4nbdbntfqpwi75kafzvq",
+      "bodySha256": "0xe393da653c19fc57893adc521f56e95282a841b38d08c2d9960fb23fd500b9ac",
+      "bytes": 3050,
       "clauseCount": 2,
       "statutes": [
         {
@@ -3001,6 +3121,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -3054,9 +3180,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreic6bv2iuipnkte3hlnuh47wnxslmhbh2fzgqu3lhaojtyzyse4ehq",
-      "bodySha256": "0x5e0d748a21ed54c9b3adb43f3f66de4b61c27d17268536b381c99e338913843c",
-      "bytes": 5017,
+      "bodyCid": "bafkreihmq3xfar7rr6azkay4l6hatjbx5jjt5ceeviuwlnp4epf47std6m",
+      "bodySha256": "0xec86ee5047f18f8195031c5f8e09a437ea533e8884aa2965b5fc23cbcfca63f3",
+      "bytes": 5145,
       "clauseCount": 8,
       "statutes": [
         {
@@ -3186,6 +3312,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -3312,6 +3444,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
+          "id": "st.it-cc-2118",
+          "citation": "Codice Civile, Art. 2118",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
           "id": "st.mx-lft-47",
           "citation": "Ley Federal del Trabajo, Art. 47",
           "instrument": "Ley Federal del Trabajo (Mexico)",
@@ -3350,6 +3488,245 @@
       ]
     },
     {
+      "id": "tmpl.employment-it",
+      "title": "Contratto di lavoro subordinato",
+      "lang": "it",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-weaker-party",
+      "jurisdictions": [
+        "IT"
+      ],
+      "bodyCid": "bafkreifnhynvhfyfoa3udxx263wxyjxs4abcqp3h5jhpaer7pe5nupjjry",
+      "bodySha256": "0xad3e1b539705703741defaf6ed7c26f2e002283f67ea4ef0123f793ada3d298e",
+      "bytes": 3827,
+      "clauseCount": 3,
+      "statutes": [
+        {
+          "id": "st.br-clt-443",
+          "citation": "CLT, Art. 443",
+          "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.jp-rouki-15",
+          "citation": "労働基準法15条",
+          "instrument": "労働基準法 (昭和22年法律第49号)",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000049"
+        },
+        {
+          "id": "st.de-nachwg-2",
+          "citation": "NachwG §2",
+          "instrument": "Nachweisgesetz (Germany)",
+          "url": "https://www.gesetze-im-internet.de/nachwg/__2.html"
+        },
+        {
+          "id": "st.fr-travail-l1221",
+          "citation": "Code du travail, Art. L1221-1",
+          "instrument": "Code du travail (France)",
+          "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006900783/"
+        },
+        {
+          "id": "st.uk-era-1",
+          "citation": "Employment Rights Act 1996, s.1",
+          "instrument": "Employment Rights Act 1996 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1996/18/section/1"
+        },
+        {
+          "id": "st.es-et-8",
+          "citation": "Estatuto de los Trabajadores, Art. 8",
+          "instrument": "Estatuto de los Trabajadores (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+        },
+        {
+          "id": "st.au-fair-work",
+          "citation": "Fair Work Act 2009 (Cth), s.117",
+          "instrument": "Fair Work Act 2009 (Australia)",
+          "url": "https://www.legislation.gov.au/C2009A00028/latest"
+        },
+        {
+          "id": "st.es-et-49",
+          "citation": "Estatuto de los Trabajadores, Art. 49",
+          "instrument": "Estatuto de los Trabajadores (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+        },
+        {
+          "id": "st.sg-employment-10",
+          "citation": "Employment Act, s.10",
+          "instrument": "Employment Act 1968 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/EmA1968"
+        },
+        {
+          "id": "st.ca-labour-230",
+          "citation": "Canada Labour Code, s.230",
+          "instrument": "Canada Labour Code (R.S.C. 1985, c. L-2)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
+        },
+        {
+          "id": "st.it-cc-2118",
+          "citation": "Codice Civile, Art. 2118",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
+          "id": "st.mx-lft-47",
+          "citation": "Ley Federal del Trabajo, Art. 47",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.jp-roukei-16",
+          "citation": "労働契約法16条",
+          "instrument": "労働契約法 (平成19年法律第128号)",
+          "url": "https://laws.e-gov.go.jp/law/419AC0000000128"
+        },
+        {
+          "id": "st.de-kschg-1",
+          "citation": "KSchG §1",
+          "instrument": "Kuendigungsschutzgesetz (Germany)",
+          "url": "https://www.gesetze-im-internet.de/kschg/__1.html"
+        },
+        {
+          "id": "st.fr-travail-l1232",
+          "citation": "Code du travail, Art. L1232-1",
+          "instrument": "Code du travail (France)",
+          "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901176/"
+        },
+        {
+          "id": "st.uk-era-94",
+          "citation": "Employment Rights Act 1996, s.94",
+          "instrument": "Employment Rights Act 1996 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1996/18/section/94"
+        },
+        {
+          "id": "st.india-ida-25f",
+          "citation": "Industrial Disputes Act 1947, §25F",
+          "instrument": "Industrial Disputes Act, 1947 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/2316"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        }
+      ]
+    },
+    {
       "id": "tmpl.employment-ja",
       "title": "雇用契約書",
       "lang": "ja",
@@ -3359,9 +3736,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiamzsu6yxhnggizo5qxst3reilz33jcv7jipmcdpwtd4m2muzvupm",
-      "bodySha256": "0x0ccca9ec5ced319197761794f7122179ded22afd287b0437da63e334ca66b47b",
-      "bytes": 3912,
+      "bodyCid": "bafkreifoqqeb6qs5ouhfsmxp3chpdnqdu6za43cqy45s4atmqhuwhj6yq4",
+      "bodySha256": "0xae84081f425d750e5932efd88ef1b603a7b20e6c50c73b2e026c81e963a7d887",
+      "bytes": 4040,
       "clauseCount": 4,
       "statutes": [
         {
@@ -3461,6 +3838,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
+          "id": "st.it-cc-2118",
+          "citation": "Codice Civile, Art. 2118",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
           "id": "st.mx-lft-47",
           "citation": "Ley Federal del Trabajo, Art. 47",
           "instrument": "Ley Federal del Trabajo (Mexico)",
@@ -3545,6 +3928,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -3598,9 +3987,9 @@
       "jurisdictions": [
         "KR"
       ],
-      "bodyCid": "bafkreigfmnoik2tz53vvzyzq33l6s2pkeop5lg3yyxz4d2yqo7lr3cg36i",
-      "bodySha256": "0xc5635c856a79eeeb5ce330ded7e969ea239fd59b78c5f3c1eb1077d71d88dbf2",
-      "bytes": 3179,
+      "bodyCid": "bafkreihhhvhtkpjmace7ikzmwqvenxgxxf2layrbjjncczvw6ml6z3g4s4",
+      "bodySha256": "0xe73d4f353d2c0089f42b2cb42a46dcd7b974b062214a5a2166b6f317ececdc97",
+      "bytes": 3257,
       "clauseCount": 3,
       "statutes": [
         {
@@ -3724,6 +4113,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -3777,9 +4172,9 @@
       "jurisdictions": [
         "BR"
       ],
-      "bodyCid": "bafkreic6ull3d7lvmhbqpxtilgyajngucya4ysh4pizzlaos6lctuudys4",
-      "bodySha256": "0x5ea2d7b1fd7561c307de6859b004b4d41601cc48fc7a339581d2f2c53a507897",
-      "bytes": 3699,
+      "bodyCid": "bafkreicfqajsrkl2ktj6vlotuexjtyqo4r5xvhza5twezu3hjcpprywxjy",
+      "bodySha256": "0x45801328a97a54d3eaadd3a12e99e20ee47b7a9f20ecec4cd367489ef8e2d74e",
+      "bytes": 3827,
       "clauseCount": 3,
       "statutes": [
         {
@@ -3867,6 +4262,12 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
         },
         {
+          "id": "st.it-cc-2118",
+          "citation": "Codice Civile, Art. 2118",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
           "id": "st.mx-lft-47",
           "citation": "Ley Federal del Trabajo, Art. 47",
           "instrument": "Ley Federal del Trabajo (Mexico)",
@@ -3951,6 +4352,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4004,9 +4411,9 @@
       "jurisdictions": [
         "CN"
       ],
-      "bodyCid": "bafkreieks42filk3qu7wjlxcvievflvfmpbh52v3ras6u6p2hdmslcvpy4",
-      "bodySha256": "0x8a9734542d5b853f64aee2aa0952aea563c27eeabb8825ea79fa38d9258aafc7",
-      "bytes": 2947,
+      "bodyCid": "bafkreigfahogdo27uzhiuqdvpp7vyl5trx3gpvdp742f2gpo4bcdk5bab4",
+      "bodySha256": "0xc501dc61bb5fa64e8a40757bff5c2fb38df667d46fff345d19eee0443574200f",
+      "bytes": 3025,
       "clauseCount": 2,
       "statutes": [
         {
@@ -4118,6 +4525,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4171,9 +4584,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreidcvrhzayonea4dzalhftjzrztq5j765as7c25suz6qg7ikwnyf2e",
-      "bodySha256": "0x62ac4f9061cd20383c81672cd398e670ea7fee825f16bb2a67d037d0ab3705d1",
-      "bytes": 2575,
+      "bodyCid": "bafkreibq3io5i2awguuzeme4vjs4vrtfrppbn2relu6hmh347zkrdzslri",
+      "bodySha256": "0x30da1dd46816352992309caa65cac6658bde16ea245d3c761f7cfe5511e64b8a",
+      "bytes": 2653,
       "clauseCount": 4,
       "statutes": [
         {
@@ -4243,6 +4656,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4296,9 +4715,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidkx64t5jzijtaqbifciuuzwyn6qmlwnzeocqukg6px3swcmt6skq",
-      "bodySha256": "0x6abfb93ea7284cc100a0a245299b61be831766e48e1428a379f7dcac264fd254",
-      "bytes": 3642,
+      "bodyCid": "bafkreiggoisj63eqsotdhav4s77ntrq4ombeaknhd7jzoq4rfnj5jigzxa",
+      "bodySha256": "0xc672249f6c9093a63382bc97fed9c61c73024029a71fd39743912b53d4a0d9b8",
+      "bytes": 3720,
       "clauseCount": 7,
       "statutes": [
         {
@@ -4440,6 +4859,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4493,9 +4918,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreidmiz4vqa24mggbzjx4tkh5vmxpsqszow57kndlgqgt2t6q5d5kgm",
-      "bodySha256": "0x6c467958035c618c1ca6fc9a8fdab2ef9425975bbf5346b340d3d4fd0e8faa33",
-      "bytes": 2945,
+      "bodyCid": "bafkreidzyobfqjeux6wgrlgmt5nqoacsl57lnlngfogeaqw7rdo4g3xdoi",
+      "bodySha256": "0x79c382582494bfac68accc9f5b0700525f7eb6ada62b8c4042df88ddc36ee372",
+      "bytes": 3023,
       "clauseCount": 5,
       "statutes": [
         {
@@ -4589,6 +5014,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4642,9 +5073,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreicz43d3pozs5lc5hlckd7d4oxvnu27nv5ujgckxlo4qff6olarljq",
-      "bodySha256": "0x59e6c7b7bb32eac5d3ac4a1fc7c75eada6bedaf689309575bb90297ce5822b4c",
-      "bytes": 2653,
+      "bodyCid": "bafkreic6psaqeq52jfcwdejvspauuypsqxzbljl3qrqvouuwar6u7qggte",
+      "bodySha256": "0x5e7c810243ba494561913593c14a61f285f215a57b8461575296047d4fc0c699",
+      "bytes": 2731,
       "clauseCount": 3,
       "statutes": [
         {
@@ -4726,6 +5157,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4779,9 +5216,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreieij7w4eorepssrj26mlh3e7s52cfbi6ivk55c4xzujdoms7lx7lm",
-      "bodySha256": "0x884fedc23a247ca514ebcc59f64fcbba11428f22aaef45cbe6891b992faeff5b",
-      "bytes": 3407,
+      "bodyCid": "bafkreifzwmokor23wjgdubfizmd76vj7rmhy3gqu52n4m5tomkhcvm62cq",
+      "bodySha256": "0xb9b31ca7475bb24c3a04a8cb07ff553f8b0f8d9a14ee9bc6766e628e2ab3da14",
+      "bytes": 3535,
       "clauseCount": 4,
       "statutes": [
         {
@@ -4825,6 +5262,12 @@
           "citation": "Federal Law 5/1985, Art. 246",
           "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1083"
+        },
+        {
+          "id": "st.it-cc-1325",
+          "citation": "Codice Civile, Art. 1325",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -4905,6 +5348,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4958,9 +5407,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreib5j5wq7djwwvgnnb34shgsmxllyu5onnlhnjvyoesm5xhedkswde",
-      "bodySha256": "0x3d4f6d0f8d36b54cd6877c91cd265d6bc53ae6b5676a6b87124cedce41aa5619",
-      "bytes": 3229,
+      "bodyCid": "bafkreibhg2pikiquhub6yp4gnn47owdt2l24nxq5ztakdhsedtpsvgizki",
+      "bodySha256": "0x27369e8522143d03ec3f866b79f75873d2f5c6de1dccc0a19e441cdf2a991952",
+      "bytes": 3307,
       "clauseCount": 5,
       "statutes": [
         {
@@ -5072,6 +5521,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -5125,9 +5580,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreidmvyuy4gmc3gnadml6whdicf6raqa6fea3zysnaqmbuyynjfr5ua",
-      "bodySha256": "0x6cae298e1982d99a01b17eb1c68117d10401e2901bce24d04181a630d4963da0",
-      "bytes": 3493,
+      "bodyCid": "bafkreicdopmzdtue7azftfjyev3g3uzknsqzn3ubpbw5ah66nfklchebtu",
+      "bodySha256": "0x4373d991ce84f83259953825766dd32a6ca196ee81786dd01fde6954b11c819d",
+      "bytes": 3571,
       "clauseCount": 6,
       "statutes": [
         {
@@ -5263,6 +5718,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -5316,9 +5777,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreihwo72xbb6of373z6tyzyth4fmdy26gelfsfjl3z5hvpe5blhw5qy",
-      "bodySha256": "0xf677f57087ce2effbcfa78ce267e1583c6bc622cb22a57bcf4f5793a159edd86",
-      "bytes": 3321,
+      "bodyCid": "bafkreiey5l4eq3bwm2zfddz76eae7lh3nvpmh7cehiebbsq4qpnfhisk7y",
+      "bodySha256": "0x98eaf8486c3666b2518f3ff1004facfb6d5ec3fc443a0810ca1c83da53a24afe",
+      "bytes": 3399,
       "clauseCount": 6,
       "statutes": [
         {
@@ -5442,6 +5903,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -5495,9 +5962,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreifzbbvqejfqewlg346hvjoecrm4ri4wztywbwqiz2lbpvejw7wzlm",
-      "bodySha256": "0xb9086b0224b025966df3c7aa5c41459c8a396ccf160da08ce9617d489b7ed95b",
-      "bytes": 2866,
+      "bodyCid": "bafkreib5uj6zrlzldntk4keudbvq6qt2aluulptjf4vge5sv2bgbho3wwy",
+      "bodySha256": "0x3da27d98af2b1b66ae2894186b0f427a02e945be692f2a627655d04c13bb76b6",
+      "bytes": 2944,
       "clauseCount": 5,
       "statutes": [
         {
@@ -5585,6 +6052,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -5638,9 +6111,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreifga6772ym6j3zm3nvetxbsivchplemobibm3rjedjspyweq2hgwm",
-      "bodySha256": "0xa607bffd619e4ef2cdb6a49dc32454477ac8c7050166e2920d327e2c4868e6b3",
-      "bytes": 2760,
+      "bodyCid": "bafkreifu6tbsuifrqdey6ihgexdqsrx6kjgsmmktmdmcmoqb5b6hi2immm",
+      "bodySha256": "0xb4f4c32a20b180c98f20e625c70946fe524d26315360d8263a01e87c74690c63",
+      "bytes": 2838,
       "clauseCount": 4,
       "statutes": [
         {
@@ -5722,6 +6195,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -5775,9 +6254,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibc4osmdnnlcifzyql4grhxpnmafp6vk5omt335umn4btx6cyzdva",
-      "bodySha256": "0x22e3a4c1b5ab120b9c417c344f77b5802bfd5575cc9ef7da31bc0cefe16323a8",
-      "bytes": 3437,
+      "bodyCid": "bafkreidzmuwws625lhm3ottbqil6rsih5kkj46tkypqqgszdak2iqfapoy",
+      "bodySha256": "0x79652d697b5d59d9b74e618217e8c907ea949e7a6ac3e1034b2302b488140f76",
+      "bytes": 3565,
       "clauseCount": 4,
       "statutes": [
         {
@@ -5853,6 +6332,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -5919,6 +6404,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1083"
         },
         {
+          "id": "st.it-cc-1325",
+          "citation": "Codice Civile, Art. 1325",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -5960,9 +6451,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreib3z3rj7356qkgcntfox5hdzemgsdl3yngwftv2nvlrfkunc6pjde",
-      "bodySha256": "0x3bcee29fefbe828c26ccaebf4e3c918690d7bc34d62ceba6d5712aa8d179e919",
-      "bytes": 2647,
+      "bodyCid": "bafkreig5qi77qteb7u7vs5mapx7toa3mknxakxi5tzqw2ozf7ogotgxk2q",
+      "bodySha256": "0xdd823ff84c81fd3f5975807dff37036c536e055d1d9e616d3b25fb8ce99aead4",
+      "bytes": 2725,
       "clauseCount": 3,
       "statutes": [
         {
@@ -6038,6 +6529,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -6091,9 +6588,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicniu374beyg47ph3drhgttzn5rc24b3hqslg6rcwx5j7r3xaxn6u",
-      "bodySha256": "0x4d4537fe0498373ef3ec7139a73cb7b116b81d9e1259bd115afd4fe3bb82edf5",
-      "bytes": 2501,
+      "bodyCid": "bafkreibxbey5ri7bendgna6maa3bqrsmeg4z3weizuiczc26qr3nv3pt3y",
+      "bodySha256": "0x370931d8a3e123466683cc003618464c21b99dd888cd102c8b5e8476daedf3de",
+      "bytes": 2579,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6161,6 +6658,12 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
         },
         {
           "id": "st.id-ite-11",
@@ -6216,9 +6719,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreig3hpghg7erlhyseuogkiqekvgz7z54q3eauulxa2gkvquvh2m6lm",
-      "bodySha256": "0xdb3bcc737c9159f12251c652204554d9fe7bc86c80a5177068caac2953e99e5b",
-      "bytes": 2485,
+      "bodyCid": "bafkreifousosslx6drfkymaa4ftjtrumw5rx4br6mxxlhbann2taqucu2e",
+      "bodySha256": "0xaea49d292efe1c4aac3000e16699c68cb7637e063e65eeb3840d6ea6085054d1",
+      "bytes": 2563,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6286,6 +6789,12 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
         },
         {
           "id": "st.id-ite-11",
@@ -6341,9 +6850,9 @@
       "jurisdictions": [
         "ES"
       ],
-      "bodyCid": "bafkreib4zdtmv3furtfrilogdtbppouzkfdowduybcv3oszguwzkwukm4a",
-      "bodySha256": "0x3cc8e6caecb48ccb142dc61cc2f7ba995146eb0e9808abb74b26a5b2ab514ce0",
-      "bytes": 2479,
+      "bodyCid": "bafkreiei6rgrqprfonhb5jggwhrxp2uwd6qiwc4l6wujxw7zham7sab44i",
+      "bodySha256": "0x88f44d183e25734e1ea4c6b1e377ea961fa08b0b8bf5a89bdbf93819f9003ce2",
+      "bytes": 2557,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6411,6 +6920,12 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
         },
         {
           "id": "st.id-ite-11",
@@ -6466,9 +6981,9 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreicae4zq43fuwu4bwgl3yckwwo6xzg3dtosn65yptux4lxo2bt5zda",
-      "bodySha256": "0x4027330e6cb4b5381b197bc0956b3bd7c9b639ba4df770f9d2fc5ddda0cfb918",
-      "bytes": 2482,
+      "bodyCid": "bafkreieuc4zbu2edx663hv6p2wlksroisxgottuuy6m5t2c5ln43pbewka",
+      "bodySha256": "0x9417321a6883bfbdb3d7cfd596a945c895cce9ce94c799d9e85d5b79b7849650",
+      "bytes": 2560,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6536,6 +7051,12 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
         },
         {
           "id": "st.id-ite-11",
@@ -6591,9 +7112,9 @@
       "jurisdictions": [
         "IN"
       ],
-      "bodyCid": "bafkreiakc32zzferskvy33wzbexfgvq4rqhu6htwntvpnbf2kgjbagivzy",
-      "bodySha256": "0x0a16f59c949192ab8deed9092e53561c8c0f4f1e766ceaf684ba5192101915ce",
-      "bytes": 2517,
+      "bodyCid": "bafkreidx7uigkn466qozhorxk3qz3hys5ksxhtclgymtik7nf3dw3u532i",
+      "bodySha256": "0x77fd1065379ef41d93ba3756e19d9f12eaa573cc4b3619342bed2ec76dd3bbd2",
+      "bytes": 2595,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6661,6 +7182,143 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
+          "id": "st.id-ite-11",
+          "citation": "UU No. 11/2008 (ITE), Pasal 11",
+          "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/37589/uu-no-11-tahun-2008"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.nda-it",
+      "title": "Accordo di riservatezza reciproco",
+      "lang": "it",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "balanced",
+      "jurisdictions": [
+        "IT"
+      ],
+      "bodyCid": "bafkreibjxraxkq7rz5zjdarz42mtmcostwbkp7azmbxgawk4fuxv4ak4ju",
+      "bodySha256": "0x29bc417543f1cf72918239e6993609d29d82a7fc19606e60595c2d2f5e015c4d",
+      "bytes": 2557,
+      "clauseCount": 2,
+      "statutes": [
+        {
+          "id": "st.eu-trade-secrets",
+          "citation": "Directive (EU) 2016/943, Art. 2",
+          "instrument": "Directive (EU) 2016/943 (Trade Secrets)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2016/943/oj"
+        },
+        {
+          "id": "st.jp-fukyo-2",
+          "citation": "不正競争防止法2条6項",
+          "instrument": "不正競争防止法 (平成5年法律第47号)",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000047"
+        },
+        {
+          "id": "st.us-dtsa",
+          "citation": "18 U.S.C. §1836",
+          "instrument": "Defend Trade Secrets Act of 2016",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2022-title18/USCODE-2022-title18-partI-chap90-sec1836"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
         },
         {
           "id": "st.id-ite-11",
@@ -6716,9 +7374,9 @@
       "jurisdictions": [
         "KR"
       ],
-      "bodyCid": "bafkreifs6nu6fkveqfsvfvsf5pflzd25a7koi5ytabaanednmlkebk67um",
-      "bodySha256": "0xb2f369e2aaa4816552d645ebcabc8f5d07d4e47713004006906d62d440abdfa3",
-      "bytes": 2474,
+      "bodyCid": "bafkreief5ahx2bpttjc7ucb7pwjvftugtb746zr4hje63dmv25xfsryojq",
+      "bodySha256": "0x85e80f7d05f39a45fa083f7d9352ce86987fcf663c3a49ed8d95d76e59470e4c",
+      "bytes": 2552,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6788,6 +7446,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -6841,9 +7505,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiet6z3n7crzyeasomcznrbewvzxaxuw6t7jdtru3bah6z3x5kfdwq",
-      "bodySha256": "0x93f676df8a39c1012730596c424b573705e96f4fe91ce34d8407f6777ea8a3b4",
-      "bytes": 3271,
+      "bodyCid": "bafkreifauwwhu625fee4svmwzcpxdefl3fdtidqprwxuowugsuq5gjypdy",
+      "bodySha256": "0xa0a5ac7a7b5d2909c95596c89f7190abd947340e0f8daf475a869521d3270f1e",
+      "bytes": 3349,
       "clauseCount": 6,
       "statutes": [
         {
@@ -6949,6 +7613,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -7002,9 +7672,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreihqvwd7efdc3vpchqrr5u2i5k33rfznvfbb3cqwkl2n5e2se5s3gi",
-      "bodySha256": "0xf0ad87f21462dd5e23c231ed348eab7b8972da9421d8a1652f4de93522765b32",
-      "bytes": 3026,
+      "bodyCid": "bafkreicc3p3lf437tvbjst2zfxhfhdux6scrcnd762yhroj7qibqt5cvtq",
+      "bodySha256": "0x42dbf6b2f37f9d42994f592dce538e97f48511347ff6b078b93f820309f4559c",
+      "bytes": 3104,
       "clauseCount": 5,
       "statutes": [
         {
@@ -7098,6 +7768,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -7151,9 +7827,9 @@
       "jurisdictions": [
         "BR"
       ],
-      "bodyCid": "bafkreiaceyysyqnh7bxm6gachehdrd4nci7kk5qsqwift4xb7su6pm5t4i",
-      "bodySha256": "0x0226312c41a7f86ecf1802390e388f8d123ea57612859059f2e1fca9e7b3b3e2",
-      "bytes": 2479,
+      "bodyCid": "bafkreiaram6rnd7356mrb2oiv3jdcbocgkfrs2ka2lty72kqmgh56el244",
+      "bodySha256": "0x11033d168ffbef9910e9c8aed23105c2328b196940d2e78fe950618fdf117ae7",
+      "bytes": 2557,
       "clauseCount": 2,
       "statutes": [
         {
@@ -7221,6 +7897,12 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
         },
         {
           "id": "st.id-ite-11",
@@ -7276,9 +7958,9 @@
       "jurisdictions": [
         "CN"
       ],
-      "bodyCid": "bafkreia3unyc6ljls4wbrphoeykeddrshyxe7yv5lxf6kxfins5pxlpk5q",
-      "bodySha256": "0x1ba3702f2d2b972c18bcee2614418e323e2e4fe2bd5dcbe55ca86cbafbadeaec",
-      "bytes": 2464,
+      "bodyCid": "bafkreih2alolydm7xdjymfl7sp3fan24kj5yojxxcpmmrwier3t52lsjbq",
+      "bodySha256": "0xfa02dcbc0d9fb8d386157f93f650375c527b8726f713d8c8d9048ee7dd2e490c",
+      "bytes": 2542,
       "clauseCount": 2,
       "statutes": [
         {
@@ -7348,6 +8030,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -7401,9 +8089,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihqqrqax66olb5lc6zsd6rfyrfpck7hfhmtwdb333smkyyfe7mdmy",
-      "bodySha256": "0xf084600bfbce587ab17b321fa25c44af12be729d93b0c3bdee4c5630527d8366",
-      "bytes": 2596,
+      "bodyCid": "bafkreie3mvlr5sqvqluz23emk4uay4dv2h6h3kfsbcsmenvxzwtsezbaau",
+      "bodySha256": "0x9b65571eca1582e99d6c8c57280c7075d1fc7da8b208a4c236b7cda722642005",
+      "bytes": 2674,
       "clauseCount": 3,
       "statutes": [
         {
@@ -7465,6 +8153,12 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
         },
         {
           "id": "st.id-ite-11",
@@ -7532,9 +8226,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreibxgbzdvt6lsxtn55dq5s3cdsvtx4xdjjcafq6xr7vuygkxq26pwe",
-      "bodySha256": "0x3730723acfcb95e6def470ecb621cab3bf2e34a4402c3d78feb4c195786bcfb1",
-      "bytes": 3849,
+      "bodyCid": "bafkreigar3vbuigxlkutn7tmtgllp4nhsful6uroek2vjofsycjdyqxk4u",
+      "bodySha256": "0xc08eea1a20d75aa936fe6c9996b7f1a79168bf522e22b554b8b2c0923c42eae5",
+      "bytes": 3977,
       "clauseCount": 7,
       "statutes": [
         {
@@ -7578,6 +8272,12 @@
           "citation": "Federal Law 5/1985, Art. 246",
           "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1083"
+        },
+        {
+          "id": "st.it-cc-1325",
+          "citation": "Codice Civile, Art. 1325",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -7682,6 +8382,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -7735,9 +8441,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreifbcds6kj7xqtfghwvtpztclppxnn3mmoc7zxb3oolp2yjrf52yyq",
-      "bodySha256": "0xa110e5e527f784ca63dab37e6625bdf76b76c6385fcdc3b7396fd61312f758c4",
-      "bytes": 2519,
+      "bodyCid": "bafkreib5ddekfmiyyjulnfkppgg4rln4gbqiu6pcnxlw5abdtehdd5fcxa",
+      "bodySha256": "0x3d18c8a2b118c268b6954f798dc8adbc30608a79e26dd76e8023990e31f4a2b8",
+      "bytes": 2597,
       "clauseCount": 4,
       "statutes": [
         {
@@ -7807,6 +8513,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -7860,9 +8572,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiad4vjcqno4zeby7npscspnjsnt74uv3vsbrha6kcoep2vnyrybii",
-      "bodySha256": "0x03e5522835dcc9038fb5f2149ed4c9b3ff295dd64189c1e509c47eaadc470142",
-      "bytes": 3604,
+      "bodyCid": "bafkreidicphozkz34orcjptn6yffzo6jyemo655qouafduelbdqgud5xoy",
+      "bodySha256": "0x6813ceecab3be3a224be6df60a5cbbc9c118ef77b0750051d08b08e06a0fb776",
+      "bytes": 3682,
       "clauseCount": 6,
       "statutes": [
         {
@@ -7998,6 +8710,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -8051,9 +8769,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreif2qxyba7nv7o24jwftqaf7yxqyh5mxkqu5jurrm66errzkoal3xy",
-      "bodySha256": "0xba85f0107db5fbb5c4d8b3800bfc5e183f5975429d4d23167bc48c72a7017bbe",
-      "bytes": 5260,
+      "bodyCid": "bafkreihzsvfanem43gmjxpdsf62gpn6e46ehipfigwsj46hn3rdepujcpu",
+      "bodySha256": "0xf9954a06919cd9989bbc722fb467b7c4e788743ca835a49e78eddc4647d1227d",
+      "bytes": 5388,
       "clauseCount": 10,
       "statutes": [
         {
@@ -8243,6 +8961,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -8321,6 +9045,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1083"
         },
         {
+          "id": "st.it-cc-1325",
+          "citation": "Codice Civile, Art. 1325",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -8362,9 +9092,9 @@
       "jurisdictions": [
         "US"
       ],
-      "bodyCid": "bafkreidnxxgrtx5ib3zyacksifchtbvaxnm3zddig6rygbm3dbvqvpu5oe",
-      "bodySha256": "0x6dbdcd19dfa80ef380095241447986a0bb59bc8c6837a383059b186b0abe9d71",
-      "bytes": 2704,
+      "bodyCid": "bafkreibsqjax2tdwktazrotqcnrt7n22la2zxqaphkbwva732ry2ktgmkq",
+      "bodySha256": "0x3282417d4c7654c198ba7013633fb75a58359bc00f3a836a83fbd471a54ccc54",
+      "bytes": 2782,
       "clauseCount": 4,
       "statutes": [
         {
@@ -8446,6 +9176,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -8499,9 +9235,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreibwclt37lugmhb32i3zu2ptdl3vcrubaltdbif5ttyg3l5cqa4w5q",
-      "bodySha256": "0x3612e7bfae8661c3bd2379a69f31af751468102e630a0bd9cf06dafa280396ec",
-      "bytes": 3626,
+      "bodyCid": "bafkreigndbq7fpebgqi4lkddq455kh2u5jxawtmrsnjzcfifyynlfbpqay",
+      "bodySha256": "0xcd1861f2bc813411c5a863873bd51f54ea6e0b4d919353911505c61ab285f006",
+      "bytes": 3754,
       "clauseCount": 7,
       "statutes": [
         {
@@ -8551,6 +9287,12 @@
           "citation": "Federal Law 5/1985, Art. 246",
           "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1083"
+        },
+        {
+          "id": "st.it-cc-1325",
+          "citation": "Codice Civile, Art. 1325",
+          "instrument": "Codice Civile (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -8637,6 +9379,12 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -8690,9 +9438,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiavcaugrcijf5wu7rj6nbrvphagn6gx73pwljahy3htvts3kd7nie",
-      "bodySha256": "0x1510286889092f6d4fc53e6863579c066f8d7fedf65a407c6cf3ace5b50fed41",
-      "bytes": 3037,
+      "bodyCid": "bafkreicjsuuprbe3f5c43x7hhrccne3n6czdlrjpx4yi3oqfzn4bmzhzey",
+      "bodySha256": "0x499528f8849b2f45cddfe73c4426936df0b235c52fbf308dba05cb781664f926",
+      "bytes": 3115,
       "clauseCount": 5,
       "statutes": [
         {
@@ -8784,6 +9532,12 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.it-cad-21",
+          "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
+          "instrument": "Codice dell'Amministrazione Digitale (Italy)",
+          "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82"
         },
         {
           "id": "st.id-ite-11",
