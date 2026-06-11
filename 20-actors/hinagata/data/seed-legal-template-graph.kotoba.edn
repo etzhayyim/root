@@ -271,6 +271,9 @@
  {:lt/id "st.us-rosca" :lt/kind :statute :lt/label "US ROSCA — 15 U.S.C. §8403 (negative-option / auto-renewal disclosure)" :statute/citation "15 U.S.C. §8403" :statute/instrument "Restore Online Shoppers' Confidence Act (US)" :statute/jurisdiction "jx.us" :statute/url "https://www.law.cornell.edu/uscode/text/15/8403" :lt/sourcing :authoritative}
  {:lt/id "st.jp-civil-494" :lt/kind :statute :lt/label "日本民法 494条 — 供託 (deposit / escrow)" :statute/citation "民法494条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 22 (/loop): exercise :supersedes — 2021 SCC DPA supersedes the original ───
+ {:lt/id "st.eu-scc-2021" :lt/kind :statute :lt/label "EU Standard Contractual Clauses — Commission Implementing Decision (EU) 2021/914" :statute/citation "Commission Implementing Decision (EU) 2021/914" :statute/instrument "Standard Contractual Clauses for international transfers (EU)" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/dec_impl/2021/914/oj" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -288,6 +291,7 @@
  {:lt/id "cl.data-subject-rights" :lt/kind :clause :lt/label "Data-subject rights (access / erasure / portability)" :clause/role :data-rights :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.processor-obligations" :lt/kind :clause :lt/label "Processor obligations & sub-processing" :clause/role :privacy :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.breach-notification" :lt/kind :clause :lt/label "Personal-data-breach notification" :clause/role :privacy :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.scc-transfer" :lt/kind :clause :lt/label "International data-transfer (2021 Standard Contractual Clauses)" :clause/role :privacy :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.lease-renewal-jp" :lt/kind :clause :lt/label "Lease term & statutory renewal protection (JP)" :clause/role :term :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.lease-deposit-jp" :lt/kind :clause :lt/label "Security deposit (敷金) & return" :clause/role :payment :clause/optionality :recommended :lt/sourcing :authoritative}
  {:lt/id "cl.labor-freedom-association" :lt/kind :clause :lt/label "Freedom of association & no forced labour" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
@@ -356,6 +360,7 @@
  {:lt/id "tmpl.guaranty-ja" :lt/kind :template :lt/label "保証契約書 (Guaranty, JA)" :template/title "保証契約書" :template/lang "ja" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.dpa-gdpr-fr" :lt/kind :template :lt/label "Accord de traitement des données (DPA, FR)" :template/title "Accord de traitement des données (RGPD Art. 28)" :template/lang "fr" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.dpa-gdpr-de" :lt/kind :template :lt/label "Auftragsverarbeitungsvertrag (DPA, DE)" :template/title "Auftragsverarbeitungsvertrag (DSGVO Art. 28)" :template/lang "de" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.dpa-gdpr-scc" :lt/kind :template :lt/label "Data Processing Agreement + 2021 SCCs (intl transfer)" :template/title "Data Processing Agreement with 2021 Standard Contractual Clauses" :template/lang "en" :template/license "Apache-2.0" :template/version "2.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  ;; coverage wave 13 — more languages (fr/de/es/zh)
  {:lt/id "tmpl.nda-fr" :lt/kind :template :lt/label "Accord de confidentialite (Mutual NDA, FR)" :template/title "Accord de confidentialite reciproque" :template/lang "fr" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.employment-fr" :lt/kind :template :lt/label "Contrat de travail (Employment, FR)" :template/title "Contrat de travail" :template/lang "fr" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
@@ -570,6 +575,13 @@
  {:en/from "tmpl.dpa-gdpr-de" :en/to "cl.data-subject-rights" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.dpa-gdpr-de" :en/to "cl.breach-notification" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.dpa-gdpr-de" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ ;; coverage wave 22 — SCC DPA composition
+ {:en/from "tmpl.dpa-gdpr-scc" :en/to "cl.processor-obligations" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-scc" :en/to "cl.data-subject-rights" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-scc" :en/to "cl.breach-notification" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-scc" :en/to "cl.scc-transfer" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-scc" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
 
  ;; coverage wave 13 — fr/de/es/zh translation composition
  {:en/from "tmpl.nda-fr" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
@@ -806,6 +818,8 @@
  {:en/from "cl.labor-freedom-association" :en/to "concept.employment" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "cl.processor-obligations" :en/to "concept.data-protection" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.data-subject-rights" :en/to "concept.data-protection" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.scc-transfer" :en/to "st.eu-scc-2021" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.95 :en/sourcing :authoritative}
+ {:en/from "cl.scc-transfer" :en/to "concept.data-protection" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.breach-notification" :en/to "concept.data-protection" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "cl.dispute-arbitration" :en/to "concept.dispute-resolution" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.dispute-mediation" :en/to "concept.dispute-resolution" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
@@ -877,6 +891,7 @@
  {:en/from "tmpl.guaranty-ja" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.dpa-gdpr-fr" :en/to "jx.eu" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.dpa-gdpr-de" :en/to "jx.eu" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-scc" :en/to "jx.eu" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-fr" :en/to "jx.fr" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.employment-fr" :en/to "jx.fr" :en/kind :governed-by :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-de" :en/to "jx.de" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
@@ -1049,6 +1064,7 @@
  {:en/from "st.jp-kaisha-2" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.us-rosca" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.jp-civil-494" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.eu-scc-2021" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -1081,4 +1097,6 @@
  {:en/from "cl.dispute-arbitration" :en/to "cl.dispute-mediation" :en/kind :conflicts-with :en/binding-load 0.6 :en/sourcing :representative}
  ;; (H) :derived-from — template → source template (provenance, not a translation)
  {:en/from "tmpl.heter-iska" :en/to "tmpl.loan-qard" :en/kind :derived-from :en/binding-load 0.8 :en/sourcing :representative}
- {:en/from "tmpl.consumer-sale-jp" :en/to "tmpl.sales-intl" :en/kind :derived-from :en/binding-load 0.7 :en/sourcing :representative}]
+ {:en/from "tmpl.consumer-sale-jp" :en/to "tmpl.sales-intl" :en/kind :derived-from :en/binding-load 0.7 :en/sourcing :representative}
+ ;; (I) :supersedes — newer template version replaces an older one
+ {:en/from "tmpl.dpa-gdpr-scc" :en/to "tmpl.dpa-gdpr" :en/kind :supersedes :en/binding-load 1.0 :en/sourcing :authoritative}]

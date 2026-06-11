@@ -66,6 +66,8 @@ def validate(nodes: dict, edges: list):
             E(f":conflicts-with must be clause↔clause, got {from_kind}→{to_kind} ({e[':en/from']})")
         if k == ":derived-from" and not (from_kind == ":template" and to_kind == ":template"):
             E(f":derived-from must be template→template, got {from_kind}→{to_kind} ({e[':en/from']})")
+        if k == ":supersedes" and not (from_kind == ":template" and to_kind == ":template"):
+            E(f":supersedes must be template→template, got {from_kind}→{to_kind} ({e[':en/from']})")
         if k == ":conflicts-with" and e[":en/from"] == e[":en/to"]:
             E(f":conflicts-with self-loop on {e[':en/from']}")
 

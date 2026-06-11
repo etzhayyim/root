@@ -4,7 +4,7 @@
   "schema": "legal-template-ontology@0.1.0",
   "license": "Apache-2.0 + etzhayyim Charter Rider v3.0",
   "note": "Public legal-document template commons. Every body is content-addressed (CIDv1 raw/sha2-256) and free to copy + adapt. NOT legal advice (G1).",
-  "templateCount": 50,
+  "templateCount": 51,
   "templates": [
     {
       "id": "tmpl.cc-content-license",
@@ -1487,6 +1487,179 @@
           "citation": "GDPR Art. 33",
           "instrument": "Regulation (EU) 2016/679 (GDPR)",
           "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3528-1-1"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.dpa-gdpr-scc",
+      "title": "Data Processing Agreement with 2021 Standard Contractual Clauses",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "2.0.0",
+      "stance": "pro-weaker-party",
+      "jurisdictions": [
+        "EU"
+      ],
+      "bodyCid": "bafkreifudogdsk3pjufd5snp4fshyl5dmgpslhuhijawe4zobich5rqcay",
+      "bodySha256": "0xb41b8c392b6f4d0a3ec9afe1647c2fa3619f259e87424162732e0a047ec60206",
+      "bytes": 3402,
+      "clauseCount": 5,
+      "statutes": [
+        {
+          "id": "st.gdpr-28",
+          "citation": "GDPR Art. 28",
+          "instrument": "Regulation (EU) 2016/679 (GDPR)",
+          "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3051-1-1"
+        },
+        {
+          "id": "st.china-pipl-44",
+          "citation": "PIPL 2021, Art. 44",
+          "instrument": "Personal Information Protection Law of the PRC (2021)",
+          "url": "https://www.gov.cn/xinwen/2021-08/20/content_5632486.htm"
+        },
+        {
+          "id": "st.sg-pdpa-21",
+          "citation": "Personal Data Protection Act 2012, §21",
+          "instrument": "Personal Data Protection Act 2012 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/PDPA2012"
+        },
+        {
+          "id": "st.gdpr-15",
+          "citation": "GDPR Art. 15",
+          "instrument": "Regulation (EU) 2016/679 (GDPR)",
+          "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2326-1-1"
+        },
+        {
+          "id": "st.au-privacy",
+          "citation": "Privacy Act 1988 (Cth), APP 12",
+          "instrument": "Privacy Act 1988 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A03712/latest"
+        },
+        {
+          "id": "st.ca-pipeda",
+          "citation": "PIPEDA, Sch.1 cl.4.9",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.israel-privacy-1981",
+          "citation": "Protection of Privacy Law 5741-1981, §13",
+          "instrument": "Protection of Privacy Law, 5741-1981 (Israel)",
+          "url": "https://www.gov.il/en/departments/legalInfo/data_protection_legislation"
+        },
+        {
+          "id": "st.brazil-lgpd-18",
+          "citation": "LGPD (Lei 13.709/2018), Art. 18",
+          "instrument": "Lei Geral de Proteção de Dados (LGPD), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+        },
+        {
+          "id": "st.india-dpdp-2023",
+          "citation": "DPDP Act 2023, §11",
+          "instrument": "Digital Personal Data Protection Act, 2023 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/20063"
+        },
+        {
+          "id": "st.kr-pipa-35",
+          "citation": "PIPA, Art. 35 (Korea)",
+          "instrument": "Personal Information Protection Act (개인정보 보호법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Personal+Information+Protection+Act"
+        },
+        {
+          "id": "st.us-ccpa-1798-100",
+          "citation": "Cal. Civ. Code §1798.100",
+          "instrument": "California Consumer Privacy Act (as amended by CPRA)",
+          "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.100"
+        },
+        {
+          "id": "st.fr-loi-informatique",
+          "citation": "Loi n° 78-17, Art. 49",
+          "instrument": "Loi Informatique et Libertés (n° 78-17), France",
+          "url": "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000886460/"
+        },
+        {
+          "id": "st.gdpr-33",
+          "citation": "GDPR Art. 33",
+          "instrument": "Regulation (EU) 2016/679 (GDPR)",
+          "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3528-1-1"
+        },
+        {
+          "id": "st.eu-scc-2021",
+          "citation": "Commission Implementing Decision (EU) 2021/914",
+          "instrument": "Standard Contractual Clauses for international transfers (EU)",
+          "url": "https://eur-lex.europa.eu/eli/dec_impl/2021/914/oj"
         },
         {
           "id": "st.eidas-25",

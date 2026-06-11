@@ -145,6 +145,13 @@ def report(nodes: dict, edges: list) -> str:
                 la = nodes.get(a, {}).get(":lt/label", a)
                 lb = nodes.get(b, {}).get(":lt/label", b)
                 L.append(f"- {la} ← {lb}")
+        supersedes = [(e[":en/from"], e[":en/to"]) for e in edges if e.get(":en/kind") == ":supersedes"]
+        if supersedes:
+            L.append("\n_Version supersession (`:supersedes`):_\n")
+            for a, b in supersedes:
+                la = nodes.get(a, {}).get(":lt/label", a)
+                lb = nodes.get(b, {}).get(":lt/label", b)
+                L.append(f"- {la} ⇒ supersedes ⇒ {lb}")
 
     L.append("\n## Statute-binding integrity — clauses NOT yet anchored to any public statute\n")
     L.append("_Every clause SHOULD eventually cite the law it rests on (gap #2 of the design). "

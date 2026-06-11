@@ -65,6 +65,21 @@ def test_relational_edges_are_well_typed():
     assert not any("conflicts-with" in e or "derived-from" in e for e in errors)
 
 
+def test_all_ten_edge_kinds_exercised():
+    """Maturity completeness: every edge kind in the ontology is used at least once."""
+    nodes, edges = load(SEED)
+    kinds = {e.get(":en/kind") for e in edges}
+    expected = {":has-clause", ":cites-statute", ":mandated-by", ":instantiates", ":governed-by",
+                ":applies-in", ":translates", ":conflicts-with", ":derived-from", ":supersedes"}
+    missing = expected - kinds
+    assert not missing, f"ontology edge kinds never exercised: {missing}"
+    # :supersedes must be template→template
+    for e in edges:
+        if e.get(":en/kind") == ":supersedes":
+            assert nodes[e[":en/from"]][":lt/kind"] == ":template"
+            assert nodes[e[":en/to"]][":lt/kind"] == ":template"
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for fn in fns:
