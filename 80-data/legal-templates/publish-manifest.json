@@ -16,11 +16,65 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihpcx4rhoyu7yt5jhopkczewpbkoxjdjcakjjf323tpzlikefj4qi",
-      "bodySha256": "0xef15f913bb14fe27d49dcf50b24b3c2a75d234880a4a4bbd6e6fcad0a2153c82",
-      "bytes": 1621,
+      "bodyCid": "bafkreicvzt2fl7jtrccqpoqxhnkkr2uez22b2n2xon42omia2pmrohpflu",
+      "bodySha256": "0x55ccf455fd33888507ba173b54a8ea84ceb41d37577379a73100d3d9171de55d",
+      "bytes": 2351,
       "clauseCount": 7,
       "statutes": [
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.jp-copyright-61",
+          "citation": "著作権法61条",
+          "instrument": "著作権法 (昭和45年法律第48号)",
+          "url": "https://laws.e-gov.go.jp/law/345AC0000000048"
+        },
+        {
+          "id": "st.us-copyright-201",
+          "citation": "17 U.S.C. §201",
+          "instrument": "US Copyright Act (Title 17)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2022-title17/USCODE-2022-title17-chap2-sec201"
+        },
+        {
+          "id": "st.eu-trade-secrets",
+          "citation": "Directive (EU) 2016/943, Art. 2",
+          "instrument": "Directive (EU) 2016/943 (Trade Secrets)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2016/943/oj"
+        },
+        {
+          "id": "st.jp-fukyo-2",
+          "citation": "不正競争防止法2条6項",
+          "instrument": "不正競争防止法 (平成5年法律第47号)",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000047"
+        },
+        {
+          "id": "st.us-dtsa",
+          "citation": "18 U.S.C. §1836",
+          "instrument": "Defend Trade Secrets Act of 2016",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2022-title18/USCODE-2022-title18-partI-chap90-sec1836"
+        },
+        {
+          "id": "st.uk-ucta-1977",
+          "citation": "UCTA 1977 s.2",
+          "instrument": "Unfair Contract Terms Act 1977 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1977/50"
+        },
+        {
+          "id": "st.jp-shohi-8",
+          "citation": "消費者契約法8条",
+          "instrument": "消費者契約法 (平成12年法律第61号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000061"
+        },
+        {
+          "id": "st.singapore-mediation",
+          "citation": "Singapore Convention 2019, Art. 3",
+          "instrument": "United Nations Convention on International Settlement Agreements Resulting from Mediation",
+          "url": "https://uncitral.un.org/en/texts/mediation/conventions/international_settlement_agreements"
+        },
         {
           "id": "st.eidas-25",
           "citation": "Regulation (EU) No 910/2014, Art. 25",
@@ -57,9 +111,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibympjsfs54ezhq3tqkc633srdeaiguicuhhkgy7h3ewxhtftfraa",
-      "bodySha256": "0x3863d322cbbc264f0dce0a17b7b94464020d440a873a8d8f9f64b5cf32ccb100",
-      "bytes": 1474,
+      "bodyCid": "bafkreibxcaus2uouzqnflzvwhlmplngd23vmmkpny37mji6qcbcug5vvxy",
+      "bodySha256": "0x3710292d51d4cc1a55e6b63ad8f5b4c3d6eac629edc6fec4a3d010454376b5be",
+      "bytes": 1588,
       "clauseCount": 3,
       "statutes": [
         {
@@ -67,6 +121,12 @@
           "citation": "特定商取引法9条",
           "instrument": "特定商取引に関する法律 (昭和51年法律第57号)",
           "url": "https://laws.e-gov.go.jp/law/351AC0000000057"
+        },
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
         },
         {
           "id": "st.eidas-25",
@@ -104,11 +164,17 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreigqwzno7h7gb6gicnypbwvtuuvu6g4gse7e3hsjpqykveetdno7fa",
-      "bodySha256": "0xd0b65aef9fe60f8c81370f0dab3a52b4f1b86913e4d9e497c30aa90931b5df28",
-      "bytes": 1326,
+      "bodyCid": "bafkreiag4q4hfxlyxv4l7iwym7jik2juz5xp4kjosjto3hsrubl2f6orfu",
+      "bodySha256": "0x06e43872dd78bd78bfa2d867d2856934cf6efe292e9266ed9e51a057a2f9d12d",
+      "bytes": 1388,
       "clauseCount": 2,
       "statutes": [
+        {
+          "id": "st.jp-civil-549",
+          "citation": "民法549条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
         {
           "id": "st.eidas-25",
           "citation": "Regulation (EU) No 910/2014, Art. 25",
@@ -204,9 +270,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreieolrtsnqyguom4tmhujto4dltrtmajd4cokiop5k3cwdndyjkm5y",
-      "bodySha256": "0x8e5c6726c306a399c9b0f44cddc1ae719b0091f04e521cfeab62b0da3c254cee",
-      "bytes": 1768,
+      "bodyCid": "bafkreib5vhbqtshcs5u5wfkxho6g4bwjwhn7itcwf3hlorjf33h7gd3z34",
+      "bodySha256": "0x3da9c309c8e29769db15573bbc6e06c9b1dbf44c562eceb74525decff30f79df",
+      "bytes": 2285,
       "clauseCount": 6,
       "statutes": [
         {
@@ -220,6 +286,48 @@
           "citation": "ILO C105",
           "instrument": "ILO Abolition of Forced Labour Convention, 1957 (No. 105)",
           "url": "https://normlex.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_INSTRUMENT_ID:312250"
+        },
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.eu-trade-secrets",
+          "citation": "Directive (EU) 2016/943, Art. 2",
+          "instrument": "Directive (EU) 2016/943 (Trade Secrets)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2016/943/oj"
+        },
+        {
+          "id": "st.jp-fukyo-2",
+          "citation": "不正競争防止法2条6項",
+          "instrument": "不正競争防止法 (平成5年法律第47号)",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000047"
+        },
+        {
+          "id": "st.us-dtsa",
+          "citation": "18 U.S.C. §1836",
+          "instrument": "Defend Trade Secrets Act of 2016",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2022-title18/USCODE-2022-title18-partI-chap90-sec1836"
+        },
+        {
+          "id": "st.jp-copyright-61",
+          "citation": "著作権法61条",
+          "instrument": "著作権法 (昭和45年法律第48号)",
+          "url": "https://laws.e-gov.go.jp/law/345AC0000000048"
+        },
+        {
+          "id": "st.us-copyright-201",
+          "citation": "17 U.S.C. §201",
+          "instrument": "US Copyright Act (Title 17)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2022-title17/USCODE-2022-title17-chap2-sec201"
+        },
+        {
+          "id": "st.jp-civil-541",
+          "citation": "民法541条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
         },
         {
           "id": "st.eidas-25",
@@ -257,9 +365,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiecappdjhgrknwyv6piofqou72fzmdf6yx3rjqsisqgdxxnzdtyba",
-      "bodySha256": "0x8203de349cd1536d8af9e87160ea7f45cb065f62fb8a61244a061deedc8e7808",
-      "bytes": 1671,
+      "bodyCid": "bafkreiextvx7c6nwsk5pb4ymtyw3jbuy6dl5fgg4fjsue34vtvaljziwxm",
+      "bodySha256": "0x979d6ff179b692baf0f30c9e2db48698f0d7d298dc2a65426f959d40b4e516bb",
+      "bytes": 1847,
       "clauseCount": 5,
       "statutes": [
         {
@@ -277,6 +385,18 @@
         {
           "id": "st.jp-civil-601",
           "citation": "民法601条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.jp-civil-541",
+          "citation": "民法541条",
           "instrument": "民法 (明治29年法律第89号)",
           "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
         },
@@ -316,9 +436,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreigwyddcck2mjf2phhtu5l5ryazvml3vl2b4abr56qx77ecsx376sq",
-      "bodySha256": "0xd6c0c6212b4c4974f39e74eafb1c033562f755e83c0063df42fff9052beffe94",
-      "bytes": 1219,
+      "bodyCid": "bafkreif65rwqlekm4fgq3vrugvi633mqp526ysk6iylpewrqwzyr2auuku",
+      "bodySha256": "0xbeec6d05914ce14d0dd6343551eded907f75ec495e4616f25a30b6711d029455",
+      "bytes": 1333,
       "clauseCount": 3,
       "statutes": [
         {
@@ -338,6 +458,12 @@
           "citation": "民法601条",
           "instrument": "民法 (明治29年法律第89号)",
           "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
         }
       ]
     },
@@ -351,9 +477,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreia5unt2p2pqtv7ghjnnsdgapwx27il6svpt4aobqqrgcm44khq6jq",
-      "bodySha256": "0x1da367a7e9f09d7e63a5ad90cc07dafafa17e955f3e01c1842261339c51e1e4c",
-      "bytes": 1462,
+      "bodyCid": "bafkreicaig66dkoeitlwqm5ylm2zsfxlmjo7ypnciz2lndbsgicztizfgq",
+      "bodySha256": "0x4041bde1a9c444d76833b85b359916eb625dfc3da24674b68c32320599a32534",
+      "bytes": 1576,
       "clauseCount": 3,
       "statutes": [
         {
@@ -361,6 +487,12 @@
           "citation": "利息制限法1条",
           "instrument": "利息制限法 (昭和29年法律第100号)",
           "url": "https://laws.e-gov.go.jp/law/329AC0000000100"
+        },
+        {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
         },
         {
           "id": "st.eidas-25",
@@ -398,11 +530,53 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreig3ag3hts2zd4za3iex7udriv44d4uvdsmokxi3oanmtlkn6uvisu",
-      "bodySha256": "0xdb01b679cb591f320da097fd0714579c1f2951c98e55d1b701ac9ad4df52a895",
-      "bytes": 1543,
+      "bodyCid": "bafkreigmaf742ptrlf4wvnjknh7e2pxv4b7ojkgh3fhzd2xagyvfpzyjkm",
+      "bodySha256": "0xcc017fcd3e7159796ab52a69fe4d3ef5e07ee4a8c7d94f91eae0362a57e70953",
+      "bytes": 2153,
       "clauseCount": 6,
       "statutes": [
+        {
+          "id": "st.eu-trade-secrets",
+          "citation": "Directive (EU) 2016/943, Art. 2",
+          "instrument": "Directive (EU) 2016/943 (Trade Secrets)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2016/943/oj"
+        },
+        {
+          "id": "st.jp-fukyo-2",
+          "citation": "不正競争防止法2条6項",
+          "instrument": "不正競争防止法 (平成5年法律第47号)",
+          "url": "https://laws.e-gov.go.jp/law/405AC0000000047"
+        },
+        {
+          "id": "st.us-dtsa",
+          "citation": "18 U.S.C. §1836",
+          "instrument": "Defend Trade Secrets Act of 2016",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2022-title18/USCODE-2022-title18-partI-chap90-sec1836"
+        },
+        {
+          "id": "st.jp-civil-541",
+          "citation": "民法541条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.eu-rome-i",
+          "citation": "Regulation (EC) No 593/2008, Art. 3",
+          "instrument": "Rome I Regulation (EC) No 593/2008",
+          "url": "https://eur-lex.europa.eu/eli/reg/2008/593/oj"
+        },
+        {
+          "id": "st.hague-choice-law",
+          "citation": "Hague Principles 2015, Art. 2",
+          "instrument": "HCCH Principles on Choice of Law in International Commercial Contracts",
+          "url": "https://www.hcch.net/en/instruments/conventions/full-text/?cid=135"
+        },
+        {
+          "id": "st.singapore-mediation",
+          "citation": "Singapore Convention 2019, Art. 3",
+          "instrument": "United Nations Convention on International Settlement Agreements Resulting from Mediation",
+          "url": "https://uncitral.un.org/en/texts/mediation/conventions/international_settlement_agreements"
+        },
         {
           "id": "st.eidas-25",
           "citation": "Regulation (EU) No 910/2014, Art. 25",
@@ -486,9 +660,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicfop44vj57kdvsraglsab3ti25ywq4mwoxlx2envo4gn7makscy4",
-      "bodySha256": "0x4573f9caa7bf50eb2880cb9003b9a35dc5a1c659d75df446d5dc337ec02a42c7",
-      "bytes": 2062,
+      "bodyCid": "bafkreievlsl2jjxeob7ybpbuwsyaiozncyozwyznysmvstr4dk55eo2xi4",
+      "bodySha256": "0x955c97a4a6e4707f80bc34b4b0043b2d161d9b632dc499594e3c1abbd23b5747",
+      "bytes": 2502,
       "clauseCount": 8,
       "statutes": [
         {
@@ -504,6 +678,24 @@
           "url": "https://uncitral.un.org/en/texts/salegoods/conventions/sale_of_goods/cisg"
         },
         {
+          "id": "st.eu-late-payment",
+          "citation": "Directive 2011/7/EU, Art. 3",
+          "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.uk-ucta-1977",
+          "citation": "UCTA 1977 s.2",
+          "instrument": "Unfair Contract Terms Act 1977 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1977/50"
+        },
+        {
+          "id": "st.jp-shohi-8",
+          "citation": "消費者契約法8条",
+          "instrument": "消費者契約法 (平成12年法律第61号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000061"
+        },
+        {
           "id": "st.ny-convention",
           "citation": "New York Convention 1958, Art. III",
           "instrument": "Convention on the Recognition and Enforcement of Foreign Arbitral Awards (1958)",
@@ -514,6 +706,18 @@
           "citation": "UNCITRAL Model Law, Art. 7",
           "instrument": "UNCITRAL Model Law on International Commercial Arbitration",
           "url": "https://uncitral.un.org/en/texts/arbitration/modellaw/commercial_arbitration"
+        },
+        {
+          "id": "st.eu-rome-i",
+          "citation": "Regulation (EC) No 593/2008, Art. 3",
+          "instrument": "Rome I Regulation (EC) No 593/2008",
+          "url": "https://eur-lex.europa.eu/eli/reg/2008/593/oj"
+        },
+        {
+          "id": "st.hague-choice-law",
+          "citation": "Hague Principles 2015, Art. 2",
+          "instrument": "HCCH Principles on Choice of Law in International Commercial Contracts",
+          "url": "https://www.hcch.net/en/instruments/conventions/full-text/?cid=135"
         },
         {
           "id": "st.eidas-25",

@@ -8,17 +8,17 @@
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
 |---|:--:|:--:|---:|---:|---|
-| Independent Consulting Services Agreement | en | INTL | 7 | 4 | `bafkreihpcx4rhoyu7…` |
-| 特定商取引 契約書 (クーリングオフ条項付) | ja | JP | 3 | 5 | `bafkreibympjsfs54e…` |
-| Charitable Donation & Grant Agreement | en | INTL | 2 | 4 | `bafkreigqwzno7h7gb…` |
+| Independent Consulting Services Agreement | en | INTL | 7 | 13 | `bafkreicvzt2fl7jtr…` |
+| 特定商取引 契約書 (クーリングオフ条項付) | ja | JP | 3 | 6 | `bafkreibxcaus2uouz…` |
+| Charitable Donation & Grant Agreement | en | INTL | 2 | 5 | `bafkreiag4q4hfxlyx…` |
 | Data Processing Agreement (GDPR Art. 28) | en | EU | 5 | 7 | `bafkreicawsfdbcdmv…` |
-| Employment Agreement (ILO core-conventions aligned) | en | INTL | 6 | 6 | `bafkreieolrtsnqygu…` |
-| 住宅賃貸借契約書 | ja | JP | 5 | 7 | `bafkreiecappdjhgrk…` |
-| Residential Lease Agreement (Japan) | en | JP | 3 | 3 | `bafkreigwyddcck2mj…` |
-| Zero-Interest Benevolent Loan Agreement | en | JP | 3 | 5 | `bafkreia5unt2p2pqt…` |
-| Mutual Non-Disclosure Agreement | en | INTL | 6 | 4 | `bafkreig3ag3hts2zd…` |
+| Employment Agreement (ILO core-conventions aligned) | en | INTL | 6 | 13 | `bafkreib5vhbqtshcs…` |
+| 住宅賃貸借契約書 | ja | JP | 5 | 9 | `bafkreiextvx7c6nws…` |
+| Residential Lease Agreement (Japan) | en | JP | 3 | 4 | `bafkreif65rwqlekm4…` |
+| Zero-Interest Benevolent Loan Agreement | en | JP | 3 | 6 | `bafkreicaig66dkoei…` |
+| Mutual Non-Disclosure Agreement | en | INTL | 6 | 11 | `bafkreigmaf742ptrl…` |
 | Apache-2.0 Inbound Contribution Grant | en | INTL | 2 | 5 | `bafkreihp7cmducybj…` |
-| International Sale of Goods Agreement (CISG) | en | INTL | 8 | 8 | `bafkreicfop44vj57k…` |
+| International Sale of Goods Agreement (CISG) | en | INTL | 8 | 13 | `bafkreievlsl2jjxeo…` |
 
 ---
 _hinagata 雛形 · ADR-2606111954 · commons-not-counsel · G7 outward publish (IPFS pin / IPNS) is the operator add-on._

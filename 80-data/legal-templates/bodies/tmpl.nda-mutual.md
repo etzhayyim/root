@@ -16,12 +16,16 @@ Language: en  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.
 ### 1. Definitions  (definitions, recommended)
 
 ### 2. Confidentiality / non-disclosure  (confidentiality, recommended)
+_Rests on:_ Directive (EU) 2016/943, Art. 2 (Directive (EU) 2016/943 (Trade Secrets)); 不正競争防止法2条6項 (不正競争防止法 (平成5年法律第47号)); 18 U.S.C. §1836 (Defend Trade Secrets Act of 2016)
 
 ### 3. Term & termination  (termination, recommended)
+_Rests on:_ 民法541条 (民法 (明治29年法律第89号))
 
 ### 4. Governing law  (governing-law, recommended)
+_Rests on:_ Regulation (EC) No 593/2008, Art. 3 (Rome I Regulation (EC) No 593/2008); Hague Principles 2015, Art. 2 (HCCH Principles on Choice of Law in International Commercial Contracts)
 
 ### 5. Dispute resolution — good-faith mediation first  (dispute, recommended)
+_Rests on:_ Singapore Convention 2019, Art. 3 (United Nations Convention on International Settlement Agreements Resulting from Mediation)
 
 ### 6. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号))

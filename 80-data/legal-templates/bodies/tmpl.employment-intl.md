@@ -17,12 +17,16 @@ Language: en  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.
 _Rests on:_ ILO C087 (ILO Freedom of Association and Protection of the Right to Organise Convention, 1948 (No. 87)); ILO C105 (ILO Abolition of Forced Labour Convention, 1957 (No. 105))
 
 ### 2. Payment terms  (payment, recommended)
+_Rests on:_ Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late payment in commercial transactions))
 
 ### 3. Confidentiality / non-disclosure  (confidentiality, recommended)
+_Rests on:_ Directive (EU) 2016/943, Art. 2 (Directive (EU) 2016/943 (Trade Secrets)); 不正競争防止法2条6項 (不正競争防止法 (平成5年法律第47号)); 18 U.S.C. §1836 (Defend Trade Secrets Act of 2016)
 
 ### 4. Assignment of intellectual property  (ip-assignment, optional)
+_Rests on:_ 著作権法61条 (著作権法 (昭和45年法律第48号)); 17 U.S.C. §201 (US Copyright Act (Title 17))
 
 ### 5. Term & termination  (termination, recommended)
+_Rests on:_ 民法541条 (民法 (明治29年法律第89号))
 
 ### 6. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号))

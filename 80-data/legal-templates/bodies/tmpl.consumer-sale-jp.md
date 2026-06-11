@@ -17,6 +17,7 @@ Language: ja  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.
 _Rests on:_ 特定商取引法9条 (特定商取引に関する法律 (昭和51年法律第57号))
 
 ### 2. Payment terms  (payment, recommended)
+_Rests on:_ Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late payment in commercial transactions))
 
 ### 3. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号))

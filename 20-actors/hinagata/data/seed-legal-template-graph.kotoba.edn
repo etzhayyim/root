@@ -30,6 +30,7 @@
  {:lt/id "jx.eu" :lt/kind :jurisdiction :lt/label "European Union" :jurisdiction/code "EU" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.jp" :lt/kind :jurisdiction :lt/label "Japan" :jurisdiction/code "JP" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.us" :lt/kind :jurisdiction :lt/label "United States" :jurisdiction/code "US" :jurisdiction/system :common-law :lt/sourcing :authoritative}
+ {:lt/id "jx.uk" :lt/kind :jurisdiction :lt/label "United Kingdom" :jurisdiction/code "UK" :jurisdiction/system :common-law :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── concepts (nodes) ────────────────────────────
  {:lt/id "concept.sale-of-goods" :lt/kind :concept :lt/label "Sale of goods" :concept/code "sale-of-goods" :lt/sourcing :authoritative}
@@ -74,6 +75,32 @@
 
  ;; open-source license law (treated as an instrument a clause rests on)
  {:lt/id "st.apache-2" :lt/kind :statute :lt/label "Apache License 2.0 §2–§4 — copyright & patent grant" :statute/citation "Apache-2.0 §2–§4" :statute/instrument "Apache License, Version 2.0" :statute/jurisdiction "jx.intl" :statute/url "https://www.apache.org/licenses/LICENSE-2.0" :lt/sourcing :authoritative}
+
+ ;; ─── coverage wave 1 (ADR-2606111954 /loop): bind the general-clause backbone to real law ───
+ ;; trade-secret / confidentiality
+ {:lt/id "st.eu-trade-secrets" :lt/kind :statute :lt/label "EU Trade Secrets Directive Art. 2 — definition & protection" :statute/citation "Directive (EU) 2016/943, Art. 2" :statute/instrument "Directive (EU) 2016/943 (Trade Secrets)" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/dir/2016/943/oj" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-fukyo-2" :lt/kind :statute :lt/label "不正競争防止法 2条6項 — 営業秘密の定義" :statute/citation "不正競争防止法2条6項" :statute/instrument "不正競争防止法 (平成5年法律第47号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/405AC0000000047" :lt/sourcing :authoritative}
+ {:lt/id "st.us-dtsa" :lt/kind :statute :lt/label "Defend Trade Secrets Act — 18 U.S.C. §1836" :statute/citation "18 U.S.C. §1836" :statute/instrument "Defend Trade Secrets Act of 2016" :statute/jurisdiction "jx.us" :statute/url "https://www.govinfo.gov/app/details/USCODE-2022-title18/USCODE-2022-title18-partI-chap90-sec1836" :lt/sourcing :authoritative}
+ ;; force majeure / impediment
+ {:lt/id "st.cisg-79" :lt/kind :statute :lt/label "CISG Art. 79 — exemption for an impediment (force majeure)" :statute/citation "CISG Art. 79" :statute/instrument "UN Convention on Contracts for the International Sale of Goods (1980)" :statute/jurisdiction "jx.intl" :statute/url "https://uncitral.un.org/en/texts/salegoods/conventions/sale_of_goods/cisg" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-civil-536" :lt/kind :statute :lt/label "日本民法 536条 — 危険負担 (impossibility / risk allocation)" :statute/citation "民法536条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
+ ;; governing law / choice of law
+ {:lt/id "st.eu-rome-i" :lt/kind :statute :lt/label "Rome I Art. 3 — freedom of choice of the applicable law" :statute/citation "Regulation (EC) No 593/2008, Art. 3" :statute/instrument "Rome I Regulation (EC) No 593/2008" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/reg/2008/593/oj" :lt/sourcing :authoritative}
+ {:lt/id "st.hague-choice-law" :lt/kind :statute :lt/label "Hague Principles on Choice of Law in International Commercial Contracts (2015)" :statute/citation "Hague Principles 2015, Art. 2" :statute/instrument "HCCH Principles on Choice of Law in International Commercial Contracts" :statute/jurisdiction "jx.intl" :statute/url "https://www.hcch.net/en/instruments/conventions/full-text/?cid=135" :lt/sourcing :authoritative}
+ ;; limitation of liability / unfair terms
+ {:lt/id "st.uk-ucta-1977" :lt/kind :statute :lt/label "Unfair Contract Terms Act 1977 §2 — limits on excluding liability" :statute/citation "UCTA 1977 s.2" :statute/instrument "Unfair Contract Terms Act 1977 (UK)" :statute/jurisdiction "jx.uk" :statute/url "https://www.legislation.gov.uk/ukpga/1977/50" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-shohi-8" :lt/kind :statute :lt/label "消費者契約法 8条 — 事業者の損害賠償責任を免除する条項の無効" :statute/citation "消費者契約法8条" :statute/instrument "消費者契約法 (平成12年法律第61号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/412AC0000000061" :lt/sourcing :authoritative}
+ ;; payment / late payment
+ {:lt/id "st.eu-late-payment" :lt/kind :statute :lt/label "EU Late Payment Directive Art. 3 — interest for late payment" :statute/citation "Directive 2011/7/EU, Art. 3" :statute/instrument "Directive 2011/7/EU (combating late payment in commercial transactions)" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/dir/2011/7/oj" :lt/sourcing :authoritative}
+ ;; termination
+ {:lt/id "st.jp-civil-541" :lt/kind :statute :lt/label "日本民法 541条 — 催告による解除 (termination after notice)" :statute/citation "民法541条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
+ ;; IP assignment
+ {:lt/id "st.jp-copyright-61" :lt/kind :statute :lt/label "著作権法 61条 — 著作権の譲渡" :statute/citation "著作権法61条" :statute/instrument "著作権法 (昭和45年法律第48号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/345AC0000000048" :lt/sourcing :authoritative}
+ {:lt/id "st.us-copyright-201" :lt/kind :statute :lt/label "17 U.S.C. §201 — ownership & transfer of copyright" :statute/citation "17 U.S.C. §201" :statute/instrument "US Copyright Act (Title 17)" :statute/jurisdiction "jx.us" :statute/url "https://www.govinfo.gov/app/details/USCODE-2022-title17/USCODE-2022-title17-chap2-sec201" :lt/sourcing :authoritative}
+ ;; mediation
+ {:lt/id "st.singapore-mediation" :lt/kind :statute :lt/label "Singapore Convention on Mediation (2019) — enforcement of mediated settlements" :statute/citation "Singapore Convention 2019, Art. 3" :statute/instrument "United Nations Convention on International Settlement Agreements Resulting from Mediation" :statute/jurisdiction "jx.intl" :statute/url "https://uncitral.un.org/en/texts/mediation/conventions/international_settlement_agreements" :lt/sourcing :authoritative}
+ ;; donation / gift
+ {:lt/id "st.jp-civil-549" :lt/kind :statute :lt/label "日本民法 549条 — 贈与 (gift / donation)" :statute/citation "民法549条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
@@ -196,6 +223,22 @@
  {:en/from "cl.signature-esign" :en/to "st.us-esign" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.signature-esign" :en/to "st.us-ueta" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.signature-esign" :en/to "st.jp-denshishomei" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
+ ;; coverage wave 1 — bind the general-clause backbone (was 10 unbound clauses → only :definitions left, honestly structural)
+ {:en/from "cl.confidentiality" :en/to "st.eu-trade-secrets" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
+ {:en/from "cl.confidentiality" :en/to "st.jp-fukyo-2" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.confidentiality" :en/to "st.us-dtsa" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.force-majeure" :en/to "st.cisg-79" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.force-majeure" :en/to "st.jp-civil-536" :en/kind :cites-statute :en/force :cited :en/binding-load 0.65 :en/sourcing :authoritative}
+ {:en/from "cl.governing-law" :en/to "st.eu-rome-i" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.governing-law" :en/to "st.hague-choice-law" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.limitation-liability" :en/to "st.uk-ucta-1977" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.limitation-liability" :en/to "st.jp-shohi-8" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.payment-terms" :en/to "st.eu-late-payment" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.termination" :en/to "st.jp-civil-541" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
+ {:en/from "cl.ip-assignment" :en/to "st.jp-copyright-61" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
+ {:en/from "cl.ip-assignment" :en/to "st.us-copyright-201" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
+ {:en/from "cl.dispute-mediation" :en/to "st.singapore-mediation" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
+ {:en/from "cl.donation-irrevocable" :en/to "st.jp-civil-549" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
 
  ;; (C) :instantiates — clause → concept (the cross-template legal-concept spine)
  {:en/from "cl.warranty-conformity" :en/to "concept.sale-of-goods" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
@@ -249,6 +292,22 @@
  {:en/from "st.us-esign" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.us-ueta" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.apache-2" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 1 — applies-in for the newly-bound statutes
+ {:en/from "st.eu-trade-secrets" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-fukyo-2" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.us-dtsa" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.cisg-79" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-civil-536" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.eu-rome-i" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.hague-choice-law" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.uk-ucta-1977" :en/to "jx.uk" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-shohi-8" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.eu-late-payment" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-civil-541" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-copyright-61" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.us-copyright-201" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.singapore-mediation" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-civil-549" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]

@@ -20,6 +20,7 @@ _Rests on:_ 借地借家法26条・28条 (借地借家法 (平成3年法律第90
 _Rests on:_ 民法601条 (民法 (明治29年法律第89号))
 
 ### 3. Payment terms  (payment, recommended)
+_Rests on:_ Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late payment in commercial transactions))
 
 ## Execution
 Executed electronically via the etzhayyim esign substrate (com.etzhayyim.esign.envelope): each party signs with a WebAuthn passkey bound to their DID. Electronic execution rests on eIDAS Art. 25 (EU), ESIGN/UETA (US) and 電子署名法 (JP), as cited by the signature clause.

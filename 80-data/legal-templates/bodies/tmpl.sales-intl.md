@@ -22,13 +22,16 @@ _Rests on:_ CISG Art. 35 (UN Convention on Contracts for the International Sale 
 _Rests on:_ CISG Art. 39 (UN Convention on Contracts for the International Sale of Goods (1980))
 
 ### 4. Payment terms  (payment, recommended)
+_Rests on:_ Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late payment in commercial transactions))
 
 ### 5. Limitation of liability  (liability, recommended)
+_Rests on:_ UCTA 1977 s.2 (Unfair Contract Terms Act 1977 (UK)); 消費者契約法8条 (消費者契約法 (平成12年法律第61号))
 
 ### 6. Dispute resolution — arbitration  (dispute, optional)
 _Rests on:_ New York Convention 1958, Art. III (Convention on the Recognition and Enforcement of Foreign Arbitral Awards (1958)); UNCITRAL Model Law, Art. 7 (UNCITRAL Model Law on International Commercial Arbitration)
 
 ### 7. Governing law  (governing-law, recommended)
+_Rests on:_ Regulation (EC) No 593/2008, Art. 3 (Rome I Regulation (EC) No 593/2008); Hague Principles 2015, Art. 2 (HCCH Principles on Choice of Law in International Commercial Contracts)
 
 ### 8. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号))
