@@ -3,7 +3,7 @@
 > Fair, openly-licensed legal-document templates (Apache-2.0 + etzhayyim Charter Rider). Each body is content-addressed — re-derive the CID with `ipfs add --cid-version=1 --raw-leaves` or `methods/cid.py` to verify. **NOT legal advice** (G1); each clause cites the public law it rests on, for traceability.
 
 
-**45 templates published.**
+**47 templates published.**
 
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
@@ -18,9 +18,11 @@
 | Data Processing Agreement (GDPR Art. 28) | en | EU | 5 | 25 | `bafkreic7invywrww6…` |
 | Auftragsverarbeitungsvertrag (DSGVO Art. 28) | de | EU | 4 | 25 | `bafkreih6joxlshsmd…` |
 | Accord de traitement des données (RGPD Art. 28) | fr | EU | 4 | 25 | `bafkreia2guwcjcrq5…` |
+| عقد عمل | ar | INTL | 2 | 18 | `bafkreiehtgajuy5jn…` |
 | Arbeitsvertrag / Employment Agreement (Germany) | en | DE | 7 | 38 | `bafkreiemb5iwlgz6v…` |
 | Contrato de trabajo | es | ES | 3 | 20 | `bafkreigg22skt7yoq…` |
 | Contrat de travail | fr | FR | 3 | 27 | `bafkreihhs3pumwkq7…` |
+| रोजगार अनुबंध | hi | IN | 2 | 18 | `bafkreidjafq3og6ud…` |
 | Employment Agreement (ILO core-conventions aligned) | en | INTL | 8 | 40 | `bafkreihdo32ysbh2p…` |
 | 雇用契約書 | ja | JP | 4 | 29 | `bafkreid5vb4x5hv3z…` |
 | 근로계약서 | ko | KR | 3 | 20 | `bafkreidxptie5bsdf…` |

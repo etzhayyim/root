@@ -4,7 +4,7 @@
   "schema": "legal-template-ontology@0.1.0",
   "license": "Apache-2.0 + etzhayyim Charter Rider v3.0",
   "note": "Public legal-document template commons. Every body is content-addressed (CIDv1 raw/sha2-256) and free to copy + adapt. NOT legal advice (G1).",
-  "templateCount": 45,
+  "templateCount": 47,
   "templates": [
     {
       "id": "tmpl.cc-content-license",
@@ -1563,6 +1563,131 @@
       ]
     },
     {
+      "id": "tmpl.employment-ar",
+      "title": "عقد عمل",
+      "lang": "ar",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-weaker-party",
+      "jurisdictions": [
+        "INTL"
+      ],
+      "bodyCid": "bafkreiehtgajuy5jn5ohc4rzan6rc5t4jkmsu5mihqmh2kd5qvvoflxniq",
+      "bodySha256": "0x8799809a63a96f5c717239037d11767c4a992a75883c187d287d856ae2aeed44",
+      "bytes": 2386,
+      "clauseCount": 2,
+      "statutes": [
+        {
+          "id": "st.br-clt-443",
+          "citation": "CLT, Art. 443",
+          "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.jp-rouki-15",
+          "citation": "労働基準法15条",
+          "instrument": "労働基準法 (昭和22年法律第49号)",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000049"
+        },
+        {
+          "id": "st.de-nachwg-2",
+          "citation": "NachwG §2",
+          "instrument": "Nachweisgesetz (Germany)",
+          "url": "https://www.gesetze-im-internet.de/nachwg/__2.html"
+        },
+        {
+          "id": "st.fr-travail-l1221",
+          "citation": "Code du travail, Art. L1221-1",
+          "instrument": "Code du travail (France)",
+          "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006900783/"
+        },
+        {
+          "id": "st.uk-era-1",
+          "citation": "Employment Rights Act 1996, s.1",
+          "instrument": "Employment Rights Act 1996 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1996/18/section/1"
+        },
+        {
+          "id": "st.es-et-8",
+          "citation": "Estatuto de los Trabajadores, Art. 8",
+          "instrument": "Estatuto de los Trabajadores (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        }
+      ]
+    },
+    {
       "id": "tmpl.employment-de",
       "title": "Arbeitsvertrag / Employment Agreement (Germany)",
       "lang": "en",
@@ -2048,6 +2173,131 @@
           "citation": "Industrial Disputes Act 1947, §25F",
           "instrument": "Industrial Disputes Act, 1947 (India)",
           "url": "https://www.indiacode.nic.in/handle/123456789/2316"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.uncitral-mlesig",
+          "citation": "UNCITRAL MLES 2001, Art. 6",
+          "instrument": "UNCITRAL Model Law on Electronic Signatures",
+          "url": "https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_signatures"
+        },
+        {
+          "id": "st.india-it-act-5",
+          "citation": "Information Technology Act 2000, §5",
+          "instrument": "Information Technology Act, 2000 (India)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/1999"
+        },
+        {
+          "id": "st.sg-eta-8",
+          "citation": "Electronic Transactions Act 2010, §8",
+          "instrument": "Electronic Transactions Act 2010 (Singapore)",
+          "url": "https://sso.agc.gov.sg/Act/ETA2010"
+        },
+        {
+          "id": "st.china-esign-2004",
+          "citation": "PRC Electronic Signature Law, Art. 14",
+          "instrument": "Electronic Signature Law of the People's Republic of China (2004)",
+          "url": "https://www.gov.cn/jrzg/2005-06/27/content_9655.htm"
+        },
+        {
+          "id": "st.de-bgb-126a",
+          "citation": "BGB §126a",
+          "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
+          "url": "https://www.gesetze-im-internet.de/bgb/__126a.html"
+        },
+        {
+          "id": "st.kr-digital-sig",
+          "citation": "Digital Signature Act, Art. 3 (Korea)",
+          "instrument": "Digital Signature Act (전자서명법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.employment-hi",
+      "title": "रोजगार अनुबंध",
+      "lang": "hi",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-weaker-party",
+      "jurisdictions": [
+        "IN"
+      ],
+      "bodyCid": "bafkreidjafq3og6ud4p47lt6cu7bpqmkatt5bussgwoo75yb52eb2ex5nm",
+      "bodySha256": "0x690161b71bd41f1fcfae7e153e17c18a04e7d0d252359ceff701ee881d12fd6b",
+      "bytes": 2410,
+      "clauseCount": 2,
+      "statutes": [
+        {
+          "id": "st.br-clt-443",
+          "citation": "CLT, Art. 443",
+          "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.jp-rouki-15",
+          "citation": "労働基準法15条",
+          "instrument": "労働基準法 (昭和22年法律第49号)",
+          "url": "https://laws.e-gov.go.jp/law/322AC0000000049"
+        },
+        {
+          "id": "st.de-nachwg-2",
+          "citation": "NachwG §2",
+          "instrument": "Nachweisgesetz (Germany)",
+          "url": "https://www.gesetze-im-internet.de/nachwg/__2.html"
+        },
+        {
+          "id": "st.fr-travail-l1221",
+          "citation": "Code du travail, Art. L1221-1",
+          "instrument": "Code du travail (France)",
+          "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006900783/"
+        },
+        {
+          "id": "st.uk-era-1",
+          "citation": "Employment Rights Act 1996, s.1",
+          "instrument": "Employment Rights Act 1996 (UK)",
+          "url": "https://www.legislation.gov.uk/ukpga/1996/18/section/1"
+        },
+        {
+          "id": "st.es-et-8",
+          "citation": "Estatuto de los Trabajadores, Art. 8",
+          "instrument": "Estatuto de los Trabajadores (Spain)",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
         },
         {
           "id": "st.eidas-25",

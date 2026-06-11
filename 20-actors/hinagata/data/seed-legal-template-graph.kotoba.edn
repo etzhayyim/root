@@ -360,6 +360,9 @@
  {:lt/id "tmpl.employment-ko" :lt/kind :template :lt/label "근로계약서 (Employment, KO)" :template/title "근로계약서" :template/lang "ko" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
  {:lt/id "tmpl.nda-hi" :lt/kind :template :lt/label "गोपनीयता समझौता (Mutual NDA, HI)" :template/title "पारस्परिक गोपनीयता समझौता" :template/lang "hi" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.nda-ar" :lt/kind :template :lt/label "اتفاقية عدم إفشاء (Mutual NDA, AR)" :template/title "اتفاقية عدم الإفشاء المتبادلة" :template/lang "ar" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ ;; coverage wave 19 — lift hi/ar to "ok" with employment translations
+ {:lt/id "tmpl.employment-hi" :lt/kind :template :lt/label "रोजगार अनुबंध (Employment, HI)" :template/title "रोजगार अनुबंध" :template/lang "hi" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.employment-ar" :lt/kind :template :lt/label "عقد عمل (Employment, AR)" :template/title "عقد عمل" :template/lang "ar" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
 
  ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
  ;; (A) :has-clause — template → clause (composition; binding-load = reuse/centrality weight)
@@ -587,6 +590,10 @@
  {:en/from "tmpl.nda-hi" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-ar" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
  {:en/from "tmpl.nda-ar" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-hi" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-hi" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-ar" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-ar" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
 
@@ -841,6 +848,8 @@
  {:en/from "tmpl.employment-ko" :en/to "jx.kr" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.nda-hi" :en/to "jx.in" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.nda-ar" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.employment-hi" :en/to "jx.in" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.employment-ar" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
 
  ;; (E) :applies-in — statute → jurisdiction
  {:en/from "st.cisg-35" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -1002,6 +1011,8 @@
  {:en/from "tmpl.employment-ko" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-hi" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-ar" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-hi" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-ar" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-fr" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-de" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-es" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
