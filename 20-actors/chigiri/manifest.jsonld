@@ -275,5 +275,15 @@
       "bunken": "/20-actors/bunken/CLAUDE.md (literature data source — read-only)",
       "hagukumi": "/20-actors/hagukumi/ (R0 scaffold pattern reference)"
     }
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "non-adjudicating": "procedural template + routing only — renders no legal judgment or characterization (UPL prohibited G14; appeal strategy deferred to external counsel per ADR-2605302200)",
+      "no-score-of-soul": "no member is scored or profiled by procedural history; procedures attest acts, never worth",
+      "append-only": "every procedure emits kotoba attestation lineage (G2); corrections append, nothing is erased (永久記憶 Tier-0)",
+      "never-a-throne": "DID + SBT only, no state-ID central registry (G3); no platform-held key; no central view over members' procedures"
+    }
   }
 }

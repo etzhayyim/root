@@ -161,5 +161,16 @@
       "crossActorSibling": "/90-docs/adr/2605260100-mitate-diagnostic-routing-charter.md"
     },
     "witness": "/90-docs/adr/2605191524-transparent-force-swarm-broadcast-witness-quorum.md"
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "non-adjudicating": "care never adjudicates a recipient's worth or behavior — elder autonomy invariant (G6) + no conditioning protocols (G7)",
+      "no-score-of-soul": "no child/elder development score, ranking, or behavioral metric — growth is witnessed, never graded (G7)",
+      "map-not-target": "no person-tracking — no video recording (G2), 1:1 per-session consent (G3); presence is covenant, not surveillance",
+      "append-only": "care attestation lineage; records append, never erase",
+      "never-a-throne": "no central monitoring view over care recipients (G2); each care bond is its own consented relation"
+    }
   }
 }
