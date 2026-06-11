@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible IoT / edge actor (losant); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:losant-compat",
-    "x-wasm-cid": "bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q",
+    "x-wasm-cid": "bafkreieuj5z6lq3p3senktk5tmbjwx2aeo7nqujdaaoe2srxwyei4f2yoe",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q",
+      "url": "ipfs://bafkreieuj5z6lq3p3senktk5tmbjwx2aeo7nqujdaaoe2srxwyei4f2yoe",
       "description": "browser-local kotoba-wasm component"
     }
   ],
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/telemetries": {
+    "/v1/applications": {
       "get": {
-        "summary": "List Telemetries",
+        "summary": "List Applications",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Telemetry"
+                        "$ref": "#/components/schemas/Application"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Telemetry",
+        "summary": "Create a Application",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TelemetryCreate"
+                "$ref": "#/components/schemas/ApplicationCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/Application"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/telemetries/{id}": {
+    "/v1/applications/{id}": {
       "get": {
-        "summary": "Get a Telemetry",
+        "summary": "Get a Application",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/Application"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Telemetry",
+        "summary": "Update a Application",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TelemetryCreate"
+                "$ref": "#/components/schemas/ApplicationCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Telemetry"
+                  "$ref": "#/components/schemas/Application"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Telemetry",
+        "summary": "Delete a Application",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/gateways": {
+    "/v1/webhooks": {
       "get": {
-        "summary": "List Gateways",
+        "summary": "List Webhooks",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Gateway"
+                        "$ref": "#/components/schemas/Webhook"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Gateway",
+        "summary": "Create a Webhook",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GatewayCreate"
+                "$ref": "#/components/schemas/WebhookCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gateway"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/gateways/{id}": {
+    "/v1/webhooks/{id}": {
       "get": {
-        "summary": "Get a Gateway",
+        "summary": "Get a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gateway"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Gateway",
+        "summary": "Update a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GatewayCreate"
+                "$ref": "#/components/schemas/WebhookCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Gateway"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Gateway",
+        "summary": "Delete a Webhook",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/commands": {
+    "/v1/experienceendpoints": {
       "get": {
-        "summary": "List Commands",
+        "summary": "List ExperienceEndpoints",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Command"
+                        "$ref": "#/components/schemas/ExperienceEndpoint"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Command",
+        "summary": "Create a ExperienceEndpoint",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
+                "$ref": "#/components/schemas/ExperienceEndpointCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/ExperienceEndpoint"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/commands/{id}": {
+    "/v1/experienceendpoints/{id}": {
       "get": {
-        "summary": "Get a Command",
+        "summary": "Get a ExperienceEndpoint",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/ExperienceEndpoint"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Command",
+        "summary": "Update a ExperienceEndpoint",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
+                "$ref": "#/components/schemas/ExperienceEndpointCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/ExperienceEndpoint"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Command",
+        "summary": "Delete a ExperienceEndpoint",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/firmwares": {
+    "/v1/experienceusers": {
       "get": {
-        "summary": "List Firmwares",
+        "summary": "List ExperienceUsers",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Firmware"
+                        "$ref": "#/components/schemas/ExperienceUser"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Firmware",
+        "summary": "Create a ExperienceUser",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FirmwareCreate"
+                "$ref": "#/components/schemas/ExperienceUserCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Firmware"
+                  "$ref": "#/components/schemas/ExperienceUser"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/firmwares/{id}": {
+    "/v1/experienceusers/{id}": {
       "get": {
-        "summary": "Get a Firmware",
+        "summary": "Get a ExperienceUser",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Firmware"
+                  "$ref": "#/components/schemas/ExperienceUser"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Firmware",
+        "summary": "Update a ExperienceUser",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FirmwareCreate"
+                "$ref": "#/components/schemas/ExperienceUserCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Firmware"
+                  "$ref": "#/components/schemas/ExperienceUser"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Firmware",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/alerts": {
-      "get": {
-        "summary": "List Alerts",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Alert"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Alert",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Alert"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/alerts/{id}": {
-      "get": {
-        "summary": "Get a Alert",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Alert"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Alert",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Alert"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Alert",
+        "summary": "Delete a ExperienceUser",
         "parameters": [
           {
             "name": "id",
@@ -1146,16 +961,39 @@
           "id": {
             "type": "string"
           },
-          "serial": {
+          "deviceId": {
             "type": "string"
           },
-          "model": {
+          "applicationId": {
             "type": "string"
           },
-          "status": {
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
             "type": "string"
           },
-          "firmware": {
+          "description": {
+            "type": "string"
+          },
+          "deviceClass": {
+            "type": "string",
+            "enum": [
+              "standalone",
+              "gateway",
+              "peripheral",
+              "floating",
+              "edgeCompute",
+              "system",
+              "embedded"
+            ]
+          },
+          "gatewayId": {
             "type": "string"
           },
           "createdAt": {
@@ -1171,42 +1009,80 @@
       "DeviceCreate": {
         "type": "object",
         "properties": {
-          "serial": {
+          "deviceId": {
             "type": "string"
           },
-          "model": {
+          "applicationId": {
             "type": "string"
           },
-          "status": {
+          "creationDate": {
             "type": "string"
           },
-          "firmware": {
+          "lastUpdated": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "deviceClass": {
+            "type": "string",
+            "enum": [
+              "standalone",
+              "gateway",
+              "peripheral",
+              "floating",
+              "edgeCompute",
+              "system",
+              "embedded"
+            ]
+          },
+          "gatewayId": {
             "type": "string"
           }
         },
         "required": [
-          "serial",
-          "model"
+          "creationDate",
+          "lastUpdated"
         ]
       },
-      "Telemetry": {
+      "Application": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "deviceId": {
+          "applicationId": {
             "type": "string"
           },
-          "metric": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "recordedAt": {
+          "creationDate": {
             "type": "string",
             "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "ownerType": {
+            "type": "string",
+            "enum": [
+              "user",
+              "organization"
+            ]
+          },
+          "organizationName": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1218,42 +1094,95 @@
           }
         }
       },
-      "TelemetryCreate": {
+      "ApplicationCreate": {
         "type": "object",
         "properties": {
-          "deviceId": {
+          "applicationId": {
             "type": "string"
           },
-          "metric": {
+          "creationDate": {
             "type": "string"
           },
-          "value": {
-            "type": "number"
-          },
-          "recordedAt": {
+          "lastUpdated": {
             "type": "string"
-          }
-        },
-        "required": [
-          "metric",
-          "value"
-        ]
-      },
-      "Gateway": {
-        "type": "object",
-        "properties": {
-          "id": {
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "ownerType": {
+            "type": "string",
+            "enum": [
+              "user",
+              "organization"
+            ]
+          },
+          "organizationName": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "location": {
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "creationDate",
+          "lastUpdated"
+        ]
+      },
+      "Webhook": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
-          "deviceCount": {
+          "webhookId": {
+            "type": "string"
+          },
+          "applicationId": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "responseCode": {
             "type": "integer"
           },
+          "verificationType": {
+            "type": "string",
+            "enum": [
+              "facebook",
+              "fitbit",
+              "none",
+              "twilio",
+              "alexa"
+            ]
+          },
+          "castBuffersAs": {
+            "type": "string",
+            "enum": [
+              "array",
+              "binary",
+              "utf8",
+              "base64",
+              "hex"
+            ]
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1264,40 +1193,116 @@
           }
         }
       },
-      "GatewayCreate": {
+      "WebhookCreate": {
         "type": "object",
         "properties": {
+          "webhookId": {
+            "type": "string"
+          },
+          "applicationId": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string"
+          },
+          "lastUpdated": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "location": {
+          "description": {
             "type": "string"
           },
-          "deviceCount": {
+          "token": {
+            "type": "string"
+          },
+          "responseCode": {
             "type": "integer"
+          },
+          "verificationType": {
+            "type": "string",
+            "enum": [
+              "facebook",
+              "fitbit",
+              "none",
+              "twilio",
+              "alexa"
+            ]
+          },
+          "castBuffersAs": {
+            "type": "string",
+            "enum": [
+              "array",
+              "binary",
+              "utf8",
+              "base64",
+              "hex"
+            ]
           }
         },
         "required": [
-          "name",
-          "location"
+          "creationDate",
+          "lastUpdated"
         ]
       },
-      "Command": {
+      "ExperienceEndpoint": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "deviceId": {
+          "experienceEndpointId": {
             "type": "string"
           },
-          "name": {
+          "applicationId": {
             "type": "string"
           },
-          "payload": {
-            "type": "string"
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
           },
-          "status": {
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdByType": {
+            "type": "string",
+            "enum": [
+              "flow",
+              "user",
+              "apiToken"
+            ]
+          },
+          "lastUpdatedByType": {
+            "type": "string",
+            "enum": [
+              "flow",
+              "user",
+              "apiToken"
+            ]
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "delete",
+              "get",
+              "options",
+              "patch",
+              "post",
+              "put"
+            ]
+          },
+          "access": {
+            "type": "string",
+            "enum": [
+              "public",
+              "authenticated",
+              "group",
+              "device"
+            ]
+          },
+          "description": {
             "type": "string"
           },
           "createdAt": {
@@ -1310,40 +1315,101 @@
           }
         }
       },
-      "CommandCreate": {
+      "ExperienceEndpointCreate": {
         "type": "object",
         "properties": {
-          "deviceId": {
+          "experienceEndpointId": {
             "type": "string"
           },
-          "name": {
+          "applicationId": {
             "type": "string"
           },
-          "payload": {
+          "creationDate": {
             "type": "string"
           },
-          "status": {
+          "lastUpdated": {
+            "type": "string"
+          },
+          "createdByType": {
+            "type": "string",
+            "enum": [
+              "flow",
+              "user",
+              "apiToken"
+            ]
+          },
+          "lastUpdatedByType": {
+            "type": "string",
+            "enum": [
+              "flow",
+              "user",
+              "apiToken"
+            ]
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "delete",
+              "get",
+              "options",
+              "patch",
+              "post",
+              "put"
+            ]
+          },
+          "access": {
+            "type": "string",
+            "enum": [
+              "public",
+              "authenticated",
+              "group",
+              "device"
+            ]
+          },
+          "description": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "payload"
+          "creationDate",
+          "lastUpdated"
         ]
       },
-      "Firmware": {
+      "ExperienceUser": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "model": {
+          "experienceUserId": {
             "type": "string"
           },
-          "version": {
+          "applicationId": {
             "type": "string"
           },
-          "contentRef": {
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "passwordLastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastLogin": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
             "type": "string"
           },
           "createdAt": {
@@ -1356,65 +1422,40 @@
           }
         }
       },
-      "FirmwareCreate": {
+      "ExperienceUserCreate": {
         "type": "object",
         "properties": {
-          "model": {
+          "experienceUserId": {
             "type": "string"
           },
-          "version": {
+          "applicationId": {
             "type": "string"
           },
-          "contentRef": {
+          "creationDate": {
+            "type": "string"
+          },
+          "lastUpdated": {
+            "type": "string"
+          },
+          "passwordLastUpdated": {
+            "type": "string"
+          },
+          "lastLogin": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
             "type": "string"
           }
         },
         "required": [
-          "model",
-          "version"
-        ]
-      },
-      "Alert": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "string"
-          },
-          "rule": {
-            "type": "string"
-          },
-          "severity": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AlertCreate": {
-        "type": "object",
-        "properties": {
-          "deviceId": {
-            "type": "string"
-          },
-          "rule": {
-            "type": "string"
-          },
-          "severity": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "rule",
-          "severity"
+          "creationDate",
+          "lastUpdated"
         ]
       }
     }

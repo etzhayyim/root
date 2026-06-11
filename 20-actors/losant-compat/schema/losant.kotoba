@@ -5,68 +5,76 @@ namespace losant {
 
     entity Device {
         id: string @unique
-        serial: string
-        model: string
-        status: string
-        firmware: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Telemetry {
-        id: string @unique
         deviceId: string
-        metric: string
-        value: float
-        recordedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Gateway {
-        id: string @unique
+        applicationId: string
+        creationDate: datetime
+        lastUpdated: datetime
         name: string
-        location: string
-        deviceCount: integer
+        description: string
+        deviceClass: string
+        gatewayId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Command {
+    entity Application {
         id: string @unique
-        deviceId: string
+        applicationId: string
+        creationDate: datetime
+        lastUpdated: datetime
+        ownerId: string
+        ownerType: string
+        organizationName: string
         name: string
-        payload: string
-        status: string
+        description: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Firmware {
+    entity Webhook {
         id: string @unique
-        model: string
-        version: string
-        contentRef: string
+        webhookId: string
+        applicationId: string
+        creationDate: datetime
+        lastUpdated: datetime
+        name: string
+        description: string
+        token: string
+        responseCode: integer
+        verificationType: string
+        castBuffersAs: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Alert {
+    entity ExperienceEndpoint {
         id: string @unique
-        deviceId: string
-        rule: string
-        severity: string
+        experienceEndpointId: string
+        applicationId: string
+        creationDate: datetime
+        lastUpdated: datetime
+        createdByType: string
+        lastUpdatedByType: string
+        method: string
+        access: string
+        description: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ExperienceUser {
+        id: string @unique
+        experienceUserId: string
+        applicationId: string
+        creationDate: datetime
+        lastUpdated: datetime
+        passwordLastUpdated: datetime
+        lastLogin: datetime
+        email: string
+        firstName: string
+        lastName: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

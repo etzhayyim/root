@@ -6928,11 +6928,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible IoT / edge actor (losant); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "losant.kotoba"
-   :actor/wasm-cid "bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q"
+   :actor/wasm-cid "bafkreieuj5z6lq3p3senktk5tmbjwx2aeo7nqujdaaoe2srxwyei4f2yoe"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:losant-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:losant-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:losant-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:losant-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:losant-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreieuj5z6lq3p3senktk5tmbjwx2aeo7nqujdaaoe2srxwyei4f2yoe" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:losant-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreieuj5z6lq3p3senktk5tmbjwx2aeo7nqujdaaoe2srxwyei4f2yoe" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:losant-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreieuj5z6lq3p3senktk5tmbjwx2aeo7nqujdaaoe2srxwyei4f2yoe" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:losant-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreieuj5z6lq3p3senktk5tmbjwx2aeo7nqujdaaoe2srxwyei4f2yoe" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "ls_retail-compat"
    :actor/did "did:web:etzhayyim.com:actor:ls_retail-compat"
    :actor/kind :compat

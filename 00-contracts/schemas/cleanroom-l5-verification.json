@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 194,
+  "count": 195,
   "actors": [
     {
       "handle": "aave-compat",
@@ -14721,6 +14721,163 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official Looker API 4.0 spec. No enforced enums on the modeled fields (result_format enum lives on CreateQueryTask; modeled flags are pure booleans)."
+    },
+    {
+      "handle": "losant-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/Losant/losant-rest-js/master/lib/schemas/device.json + application.json + webhook.json + experienceEndpoint.json + experienceUser.json (official Losant client schemas)",
+      "remodeled": "Remodeled to the faithful Losant IoT surface verified against Losant's OWN published JSON schemas (losant-rest-js). 8 spec-declared enums enforced per the freee/landsat rule (spec-declared enum arrays, no observed in-place growth): deviceClass(7 incl. edgeCompute/embedded), ownerType(2), verificationType(5), castBuffersAs(5), createdByType(3), lastUpdatedByType(3), method(6, HTTP-verb-anchored), access(4). gemini-CLI-drafted (discovered the schema files via a recursive git-tree listing — no guessed paths); every set machine-matched.",
+      "resources": [
+        {
+          "entity": "Device",
+          "source": "https://raw.githubusercontent.com/Losant/losant-rest-js/master/lib/schemas/device.json",
+          "verifiedFields": [
+            "deviceId",
+            "applicationId",
+            "creationDate",
+            "lastUpdated",
+            "name",
+            "description",
+            "deviceClass",
+            "gatewayId"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "deviceClass": [
+              "standalone",
+              "gateway",
+              "peripheral",
+              "floating",
+              "edgeCompute",
+              "system",
+              "embedded"
+            ]
+          },
+          "gaps": [
+            "attributes-dataType-not-modeled (nested array)"
+          ]
+        },
+        {
+          "entity": "Application",
+          "source": "https://raw.githubusercontent.com/Losant/losant-rest-js/master/lib/schemas/application.json",
+          "verifiedFields": [
+            "applicationId",
+            "creationDate",
+            "lastUpdated",
+            "ownerId",
+            "ownerType",
+            "organizationName",
+            "name",
+            "description"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "ownerType": [
+              "user",
+              "organization"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Webhook",
+          "source": "https://raw.githubusercontent.com/Losant/losant-rest-js/master/lib/schemas/webhook.json",
+          "verifiedFields": [
+            "webhookId",
+            "applicationId",
+            "creationDate",
+            "lastUpdated",
+            "name",
+            "description",
+            "token",
+            "responseCode",
+            "verificationType",
+            "castBuffersAs"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "verificationType": [
+              "facebook",
+              "fitbit",
+              "none",
+              "twilio",
+              "alexa"
+            ],
+            "castBuffersAs": [
+              "array",
+              "binary",
+              "utf8",
+              "base64",
+              "hex"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ExperienceEndpoint",
+          "source": "https://raw.githubusercontent.com/Losant/losant-rest-js/master/lib/schemas/experienceEndpoint.json",
+          "verifiedFields": [
+            "experienceEndpointId",
+            "applicationId",
+            "creationDate",
+            "lastUpdated",
+            "createdByType",
+            "lastUpdatedByType",
+            "method",
+            "access",
+            "description"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "createdByType": [
+              "flow",
+              "user",
+              "apiToken"
+            ],
+            "lastUpdatedByType": [
+              "flow",
+              "user",
+              "apiToken"
+            ],
+            "method": [
+              "delete",
+              "get",
+              "options",
+              "patch",
+              "post",
+              "put"
+            ],
+            "access": [
+              "public",
+              "authenticated",
+              "group",
+              "device"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ExperienceUser",
+          "source": "https://raw.githubusercontent.com/Losant/losant-rest-js/master/lib/schemas/experienceUser.json",
+          "verifiedFields": [
+            "experienceUserId",
+            "applicationId",
+            "creationDate",
+            "lastUpdated",
+            "passwordLastUpdated",
+            "lastLogin",
+            "email",
+            "firstName",
+            "lastName"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs Losant's own published client schemas. Enforced enums: deviceClass(7)+ownerType(2)+verificationType(5)+castBuffersAs(5)+createdByType(3)+lastUpdatedByType(3)+method(6)+access(4) = 8 enum fields."
     },
     {
       "handle": "magento-compat",

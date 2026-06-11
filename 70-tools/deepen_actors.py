@@ -2675,6 +2675,18 @@ PLATFORM_OVERRIDES["fda"] = {
     "DeviceEvent": E(eventKey="string", eventType="string", dateOfEvent="datetime", reportNumber="string", adverseEventFlag="string", productProblemFlag="string", singleUseFlag="string", reprocessedAndReusedFlag="string", dateReport="datetime"),
 }
 
+# Faithful Losant model (official Losant/losant-rest-js JSON schemas — the
+# operator's own published client schemas). 8 spec-declared enums enforced
+# (freee/landsat rule: spec-declared enum arrays, no observed growth);
+# method is additionally HTTP-verb-anchored.
+PLATFORM_OVERRIDES["losant"] = {
+    "Device": E(deviceId="string", applicationId="string", creationDate="datetime", lastUpdated="datetime", name="string", description="string", deviceClass="string", gatewayId="string"),
+    "Application": E(applicationId="string", creationDate="datetime", lastUpdated="datetime", ownerId="string", ownerType="string", organizationName="string", name="string", description="string"),
+    "Webhook": E(webhookId="string", applicationId="string", creationDate="datetime", lastUpdated="datetime", name="string", description="string", token="string", responseCode="integer", verificationType="string", castBuffersAs="string"),
+    "ExperienceEndpoint": E(experienceEndpointId="string", applicationId="string", creationDate="datetime", lastUpdated="datetime", createdByType="string", lastUpdatedByType="string", method="string", access="string", description="string"),
+    "ExperienceUser": E(experienceUserId="string", applicationId="string", creationDate="datetime", lastUpdated="datetime", passwordLastUpdated="datetime", lastLogin="datetime", email="string", firstName="string", lastName="string"),
+}
+
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official
 # MobilityData systems.csv registry + live feed verification) join on the

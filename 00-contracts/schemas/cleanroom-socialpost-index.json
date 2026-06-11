@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 189,
-  "totalVerifiedEnumFields": 802,
+  "l5VerifiedActors": 190,
+  "totalVerifiedEnumFields": 810,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -5327,8 +5327,8 @@
       "source": "losant.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 8
     },
     {
       "handle": "ls_retail-compat",

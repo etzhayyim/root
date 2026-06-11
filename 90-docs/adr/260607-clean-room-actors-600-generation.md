@@ -600,3 +600,12 @@ draft still in flight (carries if it misses the wave).
 | gcp | official compute v1 Discovery doc (rev-dated, machine-extracted) | Firewall.direction(2) + Operation.status(3, stable since 2013); the FLAGSHIP Instance.status(11) honestly gapped — SUSPENDING/SUSPENDED landed 2021 inside v1 (in-place-evolution discipline) |
 | ios_sdk | Apple's official developer-docs JSON API (machine-readable, no scraping) | orientation(7, stable since iOS 2/2008 — an 18-year anchor) + batteryState(4) + userInterfaceStyle(3) |
 | fda | the FDA's OWN field-spec YAMLs with explicit `possible_values: one_of` closed-set declarations | **8 enum fields — the largest regulatory-anchored haul**: classification(Class I/II/III) + status(4) + productType(3) + serious(2) + reporttype(4) + fulfillexpeditecriteria(2) + eventType(7) + adverseEventFlag(2). Draft REFUTED on exact strings (claimed 'Ongoing'/'Open'; official YAML says 'On-Going'/'Pending') and draft over-caution REVERSED on three spec-declared sets (landsat rule) |
+
+**Wave-9b addendum:** losant lands late (its draft completed after the wave-9
+commit): the operator's OWN published client schemas (losant-rest-js)
+machine-matched on all 8 spec-declared enums (deviceClass 7 / ownerType 2 /
+verificationType 5 / castBuffersAs 5 / createdByType 3 / lastUpdatedByType 3 /
+method 6 / access 4). Ledger **195** (19.5%), enforced 190 / **810 enum
+fields**, PASS 0/0, contract suite green. The draft discovered the schema
+files via a recursive git-tree listing — the no-guessed-paths pattern at its
+best.

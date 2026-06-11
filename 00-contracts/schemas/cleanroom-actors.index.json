@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 806,
-    "L5": 194
+    "L4": 805,
+    "L5": 195
   },
   "actors": [
     {
@@ -9575,10 +9575,10 @@
     {
       "handle": "losant-compat",
       "did": "did:web:etzhayyim.com:actor:losant-compat",
-      "wasmCid": "bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q",
+      "wasmCid": "bafkreieuj5z6lq3p3senktk5tmbjwx2aeo7nqujdaaoe2srxwyei4f2yoe",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "losant clean-room actor",
       "category": "iot_edge",
       "capabilities": [

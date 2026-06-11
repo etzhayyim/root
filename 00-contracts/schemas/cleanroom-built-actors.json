@@ -8965,17 +8965,16 @@
       "handle": "losant-compat",
       "platform": "losant",
       "bytes": 2120,
-      "wasmCid": "bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q",
+      "wasmCid": "bafkreieuj5z6lq3p3senktk5tmbjwx2aeo7nqujdaaoe2srxwyei4f2yoe",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Device",
-        "Telemetry",
-        "Gateway",
-        "Command",
-        "Firmware",
-        "Alert"
+        "Application",
+        "Webhook",
+        "ExperienceEndpoint",
+        "ExperienceUser"
       ]
     },
     {

@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29415,
+  "totalEndpoints": 29410,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 189,
-  "totalVerifiedEnumFields": 802,
+  "l5VerifiedActors": 190,
+  "totalVerifiedEnumFields": 810,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -10103,10 +10103,10 @@
     {
       "handle": "losant-compat",
       "did": "did:web:etzhayyim.com:actor:losant-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q",
+      "endpointCount": 25,
+      "ipfs": "ipfs://bafkreieuj5z6lq3p3senktk5tmbjwx2aeo7nqujdaaoe2srxwyei4f2yoe",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -10115,8 +10115,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 8,
       "openapi": "20-actors/losant-compat/openapi.json"
     },
     {

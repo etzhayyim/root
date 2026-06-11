@@ -115,17 +115,23 @@ def _expand(rec, params, refs):
 def create_device(request):
     """Create a Device."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'model', 'status', 'firmware'])
+    err = _reject_unknown(data, ['deviceId', 'applicationId', 'creationDate', 'lastUpdated', 'name', 'description', 'deviceClass', 'gatewayId'])
     if err:
         return err, 400
-    err = _require(data, ['serial', 'model'])
+    err = _require(data, ['creationDate', 'lastUpdated'])
     if err:
         return err, 400
+    if data.get('deviceClass') and data['deviceClass'] not in ['standalone', 'gateway', 'peripheral', 'floating', 'edgeCompute', 'system', 'embedded']:
+        return {"error": {"message": "invalid deviceClass; allowed: " + ", ".join(['standalone', 'gateway', 'peripheral', 'floating', 'edgeCompute', 'system', 'embedded']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("losant_dev")}
-    rec["serial"] = data.get('serial')
-    rec["model"] = data.get('model')
-    rec["status"] = data.get('status')
-    rec["firmware"] = data.get('firmware')
+    rec["deviceId"] = data.get('deviceId')
+    rec["applicationId"] = data.get('applicationId')
+    rec["creationDate"] = data.get('creationDate')
+    rec["lastUpdated"] = data.get('lastUpdated')
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["deviceClass"] = data.get('deviceClass')
+    rec["gatewayId"] = data.get('gatewayId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Device", rec)
@@ -136,7 +142,7 @@ def list_devices(request):
     """List Devices with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Device")
-    rows = _apply_filters(rows, params, ['serial', 'model', 'status', 'firmware'])
+    rows = _apply_filters(rows, params, ['deviceId', 'applicationId', 'creationDate', 'lastUpdated', 'name', 'description', 'deviceClass', 'gatewayId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -148,6 +154,7 @@ def get_device(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'deviceId': 'Device', 'applicationId': 'Application'})
     return rec, 200
 
 @app.route("/v1/devices/<eid>", methods=["POST", "PATCH"])
@@ -157,9 +164,11 @@ def update_device(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serial', 'model', 'status', 'firmware'])
+    err = _reject_unknown(data, ['deviceId', 'applicationId', 'creationDate', 'lastUpdated', 'name', 'description', 'deviceClass', 'gatewayId'])
     if err:
         return err, 400
+    if data.get('deviceClass') and data['deviceClass'] not in ['standalone', 'gateway', 'peripheral', 'floating', 'edgeCompute', 'system', 'embedded']:
+        return {"error": {"message": "invalid deviceClass; allowed: " + ", ".join(['standalone', 'gateway', 'peripheral', 'floating', 'edgeCompute', 'system', 'embedded']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -177,317 +186,303 @@ def delete_device(request, eid):
     db.retract({"entity": f"losant.Device", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/telemetries", methods=["POST"])
-def create_telemetry(request):
-    """Create a Telemetry."""
+@app.route("/v1/applications", methods=["POST"])
+def create_application(request):
+    """Create a Application."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'metric', 'value', 'recordedAt'])
+    err = _reject_unknown(data, ['applicationId', 'creationDate', 'lastUpdated', 'ownerId', 'ownerType', 'organizationName', 'name', 'description'])
     if err:
         return err, 400
-    err = _require(data, ['metric', 'value'])
+    err = _require(data, ['creationDate', 'lastUpdated'])
     if err:
         return err, 400
-    rec = {"id": new_id("losant_tel")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["metric"] = data.get('metric')
-    rec["value"] = _as_float(data.get('value'))
-    rec["recordedAt"] = data.get('recordedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Telemetry", rec)
-    return rec, 201
-
-@app.route("/v1/telemetries", methods=["GET"])
-def list_telemetries(request):
-    """List Telemetries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Telemetry")
-    rows = _apply_filters(rows, params, ['deviceId', 'metric', 'value', 'recordedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/telemetries/<eid>", methods=["GET"])
-def get_telemetry(request, eid):
-    """Retrieve a Telemetry by id (supports ?expand=)."""
-    rows = _query("Telemetry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
-    return rec, 200
-
-@app.route("/v1/telemetries/<eid>", methods=["POST", "PATCH"])
-def update_telemetry(request, eid):
-    """Update a Telemetry."""
-    rows = _query("Telemetry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'metric', 'value', 'recordedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Telemetry", rec)
-    return rec, 200
-
-@app.route("/v1/telemetries/<eid>", methods=["DELETE"])
-def delete_telemetry(request, eid):
-    """Delete a Telemetry."""
-    rows = _query("Telemetry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"losant.Telemetry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/gateways", methods=["POST"])
-def create_gateway(request):
-    """Create a Gateway."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'location', 'deviceCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'location'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("losant_gat")}
+    if data.get('ownerType') and data['ownerType'] not in ['user', 'organization']:
+        return {"error": {"message": "invalid ownerType; allowed: " + ", ".join(['user', 'organization']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("losant_app")}
+    rec["applicationId"] = data.get('applicationId')
+    rec["creationDate"] = data.get('creationDate')
+    rec["lastUpdated"] = data.get('lastUpdated')
+    rec["ownerId"] = data.get('ownerId')
+    rec["ownerType"] = data.get('ownerType')
+    rec["organizationName"] = data.get('organizationName')
     rec["name"] = data.get('name')
-    rec["location"] = data.get('location')
-    rec["deviceCount"] = _as_int(data.get('deviceCount'))
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Gateway", rec)
+    _persist("Application", rec)
     return rec, 201
 
-@app.route("/v1/gateways", methods=["GET"])
-def list_gateways(request):
-    """List Gateways with filtering + cursor pagination."""
+@app.route("/v1/applications", methods=["GET"])
+def list_applications(request):
+    """List Applications with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Gateway")
-    rows = _apply_filters(rows, params, ['name', 'location', 'deviceCount'])
+    rows = _query("Application")
+    rows = _apply_filters(rows, params, ['applicationId', 'creationDate', 'lastUpdated', 'ownerId', 'ownerType', 'organizationName', 'name', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/gateways/<eid>", methods=["GET"])
-def get_gateway(request, eid):
-    """Retrieve a Gateway by id (supports ?expand=)."""
-    rows = _query("Gateway", eid)
+@app.route("/v1/applications/<eid>", methods=["GET"])
+def get_application(request, eid):
+    """Retrieve a Application by id (supports ?expand=)."""
+    rows = _query("Application", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'applicationId': 'Application'})
     return rec, 200
 
-@app.route("/v1/gateways/<eid>", methods=["POST", "PATCH"])
-def update_gateway(request, eid):
-    """Update a Gateway."""
-    rows = _query("Gateway", eid)
+@app.route("/v1/applications/<eid>", methods=["POST", "PATCH"])
+def update_application(request, eid):
+    """Update a Application."""
+    rows = _query("Application", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'location', 'deviceCount'])
+    err = _reject_unknown(data, ['applicationId', 'creationDate', 'lastUpdated', 'ownerId', 'ownerType', 'organizationName', 'name', 'description'])
     if err:
         return err, 400
+    if data.get('ownerType') and data['ownerType'] not in ['user', 'organization']:
+        return {"error": {"message": "invalid ownerType; allowed: " + ", ".join(['user', 'organization']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Gateway", rec)
+    _persist("Application", rec)
     return rec, 200
 
-@app.route("/v1/gateways/<eid>", methods=["DELETE"])
-def delete_gateway(request, eid):
-    """Delete a Gateway."""
-    rows = _query("Gateway", eid)
+@app.route("/v1/applications/<eid>", methods=["DELETE"])
+def delete_application(request, eid):
+    """Delete a Application."""
+    rows = _query("Application", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"losant.Gateway", "id": eid})
+    db.retract({"entity": f"losant.Application", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/commands", methods=["POST"])
-def create_command(request):
-    """Create a Command."""
+@app.route("/v1/webhooks", methods=["POST"])
+def create_webhook(request):
+    """Create a Webhook."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'name', 'payload', 'status'])
+    err = _reject_unknown(data, ['webhookId', 'applicationId', 'creationDate', 'lastUpdated', 'name', 'description', 'token', 'responseCode', 'verificationType', 'castBuffersAs'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'payload'])
+    err = _require(data, ['creationDate', 'lastUpdated'])
     if err:
         return err, 400
-    rec = {"id": new_id("losant_com")}
-    rec["deviceId"] = data.get('deviceId')
+    if data.get('verificationType') and data['verificationType'] not in ['facebook', 'fitbit', 'none', 'twilio', 'alexa']:
+        return {"error": {"message": "invalid verificationType; allowed: " + ", ".join(['facebook', 'fitbit', 'none', 'twilio', 'alexa']), "type": "invalid_request_error"}}, 400
+    if data.get('castBuffersAs') and data['castBuffersAs'] not in ['array', 'binary', 'utf8', 'base64', 'hex']:
+        return {"error": {"message": "invalid castBuffersAs; allowed: " + ", ".join(['array', 'binary', 'utf8', 'base64', 'hex']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("losant_web")}
+    rec["webhookId"] = data.get('webhookId')
+    rec["applicationId"] = data.get('applicationId')
+    rec["creationDate"] = data.get('creationDate')
+    rec["lastUpdated"] = data.get('lastUpdated')
     rec["name"] = data.get('name')
-    rec["payload"] = data.get('payload')
-    rec["status"] = data.get('status')
+    rec["description"] = data.get('description')
+    rec["token"] = data.get('token')
+    rec["responseCode"] = _as_int(data.get('responseCode'))
+    rec["verificationType"] = data.get('verificationType')
+    rec["castBuffersAs"] = data.get('castBuffersAs')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Command", rec)
+    _persist("Webhook", rec)
     return rec, 201
 
-@app.route("/v1/commands", methods=["GET"])
-def list_commands(request):
-    """List Commands with filtering + cursor pagination."""
+@app.route("/v1/webhooks", methods=["GET"])
+def list_webhooks(request):
+    """List Webhooks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Command")
-    rows = _apply_filters(rows, params, ['deviceId', 'name', 'payload', 'status'])
+    rows = _query("Webhook")
+    rows = _apply_filters(rows, params, ['webhookId', 'applicationId', 'creationDate', 'lastUpdated', 'name', 'description', 'token', 'responseCode', 'verificationType', 'castBuffersAs'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/commands/<eid>", methods=["GET"])
-def get_command(request, eid):
-    """Retrieve a Command by id (supports ?expand=)."""
-    rows = _query("Command", eid)
+@app.route("/v1/webhooks/<eid>", methods=["GET"])
+def get_webhook(request, eid):
+    """Retrieve a Webhook by id (supports ?expand=)."""
+    rows = _query("Webhook", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
+    rec = _expand(rec, request.query or {}, {'webhookId': 'Webhook', 'applicationId': 'Application'})
     return rec, 200
 
-@app.route("/v1/commands/<eid>", methods=["POST", "PATCH"])
-def update_command(request, eid):
-    """Update a Command."""
-    rows = _query("Command", eid)
+@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
+def update_webhook(request, eid):
+    """Update a Webhook."""
+    rows = _query("Webhook", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'name', 'payload', 'status'])
+    err = _reject_unknown(data, ['webhookId', 'applicationId', 'creationDate', 'lastUpdated', 'name', 'description', 'token', 'responseCode', 'verificationType', 'castBuffersAs'])
     if err:
         return err, 400
+    if data.get('verificationType') and data['verificationType'] not in ['facebook', 'fitbit', 'none', 'twilio', 'alexa']:
+        return {"error": {"message": "invalid verificationType; allowed: " + ", ".join(['facebook', 'fitbit', 'none', 'twilio', 'alexa']), "type": "invalid_request_error"}}, 400
+    if data.get('castBuffersAs') and data['castBuffersAs'] not in ['array', 'binary', 'utf8', 'base64', 'hex']:
+        return {"error": {"message": "invalid castBuffersAs; allowed: " + ", ".join(['array', 'binary', 'utf8', 'base64', 'hex']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Command", rec)
+    _persist("Webhook", rec)
     return rec, 200
 
-@app.route("/v1/commands/<eid>", methods=["DELETE"])
-def delete_command(request, eid):
-    """Delete a Command."""
-    rows = _query("Command", eid)
+@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
+def delete_webhook(request, eid):
+    """Delete a Webhook."""
+    rows = _query("Webhook", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"losant.Command", "id": eid})
+    db.retract({"entity": f"losant.Webhook", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/firmwares", methods=["POST"])
-def create_firmware(request):
-    """Create a Firmware."""
+@app.route("/v1/experienceendpoints", methods=["POST"])
+def create_experience_endpoint(request):
+    """Create a ExperienceEndpoint."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['model', 'version', 'contentRef'])
+    err = _reject_unknown(data, ['experienceEndpointId', 'applicationId', 'creationDate', 'lastUpdated', 'createdByType', 'lastUpdatedByType', 'method', 'access', 'description'])
     if err:
         return err, 400
-    err = _require(data, ['model', 'version'])
+    err = _require(data, ['creationDate', 'lastUpdated'])
     if err:
         return err, 400
-    rec = {"id": new_id("losant_fir")}
-    rec["model"] = data.get('model')
-    rec["version"] = data.get('version')
-    rec["contentRef"] = data.get('contentRef')
+    if data.get('createdByType') and data['createdByType'] not in ['flow', 'user', 'apiToken']:
+        return {"error": {"message": "invalid createdByType; allowed: " + ", ".join(['flow', 'user', 'apiToken']), "type": "invalid_request_error"}}, 400
+    if data.get('lastUpdatedByType') and data['lastUpdatedByType'] not in ['flow', 'user', 'apiToken']:
+        return {"error": {"message": "invalid lastUpdatedByType; allowed: " + ", ".join(['flow', 'user', 'apiToken']), "type": "invalid_request_error"}}, 400
+    if data.get('method') and data['method'] not in ['delete', 'get', 'options', 'patch', 'post', 'put']:
+        return {"error": {"message": "invalid method; allowed: " + ", ".join(['delete', 'get', 'options', 'patch', 'post', 'put']), "type": "invalid_request_error"}}, 400
+    if data.get('access') and data['access'] not in ['public', 'authenticated', 'group', 'device']:
+        return {"error": {"message": "invalid access; allowed: " + ", ".join(['public', 'authenticated', 'group', 'device']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("losant_exp")}
+    rec["experienceEndpointId"] = data.get('experienceEndpointId')
+    rec["applicationId"] = data.get('applicationId')
+    rec["creationDate"] = data.get('creationDate')
+    rec["lastUpdated"] = data.get('lastUpdated')
+    rec["createdByType"] = data.get('createdByType')
+    rec["lastUpdatedByType"] = data.get('lastUpdatedByType')
+    rec["method"] = data.get('method')
+    rec["access"] = data.get('access')
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Firmware", rec)
+    _persist("ExperienceEndpoint", rec)
     return rec, 201
 
-@app.route("/v1/firmwares", methods=["GET"])
-def list_firmwares(request):
-    """List Firmwares with filtering + cursor pagination."""
+@app.route("/v1/experienceendpoints", methods=["GET"])
+def list_experience_endpoints(request):
+    """List ExperienceEndpoints with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Firmware")
-    rows = _apply_filters(rows, params, ['model', 'version', 'contentRef'])
+    rows = _query("ExperienceEndpoint")
+    rows = _apply_filters(rows, params, ['experienceEndpointId', 'applicationId', 'creationDate', 'lastUpdated', 'createdByType', 'lastUpdatedByType', 'method', 'access', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/firmwares/<eid>", methods=["GET"])
-def get_firmware(request, eid):
-    """Retrieve a Firmware by id (supports ?expand=)."""
-    rows = _query("Firmware", eid)
+@app.route("/v1/experienceendpoints/<eid>", methods=["GET"])
+def get_experience_endpoint(request, eid):
+    """Retrieve a ExperienceEndpoint by id (supports ?expand=)."""
+    rows = _query("ExperienceEndpoint", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'experienceEndpointId': 'ExperienceEndpoint', 'applicationId': 'Application'})
     return rec, 200
 
-@app.route("/v1/firmwares/<eid>", methods=["POST", "PATCH"])
-def update_firmware(request, eid):
-    """Update a Firmware."""
-    rows = _query("Firmware", eid)
+@app.route("/v1/experienceendpoints/<eid>", methods=["POST", "PATCH"])
+def update_experience_endpoint(request, eid):
+    """Update a ExperienceEndpoint."""
+    rows = _query("ExperienceEndpoint", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['model', 'version', 'contentRef'])
+    err = _reject_unknown(data, ['experienceEndpointId', 'applicationId', 'creationDate', 'lastUpdated', 'createdByType', 'lastUpdatedByType', 'method', 'access', 'description'])
     if err:
         return err, 400
+    if data.get('createdByType') and data['createdByType'] not in ['flow', 'user', 'apiToken']:
+        return {"error": {"message": "invalid createdByType; allowed: " + ", ".join(['flow', 'user', 'apiToken']), "type": "invalid_request_error"}}, 400
+    if data.get('lastUpdatedByType') and data['lastUpdatedByType'] not in ['flow', 'user', 'apiToken']:
+        return {"error": {"message": "invalid lastUpdatedByType; allowed: " + ", ".join(['flow', 'user', 'apiToken']), "type": "invalid_request_error"}}, 400
+    if data.get('method') and data['method'] not in ['delete', 'get', 'options', 'patch', 'post', 'put']:
+        return {"error": {"message": "invalid method; allowed: " + ", ".join(['delete', 'get', 'options', 'patch', 'post', 'put']), "type": "invalid_request_error"}}, 400
+    if data.get('access') and data['access'] not in ['public', 'authenticated', 'group', 'device']:
+        return {"error": {"message": "invalid access; allowed: " + ", ".join(['public', 'authenticated', 'group', 'device']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Firmware", rec)
+    _persist("ExperienceEndpoint", rec)
     return rec, 200
 
-@app.route("/v1/firmwares/<eid>", methods=["DELETE"])
-def delete_firmware(request, eid):
-    """Delete a Firmware."""
-    rows = _query("Firmware", eid)
+@app.route("/v1/experienceendpoints/<eid>", methods=["DELETE"])
+def delete_experience_endpoint(request, eid):
+    """Delete a ExperienceEndpoint."""
+    rows = _query("ExperienceEndpoint", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"losant.Firmware", "id": eid})
+    db.retract({"entity": f"losant.ExperienceEndpoint", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/alerts", methods=["POST"])
-def create_alert(request):
-    """Create a Alert."""
+@app.route("/v1/experienceusers", methods=["POST"])
+def create_experience_user(request):
+    """Create a ExperienceUser."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'rule', 'severity'])
+    err = _reject_unknown(data, ['experienceUserId', 'applicationId', 'creationDate', 'lastUpdated', 'passwordLastUpdated', 'lastLogin', 'email', 'firstName', 'lastName'])
     if err:
         return err, 400
-    err = _require(data, ['rule', 'severity'])
+    err = _require(data, ['creationDate', 'lastUpdated'])
     if err:
         return err, 400
-    rec = {"id": new_id("losant_ale")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["rule"] = data.get('rule')
-    rec["severity"] = data.get('severity')
+    rec = {"id": new_id("losant_exp")}
+    rec["experienceUserId"] = data.get('experienceUserId')
+    rec["applicationId"] = data.get('applicationId')
+    rec["creationDate"] = data.get('creationDate')
+    rec["lastUpdated"] = data.get('lastUpdated')
+    rec["passwordLastUpdated"] = data.get('passwordLastUpdated')
+    rec["lastLogin"] = data.get('lastLogin')
+    rec["email"] = data.get('email')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Alert", rec)
+    _persist("ExperienceUser", rec)
     return rec, 201
 
-@app.route("/v1/alerts", methods=["GET"])
-def list_alerts(request):
-    """List Alerts with filtering + cursor pagination."""
+@app.route("/v1/experienceusers", methods=["GET"])
+def list_experience_users(request):
+    """List ExperienceUsers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Alert")
-    rows = _apply_filters(rows, params, ['deviceId', 'rule', 'severity'])
+    rows = _query("ExperienceUser")
+    rows = _apply_filters(rows, params, ['experienceUserId', 'applicationId', 'creationDate', 'lastUpdated', 'passwordLastUpdated', 'lastLogin', 'email', 'firstName', 'lastName'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/alerts/<eid>", methods=["GET"])
-def get_alert(request, eid):
-    """Retrieve a Alert by id (supports ?expand=)."""
-    rows = _query("Alert", eid)
+@app.route("/v1/experienceusers/<eid>", methods=["GET"])
+def get_experience_user(request, eid):
+    """Retrieve a ExperienceUser by id (supports ?expand=)."""
+    rows = _query("ExperienceUser", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
+    rec = _expand(rec, request.query or {}, {'experienceUserId': 'ExperienceUser', 'applicationId': 'Application'})
     return rec, 200
 
-@app.route("/v1/alerts/<eid>", methods=["POST", "PATCH"])
-def update_alert(request, eid):
-    """Update a Alert."""
-    rows = _query("Alert", eid)
+@app.route("/v1/experienceusers/<eid>", methods=["POST", "PATCH"])
+def update_experience_user(request, eid):
+    """Update a ExperienceUser."""
+    rows = _query("ExperienceUser", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'rule', 'severity'])
+    err = _reject_unknown(data, ['experienceUserId', 'applicationId', 'creationDate', 'lastUpdated', 'passwordLastUpdated', 'lastLogin', 'email', 'firstName', 'lastName'])
     if err:
         return err, 400
     rec = rows[0]
@@ -495,22 +490,22 @@ def update_alert(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Alert", rec)
+    _persist("ExperienceUser", rec)
     return rec, 200
 
-@app.route("/v1/alerts/<eid>", methods=["DELETE"])
-def delete_alert(request, eid):
-    """Delete a Alert."""
-    rows = _query("Alert", eid)
+@app.route("/v1/experienceusers/<eid>", methods=["DELETE"])
+def delete_experience_user(request, eid):
+    """Delete a ExperienceUser."""
+    rows = _query("ExperienceUser", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"losant.Alert", "id": eid})
+    db.retract({"entity": f"losant.ExperienceUser", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "losant-compat", "tier": "L4",
-            "entities": ['Device', 'Telemetry', 'Gateway', 'Command', 'Firmware', 'Alert']}, 200
+            "entities": ['Device', 'Application', 'Webhook', 'ExperienceEndpoint', 'ExperienceUser']}, 200
 
 
 if __name__ == "__main__":
