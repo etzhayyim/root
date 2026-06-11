@@ -171,14 +171,21 @@ install -m 0644 "$TMP_PLIST" "$INSTALLED_PLIST"
 ok "plist installed"
 
 step "loading LaunchAgent"
-launchctl load "$INSTALLED_PLIST"
-ok "loaded"
+LAUNCHD_LOADED=0
+if launchctl load "$INSTALLED_PLIST"; then
+  LAUNCHD_LOADED=1
+  ok "loaded"
+else
+  echo "WARN: launchctl load failed in this session." >&2
+  echo "      The plist is installed; retry from an interactive macOS login session:" >&2
+  echo "      launchctl load $INSTALLED_PLIST" >&2
+fi
 
 # --- Verify -----------------------------------------------------------------
 
 sleep 2
 step "verifying service is running"
-if launchctl list "$SERVICE_LABEL" | grep -q PID; then
+if [[ "$LAUNCHD_LOADED" == "1" ]] && launchctl list "$SERVICE_LABEL" | grep -q PID; then
   ok "$SERVICE_LABEL is running"
 else
   echo "WARN: service not yet showing PID — check logs:" >&2
