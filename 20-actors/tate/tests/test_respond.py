@@ -347,6 +347,45 @@ def test_currency_mismatch_refers_conservatively():
     assert any("state bar" in r for r in mismatch["referrals"])
 
 
+def test_wave8_at_pt_genuine():
+    """Wave 8: AT Zahlungsbefehl (Einspruch 4週間, ZPO §248) · PT injunção
+    (oposição 15日, DL 269/98)."""
+    ps, _ = _by_id()
+    at = ps["ntc:at-zb"]
+    assert at["status"] == ":genuine" and at["proc"] == "proc:at-zahlungsbefehl"
+    assert any("§248" in d["anchor"] for d in at["deadlines"])
+    pt = ps["ntc:pt-injuncao"]
+    assert pt["status"] == ":genuine" and pt["proc"] == "proc:pt-injuncao"
+    assert any("269/98" in d["anchor"] for d in pt["deadlines"])
+
+
+def test_wave8_labor_track():
+    """Wave 8: the :labor specialty track. Defensive-of-own-employment responses:
+    JP 解雇 (労基法22条 理由証明書 + 115条 賃金時効) · DE Kündigung (KSchG §4
+    3-WEEK Kündigungsschutzklage + BGB §623 Schriftform — 電子形式無効) · UK
+    dismissal (ACAS EC 必須 + ET 3か月−1日)."""
+    ps, procs = _by_id()
+    jp = ps["ntc:jp-kaiko"]
+    assert jp["status"] == ":genuine" and jp["proc"] == "proc:jp-kaiko"
+    assert any("労働基準法22条" in d["anchor"] for d in jp["deadlines"])
+    de = ps["ntc:de-kuendigung"]
+    assert de["status"] == ":genuine" and de["proc"] == "proc:de-kuendigung"
+    assert any("3週間" in d["rule"] and "KSchG" in d["anchor"] for d in de["deadlines"])
+    assert any("BGB §623" in d["anchor"] for d in de["deadlines"])
+    uk = ps["ntc:uk-dismissal"]
+    assert uk["status"] == ":genuine" and uk["proc"] == "proc:uk-dismissal"
+    assert any("ACAS" in d["rule"] for d in uk["deadlines"])
+    # all three carry :proc/track :labor in the registry
+    by_id = {p[":proc/id"]: p for p in procs}
+    for pid in ("proc:jp-kaiko", "proc:de-kuendigung", "proc:uk-dismissal"):
+        assert by_id[pid][":proc/track"] == ":labor"
+    # and an email-only Kündigung is suspected-fake (BGB §623 形式無効と整合)
+    n = {":notice/id": "ntc:x", ":notice/jurisdiction": ":de", ":notice/channel": ":email",
+         ":notice/text": "Kündigung Ihres Arbeitsverhältnisses", ":notice/sourcing": ":synthetic"}
+    _, status = classify(n, procs)
+    assert status == ":suspected-fake"
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

@@ -274,6 +274,36 @@
   :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ ;; ── :at — Österreich (G10) ───────────────────────────────────────────────────
+ {:clause/id "cl:at-haftungsausschluss" :clause/label "全部免責 (Haftungsausschluss)"
+  :clause/jurisdiction :at
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["übernehmen keine Haftung"]
+  :clause/anchor "KSchG (Konsumentenschutzgesetz) §6 (unzulässige Vertragsbestandteile) / ABGB §879"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:at-auto-renewal" :clause/label "verlängert sich automatisch (黙示更新)"
+  :clause/jurisdiction :at
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["verlängert sich automatisch"]
+  :clause/anchor "KSchG §6 Abs 1 Z 2 (Erklärungsfiktion — 黙示更新には特段の注意喚起が必要)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :pt — Portugal (G10) ─────────────────────────────────────────────────────
+ {:clause/id "cl:pt-exclusao" :clause/label "全部免責 (cláusula proibida)"
+  :clause/jurisdiction :pt
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["exclui-se qualquer responsabilidade"]
+  :clause/anchor "DL 446/85 arts. 18–19 (cláusulas absolutamente/relativamente proibidas)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:pt-renovacao" :clause/label "renovação automática (自動更新)"
+  :clause/jurisdiction :pt
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["renovação automática"]
+  :clause/anchor "DL 446/85 (cláusulas contratuais gerais) — 黙示更新条項は相対的禁止類型として争いうる"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
  ;; ── :pl — Polska (G10) ───────────────────────────────────────────────────────
  {:clause/id "cl:pl-niedozwolona" :clause/label "全部免責 (klauzula niedozwolona)"
   :clause/jurisdiction :pl

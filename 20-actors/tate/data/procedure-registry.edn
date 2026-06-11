@@ -81,6 +81,24 @@
   :proc/refer-when ["営業停止など重大処分" "税務 → 税理士/弁護士"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:jp-kaiko" :proc/label "解雇通知/解雇予告 (労働・日本)"
+  :proc/jurisdiction :jp :proc/track :labor
+  :proc/trigger-keywords ["解雇予告" "解雇通知" "解雇する"]
+  :proc/genuine-channels [:mail :formal-service] ; 手交も多い — SMS/メールのみの解雇通知は書面を要求
+  :proc/deadline-rules
+  [{:dl/label "解雇理由証明書の請求"
+    :dl/rule "請求すれば使用者は遅滞なく交付義務 — 理由の確定が全ての応答の起点"
+    :dl/anchor "労働基準法22条" :dl/verify-service-date true}
+   {:dl/label "賃金請求権の消滅時効"
+    :dl/rule "未払賃金の請求権は3年で時効 (当分の間) — 異議・交渉は早いほど良い"
+    :dl/anchor "労働基準法115条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :riyuu-shoumeisho :opt/kind :self-submit :opt/label "解雇理由証明書を書面で請求 (労基法22条)"}
+   {:opt/id :igi-teppai :opt/kind :self-decide :opt/label "解雇に異議を留めて撤回交渉 (承諾と誤解される言動を避ける)"}
+   {:opt/id :assen-roudoushinpan :opt/kind :self-decide :opt/label "総合労働相談コーナー/あっせん/労働審判の検討 (自分の雇用を守る防御)"}]
+  :proc/refer-when ["解雇無効を本格的に争う (労働審判・訴訟) → 弁護士/法テラス" "未払賃金が高額"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:naiyou-shoumei" :proc/label "内容証明郵便 (企業・個人からの請求/通告)"
   :proc/jurisdiction :jp
   :proc/trigger-keywords ["内容証明" "催告書" "通告書"]
@@ -169,6 +187,20 @@
   :proc/refer-when ["£10,000 超 (small claims track 外)" "default judgment が既に出ている"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:uk-dismissal" :proc/label "Notice of dismissal (解雇通知・労働・英国)"
+  :proc/jurisdiction :uk :proc/track :labor
+  :proc/trigger-keywords ["notice of dismissal" "your employment is terminated"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "ACAS early conciliation → ET claim"
+    :dl/rule "employment tribunal への claim は dismissal (EDT) から3か月マイナス1日以内が原則 — その前に ACAS early conciliation の通知が必須 (期間は EC で停止)"
+    :dl/anchor "Employment Rights Act 1996 s.111 / ETA 1996 (ACAS EC)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :acas-ec :opt/kind :self-submit :opt/label "ACAS early conciliation に通知 (無料・必須の前置)"}
+   {:opt/id :internal-appeal :opt/kind :self-submit :opt/label "社内 appeal を書面で (ACAS Code — 後の補償額にも影響)"}]
+  :proc/refer-when ["差別・内部告発が絡む場合" "Citizens Advice / 労働組合"]
+  :proc/verify-current-law true}
+
  ;; ── :de ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:de-mahnbescheid" :proc/label "Mahnbescheid (支払督促・ドイツ)"
   :proc/jurisdiction :de
@@ -182,6 +214,24 @@
   [{:opt/id :widerspruch :opt/kind :self-submit :opt/label "同封の Widerspruch 用紙で異議 (→ 通常訴訟へ)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/分割の交渉"}]
   :proc/refer-when ["Vollstreckungsbescheid が既に出ている"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:de-kuendigung" :proc/label "Kündigung (解雇通知・労働・ドイツ)"
+  :proc/jurisdiction :de :proc/track :labor
+  :proc/trigger-keywords ["Kündigung"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Kündigungsschutzklage (解雇無効確認)"
+    :dl/rule "Kündigung の到達 (Zugang) から3週間以内に Arbeitsgericht へ提訴 — 徒過すると解雇は有効と擬制される (最重要短期期限)"
+    :dl/anchor "KSchG §4・§7" :dl/verify-service-date true}
+   {:dl/label "形式要件"
+    :dl/rule "Kündigung は書面必須で電子形式は無効 — email/SMS のみの解雇通知は形式無効の疑い (書面を要求)"
+    :dl/anchor "BGB §623" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :kuendigungsschutzklage :opt/kind :self-submit
+    :opt/label "Kündigungsschutzklage を Arbeitsgericht へ (1. Instanz は弁護士強制なし — 自分の雇用を守る防御)"}
+   {:opt/id :betriebsrat :opt/kind :self-decide :opt/label "Betriebsrat への異議申立て (BetrVG §102)"}]
+  :proc/refer-when ["3週間期限は絶対 — 迷ったら即 Rechtsantragstelle/弁護士へ"]
   :proc/verify-current-law true}
 
  ;; ── :kr ──────────────────────────────────────────────────────────────────────
@@ -347,6 +397,36 @@
   [{:opt/id :written-statement :opt/kind :self-submit :opt/label "written statement (認否 + 抗弁) を提出"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "期日に出頭 (ex parte decree の回避)"}]
   :proc/refer-when ["高額・複雑な請求は常に advocate 相談"]
+  :proc/verify-current-law true}
+
+ ;; ── :at ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:at-zahlungsbefehl" :proc/label "Zahlungsbefehl (支払命令・オーストリア)"
+  :proc/jurisdiction :at
+  :proc/trigger-keywords ["Zahlungsbefehl"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Einspruch (異議)"
+    :dl/rule "Zustellung から4週間以内に Einspruch (→ 通常手続へ)"
+    :dl/anchor "österr. ZPO §248 (Mahnverfahren)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :einspruch :opt/kind :self-submit :opt/label "Einspruch を発令裁判所へ提出 (理由不要)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
+  :proc/refer-when ["高額・渉外要素 → Rechtsanwalt"]
+  :proc/verify-current-law true}
+
+ ;; ── :pt ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:pt-injuncao" :proc/label "Injunção (支払督促・ポルトガル)"
+  :proc/jurisdiction :pt
+  :proc/trigger-keywords ["injunção" "procedimento de injunção"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Oposição (異議)"
+    :dl/rule "notificação から15日以内に oposição (→ 司法手続へ)"
+    :dl/anchor "DL 269/98 (procedimento de injunção)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :oposicao :opt/kind :self-submit :opt/label "oposição を提出 (Balcão Nacional de Injunções)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
+  :proc/refer-when ["高額 → advogado / apoio judiciário"]
   :proc/verify-current-law true}
 
  ;; ── :pl ──────────────────────────────────────────────────────────────────────

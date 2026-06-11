@@ -6,7 +6,7 @@
 (tasuke) · 2605231525 (no-server-key) · 2605215000 (Murakumo-only) · 2605312345
 (Datom = canonical state)
 
-**Jurisdictions (R1)**: `:jp :us :eu :uk :de :kr :fr :au :ca :it :es :nl :br :tw :sg :in :cn :pl :se` — representative 19 of ~193, plus `us-states.edn` (10/50 州: CA/NY/TX/FL/WA/IL/PA/OH/GA/NC — :us 通知に州が分かれば州規則を開示追記、州不明は honest degrade)
+**Jurisdictions (R1)**: `:jp :us :eu :uk :de :kr :fr :au :ca :it :es :nl :br :tw :sg :in :cn :pl :se :at :pt` — representative 21 of ~193, plus `us-states.edn` (10/50 州: CA/NY/TX/FL/WA/IL/PA/OH/GA/NC — :us 通知に州が分かれば州規則を開示追記、州不明は honest degrade)
 (`coverage_report.py` measures + names the gap, G10; the worklist drops entries off
 automatically once covered). Uncovered jurisdictions degrade to
 `:unknown-jurisdiction` — tate **never guesses foreign law**.
@@ -72,7 +72,7 @@ AGAINST others, no 取立 · N3 no evasion of lawful obligations (genuine debt/d
 surfaced honestly) · N4 never scores the counterparty (clauses are flagged, companies/
 persons are not — no blacklist, 反個人主義) · N5 kurashimori owns クーリングオフ/返金,
 toritsugi owns proactive 行政手続 — tate owns the defensive response surface ·
-N6 刑事 out of scope → immediate 弁護士 referral.
+N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**: 自分自身の雇用・居住関係を守る応答 (解雇への Kündigungsschutzklage / ACAS EC / 労働審判の検討) は『防御』であり N2 の攻撃的訴訟支援には当たらない — 第三者への請求の組成は引き続き非目標.
 
 ## Boundaries (who owns what)
 
@@ -93,8 +93,8 @@ N6 刑事 out of scope → immediate 弁護士 referral.
 ├── manifest.edn                   # actor manifest (5 cells, 9 gates, 6 non-goals)
 ├── data/
 │   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
-│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (50 shapes, 19 juris)
-│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (25 procs)
+│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (54 shapes, 21 juris)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (30 procs; :civil 27 + :labor 3 — 解雇通知 jp/de/uk)
 │   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # pure-stdlib → kotoba pywasm-runnable
@@ -102,7 +102,7 @@ N6 刑事 out of scope → immediate 弁護士 referral.
 │   ├── respond_plan.py            # response planner + fake-notice guard (G6/G10)
 │   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 47 tests, pure stdlib
+├── tests/                         # 50 tests, pure stdlib
 │   ├── test_terms.py
 │   ├── test_respond.py
 │   └── test_coverage.py
@@ -119,10 +119,10 @@ N6 刑事 out of scope → immediate 弁護士 referral.
 cd 20-actors/tate
 python3 methods/terms_scan.py        # → out/clause-readout.md
 python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
-python3 methods/coverage_report.py   # → out/coverage-report.md (19/193 + 10/50 states, named gaps)
+python3 methods/coverage_report.py   # → out/coverage-report.md (21/193 + 10/50 states + tracks, named gaps)
 python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
 python3 tests/test_terms.py && python3 tests/test_respond.py \
-  && python3 tests/test_coverage.py  # 47 green
+  && python3 tests/test_coverage.py  # 50 green
 ```
 
 ## Do not

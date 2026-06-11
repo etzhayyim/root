@@ -44,7 +44,7 @@ COURT_KEYWORDS = ("支払督促", "少額訴訟", "訴状", "口頭弁論",
                   "statement of claim", "plaintiff's claim", "decreto ingiuntivo",
                   "proceso monitorio", "dagvaarding", "citação",
                   "支付命令", "small claims tribunal", "written statement", "支付令",
-                  "nakaz zapłaty", "betalningsföreläggande")
+                  "nakaz zapłaty", "betalningsföreläggande", "Zahlungsbefehl", "injunção")
 GENERIC_REFERRALS = ["local bar association / legal aid", "認定司法書士 (JPのみ・簡裁140万円以下)"]
 PROC_REFERRAL_ALWAYS = {"proc:sojou", "proc:us-summons"}  # 本訴/civil suit — G7
 

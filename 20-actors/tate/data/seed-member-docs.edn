@@ -212,6 +212,47 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 8 (:at :pt + labor track :jp :de :uk) ──────────────────────────────
+ {:doc/id "doc:at-agb" :doc/label "AT AGB (synthetic)"
+  :doc/jurisdiction :at
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Wir übernehmen keine Haftung für Schäden. Der Vertrag verlängert sich automatisch um ein Jahr."}
+
+ {:doc/id "doc:pt-condicoes" :doc/label "PT condições gerais (synthetic)"
+  :doc/jurisdiction :pt
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Exclui-se qualquer responsabilidade por danos. O contrato tem renovação automática anual."}
+
+ {:notice/id "ntc:at-zb" :notice/label "AT Zahlungsbefehl (Zustellung)"
+  :notice/jurisdiction :at
+  :notice/channel :formal-service :notice/claim-amount 2600 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Zahlungsbefehl. Sie können binnen der Frist Einspruch erheben."}
+
+ {:notice/id "ntc:pt-injuncao" :notice/label "PT injunção (notificação)"
+  :notice/jurisdiction :pt
+  :notice/channel :mail :notice/claim-amount 1900 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Procedimento de injunção. Pode deduzir oposição no prazo legal."}
+
+ {:notice/id "ntc:jp-kaiko" :notice/label "解雇予告通知書 (郵送・労働)"
+  :notice/jurisdiction :jp
+  :notice/channel :mail :notice/claim-jpy 0
+  :notice/sourcing :synthetic
+  :notice/text "解雇予告通知書。就業規則第○条により、30日後をもって解雇する。"}
+
+ {:notice/id "ntc:de-kuendigung" :notice/label "DE Kündigung (Brief・労働)"
+  :notice/jurisdiction :de
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Kündigung Ihres Arbeitsverhältnisses zum nächstmöglichen Zeitpunkt."}
+
+ {:notice/id "ntc:uk-dismissal" :notice/label "UK notice of dismissal (letter・労働)"
+  :notice/jurisdiction :uk
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "GBP"
+  :notice/sourcing :synthetic
+  :notice/text "This letter is your notice of dismissal. Your employment is terminated with effect from the stated date."}
+
  ;; ── wave 7 (:pl :se) ─────────────────────────────────────────────────────────
  {:doc/id "doc:pl-regulamin" :doc/label "PL regulamin (synthetic)"
   :doc/jurisdiction :pl

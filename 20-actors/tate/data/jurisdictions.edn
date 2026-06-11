@@ -134,6 +134,22 @@
   :juris/refer-over-amount 500000 :juris/refer-over-currency "INR"
   :juris/sourcing :representative :juris/verify-current-law true}
 
+ {:juris/id :at :juris/label "Österreich"
+  :juris/upl-anchor "RAO (Rechtsanwaltsordnung — 代理の資格独占; 低額は本人可)"
+  :juris/service-note "Zahlungsbefehl は裁判所の Zustellung (RSb/RSa) — SMS/email の『Gericht』通知は偽"
+  :juris/referrals ["Verfahrenshilfe (法律扶助)" "Rechtsanwaltskammer erste anwaltliche Auskunft" "AK (Arbeiterkammer 消費者・労働相談)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Watchlist Internet" "Polizei 133"]
+  :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :pt :juris/label "Portugal"
+  :juris/upl-anchor "EOA (Estatuto da Ordem dos Advogados — atos próprios)"
+  :juris/service-note "injunção の notificação は Balcão Nacional de Injunções 経由 (郵送含む)"
+  :juris/referrals ["apoio judiciário (Segurança Social 経由の法律扶助)" "Ordem dos Advogados" "DECO (消費者団体)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Polícia Judiciária (queixa eletrónica)" "Linha 112"]
+  :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
  {:juris/id :pl :juris/label "Polska"
   :juris/upl-anchor "Prawo o adwokaturze / ustawa o radcach prawnych (法律業務の資格独占)"
   :juris/service-note "nakaz zapłaty は裁判所からの書留 (za potwierdzeniem odbioru) — SMS の『sąd』通知は偽"

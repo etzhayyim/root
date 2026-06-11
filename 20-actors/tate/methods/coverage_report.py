@@ -26,13 +26,13 @@ JURIS_WORKLIST = [":it", ":es", ":nl", ":kr", ":fr", ":cn", ":tw", ":in",
                   ":br", ":au", ":ca", ":sg", ":mx"]
 
 # structural gaps — true regardless of how many jurisdictions land
-# (:us state decomposition is computed against us-states.edn, not listed here)
+# (:us states and specialty tracks are computed against the registries, not listed here)
 STRUCTURAL_GAPS = [
     ":eu は越境 instruments のみ (加盟国国内法は各国エントリで個別収載)",
     "刑事手続は全管轄でスコープ外 (N6 — 即時弁護士照会のみ)",
-    "労働審判・家事・倒産など民事の専門トラック未収載",
 ]
 US_STATES_TOTAL = 50
+SPECIALTY_TRACKS_PLANNED = [":family", ":insolvency", ":housing"]
 
 
 def coverage():
@@ -50,11 +50,17 @@ def coverage():
     states = load_us_states()
     us_state_gap = (f":us 州レベル: {len(states)}/{US_STATES_TOTAL} 州を収載 — "
                     f"残り{US_STATES_TOTAL - len(states)}州は『州不明』honest degrade")
+    tracks = defaultdict(int)
+    for p in procs:
+        tracks[p.get(":proc/track", ":civil")] += 1
+    track_gap = (f"専門トラック: :labor {tracks.get(':labor', 0)}件収載 — "
+                 + " / ".join(t for t in SPECIALTY_TRACKS_PLANNED) + " 未収載")
     named_gaps = ([f"{j} — 未収載 (worklist)" for j in remaining]
-                  + [us_state_gap] + list(STRUCTURAL_GAPS))
+                  + [us_state_gap, track_gap] + list(STRUCTURAL_GAPS))
     return {
         "us_states_covered": len(states),
         "us_states_total": US_STATES_TOTAL,
+        "procedure_tracks": dict(sorted(tracks.items())),
         "jurisdictions": covered,
         "patterns_by_jurisdiction": dict(sorted(pat_by_j.items())),
         "procedures_by_jurisdiction": dict(sorted(proc_by_j.items())),
