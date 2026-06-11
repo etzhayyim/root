@@ -16,9 +16,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreifrphajgtqxgxgrhkxuxnqx6sp7ygitplhkmejcqy37f6l4hwccqa",
-      "bodySha256": "0xb179c0934e1735cd13aaf4bb617f49ffc19137acea611228637f2f97c3d84280",
-      "bytes": 2431,
+      "bodyCid": "bafkreidwgkdnycai3hx4rlotbhtlihqf36tgukuuuuuwyrt6wdpoovnwcq",
+      "bodySha256": "0x763286dc0808d9efc8add309e6b41e05dfa66a2a94a5296c467eb0dee755b614",
+      "bytes": 2605,
       "clauseCount": 3,
       "statutes": [
         {
@@ -76,6 +76,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -129,9 +141,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreicuhwomc6lnomg3dx7gmk6g66at5vlc7zeo3mpp3yvmo5ikbj7kzq",
-      "bodySha256": "0x543d9cc1796d730db1dfe662bc6f7813ed562fe48edb1efde2ac7750a0a7eacc",
-      "bytes": 3576,
+      "bodyCid": "bafkreich6xx7dccjvsvsst54o2gchgryxrzbmwluygbvtmuruzos3nvloq",
+      "bodySha256": "0x47f5eff18849acab294fbc768c239a38bc72165974c18359b291a65d2db6ab74",
+      "bytes": 3750,
       "clauseCount": 7,
       "statutes": [
         {
@@ -273,6 +285,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -326,9 +350,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiauybpspqydr47qa6gmqkje2tynorltqz2wtiioydlx6g55kgkzdy",
-      "bodySha256": "0x14c05f27c3038f3f0078cc82924d4f0d74573867569a10ec0d77f1bbd519591e",
-      "bytes": 2918,
+      "bodyCid": "bafkreibmr7nlzzoekszudqu6tzq5567hnsl2fun5jnrtibtmxhx2j3ugau",
+      "bodySha256": "0x2c8fdabce5c454b341c29e9e61defbe76c97a2d1bd4b6334066cb9efa4ee8605",
+      "bytes": 3092,
       "clauseCount": 4,
       "statutes": [
         {
@@ -428,6 +452,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -481,9 +517,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiajzp2t7kbcqjqnbolj7lqkhj7jtzpoxup6t6okhyvw2axkpbyz64",
-      "bodySha256": "0x09cbf53fa8228260d0b969fae0a3a7e99e5eebd1fe9f9ca3e2b6d02ea78719f7",
-      "bytes": 4466,
+      "bodyCid": "bafkreiejkntytizqk6nwwz5gn4uhm3fz7hs7xchw3slec3sdljah73hx2m",
+      "bodySha256": "0x89536789a330579b6b67a66f28766cb9f9e5fb88f6dc96416e435a407fecf7d3",
+      "bytes": 4727,
       "clauseCount": 9,
       "statutes": [
         {
@@ -625,6 +661,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -685,6 +733,12 @@
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
+          "id": "st.ae-civil-246",
+          "citation": "Federal Law 5/1985, Art. 246",
+          "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1083"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -726,9 +780,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibr253dfuo7ane6vymmvxvm3vuh4tpaxmnikfeb3vnokna2lr5mvq",
-      "bodySha256": "0x31d77632d1df0349eae18cadeacdd687e4de0bb1a851481dd5ae5341a5c7acac",
-      "bytes": 2764,
+      "bodyCid": "bafkreifuaa4ytxavi3yxh4copz62ai2y5xuwxlpqztexlcu2mplnz4hmcu",
+      "bodySha256": "0xb4003989dc1546f173f04e7e7da02358ede96badf0ccc9758a9a63d6dcf0ec15",
+      "bytes": 2938,
       "clauseCount": 3,
       "statutes": [
         {
@@ -810,6 +864,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -863,9 +929,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreiguxnwoc6cmb5nkfgrg4bkibfdn3zc5amqx4v3vgx45ile7jnga7u",
-      "bodySha256": "0xd4bb6ce1784c0f5aa29a26e05480946dde45d03217e577535f9d42c9f4b4c0fd",
-      "bytes": 3293,
+      "bodyCid": "bafkreiakejpyyml4zhgtqzckqug5mtxz3gttto764acvkdth3fzgz3pxfm",
+      "bodySha256": "0x0a225f8c317cc9cd38644a850dd64ef9d9a739bbfee005550e67d9726cedf72b",
+      "bytes": 3554,
       "clauseCount": 6,
       "statutes": [
         {
@@ -915,6 +981,12 @@
           "citation": "PRC Civil Code, Art. 509",
           "instrument": "Civil Code of the People's Republic of China (2021)",
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
+        },
+        {
+          "id": "st.ae-civil-246",
+          "citation": "Federal Law 5/1985, Art. 246",
+          "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1083"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -983,6 +1055,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -1036,9 +1120,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidmxroyg22jecj4777d4bft4tykd65u3mjl2srn6ag4nysogniyri",
-      "bodySha256": "0x6cbc5d836b492093cfffe3e04b3e4f0a1fbb4db12bd4a2df00dc6e24e335188a",
-      "bytes": 2164,
+      "bodyCid": "bafkreicewhgt4dnxrolxa3ojbku53vky2gqyb6klvcyma6ji4dod5zdwri",
+      "bodySha256": "0x44b1cd3e0db78b97706dc90aa9ddd558d1a180f94ba8b0c07928e0dc3ee4768a",
+      "bytes": 2338,
       "clauseCount": 2,
       "statutes": [
         {
@@ -1082,6 +1166,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
@@ -1137,9 +1233,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreifhbqusjgrc7aptarrgzf3qasmbblwcvr2poznfesey6w2gvw5sh4",
-      "bodySha256": "0xa70c29249a22f81f304626c9770049810aec2ac74f765a524898f5b46adbb23f",
-      "bytes": 3379,
+      "bodyCid": "bafkreicp7fj7pxtbrrpjma5x2iinhb3r5l42ykjgco32f4pf42yhsmohoi",
+      "bodySha256": "0x4ff953f7de618c5e9603b7d210d38771eaf9ac292613b7a2f1e5e6b07931c772",
+      "bytes": 3553,
       "clauseCount": 5,
       "statutes": [
         {
@@ -1263,6 +1359,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -1316,9 +1424,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreiabosvz3cuhows3wq66eik2dye7cnniwdtuysmyf2mhn3uhg4j7rq",
-      "bodySha256": "0x0174ab9d8a8775a5bb43de2215a1e09f135a8b0e74c49982e9876ee873713f8c",
-      "bytes": 3335,
+      "bodyCid": "bafkreidocrdiflcw26vdn3zyn5lbtmcljhum4m3dg4hgd6qldkdldhkoyu",
+      "bodySha256": "0x6e144682ac56d7aa36ef386f5619b04b49e8ce3363370e61fa0b1a86b19d4ec5",
+      "bytes": 3509,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1440,6 +1548,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
@@ -1495,9 +1615,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreifosdamncjuizxn3h25n2i4mrg2ywb7zxtgasxxv35oaat2qdep2a",
-      "bodySha256": "0xae90c0c68934466edd9f5d6e91c644dac583fcde6604af7aefae0027a80c8fd0",
-      "bytes": 3339,
+      "bodyCid": "bafkreibm25djjomkel6hv6touvzm2ncj3cxs3htqay2dsjawow5e3qcedi",
+      "bodySha256": "0x2cd74694b98a22fc7afa6ea572cd3449d8af2d9e70063439241675ba4dc0441a",
+      "bytes": 3513,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1621,6 +1741,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -1674,9 +1806,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreih2cjv456pghobstueo5iicseeqzm3u6rwem667beandrblhsjzfu",
-      "bodySha256": "0xfa126bcef9e63b8329d08eea10291090cb374f46c467bdf0900d1c42b3c9392d",
-      "bytes": 3572,
+      "bodyCid": "bafkreihaxt6zzh3wncixhwkv2w2pqb3h2xew2kwpp4u6qlgv3xig4rgka4",
+      "bodySha256": "0xe0bcfd9c9f76689173d955d5b4f80767d5c96d2acf7f29e82cd5ddd06e44ca07",
+      "bytes": 3746,
       "clauseCount": 5,
       "statutes": [
         {
@@ -1806,6 +1938,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -1859,9 +2003,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicrcbmh6vsee7i6xc3pgmvapvafs6ap2ec2gr7oq7auae5mgikane",
-      "bodySha256": "0x5110587f564427d1eb8b6f332a07d4059780fd105a347ee87c14013ac3214069",
-      "bytes": 2481,
+      "bodyCid": "bafkreig2nyjtnbgtver6u4qbpbocm3i2m3guiubawok557osxgcptxlowi",
+      "bodySha256": "0xda6e133684d3a923ea7201785c266d1a66cd445020b395defdd2b984f9dd6eb2",
+      "bytes": 2948,
       "clauseCount": 2,
       "statutes": [
         {
@@ -1869,6 +2013,30 @@
           "citation": "CLT, Art. 443",
           "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
           "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
         },
         {
           "id": "st.jp-rouki-15",
@@ -1937,6 +2105,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -1990,9 +2170,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreibx3osylfpheizv7x2ggrdrppkams4ifgc7w4o5ooelo4vxs5hgla",
-      "bodySha256": "0x37dba58595e722335fdf46344717bd4064b882985fb71dd7388b772b7974e658",
-      "bytes": 4519,
+      "bodyCid": "bafkreifpkqqq5yx7damxoohkbk2xktkyoop4bm24nvchiqtfit6s7fa5rm",
+      "bodySha256": "0xaf54210ee2ff18197738ea0ab5754d58739fc0b35c6d4474426544fd2f941d8b",
+      "bytes": 5073,
       "clauseCount": 7,
       "statutes": [
         {
@@ -2000,6 +2180,30 @@
           "citation": "CLT, Art. 443",
           "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
           "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
         },
         {
           "id": "st.jp-rouki-15",
@@ -2140,6 +2344,12 @@
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
+          "id": "st.ae-civil-246",
+          "citation": "Federal Law 5/1985, Art. 246",
+          "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1083"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -2206,6 +2416,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -2259,9 +2481,9 @@
       "jurisdictions": [
         "ES"
       ],
-      "bodyCid": "bafkreicbos3m2kfhue6fgiofpng233uelit7s67v7jnalo6jlioepqpkum",
-      "bodySha256": "0x4174b6cd28a7a13c5321c57b4dadee845a27f97bf5fa5a05bbc95a1c47c1eaa3",
-      "bytes": 2716,
+      "bodyCid": "bafkreighhncc25kv6jgdvkdpxnbn7fxpv3uyv72uvuvdwk5ekgpjsqymim",
+      "bodySha256": "0xc73b442d7555f24c3aa86fbb42df96efaee98aff54ad2a3b2ba4519e99430c43",
+      "bytes": 3183,
       "clauseCount": 3,
       "statutes": [
         {
@@ -2269,6 +2491,30 @@
           "citation": "CLT, Art. 443",
           "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
           "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
         },
         {
           "id": "st.jp-rouki-15",
@@ -2349,6 +2595,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -2402,9 +2660,9 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreif7p5ajofhzq62xy2ejqqx7sdmxpyvdoyqzo4owrj3x54escjihta",
-      "bodySha256": "0xbf7f409714f987b57c6889842ff90d977e2a376219771d68a777ef0921250798",
-      "bytes": 3219,
+      "bodyCid": "bafkreich7jfbvv32556if24gfjse5dc644tnxazqnsvxvag4p4tpq5y7uq",
+      "bodySha256": "0x47fa4a1ad77aef7c82eb862a644e8c5ee726db83306cab7a80dc7f26f8771fa4",
+      "bytes": 3686,
       "clauseCount": 3,
       "statutes": [
         {
@@ -2412,6 +2670,30 @@
           "citation": "CLT, Art. 443",
           "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
           "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
         },
         {
           "id": "st.jp-rouki-15",
@@ -2540,6 +2822,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -2593,9 +2887,9 @@
       "jurisdictions": [
         "IN"
       ],
-      "bodyCid": "bafkreiaopwhq2232rcpnms4iwxizljlbfmherlmed7n74isa4u4tjmlvgy",
-      "bodySha256": "0x0e7d8f0d6b7a889ed64b88b5d195a5612b0e48ad841fdbfe2240e53934b17536",
-      "bytes": 2505,
+      "bodyCid": "bafkreienbsy5crtrsb2gweyo6wuofs46osipvbbmvoka5m4qrvue5grovu",
+      "bodySha256": "0x8d0cb1d1467190746b130ef5a8e2cb9e7490fa842cab940eb3908d684e9a2ead",
+      "bytes": 2972,
       "clauseCount": 2,
       "statutes": [
         {
@@ -2603,6 +2897,30 @@
           "citation": "CLT, Art. 443",
           "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
           "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
         },
         {
           "id": "st.jp-rouki-15",
@@ -2671,6 +2989,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -2724,9 +3054,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiauwh4kswxih2dul66n7btixckce4e5ennfllr334bccpwjtsyhva",
-      "bodySha256": "0x14b1f8a95ae83e8745fbcdf8668b89422709d235a55ae3bdf02213ec99cb07a8",
-      "bytes": 4550,
+      "bodyCid": "bafkreic6bv2iuipnkte3hlnuh47wnxslmhbh2fzgqu3lhaojtyzyse4ehq",
+      "bodySha256": "0x5e0d748a21ed54c9b3adb43f3f66de4b61c27d17268536b381c99e338913843c",
+      "bytes": 5017,
       "clauseCount": 8,
       "statutes": [
         {
@@ -2844,6 +3174,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -2890,6 +3232,30 @@
           "citation": "CLT, Art. 443",
           "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
           "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
         },
         {
           "id": "st.jp-rouki-15",
@@ -2993,9 +3359,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreihigw37ojkniwd3ecqntzss47vuska6kelqc24uozsgfzdediyaiu",
-      "bodySha256": "0xe835b7f7254d4587b20a0d9e652e7eb49281e5117016b94766462e4641a30045",
-      "bytes": 3445,
+      "bodyCid": "bafkreiamzsu6yxhnggizo5qxst3reilz33jcv7jipmcdpwtd4m2muzvupm",
+      "bodySha256": "0x0ccca9ec5ced319197761794f7122179ded22afd287b0437da63e334ca66b47b",
+      "bytes": 3912,
       "clauseCount": 4,
       "statutes": [
         {
@@ -3003,6 +3369,30 @@
           "citation": "CLT, Art. 443",
           "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
           "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
         },
         {
           "id": "st.jp-rouki-15",
@@ -3141,6 +3531,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
@@ -3196,9 +3598,9 @@
       "jurisdictions": [
         "KR"
       ],
-      "bodyCid": "bafkreic73jbmk7tkoldugcpabzuwu3oxrhvf5pvx6detx2lrtwkfx6sfaq",
-      "bodySha256": "0x5fda42c57e6a72c74309e00e696a6dd789ea5ebeb7f0c93be9719d945bfa4504",
-      "bytes": 2712,
+      "bodyCid": "bafkreigfmnoik2tz53vvzyzq33l6s2pkeop5lg3yyxz4d2yqo7lr3cg36i",
+      "bodySha256": "0xc5635c856a79eeeb5ce330ded7e969ea239fd59b78c5f3c1eb1077d71d88dbf2",
+      "bytes": 3179,
       "clauseCount": 3,
       "statutes": [
         {
@@ -3206,6 +3608,30 @@
           "citation": "CLT, Art. 443",
           "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
           "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
         },
         {
           "id": "st.jp-rouki-15",
@@ -3286,6 +3712,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -3339,9 +3777,9 @@
       "jurisdictions": [
         "BR"
       ],
-      "bodyCid": "bafkreiey6fp3g7ttcjrhh6wcpbekzkklzjuik232cbq2zzkc34tpnml6ge",
-      "bodySha256": "0x98f15fb37e73126273fac27848aca94bca68856b7a1061ace542df26f6b17e31",
-      "bytes": 3232,
+      "bodyCid": "bafkreic6ull3d7lvmhbqpxtilgyajngucya4ysh4pizzlaos6lctuudys4",
+      "bodySha256": "0x5ea2d7b1fd7561c307de6859b004b4d41601cc48fc7a339581d2f2c53a507897",
+      "bytes": 3699,
       "clauseCount": 3,
       "statutes": [
         {
@@ -3349,6 +3787,30 @@
           "citation": "CLT, Art. 443",
           "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
           "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
         },
         {
           "id": "st.jp-rouki-15",
@@ -3477,6 +3939,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -3530,9 +4004,9 @@
       "jurisdictions": [
         "CN"
       ],
-      "bodyCid": "bafkreibg75v3w2fwhanlrty2po3a6mt7amn4y5ac2jrvo5bqnibd4fzece",
-      "bodySha256": "0x26ff6bbb68b6381ab8cf1a7bb60f327f031bcc7402d2635774306a023e172411",
-      "bytes": 2480,
+      "bodyCid": "bafkreieks42filk3qu7wjlxcvievflvfmpbh52v3ras6u6p2hdmslcvpy4",
+      "bodySha256": "0x8a9734542d5b853f64aee2aa0952aea563c27eeabb8825ea79fa38d9258aafc7",
+      "bytes": 2947,
       "clauseCount": 2,
       "statutes": [
         {
@@ -3540,6 +4014,30 @@
           "citation": "CLT, Art. 443",
           "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
           "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
+          "id": "st.mx-lft-25",
+          "citation": "Ley Federal del Trabajo, Art. 25",
+          "instrument": "Ley Federal del Trabajo (Mexico)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/lft.htm"
+        },
+        {
+          "id": "st.id-naker-54",
+          "citation": "UU 13/2003, Pasal 54",
+          "instrument": "Undang-Undang Ketenagakerjaan No. 13/2003 (Indonesia)",
+          "url": "https://peraturan.bpk.go.id/Details/43013/uu-no-13-tahun-2003"
+        },
+        {
+          "id": "st.ng-labour-7",
+          "citation": "Labour Act, s.7",
+          "instrument": "Labour Act (Nigeria), Cap L1 LFN 2004",
+          "url": "https://lawsofnigeria.placng.org/laws/L1.pdf"
+        },
+        {
+          "id": "st.ae-labour-8",
+          "citation": "Federal Decree-Law 33/2021, Art. 8",
+          "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1538"
         },
         {
           "id": "st.jp-rouki-15",
@@ -3608,6 +4106,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -3661,9 +4171,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreia4zai2mkmnanf27nvzuf4n6fwt3myuabk7doxaxzx2g6relbdfje",
-      "bodySha256": "0x1cc811a6298d034bafb6b9a178df16d3db3140055f1bae0be6fa37a245846549",
-      "bytes": 2401,
+      "bodyCid": "bafkreidcvrhzayonea4dzalhftjzrztq5j765as7c25suz6qg7ikwnyf2e",
+      "bodySha256": "0x62ac4f9061cd20383c81672cd398e670ea7fee825f16bb2a67d037d0ab3705d1",
+      "bytes": 2575,
       "clauseCount": 4,
       "statutes": [
         {
@@ -3721,6 +4231,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -3774,9 +4296,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidq5mwoextvkslorcvu6kf5clgbpvwmau5vbx3id3n3smwl2k2pru",
-      "bodySha256": "0x70eb2ce25e755496e88ab4f28bd12cc17d6cc053b50df681edbb932cbd2b4f8d",
-      "bytes": 3468,
+      "bodyCid": "bafkreidkx64t5jzijtaqbifciuuzwyn6qmlwnzeocqukg6px3swcmt6skq",
+      "bodySha256": "0x6abfb93ea7284cc100a0a245299b61be831766e48e1428a379f7dcac264fd254",
+      "bytes": 3642,
       "clauseCount": 7,
       "statutes": [
         {
@@ -3906,6 +4428,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -3959,9 +4493,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreichhwdurckpcaabjhgoolqzroulm7eni2s32ld6mhc6k2n5sjx3wm",
-      "bodySha256": "0x473d8748894f1000149cce72e198ba8b67c8d46a5bd2c7e61c5e569bd926fbb3",
-      "bytes": 2771,
+      "bodyCid": "bafkreidmiz4vqa24mggbzjx4tkh5vmxpsqszow57kndlgqgt2t6q5d5kgm",
+      "bodySha256": "0x6c467958035c618c1ca6fc9a8fdab2ef9425975bbf5346b340d3d4fd0e8faa33",
+      "bytes": 2945,
       "clauseCount": 5,
       "statutes": [
         {
@@ -4043,6 +4577,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4096,9 +4642,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreihicrhflsrcc2fo7syatvmvzl7ewiyeciznug37znypcb2jnxf7wu",
-      "bodySha256": "0xe8144e55ca22168aefcb009d595cafe4b23041232da1b7fcb70f107496dcbfb5",
-      "bytes": 2479,
+      "bodyCid": "bafkreicz43d3pozs5lc5hlckd7d4oxvnu27nv5ujgckxlo4qff6olarljq",
+      "bodySha256": "0x59e6c7b7bb32eac5d3ac4a1fc7c75eada6bedaf689309575bb90297ce5822b4c",
+      "bytes": 2653,
       "clauseCount": 3,
       "statutes": [
         {
@@ -4168,6 +4714,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4221,9 +4779,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreig5dchqzsmwjsfvciucyfc2ltbhhj4772rbtnb3vzrrjvsifadpaq",
-      "bodySha256": "0xdd188f0cc9964c8b512282c145a5cc273a79ffea219b43bae6314d6482806f04",
-      "bytes": 3146,
+      "bodyCid": "bafkreieij7w4eorepssrj26mlh3e7s52cfbi6ivk55c4xzujdoms7lx7lm",
+      "bodySha256": "0x884fedc23a247ca514ebcc59f64fcbba11428f22aaef45cbe6891b992faeff5b",
+      "bytes": 3407,
       "clauseCount": 4,
       "statutes": [
         {
@@ -4261,6 +4819,12 @@
           "citation": "PRC Civil Code, Art. 509",
           "instrument": "Civil Code of the People's Republic of China (2021)",
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
+        },
+        {
+          "id": "st.ae-civil-246",
+          "citation": "Federal Law 5/1985, Art. 246",
+          "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1083"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -4329,6 +4893,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4382,9 +4958,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreicsl6gdhh54la5zh6fak5gjfrdlnhipmf6dlkv3ynuuwp7obw7uvu",
-      "bodySha256": "0x525f8c339fbc583b93f8a0574c92c46b69d0f617c35aabbc3694b3fee0dbf4ad",
-      "bytes": 3055,
+      "bodyCid": "bafkreib5j5wq7djwwvgnnb34shgsmxllyu5onnlhnjvyoesm5xhedkswde",
+      "bodySha256": "0x3d4f6d0f8d36b54cd6877c91cd265d6bc53ae6b5676a6b87124cedce41aa5619",
+      "bytes": 3229,
       "clauseCount": 5,
       "statutes": [
         {
@@ -4484,6 +5060,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4537,9 +5125,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiddaafxjjrxn7kvibsdbh5qktlipxguwfe3nikyrfruprxyomrune",
-      "bodySha256": "0x63000b74a6376fd554064309fb054d687dcd4b149b6a158896347c6f87323469",
-      "bytes": 3319,
+      "bodyCid": "bafkreidmvyuy4gmc3gnadml6whdicf6raqa6fea3zysnaqmbuyynjfr5ua",
+      "bodySha256": "0x6cae298e1982d99a01b17eb1c68117d10401e2901bce24d04181a630d4963da0",
+      "bytes": 3493,
       "clauseCount": 6,
       "statutes": [
         {
@@ -4663,6 +5251,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4716,9 +5316,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreib7bdoh63vw3tsqgsoctmzvkwtjb2jt27uvhbi4mpdyht3by5tyvy",
-      "bodySha256": "0x3f08dc7f6eb6dce50349c29b33555a690e933d7e953851c63c783cf61c7678ae",
-      "bytes": 3147,
+      "bodyCid": "bafkreihwo72xbb6of373z6tyzyth4fmdy26gelfsfjl3z5hvpe5blhw5qy",
+      "bodySha256": "0xf677f57087ce2effbcfa78ce267e1583c6bc622cb22a57bcf4f5793a159edd86",
+      "bytes": 3321,
       "clauseCount": 6,
       "statutes": [
         {
@@ -4830,6 +5430,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -4883,9 +5495,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreigy7kk4nlj7x4jq6en75lzujfkci5bavls6bhgror7nkv4hwwxgm4",
-      "bodySha256": "0xd8fa95c6ad3fbf130f11bfeaf344954247420aae5e09cd1747ed55787b5ae667",
-      "bytes": 2692,
+      "bodyCid": "bafkreifzbbvqejfqewlg346hvjoecrm4ri4wztywbwqiz2lbpvejw7wzlm",
+      "bodySha256": "0xb9086b0224b025966df3c7aa5c41459c8a396ccf160da08ce9617d489b7ed95b",
+      "bytes": 2866,
       "clauseCount": 5,
       "statutes": [
         {
@@ -4961,6 +5573,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -5014,9 +5638,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiadhxzwmqewp7qcf4y7gukgpqfoz4q34lbame6i4yhthc734gdw6q",
-      "bodySha256": "0x033df36640967fe022f31f351467c0aecf21be2c20613c8e60f338bfbe1876f4",
-      "bytes": 2586,
+      "bodyCid": "bafkreifga6772ym6j3zm3nvetxbsivchplemobibm3rjedjspyweq2hgwm",
+      "bodySha256": "0xa607bffd619e4ef2cdb6a49dc32454477ac8c7050166e2920d327e2c4868e6b3",
+      "bytes": 2760,
       "clauseCount": 4,
       "statutes": [
         {
@@ -5086,6 +5710,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -5139,9 +5775,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreidlchhx4ue6h4lp4vlq7xjf3eivryiuzoatu4j5ditst6ojlhszhe",
-      "bodySha256": "0x6b11cf7e509e3f16fe5570fdd25d91158e114cb813a713d1a2729f9c959e5939",
-      "bytes": 3176,
+      "bodyCid": "bafkreibc4osmdnnlcifzyql4grhxpnmafp6vk5omt335umn4btx6cyzdva",
+      "bodySha256": "0x22e3a4c1b5ab120b9c417c344f77b5802bfd5575cc9ef7da31bc0cefe16323a8",
+      "bytes": 3437,
       "clauseCount": 4,
       "statutes": [
         {
@@ -5205,6 +5841,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -5265,6 +5913,12 @@
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
+          "id": "st.ae-civil-246",
+          "citation": "Federal Law 5/1985, Art. 246",
+          "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1083"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -5306,9 +5960,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreigf2qhfhrxeggiggwtqa6hm6whkwl25q5qx4u6niorl4yz7tsrj2i",
-      "bodySha256": "0xc5d40e53c6e43190635a70078ecf58eab2f5d87617e53cd43a2be633f9ca29d2",
-      "bytes": 2473,
+      "bodyCid": "bafkreib3z3rj7356qkgcntfox5hdzemgsdl3yngwftv2nvlrfkunc6pjde",
+      "bodySha256": "0x3bcee29fefbe828c26ccaebf4e3c918690d7bc34d62ceba6d5712aa8d179e919",
+      "bytes": 2647,
       "clauseCount": 3,
       "statutes": [
         {
@@ -5372,6 +6026,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -5425,9 +6091,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiex2mlfhlx6qsgcdyro5w7wt6tx5henylipqc2njw4tcfgpu3s7qi",
-      "bodySha256": "0x97d31653aefe848c21e22eedbf69fa77e9c8dc2d0f80b4d4db93114cfa6e5f82",
-      "bytes": 2327,
+      "bodyCid": "bafkreicniu374beyg47ph3drhgttzn5rc24b3hqslg6rcwx5j7r3xaxn6u",
+      "bodySha256": "0x4d4537fe0498373ef3ec7139a73cb7b116b81d9e1259bd115afd4fe3bb82edf5",
+      "bytes": 2501,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5483,6 +6149,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
@@ -5538,9 +6216,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreibnwnfywmqzax6m3v3wpktnzgofdnbvsfwjsh3l73ba3kt46xczju",
-      "bodySha256": "0x2db34b8b321905fccdd7767aa6dc99c51b435916c991f6bfec20daa7cf5c594d",
-      "bytes": 2311,
+      "bodyCid": "bafkreig3hpghg7erlhyseuogkiqekvgz7z54q3eauulxa2gkvquvh2m6lm",
+      "bodySha256": "0xdb3bcc737c9159f12251c652204554d9fe7bc86c80a5177068caac2953e99e5b",
+      "bytes": 2485,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5596,6 +6274,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
@@ -5651,9 +6341,9 @@
       "jurisdictions": [
         "ES"
       ],
-      "bodyCid": "bafkreibolyepngwa3ikzh4unlbgp3rreutaa7ytm4jf5zybmftnasl5fge",
-      "bodySha256": "0x2e5e08f69ac0da1593f28d584cfdc624a4c00fe26ce24bdce02c2cda092fa531",
-      "bytes": 2305,
+      "bodyCid": "bafkreib4zdtmv3furtfrilogdtbppouzkfdowduybcv3oszguwzkwukm4a",
+      "bodySha256": "0x3cc8e6caecb48ccb142dc61cc2f7ba995146eb0e9808abb74b26a5b2ab514ce0",
+      "bytes": 2479,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5709,6 +6399,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
@@ -5764,9 +6466,9 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreidwnpmil7wcy2oyg3xxwjwnxoc2istr552iawvkznocggkcrsorly",
-      "bodySha256": "0x766bd885fec2c69d836ef7b26cdbb85a44a71ef74805aaacb5c2319428c9d15e",
-      "bytes": 2308,
+      "bodyCid": "bafkreicae4zq43fuwu4bwgl3yckwwo6xzg3dtosn65yptux4lxo2bt5zda",
+      "bodySha256": "0x4027330e6cb4b5381b197bc0956b3bd7c9b639ba4df770f9d2fc5ddda0cfb918",
+      "bytes": 2482,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5822,6 +6524,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
@@ -5877,9 +6591,9 @@
       "jurisdictions": [
         "IN"
       ],
-      "bodyCid": "bafkreifxzkadpjq7iue3l3njol66d7aqnrwj33fflcuxdchwbaj35ynp4a",
-      "bodySha256": "0xb7ca8037a61f4509b5eda972fde1fc106c6c9deca558a97188f60813bee1afe0",
-      "bytes": 2343,
+      "bodyCid": "bafkreiakc32zzferskvy33wzbexfgvq4rqhu6htwntvpnbf2kgjbagivzy",
+      "bodySha256": "0x0a16f59c949192ab8deed9092e53561c8c0f4f1e766ceaf684ba5192101915ce",
+      "bytes": 2517,
       "clauseCount": 2,
       "statutes": [
         {
@@ -5935,6 +6649,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
@@ -5990,9 +6716,9 @@
       "jurisdictions": [
         "KR"
       ],
-      "bodyCid": "bafkreifybnisa7jgkpwf5igjmcjnledyc7yr4imlcbssg3acurjjy6pkvy",
-      "bodySha256": "0xb80b51207d2653ec5ea0c96092d5907817f11e218b1065236c02a4529c79eaae",
-      "bytes": 2300,
+      "bodyCid": "bafkreifs6nu6fkveqfsvfvsf5pflzd25a7koi5ytabaanednmlkebk67um",
+      "bodySha256": "0xb2f369e2aaa4816552d645ebcabc8f5d07d4e47713004006906d62d440abdfa3",
+      "bytes": 2474,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6050,6 +6776,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -6103,9 +6841,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreief5d3c4nj7yixdihbsu63kqa343rkqy2gxmq46kq3shfk4rjlfeu",
-      "bodySha256": "0x85e8f62e353fc22e341c32a7b6a8037cdc550c68d76439e543723955c8a56525",
-      "bytes": 3097,
+      "bodyCid": "bafkreiet6z3n7crzyeasomcznrbewvzxaxuw6t7jdtru3bah6z3x5kfdwq",
+      "bodySha256": "0x93f676df8a39c1012730596c424b573705e96f4fe91ce34d8407f6777ea8a3b4",
+      "bytes": 3271,
       "clauseCount": 6,
       "statutes": [
         {
@@ -6199,6 +6937,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -6252,9 +7002,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreids34q4vojytz4x7dmkvbxh7znbg7vbr5mkybrawfmymvgslbw7ja",
-      "bodySha256": "0x72df21cab9389e797f8d8aa86e7fe5a137ea18f58ac0620b1598654d2586df48",
-      "bytes": 2852,
+      "bodyCid": "bafkreihqvwd7efdc3vpchqrr5u2i5k33rfznvfbb3cqwkl2n5e2se5s3gi",
+      "bodySha256": "0xf0ad87f21462dd5e23c231ed348eab7b8972da9421d8a1652f4de93522765b32",
+      "bytes": 3026,
       "clauseCount": 5,
       "statutes": [
         {
@@ -6336,6 +7086,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -6389,9 +7151,9 @@
       "jurisdictions": [
         "BR"
       ],
-      "bodyCid": "bafkreihjrg75wom5pcbg3vp5m2zqyv3caxzdezsy276x57lrhrrekxyvae",
-      "bodySha256": "0xe989bfdb399d78826dd5fd66b30c576205f2326658d7fd7efd713c62455f1501",
-      "bytes": 2305,
+      "bodyCid": "bafkreiaceyysyqnh7bxm6gachehdrd4nci7kk5qsqwift4xb7su6pm5t4i",
+      "bodySha256": "0x0226312c41a7f86ecf1802390e388f8d123ea57612859059f2e1fca9e7b3b3e2",
+      "bytes": 2479,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6447,6 +7209,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
@@ -6502,9 +7276,9 @@
       "jurisdictions": [
         "CN"
       ],
-      "bodyCid": "bafkreidsqd3734bpabhf3toraz4po5pi2hqdzzukslhijuztlhe5ci6iwe",
-      "bodySha256": "0x7280f7fdf02f004e5dcdd10678f775e8d1e03ce68a92ce84d33359c9d123c8b1",
-      "bytes": 2290,
+      "bodyCid": "bafkreia3unyc6ljls4wbrphoeykeddrshyxe7yv5lxf6kxfins5pxlpk5q",
+      "bodySha256": "0x1ba3702f2d2b972c18bcee2614418e323e2e4fe2bd5dcbe55ca86cbafbadeaec",
+      "bytes": 2464,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6562,6 +7336,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -6615,9 +7401,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreifan3bquguqbnpj4twtq7dzqkgopunbhgpoekwqu6j5aaoeid3kpa",
-      "bodySha256": "0xa06ec30a1a900b5e9e4ed387c79828ce7d1a1399ee22ad0a793d001c440f6a78",
-      "bytes": 2422,
+      "bodyCid": "bafkreihqqrqax66olb5lc6zsd6rfyrfpck7hfhmtwdb333smkyyfe7mdmy",
+      "bodySha256": "0xf084600bfbce587ab17b321fa25c44af12be729d93b0c3bdee4c5630527d8366",
+      "bytes": 2596,
       "clauseCount": 3,
       "statutes": [
         {
@@ -6667,6 +7453,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
@@ -6734,9 +7532,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreifze5yki7q3ve7p35de3eechqtmxxcmpei2wdzetilndiyn5rrs2q",
-      "bodySha256": "0xb92770a47e1ba93efdf464d90823c26cbdc4c7911ab0f249a16d1a30dec632d4",
-      "bytes": 3588,
+      "bodyCid": "bafkreibxgbzdvt6lsxtn55dq5s3cdsvtx4xdjjcafq6xr7vuygkxq26pwe",
+      "bodySha256": "0x3730723acfcb95e6def470ecb621cab3bf2e34a4402c3d78feb4c195786bcfb1",
+      "bytes": 3849,
       "clauseCount": 7,
       "statutes": [
         {
@@ -6774,6 +7572,12 @@
           "citation": "PRC Civil Code, Art. 509",
           "instrument": "Civil Code of the People's Republic of China (2021)",
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
+        },
+        {
+          "id": "st.ae-civil-246",
+          "citation": "Federal Law 5/1985, Art. 246",
+          "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1083"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -6866,6 +7670,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -6919,9 +7735,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreialscqtu2kclnf6brhabe235xajihxgf7joxc36dmal3zrynei4qi",
-      "bodySha256": "0x0b90a13a69425b4be0c4e00935bedc0941ee62fd2eb8b7e1b00bde6386911c82",
-      "bytes": 2345,
+      "bodyCid": "bafkreifbcds6kj7xqtfghwvtpztclppxnn3mmoc7zxb3oolp2yjrf52yyq",
+      "bodySha256": "0xa110e5e527f784ca63dab37e6625bdf76b76c6385fcdc3b7396fd61312f758c4",
+      "bytes": 2519,
       "clauseCount": 4,
       "statutes": [
         {
@@ -6979,6 +7795,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -7032,9 +7860,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicianyfccxfmoaovze2lnil7wlm23n5dfgz4gcss2pzfh3shd2nxm",
-      "bodySha256": "0x480370510ae56380eae49a5b50bfd96cd6dbd194d9e1852969f929f7238f4dbb",
-      "bytes": 3430,
+      "bodyCid": "bafkreiad4vjcqno4zeby7npscspnjsnt74uv3vsbrha6kcoep2vnyrybii",
+      "bodySha256": "0x03e5522835dcc9038fb5f2149ed4c9b3ff295dd64189c1e509c47eaadc470142",
+      "bytes": 3604,
       "clauseCount": 6,
       "statutes": [
         {
@@ -7158,6 +7986,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -7211,9 +8051,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreid24vmzpzodqshjk7vpq4yak7bjy6svopntsl3uf2lzvnmpnw73ti",
-      "bodySha256": "0x7ae55997e5c3848e957eaf8730057c29c7a5573db392f742e979ab58f6dbfb9a",
-      "bytes": 4999,
+      "bodyCid": "bafkreif2qxyba7nv7o24jwftqaf7yxqyh5mxkqu5jurrm66errzkoal3xy",
+      "bodySha256": "0xba85f0107db5fbb5c4d8b3800bfc5e183f5975429d4d23167bc48c72a7017bbe",
+      "bytes": 5260,
       "clauseCount": 10,
       "statutes": [
         {
@@ -7391,6 +8231,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -7463,6 +8315,12 @@
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
         },
         {
+          "id": "st.ae-civil-246",
+          "citation": "Federal Law 5/1985, Art. 246",
+          "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1083"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -7504,9 +8362,9 @@
       "jurisdictions": [
         "US"
       ],
-      "bodyCid": "bafkreidifohbkgtarcbjh5s7yqyf233iqkrfibuzgyu6alprylhxafszhy",
-      "bodySha256": "0x682b8e151a60888293f65fc4305d6f6882a25406993629e02df1c2cf7016593e",
-      "bytes": 2530,
+      "bodyCid": "bafkreidnxxgrtx5ib3zyacksifchtbvaxnm3zddig6rygbm3dbvqvpu5oe",
+      "bodySha256": "0x6dbdcd19dfa80ef380095241447986a0bb59bc8c6837a383059b186b0abe9d71",
+      "bytes": 2704,
       "clauseCount": 4,
       "statutes": [
         {
@@ -7576,6 +8434,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -7629,9 +8499,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiab5cki2zighbj3hbgvol46oxoehh6sjz6d5ehjvqzk6xugrgdaxy",
-      "bodySha256": "0x01e8948d65063853b384d572f9e75dc439fd24e7c3e90e9ac32af5e8689860be",
-      "bytes": 3365,
+      "bodyCid": "bafkreibwclt37lugmhb32i3zu2ptdl3vcrubaltdbif5ttyg3l5cqa4w5q",
+      "bodySha256": "0x3612e7bfae8661c3bd2379a69f31af751468102e630a0bd9cf06dafa280396ec",
+      "bytes": 3626,
       "clauseCount": 7,
       "statutes": [
         {
@@ -7675,6 +8545,12 @@
           "citation": "PRC Civil Code, Art. 509",
           "instrument": "Civil Code of the People's Republic of China (2021)",
           "url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"
+        },
+        {
+          "id": "st.ae-civil-246",
+          "citation": "Federal Law 5/1985, Art. 246",
+          "instrument": "Civil Transactions Law (UAE Federal Law No. 5 of 1985)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1083"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -7749,6 +8625,18 @@
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
           "id": "st.id-ite-11",
           "citation": "UU No. 11/2008 (ITE), Pasal 11",
           "instrument": "Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)",
@@ -7802,9 +8690,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreia3opj7quvsds2i7lqqb76znielvruvaeijoyqijudmkjnfxzk7r4",
-      "bodySha256": "0x1b73d3f852b21cb48fae100ffd96a08bac69501109762084d06c525a5be55f8f",
-      "bytes": 2863,
+      "bodyCid": "bafkreiavcaugrcijf5wu7rj6nbrvphagn6gx73pwljahy3htvts3kd7nie",
+      "bodySha256": "0x1510286889092f6d4fc53e6863579c066f8d7fedf65a407c6cf3ace5b50fed41",
+      "bytes": 3037,
       "clauseCount": 5,
       "statutes": [
         {
@@ -7884,6 +8772,18 @@
           "citation": "PIPEDA, s.43",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.ng-evidence-93",
+          "citation": "Evidence Act 2011, s.93",
+          "instrument": "Evidence Act 2011 (Nigeria)",
+          "url": "https://www.placng.org/lawsofnigeria/laws/E14.pdf"
+        },
+        {
+          "id": "st.ae-etl-2021",
+          "citation": "Federal Decree-Law 46/2021, Art. 17",
+          "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
+          "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
           "id": "st.id-ite-11",
