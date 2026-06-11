@@ -2838,6 +2838,18 @@ PLATFORM_OVERRIDES["m365"] = {
     "Attendee": E(type="string", status="string", emailAddress="string"),
 }
 
+# Faithful Azure Compute model (the official Azure/azure-rest-api-specs
+# FROZEN stable snapshot 2025-11-01 ComputeRP.json, 428 definitions — the
+# landsat/dbt-style immutable-version anchor). Five spec-declared enums
+# enforced: priority(3)/evictionPolicy(2)/caching(3)/createOption(5)/
+# statusLevel(3). vmSize is an open string (no enum upstream) — nothing
+# fabricated.
+PLATFORM_OVERRIDES["azure"] = {
+    "VirtualMachine": E(vmId="string", provisioningState="string", priority="string", evictionPolicy="string", licenseType="string", extensionsTimeBudget="string", platformFaultDomain="integer", userData="string", timeCreated="datetime", vmSize="string"),
+    "OsDisk": E(osType="string", name="string", caching="string", writeAcceleratorEnabled="boolean", createOption="string", diskSizeGB="integer", deleteOption="string"),
+    "InstanceViewStatus": E(code="string", level="string", displayStatus="string", message="string", time="datetime"),
+}
+
 # Faithful AWS EC2 model (the official AWS-published wire model: botocore
 # service-2.json, apiVersion 2016-11-15 — date-versioned and additive).
 # Lifecycle enums enforced (InstanceStateName 6 / VolumeState 6 / VpcState 2

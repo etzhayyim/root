@@ -5,21 +5,60 @@
   "kind": "compat",
   "title": "azure clean-room actor",
   "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (azure); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic6xbl23s62d7uh4zuvvj4msplmyxklrpbfo67d6uuurisw5f2hfy",
+  "wasmCid": "bafkreiao3fi3dxmlxuoyuu5mr4kqpwkpd6ifk7vvi3ndckzaejqlagb6yu",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic6xbl23s62d7uh4zuvvj4msplmyxklrpbfo67d6uuurisw5f2hfy",
+  "ipfs": "ipfs://bafkreiao3fi3dxmlxuoyuu5mr4kqpwkpd6ifk7vvi3ndckzaejqlagb6yu",
   "schema": "schema/azure.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/compute/resource-manager/Microsoft.Compute/Compute/stable/2025-11-01/ComputeRP.json (official frozen stable snapshot, 428 definitions)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "VirtualMachine",
+      "OsDisk",
+      "InstanceViewStatus"
+    ],
+    "enums": {
+      "VirtualMachine": {
+        "priority": [
+          "Regular",
+          "Low",
+          "Spot"
+        ],
+        "evictionPolicy": [
+          "Deallocate",
+          "Delete"
+        ]
+      },
+      "OsDisk": {
+        "caching": [
+          "None",
+          "ReadOnly",
+          "ReadWrite"
+        ],
+        "createOption": [
+          "FromImage",
+          "Empty",
+          "Attach",
+          "Copy",
+          "Restore"
+        ]
+      },
+      "InstanceViewStatus": {
+        "level": [
+          "Info",
+          "Warning",
+          "Error"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Project",
-    "ComputeInstance",
-    "Volume",
-    "Bucket",
-    "Network",
-    "IamRole"
+    "VirtualMachine",
+    "OsDisk",
+    "InstanceViewStatus"
   ],
   "adr": [
     "260607",
@@ -31,157 +70,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/projects",
-          "op": "create Project"
+          "path": "/v1/virtualmachines",
+          "op": "create VirtualMachine"
         },
         {
           "method": "GET",
-          "path": "/v1/projects",
-          "op": "list Project"
+          "path": "/v1/virtualmachines",
+          "op": "list VirtualMachine"
         },
         {
           "method": "GET",
-          "path": "/v1/projects/{id}",
-          "op": "get Project"
+          "path": "/v1/virtualmachines/{id}",
+          "op": "get VirtualMachine"
         },
         {
           "method": "PATCH",
-          "path": "/v1/projects/{id}",
-          "op": "update Project"
+          "path": "/v1/virtualmachines/{id}",
+          "op": "update VirtualMachine"
         },
         {
           "method": "DELETE",
-          "path": "/v1/projects/{id}",
-          "op": "delete Project"
+          "path": "/v1/virtualmachines/{id}",
+          "op": "delete VirtualMachine"
         },
         {
           "method": "POST",
-          "path": "/v1/computeinstances",
-          "op": "create ComputeInstance"
+          "path": "/v1/osdisks",
+          "op": "create OsDisk"
         },
         {
           "method": "GET",
-          "path": "/v1/computeinstances",
-          "op": "list ComputeInstance"
+          "path": "/v1/osdisks",
+          "op": "list OsDisk"
         },
         {
           "method": "GET",
-          "path": "/v1/computeinstances/{id}",
-          "op": "get ComputeInstance"
+          "path": "/v1/osdisks/{id}",
+          "op": "get OsDisk"
         },
         {
           "method": "PATCH",
-          "path": "/v1/computeinstances/{id}",
-          "op": "update ComputeInstance"
+          "path": "/v1/osdisks/{id}",
+          "op": "update OsDisk"
         },
         {
           "method": "DELETE",
-          "path": "/v1/computeinstances/{id}",
-          "op": "delete ComputeInstance"
+          "path": "/v1/osdisks/{id}",
+          "op": "delete OsDisk"
         },
         {
           "method": "POST",
-          "path": "/v1/volumes",
-          "op": "create Volume"
+          "path": "/v1/instanceviewstatuses",
+          "op": "create InstanceViewStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/volumes",
-          "op": "list Volume"
+          "path": "/v1/instanceviewstatuses",
+          "op": "list InstanceViewStatus"
         },
         {
           "method": "GET",
-          "path": "/v1/volumes/{id}",
-          "op": "get Volume"
+          "path": "/v1/instanceviewstatuses/{id}",
+          "op": "get InstanceViewStatus"
         },
         {
           "method": "PATCH",
-          "path": "/v1/volumes/{id}",
-          "op": "update Volume"
+          "path": "/v1/instanceviewstatuses/{id}",
+          "op": "update InstanceViewStatus"
         },
         {
           "method": "DELETE",
-          "path": "/v1/volumes/{id}",
-          "op": "delete Volume"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/buckets",
-          "op": "create Bucket"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/buckets",
-          "op": "list Bucket"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/buckets/{id}",
-          "op": "get Bucket"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/buckets/{id}",
-          "op": "update Bucket"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/buckets/{id}",
-          "op": "delete Bucket"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/networks",
-          "op": "create Network"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/networks",
-          "op": "list Network"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/networks/{id}",
-          "op": "get Network"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/networks/{id}",
-          "op": "update Network"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/networks/{id}",
-          "op": "delete Network"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/iamroles",
-          "op": "create IamRole"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/iamroles",
-          "op": "list IamRole"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/iamroles/{id}",
-          "op": "get IamRole"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/iamroles/{id}",
-          "op": "update IamRole"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/iamroles/{id}",
-          "op": "delete IamRole"
+          "path": "/v1/instanceviewstatuses/{id}",
+          "op": "delete InstanceViewStatus"
         }
       ],
       "features": {
@@ -244,224 +208,62 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_project",
-          "description": "Create a Project.",
+          "name": "create_virtual_machine",
+          "description": "Create a VirtualMachine.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "vmId": {
                 "type": "string"
               },
-              "region": {
+              "provisioningState": {
                 "type": "string"
               },
-              "billingId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "region"
-            ]
-          }
-        },
-        {
-          "name": "list_projects",
-          "description": "List Projects.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_project",
-          "description": "Get a Project by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_project",
-          "description": "Update a Project.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "priority": {
                 "type": "string"
               },
-              "name": {
+              "evictionPolicy": {
                 "type": "string"
               },
-              "region": {
+              "licenseType": {
                 "type": "string"
               },
-              "billingId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_project",
-          "description": "Delete a Project.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_compute_instance",
-          "description": "Create a ComputeInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
+              "extensionsTimeBudget": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "machineType": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "machineType"
-            ]
-          }
-        },
-        {
-          "name": "list_compute_instances",
-          "description": "List ComputeInstances.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_compute_instance",
-          "description": "Get a ComputeInstance by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_compute_instance",
-          "description": "Update a ComputeInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "machineType": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_compute_instance",
-          "description": "Delete a ComputeInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_volume",
-          "description": "Create a Volume.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "sizeGb": {
+              "platformFaultDomain": {
                 "type": "integer"
               },
-              "type": {
+              "userData": {
                 "type": "string"
               },
-              "attachedTo": {
+              "timeCreated": {
+                "type": "string"
+              },
+              "vmSize": {
                 "type": "string"
               }
             },
             "required": [
-              "sizeGb",
-              "type"
+              "provisioningState",
+              "priority"
             ]
           }
         },
         {
-          "name": "list_volumes",
-          "description": "List Volumes.",
+          "name": "list_virtual_machines",
+          "description": "List VirtualMachines.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_volume",
-          "description": "Get a Volume by id.",
+          "name": "get_virtual_machine",
+          "description": "Get a VirtualMachine by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,24 +277,42 @@
           }
         },
         {
-          "name": "update_volume",
-          "description": "Update a Volume.",
+          "name": "update_virtual_machine",
+          "description": "Update a VirtualMachine.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "projectId": {
+              "vmId": {
                 "type": "string"
               },
-              "sizeGb": {
+              "provisioningState": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "string"
+              },
+              "evictionPolicy": {
+                "type": "string"
+              },
+              "licenseType": {
+                "type": "string"
+              },
+              "extensionsTimeBudget": {
+                "type": "string"
+              },
+              "platformFaultDomain": {
                 "type": "integer"
               },
-              "type": {
+              "userData": {
                 "type": "string"
               },
-              "attachedTo": {
+              "timeCreated": {
+                "type": "string"
+              },
+              "vmSize": {
                 "type": "string"
               }
             },
@@ -502,8 +322,8 @@
           }
         },
         {
-          "name": "delete_volume",
-          "description": "Delete a Volume.",
+          "name": "delete_virtual_machine",
+          "description": "Delete a VirtualMachine.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -517,41 +337,50 @@
           }
         },
         {
-          "name": "create_bucket",
-          "description": "Create a Bucket.",
+          "name": "create_os_disk",
+          "description": "Create a OsDisk.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
+              "osType": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "region": {
+              "caching": {
                 "type": "string"
               },
-              "public": {
+              "writeAcceleratorEnabled": {
                 "type": "boolean"
+              },
+              "createOption": {
+                "type": "string"
+              },
+              "diskSizeGB": {
+                "type": "integer"
+              },
+              "deleteOption": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "region"
+              "osType",
+              "name"
             ]
           }
         },
         {
-          "name": "list_buckets",
-          "description": "List Buckets.",
+          "name": "list_os_disks",
+          "description": "List OsDisks.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_bucket",
-          "description": "Get a Bucket by id.",
+          "name": "get_os_disk",
+          "description": "Get a OsDisk by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,25 +394,34 @@
           }
         },
         {
-          "name": "update_bucket",
-          "description": "Update a Bucket.",
+          "name": "update_os_disk",
+          "description": "Update a OsDisk.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "projectId": {
+              "osType": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "region": {
+              "caching": {
                 "type": "string"
               },
-              "public": {
+              "writeAcceleratorEnabled": {
                 "type": "boolean"
+              },
+              "createOption": {
+                "type": "string"
+              },
+              "diskSizeGB": {
+                "type": "integer"
+              },
+              "deleteOption": {
+                "type": "string"
               }
             },
             "required": [
@@ -592,8 +430,8 @@
           }
         },
         {
-          "name": "delete_bucket",
-          "description": "Delete a Bucket.",
+          "name": "delete_os_disk",
+          "description": "Delete a OsDisk.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -607,38 +445,44 @@
           }
         },
         {
-          "name": "create_network",
-          "description": "Create a Network.",
+          "name": "create_instance_view_status",
+          "description": "Create a InstanceViewStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
+              "code": {
                 "type": "string"
               },
-              "cidr": {
+              "level": {
                 "type": "string"
               },
-              "region": {
+              "displayStatus": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "time": {
                 "type": "string"
               }
             },
             "required": [
-              "cidr",
-              "region"
+              "code",
+              "level"
             ]
           }
         },
         {
-          "name": "list_networks",
-          "description": "List Networks.",
+          "name": "list_instance_view_statuses",
+          "description": "List InstanceViewStatuses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_network",
-          "description": "Get a Network by id.",
+          "name": "get_instance_view_status",
+          "description": "Get a InstanceViewStatus by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -652,21 +496,27 @@
           }
         },
         {
-          "name": "update_network",
-          "description": "Update a Network.",
+          "name": "update_instance_view_status",
+          "description": "Update a InstanceViewStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "projectId": {
+              "code": {
                 "type": "string"
               },
-              "cidr": {
+              "level": {
                 "type": "string"
               },
-              "region": {
+              "displayStatus": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "time": {
                 "type": "string"
               }
             },
@@ -676,92 +526,8 @@
           }
         },
         {
-          "name": "delete_network",
-          "description": "Delete a Network.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_iam_role",
-          "description": "Create a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "policy": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "policy"
-            ]
-          }
-        },
-        {
-          "name": "list_iam_roles",
-          "description": "List IamRoles.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_iam_role",
-          "description": "Get a IamRole by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_iam_role",
-          "description": "Update a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "policy": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_iam_role",
-          "description": "Delete a IamRole.",
+          "name": "delete_instance_view_status",
+          "description": "Delete a InstanceViewStatus.",
           "inputSchema": {
             "type": "object",
             "properties": {

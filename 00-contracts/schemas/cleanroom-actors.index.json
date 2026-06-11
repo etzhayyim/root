@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 787,
-    "L5": 213
+    "L4": 786,
+    "L5": 214
   },
   "actors": [
     {
@@ -1385,10 +1385,10 @@
     {
       "handle": "azure-compat",
       "did": "did:web:etzhayyim.com:actor:azure-compat",
-      "wasmCid": "bafkreic6xbl23s62d7uh4zuvvj4msplmyxklrpbfo67d6uuurisw5f2hfy",
+      "wasmCid": "bafkreiao3fi3dxmlxuoyuu5mr4kqpwkpd6ifk7vvi3ndckzaejqlagb6yu",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "azure clean-room actor",
       "category": "iaas_cloud",
       "capabilities": [

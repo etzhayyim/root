@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible cloud infrastructure (IaaS) actor (azure); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:azure-compat",
-    "x-wasm-cid": "bafkreic6xbl23s62d7uh4zuvvj4msplmyxklrpbfo67d6uuurisw5f2hfy",
+    "x-wasm-cid": "bafkreiao3fi3dxmlxuoyuu5mr4kqpwkpd6ifk7vvi3ndckzaejqlagb6yu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreic6xbl23s62d7uh4zuvvj4msplmyxklrpbfo67d6uuurisw5f2hfy",
+      "url": "ipfs://bafkreiao3fi3dxmlxuoyuu5mr4kqpwkpd6ifk7vvi3ndckzaejqlagb6yu",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/projects": {
+    "/v1/virtualmachines": {
       "get": {
-        "summary": "List Projects",
+        "summary": "List VirtualMachines",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Project"
+                        "$ref": "#/components/schemas/VirtualMachine"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Project",
+        "summary": "Create a VirtualMachine",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/VirtualMachineCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/VirtualMachine"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/projects/{id}": {
+    "/v1/virtualmachines/{id}": {
       "get": {
-        "summary": "Get a Project",
+        "summary": "Get a VirtualMachine",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/VirtualMachine"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Project",
+        "summary": "Update a VirtualMachine",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/VirtualMachineCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/VirtualMachine"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Project",
+        "summary": "Delete a VirtualMachine",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/computeinstances": {
+    "/v1/osdisks": {
       "get": {
-        "summary": "List ComputeInstances",
+        "summary": "List OsDisks",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ComputeInstance"
+                        "$ref": "#/components/schemas/OsDisk"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a ComputeInstance",
+        "summary": "Create a OsDisk",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
+                "$ref": "#/components/schemas/OsDiskCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/OsDisk"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/computeinstances/{id}": {
+    "/v1/osdisks/{id}": {
       "get": {
-        "summary": "Get a ComputeInstance",
+        "summary": "Get a OsDisk",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/OsDisk"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ComputeInstance",
+        "summary": "Update a OsDisk",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
+                "$ref": "#/components/schemas/OsDiskCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/OsDisk"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ComputeInstance",
+        "summary": "Delete a OsDisk",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/volumes": {
+    "/v1/instanceviewstatuses": {
       "get": {
-        "summary": "List Volumes",
+        "summary": "List InstanceViewStatuses",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Volume"
+                        "$ref": "#/components/schemas/InstanceViewStatus"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Volume",
+        "summary": "Create a InstanceViewStatus",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VolumeCreate"
+                "$ref": "#/components/schemas/InstanceViewStatusCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/InstanceViewStatus"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/volumes/{id}": {
+    "/v1/instanceviewstatuses/{id}": {
       "get": {
-        "summary": "Get a Volume",
+        "summary": "Get a InstanceViewStatus",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/InstanceViewStatus"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Volume",
+        "summary": "Update a InstanceViewStatus",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VolumeCreate"
+                "$ref": "#/components/schemas/InstanceViewStatusCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/InstanceViewStatus"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Volume",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/buckets": {
-      "get": {
-        "summary": "List Buckets",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Bucket"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Bucket",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Bucket"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/buckets/{id}": {
-      "get": {
-        "summary": "Get a Bucket",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Bucket"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Bucket",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Bucket"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Bucket",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/networks": {
-      "get": {
-        "summary": "List Networks",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Network"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Network",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Network"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/networks/{id}": {
-      "get": {
-        "summary": "Get a Network",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Network"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Network",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Network"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Network",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/iamroles": {
-      "get": {
-        "summary": "List IamRoles",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/IamRole"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a IamRole",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IamRole"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/iamroles/{id}": {
-      "get": {
-        "summary": "Get a IamRole",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IamRole"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a IamRole",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IamRole"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a IamRole",
+        "summary": "Delete a InstanceViewStatus",
         "parameters": [
           {
             "name": "id",
@@ -1140,120 +585,50 @@
   },
   "components": {
     "schemas": {
-      "Project": {
+      "VirtualMachine": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "vmId": {
             "type": "string"
           },
-          "region": {
+          "provisioningState": {
             "type": "string"
           },
-          "billingId": {
-            "type": "string"
-          },
-          "createdAt": {
+          "priority": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "Regular",
+              "Low",
+              "Spot"
+            ]
           },
-          "updatedAt": {
+          "evictionPolicy": {
             "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProjectCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
+            "enum": [
+              "Deallocate",
+              "Delete"
+            ]
+          },
+          "licenseType": {
             "type": "string"
           },
-          "region": {
+          "extensionsTimeBudget": {
             "type": "string"
           },
-          "billingId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "region"
-        ]
-      },
-      "ComputeInstance": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "machineType": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ComputeInstanceCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "machineType": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "machineType"
-        ]
-      },
-      "Volume": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "sizeGb": {
+          "platformFaultDomain": {
             "type": "integer"
           },
-          "type": {
+          "userData": {
             "type": "string"
           },
-          "attachedTo": {
+          "timeCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vmSize": {
             "type": "string"
           },
           "createdAt": {
@@ -1266,45 +641,93 @@
           }
         }
       },
-      "VolumeCreate": {
+      "VirtualMachineCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
+          "vmId": {
             "type": "string"
           },
-          "sizeGb": {
+          "provisioningState": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "Regular",
+              "Low",
+              "Spot"
+            ]
+          },
+          "evictionPolicy": {
+            "type": "string",
+            "enum": [
+              "Deallocate",
+              "Delete"
+            ]
+          },
+          "licenseType": {
+            "type": "string"
+          },
+          "extensionsTimeBudget": {
+            "type": "string"
+          },
+          "platformFaultDomain": {
             "type": "integer"
           },
-          "type": {
+          "userData": {
             "type": "string"
           },
-          "attachedTo": {
+          "timeCreated": {
+            "type": "string"
+          },
+          "vmSize": {
             "type": "string"
           }
         },
         "required": [
-          "sizeGb",
-          "type"
+          "provisioningState",
+          "priority"
         ]
       },
-      "Bucket": {
+      "OsDisk": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
+          "osType": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
+          "caching": {
+            "type": "string",
+            "enum": [
+              "None",
+              "ReadOnly",
+              "ReadWrite"
+            ]
           },
-          "public": {
+          "writeAcceleratorEnabled": {
             "type": "boolean"
           },
+          "createOption": {
+            "type": "string",
+            "enum": [
+              "FromImage",
+              "Empty",
+              "Attach",
+              "Copy",
+              "Restore"
+            ]
+          },
+          "diskSizeGB": {
+            "type": "integer"
+          },
+          "deleteOption": {
+            "type": "string"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -1315,41 +738,74 @@
           }
         }
       },
-      "BucketCreate": {
+      "OsDiskCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
+          "osType": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
+          "caching": {
+            "type": "string",
+            "enum": [
+              "None",
+              "ReadOnly",
+              "ReadWrite"
+            ]
           },
-          "public": {
+          "writeAcceleratorEnabled": {
             "type": "boolean"
+          },
+          "createOption": {
+            "type": "string",
+            "enum": [
+              "FromImage",
+              "Empty",
+              "Attach",
+              "Copy",
+              "Restore"
+            ]
+          },
+          "diskSizeGB": {
+            "type": "integer"
+          },
+          "deleteOption": {
+            "type": "string"
           }
         },
         "required": [
-          "name",
-          "region"
+          "osType",
+          "name"
         ]
       },
-      "Network": {
+      "InstanceViewStatus": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
+          "code": {
             "type": "string"
           },
-          "cidr": {
+          "level": {
+            "type": "string",
+            "enum": [
+              "Info",
+              "Warning",
+              "Error"
+            ]
+          },
+          "displayStatus": {
             "type": "string"
           },
-          "region": {
+          "message": {
             "type": "string"
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1361,65 +817,33 @@
           }
         }
       },
-      "NetworkCreate": {
+      "InstanceViewStatusCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
+          "code": {
             "type": "string"
           },
-          "cidr": {
+          "level": {
+            "type": "string",
+            "enum": [
+              "Info",
+              "Warning",
+              "Error"
+            ]
+          },
+          "displayStatus": {
             "type": "string"
           },
-          "region": {
+          "message": {
+            "type": "string"
+          },
+          "time": {
             "type": "string"
           }
         },
         "required": [
-          "cidr",
-          "region"
-        ]
-      },
-      "IamRole": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "policy": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "IamRoleCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "policy": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "policy"
+          "code",
+          "level"
         ]
       }
     }

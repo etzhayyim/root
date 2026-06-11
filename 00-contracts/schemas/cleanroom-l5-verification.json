@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 213,
+  "count": 214,
   "actors": [
     {
       "handle": "aave-compat",
@@ -3164,6 +3164,98 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (3/3) vs AWS's official open-source schema package. Enforced enums: ExecutionWindow.executionDay(10, calendar-anchored, singular 'Weekend' preserved) = 1 enum field."
+    },
+    {
+      "handle": "azure-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/compute/resource-manager/Microsoft.Compute/Compute/stable/2025-11-01/ComputeRP.json (official frozen stable snapshot, 428 definitions)",
+      "remodeled": "Remodeled to the faithful Azure Compute surface verified against the OFFICIAL Azure/azure-rest-api-specs FROZEN stable snapshot (2025-11-01 ComputeRP.json — Azure ships breaking/additive changes as NEW dated stable directories, making each snapshot immutable: the landsat/dbt-style anchor). Five spec-declared enums enforced: VirtualMachinePriorityTypes(3: Regular/Low/Spot), VirtualMachineEvictionPolicyTypes(2: Deallocate/Delete), CachingTypes(3: None/ReadOnly/ReadWrite), DiskCreateOptionTypes(5), StatusLevelTypes(3: Info/Warning/Error). vmSize is an open string upstream (no enum declared — the size catalog grows continuously) -> nothing fabricated. The big-three clouds are now ALL L5 (aws/gcp/azure). Harness-direct.",
+      "resources": [
+        {
+          "entity": "VirtualMachine",
+          "source": "https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/compute/resource-manager/Microsoft.Compute/Compute/stable/2025-11-01/ComputeRP.json (official frozen stable snapshot, 428 definitions)",
+          "verifiedFields": [
+            "vmId",
+            "provisioningState",
+            "priority",
+            "evictionPolicy",
+            "licenseType",
+            "extensionsTimeBudget",
+            "platformFaultDomain",
+            "userData",
+            "timeCreated",
+            "vmSize"
+          ],
+          "fieldStatus": "confirmed (VirtualMachineProperties + HardwareProfile.vmSize)",
+          "discoveredEnums": {
+            "priority": [
+              "Regular",
+              "Low",
+              "Spot"
+            ],
+            "evictionPolicy": [
+              "Deallocate",
+              "Delete"
+            ]
+          },
+          "gaps": [
+            "vmSize-open-string-upstream (size catalog grows)",
+            "provisioningState-untyped-string-upstream"
+          ]
+        },
+        {
+          "entity": "OsDisk",
+          "source": "https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/compute/resource-manager/Microsoft.Compute/Compute/stable/2025-11-01/ComputeRP.json (official frozen stable snapshot, 428 definitions)",
+          "verifiedFields": [
+            "osType",
+            "name",
+            "caching",
+            "writeAcceleratorEnabled",
+            "createOption",
+            "diskSizeGB",
+            "deleteOption"
+          ],
+          "fieldStatus": "confirmed (OSDisk definition)",
+          "discoveredEnums": {
+            "caching": [
+              "None",
+              "ReadOnly",
+              "ReadWrite"
+            ],
+            "createOption": [
+              "FromImage",
+              "Empty",
+              "Attach",
+              "Copy",
+              "Restore"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "InstanceViewStatus",
+          "source": "https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/compute/resource-manager/Microsoft.Compute/Compute/stable/2025-11-01/ComputeRP.json (official frozen stable snapshot, 428 definitions)",
+          "verifiedFields": [
+            "code",
+            "level",
+            "displayStatus",
+            "message",
+            "time"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "level": [
+              "Info",
+              "Warning",
+              "Error"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs the official frozen stable snapshot. Enforced enums: priority(3)+evictionPolicy(2)+caching(3)+createOption(5)+level(3) = 5 enum fields at the 2025-11-01 anchor. THE BIG-THREE CLOUDS ARE ALL L5 (aws/gcp/azure)."
     },
     {
       "handle": "bandwidth-compat",

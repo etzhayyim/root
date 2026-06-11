@@ -746,3 +746,17 @@ seven Outlook-era-stable enums: importance(3) ×2 + bodyContentType(2) +
 showAs(6) + sensitivity(4) + attendeeType(3) + responseType(6).
 calendarColor (maxColor sentinel) and onlineMeetingProvider (grew) gapped.
 The CSDL seam leaves 800+ declared EnumTypes available for future depth.
+
+### §16.19 /loop iteration 18 — wave 19: Azure, completing the big-three clouds (214, 21.4%)
+
+azure → ledger **214** (786 L4 / 214 L5 = 21.4%), enforced 206 / **857 enum
+fields** (+5), verify PASS 0/0, contract suite green. Harness-direct.
+
+The official azure-rest-api-specs FROZEN stable snapshot (2025-11-01
+ComputeRP.json, 428 definitions) is an immutable-version anchor — Azure
+ships changes as new dated stable directories. Enforced: priority(3) +
+evictionPolicy(2) + caching(3) + createOption(5) + statusLevel(3). vmSize
+is an open string upstream (the size catalog grows continuously) — nothing
+fabricated. **The big-three clouds (aws / gcp / azure) are now all L5**,
+each on its own official machine-readable contract: botocore wire model /
+Discovery document / frozen stable snapshot.

@@ -1277,17 +1277,14 @@
       "handle": "azure-compat",
       "platform": "azure",
       "bytes": 2119,
-      "wasmCid": "bafkreic6xbl23s62d7uh4zuvvj4msplmyxklrpbfo67d6uuurisw5f2hfy",
+      "wasmCid": "bafkreiao3fi3dxmlxuoyuu5mr4kqpwkpd6ifk7vvi3ndckzaejqlagb6yu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Project",
-        "ComputeInstance",
-        "Volume",
-        "Bucket",
-        "Network",
-        "IamRole"
+        "VirtualMachine",
+        "OsDisk",
+        "InstanceViewStatus"
       ]
     },
     {

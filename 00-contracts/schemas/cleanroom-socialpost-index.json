@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 205,
-  "totalVerifiedEnumFields": 852,
+  "l5VerifiedActors": 206,
+  "totalVerifiedEnumFields": 857,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -777,8 +777,8 @@
       "source": "azure.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 5
     },
     {
       "handle": "b_pipe-compat",

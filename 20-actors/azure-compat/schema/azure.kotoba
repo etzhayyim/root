@@ -3,71 +3,44 @@
 
 namespace azure {
 
-    entity Project {
+    entity VirtualMachine {
         id: string @unique
+        vmId: string
+        provisioningState: string
+        priority: string
+        evictionPolicy: string
+        licenseType: string
+        extensionsTimeBudget: string
+        platformFaultDomain: integer
+        userData: string
+        timeCreated: datetime
+        vmSize: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity OsDisk {
+        id: string @unique
+        osType: string
         name: string
-        region: string
-        billingId: string
+        caching: string
+        writeAcceleratorEnabled: boolean
+        createOption: string
+        diskSizeGB: integer
+        deleteOption: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ComputeInstance {
+    entity InstanceViewStatus {
         id: string @unique
-        projectId: string
-        name: string
-        machineType: string
-        state: string
-        ipAddress: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Volume {
-        id: string @unique
-        projectId: string
-        sizeGb: integer
-        type: string
-        attachedTo: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Bucket {
-        id: string @unique
-        projectId: string
-        name: string
-        region: string
-        public: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Network {
-        id: string @unique
-        projectId: string
-        cidr: string
-        region: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity IamRole {
-        id: string @unique
-        projectId: string
-        name: string
-        policy: string
+        code: string
+        level: string
+        displayStatus: string
+        message: string
+        time: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
