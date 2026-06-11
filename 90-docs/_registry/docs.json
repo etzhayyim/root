@@ -23726,6 +23726,48 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606111000-seigyo-industrial-control-layer-tier-b-actor-r0.md",
+      "id": "adr-2606111000-seigyo-industrial-control-layer-tier-b-actor-r0",
+      "title": "ADR-2606111000: seigyo (制御) — open industrial control layer (PLC / SCADA / DCS-equivalent, ISA-95 L0–L2) Tier-B actor R0 charter",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "seigyo-industrial-control-layer-r0",
+      "authoritative": true,
+      "authoritative_for": [
+        "seigyo actor R0 charter",
+        "industrial control layer (ISA-95 L0–L2) single SoT: PLC runtime, SCADA, fieldbus, historian",
+        "`com.etzhayyim.seigyo.*` Lexicon namespace boundary",
+        "commercial DCS/PLC/SCADA vendor prohibition (generalizes ADR-2605265000 §1.9 from district-heat to ALL actors)",
+        "safety-path invariant (hardwired interlocks; software/inference advisory-only above L2)",
+        "PLC-program-as-attested-record lifecycle (IEC 61131-3 ST canonical, CID-addressed, runtime hash attestation)",
+        "aggregate-only northbound telemetry invariant (N7 inheritance; full-rate data never leaves site historian)",
+        "bounded-setpoint-envelope invariant for Murakumo optimization proposals"
+      ],
+      "related": [
+        "adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
+        "adr-2605261330-futawa-motorcycle-tier-b-actor-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605261100-hikari-energy-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605265000-district-heating-cooling-d-gate-evaluation-r0",
+        "adr-2604252100-robotics-product-manufacturing-package",
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605261200-igata-megacasting-tier-b-actor-r0",
+        "adr-2605261215-igata-r1-benchtop-commissioning",
+        "adr-2605250545-yakushi-pharma-supply-chain-and-robotics"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606111011-session-close-land-hydrogen-branch-to-main.md",
       "id": "adr-2606111011",
       "title": "ADR-2606111011: Session-Close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)",
@@ -23747,6 +23789,29 @@
         "ADR-2606110955 (the follow-up this executes)"
       ],
       "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111100-seigyo-r1-benchtop-loop-commissioning.md",
+      "id": "adr-2606111100-seigyo-r1-benchtop-loop-commissioning",
+      "title": "seigyo R1 — Benchtop temperature-PID loop commissioning and Council baseline (paired with igata R1 benchtop)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "seigyo/control-layer/benchtop-loop",
+      "authoritative": true,
+      "depends_on": [
+        "ADR-2606111000",
+        "ADR-2605261215",
+        "ADR-2605192100",
+        "ADR-2605192200",
+        "ADR-2605215000"
+      ],
+      "last_verified": "2026-06-11T00:00:00Z",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },
