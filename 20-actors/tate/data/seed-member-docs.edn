@@ -212,6 +212,30 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 20 (:au/:ca enforcement + :nz) ──────────────────────────────────────
+ {:doc/id "doc:nz-terms" :doc/label "NZ subscription terms (synthetic)"
+  :doc/jurisdiction :nz
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Consumer guarantees do not apply to this service. Your plan automatically rolls over each year."}
+
+ {:notice/id "ntc:au-garnishee" :notice/label "AU garnishee order (mail・執行)"
+  :notice/jurisdiction :au
+  :notice/channel :mail :notice/claim-amount 4200 :notice/claim-currency "AUD"
+  :notice/sourcing :synthetic
+  :notice/text "Garnishee order for wages served on your employer."}
+
+ {:notice/id "ntc:ca-garnish" :notice/label "CA notice of garnishment (mail・執行 ON)"
+  :notice/jurisdiction :ca
+  :notice/channel :mail :notice/claim-amount 3900 :notice/claim-currency "CAD"
+  :notice/sourcing :synthetic
+  :notice/text "Notice of garnishment issued to your employer."}
+
+ {:notice/id "ntc:nz-dt" :notice/label "NZ Disputes Tribunal claim (email — 公式)"
+  :notice/jurisdiction :nz
+  :notice/channel :email :notice/claim-amount 2600 :notice/claim-currency "NZD"
+  :notice/sourcing :synthetic
+  :notice/text "A claim has been lodged with the Disputes Tribunal. Attend the hearing on the stated date."}
+
  ;; ── wave 19 (:kr insolvency + :au family) ────────────────────────────────────
  {:notice/id "ntc:kr-singo" :notice/label "회생절차 채권신고 안내 (郵送・倒産)"
   :notice/jurisdiction :kr

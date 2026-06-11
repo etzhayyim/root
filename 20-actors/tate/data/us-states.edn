@@ -218,4 +218,40 @@
   :state/answer-rule "justice court: 送達から20日以内に answer"
   :state/answer-anchor "JCRCP 12(a)"
   :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ ;; ── wave 20 (+5: IA MS AR KS NM) ─────────────────────────────────────────────
+ {:state/id :us-ia :state/label "Iowa"
+  :state/small-claims-usd 6500
+  :state/answer-rule "small claims: 送達から20日以内に appearance"
+  :state/answer-anchor "Iowa Code ch. 631"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ms :state/label "Mississippi"
+  :state/small-claims-usd 3500
+  :state/answer-rule "justice court: summons 記載の trial date に出頭"
+  :state/answer-anchor "Miss. Code §11-9-101 以下"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ar :state/label "Arkansas"
+  :state/small-claims-usd 5000
+  :state/answer-rule "small claims (district court): 送達から30日以内に answer"
+  :state/answer-anchor "Ark. Dist. Ct. R. 10"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ks :state/label "Kansas"
+  :state/small-claims-usd 4000
+  :state/answer-rule "small claims: 通知記載の trial date に出頭 (書面 answer 不要)"
+  :state/answer-anchor "K.S.A. ch. 61 art. 27"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-nm :state/label "New Mexico"
+  :state/small-claims-usd 10000
+  :state/answer-rule "magistrate/metropolitan court: 送達から20日以内に answer"
+  :state/answer-anchor "NMRA 2-301 系"
+  :state/arl "—"
   :state/sourcing :representative :state/verify-current-law true}]

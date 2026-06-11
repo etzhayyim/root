@@ -92,6 +92,17 @@ def test_manifest_jurisdictions_in_sync():
     assert declared == actual, (sorted(declared - actual), sorted(actual - declared))
 
 
+def test_civil_only_jurisdictions_named():
+    """Wave 20: jurisdictions with no specialty track yet are computed and NAMED
+    (the matrix's empty rows become a worklist, not silence)."""
+    cov = coverage()
+    co = cov["civil_only_jurisdictions"]
+    assert ":it" in co and ":es" in co  # known civil-only rows today
+    for j in (":jp", ":us", ":de", ":kr", ":fr", ":au", ":ca", ":uk"):
+        assert j not in co
+    assert any("専門トラック未開削" in g for g in cov["named_gaps"])
+
+
 def test_report_names_the_gap():
     text = report(coverage())
     assert "named gaps" in text.lower() or "Named gaps" in text

@@ -319,6 +319,21 @@
   :clause/anchor "LFPC arts. 85–86 (contrato de adhesión の要件) — 解約導線のカレンダー化"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ ;; ── :nz — Aotearoa NZ (G10) ──────────────────────────────────────────────────
+ {:clause/id "cl:nz-cga-exclusion" :clause/label "consumer guarantees の排除"
+  :clause/jurisdiction :nz
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["consumer guarantees do not apply"]
+  :clause/anchor "Consumer Guarantees Act 1993 s.43 (消費者取引での排除条項は無効)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:nz-auto-renewal" :clause/label "automatically rolls over (自動更新)"
+  :clause/jurisdiction :nz
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["automatically rolls over"]
+  :clause/anchor "Fair Trading Act 1986 (unfair contract terms regime) — 解約窓のカレンダー化"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
  ;; ── :no — Norge (G10) ────────────────────────────────────────────────────────
  {:clause/id "cl:no-ansvarsfraskrivelse" :clause/label "全部免責 (ansvarsfraskrivelse)"
   :clause/jurisdiction :no

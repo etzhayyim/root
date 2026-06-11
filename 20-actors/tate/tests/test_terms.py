@@ -174,6 +174,9 @@ def test_intl_expected_shapes_hit():
     # wave 16 (:ar — botón de baja)
     assert ("doc:ar-terminos", "cl:ar-exoneracion") in hits
     assert ("doc:ar-terminos", "cl:ar-renovacion") in hits
+    # wave 20 (:nz)
+    assert ("doc:nz-terms", "cl:nz-cga-exclusion") in hits
+    assert ("doc:nz-terms", "cl:nz-auto-renewal") in hits
 
 
 def test_jurisdiction_isolation():

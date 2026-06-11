@@ -725,6 +725,25 @@ def test_universal_protective_invariant():
             p[":proc/id"]
 
 
+def test_wave20_enforcement_au_ca_and_nz():
+    """Wave 20: 賃金差押え保護が7管轄に (:au protected amount NSW CPA ss.119/122 ·
+    :ca ON Wages Act s.7 80%差押禁止); :nz Disputes Tribunal — **email が宣言された
+    genuine channel である初の管轄** (declared-digital は G6 ガードの例外として
+    registry が意図的に選ぶ)."""
+    ps, _ = _by_id()
+    au = ps["ntc:au-garnishee"]
+    assert au["status"] == ":genuine" and au["proc"] == "proc:au-garnishee"
+    assert any("ss.119" in d["anchor"] for d in au["deadlines"])
+    ca = ps["ntc:ca-garnish"]
+    assert ca["status"] == ":genuine" and ca["proc"] == "proc:ca-garnishment"
+    assert any("80%" in d["rule"] for d in ca["deadlines"])
+    nz = ps["ntc:nz-dt"]
+    assert nz["status"] == ":genuine" and nz["proc"] == "proc:nz-disputes-tribunal"
+    assert nz["channel"] == ":email"  # declared digital channel — genuine by registry choice
+    assert any("弁護士代理は法律で原則排除" in d["rule"] or "s.38" in d["anchor"]
+               for d in nz["deadlines"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

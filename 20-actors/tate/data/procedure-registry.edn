@@ -641,6 +641,22 @@
                     "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:au-garnishee" :proc/label "Garnishee order (賃金差押え・執行・豪州)"
+  :proc/jurisdiction :au :proc/track :enforcement
+  :proc/trigger-keywords ["garnishee order"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Protected amount (生計保護)"
+    :dl/rule "賃金 garnishee では weekly protected (standard) amount が必ず手元に残される — 生活維持分は法律上保護; Centrelink 給付は原則差押え不可"
+    :dl/anchor "NSW Civil Procedure Act 2005 ss.119・122" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :protected-check :opt/kind :self-decide :opt/protective true
+    :opt/label "protected amount が控除されているか給与明細で確認 (不足は court registry へ)"}
+   {:opt/id :instalment-order :opt/kind :self-submit
+    :opt/label "支払困難なら instalment order (分割) を裁判所へ申立て"}]
+  :proc/refer-when ["多重債務 → National Debt Helpline 1800 007 007 (無料)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:au-statement-of-claim" :proc/label "Statement of claim (民事・豪州)"
   :proc/jurisdiction :au
   :proc/trigger-keywords ["statement of claim"]
@@ -688,6 +704,22 @@
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
     :opt/label "鍵交換・追い出しは違法 — 執行は LTB order + Sheriff のみ; 受けたら Rental Housing Enforcement Unit へ"}]
   :proc/refer-when ["LTB hearing → Tenant Duty Counsel (無料)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:ca-garnishment" :proc/label "Notice of garnishment (賃金差押え・執行・カナダ ON)"
+  :proc/jurisdiction :ca :proc/track :enforcement
+  :proc/trigger-keywords ["notice of garnishment"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "80% 保護 (生計保護)"
+    :dl/rule "ON では賃金の80%が差押禁止 (差押え可能は20%まで; support 債権は50%まで) — hardship なら判事が保護割合をさらに増やせる"
+    :dl/anchor "ON Wages Act s.7" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :exemption-motion :opt/kind :self-submit :opt/protective true
+    :opt/label "生活困難なら保護割合の引上げを motion で申立て (Wages Act s.7(3) — 法定の権利)"}
+   {:opt/id :dispute-garnishment :opt/kind :self-submit
+    :opt/label "債務に争いがあれば garnishment hearing を請求"}]
+  :proc/refer-when ["多重債務 → 公認 credit counselling (非営利)"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:ca-plaintiffs-claim" :proc/label "Plaintiff's claim (small claims・カナダ ON)"
@@ -915,6 +947,21 @@
   [{:opt/id :comparution :opt/kind :self-decide :opt/label "audience に出頭 (juge de paix ≤€5,000 は本人可)"}
    {:opt/id :conclusions :opt/kind :self-submit :opt/label "conclusions (書面の言い分) を greffe へ"}]
   :proc/refer-when ["€5,000 超 → avocat (pro deo の資力要件を確認)"]
+  :proc/verify-current-law true}
+
+ ;; ── :nz ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:nz-disputes-tribunal" :proc/label "Disputes Tribunal claim (ニュージーランド)"
+  :proc/jurisdiction :nz
+  :proc/trigger-keywords ["disputes tribunal"]
+  :proc/genuine-channels [:mail :email] ; NZ Tribunal は email 通知が公式 — 宣言された digital channel
+  :proc/deadline-rules
+  [{:dl/label "Response / hearing 出席"
+    :dl/rule "claim notice 記載の hearing までに response・出席 — ≤NZ$30,000; 弁護士代理は法律で原則排除 (本人手続前提)"
+    :dl/anchor "Disputes Tribunal Act 1988 (s.38 lawyers excluded)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :respond :opt/kind :self-submit :opt/label "response を Tribunal へ (オンライン可)"}
+   {:opt/id :attend :opt/kind :self-decide :opt/label "hearing に出席 (referee による調停的審理)"}]
+  :proc/refer-when ["NZ$30,000 超 → District Court / Community Law"]
   :proc/verify-current-law true}
 
  ;; ── :mx ──────────────────────────────────────────────────────────────────────
