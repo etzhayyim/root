@@ -171,10 +171,10 @@ def test_uk_claim_referral_over_line():
 
 
 def test_unknown_jurisdiction_degrades_honestly():
-    """G10: an uncovered jurisdiction (:mx — the fixture moved off :br when wave 4
-    covered Brazil) gets NO deadlines/options — tate never guesses foreign law."""
+    """G10: an uncovered jurisdiction (:ar — fixture lineage :br → :mx → :ar as
+    coverage grows) gets NO deadlines/options — tate never guesses foreign law."""
     ps, _ = _by_id()
-    p = ps["ntc:mx-unknown"]
+    p = ps["ntc:ar-unknown"]
     assert p["status"] == ":unknown-jurisdiction"
     assert p["deadlines"] == [] and p["options"] == []
     assert p["steps"][0]["verb"] == "declare-uncovered"
@@ -567,6 +567,27 @@ def test_wave13_no_forliksraadet():
     assert no["status"] == ":genuine" and no["proc"] == "proc:no-forliksklage"
     assert any("tvisteloven" in d["anchor"] for d in no["deadlines"])
     assert any("fraværsdom" in d["rule"] for d in no["deadlines"])
+
+
+def test_wave14_matrix_fill_and_mx():
+    """Wave 14: matrix empty-cell fills — :us labor (at-will honesty + EEOC 180/300d
+    private-suit precondition) · :uk enforcement (7 clear days + exempt goods) ·
+    :fr enforcement (saisie contestation 1 mois + SBI auto-protection, the French
+    P-Konto) — and :mx covered (fixture moved to :ar)."""
+    ps, _ = _by_id()
+    us = ps["ntc:us-term"]
+    assert us["status"] == ":genuine" and us["proc"] == "proc:us-termination"
+    assert any("at-will" in d["rule"] and "§2000e-5" in d["anchor"] for d in us["deadlines"])
+    uk = ps["ntc:uk-noe"]
+    assert uk["status"] == ":genuine" and uk["proc"] == "proc:uk-notice-of-enforcement"
+    assert any("7 clear days" in d["rule"] for d in uk["deadlines"])
+    assert any(o["id"] == ":exempt-goods" for o in uk["options"])
+    fr = ps["ntc:fr-saisie"]
+    assert fr["status"] == ":genuine" and fr["proc"] == "proc:fr-saisie-attribution"
+    assert any("R.162-2" in d["anchor"] for d in fr["deadlines"])  # SBI 自動保護
+    mx = ps["ntc:mx-empl"]
+    assert mx["status"] == ":genuine" and mx["proc"] == "proc:mx-emplazamiento"
+    assert any("entidad federativa" in d["rule"] for d in mx["deadlines"])  # 州差の開示
 
 
 def test_procedures_never_cross_jurisdictions():

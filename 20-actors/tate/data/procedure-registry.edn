@@ -277,6 +277,25 @@
                     "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:us-termination" :proc/label "Notice of termination (解雇・労働・米国)"
+  :proc/jurisdiction :us :proc/track :labor
+  :proc/trigger-keywords ["termination of employment" "your employment with the company ends"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "EEOC charge (差別解雇)"
+    :dl/rule "米国は原則 at-will (解雇自体は広く適法) — ただし差別・報復が疑われる場合、EEOC charge を180日 (州 FEPA があれば300日) 以内に — 私訴の前提条件"
+    :dl/anchor "Title VII / 42 U.S.C. §2000e-5(e)(1)" :dl/verify-service-date true}
+   {:dl/label "Unemployment insurance"
+    :dl/rule "UI は速やかに申請 (遡及が利かない州が多い); final paycheck の支払期限は州法"
+    :dl/anchor "州 UI law / 州 final-pay statutes" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :eeoc-charge :opt/kind :self-submit :opt/protective true
+    :opt/label "差別・報復の疑いがあれば EEOC charge (オンライン可・無料)"}
+   {:opt/id :ui-claim :opt/kind :self-submit :opt/label "州の unemployment insurance を即申請"}
+   {:opt/id :final-pay :opt/kind :self-decide :opt/label "final paycheck・未消化 PTO の州期限を確認"}]
+  :proc/refer-when ["severance agreement へのサイン前 → 必ずレビュー (請求権放棄条項)"]
+  :proc/verify-current-law true}
+
  ;; ── :eu ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:eu-order-for-payment" :proc/label "European Order for Payment (欧州支払命令)"
   :proc/jurisdiction :eu
@@ -472,6 +491,22 @@
   [{:opt/id :opposition :opt/kind :self-submit :opt/label "発令裁判所の greffe へ opposition を提出 (→ 対審手続へ)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/échéancier の交渉"}]
   :proc/refer-when ["€10,000 超 (représentation par avocat 義務域)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:uk-notice-of-enforcement" :proc/label "Notice of enforcement (執行・英国)"
+  :proc/jurisdiction :uk :proc/track :enforcement
+  :proc/trigger-keywords ["notice of enforcement"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "7 clear days"
+    :dl/rule "enforcement agent は notice から7 clear days 経過後にのみ訪問できる — この間が支払交渉/controlled goods agreement の窓"
+    :dl/anchor "Tribunals, Courts and Enforcement Act 2007 Sch 12 / Taking Control of Goods Regs 2013" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :negotiate :opt/kind :self-decide :opt/label "7日以内に支払/分割を書面で交渉 (訪問費用の加算を防ぐ)"}
+   {:opt/id :exempt-goods :opt/kind :self-decide :opt/protective true
+    :opt/label "生活必需品・仕事道具 (£1,350 まで) は exempt goods — 差押え不可; リスト化して主張"}
+   {:opt/id :vulnerable :opt/kind :self-decide :opt/label "vulnerable (高齢・障害・病気) なら執行は追加保護の対象 — 申告"}]
+  :proc/refer-when ["debt 全体の整理 → StepChange / National Debtline (無料)"]
   :proc/verify-current-law true}
 
  ;; ── :au ──────────────────────────────────────────────────────────────────────
@@ -687,6 +722,21 @@
   :proc/refer-when ["高額 → advogado / apoio judiciário"]
   :proc/verify-current-law true}
 
+ ;; ── :mx ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:mx-emplazamiento" :proc/label "Emplazamiento (訴状送達・メキシコ)"
+  :proc/jurisdiction :mx
+  :proc/trigger-keywords ["emplazamiento" "citación"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Contestación"
+    :dl/rule "期限は手続種別・entidad federativa による (ordinario mercantil は9日等) — 通知記載と現地規則を必ず確認"
+    :dl/anchor "Código de Comercio art. 1399 / 各州 CPC" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :contestacion :opt/kind :self-submit :opt/label "contestación を期限内に提出 (rebeldía = 欠席擬制の回避)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/convenio"}]
+  :proc/refer-when ["消費者紛争は PROFECO conciliación が先行可能" "高額 → Defensoría Pública"]
+  :proc/verify-current-law true}
+
  ;; ── :no ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:no-forliksklage" :proc/label "Innkalling til forliksrådet (強制調停・ノルウェー)"
   :proc/jurisdiction :no
@@ -800,6 +850,24 @@
    {:opt/id :no-self-help-protection :opt/kind :self-decide
     :opt/label "鍵交換・追い出しは違法 (voie de fait) — expulsion は裁判所経由のみ; 受けたら police / ADIL へ"}]
   :proc/refer-when ["assignation en expulsion が届いた場合"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:fr-saisie-attribution" :proc/label "Saisie-attribution (口座差押え・執行・フランス)"
+  :proc/jurisdiction :fr :proc/track :enforcement
+  :proc/trigger-keywords ["saisie-attribution"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Contestation"
+    :dl/rule "dénonciation から1か月以内に juge de l'exécution へ contestation"
+    :dl/anchor "CPCE R.211-11" :dl/verify-service-date true}
+   {:dl/label "Solde bancaire insaisissable (SBI)"
+    :dl/rule "口座には SBI (RSA 単身者額) が申請不要で自動的に残される — 生活維持分は守られている"
+    :dl/anchor "CPCE R.162-2" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :sbi-check :opt/kind :self-decide :opt/protective true
+    :opt/label "SBI が残されているか口座を確認 (自動 — 不足なら銀行へ是正請求)"}
+   {:opt/id :contestation :opt/kind :self-submit :opt/label "JEX へ contestation (1か月以内)"}]
+  :proc/refer-when ["多重債務 → commission de surendettement (Banque de France・無料)"]
   :proc/verify-current-law true}
 
  ;; ── :pl ──────────────────────────────────────────────────────────────────────

@@ -107,13 +107,13 @@
   :notice/sourcing :synthetic
   :notice/text "Mahnbescheid des Amtsgerichts. Sie können Widerspruch einlegen."}
 
- ;; :br was the unknown-jurisdiction fixture until wave 4 covered it — the fixture
- ;; moved to :mx (the degrade path must stay exercised as coverage grows, G10)
- {:notice/id "ntc:mx-unknown" :notice/label "未カバー管轄の通知 (メキシコ)"
-  :notice/jurisdiction :mx
-  :notice/channel :mail :notice/claim-amount 20000 :notice/claim-currency "MXN"
+ ;; unknown-jurisdiction fixture lineage: :br (wave 4 で収載) → :mx (wave 14 で収載)
+ ;; → :ar — the degrade path must stay exercised as coverage grows (G10)
+ {:notice/id "ntc:ar-unknown" :notice/label "未カバー管轄の通知 (アルゼンチン)"
+  :notice/jurisdiction :ar
+  :notice/channel :mail :notice/claim-amount 90000 :notice/claim-currency "ARS"
   :notice/sourcing :synthetic
-  :notice/text "Notificación de demanda. Plazo para contestar."}
+  :notice/text "Cédula de notificación. Traslado de la demanda."}
 
  ;; ── wave 2 (:kr :fr — loop iteration 2026-06-11) ─────────────────────────────
  {:doc/id "doc:kr-tos" :doc/label "KR 구독 서비스 이용약관 (synthetic)"
@@ -211,6 +211,36 @@
   :notice/channel :mail :notice/claim-amount 9000 :notice/claim-currency "BRL"
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
+
+ ;; ── wave 14 (matrix fill :us labor / :uk :fr enforcement + :mx) ──────────────
+ {:doc/id "doc:mx-terminos" :doc/label "MX términos y condiciones (synthetic)"
+  :doc/jurisdiction :mx
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "No nos hacemos responsables por daños. El plan tiene renovación automática anual."}
+
+ {:notice/id "ntc:mx-empl" :notice/label "MX emplazamiento (actuario)"
+  :notice/jurisdiction :mx
+  :notice/channel :formal-service :notice/claim-amount 30000 :notice/claim-currency "MXN"
+  :notice/sourcing :synthetic
+  :notice/text "Emplazamiento. Se le corre traslado de la demanda para que conteste en el plazo legal."}
+
+ {:notice/id "ntc:us-term" :notice/label "US notice of termination (letter・労働)"
+  :notice/jurisdiction :us
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "USD"
+  :notice/sourcing :synthetic
+  :notice/text "Notice of termination of employment effective on the stated date."}
+
+ {:notice/id "ntc:uk-noe" :notice/label "UK notice of enforcement (letter・執行)"
+  :notice/jurisdiction :uk
+  :notice/channel :mail :notice/claim-amount 900 :notice/claim-currency "GBP"
+  :notice/sourcing :synthetic
+  :notice/text "Notice of enforcement. An enforcement agent may visit after 7 clear days."}
+
+ {:notice/id "ntc:fr-saisie" :notice/label "FR saisie-attribution (signification・執行)"
+  :notice/jurisdiction :fr
+  :notice/channel :formal-service :notice/claim-amount 2100 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Procès-verbal de saisie-attribution dénoncé au débiteur."}
 
  ;; ── wave 13 (track 横展開 :kr/:fr labor+housing + :no) ───────────────────────
  {:doc/id "doc:no-vilkar" :doc/label "NO abonnementsvilkår (synthetic)"

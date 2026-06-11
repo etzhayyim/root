@@ -165,6 +165,9 @@ def test_intl_expected_shapes_hit():
     # wave 13 (:no — 'fraskriver seg' は :dk 'fraskriver sig' と別言語・別エントリ)
     assert ("doc:no-vilkar", "cl:no-ansvarsfraskrivelse") in hits
     assert ("doc:no-vilkar", "cl:no-auto-renewal") in hits
+    # wave 14 (:mx)
+    assert ("doc:mx-terminos", "cl:mx-exoneracion") in hits
+    assert ("doc:mx-terminos", "cl:mx-renovacion") in hits
 
 
 def test_jurisdiction_isolation():

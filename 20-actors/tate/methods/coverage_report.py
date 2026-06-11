@@ -24,7 +24,8 @@ UN_MEMBER_STATES = 193  # disclosed denominator (the EU bloc entry covers instru
 # (computed against the registry, so the gap list can never go stale)
 JURIS_WORKLIST = [":it", ":es", ":nl", ":kr", ":fr", ":cn", ":tw", ":in",
                   ":br", ":au", ":ca", ":sg", ":mx",
-                  ":dk", ":fi", ":ie", ":be", ":ch", ":no"]  # wave 10 replenish
+                  ":dk", ":fi", ":ie", ":be", ":ch", ":no",
+                  ":ar"]  # :ar = current unknown-fixture juris (next in the lineage)
 
 # structural gaps — true regardless of how many jurisdictions land
 # (:us states and specialty tracks are computed against the registries, not listed here)

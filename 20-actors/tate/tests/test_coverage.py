@@ -152,8 +152,9 @@ def test_track_matrix():
     matrix = cov["track_matrix"]
     for track, total in cov["procedure_tracks"].items():
         assert sum(ts.get(track, 0) for ts in matrix.values()) == total, track
-    assert sum(1 for ts in matrix.values() if ts.get(":labor", 0)) >= 5
+    assert sum(1 for ts in matrix.values() if ts.get(":labor", 0)) >= 6
     assert sum(1 for ts in matrix.values() if ts.get(":housing", 0)) >= 6
+    assert sum(1 for ts in matrix.values() if ts.get(":enforcement", 0)) >= 5
     text = report(cov)
     assert "Track × jurisdiction matrix" in text
 

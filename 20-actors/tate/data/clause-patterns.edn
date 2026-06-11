@@ -274,6 +274,21 @@
   :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ ;; ── :mx — México (G10) ───────────────────────────────────────────────────────
+ {:clause/id "cl:mx-exoneracion" :clause/label "全部免責 (cláusula abusiva)"
+  :clause/jurisdiction :mx
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["no nos hacemos responsables"]
+  :clause/anchor "LFPC art. 90 (消費者に abusivas/inequitativas な条項は効力なし; contrato de adhesión は PROFECO 登録制)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:mx-renovacion" :clause/label "renovación automática (自動更新)"
+  :clause/jurisdiction :mx
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["renovación automática"]
+  :clause/anchor "LFPC arts. 85–86 (contrato de adhesión の要件) — 解約導線のカレンダー化"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
  ;; ── :no — Norge (G10) ────────────────────────────────────────────────────────
  {:clause/id "cl:no-ansvarsfraskrivelse" :clause/label "全部免責 (ansvarsfraskrivelse)"
   :clause/jurisdiction :no
