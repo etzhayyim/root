@@ -16,10 +16,10 @@ Language: en  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.
 ### 1. Definitions  (definitions, recommended)
 
 ### 2. Warranty of conformity of the goods  (warranty, mandatory)
-_Rests on:_ CISG Art. 35 (UN Convention on Contracts for the International Sale of Goods (1980))
+_Rests on:_ CISG Art. 35 (UN Convention on Contracts for the International Sale of Goods (1980)); Consumer Rights Act 2015, s.9 (Consumer Rights Act 2015 (UK)); BGB §434 (Buergerliches Gesetzbuch (BGB), Germany); Code civil, Art. 1641 (Code civil (France)); Sale of Goods Act 1930, §16 (Sale of Goods Act, 1930 (India)); UCC §2-314 (Uniform Commercial Code, Article 2 (US)); 民法562条 (民法 (明治29年法律第89号))
 
 ### 3. Notice of non-conformity (time limit)  (warranty, mandatory)
-_Rests on:_ CISG Art. 39 (UN Convention on Contracts for the International Sale of Goods (1980))
+_Rests on:_ CISG Art. 39 (UN Convention on Contracts for the International Sale of Goods (1980)); 民法562条 (民法 (明治29年法律第89号))
 
 ### 4. Payment terms  (payment, recommended)
 _Rests on:_ Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late payment in commercial transactions))

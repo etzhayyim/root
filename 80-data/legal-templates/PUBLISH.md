@@ -3,7 +3,7 @@
 > Fair, openly-licensed legal-document templates (Apache-2.0 + etzhayyim Charter Rider). Each body is content-addressed — re-derive the CID with `ipfs add --cid-version=1 --raw-leaves` or `methods/cid.py` to verify. **NOT legal advice** (G1); each clause cites the public law it rests on, for traceability.
 
 
-**15 templates published.**
+**16 templates published.**
 
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
@@ -21,7 +21,8 @@
 | Apache-2.0 Inbound Contribution Grant | en | INTL | 2 | 11 | `bafkreiaojhbqdk34g…` |
 | General Partnership Agreement | en | INTL | 7 | 17 | `bafkreicwtlphey53i…` |
 | Power of Attorney | en | JP | 4 | 13 | `bafkreibgebwvi4l33…` |
-| International Sale of Goods Agreement (CISG) | en | INTL | 9 | 21 | `bafkreih64i3ym7i3u…` |
+| International Sale of Goods Agreement (CISG) | en | INTL | 9 | 28 | `bafkreicq5nkzknwfm…` |
+| Service Level Agreement | en | INTL | 7 | 16 | `bafkreiey6izz3vnez…` |
 | Settlement & Release Agreement | en | INTL | 5 | 14 | `bafkreigdp6agceny6…` |
 
 ---
