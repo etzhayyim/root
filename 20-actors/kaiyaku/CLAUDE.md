@@ -70,6 +70,7 @@ advice.
 | クーリングオフ / 返金 / 消費者庁 escalation (rights) | **kurashimori** |
 | Generic web-service ServiceOp adapters (T1/T2 engine, ToS stances) | **karakuri** (kaiyaku composes; never re-implements) |
 | 解約 / 退会 decision-ledger + severance plan + (gated) execution | **kaiyaku** (this actor) |
+| 不利条項の検出 + 法的手続きへの応答 (防御) | **tate 盾** (ADR-2606112300; its `:kaiyaku` routes feed this ledger — e.g. 自動更新窓 → notice-days) |
 | Harmful human relationships | **kokoro** (support; kaiyaku N1 refuses the domain) |
 
 ## Layout

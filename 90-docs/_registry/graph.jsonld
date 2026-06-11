@@ -15283,6 +15283,26 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606112300-tate-citizen-legal-defense-concierge-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606112300: tate 盾 — citizen legal-defense concierge (不利条項スキャン + 法的手続き応答支援), Tier-B actor R0",
+      "status": "proposed",
+      "topic": "tate-citizen-legal-defense",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tate-actor-charter",
+        "clause-pattern-registry",
+        "procedure-response-registry"
+      ],
+      "related": [
+        "doc:adr-2605312500",
+        "doc:adr-2606060900",
+        "doc:adr-2605312030",
+        "doc:adr-2605181100"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

@@ -24076,6 +24076,38 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606112300-tate-citizen-legal-defense-concierge-r0.md",
+      "id": "adr-2606112300-tate-citizen-legal-defense-concierge-r0",
+      "title": "ADR-2606112300: tate 盾 — citizen legal-defense concierge (不利条項スキャン + 法的手続き応答支援), Tier-B actor R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tate-citizen-legal-defense",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-actor-charter",
+        "clause-pattern-registry",
+        "procedure-response-registry"
+      ],
+      "related": [
+        "adr-2605312500",
+        "adr-2606060900",
+        "adr-2605312030",
+        "adr-2605181100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606112200",
+        "adr-2605262700",
+        "adr-2605231525",
+        "adr-2605215000",
+        "adr-2605312345"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
