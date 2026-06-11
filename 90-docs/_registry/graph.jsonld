@@ -15199,6 +15199,21 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606112100-session-close-donation-media-and-apex-deploy",
+      "type": "TechArticle",
+      "title": "ADR-2606112100: Session close (2026-06-11) — donation solicitation + media expansion (fiat/asset) shipped & apex Worker deployed live",
+      "status": "accepted",
+      "topic": "session-close-donation-media-and-apex-deploy",
+      "authoritative": false,
+      "related": [
+        "doc:2606012100",
+        "doc:2605172100",
+        "doc:2606014600",
+        "doc:2605231525"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
