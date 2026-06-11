@@ -29,6 +29,7 @@ import { pinata } from "./providers/pinata.js";
 import { web3storage } from "./providers/web3storage.js";
 import { filecoin } from "./providers/filecoin.js";
 import { kubo } from "./providers/kubo.js";
+import { kotobase } from "./providers/kotobase.js";
 import { emitPinRecord } from "./emit.js";
 
 export interface PinnerConfig {
@@ -54,6 +55,7 @@ const REGISTRY: Record<string, ProviderFn> = {
   web3storage: web3storage as ProviderFn,
   filecoin: filecoin as ProviderFn,
   kubo: kubo as ProviderFn,
+  kotobase: kotobase as ProviderFn,
 };
 
 function loadConfig(): PinnerConfig {
