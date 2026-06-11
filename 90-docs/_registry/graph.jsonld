@@ -15158,6 +15158,25 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606112000-kotoba-actor-dna-code-data-unification",
+      "type": "TechArticle",
+      "title": "ADR-2606112000: Actor DNA — binding kotoba CODE + DATA into one content-addressed unit (Holochain-/Ethereum-iso)",
+      "status": "accepted",
+      "topic": "actor-dna-code-data-unification",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the Actor DNA manifest format (kotoba-actor-dna/v0)",
+        "the integrity ruleset format (kotoba-integrity/v0) — client-tier data validation",
+        "the actor deploy descriptor (kotoba-actor-deploy/v0)"
+      ],
+      "related": [
+        "doc:adr-2606015600",
+        "doc:adr-2606036000",
+        "doc:adr-2605231525"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
