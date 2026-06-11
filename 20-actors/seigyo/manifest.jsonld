@@ -1,0 +1,140 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:etzhayyim.com:seigyo",
+  "name": "seigyo",
+  "displayName": "制御 — Industrial Control Layer",
+  "displayNameJa": "制御",
+  "displayNameEn": "Seigyo",
+  "description": "Industrial control layer (ISA-95 L0–L2) substrate actor for all religious-corp manufacturing actors. DCS-equivalent assembled from open components — OpenPLC (IEC 61131-3, L1) + FUXA/Rapid SCADA (L2) + OPC UA open62541 (L2.5) — under one attestation regime. Commercial DCS/PLC/SCADA runtimes prohibited (generalizes ADR-2605265000 §1.9). Safety interlocks hardwired L1S only; no LLM, Murakumo inference, or kotoba cell ever in the safety path.",
+  "descriptionJa": "全 religious-corp 製造アクターの制御層 (ISA-95 L0–L2) substrate actor。DCS 相当をオープンコンポーネントの合成 — OpenPLC (IEC 61131-3, L1) + FUXA/Rapid SCADA (L2) + OPC UA open62541 (L2.5) — として単一 attestation 体制下に置く。商用 DCS/PLC/SCADA ランタイム禁止 (ADR-2605265000 §1.9 の一般化)。安全インターロックは hardwired L1S のみ — LLM / Murakumo 推論 / kotoba セルは安全パスに決して入らない。",
+  "adr": {
+    "master": "etzhayyim:adr:2606111000",
+    "r0": "etzhayyim:adr:2606111000",
+    "r1": "etzhayyim:adr:2606111100",
+    "r2": "reserved",
+    "r3": "reserved"
+  },
+  "tier": "Tier-B",
+  "siblingActors": [
+    "did:web:etzhayyim.com:igata",
+    "did:web:etzhayyim.com:silicon",
+    "did:web:etzhayyim.com:yakushi",
+    "did:web:etzhayyim.com:hikari",
+    "did:web:etzhayyim.com:mizuho",
+    "did:web:etzhayyim.com:kuni-umi"
+  ],
+  "scope": {
+    "phase": "R0 scaffold",
+    "scopeBoundary": "ISA-95 L0–L2 (sensors/actuators, PLC logic, SCADA supervision, OPC UA northbound) for religious-corp industrial sites; L3 orchestration stays with per-domain actors",
+    "exclusions": [
+      "commercial DCS/PLC/SCADA runtimes (Siemens/Honeywell/Yokogawa/Emerson/Rockwell/ABB/Schneider/Mitsubishi/GE/AVEVA/Ignition) — §2 PROHIBITED",
+      "any software/inference in the safety path — §3 ABSOLUTE (hardwired L1S only)",
+      "recipe logic programmed into embedded third-party proprietary controllers — §2 (boundary = OPC UA/Modbus; treated as untrusted-external L0)",
+      "full-rate telemetry past site boundary — §5 (N7 aggregate-only northbound)",
+      "camera/audio streams — per-domain robotics charters, not seigyo",
+      "sub-ms hard-real-time motion control — dedicated controllers at L0 boundary (embedded black box per §2)"
+    ]
+  },
+  "cells": [
+    {
+      "name": "seigyo_plc_program_lifecycle",
+      "module": "seigyo.cells.seigyo_plc_program_lifecycle",
+      "murukumoNode": "judah",
+      "phase": "lifecycle",
+      "risk": "HIGH"
+    },
+    {
+      "name": "seigyo_interlock_attestation",
+      "module": "seigyo.cells.seigyo_interlock_attestation",
+      "murukumoNode": "benjamin",
+      "phase": "safety-attest",
+      "risk": "HIGH"
+    },
+    {
+      "name": "seigyo_scada_gateway",
+      "module": "seigyo.cells.seigyo_scada_gateway",
+      "murukumoNode": "judah",
+      "phase": "supervisory",
+      "risk": "MEDIUM"
+    },
+    {
+      "name": "seigyo_opcua_bridge",
+      "module": "seigyo.cells.seigyo_opcua_bridge",
+      "murukumoNode": "judah",
+      "phase": "gateway",
+      "risk": "MEDIUM"
+    },
+    {
+      "name": "seigyo_historian_aggregate",
+      "module": "seigyo.cells.seigyo_historian_aggregate",
+      "murukumoNode": "simeon",
+      "phase": "telemetry",
+      "risk": "LOW"
+    }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.seigyo.ioPointRegistry",
+    "com.etzhayyim.seigyo.plcProgramAttestation",
+    "com.etzhayyim.seigyo.setpointEnvelope",
+    "com.etzhayyim.seigyo.runtimeAttestation",
+    "com.etzhayyim.seigyo.interlockVerificationRecord",
+    "com.etzhayyim.seigyo.scadaProjectAttestation",
+    "com.etzhayyim.seigyo.alarmEventRecord",
+    "com.etzhayyim.seigyo.telemetryAggregateRecord",
+    "com.etzhayyim.seigyo.silenSeigyoReview"
+  ],
+  "layerModel": {
+    "L0": "sensors + actuators; open-hardware preferred; all points in seigyo.ioPointRegistry",
+    "L1": "OpenPLC runtime, IEC 61131-3 Structured Text canonical",
+    "L1S": "safety interlocks — hardwired / safety-relay ONLY; attestation-only visibility",
+    "L2": "FUXA | Rapid SCADA | OpenSCADA (per-site, Charter Rider §2 audit each)",
+    "L2.5": "OPC UA (open62541) northbound; Modbus TCP/RTU southbound legacy; MQTT Sparkplug B optional intra-site",
+    "L3": "existing kotoba-kotodama manufacturing cells (per-domain actors)",
+    "L4": "ADRs + Council attestation + Charter Rider"
+  },
+  "roadmap": [
+    {
+      "phase": "R0",
+      "date": "2026-06-11",
+      "scope": "Scaffold only. 5 cells import-time RuntimeError. No hardware.",
+      "murukumoFleet": "No deployment",
+      "gate": "ADR-2606111000 (proposed)"
+    },
+    {
+      "phase": "R1",
+      "date": "2026-06-11 (proposed)",
+      "scope": "ONE benchtop loop: ≤2 kW electric mock-furnace temperature PID (igata R1 die-preheat analog, 220°C class). OpenPLC + FUXA + open62541. Full §4 lifecycle end-to-end. Physical E-stop verified + recorded.",
+      "murukumoFleet": "judah + benjamin + simeon",
+      "gate": "ADR-2606111100 + Council Lv6+ ≥3 (silenSeigyoReview r1-benchtop-loop-baseline) + controls-engineer SME DID",
+      "cap": "1 site, 1 controller, ≤10 I/O points"
+    },
+    {
+      "phase": "R2",
+      "date": "post-R1",
+      "scope": "One full production cell (igata die-prep OR pillow foam line) under seigyo control; historian + N7 aggregation live.",
+      "gate": "reserved ADR + 90-day clean runtime-attestation history",
+      "cap": "1 site, ≤5 controllers"
+    },
+    {
+      "phase": "R3",
+      "date": "post-R2",
+      "scope": "Multi-site rollout to silicon / pharma / vehicle actors per their own R-gates.",
+      "gate": "reserved ADR + annual silenSeigyoReview pass + ≥1 controls-engineer on Council attestation path"
+    }
+  ],
+  "references": {
+    "adr": {
+      "master": "/90-docs/adr/2606111000-seigyo-industrial-control-layer-tier-b-actor-r0.md",
+      "r1": "/90-docs/adr/2606111100-seigyo-r1-benchtop-loop-commissioning.md"
+    },
+    "vendorProhibitionOrigin": "/90-docs/adr/2605265000-district-heating-cooling-d-gate-evaluation-r0.md (§1.9)",
+    "inferencePolicy": "/90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md",
+    "industrialIntegration": "/90-docs/adr/2604252100-robotics-product-manufacturing-package.md (OPC UA / AutomationML)",
+    "r1PairingTarget": "/90-docs/adr/2605261215-igata-r1-benchtop-commissioning.md",
+    "charterRider": "/CHARTER-RIDER.md"
+  }
+}
