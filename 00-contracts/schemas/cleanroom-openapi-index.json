@@ -6,7 +6,7 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29055,
+  "totalEndpoints": 29035,
   "l4SpecsAvailable": 1000,
   "l5VerifiedActors": 212,
   "totalVerifiedEnumFields": 883,
@@ -3130,10 +3130,10 @@
     {
       "handle": "chainlink-compat",
       "did": "did:web:etzhayyim.com:actor:chainlink-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreid3t3xet5zlys7ubjabs3xzplbinbwgbydhoxh6blgdjdgh27mgpu",
+      "endpointCount": 10,
+      "ipfs": "ipfs://bafkreigp5bnujenv7ants3vyrlnletjzkjhai4eynukfpponrfiz3fsq4i",
       "health": "/healthz",
       "features": {
         "pagination": true,

@@ -3,73 +3,25 @@
 
 namespace chainlink {
 
-    entity Block {
+    entity PriceFeed {
         id: string @unique
-        number: integer
-        hash: string
-        chain: string
-        minedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Transaction {
-        id: string @unique
-        hash: string
-        fromAddr: string
-        toAddr: string
-        value: float
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Contract {
-        id: string @unique
-        address: string
-        chain: string
-        abiRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Account {
-        id: string @unique
-        address: string
-        chain: string
-        balance: float
-        nonce: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Event {
-        id: string @unique
-        contractAddr: string
-        name: string
-        blockNumber: integer
-        dataRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Token {
-        id: string @unique
-        contractAddr: string
-        symbol: string
         decimals: integer
-        standard: string
+        description: string
+        version: integer
+        address: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity RoundData {
+        id: string @unique
+        roundId: string
+        answer: string
+        startedAt: integer
+        updatedAt: integer
+        answeredInRound: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -5,21 +5,25 @@
   "kind": "compat",
   "title": "chainlink clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (chainlink); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreid3t3xet5zlys7ubjabs3xzplbinbwgbydhoxh6blgdjdgh27mgpu",
+  "wasmCid": "bafkreigp5bnujenv7ants3vyrlnletjzkjhai4eynukfpponrfiz3fsq4i",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreid3t3xet5zlys7ubjabs3xzplbinbwgbydhoxh6blgdjdgh27mgpu",
+  "ipfs": "ipfs://bafkreigp5bnujenv7ants3vyrlnletjzkjhai4eynukfpponrfiz3fsq4i",
   "schema": "schema/chainlink.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/smartcontractkit/chainlink-brownie-contracts/main/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol (the official packaging repo)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "PriceFeed",
+      "RoundData"
+    ],
+    "enums": {}
+  },
   "entities": [
-    "Block",
-    "Transaction",
-    "Contract",
-    "Account",
-    "Event",
-    "Token"
+    "PriceFeed",
+    "RoundData"
   ],
   "adr": [
     "260607",
@@ -31,157 +35,57 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 10,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/blocks",
-          "op": "create Block"
+          "path": "/v1/pricefeeds",
+          "op": "create PriceFeed"
         },
         {
           "method": "GET",
-          "path": "/v1/blocks",
-          "op": "list Block"
+          "path": "/v1/pricefeeds",
+          "op": "list PriceFeed"
         },
         {
           "method": "GET",
-          "path": "/v1/blocks/{id}",
-          "op": "get Block"
+          "path": "/v1/pricefeeds/{id}",
+          "op": "get PriceFeed"
         },
         {
           "method": "PATCH",
-          "path": "/v1/blocks/{id}",
-          "op": "update Block"
+          "path": "/v1/pricefeeds/{id}",
+          "op": "update PriceFeed"
         },
         {
           "method": "DELETE",
-          "path": "/v1/blocks/{id}",
-          "op": "delete Block"
+          "path": "/v1/pricefeeds/{id}",
+          "op": "delete PriceFeed"
         },
         {
           "method": "POST",
-          "path": "/v1/transactions",
-          "op": "create Transaction"
+          "path": "/v1/rounddatas",
+          "op": "create RoundData"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions",
-          "op": "list Transaction"
+          "path": "/v1/rounddatas",
+          "op": "list RoundData"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions/{id}",
-          "op": "get Transaction"
+          "path": "/v1/rounddatas/{id}",
+          "op": "get RoundData"
         },
         {
           "method": "PATCH",
-          "path": "/v1/transactions/{id}",
-          "op": "update Transaction"
+          "path": "/v1/rounddatas/{id}",
+          "op": "update RoundData"
         },
         {
           "method": "DELETE",
-          "path": "/v1/transactions/{id}",
-          "op": "delete Transaction"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/contracts",
-          "op": "create Contract"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/contracts",
-          "op": "list Contract"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/contracts/{id}",
-          "op": "get Contract"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/contracts/{id}",
-          "op": "update Contract"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/contracts/{id}",
-          "op": "delete Contract"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/events",
-          "op": "create Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events",
-          "op": "list Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events/{id}",
-          "op": "get Event"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/events/{id}",
-          "op": "update Event"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/events/{id}",
-          "op": "delete Event"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tokens",
-          "op": "create Token"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tokens",
-          "op": "list Token"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tokens/{id}",
-          "op": "get Token"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tokens/{id}",
-          "op": "update Token"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tokens/{id}",
-          "op": "delete Token"
+          "path": "/v1/rounddatas/{id}",
+          "op": "delete RoundData"
         }
       ],
       "features": {
@@ -244,314 +148,44 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 10,
       "tools": [
         {
-          "name": "create_block",
-          "description": "Create a Block.",
+          "name": "create_price_feed",
+          "description": "Create a PriceFeed.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "number": {
+              "decimals": {
                 "type": "integer"
               },
-              "hash": {
+              "description": {
                 "type": "string"
               },
-              "chain": {
-                "type": "string"
-              },
-              "minedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "number",
-              "hash"
-            ]
-          }
-        },
-        {
-          "name": "list_blocks",
-          "description": "List Blocks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_block",
-          "description": "Get a Block by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_block",
-          "description": "Update a Block.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "number": {
+              "version": {
                 "type": "integer"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "minedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_block",
-          "description": "Delete a Block.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_transaction",
-          "description": "Create a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "hash": {
-                "type": "string"
-              },
-              "fromAddr": {
-                "type": "string"
-              },
-              "toAddr": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "hash",
-              "fromAddr"
-            ]
-          }
-        },
-        {
-          "name": "list_transactions",
-          "description": "List Transactions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_transaction",
-          "description": "Get a Transaction by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_transaction",
-          "description": "Update a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "fromAddr": {
-                "type": "string"
-              },
-              "toAddr": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_transaction",
-          "description": "Delete a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_contract",
-          "description": "Create a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "abiRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "address",
-              "chain"
-            ]
-          }
-        },
-        {
-          "name": "list_contracts",
-          "description": "List Contracts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_contract",
-          "description": "Get a Contract by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_contract",
-          "description": "Update a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
               },
               "address": {
                 "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "abiRef": {
-                "type": "string"
               }
             },
             "required": [
-              "id"
+              "decimals",
+              "description"
             ]
           }
         },
         {
-          "name": "delete_contract",
-          "description": "Delete a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_account",
-          "description": "Create a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              },
-              "nonce": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "address",
-              "chain"
-            ]
-          }
-        },
-        {
-          "name": "list_accounts",
-          "description": "List Accounts.",
+          "name": "list_price_feeds",
+          "description": "List PriceFeeds.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_account",
-          "description": "Get a Account by id.",
+          "name": "get_price_feed",
+          "description": "Get a PriceFeed by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,173 +199,86 @@
           }
         },
         {
-          "name": "update_account",
-          "description": "Update a Account.",
+          "name": "update_price_feed",
+          "description": "Update a PriceFeed.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              },
-              "nonce": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_event",
-          "description": "Create a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "contractAddr": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "blockNumber": {
-                "type": "integer"
-              },
-              "dataRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "contractAddr",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_events",
-          "description": "List Events.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_event",
-          "description": "Get a Event by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_event",
-          "description": "Update a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "contractAddr": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "blockNumber": {
-                "type": "integer"
-              },
-              "dataRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_event",
-          "description": "Delete a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_token",
-          "description": "Create a Token.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "contractAddr": {
-                "type": "string"
-              },
-              "symbol": {
                 "type": "string"
               },
               "decimals": {
                 "type": "integer"
               },
-              "standard": {
+              "description": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "address": {
                 "type": "string"
               }
             },
             "required": [
-              "contractAddr",
-              "symbol"
+              "id"
             ]
           }
         },
         {
-          "name": "list_tokens",
-          "description": "List Tokens.",
+          "name": "delete_price_feed",
+          "description": "Delete a PriceFeed.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_round_data",
+          "description": "Create a RoundData.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "roundId": {
+                "type": "string"
+              },
+              "answer": {
+                "type": "string"
+              },
+              "startedAt": {
+                "type": "integer"
+              },
+              "updatedAt": {
+                "type": "integer"
+              },
+              "answeredInRound": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "answer",
+              "startedAt"
+            ]
+          }
+        },
+        {
+          "name": "list_round_datas",
+          "description": "List RoundDatas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_token",
-          "description": "Get a Token by id.",
+          "name": "get_round_data",
+          "description": "Get a RoundData by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -745,24 +292,27 @@
           }
         },
         {
-          "name": "update_token",
-          "description": "Update a Token.",
+          "name": "update_round_data",
+          "description": "Update a RoundData.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "contractAddr": {
+              "roundId": {
                 "type": "string"
               },
-              "symbol": {
+              "answer": {
                 "type": "string"
               },
-              "decimals": {
+              "startedAt": {
                 "type": "integer"
               },
-              "standard": {
+              "updatedAt": {
+                "type": "integer"
+              },
+              "answeredInRound": {
                 "type": "string"
               }
             },
@@ -772,8 +322,8 @@
           }
         },
         {
-          "name": "delete_token",
-          "description": "Delete a Token.",
+          "name": "delete_round_data",
+          "description": "Delete a RoundData.",
           "inputSchema": {
             "type": "object",
             "properties": {

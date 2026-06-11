@@ -819,3 +819,14 @@ closed set (the Move visibility system) — and RoleType {validator,
 full_node}; U64-as-string wire convention kept faithfully. chainlink
 carries (the AggregatorV3Interface path moved; needs a fresh repo-tree
 walk).
+
+### §16.25 /loop iteration 24 — wave 25: chainlink (221, 22.1%)
+
+chainlink → ledger **221** (779 L4 / 221 L5 = 22.1%), enforced-enum counts
+unchanged (212 / 883 — the fourth fields-verified zero-enum L5), verify
+PASS 0/0, contract suite green. Harness-direct. The anchor is ON-CHAIN
+IMMUTABILITY — the strongest freeze in the corpus: thousands of deployed
+feed contracts implement the exact AggregatorV3Interface and cannot change
+it (V3 stable since 2020). The carry resolved: the interface moved from
+the chainlink monorepo into the official chainlink-brownie-contracts
+packaging repo.

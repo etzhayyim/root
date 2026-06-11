@@ -2746,17 +2746,13 @@
       "handle": "chainlink-compat",
       "platform": "chainlink",
       "bytes": 2123,
-      "wasmCid": "bafkreid3t3xet5zlys7ubjabs3xzplbinbwgbydhoxh6blgdjdgh27mgpu",
+      "wasmCid": "bafkreigp5bnujenv7ants3vyrlnletjzkjhai4eynukfpponrfiz3fsq4i",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Block",
-        "Transaction",
-        "Contract",
-        "Account",
-        "Event",
-        "Token"
+        "PriceFeed",
+        "RoundData"
       ]
     },
     {

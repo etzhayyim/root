@@ -2851,6 +2851,16 @@ PLATFORM_OVERRIDES["brightcove"] = {
     "AudioTrack": E(duration="integer", isDefault="boolean", language="string", variant="string"),
 }
 
+# Faithful Chainlink data-feed model (the official AggregatorV3Interface
+# from smartcontractkit/chainlink-brownie-contracts — frozen since 2020 by
+# ON-CHAIN IMMUTABILITY: deployed feeds cannot change their interface, the
+# strongest freeze in the corpus). Fields-verified; Solidity uint80/int256
+# quantities modeled as strings.
+PLATFORM_OVERRIDES["chainlink"] = {
+    "PriceFeed": E(decimals="integer", description="string", version="integer", address="string"),
+    "RoundData": E(roundId="string", answer="string", startedAt="integer", updatedAt="integer", answeredInRound="string"),
+}
+
 # Faithful Aptos model (the official aptos-core Node API OpenAPI, version
 # 1.2.0, 188 schemas). MoveFunctionVisibility(3: private/public/friend —
 # the Move LANGUAGE's visibility system, language-anchored) + RoleType(2:

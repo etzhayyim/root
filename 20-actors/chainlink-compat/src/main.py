@@ -111,383 +111,53 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/blocks", methods=["POST"])
-def create_block(request):
-    """Create a Block."""
+@app.route("/v1/pricefeeds", methods=["POST"])
+def create_price_feed(request):
+    """Create a PriceFeed."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
+    err = _reject_unknown(data, ['decimals', 'description', 'version', 'address'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'hash'])
+    err = _require(data, ['decimals', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("chainlin_blo")}
-    rec["number"] = _as_int(data.get('number'))
-    rec["hash"] = data.get('hash')
-    rec["chain"] = data.get('chain')
-    rec["minedAt"] = data.get('minedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Block", rec)
-    return rec, 201
-
-@app.route("/v1/blocks", methods=["GET"])
-def list_blocks(request):
-    """List Blocks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Block")
-    rows = _apply_filters(rows, params, ['number', 'hash', 'chain', 'minedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/blocks/<eid>", methods=["GET"])
-def get_block(request, eid):
-    """Retrieve a Block by id (supports ?expand=)."""
-    rows = _query("Block", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/blocks/<eid>", methods=["POST", "PATCH"])
-def update_block(request, eid):
-    """Update a Block."""
-    rows = _query("Block", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Block", rec)
-    return rec, 200
-
-@app.route("/v1/blocks/<eid>", methods=["DELETE"])
-def delete_block(request, eid):
-    """Delete a Block."""
-    rows = _query("Block", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"chainlink.Block", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/transactions", methods=["POST"])
-def create_transaction(request):
-    """Create a Transaction."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['hash', 'fromAddr'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("chainlin_tra")}
-    rec["hash"] = data.get('hash')
-    rec["fromAddr"] = data.get('fromAddr')
-    rec["toAddr"] = data.get('toAddr')
-    rec["value"] = _as_float(data.get('value'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Transaction", rec)
-    return rec, 201
-
-@app.route("/v1/transactions", methods=["GET"])
-def list_transactions(request):
-    """List Transactions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Transaction")
-    rows = _apply_filters(rows, params, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/transactions/<eid>", methods=["GET"])
-def get_transaction(request, eid):
-    """Retrieve a Transaction by id (supports ?expand=)."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
-def update_transaction(request, eid):
-    """Update a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Transaction", rec)
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["DELETE"])
-def delete_transaction(request, eid):
-    """Delete a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"chainlink.Transaction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/contracts", methods=["POST"])
-def create_contract(request):
-    """Create a Contract."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['address', 'chain'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("chainlin_con")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["abiRef"] = data.get('abiRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Contract", rec)
-    return rec, 201
-
-@app.route("/v1/contracts", methods=["GET"])
-def list_contracts(request):
-    """List Contracts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Contract")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'abiRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contracts/<eid>", methods=["GET"])
-def get_contract(request, eid):
-    """Retrieve a Contract by id (supports ?expand=)."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contracts/<eid>", methods=["POST", "PATCH"])
-def update_contract(request, eid):
-    """Update a Contract."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Contract", rec)
-    return rec, 200
-
-@app.route("/v1/contracts/<eid>", methods=["DELETE"])
-def delete_contract(request, eid):
-    """Delete a Contract."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"chainlink.Contract", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
-    if err:
-        return err, 400
-    err = _require(data, ['address', 'chain'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("chainlin_acc")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["balance"] = _as_float(data.get('balance'))
-    rec["nonce"] = _as_int(data.get('nonce'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
-    return rec, 201
-
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'balance', 'nonce'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Account", rec)
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"chainlink.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("chainlin_eve")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["name"] = data.get('name')
-    rec["blockNumber"] = _as_int(data.get('blockNumber'))
-    rec["dataRef"] = data.get('dataRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
-    return rec, 201
-
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Event", rec)
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"chainlink.Event", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tokens", methods=["POST"])
-def create_token(request):
-    """Create a Token."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'symbol'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("chainlin_tok")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["symbol"] = data.get('symbol')
+    rec = {"id": new_id("chainlin_pri")}
     rec["decimals"] = _as_int(data.get('decimals'))
-    rec["standard"] = data.get('standard')
+    rec["description"] = data.get('description')
+    rec["version"] = _as_int(data.get('version'))
+    rec["address"] = data.get('address')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Token", rec)
+    _persist("PriceFeed", rec)
     return rec, 201
 
-@app.route("/v1/tokens", methods=["GET"])
-def list_tokens(request):
-    """List Tokens with filtering + cursor pagination."""
+@app.route("/v1/pricefeeds", methods=["GET"])
+def list_price_feeds(request):
+    """List PriceFeeds with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Token")
-    rows = _apply_filters(rows, params, ['contractAddr', 'symbol', 'decimals', 'standard'])
+    rows = _query("PriceFeed")
+    rows = _apply_filters(rows, params, ['decimals', 'description', 'version', 'address'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tokens/<eid>", methods=["GET"])
-def get_token(request, eid):
-    """Retrieve a Token by id (supports ?expand=)."""
-    rows = _query("Token", eid)
+@app.route("/v1/pricefeeds/<eid>", methods=["GET"])
+def get_price_feed(request, eid):
+    """Retrieve a PriceFeed by id (supports ?expand=)."""
+    rows = _query("PriceFeed", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tokens/<eid>", methods=["POST", "PATCH"])
-def update_token(request, eid):
-    """Update a Token."""
-    rows = _query("Token", eid)
+@app.route("/v1/pricefeeds/<eid>", methods=["POST", "PATCH"])
+def update_price_feed(request, eid):
+    """Update a PriceFeed."""
+    rows = _query("PriceFeed", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
+    err = _reject_unknown(data, ['decimals', 'description', 'version', 'address'])
     if err:
         return err, 400
     rec = rows[0]
@@ -495,22 +165,89 @@ def update_token(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Token", rec)
+    _persist("PriceFeed", rec)
     return rec, 200
 
-@app.route("/v1/tokens/<eid>", methods=["DELETE"])
-def delete_token(request, eid):
-    """Delete a Token."""
-    rows = _query("Token", eid)
+@app.route("/v1/pricefeeds/<eid>", methods=["DELETE"])
+def delete_price_feed(request, eid):
+    """Delete a PriceFeed."""
+    rows = _query("PriceFeed", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"chainlink.Token", "id": eid})
+    db.retract({"entity": f"chainlink.PriceFeed", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/rounddatas", methods=["POST"])
+def create_round_data(request):
+    """Create a RoundData."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['roundId', 'answer', 'startedAt', 'updatedAt', 'answeredInRound'])
+    if err:
+        return err, 400
+    err = _require(data, ['answer', 'startedAt'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("chainlin_rou")}
+    rec["roundId"] = data.get('roundId')
+    rec["answer"] = data.get('answer')
+    rec["startedAt"] = _as_int(data.get('startedAt'))
+    rec["updatedAt"] = _as_int(data.get('updatedAt'))
+    rec["answeredInRound"] = data.get('answeredInRound')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("RoundData", rec)
+    return rec, 201
+
+@app.route("/v1/rounddatas", methods=["GET"])
+def list_round_datas(request):
+    """List RoundDatas with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("RoundData")
+    rows = _apply_filters(rows, params, ['roundId', 'answer', 'startedAt', 'updatedAt', 'answeredInRound'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/rounddatas/<eid>", methods=["GET"])
+def get_round_data(request, eid):
+    """Retrieve a RoundData by id (supports ?expand=)."""
+    rows = _query("RoundData", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/rounddatas/<eid>", methods=["POST", "PATCH"])
+def update_round_data(request, eid):
+    """Update a RoundData."""
+    rows = _query("RoundData", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['roundId', 'answer', 'startedAt', 'updatedAt', 'answeredInRound'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("RoundData", rec)
+    return rec, 200
+
+@app.route("/v1/rounddatas/<eid>", methods=["DELETE"])
+def delete_round_data(request, eid):
+    """Delete a RoundData."""
+    rows = _query("RoundData", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"chainlink.RoundData", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "chainlink-compat", "tier": "L4",
-            "entities": ['Block', 'Transaction', 'Contract', 'Account', 'Event', 'Token']}, 200
+            "entities": ['PriceFeed', 'RoundData']}, 200
 
 
 if __name__ == "__main__":

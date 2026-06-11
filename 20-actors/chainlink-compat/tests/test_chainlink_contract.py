@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "chainlink.kotoba")
-ENTITIES = ['Block', 'Transaction', 'Contract', 'Account', 'Event', 'Token']
-PLURALS = {'Block': 'blocks', 'Transaction': 'transactions', 'Contract': 'contracts', 'Account': 'accounts', 'Event': 'events', 'Token': 'tokens'}
+ENTITIES = ['PriceFeed', 'RoundData']
+PLURALS = {'PriceFeed': 'pricefeeds', 'RoundData': 'rounddatas'}
 
 
 class ChainlinkContract(unittest.TestCase):

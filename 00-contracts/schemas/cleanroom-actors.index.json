@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 780,
-    "L5": 220
+    "L4": 779,
+    "L5": 221
   },
   "actors": [
     {
@@ -2969,10 +2969,10 @@
     {
       "handle": "chainlink-compat",
       "did": "did:web:etzhayyim.com:actor:chainlink-compat",
-      "wasmCid": "bafkreid3t3xet5zlys7ubjabs3xzplbinbwgbydhoxh6blgdjdgh27mgpu",
+      "wasmCid": "bafkreigp5bnujenv7ants3vyrlnletjzkjhai4eynukfpponrfiz3fsq4i",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "chainlink clean-room actor",
       "category": "web3_rpc",
       "capabilities": [

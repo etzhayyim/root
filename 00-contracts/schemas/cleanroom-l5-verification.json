@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 220,
+  "count": 221,
   "actors": [
     {
       "handle": "aave-compat",
@@ -5856,6 +5856,44 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (6/6) vs official HL7 FHIR R4 value sets (Cerner/Oracle Health Ignite FHIR R4 = FHIR R4). Enforced enums: Patient.gender(4), Observation.status(8), Encounter.status(9), MedicationRequest.status(8), AllergyIntolerance.clinicalStatus(3), Condition.clinicalStatus(6) = 6 REQUIRED-binding value sets (38 values)."
+    },
+    {
+      "handle": "chainlink-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/smartcontractkit/chainlink-brownie-contracts/main/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol (the official packaging repo)",
+      "remodeled": "Remodeled to the faithful Chainlink data-feed surface verified against the official AggregatorV3Interface (smartcontractkit's own packaging repo). The anchor is ON-CHAIN IMMUTABILITY — the strongest freeze in the corpus: thousands of deployed feed contracts implement this exact interface and cannot change it; V3 has been the stable surface since 2020. decimals/description/version + the getRoundData/latestRoundData tuple (roundId, answer, startedAt, updatedAt, answeredInRound) verified verbatim. Solidity uint80/int256 quantities modeled as strings. No enums on the interface -> the fourth fields-verified L5 (nothing fabricated). Harness-direct (resolved after a carry: the interface moved out of the main chainlink monorepo into the packaging repo).",
+      "resources": [
+        {
+          "entity": "PriceFeed",
+          "source": "https://raw.githubusercontent.com/smartcontractkit/chainlink-brownie-contracts/main/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol (the official packaging repo)",
+          "verifiedFields": [
+            "decimals",
+            "description",
+            "version",
+            "address"
+          ],
+          "fieldStatus": "confirmed (interface view functions; address = the deployed feed identity)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "RoundData",
+          "source": "https://raw.githubusercontent.com/smartcontractkit/chainlink-brownie-contracts/main/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol (the official packaging repo)",
+          "verifiedFields": [
+            "roundId",
+            "answer",
+            "startedAt",
+            "updatedAt",
+            "answeredInRound"
+          ],
+          "fieldStatus": "confirmed (the getRoundData/latestRoundData return tuple, verbatim)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (2/2) vs the official frozen on-chain interface. Zero enums (none exist on the interface) — the fourth fields-verified L5. On-chain immutability joins the closedness-anchor toolbox as its strongest member."
     },
     {
       "handle": "chembl-compat",
