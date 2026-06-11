@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "freee.kotoba")
-ENTITIES = ['Account', 'Contact', 'Lead', 'Opportunity', 'Activity', 'Pipeline']
-PLURALS = {'Account': 'accounts', 'Contact': 'contacts', 'Lead': 'leads', 'Opportunity': 'opportunities', 'Activity': 'activities', 'Pipeline': 'pipelines'}
+ENTITIES = ['Deal', 'AccountItem', 'Partner', 'Invoice', 'Company', 'Walletable']
+PLURALS = {'Deal': 'deals', 'AccountItem': 'accountitems', 'Partner': 'partners', 'Invoice': 'invoices', 'Company': 'companies', 'Walletable': 'walletables'}
 
 
 class FreeeContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class FreeeContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['invoiceStatus', 'orgCode', 'paymentType', 'role', 'status', 'syncStatus', 'transferFeeHandlingSide', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

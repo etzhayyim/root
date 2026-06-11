@@ -2351,6 +2351,49 @@ PLATFORM_OVERRIDES = {
         "CatalogObject": E(type="string", name="string", version="integer"),
         "Invoice": E(orderId="string", status="string", invoiceNumber="string"),
     },
+    # Faithful Autoware AD API model (official autoware_adapi_v1_msgs .msg files,
+    # autowarefoundation/autoware_adapi_msgs main). All five state enums enforced:
+    # each .msg has a single commit since introduction (2022/2023) in an explicitly
+    # versioned v1 API — stable-since-introduction + version-anchored closedness.
+    "autoware": {
+        "OperationModeState": E(stamp="datetime", mode="integer", isAutowareControlEnabled="boolean", isInTransition="boolean", isStopModeAvailable="boolean", isAutonomousModeAvailable="boolean", isLocalModeAvailable="boolean", isRemoteModeAvailable="boolean"),
+        "RouteState": E(stamp="datetime", state="integer"),
+        "LocalizationInitializationState": E(stamp="datetime", state="integer"),
+        "MotionState": E(stamp="datetime", state="integer"),
+        "Gear": E(status="integer"),
+    },
+    # Faithful Baidu Apollo model (official ApolloAuto/apollo modules/common_msgs
+    # proto3 files, master). drivingMode/frontBumperEvent/rightOfWayStatus/
+    # fusionStatus enforced (semantically complete small sets, incl. Apollo's own
+    # WARNNING spelling). errorCode/gearLocation/type/subType/trajectoryType are
+    # version-growing and gnssStatus/lidarStatus deprecated -> all gapped.
+    "apollo_auto": {
+        "Chassis": E(engineStarted="boolean", speedMps="float", throttlePercentage="float", brakePercentage="float", steeringPercentage="float", parkingBrake="boolean", wiper="boolean", drivingMode="string", errorCode="string", gearLocation="string", frontBumperEvent="string"),
+        "PerceptionObstacle": E(theta="float", length="float", width="float", height="float", trackingTime="float", timestamp="float", confidence="float", type="string", subType="string"),
+        "ADCTrajectory": E(totalPathLength="float", totalPathTime="float", isReplan="boolean", replanReason="string", carInDeadEnd="boolean", isCollision="boolean", rightOfWayStatus="string", trajectoryType="string"),
+        "LocalizationStatus": E(measurementTime="float", stateMessage="string", fusionStatus="string", gnssStatus="string", lidarStatus="string"),
+    },
+    # Faithful IBM Qiskit model (official Qiskit/qiskit jobstatus.py + Qiskit/
+    # qiskit-ibm-runtime runtime_job_v2.py / base_runtime_job.py / ibm_backend.py).
+    # Job.status (JobStatus enum, stable since 2017) + RuntimeJob.status (typed
+    # closed Literal in runtime_job_v2) enforced.
+    "ibm_qiskit": {
+        "Job": E(jobId="string", backend="string", status="string"),
+        "RuntimeJob": E(jobId="string", programId="string", creationDate="datetime", image="string", sessionId="string", version="integer", private="boolean", status="string"),
+        "Backend": E(name="string", backendVersion="string", numQubits="integer", simulator="boolean", local="boolean", conditional="boolean", openPulse="boolean", memory="boolean", dt="float", dtm="float"),
+    },
+    # Faithful freee accounting model (official freee/freee-api-schema OpenAPI,
+    # v2020_06_15/open-api-3/api-schema.json) — replaces the generic CRM shape.
+    # 10 enums enforced from the spec's own enum arrays; the claimed
+    # AccountItem.searchable enum was REFUTED against the spec -> gapped.
+    "freee": {
+        "Deal": E(companyId="integer", issueDate="datetime", dueDate="datetime", amount="integer", dueAmount="integer", type="string", partnerId="integer", partnerCode="string", refNumber="string", status="string"),
+        "AccountItem": E(name="string", companyId="integer", taxCode="integer", accountCategory="string", available="boolean", walletableId="integer", searchable="integer"),
+        "Partner": E(name="string", code="string", companyId="integer", available="boolean", orgCode="integer", transferFeeHandlingSide="string"),
+        "Invoice": E(invoiceNumber="string", issueDate="datetime", totalAmount="integer", invoiceStatus="string", paymentType="string"),
+        "Company": E(displayName="string", role="string", orgCode="integer"),
+        "Walletable": E(name="string", bankId="integer", type="string", syncStatus="string"),
+    },
 }
 
 # ---------------------------------------------------------------------------

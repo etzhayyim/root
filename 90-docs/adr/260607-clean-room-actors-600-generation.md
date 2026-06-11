@@ -401,3 +401,46 @@ The next productive seams, in observed yield order: open-source-spec repos
 (GitHub-hosted protos / .msg / IDL / Java enums), remaining IETF/IANA-adjacent
 corpus members, and conformance-leverage families (a platform officially
 declaring a verified standard joins on the standard's verified model).
+
+## 16. Session close 2026-06-11 — gemini-CLI-researched L5 wave reaches 167 (16.7% of corpus)
+
+This session introduced a **two-stage research harness**: gemini CLI
+(`--allowed-tools "google_web_search,web_fetch"`, non-interactive) runs as the
+spec-research subagent producing a draft field/enum model with mandatory
+provenance URLs, and the harness then **independently re-fetches every cited
+primary source and machine-checks every claimed enum before anything is
+enforced**. The honesty gate is the re-verification, not the draft. L5
+140-series ledger 163 → **167** (833 L4 / 167 L5 = 16.7%), enforced-enum
+actors 158 → 162, enforced enum fields 691 → **712**, `verify_cleanroom_system.py`
+**PASS 0/0** held, all four contract suites green.
+
+| Actor | Seam | Enforced / gapped highlights |
+|---|---|---|
+| autoware | open-source-spec (.msg, ros2_nav precedent) | adapi v1 state machines: OperationModeState.mode(5) + RouteState.state(5) + LocalizationInitializationState.state(4) + MotionState.state(4) + Gear.status(6) all enforced — every .msg has exactly ONE commit since introduction (GitHub commits API) inside an explicitly versioned v1 API |
+| apollo_auto | open-source-spec (proto3) | drivingMode(5) + frontBumperEvent(3) + rightOfWayStatus(2) + fusionStatus(5, preserving Apollo's literal WARNNING spelling) enforced; errorCode/gearLocation/type/subType/trajectoryType version-growing + gnssStatus/lidarStatus deprecated → gapped |
+| ibm_qiskit | open-source-spec (Python enums/Literals) | Job.status(7, JobStatus) + RuntimeJob.status(6, typed Literal) — the two sets differ upstream (VALIDATING) and are kept faithfully distinct |
+| freee | commercial SaaS w/ OFFICIAL published OpenAPI | 10 enums enforced from the spec's own enum arrays (Deal/Partner/Invoice/Company/Walletable) incl. paymentType's faithful empty-string member |
+
+**Gemini-draft errors caught by independent re-verification (the gate works):**
+1. autoware Gear — the draft listed 5 values; the primary .msg has 6 (`LOW = 5`).
+   Corrected from the re-fetched source before enforcement.
+2. freee AccountItem.searchable — the draft claimed enum `[2, 3]`; a machine
+   sweep of every `enum` array in the official api-schema.json found NO such
+   set. Claim refuted → field kept, enum gapped
+   (`searchable-enum-claim-refuted-not-in-spec`).
+
+**Honest defer this session:** fipa_acl — fipa.org (the only official home of
+the frozen-2002 FIPA specs) serves an origin error page on every spec URL;
+the 22-performative Communicative Act Library would otherwise be the canonical
+closed-at-version enum. Recorded as defer #13, never fabricated.
+
+**Discipline matured:** (1) LLM-researcher drafts are TREATED AS UNTRUSTED —
+enforcement requires the harness to re-fetch the cited primary source and
+machine-match the exact value set (both catches above were silent
+plausible-looking errors); (2) single-commit-since-introduction (via the
+GitHub commits API) inside an explicitly versioned API surface is usable
+closedness evidence for stable-since-introduction sets; (3) read-only
+research agents need `--allowed-tools google_web_search,web_fetch` — gemini's
+plan mode blocks web_fetch entirely (the agent correctly refused to fabricate
+from training data and returned deferRecommended, which is the honesty gate
+holding under tool failure).

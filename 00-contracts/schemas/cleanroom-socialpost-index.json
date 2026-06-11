@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 158,
-  "totalVerifiedEnumFields": 691,
+  "l5VerifiedActors": 162,
+  "totalVerifiedEnumFields": 712,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -437,8 +437,8 @@
       "source": "apollo_auto.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 4
     },
     {
       "handle": "apollo_gds-compat",
@@ -737,8 +737,8 @@
       "source": "autoware.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 5
     },
     {
       "handle": "aws-compat",
@@ -3557,8 +3557,8 @@
       "source": "freee.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 10
     },
     {
       "handle": "freefly-compat",
@@ -4307,8 +4307,8 @@
       "source": "ibm_qiskit.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "ibm_zos-compat",

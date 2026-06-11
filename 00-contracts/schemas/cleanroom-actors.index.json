@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 837,
-    "L5": 163
+    "L4": 833,
+    "L5": 167
   },
   "actors": [
     {
@@ -773,10 +773,10 @@
     {
       "handle": "apollo_auto-compat",
       "did": "did:web:etzhayyim.com:actor:apollo_auto-compat",
-      "wasmCid": "bafkreigm4wjzuk2kwynrgmkzjtkfw6fbzsor2nrkdywms4swhrlo3f7rby",
+      "wasmCid": "bafkreia3el62gnhjnvgd5noavlq3suwroctxsuzvnugh4t4no7rzjzt24e",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "apollo_auto clean-room actor",
       "category": "mobility_auto_ev",
       "capabilities": [
@@ -1313,10 +1313,10 @@
     {
       "handle": "autoware-compat",
       "did": "did:web:etzhayyim.com:actor:autoware-compat",
-      "wasmCid": "bafkreidwm5qryvjogz7432ymh724zujqcqvsxdrwpfygeslrfecvbf4jeq",
+      "wasmCid": "bafkreicutlbj3r5qltdahhj6bulquwsw663bh3qxck3max5wpreayv6hvq",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "autoware clean-room actor",
       "category": "mobility_auto_ev",
       "capabilities": [
@@ -6392,7 +6392,7 @@
       "wasmCid": "bafkreibw45cqxginpwzg2vqrbe3f65s4dpnayrljkpn725xhx7tyve7phe",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "freee clean-room actor",
       "category": "crm_sales",
       "capabilities": [
@@ -7739,10 +7739,10 @@
     {
       "handle": "ibm_qiskit-compat",
       "did": "did:web:etzhayyim.com:actor:ibm_qiskit-compat",
-      "wasmCid": "bafkreiaaqibsnuplu5cmx2f5j43muqyk3dxkaz6wofyzhtacbedso4sxjq",
+      "wasmCid": "bafkreihjbk2ol5kndizde2ivahls6qddobjoye65yv57knxzleq7lyypwi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "ibm_qiskit clean-room actor",
       "category": "isa_quantum",
       "capabilities": [

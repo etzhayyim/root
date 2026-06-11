@@ -111,346 +111,21 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/registers", methods=["POST"])
-def create_register(request):
-    """Create a Register."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'widthBits', 'role'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'widthBits'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("ibmqiski_reg")}
-    rec["name"] = data.get('name')
-    rec["widthBits"] = _as_int(data.get('widthBits'))
-    rec["role"] = data.get('role')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Register", rec)
-    return rec, 201
-
-@app.route("/v1/registers", methods=["GET"])
-def list_registers(request):
-    """List Registers with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Register")
-    rows = _apply_filters(rows, params, ['name', 'widthBits', 'role'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/registers/<eid>", methods=["GET"])
-def get_register(request, eid):
-    """Retrieve a Register by id (supports ?expand=)."""
-    rows = _query("Register", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/registers/<eid>", methods=["POST", "PATCH"])
-def update_register(request, eid):
-    """Update a Register."""
-    rows = _query("Register", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'widthBits', 'role'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Register", rec)
-    return rec, 200
-
-@app.route("/v1/registers/<eid>", methods=["DELETE"])
-def delete_register(request, eid):
-    """Delete a Register."""
-    rows = _query("Register", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ibm_qiskit.Register", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/instructions", methods=["POST"])
-def create_instruction(request):
-    """Create a Instruction."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mnemonic', 'opcode', 'operands'])
-    if err:
-        return err, 400
-    err = _require(data, ['mnemonic', 'opcode'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("ibmqiski_ins")}
-    rec["mnemonic"] = data.get('mnemonic')
-    rec["opcode"] = data.get('opcode')
-    rec["operands"] = data.get('operands')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Instruction", rec)
-    return rec, 201
-
-@app.route("/v1/instructions", methods=["GET"])
-def list_instructions(request):
-    """List Instructions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Instruction")
-    rows = _apply_filters(rows, params, ['mnemonic', 'opcode', 'operands'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/instructions/<eid>", methods=["GET"])
-def get_instruction(request, eid):
-    """Retrieve a Instruction by id (supports ?expand=)."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/instructions/<eid>", methods=["POST", "PATCH"])
-def update_instruction(request, eid):
-    """Update a Instruction."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['mnemonic', 'opcode', 'operands'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Instruction", rec)
-    return rec, 200
-
-@app.route("/v1/instructions/<eid>", methods=["DELETE"])
-def delete_instruction(request, eid):
-    """Delete a Instruction."""
-    rows = _query("Instruction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ibm_qiskit.Instruction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/qubits", methods=["POST"])
-def create_qubit(request):
-    """Create a Qubit."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['index', 't1Us', 't2Us', 'readoutError'])
-    if err:
-        return err, 400
-    err = _require(data, ['index', 't1Us'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("ibmqiski_qub")}
-    rec["index"] = _as_int(data.get('index'))
-    rec["t1Us"] = _as_float(data.get('t1Us'))
-    rec["t2Us"] = _as_float(data.get('t2Us'))
-    rec["readoutError"] = _as_float(data.get('readoutError'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Qubit", rec)
-    return rec, 201
-
-@app.route("/v1/qubits", methods=["GET"])
-def list_qubits(request):
-    """List Qubits with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Qubit")
-    rows = _apply_filters(rows, params, ['index', 't1Us', 't2Us', 'readoutError'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/qubits/<eid>", methods=["GET"])
-def get_qubit(request, eid):
-    """Retrieve a Qubit by id (supports ?expand=)."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/qubits/<eid>", methods=["POST", "PATCH"])
-def update_qubit(request, eid):
-    """Update a Qubit."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['index', 't1Us', 't2Us', 'readoutError'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Qubit", rec)
-    return rec, 200
-
-@app.route("/v1/qubits/<eid>", methods=["DELETE"])
-def delete_qubit(request, eid):
-    """Delete a Qubit."""
-    rows = _query("Qubit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ibm_qiskit.Qubit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/circuits", methods=["POST"])
-def create_circuit(request):
-    """Create a Circuit."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'qubitCount', 'depth'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'qubitCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("ibmqiski_cir")}
-    rec["name"] = data.get('name')
-    rec["qubitCount"] = _as_int(data.get('qubitCount'))
-    rec["depth"] = _as_int(data.get('depth'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Circuit", rec)
-    return rec, 201
-
-@app.route("/v1/circuits", methods=["GET"])
-def list_circuits(request):
-    """List Circuits with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Circuit")
-    rows = _apply_filters(rows, params, ['name', 'qubitCount', 'depth'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/circuits/<eid>", methods=["GET"])
-def get_circuit(request, eid):
-    """Retrieve a Circuit by id (supports ?expand=)."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/circuits/<eid>", methods=["POST", "PATCH"])
-def update_circuit(request, eid):
-    """Update a Circuit."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'qubitCount', 'depth'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Circuit", rec)
-    return rec, 200
-
-@app.route("/v1/circuits/<eid>", methods=["DELETE"])
-def delete_circuit(request, eid):
-    """Delete a Circuit."""
-    rows = _query("Circuit", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ibm_qiskit.Circuit", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/gates", methods=["POST"])
-def create_gate(request):
-    """Create a Gate."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'name', 'targets'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'targets'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("ibmqiski_gat")}
-    rec["circuitId"] = data.get('circuitId')
-    rec["name"] = data.get('name')
-    rec["targets"] = data.get('targets')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Gate", rec)
-    return rec, 201
-
-@app.route("/v1/gates", methods=["GET"])
-def list_gates(request):
-    """List Gates with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Gate")
-    rows = _apply_filters(rows, params, ['circuitId', 'name', 'targets'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/gates/<eid>", methods=["GET"])
-def get_gate(request, eid):
-    """Retrieve a Gate by id (supports ?expand=)."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'circuitId': 'Circuit'})
-    return rec, 200
-
-@app.route("/v1/gates/<eid>", methods=["POST", "PATCH"])
-def update_gate(request, eid):
-    """Update a Gate."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'name', 'targets'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Gate", rec)
-    return rec, 200
-
-@app.route("/v1/gates/<eid>", methods=["DELETE"])
-def delete_gate(request, eid):
-    """Delete a Gate."""
-    rows = _query("Gate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ibm_qiskit.Gate", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/jobs", methods=["POST"])
 def create_job(request):
     """Create a Job."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'shots', 'status'])
+    err = _reject_unknown(data, ['jobId', 'backend', 'status'])
     if err:
         return err, 400
-    err = _require(data, ['shots', 'status'])
+    err = _require(data, ['backend', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['INITIALIZING', 'QUEUED', 'VALIDATING', 'RUNNING', 'CANCELLED', 'DONE', 'ERROR']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['INITIALIZING', 'QUEUED', 'VALIDATING', 'RUNNING', 'CANCELLED', 'DONE', 'ERROR']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("ibmqiski_job")}
-    rec["circuitId"] = data.get('circuitId')
-    rec["shots"] = _as_int(data.get('shots'))
+    rec["jobId"] = data.get('jobId')
+    rec["backend"] = data.get('backend')
     rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
@@ -462,7 +137,7 @@ def list_jobs(request):
     """List Jobs with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Job")
-    rows = _apply_filters(rows, params, ['circuitId', 'shots', 'status'])
+    rows = _apply_filters(rows, params, ['jobId', 'backend', 'status'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -474,7 +149,7 @@ def get_job(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'circuitId': 'Circuit'})
+    rec = _expand(rec, request.query or {}, {'jobId': 'Job'})
     return rec, 200
 
 @app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
@@ -484,9 +159,11 @@ def update_job(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['circuitId', 'shots', 'status'])
+    err = _reject_unknown(data, ['jobId', 'backend', 'status'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['INITIALIZING', 'QUEUED', 'VALIDATING', 'RUNNING', 'CANCELLED', 'DONE', 'ERROR']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['INITIALIZING', 'QUEUED', 'VALIDATING', 'RUNNING', 'CANCELLED', 'DONE', 'ERROR']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -504,10 +181,157 @@ def delete_job(request, eid):
     db.retract({"entity": f"ibm_qiskit.Job", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
+@app.route("/v1/runtimejobs", methods=["POST"])
+def create_runtime_job(request):
+    """Create a RuntimeJob."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['jobId', 'programId', 'creationDate', 'image', 'sessionId', 'version', 'private', 'status'])
+    if err:
+        return err, 400
+    err = _require(data, ['creationDate', 'image'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['INITIALIZING', 'QUEUED', 'RUNNING', 'CANCELLED', 'DONE', 'ERROR']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['INITIALIZING', 'QUEUED', 'RUNNING', 'CANCELLED', 'DONE', 'ERROR']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("ibmqiski_run")}
+    rec["jobId"] = data.get('jobId')
+    rec["programId"] = data.get('programId')
+    rec["creationDate"] = data.get('creationDate')
+    rec["image"] = data.get('image')
+    rec["sessionId"] = data.get('sessionId')
+    rec["version"] = _as_int(data.get('version'))
+    rec["private"] = _as_bool(data.get('private'))
+    rec["status"] = data.get('status')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("RuntimeJob", rec)
+    return rec, 201
+
+@app.route("/v1/runtimejobs", methods=["GET"])
+def list_runtime_jobs(request):
+    """List RuntimeJobs with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("RuntimeJob")
+    rows = _apply_filters(rows, params, ['jobId', 'programId', 'creationDate', 'image', 'sessionId', 'version', 'private', 'status'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/runtimejobs/<eid>", methods=["GET"])
+def get_runtime_job(request, eid):
+    """Retrieve a RuntimeJob by id (supports ?expand=)."""
+    rows = _query("RuntimeJob", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'jobId': 'Job'})
+    return rec, 200
+
+@app.route("/v1/runtimejobs/<eid>", methods=["POST", "PATCH"])
+def update_runtime_job(request, eid):
+    """Update a RuntimeJob."""
+    rows = _query("RuntimeJob", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['jobId', 'programId', 'creationDate', 'image', 'sessionId', 'version', 'private', 'status'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['INITIALIZING', 'QUEUED', 'RUNNING', 'CANCELLED', 'DONE', 'ERROR']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['INITIALIZING', 'QUEUED', 'RUNNING', 'CANCELLED', 'DONE', 'ERROR']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("RuntimeJob", rec)
+    return rec, 200
+
+@app.route("/v1/runtimejobs/<eid>", methods=["DELETE"])
+def delete_runtime_job(request, eid):
+    """Delete a RuntimeJob."""
+    rows = _query("RuntimeJob", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"ibm_qiskit.RuntimeJob", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/backends", methods=["POST"])
+def create_backend(request):
+    """Create a Backend."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'backendVersion', 'numQubits', 'simulator', 'local', 'conditional', 'openPulse', 'memory', 'dt', 'dtm'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'backendVersion'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("ibmqiski_bac")}
+    rec["name"] = data.get('name')
+    rec["backendVersion"] = data.get('backendVersion')
+    rec["numQubits"] = _as_int(data.get('numQubits'))
+    rec["simulator"] = _as_bool(data.get('simulator'))
+    rec["local"] = _as_bool(data.get('local'))
+    rec["conditional"] = _as_bool(data.get('conditional'))
+    rec["openPulse"] = _as_bool(data.get('openPulse'))
+    rec["memory"] = _as_bool(data.get('memory'))
+    rec["dt"] = _as_float(data.get('dt'))
+    rec["dtm"] = _as_float(data.get('dtm'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Backend", rec)
+    return rec, 201
+
+@app.route("/v1/backends", methods=["GET"])
+def list_backends(request):
+    """List Backends with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Backend")
+    rows = _apply_filters(rows, params, ['name', 'backendVersion', 'numQubits', 'simulator', 'local', 'conditional', 'openPulse', 'memory', 'dt', 'dtm'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/backends/<eid>", methods=["GET"])
+def get_backend(request, eid):
+    """Retrieve a Backend by id (supports ?expand=)."""
+    rows = _query("Backend", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/backends/<eid>", methods=["POST", "PATCH"])
+def update_backend(request, eid):
+    """Update a Backend."""
+    rows = _query("Backend", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'backendVersion', 'numQubits', 'simulator', 'local', 'conditional', 'openPulse', 'memory', 'dt', 'dtm'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Backend", rec)
+    return rec, 200
+
+@app.route("/v1/backends/<eid>", methods=["DELETE"])
+def delete_backend(request, eid):
+    """Delete a Backend."""
+    rows = _query("Backend", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"ibm_qiskit.Backend", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "ibm_qiskit-compat", "tier": "L4",
-            "entities": ['Register', 'Instruction', 'Qubit', 'Circuit', 'Gate', 'Job']}, 200
+            "entities": ['Job', 'RuntimeJob', 'Backend']}, 200
 
 
 if __name__ == "__main__":

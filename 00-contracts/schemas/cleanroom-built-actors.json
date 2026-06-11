@@ -727,17 +727,15 @@
       "handle": "apollo_auto-compat",
       "platform": "apollo_auto",
       "bytes": 2125,
-      "wasmCid": "bafkreigm4wjzuk2kwynrgmkzjtkfw6fbzsor2nrkdywms4swhrlo3f7rby",
+      "wasmCid": "bafkreia3el62gnhjnvgd5noavlq3suwroctxsuzvnugh4t4no7rzjzt24e",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "Chassis",
+        "PerceptionObstacle",
+        "ADCTrajectory",
+        "LocalizationStatus"
       ]
     },
     {
@@ -1234,17 +1232,16 @@
       "handle": "autoware-compat",
       "platform": "autoware",
       "bytes": 2122,
-      "wasmCid": "bafkreidwm5qryvjogz7432ymh724zujqcqvsxdrwpfygeslrfecvbf4jeq",
+      "wasmCid": "bafkreicutlbj3r5qltdahhj6bulquwsw663bh3qxck3max5wpreayv6hvq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "OperationModeState",
+        "RouteState",
+        "LocalizationInitializationState",
+        "MotionState",
+        "Gear"
       ]
     },
     {
@@ -6009,12 +6006,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Contact",
-        "Lead",
-        "Opportunity",
-        "Activity",
-        "Pipeline"
+        "Deal",
+        "AccountItem",
+        "Partner",
+        "Invoice",
+        "Company",
+        "Walletable"
       ]
     },
     {
@@ -7280,17 +7277,14 @@
       "handle": "ibm_qiskit-compat",
       "platform": "ibm_qiskit",
       "bytes": 2124,
-      "wasmCid": "bafkreiaaqibsnuplu5cmx2f5j43muqyk3dxkaz6wofyzhtacbedso4sxjq",
+      "wasmCid": "bafkreihjbk2ol5kndizde2ivahls6qddobjoye65yv57knxzleq7lyypwi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Register",
-        "Instruction",
-        "Qubit",
-        "Circuit",
-        "Gate",
-        "Job"
+        "Job",
+        "RuntimeJob",
+        "Backend"
       ]
     },
     {

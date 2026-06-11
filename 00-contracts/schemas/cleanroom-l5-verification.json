@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 163,
+  "count": 167,
   "actors": [
     {
       "handle": "adyen-compat",
@@ -1213,6 +1213,123 @@
       ]
     },
     {
+      "handle": "apollo_auto-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://github.com/ApolloAuto/apollo (modules/common_msgs proto3, master)",
+      "remodeled": "Remodeled from generic category model to a faithful Baidu Apollo model verified against the official common_msgs proto3 files. drivingMode (5, incl. Apollo's own WARNNING-free set), frontBumperEvent (3), rightOfWayStatus (2), fusionStatus (5 — preserving Apollo's WARNNING spelling) enforced as semantically complete small sets. errorCode/gearLocation/PerceptionObstacle.type+subType/trajectoryType version-growing and gnssStatus/lidarStatus deprecated -> all gapped. Research drafted via gemini CLI web-fetch; every enum independently re-fetched and matched exactly.",
+      "resources": [
+        {
+          "entity": "Chassis",
+          "source": "https://raw.githubusercontent.com/ApolloAuto/apollo/master/modules/common_msgs/chassis_msgs/chassis.proto",
+          "verifiedFields": [
+            "engineStarted",
+            "speedMps",
+            "throttlePercentage",
+            "brakePercentage",
+            "steeringPercentage",
+            "parkingBrake",
+            "wiper",
+            "drivingMode",
+            "errorCode",
+            "gearLocation",
+            "frontBumperEvent"
+          ],
+          "fieldStatus": "confirmed (snake_case->camelCase); errorCode/gearLocation version-growing -> gapped",
+          "discoveredEnums": {
+            "drivingMode": [
+              "COMPLETE_MANUAL",
+              "COMPLETE_AUTO_DRIVE",
+              "AUTO_STEER_ONLY",
+              "AUTO_SPEED_ONLY",
+              "EMERGENCY_MODE"
+            ],
+            "frontBumperEvent": [
+              "BUMPER_INVALID",
+              "BUMPER_NORMAL",
+              "BUMPER_PRESSED"
+            ]
+          },
+          "gaps": [
+            "errorCode-version-growing",
+            "gearLocation-version-growing"
+          ]
+        },
+        {
+          "entity": "PerceptionObstacle",
+          "source": "https://raw.githubusercontent.com/ApolloAuto/apollo/master/modules/common_msgs/perception_msgs/perception_obstacle.proto",
+          "verifiedFields": [
+            "theta",
+            "length",
+            "width",
+            "height",
+            "trackingTime",
+            "timestamp",
+            "confidence",
+            "type",
+            "subType"
+          ],
+          "fieldStatus": "confirmed; type/subType grow with perception classes -> gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "type-version-growing",
+            "subType-version-growing"
+          ]
+        },
+        {
+          "entity": "ADCTrajectory",
+          "source": "https://raw.githubusercontent.com/ApolloAuto/apollo/master/modules/common_msgs/planning_msgs/planning.proto",
+          "verifiedFields": [
+            "totalPathLength",
+            "totalPathTime",
+            "isReplan",
+            "replanReason",
+            "carInDeadEnd",
+            "isCollision",
+            "rightOfWayStatus",
+            "trajectoryType"
+          ],
+          "fieldStatus": "confirmed; trajectoryType version-growing (EDGE_FOLLOW/RELATIVE_CONTROL late additions) -> gapped",
+          "discoveredEnums": {
+            "rightOfWayStatus": [
+              "UNPROTECTED",
+              "PROTECTED"
+            ]
+          },
+          "gaps": [
+            "trajectoryType-version-growing"
+          ]
+        },
+        {
+          "entity": "LocalizationStatus",
+          "source": "https://raw.githubusercontent.com/ApolloAuto/apollo/master/modules/common_msgs/localization_msgs/localization.proto",
+          "verifiedFields": [
+            "measurementTime",
+            "stateMessage",
+            "fusionStatus",
+            "gnssStatus",
+            "lidarStatus"
+          ],
+          "fieldStatus": "confirmed (MeasureState); gnssStatus/lidarStatus marked deprecated upstream -> gapped",
+          "discoveredEnums": {
+            "fusionStatus": [
+              "OK",
+              "WARNNING",
+              "ERROR",
+              "CRITICAL_ERROR",
+              "FATAL_ERROR"
+            ]
+          },
+          "gaps": [
+            "gnssStatus-deprecated",
+            "lidarStatus-deprecated"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (4/4) vs official ApolloAuto/apollo common_msgs protos. Enforced enums: Chassis.drivingMode(5), Chassis.frontBumperEvent(3), ADCTrajectory.rightOfWayStatus(2), LocalizationStatus.fusionStatus(5) = 4 enum fields (fusionStatus keeps Apollo's literal WARNNING spelling — fidelity over orthography). Version-growing + deprecated sets gapped."
+    },
+    {
       "handle": "arxiv_api-compat",
       "verifiedAt": "2026-06-09",
       "tier": "L5",
@@ -2002,6 +2119,116 @@
       ],
       "notApplicable": [],
       "note": "Specialized-domain actor; 6 entities field-verified vs the official API spec (researched via gemini-cli, integrated deterministically). 1 closed enums recorded."
+    },
+    {
+      "handle": "autoware-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://github.com/autowarefoundation/autoware_adapi_msgs (autoware_adapi_v1_msgs .msg files, main)",
+      "remodeled": "Remodeled from generic category model to the faithful Autoware AD API v1 state-machine surface, verified field-for-field against the official autoware_adapi_v1_msgs .msg files. All five state enums enforced: every .msg has exactly one commit since introduction (2022/2023, GitHub commits API) inside an explicitly versioned v1 API — stable-since-introduction + version-anchored closedness. Research drafted via gemini CLI web-fetch; every value independently re-fetched and reconciled (the gemini draft missed Gear LOW=5 — corrected from the primary source).",
+      "resources": [
+        {
+          "entity": "OperationModeState",
+          "source": "https://raw.githubusercontent.com/autowarefoundation/autoware_adapi_msgs/main/autoware_adapi_v1_msgs/operation_mode/msg/OperationModeState.msg",
+          "verifiedFields": [
+            "stamp",
+            "mode",
+            "isAutowareControlEnabled",
+            "isInTransition",
+            "isStopModeAvailable",
+            "isAutonomousModeAvailable",
+            "isLocalModeAvailable",
+            "isRemoteModeAvailable"
+          ],
+          "fieldStatus": "confirmed (snake_case->camelCase)",
+          "discoveredEnums": {
+            "mode": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "RouteState",
+          "source": "https://raw.githubusercontent.com/autowarefoundation/autoware_adapi_msgs/main/autoware_adapi_v1_msgs/routing/msg/RouteState.msg",
+          "verifiedFields": [
+            "stamp",
+            "state"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "LocalizationInitializationState",
+          "source": "https://raw.githubusercontent.com/autowarefoundation/autoware_adapi_msgs/main/autoware_adapi_v1_msgs/localization/msg/LocalizationInitializationState.msg",
+          "verifiedFields": [
+            "stamp",
+            "state"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "MotionState",
+          "source": "https://raw.githubusercontent.com/autowarefoundation/autoware_adapi_msgs/main/autoware_adapi_v1_msgs/motion/msg/MotionState.msg",
+          "verifiedFields": [
+            "stamp",
+            "state"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "state": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Gear",
+          "source": "https://raw.githubusercontent.com/autowarefoundation/autoware_adapi_msgs/main/autoware_adapi_v1_msgs/vehicle/msg/Gear.msg",
+          "verifiedFields": [
+            "status"
+          ],
+          "fieldStatus": "confirmed (UNKNOWN/NEUTRAL/DRIVE/REVERSE/PARK/LOW)",
+          "discoveredEnums": {
+            "status": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (5/5) vs official autoware_adapi_v1_msgs. Enforced enums: OperationModeState.mode(5), RouteState.state(5), LocalizationInitializationState.state(4), MotionState.state(4), Gear.status(6) = 5 enum fields. gemini-CLI-drafted research independently re-verified against primary sources (Gear draft omission corrected)."
     },
     {
       "handle": "bandwidth-compat",
@@ -7854,6 +8081,167 @@
       "note": "FULLY VERIFIED (5/5) vs official Fivetran REST API docs. Enforced enums: Connector.setupState/syncState/updateState/scheduleType/networkingMethod, Destination.setupStatus/networkingMethod, Transformation.type/status = 9 enums. User.role open (custom roles) -> not enforced."
     },
     {
+      "handle": "freee-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/freee/freee-api-schema/master/v2020_06_15/open-api-3/api-schema.json",
+      "remodeled": "Remodeled from a generic CRM shape (Account/Contact/Lead — unfaithful for an accounting platform) to the faithful freee accounting model verified against freee's OFFICIAL published OpenAPI (freee/freee-api-schema v2020_06_15). 10 enums enforced directly from the spec's own enum arrays. Research drafted via gemini CLI web-fetch; all 11 claimed enums machine-checked against the fetched spec — 10 matched exactly, the AccountItem.searchable=[2,3] claim was REFUTED (no such enum in the spec) and is gapped, not enforced.",
+      "resources": [
+        {
+          "entity": "Deal",
+          "source": "https://raw.githubusercontent.com/freee/freee-api-schema/master/v2020_06_15/open-api-3/api-schema.json",
+          "verifiedFields": [
+            "companyId",
+            "issueDate",
+            "dueDate",
+            "amount",
+            "dueAmount",
+            "type",
+            "partnerId",
+            "partnerCode",
+            "refNumber",
+            "status"
+          ],
+          "fieldStatus": "confirmed (components/schemas dealCreateResponse.deal; snake_case->camelCase)",
+          "discoveredEnums": {
+            "type": [
+              "income",
+              "expense"
+            ],
+            "status": [
+              "unsettled",
+              "settled"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "AccountItem",
+          "source": "https://raw.githubusercontent.com/freee/freee-api-schema/master/v2020_06_15/open-api-3/api-schema.json",
+          "verifiedFields": [
+            "name",
+            "companyId",
+            "taxCode",
+            "accountCategory",
+            "available",
+            "walletableId",
+            "searchable"
+          ],
+          "fieldStatus": "confirmed (accountItemResponse.account_item); searchable enum claim refuted vs spec -> gapped",
+          "discoveredEnums": {},
+          "gaps": [
+            "searchable-enum-claim-refuted-not-in-spec"
+          ]
+        },
+        {
+          "entity": "Partner",
+          "source": "https://raw.githubusercontent.com/freee/freee-api-schema/master/v2020_06_15/open-api-3/api-schema.json",
+          "verifiedFields": [
+            "name",
+            "code",
+            "companyId",
+            "available",
+            "orgCode",
+            "transferFeeHandlingSide"
+          ],
+          "fieldStatus": "confirmed (partnersResponse.partners items)",
+          "discoveredEnums": {
+            "orgCode": [
+              1,
+              2
+            ],
+            "transferFeeHandlingSide": [
+              "payer",
+              "payee"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Invoice",
+          "source": "https://raw.githubusercontent.com/freee/freee-api-schema/master/v2020_06_15/open-api-3/api-schema.json",
+          "verifiedFields": [
+            "invoiceNumber",
+            "issueDate",
+            "totalAmount",
+            "invoiceStatus",
+            "paymentType"
+          ],
+          "fieldStatus": "confirmed (invoiceIndexResponse.invoices items)",
+          "discoveredEnums": {
+            "invoiceStatus": [
+              "draft",
+              "applying",
+              "remanded",
+              "rejected",
+              "approved",
+              "submitted",
+              "unsubmitted"
+            ],
+            "paymentType": [
+              "",
+              "transfer",
+              "direct_debit"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Company",
+          "source": "https://raw.githubusercontent.com/freee/freee-api-schema/master/v2020_06_15/open-api-3/api-schema.json",
+          "verifiedFields": [
+            "displayName",
+            "role",
+            "orgCode"
+          ],
+          "fieldStatus": "confirmed (companyResponse.company)",
+          "discoveredEnums": {
+            "role": [
+              "admin",
+              "simple_accounting",
+              "self_only",
+              "read_only",
+              "workflow"
+            ],
+            "orgCode": [
+              1,
+              2
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Walletable",
+          "source": "https://raw.githubusercontent.com/freee/freee-api-schema/master/v2020_06_15/open-api-3/api-schema.json",
+          "verifiedFields": [
+            "name",
+            "bankId",
+            "type",
+            "syncStatus"
+          ],
+          "fieldStatus": "confirmed (components/schemas/walletable)",
+          "discoveredEnums": {
+            "type": [
+              "bank_account",
+              "credit_card",
+              "wallet"
+            ],
+            "syncStatus": [
+              "success",
+              "disabled",
+              "syncing",
+              "token_refresh_error",
+              "unsupported",
+              "other_error"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (6/6) vs freee's official published OpenAPI schema. Enforced enums: Deal.type(2)+status(2), Partner.orgCode(2)+transferFeeHandlingSide(2), Invoice.invoiceStatus(7)+paymentType(3 incl. empty string, faithful to spec), Company.role(5)+orgCode(2), Walletable.type(3)+syncStatus(6) = 10 enum fields. One gemini-draft enum refuted by machine-check -> gapped (honesty over coverage)."
+    },
+    {
       "handle": "gbfs-compat",
       "verifiedAt": "2026-06-09",
       "tier": "L5",
@@ -9478,6 +9866,84 @@
         }
       ],
       "note": "PARTIAL (2/6 doc-confirmed: Contact + Pipeline). HubSpot's generic property system means the other CRM objects' fixed schemas aren't published; modeled with standard props but not certified. No enforced enums (HubSpot stages are configurable)."
+    },
+    {
+      "handle": "ibm_qiskit-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://github.com/Qiskit/qiskit + https://github.com/Qiskit/qiskit-ibm-runtime (official sources)",
+      "remodeled": "Remodeled from generic category model to the faithful Qiskit job/backend surface verified against official sources: qiskit/providers/jobstatus.py (JobStatus, stable since the 2017 copyright era), qiskit-ibm-runtime runtime_job_v2.py (typed closed Literal JobStatus), base_runtime_job.py + ibm_backend.py (field surfaces). Research drafted via gemini CLI web-fetch; enums independently re-fetched and matched exactly.",
+      "resources": [
+        {
+          "entity": "Job",
+          "source": "https://raw.githubusercontent.com/Qiskit/qiskit/main/qiskit/providers/jobstatus.py",
+          "verifiedFields": [
+            "jobId",
+            "backend",
+            "status"
+          ],
+          "fieldStatus": "confirmed (JobV1 surface; status from JobStatus enum)",
+          "discoveredEnums": {
+            "status": [
+              "INITIALIZING",
+              "QUEUED",
+              "VALIDATING",
+              "RUNNING",
+              "CANCELLED",
+              "DONE",
+              "ERROR"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "RuntimeJob",
+          "source": "https://raw.githubusercontent.com/Qiskit/qiskit-ibm-runtime/main/qiskit_ibm_runtime/runtime_job_v2.py",
+          "verifiedFields": [
+            "jobId",
+            "programId",
+            "creationDate",
+            "image",
+            "sessionId",
+            "version",
+            "private",
+            "status"
+          ],
+          "fieldStatus": "confirmed (base_runtime_job.py constructor surface; status = typed Literal in runtime_job_v2.py)",
+          "discoveredEnums": {
+            "status": [
+              "INITIALIZING",
+              "QUEUED",
+              "RUNNING",
+              "CANCELLED",
+              "DONE",
+              "ERROR"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Backend",
+          "source": "https://raw.githubusercontent.com/Qiskit/qiskit-ibm-runtime/main/qiskit_ibm_runtime/ibm_backend.py",
+          "verifiedFields": [
+            "name",
+            "backendVersion",
+            "numQubits",
+            "simulator",
+            "local",
+            "conditional",
+            "openPulse",
+            "memory",
+            "dt",
+            "dtm"
+          ],
+          "fieldStatus": "confirmed (IBMBackend documented attribute surface)",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs official Qiskit sources. Enforced enums: Job.status(7, JobStatus enum incl. VALIDATING), RuntimeJob.status(6, runtime Literal WITHOUT VALIDATING — the two sets differ upstream and are kept faithfully distinct) = 2 enum fields."
     },
     {
       "handle": "ietf_rfcs-compat",

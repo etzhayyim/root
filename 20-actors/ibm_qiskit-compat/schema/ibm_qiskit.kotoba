@@ -3,68 +3,43 @@
 
 namespace ibm_qiskit {
 
-    entity Register {
-        id: string @unique
-        name: string
-        widthBits: integer
-        role: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Instruction {
-        id: string @unique
-        mnemonic: string
-        opcode: string
-        operands: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Qubit {
-        id: string @unique
-        index: integer
-        t1Us: float
-        t2Us: float
-        readoutError: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Circuit {
-        id: string @unique
-        name: string
-        qubitCount: integer
-        depth: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Gate {
-        id: string @unique
-        circuitId: string
-        name: string
-        targets: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Job {
         id: string @unique
-        circuitId: string
-        shots: integer
+        jobId: string
+        backend: string
         status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-}
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
+    entity RuntimeJob {
         id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
+        jobId: string
+        programId: string
+        creationDate: datetime
+        image: string
+        sessionId: string
+        version: integer
+        private: boolean
+        status: string
+        createdAt: datetime
+        updatedAt: datetime
     }
+
+    entity Backend {
+        id: string @unique
+        name: string
+        backendVersion: string
+        numQubits: integer
+        simulator: boolean
+        local: boolean
+        conditional: boolean
+        openPulse: boolean
+        memory: boolean
+        dt: float
+        dtm: float
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+}
