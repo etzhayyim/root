@@ -15229,6 +15229,20 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606111900-cc-wet-direct-datom-ingest-no-parquet",
+      "type": "TechArticle",
+      "title": "ADR-2606111900: CC WET direct datom-native ingest — parquet を入力ワイヤからも排除",
+      "status": "accepted",
+      "topic": "cc-wet-direct-datom-ingest",
+      "authoritative": true,
+      "authoritativeFor": [
+        "cc-wet-direct-datom-ingest tool (70-tools/scripts/cc-direct-ingest/)",
+        "parquet-free CC corpus ingestion path"
+      ],
+      "related": "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-2606112000-kotoba-actor-dna-code-data-unification",
       "type": "TechArticle",
       "title": "ADR-2606112000: Actor DNA — binding kotoba CODE + DATA into one content-addressed unit (Holochain-/Ethereum-iso)",
