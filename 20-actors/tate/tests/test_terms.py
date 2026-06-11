@@ -157,6 +157,11 @@ def test_intl_expected_shapes_hit():
     assert ("doc:ie-terms", "cl:ie-auto-renewal") in hits
     assert ("doc:ch-agb", "cl:ch-haftungsausschluss") in hits
     assert ("doc:ch-agb", "cl:ch-auto-renewal") in hits
+    # wave 12 (:dk :fi)
+    assert ("doc:dk-vilkaar", "cl:dk-ansvarsfraskrivelse") in hits
+    assert ("doc:dk-vilkaar", "cl:dk-auto-renewal") in hits
+    assert ("doc:fi-ehdot", "cl:fi-vastuunrajoitus") in hits
+    assert ("doc:fi-ehdot", "cl:fi-auto-renewal") in hits
 
 
 def test_jurisdiction_isolation():

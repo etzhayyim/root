@@ -497,6 +497,40 @@ def test_wave11_ie_ch():
     assert at["proc"] == "proc:at-zahlungsbefehl" and at["proc"] != ch["proc"]
 
 
+def test_wave12_family_track():
+    """Wave 12: the :family track. Universal invariant: EVERY :family procedure
+    routes to kokoro 心 (Wellbecoming support) alongside the legal options — and
+    the :de Anwaltszwang honesty (tate can't template what only a lawyer may file)
+    is disclosed rather than papered over."""
+    ps, procs = _by_id()
+    jp = ps["ntc:jp-chotei"]
+    assert jp["status"] == ":genuine" and jp["proc"] == "proc:jp-kaji-chotei"
+    assert any("家事事件手続法51条" in d["anchor"] for d in jp["deadlines"])
+    us = ps["ntc:us-divorce"]
+    assert us["status"] == ":genuine" and us["proc"] == "proc:us-divorce-petition"
+    assert any("30日" in d["rule"] for d in us["deadlines"])
+    de = ps["ntc:de-scheidung"]
+    assert de["status"] == ":genuine" and de["proc"] == "proc:de-scheidungsantrag"
+    assert any("FamFG §114" in d["anchor"] for d in de["deadlines"])
+    assert any(o["id"] == ":vkh" for o in de["options"])  # VKH 申請は本人可 (protective)
+    # parametric: every :family proc routes to kokoro 心
+    for p in procs:
+        if p.get(":proc/track") == ":family":
+            assert any("kokoro 心" in r for r in p.get(":proc/refer-when", [])), p[":proc/id"]
+
+
+def test_wave12_dk_fi():
+    """Wave 12: DK betalingspåkrav (indsigelse ~14日, retsplejeloven kap. 44a) ·
+    FI haastehakemus (vastaus — 無応答は yksipuolinen tuomio)."""
+    ps, _ = _by_id()
+    dk = ps["ntc:dk-bp"]
+    assert dk["status"] == ":genuine" and dk["proc"] == "proc:dk-betalingspaakrav"
+    assert any("44a" in d["anchor"] for d in dk["deadlines"])
+    fi = ps["ntc:fi-haaste"]
+    assert fi["status"] == ":genuine" and fi["proc"] == "proc:fi-haastehakemus"
+    assert any("yksipuolinen tuomio" in d["rule"] for d in fi["deadlines"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

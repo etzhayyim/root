@@ -153,6 +153,22 @@
   :proc/refer-when ["高額債権" "別除権・相殺が絡む場合"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:jp-kaji-chotei" :proc/label "家事調停の期日通知 (家事・日本)"
+  :proc/jurisdiction :jp :proc/track :family
+  :proc/trigger-keywords ["家事調停" "調停期日通知"]
+  :proc/genuine-channels [:mail :special-service]
+  :proc/deadline-rules
+  [{:dl/label "期日への出頭"
+    :dl/rule "通知記載の調停期日に出頭 (正当な理由のない不出頭は5万円以下の過料があり得る) — 出頭困難なら期日変更を早めに申し出る"
+    :dl/anchor "家事事件手続法51条・258条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :shuttou :opt/kind :self-decide :opt/label "期日に出頭 (調停は話合いの場 — 合意するまで成立しない)"}
+   {:opt/id :jijou-setsumei :opt/kind :self-submit :opt/label "答弁書・事情説明書を事前提出 (言い分を整理)"}
+   {:opt/id :kijitsu-henkou :opt/kind :self-submit :opt/label "出頭困難なら期日変更の申出 (電話会議の可否も確認)"}]
+  :proc/refer-when ["財産分与・親権・養育費が争点 → 弁護士/法テラス"
+                    "kokoro 心 (精神的サポート — 家事事件は Wellbecoming 負荷が大きい)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:naiyou-shoumei" :proc/label "内容証明郵便 (企業・個人からの請求/通告)"
   :proc/jurisdiction :jp
   :proc/trigger-keywords ["内容証明" "催告書" "通告書"]
@@ -244,6 +260,21 @@
     :opt/label "Official Form 410 で proof of claim を提出 (無料・本人可)"}
    {:opt/id :no-asset-wait :opt/kind :self-decide :opt/label "no-asset 通知なら指示どおり待機 (後日 asset 化したら届出案内が来る)"}]
   :proc/refer-when ["債権が高額・担保付き"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:us-divorce-petition" :proc/label "Petition for dissolution (家事・米国)"
+  :proc/jurisdiction :us :proc/track :family
+  :proc/trigger-keywords ["petition for dissolution" "divorce petition"]
+  :proc/genuine-channels [:personal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Response の提出"
+    :dl/rule "送達から30日以内が多い (州 family code・通知記載を確認) — 無応答は default となり財産分与・監護が一方的に決まり得る"
+    :dl/anchor "州 family code (例 Cal. Fam. Code §2020 系 / FL-120)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :response :opt/kind :self-submit :opt/label "response form を期限内に提出 (default 回避が最優先)"}
+   {:opt/id :mediation :opt/kind :self-decide :opt/label "mediation / collaborative の検討"}]
+  :proc/refer-when ["family law facilitator / legal aid family unit"
+                    "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
  ;; ── :eu ──────────────────────────────────────────────────────────────────────
@@ -573,6 +604,22 @@
   :proc/refer-when ["担保・相殺・高額債権"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:de-scheidungsantrag" :proc/label "Scheidungsantrag (家事・ドイツ)"
+  :proc/jurisdiction :de :proc/track :family
+  :proc/trigger-keywords ["Scheidungsantrag"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Anwaltszwang (弁護士強制)"
+    :dl/rule "Familiensachen は Familiengericht で弁護士強制 — 申立てに対抗する手続行為は本人では行えない (単に同意するだけなら自分の弁護士不要の場合あり); tate が雛形を出せない管轄類型であることを正直に開示"
+    :dl/anchor "FamFG §114" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :anwalt-sofort :opt/kind :self-decide
+    :opt/label "速やかに Fachanwalt für Familienrecht へ (対抗には必須)"}
+   {:opt/id :vkh :opt/kind :self-submit :opt/protective true
+    :opt/label "Verfahrenskostenhilfe (訴訟費用扶助) の申請は本人可 — 資力がなくても弁護士を立てられる"}]
+  :proc/refer-when ["即時に弁護士 (Anwaltszwang)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  ;; ── :at ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:at-zahlungsbefehl" :proc/label "Zahlungsbefehl (支払命令・オーストリア)"
   :proc/jurisdiction :at
@@ -601,6 +648,36 @@
   [{:opt/id :oposicao :opt/kind :self-submit :opt/label "oposição を提出 (Balcão Nacional de Injunções)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
   :proc/refer-when ["高額 → advogado / apoio judiciário"]
+  :proc/verify-current-law true}
+
+ ;; ── :dk ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:dk-betalingspaakrav" :proc/label "Betalingspåkrav (支払督促・デンマーク)"
+  :proc/jurisdiction :dk
+  :proc/trigger-keywords ["betalingspåkrav"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Indsigelse (異議)"
+    :dl/rule "påkrav 記載の期限 (通常14日) 内に書面で indsigelse — 無応答は判決同等の効力 (påtegning)"
+    :dl/anchor "retsplejeloven kap. 44a (§477a 以下)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :indsigelse :opt/kind :self-submit :opt/label "fogedretten へ indsigelse (→ 通常手続へ)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/分割"}]
+  :proc/refer-when ["kr. 50,000 超 (småsager 上限外)"]
+  :proc/verify-current-law true}
+
+ ;; ── :fi ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:fi-haastehakemus" :proc/label "Haastehakemus (簡易訴状・フィンランド)"
+  :proc/jurisdiction :fi
+  :proc/trigger-keywords ["haastehakemus"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Vastaus (答弁)"
+    :dl/rule "呼出記載の期限内に vastaus — 無応答は yksipuolinen tuomio (欠席判決)"
+    :dl/anchor "oikeudenkäymiskaari 5 luku" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :vastaus :opt/kind :self-submit :opt/label "vastaus を käräjäoikeus へ (認否 + 反論)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/sovinto"}]
+  :proc/refer-when ["高額・複雑 → oikeusapu"]
   :proc/verify-current-law true}
 
  ;; ── :ie ──────────────────────────────────────────────────────────────────────

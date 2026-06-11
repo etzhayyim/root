@@ -212,6 +212,47 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 12 (:family track jp/us/de + :dk :fi) ───────────────────────────────
+ {:doc/id "doc:dk-vilkaar" :doc/label "DK abonnementsvilkår (synthetic)"
+  :doc/jurisdiction :dk
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Selskabet fraskriver sig ethvert ansvar for tab. Abonnementet forlænges automatisk med et år."}
+
+ {:doc/id "doc:fi-ehdot" :doc/label "FI sopimusehdot (synthetic)"
+  :doc/jurisdiction :fi
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Emme vastaa mistään vahingoista. Tilaus jatkuu automaattisesti vuoden kerrallaan."}
+
+ {:notice/id "ntc:dk-bp" :notice/label "DK betalingspåkrav (fogedretten)"
+  :notice/jurisdiction :dk
+  :notice/channel :mail :notice/claim-amount 12000 :notice/claim-currency "DKK"
+  :notice/sourcing :synthetic
+  :notice/text "Betalingspåkrav. De kan fremsætte indsigelse inden fristen."}
+
+ {:notice/id "ntc:fi-haaste" :notice/label "FI haastehakemus (tiedoksianto)"
+  :notice/jurisdiction :fi
+  :notice/channel :mail :notice/claim-amount 1700 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Suppea haastehakemus. Antakaa vastaus määräajassa."}
+
+ {:notice/id "ntc:jp-chotei" :notice/label "家事調停期日通知書 (郵送・家事)"
+  :notice/jurisdiction :jp
+  :notice/channel :mail :notice/claim-jpy 0
+  :notice/sourcing :synthetic
+  :notice/text "家事調停期日通知書。下記期日に家庭裁判所へ出頭してください。"}
+
+ {:notice/id "ntc:us-divorce" :notice/label "US petition for dissolution (personal service・家事)"
+  :notice/jurisdiction :us :notice/us-state :us-ca
+  :notice/channel :personal-service :notice/claim-amount 0 :notice/claim-currency "USD"
+  :notice/sourcing :synthetic
+  :notice/text "You are served with a petition for dissolution of marriage. You must respond within 30 days."}
+
+ {:notice/id "ntc:de-scheidung" :notice/label "DE Scheidungsantrag (Zustellung・家事)"
+  :notice/jurisdiction :de
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Der Scheidungsantrag Ihres Ehegatten wurde Ihnen zugestellt."}
+
  ;; ── wave 11 (:insolvency track jp/us/de + :ie :ch) ───────────────────────────
  {:doc/id "doc:ie-terms" :doc/label "IE subscription terms (synthetic)"
   :doc/jurisdiction :ie

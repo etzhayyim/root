@@ -150,6 +150,22 @@
   :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
   :juris/sourcing :representative :juris/verify-current-law true}
 
+ {:juris/id :dk :juris/label "Danmark"
+  :juris/upl-anchor "retsplejeloven (retssager の advokat 原則; småsager ≤ kr. 50,000 は本人手続前提)"
+  :juris/service-note "betalingspåkrav は fogedretten から (forkyndelse) — SMS/e-mail の『retten』通知は偽"
+  :juris/referrals ["retshjælp / advokatvagten (無料相談)" "Forbrugerklagenævnet (Nævnenes Hus)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "politi 114" "Forbrug.dk"]
+  :juris/refer-over-amount 50000 :juris/refer-over-currency "DKK"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :fi :juris/label "Suomi"
+  :juris/upl-anchor "oikeudenkäymiskaari 15 luku (asiamies — 本人訴訟が広く可)"
+  :juris/service-note "haaste は haastemies / postitse の tiedoksianto — SMS の『käräjäoikeus』通知は偽"
+  :juris/referrals ["oikeusapu (julkinen 法律扶助)" "kuluttajaneuvonta (KKV 消費者助言)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "poliisi (nettipetokset 通報)" "kuluttajaneuvonta"]
+  :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
  {:juris/id :ie :juris/label "Ireland"
   :juris/upl-anchor "Legal Services Regulation Act 2015 (solicitor/barrister の資格独占)"
   :juris/service-note "civil summons / claim notice は court office から (small claims は Registrar 手続)"

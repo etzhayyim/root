@@ -274,6 +274,36 @@
   :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ ;; ── :dk — Danmark (G10) ──────────────────────────────────────────────────────
+ {:clause/id "cl:dk-ansvarsfraskrivelse" :clause/label "全部免責 (ansvarsfraskrivelse)"
+  :clause/jurisdiction :dk
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["fraskriver sig ethvert ansvar"]
+  :clause/anchor "aftaleloven §36・§38c (urimelige aftalevilkår — 調整・無効)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:dk-auto-renewal" :clause/label "forlænges automatisk (黙示更新)"
+  :clause/jurisdiction :dk
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["forlænges automatisk"]
+  :clause/anchor "forbrugeraftaleloven §28 (拘束5か月経過後は1か月通知で解約可 — 長期ロックは効かない)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :fi — Suomi (G10) ────────────────────────────────────────────────────────
+ {:clause/id "cl:fi-vastuunrajoitus" :clause/label "全部免責 (vastuunrajoitus)"
+  :clause/jurisdiction :fi
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["emme vastaa mistään vahingoista"]
+  :clause/anchor "kuluttajansuojalaki 3 luku (kohtuuttomat sopimusehdot)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:fi-auto-renewal" :clause/label "jatkuu automaattisesti (自動継続)"
+  :clause/jurisdiction :fi
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["jatkuu automaattisesti"]
+  :clause/anchor "KSL / kuluttaja-asiamies の自動継続ガイドライン (事前通知・容易な解約導線)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
  ;; ── :ie — Ireland (G10) ──────────────────────────────────────────────────────
  {:clause/id "cl:ie-liability" :clause/label "包括免責 (unfair term)"
   :clause/jurisdiction :ie

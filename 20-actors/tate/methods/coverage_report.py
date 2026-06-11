@@ -33,7 +33,7 @@ STRUCTURAL_GAPS = [
     "刑事手続は全管轄でスコープ外 (N6 — 即時弁護士照会のみ)",
 ]
 US_STATES_TOTAL = 50
-SPECIALTY_TRACKS_PLANNED = [":family"]
+SPECIALTY_TRACKS_PLANNED = []  # all planned tracks opened (wave 12); deepen per-jurisdiction next
 
 
 def coverage():
@@ -54,11 +54,16 @@ def coverage():
     tracks = defaultdict(int)
     for p in procs:
         tracks[p.get(":proc/track", ":civil")] += 1
-    track_gap = (f"専門トラック: :labor {tracks.get(':labor', 0)}件 / "
-                 f":housing {tracks.get(':housing', 0)}件 / "
-                 f":enforcement {tracks.get(':enforcement', 0)}件 / "
-                 f":insolvency {tracks.get(':insolvency', 0)}件 収載 — "
-                 + " / ".join(t for t in SPECIALTY_TRACKS_PLANNED) + " 未収載")
+    track_counts = (f":labor {tracks.get(':labor', 0)} / :housing {tracks.get(':housing', 0)} / "
+                    f":enforcement {tracks.get(':enforcement', 0)} / "
+                    f":insolvency {tracks.get(':insolvency', 0)} / "
+                    f":family {tracks.get(':family', 0)}")
+    if SPECIALTY_TRACKS_PLANNED:
+        track_gap = (f"専門トラック: {track_counts} 件収載 — "
+                     + " / ".join(SPECIALTY_TRACKS_PLANNED) + " 未収載")
+    else:
+        track_gap = (f"専門トラック: {track_counts} 件 — 計画トラックは全て開削済み; "
+                     f"次の深化は各トラックの管轄横展開 (多くは jp/us/de の3管轄のみ)")
     named_gaps = ([f"{j} — 未収載 (worklist)" for j in remaining]
                   + [us_state_gap, track_gap] + list(STRUCTURAL_GAPS))
     return {
