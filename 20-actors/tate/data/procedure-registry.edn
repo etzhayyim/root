@@ -408,6 +408,43 @@
   :proc/verify-current-law true}
 
  ;; ── :kr ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:kr-budang-haego" :proc/label "해고 통지 (解雇・労働・韓国)"
+  :proc/jurisdiction :kr :proc/track :labor
+  :proc/trigger-keywords ["해고"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "부당해고 구제신청"
+    :dl/rule "해고일로부터 3개월 이내に 노동위원회へ구제신청 (不当解雇の救済申立て — 最重要短期期限)"
+    :dl/anchor "근로기준법 28조" :dl/verify-service-date true}
+   {:dl/label "서면 통지 요건"
+    :dl/rule "解雇は事由・時期を書面で通知しなければ効力なし — 口頭/SMS のみの解雇は無効主張の余地"
+    :dl/anchor "근로기준법 27조" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :gujeshincheong :opt/kind :self-submit :opt/protective true
+    :opt/label "노동위원회に구제신청 (3개월 이내 — 本人可・無料; 自分の雇用を守る防御)"}
+   {:opt/id :seomyeon-yogu :opt/kind :self-submit :opt/label "해고사유 서면 교부を要求 (27조)"}]
+  :proc/refer-when ["임금체불 동반 → 고용노동부 진정" "대한법률구조공단 132"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:kr-gaengsin-geojeol" :proc/label "계약갱신 거절 통지 (住居・韓国)"
+  :proc/jurisdiction :kr :proc/track :housing
+  :proc/trigger-keywords ["계약갱신"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "갱신요구권 (更新要求権)"
+    :dl/rule "임차인は1回に限り契約更新を要求でき (2年), 임대인の拒絶事由は実居住等の法定列挙に限定 — 虚偽の実居住理由は損害賠償対象"
+    :dl/anchor "주택임대차보호법 6조의3" :dl/verify-service-date true}
+   {:dl/label "묵시적 갱신"
+    :dl/rule "期間満了6〜2か月前に通知がなければ黙示更新 (同一条件・2年)"
+    :dl/anchor "주택임대차보호법 6조" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :gaengsin-yogu :opt/kind :self-submit :opt/protective true
+    :opt/label "갱신요구권を書面で行使 (内容証明 — 拒絶事由の該当性を質す)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide
+    :opt/label "강제 퇴거・단전단수は불법 — 명도は法院判決+執行によってのみ; 받으면 경찰・변호사へ"}]
+  :proc/refer-when ["보증금 반환が絡む → 임차권등기명령 검토 (전문가)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:kr-jigeup-myeongryeong" :proc/label "지급명령 (支払督促・韓国)"
   :proc/jurisdiction :kr
   :proc/trigger-keywords ["지급명령"]
@@ -650,6 +687,21 @@
   :proc/refer-when ["高額 → advogado / apoio judiciário"]
   :proc/verify-current-law true}
 
+ ;; ── :no ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:no-forliksklage" :proc/label "Innkalling til forliksrådet (強制調停・ノルウェー)"
+  :proc/jurisdiction :no
+  :proc/trigger-keywords ["forliksrådet" "forliksklage"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Tilsvar (答弁) / 出席義務"
+    :dl/rule "innkalling 記載の期限内に tilsvar — 無応答・無断欠席は fraværsdom (欠席判決); 小額民事は forliksrådet 前置が原則 (本人手続前提の制度)"
+    :dl/anchor "tvisteloven §6-3・§6-6" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :tilsvar :opt/kind :self-submit :opt/label "tilsvar を forliksrådet へ (認否 + 言い分)"}
+   {:opt/id :møte :opt/kind :self-decide :opt/label "調停期日に出席 (和解の場 — 合意義務はない)"}]
+  :proc/refer-when ["NOK 200,000 超や複雑な事案 → advokat"]
+  :proc/verify-current-law true}
+
  ;; ── :dk ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:dk-betalingspaakrav" :proc/label "Betalingspåkrav (支払督促・デンマーク)"
   :proc/jurisdiction :dk
@@ -711,6 +763,43 @@
     :opt/label "根拠のない Betreibung は登録簿の不開示申立て (SchKG Art. 8a Abs. 3 lit. d) — 信用記録を守る"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
   :proc/refer-when ["Rechtsöffnung (異議排除) を申し立てられた場合"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:fr-licenciement" :proc/label "Lettre de licenciement (解雇・労働・フランス)"
+  :proc/jurisdiction :fr :proc/track :labor
+  :proc/trigger-keywords ["licenciement"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Contestation (prud'hommes)"
+    :dl/rule "licenciement の通知から12か月以内に conseil de prud'hommes へ異議 (本人可)"
+    :dl/anchor "Code du travail L.1471-1" :dl/verify-service-date true}
+   {:dl/label "Précision des motifs"
+    :dl/rule "通知から15日以内に理由の明確化を請求できる (後の争いで理由が固定される)"
+    :dl/anchor "Code du travail L.1235-2" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :precision-motifs :opt/kind :self-submit :opt/label "lettre recommandée で motifs の précision を請求 (15日)"}
+   {:opt/id :prudhommes :opt/kind :self-submit :opt/protective true
+    :opt/label "conseil de prud'hommes へ saisine (12 mois — 自分の雇用・補償を守る防御)"}]
+  :proc/refer-when ["défenseur syndical / avocat (複雑な経済的解雇)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:fr-conge-bailleur" :proc/label "Congé du bailleur (住居・フランス)"
+  :proc/jurisdiction :fr :proc/track :housing
+  :proc/trigger-keywords ["congé"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Congé の有効要件"
+    :dl/rule "bailleur の congé は期間満了の6か月前まで + 理由 (vente / reprise / motif légitime) と形式が必須 — 不備は無効; 高齢・低資力の locataire は保護"
+    :dl/anchor "Loi 89-462 art. 15" :dl/verify-service-date true}
+   {:dl/label "退去義務の発生時点"
+    :dl/rule "expulsion は juge + commissaire de justice によってのみ; trêve hivernale (冬季) は執行停止 — 通知のみで退去不要"
+    :dl/anchor "CPCE L.412-6 (trêve hivernale)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :verifier-validite :opt/kind :self-decide :opt/label "congé の形式・理由・期限を点検 (ADIL 無料相談)"}
+   {:opt/id :preemption :opt/kind :self-decide :opt/label "vente の場合は droit de préemption (優先買取権) を確認"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide
+    :opt/label "鍵交換・追い出しは違法 (voie de fait) — expulsion は裁判所経由のみ; 受けたら police / ADIL へ"}]
+  :proc/refer-when ["assignation en expulsion が届いた場合"]
   :proc/verify-current-law true}
 
  ;; ── :pl ──────────────────────────────────────────────────────────────────────

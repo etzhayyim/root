@@ -144,6 +144,20 @@ def test_specialty_track_counted():
     assert any("専門トラック" in g and "管轄横展開" in g for g in cov["named_gaps"])
 
 
+def test_track_matrix():
+    """Wave 13: the track × jurisdiction matrix makes horizontal gaps measurable —
+    matrix totals must equal the per-track totals, and the expansion is real
+    (:labor in ≥5 jurisdictions, :housing in ≥6)."""
+    cov = coverage()
+    matrix = cov["track_matrix"]
+    for track, total in cov["procedure_tracks"].items():
+        assert sum(ts.get(track, 0) for ts in matrix.values()) == total, track
+    assert sum(1 for ts in matrix.values() if ts.get(":labor", 0)) >= 5
+    assert sum(1 for ts in matrix.values() if ts.get(":housing", 0)) >= 6
+    text = report(cov)
+    assert "Track × jurisdiction matrix" in text
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for fn in fns:

@@ -274,6 +274,21 @@
   :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ ;; ── :no — Norge (G10) ────────────────────────────────────────────────────────
+ {:clause/id "cl:no-ansvarsfraskrivelse" :clause/label "全部免責 (ansvarsfraskrivelse)"
+  :clause/jurisdiction :no
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["fraskriver seg ethvert ansvar"]
+  :clause/anchor "avtaleloven §36 (urimelige avtalevilkår — 調整・無効) / forbrukerkjøpsloven"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:no-auto-renewal" :clause/label "fornyes automatisk (黙示更新)"
+  :clause/jurisdiction :no
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["fornyes automatisk"]
+  :clause/anchor "markedsføringsloven / Forbrukertilsynet の自動更新ガイドライン (事前通知・容易な解約)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
  ;; ── :dk — Danmark (G10) ──────────────────────────────────────────────────────
  {:clause/id "cl:dk-ansvarsfraskrivelse" :clause/label "全部免責 (ansvarsfraskrivelse)"
   :clause/jurisdiction :dk

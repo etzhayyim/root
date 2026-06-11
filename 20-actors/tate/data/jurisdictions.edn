@@ -150,6 +150,14 @@
   :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
   :juris/sourcing :representative :juris/verify-current-law true}
 
+ {:juris/id :no :juris/label "Norge"
+  :juris/upl-anchor "domstolloven §218 (rettshjelpsmonopol — forliksrådet は本人手続前提)"
+  :juris/service-note "forliksrådet の innkalling / betalingsoppfordring は brev — SMS の『domstol』通知は偽"
+  :juris/referrals ["fri rettshjelp (法律扶助)" "Forbrukerrådet / Forbrukertilsynet"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "politiet 02800" "Forbrukertilsynet"]
+  :juris/refer-over-amount 200000 :juris/refer-over-currency "NOK"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
  {:juris/id :dk :juris/label "Danmark"
   :juris/upl-anchor "retsplejeloven (retssager の advokat 原則; småsager ≤ kr. 50,000 は本人手続前提)"
   :juris/service-note "betalingspåkrav は fogedretten から (forkyndelse) — SMS/e-mail の『retten』通知は偽"

@@ -52,8 +52,10 @@ def coverage():
     us_state_gap = (f":us 州レベル: {len(states)}/{US_STATES_TOTAL} 州を収載 — "
                     f"残り{US_STATES_TOTAL - len(states)}州は『州不明』honest degrade")
     tracks = defaultdict(int)
+    matrix = defaultdict(lambda: defaultdict(int))  # juris → track → count (横展開の可視化)
     for p in procs:
         tracks[p.get(":proc/track", ":civil")] += 1
+        matrix[p.get(":proc/jurisdiction", ":jp")][p.get(":proc/track", ":civil")] += 1
     track_counts = (f":labor {tracks.get(':labor', 0)} / :housing {tracks.get(':housing', 0)} / "
                     f":enforcement {tracks.get(':enforcement', 0)} / "
                     f":insolvency {tracks.get(':insolvency', 0)} / "
@@ -70,6 +72,7 @@ def coverage():
         "us_states_covered": len(states),
         "us_states_total": US_STATES_TOTAL,
         "procedure_tracks": dict(sorted(tracks.items())),
+        "track_matrix": {j: dict(sorted(ts.items())) for j, ts in sorted(matrix.items())},
         "jurisdictions": covered,
         "patterns_by_jurisdiction": dict(sorted(pat_by_j.items())),
         "procedures_by_jurisdiction": dict(sorted(proc_by_j.items())),
@@ -94,6 +97,14 @@ def report(cov: dict) -> str:
     for j in cov["jurisdictions"]:
         L.append(f"| {j} | {cov['patterns_by_jurisdiction'].get(j, 0)} "
                  f"| {cov['procedures_by_jurisdiction'].get(j, 0)} |")
+    L.append("")
+    L.append("## Track × jurisdiction matrix (横展開ギャップの可視化)")
+    L.append("")
+    all_tracks = [":civil", ":labor", ":housing", ":enforcement", ":insolvency", ":family"]
+    L.append("| juris | " + " | ".join(t.lstrip(":") for t in all_tracks) + " |")
+    L.append("|---|" + "---|" * len(all_tracks))
+    for j, ts in cov["track_matrix"].items():
+        L.append(f"| {j} | " + " | ".join(str(ts.get(t, "·")) for t in all_tracks) + " |")
     L.append("")
     L.append("## Named gaps (next-wave worklist)")
     for g in cov["named_gaps"]:

@@ -212,6 +212,42 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 13 (track 横展開 :kr/:fr labor+housing + :no) ───────────────────────
+ {:doc/id "doc:no-vilkar" :doc/label "NO abonnementsvilkår (synthetic)"
+  :doc/jurisdiction :no
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Selskapet fraskriver seg ethvert ansvar for tap. Abonnementet fornyes automatisk hvert år."}
+
+ {:notice/id "ntc:no-forlik" :notice/label "NO innkalling til forliksrådet (brev)"
+  :notice/jurisdiction :no
+  :notice/channel :mail :notice/claim-amount 18000 :notice/claim-currency "NOK"
+  :notice/sourcing :synthetic
+  :notice/text "Innkalling til forliksrådet. De plikter å inngi tilsvar innen fristen."}
+
+ {:notice/id "ntc:kr-haego" :notice/label "해고 통지서 (郵送・労働)"
+  :notice/jurisdiction :kr
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "KRW"
+  :notice/sourcing :synthetic
+  :notice/text "해고 통지서. 취업규칙 제○조에 따라 귀하를 해고합니다."}
+
+ {:notice/id "ntc:kr-gaengsin" :notice/label "계약갱신 거절 통지 (郵送・住居)"
+  :notice/jurisdiction :kr
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "KRW"
+  :notice/sourcing :synthetic
+  :notice/text "임대차 계약갱신 거절 통지. 임대인의 실거주를 이유로 갱신을 거절합니다."}
+
+ {:notice/id "ntc:fr-licenciement" :notice/label "FR lettre de licenciement (LRAR・労働)"
+  :notice/jurisdiction :fr
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Lettre de licenciement pour motif personnel, notifiée par lettre recommandée."}
+
+ {:notice/id "ntc:fr-conge" :notice/label "FR congé du bailleur (LRAR・住居)"
+  :notice/jurisdiction :fr
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Congé pour reprise délivré par le bailleur pour la fin du bail."}
+
  ;; ── wave 12 (:family track jp/us/de + :dk :fi) ───────────────────────────────
  {:doc/id "doc:dk-vilkaar" :doc/label "DK abonnementsvilkår (synthetic)"
   :doc/jurisdiction :dk

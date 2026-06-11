@@ -531,6 +531,44 @@ def test_wave12_dk_fi():
     assert any("yksipuolinen tuomio" in d["rule"] for d in fi["deadlines"])
 
 
+def test_wave13_track_expansion_kr_fr():
+    """Wave 13: :labor and :housing expand beyond jp/us/de/uk — KR 부당해고 구제신청
+    3개월 (근로기준법28조) + 서면통지 27조 (DE §623 と同型) · KR 갱신요구권
+    (주택임대차보호법 6조의3) · FR prud'hommes 12 mois (L.1471-1) + précision 15日 ·
+    FR congé du bailleur 6か月+形式 (loi 89-462 art.15) + trêve hivernale."""
+    ps, procs = _by_id()
+    kr_l = ps["ntc:kr-haego"]
+    assert kr_l["status"] == ":genuine" and kr_l["proc"] == "proc:kr-budang-haego"
+    assert any("근로기준법 28조" in d["anchor"] for d in kr_l["deadlines"])
+    assert any("근로기준법 27조" in d["anchor"] for d in kr_l["deadlines"])
+    kr_h = ps["ntc:kr-gaengsin"]
+    assert kr_h["status"] == ":genuine" and kr_h["proc"] == "proc:kr-gaengsin-geojeol"
+    assert any("6조의3" in d["anchor"] for d in kr_h["deadlines"])
+    fr_l = ps["ntc:fr-licenciement"]
+    assert fr_l["status"] == ":genuine" and fr_l["proc"] == "proc:fr-licenciement"
+    assert any("L.1471-1" in d["anchor"] for d in fr_l["deadlines"])
+    fr_h = ps["ntc:fr-conge"]
+    assert fr_h["status"] == ":genuine" and fr_h["proc"] == "proc:fr-conge-bailleur"
+    assert any("trêve hivernale" in d["rule"] for d in fr_h["deadlines"])
+    # the housing no-self-help invariant holds automatically for the new procs
+    # (test_wave9_housing_track is parametric) — here we just confirm track tags
+    by_id = {p[":proc/id"]: p for p in procs}
+    assert by_id["proc:kr-budang-haego"][":proc/track"] == ":labor"
+    assert by_id["proc:kr-gaengsin-geojeol"][":proc/track"] == ":housing"
+    assert by_id["proc:fr-licenciement"][":proc/track"] == ":labor"
+    assert by_id["proc:fr-conge-bailleur"][":proc/track"] == ":housing"
+
+
+def test_wave13_no_forliksraadet():
+    """Wave 13: :no — Norway's mandatory conciliation council (forliksrådet,
+    本人手続前提) with fraværsdom risk on silence (tvisteloven §6-3/6-6)."""
+    ps, _ = _by_id()
+    no = ps["ntc:no-forlik"]
+    assert no["status"] == ":genuine" and no["proc"] == "proc:no-forliksklage"
+    assert any("tvisteloven" in d["anchor"] for d in no["deadlines"])
+    assert any("fraværsdom" in d["rule"] for d in no["deadlines"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

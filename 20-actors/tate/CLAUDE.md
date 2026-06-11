@@ -6,7 +6,7 @@
 (tasuke) · 2605231525 (no-server-key) · 2605215000 (Murakumo-only) · 2605312345
 (Datom = canonical state)
 
-**Jurisdictions (R1)**: `:jp :us :eu :uk :de :kr :fr :au :ca :it :es :nl :br :tw :sg :in :cn :pl :se :at :pt :ie :ch :dk :fi` — representative 25 of ~193, plus `us-states.edn` (10/50 州: CA/NY/TX/FL/WA/IL/PA/OH/GA/NC — :us 通知に州が分かれば州規則を開示追記、州不明は honest degrade)
+**Jurisdictions (R1)**: `:jp :us :eu :uk :de :kr :fr :au :ca :it :es :nl :br :tw :sg :in :cn :pl :se :at :pt :ie :ch :dk :fi :no` — representative 26 of ~193, plus `us-states.edn` (10/50 州: CA/NY/TX/FL/WA/IL/PA/OH/GA/NC — :us 通知に州が分かれば州規則を開示追記、州不明は honest degrade)
 (`coverage_report.py` measures + names the gap, G10; the worklist drops entries off
 automatically once covered). Uncovered jurisdictions degrade to
 `:unknown-jurisdiction` — tate **never guesses foreign law**.
@@ -93,8 +93,8 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 ├── manifest.edn                   # actor manifest (5 cells, 9 gates, 6 non-goals)
 ├── data/
 │   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
-│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (62 shapes, 25 juris)
-│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (47 procs; :civil 31 + :labor 3 + :housing 4 + :enforcement 3 + :insolvency 3 + :family 3 — 全計画トラック開削)
+│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (64 shapes, 26 juris)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (52 procs; :civil 32 + :labor 5 + :housing 6 + :enforcement 3 + :insolvency 3 + :family 3 — track×juris matrix in coverage report)
 │   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # pure-stdlib → kotoba pywasm-runnable
@@ -102,7 +102,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 │   ├── respond_plan.py            # response planner + fake-notice guard (G6/G10)
 │   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 58 tests, pure stdlib
+├── tests/                         # 61 tests, pure stdlib
 │   ├── test_terms.py
 │   ├── test_respond.py
 │   └── test_coverage.py
@@ -122,7 +122,7 @@ python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
 python3 methods/coverage_report.py   # → out/coverage-report.md (21/193 + 10/50 states + tracks, named gaps)
 python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
 python3 tests/test_terms.py && python3 tests/test_respond.py \
-  && python3 tests/test_coverage.py  # 58 green
+  && python3 tests/test_coverage.py  # 61 green
 ```
 
 ## Do not
