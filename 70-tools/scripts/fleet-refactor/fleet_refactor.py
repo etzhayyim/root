@@ -292,9 +292,13 @@ def port_file(pool: NodePool, src: Path) -> dict:
         return {**rec, "status": "skip", "reason": f"too large ({len(source)} chars)"}
 
     ns = ns_from_path(src)
-    # ns 最終セグメントとファイル名を一致させる (clj-kondo namespace-name-mismatch 対策;
-    # Clojure 規約: ns の '-' はファイル名では '_')
-    out = src.parent / (ns.rsplit(".", 1)[-1].replace("-", "_") + ".clj")
+
+    def out_path(code: str) -> Path:
+        # ファイル名はモデルが実際に書いた (ns …) から導出する
+        # (clj-kondo namespace-name-mismatch; Clojure 規約 '-'→'_')
+        m = re.search(r"\(ns\s+([\w.\-]+)", code)
+        seg = (m.group(1) if m else ns).rsplit(".", 1)[-1]
+        return src.parent / (seg.replace("-", "_") + ".clj")
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": USER_TEMPLATE.format(
@@ -318,6 +322,7 @@ def port_file(pool: NodePool, src: Path) -> dict:
                 messages.append({"role": "user", "content":
                                  "Invalid: output exactly one ```clojure block."})
                 continue
+            out = out_path(code)
             out.write_text(code, encoding="utf-8")
             ok, lint_out = lint(out)
             if not ok and ("matching" in lint_out or "bracket" in lint_out):
@@ -328,6 +333,8 @@ def port_file(pool: NodePool, src: Path) -> dict:
                     if ok:
                         code = repaired
                         rec["repaired"] = True
+            if not ok:
+                out.unlink(missing_ok=True)  # 失敗作を残さない (attempt 毎に名前が変わりうる)
             if ok:
                 with _sft_lock, SFT_LOG.open("a") as f:
                     f.write(json.dumps(
@@ -346,7 +353,6 @@ def port_file(pool: NodePool, src: Path) -> dict:
                 messages.append({"role": "user", "content":
                                  f"clj-kondo found errors — fix and re-output the full "
                                  f"corrected ```clojure block:\n{lint_out[:2000]}"})
-        out.unlink(missing_ok=True)
         return {**rec, "status": "fail", "reason": f"lint failed after retry: {lint_out[:500]}",
                 "secs": round(time.time() - t0, 1)}
     finally:
