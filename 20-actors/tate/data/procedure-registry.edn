@@ -182,4 +182,34 @@
   [{:opt/id :widerspruch :opt/kind :self-submit :opt/label "同封の Widerspruch 用紙で異議 (→ 通常訴訟へ)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/分割の交渉"}]
   :proc/refer-when ["Vollstreckungsbescheid が既に出ている"]
+  :proc/verify-current-law true}
+
+ ;; ── :kr ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:kr-jigeup-myeongryeong" :proc/label "지급명령 (支払督促・韓国)"
+  :proc/jurisdiction :kr
+  :proc/trigger-keywords ["지급명령"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "이의신청 (異議申立て)"
+    :dl/rule "지급명령 송달일로부터 2주 이내 (異議で通常訴訟へ移行)"
+    :dl/anchor "민사소송법 470조" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :i-ui-sincheong :opt/kind :self-submit :opt/label "이의신청서를 発令法院へ提出 (→ 訴訟移行)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/分割の相談"}]
+  :proc/refer-when ["청구액이 큰 경우 (소액사건 상한 3,000만원 초과)"]
+  :proc/verify-current-law true}
+
+ ;; ── :fr ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:fr-injonction-de-payer" :proc/label "Injonction de payer (支払命令・フランス)"
+  :proc/jurisdiction :fr
+  :proc/trigger-keywords ["injonction de payer"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Opposition (異議)"
+    :dl/rule "signification (commissaire de justice による送達) から1か月以内に opposition"
+    :dl/anchor "Code de procédure civile art. 1416" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :opposition :opt/kind :self-submit :opt/label "発令裁判所の greffe へ opposition を提出 (→ 対審手続へ)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/échéancier の交渉"}]
+  :proc/refer-when ["€10,000 超 (représentation par avocat 義務域)"]
   :proc/verify-current-law true}]

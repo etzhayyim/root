@@ -39,7 +39,8 @@ from terms_scan import read_edn, load_docs, HERE  # noqa: E402
 # court vocabulary per jurisdiction — the fake-guard trip wires (G6)
 COURT_KEYWORDS = ("支払督促", "少額訴訟", "訴状", "口頭弁論",
                   "summons", "lawsuit", "small claims", "claim form",
-                  "order for payment", "Mahnbescheid", "Vollstreckungsbescheid")
+                  "order for payment", "Mahnbescheid", "Vollstreckungsbescheid",
+                  "지급명령", "법원", "injonction de payer", "assignation")
 GENERIC_REFERRALS = ["local bar association / legal aid", "認定司法書士 (JPのみ・簡裁140万円以下)"]
 PROC_REFERRAL_ALWAYS = {"proc:sojou", "proc:us-summons"}  # 本訴/civil suit — G7
 

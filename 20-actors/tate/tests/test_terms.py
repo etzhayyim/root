@@ -113,6 +113,11 @@ def test_intl_expected_shapes_hit():
     assert ("doc:uk-gym-terms", "cl:uk-liability-exclusion") in hits
     assert ("doc:de-agb", "cl:de-price-increase") in hits
     assert ("doc:de-agb", "cl:de-lump-damages") in hits
+    # wave 2 (:kr :fr)
+    assert ("doc:kr-tos", "cl:kr-full-exemption") in hits
+    assert ("doc:kr-tos", "cl:kr-excessive-penalty") in hits
+    assert ("doc:fr-abonnement", "cl:fr-liability-exclusion") in hits
+    assert ("doc:fr-abonnement", "cl:fr-tacit-renewal") in hits
 
 
 def test_jurisdiction_isolation():

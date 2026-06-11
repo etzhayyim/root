@@ -111,4 +111,33 @@
   :notice/jurisdiction :br
   :notice/channel :mail :notice/claim-amount 2000 :notice/claim-currency "BRL"
   :notice/sourcing :synthetic
-  :notice/text "Citação judicial. Prazo para contestação."}]
+  :notice/text "Citação judicial. Prazo para contestação."}
+
+ ;; ── wave 2 (:kr :fr — loop iteration 2026-06-11) ─────────────────────────────
+ {:doc/id "doc:kr-tos" :doc/label "KR 구독 서비스 이용약관 (synthetic)"
+  :doc/jurisdiction :kr
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "회사는 어떠한 손해에 대해서도 책임을 지지 않습니다. 중도 해지 시 위약금으로 잔여기간 이용료 전액을 청구합니다."}
+
+ {:doc/id "doc:fr-abonnement" :doc/label "FR conditions générales d'abonnement (synthetic)"
+  :doc/jurisdiction :fr
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Nous déclinons toute responsabilité en cas de dommage. Le contrat est renouvelé par reconduction tacite pour une durée d'un an."}
+
+ {:notice/id "ntc:kr-jigeup" :notice/label "지급명령 (法院送達)"
+  :notice/jurisdiction :kr
+  :notice/channel :formal-service :notice/claim-amount 5000000 :notice/claim-currency "KRW"
+  :notice/sourcing :synthetic
+  :notice/text "지급명령. 채무자는 이의신청을 할 수 있습니다."}
+
+ {:notice/id "ntc:kr-fake-sms" :notice/label "『법원』을 사칭한 SMS (韓国型詐欺)"
+  :notice/jurisdiction :kr
+  :notice/channel :sms :notice/claim-amount 300000 :notice/claim-currency "KRW"
+  :notice/sourcing :synthetic
+  :notice/text "[법원] 지급명령이 발령되었습니다. 즉시 아래 번호로 연락하지 않으면 강제집행됩니다."}
+
+ {:notice/id "ntc:fr-injonction" :notice/label "Injonction de payer (signification)"
+  :notice/jurisdiction :fr
+  :notice/channel :formal-service :notice/claim-amount 2400 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Ordonnance portant injonction de payer. Vous pouvez former opposition."}]

@@ -181,6 +181,30 @@ def test_unknown_jurisdiction_degrades_honestly():
     assert p["referrals"], "must still refer to local professionals"
 
 
+def test_kr_jigeup_genuine_and_fake():
+    """Wave 2: 지급명령 genuine via formal service (이의신청 2주, 민사소송법 470조);
+    the same vocabulary over SMS (『법원』詐称) → suspected-fake with KR help lines."""
+    ps, _ = _by_id()
+    p = ps["ntc:kr-jigeup"]
+    assert p["status"] == ":genuine" and p["proc"] == "proc:kr-jigeup-myeongryeong"
+    assert any("민사소송법 470조" in d["anchor"] for d in p["deadlines"])
+    assert any(o["id"] == ":i-ui-sincheong" for o in p["options"])
+    f = ps["ntc:kr-fake-sms"]
+    assert f["status"] == ":suspected-fake"
+    assert f["steps"][0]["verb"] == "do-not-contact-sender"
+    assert any("경찰청" in r or "금융감독원" in r for r in f["referrals"])
+
+
+def test_fr_injonction_genuine():
+    """Wave 2: injonction de payer — opposition 1 mois (CPC art. 1416)."""
+    ps, _ = _by_id()
+    p = ps["ntc:fr-injonction"]
+    assert p["status"] == ":genuine" and p["proc"] == "proc:fr-injonction-de-payer"
+    dl = p["deadlines"][0]
+    assert "1か月" in dl["rule"] and "1416" in dl["anchor"]
+    assert any(o["id"] == ":opposition" for o in p["options"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

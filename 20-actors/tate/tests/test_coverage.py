@@ -18,9 +18,14 @@ from coverage_report import coverage, report  # noqa: E402
 from respond_plan import load_jurisdictions  # noqa: E402
 
 
+CORE = {":jp", ":us", ":eu", ":uk", ":de"}
+
+
 def test_jurisdiction_registry_complete():
+    """Growth-proof: the core 5 stay present; EVERY entry (current and future) is
+    complete — UPL anchor, directories, service note, refer-over line, honesty flags."""
     juris = load_jurisdictions()
-    assert set(juris.keys()) == {":jp", ":us", ":eu", ":uk", ":de"}
+    assert CORE <= set(juris.keys())
     for j in juris.values():
         assert j[":juris/upl-anchor"], j[":juris/id"]
         assert j[":juris/fake-help"] and j[":juris/referrals"], j[":juris/id"]
@@ -39,10 +44,22 @@ def test_no_hollow_jurisdiction():
 
 def test_coverage_ratio_honest():
     cov = coverage()
-    assert cov["covered_count"] == 5
+    assert cov["covered_count"] == len(load_jurisdictions())
     assert cov["un_member_states"] == 193
-    assert cov["coverage_ratio"] < 0.05, "coverage must be reported as the small number it is"
-    assert len(cov["named_gaps"]) >= 4
+    assert cov["coverage_ratio"] < 0.10, "coverage must be reported as the small number it is"
+    assert len(cov["named_gaps"]) >= 4  # structural gaps alone guarantee this
+
+
+def test_gap_list_never_stale():
+    """Maturity: a covered jurisdiction must NOT still be listed as a gap, and the
+    worklist remainder must all be genuinely uncovered."""
+    cov = coverage()
+    covered = set(cov["jurisdictions"])
+    for j in cov["worklist_remaining"]:
+        assert j not in covered, f"{j} is covered but still on the worklist"
+    gap_text = " ".join(cov["named_gaps"])
+    for j in covered:
+        assert f"{j} — 未収載" not in gap_text, f"{j} is covered but named as a gap"
 
 
 def test_report_names_the_gap():

@@ -44,4 +44,20 @@
   :juris/referrals ["Verbraucherzentrale" "örtliche Rechtsanwaltskammer"]
   :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Polizei Onlinewache" "Verbraucherzentrale"]
   :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :kr :juris/label "대한민국 (Korea)"
+  :juris/upl-anchor "변호사법 109조 (비변호사의 법률사무 취급 금지)"
+  :juris/service-note "지급명령・소장は法院の送達 (민사소송법 송달規定) — SMS/メールの『法院』通知は偽"
+  :juris/referrals ["대한법률구조공단 (Korea Legal Aid, 132)" "소비자상담센터 1372" "地方弁護士会"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "경찰청 사이버범죄 신고 (ecrm.police.go.kr)" "금융감독원 1332"]
+  :juris/refer-over-amount 30000000 :juris/refer-over-currency "KRW"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :fr :juris/label "France"
+  :juris/upl-anchor "Loi n°71-1130 du 31 décembre 1971 (périmètre du droit)"
+  :juris/service-note "injonction de payer / assignation は commissaire de justice (旧 huissier) による signification"
+  :juris/referrals ["point-justice (France Services)" "aide juridictionnelle" "ordre des avocats (consultation)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "cybermalveillance.gouv.fr" "France Victimes 116 006"]
+  :juris/refer-over-amount 10000 :juris/refer-over-currency "EUR"
   :juris/sourcing :representative :juris/verify-current-law true}]

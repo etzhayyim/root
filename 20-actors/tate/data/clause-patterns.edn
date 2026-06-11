@@ -167,4 +167,34 @@
   :clause/context :consumer :clause/risk :mid
   :clause/keywords ["pauschalierter Schadensersatz"]
   :clause/anchor "BGB §309 Nr.5 (Pauschalierung von Schadensersatzansprüchen)"
-  :clause/route :referral :clause/verify-current-law true}]
+  :clause/route :referral :clause/verify-current-law true}
+
+ ;; ── :kr — 대한민국 (G10) ─────────────────────────────────────────────────────
+ {:clause/id "cl:kr-full-exemption" :clause/label "사업자 전부 면책 (전면 면책조항)"
+  :clause/jurisdiction :kr
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["어떠한 손해에 대해서도 책임을 지지 않습니다"]
+  :clause/anchor "약관규제법 7조 (면책조항의 금지 — 고의·중과실 면책は無効)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:kr-excessive-penalty" :clause/label "과중한 위약금 (잔여기간 전액)"
+  :clause/jurisdiction :kr
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["위약금으로 잔여기간 이용료 전액" "위약금으로 잔여 기간"]
+  :clause/anchor "약관규제법 8조 (과중한 손해배상액의 예정 — 無効)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ ;; ── :fr — France (G10; EU加盟国国内法の初収載 — EU instruments は :eu のまま) ──
+ {:clause/id "cl:fr-liability-exclusion" :clause/label "responsabilité の全面排除 (clause noire)"
+  :clause/jurisdiction :fr
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["déclinons toute responsabilité"]
+  :clause/anchor "Code de la consommation L212-1 / R212-1 6° (réparation du préjudice — liste noire, réputée non écrite)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:fr-tacit-renewal" :clause/label "reconduction tacite (黙示更新)"
+  :clause/jurisdiction :fr
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["reconduction tacite"]
+  :clause/anchor "Code de la consommation L215-1 (loi Chatel — 更新前通知義務; 不履行なら随時解約可)"
+  :clause/route :kaiyaku :clause/verify-current-law true}]
