@@ -2,10 +2,10 @@ name: test
 # Path-scoped (ADR-2605302355 CI review): this matrix builds @etzhayyim/sdk and
 # runs the rw-free vitest / tsc / integration suites. It only needs to run when
 # the SDK or those JS packages change — docs / Rust / Python / lexicon-only PRs
-# (e.g. the kotoba-WASM legal-services work) must not be gated by it. Known
-# pre-existing break: the incomplete libsignal→XChaCha20 migration in
-# src/encrypted.ts (commit a590e7f64) fails `@etzhayyim/sdk build`; that is a
-# real SDK issue tracked separately, not a per-package regression.
+# (e.g. the kotoba-WASM legal-services work) must not be gated by it.
+# The previously-known break (incomplete libsignal→XChaCha20 migration in
+# src/encrypted.ts, commit a590e7f64) is resolved: `tsc --noEmit` and the full
+# vitest suite pass as of 2026-06-11.
 on:
   pull_request:
     branches: [main]
@@ -127,8 +127,8 @@ jobs:
   sdk-test:
     # Moved here from ci.yml so the SDK's own vitest suite is path-scoped to SDK
     # changes (was previously red-lighting every PR via the always-on CI job).
-    # NOTE: currently fails on the known incomplete libsignal→XChaCha20 migration
-    # in src/encrypted.ts (a590e7f64) — a real SDK issue, tracked separately.
+    # The libsignal→XChaCha20 migration break (a590e7f64) is resolved; the
+    # suite passes as of 2026-06-11.
     name: sdk-test
     runs-on: ubuntu-latest
     steps:

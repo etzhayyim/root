@@ -280,8 +280,13 @@ describe("writeWithWitnesses — happy path", () => {
     expect(result.state.kind).toBe("witnessed");
     if (result.state.kind === "witnessed") {
       expect(result.state.verdict).toBe("accept");
+      // collectQuorum exits as soon as the 3rd accept arrives; the in-memory
+      // transport delivers attestations in nondeterministic order, so 0..2 of
+      // the rejecting minority may have been collected by then.
       expect(result.state.matching).toHaveLength(3);
-      expect(result.state.minority).toHaveLength(2);
+      expect(result.state.matching.every((a) => a.verdict === "accept")).toBe(true);
+      expect(result.state.minority.length).toBeLessThanOrEqual(2);
+      expect(result.state.minority.every((a) => a.verdict === "reject")).toBe(true);
     }
   });
 });
