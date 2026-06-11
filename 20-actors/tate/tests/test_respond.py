@@ -428,6 +428,40 @@ def test_de_kuendigung_disambiguation():
     assert p3 is None and s3 == ":unknown"
 
 
+def test_wave10_enforcement_track():
+    """Wave 10: the :enforcement track. Universal invariant: EVERY :enforcement
+    procedure carries at least one :opt/protective option — 差押えにも法定の保護
+    範囲がある (民執152条 3/4 · CCPA §1673 25% · ZPO §850k P-Konto); claiming a
+    lawful exemption is a RIGHT, not debt evasion (N3 line preserved)."""
+    ps, procs = _by_id()
+    jp = ps["ntc:jp-sashiosae"]
+    assert jp["status"] == ":genuine" and jp["proc"] == "proc:jp-sashiosae"
+    assert any("民事執行法152条" in d["anchor"] for d in jp["deadlines"])
+    assert any("法テラス" in r for r in jp["referrals"])  # ¥600,001 > refer-over line
+    us = ps["ntc:us-garnish"]
+    assert us["status"] == ":genuine" and us["proc"] == "proc:us-garnishment"
+    assert any("§1673" in d["anchor"] for d in us["deadlines"])
+    de = ps["ntc:de-pfaendung"]
+    assert de["status"] == ":genuine" and de["proc"] == "proc:de-kontopfaendung"
+    assert any("§850k" in d["anchor"] for d in de["deadlines"])
+    # parametric: every :enforcement proc has a protective option
+    for p in procs:
+        if p.get(":proc/track") == ":enforcement":
+            assert any(o.get(":opt/protective") is True for o in p[":proc/options"]), \
+                p[":proc/id"]
+
+
+def test_sashiosae_sms_scam_guard():
+    """Wave 10: the classic 『差押え最終通告』 SMS scam — 差押 vocabulary over SMS
+    with no procedure match → suspected-fake, do-not-contact-sender."""
+    _, procs = _by_id()
+    n = {":notice/id": "ntc:x", ":notice/jurisdiction": ":jp", ":notice/channel": ":sms",
+         ":notice/text": "【差押え最終通告】本日中にご連絡なき場合、給与の差押えを執行します。",
+         ":notice/sourcing": ":synthetic"}
+    proc, status = classify(n, procs)
+    assert status == ":suspected-fake"
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

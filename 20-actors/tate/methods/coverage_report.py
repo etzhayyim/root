@@ -23,7 +23,8 @@ UN_MEMBER_STATES = 193  # disclosed denominator (the EU bloc entry covers instru
 # next-wave jurisdiction worklist — entries DROP OFF automatically once covered
 # (computed against the registry, so the gap list can never go stale)
 JURIS_WORKLIST = [":it", ":es", ":nl", ":kr", ":fr", ":cn", ":tw", ":in",
-                  ":br", ":au", ":ca", ":sg", ":mx"]
+                  ":br", ":au", ":ca", ":sg", ":mx",
+                  ":dk", ":fi", ":ie", ":be", ":ch", ":no"]  # wave 10 replenish
 
 # structural gaps — true regardless of how many jurisdictions land
 # (:us states and specialty tracks are computed against the registries, not listed here)
@@ -54,7 +55,8 @@ def coverage():
     for p in procs:
         tracks[p.get(":proc/track", ":civil")] += 1
     track_gap = (f"専門トラック: :labor {tracks.get(':labor', 0)}件 / "
-                 f":housing {tracks.get(':housing', 0)}件 収載 — "
+                 f":housing {tracks.get(':housing', 0)}件 / "
+                 f":enforcement {tracks.get(':enforcement', 0)}件 収載 — "
                  + " / ".join(t for t in SPECIALTY_TRACKS_PLANNED) + " 未収載")
     named_gaps = ([f"{j} — 未収載 (worklist)" for j in remaining]
                   + [us_state_gap, track_gap] + list(STRUCTURAL_GAPS))

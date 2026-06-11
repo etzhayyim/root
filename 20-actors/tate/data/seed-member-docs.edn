@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 10 (:enforcement track jp/us/de) ────────────────────────────────────
+ {:notice/id "ntc:jp-sashiosae" :notice/label "債権差押命令 (特別送達・執行)"
+  :notice/jurisdiction :jp
+  :notice/channel :special-service :notice/claim-jpy 600001
+  :notice/sourcing :synthetic
+  :notice/text "債権差押命令。債務者の第三債務者に対する給与債権を差し押さえる。"}
+
+ {:notice/id "ntc:us-garnish" :notice/label "US writ of garnishment (mail・執行)"
+  :notice/jurisdiction :us
+  :notice/channel :mail :notice/claim-amount 5200 :notice/claim-currency "USD"
+  :notice/sourcing :synthetic
+  :notice/text "A writ of garnishment has been served on your employer. You may claim exemptions."}
+
+ {:notice/id "ntc:de-pfaendung" :notice/label "DE Pfändungs- und Überweisungsbeschluss (Zustellung・執行)"
+  :notice/jurisdiction :de
+  :notice/channel :formal-service :notice/claim-amount 3100 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Pfändungs- und Überweisungsbeschluss über Ihr Konto bei der genannten Bank."}
+
  ;; ── wave 9 (:housing track jp/de/uk/us) ──────────────────────────────────────
  {:notice/id "ntc:jp-kaiyaku-m" :notice/label "賃貸借 解約申入れ (郵送・住居)"
   :notice/jurisdiction :jp

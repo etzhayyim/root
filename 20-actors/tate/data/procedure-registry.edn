@@ -118,6 +118,26 @@
   :proc/refer-when ["明渡訴訟を起こされた場合" "立退料交渉が高額"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:jp-sashiosae" :proc/label "債権差押命令 (給与・預金, 執行・日本)"
+  :proc/jurisdiction :jp :proc/track :enforcement
+  :proc/trigger-keywords ["差押命令" "債権差押"]
+  :proc/genuine-channels [:special-service]
+  :proc/deadline-rules
+  [{:dl/label "執行抗告"
+    :dl/rule "差押命令の送達から1週間以内に執行抗告が可能"
+    :dl/anchor "民事執行法10条2項" :dl/verify-service-date true}
+   {:dl/label "差押禁止の範囲 (生活保護)"
+    :dl/rule "給与は手取りの3/4が差押禁止 (33万円を超える部分は別) — 生活維持分は法律上守られている"
+    :dl/anchor "民事執行法152条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :hani-henkou :opt/kind :self-submit :opt/protective true
+    :opt/label "生活が困難なら差押禁止債権の範囲変更を申立て (民執153条) — 法定の権利であり債務逃れではない"}
+   {:opt/id :shikkou-koukoku :opt/kind :self-submit :opt/label "手続違背があれば執行抗告 (1週間以内)"}
+   {:opt/id :seiri :opt/kind :self-decide
+    :opt/label "債務全体の整理を検討 (任意整理/特定調停) — 財産隠しは違法 (N3): 権利行使と隠匿は別物"}]
+  :proc/refer-when ["複数債権者からの差押え" "債務整理 → 弁護士/司法書士/法テラス"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:naiyou-shoumei" :proc/label "内容証明郵便 (企業・個人からの請求/通告)"
   :proc/jurisdiction :jp
   :proc/trigger-keywords ["内容証明" "催告書" "通告書"]
@@ -178,6 +198,22 @@
    {:opt/id :no-self-help-protection :opt/kind :self-decide
     :opt/label "鍵交換・ユーティリティ停止等の self-help eviction は違法 — 受けたら police / legal aid へ"}]
   :proc/refer-when ["unlawful detainer 係属 → 即 legal aid / tenant rights org"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:us-garnishment" :proc/label "Wage garnishment (執行・米国)"
+  :proc/jurisdiction :us :proc/track :enforcement
+  :proc/trigger-keywords ["writ of garnishment" "wage garnishment"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Exemption claim (保護申立て)"
+    :dl/rule "exemption claim の期限・様式は州法 (通知記載を確認); federal floor: 差押えは可処分所得の25% または連邦最低賃金30倍を超える部分の小さい方まで — 生活維持分は連邦法で守られている"
+    :dl/anchor "CCPA Title III (15 U.S.C. §1673) + 州 exemption law" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :claim-exemptions :opt/kind :self-submit :opt/protective true
+    :opt/label "exemption claim form を期限内に提出 (head-of-household 等の州保護も確認) — 法定の権利"}
+   {:opt/id :verify-judgment :opt/kind :self-decide
+    :opt/label "前提の judgment を確認 — 身に覚えがなければ default judgment の vacate を検討 (→ 専門家)"}]
+  :proc/refer-when ["judgment 自体に争いがある" "複数 garnishment → legal aid"]
   :proc/verify-current-law true}
 
  ;; ── :eu ──────────────────────────────────────────────────────────────────────
@@ -473,6 +509,24 @@
   [{:opt/id :written-statement :opt/kind :self-submit :opt/label "written statement (認否 + 抗弁) を提出"}
    {:opt/id :appear :opt/kind :self-decide :opt/label "期日に出頭 (ex parte decree の回避)"}]
   :proc/refer-when ["高額・複雑な請求は常に advocate 相談"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:de-kontopfaendung" :proc/label "Konto-/Lohnpfändung (執行・ドイツ)"
+  :proc/jurisdiction :de :proc/track :enforcement
+  :proc/trigger-keywords ["Pfändungs- und Überweisungsbeschluss" "Kontopfändung"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "P-Konto への転換 (口座保護)"
+    :dl/rule "口座を P-Konto (Pfändungsschutzkonto) に転換すれば月額 Grundfreibetrag が自動的に保護される — 転換は銀行へ請求 (差押え後でも可)"
+    :dl/anchor "ZPO §850k・§850c" :dl/verify-service-date true}
+   {:dl/label "Erinnerung (執行異議)"
+    :dl/rule "執行処分の方式違背には Erinnerung を申立て可能"
+    :dl/anchor "ZPO §766" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :p-konto :opt/kind :self-submit :opt/protective true
+    :opt/label "銀行に P-Konto 転換を請求 (書式は銀行所定 — 法定の権利)"}
+   {:opt/id :erinnerung :opt/kind :self-submit :opt/label "Erinnerung を執行裁判所へ (§766 ZPO)"}]
+  :proc/refer-when ["多重債務 → Schuldnerberatung (公的債務相談・無料)"]
   :proc/verify-current-law true}
 
  ;; ── :at ──────────────────────────────────────────────────────────────────────
