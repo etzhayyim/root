@@ -3,7 +3,7 @@
 > Fair, openly-licensed legal-document templates (Apache-2.0 + etzhayyim Charter Rider). Each body is content-addressed — re-derive the CID with `ipfs add --cid-version=1 --raw-leaves` or `methods/cid.py` to verify. **NOT legal advice** (G1); each clause cites the public law it rests on, for traceability.
 
 
-**12 templates published.**
+**15 templates published.**
 
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
@@ -19,7 +19,10 @@
 | Zero-Interest Benevolent Loan Agreement | en | JP | 4 | 15 | `bafkreiasw6vof6rb6…` |
 | Mutual Non-Disclosure Agreement | en | INTL | 6 | 17 | `bafkreia53urw3twor…` |
 | Apache-2.0 Inbound Contribution Grant | en | INTL | 2 | 11 | `bafkreiaojhbqdk34g…` |
+| General Partnership Agreement | en | INTL | 7 | 17 | `bafkreicwtlphey53i…` |
+| Power of Attorney | en | JP | 4 | 13 | `bafkreibgebwvi4l33…` |
 | International Sale of Goods Agreement (CISG) | en | INTL | 9 | 21 | `bafkreih64i3ym7i3u…` |
+| Settlement & Release Agreement | en | INTL | 5 | 14 | `bafkreigdp6agceny6…` |
 
 ---
 _hinagata 雛形 · ADR-2606111954 · commons-not-counsel · G7 outward publish (IPFS pin / IPNS) is the operator add-on._
