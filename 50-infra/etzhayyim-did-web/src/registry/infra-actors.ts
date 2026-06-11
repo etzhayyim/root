@@ -475,7 +475,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "見守り",
     displayName: "Mimamori — Covenant Keeping Membrane (mishmeret ha-adam)",
     primaryLexicon: "com.etzhayyim.mimamori",
-    primarySchema: "20-actors/mimamori/manifest.jsonld",
+    primarySchema: "00-contracts/schemas/mishmeret-ontology.kotoba.edn",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:mimamori#atproto_pds",
