@@ -322,13 +322,18 @@ def port_file(pool: NodePool, src: Path) -> dict:
 
 
 def main() -> int:
-    global MODEL
+    global MODEL, PER_NODE_CONCURRENCY, REQUEST_TIMEOUT_S
     ap = argparse.ArgumentParser()
     ap.add_argument("files", nargs="+", help="source files, or '-' for stdin list")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--model", default=MODEL)
+    ap.add_argument("--per-node", type=int, default=PER_NODE_CONCURRENCY,
+                    help="同一ノード同時リクエスト数 (12b は 1 推奨)")
+    ap.add_argument("--timeout", type=int, default=REQUEST_TIMEOUT_S)
     args = ap.parse_args()
     MODEL = args.model
+    PER_NODE_CONCURRENCY = args.per_node
+    REQUEST_TIMEOUT_S = args.timeout
 
     paths = []
     for f in args.files:
