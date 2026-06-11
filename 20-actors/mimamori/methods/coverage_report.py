@@ -16,9 +16,9 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from bond import load_seed, replay  # noqa: E402
 
 
-def coverage(seed: dict) -> dict:
-    m = replay(seed)
-    roster = set(seed["roster"])
+def coverage_of_engine(m, roster_list) -> dict:
+    """Aggregate-only coverage over a (possibly already-mutated) engine (G5)."""
+    roster = set(roster_list)
     kept_active = {m._kept[b] for b, st in m._state.items() if st == ":active"}
     kept_pending = {m._kept[b] for b, st in m._state.items() if st == ":offered"}
     relays = sum(1 for b, st in m._state.items() if st == ":handed-off")
@@ -31,6 +31,10 @@ def coverage(seed: dict) -> dict:
         "relays": relays,
         "datoms": len(m.datoms),
     }
+
+
+def coverage(seed: dict) -> dict:
+    return coverage_of_engine(replay(seed), seed["roster"])
 
 
 def render(c: dict) -> str:

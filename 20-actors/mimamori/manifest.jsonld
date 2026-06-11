@@ -10,7 +10,7 @@
   "glyph": "見守り",
   "doctrinalName": "mishmeret ha-adam (משמרת האדם)",
   "purpose": "Covenant keeping membrane (相互保持者会) — the substrate for bonds of keeping (offer / consent / content-free heartbeat / consented care-routing / relay / unilateral exit) so that no human is left with no keeper; the human-scale sibling of the mishmar storage covenant. NEVER a surveillance, denunciation, or scoring system — the degeneration path (五人組→隣組→Stasi→social credit) is made structurally unrepresentable, not merely prohibited.",
-  "status": "R0-design-only",
+  "status": "R1-offline (autonomous heartbeat + local kotoba commit-DAG persistence; live legs G7-gated)",
   "tier": "B",
   "adr": "2606112300",
   "dependsOnAdr": ["2606112200", "2606082100", "2606062100", "2605302357", "2605302358", "2605263400", "2605181100", "2605312345", "2605215000", "2605231525"],
@@ -30,6 +30,22 @@
       "output": ["out/mimamori-datoms.kotoba.edn"],
       "pipeline": "synthetic seed → bond lifecycle replay (offer/consent/heartbeat/route/relay/exit) → append-only EAVT datoms; schema validator raises on any :mishmeret.person/* or score/risk attr (G2) and on any care-route target outside {kokoro,wakai,iyashi} (G1)",
       "doc": "covenant bond state machine — invariants enforced in code, not prose"
+    },
+    {
+      "id": "cell:mimamori.match",
+      "method": "methods/match.py",
+      "input": "engine state + roster",
+      "output": ["offers (bond datoms addressed to their two parties)"],
+      "pipeline": "unkept roster members → least-loaded willing keepers (capacity cap, deterministic round-robin) → engine.offer per member; cooldown respected (G3); returned summary aggregate-only (G5)",
+      "doc": "the §D4 offer-matching cell — reaches the unkept directly, never via a list"
+    },
+    {
+      "id": "cell:mimamori.autorun",
+      "method": "methods/autorun.py",
+      "input": "data/seed-mimamori-bonds.json",
+      "output": ["data/mimamori.datoms.kotoba.edn (append-only, git-ignored)"],
+      "pipeline": "replay seed → match cycle (§D4) → aggregate coverage → ONE content-addressed tx appended to the local kotoba commit-DAG (sha256 prev-linked, verify_chain tamper-evident); cycle derives from log length (deterministic, resume-safe, no wall clock); NO external I/O",
+      "doc": "autonomous heartbeat (ADR-2606091000 pattern) — gates enforced inside the loop by the bond validator"
     },
     {
       "id": "cell:mimamori.coverage",
