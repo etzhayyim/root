@@ -3,66 +3,37 @@
 
 namespace eurostat {
 
-    entity Filing {
+    entity DataQuery {
         id: string @unique
-        filerId: string
-        scheme: string
-        period: string
-        status: string
+        flowRef: string
+        key: string
+        startPeriod: string
+        endPeriod: string
+        updatedAfter: datetime
+        firstNObservations: integer
+        lastNObservations: integer
+        detail: string
+        includeHistory: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Citizen {
+    entity Dataflow {
         id: string @unique
-        nationalId: string
-        jurisdiction: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Service {
-        id: string @unique
+        agencyID: string
+        version: string
         name: string
-        department: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Application {
+    entity Series {
         id: string @unique
-        citizenId: string
-        serviceId: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Dataset {
-        id: string @unique
-        name: string
-        publisher: string
-        updatedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Identity {
-        id: string @unique
-        citizenId: string
-        assuranceLevel: string
-        verified: boolean
+        seriesKey: string
+        frequency: string
+        lastUpdated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

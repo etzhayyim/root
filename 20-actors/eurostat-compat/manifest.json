@@ -5,21 +5,36 @@
   "kind": "compat",
   "title": "eurostat clean-room actor",
   "description": "Clean-room, API-compatible UK / EU e-government actor (eurostat); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q",
+  "wasmCid": "bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q",
+  "ipfs": "ipfs://bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi",
   "schema": "schema/eurostat.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec) + the official endpoint lives at ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/ (the literal sdmx/2.1 path; its dataflow catalog served live SDMX-JSON)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "DataQuery",
+      "Dataflow",
+      "Series"
+    ],
+    "enums": {
+      "DataQuery": {
+        "detail": [
+          "full",
+          "dataonly",
+          "serieskeysonly",
+          "nodata"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Filing",
-    "Citizen",
-    "Service",
-    "Application",
-    "Dataset",
-    "Identity"
+    "DataQuery",
+    "Dataflow",
+    "Series"
   ],
   "adr": [
     "260607",
@@ -31,157 +46,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/filings",
-          "op": "create Filing"
+          "path": "/v1/dataqueries",
+          "op": "create DataQuery"
         },
         {
           "method": "GET",
-          "path": "/v1/filings",
-          "op": "list Filing"
+          "path": "/v1/dataqueries",
+          "op": "list DataQuery"
         },
         {
           "method": "GET",
-          "path": "/v1/filings/{id}",
-          "op": "get Filing"
+          "path": "/v1/dataqueries/{id}",
+          "op": "get DataQuery"
         },
         {
           "method": "PATCH",
-          "path": "/v1/filings/{id}",
-          "op": "update Filing"
+          "path": "/v1/dataqueries/{id}",
+          "op": "update DataQuery"
         },
         {
           "method": "DELETE",
-          "path": "/v1/filings/{id}",
-          "op": "delete Filing"
+          "path": "/v1/dataqueries/{id}",
+          "op": "delete DataQuery"
         },
         {
           "method": "POST",
-          "path": "/v1/citizens",
-          "op": "create Citizen"
+          "path": "/v1/dataflows",
+          "op": "create Dataflow"
         },
         {
           "method": "GET",
-          "path": "/v1/citizens",
-          "op": "list Citizen"
+          "path": "/v1/dataflows",
+          "op": "list Dataflow"
         },
         {
           "method": "GET",
-          "path": "/v1/citizens/{id}",
-          "op": "get Citizen"
+          "path": "/v1/dataflows/{id}",
+          "op": "get Dataflow"
         },
         {
           "method": "PATCH",
-          "path": "/v1/citizens/{id}",
-          "op": "update Citizen"
+          "path": "/v1/dataflows/{id}",
+          "op": "update Dataflow"
         },
         {
           "method": "DELETE",
-          "path": "/v1/citizens/{id}",
-          "op": "delete Citizen"
+          "path": "/v1/dataflows/{id}",
+          "op": "delete Dataflow"
         },
         {
           "method": "POST",
-          "path": "/v1/services",
-          "op": "create Service"
+          "path": "/v1/serieses",
+          "op": "create Series"
         },
         {
           "method": "GET",
-          "path": "/v1/services",
-          "op": "list Service"
+          "path": "/v1/serieses",
+          "op": "list Series"
         },
         {
           "method": "GET",
-          "path": "/v1/services/{id}",
-          "op": "get Service"
+          "path": "/v1/serieses/{id}",
+          "op": "get Series"
         },
         {
           "method": "PATCH",
-          "path": "/v1/services/{id}",
-          "op": "update Service"
+          "path": "/v1/serieses/{id}",
+          "op": "update Series"
         },
         {
           "method": "DELETE",
-          "path": "/v1/services/{id}",
-          "op": "delete Service"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/applications",
-          "op": "create Application"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/applications",
-          "op": "list Application"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/applications/{id}",
-          "op": "get Application"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/applications/{id}",
-          "op": "update Application"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/applications/{id}",
-          "op": "delete Application"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/datasets",
-          "op": "create Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets",
-          "op": "list Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets/{id}",
-          "op": "get Dataset"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/datasets/{id}",
-          "op": "update Dataset"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/datasets/{id}",
-          "op": "delete Dataset"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/identities",
-          "op": "create Identity"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/identities",
-          "op": "list Identity"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/identities/{id}",
-          "op": "get Identity"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/identities/{id}",
-          "op": "update Identity"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/identities/{id}",
-          "op": "delete Identity"
+          "path": "/v1/serieses/{id}",
+          "op": "delete Series"
         }
       ],
       "features": {
@@ -244,453 +184,59 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_filing",
-          "description": "Create a Filing.",
+          "name": "create_data_query",
+          "description": "Create a DataQuery.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "filerId": {
+              "flowRef": {
                 "type": "string"
               },
-              "scheme": {
+              "key": {
                 "type": "string"
               },
-              "period": {
+              "startPeriod": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "scheme",
-              "period"
-            ]
-          }
-        },
-        {
-          "name": "list_filings",
-          "description": "List Filings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_filing",
-          "description": "Get a Filing by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_filing",
-          "description": "Update a Filing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "endPeriod": {
                 "type": "string"
               },
-              "filerId": {
+              "updatedAfter": {
                 "type": "string"
               },
-              "scheme": {
+              "firstNObservations": {
+                "type": "integer"
+              },
+              "lastNObservations": {
+                "type": "integer"
+              },
+              "detail": {
                 "type": "string"
               },
-              "period": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_filing",
-          "description": "Delete a Filing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_citizen",
-          "description": "Create a Citizen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "nationalId": {
-                "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "jurisdiction"
-            ]
-          }
-        },
-        {
-          "name": "list_citizens",
-          "description": "List Citizens.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_citizen",
-          "description": "Get a Citizen by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_citizen",
-          "description": "Update a Citizen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "nationalId": {
-                "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_citizen",
-          "description": "Delete a Citizen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_service",
-          "description": "Create a Service.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "department": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "department"
-            ]
-          }
-        },
-        {
-          "name": "list_services",
-          "description": "List Services.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_service",
-          "description": "Get a Service by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_service",
-          "description": "Update a Service.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "department": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_service",
-          "description": "Delete a Service.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_application",
-          "description": "Create a Application.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "citizenId": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_applications",
-          "description": "List Applications.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_application",
-          "description": "Get a Application by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_application",
-          "description": "Update a Application.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "citizenId": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_application",
-          "description": "Delete a Application.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_dataset",
-          "description": "Create a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "publisher": {
-                "type": "string"
-              },
-              "updatedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "publisher"
-            ]
-          }
-        },
-        {
-          "name": "list_datasets",
-          "description": "List Datasets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_dataset",
-          "description": "Get a Dataset by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_dataset",
-          "description": "Update a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "publisher": {
-                "type": "string"
-              },
-              "updatedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_dataset",
-          "description": "Delete a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_identity",
-          "description": "Create a Identity.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "citizenId": {
-                "type": "string"
-              },
-              "assuranceLevel": {
-                "type": "string"
-              },
-              "verified": {
+              "includeHistory": {
                 "type": "boolean"
               }
             },
             "required": [
-              "assuranceLevel",
-              "verified"
+              "key",
+              "startPeriod"
             ]
           }
         },
         {
-          "name": "list_identities",
-          "description": "List Identities.",
+          "name": "list_data_queries",
+          "description": "List DataQueries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_identity",
-          "description": "Get a Identity by id.",
+          "name": "get_data_query",
+          "description": "Get a DataQuery by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -704,21 +250,39 @@
           }
         },
         {
-          "name": "update_identity",
-          "description": "Update a Identity.",
+          "name": "update_data_query",
+          "description": "Update a DataQuery.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "citizenId": {
+              "flowRef": {
                 "type": "string"
               },
-              "assuranceLevel": {
+              "key": {
                 "type": "string"
               },
-              "verified": {
+              "startPeriod": {
+                "type": "string"
+              },
+              "endPeriod": {
+                "type": "string"
+              },
+              "updatedAfter": {
+                "type": "string"
+              },
+              "firstNObservations": {
+                "type": "integer"
+              },
+              "lastNObservations": {
+                "type": "integer"
+              },
+              "detail": {
+                "type": "string"
+              },
+              "includeHistory": {
                 "type": "boolean"
               }
             },
@@ -728,8 +292,176 @@
           }
         },
         {
-          "name": "delete_identity",
-          "description": "Delete a Identity.",
+          "name": "delete_data_query",
+          "description": "Delete a DataQuery.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_dataflow",
+          "description": "Create a Dataflow.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "agencyID": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "agencyID",
+              "version"
+            ]
+          }
+        },
+        {
+          "name": "list_dataflows",
+          "description": "List Dataflows.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_dataflow",
+          "description": "Get a Dataflow by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_dataflow",
+          "description": "Update a Dataflow.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "agencyID": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_dataflow",
+          "description": "Delete a Dataflow.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_series",
+          "description": "Create a Series.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "seriesKey": {
+                "type": "string"
+              },
+              "frequency": {
+                "type": "string"
+              },
+              "lastUpdated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "seriesKey",
+              "frequency"
+            ]
+          }
+        },
+        {
+          "name": "list_serieses",
+          "description": "List Serieses.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_series",
+          "description": "Get a Series by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_series",
+          "description": "Update a Series.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "seriesKey": {
+                "type": "string"
+              },
+              "frequency": {
+                "type": "string"
+              },
+              "lastUpdated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_series",
+          "description": "Delete a Series.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 199,
-  "totalVerifiedEnumFields": 828,
+  "l5VerifiedActors": 201,
+  "totalVerifiedEnumFields": 830,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -3127,8 +3127,8 @@
       "source": "eurostat.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "eventbrite-compat",
@@ -4467,8 +4467,8 @@
       "source": "imf.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 1
     },
     {
       "handle": "imo_dangerous_goods-compat",

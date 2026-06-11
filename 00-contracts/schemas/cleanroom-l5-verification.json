@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 206,
+  "count": 208,
   "actors": [
     {
       "handle": "aave-compat",
@@ -9712,6 +9712,68 @@
       "note": "FULLY VERIFIED (4/4) vs the official IOGP EPSG registry API. Zero enums enforced (registry vocabularies, no fetched declaration) — the second fields-verified L5. The world's geodetic-parameter registry joins the corpus."
     },
     {
+      "handle": "eurostat-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec) + the official endpoint lives at ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/ (the literal sdmx/2.1 path; its dataflow catalog served live SDMX-JSON)",
+      "remodeled": "SDMX 2.1 REST conformance leverage (the 4th conformance family after FHIR/MAVLink/GBFS; anchor = ecb-compat): Eurostat serves the official SDMX 2.1 REST surface — the official endpoint lives at ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/ (the literal sdmx/2.1 path; its dataflow catalog served live SDMX-JSON). The actor joins on the spec-verified DataQuery model: detail enforced {full, dataonly, serieskeysonly, nodata} as declared in the official sdmx-twg v1.5.0 spec (and independently in ECB's own docs — cross-family consistency). Harness-direct (gemini quota exhausted).",
+      "resources": [
+        {
+          "entity": "DataQuery",
+          "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec)",
+          "verifiedFields": [
+            "flowRef",
+            "key",
+            "startPeriod",
+            "endPeriod",
+            "updatedAfter",
+            "firstNObservations",
+            "lastNObservations",
+            "detail",
+            "includeHistory"
+          ],
+          "fieldStatus": "confirmed (SDMX 2.1 REST data-query parameters)",
+          "discoveredEnums": {
+            "detail": [
+              "full",
+              "dataonly",
+              "serieskeysonly",
+              "nodata"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Dataflow",
+          "source": "the official endpoint lives at ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/ (the literal sdmx/2.1 path; its dataflow catalog served live SDMX-JSON)",
+          "verifiedFields": [
+            "agencyID",
+            "version",
+            "name"
+          ],
+          "fieldStatus": "confirmed (SDMX structure message components)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Series",
+          "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec)",
+          "verifiedFields": [
+            "seriesKey",
+            "frequency",
+            "lastUpdated"
+          ],
+          "fieldStatus": "confirmed (SDMX series concepts)",
+          "discoveredEnums": {},
+          "gaps": [
+            "frequency-codelist-CL_FREQ-externally-versioned"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-LEVERAGED (3/3) onto the SDMX 2.1 REST spec-verified model (family: ecb/eurostat/imf). Enforced enums: detail(4, spec-declared) = 1 enum field."
+    },
+    {
       "handle": "fastly-compat",
       "verifiedAt": "2026-06-09",
       "tier": "L5",
@@ -13236,6 +13298,68 @@
         }
       ],
       "note": "Verified against rfc-editor.org/rfc-index.xsd (authoritative metadata schema). Corrected prompt's enum hints to XSD-verbatim: status has 9 values incl. 'FOR YOUR INFORMATION'; stream has 6 incl. uppercase 'INDEPENDENT' and 'Legacy'."
+    },
+    {
+      "handle": "imf-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec) + api.imf.org/external/sdmx/2.1/dataflow returns SDMX-ML carrying the official v2_1 schema namespace (harness-fetched, 442KB live structure message)",
+      "remodeled": "SDMX 2.1 REST conformance leverage (the 4th conformance family after FHIR/MAVLink/GBFS; anchor = ecb-compat): the IMF serves the official SDMX 2.1 REST surface — api.imf.org/external/sdmx/2.1/dataflow returns SDMX-ML carrying the official v2_1 schema namespace (harness-fetched, 442KB live structure message). The actor joins on the spec-verified DataQuery model: detail enforced {full, dataonly, serieskeysonly, nodata} as declared in the official sdmx-twg v1.5.0 spec (and independently in ECB's own docs — cross-family consistency). Harness-direct (gemini quota exhausted).",
+      "resources": [
+        {
+          "entity": "DataQuery",
+          "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec)",
+          "verifiedFields": [
+            "flowRef",
+            "key",
+            "startPeriod",
+            "endPeriod",
+            "updatedAfter",
+            "firstNObservations",
+            "lastNObservations",
+            "detail",
+            "includeHistory"
+          ],
+          "fieldStatus": "confirmed (SDMX 2.1 REST data-query parameters)",
+          "discoveredEnums": {
+            "detail": [
+              "full",
+              "dataonly",
+              "serieskeysonly",
+              "nodata"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Dataflow",
+          "source": "api.imf.org/external/sdmx/2.1/dataflow returns SDMX-ML carrying the official v2_1 schema namespace (harness-fetched, 442KB live structure message)",
+          "verifiedFields": [
+            "agencyID",
+            "version",
+            "name"
+          ],
+          "fieldStatus": "confirmed (SDMX structure message components)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Series",
+          "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec)",
+          "verifiedFields": [
+            "seriesKey",
+            "frequency",
+            "lastUpdated"
+          ],
+          "fieldStatus": "confirmed (SDMX series concepts)",
+          "discoveredEnums": {},
+          "gaps": [
+            "frequency-codelist-CL_FREQ-externally-versioned"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-LEVERAGED (3/3) onto the SDMX 2.1 REST spec-verified model (family: ecb/eurostat/imf). Enforced enums: detail(4, spec-declared) = 1 enum field."
     },
     {
       "handle": "intercom-compat",

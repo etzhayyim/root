@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible UK / EU e-government actor (eurostat); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:eurostat-compat",
-    "x-wasm-cid": "bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q",
+    "x-wasm-cid": "bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q",
+      "url": "ipfs://bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/filings": {
+    "/v1/dataqueries": {
       "get": {
-        "summary": "List Filings",
+        "summary": "List DataQueries",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Filing"
+                        "$ref": "#/components/schemas/DataQuery"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Filing",
+        "summary": "Create a DataQuery",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FilingCreate"
+                "$ref": "#/components/schemas/DataQueryCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Filing"
+                  "$ref": "#/components/schemas/DataQuery"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/filings/{id}": {
+    "/v1/dataqueries/{id}": {
       "get": {
-        "summary": "Get a Filing",
+        "summary": "Get a DataQuery",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Filing"
+                  "$ref": "#/components/schemas/DataQuery"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Filing",
+        "summary": "Update a DataQuery",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FilingCreate"
+                "$ref": "#/components/schemas/DataQueryCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Filing"
+                  "$ref": "#/components/schemas/DataQuery"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Filing",
+        "summary": "Delete a DataQuery",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/citizens": {
+    "/v1/dataflows": {
       "get": {
-        "summary": "List Citizens",
+        "summary": "List Dataflows",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Citizen"
+                        "$ref": "#/components/schemas/Dataflow"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Citizen",
+        "summary": "Create a Dataflow",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CitizenCreate"
+                "$ref": "#/components/schemas/DataflowCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Citizen"
+                  "$ref": "#/components/schemas/Dataflow"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/citizens/{id}": {
+    "/v1/dataflows/{id}": {
       "get": {
-        "summary": "Get a Citizen",
+        "summary": "Get a Dataflow",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Citizen"
+                  "$ref": "#/components/schemas/Dataflow"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Citizen",
+        "summary": "Update a Dataflow",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CitizenCreate"
+                "$ref": "#/components/schemas/DataflowCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Citizen"
+                  "$ref": "#/components/schemas/Dataflow"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Citizen",
+        "summary": "Delete a Dataflow",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/services": {
+    "/v1/serieses": {
       "get": {
-        "summary": "List Services",
+        "summary": "List Serieses",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Service"
+                        "$ref": "#/components/schemas/Series"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Service",
+        "summary": "Create a Series",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/SeriesCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Series"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/services/{id}": {
+    "/v1/serieses/{id}": {
       "get": {
-        "summary": "Get a Service",
+        "summary": "Get a Series",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Series"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Service",
+        "summary": "Update a Series",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/SeriesCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Series"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Service",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/applications": {
-      "get": {
-        "summary": "List Applications",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Application"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Application",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApplicationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Application"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/applications/{id}": {
-      "get": {
-        "summary": "Get a Application",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Application"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Application",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApplicationCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Application"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Application",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/datasets": {
-      "get": {
-        "summary": "List Datasets",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Dataset"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Dataset",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/datasets/{id}": {
-      "get": {
-        "summary": "Get a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/identities": {
-      "get": {
-        "summary": "List Identities",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Identity"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Identity",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdentityCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Identity"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/identities/{id}": {
-      "get": {
-        "summary": "Get a Identity",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Identity"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Identity",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdentityCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Identity"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Identity",
+        "summary": "Delete a Series",
         "parameters": [
           {
             "name": "id",
@@ -1140,223 +585,44 @@
   },
   "components": {
     "schemas": {
-      "Filing": {
+      "DataQuery": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "filerId": {
+          "flowRef": {
             "type": "string"
           },
-          "scheme": {
+          "key": {
             "type": "string"
           },
-          "period": {
+          "startPeriod": {
             "type": "string"
           },
-          "status": {
+          "endPeriod": {
             "type": "string"
           },
-          "createdAt": {
+          "updatedAfter": {
             "type": "string",
             "format": "date-time"
           },
-          "updatedAt": {
+          "firstNObservations": {
+            "type": "integer"
+          },
+          "lastNObservations": {
+            "type": "integer"
+          },
+          "detail": {
             "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FilingCreate": {
-        "type": "object",
-        "properties": {
-          "filerId": {
-            "type": "string"
+            "enum": [
+              "full",
+              "dataonly",
+              "serieskeysonly",
+              "nodata"
+            ]
           },
-          "scheme": {
-            "type": "string"
-          },
-          "period": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "scheme",
-          "period"
-        ]
-      },
-      "Citizen": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "nationalId": {
-            "type": "string"
-          },
-          "jurisdiction": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CitizenCreate": {
-        "type": "object",
-        "properties": {
-          "nationalId": {
-            "type": "string"
-          },
-          "jurisdiction": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "jurisdiction"
-        ]
-      },
-      "Service": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "department": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ServiceCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "department": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "department"
-        ]
-      },
-      "Application": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "citizenId": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ApplicationCreate": {
-        "type": "object",
-        "properties": {
-          "citizenId": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "status"
-        ]
-      },
-      "Dataset": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "publisher": {
-            "type": "string"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DatasetCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "publisher": {
-            "type": "string"
-          },
-          "updatedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "publisher"
-        ]
-      },
-      "Identity": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "citizenId": {
-            "type": "string"
-          },
-          "assuranceLevel": {
-            "type": "string"
-          },
-          "verified": {
+          "includeHistory": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1369,22 +635,133 @@
           }
         }
       },
-      "IdentityCreate": {
+      "DataQueryCreate": {
         "type": "object",
         "properties": {
-          "citizenId": {
+          "flowRef": {
             "type": "string"
           },
-          "assuranceLevel": {
+          "key": {
             "type": "string"
           },
-          "verified": {
+          "startPeriod": {
+            "type": "string"
+          },
+          "endPeriod": {
+            "type": "string"
+          },
+          "updatedAfter": {
+            "type": "string"
+          },
+          "firstNObservations": {
+            "type": "integer"
+          },
+          "lastNObservations": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string",
+            "enum": [
+              "full",
+              "dataonly",
+              "serieskeysonly",
+              "nodata"
+            ]
+          },
+          "includeHistory": {
             "type": "boolean"
           }
         },
         "required": [
-          "assuranceLevel",
-          "verified"
+          "key",
+          "startPeriod"
+        ]
+      },
+      "Dataflow": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "agencyID": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DataflowCreate": {
+        "type": "object",
+        "properties": {
+          "agencyID": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "agencyID",
+          "version"
+        ]
+      },
+      "Series": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "seriesKey": {
+            "type": "string"
+          },
+          "frequency": {
+            "type": "string"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SeriesCreate": {
+        "type": "object",
+        "properties": {
+          "seriesKey": {
+            "type": "string"
+          },
+          "frequency": {
+            "type": "string"
+          },
+          "lastUpdated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "seriesKey",
+          "frequency"
         ]
       }
     }

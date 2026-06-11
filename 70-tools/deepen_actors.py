@@ -2805,6 +2805,16 @@ PLATFORM_OVERRIDES["epsg_registry"] = {
     "Usage": E(code="integer", name="string", scopeDetails="string"),
 }
 
+# SDMX 2.1 REST conformance family (the 4th family after FHIR/MAVLink/GBFS):
+# agencies serving the official SDMX 2.1 REST surface join on the
+# spec-verified model. The official sdmx-twg spec (v1.5.0 tag) declares
+# detail {full, dataonly, serieskeysonly, nodata} — matching ECB's own docs
+# (the family anchor, already L5). Conformance evidence: eurostat serves at
+# .../api/dissemination/sdmx/2.1/ and IMF's api.imf.org/external/sdmx/2.1/
+# returns SDMX-ML with the official v2_1 namespace (harness-fetched).
+for _sdmx_agency in ("eurostat", "imf"):
+    PLATFORM_OVERRIDES[_sdmx_agency] = PLATFORM_OVERRIDES["ecb"]
+
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official
 # MobilityData systems.csv registry + live feed verification) join on the

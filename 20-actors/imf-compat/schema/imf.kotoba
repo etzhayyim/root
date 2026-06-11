@@ -3,70 +3,37 @@
 
 namespace imf {
 
-    entity Indicator {
+    entity DataQuery {
         id: string @unique
-        code: string
-        name: string
-        unit: string
-        source: string
+        flowRef: string
+        key: string
+        startPeriod: string
+        endPeriod: string
+        updatedAfter: datetime
+        firstNObservations: integer
+        lastNObservations: integer
+        detail: string
+        includeHistory: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Observation {
+    entity Dataflow {
         id: string @unique
-        indicatorId: string
-        country: string
-        period: string
-        value: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Country {
-        id: string @unique
-        iso3: string
+        agencyID: string
+        version: string
         name: string
-        region: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Series {
         id: string @unique
-        indicatorId: string
+        seriesKey: string
         frequency: string
-        startPeriod: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Report {
-        id: string @unique
-        title: string
-        publishedAt: datetime
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ExchangeRate {
-        id: string @unique
-        base: string
-        quote: string
-        rate: float
-        asOf: datetime
+        lastUpdated: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

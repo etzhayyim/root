@@ -5,21 +5,36 @@
   "kind": "compat",
   "title": "imf clean-room actor",
   "description": "Clean-room, API-compatible intl org / central bank data actor (imf); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifwmywlzap32lfe3yakwsgdsbskoub2ulvkixnbeqsvmludz5y5ly",
+  "wasmCid": "bafkreifj555o2kbfx57ntrcugiaholcpjybbjimgrddix67h6t3gtngsdu",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifwmywlzap32lfe3yakwsgdsbskoub2ulvkixnbeqsvmludz5y5ly",
+  "ipfs": "ipfs://bafkreifj555o2kbfx57ntrcugiaholcpjybbjimgrddix67h6t3gtngsdu",
   "schema": "schema/imf.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec) + api.imf.org/external/sdmx/2.1/dataflow returns SDMX-ML carrying the official v2_1 schema namespace (harness-fetched, 442KB live structure message)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "DataQuery",
+      "Dataflow",
+      "Series"
+    ],
+    "enums": {
+      "DataQuery": {
+        "detail": [
+          "full",
+          "dataonly",
+          "serieskeysonly",
+          "nodata"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Indicator",
-    "Observation",
-    "Country",
-    "Series",
-    "Report",
-    "ExchangeRate"
+    "DataQuery",
+    "Dataflow",
+    "Series"
   ],
   "adr": [
     "260607",
@@ -31,82 +46,57 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/indicators",
-          "op": "create Indicator"
+          "path": "/v1/dataqueries",
+          "op": "create DataQuery"
         },
         {
           "method": "GET",
-          "path": "/v1/indicators",
-          "op": "list Indicator"
+          "path": "/v1/dataqueries",
+          "op": "list DataQuery"
         },
         {
           "method": "GET",
-          "path": "/v1/indicators/{id}",
-          "op": "get Indicator"
+          "path": "/v1/dataqueries/{id}",
+          "op": "get DataQuery"
         },
         {
           "method": "PATCH",
-          "path": "/v1/indicators/{id}",
-          "op": "update Indicator"
+          "path": "/v1/dataqueries/{id}",
+          "op": "update DataQuery"
         },
         {
           "method": "DELETE",
-          "path": "/v1/indicators/{id}",
-          "op": "delete Indicator"
+          "path": "/v1/dataqueries/{id}",
+          "op": "delete DataQuery"
         },
         {
           "method": "POST",
-          "path": "/v1/observations",
-          "op": "create Observation"
+          "path": "/v1/dataflows",
+          "op": "create Dataflow"
         },
         {
           "method": "GET",
-          "path": "/v1/observations",
-          "op": "list Observation"
+          "path": "/v1/dataflows",
+          "op": "list Dataflow"
         },
         {
           "method": "GET",
-          "path": "/v1/observations/{id}",
-          "op": "get Observation"
+          "path": "/v1/dataflows/{id}",
+          "op": "get Dataflow"
         },
         {
           "method": "PATCH",
-          "path": "/v1/observations/{id}",
-          "op": "update Observation"
+          "path": "/v1/dataflows/{id}",
+          "op": "update Dataflow"
         },
         {
           "method": "DELETE",
-          "path": "/v1/observations/{id}",
-          "op": "delete Observation"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/countries",
-          "op": "create Country"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/countries",
-          "op": "list Country"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/countries/{id}",
-          "op": "get Country"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/countries/{id}",
-          "op": "update Country"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/countries/{id}",
-          "op": "delete Country"
+          "path": "/v1/dataflows/{id}",
+          "op": "delete Dataflow"
         },
         {
           "method": "POST",
@@ -132,56 +122,6 @@
           "method": "DELETE",
           "path": "/v1/serieses/{id}",
           "op": "delete Series"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/reports",
-          "op": "create Report"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/reports",
-          "op": "list Report"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/reports/{id}",
-          "op": "get Report"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/reports/{id}",
-          "op": "update Report"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/reports/{id}",
-          "op": "delete Report"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/exchangerates",
-          "op": "create ExchangeRate"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/exchangerates",
-          "op": "list ExchangeRate"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/exchangerates/{id}",
-          "op": "get ExchangeRate"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/exchangerates/{id}",
-          "op": "update ExchangeRate"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/exchangerates/{id}",
-          "op": "delete ExchangeRate"
         }
       ],
       "features": {
@@ -244,44 +184,59 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_indicator",
-          "description": "Create a Indicator.",
+          "name": "create_data_query",
+          "description": "Create a DataQuery.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "code": {
+              "flowRef": {
                 "type": "string"
               },
-              "name": {
+              "key": {
                 "type": "string"
               },
-              "unit": {
+              "startPeriod": {
                 "type": "string"
               },
-              "source": {
+              "endPeriod": {
                 "type": "string"
+              },
+              "updatedAfter": {
+                "type": "string"
+              },
+              "firstNObservations": {
+                "type": "integer"
+              },
+              "lastNObservations": {
+                "type": "integer"
+              },
+              "detail": {
+                "type": "string"
+              },
+              "includeHistory": {
+                "type": "boolean"
               }
             },
             "required": [
-              "code",
-              "name"
+              "key",
+              "startPeriod"
             ]
           }
         },
         {
-          "name": "list_indicators",
-          "description": "List Indicators.",
+          "name": "list_data_queries",
+          "description": "List DataQueries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_indicator",
-          "description": "Get a Indicator by id.",
+          "name": "get_data_query",
+          "description": "Get a DataQuery by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,83 +250,95 @@
           }
         },
         {
-          "name": "update_indicator",
-          "description": "Update a Indicator.",
+          "name": "update_data_query",
+          "description": "Update a DataQuery.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "code": {
+              "flowRef": {
+                "type": "string"
+              },
+              "key": {
+                "type": "string"
+              },
+              "startPeriod": {
+                "type": "string"
+              },
+              "endPeriod": {
+                "type": "string"
+              },
+              "updatedAfter": {
+                "type": "string"
+              },
+              "firstNObservations": {
+                "type": "integer"
+              },
+              "lastNObservations": {
+                "type": "integer"
+              },
+              "detail": {
+                "type": "string"
+              },
+              "includeHistory": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_data_query",
+          "description": "Delete a DataQuery.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_dataflow",
+          "description": "Create a Dataflow.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "agencyID": {
+                "type": "string"
+              },
+              "version": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              },
-              "source": {
-                "type": "string"
               }
             },
             "required": [
-              "id"
+              "agencyID",
+              "version"
             ]
           }
         },
         {
-          "name": "delete_indicator",
-          "description": "Delete a Indicator.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_observation",
-          "description": "Create a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "indicatorId": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              },
-              "period": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "country",
-              "period"
-            ]
-          }
-        },
-        {
-          "name": "list_observations",
-          "description": "List Observations.",
+          "name": "list_dataflows",
+          "description": "List Dataflows.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_observation",
-          "description": "Get a Observation by id.",
+          "name": "get_dataflow",
+          "description": "Get a Dataflow by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,85 +352,22 @@
           }
         },
         {
-          "name": "update_observation",
-          "description": "Update a Observation.",
+          "name": "update_dataflow",
+          "description": "Update a Dataflow.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "indicatorId": {
+              "agencyID": {
                 "type": "string"
               },
-              "country": {
-                "type": "string"
-              },
-              "period": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_observation",
-          "description": "Delete a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_country",
-          "description": "Create a Country.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "iso3": {
+              "version": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
-              },
-              "region": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "iso3",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_countries",
-          "description": "List Countries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_country",
-          "description": "Get a Country by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
               }
             },
             "required": [
@@ -472,32 +376,8 @@
           }
         },
         {
-          "name": "update_country",
-          "description": "Update a Country.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "iso3": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_country",
-          "description": "Delete a Country.",
+          "name": "delete_dataflow",
+          "description": "Delete a Dataflow.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -516,19 +396,19 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "indicatorId": {
+              "seriesKey": {
                 "type": "string"
               },
               "frequency": {
                 "type": "string"
               },
-              "startPeriod": {
+              "lastUpdated": {
                 "type": "string"
               }
             },
             "required": [
-              "frequency",
-              "startPeriod"
+              "seriesKey",
+              "frequency"
             ]
           }
         },
@@ -564,13 +444,13 @@
               "id": {
                 "type": "string"
               },
-              "indicatorId": {
+              "seriesKey": {
                 "type": "string"
               },
               "frequency": {
                 "type": "string"
               },
-              "startPeriod": {
+              "lastUpdated": {
                 "type": "string"
               }
             },
@@ -582,180 +462,6 @@
         {
           "name": "delete_series",
           "description": "Delete a Series.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_report",
-          "description": "Create a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "title": {
-                "type": "string"
-              },
-              "publishedAt": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "title",
-              "publishedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_reports",
-          "description": "List Reports.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_report",
-          "description": "Get a Report by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_report",
-          "description": "Update a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "publishedAt": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_report",
-          "description": "Delete a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_exchange_rate",
-          "description": "Create a ExchangeRate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "base": {
-                "type": "string"
-              },
-              "quote": {
-                "type": "string"
-              },
-              "rate": {
-                "type": "number"
-              },
-              "asOf": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "base",
-              "quote"
-            ]
-          }
-        },
-        {
-          "name": "list_exchange_rates",
-          "description": "List ExchangeRates.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_exchange_rate",
-          "description": "Get a ExchangeRate by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_exchange_rate",
-          "description": "Update a ExchangeRate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "base": {
-                "type": "string"
-              },
-              "quote": {
-                "type": "string"
-              },
-              "rate": {
-                "type": "number"
-              },
-              "asOf": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_exchange_rate",
-          "description": "Delete a ExchangeRate.",
           "inputSchema": {
             "type": "object",
             "properties": {

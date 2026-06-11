@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29250,
+  "totalEndpoints": 29220,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 199,
-  "totalVerifiedEnumFields": 828,
+  "l5VerifiedActors": 201,
+  "totalVerifiedEnumFields": 830,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -5923,10 +5923,10 @@
     {
       "handle": "eurostat-compat",
       "did": "did:web:etzhayyim.com:actor:eurostat-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -5935,8 +5935,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "openapi": "20-actors/eurostat-compat/openapi.json"
     },
     {
@@ -8469,10 +8469,10 @@
     {
       "handle": "imf-compat",
       "did": "did:web:etzhayyim.com:actor:imf-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreifwmywlzap32lfe3yakwsgdsbskoub2ulvkixnbeqsvmludz5y5ly",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreifj555o2kbfx57ntrcugiaholcpjybbjimgrddix67h6t3gtngsdu",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -8481,8 +8481,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 1,
       "openapi": "20-actors/imf-compat/openapi.json"
     },
     {

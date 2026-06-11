@@ -4068,11 +4068,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible UK / EU e-government actor (eurostat); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "eurostat.kotoba"
-   :actor/wasm-cid "bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q"
+   :actor/wasm-cid "bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:eurostat-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:eurostat-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:eurostat-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:eurostat-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:eurostat-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:eurostat-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:eurostat-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:eurostat-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "eventbrite-compat"
    :actor/did "did:web:etzhayyim.com:actor:eventbrite-compat"
    :actor/kind :compat
@@ -5810,11 +5810,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible intl org / central bank data actor (imf); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "imf.kotoba"
-   :actor/wasm-cid "bafkreifwmywlzap32lfe3yakwsgdsbskoub2ulvkixnbeqsvmludz5y5ly"
+   :actor/wasm-cid "bafkreifj555o2kbfx57ntrcugiaholcpjybbjimgrddix67h6t3gtngsdu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:imf-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifwmywlzap32lfe3yakwsgdsbskoub2ulvkixnbeqsvmludz5y5ly" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:imf-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifwmywlzap32lfe3yakwsgdsbskoub2ulvkixnbeqsvmludz5y5ly" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:imf-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifwmywlzap32lfe3yakwsgdsbskoub2ulvkixnbeqsvmludz5y5ly" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:imf-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifwmywlzap32lfe3yakwsgdsbskoub2ulvkixnbeqsvmludz5y5ly" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:imf-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreifj555o2kbfx57ntrcugiaholcpjybbjimgrddix67h6t3gtngsdu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:imf-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreifj555o2kbfx57ntrcugiaholcpjybbjimgrddix67h6t3gtngsdu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:imf-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreifj555o2kbfx57ntrcugiaholcpjybbjimgrddix67h6t3gtngsdu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:imf-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreifj555o2kbfx57ntrcugiaholcpjybbjimgrddix67h6t3gtngsdu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "imo_dangerous_goods-compat"
    :actor/did "did:web:etzhayyim.com:actor:imo_dangerous_goods-compat"
    :actor/kind :compat

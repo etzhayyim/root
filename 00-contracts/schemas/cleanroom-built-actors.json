@@ -5230,17 +5230,14 @@
       "handle": "eurostat-compat",
       "platform": "eurostat",
       "bytes": 2122,
-      "wasmCid": "bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q",
+      "wasmCid": "bafkreidj4yzusvntlxiwuwvku4gy5hfdpdoyyhpwkddt7wwbhj24k47lfi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Filing",
-        "Citizen",
-        "Service",
-        "Application",
-        "Dataset",
-        "Identity"
+        "DataQuery",
+        "Dataflow",
+        "Series"
       ]
     },
     {
@@ -7487,17 +7484,14 @@
       "handle": "imf-compat",
       "platform": "imf",
       "bytes": 2117,
-      "wasmCid": "bafkreifwmywlzap32lfe3yakwsgdsbskoub2ulvkixnbeqsvmludz5y5ly",
+      "wasmCid": "bafkreifj555o2kbfx57ntrcugiaholcpjybbjimgrddix67h6t3gtngsdu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Indicator",
-        "Observation",
-        "Country",
-        "Series",
-        "Report",
-        "ExchangeRate"
+        "DataQuery",
+        "Dataflow",
+        "Series"
       ]
     },
     {

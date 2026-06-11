@@ -680,3 +680,19 @@ unenforced per the censusgov live-observed-is-not-declared discipline.
 eurostat carries (its help wiki is a JS shell; the 13MB SDMX catalog
 truncated mid-fetch) and imf carries (the legacy dataservices endpoint is
 retired; the new data.imf.org portal needs a fresh seam).
+
+### §16.14 /loop iteration 13 — wave 14: the SDMX family opens (208, 20.8%)
+
+eurostat + imf → ledger **208** (792 L4 / 208 L5 = 20.8%), enforced 201 /
+**830 enum fields**, verify PASS 0/0, 2/2 green. Harness-direct.
+
+**The 4th conformance family: SDMX 2.1 REST** (after FHIR ×5, MAVLink ×5,
+GBFS ×3; anchor = ecb-compat). The official sdmx-twg spec (v1.5.0 tag)
+declares detail {full, dataonly, serieskeysonly, nodata} — independently
+matching ECB's own API docs, a cross-family consistency check. Conformance
+evidence is structural and harness-fetched: Eurostat's endpoint lives at
+the literal .../sdmx/2.1/ dissemination path (live SDMX-JSON catalog), and
+the IMF's NEW api.imf.org/external/sdmx/2.1/ returns SDMX-ML carrying the
+official v2_1 schema namespace — which also resolves the imf carry from
+wave 12 (the legacy dataservices endpoint was retired; the new portal
+speaks the standard).

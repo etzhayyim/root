@@ -111,312 +111,127 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/filings", methods=["POST"])
-def create_filing(request):
-    """Create a Filing."""
+@app.route("/v1/dataqueries", methods=["POST"])
+def create_data_query(request):
+    """Create a DataQuery."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['filerId', 'scheme', 'period', 'status'])
+    err = _reject_unknown(data, ['flowRef', 'key', 'startPeriod', 'endPeriod', 'updatedAfter', 'firstNObservations', 'lastNObservations', 'detail', 'includeHistory'])
     if err:
         return err, 400
-    err = _require(data, ['scheme', 'period'])
+    err = _require(data, ['key', 'startPeriod'])
     if err:
         return err, 400
-    rec = {"id": new_id("eurostat_fil")}
-    rec["filerId"] = data.get('filerId')
-    rec["scheme"] = data.get('scheme')
-    rec["period"] = data.get('period')
-    rec["status"] = data.get('status')
+    if data.get('detail') and data['detail'] not in ['full', 'dataonly', 'serieskeysonly', 'nodata']:
+        return {"error": {"message": "invalid detail; allowed: " + ", ".join(['full', 'dataonly', 'serieskeysonly', 'nodata']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("eurostat_dat")}
+    rec["flowRef"] = data.get('flowRef')
+    rec["key"] = data.get('key')
+    rec["startPeriod"] = data.get('startPeriod')
+    rec["endPeriod"] = data.get('endPeriod')
+    rec["updatedAfter"] = data.get('updatedAfter')
+    rec["firstNObservations"] = _as_int(data.get('firstNObservations'))
+    rec["lastNObservations"] = _as_int(data.get('lastNObservations'))
+    rec["detail"] = data.get('detail')
+    rec["includeHistory"] = _as_bool(data.get('includeHistory'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Filing", rec)
+    _persist("DataQuery", rec)
     return rec, 201
 
-@app.route("/v1/filings", methods=["GET"])
-def list_filings(request):
-    """List Filings with filtering + cursor pagination."""
+@app.route("/v1/dataqueries", methods=["GET"])
+def list_data_queries(request):
+    """List DataQueries with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Filing")
-    rows = _apply_filters(rows, params, ['filerId', 'scheme', 'period', 'status'])
+    rows = _query("DataQuery")
+    rows = _apply_filters(rows, params, ['flowRef', 'key', 'startPeriod', 'endPeriod', 'updatedAfter', 'firstNObservations', 'lastNObservations', 'detail', 'includeHistory'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/filings/<eid>", methods=["GET"])
-def get_filing(request, eid):
-    """Retrieve a Filing by id (supports ?expand=)."""
-    rows = _query("Filing", eid)
+@app.route("/v1/dataqueries/<eid>", methods=["GET"])
+def get_data_query(request, eid):
+    """Retrieve a DataQuery by id (supports ?expand=)."""
+    rows = _query("DataQuery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/filings/<eid>", methods=["POST", "PATCH"])
-def update_filing(request, eid):
-    """Update a Filing."""
-    rows = _query("Filing", eid)
+@app.route("/v1/dataqueries/<eid>", methods=["POST", "PATCH"])
+def update_data_query(request, eid):
+    """Update a DataQuery."""
+    rows = _query("DataQuery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['filerId', 'scheme', 'period', 'status'])
+    err = _reject_unknown(data, ['flowRef', 'key', 'startPeriod', 'endPeriod', 'updatedAfter', 'firstNObservations', 'lastNObservations', 'detail', 'includeHistory'])
     if err:
         return err, 400
+    if data.get('detail') and data['detail'] not in ['full', 'dataonly', 'serieskeysonly', 'nodata']:
+        return {"error": {"message": "invalid detail; allowed: " + ", ".join(['full', 'dataonly', 'serieskeysonly', 'nodata']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Filing", rec)
+    _persist("DataQuery", rec)
     return rec, 200
 
-@app.route("/v1/filings/<eid>", methods=["DELETE"])
-def delete_filing(request, eid):
-    """Delete a Filing."""
-    rows = _query("Filing", eid)
+@app.route("/v1/dataqueries/<eid>", methods=["DELETE"])
+def delete_data_query(request, eid):
+    """Delete a DataQuery."""
+    rows = _query("DataQuery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eurostat.Filing", "id": eid})
+    db.retract({"entity": f"eurostat.DataQuery", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/citizens", methods=["POST"])
-def create_citizen(request):
-    """Create a Citizen."""
+@app.route("/v1/dataflows", methods=["POST"])
+def create_dataflow(request):
+    """Create a Dataflow."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nationalId', 'jurisdiction'])
+    err = _reject_unknown(data, ['agencyID', 'version', 'name'])
     if err:
         return err, 400
-    err = _require(data, ['jurisdiction'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("eurostat_cit")}
-    rec["nationalId"] = data.get('nationalId')
-    rec["jurisdiction"] = data.get('jurisdiction')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Citizen", rec)
-    return rec, 201
-
-@app.route("/v1/citizens", methods=["GET"])
-def list_citizens(request):
-    """List Citizens with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Citizen")
-    rows = _apply_filters(rows, params, ['nationalId', 'jurisdiction'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/citizens/<eid>", methods=["GET"])
-def get_citizen(request, eid):
-    """Retrieve a Citizen by id (supports ?expand=)."""
-    rows = _query("Citizen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/citizens/<eid>", methods=["POST", "PATCH"])
-def update_citizen(request, eid):
-    """Update a Citizen."""
-    rows = _query("Citizen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nationalId', 'jurisdiction'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Citizen", rec)
-    return rec, 200
-
-@app.route("/v1/citizens/<eid>", methods=["DELETE"])
-def delete_citizen(request, eid):
-    """Delete a Citizen."""
-    rows = _query("Citizen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eurostat.Citizen", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'department'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'department'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("eurostat_ser")}
-    rec["name"] = data.get('name')
-    rec["department"] = data.get('department')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
-    return rec, 201
-
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'department'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'department'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Service", rec)
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eurostat.Service", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/applications", methods=["POST"])
-def create_application(request):
-    """Create a Application."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['citizenId', 'serviceId', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("eurostat_app")}
-    rec["citizenId"] = data.get('citizenId')
-    rec["serviceId"] = data.get('serviceId')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Application", rec)
-    return rec, 201
-
-@app.route("/v1/applications", methods=["GET"])
-def list_applications(request):
-    """List Applications with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Application")
-    rows = _apply_filters(rows, params, ['citizenId', 'serviceId', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/applications/<eid>", methods=["GET"])
-def get_application(request, eid):
-    """Retrieve a Application by id (supports ?expand=)."""
-    rows = _query("Application", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'citizenId': 'Citizen', 'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/applications/<eid>", methods=["POST", "PATCH"])
-def update_application(request, eid):
-    """Update a Application."""
-    rows = _query("Application", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['citizenId', 'serviceId', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Application", rec)
-    return rec, 200
-
-@app.route("/v1/applications/<eid>", methods=["DELETE"])
-def delete_application(request, eid):
-    """Delete a Application."""
-    rows = _query("Application", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eurostat.Application", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/datasets", methods=["POST"])
-def create_dataset(request):
-    """Create a Dataset."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'publisher', 'updatedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'publisher'])
+    err = _require(data, ['agencyID', 'version'])
     if err:
         return err, 400
     rec = {"id": new_id("eurostat_dat")}
+    rec["agencyID"] = data.get('agencyID')
+    rec["version"] = data.get('version')
     rec["name"] = data.get('name')
-    rec["publisher"] = data.get('publisher')
-    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dataset", rec)
+    _persist("Dataflow", rec)
     return rec, 201
 
-@app.route("/v1/datasets", methods=["GET"])
-def list_datasets(request):
-    """List Datasets with filtering + cursor pagination."""
+@app.route("/v1/dataflows", methods=["GET"])
+def list_dataflows(request):
+    """List Dataflows with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'publisher', 'updatedAt'])
+    rows = _query("Dataflow")
+    rows = _apply_filters(rows, params, ['agencyID', 'version', 'name'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/datasets/<eid>", methods=["GET"])
-def get_dataset(request, eid):
-    """Retrieve a Dataset by id (supports ?expand=)."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/dataflows/<eid>", methods=["GET"])
+def get_dataflow(request, eid):
+    """Retrieve a Dataflow by id (supports ?expand=)."""
+    rows = _query("Dataflow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["POST", "PATCH"])
-def update_dataset(request, eid):
-    """Update a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/dataflows/<eid>", methods=["POST", "PATCH"])
+def update_dataflow(request, eid):
+    """Update a Dataflow."""
+    rows = _query("Dataflow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'publisher', 'updatedAt'])
+    err = _reject_unknown(data, ['agencyID', 'version', 'name'])
     if err:
         return err, 400
     rec = rows[0]
@@ -424,65 +239,64 @@ def update_dataset(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dataset", rec)
+    _persist("Dataflow", rec)
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["DELETE"])
-def delete_dataset(request, eid):
-    """Delete a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/dataflows/<eid>", methods=["DELETE"])
+def delete_dataflow(request, eid):
+    """Delete a Dataflow."""
+    rows = _query("Dataflow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eurostat.Dataset", "id": eid})
+    db.retract({"entity": f"eurostat.Dataflow", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/identities", methods=["POST"])
-def create_identity(request):
-    """Create a Identity."""
+@app.route("/v1/serieses", methods=["POST"])
+def create_series(request):
+    """Create a Series."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['citizenId', 'assuranceLevel', 'verified'])
+    err = _reject_unknown(data, ['seriesKey', 'frequency', 'lastUpdated'])
     if err:
         return err, 400
-    err = _require(data, ['assuranceLevel', 'verified'])
+    err = _require(data, ['seriesKey', 'frequency'])
     if err:
         return err, 400
-    rec = {"id": new_id("eurostat_ide")}
-    rec["citizenId"] = data.get('citizenId')
-    rec["assuranceLevel"] = data.get('assuranceLevel')
-    rec["verified"] = _as_bool(data.get('verified'))
+    rec = {"id": new_id("eurostat_ser")}
+    rec["seriesKey"] = data.get('seriesKey')
+    rec["frequency"] = data.get('frequency')
+    rec["lastUpdated"] = data.get('lastUpdated')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Identity", rec)
+    _persist("Series", rec)
     return rec, 201
 
-@app.route("/v1/identities", methods=["GET"])
-def list_identities(request):
-    """List Identities with filtering + cursor pagination."""
+@app.route("/v1/serieses", methods=["GET"])
+def list_serieses(request):
+    """List Serieses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Identity")
-    rows = _apply_filters(rows, params, ['citizenId', 'assuranceLevel', 'verified'])
+    rows = _query("Series")
+    rows = _apply_filters(rows, params, ['seriesKey', 'frequency', 'lastUpdated'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/identities/<eid>", methods=["GET"])
-def get_identity(request, eid):
-    """Retrieve a Identity by id (supports ?expand=)."""
-    rows = _query("Identity", eid)
+@app.route("/v1/serieses/<eid>", methods=["GET"])
+def get_series(request, eid):
+    """Retrieve a Series by id (supports ?expand=)."""
+    rows = _query("Series", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'citizenId': 'Citizen'})
     return rec, 200
 
-@app.route("/v1/identities/<eid>", methods=["POST", "PATCH"])
-def update_identity(request, eid):
-    """Update a Identity."""
-    rows = _query("Identity", eid)
+@app.route("/v1/serieses/<eid>", methods=["POST", "PATCH"])
+def update_series(request, eid):
+    """Update a Series."""
+    rows = _query("Series", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['citizenId', 'assuranceLevel', 'verified'])
+    err = _reject_unknown(data, ['seriesKey', 'frequency', 'lastUpdated'])
     if err:
         return err, 400
     rec = rows[0]
@@ -490,22 +304,22 @@ def update_identity(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Identity", rec)
+    _persist("Series", rec)
     return rec, 200
 
-@app.route("/v1/identities/<eid>", methods=["DELETE"])
-def delete_identity(request, eid):
-    """Delete a Identity."""
-    rows = _query("Identity", eid)
+@app.route("/v1/serieses/<eid>", methods=["DELETE"])
+def delete_series(request, eid):
+    """Delete a Series."""
+    rows = _query("Series", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eurostat.Identity", "id": eid})
+    db.retract({"entity": f"eurostat.Series", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "eurostat-compat", "tier": "L4",
-            "entities": ['Filing', 'Citizen', 'Service', 'Application', 'Dataset', 'Identity']}, 200
+            "entities": ['DataQuery', 'Dataflow', 'Series']}, 200
 
 
 if __name__ == "__main__":
