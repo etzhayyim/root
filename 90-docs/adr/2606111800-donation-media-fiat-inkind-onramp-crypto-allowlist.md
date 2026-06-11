@@ -193,3 +193,29 @@ as-is** (not auto-swapped):
 - ADR-2605192115 (non-profit / donation-only purpose — unchanged) · ADR-2605192130 (10% tithe — unchanged) · ADR-2605301036 (vendor mission-donation attestation — sibling in-kind lexicon)
 - ADR-2606062100 (3-Tier immutability; §3 Tier-1 amendment mechanism) · ADR-2606082400 (anti-surveillance / no-PII — preserved) · ADR-2605262900 (toritate aggregate imputed accounting) · ADR-2605231525 (no-server-key) · ADR-2605301020 (Basic High Income — cash≡0 unchanged)
 - `00-contracts/lexicons/com/etzhayyim/give/infrastructureDonationAttestation.json` (new) · `DONATE.md` · `50-infra/etzhayyim-did-web/src/worker.ts` (`DONATION_POLICY.media`) · `deps.toml` (`payment_substrate` / `payment_prohibited`) · root `CLAUDE.md` (Payment row)
+
+# Deployment (2026-06-11): apex Worker live + verified
+
+The donation-media surfaces (this ADR + ADR-2606111700) are **deployed to production** on the
+apex Cloudflare Worker `etzhayyim-did-web` (triggers `etzhayyim.com/*` + `www.etzhayyim.com/*`,
+**version `04654d55-f5e6-40fe-8030-9c4f8a9c90d5`**, `wrangler deploy` from the merged `main`).
+
+**Verified live** (cache-busted past the `max-age=300` edge cache):
+
+- `GET https://etzhayyim.com/.well-known/donation.json` →
+  `media: [cash, crypto, fiat, fiat-in-kind, compute]`, `solicitation.open: true`,
+  `adr` includes `2606111700` + `2606111800`.
+- `GET https://etzhayyim.com/donate` → the new cards render: **crypto allowlist** (ETH / WETH /
+  USDC / USDT / DAI), **non-custodial fiat on-ramp**, **"Pay one of our bills"** (fiat in-kind),
+  **"Sponsor on GitHub"**, citing ADR-2606111800.
+
+The Cloudflare Worker is retained as the canonical apex (a GitHub-Pages migration was considered
+and **rejected** this session: Pages is static-only and cannot do the trustless `/ipfs/<cid>`
+gateway with CID re-verification (ADR-2606014600), the XRPC/PDS/app reverse proxy, or the
+KV-backed dynamic endpoints — and `did:web:etzhayyim.com` can only point its
+`/.well-known/did.json` at one host). The deploy was operator-run with the existing
+Cloudflare OAuth session (`workers:write`); no server-held key was introduced (no-server-key,
+ADR-2605231525). **Still pending (unchanged):** the on-chain TitheRouter / Public-Fund-Safe
+address is published in `donation.json` `media[0]` only once Council ratifies + Base L2 testnet
+deploys (Seats 2–5 RFP closes 2026-06-19); the non-custodial fiat on-ramp + per-asset TitheRouter
+wiring follow that address going live.

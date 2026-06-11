@@ -23776,6 +23776,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606111400-charter-synthetic-persona-forward-simulation-carve-in.md",
+      "id": "adr-2606111400-charter-synthetic-persona-forward-simulation-carve-in",
+      "title": "ADR-2606111400: Charter observation-doctrine consolidation — the synthetic-persona / forward-simulation carve-in (simulating fictional latent agents ≠ surveilling real people)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "charter-synthetic-persona-forward-simulation-carve-in",
+      "authoritative": true,
+      "authoritative_for": [
+        "the real-vs-synthetic subject axis of the observation doctrine",
+        "the synthetic-persona / forward-simulation carve-in (fictional latent agents are not surveillance)",
+        "the authorizing constitutional basis for agent-based forward-simulation actors (hakoniwa)"
+      ],
+      "related": [
+        "2606051800",
+        "2606042330",
+        "2606071600",
+        "2606061500",
+        "2605312345"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606082400",
+        "2606062100",
+        "2605192100",
+        "2605252300",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606111400-session-close-ibuki-delegation-revocable-leash.md",
       "id": "adr-2606111400-session-close-ibuki-delegation-revocable-leash",
       "title": "ADR-2606111400: Session close — 息吹 (ibuki) autonomous identity = a revocable CACAO leash (member-signed delegation + issuer)",
@@ -23795,6 +23828,43 @@
         "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
         "adr-2605231525-server-side-signing-capability-boundary",
         "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111500-hakoniwa-forward-simulation-observatory.md",
+      "id": "adr-2606111500-hakoniwa-forward-simulation-observatory",
+      "title": "ADR-2606111500: hakoniwa 箱庭 — forward-simulation observatory (synthetic-persona swarm; the charter-clean inversion of a MiroFish-class prediction engine)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "hakoniwa-forward-simulation-observatory",
+      "authoritative": true,
+      "authoritative_for": [
+        "hakoniwa actor scope (agent-based forward simulation over a synthetic-persona box → outcome distribution; design + deterministic engine)",
+        "the synthetic-persona invariant (:persona/synthetic true; no PII; real persons unrepresentable, enforced at load)",
+        "the distribution-only simulation-output invariant (:forecast/point-asserted structurally false; feeds mitooshi proper-scoring)"
+      ],
+      "related": [
+        "2606071600",
+        "2606061500",
+        "2605263200",
+        "2605262130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606111400",
+        "2606051800",
+        "2606042330",
+        "2606091200",
+        "2605242600",
+        "2605241900",
+        "2605215000",
+        "2605312345",
+        "2605231525",
+        "2605181100"
       ],
       "last_verified": "2026-06-11",
       "amends": [],
@@ -23892,6 +23962,33 @@
         "adr-2605312345",
         "adr-2606111400",
         "adr-2606091500"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112100-session-close-donation-media-and-apex-deploy.md",
+      "id": "adr-2606112100-session-close-donation-media-and-apex-deploy",
+      "title": "ADR-2606112100: Session close (2026-06-11) — donation solicitation + media expansion (fiat/asset) shipped & apex Worker deployed live",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-donation-media-and-apex-deploy",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2606012100",
+        "2605172100",
+        "2606014600",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606111700",
+        "2606111800",
+        "2606111400",
+        "2606111500"
       ],
       "last_verified": "2026-06-11",
       "amends": [],
