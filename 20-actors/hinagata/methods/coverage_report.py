@@ -97,6 +97,18 @@ def report(nodes: dict, edges: list) -> str:
     _bucket("Legal-system coverage (law is plural)", SYSTEMS, sys_c)
     _bucket("Clause-role coverage", CLAUSE_ROLES, role_c)
 
+    # language coverage — a worldwide commons must offer templates in more than one language
+    lang_c = Counter(t.get(":template/lang") for t in tmpls)
+    translated = {e.get(":en/from") for e in edges if e.get(":en/kind") == ":translates"}
+    L.append("\n## Language coverage (a worldwide commons is multilingual)\n")
+    L.append("| language | templates | status |")
+    L.append("|---|---:|:--|")
+    for lang, c in sorted(lang_c.items(), key=lambda kv: -kv[1]):
+        status = "ok" if c >= THIN else "⚠ thin"
+        L.append(f"| {lang or '—'} | {c} | {status} |")
+    L.append(f"\n_{len(lang_c)} languages · {len(translated)}/{len(tmpls)} templates linked to "
+             f"another by a `:translates` 縁._")
+
     L.append("\n## Statute-binding integrity — clauses NOT yet anchored to any public statute\n")
     L.append("_Every clause SHOULD eventually cite the law it rests on (gap #2 of the design). "
              "Unbound clauses are the next-wave binding worklist, not a defect — they are "

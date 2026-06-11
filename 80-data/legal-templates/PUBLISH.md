@@ -3,29 +3,36 @@
 > Fair, openly-licensed legal-document templates (Apache-2.0 + etzhayyim Charter Rider). Each body is content-addressed — re-derive the CID with `ipfs add --cid-version=1 --raw-leaves` or `methods/cid.py` to verify. **NOT legal advice** (G1); each clause cites the public law it rests on, for traceability.
 
 
-**25 templates published.**
+**32 templates published.**
 
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
 |---|:--:|:--:|---:|---:|---|
 | Open-Content License Grant (Creative Commons Attribution 4.0) | en | INTL | 3 | 13 | `bafkreigiky2hz5iri…` |
 | Construction Works Contract | en | JP | 6 | 24 | `bafkreifs2fgu3ht4i…` |
+| 業務委託契約書 | ja | JP | 4 | 19 | `bafkreiccmcvt4zg2x…` |
 | Independent Consulting Services Agreement | en | INTL | 8 | 26 | `bafkreihxujwkcqes6…` |
 | 特定商取引 契約書 (クーリングオフ条項付) | ja | JP | 3 | 16 | `bafkreifwdj6hdjzql…` |
 | Distribution Agreement | en | EU | 6 | 16 | `bafkreibhomdgwjp74…` |
 | Charitable Donation & Grant Agreement | en | INTL | 2 | 11 | `bafkreibjtl2z2beks…` |
 | Data Processing Agreement (GDPR Art. 28) | en | EU | 5 | 20 | `bafkreibqwm3icmmik…` |
+| Auftragsverarbeitungsvertrag (DSGVO Art. 28) | de | EU | 4 | 20 | `bafkreihzs5bqus7iv…` |
+| Accord de traitement des données (RGPD Art. 28) | fr | EU | 4 | 20 | `bafkreianan2uq4xic…` |
 | Arbeitsvertrag / Employment Agreement (Germany) | en | DE | 7 | 25 | `bafkreichtid43dy6a…` |
 | Employment Agreement (ILO core-conventions aligned) | en | INTL | 8 | 31 | `bafkreihq3lbekuc2a…` |
+| 雇用契約書 | ja | JP | 4 | 20 | `bafkreihfuq7jbbbjw…` |
 | Franchise Agreement | en | INTL | 7 | 24 | `bafkreignklckrn3l6…` |
 | Guaranty Agreement | en | JP | 5 | 16 | `bafkreicdiqquoreyt…` |
+| 保証契約書 | ja | JP | 3 | 14 | `bafkreiep32q5bbphb…` |
 | Heter Iska Investment-Partnership Agreement | en | INTL | 4 | 14 | `bafkreihglzka5wh74…` |
 | Insurance Policy Agreement | en | JP | 5 | 19 | `bafkreichcvmoft5ap…` |
 | Wohnraummietvertrag / Residential Lease (Germany) | en | DE | 6 | 21 | `bafkreieinvykwym72…` |
 | 住宅賃貸借契約書 | ja | JP | 5 | 15 | `bafkreiaik6p4odajr…` |
 | Residential Lease Agreement (Japan) | en | JP | 3 | 4 | `bafkreif65rwqlekm4…` |
 | Zero-Interest Benevolent Loan Agreement | en | JP | 4 | 15 | `bafkreiasw6vof6rb6…` |
+| 無利息金銭消費貸借契約書 | ja | JP | 3 | 13 | `bafkreig2npvvenlfj…` |
 | Mutual Non-Disclosure Agreement | en | INTL | 6 | 19 | `bafkreigwj7hdhjnis…` |
+| 相互秘密保持契約書 | ja | JP | 5 | 17 | `bafkreigkfape6sn2i…` |
 | Apache-2.0 Inbound Contribution Grant | en | INTL | 2 | 12 | `bafkreifhbarshwydc…` |
 | General Partnership Agreement | en | INTL | 7 | 19 | `bafkreidjtqvsyezjx…` |
 | Power of Attorney | en | JP | 4 | 13 | `bafkreibgebwvi4l33…` |

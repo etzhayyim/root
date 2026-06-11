@@ -307,6 +307,14 @@
  {:lt/id "tmpl.security-agreement" :lt/kind :template :lt/label "Security Agreement (collateral)" :template/title "Security Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.insurance" :lt/kind :template :lt/label "Insurance Policy Agreement" :template/title "Insurance Policy Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-consumer :lt/sourcing :representative}
  {:lt/id "tmpl.construction" :lt/kind :template :lt/label "Construction / Works Contract" :template/title "Construction Works Contract" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ ;; coverage wave 12 — multilingual translations (same legal structure, different language)
+ {:lt/id "tmpl.nda-mutual-ja" :lt/kind :template :lt/label "相互秘密保持契約書 (Mutual NDA, JA)" :template/title "相互秘密保持契約書" :template/lang "ja" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.employment-ja" :lt/kind :template :lt/label "雇用契約書 (Employment, JA)" :template/title "雇用契約書" :template/lang "ja" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.consulting-ja" :lt/kind :template :lt/label "業務委託契約書 (Consulting, JA)" :template/title "業務委託契約書" :template/lang "ja" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.loan-qard-ja" :lt/kind :template :lt/label "無利息金銭消費貸借契約書 (Zero-Interest Loan, JA)" :template/title "無利息金銭消費貸借契約書" :template/lang "ja" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.guaranty-ja" :lt/kind :template :lt/label "保証契約書 (Guaranty, JA)" :template/title "保証契約書" :template/lang "ja" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.dpa-gdpr-fr" :lt/kind :template :lt/label "Accord de traitement des données (DPA, FR)" :template/title "Accord de traitement des données (RGPD Art. 28)" :template/lang "fr" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ {:lt/id "tmpl.dpa-gdpr-de" :lt/kind :template :lt/label "Auftragsverarbeitungsvertrag (DPA, DE)" :template/title "Auftragsverarbeitungsvertrag (DSGVO Art. 28)" :template/lang "de" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
 
  ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
  ;; (A) :has-clause — template → clause (composition; binding-load = reuse/centrality weight)
@@ -465,6 +473,35 @@
  {:en/from "tmpl.construction" :en/to "cl.limitation-liability" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.construction" :en/to "cl.dispute-arbitration" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.construction" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ ;; coverage wave 12 — translation template composition (same clauses as the originals)
+ {:en/from "tmpl.nda-mutual-ja" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.nda-mutual-ja" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-mutual-ja" :en/to "cl.termination" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.nda-mutual-ja" :en/to "cl.dispute-mediation" :en/kind :has-clause :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.nda-mutual-ja" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-ja" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-ja" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.employment-ja" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-ja" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.consulting-ja" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-ja" :en/to "cl.ip-assignment" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-ja" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.consulting-ja" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.loan-qard-ja" :en/to "cl.no-interest-qard" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.loan-qard-ja" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :representative}
+ {:en/from "tmpl.loan-qard-ja" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.guaranty-ja" :en/to "cl.guaranty" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.guaranty-ja" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.guaranty-ja" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-fr" :en/to "cl.processor-obligations" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-fr" :en/to "cl.data-subject-rights" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-fr" :en/to "cl.breach-notification" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-fr" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-de" :en/to "cl.processor-obligations" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-de" :en/to "cl.data-subject-rights" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-de" :en/to "cl.breach-notification" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-de" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-intl" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 0.8 :en/sourcing :authoritative}
 
@@ -674,6 +711,13 @@
  {:en/from "tmpl.security-agreement" :en/to "jx.us" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.insurance" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
  {:en/from "tmpl.construction" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.nda-mutual-ja" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.employment-ja" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "tmpl.consulting-ja" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.loan-qard-ja" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.guaranty-ja" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.dpa-gdpr-fr" :en/to "jx.eu" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-de" :en/to "jx.eu" :en/kind :governed-by :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (E) :applies-in — statute → jurisdiction
  {:en/from "st.cisg-35" :en/to "jx.intl" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -808,4 +852,11 @@
  {:en/from "st.fr-civil-1792" :en/to "jx.fr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
- {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]
+ {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-mutual-ja" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.employment-ja" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.consulting-ja" :en/to "tmpl.consulting-services" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.loan-qard-ja" :en/to "tmpl.loan-qard" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.guaranty-ja" :en/to "tmpl.guaranty" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-fr" :en/to "tmpl.dpa-gdpr" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.dpa-gdpr-de" :en/to "tmpl.dpa-gdpr" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}]
