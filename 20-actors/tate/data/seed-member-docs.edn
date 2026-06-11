@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 31 (:es/:it/:nl insolvency) ─────────────────────────────────────────
+ {:notice/id "ntc:es-concurso" :notice/label "ES concurso de acreedores (債権者宛)"
+  :notice/jurisdiction :es
+  :notice/channel :mail :notice/claim-amount 420 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Declarado el concurso de acreedores de la sociedad, puede efectuar la comunicación de créditos."}
+
+ {:notice/id "ntc:it-insinuazione" :notice/label "IT liquidazione giudiziale (債権者宛)"
+  :notice/jurisdiction :it
+  :notice/channel :mail :notice/claim-amount 310 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Apertura della liquidazione giudiziale. È possibile presentare domanda di insinuazione al passivo."}
+
+ {:notice/id "ntc:nl-faillissement" :notice/label "NL faillissement (債権者宛)"
+  :notice/jurisdiction :nl
+  :notice/channel :mail :notice/claim-amount 180 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Het faillissement van de onderneming is uitgesproken. U kunt uw vordering indienen bij de curator."}
+
  ;; ── wave 30 (:es/:br/:it enforcement — 100 procs) ────────────────────────────
  {:notice/id "ntc:es-embargo" :notice/label "ES diligencia de embargo (執行)"
   :notice/jurisdiction :es

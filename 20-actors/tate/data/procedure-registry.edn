@@ -257,7 +257,7 @@
     :dl/anchor "Fed. R. Bankr. P. 3002" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :file-claim :opt/kind :self-submit :opt/protective true
-    :opt/label "Official Form 410 で proof of claim を提出 (無料・本人可)"}
+    :opt/label "Official Form 410 で proof of claim を提出 (無料・本人可 — 前払金・gift card も債権: kaiyaku 縁-ledger と突合)"}
    {:opt/id :no-asset-wait :opt/kind :self-decide :opt/label "no-asset 通知なら指示どおり待機 (後日 asset 化したら届出案内が来る)"}]
   :proc/refer-when ["債権が高額・担保付き"]
   :proc/verify-current-law true}
@@ -384,7 +384,7 @@
     :dl/anchor "Insolvency (England and Wales) Rules 2016 Pt 14" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :prove :opt/kind :self-submit :opt/protective true
-    :opt/label "proof of debt form を提出 (無料・本人可) — 前払金・gift card 残高も債権"}]
+    :opt/label "proof of debt form を提出 (無料・本人可) — 前払金・gift card 残高も債権: kaiyaku 縁-ledger と突合"}]
   :proc/refer-when ["担保・相殺 → insolvency practitioner に確認"]
   :proc/verify-current-law true}
 
@@ -773,6 +773,21 @@
   :proc/refer-when ["patrocinio a spese dello Stato / sindacato inquilini (SUNIA 等)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:it-insinuazione" :proc/label "Insinuazione al passivo (債権者側・倒産・イタリア)"
+  :proc/jurisdiction :it :proc/track :insolvency
+  :proc/trigger-keywords ["insinuazione al passivo" "liquidazione giudiziale"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Domanda di insinuazione"
+    :dl/rule "udienza di verifica dello stato passivo の30日前までに PEC で提出 — 遅れは tardiva (要正当化・費用負担)"
+    :dl/anchor "CCII artt. 200-201 (旧 L.F. 93-101)" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :insinuazione :opt/kind :self-submit :opt/protective true
+    :opt/label "domanda di insinuazione を PEC で (前払金・voucher も債権: kaiyaku 縁-ledger と突合)"}
+   {:opt/id :pec-check :opt/kind :self-decide :opt/label "curatore の PEC と期日を公告で確認"}]
+  :proc/refer-when ["担保・相殺 → professionista"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:it-pignoramento" :proc/label "Pignoramento dello stipendio (賃金差押え・執行・イタリア)"
   :proc/jurisdiction :it :proc/track :enforcement
   :proc/trigger-keywords ["pignoramento"]
@@ -843,6 +858,21 @@
   :proc/refer-when ["即 justicia gratuita (desahucio は指定で手続停止の運用あり)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:es-concurso" :proc/label "Concurso de acreedores (債権者側・倒産・スペイン)"
+  :proc/jurisdiction :es :proc/track :insolvency
+  :proc/trigger-keywords ["concurso de acreedores" "comunicación de créditos"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Comunicación de créditos"
+    :dl/rule "BOE 公告から1 mes 以内に administración concursal へ債権を comunicar — 遅延は subordinación (劣後) のリスク"
+    :dl/anchor "TRLC arts. 28・255 系" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :comunicar :opt/kind :self-submit :opt/protective true
+    :opt/label "債権を comunicar (1 mes — 前払金・bono も債権: kaiyaku 縁-ledger と突合)"}
+   {:opt/id :check-boe :opt/kind :self-decide :opt/label "BOE 公告日を確認 (起算点)"}]
+  :proc/refer-when ["担保付き・高額 → abogado concursal"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:es-embargo" :proc/label "Embargo de sueldo (賃金差押え・執行・スペイン)"
   :proc/jurisdiction :es :proc/track :enforcement
   :proc/trigger-keywords ["embargo"]
@@ -891,6 +921,21 @@
    {:opt/id :niet-instemmen :opt/kind :self-decide
     :opt/label "vaststellingsovereenkomst へのサインは検討期間 (14日撤回権) を確認してから"}]
   :proc/refer-when ["Juridisch Loket (無料)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:nl-faillissement" :proc/label "Faillissement wederpartij (債権者側・倒産・オランダ)"
+  :proc/jurisdiction :nl :proc/track :insolvency
+  :proc/trigger-keywords ["faillissement"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Indiening ter verificatie"
+    :dl/rule "債権は curator へ ter verificatie に提出 — 期限は verificatievergadering の公告/レターで確認 (遅延は原則締切)"
+    :dl/anchor "Faillissementswet artt. 108-110" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :indienen :opt/kind :self-submit :opt/protective true
+    :opt/label "vordering を curator へ提出 (前払金・tegoed も債権: kaiyaku 縁-ledger と突合)"}
+   {:opt/id :check-insolventieregister :opt/kind :self-decide :opt/label "insolventieregister で curator/期日を確認"}]
+  :proc/refer-when ["担保 (pand/hypotheek) → advocaat"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:nl-huuropzegging" :proc/label "Opzegging huurovereenkomst (住居・オランダ)"
@@ -1079,7 +1124,7 @@
     :dl/anchor "InsO §28・§174" :dl/verify-service-date true}]
   :proc/options
   [{:opt/id :anmelden :opt/kind :self-submit :opt/protective true
-    :opt/label "Forderungsanmeldung を Verwalter へ (書式は通知同封 — 本人可)"}]
+    :opt/label "Forderungsanmeldung を Verwalter へ (書式は通知同封 — 本人可; Gutschein・前払金も債権: kaiyaku 縁-ledger と突合)"}]
   :proc/refer-when ["担保・相殺・高額債権"]
   :proc/verify-current-law true}
 

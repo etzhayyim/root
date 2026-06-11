@@ -943,6 +943,33 @@ def test_plans_json_export():
     assert all("deadlines" in p and "options" in p for p in back)
 
 
+def test_wave31_insolvency_es_it_nl():
+    """Wave 31: insolvency 9 juris — :es comunicación 1 mes/BOE 起算 (劣後リスク,
+    critical) · :it insinuazione 30日前/PEC (tardiva, critical) · :nl ter
+    verificatie (insolventieregister 確認)."""
+    ps, _ = _by_id()
+    es = ps["ntc:es-concurso"]
+    assert es["status"] == ":genuine" and es["proc"] == "proc:es-concurso"
+    assert es["deadlines"][0]["critical"] is True
+    it = ps["ntc:it-insinuazione"]
+    assert it["status"] == ":genuine" and it["proc"] == "proc:it-insinuazione"
+    assert any("PEC" in d["rule"] for d in it["deadlines"])
+    nl = ps["ntc:nl-faillissement"]
+    assert nl["status"] == ":genuine" and nl["proc"] == "proc:nl-faillissement"
+    assert any("108-110" in d["anchor"] for d in nl["deadlines"])
+
+
+def test_insolvency_kaiyaku_crosscheck_invariant():
+    """Wave 31 maturity: EVERY :insolvency procedure carries the kaiyaku 縁-ledger
+    crosscheck in an option label — 前払金/ポイント/gift card が債権であることを
+    member が必ず知り, actor 連携が構造保証になる."""
+    _, procs = _by_id()
+    for p in procs:
+        if p.get(":proc/track") == ":insolvency":
+            assert any("kaiyaku" in o[":opt/label"] for o in p[":proc/options"]), \
+                p[":proc/id"]
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()
