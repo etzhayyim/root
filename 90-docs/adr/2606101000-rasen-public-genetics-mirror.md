@@ -180,3 +180,17 @@ public data**, not just the hand seed.
 - **Boundary unchanged**: still PUBLIC reference only; GO annotations carry no individual data.
   Adding non-GO pathway sources (Reactome/KEGG live) or widening the gene allowlist stays
   G7-gated.
+
+# Session close (2026-06-11)
+
+- **State**: rasen at 🟢 R1 — public ingest live across three public sources (MyGene.info
+  gene reference, MyVariant.info ClinVar+gnomAD-aggregate, Gene-Ontology `go.BP` pathways),
+  all content-addressed to kotoba-IPFS and ipfs-pin-verified. GO-enabled live run: 192 nodes
+  / 220 縁, 0 errors. 17 network-free tests green.
+- **SSoT synced**: `deps.toml` `[[adrs]]` status_note + `[[modules]]` description and the
+  CLAUDE.md `rasen 螺旋` Status row updated to the GO/192-node figures + 17-test count
+  (landed across PR #1586 actor, #1591 GO, and this SSoT-sync PR).
+- **Open / next** (unchanged, all gated or optional): (1) public publish/pin beyond the local
+  ipfs node (Pinata / `ipfs name publish` / DataLad → `80-data/genome`); (2) componentize-py
+  WASM build + DID-doc CID advertisement (ADR-2606014500/2606014600); (3) widen allowlist or
+  add non-GO pathway sources (Reactome/KEGG) — G7 (Council + operator DID).
