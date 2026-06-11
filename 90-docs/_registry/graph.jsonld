@@ -15093,6 +15093,16 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606111330-session-close-shionome-t1-wasm-live-did-actor-kotobase-pin",
+      "type": "TechArticle",
+      "title": "ADR-2606111330: Session close — 潮目 T1 browser-wasm DID actor LIVE on etzhayyim.com + kotobase.net pin saga (root-caused)",
+      "status": "active",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": "doc:90-docs/adr/2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat.md",
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-2606111400-session-close-ibuki-delegation-revocable-leash",
       "type": "TechArticle",
       "title": "ADR-2606111400: Session close — 息吹 (ibuki) autonomous identity = a revocable CACAO leash (member-signed delegation + issuer)",
