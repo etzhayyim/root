@@ -74,4 +74,40 @@
   :state/answer-rule "small claims (magistrate): summons 記載の期日; 通常民事は送達から30日以内に answer"
   :state/answer-anchor "N.C. R. Civ. P. 12(a) / NCGS ch. 7A art. 19"
   :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ ;; ── wave 16 (+5: NJ VA MA CO MN) ─────────────────────────────────────────────
+ {:state/id :us-nj :state/label "New Jersey"
+  :state/small-claims-usd 5000
+  :state/answer-rule "Special Civil Part: 送達から35日以内に answer (small claims は trial date 出頭)"
+  :state/answer-anchor "N.J. Ct. R. 6:3-1"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-va :state/label "Virginia"
+  :state/small-claims-usd 5000
+  :state/answer-rule "GDC: summons 記載の return date に出頭 (書面 answer 不要の制度)"
+  :state/answer-anchor "Va. Code §16.1-122.1 以下 (small claims)"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-ma :state/label "Massachusetts"
+  :state/small-claims-usd 7000
+  :state/answer-rule "通常民事: 送達から20日以内に answer; small claims は通知記載の期日"
+  :state/answer-anchor "Mass. R. Civ. P. 12(a) / Uniform Small Claims Rules"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-co :state/label "Colorado"
+  :state/small-claims-usd 7500
+  :state/answer-rule "county court: 送達から21日以内に answer (small claims は期日出頭)"
+  :state/answer-anchor "C.R.C.P. 312(a)"
+  :state/arl "—"
+  :state/sourcing :representative :state/verify-current-law true}
+
+ {:state/id :us-mn :state/label "Minnesota"
+  :state/small-claims-usd 15000
+  :state/answer-rule "conciliation court: 通知記載の hearing に出頭; 通常民事は送達から21日以内に answer"
+  :state/answer-anchor "Minn. R. Civ. P. 12.01 / Minn. Stat. ch. 491A"
+  :state/arl "—"
   :state/sourcing :representative :state/verify-current-law true}]

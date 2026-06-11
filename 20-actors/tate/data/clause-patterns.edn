@@ -274,6 +274,21 @@
   :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
+ ;; ── :ar — Argentina (G10) ────────────────────────────────────────────────────
+ {:clause/id "cl:ar-exoneracion" :clause/label "全部免責 (cláusula abusiva)"
+  :clause/jurisdiction :ar
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["no asumimos responsabilidad"]
+  :clause/anchor "Ley 24.240 art. 37 (cláusulas abusivas — se tienen por no convenidas)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:ar-renovacion" :clause/label "renovación automática (自動更新)"
+  :clause/jurisdiction :ar
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["renovación automática"]
+  :clause/anchor "Ley 24.240 + Res. 424/2020 (**botón de baja** — オンライン解約はワンクリック義務)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
  ;; ── :be — Belgique (G10) ─────────────────────────────────────────────────────
  {:clause/id "cl:be-exoneration" :clause/label "全部免責 (clause abusive)"
   :clause/jurisdiction :be

@@ -171,10 +171,10 @@ def test_uk_claim_referral_over_line():
 
 
 def test_unknown_jurisdiction_degrades_honestly():
-    """G10: an uncovered jurisdiction (:ar — fixture lineage :br → :mx → :ar as
-    coverage grows) gets NO deadlines/options — tate never guesses foreign law."""
+    """G10: an uncovered jurisdiction (:cl — fixture lineage :br → :mx → :ar →
+    :cl as coverage grows) gets NO deadlines/options — tate never guesses foreign law."""
     ps, _ = _by_id()
-    p = ps["ntc:ar-unknown"]
+    p = ps["ntc:cl-unknown"]
     assert p["status"] == ":unknown-jurisdiction"
     assert p["deadlines"] == [] and p["options"] == []
     assert p["steps"][0]["verb"] == "declare-uncovered"
@@ -608,6 +608,19 @@ def test_wave15_insolvency_family_expansion_and_be():
     be = ps["ntc:be-citation"]
     assert be["status"] == ":genuine" and be["proc"] == "proc:be-citation"
     assert any("最低8日" in d["rule"] for d in be["deadlines"])
+
+
+def test_wave16_ar_and_kr_family():
+    """Wave 16: :ar covered (traslado contestación 15 días hábiles CPCCN 338/356;
+    botón de baja Res.424/2020 → kaiyaku); :family expands to :kr (조정전치주의
+    가사소송법 50조 — kokoro invariant auto-extends)."""
+    ps, _ = _by_id()
+    ar = ps["ntc:ar-traslado"]
+    assert ar["status"] == ":genuine" and ar["proc"] == "proc:ar-traslado"
+    assert any("CPCCN" in d["anchor"] and "días hábiles" in d["rule"] for d in ar["deadlines"])
+    kr = ps["ntc:kr-ihon"]
+    assert kr["status"] == ":genuine" and kr["proc"] == "proc:kr-ihon-jojeong"
+    assert any("조정전치" in d["rule"] or "조정전치" in d["anchor"] for d in kr["deadlines"])
 
 
 def test_procedures_never_cross_jurisdictions():

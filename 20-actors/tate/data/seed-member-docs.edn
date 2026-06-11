@@ -107,13 +107,13 @@
   :notice/sourcing :synthetic
   :notice/text "Mahnbescheid des Amtsgerichts. Sie können Widerspruch einlegen."}
 
- ;; unknown-jurisdiction fixture lineage: :br (wave 4 で収載) → :mx (wave 14 で収載)
- ;; → :ar — the degrade path must stay exercised as coverage grows (G10)
- {:notice/id "ntc:ar-unknown" :notice/label "未カバー管轄の通知 (アルゼンチン)"
-  :notice/jurisdiction :ar
-  :notice/channel :mail :notice/claim-amount 90000 :notice/claim-currency "ARS"
+ ;; unknown-jurisdiction fixture lineage: :br → :mx → :ar (wave 16 で収載) → :cl —
+ ;; the degrade path must stay exercised as coverage grows (G10)
+ {:notice/id "ntc:cl-unknown" :notice/label "未カバー管轄の通知 (チリ)"
+  :notice/jurisdiction :cl
+  :notice/channel :mail :notice/claim-amount 800000 :notice/claim-currency "CLP"
   :notice/sourcing :synthetic
-  :notice/text "Cédula de notificación. Traslado de la demanda."}
+  :notice/text "Notificación de demanda civil. Plazo para contestar."}
 
  ;; ── wave 2 (:kr :fr — loop iteration 2026-06-11) ─────────────────────────────
  {:doc/id "doc:kr-tos" :doc/label "KR 구독 서비스 이용약관 (synthetic)"
@@ -211,6 +211,24 @@
   :notice/channel :mail :notice/claim-amount 9000 :notice/claim-currency "BRL"
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
+
+ ;; ── wave 16 (:ar + :kr family + states) ──────────────────────────────────────
+ {:doc/id "doc:ar-terminos" :doc/label "AR términos y condiciones (synthetic)"
+  :doc/jurisdiction :ar
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "No asumimos responsabilidad por daños. La suscripción tiene renovación automática."}
+
+ {:notice/id "ntc:ar-traslado" :notice/label "AR traslado de la demanda (cédula)"
+  :notice/jurisdiction :ar
+  :notice/channel :formal-service :notice/claim-amount 350000 :notice/claim-currency "ARS"
+  :notice/sourcing :synthetic
+  :notice/text "Se le corre traslado de la demanda por el plazo de quince días."}
+
+ {:notice/id "ntc:kr-ihon" :notice/label "이혼 조정기일 통지서 (家事)"
+  :notice/jurisdiction :kr
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "KRW"
+  :notice/sourcing :synthetic
+  :notice/text "이혼 조정기일 통지서. 아래 조정기일에 가정법원에 출석하시기 바랍니다."}
 
  ;; ── wave 15 (insolvency/family 横展開 :fr/:uk + :be) ─────────────────────────
  {:doc/id "doc:be-conditions" :doc/label "BE conditions générales (synthetic)"

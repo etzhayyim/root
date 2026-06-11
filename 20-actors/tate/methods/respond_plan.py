@@ -51,7 +51,7 @@ COURT_KEYWORDS = ("支払督促", "少額訴訟", "訴状", "口頭弁論",
                   "betalingspåkrav", "haastehakemus", "forliksrådet",
                   "emplazamiento", "saisie-attribution", "notice of enforcement",
                   "citation à comparaître", "procédure collective", "proof of debt",
-                  "divorce application")
+                  "divorce application", "traslado de la demanda", "조정기일")
 GENERIC_REFERRALS = ["local bar association / legal aid", "認定司法書士 (JPのみ・簡裁140万円以下)"]
 PROC_REFERRAL_ALWAYS = {"proc:sojou", "proc:us-summons"}  # 本訴/civil suit — G7
 

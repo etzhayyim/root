@@ -171,6 +171,9 @@ def test_intl_expected_shapes_hit():
     # wave 15 (:be — 'tacite reconduction' は :fr 'reconduction tacite' と語順別エントリ)
     assert ("doc:be-conditions", "cl:be-exoneration") in hits
     assert ("doc:be-conditions", "cl:be-tacite-reconduction") in hits
+    # wave 16 (:ar — botón de baja)
+    assert ("doc:ar-terminos", "cl:ar-exoneracion") in hits
+    assert ("doc:ar-terminos", "cl:ar-renovacion") in hits
 
 
 def test_jurisdiction_isolation():

@@ -493,6 +493,21 @@
   :proc/refer-when ["보증금 반환が絡む → 임차권등기명령 검토 (전문가)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:kr-ihon-jojeong" :proc/label "이혼 조정기일 통지 (家事・韓国)"
+  :proc/jurisdiction :kr :proc/track :family
+  :proc/trigger-keywords ["조정기일"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "조정기일 출석"
+    :dl/rule "이혼 등 나류 가사사건は조정전치주의 (調停前置) — 기일 불출석は과태료/조정에 갈음하는 결정のリスク; 出席困難は事前に期日変更を"
+    :dl/anchor "가사소송법 50조 (조정전치) ・ 민사조정법 準用" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :chulseok :opt/kind :self-decide :opt/label "기일에 출석 (調停は合意するまで成立しない)"}
+   {:opt/id :dapbyeonseo :opt/kind :self-submit :opt/label "답변서・의견서を事前提出 (言い分の整理)"}]
+  :proc/refer-when ["재산분할・양육권が争点 → 변호사/대한법률구조공단"
+                    "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:kr-jigeup-myeongryeong" :proc/label "지급명령 (支払督促・韓国)"
   :proc/jurisdiction :kr
   :proc/trigger-keywords ["지급명령"]
@@ -749,6 +764,21 @@
   [{:opt/id :oposicao :opt/kind :self-submit :opt/label "oposição を提出 (Balcão Nacional de Injunções)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
   :proc/refer-when ["高額 → advogado / apoio judiciário"]
+  :proc/verify-current-law true}
+
+ ;; ── :ar ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:ar-traslado" :proc/label "Traslado de la demanda (訴状送達・アルゼンチン)"
+  :proc/jurisdiction :ar
+  :proc/trigger-keywords ["traslado de la demanda"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Contestación"
+    :dl/rule "通知から15日 (días hábiles・営業日, proceso ordinario CABA/federal) 以内に contestación — 管轄 (provincia) により異なる; 無応答は rebeldía"
+    :dl/anchor "CPCCN arts. 338・356" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :contestacion :opt/kind :self-submit :opt/label "contestación を提出 (patrocinio letrado 要件を確認)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/acuerdo"}]
+  :proc/refer-when ["patrocinio jurídico gratuito (CABA 大学・公的の無料代理)"]
   :proc/verify-current-law true}
 
  ;; ── :be ──────────────────────────────────────────────────────────────────────

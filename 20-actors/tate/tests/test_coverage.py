@@ -82,6 +82,16 @@ def test_us_states_registry():
     assert any("州レベル" in g for g in cov["named_gaps"])
 
 
+def test_manifest_jurisdictions_in_sync():
+    """Wave 16 maturity: manifest.edn の :actor/jurisdictions は registry と機械的に
+    一致しなければならない — 14 waves 手動同期してきた doc-drift クラスの構造的封殺."""
+    from terms_scan import read_edn
+    manifest = read_edn((ACTOR_DIR / "manifest.edn").read_text(encoding="utf-8"))
+    declared = set(manifest[":actor/jurisdictions"])
+    actual = set(load_jurisdictions().keys())
+    assert declared == actual, (sorted(declared - actual), sorted(actual - declared))
+
+
 def test_report_names_the_gap():
     text = report(coverage())
     assert "named gaps" in text.lower() or "Named gaps" in text
