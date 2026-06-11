@@ -70,7 +70,7 @@ advice.
 | クーリングオフ / 返金 / 消費者庁 escalation (rights) | **kurashimori** |
 | Generic web-service ServiceOp adapters (T1/T2 engine, ToS stances) | **karakuri** (kaiyaku composes; never re-implements) |
 | 解約 / 退会 decision-ledger + severance plan + (gated) execution | **kaiyaku** (this actor) |
-| 不利条項の検出 + 法的手続きへの応答 (防御) | **tate 盾** (ADR-2606112300; its `:kaiyaku` routes feed this ledger — e.g. 自動更新窓 → notice-days) |
+| 不利条項の検出 + 法的手続きへの応答 (防御) | **tate 盾** (ADR-2606112300; its `:kaiyaku` routes feed this ledger via `kaiyaku-handoff.edn` → `handoff_ingest.py` — 自動更新窓の notice-days カレンダー化, wave 26 で往復配線) |
 | Harmful human relationships | **kokoro** (support; kaiyaku N1 refuses the domain) |
 
 ## Layout
@@ -84,9 +84,11 @@ advice.
 ├── methods/                           # pure-stdlib → kotoba pywasm-runnable
 │   ├── analyze.py                     # edge-primary tie-burden analyzer + cascade-guard
 │   ├── plan.py                        # T1/T2/T3 severance-plan builder (dry-run only)
+│   ├── handoff_ingest.py              # tate 盾 handoff → notice-window worklist (compose 往復)
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
-├── tests/                             # 17 tests, pure stdlib
+├── tests/                             # 20 tests, pure stdlib
 │   ├── test_analyze.py
+│   ├── test_handoff.py
 │   └── test_plan.py
 └── out/                               # GENERATED — do not hand-edit
     ├── enkiri-readout.md
@@ -101,7 +103,9 @@ cd 20-actors/kaiyaku
 python3 methods/analyze.py            # → out/enkiri-readout.md
 python3 methods/plan.py               # → out/severance-plans.md (dry-run)
 python3 methods/datom_emit.py         # → out/enkiri-datoms.kotoba.edn (EAVT)
-python3 tests/test_analyze.py && python3 tests/test_plan.py   # 17 green
+python3 methods/handoff_ingest.py    # tate handoff → out/handoff-worklist.md
+python3 tests/test_analyze.py && python3 tests/test_plan.py \
+  && python3 tests/test_handoff.py   # 20 green
 ```
 
 ## Do not

@@ -1181,6 +1181,21 @@
   :proc/verify-current-law true}
 
  ;; ── :ie ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:ie-dismissal" :proc/label "Notice of dismissal (解雇・労働・アイルランド)"
+  :proc/jurisdiction :ie :proc/track :labor
+  :proc/trigger-keywords ["notice of dismissal"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "WRC complaint"
+    :dl/rule "unfair dismissal complaint は WRC へ6か月以内 (reasonable cause で最大12か月) — 原則1年以上の継続雇用が適格要件"
+    :dl/anchor "Unfair Dismissals Act 1977 / Workplace Relations Act 2015 s.41" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :wrc :opt/kind :self-submit :opt/protective true
+    :opt/label "WRC へオンライン complaint (無料・本人可)"}
+   {:opt/id :minimum-notice :opt/kind :self-decide :opt/label "minimum notice / 未払賃金も同じ WRC で"}]
+  :proc/refer-when ["FLAC / Citizens Information" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:ie-civil-summons" :proc/label "Civil summons / claim notice (アイルランド)"
   :proc/jurisdiction :ie
   :proc/trigger-keywords ["civil summons" "claim notice"]
@@ -1316,6 +1331,21 @@
   :proc/verify-current-law true}
 
  ;; ── :pl ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:pl-wypowiedzenie" :proc/label "Wypowiedzenie umowy o pracę (解雇・労働・ポーランド)"
+  :proc/jurisdiction :pl :proc/track :labor
+  :proc/trigger-keywords ["wypowiedzenie umowy o pracę"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Odwołanie do sądu pracy"
+    :dl/rule "wypowiedzenie/rozwiązanie への odwołanie は21 dni 以内に sąd pracy へ — 徒過は原則失権 (przywrócenie terminu は例外)"
+    :dl/anchor "Kodeks pracy art. 264" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :odwolanie :opt/kind :self-submit :opt/protective true
+    :opt/label "odwołanie を sąd pracy へ (21日 — 労働事件は手数料免除が広い)"}
+   {:opt/id :pip :opt/kind :self-decide :opt/label "PIP (労働監督庁) への skarga も並行可"}]
+  :proc/refer-when ["związek zawodowy / nieodpłatna pomoc prawna" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:pl-nakaz-zaplaty" :proc/label "Nakaz zapłaty (支払命令・ポーランド)"
   :proc/jurisdiction :pl
   :proc/trigger-keywords ["nakaz zapłaty"]
@@ -1331,6 +1361,24 @@
   :proc/verify-current-law true}
 
  ;; ── :se ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:se-uppsagning" :proc/label "Uppsägning (解雇・労働・スウェーデン)"
+  :proc/jurisdiction :se :proc/track :labor
+  :proc/trigger-keywords ["uppsägning"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "Ogiltigförklaring の underrättelse"
+    :dl/rule "uppsägning の無効を争う underrättelse は2 veckor 以内 (besked に教示がなければ1か月) — その後2週間で提訴; 世界最短級"
+    :dl/anchor "LAS (1982:80) 40§" :dl/critical true :dl/verify-service-date true}
+   {:dl/label "Skadestånd"
+    :dl/rule "損害賠償の underrättelse は4か月以内"
+    :dl/anchor "LAS 41§" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :underrattelse :opt/kind :self-submit :opt/protective true
+    :opt/label "書面 underrättelse を雇用主へ (2 veckor — まず期限を止める)"}
+   {:opt/id :facket :opt/kind :self-decide :opt/label "組合員なら facket 経由が標準 (förhandling)"}]
+  :proc/refer-when ["a-kassa へ即登録" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:se-betalningsforelaggande" :proc/label "Betalningsföreläggande (支払督促・スウェーデン)"
   :proc/jurisdiction :se
   :proc/trigger-keywords ["betalningsföreläggande"]

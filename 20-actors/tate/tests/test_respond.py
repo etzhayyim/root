@@ -832,6 +832,22 @@ def test_wave25_sg_pt_labor():
     assert "60日" in pt["deadlines"][0]["rule"] and "5日" in pt["deadlines"][0]["rule"]
 
 
+def test_wave26_se_pl_ie_labor():
+    """Wave 26: :se ogiltigförklaring underrättelse **2 veckor** (LAS 40§ —
+    世界最短級, critical) · :pl odwołanie **21 dni** (KP 264, critical) ·
+    :ie WRC 6か月/最大12か月 (UDA 1977, critical)."""
+    ps, _ = _by_id()
+    se = ps["ntc:se-uppsagning"]
+    assert se["status"] == ":genuine" and se["proc"] == "proc:se-uppsagning"
+    assert se["deadlines"][0]["critical"] is True and "LAS" in se["deadlines"][0]["anchor"]
+    pl = ps["ntc:pl-wypowiedzenie"]
+    assert pl["status"] == ":genuine" and pl["proc"] == "proc:pl-wypowiedzenie"
+    assert "21 dni" in pl["deadlines"][0]["rule"]
+    ie = ps["ntc:ie-dismissal"]
+    assert ie["status"] == ":genuine" and ie["proc"] == "proc:ie-dismissal"
+    assert any("s.41" in d["anchor"] for d in ie["deadlines"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()
