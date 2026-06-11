@@ -5,21 +5,55 @@
   "kind": "compat",
   "title": "kaltura clean-room actor",
   "description": "Clean-room, API-compatible media / video / CMS actor (kaltura); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y",
+  "wasmCid": "bafkreibtkyheat7zdd7ecbuca4yqblbyd7k4mkedn4wsd72p7td774n5ui",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y",
+  "ipfs": "ipfs://bafkreibtkyheat7zdd7ecbuca4yqblbyd7k4mkedn4wsd72p7td774n5ui",
   "schema": "schema/kaltura.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.kaltura.com/api_v3/api_schema.php (the operator's own machine-readable API schema, apiVersion 21.12.0, 2MB)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "BaseEntry",
+      "MediaEntry",
+      "SessionInfo"
+    ],
+    "enums": {
+      "BaseEntry": {
+        "moderationStatus": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "MediaEntry": {
+        "mediaType": [
+          1,
+          2,
+          5,
+          201,
+          202,
+          203,
+          204
+        ]
+      },
+      "SessionInfo": {
+        "sessionType": [
+          0,
+          2
+        ]
+      }
+    }
+  },
   "entities": [
-    "Asset",
-    "Rendition",
-    "Channel",
-    "Playlist",
-    "ContentEntry",
-    "Experiment"
+    "BaseEntry",
+    "MediaEntry",
+    "SessionInfo"
   ],
   "adr": [
     "260607",
@@ -31,157 +65,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/assets",
-          "op": "create Asset"
+          "path": "/v1/baseentries",
+          "op": "create BaseEntry"
         },
         {
           "method": "GET",
-          "path": "/v1/assets",
-          "op": "list Asset"
+          "path": "/v1/baseentries",
+          "op": "list BaseEntry"
         },
         {
           "method": "GET",
-          "path": "/v1/assets/{id}",
-          "op": "get Asset"
+          "path": "/v1/baseentries/{id}",
+          "op": "get BaseEntry"
         },
         {
           "method": "PATCH",
-          "path": "/v1/assets/{id}",
-          "op": "update Asset"
+          "path": "/v1/baseentries/{id}",
+          "op": "update BaseEntry"
         },
         {
           "method": "DELETE",
-          "path": "/v1/assets/{id}",
-          "op": "delete Asset"
+          "path": "/v1/baseentries/{id}",
+          "op": "delete BaseEntry"
         },
         {
           "method": "POST",
-          "path": "/v1/renditions",
-          "op": "create Rendition"
+          "path": "/v1/mediaentries",
+          "op": "create MediaEntry"
         },
         {
           "method": "GET",
-          "path": "/v1/renditions",
-          "op": "list Rendition"
+          "path": "/v1/mediaentries",
+          "op": "list MediaEntry"
         },
         {
           "method": "GET",
-          "path": "/v1/renditions/{id}",
-          "op": "get Rendition"
+          "path": "/v1/mediaentries/{id}",
+          "op": "get MediaEntry"
         },
         {
           "method": "PATCH",
-          "path": "/v1/renditions/{id}",
-          "op": "update Rendition"
+          "path": "/v1/mediaentries/{id}",
+          "op": "update MediaEntry"
         },
         {
           "method": "DELETE",
-          "path": "/v1/renditions/{id}",
-          "op": "delete Rendition"
+          "path": "/v1/mediaentries/{id}",
+          "op": "delete MediaEntry"
         },
         {
           "method": "POST",
-          "path": "/v1/channels",
-          "op": "create Channel"
+          "path": "/v1/sessioninfos",
+          "op": "create SessionInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/channels",
-          "op": "list Channel"
+          "path": "/v1/sessioninfos",
+          "op": "list SessionInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/channels/{id}",
-          "op": "get Channel"
+          "path": "/v1/sessioninfos/{id}",
+          "op": "get SessionInfo"
         },
         {
           "method": "PATCH",
-          "path": "/v1/channels/{id}",
-          "op": "update Channel"
+          "path": "/v1/sessioninfos/{id}",
+          "op": "update SessionInfo"
         },
         {
           "method": "DELETE",
-          "path": "/v1/channels/{id}",
-          "op": "delete Channel"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/playlists",
-          "op": "create Playlist"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/playlists",
-          "op": "list Playlist"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/playlists/{id}",
-          "op": "get Playlist"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/playlists/{id}",
-          "op": "update Playlist"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/playlists/{id}",
-          "op": "delete Playlist"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/contententries",
-          "op": "create ContentEntry"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/contententries",
-          "op": "list ContentEntry"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/contententries/{id}",
-          "op": "get ContentEntry"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/contententries/{id}",
-          "op": "update ContentEntry"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/contententries/{id}",
-          "op": "delete ContentEntry"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/experiments",
-          "op": "create Experiment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/experiments",
-          "op": "list Experiment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/experiments/{id}",
-          "op": "get Experiment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/experiments/{id}",
-          "op": "update Experiment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/experiments/{id}",
-          "op": "delete Experiment"
+          "path": "/v1/sessioninfos/{id}",
+          "op": "delete SessionInfo"
         }
       ],
       "features": {
@@ -244,191 +203,11 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_asset",
-          "description": "Create a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "title": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "title",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_assets",
-          "description": "List Assets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_asset",
-          "description": "Get a Asset by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_asset",
-          "description": "Update a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "durationMs": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_asset",
-          "description": "Delete a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_rendition",
-          "description": "Create a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "assetId": {
-                "type": "string"
-              },
-              "format": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "format",
-              "bitrate"
-            ]
-          }
-        },
-        {
-          "name": "list_renditions",
-          "description": "List Renditions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_rendition",
-          "description": "Get a Rendition by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_rendition",
-          "description": "Update a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "assetId": {
-                "type": "string"
-              },
-              "format": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_rendition",
-          "description": "Delete a Rendition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_channel",
-          "description": "Create a Channel.",
+          "name": "create_base_entry",
+          "description": "Create a BaseEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -438,8 +217,26 @@
               "description": {
                 "type": "string"
               },
-              "public": {
-                "type": "boolean"
+              "partnerId": {
+                "type": "integer"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "creatorId": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "moderationStatus": {
+                "type": "integer"
+              },
+              "moderationCount": {
+                "type": "integer"
               }
             },
             "required": [
@@ -449,16 +246,16 @@
           }
         },
         {
-          "name": "list_channels",
-          "description": "List Channels.",
+          "name": "list_base_entries",
+          "description": "List BaseEntries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_channel",
-          "description": "Get a Channel by id.",
+          "name": "get_base_entry",
+          "description": "Get a BaseEntry by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,8 +269,8 @@
           }
         },
         {
-          "name": "update_channel",
-          "description": "Update a Channel.",
+          "name": "update_base_entry",
+          "description": "Update a BaseEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -486,91 +283,25 @@
               "description": {
                 "type": "string"
               },
-              "public": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_channel",
-          "description": "Delete a Channel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_playlist",
-          "description": "Create a Playlist.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "channelId": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "itemCount": {
+              "partnerId": {
                 "type": "integer"
-              }
-            },
-            "required": [
-              "title",
-              "itemCount"
-            ]
-          }
-        },
-        {
-          "name": "list_playlists",
-          "description": "List Playlists.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_playlist",
-          "description": "Get a Playlist by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_playlist",
-          "description": "Update a Playlist.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              },
+              "userId": {
                 "type": "string"
               },
-              "channelId": {
+              "creatorId": {
                 "type": "string"
               },
-              "title": {
+              "tags": {
                 "type": "string"
               },
-              "itemCount": {
+              "status": {
+                "type": "string"
+              },
+              "moderationStatus": {
+                "type": "integer"
+              },
+              "moderationCount": {
                 "type": "integer"
               }
             },
@@ -580,8 +311,8 @@
           }
         },
         {
-          "name": "delete_playlist",
-          "description": "Delete a Playlist.",
+          "name": "delete_base_entry",
+          "description": "Delete a BaseEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -595,41 +326,53 @@
           }
         },
         {
-          "name": "create_content_entry",
-          "description": "Create a ContentEntry.",
+          "name": "create_media_entry",
+          "description": "Create a MediaEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "modelName": {
+              "mediaType": {
+                "type": "integer"
+              },
+              "sourceType": {
                 "type": "string"
               },
-              "title": {
+              "dataUrl": {
                 "type": "string"
               },
-              "locale": {
+              "mediaDate": {
+                "type": "integer"
+              },
+              "creditUserName": {
                 "type": "string"
               },
-              "published": {
-                "type": "boolean"
+              "creditUrl": {
+                "type": "string"
+              },
+              "conversionQuality": {
+                "type": "string"
+              },
+              "isTrimDisabled": {
+                "type": "integer"
               }
             },
             "required": [
-              "modelName",
-              "title"
+              "mediaType",
+              "sourceType"
             ]
           }
         },
         {
-          "name": "list_content_entries",
-          "description": "List ContentEntries.",
+          "name": "list_media_entries",
+          "description": "List MediaEntries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_content_entry",
-          "description": "Get a ContentEntry by id.",
+          "name": "get_media_entry",
+          "description": "Get a MediaEntry by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -643,25 +386,37 @@
           }
         },
         {
-          "name": "update_content_entry",
-          "description": "Update a ContentEntry.",
+          "name": "update_media_entry",
+          "description": "Update a MediaEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "modelName": {
+              "mediaType": {
+                "type": "integer"
+              },
+              "sourceType": {
                 "type": "string"
               },
-              "title": {
+              "dataUrl": {
                 "type": "string"
               },
-              "locale": {
+              "mediaDate": {
+                "type": "integer"
+              },
+              "creditUserName": {
                 "type": "string"
               },
-              "published": {
-                "type": "boolean"
+              "creditUrl": {
+                "type": "string"
+              },
+              "conversionQuality": {
+                "type": "string"
+              },
+              "isTrimDisabled": {
+                "type": "integer"
               }
             },
             "required": [
@@ -670,8 +425,8 @@
           }
         },
         {
-          "name": "delete_content_entry",
-          "description": "Delete a ContentEntry.",
+          "name": "delete_media_entry",
+          "description": "Delete a MediaEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -685,38 +440,47 @@
           }
         },
         {
-          "name": "create_experiment",
-          "description": "Create a Experiment.",
+          "name": "create_session_info",
+          "description": "Create a SessionInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "ks": {
                 "type": "string"
               },
-              "variant": {
+              "sessionType": {
+                "type": "integer"
+              },
+              "partnerId": {
+                "type": "integer"
+              },
+              "userId": {
                 "type": "string"
               },
-              "conversionRate": {
-                "type": "number"
+              "expiry": {
+                "type": "integer"
+              },
+              "privileges": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "variant"
+              "ks",
+              "sessionType"
             ]
           }
         },
         {
-          "name": "list_experiments",
-          "description": "List Experiments.",
+          "name": "list_session_infos",
+          "description": "List SessionInfos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_experiment",
-          "description": "Get a Experiment by id.",
+          "name": "get_session_info",
+          "description": "Get a SessionInfo by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -730,22 +494,31 @@
           }
         },
         {
-          "name": "update_experiment",
-          "description": "Update a Experiment.",
+          "name": "update_session_info",
+          "description": "Update a SessionInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "ks": {
                 "type": "string"
               },
-              "variant": {
+              "sessionType": {
+                "type": "integer"
+              },
+              "partnerId": {
+                "type": "integer"
+              },
+              "userId": {
                 "type": "string"
               },
-              "conversionRate": {
-                "type": "number"
+              "expiry": {
+                "type": "integer"
+              },
+              "privileges": {
+                "type": "string"
               }
             },
             "required": [
@@ -754,8 +527,8 @@
           }
         },
         {
-          "name": "delete_experiment",
-          "description": "Delete a Experiment.",
+          "name": "delete_session_info",
+          "description": "Delete a SessionInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {

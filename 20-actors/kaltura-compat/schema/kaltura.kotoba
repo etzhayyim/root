@@ -3,70 +3,45 @@
 
 namespace kaltura {
 
-    entity Asset {
-        id: string @unique
-        title: string
-        type: string
-        durationMs: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Rendition {
-        id: string @unique
-        assetId: string
-        format: string
-        bitrate: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Channel {
+    entity BaseEntry {
         id: string @unique
         name: string
         description: string
-        public: boolean
+        partnerId: integer
+        userId: string
+        creatorId: string
+        tags: string
+        status: string
+        moderationStatus: integer
+        moderationCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Playlist {
+    entity MediaEntry {
         id: string @unique
-        channelId: string
-        title: string
-        itemCount: integer
+        mediaType: integer
+        sourceType: string
+        dataUrl: string
+        mediaDate: integer
+        creditUserName: string
+        creditUrl: string
+        conversionQuality: string
+        isTrimDisabled: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ContentEntry {
+    entity SessionInfo {
         id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Experiment {
-        id: string @unique
-        name: string
-        variant: string
-        conversionRate: float
+        ks: string
+        sessionType: integer
+        partnerId: integer
+        userId: string
+        expiry: integer
+        privileges: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

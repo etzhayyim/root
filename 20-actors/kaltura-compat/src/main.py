@@ -111,405 +111,231 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/assets", methods=["POST"])
-def create_asset(request):
-    """Create a Asset."""
+@app.route("/v1/baseentries", methods=["POST"])
+def create_base_entry(request):
+    """Create a BaseEntry."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'durationMs', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['title', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kaltura_ass")}
-    rec["title"] = data.get('title')
-    rec["type"] = data.get('type')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Asset", rec)
-    return rec, 201
-
-@app.route("/v1/assets", methods=["GET"])
-def list_assets(request):
-    """List Assets with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Asset")
-    rows = _apply_filters(rows, params, ['title', 'type', 'durationMs', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/assets/<eid>", methods=["GET"])
-def get_asset(request, eid):
-    """Retrieve a Asset by id (supports ?expand=)."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/assets/<eid>", methods=["POST", "PATCH"])
-def update_asset(request, eid):
-    """Update a Asset."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'durationMs', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Asset", rec)
-    return rec, 200
-
-@app.route("/v1/assets/<eid>", methods=["DELETE"])
-def delete_asset(request, eid):
-    """Delete a Asset."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kaltura.Asset", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/renditions", methods=["POST"])
-def create_rendition(request):
-    """Create a Rendition."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['assetId', 'format', 'bitrate', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['format', 'bitrate'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kaltura_ren")}
-    rec["assetId"] = data.get('assetId')
-    rec["format"] = data.get('format')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Rendition", rec)
-    return rec, 201
-
-@app.route("/v1/renditions", methods=["GET"])
-def list_renditions(request):
-    """List Renditions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Rendition")
-    rows = _apply_filters(rows, params, ['assetId', 'format', 'bitrate', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/renditions/<eid>", methods=["GET"])
-def get_rendition(request, eid):
-    """Retrieve a Rendition by id (supports ?expand=)."""
-    rows = _query("Rendition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'assetId': 'Asset'})
-    return rec, 200
-
-@app.route("/v1/renditions/<eid>", methods=["POST", "PATCH"])
-def update_rendition(request, eid):
-    """Update a Rendition."""
-    rows = _query("Rendition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['assetId', 'format', 'bitrate', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Rendition", rec)
-    return rec, 200
-
-@app.route("/v1/renditions/<eid>", methods=["DELETE"])
-def delete_rendition(request, eid):
-    """Delete a Rendition."""
-    rows = _query("Rendition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kaltura.Rendition", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'description', 'public'])
+    err = _reject_unknown(data, ['name', 'description', 'partnerId', 'userId', 'creatorId', 'tags', 'status', 'moderationStatus', 'moderationCount'])
     if err:
         return err, 400
     err = _require(data, ['name', 'description'])
     if err:
         return err, 400
-    rec = {"id": new_id("kaltura_cha")}
+    if data.get('moderationStatus') and data['moderationStatus'] not in [1, 2, 3, 4, 5, 6]:
+        return {"error": {"message": "invalid moderationStatus; allowed: " + ", ".join([1, 2, 3, 4, 5, 6]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kaltura_bas")}
     rec["name"] = data.get('name')
     rec["description"] = data.get('description')
-    rec["public"] = _as_bool(data.get('public'))
+    rec["partnerId"] = _as_int(data.get('partnerId'))
+    rec["userId"] = data.get('userId')
+    rec["creatorId"] = data.get('creatorId')
+    rec["tags"] = data.get('tags')
+    rec["status"] = data.get('status')
+    rec["moderationStatus"] = _as_int(data.get('moderationStatus'))
+    rec["moderationCount"] = _as_int(data.get('moderationCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
+    _persist("BaseEntry", rec)
     return rec, 201
 
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
+@app.route("/v1/baseentries", methods=["GET"])
+def list_base_entries(request):
+    """List BaseEntries with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'description', 'public'])
+    rows = _query("BaseEntry")
+    rows = _apply_filters(rows, params, ['name', 'description', 'partnerId', 'userId', 'creatorId', 'tags', 'status', 'moderationStatus', 'moderationCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
+@app.route("/v1/baseentries/<eid>", methods=["GET"])
+def get_base_entry(request, eid):
+    """Retrieve a BaseEntry by id (supports ?expand=)."""
+    rows = _query("BaseEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/baseentries/<eid>", methods=["POST", "PATCH"])
+def update_base_entry(request, eid):
+    """Update a BaseEntry."""
+    rows = _query("BaseEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'description', 'public'])
+    err = _reject_unknown(data, ['name', 'description', 'partnerId', 'userId', 'creatorId', 'tags', 'status', 'moderationStatus', 'moderationCount'])
     if err:
         return err, 400
+    if data.get('moderationStatus') and data['moderationStatus'] not in [1, 2, 3, 4, 5, 6]:
+        return {"error": {"message": "invalid moderationStatus; allowed: " + ", ".join([1, 2, 3, 4, 5, 6]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Channel", rec)
+    _persist("BaseEntry", rec)
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/baseentries/<eid>", methods=["DELETE"])
+def delete_base_entry(request, eid):
+    """Delete a BaseEntry."""
+    rows = _query("BaseEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kaltura.Channel", "id": eid})
+    db.retract({"entity": f"kaltura.BaseEntry", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/playlists", methods=["POST"])
-def create_playlist(request):
-    """Create a Playlist."""
+@app.route("/v1/mediaentries", methods=["POST"])
+def create_media_entry(request):
+    """Create a MediaEntry."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'title', 'itemCount'])
+    err = _reject_unknown(data, ['mediaType', 'sourceType', 'dataUrl', 'mediaDate', 'creditUserName', 'creditUrl', 'conversionQuality', 'isTrimDisabled'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'itemCount'])
+    err = _require(data, ['mediaType', 'sourceType'])
     if err:
         return err, 400
-    rec = {"id": new_id("kaltura_pla")}
-    rec["channelId"] = data.get('channelId')
-    rec["title"] = data.get('title')
-    rec["itemCount"] = _as_int(data.get('itemCount'))
+    if data.get('mediaType') and data['mediaType'] not in [1, 2, 5, 201, 202, 203, 204]:
+        return {"error": {"message": "invalid mediaType; allowed: " + ", ".join([1, 2, 5, 201, 202, 203, 204]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kaltura_med")}
+    rec["mediaType"] = _as_int(data.get('mediaType'))
+    rec["sourceType"] = data.get('sourceType')
+    rec["dataUrl"] = data.get('dataUrl')
+    rec["mediaDate"] = _as_int(data.get('mediaDate'))
+    rec["creditUserName"] = data.get('creditUserName')
+    rec["creditUrl"] = data.get('creditUrl')
+    rec["conversionQuality"] = data.get('conversionQuality')
+    rec["isTrimDisabled"] = _as_int(data.get('isTrimDisabled'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Playlist", rec)
+    _persist("MediaEntry", rec)
     return rec, 201
 
-@app.route("/v1/playlists", methods=["GET"])
-def list_playlists(request):
-    """List Playlists with filtering + cursor pagination."""
+@app.route("/v1/mediaentries", methods=["GET"])
+def list_media_entries(request):
+    """List MediaEntries with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Playlist")
-    rows = _apply_filters(rows, params, ['channelId', 'title', 'itemCount'])
+    rows = _query("MediaEntry")
+    rows = _apply_filters(rows, params, ['mediaType', 'sourceType', 'dataUrl', 'mediaDate', 'creditUserName', 'creditUrl', 'conversionQuality', 'isTrimDisabled'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/playlists/<eid>", methods=["GET"])
-def get_playlist(request, eid):
-    """Retrieve a Playlist by id (supports ?expand=)."""
-    rows = _query("Playlist", eid)
+@app.route("/v1/mediaentries/<eid>", methods=["GET"])
+def get_media_entry(request, eid):
+    """Retrieve a MediaEntry by id (supports ?expand=)."""
+    rows = _query("MediaEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
     return rec, 200
 
-@app.route("/v1/playlists/<eid>", methods=["POST", "PATCH"])
-def update_playlist(request, eid):
-    """Update a Playlist."""
-    rows = _query("Playlist", eid)
+@app.route("/v1/mediaentries/<eid>", methods=["POST", "PATCH"])
+def update_media_entry(request, eid):
+    """Update a MediaEntry."""
+    rows = _query("MediaEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'title', 'itemCount'])
+    err = _reject_unknown(data, ['mediaType', 'sourceType', 'dataUrl', 'mediaDate', 'creditUserName', 'creditUrl', 'conversionQuality', 'isTrimDisabled'])
     if err:
         return err, 400
+    if data.get('mediaType') and data['mediaType'] not in [1, 2, 5, 201, 202, 203, 204]:
+        return {"error": {"message": "invalid mediaType; allowed: " + ", ".join([1, 2, 5, 201, 202, 203, 204]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Playlist", rec)
+    _persist("MediaEntry", rec)
     return rec, 200
 
-@app.route("/v1/playlists/<eid>", methods=["DELETE"])
-def delete_playlist(request, eid):
-    """Delete a Playlist."""
-    rows = _query("Playlist", eid)
+@app.route("/v1/mediaentries/<eid>", methods=["DELETE"])
+def delete_media_entry(request, eid):
+    """Delete a MediaEntry."""
+    rows = _query("MediaEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kaltura.Playlist", "id": eid})
+    db.retract({"entity": f"kaltura.MediaEntry", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/contententries", methods=["POST"])
-def create_content_entry(request):
-    """Create a ContentEntry."""
+@app.route("/v1/sessioninfos", methods=["POST"])
+def create_session_info(request):
+    """Create a SessionInfo."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
+    err = _reject_unknown(data, ['ks', 'sessionType', 'partnerId', 'userId', 'expiry', 'privileges'])
     if err:
         return err, 400
-    err = _require(data, ['modelName', 'title'])
+    err = _require(data, ['ks', 'sessionType'])
     if err:
         return err, 400
-    rec = {"id": new_id("kaltura_con")}
-    rec["modelName"] = data.get('modelName')
-    rec["title"] = data.get('title')
-    rec["locale"] = data.get('locale')
-    rec["published"] = _as_bool(data.get('published'))
+    if data.get('sessionType') and data['sessionType'] not in [0, 2]:
+        return {"error": {"message": "invalid sessionType; allowed: " + ", ".join([0, 2]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kaltura_ses")}
+    rec["ks"] = data.get('ks')
+    rec["sessionType"] = _as_int(data.get('sessionType'))
+    rec["partnerId"] = _as_int(data.get('partnerId'))
+    rec["userId"] = data.get('userId')
+    rec["expiry"] = _as_int(data.get('expiry'))
+    rec["privileges"] = data.get('privileges')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ContentEntry", rec)
+    _persist("SessionInfo", rec)
     return rec, 201
 
-@app.route("/v1/contententries", methods=["GET"])
-def list_content_entries(request):
-    """List ContentEntries with filtering + cursor pagination."""
+@app.route("/v1/sessioninfos", methods=["GET"])
+def list_session_infos(request):
+    """List SessionInfos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ContentEntry")
-    rows = _apply_filters(rows, params, ['modelName', 'title', 'locale', 'published'])
+    rows = _query("SessionInfo")
+    rows = _apply_filters(rows, params, ['ks', 'sessionType', 'partnerId', 'userId', 'expiry', 'privileges'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/contententries/<eid>", methods=["GET"])
-def get_content_entry(request, eid):
-    """Retrieve a ContentEntry by id (supports ?expand=)."""
-    rows = _query("ContentEntry", eid)
+@app.route("/v1/sessioninfos/<eid>", methods=["GET"])
+def get_session_info(request, eid):
+    """Retrieve a SessionInfo by id (supports ?expand=)."""
+    rows = _query("SessionInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/contententries/<eid>", methods=["POST", "PATCH"])
-def update_content_entry(request, eid):
-    """Update a ContentEntry."""
-    rows = _query("ContentEntry", eid)
+@app.route("/v1/sessioninfos/<eid>", methods=["POST", "PATCH"])
+def update_session_info(request, eid):
+    """Update a SessionInfo."""
+    rows = _query("SessionInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
+    err = _reject_unknown(data, ['ks', 'sessionType', 'partnerId', 'userId', 'expiry', 'privileges'])
     if err:
         return err, 400
+    if data.get('sessionType') and data['sessionType'] not in [0, 2]:
+        return {"error": {"message": "invalid sessionType; allowed: " + ", ".join([0, 2]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ContentEntry", rec)
+    _persist("SessionInfo", rec)
     return rec, 200
 
-@app.route("/v1/contententries/<eid>", methods=["DELETE"])
-def delete_content_entry(request, eid):
-    """Delete a ContentEntry."""
-    rows = _query("ContentEntry", eid)
+@app.route("/v1/sessioninfos/<eid>", methods=["DELETE"])
+def delete_session_info(request, eid):
+    """Delete a SessionInfo."""
+    rows = _query("SessionInfo", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kaltura.ContentEntry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/experiments", methods=["POST"])
-def create_experiment(request):
-    """Create a Experiment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'variant', 'conversionRate'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'variant'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kaltura_exp")}
-    rec["name"] = data.get('name')
-    rec["variant"] = data.get('variant')
-    rec["conversionRate"] = _as_float(data.get('conversionRate'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Experiment", rec)
-    return rec, 201
-
-@app.route("/v1/experiments", methods=["GET"])
-def list_experiments(request):
-    """List Experiments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Experiment")
-    rows = _apply_filters(rows, params, ['name', 'variant', 'conversionRate'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/experiments/<eid>", methods=["GET"])
-def get_experiment(request, eid):
-    """Retrieve a Experiment by id (supports ?expand=)."""
-    rows = _query("Experiment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/experiments/<eid>", methods=["POST", "PATCH"])
-def update_experiment(request, eid):
-    """Update a Experiment."""
-    rows = _query("Experiment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'variant', 'conversionRate'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Experiment", rec)
-    return rec, 200
-
-@app.route("/v1/experiments/<eid>", methods=["DELETE"])
-def delete_experiment(request, eid):
-    """Delete a Experiment."""
-    rows = _query("Experiment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kaltura.Experiment", "id": eid})
+    db.retract({"entity": f"kaltura.SessionInfo", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "kaltura-compat", "tier": "L4",
-            "entities": ['Asset', 'Rendition', 'Channel', 'Playlist', 'ContentEntry', 'Experiment']}, 200
+            "entities": ['BaseEntry', 'MediaEntry', 'SessionInfo']}, 200
 
 
 if __name__ == "__main__":

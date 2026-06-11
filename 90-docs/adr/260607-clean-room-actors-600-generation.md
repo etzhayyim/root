@@ -769,3 +769,16 @@ contract suite green. Harness-direct. Enforced complete sets: the CRUD
 state lifecycle (×2), runtimeType/subscriptionType/apiProxyType (×2)/
 deploymentType/proxyDeploymentType, deployment runtime state, and the
 DataCollector scalar-type system; product-coupled growable sets gapped.
+
+### §16.21 /loop iteration 20 — wave 21: kaltura (216, 21.6%)
+
+kaltura → ledger **216** (784 L4 / 216 L5 = 21.6%), enforced 208 / **870
+enum fields** (+3), verify PASS 0/0, contract suite green. Harness-direct.
+The operator's own versioned schema XML (api_schema.php, apiVersion
+21.12.0) anchors mediaType(7 — the four legacy live-stream members are
+dead technologies, fossilizing the set), moderationStatus(6) and
+sessionType(2); entryStatus/entryType REFUSED as plugin-extension-bearing
+(virusScan.Infected / room.room string values mixed into int sets — the
+openxr discipline; enforcing the core would false-reject plugin values).
+Probes this wave: ecwid (ReadMe.io JS shell) and ibm_zos (IBM Docs JS
+shell) both unfetchable -> remain L4, not deferred.

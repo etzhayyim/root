@@ -6434,11 +6434,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible media / video / CMS actor (kaltura); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "kaltura.kotoba"
-   :actor/wasm-cid "bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y"
+   :actor/wasm-cid "bafkreibtkyheat7zdd7ecbuca4yqblbyd7k4mkedn4wsd72p7td774n5ui"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:kaltura-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:kaltura-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:kaltura-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:kaltura-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kaltura-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibtkyheat7zdd7ecbuca4yqblbyd7k4mkedn4wsd72p7td774n5ui" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:kaltura-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibtkyheat7zdd7ecbuca4yqblbyd7k4mkedn4wsd72p7td774n5ui" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:kaltura-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibtkyheat7zdd7ecbuca4yqblbyd7k4mkedn4wsd72p7td774n5ui" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:kaltura-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibtkyheat7zdd7ecbuca4yqblbyd7k4mkedn4wsd72p7td774n5ui" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "kaspersky_ti-compat"
    :actor/did "did:web:etzhayyim.com:actor:kaspersky_ti-compat"
    :actor/kind :compat

@@ -2839,6 +2839,18 @@ PLATFORM_OVERRIDES["apigee"] = {
     "DataCollector": E(name="string", description="string", type="string", createdAt="integer", lastModifiedAt="integer"),
 }
 
+# Faithful Kaltura model (the operator's own machine-readable API schema:
+# kaltura.com/api_v3/api_schema.php, apiVersion 21.12.0). mediaType(7,
+# legacy live-stream members fossilized) + moderationStatus(6, complete
+# lifecycle) + sessionType(2) enforced as integers; entryStatus/entryType
+# GAPPED — plugin extension values (virusScan.Infected, room.room) are
+# mixed into the int sets (the openxr extension-bearing discipline).
+PLATFORM_OVERRIDES["kaltura"] = {
+    "BaseEntry": E(name="string", description="string", partnerId="integer", userId="string", creatorId="string", tags="string", status="string", moderationStatus="integer", moderationCount="integer"),
+    "MediaEntry": E(mediaType="integer", sourceType="string", dataUrl="string", mediaDate="integer", creditUserName="string", creditUrl="string", conversionQuality="string", isTrimDisabled="integer"),
+    "SessionInfo": E(ks="string", sessionType="integer", partnerId="integer", userId="string", expiry="integer", privileges="string"),
+}
+
 # Faithful Microsoft 365 (Graph v1.0) model — the official $metadata CSDL
 # (graph.microsoft.com/v1.0/$metadata, 827 declared EnumTypes; v1.0 is the
 # compatibility-bound surface). Outlook-era-stable enums enforced:

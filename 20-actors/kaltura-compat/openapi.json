@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible media / video / CMS actor (kaltura); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:kaltura-compat",
-    "x-wasm-cid": "bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y",
+    "x-wasm-cid": "bafkreibtkyheat7zdd7ecbuca4yqblbyd7k4mkedn4wsd72p7td774n5ui",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y",
+      "url": "ipfs://bafkreibtkyheat7zdd7ecbuca4yqblbyd7k4mkedn4wsd72p7td774n5ui",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/assets": {
+    "/v1/baseentries": {
       "get": {
-        "summary": "List Assets",
+        "summary": "List BaseEntries",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Asset"
+                        "$ref": "#/components/schemas/BaseEntry"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Asset",
+        "summary": "Create a BaseEntry",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssetCreate"
+                "$ref": "#/components/schemas/BaseEntryCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/BaseEntry"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/assets/{id}": {
+    "/v1/baseentries/{id}": {
       "get": {
-        "summary": "Get a Asset",
+        "summary": "Get a BaseEntry",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/BaseEntry"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Asset",
+        "summary": "Update a BaseEntry",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssetCreate"
+                "$ref": "#/components/schemas/BaseEntryCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/BaseEntry"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Asset",
+        "summary": "Delete a BaseEntry",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/renditions": {
+    "/v1/mediaentries": {
       "get": {
-        "summary": "List Renditions",
+        "summary": "List MediaEntries",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Rendition"
+                        "$ref": "#/components/schemas/MediaEntry"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Rendition",
+        "summary": "Create a MediaEntry",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RenditionCreate"
+                "$ref": "#/components/schemas/MediaEntryCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Rendition"
+                  "$ref": "#/components/schemas/MediaEntry"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/renditions/{id}": {
+    "/v1/mediaentries/{id}": {
       "get": {
-        "summary": "Get a Rendition",
+        "summary": "Get a MediaEntry",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Rendition"
+                  "$ref": "#/components/schemas/MediaEntry"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Rendition",
+        "summary": "Update a MediaEntry",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RenditionCreate"
+                "$ref": "#/components/schemas/MediaEntryCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Rendition"
+                  "$ref": "#/components/schemas/MediaEntry"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Rendition",
+        "summary": "Delete a MediaEntry",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/channels": {
+    "/v1/sessioninfos": {
       "get": {
-        "summary": "List Channels",
+        "summary": "List SessionInfos",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Channel"
+                        "$ref": "#/components/schemas/SessionInfo"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Channel",
+        "summary": "Create a SessionInfo",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChannelCreate"
+                "$ref": "#/components/schemas/SessionInfoCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/SessionInfo"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/channels/{id}": {
+    "/v1/sessioninfos/{id}": {
       "get": {
-        "summary": "Get a Channel",
+        "summary": "Get a SessionInfo",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/SessionInfo"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Channel",
+        "summary": "Update a SessionInfo",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChannelCreate"
+                "$ref": "#/components/schemas/SessionInfoCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/SessionInfo"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Channel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/playlists": {
-      "get": {
-        "summary": "List Playlists",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Playlist"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Playlist",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PlaylistCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Playlist"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/playlists/{id}": {
-      "get": {
-        "summary": "Get a Playlist",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Playlist"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Playlist",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PlaylistCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Playlist"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Playlist",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/contententries": {
-      "get": {
-        "summary": "List ContentEntries",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ContentEntry"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a ContentEntry",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/contententries/{id}": {
-      "get": {
-        "summary": "Get a ContentEntry",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a ContentEntry",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a ContentEntry",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/experiments": {
-      "get": {
-        "summary": "List Experiments",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Experiment"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Experiment",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExperimentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Experiment"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/experiments/{id}": {
-      "get": {
-        "summary": "Get a Experiment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Experiment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Experiment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExperimentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Experiment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Experiment",
+        "summary": "Delete a SessionInfo",
         "parameters": [
           {
             "name": "id",
@@ -1140,105 +585,7 @@
   },
   "components": {
     "schemas": {
-      "Asset": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AssetCreate": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "title",
-          "type"
-        ]
-      },
-      "Rendition": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "assetId": {
-            "type": "string"
-          },
-          "format": {
-            "type": "string"
-          },
-          "bitrate": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RenditionCreate": {
-        "type": "object",
-        "properties": {
-          "assetId": {
-            "type": "string"
-          },
-          "format": {
-            "type": "string"
-          },
-          "bitrate": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "format",
-          "bitrate"
-        ]
-      },
-      "Channel": {
+      "BaseEntry": {
         "type": "object",
         "properties": {
           "id": {
@@ -1250,8 +597,34 @@
           "description": {
             "type": "string"
           },
-          "public": {
-            "type": "boolean"
+          "partnerId": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "creatorId": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "moderationStatus": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "moderationCount": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1263,7 +636,7 @@
           }
         }
       },
-      "ChannelCreate": {
+      "BaseEntryCreate": {
         "type": "object",
         "properties": {
           "name": {
@@ -1272,8 +645,34 @@
           "description": {
             "type": "string"
           },
-          "public": {
-            "type": "boolean"
+          "partnerId": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "creatorId": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "moderationStatus": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "moderationCount": {
+            "type": "integer"
           }
         },
         "required": [
@@ -1281,19 +680,43 @@
           "description"
         ]
       },
-      "Playlist": {
+      "MediaEntry": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "channelId": {
+          "mediaType": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              5,
+              201,
+              202,
+              203,
+              204
+            ]
+          },
+          "sourceType": {
             "type": "string"
           },
-          "title": {
+          "dataUrl": {
             "type": "string"
           },
-          "itemCount": {
+          "mediaDate": {
+            "type": "integer"
+          },
+          "creditUserName": {
+            "type": "string"
+          },
+          "creditUrl": {
+            "type": "string"
+          },
+          "conversionQuality": {
+            "type": "string"
+          },
+          "isTrimDisabled": {
             "type": "integer"
           },
           "createdAt": {
@@ -1306,41 +729,75 @@
           }
         }
       },
-      "PlaylistCreate": {
+      "MediaEntryCreate": {
         "type": "object",
         "properties": {
-          "channelId": {
+          "mediaType": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              5,
+              201,
+              202,
+              203,
+              204
+            ]
+          },
+          "sourceType": {
             "type": "string"
           },
-          "title": {
+          "dataUrl": {
             "type": "string"
           },
-          "itemCount": {
+          "mediaDate": {
+            "type": "integer"
+          },
+          "creditUserName": {
+            "type": "string"
+          },
+          "creditUrl": {
+            "type": "string"
+          },
+          "conversionQuality": {
+            "type": "string"
+          },
+          "isTrimDisabled": {
             "type": "integer"
           }
         },
         "required": [
-          "title",
-          "itemCount"
+          "mediaType",
+          "sourceType"
         ]
       },
-      "ContentEntry": {
+      "SessionInfo": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "modelName": {
+          "ks": {
             "type": "string"
           },
-          "title": {
+          "sessionType": {
+            "type": "integer",
+            "enum": [
+              0,
+              2
+            ]
+          },
+          "partnerId": {
+            "type": "integer"
+          },
+          "userId": {
             "type": "string"
           },
-          "locale": {
-            "type": "string"
+          "expiry": {
+            "type": "integer"
           },
-          "published": {
-            "type": "boolean"
+          "privileges": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1352,68 +809,35 @@
           }
         }
       },
-      "ContentEntryCreate": {
+      "SessionInfoCreate": {
         "type": "object",
         "properties": {
-          "modelName": {
+          "ks": {
             "type": "string"
           },
-          "title": {
+          "sessionType": {
+            "type": "integer",
+            "enum": [
+              0,
+              2
+            ]
+          },
+          "partnerId": {
+            "type": "integer"
+          },
+          "userId": {
             "type": "string"
           },
-          "locale": {
-            "type": "string"
+          "expiry": {
+            "type": "integer"
           },
-          "published": {
-            "type": "boolean"
+          "privileges": {
+            "type": "string"
           }
         },
         "required": [
-          "modelName",
-          "title"
-        ]
-      },
-      "Experiment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "variant": {
-            "type": "string"
-          },
-          "conversionRate": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ExperimentCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "variant": {
-            "type": "string"
-          },
-          "conversionRate": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "variant"
+          "ks",
+          "sessionType"
         ]
       }
     }

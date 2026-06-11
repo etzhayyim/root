@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 215,
+  "count": 216,
   "actors": [
     {
       "handle": "aave-compat",
@@ -14805,6 +14805,94 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official apache/kafka trunk Java enums + protocol guide. Enforced enums: AclBinding.permissionType(4), FetchRequest.isolationLevel(2) = 2 enum fields. Version-growing enums (AclOperation/GroupState/ResourceType) + ApiKeys/error-code tables gapped — honesty over coverage."
+    },
+    {
+      "handle": "kaltura-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://www.kaltura.com/api_v3/api_schema.php (the operator's own machine-readable API schema, apiVersion 21.12.0, 2MB)",
+      "remodeled": "Remodeled to the faithful Kaltura surface verified against the operator's OWN machine-readable API schema (api_schema.php — versioned apiVersion 21.12.0, enum consts + class properties declared). Enforced as integers: mediaType(7 — VIDEO/IMAGE/AUDIO plus four legacy live-stream members whose technologies are dead, fossilizing the set), moderationStatus(6, the complete moderation lifecycle), sessionType(2: USER/ADMIN). GAPPED as extension-bearing (the openxr discipline): entryStatus and entryType mix PLUGIN string values (virusScan.Infected, room.room, sip.SIP_ENTRY_SERVER) into the integer sets — enforcing the core ints would false-reject plugin values. Harness-direct.",
+      "resources": [
+        {
+          "entity": "BaseEntry",
+          "source": "https://www.kaltura.com/api_v3/api_schema.php (the operator's own machine-readable API schema, apiVersion 21.12.0, 2MB)",
+          "verifiedFields": [
+            "name",
+            "description",
+            "partnerId",
+            "userId",
+            "creatorId",
+            "tags",
+            "status",
+            "moderationStatus",
+            "moderationCount"
+          ],
+          "fieldStatus": "confirmed (KalturaBaseEntry class properties); status gapped (plugin-extension-bearing)",
+          "discoveredEnums": {
+            "moderationStatus": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "gaps": [
+            "status-plugin-extension-bearing (virusScan.* values mixed in)",
+            "entryType-plugin-extension-bearing"
+          ]
+        },
+        {
+          "entity": "MediaEntry",
+          "source": "https://www.kaltura.com/api_v3/api_schema.php (the operator's own machine-readable API schema, apiVersion 21.12.0, 2MB)",
+          "verifiedFields": [
+            "mediaType",
+            "sourceType",
+            "dataUrl",
+            "mediaDate",
+            "creditUserName",
+            "creditUrl",
+            "conversionQuality",
+            "isTrimDisabled"
+          ],
+          "fieldStatus": "confirmed (KalturaMediaEntry class properties)",
+          "discoveredEnums": {
+            "mediaType": [
+              1,
+              2,
+              5,
+              201,
+              202,
+              203,
+              204
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "SessionInfo",
+          "source": "https://www.kaltura.com/api_v3/api_schema.php (the operator's own machine-readable API schema, apiVersion 21.12.0, 2MB)",
+          "verifiedFields": [
+            "ks",
+            "sessionType",
+            "partnerId",
+            "userId",
+            "expiry",
+            "privileges"
+          ],
+          "fieldStatus": "confirmed (KalturaSessionInfo class properties)",
+          "discoveredEnums": {
+            "sessionType": [
+              0,
+              2
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs the operator's own versioned schema XML. Enforced enums: mediaType(7) + moderationStatus(6) + sessionType(2) = 3 enum fields; plugin-extension-bearing sets refused."
     },
     {
       "handle": "klaviyo-compat",

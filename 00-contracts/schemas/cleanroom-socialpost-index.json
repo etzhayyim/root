@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 207,
-  "totalVerifiedEnumFields": 867,
+  "l5VerifiedActors": 208,
+  "totalVerifiedEnumFields": 870,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -4947,8 +4947,8 @@
       "source": "kaltura.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 3
     },
     {
       "handle": "kaspersky_ti-compat",
