@@ -23750,6 +23750,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606111400-session-close-ibuki-delegation-revocable-leash.md",
+      "id": "adr-2606111400-session-close-ibuki-delegation-revocable-leash",
+      "title": "ADR-2606111400: Session close — 息吹 (ibuki) autonomous identity = a revocable CACAO leash (member-signed delegation + issuer)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606102000-session-close-ibuki-digest-live-run-robustness",
+        "adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
+        "adr-2606062100-moyai-inference-reciprocity-credit"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
