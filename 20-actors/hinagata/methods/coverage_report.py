@@ -109,6 +109,25 @@ def report(nodes: dict, edges: list) -> str:
     L.append(f"\n_{len(lang_c)} languages · {len(translated)}/{len(tmpls)} templates linked to "
              f"another by a `:translates` 縁._")
 
+    # per-jurisdiction statute depth — which jurisdictions are well-grounded vs thin
+    def _jx_name(n):
+        code = n.get(":jurisdiction/code")
+        # disambiguate the several INTL-coded jurisdictions (treaty / religious / customary)
+        return code if code and code != "INTL" else n[":lt/id"].replace("jx.", "")
+    jx_label = {n[":lt/id"]: _jx_name(n) for n in jurisdictions}
+    jx_stat = Counter(n.get(":statute/jurisdiction") for n in statutes)
+    L.append("\n## Per-jurisdiction statute depth (breadth honesty)\n")
+    L.append("| jurisdiction | statutes | status |")
+    L.append("|---|---:|:--|")
+    for jid in sorted(jx_stat, key=lambda j: -jx_stat[j]):
+        c = jx_stat[jid]
+        status = "ok" if c >= 3 else ("⚠ thin" if c >= 1 else "— **MISSING**")
+        L.append(f"| {jx_label.get(jid, jid)} | {c} | {status} |")
+    ungrounded = [jx_label.get(j[":lt/id"], j[":lt/id"]) for j in jurisdictions
+                  if jx_stat.get(j[":lt/id"], 0) == 0]
+    if ungrounded:
+        L.append(f"\n_jurisdictions with no statute yet: {', '.join(ungrounded)}._")
+
     L.append("\n## Statute-binding integrity — clauses NOT yet anchored to any public statute\n")
     L.append("_Every clause SHOULD eventually cite the law it rests on (gap #2 of the design). "
              "Unbound clauses are the next-wave binding worklist, not a defect — they are "

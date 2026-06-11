@@ -45,6 +45,8 @@
  {:lt/id "jx.cn" :lt/kind :jurisdiction :lt/label "China (PRC)" :jurisdiction/code "CN" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.kr" :lt/kind :jurisdiction :lt/label "South Korea" :jurisdiction/code "KR" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.es" :lt/kind :jurisdiction :lt/label "Spain" :jurisdiction/code "ES" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.au" :lt/kind :jurisdiction :lt/label "Australia" :jurisdiction/code "AU" :jurisdiction/system :common-law :lt/sourcing :authoritative}
+ {:lt/id "jx.ca" :lt/kind :jurisdiction :lt/label "Canada" :jurisdiction/code "CA" :jurisdiction/system :mixed :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── concepts (nodes) ────────────────────────────
  {:lt/id "concept.sale-of-goods" :lt/kind :concept :lt/label "Sale of goods" :concept/code "sale-of-goods" :lt/sourcing :authoritative}
@@ -242,6 +244,17 @@
  ;; ─── coverage wave 13 (/loop): language breadth (ES/ZH/FR/DE) + Spain grounding ───
  {:lt/id "st.es-cc-1254" :lt/kind :statute :lt/label "Codigo Civil Art. 1254 — existencia del contrato" :statute/citation "Codigo Civil, Art. 1254" :statute/instrument "Codigo Civil (Spain)" :statute/jurisdiction "jx.es" :statute/url "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763" :lt/sourcing :authoritative}
  {:lt/id "st.es-et-8" :lt/kind :statute :lt/label "Estatuto de los Trabajadores Art. 8 — forma del contrato de trabajo" :statute/citation "Estatuto de los Trabajadores, Art. 8" :statute/instrument "Estatuto de los Trabajadores (Spain)" :statute/jurisdiction "jx.es" :statute/url "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430" :lt/sourcing :authoritative}
+
+ ;; ─── coverage wave 16 (/loop): Anglo-Commonwealth (AU/CA) + thin-jurisdiction depth (BR/KR/IL) ───
+ {:lt/id "st.au-esign" :lt/kind :statute :lt/label "Australia Electronic Transactions Act 1999 §10 — electronic signatures" :statute/citation "Electronic Transactions Act 1999 (Cth), s.10" :statute/instrument "Electronic Transactions Act 1999 (Australia)" :statute/jurisdiction "jx.au" :statute/url "https://www.legislation.gov.au/C2004A00553/latest" :lt/sourcing :authoritative}
+ {:lt/id "st.au-privacy" :lt/kind :statute :lt/label "Australia Privacy Act 1988 — APP 12 (access to personal information)" :statute/citation "Privacy Act 1988 (Cth), APP 12" :statute/instrument "Privacy Act 1988 (Australia)" :statute/jurisdiction "jx.au" :statute/url "https://www.legislation.gov.au/C2004A03712/latest" :lt/sourcing :authoritative}
+ {:lt/id "st.au-fair-work" :lt/kind :statute :lt/label "Australia Fair Work Act 2009 §117 — notice of termination" :statute/citation "Fair Work Act 2009 (Cth), s.117" :statute/instrument "Fair Work Act 2009 (Australia)" :statute/jurisdiction "jx.au" :statute/url "https://www.legislation.gov.au/C2009A00028/latest" :lt/sourcing :authoritative}
+ {:lt/id "st.ca-pipeda" :lt/kind :statute :lt/label "Canada PIPEDA — access to personal information (Principle 9)" :statute/citation "PIPEDA, Sch.1 cl.4.9" :statute/instrument "Personal Information Protection and Electronic Documents Act (Canada)" :statute/jurisdiction "jx.ca" :statute/url "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/" :lt/sourcing :authoritative}
+ {:lt/id "st.ca-pipeda-43" :lt/kind :statute :lt/label "Canada PIPEDA Part 2 §43 — electronic documents & signatures" :statute/citation "PIPEDA, s.43" :statute/instrument "Personal Information Protection and Electronic Documents Act (Canada)" :statute/jurisdiction "jx.ca" :statute/url "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/" :lt/sourcing :authoritative}
+ {:lt/id "st.br-cc-421" :lt/kind :statute :lt/label "Brazil Codigo Civil Art. 421 — funcao social do contrato" :statute/citation "Codigo Civil, Art. 421" :statute/instrument "Codigo Civil (Lei 10.406/2002), Brazil" :statute/jurisdiction "jx.br" :statute/url "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm" :lt/sourcing :authoritative}
+ {:lt/id "st.br-clt-443" :lt/kind :statute :lt/label "Brazil CLT Art. 443 — contrato individual de trabalho" :statute/citation "CLT, Art. 443" :statute/instrument "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil" :statute/jurisdiction "jx.br" :statute/url "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm" :lt/sourcing :authoritative}
+ {:lt/id "st.kr-civil-390" :lt/kind :statute :lt/label "Korea Civil Act Art. 390 — liability for non-performance" :statute/citation "Civil Act, Art. 390 (Korea)" :statute/instrument "Civil Act (민법), Republic of Korea" :statute/jurisdiction "jx.kr" :statute/url "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act" :lt/sourcing :authoritative}
+ {:lt/id "st.israel-contracts-23" :lt/kind :statute :lt/label "Israel Contracts (General Part) Law 5733-1973 §23 — freedom of form" :statute/citation "Contracts (General Part) Law 5733-1973, §23" :statute/instrument "Contracts (General Part) Law, 5733-1973 (Israel)" :statute/jurisdiction "jx.israel" :statute/url "https://www.nevo.co.il/law_html/law01/055_002.htm" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
@@ -567,6 +580,16 @@
  {:en/from "cl.signature-esign" :en/to "st.us-esign" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.signature-esign" :en/to "st.us-ueta" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.signature-esign" :en/to "st.jp-denshishomei" :en/kind :cites-statute :en/force :cited :en/binding-load 0.85 :en/sourcing :authoritative}
+ ;; coverage wave 16 — bind AU/CA/BR/KR/IL statutes to existing clauses
+ {:en/from "cl.signature-esign" :en/to "st.au-esign" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.ca-pipeda-43" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "st.au-privacy" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "st.ca-pipeda" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.employment-termination" :en/to "st.au-fair-work" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "st.br-clt-443" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.good-faith" :en/to "st.br-cc-421" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.good-faith" :en/to "st.israel-contracts-23" :en/kind :cites-statute :en/force :referenced :en/binding-load 0.5 :en/sourcing :authoritative}
+ {:en/from "cl.payment-terms" :en/to "st.kr-civil-390" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  ;; coverage wave 1 — bind the general-clause backbone (was 10 unbound clauses → only :definitions left, honestly structural)
  {:en/from "cl.confidentiality" :en/to "st.eu-trade-secrets" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
  {:en/from "cl.confidentiality" :en/to "st.jp-fukyo-2" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
@@ -910,6 +933,16 @@
  {:en/from "st.fr-civil-1792" :en/to "jx.fr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.es-cc-1254" :en/to "jx.es" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.es-et-8" :en/to "jx.es" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 16 — applies-in
+ {:en/from "st.au-esign" :en/to "jx.au" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.au-privacy" :en/to "jx.au" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.au-fair-work" :en/to "jx.au" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ca-pipeda" :en/to "jx.ca" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ca-pipeda-43" :en/to "jx.ca" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.br-cc-421" :en/to "jx.br" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.br-clt-443" :en/to "jx.br" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.kr-civil-390" :en/to "jx.kr" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.israel-contracts-23" :en/to "jx.israel" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
  {:en/from "tmpl.lease-jp-en" :en/to "tmpl.lease-jp" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}

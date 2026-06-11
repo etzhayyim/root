@@ -16,9 +16,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreigiky2hz5iria5v5k3fsha2tvev4nyd5po774lukr64fs2kqjsq6q",
-      "bodySha256": "0xc856347cf511403b5eab6591c1a9d495e3703ebddfff174547dc2cb4a82650f4",
-      "bytes": 2157,
+      "bodyCid": "bafkreifbbzynoxxhc3h7odjj3nkww6lfnfpea4bq3nydix7736xdip3xwu",
+      "bodySha256": "0xa10e70d75ee716cff70d29db556b7965695e407030db70345fffdfae343f77b5",
+      "bytes": 2336,
       "clauseCount": 3,
       "statutes": [
         {
@@ -62,6 +62,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -111,9 +123,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreig6wd47k3aefdnh3ztworii5ap4ejmtb662aoebfhhv2ytjo3rawy",
-      "bodySha256": "0xdeb0f9f56c0428da7de67674508e81fc225930fbda0388129cf5d626976e20b6",
-      "bytes": 3233,
+      "bodyCid": "bafkreie6xgizrs6g35pxowlxgux7q3okh5ghd2fbp4svpzkzyzndgrfg54",
+      "bodySha256": "0x9eb99198cbc6df5f775977352ff86dca3f4c71e8a17f2557e559c65a3344a6ef",
+      "bytes": 3481,
       "clauseCount": 7,
       "statutes": [
         {
@@ -145,6 +157,12 @@
           "citation": "Code civil, Art. 1792",
           "instrument": "Code civil (France)",
           "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006443591/"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -237,6 +255,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -284,11 +314,17 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiccmcvt4zg2xz5tueljaq7jy5mxlt4xvzzfx6dbywkp25pwjpym5y",
-      "bodySha256": "0x4260ab3e64dabe7b3a1169043e9c75975cf97ae725bf861c594fd75f64bf0cee",
-      "bytes": 2575,
+      "bodyCid": "bafkreiguazuetnvmaywuj6grwuwuo6pxlgrldqtghfb3iuizdb52d4djre",
+      "bodySha256": "0xd4066849b6ac062d44f8d1b52d4779f759a2b1c2663943b45119187ba1f06989",
+      "bytes": 2823,
       "clauseCount": 4,
       "statutes": [
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
+        },
         {
           "id": "st.eu-late-payment",
           "citation": "Directive 2011/7/EU, Art. 3",
@@ -368,6 +404,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -415,9 +463,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreibostpur7ogcaa5fwwbl3qxgxmpql6qzp36wk4duanhgn7xx5p6rm",
-      "bodySha256": "0x2e94df48fdc61001d2dac15ee1735d8f82fd0cbf7eb2b83a01a7337f7bf5fe8b",
-      "bytes": 3744,
+      "bodyCid": "bafkreiaezpvnkbhv5tkjivznvmb47y54tuuh3yqaq5bk2td2jatdaissnm",
+      "bodySha256": "0x04cbead504f5ecd494572dab03cfe3bc9d287de2008742ad4c7a48263022526b",
+      "bytes": 4154,
       "clauseCount": 9,
       "statutes": [
         {
@@ -431,6 +479,12 @@
           "citation": "民法536条",
           "instrument": "民法 (明治29年法律第89号)",
           "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -541,6 +595,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -577,6 +643,18 @@
           "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         },
         {
+          "id": "st.br-cc-421",
+          "citation": "Codigo Civil, Art. 421",
+          "instrument": "Codigo Civil (Lei 10.406/2002), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+        },
+        {
+          "id": "st.israel-contracts-23",
+          "citation": "Contracts (General Part) Law 5733-1973, §23",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -606,9 +684,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreifwdj6hdjzqlzlgop6lnid4y6dbdqdiiv2kfegzyme3lgarosir2q",
-      "bodySha256": "0xb61a7c71a7305e56673fcb6a07cc78611c0684574a290d9c309b5981174911d4",
-      "bytes": 2421,
+      "bodyCid": "bafkreihnskb7vri6lyf3m34pe34lzksm7u55o7gs4ohkpv3tpbrcu24eh4",
+      "bodySha256": "0xed9283fac51e5e0bb66f8f26f8bcaa4cfd3bd77cd2e38ea7d77378622a6b843f",
+      "bytes": 2669,
       "clauseCount": 3,
       "statutes": [
         {
@@ -642,6 +720,12 @@
           "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-429"
         },
         {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
+        },
+        {
           "id": "st.eu-late-payment",
           "citation": "Directive 2011/7/EU, Art. 3",
           "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
@@ -670,6 +754,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -719,9 +815,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreigjtovsk3shq33jtjg4c2ee53hixai6bqkjm24ftkelalzhssm7aq",
-      "bodySha256": "0xc99bab256e4786f699a4dc16884eece8b811e0c14966b859a88b02f279499f04",
-      "bytes": 2571,
+      "bodyCid": "bafkreigbuiugavrrykgxzmxixlhqxijwrra3bxoyajth6qpaktv4mejgpi",
+      "bodySha256": "0xc1a228605631c28d7cb2e8bacf0ba1368c41b0ddd802667f41e054ebc611267a",
+      "bytes": 2981,
       "clauseCount": 6,
       "statutes": [
         {
@@ -737,6 +833,12 @@
           "url": "https://laws.e-gov.go.jp/law/132AC0000000048"
         },
         {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
+        },
+        {
           "id": "st.eu-late-payment",
           "citation": "Directive 2011/7/EU, Art. 3",
           "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
@@ -747,6 +849,18 @@
           "citation": "民法541条",
           "instrument": "民法 (明治29年法律第89号)",
           "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.br-cc-421",
+          "citation": "Codigo Civil, Art. 421",
+          "instrument": "Codigo Civil (Lei 10.406/2002), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+        },
+        {
+          "id": "st.israel-contracts-23",
+          "citation": "Contracts (General Part) Law 5733-1973, §23",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
         },
         {
           "id": "st.unidroit-2016",
@@ -789,6 +903,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -838,9 +964,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreibjtl2z2beks2hj6sripb3bs77y6c6yvmsvrjfl7r6ep5al2dstwa",
-      "bodySha256": "0x299af59d048a968e9f4a287876197ff8f0bd8ab2558a4abfc7c47f40bd0e53b0",
-      "bytes": 1890,
+      "bodyCid": "bafkreidayxblbjp5nve2oofqthttfq7usyphqy2f3x5ntnx4ve4qn5xkta",
+      "bodySha256": "0x60c5c2b0a5fd6d49a738b099e732c3f4961e786345ddfad9b6fca93906f6ea98",
+      "bytes": 2069,
       "clauseCount": 2,
       "statutes": [
         {
@@ -872,6 +998,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -921,9 +1059,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreibqwm3icmmikhtf47s4qpo4yccto4jdgs7gfuzlzpr35k3m5q4nrq",
-      "bodySha256": "0x30b33681318851e65e7e5c83ddcc08537712334be62d32bcbe3beab6cec38d8c",
-      "bytes": 2782,
+      "bodyCid": "bafkreiazy4gghs5eujvpqp2vsxeosdda3gx5abfiygolfeosvjvvzjfd7m",
+      "bodySha256": "0x19c70c63cba4a26af83f5595c8e90c60d9afd004a8c19cb291d2aa6b5ca4a3fb",
+      "bytes": 3118,
       "clauseCount": 5,
       "statutes": [
         {
@@ -949,6 +1087,18 @@
           "citation": "GDPR Art. 15",
           "instrument": "Regulation (EU) 2016/679 (GDPR)",
           "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2326-1-1"
+        },
+        {
+          "id": "st.au-privacy",
+          "citation": "Privacy Act 1988 (Cth), APP 12",
+          "instrument": "Privacy Act 1988 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A03712/latest"
+        },
+        {
+          "id": "st.ca-pipeda",
+          "citation": "PIPEDA, Sch.1 cl.4.9",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.brazil-lgpd-18",
@@ -1009,6 +1159,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -1058,9 +1220,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreihzs5bqus7ivhqd7x7nb2spobxbxez4eeyxgd5tuvejo4qaszdu5y",
-      "bodySha256": "0xf997430a4be8a9e03fdfed0ea4f706e1b933c2131730fb3a54897720096474ee",
-      "bytes": 2738,
+      "bodyCid": "bafkreifqc7pef5c3xyd6x72puznvpagj5tjj6rng5srinfqa2bd2dkmyo4",
+      "bodySha256": "0xb017de42f45bbe07ebff4fa65b5780c9ecd29f45a6eca2869600d047a1a99877",
+      "bytes": 3074,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1086,6 +1248,18 @@
           "citation": "GDPR Art. 15",
           "instrument": "Regulation (EU) 2016/679 (GDPR)",
           "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2326-1-1"
+        },
+        {
+          "id": "st.au-privacy",
+          "citation": "Privacy Act 1988 (Cth), APP 12",
+          "instrument": "Privacy Act 1988 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A03712/latest"
+        },
+        {
+          "id": "st.ca-pipeda",
+          "citation": "PIPEDA, Sch.1 cl.4.9",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.brazil-lgpd-18",
@@ -1146,6 +1320,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -1195,9 +1381,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreianan2uq4xic4mxqqmjv7o7k4tnvpnahatq3tt5c3nra7wves5vc4",
-      "bodySha256": "0x0d03754872e81719784189afddf5726dabda038270dce7d16db107ed524bb517",
-      "bytes": 2742,
+      "bodyCid": "bafkreidpsuuigwp7sjo4esms6tqb4k47hoefxwxx4gc3vgfh44imjsl2xm",
+      "bodySha256": "0x6f95288359ff925dc24992f4e01e2b9f3b885bdaf7e185ba98a7e710c4c97abb",
+      "bytes": 3078,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1223,6 +1409,18 @@
           "citation": "GDPR Art. 15",
           "instrument": "Regulation (EU) 2016/679 (GDPR)",
           "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2326-1-1"
+        },
+        {
+          "id": "st.au-privacy",
+          "citation": "Privacy Act 1988 (Cth), APP 12",
+          "instrument": "Privacy Act 1988 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A03712/latest"
+        },
+        {
+          "id": "st.ca-pipeda",
+          "citation": "PIPEDA, Sch.1 cl.4.9",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.brazil-lgpd-18",
@@ -1285,6 +1483,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -1332,11 +1542,17 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreid6winksk2ato6q6eyrefh46g4pi4ldh26trjzrkqywxpslsdbbki",
-      "bodySha256": "0x7eb21aa92b409bbd0f1311214fcf1b8f471633ebd38a73154316bbe4b90c2152",
-      "bytes": 3374,
+      "bodyCid": "bafkreifrg7vqgi432hqwfzoqfqiwthiygrwg3jjt4qufqdc6shf33tlswe",
+      "bodySha256": "0xb137eb03239bd1e162e5d02c11699d18346c6da533e428580c5e91cbbdcd72b1",
+      "bytes": 3934,
       "clauseCount": 7,
       "statutes": [
+        {
+          "id": "st.br-clt-443",
+          "citation": "CLT, Art. 443",
+          "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
         {
           "id": "st.jp-rouki-15",
           "citation": "労働基準法15条",
@@ -1368,10 +1584,22 @@
           "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
         },
         {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
+        },
+        {
           "id": "st.eu-late-payment",
           "citation": "Directive 2011/7/EU, Art. 3",
           "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
           "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.au-fair-work",
+          "citation": "Fair Work Act 2009 (Cth), s.117",
+          "instrument": "Fair Work Act 2009 (Australia)",
+          "url": "https://www.legislation.gov.au/C2009A00028/latest"
         },
         {
           "id": "st.jp-roukei-16",
@@ -1422,6 +1650,18 @@
           "url": "https://www.govinfo.gov/app/details/USCODE-2022-title18/USCODE-2022-title18-partI-chap90-sec1836"
         },
         {
+          "id": "st.br-cc-421",
+          "citation": "Codigo Civil, Art. 421",
+          "instrument": "Codigo Civil (Lei 10.406/2002), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+        },
+        {
+          "id": "st.israel-contracts-23",
+          "citation": "Contracts (General Part) Law 5733-1973, §23",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -1462,6 +1702,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -1511,11 +1763,17 @@
       "jurisdictions": [
         "ES"
       ],
-      "bodyCid": "bafkreiad4oqvyvt6ybsorykvtgjra3zlwl3xyi5zhozbzee7vg4fkzda5m",
-      "bodySha256": "0x03e3a15c567ec064e8e1559993106f2bb2f77c23b93bb21c909fa9b8556460eb",
-      "bytes": 2289,
+      "bodyCid": "bafkreigg22skt7yoq4uezw7w3nqwdvfmj43feomoebzoidov4ccbxhhjx4",
+      "bodySha256": "0xc6d6a4a9ff0e87284cdbf6db6161d4ac4f3652398e2072e40dd5e0841b9ce9bf",
+      "bytes": 2621,
       "clauseCount": 3,
       "statutes": [
+        {
+          "id": "st.br-clt-443",
+          "citation": "CLT, Art. 443",
+          "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
         {
           "id": "st.jp-rouki-15",
           "citation": "労働基準法15条",
@@ -1547,6 +1805,12 @@
           "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
         },
         {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
+        },
+        {
           "id": "st.eu-late-payment",
           "citation": "Directive 2011/7/EU, Art. 3",
           "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
@@ -1575,6 +1839,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -1624,11 +1900,17 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreiejf4h2edtnvamom4t57wj7xj7vyjzlzafk3s6ihruhsdxz542dia",
-      "bodySha256": "0x892f0fa20e6da818e6727dfd93fba7f5c272bc80aadcbc83c68790ef9ef34340",
-      "bytes": 2522,
+      "bodyCid": "bafkreibkhm365svvwayvdu5qva4h4ait2llcgbsxvdm4ks3ildxroezlpi",
+      "bodySha256": "0x2a3b37eecab5b03151d3b0a8387e0113d2d6230657a8d9c54b6858ef17132b7a",
+      "bytes": 2851,
       "clauseCount": 3,
       "statutes": [
+        {
+          "id": "st.br-clt-443",
+          "citation": "CLT, Art. 443",
+          "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
         {
           "id": "st.jp-rouki-15",
           "citation": "労働基準法15条",
@@ -1658,6 +1940,12 @@
           "citation": "Estatuto de los Trabajadores, Art. 8",
           "instrument": "Estatuto de los Trabajadores (Spain)",
           "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+        },
+        {
+          "id": "st.au-fair-work",
+          "citation": "Fair Work Act 2009 (Cth), s.117",
+          "instrument": "Fair Work Act 2009 (Australia)",
+          "url": "https://www.legislation.gov.au/C2009A00028/latest"
         },
         {
           "id": "st.jp-roukei-16",
@@ -1714,6 +2002,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -1761,9 +2061,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreib2asrwaltd7lm3mbc5rvejkyomjpe3wodpa7745xcawlescbp3hi",
-      "bodySha256": "0x3a04a3602e63fad9b6045d8d489561cc4bc9bb386f07ffcedc40b2c92105fb3a",
-      "bytes": 3784,
+      "bodyCid": "bafkreidwdg4ibhxbrkt5gl47vbe6edpwr6xuperna2fiz4gb6o3upnyqde",
+      "bodySha256": "0x7619b8809ee18aa7d32f9fa849e20df68faf47922d068a8cf0c1f3b747b71019",
+      "bytes": 4182,
       "clauseCount": 8,
       "statutes": [
         {
@@ -1777,6 +2077,12 @@
           "citation": "ILO C105",
           "instrument": "ILO Abolition of Forced Labour Convention, 1957 (No. 105)",
           "url": "https://normlex.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_INSTRUMENT_ID:312250"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -1863,6 +2169,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -1899,6 +2217,12 @@
           "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         },
         {
+          "id": "st.br-clt-443",
+          "citation": "CLT, Art. 443",
+          "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
+        {
           "id": "st.jp-rouki-15",
           "citation": "労働基準法15条",
           "instrument": "労働基準法 (昭和22年法律第49号)",
@@ -1927,6 +2251,12 @@
           "citation": "Estatuto de los Trabajadores, Art. 8",
           "instrument": "Estatuto de los Trabajadores (Spain)",
           "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+        },
+        {
+          "id": "st.au-fair-work",
+          "citation": "Fair Work Act 2009 (Cth), s.117",
+          "instrument": "Fair Work Act 2009 (Australia)",
+          "url": "https://www.legislation.gov.au/C2009A00028/latest"
         },
         {
           "id": "st.jp-roukei-16",
@@ -1970,11 +2300,17 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreifkaalnzulxkhjuea37hnukim4jbypaidos5iujk3xn2jlsmkijwi",
-      "bodySha256": "0xaa0016dcd17751d342037f3b68a433890e1e040dd2ea28956eedd257262909b2",
-      "bytes": 2679,
+      "bodyCid": "bafkreibx4wkw5q2set6lnoul6gcgnn44hwvq5oh6gf7nw6l7us3g4cgtbm",
+      "bodySha256": "0x37e5956ec35224fcb6ba8bf18466b79c3dab0eb8fe317edb797fa4b66e08d30b",
+      "bytes": 3077,
       "clauseCount": 4,
       "statutes": [
+        {
+          "id": "st.br-clt-443",
+          "citation": "CLT, Art. 443",
+          "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
         {
           "id": "st.jp-rouki-15",
           "citation": "労働基準法15条",
@@ -2006,10 +2342,22 @@
           "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
         },
         {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
+        },
+        {
           "id": "st.eu-late-payment",
           "citation": "Directive 2011/7/EU, Art. 3",
           "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
           "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.au-fair-work",
+          "citation": "Fair Work Act 2009 (Cth), s.117",
+          "instrument": "Fair Work Act 2009 (Australia)",
+          "url": "https://www.legislation.gov.au/C2009A00028/latest"
         },
         {
           "id": "st.jp-roukei-16",
@@ -2064,6 +2412,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -2113,11 +2473,17 @@
       "jurisdictions": [
         "CN"
       ],
-      "bodyCid": "bafkreihr7pt7pet4r7hwtq4rcur424mhuqf77uejocgr6vqizemaidjs4a",
-      "bodySha256": "0xf1fbe7f7927c8fcf69c3911523cd7187a40bffd089708d1f5608c918040d32e0",
-      "bytes": 2122,
+      "bodyCid": "bafkreigh656koddezhgtph7jh7gtrobgpv2mldokhvoeq2ufb6iu62l6ye",
+      "bodySha256": "0xc7f77ca70c64c9cd379fe93fcd38b8267d74c58dca3d5c486a850f914f697ec1",
+      "bytes": 2385,
       "clauseCount": 2,
       "statutes": [
+        {
+          "id": "st.br-clt-443",
+          "citation": "CLT, Art. 443",
+          "instrument": "Consolidacao das Leis do Trabalho (Decreto-Lei 5.452/1943), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+        },
         {
           "id": "st.jp-rouki-15",
           "citation": "労働基準法15条",
@@ -2173,6 +2539,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -2220,9 +2598,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreignklckrn3l6zjq6yrwswdhzdgdp5ylravhz3wzboldq6ldrwhmxu",
-      "bodySha256": "0xcd52c4a8b76bf6530f623695867c8cc37f70b882a7ceed90b963879638d8ecbd",
-      "bytes": 3125,
+      "bodyCid": "bafkreicfsa7qjfs42acrs22664wedhsyuixvdfuiyva22op53x5c66f7wu",
+      "bodySha256": "0x45903f04965cd005196b5ef72c419e58a22f519688c541ad39fdddfa2f78bfb5",
+      "bytes": 3373,
       "clauseCount": 7,
       "statutes": [
         {
@@ -2248,6 +2626,12 @@
           "citation": "17 U.S.C. §106",
           "instrument": "US Copyright Act (Title 17)",
           "url": "https://www.govinfo.gov/app/details/USCODE-2022-title17/USCODE-2022-title17-chap1-sec106"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -2334,6 +2718,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -2381,9 +2777,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreicdiqquoreyto6ly5gaw35necusoklx2argio46r7wleo6g5qfgrm",
-      "bodySha256": "0x4344214744989bbcbc74c0b6fad20a9272977d022643b9e8fecb23bc6ec0a68b",
-      "bytes": 2428,
+      "bodyCid": "bafkreienph2rpcfjffs6dpmduryow2ryut57j4gleb7dn7ukjb647i7cge",
+      "bodySha256": "0x8d79f51788a92965e1bd83a470eb6a38a4fbf4f0cb207e36fe8a487dcfa3e231",
+      "bytes": 2676,
       "clauseCount": 5,
       "statutes": [
         {
@@ -2403,6 +2799,12 @@
           "citation": "BGB §765",
           "instrument": "Buergerliches Gesetzbuch (BGB), Germany",
           "url": "https://www.gesetze-im-internet.de/bgb/__765.html"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -2445,6 +2847,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -2494,9 +2908,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiep32q5bbphb5jxyet2fmh7dfrr65z6c6sf5hslvy5opscgt4y7be",
-      "bodySha256": "0x8fdea1d085e70f537c127a2b0ff19631f773e17a45e9e4bae3ae7c8469f31f09",
-      "bytes": 2136,
+      "bodyCid": "bafkreif3fgwbg5xic5vpfheabyuuqutdv7q5l3boghosxlagzvbajqfkhq",
+      "bodySha256": "0xbb29ac1376e8176af29c800e29485263afe1d5ec2e31dd2bac06cd4204c0aa3c",
+      "bytes": 2384,
       "clauseCount": 3,
       "statutes": [
         {
@@ -2516,6 +2930,12 @@
           "citation": "BGB §765",
           "instrument": "Buergerliches Gesetzbuch (BGB), Germany",
           "url": "https://www.gesetze-im-internet.de/bgb/__765.html"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -2546,6 +2966,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -2595,9 +3027,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiafq2qpnacf6laovv4xpnrhstcgtgkywhigq7wr3fxg7eltwb44ti",
-      "bodySha256": "0x0586a0f68045f2c0ead7977b62794c4699958b1d0687ed1d96e6f9173b079c9a",
-      "bytes": 2424,
+      "bodyCid": "bafkreiedyyr67z3ygks7bseuhambbjaw6dj4pt4loyqfyea3fpeo6ersu4",
+      "bodySha256": "0x83c623efe77832a5f0c894381810a416f0d3c7cf8b76205c101b2bc8ef1232a7",
+      "bytes": 2834,
       "clauseCount": 4,
       "statutes": [
         {
@@ -2607,10 +3039,28 @@
           "url": "https://www.sefaria.org/Shulchan_Arukh,_Yoreh_De'ah.177"
         },
         {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
+        },
+        {
           "id": "st.eu-late-payment",
           "citation": "Directive 2011/7/EU, Art. 3",
           "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
           "url": "https://eur-lex.europa.eu/eli/dir/2011/7/oj"
+        },
+        {
+          "id": "st.br-cc-421",
+          "citation": "Codigo Civil, Art. 421",
+          "instrument": "Codigo Civil (Lei 10.406/2002), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+        },
+        {
+          "id": "st.israel-contracts-23",
+          "citation": "Contracts (General Part) Law 5733-1973, §23",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
         },
         {
           "id": "st.unidroit-2016",
@@ -2653,6 +3103,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -2702,9 +3164,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreichcvmoft5apy4ytx77z5gqfbhw33shdgx2bmeqwuh5yrhjfamkh4",
-      "bodySha256": "0x471558e2cfa07e3989dfffcf4d0284f6dee4719afa0b090b50fdc44e92818a3f",
-      "bytes": 2712,
+      "bodyCid": "bafkreie63w4l2xwbfqmx2pdfxshzeregc3ugl7gcioa2xmettdzphfazme",
+      "bodySha256": "0x9eddb8bd5ec12c197d3c65bc8f92448616e865fcc24381abb09398f2f3941961",
+      "bytes": 2960,
       "clauseCount": 5,
       "statutes": [
         {
@@ -2724,6 +3186,12 @@
           "citation": "Directive (EU) 2016/97, Art. 20",
           "instrument": "Insurance Distribution Directive (EU) 2016/97",
           "url": "https://eur-lex.europa.eu/eli/dir/2016/97/oj"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -2786,6 +3254,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -2833,9 +3313,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreieinvykwym72kwcjo3coy4gdgpakxxihsfzvjb2spfkpsr67dpcwm",
-      "bodySha256": "0x886d70ab619fd2ac24bb6276386199e055ee83c8b9aa43a93caa7ca3ef8de2b3",
-      "bytes": 2804,
+      "bodyCid": "bafkreifxdkkqzay22wrxlslkvfbqgo6kgvpxxhvgstvvr73vt6uqwit7bm",
+      "bodySha256": "0xb71a950c831ad5a375c96aa943033bca355f7b9ea694eb58ff759fa90b227f0b",
+      "bytes": 3052,
       "clauseCount": 6,
       "statutes": [
         {
@@ -2893,6 +3373,12 @@
           "url": "https://www.gesetze-im-internet.de/bgb/__535.html"
         },
         {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
+        },
+        {
           "id": "st.eu-late-payment",
           "citation": "Directive 2011/7/EU, Art. 3",
           "instrument": "Directive 2011/7/EU (combating late payment in commercial transactions)",
@@ -2927,6 +3413,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -2976,9 +3474,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiaik6p4odajra3mslxjs6tmc4kpqafymkfe7i4tptyawmublgqtka",
-      "bodySha256": "0x08579fc70c098836c92ee997a6c1714f800b8628a4fa3937cf00b328159a1350",
-      "bytes": 2349,
+      "bodyCid": "bafkreiao3hhrzeld55yuy7unb3gjek3msdw6mnekavrcc3xhpwpd4a4j74",
+      "bodySha256": "0x0ed9cf1c9163ef714c7e8d0ecc922b6c90ede6348a0562216ee77d9e3e0389ff",
+      "bytes": 2597,
       "clauseCount": 5,
       "statutes": [
         {
@@ -2998,6 +3496,12 @@
           "citation": "民法601条",
           "instrument": "民法 (明治29年法律第89号)",
           "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -3034,6 +3538,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -3083,9 +3599,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreidyc7iqjkmsnosko2mu4vhhelz6zbx6tcr6qeggkw5q42ehbwmoye",
-      "bodySha256": "0x7817d104a9926ba4a76994e54e722f3ec86fe98a3e810c655bb0e68870d98ec1",
-      "bytes": 2243,
+      "bodyCid": "bafkreihhezsobywc47fji3zyzuzflmtdhowdi5rlrprrqkyyrdrde4vu4i",
+      "bodySha256": "0xe72664e0e2c2e7ca946f38cd3255b2633bac34762b8be3182b1888e23272b4e2",
+      "bytes": 2491,
       "clauseCount": 4,
       "statutes": [
         {
@@ -3105,6 +3621,12 @@
           "citation": "民法601条",
           "instrument": "民法 (明治29年法律第89号)",
           "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -3135,6 +3657,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -3184,9 +3718,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreig3eowtbdejbwrxtdwsfbmpteceaomtg46cjegcwhl2yylxqscmt4",
-      "bodySha256": "0xdb23ad308c890da3798ed22858f9904403993373c2490c2b1d7ac61778484c9f",
-      "bytes": 2454,
+      "bodyCid": "bafkreidzm7vwsb4zdxbpy3qcu53bxir2sbtdbqwqz7staczo554oizappu",
+      "bodySha256": "0x7967eb6907991dc2fc6e02a7761ba23a906630c2d0cfe5300b2eef78e4640f7d",
+      "bytes": 2864,
       "clauseCount": 4,
       "statutes": [
         {
@@ -3200,6 +3734,12 @@
           "citation": "AAOIFI SS No. 19 (Qarḍ)",
           "instrument": "AAOIFI Shari'ah Standards",
           "url": "https://aaoifi.com/shariaa-standards/?lang=en"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -3230,6 +3770,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -3268,6 +3820,18 @@
           "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Digital+Signature+Act"
         },
         {
+          "id": "st.br-cc-421",
+          "citation": "Codigo Civil, Art. 421",
+          "instrument": "Codigo Civil (Lei 10.406/2002), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+        },
+        {
+          "id": "st.israel-contracts-23",
+          "citation": "Contracts (General Part) Law 5733-1973, §23",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -3297,9 +3861,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreig2npvvenlfj6vxsae3cc23jtqmflzggoomidg2w72raqn7rx55re",
-      "bodySha256": "0xda6beb5235654fab79009b10b5b4ce0c2af26339cc40cdab7f51041bf8dfbd89",
-      "bytes": 2130,
+      "bodyCid": "bafkreiajglypwz7iqffd6zxm64fqptqnbemozw6qhwvyx2amddfpg5cgpi",
+      "bodySha256": "0x0932f0fb67e8814a3f66ecf70b07ce0d0918ecdbd03dab8be80c18caf374467a",
+      "bytes": 2378,
       "clauseCount": 3,
       "statutes": [
         {
@@ -3313,6 +3877,12 @@
           "citation": "AAOIFI SS No. 19 (Qarḍ)",
           "instrument": "AAOIFI Shari'ah Standards",
           "url": "https://aaoifi.com/shariaa-standards/?lang=en"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -3343,6 +3913,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -3392,9 +3974,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreieamxkipjp7xph6myslu4w6tjyojl73ykwackq7mrqagzaaaur67y",
-      "bodySha256": "0x8065d487a5ffbbcfe6624ba72de9a70e4affbc2ac012a1f64600364000523efe",
-      "bytes": 2037,
+      "bodyCid": "bafkreicz3hflylgp3u44kry6srxmdfnpqrw4dhg5tfz6tieo4ir4lu3tnm",
+      "bodySha256": "0x59d9cabc2ccfdd39c5471e946ec195af846dc19cdd9973e9a08ee223c5d3736b",
+      "bytes": 2216,
       "clauseCount": 2,
       "statutes": [
         {
@@ -3438,6 +4020,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -3487,9 +4081,9 @@
       "jurisdictions": [
         "ES"
       ],
-      "bodyCid": "bafkreihflyyvtgxigzpkxcmkygl3e7ue2uwluxdbyoskebf5xsjor7un6e",
-      "bodySha256": "0xe55e31599ae8365eab898ac197b27e84d52cba5c61c3a4a204bdbc92e8fe8df1",
-      "bytes": 2031,
+      "bodyCid": "bafkreigihrphob4tdqeszbj4nmpaa5wwjknsrsrhrvuk7tp57rcn4gb7mq",
+      "bodySha256": "0xc83c5e7707931c092c853c6b1e0076d64a9b28ca278d68afcdfdfc44de183f64",
+      "bytes": 2210,
       "clauseCount": 2,
       "statutes": [
         {
@@ -3533,6 +4127,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -3582,9 +4188,9 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreiblqabqgsvzm5umvrt4kbtpic57azru5lzite5md3ll3iumu3ik3m",
-      "bodySha256": "0x2b8003034ab96768cac67c5066f40bbf06634eaf28993ac1ed6bda28ca6d0adb",
-      "bytes": 2034,
+      "bodyCid": "bafkreifyvlhowo5sg6eyrpgok3uhdgks5yqgg7nlz62csddm6j6t5svbze",
+      "bodySha256": "0xb8aaceeb3bb2378988bcce56e8719952ee20637dabcfb4290c6cf27d3ecaa1c9",
+      "bytes": 2213,
       "clauseCount": 2,
       "statutes": [
         {
@@ -3628,6 +4234,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -3677,9 +4295,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreigwj7hdhjnisnfo6k22b3or3bi6mtehxvei4zfugpialkk6iwlgwi",
-      "bodySha256": "0xd64fce33a5a8934aef2b5a0edd1d851e64c87bd488e64b433d005a95e45966b2",
-      "bytes": 2823,
+      "bodyCid": "bafkreicz244zyd7jrnliftmsew44kxymdzmzeb7o5wulgzpkrdjb7gyi5i",
+      "bodySha256": "0x59d7399c0fe98b5682cd9225b9c55f0c1e599207eeeda8b365ea88d21f9b08ea",
+      "bytes": 3002,
       "clauseCount": 6,
       "statutes": [
         {
@@ -3761,6 +4379,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -3808,9 +4438,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreigkfape6sn2iego2a4f7z5ru62epbph2aci3kizu2mq5mnhr2phaq",
-      "bodySha256": "0xca281e4f49ba410ced0385fe7b1a7b44785e7d0048da919a6990eb1a78e9e704",
-      "bytes": 2578,
+      "bodyCid": "bafkreigo7yzmix2ss72mde5cppembosxzrpruik4eh4qlx5wyekmyzdmba",
+      "bodySha256": "0xcefe32c45f5297f4c193a27bc8c0ba57cc5f1a215c21f905dfb6c114cc646c08",
+      "bytes": 2757,
       "clauseCount": 5,
       "statutes": [
         {
@@ -3880,6 +4510,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -3927,9 +4569,9 @@
       "jurisdictions": [
         "CN"
       ],
-      "bodyCid": "bafkreid62ffprrm7xbmwy47akpsy6kgospzh55gv4lp5vjpbrnkni4npjm",
-      "bodySha256": "0x7ed14af8c59fb8596c73e053e58f28ce93f27ef4d5e2dfdaa5e18b54d471af4b",
-      "bytes": 2016,
+      "bodyCid": "bafkreibjl77x2ns677ryknoef2utogg3x666ftqqs4hy4ise2bhl7rhwqu",
+      "bodySha256": "0x295fff7d365effe38535c42ea93718dbbfbde2ce10970f8e2244d04ebfc4f685",
+      "bytes": 2195,
       "clauseCount": 2,
       "statutes": [
         {
@@ -3973,6 +4615,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -4022,9 +4676,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreih7mtwldwynsju5f2uviuqihkkceuzc35f3buc4cyqqse77u3z5we",
-      "bodySha256": "0xff64ecb1db0d9269d2ea95452083a94225322df4bb0d05c16210913ffa6f3db1",
-      "bytes": 2148,
+      "bodyCid": "bafkreichrl3h2q4spbkw5ds6a2cmn76uvjyooodyhpn5lfoydfm3fu5mym",
+      "bodySha256": "0x478af67d439278556e8e5e0684c6ffd4aa70e738783bdbd595d81959b2d3acc3",
+      "bytes": 2327,
       "clauseCount": 3,
       "statutes": [
         {
@@ -4062,6 +4716,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -4123,9 +4789,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreifid2t3d6l3dqq6mhnuqh4tio2vqfztlut57cvxahdysehjcaozsu",
-      "bodySha256": "0xa81ea7b1f97b1c21e61db481f9343b55817335d27df8ab701c78910e9101d995",
-      "bytes": 2935,
+      "bodyCid": "bafkreiec6pig5ivzojuwl66ctcj2w5ggqbiqz63o32brgefwjk6m5p7ite",
+      "bodySha256": "0x82f3d06ea2b9726965fbc29893ab74c680510cfb6ede831310b64abccebfe899",
+      "bytes": 3276,
       "clauseCount": 7,
       "statutes": [
         {
@@ -4145,6 +4811,18 @@
           "citation": "BGB §705",
           "instrument": "Bürgerliches Gesetzbuch (BGB), Germany",
           "url": "https://www.gesetze-im-internet.de/bgb/__705.html"
+        },
+        {
+          "id": "st.br-cc-421",
+          "citation": "Codigo Civil, Art. 421",
+          "instrument": "Codigo Civil (Lei 10.406/2002), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+        },
+        {
+          "id": "st.israel-contracts-23",
+          "citation": "Contracts (General Part) Law 5733-1973, §23",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
         },
         {
           "id": "st.unidroit-2016",
@@ -4213,6 +4891,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4260,9 +4950,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibgebwvi4l334no53frodheylpmtuqraj5v4cs6tfuhafynexn2jy",
-      "bodySha256": "0x26206d54717bdf1aeeecb170ce4c2dec9d211027b5e0a5e996870170d25dba4e",
-      "bytes": 2071,
+      "bodyCid": "bafkreibbaok4ucwzanzcbwpst64rj7chixgfxj3sg3c5zmcpstje2pyefu",
+      "bodySha256": "0x210395ca0ad9037220d9f29fb914fc4745cc5ba77236c5dcb04f94d24d3f042d",
+      "bytes": 2250,
       "clauseCount": 4,
       "statutes": [
         {
@@ -4306,6 +4996,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
@@ -4355,9 +5057,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreibrk663lnjgq677axgsws34pisei5i3agts4d6revimpkprtzv3wq",
-      "bodySha256": "0x3157bdb5b52687bff05cd2b4b7c7a2444751b01a72e0fd12550c7a9f19e6bbb4",
-      "bytes": 4277,
+      "bodyCid": "bafkreicfg6w37uojb3twuawnpqmn4xx2gyiyj6wohq7pihoabkz2rzmf5q",
+      "bodySha256": "0x4537adbfd1c90ee76a02cd7c18de5efa361184face3c3ef41dc00ab3a8e585ec",
+      "bytes": 4687,
       "clauseCount": 10,
       "statutes": [
         {
@@ -4413,6 +5115,12 @@
           "citation": "民法562条",
           "instrument": "民法 (明治29年法律第89号)",
           "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -4517,6 +5225,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4565,6 +5285,18 @@
           "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
         },
         {
+          "id": "st.br-cc-421",
+          "citation": "Codigo Civil, Art. 421",
+          "instrument": "Codigo Civil (Lei 10.406/2002), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+        },
+        {
+          "id": "st.israel-contracts-23",
+          "citation": "Contracts (General Part) Law 5733-1973, §23",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
+        },
+        {
           "id": "st.unidroit-2016",
           "citation": "UNIDROIT Principles 2016, Art. 1.7",
           "instrument": "UNIDROIT Principles of International Commercial Contracts (2016)",
@@ -4594,9 +5326,9 @@
       "jurisdictions": [
         "US"
       ],
-      "bodyCid": "bafkreigucffzdraauq76cfxn5opxaf2422zc7qodygk63wvuxmhbnrvy4a",
-      "bodySha256": "0xd4114b91c400a43fe116edeb9f70175cd6b22fc1c3c195eddab4bb0e16c6b8e0",
-      "bytes": 2256,
+      "bodyCid": "bafkreig42gjhdpnhl7654jpqmb5d764shiiyylvqi7e7hxppxndtrxslqi",
+      "bodySha256": "0xdcd19271bda75ffdde25f0607a3ffb923a118c2eb047c9f3ddefbb4738de4b82",
+      "bytes": 2435,
       "clauseCount": 4,
       "statutes": [
         {
@@ -4654,6 +5386,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4701,11 +5445,17 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreibv3d7eojovdwr7xweklhe4veylih2cu4blvjgwov73k3doqsdcbe",
-      "bodySha256": "0x35d8fe4725d51da3fbd88a59c9ca930b41f42a702baa4d6757fb56c6e8486209",
-      "bytes": 2643,
+      "bodyCid": "bafkreiawvq55tdxk6cltokfjcd37bkmonldp234ky4lcjdojjskebgsbmy",
+      "bodySha256": "0x16ac3bd98eeaf0973728a910f7f0a98e6ac6fd6f8ac716248dc94c94409a4166",
+      "bytes": 3053,
       "clauseCount": 7,
       "statutes": [
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
+        },
         {
           "id": "st.eu-late-payment",
           "citation": "Directive 2011/7/EU, Art. 3",
@@ -4723,6 +5473,18 @@
           "citation": "消費者契約法8条",
           "instrument": "消費者契約法 (平成12年法律第61号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000061"
+        },
+        {
+          "id": "st.br-cc-421",
+          "citation": "Codigo Civil, Art. 421",
+          "instrument": "Codigo Civil (Lei 10.406/2002), Brazil",
+          "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"
+        },
+        {
+          "id": "st.israel-contracts-23",
+          "citation": "Contracts (General Part) Law 5733-1973, §23",
+          "instrument": "Contracts (General Part) Law, 5733-1973 (Israel)",
+          "url": "https://www.nevo.co.il/law_html/law01/055_002.htm"
         },
         {
           "id": "st.unidroit-2016",
@@ -4773,6 +5535,18 @@
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
         },
         {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
           "id": "st.uncitral-mlesig",
           "citation": "UNCITRAL MLES 2001, Art. 6",
           "instrument": "UNCITRAL Model Law on Electronic Signatures",
@@ -4820,9 +5594,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreibyyyjhv63s2gviag6wv2w5mb5hxc36r6d5dj2o6pzepnyjlkf27a",
-      "bodySha256": "0x38c6127afb72d1aa801bd6aeadd607a7b8b7e8f87d1a74ef3f247b7095a8baf8",
-      "bytes": 2520,
+      "bodyCid": "bafkreicc5ymxv2zyqzfqu635o7xwamfligvqakw2km3k4idqp7kp7ggk6i",
+      "bodySha256": "0x42ee197aeb38864b0a7b7d77ef6030ab41ab002ada5336ae20707fd4ff98caf2",
+      "bytes": 2768,
       "clauseCount": 5,
       "statutes": [
         {
@@ -4836,6 +5610,12 @@
           "citation": "Indian Contract Act 1872, §25",
           "instrument": "Indian Contract Act, 1872",
           "url": "https://www.indiacode.nic.in/handle/123456789/2187"
+        },
+        {
+          "id": "st.kr-civil-390",
+          "citation": "Civil Act, Art. 390 (Korea)",
+          "instrument": "Civil Act (민법), Republic of Korea",
+          "url": "https://www.law.go.kr/LSW/eng/engLsSc.do?menuId=2&query=Civil+Act"
         },
         {
           "id": "st.eu-late-payment",
@@ -4884,6 +5664,18 @@
           "citation": "電子署名法3条",
           "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
           "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        },
+        {
+          "id": "st.au-esign",
+          "citation": "Electronic Transactions Act 1999 (Cth), s.10",
+          "instrument": "Electronic Transactions Act 1999 (Australia)",
+          "url": "https://www.legislation.gov.au/C2004A00553/latest"
+        },
+        {
+          "id": "st.ca-pipeda-43",
+          "citation": "PIPEDA, s.43",
+          "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
+          "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
         },
         {
           "id": "st.uncitral-mlesig",
