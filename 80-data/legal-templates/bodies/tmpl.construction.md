@@ -1,6 +1,6 @@
-# 特定商取引 契約書 (クーリングオフ条項付)
+# Construction Works Contract
 
-Language: ja  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.0.0  ·  Disclosed stance: pro-consumer
+Language: en  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.0.0  ·  Disclosed stance: balanced
 
 > This is a FAIR, openly-licensed template from the hinagata 雛形 commons. It is NOT legal advice and NOT a substitute for counsel. The parties execute it as their own act. Each clause cites the public law it rests on, for traceability.
 
@@ -13,13 +13,24 @@ Language: ja  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.
 - amount: [___]
 
 ## Clauses
-### 1. Cooling-off / withdrawal right  (cooling-off, mandatory)
-_Rests on:_ 特定商取引法9条 (特定商取引に関する法律 (昭和51年法律第57号)); Directive 2011/83/EU, Art. 9 (Consumer Rights Directive 2011/83/EU); Consumer Contracts Regulations 2013, reg.29 (The Consumer Contracts (Information, Cancellation and Additional Charges) Regulations 2013 (UK)); Code de la consommation, Art. L221-18 (Code de la consommation (France)); 16 CFR Part 429 (FTC Cooling-Off Rule (US))
+### 1. Force majeure  (force-majeure, optional)
+_Rests on:_ CISG Art. 79 (UN Convention on Contracts for the International Sale of Goods (1980)); 民法536条 (民法 (明治29年法律第89号))
 
-### 2. Payment terms  (payment, recommended)
+### 2. Definitions  (definitions, recommended)
+
+### 3. Scope of works, completion & defects liability  (warranty, mandatory)
+_Rests on:_ 民法632条 (民法 (明治29年法律第89号)); 建設業法19条 (建設業法 (昭和24年法律第100号)); Code civil, Art. 1792 (Code civil (France))
+
+### 4. Payment terms  (payment, recommended)
 _Rests on:_ Civil Act, Art. 390 (Korea) (Civil Act (민법), Republic of Korea); Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late payment in commercial transactions))
 
-### 3. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
+### 5. Limitation of liability  (liability, recommended)
+_Rests on:_ UCTA 1977 s.2 (Unfair Contract Terms Act 1977 (UK)); 消費者契約法8条 (消費者契約法 (平成12年法律第61号))
+
+### 6. Dispute resolution — arbitration  (dispute, optional)
+_Rests on:_ New York Convention 1958, Art. III (Convention on the Recognition and Enforcement of Foreign Arbitral Awards (1958)); UNCITRAL Model Law, Art. 7 (UNCITRAL Model Law on International Commercial Arbitration); 仲裁法13条 (仲裁法 (平成15年法律第138号)); Arbitration Act 1996, s.6 (Arbitration Act 1996 (UK)); 9 U.S.C. §2 (Federal Arbitration Act (US)); ZPO §1029 (Zivilprozessordnung (ZPO), Germany); Code de procedure civile, Art. 1442 (Code de procedure civile (France)); Arbitration and Conciliation Act 1996, §7 (Arbitration and Conciliation Act, 1996 (India))
+
+### 7. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号)); Electronic Transactions Act 1999 (Cth), s.10 (Electronic Transactions Act 1999 (Australia)); PIPEDA, s.43 (Personal Information Protection and Electronic Documents Act (Canada)); UU No. 11/2008 (ITE), Pasal 11 (Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)); UNCITRAL MLES 2001, Art. 6 (UNCITRAL Model Law on Electronic Signatures); Information Technology Act 2000, §5 (Information Technology Act, 2000 (India)); Electronic Transactions Act 2010, §8 (Electronic Transactions Act 2010 (Singapore)); PRC Electronic Signature Law, Art. 14 (Electronic Signature Law of the People's Republic of China (2004)); BGB §126a (Bürgerliches Gesetzbuch (BGB), Germany); Digital Signature Act, Art. 3 (Korea) (Digital Signature Act (전자서명법), Republic of Korea)
 
 ## Execution

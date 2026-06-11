@@ -5,7 +5,7 @@ status: active
 doc_type: adr
 topic: hinagata-legal-template-commons
 authoritative: true
-last_verified: 2026-06-11
+last_verified: 2026-06-12
 priority: 5.0
 axis: architecture
 weight: 0.55
@@ -119,8 +119,35 @@ legal-corpus binding + IPFS pin/IPNS) · G8 no-server-key.
   design; `coverage_report.py` measures it and names the next-wave binding worklist (more
   jurisdictions; UK/other sources are in the allowlist but not yet seeded).
 - **Negative / deferred**: clause body-text fragments are not yet individually content-addressed
-  (template-level only); multi-language coverage is thin (one JP↔EN pair); the legal-corpus
-  live binding is future work gated on ADR-2605262800 W1.
+  (template-level only); the legal-corpus live binding is future work gated on ADR-2605262800 W1.
+
+## Coverage expansion — `/loop` waves 1–22 (2026-06-11 / 06-12, PR #1649)
+
+The R1 seed (11 templates / 23 clauses / 18 statutes / 5 jurisdictions / 1 language / 23 tests,
+117 縁) was expanded over 22 self-paced `/loop` iterations into a mature, worldwide corpus while
+keeping every test green and the integrity validator clean. Final state:
+
+- **Size**: 51 templates · 46 clauses · 132 statutes · 19 jurisdictions · 32 concepts ·
+  10 languages · 619 縁 · 33 tests green.
+- **Worldwide grounding**: the eight most cross-cutting clauses (electronic signature,
+  data-protection, sale-of-goods warranty, employment, tenancy, IP-licensing, consumer
+  cooling-off, dispute-resolution) are each grounded in real public law across many
+  jurisdictions; all six legal systems (civil / common / international / religious / customary /
+  mixed) are represented; 28/30→33/35→… ending at all clauses but two (`:definitions`,
+  `:service-levels`, both genuinely non-statutory) statute-bound.
+- **~30 contract families** incl. sale, NDA, DPA (+2021 SCC version), lease (JP/DE +
+  jurisdiction-neutral), employment (ILO/DE/global), consulting, OSS/CC/copyleft licensing,
+  zero-interest + heter-iska finance, donation, consumer-sale, partnership, power-of-attorney,
+  settlement, guaranty, franchise, distribution, security-interest, insurance, construction,
+  services-SLA, joint-venture, SaaS-subscription, escrow.
+- **10 languages** (en/ja/fr/de/es/zh/pt/ko/hi/ar) with 23 `:translates` pairs.
+- **Maturity tooling added**: `validate.py` (integrity checker, 0 errors / 0 warnings),
+  `maturity.py` (generated `MATURITY.md` scorecard), and per-language + per-jurisdiction +
+  relational-depth (`:conflicts-with` / `:derived-from` / `:supersedes`) measurement in
+  `coverage_report.py`. **All ten ontology edge kinds are now exercised.**
+
+Live legal-corpus binding (ADR-2605262800) + IPFS pin / IPNS publish remain G7-gated; clause
+body-text fragments and rendered full bodies (vs structural stubs) remain future work.
 
 # Alternatives Considered
 

@@ -1,6 +1,6 @@
-# 特定商取引 契約書 (クーリングオフ条項付)
+# Distribution Agreement
 
-Language: ja  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.0.0  ·  Disclosed stance: pro-consumer
+Language: en  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.0.0  ·  Disclosed stance: balanced
 
 > This is a FAIR, openly-licensed template from the hinagata 雛形 commons. It is NOT legal advice and NOT a substitute for counsel. The parties execute it as their own act. Each clause cites the public law it rests on, for traceability.
 
@@ -13,13 +13,21 @@ Language: ja  ·  License: Apache-2.0 + etzhayyim Charter Rider  ·  Version: 1.
 - amount: [___]
 
 ## Clauses
-### 1. Cooling-off / withdrawal right  (cooling-off, mandatory)
-_Rests on:_ 特定商取引法9条 (特定商取引に関する法律 (昭和51年法律第57号)); Directive 2011/83/EU, Art. 9 (Consumer Rights Directive 2011/83/EU); Consumer Contracts Regulations 2013, reg.29 (The Consumer Contracts (Information, Cancellation and Additional Charges) Regulations 2013 (UK)); Code de la consommation, Art. L221-18 (Code de la consommation (France)); 16 CFR Part 429 (FTC Cooling-Off Rule (US))
+### 1. Definitions  (definitions, recommended)
 
-### 2. Payment terms  (payment, recommended)
+### 2. Distributor/agent appointment & territory  (boilerplate, mandatory)
+_Rests on:_ Directive 86/653/EEC, Art. 17 (Council Directive 86/653/EEC); 商法27条 (商法 (明治32年法律第48号))
+
+### 3. Payment terms  (payment, recommended)
 _Rests on:_ Civil Act, Art. 390 (Korea) (Civil Act (민법), Republic of Korea); Directive 2011/7/EU, Art. 3 (Directive 2011/7/EU (combating late payment in commercial transactions))
 
-### 3. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
+### 4. Term & termination  (termination, recommended)
+_Rests on:_ 民法541条 (民法 (明治29年法律第89号))
+
+### 5. Good faith & fair dealing  (boilerplate, recommended)
+_Rests on:_ Codigo Civil, Art. 421 (Codigo Civil (Lei 10.406/2002), Brazil); Contracts (General Part) Law 5733-1973, §23 (Contracts (General Part) Law, 5733-1973 (Israel)); PRC Civil Code, Art. 509 (Civil Code of the People's Republic of China (2021)); Codigo Civil Federal, Art. 1796 (Codigo Civil Federal (Mexico)); KUHPerdata, Pasal 1320 (Kitab Undang-Undang Hukum Perdata (Indonesia)); UNIDROIT Principles 2016, Art. 1.7 (UNIDROIT Principles of International Commercial Contracts (2016)); Codigo Civil, Art. 1254 (Codigo Civil (Spain)); Contracts (General Part) Law 5733-1973, §39 (Contracts (General Part) Law, 5733-1973 (Israel))
+
+### 6. Electronic signature & execution (DID + WebAuthn)  (signature, mandatory)
 _Rests on:_ Regulation (EU) No 910/2014, Art. 25 (eIDAS Regulation (EU) No 910/2014); 15 U.S.C. §7001 (Electronic Signatures in Global and National Commerce Act (2000)); UETA §7 (Uniform Electronic Transactions Act (1999)); 電子署名法3条 (電子署名及び認証業務に関する法律 (平成12年法律第102号)); Electronic Transactions Act 1999 (Cth), s.10 (Electronic Transactions Act 1999 (Australia)); PIPEDA, s.43 (Personal Information Protection and Electronic Documents Act (Canada)); UU No. 11/2008 (ITE), Pasal 11 (Undang-Undang Informasi dan Transaksi Elektronik (Indonesia)); UNCITRAL MLES 2001, Art. 6 (UNCITRAL Model Law on Electronic Signatures); Information Technology Act 2000, §5 (Information Technology Act, 2000 (India)); Electronic Transactions Act 2010, §8 (Electronic Transactions Act 2010 (Singapore)); PRC Electronic Signature Law, Art. 14 (Electronic Signature Law of the People's Republic of China (2004)); BGB §126a (Bürgerliches Gesetzbuch (BGB), Germany); Digital Signature Act, Art. 3 (Korea) (Digital Signature Act (전자서명법), Republic of Korea)
 
 ## Execution
