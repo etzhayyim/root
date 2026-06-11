@@ -48,6 +48,14 @@
       "doc": "autonomous heartbeat (ADR-2606091000 pattern) — gates enforced inside the loop by the bond validator"
     },
     {
+      "id": "cell:mimamori.shakai",
+      "method": "methods/shakai.py",
+      "input": "engine keeping acts + moyai ledger (50-infra/etzhayyim-moyai-credit, verbatim reuse)",
+      "output": [":social.capital/* datoms (Soulbound to the keeper; refs sha256-opaque)"],
+      "pipeline": "content-free keeping act on a consented bond → mint 1 unit TO THE KEEPER (per-epoch cap; no mining surface) → decaying, non-transferable, cash≡0, no-vote/no-stage (moyai invariants verbatim, ADR-2606082100 Part A)",
+      "doc": "keeping = wellbecoming intervention — the first actor closing the social-capital mint loop in code; live witness-quorum mint path stays G7-gated"
+    },
+    {
       "id": "cell:mimamori.coverage",
       "method": "methods/coverage_report.py",
       "input": "data/seed-mimamori-bonds.json",
