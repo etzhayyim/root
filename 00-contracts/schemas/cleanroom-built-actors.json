@@ -51,17 +51,15 @@
       "handle": "aave-compat",
       "platform": "aave",
       "bytes": 2118,
-      "wasmCid": "bafkreiaa6zwwqr7vybn75vnfknww33hapckiqnyhrv2nz45pnoxi72qksy",
+      "wasmCid": "bafkreidytpismfkcitfathhfhibefvg6o4tgseipdd6tcvwstayenaitye",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Block",
-        "Transaction",
-        "Contract",
-        "Account",
-        "Event",
-        "Token"
+        "ReserveData",
+        "EModeCategory",
+        "UserConfigurationMap",
+        "ExecuteBorrowParams"
       ]
     },
     {
@@ -727,17 +725,15 @@
       "handle": "apollo_auto-compat",
       "platform": "apollo_auto",
       "bytes": 2125,
-      "wasmCid": "bafkreigm4wjzuk2kwynrgmkzjtkfw6fbzsor2nrkdywms4swhrlo3f7rby",
+      "wasmCid": "bafkreia3el62gnhjnvgd5noavlq3suwroctxsuzvnugh4t4no7rzjzt24e",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "Chassis",
+        "PerceptionObstacle",
+        "ADCTrajectory",
+        "LocalizationStatus"
       ]
     },
     {
@@ -1234,17 +1230,16 @@
       "handle": "autoware-compat",
       "platform": "autoware",
       "bytes": 2122,
-      "wasmCid": "bafkreidwm5qryvjogz7432ymh724zujqcqvsxdrwpfygeslrfecvbf4jeq",
+      "wasmCid": "bafkreicutlbj3r5qltdahhj6bulquwsw663bh3qxck3max5wpreayv6hvq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "OperationModeState",
+        "RouteState",
+        "LocalizationInitializationState",
+        "MotionState",
+        "Gear"
       ]
     },
     {
@@ -3298,17 +3293,15 @@
       "handle": "comma_ai_openpilot-compat",
       "platform": "comma_ai_openpilot",
       "bytes": 2132,
-      "wasmCid": "bafkreic43ujvpeg72g66h74e3acoftwpw6uqfi3lk5tvit2djdlhg3uwky",
+      "wasmCid": "bafkreieidxsxh7i77c4iz7q4qn63asmc2uiiigj6i7vmaenhqtufymdenm",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Vehicle",
-        "Signal",
-        "ChargeSession",
-        "Connector",
-        "Trip",
-        "Command"
+        "Event",
+        "CarState",
+        "CarControl",
+        "CarParams"
       ]
     },
     {
@@ -3977,17 +3970,14 @@
       "handle": "dbt-compat",
       "platform": "dbt",
       "bytes": 2117,
-      "wasmCid": "bafkreiepxv4wimu7gyuldtxz63nwl4q5jrohuvox6d4y65j5nfy5cs7iqm",
+      "wasmCid": "bafkreid2qxa4r5ofb6dachkd7aezffj3fcab2ooaqlagkcca6fsk42qqta",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Connector",
-        "Sync",
-        "Model",
-        "Stream",
-        "Schema",
-        "Test"
+        "Node",
+        "Source",
+        "RunResult"
       ]
     },
     {
@@ -6009,12 +5999,12 @@
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Contact",
-        "Lead",
-        "Opportunity",
-        "Activity",
-        "Pipeline"
+        "Deal",
+        "AccountItem",
+        "Partner",
+        "Invoice",
+        "Company",
+        "Walletable"
       ]
     },
     {
@@ -7178,17 +7168,15 @@
       "handle": "huggingface-compat",
       "platform": "huggingface",
       "bytes": 2125,
-      "wasmCid": "bafkreihcixhtc2xuf53ro5t55hugxkfg7ulglgbqzqs3oxm5dgipowbykm",
+      "wasmCid": "bafkreieom5vrrwjmk3natbr2ceerdpf42pfqgzie5kpgkk7zfvvkdpqoee",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Model",
-        "Completion",
-        "Embedding",
-        "FineTune",
-        "Dataset",
-        "File"
+        "ModelInfo",
+        "DatasetInfo",
+        "SpaceInfo",
+        "TransformersInfo"
       ]
     },
     {
@@ -7280,17 +7268,14 @@
       "handle": "ibm_qiskit-compat",
       "platform": "ibm_qiskit",
       "bytes": 2124,
-      "wasmCid": "bafkreiaaqibsnuplu5cmx2f5j43muqyk3dxkaz6wofyzhtacbedso4sxjq",
+      "wasmCid": "bafkreihjbk2ol5kndizde2ivahls6qddobjoye65yv57knxzleq7lyypwi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Register",
-        "Instruction",
-        "Qubit",
-        "Circuit",
-        "Gate",
-        "Job"
+        "Job",
+        "RuntimeJob",
+        "Backend"
       ]
     },
     {

@@ -5,21 +5,49 @@
   "kind": "compat",
   "title": "ibm_qiskit clean-room actor",
   "description": "Clean-room, API-compatible hardware ISA / quantum actor (ibm_qiskit); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiaaqibsnuplu5cmx2f5j43muqyk3dxkaz6wofyzhtacbedso4sxjq",
+  "wasmCid": "bafkreihjbk2ol5kndizde2ivahls6qddobjoye65yv57knxzleq7lyypwi",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiaaqibsnuplu5cmx2f5j43muqyk3dxkaz6wofyzhtacbedso4sxjq",
+  "ipfs": "ipfs://bafkreihjbk2ol5kndizde2ivahls6qddobjoye65yv57knxzleq7lyypwi",
   "schema": "schema/ibm_qiskit.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/Qiskit/qiskit + https://github.com/Qiskit/qiskit-ibm-runtime (official sources)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Job",
+      "RuntimeJob",
+      "Backend"
+    ],
+    "enums": {
+      "Job": {
+        "status": [
+          "INITIALIZING",
+          "QUEUED",
+          "VALIDATING",
+          "RUNNING",
+          "CANCELLED",
+          "DONE",
+          "ERROR"
+        ]
+      },
+      "RuntimeJob": {
+        "status": [
+          "INITIALIZING",
+          "QUEUED",
+          "RUNNING",
+          "CANCELLED",
+          "DONE",
+          "ERROR"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Register",
-    "Instruction",
-    "Qubit",
-    "Circuit",
-    "Gate",
-    "Job"
+    "Job",
+    "RuntimeJob",
+    "Backend"
   ],
   "adr": [
     "260607",
@@ -31,133 +59,8 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/registers",
-          "op": "create Register"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/registers",
-          "op": "list Register"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/registers/{id}",
-          "op": "get Register"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/registers/{id}",
-          "op": "update Register"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/registers/{id}",
-          "op": "delete Register"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/instructions",
-          "op": "create Instruction"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/instructions",
-          "op": "list Instruction"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/instructions/{id}",
-          "op": "get Instruction"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/instructions/{id}",
-          "op": "update Instruction"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/instructions/{id}",
-          "op": "delete Instruction"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/qubits",
-          "op": "create Qubit"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/qubits",
-          "op": "list Qubit"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/qubits/{id}",
-          "op": "get Qubit"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/qubits/{id}",
-          "op": "update Qubit"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/qubits/{id}",
-          "op": "delete Qubit"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/circuits",
-          "op": "create Circuit"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/circuits",
-          "op": "list Circuit"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/circuits/{id}",
-          "op": "get Circuit"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/circuits/{id}",
-          "op": "update Circuit"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/circuits/{id}",
-          "op": "delete Circuit"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/gates",
-          "op": "create Gate"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/gates",
-          "op": "list Gate"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/gates/{id}",
-          "op": "get Gate"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/gates/{id}",
-          "op": "update Gate"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/gates/{id}",
-          "op": "delete Gate"
-        },
         {
           "method": "POST",
           "path": "/v1/jobs",
@@ -182,6 +85,56 @@
           "method": "DELETE",
           "path": "/v1/jobs/{id}",
           "op": "delete Job"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/runtimejobs",
+          "op": "create RuntimeJob"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/runtimejobs",
+          "op": "list RuntimeJob"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/runtimejobs/{id}",
+          "op": "get RuntimeJob"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/runtimejobs/{id}",
+          "op": "update RuntimeJob"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/runtimejobs/{id}",
+          "op": "delete RuntimeJob"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/backends",
+          "op": "create Backend"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/backends",
+          "op": "list Backend"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/backends/{id}",
+          "op": "get Backend"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/backends/{id}",
+          "op": "update Backend"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/backends/{id}",
+          "op": "delete Backend"
         }
       ],
       "features": {
@@ -244,452 +197,26 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
-        {
-          "name": "create_register",
-          "description": "Create a Register.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "widthBits": {
-                "type": "integer"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "widthBits"
-            ]
-          }
-        },
-        {
-          "name": "list_registers",
-          "description": "List Registers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_register",
-          "description": "Get a Register by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_register",
-          "description": "Update a Register.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "widthBits": {
-                "type": "integer"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_register",
-          "description": "Delete a Register.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_instruction",
-          "description": "Create a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "mnemonic": {
-                "type": "string"
-              },
-              "opcode": {
-                "type": "string"
-              },
-              "operands": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "mnemonic",
-              "opcode"
-            ]
-          }
-        },
-        {
-          "name": "list_instructions",
-          "description": "List Instructions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_instruction",
-          "description": "Get a Instruction by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_instruction",
-          "description": "Update a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "mnemonic": {
-                "type": "string"
-              },
-              "opcode": {
-                "type": "string"
-              },
-              "operands": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_instruction",
-          "description": "Delete a Instruction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_qubit",
-          "description": "Create a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "index": {
-                "type": "integer"
-              },
-              "t1Us": {
-                "type": "number"
-              },
-              "t2Us": {
-                "type": "number"
-              },
-              "readoutError": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "index",
-              "t1Us"
-            ]
-          }
-        },
-        {
-          "name": "list_qubits",
-          "description": "List Qubits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_qubit",
-          "description": "Get a Qubit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_qubit",
-          "description": "Update a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "index": {
-                "type": "integer"
-              },
-              "t1Us": {
-                "type": "number"
-              },
-              "t2Us": {
-                "type": "number"
-              },
-              "readoutError": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_qubit",
-          "description": "Delete a Qubit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_circuit",
-          "description": "Create a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "qubitCount": {
-                "type": "integer"
-              },
-              "depth": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "qubitCount"
-            ]
-          }
-        },
-        {
-          "name": "list_circuits",
-          "description": "List Circuits.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_circuit",
-          "description": "Get a Circuit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_circuit",
-          "description": "Update a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "qubitCount": {
-                "type": "integer"
-              },
-              "depth": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_circuit",
-          "description": "Delete a Circuit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_gate",
-          "description": "Create a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "circuitId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "targets": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "targets"
-            ]
-          }
-        },
-        {
-          "name": "list_gates",
-          "description": "List Gates.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_gate",
-          "description": "Get a Gate by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_gate",
-          "description": "Update a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "circuitId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "targets": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_gate",
-          "description": "Delete a Gate.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
         {
           "name": "create_job",
           "description": "Create a Job.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "circuitId": {
+              "jobId": {
                 "type": "string"
               },
-              "shots": {
-                "type": "integer"
+              "backend": {
+                "type": "string"
               },
               "status": {
                 "type": "string"
               }
             },
             "required": [
-              "shots",
+              "backend",
               "status"
             ]
           }
@@ -726,11 +253,11 @@
               "id": {
                 "type": "string"
               },
-              "circuitId": {
+              "jobId": {
                 "type": "string"
               },
-              "shots": {
-                "type": "integer"
+              "backend": {
+                "type": "string"
               },
               "status": {
                 "type": "string"
@@ -744,6 +271,246 @@
         {
           "name": "delete_job",
           "description": "Delete a Job.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_runtime_job",
+          "description": "Create a RuntimeJob.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "jobId": {
+                "type": "string"
+              },
+              "programId": {
+                "type": "string"
+              },
+              "creationDate": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string"
+              },
+              "sessionId": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "private": {
+                "type": "boolean"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "creationDate",
+              "image"
+            ]
+          }
+        },
+        {
+          "name": "list_runtime_jobs",
+          "description": "List RuntimeJobs.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_runtime_job",
+          "description": "Get a RuntimeJob by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_runtime_job",
+          "description": "Update a RuntimeJob.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "jobId": {
+                "type": "string"
+              },
+              "programId": {
+                "type": "string"
+              },
+              "creationDate": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string"
+              },
+              "sessionId": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "private": {
+                "type": "boolean"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_runtime_job",
+          "description": "Delete a RuntimeJob.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_backend",
+          "description": "Create a Backend.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "backendVersion": {
+                "type": "string"
+              },
+              "numQubits": {
+                "type": "integer"
+              },
+              "simulator": {
+                "type": "boolean"
+              },
+              "local": {
+                "type": "boolean"
+              },
+              "conditional": {
+                "type": "boolean"
+              },
+              "openPulse": {
+                "type": "boolean"
+              },
+              "memory": {
+                "type": "boolean"
+              },
+              "dt": {
+                "type": "number"
+              },
+              "dtm": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "backendVersion"
+            ]
+          }
+        },
+        {
+          "name": "list_backends",
+          "description": "List Backends.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_backend",
+          "description": "Get a Backend by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_backend",
+          "description": "Update a Backend.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "backendVersion": {
+                "type": "string"
+              },
+              "numQubits": {
+                "type": "integer"
+              },
+              "simulator": {
+                "type": "boolean"
+              },
+              "local": {
+                "type": "boolean"
+              },
+              "conditional": {
+                "type": "boolean"
+              },
+              "openPulse": {
+                "type": "boolean"
+              },
+              "memory": {
+                "type": "boolean"
+              },
+              "dt": {
+                "type": "number"
+              },
+              "dtm": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_backend",
+          "description": "Delete a Backend.",
           "inputSchema": {
             "type": "object",
             "properties": {

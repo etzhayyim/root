@@ -5,21 +5,54 @@
   "kind": "compat",
   "title": "huggingface clean-room actor",
   "description": "Clean-room, API-compatible AI / ML inference actor (huggingface); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreihcixhtc2xuf53ro5t55hugxkfg7ulglgbqzqs3oxm5dgipowbykm",
+  "wasmCid": "bafkreieom5vrrwjmk3natbr2ceerdpf42pfqgzie5kpgkk7zfvvkdpqoee",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreihcixhtc2xuf53ro5t55hugxkfg7ulglgbqzqs3oxm5dgipowbykm",
+  "ipfs": "ipfs://bafkreieom5vrrwjmk3natbr2ceerdpf42pfqgzie5kpgkk7zfvvkdpqoee",
   "schema": "schema/huggingface.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/huggingface/huggingface_hub/main/src/huggingface_hub/hf_api.py",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "ModelInfo",
+      "DatasetInfo",
+      "SpaceInfo",
+      "TransformersInfo"
+    ],
+    "enums": {
+      "ModelInfo": {
+        "gated": [
+          "auto",
+          "manual",
+          false
+        ],
+        "inference": [
+          "warm"
+        ]
+      },
+      "DatasetInfo": {
+        "gated": [
+          "auto",
+          "manual",
+          false
+        ]
+      },
+      "SpaceInfo": {
+        "gated": [
+          "auto",
+          "manual",
+          false
+        ]
+      }
+    }
+  },
   "entities": [
-    "Model",
-    "Completion",
-    "Embedding",
-    "FineTune",
-    "Dataset",
-    "File"
+    "ModelInfo",
+    "DatasetInfo",
+    "SpaceInfo",
+    "TransformersInfo"
   ],
   "adr": [
     "260607",
@@ -31,157 +64,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/models",
-          "op": "create Model"
+          "path": "/v1/modelinfos",
+          "op": "create ModelInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/models",
-          "op": "list Model"
+          "path": "/v1/modelinfos",
+          "op": "list ModelInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/models/{id}",
-          "op": "get Model"
+          "path": "/v1/modelinfos/{id}",
+          "op": "get ModelInfo"
         },
         {
           "method": "PATCH",
-          "path": "/v1/models/{id}",
-          "op": "update Model"
+          "path": "/v1/modelinfos/{id}",
+          "op": "update ModelInfo"
         },
         {
           "method": "DELETE",
-          "path": "/v1/models/{id}",
-          "op": "delete Model"
+          "path": "/v1/modelinfos/{id}",
+          "op": "delete ModelInfo"
         },
         {
           "method": "POST",
-          "path": "/v1/completions",
-          "op": "create Completion"
+          "path": "/v1/datasetinfos",
+          "op": "create DatasetInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/completions",
-          "op": "list Completion"
+          "path": "/v1/datasetinfos",
+          "op": "list DatasetInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/completions/{id}",
-          "op": "get Completion"
+          "path": "/v1/datasetinfos/{id}",
+          "op": "get DatasetInfo"
         },
         {
           "method": "PATCH",
-          "path": "/v1/completions/{id}",
-          "op": "update Completion"
+          "path": "/v1/datasetinfos/{id}",
+          "op": "update DatasetInfo"
         },
         {
           "method": "DELETE",
-          "path": "/v1/completions/{id}",
-          "op": "delete Completion"
+          "path": "/v1/datasetinfos/{id}",
+          "op": "delete DatasetInfo"
         },
         {
           "method": "POST",
-          "path": "/v1/embeddings",
-          "op": "create Embedding"
+          "path": "/v1/spaceinfos",
+          "op": "create SpaceInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/embeddings",
-          "op": "list Embedding"
+          "path": "/v1/spaceinfos",
+          "op": "list SpaceInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/embeddings/{id}",
-          "op": "get Embedding"
+          "path": "/v1/spaceinfos/{id}",
+          "op": "get SpaceInfo"
         },
         {
           "method": "PATCH",
-          "path": "/v1/embeddings/{id}",
-          "op": "update Embedding"
+          "path": "/v1/spaceinfos/{id}",
+          "op": "update SpaceInfo"
         },
         {
           "method": "DELETE",
-          "path": "/v1/embeddings/{id}",
-          "op": "delete Embedding"
+          "path": "/v1/spaceinfos/{id}",
+          "op": "delete SpaceInfo"
         },
         {
           "method": "POST",
-          "path": "/v1/finetunes",
-          "op": "create FineTune"
+          "path": "/v1/transformersinfos",
+          "op": "create TransformersInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/finetunes",
-          "op": "list FineTune"
+          "path": "/v1/transformersinfos",
+          "op": "list TransformersInfo"
         },
         {
           "method": "GET",
-          "path": "/v1/finetunes/{id}",
-          "op": "get FineTune"
+          "path": "/v1/transformersinfos/{id}",
+          "op": "get TransformersInfo"
         },
         {
           "method": "PATCH",
-          "path": "/v1/finetunes/{id}",
-          "op": "update FineTune"
+          "path": "/v1/transformersinfos/{id}",
+          "op": "update TransformersInfo"
         },
         {
           "method": "DELETE",
-          "path": "/v1/finetunes/{id}",
-          "op": "delete FineTune"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/datasets",
-          "op": "create Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets",
-          "op": "list Dataset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/datasets/{id}",
-          "op": "get Dataset"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/datasets/{id}",
-          "op": "update Dataset"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/datasets/{id}",
-          "op": "delete Dataset"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/files",
-          "op": "create File"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/files",
-          "op": "list File"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/files/{id}",
-          "op": "get File"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/files/{id}",
-          "op": "update File"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/files/{id}",
-          "op": "delete File"
+          "path": "/v1/transformersinfos/{id}",
+          "op": "delete TransformersInfo"
         }
       ],
       "features": {
@@ -244,44 +227,59 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_model",
-          "description": "Create a Model.",
+          "name": "create_model_info",
+          "description": "Create a ModelInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "author": {
                 "type": "string"
               },
-              "family": {
-                "type": "string"
-              },
-              "contextWindow": {
+              "downloads": {
                 "type": "integer"
               },
-              "modality": {
+              "likes": {
+                "type": "integer"
+              },
+              "private": {
+                "type": "boolean"
+              },
+              "gated": {
+                "type": "string"
+              },
+              "pipelineTag": {
+                "type": "string"
+              },
+              "libraryName": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              },
+              "inference": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "family"
+              "author",
+              "downloads"
             ]
           }
         },
         {
-          "name": "list_models",
-          "description": "List Models.",
+          "name": "list_model_infos",
+          "description": "List ModelInfos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_model",
-          "description": "Get a Model by id.",
+          "name": "get_model_info",
+          "description": "Get a ModelInfo by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,24 +293,39 @@
           }
         },
         {
-          "name": "update_model",
-          "description": "Update a Model.",
+          "name": "update_model_info",
+          "description": "Update a ModelInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "author": {
                 "type": "string"
               },
-              "family": {
-                "type": "string"
-              },
-              "contextWindow": {
+              "downloads": {
                 "type": "integer"
               },
-              "modality": {
+              "likes": {
+                "type": "integer"
+              },
+              "private": {
+                "type": "boolean"
+              },
+              "gated": {
+                "type": "string"
+              },
+              "pipelineTag": {
+                "type": "string"
+              },
+              "libraryName": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              },
+              "inference": {
                 "type": "string"
               }
             },
@@ -322,8 +335,8 @@
           }
         },
         {
-          "name": "delete_model",
-          "description": "Delete a Model.",
+          "name": "delete_model_info",
+          "description": "Delete a ModelInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +350,56 @@
           }
         },
         {
-          "name": "create_completion",
-          "description": "Create a Completion.",
+          "name": "create_dataset_info",
+          "description": "Create a DatasetInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "modelId": {
+              "author": {
                 "type": "string"
               },
-              "prompt": {
-                "type": "string"
-              },
-              "output": {
-                "type": "string"
-              },
-              "tokens": {
+              "downloads": {
                 "type": "integer"
+              },
+              "likes": {
+                "type": "integer"
+              },
+              "private": {
+                "type": "boolean"
+              },
+              "gated": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "mainSize": {
+                "type": "integer"
+              },
+              "citation": {
+                "type": "string"
               }
             },
             "required": [
-              "prompt",
-              "output"
+              "author",
+              "downloads"
             ]
           }
         },
         {
-          "name": "list_completions",
-          "description": "List Completions.",
+          "name": "list_dataset_infos",
+          "description": "List DatasetInfos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_completion",
-          "description": "Get a Completion by id.",
+          "name": "get_dataset_info",
+          "description": "Get a DatasetInfo by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,83 +413,110 @@
           }
         },
         {
-          "name": "update_completion",
-          "description": "Update a Completion.",
+          "name": "update_dataset_info",
+          "description": "Update a DatasetInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "modelId": {
+              "author": {
                 "type": "string"
               },
-              "prompt": {
-                "type": "string"
-              },
-              "output": {
-                "type": "string"
-              },
-              "tokens": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_completion",
-          "description": "Delete a Completion.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_embedding",
-          "description": "Create a Embedding.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelId": {
-                "type": "string"
-              },
-              "input": {
-                "type": "string"
-              },
-              "dimensions": {
+              "downloads": {
                 "type": "integer"
               },
-              "vectorRef": {
+              "likes": {
+                "type": "integer"
+              },
+              "private": {
+                "type": "boolean"
+              },
+              "gated": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "mainSize": {
+                "type": "integer"
+              },
+              "citation": {
                 "type": "string"
               }
             },
             "required": [
-              "input",
-              "dimensions"
+              "id"
             ]
           }
         },
         {
-          "name": "list_embeddings",
-          "description": "List Embeddings.",
+          "name": "delete_dataset_info",
+          "description": "Delete a DatasetInfo.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_space_info",
+          "description": "Create a SpaceInfo.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "author": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              },
+              "private": {
+                "type": "boolean"
+              },
+              "sdk": {
+                "type": "string"
+              },
+              "likes": {
+                "type": "integer"
+              },
+              "host": {
+                "type": "string"
+              },
+              "subdomain": {
+                "type": "string"
+              },
+              "gated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "author",
+              "sha"
+            ]
+          }
+        },
+        {
+          "name": "list_space_infos",
+          "description": "List SpaceInfos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_embedding",
-          "description": "Get a Embedding by id.",
+          "name": "get_space_info",
+          "description": "Get a SpaceInfo by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,24 +530,36 @@
           }
         },
         {
-          "name": "update_embedding",
-          "description": "Update a Embedding.",
+          "name": "update_space_info",
+          "description": "Update a SpaceInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "modelId": {
+              "author": {
                 "type": "string"
               },
-              "input": {
+              "sha": {
                 "type": "string"
               },
-              "dimensions": {
+              "private": {
+                "type": "boolean"
+              },
+              "sdk": {
+                "type": "string"
+              },
+              "likes": {
                 "type": "integer"
               },
-              "vectorRef": {
+              "host": {
+                "type": "string"
+              },
+              "subdomain": {
+                "type": "string"
+              },
+              "gated": {
                 "type": "string"
               }
             },
@@ -502,8 +569,8 @@
           }
         },
         {
-          "name": "delete_embedding",
-          "description": "Delete a Embedding.",
+          "name": "delete_space_info",
+          "description": "Delete a SpaceInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -517,41 +584,41 @@
           }
         },
         {
-          "name": "create_fine_tune",
-          "description": "Create a FineTune.",
+          "name": "create_transformers_info",
+          "description": "Create a TransformersInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "baseModelId": {
+              "autoModel": {
                 "type": "string"
               },
-              "datasetId": {
+              "customClass": {
                 "type": "string"
               },
-              "status": {
+              "pipelineTag": {
                 "type": "string"
               },
-              "epochs": {
-                "type": "integer"
+              "processor": {
+                "type": "string"
               }
             },
             "required": [
-              "status",
-              "epochs"
+              "autoModel",
+              "customClass"
             ]
           }
         },
         {
-          "name": "list_fine_tunes",
-          "description": "List FineTunes.",
+          "name": "list_transformers_infos",
+          "description": "List TransformersInfos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_fine_tune",
-          "description": "Get a FineTune by id.",
+          "name": "get_transformers_info",
+          "description": "Get a TransformersInfo by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,39 +632,24 @@
           }
         },
         {
-          "name": "update_fine_tune",
-          "description": "Update a FineTune.",
+          "name": "update_transformers_info",
+          "description": "Update a TransformersInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "baseModelId": {
+              "autoModel": {
                 "type": "string"
               },
-              "datasetId": {
+              "customClass": {
                 "type": "string"
               },
-              "status": {
+              "pipelineTag": {
                 "type": "string"
               },
-              "epochs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_fine_tune",
-          "description": "Delete a FineTune.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "processor": {
                 "type": "string"
               }
             },
@@ -607,167 +659,8 @@
           }
         },
         {
-          "name": "create_dataset",
-          "description": "Create a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "rows": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "rows"
-            ]
-          }
-        },
-        {
-          "name": "list_datasets",
-          "description": "List Datasets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_dataset",
-          "description": "Get a Dataset by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_dataset",
-          "description": "Update a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "rows": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_dataset",
-          "description": "Delete a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_file",
-          "description": "Create a File.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "purpose": {
-                "type": "string"
-              },
-              "filename": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "purpose",
-              "filename"
-            ]
-          }
-        },
-        {
-          "name": "list_files",
-          "description": "List Files.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_file",
-          "description": "Get a File by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_file",
-          "description": "Update a File.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "purpose": {
-                "type": "string"
-              },
-              "filename": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_file",
-          "description": "Delete a File.",
+          "name": "delete_transformers_info",
+          "description": "Delete a TransformersInfo.",
           "inputSchema": {
             "type": "object",
             "properties": {

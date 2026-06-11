@@ -11,15 +11,92 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreibw45cqxginpwzg2vqrbe3f65s4dpnayrljkpn725xhx7tyve7phe",
   "schema": "schema/freee.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/freee/freee-api-schema/master/v2020_06_15/open-api-3/api-schema.json",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Deal",
+      "AccountItem",
+      "Partner",
+      "Invoice",
+      "Company",
+      "Walletable"
+    ],
+    "enums": {
+      "Deal": {
+        "type": [
+          "income",
+          "expense"
+        ],
+        "status": [
+          "unsettled",
+          "settled"
+        ]
+      },
+      "Partner": {
+        "orgCode": [
+          1,
+          2
+        ],
+        "transferFeeHandlingSide": [
+          "payer",
+          "payee"
+        ]
+      },
+      "Invoice": {
+        "invoiceStatus": [
+          "draft",
+          "applying",
+          "remanded",
+          "rejected",
+          "approved",
+          "submitted",
+          "unsubmitted"
+        ],
+        "paymentType": [
+          "",
+          "transfer",
+          "direct_debit"
+        ]
+      },
+      "Company": {
+        "role": [
+          "admin",
+          "simple_accounting",
+          "self_only",
+          "read_only",
+          "workflow"
+        ],
+        "orgCode": [
+          1,
+          2
+        ]
+      },
+      "Walletable": {
+        "type": [
+          "bank_account",
+          "credit_card",
+          "wallet"
+        ],
+        "syncStatus": [
+          "success",
+          "disabled",
+          "syncing",
+          "token_refresh_error",
+          "unsupported",
+          "other_error"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Account",
-    "Contact",
-    "Lead",
-    "Opportunity",
-    "Activity",
-    "Pipeline"
+    "Deal",
+    "AccountItem",
+    "Partner",
+    "Invoice",
+    "Company",
+    "Walletable"
   ],
   "adr": [
     "260607",
@@ -35,153 +112,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
+          "path": "/v1/deals",
+          "op": "create Deal"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
+          "path": "/v1/deals",
+          "op": "list Deal"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
+          "path": "/v1/deals/{id}",
+          "op": "get Deal"
         },
         {
           "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
+          "path": "/v1/deals/{id}",
+          "op": "update Deal"
         },
         {
           "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
+          "path": "/v1/deals/{id}",
+          "op": "delete Deal"
         },
         {
           "method": "POST",
-          "path": "/v1/contacts",
-          "op": "create Contact"
+          "path": "/v1/accountitems",
+          "op": "create AccountItem"
         },
         {
           "method": "GET",
-          "path": "/v1/contacts",
-          "op": "list Contact"
+          "path": "/v1/accountitems",
+          "op": "list AccountItem"
         },
         {
           "method": "GET",
-          "path": "/v1/contacts/{id}",
-          "op": "get Contact"
+          "path": "/v1/accountitems/{id}",
+          "op": "get AccountItem"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contacts/{id}",
-          "op": "update Contact"
+          "path": "/v1/accountitems/{id}",
+          "op": "update AccountItem"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contacts/{id}",
-          "op": "delete Contact"
+          "path": "/v1/accountitems/{id}",
+          "op": "delete AccountItem"
         },
         {
           "method": "POST",
-          "path": "/v1/leads",
-          "op": "create Lead"
+          "path": "/v1/partners",
+          "op": "create Partner"
         },
         {
           "method": "GET",
-          "path": "/v1/leads",
-          "op": "list Lead"
+          "path": "/v1/partners",
+          "op": "list Partner"
         },
         {
           "method": "GET",
-          "path": "/v1/leads/{id}",
-          "op": "get Lead"
+          "path": "/v1/partners/{id}",
+          "op": "get Partner"
         },
         {
           "method": "PATCH",
-          "path": "/v1/leads/{id}",
-          "op": "update Lead"
+          "path": "/v1/partners/{id}",
+          "op": "update Partner"
         },
         {
           "method": "DELETE",
-          "path": "/v1/leads/{id}",
-          "op": "delete Lead"
+          "path": "/v1/partners/{id}",
+          "op": "delete Partner"
         },
         {
           "method": "POST",
-          "path": "/v1/opportunities",
-          "op": "create Opportunity"
+          "path": "/v1/invoices",
+          "op": "create Invoice"
         },
         {
           "method": "GET",
-          "path": "/v1/opportunities",
-          "op": "list Opportunity"
+          "path": "/v1/invoices",
+          "op": "list Invoice"
         },
         {
           "method": "GET",
-          "path": "/v1/opportunities/{id}",
-          "op": "get Opportunity"
+          "path": "/v1/invoices/{id}",
+          "op": "get Invoice"
         },
         {
           "method": "PATCH",
-          "path": "/v1/opportunities/{id}",
-          "op": "update Opportunity"
+          "path": "/v1/invoices/{id}",
+          "op": "update Invoice"
         },
         {
           "method": "DELETE",
-          "path": "/v1/opportunities/{id}",
-          "op": "delete Opportunity"
+          "path": "/v1/invoices/{id}",
+          "op": "delete Invoice"
         },
         {
           "method": "POST",
-          "path": "/v1/activities",
-          "op": "create Activity"
+          "path": "/v1/companies",
+          "op": "create Company"
         },
         {
           "method": "GET",
-          "path": "/v1/activities",
-          "op": "list Activity"
+          "path": "/v1/companies",
+          "op": "list Company"
         },
         {
           "method": "GET",
-          "path": "/v1/activities/{id}",
-          "op": "get Activity"
+          "path": "/v1/companies/{id}",
+          "op": "get Company"
         },
         {
           "method": "PATCH",
-          "path": "/v1/activities/{id}",
-          "op": "update Activity"
+          "path": "/v1/companies/{id}",
+          "op": "update Company"
         },
         {
           "method": "DELETE",
-          "path": "/v1/activities/{id}",
-          "op": "delete Activity"
+          "path": "/v1/companies/{id}",
+          "op": "delete Company"
         },
         {
           "method": "POST",
-          "path": "/v1/pipelines",
-          "op": "create Pipeline"
+          "path": "/v1/walletables",
+          "op": "create Walletable"
         },
         {
           "method": "GET",
-          "path": "/v1/pipelines",
-          "op": "list Pipeline"
+          "path": "/v1/walletables",
+          "op": "list Walletable"
         },
         {
           "method": "GET",
-          "path": "/v1/pipelines/{id}",
-          "op": "get Pipeline"
+          "path": "/v1/walletables/{id}",
+          "op": "get Walletable"
         },
         {
           "method": "PATCH",
-          "path": "/v1/pipelines/{id}",
-          "op": "update Pipeline"
+          "path": "/v1/walletables/{id}",
+          "op": "update Walletable"
         },
         {
           "method": "DELETE",
-          "path": "/v1/pipelines/{id}",
-          "op": "delete Pipeline"
+          "path": "/v1/walletables/{id}",
+          "op": "delete Walletable"
         }
       ],
       "features": {
@@ -247,236 +324,176 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_account",
-          "description": "Create a Account.",
+          "name": "create_deal",
+          "description": "Create a Deal.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "companyId": {
+                "type": "integer"
+              },
+              "issueDate": {
                 "type": "string"
               },
-              "domain": {
+              "dueDate": {
                 "type": "string"
               },
-              "industry": {
+              "amount": {
+                "type": "integer"
+              },
+              "dueAmount": {
+                "type": "integer"
+              },
+              "type": {
                 "type": "string"
               },
-              "ownerId": {
+              "partnerId": {
+                "type": "integer"
+              },
+              "partnerCode": {
                 "type": "string"
               },
-              "annualRevenue": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "domain"
-            ]
-          }
-        },
-        {
-          "name": "list_accounts",
-          "description": "List Accounts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_account",
-          "description": "Get a Account by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_account",
-          "description": "Update a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "domain": {
-                "type": "string"
-              },
-              "industry": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              },
-              "annualRevenue": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_contact",
-          "description": "Create a Contact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "firstName": {
-                "type": "string"
-              },
-              "lastName": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "phone": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "firstName",
-              "lastName"
-            ]
-          }
-        },
-        {
-          "name": "list_contacts",
-          "description": "List Contacts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_contact",
-          "description": "Get a Contact by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_contact",
-          "description": "Update a Contact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "accountId": {
-                "type": "string"
-              },
-              "firstName": {
-                "type": "string"
-              },
-              "lastName": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "phone": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_contact",
-          "description": "Delete a Contact.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_lead",
-          "description": "Create a Lead.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "company": {
-                "type": "string"
-              },
-              "email": {
+              "refNumber": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
-              },
-              "source": {
+              }
+            },
+            "required": [
+              "issueDate",
+              "dueDate"
+            ]
+          }
+        },
+        {
+          "name": "list_deals",
+          "description": "List Deals.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_deal",
+          "description": "Get a Deal by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_deal",
+          "description": "Update a Deal.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
-              "score": {
+              "companyId": {
+                "type": "integer"
+              },
+              "issueDate": {
+                "type": "string"
+              },
+              "dueDate": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "dueAmount": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              },
+              "partnerId": {
+                "type": "integer"
+              },
+              "partnerCode": {
+                "type": "string"
+              },
+              "refNumber": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_deal",
+          "description": "Delete a Deal.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_account_item",
+          "description": "Create a AccountItem.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "companyId": {
+                "type": "integer"
+              },
+              "taxCode": {
+                "type": "integer"
+              },
+              "accountCategory": {
+                "type": "string"
+              },
+              "available": {
+                "type": "boolean"
+              },
+              "walletableId": {
+                "type": "integer"
+              },
+              "searchable": {
                 "type": "integer"
               }
             },
             "required": [
-              "company",
-              "email"
+              "name",
+              "taxCode"
             ]
           }
         },
         {
-          "name": "list_leads",
-          "description": "List Leads.",
+          "name": "list_account_items",
+          "description": "List AccountItems.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_lead",
-          "description": "Get a Lead by id.",
+          "name": "get_account_item",
+          "description": "Get a AccountItem by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -490,27 +507,33 @@
           }
         },
         {
-          "name": "update_lead",
-          "description": "Update a Lead.",
+          "name": "update_account_item",
+          "description": "Update a AccountItem.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "company": {
+              "name": {
                 "type": "string"
               },
-              "email": {
+              "companyId": {
+                "type": "integer"
+              },
+              "taxCode": {
+                "type": "integer"
+              },
+              "accountCategory": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
+              "available": {
+                "type": "boolean"
               },
-              "source": {
-                "type": "string"
+              "walletableId": {
+                "type": "integer"
               },
-              "score": {
+              "searchable": {
                 "type": "integer"
               }
             },
@@ -520,8 +543,8 @@
           }
         },
         {
-          "name": "delete_lead",
-          "description": "Delete a Lead.",
+          "name": "delete_account_item",
+          "description": "Delete a AccountItem.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -535,44 +558,47 @@
           }
         },
         {
-          "name": "create_opportunity",
-          "description": "Create a Opportunity.",
+          "name": "create_partner",
+          "description": "Create a Partner.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "accountId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "stage": {
+              "code": {
                 "type": "string"
               },
-              "amount": {
-                "type": "number"
+              "companyId": {
+                "type": "integer"
               },
-              "closeDate": {
+              "available": {
+                "type": "boolean"
+              },
+              "orgCode": {
+                "type": "integer"
+              },
+              "transferFeeHandlingSide": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "stage"
+              "code"
             ]
           }
         },
         {
-          "name": "list_opportunities",
-          "description": "List Opportunities.",
+          "name": "list_partners",
+          "description": "List Partners.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_opportunity",
-          "description": "Get a Opportunity by id.",
+          "name": "get_partner",
+          "description": "Get a Partner by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -586,27 +612,30 @@
           }
         },
         {
-          "name": "update_opportunity",
-          "description": "Update a Opportunity.",
+          "name": "update_partner",
+          "description": "Update a Partner.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "accountId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "stage": {
+              "code": {
                 "type": "string"
               },
-              "amount": {
-                "type": "number"
+              "companyId": {
+                "type": "integer"
               },
-              "closeDate": {
+              "available": {
+                "type": "boolean"
+              },
+              "orgCode": {
+                "type": "integer"
+              },
+              "transferFeeHandlingSide": {
                 "type": "string"
               }
             },
@@ -616,8 +645,8 @@
           }
         },
         {
-          "name": "delete_opportunity",
-          "description": "Delete a Opportunity.",
+          "name": "delete_partner",
+          "description": "Delete a Partner.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -631,44 +660,44 @@
           }
         },
         {
-          "name": "create_activity",
-          "description": "Create a Activity.",
+          "name": "create_invoice",
+          "description": "Create a Invoice.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "subjectId": {
+              "invoiceNumber": {
                 "type": "string"
               },
-              "type": {
+              "issueDate": {
                 "type": "string"
               },
-              "subject": {
+              "totalAmount": {
+                "type": "integer"
+              },
+              "invoiceStatus": {
                 "type": "string"
               },
-              "dueDate": {
+              "paymentType": {
                 "type": "string"
-              },
-              "done": {
-                "type": "boolean"
               }
             },
             "required": [
-              "type",
-              "subject"
+              "invoiceNumber",
+              "issueDate"
             ]
           }
         },
         {
-          "name": "list_activities",
-          "description": "List Activities.",
+          "name": "list_invoices",
+          "description": "List Invoices.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_activity",
-          "description": "Get a Activity by id.",
+          "name": "get_invoice",
+          "description": "Get a Invoice by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -682,42 +711,27 @@
           }
         },
         {
-          "name": "update_activity",
-          "description": "Update a Activity.",
+          "name": "update_invoice",
+          "description": "Update a Invoice.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "subjectId": {
+              "invoiceNumber": {
                 "type": "string"
               },
-              "type": {
+              "issueDate": {
                 "type": "string"
               },
-              "subject": {
+              "totalAmount": {
+                "type": "integer"
+              },
+              "invoiceStatus": {
                 "type": "string"
               },
-              "dueDate": {
-                "type": "string"
-              },
-              "done": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_activity",
-          "description": "Delete a Activity.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "paymentType": {
                 "type": "string"
               }
             },
@@ -727,38 +741,140 @@
           }
         },
         {
-          "name": "create_pipeline",
-          "description": "Create a Pipeline.",
+          "name": "delete_invoice",
+          "description": "Delete a Invoice.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_company",
+          "description": "Create a Company.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "displayName": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "orgCode": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "displayName",
+              "role"
+            ]
+          }
+        },
+        {
+          "name": "list_companies",
+          "description": "List Companies.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_company",
+          "description": "Get a Company by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_company",
+          "description": "Update a Company.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "orgCode": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_company",
+          "description": "Delete a Company.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_walletable",
+          "description": "Create a Walletable.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "stageOrder": {
+              "bankId": {
+                "type": "integer"
+              },
+              "type": {
                 "type": "string"
               },
-              "ownerId": {
+              "syncStatus": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "stageOrder"
+              "type"
             ]
           }
         },
         {
-          "name": "list_pipelines",
-          "description": "List Pipelines.",
+          "name": "list_walletables",
+          "description": "List Walletables.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_pipeline",
-          "description": "Get a Pipeline by id.",
+          "name": "get_walletable",
+          "description": "Get a Walletable by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -772,8 +888,8 @@
           }
         },
         {
-          "name": "update_pipeline",
-          "description": "Update a Pipeline.",
+          "name": "update_walletable",
+          "description": "Update a Walletable.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -783,10 +899,13 @@
               "name": {
                 "type": "string"
               },
-              "stageOrder": {
+              "bankId": {
+                "type": "integer"
+              },
+              "type": {
                 "type": "string"
               },
-              "ownerId": {
+              "syncStatus": {
                 "type": "string"
               }
             },
@@ -796,8 +915,8 @@
           }
         },
         {
-          "name": "delete_pipeline",
-          "description": "Delete a Pipeline.",
+          "name": "delete_walletable",
+          "description": "Delete a Walletable.",
           "inputSchema": {
             "type": "object",
             "properties": {

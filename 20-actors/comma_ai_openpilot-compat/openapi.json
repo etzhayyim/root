@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible mobility / auto / EV actor (comma_ai_openpilot); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:comma_ai_openpilot-compat",
-    "x-wasm-cid": "bafkreic43ujvpeg72g66h74e3acoftwpw6uqfi3lk5tvit2djdlhg3uwky",
+    "x-wasm-cid": "bafkreieidxsxh7i77c4iz7q4qn63asmc2uiiigj6i7vmaenhqtufymdenm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreic43ujvpeg72g66h74e3acoftwpw6uqfi3lk5tvit2djdlhg3uwky",
+      "url": "ipfs://bafkreieidxsxh7i77c4iz7q4qn63asmc2uiiigj6i7vmaenhqtufymdenm",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/vehicles": {
+    "/v1/events": {
       "get": {
-        "summary": "List Vehicles",
+        "summary": "List Events",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Vehicle"
+                        "$ref": "#/components/schemas/Event"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Vehicle",
+        "summary": "Create a Event",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreate"
+                "$ref": "#/components/schemas/EventCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/vehicles/{id}": {
+    "/v1/events/{id}": {
       "get": {
-        "summary": "Get a Vehicle",
+        "summary": "Get a Event",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Vehicle",
+        "summary": "Update a Event",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreate"
+                "$ref": "#/components/schemas/EventCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Vehicle",
+        "summary": "Delete a Event",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/signals": {
+    "/v1/carstates": {
       "get": {
-        "summary": "List Signals",
+        "summary": "List CarStates",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Signal"
+                        "$ref": "#/components/schemas/CarState"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Signal",
+        "summary": "Create a CarState",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
+                "$ref": "#/components/schemas/CarStateCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/CarState"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/signals/{id}": {
+    "/v1/carstates/{id}": {
       "get": {
-        "summary": "Get a Signal",
+        "summary": "Get a CarState",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/CarState"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Signal",
+        "summary": "Update a CarState",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
+                "$ref": "#/components/schemas/CarStateCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/CarState"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Signal",
+        "summary": "Delete a CarState",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/chargesessions": {
+    "/v1/carcontrols": {
       "get": {
-        "summary": "List ChargeSessions",
+        "summary": "List CarControls",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ChargeSession"
+                        "$ref": "#/components/schemas/CarControl"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a ChargeSession",
+        "summary": "Create a CarControl",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeSessionCreate"
+                "$ref": "#/components/schemas/CarControlCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/CarControl"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/chargesessions/{id}": {
+    "/v1/carcontrols/{id}": {
       "get": {
-        "summary": "Get a ChargeSession",
+        "summary": "Get a CarControl",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/CarControl"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ChargeSession",
+        "summary": "Update a CarControl",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeSessionCreate"
+                "$ref": "#/components/schemas/CarControlCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/CarControl"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ChargeSession",
+        "summary": "Delete a CarControl",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/connectors": {
+    "/v1/carparamses": {
       "get": {
-        "summary": "List Connectors",
+        "summary": "List CarParamses",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connector"
+                        "$ref": "#/components/schemas/CarParams"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connector",
+        "summary": "Create a CarParams",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/CarParamsCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/CarParams"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/connectors/{id}": {
+    "/v1/carparamses/{id}": {
       "get": {
-        "summary": "Get a Connector",
+        "summary": "Get a CarParams",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/CarParams"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connector",
+        "summary": "Update a CarParams",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/CarParamsCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/CarParams"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connector",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/trips": {
-      "get": {
-        "summary": "List Trips",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Trip"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Trip",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TripCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Trip"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/trips/{id}": {
-      "get": {
-        "summary": "Get a Trip",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Trip"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Trip",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TripCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Trip"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Trip",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/commands": {
-      "get": {
-        "summary": "List Commands",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Command"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Command",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/commands/{id}": {
-      "get": {
-        "summary": "Get a Command",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Command",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Command",
+        "summary": "Delete a CarParams",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +770,20 @@
   },
   "components": {
     "schemas": {
-      "Vehicle": {
+      "Event": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vin": {
-            "type": "string"
+          "logMonoTime": {
+            "type": "integer"
           },
-          "model": {
-            "type": "string"
+          "valid": {
+            "type": "boolean"
           },
-          "state": {
+          "logMessage": {
             "type": "string"
-          },
-          "odometerKm": {
-            "type": "number"
           },
           "createdAt": {
             "type": "string",
@@ -1168,44 +795,71 @@
           }
         }
       },
-      "VehicleCreate": {
+      "EventCreate": {
         "type": "object",
         "properties": {
-          "vin": {
-            "type": "string"
+          "logMonoTime": {
+            "type": "integer"
           },
-          "model": {
-            "type": "string"
+          "valid": {
+            "type": "boolean"
           },
-          "state": {
+          "logMessage": {
             "type": "string"
-          },
-          "odometerKm": {
-            "type": "number"
           }
         },
         "required": [
-          "vin",
-          "model"
+          "logMonoTime",
+          "valid"
         ]
       },
-      "Signal": {
+      "CarState": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
+          "vEgo": {
             "type": "number"
           },
-          "unit": {
-            "type": "string"
+          "aEgo": {
+            "type": "number"
+          },
+          "standstill": {
+            "type": "boolean"
+          },
+          "gasPressed": {
+            "type": "boolean"
+          },
+          "brakePressed": {
+            "type": "boolean"
+          },
+          "steeringAngleDeg": {
+            "type": "number"
+          },
+          "steeringTorque": {
+            "type": "number"
+          },
+          "gearShifter": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "park",
+              "drive",
+              "neutral",
+              "reverse",
+              "sport",
+              "low",
+              "brake",
+              "eco",
+              "manumatic"
+            ]
+          },
+          "leftBlinker": {
+            "type": "boolean"
+          },
+          "rightBlinker": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1217,44 +871,77 @@
           }
         }
       },
-      "SignalCreate": {
+      "CarStateCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
+          "vEgo": {
             "type": "number"
           },
-          "unit": {
-            "type": "string"
+          "aEgo": {
+            "type": "number"
+          },
+          "standstill": {
+            "type": "boolean"
+          },
+          "gasPressed": {
+            "type": "boolean"
+          },
+          "brakePressed": {
+            "type": "boolean"
+          },
+          "steeringAngleDeg": {
+            "type": "number"
+          },
+          "steeringTorque": {
+            "type": "number"
+          },
+          "gearShifter": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "park",
+              "drive",
+              "neutral",
+              "reverse",
+              "sport",
+              "low",
+              "brake",
+              "eco",
+              "manumatic"
+            ]
+          },
+          "leftBlinker": {
+            "type": "boolean"
+          },
+          "rightBlinker": {
+            "type": "boolean"
           }
         },
         "required": [
-          "name",
-          "value"
+          "vEgo",
+          "aEgo"
         ]
       },
-      "ChargeSession": {
+      "CarControl": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
-            "type": "string"
+          "enabled": {
+            "type": "boolean"
           },
-          "connectorId": {
-            "type": "string"
+          "latActive": {
+            "type": "boolean"
           },
-          "energyKwh": {
-            "type": "number"
+          "longActive": {
+            "type": "boolean"
           },
-          "status": {
-            "type": "string"
+          "leftBlinker": {
+            "type": "boolean"
+          },
+          "rightBlinker": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1266,44 +953,53 @@
           }
         }
       },
-      "ChargeSessionCreate": {
+      "CarControlCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
-            "type": "string"
+          "enabled": {
+            "type": "boolean"
           },
-          "connectorId": {
-            "type": "string"
+          "latActive": {
+            "type": "boolean"
           },
-          "energyKwh": {
-            "type": "number"
+          "longActive": {
+            "type": "boolean"
           },
-          "status": {
-            "type": "string"
+          "leftBlinker": {
+            "type": "boolean"
+          },
+          "rightBlinker": {
+            "type": "boolean"
           }
         },
         "required": [
-          "energyKwh",
-          "status"
+          "enabled",
+          "latActive"
         ]
       },
-      "Connector": {
+      "CarParams": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "stationId": {
+          "brand": {
             "type": "string"
           },
-          "standard": {
+          "carFingerprint": {
             "type": "string"
           },
-          "powerKw": {
+          "minEnableSpeed": {
             "type": "number"
           },
-          "status": {
-            "type": "string"
+          "minSteerSpeed": {
+            "type": "number"
+          },
+          "mass": {
+            "type": "number"
+          },
+          "wheelbase": {
+            "type": "number"
           },
           "createdAt": {
             "type": "string",
@@ -1315,112 +1011,31 @@
           }
         }
       },
-      "ConnectorCreate": {
+      "CarParamsCreate": {
         "type": "object",
         "properties": {
-          "stationId": {
+          "brand": {
             "type": "string"
           },
-          "standard": {
+          "carFingerprint": {
             "type": "string"
           },
-          "powerKw": {
+          "minEnableSpeed": {
             "type": "number"
           },
-          "status": {
-            "type": "string"
+          "minSteerSpeed": {
+            "type": "number"
+          },
+          "mass": {
+            "type": "number"
+          },
+          "wheelbase": {
+            "type": "number"
           }
         },
         "required": [
-          "standard",
-          "powerKw"
-        ]
-      },
-      "Trip": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "vehicleId": {
-            "type": "string"
-          },
-          "distanceKm": {
-            "type": "number"
-          },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TripCreate": {
-        "type": "object",
-        "properties": {
-          "vehicleId": {
-            "type": "string"
-          },
-          "distanceKm": {
-            "type": "number"
-          },
-          "startedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "distanceKm",
-          "startedAt"
-        ]
-      },
-      "Command": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CommandCreate": {
-        "type": "object",
-        "properties": {
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "status"
+          "brand",
+          "carFingerprint"
         ]
       }
     }

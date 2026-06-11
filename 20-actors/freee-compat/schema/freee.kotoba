@@ -3,77 +3,75 @@
 
 namespace freee {
 
-    entity Account {
+    entity Deal {
         id: string @unique
-        name: string
-        domain: string
-        industry: string
-        ownerId: string
-        annualRevenue: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Contact {
-        id: string @unique
-        accountId: string
-        firstName: string
-        lastName: string
-        email: string
-        phone: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Lead {
-        id: string @unique
-        company: string
-        email: string
-        status: string
-        source: string
-        score: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Opportunity {
-        id: string @unique
-        accountId: string
-        name: string
-        stage: string
-        amount: float
-        closeDate: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Activity {
-        id: string @unique
-        subjectId: string
-        type: string
-        subject: string
+        companyId: integer
+        issueDate: datetime
         dueDate: datetime
-        done: boolean
+        amount: integer
+        dueAmount: integer
+        type: string
+        partnerId: integer
+        partnerCode: string
+        refNumber: string
+        status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Pipeline {
+    entity AccountItem {
         id: string @unique
         name: string
-        stageOrder: string
-        ownerId: string
+        companyId: integer
+        taxCode: integer
+        accountCategory: string
+        available: boolean
+        walletableId: integer
+        searchable: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Partner {
+        id: string @unique
+        name: string
+        code: string
+        companyId: integer
+        available: boolean
+        orgCode: integer
+        transferFeeHandlingSide: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Invoice {
+        id: string @unique
+        invoiceNumber: string
+        issueDate: datetime
+        totalAmount: integer
+        invoiceStatus: string
+        paymentType: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Company {
+        id: string @unique
+        displayName: string
+        role: string
+        orgCode: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Walletable {
+        id: string @unique
+        name: string
+        bankId: integer
+        type: string
+        syncStatus: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
