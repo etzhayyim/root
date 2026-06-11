@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 200,
+  "count": 203,
   "actors": [
     {
       "handle": "aave-compat",
@@ -1711,6 +1711,51 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (4/4) vs official ApolloAuto/apollo common_msgs protos. Enforced enums: Chassis.drivingMode(5), Chassis.frontBumperEvent(3), ADCTrajectory.rightOfWayStatus(2), LocalizationStatus.fusionStatus(5) = 4 enum fields (fusionStatus keeps Apollo's literal WARNNING spelling — fidelity over orthography). Version-growing + deprecated sets gapped."
+    },
+    {
+      "handle": "apple_visionos-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://developer.apple.com/tutorials/data/documentation/swiftui/scenephase.json + immersionstyle.json (official Apple docs JSON API)",
+      "remodeled": "Remodeled to a faithful visionOS/SwiftUI subset verified against Apple's OFFICIAL docs JSON API. ScenePhase enforced (active/inactive/background — the complete scene lifecycle) + ImmersionStyle (automatic/full/mixed/progressive — the 4 documented static styles). The gemini run died on quota (zero fabrication); harness-fetched directly.",
+      "resources": [
+        {
+          "entity": "ScenePhase",
+          "source": "https://developer.apple.com/tutorials/data/documentation/swiftui/scenephase.json",
+          "verifiedFields": [
+            "phase"
+          ],
+          "fieldStatus": "confirmed (enum cases)",
+          "discoveredEnums": {
+            "phase": [
+              "active",
+              "inactive",
+              "background"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "ImmersiveSpace",
+          "source": "https://developer.apple.com/tutorials/data/documentation/swiftui/immersionstyle.json",
+          "verifiedFields": [
+            "immersionStyle",
+            "systemOverlaysVisible"
+          ],
+          "fieldStatus": "confirmed (protocol static members)",
+          "discoveredEnums": {
+            "immersionStyle": [
+              "automatic",
+              "full",
+              "mixed",
+              "progressive"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (2/2) vs Apple's official docs JSON API. Enforced enums: phase(3) + immersionStyle(4) = 2 enum fields."
     },
     {
       "handle": "argo_ocean_floats-compat",
@@ -11182,6 +11227,78 @@
       "note": "FULLY VERIFIED (5/5) vs the official v1alpha1 proto types. Enforced enums: state(7) + health(5) + timeSlotType(5) = 3 enum fields. Completes the quantum-cloud family (ibm_qiskit / aws_braket / d_wave / google_cirq all L5)."
     },
     {
+      "handle": "googleads-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/googleapis/googleapis/master/google/ads/googleads/v24/enums/*.proto + resources/*.proto (official googleapis versioned protos)",
+      "remodeled": "Remodeled to the faithful Google Ads v24 surface verified against the official googleapis versioned protos — each vN directory is immutable on release (changes go to vN+1), the dbt-style anchor. CampaignStatus(5: UNSPECIFIED/UNKNOWN/ENABLED/PAUSED/REMOVED) + AdGroupStatus(5) + CampaignServingStatus(7) enforced at the v24 anchor. advertisingChannelType / adGroupType grow with product launches -> gapped. The gemini run died on quota (zero fabrication); harness-fetched and verified directly per the blender §16.3 precedent.",
+      "resources": [
+        {
+          "entity": "Campaign",
+          "source": "https://raw.githubusercontent.com/googleapis/googleapis/master/google/ads/googleads/v24/resources/campaign.proto + enums/campaign_status.proto + enums/campaign_serving_status.proto",
+          "verifiedFields": [
+            "name",
+            "status",
+            "servingStatus",
+            "advertisingChannelType",
+            "startDateTime",
+            "endDateTime",
+            "trackingUrlTemplate",
+            "baseCampaign"
+          ],
+          "fieldStatus": "confirmed (proto field declarations; start/end are *_date_time strings)",
+          "discoveredEnums": {
+            "status": [
+              "UNSPECIFIED",
+              "UNKNOWN",
+              "ENABLED",
+              "PAUSED",
+              "REMOVED"
+            ],
+            "servingStatus": [
+              "UNSPECIFIED",
+              "UNKNOWN",
+              "SERVING",
+              "NONE",
+              "ENDED",
+              "PENDING",
+              "SUSPENDED"
+            ]
+          },
+          "gaps": [
+            "advertisingChannelType-grows-with-product-launches"
+          ]
+        },
+        {
+          "entity": "AdGroup",
+          "source": "https://raw.githubusercontent.com/googleapis/googleapis/master/google/ads/googleads/v24/resources/ad_group.proto + enums/ad_group_status.proto",
+          "verifiedFields": [
+            "name",
+            "status",
+            "type",
+            "cpcBidMicros",
+            "trackingUrlTemplate",
+            "baseAdGroup"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {
+            "status": [
+              "UNSPECIFIED",
+              "UNKNOWN",
+              "ENABLED",
+              "PAUSED",
+              "REMOVED"
+            ]
+          },
+          "gaps": [
+            "type-grows-with-product-launches"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (2/2) vs official googleads v24 protos (immutable-per-version anchor). Enforced enums: Campaign.status(5)+servingStatus(7)+AdGroup.status(5) = 3 enum fields."
+    },
+    {
       "handle": "grafana-compat",
       "verifiedAt": "2026-06-09",
       "tier": "L5",
@@ -13631,6 +13748,65 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs official Jenkins core source. Enforced enums: Build.result(5), Job.color(14) = 2 enums."
+    },
+    {
+      "handle": "jma_weather-compat",
+      "verifiedAt": "2026-06-11",
+      "tier": "L5",
+      "source": "http://xml.kishou.go.jp (official XSD schema zip jmaxml_20241031 + format v1.3 PDF)",
+      "remodeled": "Remodeled to the faithful 気象庁防災情報XML Control/Head surface verified against the OFFICIAL machine-readable XSD schema zip (jmx.xsd / jmx_ib.xsd) plus the normative format v1.3 PDF (text-extracted per the argo precedent). Control.status enforced {通常, 訓練, 試験} — declared as xs:enumeration in jmx.xsd; Head.infoType enforced {発表, 更新, 訂正, 取消} — the XSD types it as plain string but the normative format spec declares the complete 4-value set in prose (the research hint guessed 3 values; the spec corrected it to 4 incl. 更新). The gemini run died on quota; harness-fetched, unzipped, and machine-extracted directly.",
+      "resources": [
+        {
+          "entity": "Control",
+          "source": "jmx.xsd (type.control + enum.type.control.Status)",
+          "verifiedFields": [
+            "title",
+            "dateTime",
+            "status",
+            "editorialOffice",
+            "publishingOffice"
+          ],
+          "fieldStatus": "confirmed (xs:element declarations)",
+          "discoveredEnums": {
+            "status": [
+              "通常",
+              "訓練",
+              "試験"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Head",
+          "source": "jmx_ib.xsd (type.head) + format v1.3 PDF (InfoType declaration)",
+          "verifiedFields": [
+            "title",
+            "reportDateTime",
+            "targetDateTime",
+            "validDateTime",
+            "eventID",
+            "infoType",
+            "serial",
+            "infoKind",
+            "infoKindVersion"
+          ],
+          "fieldStatus": "confirmed (xs:element declarations; infoType set from the normative PDF)",
+          "discoveredEnums": {
+            "infoType": [
+              "発表",
+              "更新",
+              "訂正",
+              "取消"
+            ]
+          },
+          "gaps": [
+            "headline-substructure-not-modeled",
+            "per-domain-bodies (seis/volc/mete) not modeled"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (2/2) vs the official JMA XSD + normative format PDF. Enforced enums: status(3, xs:enumeration) + infoType(4, spec-prose-declared) = 2 enum fields. First Japanese-government machine-readable-schema anchor in the corpus."
     },
     {
       "handle": "kafka-compat",

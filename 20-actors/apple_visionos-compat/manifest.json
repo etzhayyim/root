@@ -5,21 +5,41 @@
   "kind": "compat",
   "title": "apple_visionos clean-room actor",
   "description": "Clean-room, API-compatible spatial computing / XR actor (apple_visionos); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreia7p47gqq5ciwpkopzk6taquoascdsaeiphoted4ochpgbff6z62q",
+  "wasmCid": "bafkreige6mjadw6hxfy7mvjpkd3p33zjncprnr2j4mczdknwy5llqaedae",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreia7p47gqq5ciwpkopzk6taquoascdsaeiphoted4ochpgbff6z62q",
+  "ipfs": "ipfs://bafkreige6mjadw6hxfy7mvjpkd3p33zjncprnr2j4mczdknwy5llqaedae",
   "schema": "schema/apple_visionos.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developer.apple.com/tutorials/data/documentation/swiftui/scenephase.json + immersionstyle.json (official Apple docs JSON API)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "ScenePhase",
+      "ImmersiveSpace"
+    ],
+    "enums": {
+      "ScenePhase": {
+        "phase": [
+          "active",
+          "inactive",
+          "background"
+        ]
+      },
+      "ImmersiveSpace": {
+        "immersionStyle": [
+          "automatic",
+          "full",
+          "mixed",
+          "progressive"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Anchor",
-    "Scene",
-    "Mesh",
-    "Session",
-    "Asset",
-    "Device"
+    "ScenePhase",
+    "ImmersiveSpace"
   ],
   "adr": [
     "260607",
@@ -31,157 +51,57 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 10,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/anchors",
-          "op": "create Anchor"
+          "path": "/v1/scenephases",
+          "op": "create ScenePhase"
         },
         {
           "method": "GET",
-          "path": "/v1/anchors",
-          "op": "list Anchor"
+          "path": "/v1/scenephases",
+          "op": "list ScenePhase"
         },
         {
           "method": "GET",
-          "path": "/v1/anchors/{id}",
-          "op": "get Anchor"
+          "path": "/v1/scenephases/{id}",
+          "op": "get ScenePhase"
         },
         {
           "method": "PATCH",
-          "path": "/v1/anchors/{id}",
-          "op": "update Anchor"
+          "path": "/v1/scenephases/{id}",
+          "op": "update ScenePhase"
         },
         {
           "method": "DELETE",
-          "path": "/v1/anchors/{id}",
-          "op": "delete Anchor"
+          "path": "/v1/scenephases/{id}",
+          "op": "delete ScenePhase"
         },
         {
           "method": "POST",
-          "path": "/v1/scenes",
-          "op": "create Scene"
+          "path": "/v1/immersivespaces",
+          "op": "create ImmersiveSpace"
         },
         {
           "method": "GET",
-          "path": "/v1/scenes",
-          "op": "list Scene"
+          "path": "/v1/immersivespaces",
+          "op": "list ImmersiveSpace"
         },
         {
           "method": "GET",
-          "path": "/v1/scenes/{id}",
-          "op": "get Scene"
+          "path": "/v1/immersivespaces/{id}",
+          "op": "get ImmersiveSpace"
         },
         {
           "method": "PATCH",
-          "path": "/v1/scenes/{id}",
-          "op": "update Scene"
+          "path": "/v1/immersivespaces/{id}",
+          "op": "update ImmersiveSpace"
         },
         {
           "method": "DELETE",
-          "path": "/v1/scenes/{id}",
-          "op": "delete Scene"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/meshes",
-          "op": "create Mesh"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/meshes",
-          "op": "list Mesh"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/meshes/{id}",
-          "op": "get Mesh"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/meshes/{id}",
-          "op": "update Mesh"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/meshes/{id}",
-          "op": "delete Mesh"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/sessions",
-          "op": "create Session"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/sessions",
-          "op": "list Session"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/sessions/{id}",
-          "op": "get Session"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/sessions/{id}",
-          "op": "update Session"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/sessions/{id}",
-          "op": "delete Session"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/assets",
-          "op": "create Asset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/assets",
-          "op": "list Asset"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/assets/{id}",
-          "op": "get Asset"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/assets/{id}",
-          "op": "update Asset"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/assets/{id}",
-          "op": "delete Asset"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/devices",
-          "op": "create Device"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/devices",
-          "op": "list Device"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/devices/{id}",
-          "op": "get Device"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/devices/{id}",
-          "op": "update Device"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/devices/{id}",
-          "op": "delete Device"
+          "path": "/v1/immersivespaces/{id}",
+          "op": "delete ImmersiveSpace"
         }
       ],
       "features": {
@@ -244,47 +164,109 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 10,
       "tools": [
         {
-          "name": "create_anchor",
-          "description": "Create a Anchor.",
+          "name": "create_scene_phase",
+          "description": "Create a ScenePhase.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "sceneId": {
+              "phase": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "phase"
+            ]
+          }
+        },
+        {
+          "name": "list_scene_phases",
+          "description": "List ScenePhases.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_scene_phase",
+          "description": "Get a ScenePhase by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_scene_phase",
+          "description": "Update a ScenePhase.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
-              "x": {
-                "type": "number"
+              "phase": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_scene_phase",
+          "description": "Delete a ScenePhase.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_immersive_space",
+          "description": "Create a ImmersiveSpace.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "immersionStyle": {
+                "type": "string"
               },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              },
-              "persistent": {
+              "systemOverlaysVisible": {
                 "type": "boolean"
               }
             },
             "required": [
-              "x",
-              "y"
+              "immersionStyle",
+              "systemOverlaysVisible"
             ]
           }
         },
         {
-          "name": "list_anchors",
-          "description": "List Anchors.",
+          "name": "list_immersive_spaces",
+          "description": "List ImmersiveSpaces.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_anchor",
-          "description": "Get a Anchor by id.",
+          "name": "get_immersive_space",
+          "description": "Get a ImmersiveSpace by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -298,27 +280,18 @@
           }
         },
         {
-          "name": "update_anchor",
-          "description": "Update a Anchor.",
+          "name": "update_immersive_space",
+          "description": "Update a ImmersiveSpace.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "sceneId": {
+              "immersionStyle": {
                 "type": "string"
               },
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              },
-              "persistent": {
+              "systemOverlaysVisible": {
                 "type": "boolean"
               }
             },
@@ -328,424 +301,8 @@
           }
         },
         {
-          "name": "delete_anchor",
-          "description": "Delete a Anchor.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_scene",
-          "description": "Create a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "meshRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_scenes",
-          "description": "List Scenes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_scene",
-          "description": "Get a Scene by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_scene",
-          "description": "Update a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "meshRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_scene",
-          "description": "Delete a Scene.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_mesh",
-          "description": "Create a Mesh.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "sceneId": {
-                "type": "string"
-              },
-              "vertexCount": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "vertexCount"
-            ]
-          }
-        },
-        {
-          "name": "list_meshes",
-          "description": "List Meshes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_mesh",
-          "description": "Get a Mesh by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_mesh",
-          "description": "Update a Mesh.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "sceneId": {
-                "type": "string"
-              },
-              "vertexCount": {
-                "type": "integer"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_mesh",
-          "description": "Delete a Mesh.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_session",
-          "description": "Create a Session.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "deviceId": {
-                "type": "string"
-              },
-              "appId": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "startedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_sessions",
-          "description": "List Sessions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_session",
-          "description": "Get a Session by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_session",
-          "description": "Update a Session.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "appId": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_session",
-          "description": "Delete a Session.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_asset",
-          "description": "Create a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "sceneId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_assets",
-          "description": "List Assets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_asset",
-          "description": "Get a Asset by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_asset",
-          "description": "Update a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "sceneId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_asset",
-          "description": "Delete a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_device",
-          "description": "Create a Device.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "model": {
-                "type": "string"
-              },
-              "platform": {
-                "type": "string"
-              },
-              "trackingMode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "model",
-              "platform"
-            ]
-          }
-        },
-        {
-          "name": "list_devices",
-          "description": "List Devices.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_device",
-          "description": "Get a Device by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_device",
-          "description": "Update a Device.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "model": {
-                "type": "string"
-              },
-              "platform": {
-                "type": "string"
-              },
-              "trackingMode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_device",
-          "description": "Delete a Device.",
+          "name": "delete_immersive_space",
+          "description": "Delete a ImmersiveSpace.",
           "inputSchema": {
             "type": "object",
             "properties": {

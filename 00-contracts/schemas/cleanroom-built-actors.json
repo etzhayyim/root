@@ -786,17 +786,13 @@
       "handle": "apple_visionos-compat",
       "platform": "apple_visionos",
       "bytes": 2128,
-      "wasmCid": "bafkreia7p47gqq5ciwpkopzk6taquoascdsaeiphoted4ochpgbff6z62q",
+      "wasmCid": "bafkreige6mjadw6hxfy7mvjpkd3p33zjncprnr2j4mczdknwy5llqaedae",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Anchor",
-        "Scene",
-        "Mesh",
-        "Session",
-        "Asset",
-        "Device"
+        "ScenePhase",
+        "ImmersiveSpace"
       ]
     },
     {
@@ -6510,17 +6506,13 @@
       "handle": "googleads-compat",
       "platform": "googleads",
       "bytes": 2123,
-      "wasmCid": "bafkreideiobjqy2oyfb5y5sz5uigfcr2lpnymncbh2cacgcqjnt6mnerlm",
+      "wasmCid": "bafkreigtzqznndkh4qz4o4j7m6mk27oscr5bmlciajoskiptqnk7owdp4q",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
         "Campaign",
-        "Audience",
-        "Event",
-        "Profile",
-        "Message",
-        "Funnel"
+        "AdGroup"
       ]
     },
     {
@@ -8109,17 +8101,13 @@
       "handle": "jma_weather-compat",
       "platform": "jma_weather",
       "bytes": 2125,
-      "wasmCid": "bafkreic6at5a5kj5c7b2hgcvseghbccil6kvt5n7ki2pmqijbiftbf53b4",
+      "wasmCid": "bafkreidg5b2wmvw4sik7sa5nervthvvvq6w4ksuleb3ahgmspn463ixszy",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Filing",
-        "Corporation",
-        "Disclosure",
-        "Citizen",
-        "Application",
-        "Dataset"
+        "Control",
+        "Head"
       ]
     },
     {

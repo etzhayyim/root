@@ -7,8 +7,8 @@
     "260607"
   ],
   "count": 1000,
-  "l5VerifiedActors": 195,
-  "totalVerifiedEnumFields": 820,
+  "l5VerifiedActors": 198,
+  "totalVerifiedEnumFields": 827,
   "feeds": [
     {
       "handle": "8th_wall-compat",
@@ -477,8 +477,8 @@
       "source": "apple_visionos.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "applovin-compat",
@@ -3877,8 +3877,8 @@
       "source": "googleads.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 3
     },
     {
       "handle": "govuk_onelogin-compat",
@@ -4827,8 +4827,8 @@
       "source": "jma_weather.* Datom events",
       "mode": "dry-run",
       "gate": "G8",
-      "l5Verified": false,
-      "verifiedEnumFields": 0
+      "l5Verified": true,
+      "verifiedEnumFields": 2
     },
     {
       "handle": "johndeere_api-compat",

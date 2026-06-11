@@ -633,3 +633,18 @@ machine-check) caught draft errors in BOTH directions throughout: fabricated
 fields/enums refuted, over-cautious gaps reversed on spec declarations, and
 exact-string corrections (On-Going, WEEKENDS="Weekend", STOPED, WARNNING)
 preserved vendor reality over plausibility.
+
+### §16.11 /loop iteration 10 — wave 11: versioned protos + JP-government XSD (203, 20.3%)
+
+googleads + apple_visionos + jma_weather → ledger **203** (797 L4 / 203 L5 =
+20.3%), enforced 198 actors / **827 enum fields** (+7), verify PASS 0/0,
+3/3 green. bipm_utc carries (BIPM webtai paths 404 from the harness; the
+gemini quota window also exhausted — all four wave-11 drafts died on quota
+with ZERO fabrication, and all three shipped actors were verified entirely
+by harness-direct fetches per the §16.3 precedent).
+
+| Actor | Anchor | Enforced |
+|---|---|---|
+| googleads | googleapis versioned protos — each vN dir immutable on release (dbt-style) | Campaign.status(5) + servingStatus(7) + AdGroup.status(5) |
+| apple_visionos | Apple docs JSON API | ScenePhase(3, complete lifecycle) + ImmersionStyle(4) |
+| jma_weather | **first JP-government machine-readable-schema anchor**: the official XSD zip (xs:enumeration for Control.Status 通常/訓練/試験) + the normative format v1.3 PDF (text-extracted; declares InfoType 発表/更新/訂正/取消 — correcting the research hint's 3-value guess to 4) | status(3) + infoType(4) |

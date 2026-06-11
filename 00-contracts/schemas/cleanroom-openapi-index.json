@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29350,
+  "totalEndpoints": 29290,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 195,
-  "totalVerifiedEnumFields": 820,
+  "l5VerifiedActors": 198,
+  "totalVerifiedEnumFields": 827,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -888,10 +888,10 @@
     {
       "handle": "apple_visionos-compat",
       "did": "did:web:etzhayyim.com:actor:apple_visionos-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreia7p47gqq5ciwpkopzk6taquoascdsaeiphoted4ochpgbff6z62q",
+      "endpointCount": 10,
+      "ipfs": "ipfs://bafkreige6mjadw6hxfy7mvjpkd3p33zjncprnr2j4mczdknwy5llqaedae",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -900,8 +900,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/apple_visionos-compat/openapi.json"
     },
     {
@@ -7348,10 +7348,10 @@
     {
       "handle": "googleads-compat",
       "did": "did:web:etzhayyim.com:actor:googleads-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreideiobjqy2oyfb5y5sz5uigfcr2lpnymncbh2cacgcqjnt6mnerlm",
+      "endpointCount": 10,
+      "ipfs": "ipfs://bafkreigtzqznndkh4qz4o4j7m6mk27oscr5bmlciajoskiptqnk7owdp4q",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -7360,8 +7360,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 3,
       "openapi": "20-actors/googleads-compat/openapi.json"
     },
     {
@@ -9153,10 +9153,10 @@
     {
       "handle": "jma_weather-compat",
       "did": "did:web:etzhayyim.com:actor:jma_weather-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreic6at5a5kj5c7b2hgcvseghbccil6kvt5n7ki2pmqijbiftbf53b4",
+      "endpointCount": 10,
+      "ipfs": "ipfs://bafkreidg5b2wmvw4sik7sa5nervthvvvq6w4ksuleb3ahgmspn463ixszy",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -9165,8 +9165,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 2,
       "openapi": "20-actors/jma_weather-compat/openapi.json"
     },
     {

@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 800,
-    "L5": 200
+    "L4": 797,
+    "L5": 203
   },
   "actors": [
     {
@@ -845,10 +845,10 @@
     {
       "handle": "apple_visionos-compat",
       "did": "did:web:etzhayyim.com:actor:apple_visionos-compat",
-      "wasmCid": "bafkreia7p47gqq5ciwpkopzk6taquoascdsaeiphoted4ochpgbff6z62q",
+      "wasmCid": "bafkreige6mjadw6hxfy7mvjpkd3p33zjncprnr2j4mczdknwy5llqaedae",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "apple_visionos clean-room actor",
       "category": "xr_spatial",
       "capabilities": [
@@ -6965,10 +6965,10 @@
     {
       "handle": "googleads-compat",
       "did": "did:web:etzhayyim.com:actor:googleads-compat",
-      "wasmCid": "bafkreideiobjqy2oyfb5y5sz5uigfcr2lpnymncbh2cacgcqjnt6mnerlm",
+      "wasmCid": "bafkreigtzqznndkh4qz4o4j7m6mk27oscr5bmlciajoskiptqnk7owdp4q",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "googleads clean-room actor",
       "category": "martech",
       "capabilities": [
@@ -8675,10 +8675,10 @@
     {
       "handle": "jma_weather-compat",
       "did": "did:web:etzhayyim.com:actor:jma_weather-compat",
-      "wasmCid": "bafkreic6at5a5kj5c7b2hgcvseghbccil6kvt5n7ki2pmqijbiftbf53b4",
+      "wasmCid": "bafkreidg5b2wmvw4sik7sa5nervthvvvq6w4ksuleb3ahgmspn463ixszy",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "jma_weather clean-room actor",
       "category": "japan_apac_egov",
       "capabilities": [

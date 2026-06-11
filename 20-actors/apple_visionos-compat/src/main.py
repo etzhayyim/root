@@ -111,407 +111,145 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/anchors", methods=["POST"])
-def create_anchor(request):
-    """Create a Anchor."""
+@app.route("/v1/scenephases", methods=["POST"])
+def create_scene_phase(request):
+    """Create a ScenePhase."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'x', 'y', 'z', 'persistent'])
+    err = _reject_unknown(data, ['phase'])
     if err:
         return err, 400
-    err = _require(data, ['x', 'y'])
+    err = _require(data, ['phase'])
     if err:
         return err, 400
-    rec = {"id": new_id("applevis_anc")}
-    rec["sceneId"] = data.get('sceneId')
-    rec["x"] = _as_float(data.get('x'))
-    rec["y"] = _as_float(data.get('y'))
-    rec["z"] = _as_float(data.get('z'))
-    rec["persistent"] = _as_bool(data.get('persistent'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Anchor", rec)
-    return rec, 201
-
-@app.route("/v1/anchors", methods=["GET"])
-def list_anchors(request):
-    """List Anchors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Anchor")
-    rows = _apply_filters(rows, params, ['sceneId', 'x', 'y', 'z', 'persistent'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/anchors/<eid>", methods=["GET"])
-def get_anchor(request, eid):
-    """Retrieve a Anchor by id (supports ?expand=)."""
-    rows = _query("Anchor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'sceneId': 'Scene'})
-    return rec, 200
-
-@app.route("/v1/anchors/<eid>", methods=["POST", "PATCH"])
-def update_anchor(request, eid):
-    """Update a Anchor."""
-    rows = _query("Anchor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'x', 'y', 'z', 'persistent'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Anchor", rec)
-    return rec, 200
-
-@app.route("/v1/anchors/<eid>", methods=["DELETE"])
-def delete_anchor(request, eid):
-    """Delete a Anchor."""
-    rows = _query("Anchor", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apple_visionos.Anchor", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/scenes", methods=["POST"])
-def create_scene(request):
-    """Create a Scene."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'deviceId', 'meshRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['name'])
-    if err:
-        return err, 400
+    if data.get('phase') and data['phase'] not in ['active', 'inactive', 'background']:
+        return {"error": {"message": "invalid phase; allowed: " + ", ".join(['active', 'inactive', 'background']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("applevis_sce")}
-    rec["name"] = data.get('name')
-    rec["deviceId"] = data.get('deviceId')
-    rec["meshRef"] = data.get('meshRef')
+    rec["phase"] = data.get('phase')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Scene", rec)
+    _persist("ScenePhase", rec)
     return rec, 201
 
-@app.route("/v1/scenes", methods=["GET"])
-def list_scenes(request):
-    """List Scenes with filtering + cursor pagination."""
+@app.route("/v1/scenephases", methods=["GET"])
+def list_scene_phases(request):
+    """List ScenePhases with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Scene")
-    rows = _apply_filters(rows, params, ['name', 'deviceId', 'meshRef'])
+    rows = _query("ScenePhase")
+    rows = _apply_filters(rows, params, ['phase'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/scenes/<eid>", methods=["GET"])
-def get_scene(request, eid):
-    """Retrieve a Scene by id (supports ?expand=)."""
-    rows = _query("Scene", eid)
+@app.route("/v1/scenephases/<eid>", methods=["GET"])
+def get_scene_phase(request, eid):
+    """Retrieve a ScenePhase by id (supports ?expand=)."""
+    rows = _query("ScenePhase", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
     return rec, 200
 
-@app.route("/v1/scenes/<eid>", methods=["POST", "PATCH"])
-def update_scene(request, eid):
-    """Update a Scene."""
-    rows = _query("Scene", eid)
+@app.route("/v1/scenephases/<eid>", methods=["POST", "PATCH"])
+def update_scene_phase(request, eid):
+    """Update a ScenePhase."""
+    rows = _query("ScenePhase", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'deviceId', 'meshRef'])
+    err = _reject_unknown(data, ['phase'])
     if err:
         return err, 400
+    if data.get('phase') and data['phase'] not in ['active', 'inactive', 'background']:
+        return {"error": {"message": "invalid phase; allowed: " + ", ".join(['active', 'inactive', 'background']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Scene", rec)
+    _persist("ScenePhase", rec)
     return rec, 200
 
-@app.route("/v1/scenes/<eid>", methods=["DELETE"])
-def delete_scene(request, eid):
-    """Delete a Scene."""
-    rows = _query("Scene", eid)
+@app.route("/v1/scenephases/<eid>", methods=["DELETE"])
+def delete_scene_phase(request, eid):
+    """Delete a ScenePhase."""
+    rows = _query("ScenePhase", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apple_visionos.Scene", "id": eid})
+    db.retract({"entity": f"apple_visionos.ScenePhase", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/meshes", methods=["POST"])
-def create_mesh(request):
-    """Create a Mesh."""
+@app.route("/v1/immersivespaces", methods=["POST"])
+def create_immersive_space(request):
+    """Create a ImmersiveSpace."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'vertexCount', 'contentRef'])
+    err = _reject_unknown(data, ['immersionStyle', 'systemOverlaysVisible'])
     if err:
         return err, 400
-    err = _require(data, ['vertexCount'])
+    err = _require(data, ['immersionStyle', 'systemOverlaysVisible'])
     if err:
         return err, 400
-    rec = {"id": new_id("applevis_mes")}
-    rec["sceneId"] = data.get('sceneId')
-    rec["vertexCount"] = _as_int(data.get('vertexCount'))
-    rec["contentRef"] = data.get('contentRef')
+    if data.get('immersionStyle') and data['immersionStyle'] not in ['automatic', 'full', 'mixed', 'progressive']:
+        return {"error": {"message": "invalid immersionStyle; allowed: " + ", ".join(['automatic', 'full', 'mixed', 'progressive']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("applevis_imm")}
+    rec["immersionStyle"] = data.get('immersionStyle')
+    rec["systemOverlaysVisible"] = _as_bool(data.get('systemOverlaysVisible'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Mesh", rec)
+    _persist("ImmersiveSpace", rec)
     return rec, 201
 
-@app.route("/v1/meshes", methods=["GET"])
-def list_meshes(request):
-    """List Meshes with filtering + cursor pagination."""
+@app.route("/v1/immersivespaces", methods=["GET"])
+def list_immersive_spaces(request):
+    """List ImmersiveSpaces with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Mesh")
-    rows = _apply_filters(rows, params, ['sceneId', 'vertexCount', 'contentRef'])
+    rows = _query("ImmersiveSpace")
+    rows = _apply_filters(rows, params, ['immersionStyle', 'systemOverlaysVisible'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/meshes/<eid>", methods=["GET"])
-def get_mesh(request, eid):
-    """Retrieve a Mesh by id (supports ?expand=)."""
-    rows = _query("Mesh", eid)
+@app.route("/v1/immersivespaces/<eid>", methods=["GET"])
+def get_immersive_space(request, eid):
+    """Retrieve a ImmersiveSpace by id (supports ?expand=)."""
+    rows = _query("ImmersiveSpace", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'sceneId': 'Scene'})
     return rec, 200
 
-@app.route("/v1/meshes/<eid>", methods=["POST", "PATCH"])
-def update_mesh(request, eid):
-    """Update a Mesh."""
-    rows = _query("Mesh", eid)
+@app.route("/v1/immersivespaces/<eid>", methods=["POST", "PATCH"])
+def update_immersive_space(request, eid):
+    """Update a ImmersiveSpace."""
+    rows = _query("ImmersiveSpace", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'vertexCount', 'contentRef'])
+    err = _reject_unknown(data, ['immersionStyle', 'systemOverlaysVisible'])
     if err:
         return err, 400
+    if data.get('immersionStyle') and data['immersionStyle'] not in ['automatic', 'full', 'mixed', 'progressive']:
+        return {"error": {"message": "invalid immersionStyle; allowed: " + ", ".join(['automatic', 'full', 'mixed', 'progressive']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Mesh", rec)
+    _persist("ImmersiveSpace", rec)
     return rec, 200
 
-@app.route("/v1/meshes/<eid>", methods=["DELETE"])
-def delete_mesh(request, eid):
-    """Delete a Mesh."""
-    rows = _query("Mesh", eid)
+@app.route("/v1/immersivespaces/<eid>", methods=["DELETE"])
+def delete_immersive_space(request, eid):
+    """Delete a ImmersiveSpace."""
+    rows = _query("ImmersiveSpace", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apple_visionos.Mesh", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/sessions", methods=["POST"])
-def create_session(request):
-    """Create a Session."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'appId', 'startedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['startedAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("applevis_ses")}
-    rec["deviceId"] = data.get('deviceId')
-    rec["appId"] = data.get('appId')
-    rec["startedAt"] = data.get('startedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Session", rec)
-    return rec, 201
-
-@app.route("/v1/sessions", methods=["GET"])
-def list_sessions(request):
-    """List Sessions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Session")
-    rows = _apply_filters(rows, params, ['deviceId', 'appId', 'startedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/sessions/<eid>", methods=["GET"])
-def get_session(request, eid):
-    """Retrieve a Session by id (supports ?expand=)."""
-    rows = _query("Session", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'deviceId': 'Device'})
-    return rec, 200
-
-@app.route("/v1/sessions/<eid>", methods=["POST", "PATCH"])
-def update_session(request, eid):
-    """Update a Session."""
-    rows = _query("Session", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['deviceId', 'appId', 'startedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Session", rec)
-    return rec, 200
-
-@app.route("/v1/sessions/<eid>", methods=["DELETE"])
-def delete_session(request, eid):
-    """Delete a Session."""
-    rows = _query("Session", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apple_visionos.Session", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/assets", methods=["POST"])
-def create_asset(request):
-    """Create a Asset."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'type', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("applevis_ass")}
-    rec["sceneId"] = data.get('sceneId')
-    rec["type"] = data.get('type')
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Asset", rec)
-    return rec, 201
-
-@app.route("/v1/assets", methods=["GET"])
-def list_assets(request):
-    """List Assets with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Asset")
-    rows = _apply_filters(rows, params, ['sceneId', 'type', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/assets/<eid>", methods=["GET"])
-def get_asset(request, eid):
-    """Retrieve a Asset by id (supports ?expand=)."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'sceneId': 'Scene'})
-    return rec, 200
-
-@app.route("/v1/assets/<eid>", methods=["POST", "PATCH"])
-def update_asset(request, eid):
-    """Update a Asset."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sceneId', 'type', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Asset", rec)
-    return rec, 200
-
-@app.route("/v1/assets/<eid>", methods=["DELETE"])
-def delete_asset(request, eid):
-    """Delete a Asset."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apple_visionos.Asset", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/devices", methods=["POST"])
-def create_device(request):
-    """Create a Device."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['model', 'platform', 'trackingMode'])
-    if err:
-        return err, 400
-    err = _require(data, ['model', 'platform'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("applevis_dev")}
-    rec["model"] = data.get('model')
-    rec["platform"] = data.get('platform')
-    rec["trackingMode"] = data.get('trackingMode')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Device", rec)
-    return rec, 201
-
-@app.route("/v1/devices", methods=["GET"])
-def list_devices(request):
-    """List Devices with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Device")
-    rows = _apply_filters(rows, params, ['model', 'platform', 'trackingMode'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/devices/<eid>", methods=["GET"])
-def get_device(request, eid):
-    """Retrieve a Device by id (supports ?expand=)."""
-    rows = _query("Device", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/devices/<eid>", methods=["POST", "PATCH"])
-def update_device(request, eid):
-    """Update a Device."""
-    rows = _query("Device", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['model', 'platform', 'trackingMode'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Device", rec)
-    return rec, 200
-
-@app.route("/v1/devices/<eid>", methods=["DELETE"])
-def delete_device(request, eid):
-    """Delete a Device."""
-    rows = _query("Device", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apple_visionos.Device", "id": eid})
+    db.retract({"entity": f"apple_visionos.ImmersiveSpace", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "apple_visionos-compat", "tier": "L4",
-            "entities": ['Anchor', 'Scene', 'Mesh', 'Session', 'Asset', 'Device']}, 200
+            "entities": ['ScenePhase', 'ImmersiveSpace']}, 200
 
 
 if __name__ == "__main__":

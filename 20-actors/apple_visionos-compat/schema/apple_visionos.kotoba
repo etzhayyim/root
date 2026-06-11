@@ -3,69 +3,19 @@
 
 namespace apple_visionos {
 
-    entity Anchor {
+    entity ScenePhase {
         id: string @unique
-        sceneId: string
-        x: float
-        y: float
-        z: float
-        persistent: boolean
+        phase: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Scene {
+    entity ImmersiveSpace {
         id: string @unique
-        name: string
-        deviceId: string
-        meshRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Mesh {
-        id: string @unique
-        sceneId: string
-        vertexCount: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Session {
-        id: string @unique
-        deviceId: string
-        appId: string
-        startedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Asset {
-        id: string @unique
-        sceneId: string
-        type: string
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Device {
-        id: string @unique
-        model: string
-        platform: string
-        trackingMode: string
+        immersionStyle: string
+        systemOverlaysVisible: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

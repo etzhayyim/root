@@ -6,67 +6,27 @@ namespace googleads {
     entity Campaign {
         id: string @unique
         name: string
-        channel: string
         status: string
-        budget: float
+        servingStatus: string
+        advertisingChannelType: string
+        startDateTime: datetime
+        endDateTime: datetime
+        trackingUrlTemplate: string
+        baseCampaign: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Audience {
+    entity AdGroup {
         id: string @unique
         name: string
-        size: integer
-        definition: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Event {
-        id: string @unique
-        profileId: string
-        name: string
-        properties: string
-        occurredAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Profile {
-        id: string @unique
-        email: string
-        externalId: string
-        traits: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Message {
-        id: string @unique
-        campaignId: string
-        profileId: string
-        channel: string
         status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Funnel {
-        id: string @unique
-        name: string
-        steps: string
-        conversionRate: float
+        type: string
+        cpcBidMicros: integer
+        trackingUrlTemplate: string
+        baseAdGroup: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

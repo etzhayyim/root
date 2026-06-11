@@ -5,21 +5,53 @@
   "kind": "compat",
   "title": "googleads clean-room actor",
   "description": "Clean-room, API-compatible marketing technology actor (googleads); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreideiobjqy2oyfb5y5sz5uigfcr2lpnymncbh2cacgcqjnt6mnerlm",
+  "wasmCid": "bafkreigtzqznndkh4qz4o4j7m6mk27oscr5bmlciajoskiptqnk7owdp4q",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreideiobjqy2oyfb5y5sz5uigfcr2lpnymncbh2cacgcqjnt6mnerlm",
+  "ipfs": "ipfs://bafkreigtzqznndkh4qz4o4j7m6mk27oscr5bmlciajoskiptqnk7owdp4q",
   "schema": "schema/googleads.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/googleapis/googleapis/master/google/ads/googleads/v24/enums/*.proto + resources/*.proto (official googleapis versioned protos)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Campaign",
+      "AdGroup"
+    ],
+    "enums": {
+      "Campaign": {
+        "status": [
+          "UNSPECIFIED",
+          "UNKNOWN",
+          "ENABLED",
+          "PAUSED",
+          "REMOVED"
+        ],
+        "servingStatus": [
+          "UNSPECIFIED",
+          "UNKNOWN",
+          "SERVING",
+          "NONE",
+          "ENDED",
+          "PENDING",
+          "SUSPENDED"
+        ]
+      },
+      "AdGroup": {
+        "status": [
+          "UNSPECIFIED",
+          "UNKNOWN",
+          "ENABLED",
+          "PAUSED",
+          "REMOVED"
+        ]
+      }
+    }
+  },
   "entities": [
     "Campaign",
-    "Audience",
-    "Event",
-    "Profile",
-    "Message",
-    "Funnel"
+    "AdGroup"
   ],
   "adr": [
     "260607",
@@ -31,7 +63,7 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 10,
       "routes": [
         {
           "method": "POST",
@@ -60,128 +92,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/audiences",
-          "op": "create Audience"
+          "path": "/v1/adgroups",
+          "op": "create AdGroup"
         },
         {
           "method": "GET",
-          "path": "/v1/audiences",
-          "op": "list Audience"
+          "path": "/v1/adgroups",
+          "op": "list AdGroup"
         },
         {
           "method": "GET",
-          "path": "/v1/audiences/{id}",
-          "op": "get Audience"
+          "path": "/v1/adgroups/{id}",
+          "op": "get AdGroup"
         },
         {
           "method": "PATCH",
-          "path": "/v1/audiences/{id}",
-          "op": "update Audience"
+          "path": "/v1/adgroups/{id}",
+          "op": "update AdGroup"
         },
         {
           "method": "DELETE",
-          "path": "/v1/audiences/{id}",
-          "op": "delete Audience"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/events",
-          "op": "create Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events",
-          "op": "list Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events/{id}",
-          "op": "get Event"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/events/{id}",
-          "op": "update Event"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/events/{id}",
-          "op": "delete Event"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/profiles",
-          "op": "create Profile"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/profiles",
-          "op": "list Profile"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/profiles/{id}",
-          "op": "get Profile"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/profiles/{id}",
-          "op": "update Profile"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/profiles/{id}",
-          "op": "delete Profile"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/messages",
-          "op": "create Message"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/messages",
-          "op": "list Message"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/messages/{id}",
-          "op": "get Message"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/messages/{id}",
-          "op": "update Message"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/messages/{id}",
-          "op": "delete Message"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/funnels",
-          "op": "create Funnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/funnels",
-          "op": "list Funnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/funnels/{id}",
-          "op": "get Funnel"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/funnels/{id}",
-          "op": "update Funnel"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/funnels/{id}",
-          "op": "delete Funnel"
+          "path": "/v1/adgroups/{id}",
+          "op": "delete AdGroup"
         }
       ],
       "features": {
@@ -244,7 +176,7 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 10,
       "tools": [
         {
           "name": "create_campaign",
@@ -255,19 +187,31 @@
               "name": {
                 "type": "string"
               },
-              "channel": {
-                "type": "string"
-              },
               "status": {
                 "type": "string"
               },
-              "budget": {
-                "type": "number"
+              "servingStatus": {
+                "type": "string"
+              },
+              "advertisingChannelType": {
+                "type": "string"
+              },
+              "startDateTime": {
+                "type": "string"
+              },
+              "endDateTime": {
+                "type": "string"
+              },
+              "trackingUrlTemplate": {
+                "type": "string"
+              },
+              "baseCampaign": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "channel"
+              "status"
             ]
           }
         },
@@ -306,14 +250,26 @@
               "name": {
                 "type": "string"
               },
-              "channel": {
-                "type": "string"
-              },
               "status": {
                 "type": "string"
               },
-              "budget": {
-                "type": "number"
+              "servingStatus": {
+                "type": "string"
+              },
+              "advertisingChannelType": {
+                "type": "string"
+              },
+              "startDateTime": {
+                "type": "string"
+              },
+              "endDateTime": {
+                "type": "string"
+              },
+              "trackingUrlTemplate": {
+                "type": "string"
+              },
+              "baseCampaign": {
+                "type": "string"
               }
             },
             "required": [
@@ -337,299 +293,47 @@
           }
         },
         {
-          "name": "create_audience",
-          "description": "Create a Audience.",
+          "name": "create_ad_group",
+          "description": "Create a AdGroup.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
-              },
-              "size": {
-                "type": "integer"
-              },
-              "definition": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "size"
-            ]
-          }
-        },
-        {
-          "name": "list_audiences",
-          "description": "List Audiences.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_audience",
-          "description": "Get a Audience by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_audience",
-          "description": "Update a Audience.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "size": {
-                "type": "integer"
-              },
-              "definition": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_audience",
-          "description": "Delete a Audience.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_event",
-          "description": "Create a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "profileId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "properties": {
-                "type": "string"
-              },
-              "occurredAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "properties"
-            ]
-          }
-        },
-        {
-          "name": "list_events",
-          "description": "List Events.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_event",
-          "description": "Get a Event by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_event",
-          "description": "Update a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "profileId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "properties": {
-                "type": "string"
-              },
-              "occurredAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_event",
-          "description": "Delete a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_profile",
-          "description": "Create a Profile.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string"
-              },
-              "externalId": {
-                "type": "string"
-              },
-              "traits": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "email",
-              "traits"
-            ]
-          }
-        },
-        {
-          "name": "list_profiles",
-          "description": "List Profiles.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_profile",
-          "description": "Get a Profile by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_profile",
-          "description": "Update a Profile.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "externalId": {
-                "type": "string"
-              },
-              "traits": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_profile",
-          "description": "Delete a Profile.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_message",
-          "description": "Create a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "campaignId": {
-                "type": "string"
-              },
-              "profileId": {
-                "type": "string"
-              },
-              "channel": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "cpcBidMicros": {
+                "type": "integer"
+              },
+              "trackingUrlTemplate": {
+                "type": "string"
+              },
+              "baseAdGroup": {
+                "type": "string"
               }
             },
             "required": [
-              "channel",
+              "name",
               "status"
             ]
           }
         },
         {
-          "name": "list_messages",
-          "description": "List Messages.",
+          "name": "list_ad_groups",
+          "description": "List AdGroups.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_message",
-          "description": "Get a Message by id.",
+          "name": "get_ad_group",
+          "description": "Get a AdGroup by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -643,84 +347,30 @@
           }
         },
         {
-          "name": "update_message",
-          "description": "Update a Message.",
+          "name": "update_ad_group",
+          "description": "Update a AdGroup.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "campaignId": {
-                "type": "string"
-              },
-              "profileId": {
-                "type": "string"
-              },
-              "channel": {
+              "name": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_message",
-          "description": "Delete a Message.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_funnel",
-          "description": "Create a Funnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
+              },
+              "type": {
                 "type": "string"
               },
-              "steps": {
+              "cpcBidMicros": {
+                "type": "integer"
+              },
+              "trackingUrlTemplate": {
                 "type": "string"
               },
-              "conversionRate": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "steps"
-            ]
-          }
-        },
-        {
-          "name": "list_funnels",
-          "description": "List Funnels.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_funnel",
-          "description": "Get a Funnel by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "baseAdGroup": {
                 "type": "string"
               }
             },
@@ -730,32 +380,8 @@
           }
         },
         {
-          "name": "update_funnel",
-          "description": "Update a Funnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "steps": {
-                "type": "string"
-              },
-              "conversionRate": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_funnel",
-          "description": "Delete a Funnel.",
+          "name": "delete_ad_group",
+          "description": "Delete a AdGroup.",
           "inputSchema": {
             "type": "object",
             "properties": {

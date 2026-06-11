@@ -2743,6 +2743,34 @@ PLATFORM_OVERRIDES["hologram"] = {
     "Tag": E(name="string"),
 }
 
+# Faithful Google Ads model (official googleapis versioned protos, v24 —
+# each vN dir is immutable on release, changes go to vN+1: the dbt-style
+# anchor). CampaignStatus(5) + AdGroupStatus(5) + CampaignServingStatus(7)
+# enforced at the v24 anchor; advertisingChannelType / adGroupType grow
+# with product launches -> gapped.
+PLATFORM_OVERRIDES["googleads"] = {
+    "Campaign": E(name="string", status="string", servingStatus="string", advertisingChannelType="string", startDateTime="datetime", endDateTime="datetime", trackingUrlTemplate="string", baseCampaign="string"),
+    "AdGroup": E(name="string", status="string", type="string", cpcBidMicros="integer", trackingUrlTemplate="string", baseAdGroup="string"),
+}
+
+# Faithful visionOS/SwiftUI model (official Apple docs JSON API).
+# ScenePhase(3, closed lifecycle) + ImmersionStyle(4 documented static
+# styles) enforced.
+PLATFORM_OVERRIDES["apple_visionos"] = {
+    "ScenePhase": E(phase="string"),
+    "ImmersiveSpace": E(immersionStyle="string", systemOverlaysVisible="boolean"),
+}
+
+# Faithful JMA 防災情報XML model (the official xml.kishou.go.jp XSD schema
+# zip — machine-readable — plus the normative format v1.3 PDF text-extracted
+# per the argo precedent). Control.Status enforced (通常/訓練/試験,
+# xs:enumeration in jmx.xsd); Head.InfoType enforced (発表/更新/訂正/取消 —
+# declared complete in the format spec; the XSD types it as plain string).
+PLATFORM_OVERRIDES["jma_weather"] = {
+    "Control": E(title="string", dateTime="datetime", status="string", editorialOffice="string", publishingOffice="string"),
+    "Head": E(title="string", reportDateTime="datetime", targetDateTime="datetime", validDateTime="datetime", eventID="string", infoType="string", serial="string", infoKind="string", infoKindVersion="string"),
+}
+
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official
 # MobilityData systems.csv registry + live feed verification) join on the

@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible marketing technology actor (googleads); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:googleads-compat",
-    "x-wasm-cid": "bafkreideiobjqy2oyfb5y5sz5uigfcr2lpnymncbh2cacgcqjnt6mnerlm",
+    "x-wasm-cid": "bafkreigtzqznndkh4qz4o4j7m6mk27oscr5bmlciajoskiptqnk7owdp4q",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreideiobjqy2oyfb5y5sz5uigfcr2lpnymncbh2cacgcqjnt6mnerlm",
+      "url": "ipfs://bafkreigtzqznndkh4qz4o4j7m6mk27oscr5bmlciajoskiptqnk7owdp4q",
       "description": "browser-local kotoba-wasm component"
     }
   ],
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/audiences": {
+    "/v1/adgroups": {
       "get": {
-        "summary": "List Audiences",
+        "summary": "List AdGroups",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Audience"
+                        "$ref": "#/components/schemas/AdGroup"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Audience",
+        "summary": "Create a AdGroup",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AudienceCreate"
+                "$ref": "#/components/schemas/AdGroupCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Audience"
+                  "$ref": "#/components/schemas/AdGroup"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/audiences/{id}": {
+    "/v1/adgroups/{id}": {
       "get": {
-        "summary": "Get a Audience",
+        "summary": "Get a AdGroup",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Audience"
+                  "$ref": "#/components/schemas/AdGroup"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Audience",
+        "summary": "Update a AdGroup",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AudienceCreate"
+                "$ref": "#/components/schemas/AdGroupCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Audience"
+                  "$ref": "#/components/schemas/AdGroup"
                 }
               }
             }
@@ -366,747 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Audience",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/events": {
-      "get": {
-        "summary": "List Events",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Event"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Event",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EventCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Event"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/events/{id}": {
-      "get": {
-        "summary": "Get a Event",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Event"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Event",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EventCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Event"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Event",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/profiles": {
-      "get": {
-        "summary": "List Profiles",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Profile"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Profile",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProfileCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Profile"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/profiles/{id}": {
-      "get": {
-        "summary": "Get a Profile",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Profile"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Profile",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProfileCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Profile"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Profile",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/messages": {
-      "get": {
-        "summary": "List Messages",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Message"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Message",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Message"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/messages/{id}": {
-      "get": {
-        "summary": "Get a Message",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Message"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Message",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Message"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Message",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/funnels": {
-      "get": {
-        "summary": "List Funnels",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Funnel"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Funnel",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Funnel"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/funnels/{id}": {
-      "get": {
-        "summary": "Get a Funnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Funnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Funnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Funnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Funnel",
+        "summary": "Delete a AdGroup",
         "parameters": [
           {
             "name": "id",
@@ -1149,14 +409,44 @@
           "name": {
             "type": "string"
           },
-          "channel": {
-            "type": "string"
-          },
           "status": {
+            "type": "string",
+            "enum": [
+              "UNSPECIFIED",
+              "UNKNOWN",
+              "ENABLED",
+              "PAUSED",
+              "REMOVED"
+            ]
+          },
+          "servingStatus": {
+            "type": "string",
+            "enum": [
+              "UNSPECIFIED",
+              "UNKNOWN",
+              "SERVING",
+              "NONE",
+              "ENDED",
+              "PENDING",
+              "SUSPENDED"
+            ]
+          },
+          "advertisingChannelType": {
             "type": "string"
           },
-          "budget": {
-            "type": "number"
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "trackingUrlTemplate": {
+            "type": "string"
+          },
+          "baseCampaign": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1174,207 +464,50 @@
           "name": {
             "type": "string"
           },
-          "channel": {
-            "type": "string"
-          },
           "status": {
-            "type": "string"
-          },
-          "budget": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "channel"
-        ]
-      },
-      "Audience": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "size": {
-            "type": "integer"
-          },
-          "definition": {
-            "type": "string"
-          },
-          "createdAt": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "UNSPECIFIED",
+              "UNKNOWN",
+              "ENABLED",
+              "PAUSED",
+              "REMOVED"
+            ]
           },
-          "updatedAt": {
+          "servingStatus": {
             "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AudienceCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
+            "enum": [
+              "UNSPECIFIED",
+              "UNKNOWN",
+              "SERVING",
+              "NONE",
+              "ENDED",
+              "PENDING",
+              "SUSPENDED"
+            ]
+          },
+          "advertisingChannelType": {
             "type": "string"
           },
-          "size": {
-            "type": "integer"
+          "startDateTime": {
+            "type": "string"
           },
-          "definition": {
+          "endDateTime": {
+            "type": "string"
+          },
+          "trackingUrlTemplate": {
+            "type": "string"
+          },
+          "baseCampaign": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "size"
-        ]
-      },
-      "Event": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "profileId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "properties": {
-            "type": "string"
-          },
-          "occurredAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "EventCreate": {
-        "type": "object",
-        "properties": {
-          "profileId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "properties": {
-            "type": "string"
-          },
-          "occurredAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "properties"
-        ]
-      },
-      "Profile": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "externalId": {
-            "type": "string"
-          },
-          "traits": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProfileCreate": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "externalId": {
-            "type": "string"
-          },
-          "traits": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "email",
-          "traits"
-        ]
-      },
-      "Message": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "campaignId": {
-            "type": "string"
-          },
-          "profileId": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MessageCreate": {
-        "type": "object",
-        "properties": {
-          "campaignId": {
-            "type": "string"
-          },
-          "profileId": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "channel",
           "status"
         ]
       },
-      "Funnel": {
+      "AdGroup": {
         "type": "object",
         "properties": {
           "id": {
@@ -1383,11 +516,27 @@
           "name": {
             "type": "string"
           },
-          "steps": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "UNSPECIFIED",
+              "UNKNOWN",
+              "ENABLED",
+              "PAUSED",
+              "REMOVED"
+            ]
+          },
+          "type": {
             "type": "string"
           },
-          "conversionRate": {
-            "type": "number"
+          "cpcBidMicros": {
+            "type": "integer"
+          },
+          "trackingUrlTemplate": {
+            "type": "string"
+          },
+          "baseAdGroup": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1399,22 +548,38 @@
           }
         }
       },
-      "FunnelCreate": {
+      "AdGroupCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "steps": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "UNSPECIFIED",
+              "UNKNOWN",
+              "ENABLED",
+              "PAUSED",
+              "REMOVED"
+            ]
+          },
+          "type": {
             "type": "string"
           },
-          "conversionRate": {
-            "type": "number"
+          "cpcBidMicros": {
+            "type": "integer"
+          },
+          "trackingUrlTemplate": {
+            "type": "string"
+          },
+          "baseAdGroup": {
+            "type": "string"
           }
         },
         "required": [
           "name",
-          "steps"
+          "status"
         ]
       }
     }
