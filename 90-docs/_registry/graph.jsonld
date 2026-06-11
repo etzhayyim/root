@@ -15076,6 +15076,23 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606111011",
+      "type": "TechArticle",
+      "title": "ADR-2606111011: Session-Close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)",
+      "status": "accepted",
+      "topic": "session-close-land-hydrogen-branch-to-main",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close summary of the 2026-06-11 hydrogen-branch landing",
+        "record of the 14-file conflict resolution (8 manifests, kotoba submodule, L5 ledger, CLAUDE.md, deps.toml, registries)"
+      ],
+      "related": [
+        "doc:adr-2606110955-session-close-pr-backlog-review-merge",
+        "doc:adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

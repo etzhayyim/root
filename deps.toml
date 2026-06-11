@@ -10583,6 +10583,14 @@ status_note = "Process record of the 2026-06-11 review-and-merge sweep of the op
 path = "90-docs/adr/2606110955-session-close-pr-backlog-review-merge.md"
 adr = ["2606110955", "2606101845", "2606102000"]
 
+[[adrs]]
+id = "2606111011"
+title = "session close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)"
+status = "accepted"
+status_note = "Executes the tracked follow-up from ADR-2606110955: bring the long-lived feat/hydrogen-electrolysis-cfe-session-close branch (163-L5 cleanroom union + hydrogen/CFE work) back onto main. The branch was 64 ahead / 163 behind (657 files diff). main was merged INTO the branch and 14 conflicts hand-resolved before opening the branch→main PR: 8 scholarly *-compat/manifest.json kept the branch's L5 'verified' provenance block (main had null); 40-engine/kotoba submodule kept the branch ptr 92461b7346 (newer + real/fetchable; main's 98f9d2b3fd unresolvable on the kotoba remote); cleanroom-l5-verification.json kept the branch's 163 L5 (strict superset of main's 42; index auto-merged to L5 163 / L4 837, 0-drift vs the ledger); CLAUDE.md kanjō row took MAIN's newer R0+R1-live-EDGAR version; deps.toml 3 regions took MAIN's additive/newer blocks (niyaku/uchiwake/ibuki/rasen incl. this ADR family + rasen GO-pathway) — no NEW duplicate ADR ids (merged 13 == main's 13, all pre-existing); registry sidecars REGENERATED (924 entries). All pre-commit hooks green on the merge commit. Once the branch→main PR merges, main's cleanroom corpus reaches 163 L5 / 837 L4 (up from 42). No code authored, only merge resolution + this record; zero invariant amendments. Tracked follow-ups: merge the PR, de-dup the 13 pre-existing duplicate ADR ids, re-home the cleanroom L5 line onto main to stop ledger divergence."
+path = "90-docs/adr/2606111011-session-close-land-hydrogen-branch-to-main.md"
+adr = ["2606111011", "2606110955", "2606082300"]
+
 [[modules]]
 path = "20-actors/ibuki"
 kind = "organism-autonomy-substrate-plus-ecosystem"
