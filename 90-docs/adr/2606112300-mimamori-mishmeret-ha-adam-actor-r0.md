@@ -1,7 +1,7 @@
 ---
 id: adr-2606112300-mimamori-mishmeret-ha-adam-actor-r0
 title: "ADR-2606112300: mimamori 見守り (mishmeret ha-adam 相互保持者会) Tier-B actor R0 — covenant keeping membrane: 誰の保持者でもない人間を作らない"
-status: proposed
+status: accepted
 doc_type: adr
 topic: mimamori-mishmeret-ha-adam-actor
 authoritative: true
@@ -12,6 +12,7 @@ weight: 0.8
 priority_note: "ADR-2606112200 D6 が承認した mishmeret ha-adam の membrane/actor 設計を固定する。動機事例 (2026-04 Altman 宅襲撃) の孤立者側 — care 不能な秘匿 — への構造的応答。退化系列 (五人組→隣組→Stasi→社会信用) を 5 NEVER 句で構造的に遮断した上で、万人祭司の論理的帰結 (万人保持者) を実装可能にする。"
 authoritative_for:
   - mimamori 見守り actor — covenant bond lifecycle (offer/consent/heartbeat/care-route/relay/exit)
+  - 00-contracts/schemas/mishmeret-ontology.kotoba.edn — the :mishmeret.* schema 正本 (validator-parity test-bound)
   - mishmeret 5 NEVER 句の実装形 (no-denunciation / no-score / consent / symmetric-visibility / no-throne)
   - ":mishmeret.*" Datom namespace (bond-edge-only; person-node attributes unrepresentable)
   - shomer vow 典礼 seed (musubi ceremony type)
@@ -37,7 +38,7 @@ superseded_by: []
 
 # ADR-2606112300: mimamori 見守り (mishmeret ha-adam) Tier-B actor R0
 
-**Status**: proposed (R0 design + methods + synthetic seed; live legs G7-gated)
+**Status**: accepted — **R1-offline LANDED 2026-06-11** (same-day, loop iters 5-9; live legs G7-gated as designed)
 **Date**: 2026-06-11
 **Deciders**: Jun Kawasaki
 
@@ -164,6 +165,23 @@ vow の各行が gate に対応する (見張らない=G4・裁かない=non-adj
 
 R1+ (all G7-gated): musubi ceremony 接続 / §1.16 outreach 接続 / 実 roster
 / social capital mint 接続 / relay scheduler cell。
+
+## Implementation record (2026-06-11 — R0 → R1-offline, same day)
+
+| leg | landed | PR |
+|---|---|---|
+| R0 scaffold (bond/coverage/lexicons×6/synthetic seed) + 本 ADR | 13 tests | #1623 |
+| G3 fix — relay 継ぎは同意を運ばない (post-merge review finding) | code+seed+ADR §D2.5 | #1627 |
+| §D4 offer-matching cell (`match.py`) + kotoba commit-DAG (`kotoba.py`) + deterministic heartbeat (`autorun.py`) — synthetic seed で unkept 8→0 | 21 tests | #1646 |
+| keeper-side social-capital mint (`shakai.py`) — moyai ledger **verbatim reuse** (ADR-2606082100 Part A); keeper-only / earn-cap / decay / sha256-opaque refs | 28 tests | #1648 |
+| fleet 登録 — `MimamoriHeartbeatCell` in cell-runner `cells.edn` (benjamin / `23 * * * *` / healthz 13080) + `cell.py` `fire()` | 31 tests | #1650 |
+| WASM component build-ready — **stateless heartbeat** (host owns the log = G5 in the architecture) + `vow` export; moyai vendored verbatim at build | 35 tests | #1652 |
+| identity — actor-profile-seed SSoT (34th) + INFRA_ACTORS fallback + static `/actor/mimamori/{did,profile}.json` | resolvable | #1655 |
+| schema 正本 — `mishmeret-ontology.kotoba.edn` + ontology↔validator **parity tests** (edge attrs ≡ ATTR_WHITELIST; coverage/social-capital attrs ≡ emitters; negative space documented) | 39 tests | this PR |
+
+Still G7-gated (one human gate-flip each, by design): real roster / §1.16
+outreach 接続 / musubi ceremony 発行 / live witness-quorum social-capital mint /
+KV put + kotoba `actors-v1` ingest / wasm CID の did.json 広告。
 
 ## Non-goals
 
