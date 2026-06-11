@@ -171,10 +171,10 @@ def test_uk_claim_referral_over_line():
 
 
 def test_unknown_jurisdiction_degrades_honestly():
-    """G10: an uncovered jurisdiction (:br) gets NO deadlines/options — tate never
-    guesses foreign law; it declares the gap and refers."""
+    """G10: an uncovered jurisdiction (:mx — the fixture moved off :br when wave 4
+    covered Brazil) gets NO deadlines/options — tate never guesses foreign law."""
     ps, _ = _by_id()
-    p = ps["ntc:br-unknown"]
+    p = ps["ntc:mx-unknown"]
     assert p["status"] == ":unknown-jurisdiction"
     assert p["deadlines"] == [] and p["options"] == []
     assert p["steps"][0]["verb"] == "declare-uncovered"
@@ -234,6 +234,24 @@ def test_arbitration_inversion_us_vs_ca():
     ca = scan_doc({**base, ":doc/id": "d:ca", ":doc/jurisdiction": ":ca"}, patterns)
     assert any("ENFORCEABLE" in f["anchor"] or "原則" in f["anchor"] for f in us)
     assert any("無効" in f["anchor"] for f in ca)
+
+
+def test_wave4_es_nl_br_genuine():
+    """Wave 4: ES proceso monitorio (LEC 815.1 20 días hábiles) · NL dagvaarding
+    (Rv 111 roldatum) · BR citação via correio (CPC 335 contestação 15 dias úteis —
+    :mail IS a genuine channel in Brazil, unlike JP/DE)."""
+    ps, _ = _by_id()
+    es = ps["ntc:es-monitorio"]
+    assert es["status"] == ":genuine" and es["proc"] == "proc:es-monitorio"
+    assert any("815.1" in d["anchor"] for d in es["deadlines"])
+    nl = ps["ntc:nl-dagvaarding"]
+    assert nl["status"] == ":genuine" and nl["proc"] == "proc:nl-dagvaarding"
+    assert any("Rv art. 111" in d["anchor"] for d in nl["deadlines"])
+    br = ps["ntc:br-citacao"]
+    assert br["status"] == ":genuine" and br["proc"] == "proc:br-citacao"
+    assert br["channel"] == ":mail"  # citação pelo correio is the Brazilian default
+    assert any("335" in d["anchor"] for d in br["deadlines"])
+    assert any("dias úteis" in d["rule"] for d in br["deadlines"])  # business-day honesty
 
 
 def test_procedures_never_cross_jurisdictions():

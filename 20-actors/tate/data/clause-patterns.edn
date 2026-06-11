@@ -242,4 +242,49 @@
   :clause/context :consumer :clause/risk :mid
   :clause/keywords ["tacito rinnovo"]
   :clause/anchor "Codice del consumo art. 65-bis 系 / L. 99/2009 (黙示更新の事前告知) — 通知なき更新は争いうる"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :es — España (G10) ───────────────────────────────────────────────────────
+ {:clause/id "cl:es-clausula-abusiva" :clause/label "全部免責 (cláusula abusiva)"
+  :clause/jurisdiction :es
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["se excluye toda responsabilidad"]
+  :clause/anchor "TRLGDCU (RDL 1/2007) arts. 82–86 (cláusulas abusivas — nulas de pleno derecho)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:es-prorroga-automatica" :clause/label "prórroga automática (自動更新)"
+  :clause/jurisdiction :es
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["prórroga automática"]
+  :clause/anchor "TRLGDCU art. 62.3 (継続的契約の解約権 — 妨げる条項は無効)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :nl — Nederland (G10) ────────────────────────────────────────────────────
+ {:clause/id "cl:nl-exoneratie" :clause/label "全部免責 (exoneratiebeding)"
+  :clause/jurisdiction :nl
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["aansprakelijkheid is uitgesloten" "iedere aansprakelijkheid uitgesloten"]
+  :clause/anchor "BW 6:237 sub f (grijze lijst — vermoed onredelijk bezwarend)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:nl-stilzwijgende-verlenging" :clause/label "stilzwijgend verlengd (黙示更新)"
+  :clause/jurisdiction :nl
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["stilzwijgend verlengd"]
+  :clause/anchor "BW 6:236 sub j/p (zwarte lijst — Wet Van Dam: 黙示更新後は月次解約可)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :br — Brasil (G10) ───────────────────────────────────────────────────────
+ {:clause/id "cl:br-exoneracao" :clause/label "全部免責 (cláusula abusiva)"
+  :clause/jurisdiction :br
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["não nos responsabilizamos por"]
+  :clause/anchor "CDC (Lei 8.078/1990) art. 51 I (責任免除条項 — nulas de pleno direito)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:br-renovacao-automatica" :clause/label "renovação automática (自動更新)"
+  :clause/jurisdiction :br
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["renovação automática"]
+  :clause/anchor "CDC art. 51 (消費者に過大な不利益) / art. 39 (práticas abusivas) — 事前同意なき更新は争いうる"
   :clause/route :kaiyaku :clause/verify-current-law true}]

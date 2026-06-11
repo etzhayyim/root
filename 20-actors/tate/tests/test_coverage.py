@@ -30,6 +30,8 @@ def test_jurisdiction_registry_complete():
     for j in juris.values():
         assert j[":juris/upl-anchor"], j[":juris/id"]
         assert j[":juris/fake-help"] and j[":juris/referrals"], j[":juris/id"]
+        # the in-house victim-support route (tasuke 助) must exist in EVERY jurisdiction
+        assert any("tasuke" in x for x in j[":juris/fake-help"]), j[":juris/id"]
         assert j[":juris/service-note"], j[":juris/id"]
         assert j[":juris/verify-current-law"] is True
         assert j[":juris/sourcing"] == ":representative"

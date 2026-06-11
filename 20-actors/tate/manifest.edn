@@ -7,7 +7,7 @@
  :actor/status    :r1 ; R0 = JP-only (2606112300); R1 = worldwide jurisdiction layer (2606112400)
  :actor/adr       "2606112300"
  :actor/adr-r1    "2606112400"
- :actor/jurisdictions [:jp :us :eu :uk :de :kr :fr :au :ca :it] ; representative — coverage_report.py names the gap (G10)
+ :actor/jurisdictions [:jp :us :eu :uk :de :kr :fr :au :ca :it :es :nl :br] ; representative — coverage_report.py names the gap (G10)
  :actor/related   ["2606112200"   ; kaiyaku (severance executor — tate routes :kaiyaku)
                    "2605312500"   ; kurashimori (クーリングオフ/返金 rights — tate routes :kurashimori)
                    "2605262700"   ; chigiri (legal-procedure substrate, UPL prior art)

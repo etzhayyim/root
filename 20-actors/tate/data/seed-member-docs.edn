@@ -107,11 +107,13 @@
   :notice/sourcing :synthetic
   :notice/text "Mahnbescheid des Amtsgerichts. Sie können Widerspruch einlegen."}
 
- {:notice/id "ntc:br-unknown" :notice/label "未カバー管轄の通知 (ブラジル)"
-  :notice/jurisdiction :br
-  :notice/channel :mail :notice/claim-amount 2000 :notice/claim-currency "BRL"
+ ;; :br was the unknown-jurisdiction fixture until wave 4 covered it — the fixture
+ ;; moved to :mx (the degrade path must stay exercised as coverage grows, G10)
+ {:notice/id "ntc:mx-unknown" :notice/label "未カバー管轄の通知 (メキシコ)"
+  :notice/jurisdiction :mx
+  :notice/channel :mail :notice/claim-amount 20000 :notice/claim-currency "MXN"
   :notice/sourcing :synthetic
-  :notice/text "Citação judicial. Prazo para contestação."}
+  :notice/text "Notificación de demanda. Plazo para contestar."}
 
  ;; ── wave 2 (:kr :fr — loop iteration 2026-06-11) ─────────────────────────────
  {:doc/id "doc:kr-tos" :doc/label "KR 구독 서비스 이용약관 (synthetic)"
@@ -175,6 +177,40 @@
   :notice/channel :formal-service :notice/claim-amount 4200 :notice/claim-currency "EUR"
   :notice/sourcing :synthetic
   :notice/text "È stato emesso un decreto ingiuntivo nei Suoi confronti. Può proporre opposizione."}
+
+ ;; ── wave 4 (:es :nl :br) ─────────────────────────────────────────────────────
+ {:doc/id "doc:es-tos" :doc/label "ES condiciones generales (synthetic)"
+  :doc/jurisdiction :es
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Se excluye toda responsabilidad por daños. El contrato se renueva por prórroga automática."}
+
+ {:doc/id "doc:nl-voorwaarden" :doc/label "NL algemene voorwaarden (synthetic)"
+  :doc/jurisdiction :nl
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Iedere aansprakelijkheid is uitgesloten. Het abonnement wordt stilzwijgend verlengd."}
+
+ {:doc/id "doc:br-termos" :doc/label "BR termos de uso (synthetic)"
+  :doc/jurisdiction :br
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "Não nos responsabilizamos por quaisquer danos. O plano tem renovação automática."}
+
+ {:notice/id "ntc:es-monitorio" :notice/label "ES requerimiento de pago (送達)"
+  :notice/jurisdiction :es
+  :notice/channel :formal-service :notice/claim-amount 1500 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Proceso monitorio. Requerimiento de pago: puede pagar u oponerse en el plazo legal."}
+
+ {:notice/id "ntc:nl-dagvaarding" :notice/label "NL dagvaarding (betekening)"
+  :notice/jurisdiction :nl
+  :notice/channel :formal-service :notice/claim-amount 7000 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Dagvaarding om te verschijnen voor de kantonrechter op de vermelde roldatum."}
+
+ {:notice/id "ntc:br-citacao" :notice/label "BR citação (correio AR)"
+  :notice/jurisdiction :br
+  :notice/channel :mail :notice/claim-amount 9000 :notice/claim-currency "BRL"
+  :notice/sourcing :synthetic
+  :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
  ;; registry-seed completeness backfill: every procedure must be exercised (G10 maturity)
  {:notice/id "ntc:us-smallclaims" :notice/label "US small claims notice (certified mail)"

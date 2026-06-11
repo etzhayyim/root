@@ -125,6 +125,13 @@ def test_intl_expected_shapes_hit():
     assert ("doc:ca-tos", "cl:ca-all-sales-final") in hits
     assert ("doc:it-tos", "cl:it-clausola-vessatoria") in hits
     assert ("doc:it-tos", "cl:it-tacito-rinnovo") in hits
+    # wave 4 (:es :nl :br)
+    assert ("doc:es-tos", "cl:es-clausula-abusiva") in hits
+    assert ("doc:es-tos", "cl:es-prorroga-automatica") in hits
+    assert ("doc:nl-voorwaarden", "cl:nl-exoneratie") in hits
+    assert ("doc:nl-voorwaarden", "cl:nl-stilzwijgende-verlenging") in hits
+    assert ("doc:br-termos", "cl:br-exoneracao") in hits
+    assert ("doc:br-termos", "cl:br-renovacao-automatica") in hits
 
 
 def test_jurisdiction_isolation():

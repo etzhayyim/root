@@ -23,7 +23,7 @@ UN_MEMBER_STATES = 193  # disclosed denominator (the EU bloc entry covers instru
 # next-wave jurisdiction worklist — entries DROP OFF automatically once covered
 # (computed against the registry, so the gap list can never go stale)
 JURIS_WORKLIST = [":it", ":es", ":nl", ":kr", ":fr", ":cn", ":tw", ":in",
-                  ":br", ":au", ":ca", ":sg"]
+                  ":br", ":au", ":ca", ":sg", ":mx"]
 
 # structural gaps — true regardless of how many jurisdictions land
 STRUCTURAL_GAPS = [

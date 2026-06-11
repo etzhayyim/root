@@ -84,4 +84,28 @@
   :juris/referrals ["patrocinio a spese dello Stato (法律扶助)" "Consiglio dell'Ordine degli Avvocati"]
   :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Polizia Postale (commissariatodips.it)"]
   :juris/refer-over-amount 10000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :es :juris/label "España"
+  :juris/upl-anchor "Estatuto General de la Abogacía (RD 135/2021) / LEC (abogado・procurador 必須域)"
+  :juris/service-note "proceso monitorio の requerimiento de pago は裁判所の送達 (LEC)"
+  :juris/referrals ["justicia gratuita (Ley 1/1996)" "Colegio de Abogados (turno de oficio)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "INCIBE 017 (ciberseguridad)" "Policía Nacional 091"]
+  :juris/refer-over-amount 2000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :nl :juris/label "Nederland"
+  :juris/upl-anchor "Advocatenwet (procesmonopolie — kantonzaken は本人訴訟可)"
+  :juris/service-note "dagvaarding は gerechtsdeurwaarder による betekening (送達)"
+  :juris/referrals ["Juridisch Loket (無料法律相談)" "Raad voor Rechtsbijstand (法律扶助)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Fraudehelpdesk 088-7867372" "politie.nl"]
+  :juris/refer-over-amount 25000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :br :juris/label "Brasil"
+  :juris/upl-anchor "Lei 8.906/1994 (Estatuto da OAB — advocacia privativa; Juizados ≤20 SM は本人可)"
+  :juris/service-note "citação は oficial de justiça または correio (AR) — CPC arts. 246–248; SMS/WhatsApp の『processo』通知は偽"
+  :juris/referrals ["Defensoria Pública" "OAB (assistência judiciária)" "Procon (消費者)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "consumidor.gov.br / Procon" "Delegacia Virtual (Polícia Civil)"]
+  :juris/refer-over-amount 28000 :juris/refer-over-currency "BRL"
   :juris/sourcing :representative :juris/verify-current-law true}]

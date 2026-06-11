@@ -257,4 +257,49 @@
   [{:opt/id :opposizione :opt/kind :self-submit :opt/label "発令裁判所へ opposizione を提起"}
    {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
   :proc/refer-when ["opposizione は訴訟手続 — 高額は常に弁護士"]
+  :proc/verify-current-law true}
+
+ ;; ── :es ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:es-monitorio" :proc/label "Proceso monitorio (支払督促・スペイン)"
+  :proc/jurisdiction :es
+  :proc/trigger-keywords ["proceso monitorio" "requerimiento de pago"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Pagar u oponerse (支払い又は異議)"
+    :dl/rule "requerimiento の受領から20日 (días hábiles・営業日) 以内に支払い又は oposición"
+    :dl/anchor "LEC arts. 815.1・818" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :oposicion :opt/kind :self-submit :opt/label "escrito de oposición を提出 (→ 対審手続へ)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い"}]
+  :proc/refer-when ["€2,000 超 (abogado・procurador 必須域)"]
+  :proc/verify-current-law true}
+
+ ;; ── :nl ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:nl-dagvaarding" :proc/label "Dagvaarding (呼出状・オランダ)"
+  :proc/jurisdiction :nl
+  :proc/trigger-keywords ["dagvaarding"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Verschijnen / antwoord (出頭・答弁)"
+    :dl/rule "dagvaarding 記載の roldatum (期日) までに出頭または schriftelijk antwoord (kanton ≤€25,000 は本人可)"
+    :dl/anchor "Rv art. 111 (dagvaarding の必要的記載事項)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :antwoord :opt/kind :self-submit :opt/label "conclusie van antwoord を提出 (認否 + 反論)"}
+   {:opt/id :appear :opt/kind :self-decide :opt/label "roldatum に出頭 (verstek = 欠席判決の回避)"}]
+  :proc/refer-when ["€25,000 超 (advocaat 必須域)"]
+  :proc/verify-current-law true}
+
+ ;; ── :br ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:br-citacao" :proc/label "Citação (訴状送達・ブラジル)"
+  :proc/jurisdiction :br
+  :proc/trigger-keywords ["citação"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Contestação (答弁)"
+    :dl/rule "15日 (dias úteis・営業日) 以内に contestação — 起算は CPC art. 231 の送達態様による"
+    :dl/anchor "CPC 2015 arts. 335・231" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :contestacao :opt/kind :self-submit :opt/label "contestação を提出 (revelia = 欠席擬制の回避)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/acordo"}]
+  :proc/refer-when ["Juizados 20 salários mínimos 超は advogado 必須 (Lei 9.099/1995 art. 9)"]
   :proc/verify-current-law true}]
