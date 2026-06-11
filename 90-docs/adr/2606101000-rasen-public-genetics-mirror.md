@@ -232,3 +232,19 @@ gains `fetched.reactome_edges`.
 **Tests**: 23 green (network-free) — +2 Reactome dedup/top-first/cap tests (with a bundled
 `reactome_brca1.json` fixture) +4 WASM export tests. **Boundary unchanged**: PUBLIC reference
 only; KEGG-live or widening the gene allowlist further stays G7-gated. **Status**: 🟢 R2.
+
+# Session close (2026-06-11, R2)
+
+- **State**: rasen 🟢 R2 — 3-source public ingest (MyGene + MyVariant + Reactome) with GO +
+  Reactome pathway membership → kotoba EDN/Datom → ipfs-pinned + **IPNS-published** + durable
+  `80-data/genome/` snapshot; **build-ready WASM** component. Latest live run: 268 nodes / 305
+  縁 (117 GO + 85 Reactome edges), 0 errors. 23 network-free tests green.
+- **SSoT synced**: `deps.toml` rasen `[[modules]]` → `version 0.1.0-r2` / `status
+  R2-publish-reactome-wasm-ready`, `[[adrs]]` status_note gains the R2 leg, a new
+  `[[modules]] 80-data/genome` (published snapshot) entry; `CLAUDE.md` `rasen 螺旋` Status row
+  → R2 / 268-node / 23-test figures.
+- **PR trail**: #1586 (actor) → #1591 (GO) → #1600 (R2: publish + Reactome + WASM) → this
+  SSoT-sync PR.
+- **Open / next** (all gated or external, none blocking): public-gateway DHT propagation is
+  best-effort (local pin + IPNS authoritative); the componentize-py `.wasm` build + DID-doc
+  advertisement is the operator/build-env step; KEGG-live or a wider gene allowlist stays G7.
