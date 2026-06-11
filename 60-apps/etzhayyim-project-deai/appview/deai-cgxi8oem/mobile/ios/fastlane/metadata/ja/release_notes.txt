@@ -1,8 +1,0 @@
-初回リリース
-
-• Jung 100語連想実験（20語/セッション）
-• Hume AI 感情ベクトル計測（10次元）
-• Spirit Type 判定（Hero / Sage / Lover / Caregiver）
-• テンセグリティ共鳴マッチング
-• Signal プロトコル E2E 暗号化メッセージ
-• spirit-in-physics.com 研究 API 連携

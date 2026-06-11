@@ -1,4 +1,0 @@
-# all built/derived artifacts — reproduced by `npm run build` (no git-lfs blobs)
-node_modules/
-node-pkg/
-serve/

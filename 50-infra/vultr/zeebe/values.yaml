@@ -1,3 +1,0 @@
-# Empty for now — templates/ are verbatim manifests with no parameters.
-# When you need to expose image tag / replicas / resources, add them here
-# and {{ .Values.* }} into the template.

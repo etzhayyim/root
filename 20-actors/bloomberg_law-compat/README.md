@@ -1,3 +1,0 @@
-# Bloomberg_law Clean Room Actor
-
-Clean-room API-compatible implementation of the bloomberg_law vertical monopoly, backed by Datomic and Py Kotodama WASM.

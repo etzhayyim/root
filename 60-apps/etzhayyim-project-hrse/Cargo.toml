@@ -1,8 +1,0 @@
-[workspace]
-members = ["api"]
-resolver = "2"
-
-[package]
-name = "vercel-functions"
-version = "0.1.0"
-edition = "2021"

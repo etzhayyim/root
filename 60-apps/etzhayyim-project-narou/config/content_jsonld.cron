@@ -1,3 +1,0 @@
-# every 30 minutes
-*/30 * * * * cd /workspace/etzhayyim-apps-etzhayyim && \
-  python3 projects/etzhayyim-project-narou/scripts/generate_content_jsonld.py >> /tmp/narou-jsonld.log 2>&1

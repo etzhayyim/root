@@ -1,8 +1,0 @@
-{
-  "dependencies": ["."],
-  "graphs": {
-    "health": "lg_curpus2skill.server:GRAPHS",
-    "extractEvidence": "lg_curpus2skill.server:GRAPHS"
-  },
-  "env": ".env"
-}

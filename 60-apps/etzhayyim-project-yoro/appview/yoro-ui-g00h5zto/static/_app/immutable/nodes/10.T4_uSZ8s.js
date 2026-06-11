@@ -1,1 +1,0 @@
-import{L as e,bt as t,r as n,s as r,yt as i,z as a}from"../chunks/C5-eYWG4.js";import{t as o}from"../chunks/BjFB1SV9.js";import"../chunks/xihTtKlq.js";import"../chunks/BqpCPLan.js";import"../chunks/CfNfRJvK.js";var s=a(`<p>Redirecting to /projects...</p>`);function c(a,c){t(c,!1),n(()=>{o(`/projects`,{replaceState:!0})}),r(),e(a,s()),i()}export{c as component};

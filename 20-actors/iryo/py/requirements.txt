@@ -1,3 +1,0 @@
-# iryo レセプト engine — pure Python stdlib only (no third-party runtime deps).
-# Tests use pytest (dev only):
-pytest>=7.0

@@ -1,7 +1,0 @@
-{
-  "/apps": {
-    "type": "ipfs_pin",
-    "cid": "bafybeb5fe81b1f1042beb0cbf7698d0e4e9ebdde37a03c9681e8712e7",
-    "local_path": "60-apps/chaos-dashboard"
-  }
-}

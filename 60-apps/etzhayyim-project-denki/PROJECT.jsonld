@@ -1,8 +1,0 @@
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "denki.etzhayyim.com",
-  "description": "電気サービス — Basic Life Guarantee 受給者への電力供給管理",
-  "applicationCategory": "Utility",
-  "url": "https://denki.etzhayyim.com"
-}

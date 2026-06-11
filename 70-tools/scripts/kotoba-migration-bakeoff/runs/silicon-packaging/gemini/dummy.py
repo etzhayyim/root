@@ -1,2 +1,0 @@
-"""Dummy."""
-def run(): pass

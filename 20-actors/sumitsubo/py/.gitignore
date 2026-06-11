@@ -1,7 +1,0 @@
-__pycache__/
-*.pyc
-agent.wasm
-# generated at deploy time from agent.wasm (ADR-2606036000) — content-addressed
-# and reproducible from the wasm + requirements, so not tracked
-agent.wasm.cdx.json
-agent.wasm.sbom.ingest.json

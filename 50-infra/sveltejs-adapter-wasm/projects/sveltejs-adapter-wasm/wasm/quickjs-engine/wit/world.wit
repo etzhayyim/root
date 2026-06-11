@@ -1,5 +1,0 @@
-package etzhayyimcojp:quickjs-engine;
-
-world engine {
-    export etzhayyimcojp:svelte-adapter/js-runtime;
-}

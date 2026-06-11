@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">YORO</string>
-    <string name="title_activity_main">YORO</string>
-    <string name="package_name">com.etzhayyim.yoro</string>
-    <string name="custom_url_scheme">com.etzhayyim.yoro</string>
-</resources>

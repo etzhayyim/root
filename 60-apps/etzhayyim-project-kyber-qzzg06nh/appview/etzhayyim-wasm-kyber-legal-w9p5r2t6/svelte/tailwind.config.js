@@ -1,1 +1,0 @@
-export default { content: ['./src/**/*.{html,js,svelte,ts}', '../../node_modules/@etzhayyim/appshellv2/**/*.{html,js,svelte,ts}', '../../node_modules/@etzhayyim/design-system/**/*.{html,js,svelte,ts}'], theme: { extend: {} }, plugins: [] };

@@ -1,9 +1,0 @@
-git_url("https://github.com/etzhayyimcojp/fastlane-certs.git")
-
-storage_mode("git")
-
-type("appstore")
-
-app_identifier(["com.etzhayyim.yoro"])
-
-team_id("U7W6HNNJCS")

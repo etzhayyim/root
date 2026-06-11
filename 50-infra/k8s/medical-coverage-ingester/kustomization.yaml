@@ -1,9 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-namespace: mitama-udf
-resources:
-  - cronjob.yaml
-  - facility-b2-replayer-cronjob.yaml
-  - facility-b2-replayer-100-cronjob.yaml
-  - facility-b2-replayer-tiny-cronjob.yaml
-  - facility-raw-cronjob.yaml

@@ -1,3 +1,0 @@
-packages:
-  - "projects/sveltejs-adapter-wasm/adapter"
-  - "projects/sveltejs-adapter-wasm/wasm/*"

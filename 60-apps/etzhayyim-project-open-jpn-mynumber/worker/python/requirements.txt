@@ -1,1 +1,0 @@
-# LangServer worker is stdlib-only; psycopg is optional and installed by deploy images that persist to RW.

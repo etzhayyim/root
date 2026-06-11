@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="P_CYM" targetNamespace="http://etzhayyim.com/gov/CYM/health">
-  <bpmn:process id="Process_CYM_health" isExecutable="true">
-    <bpmn:startEvent id="S" name="Start"/>
-    <bpmn:task id="T" name="Process"/>
-    <bpmn:endEvent id="E" name="End"/>
-  </bpmn:process>
-</bpmn:definitions>

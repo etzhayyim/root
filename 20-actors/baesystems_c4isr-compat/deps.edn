@@ -1,1 +1,0 @@
-{:project {:name "baesystems_c4isr-compat" :version "0.1.0"} :dependencies {:kotoba "workspace" :kotodama-wasm "workspace" :datomic-client "workspace"}}

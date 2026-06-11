@@ -1,8 +1,0 @@
-# reproducible/large artifacts — regenerate via bakeoff_cli.py / build-pywasm.sh
-.venv/
-__pycache__/
-*.wasm
-*.pyc
-results/*.log
-ports/
-# keep: *.py harness, corpus.edn/json, results/*.edn|*.json, runs/**/agent.py

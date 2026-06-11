@@ -1,3 +1,0 @@
-# X Clean Room Actor
-
-Clean-room API-compatible implementation of the x platform, backed by Datomic and Py Kotodama WASM.

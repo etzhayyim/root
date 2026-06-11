@@ -1,7 +1,0 @@
-# sodai_browser runtime artifacts
-.sodai-chrome-profile/
-scripts/sodai_*.png
-uv.lock
-.venv/
-__pycache__/
-.pytest_cache/

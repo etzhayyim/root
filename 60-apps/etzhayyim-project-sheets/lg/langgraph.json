@@ -1,8 +1,0 @@
-{
-  "$comment": "lg-sheets — Google Sheets v4 + Microsoft Graph compatible spreadsheet API over kotoba datomic (ADR-2606010500). Primary surface = FastAPI XRPC server (lg_sheets.server:app).",
-  "dependencies": ["./lg_sheets"],
-  "graphs": { "health": "./lg_sheets/graphs/health.py:GRAPH" },
-  "env": ".env",
-  "python_version": "3.11",
-  "auth": { "$comment": "x-api-key (LG_SHEETS_API_KEY env), optional. atproto actor-worker x-internal-trust is the edge boundary." }
-}
