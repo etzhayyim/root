@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-11",
+  "updated_at": "2026-06-12",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -24363,6 +24363,29 @@
         "adr-2605312345"
       ],
       "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606121620-coverage-maturity-loop-did-etzhayyim-design-system.md",
+      "id": "adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
+      "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "coverage-maturity-loop",
+      "authoritative": true,
+      "authoritative_for": [
+        "did:etzhayyim codec + CID test coverage status",
+        "design-system motion utility test coverage status"
+      ],
+      "related": [
+        "2606111640",
+        "2605241800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-12",
       "amends": [],
       "amended_by": []
     },

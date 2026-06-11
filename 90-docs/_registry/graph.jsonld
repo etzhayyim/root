@@ -15453,6 +15453,23 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
+      "type": "TechArticle",
+      "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
+      "status": "accepted",
+      "topic": "coverage-maturity-loop",
+      "authoritative": true,
+      "authoritativeFor": [
+        "did:etzhayyim codec + CID test coverage status",
+        "design-system motion utility test coverage status"
+      ],
+      "related": [
+        "doc:2606111640",
+        "doc:2605241800"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
