@@ -1,0 +1,545 @@
+{
+  "actor": "hinagata",
+  "adr": "2606111954",
+  "schema": "legal-template-ontology@0.1.0",
+  "license": "Apache-2.0 + etzhayyim Charter Rider v3.0",
+  "note": "Public legal-document template commons. Every body is content-addressed (CIDv1 raw/sha2-256) and free to copy + adapt. NOT legal advice (G1).",
+  "templateCount": 11,
+  "templates": [
+    {
+      "id": "tmpl.consulting-services",
+      "title": "Independent Consulting Services Agreement",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "balanced",
+      "jurisdictions": [
+        "INTL"
+      ],
+      "bodyCid": "bafkreihpcx4rhoyu7yt5jhopkczewpbkoxjdjcakjjf323tpzlikefj4qi",
+      "bodySha256": "0xef15f913bb14fe27d49dcf50b24b3c2a75d234880a4a4bbd6e6fcad0a2153c82",
+      "bytes": 1621,
+      "clauseCount": 7,
+      "statutes": [
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.consumer-sale-jp",
+      "title": "特定商取引 契約書 (クーリングオフ条項付)",
+      "lang": "ja",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-consumer",
+      "jurisdictions": [
+        "JP"
+      ],
+      "bodyCid": "bafkreibympjsfs54ezhq3tqkc633srdeaiguicuhhkgy7h3ewxhtftfraa",
+      "bodySha256": "0x3863d322cbbc264f0dce0a17b7b94464020d440a873a8d8f9f64b5cf32ccb100",
+      "bytes": 1474,
+      "clauseCount": 3,
+      "statutes": [
+        {
+          "id": "st.jp-tokushoho-coolingoff",
+          "citation": "特定商取引法9条",
+          "instrument": "特定商取引に関する法律 (昭和51年法律第57号)",
+          "url": "https://laws.e-gov.go.jp/law/351AC0000000057"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.donation-grant",
+      "title": "Charitable Donation & Grant Agreement",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "neutral",
+      "jurisdictions": [
+        "INTL"
+      ],
+      "bodyCid": "bafkreigqwzno7h7gb6gicnypbwvtuuvu6g4gse7e3hsjpqykveetdno7fa",
+      "bodySha256": "0xd0b65aef9fe60f8c81370f0dab3a52b4f1b86913e4d9e497c30aa90931b5df28",
+      "bytes": 1326,
+      "clauseCount": 2,
+      "statutes": [
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.dpa-gdpr",
+      "title": "Data Processing Agreement (GDPR Art. 28)",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-weaker-party",
+      "jurisdictions": [
+        "EU"
+      ],
+      "bodyCid": "bafkreicawsfdbcdmvghtvudfnyjvmqj2eq5a3ullkoxslv62fbtjaytwxy",
+      "bodySha256": "0x40b48a30886ca98f3ad0656e1356413a243a0dd16b53af25d7da2866906276be",
+      "bytes": 1695,
+      "clauseCount": 5,
+      "statutes": [
+        {
+          "id": "st.gdpr-28",
+          "citation": "GDPR Art. 28",
+          "instrument": "Regulation (EU) 2016/679 (GDPR)",
+          "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3051-1-1"
+        },
+        {
+          "id": "st.gdpr-15",
+          "citation": "GDPR Art. 15",
+          "instrument": "Regulation (EU) 2016/679 (GDPR)",
+          "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e2326-1-1"
+        },
+        {
+          "id": "st.gdpr-33",
+          "citation": "GDPR Art. 33",
+          "instrument": "Regulation (EU) 2016/679 (GDPR)",
+          "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e3528-1-1"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.employment-intl",
+      "title": "Employment Agreement (ILO core-conventions aligned)",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-weaker-party",
+      "jurisdictions": [
+        "INTL"
+      ],
+      "bodyCid": "bafkreieolrtsnqyguom4tmhujto4dltrtmajd4cokiop5k3cwdndyjkm5y",
+      "bodySha256": "0x8e5c6726c306a399c9b0f44cddc1ae719b0091f04e521cfeab62b0da3c254cee",
+      "bytes": 1768,
+      "clauseCount": 6,
+      "statutes": [
+        {
+          "id": "st.ilo-c87",
+          "citation": "ILO C087",
+          "instrument": "ILO Freedom of Association and Protection of the Right to Organise Convention, 1948 (No. 87)",
+          "url": "https://normlex.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_INSTRUMENT_ID:312232"
+        },
+        {
+          "id": "st.ilo-c105",
+          "citation": "ILO C105",
+          "instrument": "ILO Abolition of Forced Labour Convention, 1957 (No. 105)",
+          "url": "https://normlex.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_INSTRUMENT_ID:312250"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.lease-jp",
+      "title": "住宅賃貸借契約書",
+      "lang": "ja",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-consumer",
+      "jurisdictions": [
+        "JP"
+      ],
+      "bodyCid": "bafkreiecappdjhgrknwyv6piofqou72fzmdf6yx3rjqsisqgdxxnzdtyba",
+      "bodySha256": "0x8203de349cd1536d8af9e87160ea7f45cb065f62fb8a61244a061deedc8e7808",
+      "bytes": 1671,
+      "clauseCount": 5,
+      "statutes": [
+        {
+          "id": "st.jp-shakuchi-shakka",
+          "citation": "借地借家法26条・28条",
+          "instrument": "借地借家法 (平成3年法律第90号)",
+          "url": "https://laws.e-gov.go.jp/law/403AC0000000090"
+        },
+        {
+          "id": "st.jp-civil-601",
+          "citation": "民法601条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.jp-civil-601",
+          "citation": "民法601条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.lease-jp-en",
+      "title": "Residential Lease Agreement (Japan)",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-consumer",
+      "jurisdictions": [
+        "JP"
+      ],
+      "bodyCid": "bafkreigwyddcck2mjf2phhtu5l5ryazvml3vl2b4abr56qx77ecsx376sq",
+      "bodySha256": "0xd6c0c6212b4c4974f39e74eafb1c033562f755e83c0063df42fff9052beffe94",
+      "bytes": 1219,
+      "clauseCount": 3,
+      "statutes": [
+        {
+          "id": "st.jp-shakuchi-shakka",
+          "citation": "借地借家法26条・28条",
+          "instrument": "借地借家法 (平成3年法律第90号)",
+          "url": "https://laws.e-gov.go.jp/law/403AC0000000090"
+        },
+        {
+          "id": "st.jp-civil-601",
+          "citation": "民法601条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        },
+        {
+          "id": "st.jp-civil-601",
+          "citation": "民法601条",
+          "instrument": "民法 (明治29年法律第89号)",
+          "url": "https://laws.e-gov.go.jp/law/129AC0000000089"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.loan-qard",
+      "title": "Zero-Interest Benevolent Loan Agreement",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "pro-weaker-party",
+      "jurisdictions": [
+        "JP"
+      ],
+      "bodyCid": "bafkreia5unt2p2pqtv7ghjnnsdgapwx27il6svpt4aobqqrgcm44khq6jq",
+      "bodySha256": "0x1da367a7e9f09d7e63a5ad90cc07dafafa17e955f3e01c1842261339c51e1e4c",
+      "bytes": 1462,
+      "clauseCount": 3,
+      "statutes": [
+        {
+          "id": "st.jp-risoku-seigen",
+          "citation": "利息制限法1条",
+          "instrument": "利息制限法 (昭和29年法律第100号)",
+          "url": "https://laws.e-gov.go.jp/law/329AC0000000100"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.nda-mutual",
+      "title": "Mutual Non-Disclosure Agreement",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "balanced",
+      "jurisdictions": [
+        "INTL"
+      ],
+      "bodyCid": "bafkreig3ag3hts2zd4za3iex7udriv44d4uvdsmokxi3oanmtlkn6uvisu",
+      "bodySha256": "0xdb01b679cb591f320da097fd0714579c1f2951c98e55d1b701ac9ad4df52a895",
+      "bytes": 1543,
+      "clauseCount": 6,
+      "statutes": [
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.oss-contribution",
+      "title": "Apache-2.0 Inbound Contribution Grant",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "neutral",
+      "jurisdictions": [
+        "INTL"
+      ],
+      "bodyCid": "bafkreihp7cmducybjgj7npssiz7xqqqi5zt2ji3azqciez5dykjunkf2wa",
+      "bodySha256": "0xeff8983a0b014993f6be52467f784208ee67a4a360cc048267a3c29346a8bab0",
+      "bytes": 1378,
+      "clauseCount": 2,
+      "statutes": [
+        {
+          "id": "st.apache-2",
+          "citation": "Apache-2.0 §2–§4",
+          "instrument": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    },
+    {
+      "id": "tmpl.sales-intl",
+      "title": "International Sale of Goods Agreement (CISG)",
+      "lang": "en",
+      "license": "Apache-2.0 + etzhayyim Charter Rider",
+      "version": "1.0.0",
+      "stance": "balanced",
+      "jurisdictions": [
+        "INTL"
+      ],
+      "bodyCid": "bafkreicfop44vj57kdvsraglsab3ti25ywq4mwoxlx2envo4gn7makscy4",
+      "bodySha256": "0x4573f9caa7bf50eb2880cb9003b9a35dc5a1c659d75df446d5dc337ec02a42c7",
+      "bytes": 2062,
+      "clauseCount": 8,
+      "statutes": [
+        {
+          "id": "st.cisg-35",
+          "citation": "CISG Art. 35",
+          "instrument": "UN Convention on Contracts for the International Sale of Goods (1980)",
+          "url": "https://uncitral.un.org/en/texts/salegoods/conventions/sale_of_goods/cisg"
+        },
+        {
+          "id": "st.cisg-39",
+          "citation": "CISG Art. 39",
+          "instrument": "UN Convention on Contracts for the International Sale of Goods (1980)",
+          "url": "https://uncitral.un.org/en/texts/salegoods/conventions/sale_of_goods/cisg"
+        },
+        {
+          "id": "st.ny-convention",
+          "citation": "New York Convention 1958, Art. III",
+          "instrument": "Convention on the Recognition and Enforcement of Foreign Arbitral Awards (1958)",
+          "url": "https://uncitral.un.org/en/texts/arbitration/conventions/foreign_arbitral_awards"
+        },
+        {
+          "id": "st.uncitral-model-arb",
+          "citation": "UNCITRAL Model Law, Art. 7",
+          "instrument": "UNCITRAL Model Law on International Commercial Arbitration",
+          "url": "https://uncitral.un.org/en/texts/arbitration/modellaw/commercial_arbitration"
+        },
+        {
+          "id": "st.eidas-25",
+          "citation": "Regulation (EU) No 910/2014, Art. 25",
+          "instrument": "eIDAS Regulation (EU) No 910/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0910"
+        },
+        {
+          "id": "st.us-esign",
+          "citation": "15 U.S.C. §7001",
+          "instrument": "Electronic Signatures in Global and National Commerce Act (2000)",
+          "url": "https://www.govinfo.gov/app/details/USCODE-2011-title15/USCODE-2011-title15-chap96-subchapI-sec7001"
+        },
+        {
+          "id": "st.us-ueta",
+          "citation": "UETA §7",
+          "instrument": "Uniform Electronic Transactions Act (1999)",
+          "url": "https://www.uniformlaws.org/committees/community-home?CommunityKey=2c04b76c-2b7d-4399-977e-d5876ba7e034"
+        },
+        {
+          "id": "st.jp-denshishomei",
+          "citation": "電子署名法3条",
+          "instrument": "電子署名及び認証業務に関する法律 (平成12年法律第102号)",
+          "url": "https://laws.e-gov.go.jp/law/412AC0000000102"
+        }
+      ]
+    }
+  ]
+}

@@ -24100,6 +24100,41 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606111954-hinagata-legal-template-commons.md",
+      "id": "adr-2606111954-hinagata-legal-template-commons",
+      "title": "ADR-2606111954: hinagata 雛形 — legal-document-template commons (EDN-bound to statutes, content-addressed, e-signable)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "hinagata-legal-template-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "legal-document-template-commons",
+        "legal-template-ontology",
+        "template-to-statute-binding",
+        "electronic-contract-bridge"
+      ],
+      "related": [
+        "2606072100",
+        "2605302000",
+        "2605263400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262700",
+        "2605262800",
+        "2605231230",
+        "2605231525",
+        "2605181100",
+        "2605312345",
+        "2605215000",
+        "2606101000"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606112000-kotoba-actor-dna-code-data-unification.md",
       "id": "adr-2606112000-kotoba-actor-dna-code-data-unification",
       "title": "ADR-2606112000: Actor DNA — binding kotoba CODE + DATA into one content-addressed unit (Holochain-/Ethereum-iso)",
