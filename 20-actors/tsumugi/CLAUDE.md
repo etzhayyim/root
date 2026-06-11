@@ -331,3 +331,20 @@ ACTORS="tsumugi" 70-tools/scripts/fleet-heartbeat/heartbeat.sh   # via the fleet
 ```bash
 python3 20-actors/tsumugi/tests/test_autorun.py   # 11 tests (content-addressed chain + determinism)
 ```
+
+## Pinned to IPFS + resolves at etzhayyim.com (ADR-2606092000 wave 5)
+
+```bash
+python3 20-actors/tsumugi/methods/publish_ipfs.py            # pin: 80-data/tsumugi-power/ + apex descriptor
+python3 20-actors/tsumugi/methods/publish_ipfs.py --verify   # re-content-address vs the manifest
+python3 20-actors/tsumugi/tests/test_publish_ipfs.py         # 11 tests (incl. ipfs-add CID vector)
+```
+
+- **(A) PIN**: artifacts gzipped (mtime=0 → deterministic) + content-addressed to a kotoba IPFS
+  **CIDv1 (raw, sha2-256)** — byte-identical to `ipfs add --cid-version=1 --raw-leaves`, verifiable
+  with `rasen/methods/cid.py`, no daemon. Home: **`80-data/tsumugi-power/`** (graph/nt/jsonld `.gz`
+  + `publish-manifest.json` + `PUBLISH.md`). Committed → durable + pin-able by CID.
+- **(B) SERVE**: `https://etzhayyim.com/ns/power` (resolvable epw: vocabulary) +
+  `https://etzhayyim.com/dataset/tsumugi-power.json` (CIDs + gateway links) via the apex Worker
+  static dir (`50-infra/etzhayyim-did-web/public/`). Live on next `wrangler deploy`. The data lives
+  on IPFS (host-independent); etzhayyim.com only advertises it.
