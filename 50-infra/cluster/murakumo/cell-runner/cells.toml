@@ -209,11 +209,12 @@ trigger = { kind = "cron", expr = "*/10 * * * *" }
 healthz_port = 13070
 adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
 
-# ── yabai CTI persistence (ADR-2605301400 §T3) ───────────────────────────────
+# ── yabai CTI persistence (ADR-2605301400 §T3, ADR-2606111830 close) ─────────
 #
 # Public Tor-exit indicators + case-bound BitTorrent observations only. The
 # Kotoba Datomic is the queue/checkpointer. Actor graph writes require
-# YABAI_GRAPH_CID plus KOTOBA_TOKEN or KOTOBA_SESSION_POP.
+# YABAI_GRAPH_CID plus KOTOBA_TOKEN or KOTOBA_SESSION_POP. Queue writes require
+# KOTOBA_URL=http://127.0.0.1:8077 plus KOTOBA_TOKEN in the worker environment.
 
 [[cell]]
 name = "YabaiTorTorrentCtiPersistenceCell"
@@ -223,7 +224,7 @@ node = "issachar"
 trigger = { kind = "lan-api", healthz_port = 13071, api_port = 13171 }
 healthz_port = 13071
 api_port = 13171
-adr = ["2605301400", "2605262130", "2605231525"]
+adr = ["2605301400", "2605262130", "2605231525", "2606111830"]
 
 # ── Optional: maps_sentinel + yoro cells when their wave is ready ─────────────
 # [[cell]]

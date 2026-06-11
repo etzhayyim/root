@@ -3,6 +3,8 @@
 `YabaiTorTorrentCtiPersistenceCell` runs on `issachar` as a `lan-api` queue
 worker through `kotoba-kotodama-cell-runner`.
 
+Decision record: [ADR-2606111830](../adr/2606111830-yabai-kotoba-datomic-checkpointer-close.md).
+
 The cell exposes:
 
 - `GET /healthz` on port `13171`
@@ -33,3 +35,18 @@ credentials are missing.
 Boundary: Tor data is public exit-node infrastructure only. BitTorrent rows are
 accepted only as case-bound, evidence-backed `:btobs/*` observations; the actor
 does not infer private-person identity or perform broad swarm surveillance.
+
+## Close record
+
+Closed live on issachar on 2026-06-11 JST.
+
+- Kotoba server: `http://127.0.0.1:8077/health` returned `ok`
+- Yabai worker: `http://127.0.0.1:13171/healthz` returned `store=kotoba-datomic`
+- `POST /enqueue` wrote a Datomic job and the worker advanced it to `done`
+- `GET /jobs?limit=5` returned Datomic-backed jobs from the queue graph
+- observed close PIDs: Kotoba server `53503`, Yabai worker `53964`
+
+The LaunchAgent plists are installed on issachar. SSH-initiated
+`launchctl bootstrap` was rejected by macOS user/gui session-domain policy, so
+the close verification used the same environment via `nohup`; the installed
+LaunchAgents can be bootstrapped from an interactive login session or root.

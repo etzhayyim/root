@@ -146,6 +146,9 @@ name = "issachar"
 hostname = "issacharnomac-mini.local"
 ip_lan = "192.168.1.12"
 role = "phenotype-agent-shard-1 + unispsc-executor-shard-1 + unispsc-organism-shard-1 + ossekai-cluster"
+infrastructure = [
+  "kotoba-server local Datomic node on 127.0.0.1:8077 for YabaiTorTorrentCtiPersistenceCell (ADR-2606111830)",
+]
 cells = [
   "PhenotypeAgent",  # SBT tokenId range N/3 to 2N/3
   "UnispscAgentExecutorCell",  # unispsc segments 30-44 (~8541 agents — heaviest shard, segments 31/41/42)
@@ -439,12 +442,17 @@ notes = "Emits KaizenProposal NDJSON. PR agent (Wave 4) opens GitHub PRs from th
 healthz_port = 13071
 trigger = "lan-api"
 api_port = 13171
-adr = ["2605301400", "2605262130", "2605231525"]
+adr = ["2605301400", "2605262130", "2605231525", "2606111830"]
 module = "kotodama.primitives.yabai_murakumo"
 entry = "serve"
 actor_did = "did:web:etzhayyim.com:actor:yabai"
 checkpoint_graph = "bafyreibecj2jpykhim5loq4q3qcfottu6v2xqziktv5kdqxvq5rslqtvei"
-notes = "Kotoba Datomic job queue + checkpointed yabai CTI worker. POST /enqueue triggers immediate persistence; boot enqueues one refresh job. Tor is public-exit only, BitTorrent is case-bound evidence only."
+checkpoint_graph_name = "etzhayyim/yabai/cti-persistence-queue"
+kotoba_url = "http://127.0.0.1:8077"
+required_env = ["KOTOBA_URL", "KOTOBA_TOKEN", "YABAI_QUEUE_GRAPH"]
+operator_token_source = "local launchd/process env; JWT sub must equal issachar kotoba-server operator DID; do not commit token"
+deployment_status = "closed live on issachar 2026-06-11 JST: Kotoba server PID 53503, Yabai API PID 53964, /enqueue -> done verified"
+notes = "Kotoba Datomic job queue + checkpointed yabai CTI worker. POST /enqueue triggers immediate persistence; boot enqueues one refresh job. Tor is public-exit only, BitTorrent is case-bound evidence only. SQLite is not used."
 
 # ─── kuni-umi cells (ADR-2605201400) ────────────────────────────────
 
