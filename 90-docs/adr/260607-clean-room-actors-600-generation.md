@@ -885,3 +885,66 @@ Charter note: schema-only datafication — the compat actor models the
 declared API shape and stores no person data (consent-bound person flows
 belong to shomei/himotoki). Probes this wave: marketo (moved to Adobe
 Experience League JS), jwplayer (no public spec), eventbrite (JS shell).
+
+## 17. Session close 2026-06-11/12 — the gemini-CLI two-stage harness carries L5 from 163 to 226 (22.6%)
+
+**Arc.** Thirty /loop iterations across two days lifted the L5 ledger
+**163 → 226 (+63 actors, 16.3% → 22.6%)** and enforced enum fields
+**691 → 897 (+206)**, with `verify_cleanroom_system.py` **PASS 0/0 held on
+all 45 session commits** and every per-actor contract suite green. Defers
+grew 12 → 14, both evidence-backed (drone_deploy 403-gated portal;
+fipa_acl origin-dead). Six L5s shipped with ZERO enums where no closed
+declaration exists — refusing to fabricate closedness is itself the bar.
+
+**Method.** The session introduced and held a two-stage harness: gemini CLI
+(`--allowed-tools "google_web_search,web_fetch"`, non-interactive) produces
+an UNTRUSTED draft with mandatory provenance URLs; the harness then
+independently re-fetches every cited primary source and machine-checks
+every claimed set before anything is enforced. The gate caught errors in
+BOTH directions — fabrications refuted (HF SpaceInfo fields, freee
+AccountItem.searchable, FDA 'Ongoing'/'Open' vs the YAML's
+'On-Going'/'Pending', hologram's transitional states) and over-caution
+reversed where the spec itself declares the set (landsat, FDA
+product_type/reporttype/event_type). When gemini quota died mid-session
+the harness verified directly with no quality drop: pdftotext for
+normative PDFs (argo, JMA, EDINET, BIPM), documentation-service.arm.com
+for JS-gated Arm docs, NVS JSON-LD vocabularies, live-entity real-object
+reads (EPSG, FDIC). One harness-side lesson is recorded with equal
+honesty: a truncated grep window nearly refuted a REAL Aave field, and a
+hand-count claimed 8 enum fields where the rollup's machine count said 7 —
+refutation and bookkeeping need the same rigor as enforcement.
+
+**Anchor taxonomy built this session** (now the corpus's closedness
+toolbox): physical/encoding (ARM 4-bit cond, LoRa PHY lattice, calendar
+weeks, 3D axes, I/P flags), frozen-by-fate (DJI discontinuation, Kaltura
+dead-tech fossils, Helium's Solana migration, NeXTSTEP-era
+ComparisonResult, on-chain immutability — the strongest), versioned-
+immutable (dbt vN, Azure stable dirs, googleads/criteo dated specs),
+declared-complete (one_of, xs:enumeration, typed Literals, CSDL EnumTypes,
+proto enums, prose 'must be either ... or'), stability-evidenced
+(single-commit-since-introduction, two-year byte-identity, 18-year API-1
+constants), and conformance families ×5 (FHIR, MAVLink incl. a 2-hop
+official chain, GBFS on measured feeds, SDMX 2.1, Ethereum JSON-RPC).
+
+**Refusal classes named this session:** grew-within-in-place-version
+(airbyte v0, firebase/gcp v1), reserved-slot-bearing (DJI DisplayMode),
+plugin-extension-bearing (Kaltura), live-observed-is-not-declared
+(censusgov predicateType, FDIC BKCLASS), request-body-subset-vs-full-schema
+(Brightcove), per-field-declarations-only / no cross-entity borrowing
+(Iterable), and false-reject avoidance (hologram state, Redis-TYPE lesson).
+
+**Next productive seams** (for the next session, in expected yield order):
+the Microsoft Graph CSDL deep well (800+ declared EnumTypes untouched);
+Discovery-doc sweep across remaining Google-adjacent actors; more
+operator live specs (the /api-docs and api_schema.php patterns generalize);
+JP-gov chain (etax needs a dedicated CAB-extraction wave; fsa_japan);
+SDMX/JSON-RPC family extensions (boj?, additional node providers); and
+the JS-walled cohort (hmrc, ecwid, ibm_zos, dynamics365-auth) which needs
+a browser-rendering verification path (claude-in-chrome was unavailable
+this session — the documentation-service.arm.com pattern shows alternate
+official mirrors sometimes exist instead).
+
+The deps.toml `[[modules]]` 20-actors entry is synchronized to this state
+(status `1000-registered-L4-baseline-226-L5-verified-22.6pct`, tier_counts
+L4 774 / L5 226, deferred 14) with the per-wave description consolidated
+into a single session-close form.
