@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible events / NPO / creator actor (patreon); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:patreon-compat",
-    "x-wasm-cid": "bafkreidkj7ypazmys5w4vfyizvfyhx53l6pvmooriw4zdfhsjbkxfwz6qy",
+    "x-wasm-cid": "bafkreihcnigw6v4rwxcnaxq76rtu7k7rof4yayxvs47gvmu6bsg72rt3nu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreidkj7ypazmys5w4vfyizvfyhx53l6pvmooriw4zdfhsjbkxfwz6qy",
+      "url": "ipfs://bafkreihcnigw6v4rwxcnaxq76rtu7k7rof4yayxvs47gvmu6bsg72rt3nu",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/events": {
+    "/v1/users": {
       "get": {
-        "summary": "List Events",
+        "summary": "List Users",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Event"
+                        "$ref": "#/components/schemas/User"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Event",
+        "summary": "Create a User",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/events/{id}": {
+    "/v1/users/{id}": {
       "get": {
-        "summary": "Get a Event",
+        "summary": "Get a User",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Event",
+        "summary": "Update a User",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Event",
+        "summary": "Delete a User",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/tickets": {
+    "/v1/members": {
       "get": {
-        "summary": "List Tickets",
+        "summary": "List Members",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Ticket"
+                        "$ref": "#/components/schemas/Member"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Ticket",
+        "summary": "Create a Member",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketCreate"
+                "$ref": "#/components/schemas/MemberCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ticket"
+                  "$ref": "#/components/schemas/Member"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/tickets/{id}": {
+    "/v1/members/{id}": {
       "get": {
-        "summary": "Get a Ticket",
+        "summary": "Get a Member",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ticket"
+                  "$ref": "#/components/schemas/Member"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Ticket",
+        "summary": "Update a Member",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketCreate"
+                "$ref": "#/components/schemas/MemberCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ticket"
+                  "$ref": "#/components/schemas/Member"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Ticket",
+        "summary": "Delete a Member",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/attendees": {
+    "/v1/campaigns": {
       "get": {
-        "summary": "List Attendees",
+        "summary": "List Campaigns",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Attendee"
+                        "$ref": "#/components/schemas/Campaign"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Attendee",
+        "summary": "Create a Campaign",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AttendeeCreate"
+                "$ref": "#/components/schemas/CampaignCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Attendee"
+                  "$ref": "#/components/schemas/Campaign"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/attendees/{id}": {
+    "/v1/campaigns/{id}": {
       "get": {
-        "summary": "Get a Attendee",
+        "summary": "Get a Campaign",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Attendee"
+                  "$ref": "#/components/schemas/Campaign"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Attendee",
+        "summary": "Update a Campaign",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AttendeeCreate"
+                "$ref": "#/components/schemas/CampaignCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Attendee"
+                  "$ref": "#/components/schemas/Campaign"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Attendee",
+        "summary": "Delete a Campaign",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/donors": {
+    "/v1/tiers": {
       "get": {
-        "summary": "List Donors",
+        "summary": "List Tiers",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Donor"
+                        "$ref": "#/components/schemas/Tier"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Donor",
+        "summary": "Create a Tier",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DonorCreate"
+                "$ref": "#/components/schemas/TierCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Donor"
+                  "$ref": "#/components/schemas/Tier"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/donors/{id}": {
+    "/v1/tiers/{id}": {
       "get": {
-        "summary": "Get a Donor",
+        "summary": "Get a Tier",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Donor"
+                  "$ref": "#/components/schemas/Tier"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Donor",
+        "summary": "Update a Tier",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DonorCreate"
+                "$ref": "#/components/schemas/TierCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Donor"
+                  "$ref": "#/components/schemas/Tier"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Donor",
+        "summary": "Delete a Tier",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/donations": {
+    "/v1/benefits": {
       "get": {
-        "summary": "List Donations",
+        "summary": "List Benefits",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Donation"
+                        "$ref": "#/components/schemas/Benefit"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Donation",
+        "summary": "Create a Benefit",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DonationCreate"
+                "$ref": "#/components/schemas/BenefitCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Donation"
+                  "$ref": "#/components/schemas/Benefit"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/donations/{id}": {
+    "/v1/benefits/{id}": {
       "get": {
-        "summary": "Get a Donation",
+        "summary": "Get a Benefit",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Donation"
+                  "$ref": "#/components/schemas/Benefit"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Donation",
+        "summary": "Update a Benefit",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DonationCreate"
+                "$ref": "#/components/schemas/BenefitCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Donation"
+                  "$ref": "#/components/schemas/Benefit"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Donation",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/memberships": {
-      "get": {
-        "summary": "List Memberships",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Membership"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Membership",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MembershipCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Membership"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/memberships/{id}": {
-      "get": {
-        "summary": "Get a Membership",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Membership"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Membership",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MembershipCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Membership"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Membership",
+        "summary": "Delete a Benefit",
         "parameters": [
           {
             "name": "id",
@@ -1140,162 +955,39 @@
   },
   "components": {
     "schemas": {
-      "Event": {
+      "User": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "about": {
             "type": "string"
           },
-          "startsAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "venue": {
+          "fullName": {
             "type": "string"
           },
-          "capacity": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "EventCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
+          "firstName": {
             "type": "string"
           },
-          "startsAt": {
-            "type": "string"
-          },
-          "venue": {
-            "type": "string"
-          },
-          "capacity": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "startsAt"
-        ]
-      },
-      "Ticket": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "eventId": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "sold": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TicketCreate": {
-        "type": "object",
-        "properties": {
-          "eventId": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "sold": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "type",
-          "price"
-        ]
-      },
-      "Attendee": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "eventId": {
+          "lastName": {
             "type": "string"
           },
           "email": {
             "type": "string"
           },
-          "checkedIn": {
+          "isCreator": {
             "type": "boolean"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AttendeeCreate": {
-        "type": "object",
-        "properties": {
-          "eventId": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "checkedIn": {
+          "isEmailVerified": {
             "type": "boolean"
-          }
-        },
-        "required": [
-          "email",
-          "checkedIn"
-        ]
-      },
-      "Donor": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
           },
-          "email": {
-            "type": "string"
+          "likeCount": {
+            "type": "integer"
           },
-          "name": {
-            "type": "string"
-          },
-          "lifetimeValue": {
-            "type": "number"
+          "created": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1307,43 +999,218 @@
           }
         }
       },
-      "DonorCreate": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "lifetimeValue": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "email",
-          "name"
-        ]
-      },
-      "Donation": {
+      "UserCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "donorId": {
+          "about": {
             "type": "string"
           },
-          "amount": {
-            "type": "number"
+          "fullName": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "isCreator": {
+            "type": "boolean"
+          },
+          "isEmailVerified": {
+            "type": "boolean"
+          },
+          "likeCount": {
+            "type": "integer"
+          },
+          "created": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "about"
+        ]
+      },
+      "Member": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "patronStatus": {
+            "type": "string",
+            "enum": [
+              "active_patron",
+              "declined_patron",
+              "former_patron"
+            ]
+          },
+          "lastChargeStatus": {
+            "type": "string",
+            "enum": [
+              "Paid",
+              "Declined",
+              "Deleted",
+              "Pending",
+              "Refunded",
+              "Fraud",
+              "Refunded by Patreon",
+              "Other",
+              "Partially Refunded",
+              "Free Trial",
+              "Refund Pending",
+              "Refund Declined"
+            ]
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "currentlyEntitledAmountCents": {
+            "type": "integer"
+          },
+          "campaignLifetimeSupportCents": {
+            "type": "integer"
+          },
+          "willPayAmountCents": {
+            "type": "integer"
+          },
+          "isFollower": {
+            "type": "boolean"
+          },
+          "isFreeTrial": {
+            "type": "boolean"
+          },
+          "lastChargeDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "nextChargeDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "pledgeRelationshipStart": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MemberCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "patronStatus": {
+            "type": "string",
+            "enum": [
+              "active_patron",
+              "declined_patron",
+              "former_patron"
+            ]
+          },
+          "lastChargeStatus": {
+            "type": "string",
+            "enum": [
+              "Paid",
+              "Declined",
+              "Deleted",
+              "Pending",
+              "Refunded",
+              "Fraud",
+              "Refunded by Patreon",
+              "Other",
+              "Partially Refunded",
+              "Free Trial",
+              "Refund Pending",
+              "Refund Declined"
+            ]
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "currentlyEntitledAmountCents": {
+            "type": "integer"
+          },
+          "campaignLifetimeSupportCents": {
+            "type": "integer"
+          },
+          "willPayAmountCents": {
+            "type": "integer"
+          },
+          "isFollower": {
+            "type": "boolean"
+          },
+          "isFreeTrial": {
+            "type": "boolean"
+          },
+          "lastChargeDate": {
+            "type": "string"
+          },
+          "nextChargeDate": {
+            "type": "string"
+          },
+          "pledgeRelationshipStart": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "patronStatus"
+        ]
+      },
+      "Campaign": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "creationName": {
+            "type": "string"
           },
           "currency": {
             "type": "string"
           },
-          "recurring": {
+          "name": {
+            "type": "string"
+          },
+          "patronCount": {
+            "type": "integer"
+          },
+          "payPerName": {
+            "type": "string"
+          },
+          "isMonthly": {
+            "type": "boolean"
+          },
+          "isNsfw": {
             "type": "boolean"
           },
           "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "publishedAt": {
             "type": "string",
             "format": "date-time"
           },
@@ -1353,40 +1220,67 @@
           }
         }
       },
-      "DonationCreate": {
-        "type": "object",
-        "properties": {
-          "donorId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "recurring": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "amount",
-          "currency"
-        ]
-      },
-      "Membership": {
+      "CampaignCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "memberId": {
+          "creationName": {
             "type": "string"
           },
-          "tier": {
+          "currency": {
             "type": "string"
           },
-          "status": {
+          "name": {
+            "type": "string"
+          },
+          "patronCount": {
+            "type": "integer"
+          },
+          "payPerName": {
+            "type": "string"
+          },
+          "isMonthly": {
+            "type": "boolean"
+          },
+          "isNsfw": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "publishedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "creationName"
+        ]
+      },
+      "Tier": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "amountCents": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "patronCount": {
+            "type": "integer"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "requiresShipping": {
+            "type": "boolean"
+          },
+          "title": {
             "type": "string"
           },
           "createdAt": {
@@ -1399,22 +1293,104 @@
           }
         }
       },
-      "MembershipCreate": {
+      "TierCreate": {
         "type": "object",
         "properties": {
-          "memberId": {
+          "id": {
             "type": "string"
           },
-          "tier": {
+          "amountCents": {
+            "type": "integer"
+          },
+          "description": {
             "type": "string"
           },
-          "status": {
+          "patronCount": {
+            "type": "integer"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "requiresShipping": {
+            "type": "boolean"
+          },
+          "title": {
+            "type": "string"
+          },
+          "createdAt": {
             "type": "string"
           }
         },
         "required": [
-          "tier",
-          "status"
+          "id",
+          "amountCents"
+        ]
+      },
+      "Benefit": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "benefitType": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "isPublished": {
+            "type": "boolean"
+          },
+          "title": {
+            "type": "string"
+          },
+          "tiersCount": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "BenefitCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "benefitType": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "isPublished": {
+            "type": "boolean"
+          },
+          "title": {
+            "type": "string"
+          },
+          "tiersCount": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "benefitType"
         ]
       }
     }

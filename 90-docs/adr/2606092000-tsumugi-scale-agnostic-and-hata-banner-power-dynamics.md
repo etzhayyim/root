@@ -242,6 +242,47 @@ data を提供する主体になる」* + *「粘菌・カビ・植物のサイ�
   The daily cloud routine can read `out/forage-plan.json` to grow toward food.
 - Tests: + `test_publish.py` (14) + 3 forage checks (ingest → 27). All green.
 
+# Landed wave 4 — the routine runs on kotoba/fleet, NOT Claude-cloud (2606-06-11)
+
+Operational verification of the wave-2/3 self-expansion exposed two facts: (1) the published
+linked data is genuinely third-party-consumable (rdflib loaded the 5,100 N-Triples into a
+triplestore and ran SPARQL returning etzhayyim's own concentration data + 608 discoverable
+orgs); (2) the Anthropic cron-routine cloud could NOT reach WDQS/GLEIF (HTTP 403) and its
+ephemeral env did not retain repo access — so it degraded to re-promoting offline fixtures
+(PR #1594, closed: numbering collision + offline-degraded + scope creep). Founder direction:
+*「claude cloud に依存せず kotoba のみで routine を」*.
+
+Resolution — the routine now runs on **etzhayyim's own substrate**, mirroring ibuki/shionome:
+`methods/autorun.py` is the OFFLINE autonomous beat (forage 粘菌/菌糸 plan → publish the
+provider dataset → measure → append a content-addressed `:tsumugi.cycle/*` transaction to the
+LOCAL append-only kotoba Datom log; deterministic, fail-open). `tsumugi` is added to
+`70-tools/scripts/fleet-heartbeat/heartbeat.sh`'s `DEFAULT_ACTORS`, so a Mac-mini fleet node's
+own `cron`/`launchd` beats it — zero Claude-cloud dependency, recorded on etzhayyim's own log.
+The live WDQS/GLEIF fetch stays `TSUMUGI_OPERATOR_GATE`-gated and runs on the fleet where
+network is available (the heartbeat never does live I/O — kanjo EDGAR pattern). The Claude-cloud
+routine is disabled. Tests: + test_autorun.py (10). Self-sovereign substrate, end to end.
+
+# Landed wave 5 — the provider is PINNED to IPFS + resolves at etzhayyim.com (2606-06-11)
+
+Founder check: *「これはさらに pin で永続化している? etzhayyim.com で確認できる?」* — at wave 3 it
+was NOT (publish.py wrote ephemeral out/ files with a sha256, `/ns/power` 404'd). Closed both:
+
+- **(A) PINNED** (`methods/publish_ipfs.py`, mirroring rasen 80-data/genome / ADR-2606101000):
+  the linked data is gzipped (mtime=0 → deterministic) and content-addressed to a kotoba IPFS
+  **CIDv1 (raw, sha2-256)** — byte-identical to `ipfs add --cid-version=1 --raw-leaves`
+  (a `b'hello'` test vector pins this), verifiable with `rasen/methods/cid.py`, NO daemon needed.
+  Written to **`80-data/tsumugi-power/`** (the G8 DataLad→IPFS home): `power-graph.kotoba.edn.gz`,
+  `power-graph.nt.gz`, `power-graph.jsonld.gz` + `publish-manifest.json` (CIDs + license +
+  provenance + DID) + `PUBLISH.md`. Committed → durable in git AND pin-able by CID; `--verify`
+  re-content-addresses. autorun's per-beat content-hash already chains the dataset identity on
+  the local kotoba log.
+- **(B) RESOLVES at etzhayyim.com**: descriptors land in the apex Worker static dir
+  (`50-infra/etzhayyim-did-web/public/`, `[assets] directory=./public` serves them first) —
+  **`https://etzhayyim.com/ns/power`** (the resolvable epw: vocabulary) and
+  **`https://etzhayyim.com/dataset/tsumugi-power.json`** (CIDs + gateway fetch links). Closes the
+  404; live on the next `wrangler deploy`. The DATA itself lives on IPFS (host-independent) —
+  etzhayyim.com only advertises it. + test_publish_ipfs.py (11).
+
 # References
 
 - `90-docs/adr/2606011800-tsumugi-spirit-intel-power-graph.md` (tsumugi base)

@@ -115,18 +115,27 @@ def _expand(rec, params, refs):
 def create_employee(request):
     """Create a Employee."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'title', 'department'])
+    err = _reject_unknown(data, ['uuid', 'firstName', 'lastName', 'email', 'onboardingStatus', 'paymentMethod', 'terminated', 'flsaStatus'])
     if err:
         return err, 400
-    err = _require(data, ['firstName', 'lastName'])
+    err = _require(data, ['uuid', 'firstName'])
     if err:
         return err, 400
+    if data.get('onboardingStatus') and data['onboardingStatus'] not in ['onboarding_completed', 'admin_onboarding_incomplete', 'self_onboarding_pending_invite', 'self_onboarding_invited', 'self_onboarding_invited_started', 'self_onboarding_invited_overdue', 'self_onboarding_completed_by_employee', 'self_onboarding_awaiting_admin_review']:
+        return {"error": {"message": "invalid onboardingStatus; allowed: " + ", ".join(['onboarding_completed', 'admin_onboarding_incomplete', 'self_onboarding_pending_invite', 'self_onboarding_invited', 'self_onboarding_invited_started', 'self_onboarding_invited_overdue', 'self_onboarding_completed_by_employee', 'self_onboarding_awaiting_admin_review']), "type": "invalid_request_error"}}, 400
+    if data.get('paymentMethod') and data['paymentMethod'] not in ['Direct Deposit', 'Check']:
+        return {"error": {"message": "invalid paymentMethod; allowed: " + ", ".join(['Direct Deposit', 'Check']), "type": "invalid_request_error"}}, 400
+    if data.get('flsaStatus') and data['flsaStatus'] not in ['Exempt', 'Salaried Nonexempt', 'Nonexempt', 'Commission Only Exempt', 'Commission Only Nonexempt', 'Owner']:
+        return {"error": {"message": "invalid flsaStatus; allowed: " + ", ".join(['Exempt', 'Salaried Nonexempt', 'Nonexempt', 'Commission Only Exempt', 'Commission Only Nonexempt', 'Owner']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("gusto_emp")}
+    rec["uuid"] = data.get('uuid')
     rec["firstName"] = data.get('firstName')
     rec["lastName"] = data.get('lastName')
     rec["email"] = data.get('email')
-    rec["title"] = data.get('title')
-    rec["department"] = data.get('department')
+    rec["onboardingStatus"] = data.get('onboardingStatus')
+    rec["paymentMethod"] = data.get('paymentMethod')
+    rec["terminated"] = _as_bool(data.get('terminated'))
+    rec["flsaStatus"] = data.get('flsaStatus')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Employee", rec)
@@ -137,7 +146,7 @@ def list_employees(request):
     """List Employees with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Employee")
-    rows = _apply_filters(rows, params, ['firstName', 'lastName', 'email', 'title', 'department'])
+    rows = _apply_filters(rows, params, ['uuid', 'firstName', 'lastName', 'email', 'onboardingStatus', 'paymentMethod', 'terminated', 'flsaStatus'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -158,9 +167,15 @@ def update_employee(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'title', 'department'])
+    err = _reject_unknown(data, ['uuid', 'firstName', 'lastName', 'email', 'onboardingStatus', 'paymentMethod', 'terminated', 'flsaStatus'])
     if err:
         return err, 400
+    if data.get('onboardingStatus') and data['onboardingStatus'] not in ['onboarding_completed', 'admin_onboarding_incomplete', 'self_onboarding_pending_invite', 'self_onboarding_invited', 'self_onboarding_invited_started', 'self_onboarding_invited_overdue', 'self_onboarding_completed_by_employee', 'self_onboarding_awaiting_admin_review']:
+        return {"error": {"message": "invalid onboardingStatus; allowed: " + ", ".join(['onboarding_completed', 'admin_onboarding_incomplete', 'self_onboarding_pending_invite', 'self_onboarding_invited', 'self_onboarding_invited_started', 'self_onboarding_invited_overdue', 'self_onboarding_completed_by_employee', 'self_onboarding_awaiting_admin_review']), "type": "invalid_request_error"}}, 400
+    if data.get('paymentMethod') and data['paymentMethod'] not in ['Direct Deposit', 'Check']:
+        return {"error": {"message": "invalid paymentMethod; allowed: " + ", ".join(['Direct Deposit', 'Check']), "type": "invalid_request_error"}}, 400
+    if data.get('flsaStatus') and data['flsaStatus'] not in ['Exempt', 'Salaried Nonexempt', 'Nonexempt', 'Commission Only Exempt', 'Commission Only Nonexempt', 'Owner']:
+        return {"error": {"message": "invalid flsaStatus; allowed: " + ", ".join(['Exempt', 'Salaried Nonexempt', 'Nonexempt', 'Commission Only Exempt', 'Commission Only Nonexempt', 'Owner']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -178,343 +193,377 @@ def delete_employee(request, eid):
     db.retract({"entity": f"gusto.Employee", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/candidates", methods=["POST"])
-def create_candidate(request):
-    """Create a Candidate."""
+@app.route("/v1/companies", methods=["POST"])
+def create_company(request):
+    """Create a Company."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'stage'])
+    err = _reject_unknown(data, ['uuid', 'name', 'status', 'entityType', 'tier'])
+    if err:
+        return err, 400
+    err = _require(data, ['uuid', 'name'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['Approved', 'Not Approved', 'Suspended']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['Approved', 'Not Approved', 'Suspended']), "type": "invalid_request_error"}}, 400
+    if data.get('entityType') and data['entityType'] not in ['C-Corporation', 'S-Corporation', 'Sole proprietor', 'LLC', 'LLP', 'Limited partnership', 'Co-ownership', 'Association', 'Trusteeship', 'General partnership', 'Joint venture', 'Non-Profit']:
+        return {"error": {"message": "invalid entityType; allowed: " + ", ".join(['C-Corporation', 'S-Corporation', 'Sole proprietor', 'LLC', 'LLP', 'Limited partnership', 'Co-ownership', 'Association', 'Trusteeship', 'General partnership', 'Joint venture', 'Non-Profit']), "type": "invalid_request_error"}}, 400
+    if data.get('tier') and data['tier'] not in ['simple', 'plus', 'premium', 'core', 'complete', 'concierge', 'contractor_only', 'basic']:
+        return {"error": {"message": "invalid tier; allowed: " + ", ".join(['simple', 'plus', 'premium', 'core', 'complete', 'concierge', 'contractor_only', 'basic']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gusto_com")}
+    rec["uuid"] = data.get('uuid')
+    rec["name"] = data.get('name')
+    rec["status"] = data.get('status')
+    rec["entityType"] = data.get('entityType')
+    rec["tier"] = data.get('tier')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Company", rec)
+    return rec, 201
+
+@app.route("/v1/companies", methods=["GET"])
+def list_companies(request):
+    """List Companies with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Company")
+    rows = _apply_filters(rows, params, ['uuid', 'name', 'status', 'entityType', 'tier'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/companies/<eid>", methods=["GET"])
+def get_company(request, eid):
+    """Retrieve a Company by id (supports ?expand=)."""
+    rows = _query("Company", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/companies/<eid>", methods=["POST", "PATCH"])
+def update_company(request, eid):
+    """Update a Company."""
+    rows = _query("Company", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['uuid', 'name', 'status', 'entityType', 'tier'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['Approved', 'Not Approved', 'Suspended']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['Approved', 'Not Approved', 'Suspended']), "type": "invalid_request_error"}}, 400
+    if data.get('entityType') and data['entityType'] not in ['C-Corporation', 'S-Corporation', 'Sole proprietor', 'LLC', 'LLP', 'Limited partnership', 'Co-ownership', 'Association', 'Trusteeship', 'General partnership', 'Joint venture', 'Non-Profit']:
+        return {"error": {"message": "invalid entityType; allowed: " + ", ".join(['C-Corporation', 'S-Corporation', 'Sole proprietor', 'LLC', 'LLP', 'Limited partnership', 'Co-ownership', 'Association', 'Trusteeship', 'General partnership', 'Joint venture', 'Non-Profit']), "type": "invalid_request_error"}}, 400
+    if data.get('tier') and data['tier'] not in ['simple', 'plus', 'premium', 'core', 'complete', 'concierge', 'contractor_only', 'basic']:
+        return {"error": {"message": "invalid tier; allowed: " + ", ".join(['simple', 'plus', 'premium', 'core', 'complete', 'concierge', 'contractor_only', 'basic']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Company", rec)
+    return rec, 200
+
+@app.route("/v1/companies/<eid>", methods=["DELETE"])
+def delete_company(request, eid):
+    """Delete a Company."""
+    rows = _query("Company", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"gusto.Company", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/compensations", methods=["POST"])
+def create_compensation(request):
+    """Create a Compensation."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['rate', 'paymentUnit', 'flsaStatus', 'effectiveDate', 'adjustForMinimumWage'])
+    if err:
+        return err, 400
+    err = _require(data, ['rate', 'paymentUnit'])
+    if err:
+        return err, 400
+    if data.get('paymentUnit') and data['paymentUnit'] not in ['Hour', 'Week', 'Month', 'Year', 'Paycheck']:
+        return {"error": {"message": "invalid paymentUnit; allowed: " + ", ".join(['Hour', 'Week', 'Month', 'Year', 'Paycheck']), "type": "invalid_request_error"}}, 400
+    if data.get('flsaStatus') and data['flsaStatus'] not in ['Exempt', 'Salaried Nonexempt', 'Nonexempt', 'Commission Only Exempt', 'Commission Only Nonexempt', 'Owner']:
+        return {"error": {"message": "invalid flsaStatus; allowed: " + ", ".join(['Exempt', 'Salaried Nonexempt', 'Nonexempt', 'Commission Only Exempt', 'Commission Only Nonexempt', 'Owner']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gusto_com")}
+    rec["rate"] = data.get('rate')
+    rec["paymentUnit"] = data.get('paymentUnit')
+    rec["flsaStatus"] = data.get('flsaStatus')
+    rec["effectiveDate"] = data.get('effectiveDate')
+    rec["adjustForMinimumWage"] = _as_bool(data.get('adjustForMinimumWage'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Compensation", rec)
+    return rec, 201
+
+@app.route("/v1/compensations", methods=["GET"])
+def list_compensations(request):
+    """List Compensations with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Compensation")
+    rows = _apply_filters(rows, params, ['rate', 'paymentUnit', 'flsaStatus', 'effectiveDate', 'adjustForMinimumWage'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/compensations/<eid>", methods=["GET"])
+def get_compensation(request, eid):
+    """Retrieve a Compensation by id (supports ?expand=)."""
+    rows = _query("Compensation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/compensations/<eid>", methods=["POST", "PATCH"])
+def update_compensation(request, eid):
+    """Update a Compensation."""
+    rows = _query("Compensation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['rate', 'paymentUnit', 'flsaStatus', 'effectiveDate', 'adjustForMinimumWage'])
+    if err:
+        return err, 400
+    if data.get('paymentUnit') and data['paymentUnit'] not in ['Hour', 'Week', 'Month', 'Year', 'Paycheck']:
+        return {"error": {"message": "invalid paymentUnit; allowed: " + ", ".join(['Hour', 'Week', 'Month', 'Year', 'Paycheck']), "type": "invalid_request_error"}}, 400
+    if data.get('flsaStatus') and data['flsaStatus'] not in ['Exempt', 'Salaried Nonexempt', 'Nonexempt', 'Commission Only Exempt', 'Commission Only Nonexempt', 'Owner']:
+        return {"error": {"message": "invalid flsaStatus; allowed: " + ", ".join(['Exempt', 'Salaried Nonexempt', 'Nonexempt', 'Commission Only Exempt', 'Commission Only Nonexempt', 'Owner']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Compensation", rec)
+    return rec, 200
+
+@app.route("/v1/compensations/<eid>", methods=["DELETE"])
+def delete_compensation(request, eid):
+    """Delete a Compensation."""
+    rows = _query("Compensation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"gusto.Compensation", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/jobs", methods=["POST"])
+def create_job(request):
+    """Create a Job."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['uuid', 'title', 'rate', 'paymentUnit', 'primary'])
+    if err:
+        return err, 400
+    err = _require(data, ['uuid', 'title'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("gusto_job")}
+    rec["uuid"] = data.get('uuid')
+    rec["title"] = data.get('title')
+    rec["rate"] = data.get('rate')
+    rec["paymentUnit"] = data.get('paymentUnit')
+    rec["primary"] = _as_bool(data.get('primary'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Job", rec)
+    return rec, 201
+
+@app.route("/v1/jobs", methods=["GET"])
+def list_jobs(request):
+    """List Jobs with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Job")
+    rows = _apply_filters(rows, params, ['uuid', 'title', 'rate', 'paymentUnit', 'primary'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/jobs/<eid>", methods=["GET"])
+def get_job(request, eid):
+    """Retrieve a Job by id (supports ?expand=)."""
+    rows = _query("Job", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
+def update_job(request, eid):
+    """Update a Job."""
+    rows = _query("Job", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['uuid', 'title', 'rate', 'paymentUnit', 'primary'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Job", rec)
+    return rec, 200
+
+@app.route("/v1/jobs/<eid>", methods=["DELETE"])
+def delete_job(request, eid):
+    """Delete a Job."""
+    rows = _query("Job", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"gusto.Job", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/contractors", methods=["POST"])
+def create_contractor(request):
+    """Create a Contractor."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['firstName', 'lastName', 'businessName', 'wageType', 'contractorType', 'isActive'])
     if err:
         return err, 400
     err = _require(data, ['firstName', 'lastName'])
     if err:
         return err, 400
-    rec = {"id": new_id("gusto_can")}
+    if data.get('wageType') and data['wageType'] not in ['Fixed', 'Hourly']:
+        return {"error": {"message": "invalid wageType; allowed: " + ", ".join(['Fixed', 'Hourly']), "type": "invalid_request_error"}}, 400
+    if data.get('contractorType') and data['contractorType'] not in ['Individual', 'Business']:
+        return {"error": {"message": "invalid contractorType; allowed: " + ", ".join(['Individual', 'Business']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gusto_con")}
     rec["firstName"] = data.get('firstName')
     rec["lastName"] = data.get('lastName')
-    rec["email"] = data.get('email')
-    rec["stage"] = data.get('stage')
+    rec["businessName"] = data.get('businessName')
+    rec["wageType"] = data.get('wageType')
+    rec["contractorType"] = data.get('contractorType')
+    rec["isActive"] = _as_bool(data.get('isActive'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Candidate", rec)
+    _persist("Contractor", rec)
     return rec, 201
 
-@app.route("/v1/candidates", methods=["GET"])
-def list_candidates(request):
-    """List Candidates with filtering + cursor pagination."""
+@app.route("/v1/contractors", methods=["GET"])
+def list_contractors(request):
+    """List Contractors with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Candidate")
-    rows = _apply_filters(rows, params, ['firstName', 'lastName', 'email', 'stage'])
+    rows = _query("Contractor")
+    rows = _apply_filters(rows, params, ['firstName', 'lastName', 'businessName', 'wageType', 'contractorType', 'isActive'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/candidates/<eid>", methods=["GET"])
-def get_candidate(request, eid):
-    """Retrieve a Candidate by id (supports ?expand=)."""
-    rows = _query("Candidate", eid)
+@app.route("/v1/contractors/<eid>", methods=["GET"])
+def get_contractor(request, eid):
+    """Retrieve a Contractor by id (supports ?expand=)."""
+    rows = _query("Contractor", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/candidates/<eid>", methods=["POST", "PATCH"])
-def update_candidate(request, eid):
-    """Update a Candidate."""
-    rows = _query("Candidate", eid)
+@app.route("/v1/contractors/<eid>", methods=["POST", "PATCH"])
+def update_contractor(request, eid):
+    """Update a Contractor."""
+    rows = _query("Contractor", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['firstName', 'lastName', 'email', 'stage'])
+    err = _reject_unknown(data, ['firstName', 'lastName', 'businessName', 'wageType', 'contractorType', 'isActive'])
     if err:
         return err, 400
+    if data.get('wageType') and data['wageType'] not in ['Fixed', 'Hourly']:
+        return {"error": {"message": "invalid wageType; allowed: " + ", ".join(['Fixed', 'Hourly']), "type": "invalid_request_error"}}, 400
+    if data.get('contractorType') and data['contractorType'] not in ['Individual', 'Business']:
+        return {"error": {"message": "invalid contractorType; allowed: " + ", ".join(['Individual', 'Business']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Candidate", rec)
+    _persist("Contractor", rec)
     return rec, 200
 
-@app.route("/v1/candidates/<eid>", methods=["DELETE"])
-def delete_candidate(request, eid):
-    """Delete a Candidate."""
-    rows = _query("Candidate", eid)
+@app.route("/v1/contractors/<eid>", methods=["DELETE"])
+def delete_contractor(request, eid):
+    """Delete a Contractor."""
+    rows = _query("Contractor", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gusto.Candidate", "id": eid})
+    db.retract({"entity": f"gusto.Contractor", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/jobreqs", methods=["POST"])
-def create_job_req(request):
-    """Create a JobReq."""
+@app.route("/v1/payrolls", methods=["POST"])
+def create_payroll(request):
+    """Create a Payroll."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'department', 'status', 'openings'])
+    err = _reject_unknown(data, ['uuid', 'processed', 'offCycle', 'offCycleReason'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'department'])
+    err = _require(data, ['uuid', 'processed'])
     if err:
         return err, 400
-    rec = {"id": new_id("gusto_job")}
-    rec["title"] = data.get('title')
-    rec["department"] = data.get('department')
-    rec["status"] = data.get('status')
-    rec["openings"] = _as_int(data.get('openings'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("JobReq", rec)
-    return rec, 201
-
-@app.route("/v1/jobreqs", methods=["GET"])
-def list_job_reqs(request):
-    """List JobReqs with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("JobReq")
-    rows = _apply_filters(rows, params, ['title', 'department', 'status', 'openings'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/jobreqs/<eid>", methods=["GET"])
-def get_job_req(request, eid):
-    """Retrieve a JobReq by id (supports ?expand=)."""
-    rows = _query("JobReq", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/jobreqs/<eid>", methods=["POST", "PATCH"])
-def update_job_req(request, eid):
-    """Update a JobReq."""
-    rows = _query("JobReq", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'department', 'status', 'openings'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("JobReq", rec)
-    return rec, 200
-
-@app.route("/v1/jobreqs/<eid>", methods=["DELETE"])
-def delete_job_req(request, eid):
-    """Delete a JobReq."""
-    rows = _query("JobReq", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gusto.JobReq", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/payrollruns", methods=["POST"])
-def create_payroll_run(request):
-    """Create a PayrollRun."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['period', 'grossTotal', 'currency', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['period', 'grossTotal'])
-    if err:
-        return err, 400
+    if data.get('offCycleReason') and data['offCycleReason'] not in ['Adhoc', 'Benefit reversal', 'Bonus', 'Correction', 'Dismissed employee', 'Hired employee', 'Wage correction', 'Tax reconciliation', 'Reversal', 'Disability insurance distribution', 'Transition from old pay schedule']:
+        return {"error": {"message": "invalid offCycleReason; allowed: " + ", ".join(['Adhoc', 'Benefit reversal', 'Bonus', 'Correction', 'Dismissed employee', 'Hired employee', 'Wage correction', 'Tax reconciliation', 'Reversal', 'Disability insurance distribution', 'Transition from old pay schedule']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("gusto_pay")}
-    rec["period"] = data.get('period')
-    rec["grossTotal"] = _as_float(data.get('grossTotal'))
-    rec["currency"] = data.get('currency')
-    rec["status"] = data.get('status')
+    rec["uuid"] = data.get('uuid')
+    rec["processed"] = _as_bool(data.get('processed'))
+    rec["offCycle"] = _as_bool(data.get('offCycle'))
+    rec["offCycleReason"] = data.get('offCycleReason')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("PayrollRun", rec)
+    _persist("Payroll", rec)
     return rec, 201
 
-@app.route("/v1/payrollruns", methods=["GET"])
-def list_payroll_runs(request):
-    """List PayrollRuns with filtering + cursor pagination."""
+@app.route("/v1/payrolls", methods=["GET"])
+def list_payrolls(request):
+    """List Payrolls with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("PayrollRun")
-    rows = _apply_filters(rows, params, ['period', 'grossTotal', 'currency', 'status'])
+    rows = _query("Payroll")
+    rows = _apply_filters(rows, params, ['uuid', 'processed', 'offCycle', 'offCycleReason'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/payrollruns/<eid>", methods=["GET"])
-def get_payroll_run(request, eid):
-    """Retrieve a PayrollRun by id (supports ?expand=)."""
-    rows = _query("PayrollRun", eid)
+@app.route("/v1/payrolls/<eid>", methods=["GET"])
+def get_payroll(request, eid):
+    """Retrieve a Payroll by id (supports ?expand=)."""
+    rows = _query("Payroll", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/payrollruns/<eid>", methods=["POST", "PATCH"])
-def update_payroll_run(request, eid):
-    """Update a PayrollRun."""
-    rows = _query("PayrollRun", eid)
+@app.route("/v1/payrolls/<eid>", methods=["POST", "PATCH"])
+def update_payroll(request, eid):
+    """Update a Payroll."""
+    rows = _query("Payroll", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['period', 'grossTotal', 'currency', 'status'])
+    err = _reject_unknown(data, ['uuid', 'processed', 'offCycle', 'offCycleReason'])
     if err:
         return err, 400
+    if data.get('offCycleReason') and data['offCycleReason'] not in ['Adhoc', 'Benefit reversal', 'Bonus', 'Correction', 'Dismissed employee', 'Hired employee', 'Wage correction', 'Tax reconciliation', 'Reversal', 'Disability insurance distribution', 'Transition from old pay schedule']:
+        return {"error": {"message": "invalid offCycleReason; allowed: " + ", ".join(['Adhoc', 'Benefit reversal', 'Bonus', 'Correction', 'Dismissed employee', 'Hired employee', 'Wage correction', 'Tax reconciliation', 'Reversal', 'Disability insurance distribution', 'Transition from old pay schedule']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("PayrollRun", rec)
+    _persist("Payroll", rec)
     return rec, 200
 
-@app.route("/v1/payrollruns/<eid>", methods=["DELETE"])
-def delete_payroll_run(request, eid):
-    """Delete a PayrollRun."""
-    rows = _query("PayrollRun", eid)
+@app.route("/v1/payrolls/<eid>", methods=["DELETE"])
+def delete_payroll(request, eid):
+    """Delete a Payroll."""
+    rows = _query("Payroll", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gusto.PayrollRun", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/timeoffs", methods=["POST"])
-def create_time_off(request):
-    """Create a TimeOff."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'type', 'start', 'days', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'start'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("gusto_tim")}
-    rec["employeeId"] = data.get('employeeId')
-    rec["type"] = data.get('type')
-    rec["start"] = data.get('start')
-    rec["days"] = _as_float(data.get('days'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("TimeOff", rec)
-    return rec, 201
-
-@app.route("/v1/timeoffs", methods=["GET"])
-def list_time_offs(request):
-    """List TimeOffs with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("TimeOff")
-    rows = _apply_filters(rows, params, ['employeeId', 'type', 'start', 'days', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/timeoffs/<eid>", methods=["GET"])
-def get_time_off(request, eid):
-    """Retrieve a TimeOff by id (supports ?expand=)."""
-    rows = _query("TimeOff", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'employeeId': 'Employee'})
-    return rec, 200
-
-@app.route("/v1/timeoffs/<eid>", methods=["POST", "PATCH"])
-def update_time_off(request, eid):
-    """Update a TimeOff."""
-    rows = _query("TimeOff", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'type', 'start', 'days', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("TimeOff", rec)
-    return rec, 200
-
-@app.route("/v1/timeoffs/<eid>", methods=["DELETE"])
-def delete_time_off(request, eid):
-    """Delete a TimeOff."""
-    rows = _query("TimeOff", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gusto.TimeOff", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/reviews", methods=["POST"])
-def create_review(request):
-    """Create a Review."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'cycle', 'rating', 'reviewerId'])
-    if err:
-        return err, 400
-    err = _require(data, ['cycle', 'rating'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("gusto_rev")}
-    rec["employeeId"] = data.get('employeeId')
-    rec["cycle"] = data.get('cycle')
-    rec["rating"] = _as_float(data.get('rating'))
-    rec["reviewerId"] = data.get('reviewerId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Review", rec)
-    return rec, 201
-
-@app.route("/v1/reviews", methods=["GET"])
-def list_reviews(request):
-    """List Reviews with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Review")
-    rows = _apply_filters(rows, params, ['employeeId', 'cycle', 'rating', 'reviewerId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/reviews/<eid>", methods=["GET"])
-def get_review(request, eid):
-    """Retrieve a Review by id (supports ?expand=)."""
-    rows = _query("Review", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'employeeId': 'Employee'})
-    return rec, 200
-
-@app.route("/v1/reviews/<eid>", methods=["POST", "PATCH"])
-def update_review(request, eid):
-    """Update a Review."""
-    rows = _query("Review", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['employeeId', 'cycle', 'rating', 'reviewerId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Review", rec)
-    return rec, 200
-
-@app.route("/v1/reviews/<eid>", methods=["DELETE"])
-def delete_review(request, eid):
-    """Delete a Review."""
-    rows = _query("Review", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gusto.Review", "id": eid})
+    db.retract({"entity": f"gusto.Payroll", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "gusto-compat", "tier": "L4",
-            "entities": ['Employee', 'Candidate', 'JobReq', 'PayrollRun', 'TimeOff', 'Review']}, 200
+            "entities": ['Employee', 'Company', 'Compensation', 'Job', 'Contractor', 'Payroll']}, 200
 
 
 if __name__ == "__main__":

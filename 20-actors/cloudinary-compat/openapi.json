@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible media / video / CMS actor (cloudinary); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:cloudinary-compat",
-    "x-wasm-cid": "bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e",
+    "x-wasm-cid": "bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e",
+      "url": "ipfs://bafkreibkt4g3n2x5e72ffhbltznk2liymi4puacn7klqe5c6c5ie6543uq",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/assets": {
+    "/v1/resources": {
       "get": {
-        "summary": "List Assets",
+        "summary": "List Resources",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Asset"
+                        "$ref": "#/components/schemas/Resource"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Asset",
+        "summary": "Create a Resource",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssetCreate"
+                "$ref": "#/components/schemas/ResourceCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/Resource"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/assets/{id}": {
+    "/v1/resources/{id}": {
       "get": {
-        "summary": "Get a Asset",
+        "summary": "Get a Resource",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/Resource"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Asset",
+        "summary": "Update a Resource",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssetCreate"
+                "$ref": "#/components/schemas/ResourceCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/Resource"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Asset",
+        "summary": "Delete a Resource",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/renditions": {
+    "/v1/folders": {
       "get": {
-        "summary": "List Renditions",
+        "summary": "List Folders",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Rendition"
+                        "$ref": "#/components/schemas/Folder"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Rendition",
+        "summary": "Create a Folder",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RenditionCreate"
+                "$ref": "#/components/schemas/FolderCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Rendition"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/renditions/{id}": {
+    "/v1/folders/{id}": {
       "get": {
-        "summary": "Get a Rendition",
+        "summary": "Get a Folder",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Rendition"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Rendition",
+        "summary": "Update a Folder",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RenditionCreate"
+                "$ref": "#/components/schemas/FolderCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Rendition"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Rendition",
+        "summary": "Delete a Folder",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/channels": {
+    "/v1/transformations": {
       "get": {
-        "summary": "List Channels",
+        "summary": "List Transformations",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Channel"
+                        "$ref": "#/components/schemas/Transformation"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Channel",
+        "summary": "Create a Transformation",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChannelCreate"
+                "$ref": "#/components/schemas/TransformationCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/Transformation"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/channels/{id}": {
+    "/v1/transformations/{id}": {
       "get": {
-        "summary": "Get a Channel",
+        "summary": "Get a Transformation",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/Transformation"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Channel",
+        "summary": "Update a Transformation",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChannelCreate"
+                "$ref": "#/components/schemas/TransformationCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Channel"
+                  "$ref": "#/components/schemas/Transformation"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Channel",
+        "summary": "Delete a Transformation",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/playlists": {
+    "/v1/uploadpresets": {
       "get": {
-        "summary": "List Playlists",
+        "summary": "List UploadPresets",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Playlist"
+                        "$ref": "#/components/schemas/UploadPreset"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Playlist",
+        "summary": "Create a UploadPreset",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PlaylistCreate"
+                "$ref": "#/components/schemas/UploadPresetCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Playlist"
+                  "$ref": "#/components/schemas/UploadPreset"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/playlists/{id}": {
+    "/v1/uploadpresets/{id}": {
       "get": {
-        "summary": "Get a Playlist",
+        "summary": "Get a UploadPreset",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Playlist"
+                  "$ref": "#/components/schemas/UploadPreset"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Playlist",
+        "summary": "Update a UploadPreset",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PlaylistCreate"
+                "$ref": "#/components/schemas/UploadPresetCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Playlist"
+                  "$ref": "#/components/schemas/UploadPreset"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Playlist",
+        "summary": "Delete a UploadPreset",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/contententries": {
+    "/v1/tags": {
       "get": {
-        "summary": "List ContentEntries",
+        "summary": "List Tags",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ContentEntry"
+                        "$ref": "#/components/schemas/Tag"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a ContentEntry",
+        "summary": "Create a Tag",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
+                "$ref": "#/components/schemas/TagCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Tag"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/contententries/{id}": {
+    "/v1/tags/{id}": {
       "get": {
-        "summary": "Get a ContentEntry",
+        "summary": "Get a Tag",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Tag"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ContentEntry",
+        "summary": "Update a Tag",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
+                "$ref": "#/components/schemas/TagCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Tag"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ContentEntry",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/experiments": {
-      "get": {
-        "summary": "List Experiments",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Experiment"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Experiment",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExperimentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Experiment"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/experiments/{id}": {
-      "get": {
-        "summary": "Get a Experiment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Experiment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Experiment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExperimentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Experiment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Experiment",
+        "summary": "Delete a Tag",
         "parameters": [
           {
             "name": "id",
@@ -1140,22 +955,64 @@
   },
   "components": {
     "schemas": {
-      "Asset": {
+      "Resource": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "title": {
+          "assetId": {
             "type": "string"
+          },
+          "publicId": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string",
+            "enum": [
+              "image",
+              "raw",
+              "video"
+            ]
           },
           "type": {
+            "type": "string",
+            "enum": [
+              "upload",
+              "private",
+              "authenticated",
+              "fetch",
+              "facebook",
+              "twitter",
+              "gravatar",
+              "youtube",
+              "hulu",
+              "vimeo",
+              "animoto",
+              "worldstarhiphop",
+              "dailymotion",
+              "list"
+            ]
+          },
+          "format": {
             "type": "string"
           },
-          "durationMs": {
+          "bytes": {
             "type": "integer"
           },
-          "contentRef": {
+          "width": {
+            "type": "integer"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string"
+          },
+          "secureUrl": {
             "type": "string"
           },
           "createdAt": {
@@ -1168,43 +1025,85 @@
           }
         }
       },
-      "AssetCreate": {
+      "ResourceCreate": {
         "type": "object",
         "properties": {
-          "title": {
+          "assetId": {
             "type": "string"
+          },
+          "publicId": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string",
+            "enum": [
+              "image",
+              "raw",
+              "video"
+            ]
           },
           "type": {
+            "type": "string",
+            "enum": [
+              "upload",
+              "private",
+              "authenticated",
+              "fetch",
+              "facebook",
+              "twitter",
+              "gravatar",
+              "youtube",
+              "hulu",
+              "vimeo",
+              "animoto",
+              "worldstarhiphop",
+              "dailymotion",
+              "list"
+            ]
+          },
+          "format": {
             "type": "string"
           },
-          "durationMs": {
+          "bytes": {
             "type": "integer"
           },
-          "contentRef": {
+          "width": {
+            "type": "integer"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string"
+          },
+          "secureUrl": {
+            "type": "string"
+          },
+          "createdAt": {
             "type": "string"
           }
         },
         "required": [
-          "title",
+          "resourceType",
           "type"
         ]
       },
-      "Rendition": {
+      "Folder": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "assetId": {
+          "name": {
             "type": "string"
           },
-          "format": {
+          "path": {
             "type": "string"
           },
-          "bitrate": {
-            "type": "integer"
-          },
-          "contentRef": {
+          "externalId": {
             "type": "string"
           },
           "createdAt": {
@@ -1217,28 +1116,31 @@
           }
         }
       },
-      "RenditionCreate": {
+      "FolderCreate": {
         "type": "object",
         "properties": {
-          "assetId": {
+          "name": {
             "type": "string"
           },
-          "format": {
+          "path": {
             "type": "string"
           },
-          "bitrate": {
-            "type": "integer"
+          "externalId": {
+            "type": "string"
           },
-          "contentRef": {
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
             "type": "string"
           }
         },
         "required": [
-          "format",
-          "bitrate"
+          "name",
+          "path"
         ]
       },
-      "Channel": {
+      "Transformation": {
         "type": "object",
         "properties": {
           "id": {
@@ -1247,10 +1149,13 @@
           "name": {
             "type": "string"
           },
-          "description": {
-            "type": "string"
+          "named": {
+            "type": "boolean"
           },
-          "public": {
+          "used": {
+            "type": "boolean"
+          },
+          "allowedForStrict": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1263,83 +1168,43 @@
           }
         }
       },
-      "ChannelCreate": {
+      "TransformationCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "description": {
-            "type": "string"
+          "named": {
+            "type": "boolean"
           },
-          "public": {
+          "used": {
+            "type": "boolean"
+          },
+          "allowedForStrict": {
             "type": "boolean"
           }
         },
         "required": [
           "name",
-          "description"
+          "named"
         ]
       },
-      "Playlist": {
+      "UploadPreset": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "channelId": {
+          "name": {
             "type": "string"
           },
-          "title": {
+          "unsigned": {
+            "type": "boolean"
+          },
+          "externalId": {
             "type": "string"
           },
-          "itemCount": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PlaylistCreate": {
-        "type": "object",
-        "properties": {
-          "channelId": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "itemCount": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "title",
-          "itemCount"
-        ]
-      },
-      "ContentEntry": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "modelName": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "published": {
+          "live": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1352,68 +1217,55 @@
           }
         }
       },
-      "ContentEntryCreate": {
+      "UploadPresetCreate": {
         "type": "object",
         "properties": {
-          "modelName": {
+          "name": {
             "type": "string"
           },
-          "title": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "published": {
+          "unsigned": {
             "type": "boolean"
-          }
-        },
-        "required": [
-          "modelName",
-          "title"
-        ]
-      },
-      "Experiment": {
-        "type": "object",
-        "properties": {
-          "id": {
+          },
+          "externalId": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "variant": {
-            "type": "string"
-          },
-          "conversionRate": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ExperimentCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "variant": {
-            "type": "string"
-          },
-          "conversionRate": {
-            "type": "number"
+          "live": {
+            "type": "boolean"
           }
         },
         "required": [
           "name",
-          "variant"
+          "unsigned"
+        ]
+      },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TagCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
         ]
       }
     }

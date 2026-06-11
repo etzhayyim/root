@@ -111,185 +111,136 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/assets", methods=["POST"])
-def create_asset(request):
-    """Create a Asset."""
+@app.route("/v1/resources", methods=["POST"])
+def create_resource(request):
+    """Create a Resource."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'durationMs', 'contentRef'])
+    err = _reject_unknown(data, ['assetId', 'publicId', 'resourceType', 'type', 'format', 'bytes', 'width', 'height', 'version', 'url', 'secureUrl', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'type'])
+    err = _require(data, ['resourceType', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("cloudina_ass")}
-    rec["title"] = data.get('title')
-    rec["type"] = data.get('type')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Asset", rec)
-    return rec, 201
-
-@app.route("/v1/assets", methods=["GET"])
-def list_assets(request):
-    """List Assets with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Asset")
-    rows = _apply_filters(rows, params, ['title', 'type', 'durationMs', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/assets/<eid>", methods=["GET"])
-def get_asset(request, eid):
-    """Retrieve a Asset by id (supports ?expand=)."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/assets/<eid>", methods=["POST", "PATCH"])
-def update_asset(request, eid):
-    """Update a Asset."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'durationMs', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Asset", rec)
-    return rec, 200
-
-@app.route("/v1/assets/<eid>", methods=["DELETE"])
-def delete_asset(request, eid):
-    """Delete a Asset."""
-    rows = _query("Asset", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cloudinary.Asset", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/renditions", methods=["POST"])
-def create_rendition(request):
-    """Create a Rendition."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['assetId', 'format', 'bitrate', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['format', 'bitrate'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("cloudina_ren")}
+    if data.get('resourceType') and data['resourceType'] not in ['image', 'raw', 'video']:
+        return {"error": {"message": "invalid resourceType; allowed: " + ", ".join(['image', 'raw', 'video']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['upload', 'private', 'authenticated', 'fetch', 'facebook', 'twitter', 'gravatar', 'youtube', 'hulu', 'vimeo', 'animoto', 'worldstarhiphop', 'dailymotion', 'list']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['upload', 'private', 'authenticated', 'fetch', 'facebook', 'twitter', 'gravatar', 'youtube', 'hulu', 'vimeo', 'animoto', 'worldstarhiphop', 'dailymotion', 'list']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("cloudina_res")}
     rec["assetId"] = data.get('assetId')
+    rec["publicId"] = data.get('publicId')
+    rec["resourceType"] = data.get('resourceType')
+    rec["type"] = data.get('type')
     rec["format"] = data.get('format')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
-    rec["contentRef"] = data.get('contentRef')
+    rec["bytes"] = _as_int(data.get('bytes'))
+    rec["width"] = _as_int(data.get('width'))
+    rec["height"] = _as_int(data.get('height'))
+    rec["version"] = _as_int(data.get('version'))
+    rec["url"] = data.get('url')
+    rec["secureUrl"] = data.get('secureUrl')
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Rendition", rec)
+    _persist("Resource", rec)
     return rec, 201
 
-@app.route("/v1/renditions", methods=["GET"])
-def list_renditions(request):
-    """List Renditions with filtering + cursor pagination."""
+@app.route("/v1/resources", methods=["GET"])
+def list_resources(request):
+    """List Resources with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Rendition")
-    rows = _apply_filters(rows, params, ['assetId', 'format', 'bitrate', 'contentRef'])
+    rows = _query("Resource")
+    rows = _apply_filters(rows, params, ['assetId', 'publicId', 'resourceType', 'type', 'format', 'bytes', 'width', 'height', 'version', 'url', 'secureUrl', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/renditions/<eid>", methods=["GET"])
-def get_rendition(request, eid):
-    """Retrieve a Rendition by id (supports ?expand=)."""
-    rows = _query("Rendition", eid)
+@app.route("/v1/resources/<eid>", methods=["GET"])
+def get_resource(request, eid):
+    """Retrieve a Resource by id (supports ?expand=)."""
+    rows = _query("Resource", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'assetId': 'Asset'})
     return rec, 200
 
-@app.route("/v1/renditions/<eid>", methods=["POST", "PATCH"])
-def update_rendition(request, eid):
-    """Update a Rendition."""
-    rows = _query("Rendition", eid)
+@app.route("/v1/resources/<eid>", methods=["POST", "PATCH"])
+def update_resource(request, eid):
+    """Update a Resource."""
+    rows = _query("Resource", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['assetId', 'format', 'bitrate', 'contentRef'])
+    err = _reject_unknown(data, ['assetId', 'publicId', 'resourceType', 'type', 'format', 'bytes', 'width', 'height', 'version', 'url', 'secureUrl', 'createdAt'])
     if err:
         return err, 400
+    if data.get('resourceType') and data['resourceType'] not in ['image', 'raw', 'video']:
+        return {"error": {"message": "invalid resourceType; allowed: " + ", ".join(['image', 'raw', 'video']), "type": "invalid_request_error"}}, 400
+    if data.get('type') and data['type'] not in ['upload', 'private', 'authenticated', 'fetch', 'facebook', 'twitter', 'gravatar', 'youtube', 'hulu', 'vimeo', 'animoto', 'worldstarhiphop', 'dailymotion', 'list']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['upload', 'private', 'authenticated', 'fetch', 'facebook', 'twitter', 'gravatar', 'youtube', 'hulu', 'vimeo', 'animoto', 'worldstarhiphop', 'dailymotion', 'list']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Rendition", rec)
+    _persist("Resource", rec)
     return rec, 200
 
-@app.route("/v1/renditions/<eid>", methods=["DELETE"])
-def delete_rendition(request, eid):
-    """Delete a Rendition."""
-    rows = _query("Rendition", eid)
+@app.route("/v1/resources/<eid>", methods=["DELETE"])
+def delete_resource(request, eid):
+    """Delete a Resource."""
+    rows = _query("Resource", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cloudinary.Rendition", "id": eid})
+    db.retract({"entity": f"cloudinary.Resource", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
+@app.route("/v1/folders", methods=["POST"])
+def create_folder(request):
+    """Create a Folder."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'description', 'public'])
+    err = _reject_unknown(data, ['name', 'path', 'externalId', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'description'])
+    err = _require(data, ['name', 'path'])
     if err:
         return err, 400
-    rec = {"id": new_id("cloudina_cha")}
+    rec = {"id": new_id("cloudina_fol")}
     rec["name"] = data.get('name')
-    rec["description"] = data.get('description')
-    rec["public"] = _as_bool(data.get('public'))
+    rec["path"] = data.get('path')
+    rec["externalId"] = data.get('externalId')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
+    _persist("Folder", rec)
     return rec, 201
 
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
+@app.route("/v1/folders", methods=["GET"])
+def list_folders(request):
+    """List Folders with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'description', 'public'])
+    rows = _query("Folder")
+    rows = _apply_filters(rows, params, ['name', 'path', 'externalId', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
+@app.route("/v1/folders/<eid>", methods=["GET"])
+def get_folder(request, eid):
+    """Retrieve a Folder by id (supports ?expand=)."""
+    rows = _query("Folder", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
+def update_folder(request, eid):
+    """Update a Folder."""
+    rows = _query("Folder", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'description', 'public'])
+    err = _reject_unknown(data, ['name', 'path', 'externalId', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,196 +248,65 @@ def update_channel(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Channel", rec)
+    _persist("Folder", rec)
     return rec, 200
 
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
+@app.route("/v1/folders/<eid>", methods=["DELETE"])
+def delete_folder(request, eid):
+    """Delete a Folder."""
+    rows = _query("Folder", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cloudinary.Channel", "id": eid})
+    db.retract({"entity": f"cloudinary.Folder", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/playlists", methods=["POST"])
-def create_playlist(request):
-    """Create a Playlist."""
+@app.route("/v1/transformations", methods=["POST"])
+def create_transformation(request):
+    """Create a Transformation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'title', 'itemCount'])
+    err = _reject_unknown(data, ['name', 'named', 'used', 'allowedForStrict'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'itemCount'])
+    err = _require(data, ['name', 'named'])
     if err:
         return err, 400
-    rec = {"id": new_id("cloudina_pla")}
-    rec["channelId"] = data.get('channelId')
-    rec["title"] = data.get('title')
-    rec["itemCount"] = _as_int(data.get('itemCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Playlist", rec)
-    return rec, 201
-
-@app.route("/v1/playlists", methods=["GET"])
-def list_playlists(request):
-    """List Playlists with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Playlist")
-    rows = _apply_filters(rows, params, ['channelId', 'title', 'itemCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/playlists/<eid>", methods=["GET"])
-def get_playlist(request, eid):
-    """Retrieve a Playlist by id (supports ?expand=)."""
-    rows = _query("Playlist", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
-    return rec, 200
-
-@app.route("/v1/playlists/<eid>", methods=["POST", "PATCH"])
-def update_playlist(request, eid):
-    """Update a Playlist."""
-    rows = _query("Playlist", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'title', 'itemCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Playlist", rec)
-    return rec, 200
-
-@app.route("/v1/playlists/<eid>", methods=["DELETE"])
-def delete_playlist(request, eid):
-    """Delete a Playlist."""
-    rows = _query("Playlist", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cloudinary.Playlist", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/contententries", methods=["POST"])
-def create_content_entry(request):
-    """Create a ContentEntry."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
-    if err:
-        return err, 400
-    err = _require(data, ['modelName', 'title'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("cloudina_con")}
-    rec["modelName"] = data.get('modelName')
-    rec["title"] = data.get('title')
-    rec["locale"] = data.get('locale')
-    rec["published"] = _as_bool(data.get('published'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ContentEntry", rec)
-    return rec, 201
-
-@app.route("/v1/contententries", methods=["GET"])
-def list_content_entries(request):
-    """List ContentEntries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ContentEntry")
-    rows = _apply_filters(rows, params, ['modelName', 'title', 'locale', 'published'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contententries/<eid>", methods=["GET"])
-def get_content_entry(request, eid):
-    """Retrieve a ContentEntry by id (supports ?expand=)."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["POST", "PATCH"])
-def update_content_entry(request, eid):
-    """Update a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ContentEntry", rec)
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["DELETE"])
-def delete_content_entry(request, eid):
-    """Delete a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cloudinary.ContentEntry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/experiments", methods=["POST"])
-def create_experiment(request):
-    """Create a Experiment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'variant', 'conversionRate'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'variant'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("cloudina_exp")}
+    rec = {"id": new_id("cloudina_tra")}
     rec["name"] = data.get('name')
-    rec["variant"] = data.get('variant')
-    rec["conversionRate"] = _as_float(data.get('conversionRate'))
+    rec["named"] = _as_bool(data.get('named'))
+    rec["used"] = _as_bool(data.get('used'))
+    rec["allowedForStrict"] = _as_bool(data.get('allowedForStrict'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Experiment", rec)
+    _persist("Transformation", rec)
     return rec, 201
 
-@app.route("/v1/experiments", methods=["GET"])
-def list_experiments(request):
-    """List Experiments with filtering + cursor pagination."""
+@app.route("/v1/transformations", methods=["GET"])
+def list_transformations(request):
+    """List Transformations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Experiment")
-    rows = _apply_filters(rows, params, ['name', 'variant', 'conversionRate'])
+    rows = _query("Transformation")
+    rows = _apply_filters(rows, params, ['name', 'named', 'used', 'allowedForStrict'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/experiments/<eid>", methods=["GET"])
-def get_experiment(request, eid):
-    """Retrieve a Experiment by id (supports ?expand=)."""
-    rows = _query("Experiment", eid)
+@app.route("/v1/transformations/<eid>", methods=["GET"])
+def get_transformation(request, eid):
+    """Retrieve a Transformation by id (supports ?expand=)."""
+    rows = _query("Transformation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/experiments/<eid>", methods=["POST", "PATCH"])
-def update_experiment(request, eid):
-    """Update a Experiment."""
-    rows = _query("Experiment", eid)
+@app.route("/v1/transformations/<eid>", methods=["POST", "PATCH"])
+def update_transformation(request, eid):
+    """Update a Transformation."""
+    rows = _query("Transformation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'variant', 'conversionRate'])
+    err = _reject_unknown(data, ['name', 'named', 'used', 'allowedForStrict'])
     if err:
         return err, 400
     rec = rows[0]
@@ -494,22 +314,151 @@ def update_experiment(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Experiment", rec)
+    _persist("Transformation", rec)
     return rec, 200
 
-@app.route("/v1/experiments/<eid>", methods=["DELETE"])
-def delete_experiment(request, eid):
-    """Delete a Experiment."""
-    rows = _query("Experiment", eid)
+@app.route("/v1/transformations/<eid>", methods=["DELETE"])
+def delete_transformation(request, eid):
+    """Delete a Transformation."""
+    rows = _query("Transformation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cloudinary.Experiment", "id": eid})
+    db.retract({"entity": f"cloudinary.Transformation", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/uploadpresets", methods=["POST"])
+def create_upload_preset(request):
+    """Create a UploadPreset."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'unsigned', 'externalId', 'live'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'unsigned'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("cloudina_upl")}
+    rec["name"] = data.get('name')
+    rec["unsigned"] = _as_bool(data.get('unsigned'))
+    rec["externalId"] = data.get('externalId')
+    rec["live"] = _as_bool(data.get('live'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("UploadPreset", rec)
+    return rec, 201
+
+@app.route("/v1/uploadpresets", methods=["GET"])
+def list_upload_presets(request):
+    """List UploadPresets with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("UploadPreset")
+    rows = _apply_filters(rows, params, ['name', 'unsigned', 'externalId', 'live'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/uploadpresets/<eid>", methods=["GET"])
+def get_upload_preset(request, eid):
+    """Retrieve a UploadPreset by id (supports ?expand=)."""
+    rows = _query("UploadPreset", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/uploadpresets/<eid>", methods=["POST", "PATCH"])
+def update_upload_preset(request, eid):
+    """Update a UploadPreset."""
+    rows = _query("UploadPreset", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'unsigned', 'externalId', 'live'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("UploadPreset", rec)
+    return rec, 200
+
+@app.route("/v1/uploadpresets/<eid>", methods=["DELETE"])
+def delete_upload_preset(request, eid):
+    """Delete a UploadPreset."""
+    rows = _query("UploadPreset", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"cloudinary.UploadPreset", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/tags", methods=["POST"])
+def create_tag(request):
+    """Create a Tag."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name'])
+    if err:
+        return err, 400
+    err = _require(data, ['name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("cloudina_tag")}
+    rec["name"] = data.get('name')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Tag", rec)
+    return rec, 201
+
+@app.route("/v1/tags", methods=["GET"])
+def list_tags(request):
+    """List Tags with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Tag")
+    rows = _apply_filters(rows, params, ['name'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/tags/<eid>", methods=["GET"])
+def get_tag(request, eid):
+    """Retrieve a Tag by id (supports ?expand=)."""
+    rows = _query("Tag", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/tags/<eid>", methods=["POST", "PATCH"])
+def update_tag(request, eid):
+    """Update a Tag."""
+    rows = _query("Tag", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Tag", rec)
+    return rec, 200
+
+@app.route("/v1/tags/<eid>", methods=["DELETE"])
+def delete_tag(request, eid):
+    """Delete a Tag."""
+    rows = _query("Tag", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"cloudinary.Tag", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "cloudinary-compat", "tier": "L4",
-            "entities": ['Asset', 'Rendition', 'Channel', 'Playlist', 'ContentEntry', 'Experiment']}, 200
+            "entities": ['Resource', 'Folder', 'Transformation', 'UploadPreset', 'Tag']}, 200
 
 
 if __name__ == "__main__":

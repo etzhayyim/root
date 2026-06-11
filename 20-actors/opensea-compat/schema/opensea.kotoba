@@ -3,32 +3,59 @@
 
 namespace opensea {
 
-    entity Block {
+    entity Nft {
         id: string @unique
-        number: integer
-        hash: string
-        chain: string
-        minedAt: datetime
+        identifier: string
+        collection: string
+        contract: string
+        tokenStandard: string
+        name: string
+        description: string
+        imageUrl: string
+        openseaUrl: string
+        isDisabled: boolean
+        isNsfw: boolean
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Transaction {
+    entity Collection {
         id: string @unique
-        hash: string
-        fromAddr: string
-        toAddr: string
-        value: float
+        collection: string
+        name: string
+        description: string
+        imageUrl: string
+        safelistStatus: string
+        isDisabled: boolean
+        isNsfw: boolean
+        totalSupply: integer
+        createdDate: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Listing {
+        id: string @unique
+        orderHash: string
+        chain: string
+        protocolAddress: string
+        remainingQuantity: integer
+        orderCreatedAt: integer
+        type: string
         status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Contract {
+    entity Offer {
         id: string @unique
-        address: string
+        orderHash: string
         chain: string
-        abiRef: string
+        protocolAddress: string
+        remainingQuantity: integer
+        orderCreatedAt: integer
+        status: string
         createdAt: datetime
         updatedAt: datetime
     }
@@ -36,40 +63,12 @@ namespace opensea {
     entity Account {
         id: string @unique
         address: string
-        chain: string
-        balance: float
-        nonce: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Event {
-        id: string @unique
-        contractAddr: string
-        name: string
-        blockNumber: integer
-        dataRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Token {
-        id: string @unique
-        contractAddr: string
-        symbol: string
-        decimals: integer
-        standard: string
+        username: string
+        bio: string
+        website: string
+        joinedDate: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

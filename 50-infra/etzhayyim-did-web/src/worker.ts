@@ -118,6 +118,42 @@ const DONATION_POLICY = {
       status: "Base L2 testnet pending Council (CLAUDE.md §Live governance)",
     },
     {
+      // ADR-2606111800 §C — curated crypto-asset allowlist, held as-is (per-asset tithe).
+      medium: "crypto",
+      assets: ["ETH", "WETH", "USDC", "USDT", "DAI"],
+      heldAsIs: true,
+      rail: "on-chain donation to the same address (Base L2; or L1 where un-bridgeable)",
+      split: "90/10 tithe computed per-asset at receipt",
+      purposes: ["donation", "kisha", "grant"],
+      note: "Curated liquid-majors allowlist (Council Tier-2). No memecoins / no algorithmic stablecoins. TitheRouter per-asset support is a follow-up (until then: recorded + manually tithed).",
+      status: "pending the same Council ratification + testnet as cash",
+    },
+    {
+      // ADR-2606111800 §B — non-custodial fiat on-ramp settling immediately to USDC on-chain.
+      medium: "fiat",
+      kind: "non-custodial-onramp",
+      custodial: false,
+      retainsDonorPii: false,
+      settlesTo: "USDC on-chain (immediate)",
+      split: "arrives as an ordinary on-chain donation → 90/10 tithe",
+      purposes: ["donation"],
+      description:
+        "Give in fiat via a NON-CUSTODIAL on-ramp that settles immediately to USDC on-chain. etzhayyim holds no fiat balance, retains NO donor PII (any KYC is donor↔on-ramp only), and the processor can never freeze etzhayyim's treasury. CUSTODIAL fiat (Stripe/PayPal holding our balance, KYC-on-etzhayyim, PII retention) stays prohibited (ADR-2605172100 / 2606111800 §B).",
+      status: "permitted (ADR-2606111800 §B); on-ramp wiring follows the cash address going live",
+    },
+    {
+      // ADR-2606111800 §A — fiat IN-KIND: paying the mission's fiat bills directly (no inflow).
+      medium: "fiat-in-kind",
+      kind: "in-kind",
+      titheable: false,
+      compensated: false,
+      grantsBenefit: false,
+      description:
+        "Pay the mission's real-world fiat costs directly to the vendor (servers / cloud / domains / bandwidth / hardware), for the mission. No money flows to etzhayyim — like donating compute. Imputed-valued for transparency only (toritate, aggregate, no leaderboard); non-titheable; earns the donor nothing. This is how the founder already donates (JPY server costs).",
+      record: "com.etzhayyim.give.infrastructureDonationAttestation",
+      status: "recognized (ADR-2606111800 §A); no amendment needed — already charter-clean",
+    },
+    {
       medium: "compute",
       kind: "in-kind",
       titheable: false,
@@ -146,9 +182,27 @@ const DONATION_POLICY = {
       enrollment: "R0 design; live external mesh-enrollment gated on Council + operator (ADR-2606012100 §6 G9)",
     },
   ],
-  adr: ["2606012100", "2605192115", "2605192130", "2605215000", "2605301020", "2605241900"],
+  // Active solicitation (募集). Benefit-free by construction: a gift earns the donor
+  // nothing — no perk, tier, priority, governance weight, or recognition leaderboard
+  // (anti-class G4, ADR-2606012100). Soliciting support for etzhayyim's own religious
+  // activity is 案内, not advertising (ADR-2605192115 §1.2).
+  solicitation: {
+    open: true,
+    callToAction:
+      "etzhayyim runs only on donation. Give money (USDC on Base L2) or compute (join the Murakumo mesh). A gift earns you nothing — no perks, no tiers, no priority — and is never required.",
+    grantsBenefit: false, // G4 — no quid-pro-quo
+    tiers: "none", // no perk/sponsor tiers (would be a quid-pro-quo)
+    leaderboard: "none", // no per-donor ranking (no class formation)
+    sponsorButton:
+      "GitHub repo Sponsor button (.github/FUNDING.yml) points here — NOT to GitHub Sponsors / Patreon / Stripe (fiat processors prohibited, ADR-2605172100).",
+    addressStatus:
+      "On-chain donate address is published in THIS document (field media[0]) once live — single source of truth, no second place to drift. Currently pending Council ratification + Base L2 testnet.",
+  },
+  adr: ["2606012100", "2606111700", "2606111800", "2605192115", "2605192130", "2605172100", "2605215000", "2605301020", "2605241900"],
   references: {
     page: "https://etzhayyim.com/donate",
+    howToGive: "https://github.com/etzhayyim/root/blob/main/DONATE.md",
+    sponsorButton: "https://github.com/etzhayyim/root/blob/main/.github/FUNDING.yml",
     didDocument: "https://etzhayyim.com/.well-known/did.json",
     repo: "https://github.com/etzhayyim/root",
   },
@@ -181,13 +235,27 @@ a{color:inherit}
 </head>
 <body>
 <h1>etzhayyim is operated <em>only</em> on donation.</h1>
-<p class="sub">A 宗教法人 (unincorporated religious association). We take no advertising, sell nothing, and never pay any member cash. You can give <strong>money</strong> or <strong>compute</strong>.</p>
+<p class="sub">A 宗教法人 (unincorporated religious association). We take no advertising, sell nothing, and never pay any member cash. You can give <strong>money</strong> (USDC, other crypto, or fiat) or <strong>compute</strong> — or pay one of our bills.</p>
 
 <h2>Give money</h2>
 <div class="card">
 <span class="tag">USDC</span><span class="tag">Base L2</span>
 <p>Donations settle on-chain through <strong>TitheRouter</strong>: 90% to the recipient program, 10% auto-split to the Public Fund. No fiat processor, no fees skimmed by middlemen.</p>
 <p style="opacity:.7;margin:.25rem 0 0">Status: Base L2 testnet pending Council ratification — on-chain donate address published here when live.</p>
+</div>
+<div class="card">
+<span class="tag">ETH · stablecoins</span><span class="tag">held as-is</span>
+<p>We also accept a curated allowlist of liquid crypto — <strong>ETH / WETH / USDC / USDT / DAI</strong> — held in its native asset, tithed 90/10 per asset. No memecoins, no algorithmic stablecoins. (ADR-2606111800 §C.)</p>
+</div>
+<div class="card">
+<span class="tag">fiat</span><span class="tag">non-custodial</span>
+<p>Prefer your card or bank? Give in <strong>fiat through a non-custodial on-ramp</strong> that settles immediately to USDC on-chain. We hold no fiat balance, keep <em>none</em> of your personal data (any KYC is between you and the on-ramp), and no processor can ever freeze our funds. (ADR-2606111800 §B.)</p>
+</div>
+
+<h2>Pay one of our bills (fiat, in-kind)</h2>
+<div class="card">
+<span class="tag">fiat · in-kind</span><span class="tag">no inflow</span>
+<p>The most direct fiat gift: <strong>pay one of the mission's real-world costs</strong> — a server, cloud, domain, bandwidth, or hardware bill — straight to the vendor, for the mission. No money passes through etzhayyim at all (just like donating compute). It is imputed-valued for transparency only, earns you nothing, and is never tithed. This is how the founder already supports the work — paying server costs in yen. (ADR-2606111800 §A.)</p>
 </div>
 
 <h2>Give compute</h2>
@@ -210,9 +278,17 @@ a{color:inherit}
 
 <p style="opacity:.75">Compute you donate joins the Murakumo fleet as a first-party node — never a commercial cloud. It is valued (imputed, for transparency only) but no money ever moves to or from you, and donating more grants you no priority. Live enrollment for external nodes is being rolled out under Council oversight.</p>
 
+<h2>Sponsor on GitHub</h2>
+<div class="card">
+<span class="tag">github</span><span class="tag">on-chain only</span>
+<p>The <a href="https://github.com/etzhayyim/root">etzhayyim/root</a> repo carries a <strong>Sponsor</strong> button — it links straight back to this page. We deliberately do <em>not</em> use GitHub Sponsors, Patreon, or any fiat rail (those route through prohibited fiat processors). See <a href="https://github.com/etzhayyim/root/blob/main/DONATE.md">DONATE.md</a> for the full how-to.</p>
+</div>
+
+<p style="opacity:.85"><strong>A gift earns you nothing</strong> — no perks, no tiers, no priority, no recognition leaderboard. We say so plainly: you give because the mission (人類の構造的労働解放) is worth it, not for a benefit.</p>
+
 <footer>
-Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
-Design: ADR-2606012100 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.
+Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · How to give: <a href="https://github.com/etzhayyim/root/blob/main/DONATE.md">DONATE.md</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
+Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.
 </footer>
 </body>
 </html>

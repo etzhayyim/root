@@ -111,156 +111,29 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/products", methods=["POST"])
-def create_product(request):
-    """Create a Product."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency', 'inventory'])
-    if err:
-        return err, 400
-    err = _require(data, ['sku', 'title'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("magento_pro")}
-    rec["sku"] = data.get('sku')
-    rec["title"] = data.get('title')
-    rec["price"] = _as_float(data.get('price'))
-    rec["currency"] = data.get('currency')
-    rec["inventory"] = _as_int(data.get('inventory'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Product", rec)
-    return rec, 201
-
-@app.route("/v1/products", methods=["GET"])
-def list_products(request):
-    """List Products with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Product")
-    rows = _apply_filters(rows, params, ['sku', 'title', 'price', 'currency', 'inventory'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/products/<eid>", methods=["GET"])
-def get_product(request, eid):
-    """Retrieve a Product by id (supports ?expand=)."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/products/<eid>", methods=["POST", "PATCH"])
-def update_product(request, eid):
-    """Update a Product."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency', 'inventory'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Product", rec)
-    return rec, 200
-
-@app.route("/v1/products/<eid>", methods=["DELETE"])
-def delete_product(request, eid):
-    """Delete a Product."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"magento.Product", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/variants", methods=["POST"])
-def create_variant(request):
-    """Create a Variant."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['productId', 'sku', 'price', 'optionValues'])
-    if err:
-        return err, 400
-    err = _require(data, ['sku', 'price'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("magento_var")}
-    rec["productId"] = data.get('productId')
-    rec["sku"] = data.get('sku')
-    rec["price"] = _as_float(data.get('price'))
-    rec["optionValues"] = data.get('optionValues')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Variant", rec)
-    return rec, 201
-
-@app.route("/v1/variants", methods=["GET"])
-def list_variants(request):
-    """List Variants with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Variant")
-    rows = _apply_filters(rows, params, ['productId', 'sku', 'price', 'optionValues'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/variants/<eid>", methods=["GET"])
-def get_variant(request, eid):
-    """Retrieve a Variant by id (supports ?expand=)."""
-    rows = _query("Variant", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'productId': 'Product'})
-    return rec, 200
-
-@app.route("/v1/variants/<eid>", methods=["POST", "PATCH"])
-def update_variant(request, eid):
-    """Update a Variant."""
-    rows = _query("Variant", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['productId', 'sku', 'price', 'optionValues'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Variant", rec)
-    return rec, 200
-
-@app.route("/v1/variants/<eid>", methods=["DELETE"])
-def delete_variant(request, eid):
-    """Delete a Variant."""
-    rows = _query("Variant", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"magento.Variant", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/orders", methods=["POST"])
 def create_order(request):
     """Create a Order."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['entityId', 'incrementId', 'state', 'status', 'customerId', 'customerEmail', 'grandTotal', 'subtotal', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'total'])
+    err = _require(data, ['state', 'status'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['new', 'pending_payment', 'processing', 'complete', 'closed', 'canceled', 'holded', 'payment_review']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['new', 'pending_payment', 'processing', 'complete', 'closed', 'canceled', 'holded', 'payment_review']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("magento_ord")}
-    rec["customerId"] = data.get('customerId')
-    rec["number"] = data.get('number')
-    rec["total"] = _as_float(data.get('total'))
-    rec["currency"] = data.get('currency')
+    rec["entityId"] = _as_int(data.get('entityId'))
+    rec["incrementId"] = data.get('incrementId')
+    rec["state"] = data.get('state')
     rec["status"] = data.get('status')
+    rec["customerId"] = _as_int(data.get('customerId'))
+    rec["customerEmail"] = data.get('customerEmail')
+    rec["grandTotal"] = _as_float(data.get('grandTotal'))
+    rec["subtotal"] = _as_float(data.get('subtotal'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Order", rec)
@@ -271,7 +144,7 @@ def list_orders(request):
     """List Orders with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Order")
-    rows = _apply_filters(rows, params, ['customerId', 'number', 'total', 'currency', 'status'])
+    rows = _apply_filters(rows, params, ['entityId', 'incrementId', 'state', 'status', 'customerId', 'customerEmail', 'grandTotal', 'subtotal', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -293,9 +166,11 @@ def update_order(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['entityId', 'incrementId', 'state', 'status', 'customerId', 'customerEmail', 'grandTotal', 'subtotal', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['new', 'pending_payment', 'processing', 'complete', 'closed', 'canceled', 'holded', 'payment_review']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['new', 'pending_payment', 'processing', 'complete', 'closed', 'canceled', 'holded', 'payment_review']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -313,88 +188,105 @@ def delete_order(request, eid):
     db.retract({"entity": f"magento.Order", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/lineitems", methods=["POST"])
-def create_line_item(request):
-    """Create a LineItem."""
+@app.route("/v1/products", methods=["POST"])
+def create_product(request):
+    """Create a Product."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'productId', 'quantity', 'unitPrice'])
+    err = _reject_unknown(data, ['id', 'sku', 'name', 'price', 'weight', 'status', 'visibility', 'typeId', 'attributeSetId', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['quantity', 'unitPrice'])
+    err = _require(data, ['id', 'sku'])
     if err:
         return err, 400
-    rec = {"id": new_id("magento_lin")}
-    rec["orderId"] = data.get('orderId')
-    rec["productId"] = data.get('productId')
-    rec["quantity"] = _as_int(data.get('quantity'))
-    rec["unitPrice"] = _as_float(data.get('unitPrice'))
+    if data.get('status') and data['status'] not in [1, 2]:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join([1, 2]), "type": "invalid_request_error"}}, 400
+    if data.get('visibility') and data['visibility'] not in [1, 2, 3, 4]:
+        return {"error": {"message": "invalid visibility; allowed: " + ", ".join([1, 2, 3, 4]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("magento_pro")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["sku"] = data.get('sku')
+    rec["name"] = data.get('name')
+    rec["price"] = _as_float(data.get('price'))
+    rec["weight"] = _as_float(data.get('weight'))
+    rec["status"] = _as_int(data.get('status'))
+    rec["visibility"] = _as_int(data.get('visibility'))
+    rec["typeId"] = data.get('typeId')
+    rec["attributeSetId"] = _as_int(data.get('attributeSetId'))
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("LineItem", rec)
+    _persist("Product", rec)
     return rec, 201
 
-@app.route("/v1/lineitems", methods=["GET"])
-def list_line_items(request):
-    """List LineItems with filtering + cursor pagination."""
+@app.route("/v1/products", methods=["GET"])
+def list_products(request):
+    """List Products with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("LineItem")
-    rows = _apply_filters(rows, params, ['orderId', 'productId', 'quantity', 'unitPrice'])
+    rows = _query("Product")
+    rows = _apply_filters(rows, params, ['id', 'sku', 'name', 'price', 'weight', 'status', 'visibility', 'typeId', 'attributeSetId', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/lineitems/<eid>", methods=["GET"])
-def get_line_item(request, eid):
-    """Retrieve a LineItem by id (supports ?expand=)."""
-    rows = _query("LineItem", eid)
+@app.route("/v1/products/<eid>", methods=["GET"])
+def get_product(request, eid):
+    """Retrieve a Product by id (supports ?expand=)."""
+    rows = _query("Product", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'orderId': 'Order', 'productId': 'Product'})
     return rec, 200
 
-@app.route("/v1/lineitems/<eid>", methods=["POST", "PATCH"])
-def update_line_item(request, eid):
-    """Update a LineItem."""
-    rows = _query("LineItem", eid)
+@app.route("/v1/products/<eid>", methods=["POST", "PATCH"])
+def update_product(request, eid):
+    """Update a Product."""
+    rows = _query("Product", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'productId', 'quantity', 'unitPrice'])
+    err = _reject_unknown(data, ['id', 'sku', 'name', 'price', 'weight', 'status', 'visibility', 'typeId', 'attributeSetId', 'createdAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in [1, 2]:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join([1, 2]), "type": "invalid_request_error"}}, 400
+    if data.get('visibility') and data['visibility'] not in [1, 2, 3, 4]:
+        return {"error": {"message": "invalid visibility; allowed: " + ", ".join([1, 2, 3, 4]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("LineItem", rec)
+    _persist("Product", rec)
     return rec, 200
 
-@app.route("/v1/lineitems/<eid>", methods=["DELETE"])
-def delete_line_item(request, eid):
-    """Delete a LineItem."""
-    rows = _query("LineItem", eid)
+@app.route("/v1/products/<eid>", methods=["DELETE"])
+def delete_product(request, eid):
+    """Delete a Product."""
+    rows = _query("Product", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"magento.LineItem", "id": eid})
+    db.retract({"entity": f"magento.Product", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/customers", methods=["POST"])
 def create_customer(request):
     """Create a Customer."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'phone'])
+    err = _reject_unknown(data, ['id', 'email', 'firstname', 'lastname', 'groupId', 'storeId', 'websiteId', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'firstName'])
+    err = _require(data, ['id', 'email'])
     if err:
         return err, 400
     rec = {"id": new_id("magento_cus")}
+    rec["id"] = _as_int(data.get('id'))
     rec["email"] = data.get('email')
-    rec["firstName"] = data.get('firstName')
-    rec["lastName"] = data.get('lastName')
-    rec["phone"] = data.get('phone')
+    rec["firstname"] = data.get('firstname')
+    rec["lastname"] = data.get('lastname')
+    rec["groupId"] = _as_int(data.get('groupId'))
+    rec["storeId"] = _as_int(data.get('storeId'))
+    rec["websiteId"] = _as_int(data.get('websiteId'))
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Customer", rec)
@@ -405,7 +297,7 @@ def list_customers(request):
     """List Customers with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Customer")
-    rows = _apply_filters(rows, params, ['email', 'firstName', 'lastName', 'phone'])
+    rows = _apply_filters(rows, params, ['id', 'email', 'firstname', 'lastname', 'groupId', 'storeId', 'websiteId', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -426,7 +318,7 @@ def update_customer(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'firstName', 'lastName', 'phone'])
+    err = _reject_unknown(data, ['id', 'email', 'firstname', 'lastname', 'groupId', 'storeId', 'websiteId', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -446,52 +338,57 @@ def delete_customer(request, eid):
     db.retract({"entity": f"magento.Customer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/collections", methods=["POST"])
-def create_collection(request):
-    """Create a Collection."""
+@app.route("/v1/categories", methods=["POST"])
+def create_category(request):
+    """Create a Category."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'handle', 'published'])
+    err = _reject_unknown(data, ['id', 'parentId', 'name', 'isActive', 'position', 'level', 'path', 'productCount'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'handle'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("magento_col")}
-    rec["title"] = data.get('title')
-    rec["handle"] = data.get('handle')
-    rec["published"] = _as_bool(data.get('published'))
+    rec = {"id": new_id("magento_cat")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["parentId"] = _as_int(data.get('parentId'))
+    rec["name"] = data.get('name')
+    rec["isActive"] = _as_bool(data.get('isActive'))
+    rec["position"] = _as_int(data.get('position'))
+    rec["level"] = _as_int(data.get('level'))
+    rec["path"] = data.get('path')
+    rec["productCount"] = _as_int(data.get('productCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Collection", rec)
+    _persist("Category", rec)
     return rec, 201
 
-@app.route("/v1/collections", methods=["GET"])
-def list_collections(request):
-    """List Collections with filtering + cursor pagination."""
+@app.route("/v1/categories", methods=["GET"])
+def list_categories(request):
+    """List Categories with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Collection")
-    rows = _apply_filters(rows, params, ['title', 'handle', 'published'])
+    rows = _query("Category")
+    rows = _apply_filters(rows, params, ['id', 'parentId', 'name', 'isActive', 'position', 'level', 'path', 'productCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/collections/<eid>", methods=["GET"])
-def get_collection(request, eid):
-    """Retrieve a Collection by id (supports ?expand=)."""
-    rows = _query("Collection", eid)
+@app.route("/v1/categories/<eid>", methods=["GET"])
+def get_category(request, eid):
+    """Retrieve a Category by id (supports ?expand=)."""
+    rows = _query("Category", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/collections/<eid>", methods=["POST", "PATCH"])
-def update_collection(request, eid):
-    """Update a Collection."""
-    rows = _query("Collection", eid)
+@app.route("/v1/categories/<eid>", methods=["POST", "PATCH"])
+def update_category(request, eid):
+    """Update a Category."""
+    rows = _query("Category", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'handle', 'published'])
+    err = _reject_unknown(data, ['id', 'parentId', 'name', 'isActive', 'position', 'level', 'path', 'productCount'])
     if err:
         return err, 400
     rec = rows[0]
@@ -499,22 +396,166 @@ def update_collection(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Collection", rec)
+    _persist("Category", rec)
     return rec, 200
 
-@app.route("/v1/collections/<eid>", methods=["DELETE"])
-def delete_collection(request, eid):
-    """Delete a Collection."""
-    rows = _query("Collection", eid)
+@app.route("/v1/categories/<eid>", methods=["DELETE"])
+def delete_category(request, eid):
+    """Delete a Category."""
+    rows = _query("Category", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"magento.Collection", "id": eid})
+    db.retract({"entity": f"magento.Category", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/invoices", methods=["POST"])
+def create_invoice(request):
+    """Create a Invoice."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['entityId', 'incrementId', 'orderId', 'state', 'grandTotal', 'subtotal', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['state', 'grandTotal'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in [1, 2, 3]:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join([1, 2, 3]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("magento_inv")}
+    rec["entityId"] = _as_int(data.get('entityId'))
+    rec["incrementId"] = data.get('incrementId')
+    rec["orderId"] = _as_int(data.get('orderId'))
+    rec["state"] = _as_int(data.get('state'))
+    rec["grandTotal"] = _as_float(data.get('grandTotal'))
+    rec["subtotal"] = _as_float(data.get('subtotal'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Invoice", rec)
+    return rec, 201
+
+@app.route("/v1/invoices", methods=["GET"])
+def list_invoices(request):
+    """List Invoices with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Invoice")
+    rows = _apply_filters(rows, params, ['entityId', 'incrementId', 'orderId', 'state', 'grandTotal', 'subtotal', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/invoices/<eid>", methods=["GET"])
+def get_invoice(request, eid):
+    """Retrieve a Invoice by id (supports ?expand=)."""
+    rows = _query("Invoice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'orderId': 'Order'})
+    return rec, 200
+
+@app.route("/v1/invoices/<eid>", methods=["POST", "PATCH"])
+def update_invoice(request, eid):
+    """Update a Invoice."""
+    rows = _query("Invoice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['entityId', 'incrementId', 'orderId', 'state', 'grandTotal', 'subtotal', 'createdAt'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in [1, 2, 3]:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join([1, 2, 3]), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Invoice", rec)
+    return rec, 200
+
+@app.route("/v1/invoices/<eid>", methods=["DELETE"])
+def delete_invoice(request, eid):
+    """Delete a Invoice."""
+    rows = _query("Invoice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"magento.Invoice", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/shipments", methods=["POST"])
+def create_shipment(request):
+    """Create a Shipment."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['entityId', 'incrementId', 'orderId', 'storeId', 'totalQty', 'totalWeight', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['totalQty', 'totalWeight'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("magento_shi")}
+    rec["entityId"] = _as_int(data.get('entityId'))
+    rec["incrementId"] = data.get('incrementId')
+    rec["orderId"] = _as_int(data.get('orderId'))
+    rec["storeId"] = _as_int(data.get('storeId'))
+    rec["totalQty"] = _as_float(data.get('totalQty'))
+    rec["totalWeight"] = _as_float(data.get('totalWeight'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Shipment", rec)
+    return rec, 201
+
+@app.route("/v1/shipments", methods=["GET"])
+def list_shipments(request):
+    """List Shipments with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Shipment")
+    rows = _apply_filters(rows, params, ['entityId', 'incrementId', 'orderId', 'storeId', 'totalQty', 'totalWeight', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/shipments/<eid>", methods=["GET"])
+def get_shipment(request, eid):
+    """Retrieve a Shipment by id (supports ?expand=)."""
+    rows = _query("Shipment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'orderId': 'Order'})
+    return rec, 200
+
+@app.route("/v1/shipments/<eid>", methods=["POST", "PATCH"])
+def update_shipment(request, eid):
+    """Update a Shipment."""
+    rows = _query("Shipment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['entityId', 'incrementId', 'orderId', 'storeId', 'totalQty', 'totalWeight', 'createdAt'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Shipment", rec)
+    return rec, 200
+
+@app.route("/v1/shipments/<eid>", methods=["DELETE"])
+def delete_shipment(request, eid):
+    """Delete a Shipment."""
+    rows = _query("Shipment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"magento.Shipment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "magento-compat", "tier": "L4",
-            "entities": ['Product', 'Variant', 'Order', 'LineItem', 'Customer', 'Collection']}, 200
+            "entities": ['Order', 'Product', 'Customer', 'Category', 'Invoice', 'Shipment']}, 200
 
 
 if __name__ == "__main__":

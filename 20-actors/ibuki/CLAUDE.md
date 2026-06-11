@@ -105,15 +105,21 @@ produces a head CID **byte-identical** to an uninterrupted 3-beat run.
   `:digest/*` post — `:digest/status :dry-run` ONLY (G8; :published unrepresentable). A mirror
   REPORT of where the colony's life became a gift (黒カビ→クエン酸→人類), never advice; emitted
   every HEALTH_EVERY beats in BOTH autorun + fleet. Aggregate, never a per-organism verdict.
-- **Autonomous identity = a revocable leash (`delegation.py`, ADR §委任)** — an autonomous life
-  persists to kotoba AS ITSELF without a held key and without per-beat human presence: a MEMBER
-  issues a scoped, expiring CACAO delegation (`capability=datom:transact`, `resource=graph:ibuki`,
-  `exp`, `aud=<actor DID>`) signed with their OWN key; the organism PRESENTS the opaque `cacao_b64`
-  each `kotoba_bridge.push(delegation=…, now_epoch=…)` — present-only, ibuki never signs (stdlib).
-  kotoba verifies issuer-sig + capability + graph + aud + expiry → `write_author = issuer`. Expired
-  / mis-scoped / absent → fail-open to the operator-bearer loopback (the organism never crashes;
-  stop re-issuing → it quietly retires). Autonomy WITH accountability — 共生 by consent, never a
-  held root key (no-server-key) nor passkey-per-beat (no human to touch it each beat).
+- **Autonomous identity = a revocable leash (`delegation.py` + `tools/issue_delegation.py`, ADR §委任)**
+  — an autonomous life persists to kotoba without a held key and without per-beat human presence: a
+  MEMBER issues a scoped, expiring CACAO delegation (`capability=datom:transact`,
+  `resources=[kotoba://can/datom:transact, kotoba://graph/<cid>]`, `exp`, **`aud` = the kotoba NODE's
+  operator DID**) Ed25519-signed with their OWN key (the member-side `issue_delegation.py`, which MAY
+  use `cryptography`); the organism PRESENTS the opaque `cacao_b64` each
+  `kotoba_bridge.push(delegation=…, now_epoch=…)` — present-only, ibuki never signs (stdlib). kotoba
+  checks `aud == operator_did` + issuer-sig + capability + graph + expiry → **`write_author = the
+  issuing MEMBER`** (the colony's autonomous writes are on-record attributed to the consenting human
+  — accountability by consent, NOT an anonymous agent; the organism is the bearer, not the named
+  delegatee). Expired / mis-scoped / absent → fail-open to the operator-bearer loopback (never
+  crashes; stop re-issuing → it quietly retires). Verified live (2026-06-11): a real member-signed
+  CACAO is parsed + signature-verified by the node, reaching DID-resolution; full write-acceptance
+  additionally needs the node's IPFS DID resolver up (operator infra). Autonomy WITH accountability —
+  共生 by consent, never a held root key (no-server-key) nor passkey-per-beat.
 - **Stdlib only, deterministic** — no third-party imports; no wall clock (logical beat time);
   no SQL / columnar store (N7).
 

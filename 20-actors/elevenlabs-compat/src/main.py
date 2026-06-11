@@ -111,21 +111,243 @@ def _expand(rec, params, refs):
     return rec
 
 
+@app.route("/v1/voices", methods=["POST"])
+def create_voice(request):
+    """Create a Voice."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['voiceId', 'name', 'category', 'description', 'previewUrl', 'createdAtUnix', 'isOwner'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'category'])
+    if err:
+        return err, 400
+    if data.get('category') and data['category'] not in ['generated', 'cloned', 'premade', 'professional', 'famous', 'high_quality']:
+        return {"error": {"message": "invalid category; allowed: " + ", ".join(['generated', 'cloned', 'premade', 'professional', 'famous', 'high_quality']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("elevenla_voi")}
+    rec["voiceId"] = data.get('voiceId')
+    rec["name"] = data.get('name')
+    rec["category"] = data.get('category')
+    rec["description"] = data.get('description')
+    rec["previewUrl"] = data.get('previewUrl')
+    rec["createdAtUnix"] = _as_int(data.get('createdAtUnix'))
+    rec["isOwner"] = _as_bool(data.get('isOwner'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Voice", rec)
+    return rec, 201
+
+@app.route("/v1/voices", methods=["GET"])
+def list_voices(request):
+    """List Voices with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Voice")
+    rows = _apply_filters(rows, params, ['voiceId', 'name', 'category', 'description', 'previewUrl', 'createdAtUnix', 'isOwner'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/voices/<eid>", methods=["GET"])
+def get_voice(request, eid):
+    """Retrieve a Voice by id (supports ?expand=)."""
+    rows = _query("Voice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'voiceId': 'Voice'})
+    return rec, 200
+
+@app.route("/v1/voices/<eid>", methods=["POST", "PATCH"])
+def update_voice(request, eid):
+    """Update a Voice."""
+    rows = _query("Voice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['voiceId', 'name', 'category', 'description', 'previewUrl', 'createdAtUnix', 'isOwner'])
+    if err:
+        return err, 400
+    if data.get('category') and data['category'] not in ['generated', 'cloned', 'premade', 'professional', 'famous', 'high_quality']:
+        return {"error": {"message": "invalid category; allowed: " + ", ".join(['generated', 'cloned', 'premade', 'professional', 'famous', 'high_quality']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Voice", rec)
+    return rec, 200
+
+@app.route("/v1/voices/<eid>", methods=["DELETE"])
+def delete_voice(request, eid):
+    """Delete a Voice."""
+    rows = _query("Voice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"elevenlabs.Voice", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/samples", methods=["POST"])
+def create_sample(request):
+    """Create a Sample."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['sampleId', 'fileName', 'mimeType', 'sizeBytes', 'durationSecs', 'hash', 'removeBackgroundNoise'])
+    if err:
+        return err, 400
+    err = _require(data, ['fileName', 'mimeType'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("elevenla_sam")}
+    rec["sampleId"] = data.get('sampleId')
+    rec["fileName"] = data.get('fileName')
+    rec["mimeType"] = data.get('mimeType')
+    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
+    rec["durationSecs"] = _as_float(data.get('durationSecs'))
+    rec["hash"] = data.get('hash')
+    rec["removeBackgroundNoise"] = _as_bool(data.get('removeBackgroundNoise'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Sample", rec)
+    return rec, 201
+
+@app.route("/v1/samples", methods=["GET"])
+def list_samples(request):
+    """List Samples with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Sample")
+    rows = _apply_filters(rows, params, ['sampleId', 'fileName', 'mimeType', 'sizeBytes', 'durationSecs', 'hash', 'removeBackgroundNoise'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/samples/<eid>", methods=["GET"])
+def get_sample(request, eid):
+    """Retrieve a Sample by id (supports ?expand=)."""
+    rows = _query("Sample", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'sampleId': 'Sample'})
+    return rec, 200
+
+@app.route("/v1/samples/<eid>", methods=["POST", "PATCH"])
+def update_sample(request, eid):
+    """Update a Sample."""
+    rows = _query("Sample", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['sampleId', 'fileName', 'mimeType', 'sizeBytes', 'durationSecs', 'hash', 'removeBackgroundNoise'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Sample", rec)
+    return rec, 200
+
+@app.route("/v1/samples/<eid>", methods=["DELETE"])
+def delete_sample(request, eid):
+    """Delete a Sample."""
+    rows = _query("Sample", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"elevenlabs.Sample", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/historyitems", methods=["POST"])
+def create_history_item(request):
+    """Create a HistoryItem."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['historyItemId', 'voiceId', 'modelId', 'text', 'dateUnix', 'state', 'characterCountChangeTo', 'contentType'])
+    if err:
+        return err, 400
+    err = _require(data, ['text', 'dateUnix'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['created', 'deleted', 'processing']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['created', 'deleted', 'processing']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("elevenla_his")}
+    rec["historyItemId"] = data.get('historyItemId')
+    rec["voiceId"] = data.get('voiceId')
+    rec["modelId"] = data.get('modelId')
+    rec["text"] = data.get('text')
+    rec["dateUnix"] = _as_int(data.get('dateUnix'))
+    rec["state"] = data.get('state')
+    rec["characterCountChangeTo"] = _as_int(data.get('characterCountChangeTo'))
+    rec["contentType"] = data.get('contentType')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("HistoryItem", rec)
+    return rec, 201
+
+@app.route("/v1/historyitems", methods=["GET"])
+def list_history_items(request):
+    """List HistoryItems with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("HistoryItem")
+    rows = _apply_filters(rows, params, ['historyItemId', 'voiceId', 'modelId', 'text', 'dateUnix', 'state', 'characterCountChangeTo', 'contentType'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/historyitems/<eid>", methods=["GET"])
+def get_history_item(request, eid):
+    """Retrieve a HistoryItem by id (supports ?expand=)."""
+    rows = _query("HistoryItem", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'historyItemId': 'HistoryItem', 'voiceId': 'Voice', 'modelId': 'Model'})
+    return rec, 200
+
+@app.route("/v1/historyitems/<eid>", methods=["POST", "PATCH"])
+def update_history_item(request, eid):
+    """Update a HistoryItem."""
+    rows = _query("HistoryItem", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['historyItemId', 'voiceId', 'modelId', 'text', 'dateUnix', 'state', 'characterCountChangeTo', 'contentType'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['created', 'deleted', 'processing']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['created', 'deleted', 'processing']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("HistoryItem", rec)
+    return rec, 200
+
+@app.route("/v1/historyitems/<eid>", methods=["DELETE"])
+def delete_history_item(request, eid):
+    """Delete a HistoryItem."""
+    rows = _query("HistoryItem", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"elevenlabs.HistoryItem", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/models", methods=["POST"])
 def create_model(request):
     """Create a Model."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'family', 'contextWindow', 'modality'])
+    err = _reject_unknown(data, ['modelId', 'name', 'canBeFinetune', 'canDoTextToSpeech', 'canUseStyle', 'tokenCostFactor', 'description'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'family'])
+    err = _require(data, ['name', 'canBeFinetune'])
     if err:
         return err, 400
     rec = {"id": new_id("elevenla_mod")}
+    rec["modelId"] = data.get('modelId')
     rec["name"] = data.get('name')
-    rec["family"] = data.get('family')
-    rec["contextWindow"] = _as_int(data.get('contextWindow'))
-    rec["modality"] = data.get('modality')
+    rec["canBeFinetune"] = _as_bool(data.get('canBeFinetune'))
+    rec["canDoTextToSpeech"] = _as_bool(data.get('canDoTextToSpeech'))
+    rec["canUseStyle"] = _as_bool(data.get('canUseStyle'))
+    rec["tokenCostFactor"] = _as_float(data.get('tokenCostFactor'))
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Model", rec)
@@ -136,7 +358,7 @@ def list_models(request):
     """List Models with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Model")
-    rows = _apply_filters(rows, params, ['name', 'family', 'contextWindow', 'modality'])
+    rows = _apply_filters(rows, params, ['modelId', 'name', 'canBeFinetune', 'canDoTextToSpeech', 'canUseStyle', 'tokenCostFactor', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -148,6 +370,7 @@ def get_model(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'modelId': 'Model'})
     return rec, 200
 
 @app.route("/v1/models/<eid>", methods=["POST", "PATCH"])
@@ -157,7 +380,7 @@ def update_model(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'family', 'contextWindow', 'modality'])
+    err = _reject_unknown(data, ['modelId', 'name', 'canBeFinetune', 'canDoTextToSpeech', 'canUseStyle', 'tokenCostFactor', 'description'])
     if err:
         return err, 400
     rec = rows[0]
@@ -177,342 +400,162 @@ def delete_model(request, eid):
     db.retract({"entity": f"elevenlabs.Model", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/completions", methods=["POST"])
-def create_completion(request):
-    """Create a Completion."""
+@app.route("/v1/subscriptions", methods=["POST"])
+def create_subscription(request):
+    """Create a Subscription."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'prompt', 'output', 'tokens'])
+    err = _reject_unknown(data, ['tier', 'characterCount', 'characterLimit', 'voiceSlotsUsed', 'voiceLimit', 'status', 'canExtendCharacterLimit'])
     if err:
         return err, 400
-    err = _require(data, ['prompt', 'output'])
+    err = _require(data, ['tier', 'characterCount'])
     if err:
         return err, 400
-    rec = {"id": new_id("elevenla_com")}
-    rec["modelId"] = data.get('modelId')
-    rec["prompt"] = data.get('prompt')
-    rec["output"] = data.get('output')
-    rec["tokens"] = _as_int(data.get('tokens'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Completion", rec)
-    return rec, 201
-
-@app.route("/v1/completions", methods=["GET"])
-def list_completions(request):
-    """List Completions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Completion")
-    rows = _apply_filters(rows, params, ['modelId', 'prompt', 'output', 'tokens'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/completions/<eid>", methods=["GET"])
-def get_completion(request, eid):
-    """Retrieve a Completion by id (supports ?expand=)."""
-    rows = _query("Completion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'modelId': 'Model'})
-    return rec, 200
-
-@app.route("/v1/completions/<eid>", methods=["POST", "PATCH"])
-def update_completion(request, eid):
-    """Update a Completion."""
-    rows = _query("Completion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'prompt', 'output', 'tokens'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Completion", rec)
-    return rec, 200
-
-@app.route("/v1/completions/<eid>", methods=["DELETE"])
-def delete_completion(request, eid):
-    """Delete a Completion."""
-    rows = _query("Completion", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elevenlabs.Completion", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/embeddings", methods=["POST"])
-def create_embedding(request):
-    """Create a Embedding."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['input', 'dimensions'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("elevenla_emb")}
-    rec["modelId"] = data.get('modelId')
-    rec["input"] = data.get('input')
-    rec["dimensions"] = _as_int(data.get('dimensions'))
-    rec["vectorRef"] = data.get('vectorRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Embedding", rec)
-    return rec, 201
-
-@app.route("/v1/embeddings", methods=["GET"])
-def list_embeddings(request):
-    """List Embeddings with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Embedding")
-    rows = _apply_filters(rows, params, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["GET"])
-def get_embedding(request, eid):
-    """Retrieve a Embedding by id (supports ?expand=)."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'modelId': 'Model'})
-    return rec, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["POST", "PATCH"])
-def update_embedding(request, eid):
-    """Update a Embedding."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelId', 'input', 'dimensions', 'vectorRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Embedding", rec)
-    return rec, 200
-
-@app.route("/v1/embeddings/<eid>", methods=["DELETE"])
-def delete_embedding(request, eid):
-    """Delete a Embedding."""
-    rows = _query("Embedding", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elevenlabs.Embedding", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/finetunes", methods=["POST"])
-def create_fine_tune(request):
-    """Create a FineTune."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['baseModelId', 'datasetId', 'status', 'epochs'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'epochs'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("elevenla_fin")}
-    rec["baseModelId"] = data.get('baseModelId')
-    rec["datasetId"] = data.get('datasetId')
+    if data.get('status') and data['status'] not in ['trialing', 'active', 'incomplete', 'past_due', 'free', 'free_disabled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['trialing', 'active', 'incomplete', 'past_due', 'free', 'free_disabled']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("elevenla_sub")}
+    rec["tier"] = data.get('tier')
+    rec["characterCount"] = _as_int(data.get('characterCount'))
+    rec["characterLimit"] = _as_int(data.get('characterLimit'))
+    rec["voiceSlotsUsed"] = _as_int(data.get('voiceSlotsUsed'))
+    rec["voiceLimit"] = _as_int(data.get('voiceLimit'))
     rec["status"] = data.get('status')
-    rec["epochs"] = _as_int(data.get('epochs'))
+    rec["canExtendCharacterLimit"] = _as_bool(data.get('canExtendCharacterLimit'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("FineTune", rec)
+    _persist("Subscription", rec)
     return rec, 201
 
-@app.route("/v1/finetunes", methods=["GET"])
-def list_fine_tunes(request):
-    """List FineTunes with filtering + cursor pagination."""
+@app.route("/v1/subscriptions", methods=["GET"])
+def list_subscriptions(request):
+    """List Subscriptions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("FineTune")
-    rows = _apply_filters(rows, params, ['baseModelId', 'datasetId', 'status', 'epochs'])
+    rows = _query("Subscription")
+    rows = _apply_filters(rows, params, ['tier', 'characterCount', 'characterLimit', 'voiceSlotsUsed', 'voiceLimit', 'status', 'canExtendCharacterLimit'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/finetunes/<eid>", methods=["GET"])
-def get_fine_tune(request, eid):
-    """Retrieve a FineTune by id (supports ?expand=)."""
-    rows = _query("FineTune", eid)
+@app.route("/v1/subscriptions/<eid>", methods=["GET"])
+def get_subscription(request, eid):
+    """Retrieve a Subscription by id (supports ?expand=)."""
+    rows = _query("Subscription", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'datasetId': 'Dataset'})
     return rec, 200
 
-@app.route("/v1/finetunes/<eid>", methods=["POST", "PATCH"])
-def update_fine_tune(request, eid):
-    """Update a FineTune."""
-    rows = _query("FineTune", eid)
+@app.route("/v1/subscriptions/<eid>", methods=["POST", "PATCH"])
+def update_subscription(request, eid):
+    """Update a Subscription."""
+    rows = _query("Subscription", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['baseModelId', 'datasetId', 'status', 'epochs'])
+    err = _reject_unknown(data, ['tier', 'characterCount', 'characterLimit', 'voiceSlotsUsed', 'voiceLimit', 'status', 'canExtendCharacterLimit'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['trialing', 'active', 'incomplete', 'past_due', 'free', 'free_disabled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['trialing', 'active', 'incomplete', 'past_due', 'free', 'free_disabled']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("FineTune", rec)
+    _persist("Subscription", rec)
     return rec, 200
 
-@app.route("/v1/finetunes/<eid>", methods=["DELETE"])
-def delete_fine_tune(request, eid):
-    """Delete a FineTune."""
-    rows = _query("FineTune", eid)
+@app.route("/v1/subscriptions/<eid>", methods=["DELETE"])
+def delete_subscription(request, eid):
+    """Delete a Subscription."""
+    rows = _query("Subscription", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elevenlabs.FineTune", "id": eid})
+    db.retract({"entity": f"elevenlabs.Subscription", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/datasets", methods=["POST"])
-def create_dataset(request):
-    """Create a Dataset."""
+@app.route("/v1/projects", methods=["POST"])
+def create_project(request):
+    """Create a Project."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'rows', 'contentRef'])
+    err = _reject_unknown(data, ['projectId', 'name', 'title', 'author', 'createDateUnix', 'state', 'accessLevel', 'canBeDownloaded'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'rows'])
+    err = _require(data, ['name', 'title'])
     if err:
         return err, 400
-    rec = {"id": new_id("elevenla_dat")}
+    if data.get('state') and data['state'] not in ['creating', 'default', 'converting', 'in_queue']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['creating', 'default', 'converting', 'in_queue']), "type": "invalid_request_error"}}, 400
+    if data.get('accessLevel') and data['accessLevel'] not in ['admin', 'editor', 'commenter', 'viewer']:
+        return {"error": {"message": "invalid accessLevel; allowed: " + ", ".join(['admin', 'editor', 'commenter', 'viewer']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("elevenla_pro")}
+    rec["projectId"] = data.get('projectId')
     rec["name"] = data.get('name')
-    rec["rows"] = _as_int(data.get('rows'))
-    rec["contentRef"] = data.get('contentRef')
+    rec["title"] = data.get('title')
+    rec["author"] = data.get('author')
+    rec["createDateUnix"] = _as_int(data.get('createDateUnix'))
+    rec["state"] = data.get('state')
+    rec["accessLevel"] = data.get('accessLevel')
+    rec["canBeDownloaded"] = _as_bool(data.get('canBeDownloaded'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dataset", rec)
+    _persist("Project", rec)
     return rec, 201
 
-@app.route("/v1/datasets", methods=["GET"])
-def list_datasets(request):
-    """List Datasets with filtering + cursor pagination."""
+@app.route("/v1/projects", methods=["GET"])
+def list_projects(request):
+    """List Projects with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'rows', 'contentRef'])
+    rows = _query("Project")
+    rows = _apply_filters(rows, params, ['projectId', 'name', 'title', 'author', 'createDateUnix', 'state', 'accessLevel', 'canBeDownloaded'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/datasets/<eid>", methods=["GET"])
-def get_dataset(request, eid):
-    """Retrieve a Dataset by id (supports ?expand=)."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/projects/<eid>", methods=["GET"])
+def get_project(request, eid):
+    """Retrieve a Project by id (supports ?expand=)."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["POST", "PATCH"])
-def update_dataset(request, eid):
-    """Update a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
+def update_project(request, eid):
+    """Update a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'rows', 'contentRef'])
+    err = _reject_unknown(data, ['projectId', 'name', 'title', 'author', 'createDateUnix', 'state', 'accessLevel', 'canBeDownloaded'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['creating', 'default', 'converting', 'in_queue']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['creating', 'default', 'converting', 'in_queue']), "type": "invalid_request_error"}}, 400
+    if data.get('accessLevel') and data['accessLevel'] not in ['admin', 'editor', 'commenter', 'viewer']:
+        return {"error": {"message": "invalid accessLevel; allowed: " + ", ".join(['admin', 'editor', 'commenter', 'viewer']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dataset", rec)
+    _persist("Project", rec)
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["DELETE"])
-def delete_dataset(request, eid):
-    """Delete a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/projects/<eid>", methods=["DELETE"])
+def delete_project(request, eid):
+    """Delete a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elevenlabs.Dataset", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/files", methods=["POST"])
-def create_file(request):
-    """Create a File."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['purpose', 'filename', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['purpose', 'filename'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("elevenla_fil")}
-    rec["purpose"] = data.get('purpose')
-    rec["filename"] = data.get('filename')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("File", rec)
-    return rec, 201
-
-@app.route("/v1/files", methods=["GET"])
-def list_files(request):
-    """List Files with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("File")
-    rows = _apply_filters(rows, params, ['purpose', 'filename', 'sizeBytes', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/files/<eid>", methods=["GET"])
-def get_file(request, eid):
-    """Retrieve a File by id (supports ?expand=)."""
-    rows = _query("File", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/files/<eid>", methods=["POST", "PATCH"])
-def update_file(request, eid):
-    """Update a File."""
-    rows = _query("File", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['purpose', 'filename', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("File", rec)
-    return rec, 200
-
-@app.route("/v1/files/<eid>", methods=["DELETE"])
-def delete_file(request, eid):
-    """Delete a File."""
-    rows = _query("File", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elevenlabs.File", "id": eid})
+    db.retract({"entity": f"elevenlabs.Project", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "elevenlabs-compat", "tier": "L4",
-            "entities": ['Model', 'Completion', 'Embedding', 'FineTune', 'Dataset', 'File']}, 200
+            "entities": ['Voice', 'Sample', 'HistoryItem', 'Model', 'Subscription', 'Project']}, 200
 
 
 if __name__ == "__main__":

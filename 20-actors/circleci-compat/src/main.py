@@ -111,86 +111,25 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/repositories", methods=["POST"])
-def create_repository(request):
-    """Create a Repository."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'owner', 'defaultBranch', 'private'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'owner'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("circleci_rep")}
-    rec["name"] = data.get('name')
-    rec["owner"] = data.get('owner')
-    rec["defaultBranch"] = data.get('defaultBranch')
-    rec["private"] = _as_bool(data.get('private'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Repository", rec)
-    return rec, 201
-
-@app.route("/v1/repositories", methods=["GET"])
-def list_repositories(request):
-    """List Repositories with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Repository")
-    rows = _apply_filters(rows, params, ['name', 'owner', 'defaultBranch', 'private'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/repositories/<eid>", methods=["GET"])
-def get_repository(request, eid):
-    """Retrieve a Repository by id (supports ?expand=)."""
-    rows = _query("Repository", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/repositories/<eid>", methods=["POST", "PATCH"])
-def update_repository(request, eid):
-    """Update a Repository."""
-    rows = _query("Repository", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'owner', 'defaultBranch', 'private'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Repository", rec)
-    return rec, 200
-
-@app.route("/v1/repositories/<eid>", methods=["DELETE"])
-def delete_repository(request, eid):
-    """Delete a Repository."""
-    rows = _query("Repository", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"circleci.Repository", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/pipelines", methods=["POST"])
 def create_pipeline(request):
     """Create a Pipeline."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'name', 'trigger'])
+    err = _reject_unknown(data, ['id', 'number', 'state', 'projectSlug', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'trigger'])
+    err = _require(data, ['id', 'number'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['created', 'errored', 'setup-pending', 'setup', 'pending']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['created', 'errored', 'setup-pending', 'setup', 'pending']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("circleci_pip")}
-    rec["repoId"] = data.get('repoId')
-    rec["name"] = data.get('name')
-    rec["trigger"] = data.get('trigger')
+    rec["id"] = data.get('id')
+    rec["number"] = _as_int(data.get('number'))
+    rec["state"] = data.get('state')
+    rec["projectSlug"] = data.get('projectSlug')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Pipeline", rec)
@@ -201,7 +140,7 @@ def list_pipelines(request):
     """List Pipelines with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Pipeline")
-    rows = _apply_filters(rows, params, ['repoId', 'name', 'trigger'])
+    rows = _apply_filters(rows, params, ['id', 'number', 'state', 'projectSlug', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -222,9 +161,11 @@ def update_pipeline(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'name', 'trigger'])
+    err = _reject_unknown(data, ['id', 'number', 'state', 'projectSlug', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['created', 'errored', 'setup-pending', 'setup', 'pending']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['created', 'errored', 'setup-pending', 'setup', 'pending']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -242,254 +183,202 @@ def delete_pipeline(request, eid):
     db.retract({"entity": f"circleci.Pipeline", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/builds", methods=["POST"])
-def create_build(request):
-    """Create a Build."""
+@app.route("/v1/workflows", methods=["POST"])
+def create_workflow(request):
+    """Create a Workflow."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
+    err = _reject_unknown(data, ['id', 'pipelineId', 'name', 'status', 'startedBy', 'createdAt', 'stoppedAt'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'status'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("circleci_bui")}
+    if data.get('status') and data['status'] not in ['success', 'canceled', 'error', 'failed', 'failing', 'not_run', 'on_hold', 'running', 'unauthorized']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'canceled', 'error', 'failed', 'failing', 'not_run', 'on_hold', 'running', 'unauthorized']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("circleci_wor")}
+    rec["id"] = data.get('id')
     rec["pipelineId"] = data.get('pipelineId')
-    rec["number"] = _as_int(data.get('number'))
+    rec["name"] = data.get('name')
     rec["status"] = data.get('status')
-    rec["commitSha"] = data.get('commitSha')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
+    rec["startedBy"] = data.get('startedBy')
+    rec["createdAt"] = data.get('createdAt')
+    rec["stoppedAt"] = data.get('stoppedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Build", rec)
+    _persist("Workflow", rec)
     return rec, 201
 
-@app.route("/v1/builds", methods=["GET"])
-def list_builds(request):
-    """List Builds with filtering + cursor pagination."""
+@app.route("/v1/workflows", methods=["GET"])
+def list_workflows(request):
+    """List Workflows with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Build")
-    rows = _apply_filters(rows, params, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
+    rows = _query("Workflow")
+    rows = _apply_filters(rows, params, ['id', 'pipelineId', 'name', 'status', 'startedBy', 'createdAt', 'stoppedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/builds/<eid>", methods=["GET"])
-def get_build(request, eid):
-    """Retrieve a Build by id (supports ?expand=)."""
-    rows = _query("Build", eid)
+@app.route("/v1/workflows/<eid>", methods=["GET"])
+def get_workflow(request, eid):
+    """Retrieve a Workflow by id (supports ?expand=)."""
+    rows = _query("Workflow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     rec = _expand(rec, request.query or {}, {'pipelineId': 'Pipeline'})
     return rec, 200
 
-@app.route("/v1/builds/<eid>", methods=["POST", "PATCH"])
-def update_build(request, eid):
-    """Update a Build."""
-    rows = _query("Build", eid)
+@app.route("/v1/workflows/<eid>", methods=["POST", "PATCH"])
+def update_workflow(request, eid):
+    """Update a Workflow."""
+    rows = _query("Workflow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
+    err = _reject_unknown(data, ['id', 'pipelineId', 'name', 'status', 'startedBy', 'createdAt', 'stoppedAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['success', 'canceled', 'error', 'failed', 'failing', 'not_run', 'on_hold', 'running', 'unauthorized']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'canceled', 'error', 'failed', 'failing', 'not_run', 'on_hold', 'running', 'unauthorized']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Build", rec)
+    _persist("Workflow", rec)
     return rec, 200
 
-@app.route("/v1/builds/<eid>", methods=["DELETE"])
-def delete_build(request, eid):
-    """Delete a Build."""
-    rows = _query("Build", eid)
+@app.route("/v1/workflows/<eid>", methods=["DELETE"])
+def delete_workflow(request, eid):
+    """Delete a Workflow."""
+    rows = _query("Workflow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"circleci.Build", "id": eid})
+    db.retract({"entity": f"circleci.Workflow", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/artifacts", methods=["POST"])
-def create_artifact(request):
-    """Create a Artifact."""
+@app.route("/v1/jobs", methods=["POST"])
+def create_job(request):
+    """Create a Job."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'name', 'sizeBytes', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'jobNumber', 'name', 'status', 'duration', 'workflowId', 'createdAt', 'stoppedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'sizeBytes'])
+    err = _require(data, ['id', 'jobNumber'])
     if err:
         return err, 400
-    rec = {"id": new_id("circleci_art")}
-    rec["buildId"] = data.get('buildId')
+    if data.get('status') and data['status'] not in ['success', 'running', 'not_run', 'failed', 'retried', 'queued', 'not_running', 'infrastructure_fail', 'timedout', 'on_hold', 'terminated-unknown', 'blocked', 'canceled', 'unauthorized']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'running', 'not_run', 'failed', 'retried', 'queued', 'not_running', 'infrastructure_fail', 'timedout', 'on_hold', 'terminated-unknown', 'blocked', 'canceled', 'unauthorized']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("circleci_job")}
+    rec["id"] = data.get('id')
+    rec["jobNumber"] = _as_int(data.get('jobNumber'))
     rec["name"] = data.get('name')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Artifact", rec)
-    return rec, 201
-
-@app.route("/v1/artifacts", methods=["GET"])
-def list_artifacts(request):
-    """List Artifacts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Artifact")
-    rows = _apply_filters(rows, params, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["GET"])
-def get_artifact(request, eid):
-    """Retrieve a Artifact by id (supports ?expand=)."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'buildId': 'Build'})
-    return rec, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["POST", "PATCH"])
-def update_artifact(request, eid):
-    """Update a Artifact."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Artifact", rec)
-    return rec, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["DELETE"])
-def delete_artifact(request, eid):
-    """Delete a Artifact."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"circleci.Artifact", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/deployments", methods=["POST"])
-def create_deployment(request):
-    """Create a Deployment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'environment', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['environment', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("circleci_dep")}
-    rec["buildId"] = data.get('buildId')
-    rec["environment"] = data.get('environment')
     rec["status"] = data.get('status')
+    rec["duration"] = _as_int(data.get('duration'))
+    rec["workflowId"] = data.get('workflowId')
+    rec["createdAt"] = data.get('createdAt')
+    rec["stoppedAt"] = data.get('stoppedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Deployment", rec)
+    _persist("Job", rec)
     return rec, 201
 
-@app.route("/v1/deployments", methods=["GET"])
-def list_deployments(request):
-    """List Deployments with filtering + cursor pagination."""
+@app.route("/v1/jobs", methods=["GET"])
+def list_jobs(request):
+    """List Jobs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Deployment")
-    rows = _apply_filters(rows, params, ['buildId', 'environment', 'status'])
+    rows = _query("Job")
+    rows = _apply_filters(rows, params, ['id', 'jobNumber', 'name', 'status', 'duration', 'workflowId', 'createdAt', 'stoppedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/deployments/<eid>", methods=["GET"])
-def get_deployment(request, eid):
-    """Retrieve a Deployment by id (supports ?expand=)."""
-    rows = _query("Deployment", eid)
+@app.route("/v1/jobs/<eid>", methods=["GET"])
+def get_job(request, eid):
+    """Retrieve a Job by id (supports ?expand=)."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'buildId': 'Build'})
+    rec = _expand(rec, request.query or {}, {'workflowId': 'Workflow'})
     return rec, 200
 
-@app.route("/v1/deployments/<eid>", methods=["POST", "PATCH"])
-def update_deployment(request, eid):
-    """Update a Deployment."""
-    rows = _query("Deployment", eid)
+@app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
+def update_job(request, eid):
+    """Update a Job."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'environment', 'status'])
+    err = _reject_unknown(data, ['id', 'jobNumber', 'name', 'status', 'duration', 'workflowId', 'createdAt', 'stoppedAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['success', 'running', 'not_run', 'failed', 'retried', 'queued', 'not_running', 'infrastructure_fail', 'timedout', 'on_hold', 'terminated-unknown', 'blocked', 'canceled', 'unauthorized']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['success', 'running', 'not_run', 'failed', 'retried', 'queued', 'not_running', 'infrastructure_fail', 'timedout', 'on_hold', 'terminated-unknown', 'blocked', 'canceled', 'unauthorized']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Deployment", rec)
+    _persist("Job", rec)
     return rec, 200
 
-@app.route("/v1/deployments/<eid>", methods=["DELETE"])
-def delete_deployment(request, eid):
-    """Delete a Deployment."""
-    rows = _query("Deployment", eid)
+@app.route("/v1/jobs/<eid>", methods=["DELETE"])
+def delete_job(request, eid):
+    """Delete a Job."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"circleci.Deployment", "id": eid})
+    db.retract({"entity": f"circleci.Job", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
+@app.route("/v1/projects", methods=["POST"])
+def create_project(request):
+    """Create a Project."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'url', 'event', 'active'])
+    err = _reject_unknown(data, ['id', 'slug', 'name', 'externalUrl'])
     if err:
         return err, 400
-    err = _require(data, ['url', 'event'])
+    err = _require(data, ['id', 'slug'])
     if err:
         return err, 400
-    rec = {"id": new_id("circleci_web")}
-    rec["repoId"] = data.get('repoId')
-    rec["url"] = data.get('url')
-    rec["event"] = data.get('event')
-    rec["active"] = _as_bool(data.get('active'))
+    rec = {"id": new_id("circleci_pro")}
+    rec["id"] = data.get('id')
+    rec["slug"] = data.get('slug')
+    rec["name"] = data.get('name')
+    rec["externalUrl"] = data.get('externalUrl')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("Project", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/projects", methods=["GET"])
+def list_projects(request):
+    """List Projects with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['repoId', 'url', 'event', 'active'])
+    rows = _query("Project")
+    rows = _apply_filters(rows, params, ['id', 'slug', 'name', 'externalUrl'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/projects/<eid>", methods=["GET"])
+def get_project(request, eid):
+    """Retrieve a Project by id (supports ?expand=)."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
+def update_project(request, eid):
+    """Update a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'url', 'event', 'active'])
+    err = _reject_unknown(data, ['id', 'slug', 'name', 'externalUrl'])
     if err:
         return err, 400
     rec = rows[0]
@@ -497,22 +386,88 @@ def update_webhook(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("Project", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/projects/<eid>", methods=["DELETE"])
+def delete_project(request, eid):
+    """Delete a Project."""
+    rows = _query("Project", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"circleci.Webhook", "id": eid})
+    db.retract({"entity": f"circleci.Project", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/users", methods=["POST"])
+def create_user(request):
+    """Create a User."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'login', 'name', 'avatarUrl'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'login'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("circleci_use")}
+    rec["id"] = data.get('id')
+    rec["login"] = data.get('login')
+    rec["name"] = data.get('name')
+    rec["avatarUrl"] = data.get('avatarUrl')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("User", rec)
+    return rec, 201
+
+@app.route("/v1/users", methods=["GET"])
+def list_users(request):
+    """List Users with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("User")
+    rows = _apply_filters(rows, params, ['id', 'login', 'name', 'avatarUrl'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/users/<eid>", methods=["GET"])
+def get_user(request, eid):
+    """Retrieve a User by id (supports ?expand=)."""
+    rows = _query("User", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
+def update_user(request, eid):
+    """Update a User."""
+    rows = _query("User", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'login', 'name', 'avatarUrl'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("User", rec)
+    return rec, 200
+
+@app.route("/v1/users/<eid>", methods=["DELETE"])
+def delete_user(request, eid):
+    """Delete a User."""
+    rows = _query("User", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"circleci.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "circleci-compat", "tier": "L4",
-            "entities": ['Repository', 'Pipeline', 'Build', 'Artifact', 'Deployment', 'Webhook']}, 200
+            "entities": ['Pipeline', 'Workflow', 'Job', 'Project', 'User']}, 200
 
 
 if __name__ == "__main__":

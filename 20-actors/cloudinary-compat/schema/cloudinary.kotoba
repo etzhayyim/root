@@ -3,70 +3,60 @@
 
 namespace cloudinary {
 
-    entity Asset {
-        id: string @unique
-        title: string
-        type: string
-        durationMs: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Rendition {
+    entity Resource {
         id: string @unique
         assetId: string
+        publicId: string
+        resourceType: string
+        type: string
         format: string
-        bitrate: integer
-        contentRef: string
+        bytes: integer
+        width: integer
+        height: integer
+        version: integer
+        url: string
+        secureUrl: string
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Channel {
+    entity Folder {
         id: string @unique
         name: string
-        description: string
-        public: boolean
+        path: string
+        externalId: string
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Playlist {
-        id: string @unique
-        channelId: string
-        title: string
-        itemCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ContentEntry {
-        id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Experiment {
+    entity Transformation {
         id: string @unique
         name: string
-        variant: string
-        conversionRate: float
+        named: boolean
+        used: boolean
+        allowedForStrict: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity UploadPreset {
+        id: string @unique
+        name: string
+        unsigned: boolean
+        externalId: string
+        live: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Tag {
+        id: string @unique
+        name: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

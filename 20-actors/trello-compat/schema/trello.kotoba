@@ -3,68 +3,71 @@
 
 namespace trello {
 
-    entity Workspace {
+    entity Card {
         id: string @unique
+        id: string
+        idShort: integer
         name: string
-        ownerId: string
-        plan: string
+        desc: string
+        closed: boolean
+        due: datetime
+        dueComplete: boolean
+        pos: float
+        url: string
+        idBoard: string
+        idList: string
+        cardRole: string
+        dateLastActivity: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Document {
+    entity Board {
         id: string @unique
-        workspaceId: string
-        title: string
-        contentRef: string
-        ownerId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Folder {
-        id: string @unique
-        workspaceId: string
+        id: string
         name: string
-        parentId: string
+        desc: string
+        closed: boolean
+        url: string
+        idOrganization: string
+        pinned: boolean
+        starred: boolean
+        dateLastActivity: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Comment {
+    entity List {
         id: string @unique
-        documentId: string
-        authorId: string
-        body: string
+        id: string
+        name: string
+        closed: boolean
+        pos: float
+        idBoard: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Permission {
+    entity Member {
         id: string @unique
-        resourceId: string
-        principalId: string
-        role: string
+        id: string
+        username: string
+        fullName: string
+        initials: string
+        memberType: string
+        confirmed: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity User {
+    entity Label {
         id: string @unique
-        email: string
-        displayName: string
-        status: string
+        id: string
+        idBoard: string
+        name: string
+        color: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "plaid.kotoba")
-ENTITIES = ['Item', 'Account', 'Transaction', 'Institution', 'Identity', 'Liability']
-PLURALS = {'Item': 'items', 'Account': 'accounts', 'Transaction': 'transactions', 'Institution': 'institutions', 'Identity': 'identities', 'Liability': 'liabilities'}
+ENTITIES = ['Account', 'AccountBalance', 'Transaction', 'Item', 'Institution', 'Holding']
+PLURALS = {'Account': 'accounts', 'AccountBalance': 'accountbalances', 'Transaction': 'transactions', 'Item': 'items', 'Institution': 'institutions', 'Holding': 'holdings'}
 
 
 class PlaidContract(unittest.TestCase):

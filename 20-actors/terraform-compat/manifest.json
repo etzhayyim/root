@@ -11,15 +11,106 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreia6faidx5a6gcbkdpgqjohlvspc3ewdqnyj6pavflj7lmapn6ugfa",
   "schema": "schema/terraform.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developer.hashicorp.com/terraform/cloud-docs/api-docs",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Run",
+      "Plan",
+      "Apply",
+      "Workspace",
+      "StateVersion",
+      "ConfigurationVersion"
+    ],
+    "enums": {
+      "Run": {
+        "status": [
+          "pending",
+          "fetching",
+          "fetching_completed",
+          "pre_plan_running",
+          "pre_plan_completed",
+          "queuing",
+          "plan_queued",
+          "planning",
+          "planned",
+          "cost_estimating",
+          "cost_estimated",
+          "policy_checking",
+          "policy_override",
+          "policy_soft_failed",
+          "policy_checked",
+          "confirmed",
+          "post_plan_running",
+          "post_plan_completed",
+          "planned_and_finished",
+          "planned_and_saved",
+          "apply_queued",
+          "applying",
+          "applied",
+          "discarded",
+          "errored",
+          "canceled",
+          "force_canceled"
+        ]
+      },
+      "Plan": {
+        "status": [
+          "pending",
+          "managed_queued",
+          "running",
+          "errored",
+          "canceled",
+          "finished",
+          "unreachable"
+        ]
+      },
+      "Apply": {
+        "status": [
+          "pending",
+          "managed_queued",
+          "running",
+          "errored",
+          "canceled",
+          "finished",
+          "unreachable"
+        ]
+      },
+      "Workspace": {
+        "executionMode": [
+          "remote",
+          "local",
+          "agent"
+        ]
+      },
+      "StateVersion": {
+        "status": [
+          "pending",
+          "finalized",
+          "discarded"
+        ]
+      },
+      "ConfigurationVersion": {
+        "status": [
+          "pending",
+          "fetching",
+          "uploaded",
+          "archived",
+          "errored",
+          "backing_data_soft_deleted",
+          "backing_data_permanently_deleted"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Service",
-    "Deployment",
-    "Secret",
-    "ApiProxy",
-    "Database",
-    "Function"
+    "Run",
+    "Plan",
+    "Apply",
+    "Workspace",
+    "StateVersion",
+    "ConfigurationVersion"
   ],
   "adr": [
     "260607",
@@ -35,153 +126,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/services",
-          "op": "create Service"
+          "path": "/v1/runs",
+          "op": "create Run"
         },
         {
           "method": "GET",
-          "path": "/v1/services",
-          "op": "list Service"
+          "path": "/v1/runs",
+          "op": "list Run"
         },
         {
           "method": "GET",
-          "path": "/v1/services/{id}",
-          "op": "get Service"
+          "path": "/v1/runs/{id}",
+          "op": "get Run"
         },
         {
           "method": "PATCH",
-          "path": "/v1/services/{id}",
-          "op": "update Service"
+          "path": "/v1/runs/{id}",
+          "op": "update Run"
         },
         {
           "method": "DELETE",
-          "path": "/v1/services/{id}",
-          "op": "delete Service"
+          "path": "/v1/runs/{id}",
+          "op": "delete Run"
         },
         {
           "method": "POST",
-          "path": "/v1/deployments",
-          "op": "create Deployment"
+          "path": "/v1/plans",
+          "op": "create Plan"
         },
         {
           "method": "GET",
-          "path": "/v1/deployments",
-          "op": "list Deployment"
+          "path": "/v1/plans",
+          "op": "list Plan"
         },
         {
           "method": "GET",
-          "path": "/v1/deployments/{id}",
-          "op": "get Deployment"
+          "path": "/v1/plans/{id}",
+          "op": "get Plan"
         },
         {
           "method": "PATCH",
-          "path": "/v1/deployments/{id}",
-          "op": "update Deployment"
+          "path": "/v1/plans/{id}",
+          "op": "update Plan"
         },
         {
           "method": "DELETE",
-          "path": "/v1/deployments/{id}",
-          "op": "delete Deployment"
+          "path": "/v1/plans/{id}",
+          "op": "delete Plan"
         },
         {
           "method": "POST",
-          "path": "/v1/secrets",
-          "op": "create Secret"
+          "path": "/v1/applies",
+          "op": "create Apply"
         },
         {
           "method": "GET",
-          "path": "/v1/secrets",
-          "op": "list Secret"
+          "path": "/v1/applies",
+          "op": "list Apply"
         },
         {
           "method": "GET",
-          "path": "/v1/secrets/{id}",
-          "op": "get Secret"
+          "path": "/v1/applies/{id}",
+          "op": "get Apply"
         },
         {
           "method": "PATCH",
-          "path": "/v1/secrets/{id}",
-          "op": "update Secret"
+          "path": "/v1/applies/{id}",
+          "op": "update Apply"
         },
         {
           "method": "DELETE",
-          "path": "/v1/secrets/{id}",
-          "op": "delete Secret"
+          "path": "/v1/applies/{id}",
+          "op": "delete Apply"
         },
         {
           "method": "POST",
-          "path": "/v1/apiproxies",
-          "op": "create ApiProxy"
+          "path": "/v1/workspaces",
+          "op": "create Workspace"
         },
         {
           "method": "GET",
-          "path": "/v1/apiproxies",
-          "op": "list ApiProxy"
+          "path": "/v1/workspaces",
+          "op": "list Workspace"
         },
         {
           "method": "GET",
-          "path": "/v1/apiproxies/{id}",
-          "op": "get ApiProxy"
+          "path": "/v1/workspaces/{id}",
+          "op": "get Workspace"
         },
         {
           "method": "PATCH",
-          "path": "/v1/apiproxies/{id}",
-          "op": "update ApiProxy"
+          "path": "/v1/workspaces/{id}",
+          "op": "update Workspace"
         },
         {
           "method": "DELETE",
-          "path": "/v1/apiproxies/{id}",
-          "op": "delete ApiProxy"
+          "path": "/v1/workspaces/{id}",
+          "op": "delete Workspace"
         },
         {
           "method": "POST",
-          "path": "/v1/databases",
-          "op": "create Database"
+          "path": "/v1/stateversions",
+          "op": "create StateVersion"
         },
         {
           "method": "GET",
-          "path": "/v1/databases",
-          "op": "list Database"
+          "path": "/v1/stateversions",
+          "op": "list StateVersion"
         },
         {
           "method": "GET",
-          "path": "/v1/databases/{id}",
-          "op": "get Database"
+          "path": "/v1/stateversions/{id}",
+          "op": "get StateVersion"
         },
         {
           "method": "PATCH",
-          "path": "/v1/databases/{id}",
-          "op": "update Database"
+          "path": "/v1/stateversions/{id}",
+          "op": "update StateVersion"
         },
         {
           "method": "DELETE",
-          "path": "/v1/databases/{id}",
-          "op": "delete Database"
+          "path": "/v1/stateversions/{id}",
+          "op": "delete StateVersion"
         },
         {
           "method": "POST",
-          "path": "/v1/functions",
-          "op": "create Function"
+          "path": "/v1/configurationversions",
+          "op": "create ConfigurationVersion"
         },
         {
           "method": "GET",
-          "path": "/v1/functions",
-          "op": "list Function"
+          "path": "/v1/configurationversions",
+          "op": "list ConfigurationVersion"
         },
         {
           "method": "GET",
-          "path": "/v1/functions/{id}",
-          "op": "get Function"
+          "path": "/v1/configurationversions/{id}",
+          "op": "get ConfigurationVersion"
         },
         {
           "method": "PATCH",
-          "path": "/v1/functions/{id}",
-          "op": "update Function"
+          "path": "/v1/configurationversions/{id}",
+          "op": "update ConfigurationVersion"
         },
         {
           "method": "DELETE",
-          "path": "/v1/functions/{id}",
-          "op": "delete Function"
+          "path": "/v1/configurationversions/{id}",
+          "op": "delete ConfigurationVersion"
         }
       ],
       "features": {
@@ -247,41 +338,65 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_service",
-          "description": "Create a Service.",
+          "name": "create_run",
+          "description": "Create a Run.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "id": {
                 "type": "string"
               },
-              "runtime": {
-                "type": "string"
-              },
-              "region": {
+              "type": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              },
+              "triggerReason": {
+                "type": "string"
+              },
+              "hasChanges": {
+                "type": "boolean"
+              },
+              "autoApply": {
+                "type": "boolean"
+              },
+              "isDestroy": {
+                "type": "boolean"
+              },
+              "planOnly": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "canceledAt": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "runtime"
+              "id",
+              "type"
             ]
           }
         },
         {
-          "name": "list_services",
-          "description": "List Services.",
+          "name": "list_runs",
+          "description": "List Runs.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_service",
-          "description": "Get a Service by id.",
+          "name": "get_run",
+          "description": "Get a Run by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +410,275 @@
           }
         },
         {
-          "name": "update_service",
-          "description": "Update a Service.",
+          "name": "update_run",
+          "description": "Update a Run.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              },
+              "triggerReason": {
+                "type": "string"
+              },
+              "hasChanges": {
+                "type": "boolean"
+              },
+              "autoApply": {
+                "type": "boolean"
+              },
+              "isDestroy": {
+                "type": "boolean"
+              },
+              "planOnly": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "canceledAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_run",
+          "description": "Delete a Run.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_plan",
+          "description": "Create a Plan.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "hasChanges": {
+                "type": "boolean"
+              },
+              "resourceAdditions": {
+                "type": "integer"
+              },
+              "resourceChanges": {
+                "type": "integer"
+              },
+              "resourceDestructions": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_plans",
+          "description": "List Plans.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_plan",
+          "description": "Get a Plan by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_plan",
+          "description": "Update a Plan.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "hasChanges": {
+                "type": "boolean"
+              },
+              "resourceAdditions": {
+                "type": "integer"
+              },
+              "resourceChanges": {
+                "type": "integer"
+              },
+              "resourceDestructions": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_plan",
+          "description": "Delete a Plan.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_apply",
+          "description": "Create a Apply.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "resourceAdditions": {
+                "type": "integer"
+              },
+              "resourceChanges": {
+                "type": "integer"
+              },
+              "resourceDestructions": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_applies",
+          "description": "List Applies.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_apply",
+          "description": "Get a Apply by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_apply",
+          "description": "Update a Apply.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "resourceAdditions": {
+                "type": "integer"
+              },
+              "resourceChanges": {
+                "type": "integer"
+              },
+              "resourceDestructions": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_apply",
+          "description": "Delete a Apply.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_workspace",
+          "description": "Create a Workspace.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,24 +688,51 @@
               "name": {
                 "type": "string"
               },
-              "runtime": {
+              "type": {
                 "type": "string"
               },
-              "region": {
+              "description": {
                 "type": "string"
               },
-              "status": {
+              "executionMode": {
+                "type": "string"
+              },
+              "locked": {
+                "type": "boolean"
+              },
+              "resourceCount": {
+                "type": "integer"
+              },
+              "autoApply": {
+                "type": "boolean"
+              },
+              "terraformVersion": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
                 "type": "string"
               }
             },
             "required": [
-              "id"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "delete_service",
-          "description": "Delete a Service.",
+          "name": "list_workspaces",
+          "description": "List Workspaces.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_workspace",
+          "description": "Get a Workspace by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +746,107 @@
           }
         },
         {
-          "name": "create_deployment",
-          "description": "Create a Deployment.",
+          "name": "update_workspace",
+          "description": "Update a Workspace.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "serviceId": {
+              "id": {
                 "type": "string"
               },
-              "version": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "executionMode": {
+                "type": "string"
+              },
+              "locked": {
+                "type": "boolean"
+              },
+              "resourceCount": {
+                "type": "integer"
+              },
+              "autoApply": {
+                "type": "boolean"
+              },
+              "terraformVersion": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_workspace",
+          "description": "Delete a Workspace.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_state_version",
+          "description": "Create a StateVersion.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "deployedAt": {
+              "serial": {
+                "type": "integer"
+              },
+              "terraformVersion": {
+                "type": "string"
+              },
+              "resourcesProcessed": {
+                "type": "boolean"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
             "required": [
-              "version",
+              "id",
               "status"
             ]
           }
         },
         {
-          "name": "list_deployments",
-          "description": "List Deployments.",
+          "name": "list_state_versions",
+          "description": "List StateVersions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_deployment",
-          "description": "Get a Deployment by id.",
+          "name": "get_state_version",
+          "description": "Get a StateVersion by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,24 +860,27 @@
           }
         },
         {
-          "name": "update_deployment",
-          "description": "Update a Deployment.",
+          "name": "update_state_version",
+          "description": "Update a StateVersion.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "version": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "deployedAt": {
+              "serial": {
+                "type": "integer"
+              },
+              "terraformVersion": {
+                "type": "string"
+              },
+              "resourcesProcessed": {
+                "type": "boolean"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
@@ -412,8 +890,8 @@
           }
         },
         {
-          "name": "delete_deployment",
-          "description": "Delete a Deployment.",
+          "name": "delete_state_version",
+          "description": "Delete a StateVersion.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,125 +905,50 @@
           }
         },
         {
-          "name": "create_secret",
-          "description": "Create a Secret.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "scope": {
-                "type": "string"
-              },
-              "rotatedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "scope"
-            ]
-          }
-        },
-        {
-          "name": "list_secrets",
-          "description": "List Secrets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_secret",
-          "description": "Get a Secret by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_secret",
-          "description": "Update a Secret.",
+          "name": "create_configuration_version",
+          "description": "Create a ConfigurationVersion.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "type": {
                 "type": "string"
               },
-              "scope": {
+              "status": {
                 "type": "string"
               },
-              "rotatedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_secret",
-          "description": "Delete a Secret.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_api_proxy",
-          "description": "Create a ApiProxy.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
+              "source": {
                 "type": "string"
               },
-              "basePath": {
-                "type": "string"
+              "speculative": {
+                "type": "boolean"
               },
-              "target": {
-                "type": "string"
+              "provisional": {
+                "type": "boolean"
               },
-              "active": {
+              "autoQueueRuns": {
                 "type": "boolean"
               }
             },
             "required": [
-              "name",
-              "basePath"
+              "id",
+              "type"
             ]
           }
         },
         {
-          "name": "list_api_proxies",
-          "description": "List ApiProxies.",
+          "name": "list_configuration_versions",
+          "description": "List ConfigurationVersions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_api_proxy",
-          "description": "Get a ApiProxy by id.",
+          "name": "get_configuration_version",
+          "description": "Get a ConfigurationVersion by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -559,24 +962,30 @@
           }
         },
         {
-          "name": "update_api_proxy",
-          "description": "Update a ApiProxy.",
+          "name": "update_configuration_version",
+          "description": "Update a ConfigurationVersion.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "type": {
                 "type": "string"
               },
-              "basePath": {
+              "status": {
                 "type": "string"
               },
-              "target": {
+              "source": {
                 "type": "string"
               },
-              "active": {
+              "speculative": {
+                "type": "boolean"
+              },
+              "provisional": {
+                "type": "boolean"
+              },
+              "autoQueueRuns": {
                 "type": "boolean"
               }
             },
@@ -586,188 +995,8 @@
           }
         },
         {
-          "name": "delete_api_proxy",
-          "description": "Delete a ApiProxy.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_database",
-          "description": "Create a Database.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "engine": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              },
-              "sizeGb": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "engine"
-            ]
-          }
-        },
-        {
-          "name": "list_databases",
-          "description": "List Databases.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_database",
-          "description": "Get a Database by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_database",
-          "description": "Update a Database.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "engine": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              },
-              "sizeGb": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_database",
-          "description": "Delete a Database.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_function",
-          "description": "Create a Function.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "memoryMb": {
-                "type": "integer"
-              },
-              "timeoutMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "memoryMb"
-            ]
-          }
-        },
-        {
-          "name": "list_functions",
-          "description": "List Functions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_function",
-          "description": "Get a Function by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_function",
-          "description": "Update a Function.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "memoryMb": {
-                "type": "integer"
-              },
-              "timeoutMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_function",
-          "description": "Delete a Function.",
+          "name": "delete_configuration_version",
+          "description": "Delete a ConfigurationVersion.",
           "inputSchema": {
             "type": "object",
             "properties": {

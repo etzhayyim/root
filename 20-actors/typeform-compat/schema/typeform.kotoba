@@ -3,69 +3,52 @@
 
 namespace typeform {
 
-    entity Ticket {
+    entity Form {
         id: string @unique
-        subject: string
-        requesterId: string
-        priority: string
-        status: string
+        id: string
+        title: string
+        type: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Survey {
+    entity Field {
         id: string @unique
+        ref: string
+        id: string
         title: string
         type: string
-        status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Response {
         id: string @unique
-        surveyId: string
-        respondentId: string
-        score: integer
+        token: string
+        landedAt: datetime
         submittedAt: datetime
+        formId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Account {
+    entity Answer {
         id: string @unique
-        name: string
-        healthScore: float
-        arr: float
+        fieldId: string
+        fieldType: string
+        type: string
+        value: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Conversation {
+    entity Webhook {
         id: string @unique
-        accountId: string
-        channel: string
-        sentiment: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Contact {
-        id: string @unique
-        email: string
-        firstName: string
-        lastName: string
+        eventId: string
+        eventType: string
+        timestamp: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

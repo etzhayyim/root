@@ -111,153 +111,24 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("telegram_cha")}
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["topic"] = data.get('topic')
-    rec["memberCount"] = _as_int(data.get('memberCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
-    return rec, 201
-
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'type', 'topic', 'memberCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Channel", rec)
-    return rec, 200
-
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"telegram_api.Channel", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/messages", methods=["POST"])
-def create_message(request):
-    """Create a Message."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['body', 'sentAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("telegram_mes")}
-    rec["channelId"] = data.get('channelId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["sentAt"] = data.get('sentAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Message", rec)
-    return rec, 201
-
-@app.route("/v1/messages", methods=["GET"])
-def list_messages(request):
-    """List Messages with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Message")
-    rows = _apply_filters(rows, params, ['channelId', 'authorId', 'body', 'sentAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/messages/<eid>", methods=["GET"])
-def get_message(request, eid):
-    """Retrieve a Message by id (supports ?expand=)."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
-def update_message(request, eid):
-    """Update a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Message", rec)
-    return rec, 200
-
-@app.route("/v1/messages/<eid>", methods=["DELETE"])
-def delete_message(request, eid):
-    """Delete a Message."""
-    rows = _query("Message", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"telegram_api.Message", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/users", methods=["POST"])
 def create_user(request):
     """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['id', 'isBot', 'firstName', 'lastName', 'username', 'languageCode', 'isPremium'])
     if err:
         return err, 400
-    err = _require(data, ['handle', 'displayName'])
+    err = _require(data, ['id', 'isBot'])
     if err:
         return err, 400
     rec = {"id": new_id("telegram_use")}
-    rec["handle"] = data.get('handle')
-    rec["displayName"] = data.get('displayName')
-    rec["verified"] = _as_bool(data.get('verified'))
+    rec["id"] = _as_int(data.get('id'))
+    rec["isBot"] = _as_bool(data.get('isBot'))
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
+    rec["username"] = data.get('username')
+    rec["languageCode"] = data.get('languageCode')
+    rec["isPremium"] = _as_bool(data.get('isPremium'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("User", rec)
@@ -268,7 +139,7 @@ def list_users(request):
     """List Users with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("User")
-    rows = _apply_filters(rows, params, ['handle', 'displayName', 'verified'])
+    rows = _apply_filters(rows, params, ['id', 'isBot', 'firstName', 'lastName', 'username', 'languageCode', 'isPremium'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -289,7 +160,7 @@ def update_user(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['id', 'isBot', 'firstName', 'lastName', 'username', 'languageCode', 'isPremium'])
     if err:
         return err, 400
     rec = rows[0]
@@ -309,52 +180,127 @@ def delete_user(request, eid):
     db.retract({"entity": f"telegram_api.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/rooms", methods=["POST"])
-def create_room(request):
-    """Create a Room."""
+@app.route("/v1/chats", methods=["POST"])
+def create_chat(request):
+    """Create a Chat."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
+    err = _reject_unknown(data, ['id', 'type', 'title', 'username', 'firstName', 'lastName', 'isForum'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'maxParticipants'])
+    err = _require(data, ['id', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("telegram_roo")}
-    rec["name"] = data.get('name')
-    rec["maxParticipants"] = _as_int(data.get('maxParticipants'))
-    rec["recording"] = _as_bool(data.get('recording'))
+    if data.get('type') and data['type'] not in ['private', 'group', 'supergroup', 'channel']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['private', 'group', 'supergroup', 'channel']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("telegram_cha")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["type"] = data.get('type')
+    rec["title"] = data.get('title')
+    rec["username"] = data.get('username')
+    rec["firstName"] = data.get('firstName')
+    rec["lastName"] = data.get('lastName')
+    rec["isForum"] = _as_bool(data.get('isForum'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Room", rec)
+    _persist("Chat", rec)
     return rec, 201
 
-@app.route("/v1/rooms", methods=["GET"])
-def list_rooms(request):
-    """List Rooms with filtering + cursor pagination."""
+@app.route("/v1/chats", methods=["GET"])
+def list_chats(request):
+    """List Chats with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Room")
-    rows = _apply_filters(rows, params, ['name', 'maxParticipants', 'recording'])
+    rows = _query("Chat")
+    rows = _apply_filters(rows, params, ['id', 'type', 'title', 'username', 'firstName', 'lastName', 'isForum'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/rooms/<eid>", methods=["GET"])
-def get_room(request, eid):
-    """Retrieve a Room by id (supports ?expand=)."""
-    rows = _query("Room", eid)
+@app.route("/v1/chats/<eid>", methods=["GET"])
+def get_chat(request, eid):
+    """Retrieve a Chat by id (supports ?expand=)."""
+    rows = _query("Chat", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/rooms/<eid>", methods=["POST", "PATCH"])
-def update_room(request, eid):
-    """Update a Room."""
-    rows = _query("Room", eid)
+@app.route("/v1/chats/<eid>", methods=["POST", "PATCH"])
+def update_chat(request, eid):
+    """Update a Chat."""
+    rows = _query("Chat", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
+    err = _reject_unknown(data, ['id', 'type', 'title', 'username', 'firstName', 'lastName', 'isForum'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['private', 'group', 'supergroup', 'channel']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['private', 'group', 'supergroup', 'channel']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Chat", rec)
+    return rec, 200
+
+@app.route("/v1/chats/<eid>", methods=["DELETE"])
+def delete_chat(request, eid):
+    """Delete a Chat."""
+    rows = _query("Chat", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"telegram_api.Chat", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/messages", methods=["POST"])
+def create_message(request):
+    """Create a Message."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['messageId', 'date', 'text', 'chatId'])
+    if err:
+        return err, 400
+    err = _require(data, ['date', 'text'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("telegram_mes")}
+    rec["messageId"] = _as_int(data.get('messageId'))
+    rec["date"] = _as_int(data.get('date'))
+    rec["text"] = data.get('text')
+    rec["chatId"] = _as_int(data.get('chatId'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Message", rec)
+    return rec, 201
+
+@app.route("/v1/messages", methods=["GET"])
+def list_messages(request):
+    """List Messages with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Message")
+    rows = _apply_filters(rows, params, ['messageId', 'date', 'text', 'chatId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/messages/<eid>", methods=["GET"])
+def get_message(request, eid):
+    """Retrieve a Message by id (supports ?expand=)."""
+    rows = _query("Message", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'messageId': 'Message', 'chatId': 'Chat'})
+    return rec, 200
+
+@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
+def update_message(request, eid):
+    """Update a Message."""
+    rows = _query("Message", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['messageId', 'date', 'text', 'chatId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -362,153 +308,91 @@ def update_room(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Room", rec)
+    _persist("Message", rec)
     return rec, 200
 
-@app.route("/v1/rooms/<eid>", methods=["DELETE"])
-def delete_room(request, eid):
-    """Delete a Room."""
-    rows = _query("Room", eid)
+@app.route("/v1/messages/<eid>", methods=["DELETE"])
+def delete_message(request, eid):
+    """Delete a Message."""
+    rows = _query("Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"telegram_api.Room", "id": eid})
+    db.retract({"entity": f"telegram_api.Message", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
+@app.route("/v1/chatmembers", methods=["POST"])
+def create_chat_member(request):
+    """Create a ChatMember."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
+    err = _reject_unknown(data, ['status', 'isAnonymous', 'customTitle'])
     if err:
         return err, 400
-    err = _require(data, ['status', 'bitrate'])
+    err = _require(data, ['status', 'isAnonymous'])
     if err:
         return err, 400
-    rec = {"id": new_id("telegram_str")}
-    rec["roomId"] = data.get('roomId')
+    if data.get('status') and data['status'] not in ['creator', 'administrator', 'member', 'restricted', 'left', 'kicked']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['creator', 'administrator', 'member', 'restricted', 'left', 'kicked']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("telegram_cha")}
     rec["status"] = data.get('status')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
+    rec["isAnonymous"] = _as_bool(data.get('isAnonymous'))
+    rec["customTitle"] = data.get('customTitle')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
+    _persist("ChatMember", rec)
     return rec, 201
 
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
+@app.route("/v1/chatmembers", methods=["GET"])
+def list_chat_members(request):
+    """List ChatMembers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['roomId', 'status', 'bitrate'])
+    rows = _query("ChatMember")
+    rows = _apply_filters(rows, params, ['status', 'isAnonymous', 'customTitle'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
+@app.route("/v1/chatmembers/<eid>", methods=["GET"])
+def get_chat_member(request, eid):
+    """Retrieve a ChatMember by id (supports ?expand=)."""
+    rows = _query("ChatMember", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'roomId': 'Room'})
     return rec, 200
 
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
+@app.route("/v1/chatmembers/<eid>", methods=["POST", "PATCH"])
+def update_chat_member(request, eid):
+    """Update a ChatMember."""
+    rows = _query("ChatMember", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
+    err = _reject_unknown(data, ['status', 'isAnonymous', 'customTitle'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['creator', 'administrator', 'member', 'restricted', 'left', 'kicked']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['creator', 'administrator', 'member', 'restricted', 'left', 'kicked']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Stream", rec)
+    _persist("ChatMember", rec)
     return rec, 200
 
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
+@app.route("/v1/chatmembers/<eid>", methods=["DELETE"])
+def delete_chat_member(request, eid):
+    """Delete a ChatMember."""
+    rows = _query("ChatMember", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"telegram_api.Stream", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['event', 'url'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("telegram_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
-    return rec, 201
-
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Webhook", rec)
-    return rec, 200
-
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"telegram_api.Webhook", "id": eid})
+    db.retract({"entity": f"telegram_api.ChatMember", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "telegram_api-compat", "tier": "L4",
-            "entities": ['Channel', 'Message', 'User', 'Room', 'Stream', 'Webhook']}, 200
+            "entities": ['User', 'Chat', 'Message', 'ChatMember']}, 200
 
 
 if __name__ == "__main__":

@@ -5,85 +5,68 @@ namespace openai {
 
     entity Model {
         id: string @unique
-        name: string
+        id: string
+        object: string
+        created: integer
         ownedBy: string
-        contextWindow: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ChatCompletion {
-        id: string @unique
-        modelId: string
-        prompt: string
-        output: string
-        promptTokens: integer
-        completionTokens: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Embedding {
-        id: string @unique
-        modelId: string
-        input: string
-        dimensions: integer
-        vectorRef: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity FineTuningJob {
         id: string @unique
-        baseModel: string
-        trainingFile: string
+        id: string
+        model: string
         status: string
+        fineTunedModel: string
+        createdAt: integer
+        finishedAt: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Batch {
+        id: string @unique
+        id: string
+        object: string
+        endpoint: string
+        model: string
+        status: string
+        inputFileId: string
+        createdAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity File {
         id: string @unique
-        purpose: string
-        filename: string
+        id: string
         bytes: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Assistant {
-        id: string @unique
-        name: string
-        modelId: string
-        instructions: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Thread {
-        id: string @unique
-        assistantId: string
+        filename: string
+        object: string
+        purpose: string
         status: string
+        createdAt: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Embedding {
+        id: string @unique
+        index: integer
+        object: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity ChatCompletion {
+        id: string @unique
+        id: string
+        model: string
+        object: string
+        created: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

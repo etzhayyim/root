@@ -3,72 +3,62 @@
 
 namespace pulumi {
 
-    entity Service {
+    entity Update {
+        id: string @unique
+        kind: string
+        result: string
+        message: string
+        version: integer
+        resourceCount: integer
+        startTime: integer
+        endTime: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Stack {
+        id: string @unique
+        stackName: string
+        orgName: string
+        projectName: string
+        id: string
+        lastUpdate: integer
+        resourceCount: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Policy {
         id: string @unique
         name: string
-        runtime: string
-        region: string
-        status: string
+        displayName: string
+        description: string
+        enforcementLevel: string
+        severity: string
+        message: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Deployment {
         id: string @unique
-        serviceId: string
-        version: string
+        id: string
         status: string
-        deployedAt: datetime
+        projectName: string
+        stackName: string
+        paused: boolean
+        created: datetime
+        modified: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Secret {
+    entity Organization {
         id: string @unique
         name: string
-        scope: string
-        rotatedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ApiProxy {
-        id: string @unique
-        name: string
-        basePath: string
-        target: string
-        active: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Database {
-        id: string @unique
-        name: string
-        engine: string
-        region: string
-        sizeGb: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Function {
-        id: string @unique
-        serviceId: string
-        name: string
-        memoryMb: integer
-        timeoutMs: integer
+        role: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

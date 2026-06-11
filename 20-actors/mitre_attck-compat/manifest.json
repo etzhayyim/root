@@ -5,21 +5,38 @@
   "kind": "compat",
   "title": "mitre_attck clean-room actor",
   "description": "Clean-room, API-compatible cyber threat intelligence actor (mitre_attck); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana",
+  "wasmCid": "bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigtohobsf6nnyu2e7gyrtuwc7knvwyn5fxy5islj2aj33u7yhfana",
+  "ipfs": "ipfs://bafkreicx3a3w63grrfqmuroohv4gz662kpfscawqsa3zjm62vicvtnlbjq",
   "schema": "schema/mitre_attck.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/mitre-attack/attack-stix-data",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Technique",
+      "Tactic",
+      "Software",
+      "Group",
+      "Mitigation"
+    ],
+    "enums": {
+      "Software": {
+        "type": [
+          "malware",
+          "tool"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Indicator",
-    "Vulnerability",
-    "ThreatActor",
-    "Campaign",
-    "Host",
-    "Technique"
+    "Technique",
+    "Tactic",
+    "Software",
+    "Group",
+    "Mitigation"
   ],
   "adr": [
     "260607",
@@ -31,133 +48,8 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/indicators",
-          "op": "create Indicator"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/indicators",
-          "op": "list Indicator"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/indicators/{id}",
-          "op": "get Indicator"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/indicators/{id}",
-          "op": "update Indicator"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/indicators/{id}",
-          "op": "delete Indicator"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/vulnerabilities",
-          "op": "create Vulnerability"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/vulnerabilities",
-          "op": "list Vulnerability"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/vulnerabilities/{id}",
-          "op": "get Vulnerability"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/vulnerabilities/{id}",
-          "op": "update Vulnerability"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/vulnerabilities/{id}",
-          "op": "delete Vulnerability"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/threatactors",
-          "op": "create ThreatActor"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/threatactors",
-          "op": "list ThreatActor"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/threatactors/{id}",
-          "op": "get ThreatActor"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/threatactors/{id}",
-          "op": "update ThreatActor"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/threatactors/{id}",
-          "op": "delete ThreatActor"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/campaigns",
-          "op": "create Campaign"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/campaigns",
-          "op": "list Campaign"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/campaigns/{id}",
-          "op": "get Campaign"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/campaigns/{id}",
-          "op": "update Campaign"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/campaigns/{id}",
-          "op": "delete Campaign"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/hosts",
-          "op": "create Host"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/hosts",
-          "op": "list Host"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/hosts/{id}",
-          "op": "get Host"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/hosts/{id}",
-          "op": "update Host"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/hosts/{id}",
-          "op": "delete Host"
-        },
         {
           "method": "POST",
           "path": "/v1/techniques",
@@ -182,6 +74,106 @@
           "method": "DELETE",
           "path": "/v1/techniques/{id}",
           "op": "delete Technique"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/tactics",
+          "op": "create Tactic"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/tactics",
+          "op": "list Tactic"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/tactics/{id}",
+          "op": "get Tactic"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/tactics/{id}",
+          "op": "update Tactic"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/tactics/{id}",
+          "op": "delete Tactic"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/softwares",
+          "op": "create Software"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/softwares",
+          "op": "list Software"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/softwares/{id}",
+          "op": "get Software"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/softwares/{id}",
+          "op": "update Software"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/softwares/{id}",
+          "op": "delete Software"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/groups",
+          "op": "create Group"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/groups",
+          "op": "list Group"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/groups/{id}",
+          "op": "get Group"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/groups/{id}",
+          "op": "update Group"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/groups/{id}",
+          "op": "delete Group"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/mitigations",
+          "op": "create Mitigation"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/mitigations",
+          "op": "list Mitigation"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/mitigations/{id}",
+          "op": "get Mitigation"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/mitigations/{id}",
+          "op": "update Mitigation"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/mitigations/{id}",
+          "op": "delete Mitigation"
         }
       ],
       "features": {
@@ -244,465 +236,36 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
-        {
-          "name": "create_indicator",
-          "description": "Create a Indicator.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              },
-              "confidence": {
-                "type": "integer"
-              },
-              "firstSeen": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_indicators",
-          "description": "List Indicators.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_indicator",
-          "description": "Get a Indicator by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_indicator",
-          "description": "Update a Indicator.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              },
-              "confidence": {
-                "type": "integer"
-              },
-              "firstSeen": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_indicator",
-          "description": "Delete a Indicator.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_vulnerability",
-          "description": "Create a Vulnerability.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "cveId": {
-                "type": "string"
-              },
-              "cvss": {
-                "type": "number"
-              },
-              "description": {
-                "type": "string"
-              },
-              "published": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "cvss",
-              "description"
-            ]
-          }
-        },
-        {
-          "name": "list_vulnerabilities",
-          "description": "List Vulnerabilities.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_vulnerability",
-          "description": "Get a Vulnerability by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_vulnerability",
-          "description": "Update a Vulnerability.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "cveId": {
-                "type": "string"
-              },
-              "cvss": {
-                "type": "number"
-              },
-              "description": {
-                "type": "string"
-              },
-              "published": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_vulnerability",
-          "description": "Delete a Vulnerability.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_threat_actor",
-          "description": "Create a ThreatActor.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "motivation": {
-                "type": "string"
-              },
-              "sophistication": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "motivation"
-            ]
-          }
-        },
-        {
-          "name": "list_threat_actors",
-          "description": "List ThreatActors.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_threat_actor",
-          "description": "Get a ThreatActor by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_threat_actor",
-          "description": "Update a ThreatActor.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "motivation": {
-                "type": "string"
-              },
-              "sophistication": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_threat_actor",
-          "description": "Delete a ThreatActor.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_campaign",
-          "description": "Create a Campaign.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "actorId": {
-                "type": "string"
-              },
-              "firstSeen": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "firstSeen"
-            ]
-          }
-        },
-        {
-          "name": "list_campaigns",
-          "description": "List Campaigns.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_campaign",
-          "description": "Get a Campaign by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_campaign",
-          "description": "Update a Campaign.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "actorId": {
-                "type": "string"
-              },
-              "firstSeen": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_campaign",
-          "description": "Delete a Campaign.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_host",
-          "description": "Create a Host.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "ipAddress": {
-                "type": "string"
-              },
-              "asn": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              },
-              "openPorts": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "ipAddress",
-              "asn"
-            ]
-          }
-        },
-        {
-          "name": "list_hosts",
-          "description": "List Hosts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_host",
-          "description": "Get a Host by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_host",
-          "description": "Update a Host.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "asn": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              },
-              "openPorts": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_host",
-          "description": "Delete a Host.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
         {
           "name": "create_technique",
           "description": "Create a Technique.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "attckId": {
-                "type": "string"
-              },
-              "tactic": {
+              "techniqueId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "isSubtechnique": {
+                "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              },
+              "modified": {
+                "type": "string"
               }
             },
             "required": [
-              "tactic",
-              "name"
+              "name",
+              "description"
             ]
           }
         },
@@ -738,13 +301,22 @@
               "id": {
                 "type": "string"
               },
-              "attckId": {
-                "type": "string"
-              },
-              "tactic": {
+              "techniqueId": {
                 "type": "string"
               },
               "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "isSubtechnique": {
+                "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              },
+              "modified": {
                 "type": "string"
               }
             },
@@ -756,6 +328,390 @@
         {
           "name": "delete_technique",
           "description": "Delete a Technique.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_tactic",
+          "description": "Create a Tactic.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "tacticId": {
+                "type": "string"
+              },
+              "shortName": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "shortName",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_tactics",
+          "description": "List Tactics.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_tactic",
+          "description": "Get a Tactic by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_tactic",
+          "description": "Update a Tactic.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "tacticId": {
+                "type": "string"
+              },
+              "shortName": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_tactic",
+          "description": "Delete a Tactic.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_software",
+          "description": "Create a Software.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "softwareId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "isFamily": {
+                "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_softwares",
+          "description": "List Softwares.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_software",
+          "description": "Get a Software by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_software",
+          "description": "Update a Software.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "softwareId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "isFamily": {
+                "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_software",
+          "description": "Delete a Software.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_group",
+          "description": "Create a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "groupId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description"
+            ]
+          }
+        },
+        {
+          "name": "list_groups",
+          "description": "List Groups.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_group",
+          "description": "Get a Group by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_group",
+          "description": "Update a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "groupId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_group",
+          "description": "Delete a Group.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_mitigation",
+          "description": "Create a Mitigation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "mitigationId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "deprecated": {
+                "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description"
+            ]
+          }
+        },
+        {
+          "name": "list_mitigations",
+          "description": "List Mitigations.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_mitigation",
+          "description": "Get a Mitigation by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_mitigation",
+          "description": "Update a Mitigation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "mitigationId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "deprecated": {
+                "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_mitigation",
+          "description": "Delete a Mitigation.",
           "inputSchema": {
             "type": "object",
             "properties": {

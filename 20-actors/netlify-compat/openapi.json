@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreiglqpl644udux3il6l7pmrjy5ocpsjkzsxtoml5i72vghvx4jvd5m",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/projects": {
+    "/v1/sites": {
       "get": {
-        "summary": "List Projects",
+        "summary": "List Sites",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Project"
+                        "$ref": "#/components/schemas/Site"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Project",
+        "summary": "Create a Site",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/SiteCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Site"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/projects/{id}": {
+    "/v1/sites/{id}": {
       "get": {
-        "summary": "Get a Project",
+        "summary": "Get a Site",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Site"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Project",
+        "summary": "Update a Site",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/SiteCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Site"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Project",
+        "summary": "Delete a Site",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/computeinstances": {
+    "/v1/deploys": {
       "get": {
-        "summary": "List ComputeInstances",
+        "summary": "List Deploys",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ComputeInstance"
+                        "$ref": "#/components/schemas/Deploy"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a ComputeInstance",
+        "summary": "Create a Deploy",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
+                "$ref": "#/components/schemas/DeployCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/Deploy"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/computeinstances/{id}": {
+    "/v1/deploys/{id}": {
       "get": {
-        "summary": "Get a ComputeInstance",
+        "summary": "Get a Deploy",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/Deploy"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ComputeInstance",
+        "summary": "Update a Deploy",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
+                "$ref": "#/components/schemas/DeployCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
+                  "$ref": "#/components/schemas/Deploy"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ComputeInstance",
+        "summary": "Delete a Deploy",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/volumes": {
+    "/v1/builds": {
       "get": {
-        "summary": "List Volumes",
+        "summary": "List Builds",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Volume"
+                        "$ref": "#/components/schemas/Build"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Volume",
+        "summary": "Create a Build",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VolumeCreate"
+                "$ref": "#/components/schemas/BuildCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/Build"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/volumes/{id}": {
+    "/v1/builds/{id}": {
       "get": {
-        "summary": "Get a Volume",
+        "summary": "Get a Build",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/Build"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Volume",
+        "summary": "Update a Build",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VolumeCreate"
+                "$ref": "#/components/schemas/BuildCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Volume"
+                  "$ref": "#/components/schemas/Build"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Volume",
+        "summary": "Delete a Build",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/buckets": {
+    "/v1/dnszones": {
       "get": {
-        "summary": "List Buckets",
+        "summary": "List DnsZones",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Bucket"
+                        "$ref": "#/components/schemas/DnsZone"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Bucket",
+        "summary": "Create a DnsZone",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/DnsZoneCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/DnsZone"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/buckets/{id}": {
+    "/v1/dnszones/{id}": {
       "get": {
-        "summary": "Get a Bucket",
+        "summary": "Get a DnsZone",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/DnsZone"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Bucket",
+        "summary": "Update a DnsZone",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/DnsZoneCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/DnsZone"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Bucket",
+        "summary": "Delete a DnsZone",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/networks": {
+    "/v1/hooks": {
       "get": {
-        "summary": "List Networks",
+        "summary": "List Hooks",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Network"
+                        "$ref": "#/components/schemas/Hook"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Network",
+        "summary": "Create a Hook",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
+                "$ref": "#/components/schemas/HookCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/Hook"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/networks/{id}": {
+    "/v1/hooks/{id}": {
       "get": {
-        "summary": "Get a Network",
+        "summary": "Get a Hook",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/Hook"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Network",
+        "summary": "Update a Hook",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
+                "$ref": "#/components/schemas/HookCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/Hook"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Network",
+        "summary": "Delete a Hook",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/iamroles": {
+    "/v1/forms": {
       "get": {
-        "summary": "List IamRoles",
+        "summary": "List Forms",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/IamRole"
+                        "$ref": "#/components/schemas/Form"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a IamRole",
+        "summary": "Create a Form",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
+                "$ref": "#/components/schemas/FormCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/Form"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/iamroles/{id}": {
+    "/v1/forms/{id}": {
       "get": {
-        "summary": "Get a IamRole",
+        "summary": "Get a Form",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/Form"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a IamRole",
+        "summary": "Update a Form",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
+                "$ref": "#/components/schemas/FormCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/Form"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a IamRole",
+        "summary": "Delete a Form",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +1140,7 @@
   },
   "components": {
     "schemas": {
-      "Project": {
+      "Site": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,60 +1149,29 @@
           "name": {
             "type": "string"
           },
-          "region": {
+          "url": {
             "type": "string"
           },
-          "billingId": {
+          "sslUrl": {
             "type": "string"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProjectCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "billingId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "region"
-        ]
-      },
-      "ComputeInstance": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "machineType": {
+          "adminUrl": {
             "type": "string"
           },
           "state": {
             "type": "string"
           },
-          "ipAddress": {
+          "customDomain": {
             "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "ssl": {
+            "type": "boolean"
+          },
+          "forceSsl": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1214,46 +1183,181 @@
           }
         }
       },
-      "ComputeInstanceCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "machineType": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "machineType"
-        ]
-      },
-      "Volume": {
+      "SiteCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
+          "name": {
             "type": "string"
           },
-          "sizeGb": {
-            "type": "integer"
-          },
-          "type": {
+          "url": {
             "type": "string"
           },
-          "attachedTo": {
+          "sslUrl": {
+            "type": "string"
+          },
+          "adminUrl": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "customDomain": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "ssl": {
+            "type": "boolean"
+          },
+          "forceSsl": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Deploy": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "new",
+              "pending_review",
+              "accepted",
+              "rejected",
+              "enqueued",
+              "building",
+              "uploading",
+              "uploaded",
+              "preparing",
+              "prepared",
+              "processing",
+              "processed",
+              "ready",
+              "error",
+              "retrying"
+            ]
+          },
+          "draft": {
+            "type": "boolean"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "commitRef": {
+            "type": "string"
+          },
+          "locked": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DeployCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "new",
+              "pending_review",
+              "accepted",
+              "rejected",
+              "enqueued",
+              "building",
+              "uploading",
+              "uploaded",
+              "preparing",
+              "prepared",
+              "processing",
+              "processed",
+              "ready",
+              "error",
+              "retrying"
+            ]
+          },
+          "draft": {
+            "type": "boolean"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "commitRef": {
+            "type": "string"
+          },
+          "locked": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "publishedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "url"
+        ]
+      },
+      "Build": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "deployId": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          },
+          "done": {
+            "type": "boolean"
+          },
+          "error": {
             "type": "string"
           },
           "createdAt": {
@@ -1266,44 +1370,163 @@
           }
         }
       },
-      "VolumeCreate": {
+      "BuildCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
+          "id": {
             "type": "string"
           },
-          "sizeGb": {
-            "type": "integer"
-          },
-          "type": {
+          "deployId": {
             "type": "string"
           },
-          "attachedTo": {
+          "sha": {
+            "type": "string"
+          },
+          "done": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          },
+          "createdAt": {
             "type": "string"
           }
         },
         "required": [
-          "sizeGb",
+          "id",
+          "sha"
+        ]
+      },
+      "DnsZone": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "dedicated": {
+            "type": "boolean"
+          },
+          "ipv6Enabled": {
+            "type": "boolean"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DnsZoneCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "dedicated": {
+            "type": "boolean"
+          },
+          "ipv6Enabled": {
+            "type": "boolean"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "domain"
+        ]
+      },
+      "Hook": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "HookCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
           "type"
         ]
       },
-      "Bucket": {
+      "Form": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
+          "siteId": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
-          },
-          "public": {
-            "type": "boolean"
+          "submissionCount": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1315,111 +1538,28 @@
           }
         }
       },
-      "BucketCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "public": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "name",
-          "region"
-        ]
-      },
-      "Network": {
+      "FormCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "NetworkCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "cidr",
-          "region"
-        ]
-      },
-      "IamRole": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
+          "siteId": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "policy": {
-            "type": "string"
+          "submissionCount": {
+            "type": "integer"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "IamRoleCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "policy": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "policy"
+          "id",
+          "name"
         ]
       }
     }

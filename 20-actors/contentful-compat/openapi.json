@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreidaqvilflgmapzg3jmtkkuq4alba6w64jac34eqffsdgfrun5nv7m",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/contententries": {
+    "/v1/entries": {
       "get": {
-        "summary": "List ContentEntries",
+        "summary": "List Entries",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ContentEntry"
+                        "$ref": "#/components/schemas/Entry"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a ContentEntry",
+        "summary": "Create a Entry",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
+                "$ref": "#/components/schemas/EntryCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Entry"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/contententries/{id}": {
+    "/v1/entries/{id}": {
       "get": {
-        "summary": "Get a ContentEntry",
+        "summary": "Get a Entry",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Entry"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ContentEntry",
+        "summary": "Update a Entry",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContentEntryCreate"
+                "$ref": "#/components/schemas/EntryCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentEntry"
+                  "$ref": "#/components/schemas/Entry"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ContentEntry",
+        "summary": "Delete a Entry",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/products": {
+    "/v1/assets": {
       "get": {
-        "summary": "List Products",
+        "summary": "List Assets",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Product"
+                        "$ref": "#/components/schemas/Asset"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Product",
+        "summary": "Create a Asset",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductCreate"
+                "$ref": "#/components/schemas/AssetCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Asset"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/products/{id}": {
+    "/v1/assets/{id}": {
       "get": {
-        "summary": "Get a Product",
+        "summary": "Get a Asset",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Asset"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Product",
+        "summary": "Update a Asset",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductCreate"
+                "$ref": "#/components/schemas/AssetCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Asset"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Product",
+        "summary": "Delete a Asset",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/shipments": {
+    "/v1/contenttypes": {
       "get": {
-        "summary": "List Shipments",
+        "summary": "List ContentTypes",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Shipment"
+                        "$ref": "#/components/schemas/ContentType"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Shipment",
+        "summary": "Create a ContentType",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ShipmentCreate"
+                "$ref": "#/components/schemas/ContentTypeCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/ContentType"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/shipments/{id}": {
+    "/v1/contenttypes/{id}": {
       "get": {
-        "summary": "Get a Shipment",
+        "summary": "Get a ContentType",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/ContentType"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Shipment",
+        "summary": "Update a ContentType",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ShipmentCreate"
+                "$ref": "#/components/schemas/ContentTypeCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Shipment"
+                  "$ref": "#/components/schemas/ContentType"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Shipment",
+        "summary": "Delete a ContentType",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/searchindexes": {
+    "/v1/spaces": {
       "get": {
-        "summary": "List SearchIndexes",
+        "summary": "List Spaces",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/SearchIndex"
+                        "$ref": "#/components/schemas/Space"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a SearchIndex",
+        "summary": "Create a Space",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchIndexCreate"
+                "$ref": "#/components/schemas/SpaceCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchIndex"
+                  "$ref": "#/components/schemas/Space"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/searchindexes/{id}": {
+    "/v1/spaces/{id}": {
       "get": {
-        "summary": "Get a SearchIndex",
+        "summary": "Get a Space",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchIndex"
+                  "$ref": "#/components/schemas/Space"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a SearchIndex",
+        "summary": "Update a Space",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchIndexCreate"
+                "$ref": "#/components/schemas/SpaceCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchIndex"
+                  "$ref": "#/components/schemas/Space"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a SearchIndex",
+        "summary": "Delete a Space",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/webhooks": {
+    "/v1/environments": {
       "get": {
-        "summary": "List Webhooks",
+        "summary": "List Environments",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Webhook"
+                        "$ref": "#/components/schemas/Environment"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Webhook",
+        "summary": "Create a Environment",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
+                "$ref": "#/components/schemas/EnvironmentCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Environment"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/webhooks/{id}": {
+    "/v1/environments/{id}": {
       "get": {
-        "summary": "Get a Webhook",
+        "summary": "Get a Environment",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Environment"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Webhook",
+        "summary": "Update a Environment",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
+                "$ref": "#/components/schemas/EnvironmentCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Environment"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Webhook",
+        "summary": "Delete a Environment",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/orders": {
+    "/v1/locales": {
       "get": {
-        "summary": "List Orders",
+        "summary": "List Locales",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Order"
+                        "$ref": "#/components/schemas/Locale"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Order",
+        "summary": "Create a Locale",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderCreate"
+                "$ref": "#/components/schemas/LocaleCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/Locale"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/orders/{id}": {
+    "/v1/locales/{id}": {
       "get": {
-        "summary": "Get a Order",
+        "summary": "Get a Locale",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/Locale"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Order",
+        "summary": "Update a Locale",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderCreate"
+                "$ref": "#/components/schemas/LocaleCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/Locale"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Order",
+        "summary": "Delete a Locale",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +1140,40 @@
   },
   "components": {
     "schemas": {
-      "ContentEntry": {
+      "Entry": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "modelName": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "space": {
             "type": "string"
           },
-          "title": {
+          "environment": {
             "type": "string"
           },
-          "locale": {
+          "contentType": {
             "type": "string"
           },
-          "published": {
-            "type": "boolean"
+          "publishedVersion": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1165,47 +1182,94 @@
           "updatedAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
-      "ContentEntryCreate": {
-        "type": "object",
-        "properties": {
-          "modelName": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "locale": {
-            "type": "string"
-          },
-          "published": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "modelName",
-          "title"
-        ]
-      },
-      "Product": {
+      "EntryCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "sku": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "space": {
             "type": "string"
           },
-          "title": {
+          "environment": {
             "type": "string"
           },
-          "price": {
-            "type": "number"
-          },
-          "currency": {
+          "contentType": {
             "type": "string"
+          },
+          "publishedVersion": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "publishedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      },
+      "Asset": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "space": {
+            "type": "string"
+          },
+          "environment": {
+            "type": "string"
+          },
+          "publishedVersion": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1214,92 +1278,90 @@
           "updatedAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
-      "ProductCreate": {
-        "type": "object",
-        "properties": {
-          "sku": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sku",
-          "title"
-        ]
-      },
-      "Shipment": {
+      "AssetCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "orderId": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "space": {
             "type": "string"
           },
-          "carrier": {
+          "environment": {
             "type": "string"
           },
-          "tracking": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
+          "publishedVersion": {
+            "type": "integer"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ShipmentCreate": {
-        "type": "object",
-        "properties": {
-          "orderId": {
             "type": "string"
           },
-          "carrier": {
-            "type": "string"
-          },
-          "tracking": {
-            "type": "string"
-          },
-          "status": {
+          "publishedAt": {
             "type": "string"
           }
         },
         "required": [
-          "carrier",
-          "tracking"
+          "id",
+          "type"
         ]
       },
-      "SearchIndex": {
+      "ContentType": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
+            "type": "integer"
           },
           "name": {
             "type": "string"
           },
-          "recordCount": {
-            "type": "integer"
+          "displayField": {
+            "type": "string"
           },
-          "primaryKey": {
+          "description": {
             "type": "string"
           },
           "createdAt": {
@@ -1312,38 +1374,78 @@
           }
         }
       },
-      "SearchIndexCreate": {
+      "ContentTypeCreate": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
           "name": {
             "type": "string"
           },
-          "recordCount": {
+          "displayField": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      },
+      "Space": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
             "type": "integer"
           },
-          "primaryKey": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "recordCount"
-        ]
-      },
-      "Webhook": {
-        "type": "object",
-        "properties": {
-          "id": {
+          "name": {
             "type": "string"
           },
-          "event": {
+          "organization": {
             "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1355,37 +1457,74 @@
           }
         }
       },
-      "WebhookCreate": {
-        "type": "object",
-        "properties": {
-          "event": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "event",
-          "url"
-        ]
-      },
-      "Order": {
+      "SpaceCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "number": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "name": {
             "type": "string"
           },
-          "total": {
-            "type": "number"
+          "organization": {
+            "type": "string"
           },
-          "currency": {
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      },
+      "Environment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "space": {
             "type": "string"
           },
           "status": {
@@ -1401,25 +1540,143 @@
           }
         }
       },
-      "OrderCreate": {
+      "EnvironmentCreate": {
         "type": "object",
         "properties": {
-          "number": {
+          "id": {
             "type": "string"
           },
-          "total": {
-            "type": "number"
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
           },
-          "currency": {
+          "version": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "space": {
             "type": "string"
           },
           "status": {
             "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
           }
         },
         "required": [
-          "number",
-          "total"
+          "id",
+          "type"
+        ]
+      },
+      "Locale": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "fallbackCode": {
+            "type": "string"
+          },
+          "default": {
+            "type": "boolean"
+          },
+          "optional": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LocaleCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Entry",
+              "Asset",
+              "ContentType",
+              "Space",
+              "Environment",
+              "EnvironmentAlias",
+              "Locale",
+              "Link",
+              "Array"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "fallbackCode": {
+            "type": "string"
+          },
+          "default": {
+            "type": "boolean"
+          },
+          "optional": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type"
         ]
       }
     }

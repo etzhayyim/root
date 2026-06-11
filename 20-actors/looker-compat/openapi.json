@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreif234wvyhsqlsq265u44ui6pavbmeth7znl7xg7ffe2d24pwp776i",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/datasets": {
+    "/v1/looks": {
       "get": {
-        "summary": "List Datasets",
+        "summary": "List Looks",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Dataset"
+                        "$ref": "#/components/schemas/Look"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Dataset",
+        "summary": "Create a Look",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
+                "$ref": "#/components/schemas/LookCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dataset"
+                  "$ref": "#/components/schemas/Look"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/datasets/{id}": {
+    "/v1/looks/{id}": {
       "get": {
-        "summary": "Get a Dataset",
+        "summary": "Get a Look",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dataset"
+                  "$ref": "#/components/schemas/Look"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Dataset",
+        "summary": "Update a Look",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
+                "$ref": "#/components/schemas/LookCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dataset"
+                  "$ref": "#/components/schemas/Look"
                 }
               }
             }
@@ -181,192 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/queries": {
-      "get": {
-        "summary": "List Queries",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Query"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Query",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/QueryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Query"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/queries/{id}": {
-      "get": {
-        "summary": "Get a Query",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Query"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Query",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/QueryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Query"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Query",
+        "summary": "Delete a Look",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +387,9 @@
         }
       }
     },
-    "/v1/reports": {
+    "/v1/queries": {
       "get": {
-        "summary": "List Reports",
+        "summary": "List Queries",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Report"
+                        "$ref": "#/components/schemas/Query"
                       }
                     },
                     "has_more": {
@@ -634,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Report",
+        "summary": "Create a Query",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReportCreate"
+                "$ref": "#/components/schemas/QueryCreate"
               }
             }
           }
@@ -651,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/Query"
                 }
               }
             }
@@ -662,9 +477,9 @@
         }
       }
     },
-    "/v1/reports/{id}": {
+    "/v1/queries/{id}": {
       "get": {
-        "summary": "Get a Report",
+        "summary": "Get a Query",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/Query"
                 }
               }
             }
@@ -699,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Report",
+        "summary": "Update a Query",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReportCreate"
+                "$ref": "#/components/schemas/QueryCreate"
               }
             }
           }
@@ -725,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/Query"
                 }
               }
             }
@@ -736,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Report",
+        "summary": "Delete a Query",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +572,9 @@
         }
       }
     },
-    "/v1/connections": {
+    "/v1/users": {
       "get": {
-        "summary": "List Connections",
+        "summary": "List Users",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connection"
+                        "$ref": "#/components/schemas/User"
                       }
                     },
                     "has_more": {
@@ -819,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connection",
+        "summary": "Create a User",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -836,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -847,9 +662,9 @@
         }
       }
     },
-    "/v1/connections/{id}": {
+    "/v1/users/{id}": {
       "get": {
-        "summary": "Get a Connection",
+        "summary": "Get a User",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -884,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connection",
+        "summary": "Update a User",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -910,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -921,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connection",
+        "summary": "Delete a User",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +757,9 @@
         }
       }
     },
-    "/v1/metrics": {
+    "/v1/folders": {
       "get": {
-        "summary": "List Metrics",
+        "summary": "List Folders",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Metric"
+                        "$ref": "#/components/schemas/Folder"
                       }
                     },
                     "has_more": {
@@ -1004,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Metric",
+        "summary": "Create a Folder",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
+                "$ref": "#/components/schemas/FolderCreate"
               }
             }
           }
@@ -1021,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -1032,9 +847,9 @@
         }
       }
     },
-    "/v1/metrics/{id}": {
+    "/v1/folders/{id}": {
       "get": {
-        "summary": "Get a Metric",
+        "summary": "Get a Folder",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -1069,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Metric",
+        "summary": "Update a Folder",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
+                "$ref": "#/components/schemas/FolderCreate"
               }
             }
           }
@@ -1095,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -1106,7 +921,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a Metric",
+        "summary": "Delete a Folder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/scheduledplans": {
+      "get": {
+        "summary": "List ScheduledPlans",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ScheduledPlan"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a ScheduledPlan",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduledPlanCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduledPlan"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/scheduledplans/{id}": {
+      "get": {
+        "summary": "Get a ScheduledPlan",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduledPlan"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a ScheduledPlan",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduledPlanCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduledPlan"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a ScheduledPlan",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +1140,26 @@
   },
   "components": {
     "schemas": {
-      "Dataset": {
+      "Look": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "title": {
             "type": "string"
           },
-          "source": {
+          "public": {
+            "type": "boolean"
+          },
+          "queryId": {
             "type": "string"
           },
-          "schemaRef": {
+          "userId": {
             "type": "string"
           },
-          "rowCount": {
-            "type": "integer"
+          "deleted": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1168,67 +1171,28 @@
           }
         }
       },
-      "DatasetCreate": {
+      "LookCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "title": {
             "type": "string"
           },
-          "source": {
+          "public": {
+            "type": "boolean"
+          },
+          "queryId": {
             "type": "string"
           },
-          "schemaRef": {
+          "userId": {
             "type": "string"
           },
-          "rowCount": {
-            "type": "integer"
+          "deleted": {
+            "type": "boolean"
           }
         },
         "required": [
-          "name",
-          "source"
-        ]
-      },
-      "Query": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "datasetId": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "QueryCreate": {
-        "type": "object",
-        "properties": {
-          "datasetId": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sql"
+          "title",
+          "public"
         ]
       },
       "Dashboard": {
@@ -1237,14 +1201,17 @@
           "id": {
             "type": "string"
           },
-          "name": {
+          "title": {
             "type": "string"
           },
-          "ownerId": {
+          "folderId": {
             "type": "string"
           },
-          "layout": {
+          "userId": {
             "type": "string"
+          },
+          "viewCount": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1259,80 +1226,43 @@
       "DashboardCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "title": {
             "type": "string"
           },
-          "ownerId": {
+          "folderId": {
             "type": "string"
           },
-          "layout": {
+          "userId": {
             "type": "string"
+          },
+          "viewCount": {
+            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "layout"
+          "title",
+          "viewCount"
         ]
       },
-      "Report": {
+      "Query": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "dashboardId": {
+          "model": {
             "type": "string"
           },
-          "name": {
+          "view": {
             "type": "string"
           },
-          "schedule": {
+          "slug": {
             "type": "string"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ReportCreate": {
-        "type": "object",
-        "properties": {
-          "dashboardId": {
+          "queryTimezone": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "schedule": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "schedule"
-        ]
-      },
-      "Connection": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "host": {
-            "type": "string"
-          },
-          "active": {
+          "hasTableCalculations": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1345,43 +1275,92 @@
           }
         }
       },
-      "ConnectionCreate": {
+      "QueryCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "model": {
             "type": "string"
           },
-          "type": {
+          "view": {
             "type": "string"
           },
-          "host": {
+          "slug": {
             "type": "string"
           },
-          "active": {
+          "queryTimezone": {
+            "type": "string"
+          },
+          "hasTableCalculations": {
             "type": "boolean"
           }
         },
         "required": [
-          "name",
-          "type"
+          "model",
+          "view"
         ]
       },
-      "Metric": {
+      "User": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "datasetId": {
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "isDisabled": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UserCreate": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "isDisabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "email",
+          "firstName"
+        ]
+      },
+      "Folder": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "expression": {
+          "parentId": {
             "type": "string"
           },
-          "unit": {
+          "creatorId": {
             "type": "string"
           },
           "createdAt": {
@@ -1394,25 +1373,64 @@
           }
         }
       },
-      "MetricCreate": {
+      "FolderCreate": {
         "type": "object",
         "properties": {
-          "datasetId": {
+          "name": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "creatorId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "ScheduledPlan": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "expression": {
+          "userId": {
             "type": "string"
           },
-          "unit": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ScheduledPlanCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
             "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
           }
         },
         "required": [
           "name",
-          "expression"
+          "enabled"
         ]
       }
     }

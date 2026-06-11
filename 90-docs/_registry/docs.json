@@ -22821,6 +22821,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606081748-kotoba-bounded-rsi-build-deploy-contract.md",
+      "id": "adr-2606081748-kotoba-bounded-rsi-build-deploy-contract",
+      "title": "ADR-2606081748: Kotoba bounded RSI build/deploy contract",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotoba-bounded-rsi-build-deploy",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-rsi-build-deploy-contract",
+        "murakumo-modal-training-artifact-loop",
+        "token-bounded-self-modification"
+      ],
+      "related": [
+        "adr-2605232200",
+        "adr-2605191346",
+        "adr-2605182312"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule",
+        "adr-2606074500-kotoba-py-siblings-engine-core-vs-actor-placement"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606081800-uchiwake-world-product-bom-gtin-kg.md",
       "id": "adr-2606081800",
       "title": "ADR-2606081800: uchiwake (内訳) — World Product Bill-of-Materials / GTIN Knowledge Graph Tier-B Actor R0",
@@ -22991,6 +23019,32 @@
         "2605191346",
         "2605215000",
         "2605231525"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba.md",
+      "id": "adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "title": "ADR-2606082300: hydrogen electrolysis CFE efficiency actor — actor logic, kami simulation, kotoba deploy",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "authoritative": true,
+      "authoritative_for": [
+        "hydrogen_electrolysis actor placement",
+        "kami-hydrogen-electrolysis-sim package placement",
+        "hydrogen electrolysis efficiency kotoba deploy boundary"
+      ],
+      "related": [
+        "2605262130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606074500",
+        "2606074000"
       ],
       "last_verified": "2026-06-08",
       "amends": [],
@@ -23254,7 +23308,8 @@
         "canonical remote IPFS pin endpoint (kotobase.net)",
         "deps.toml [platform.kotobase_pin] config block",
         "kotoba-store IpfsPinClient remote-pin default (KOTOBA_IPFS_PIN_ENDPOINT)",
-        "e7m-dataset publish-ipfs remote-pin fanout (ETZ_KOTOBASE_PIN)"
+        "e7m-dataset publish-ipfs remote-pin fanout (ETZ_KOTOBASE_PIN)",
+        "ipfs-pinner kotobase provider (MST-CAR remote pin, ETZ_PINNER_PROVIDERS=kubo,kotobase)"
       ],
       "related": [
         "adr-2606041130-kotoba-b2-blockstore-cold-pin",
@@ -23268,7 +23323,7 @@
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2606011330"
       ],
-      "last_verified": "2026-06-09",
+      "last_verified": "2026-06-11",
       "amends": [],
       "amended_by": []
     },
@@ -23671,6 +23726,56 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606111011-session-close-land-hydrogen-branch-to-main.md",
+      "id": "adr-2606111011",
+      "title": "ADR-2606111011: Session-Close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-land-hydrogen-branch-to-main",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close summary of the 2026-06-11 hydrogen-branch landing",
+        "record of the 14-file conflict resolution (8 manifests, kotoba submodule, L5 ledger, CLAUDE.md, deps.toml, registries)"
+      ],
+      "related": [
+        "adr-2606110955-session-close-pr-backlog-review-merge",
+        "adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606110955 (the follow-up this executes)"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111330-session-close-shionome-t1-wasm-live-did-actor-kotobase-pin.md",
+      "id": "adr-2606111330-session-close-shionome-t1-wasm-live-did-actor-kotobase-pin",
+      "title": "ADR-2606111330: Session close — 潮目 T1 browser-wasm DID actor LIVE on etzhayyim.com + kotobase.net pin saga (root-caused)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat",
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2606015200-wasm-actor-runtime-round-2",
+        "adr-2606013800-actor-profile-ssot-dynamic-did-json",
+        "adr-2605231525-server-side-signing-capability-boundary"
+      ],
+      "last_verified": "2026-06-11",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606111400-charter-synthetic-persona-forward-simulation-carve-in.md",
       "id": "adr-2606111400-charter-synthetic-persona-forward-simulation-carve-in",
       "title": "ADR-2606111400: Charter observation-doctrine consolidation — the synthetic-persona / forward-simulation carve-in (simulating fictional latent agents ≠ surveilling real people)",
@@ -23698,6 +23803,31 @@
         "2605192100",
         "2605252300",
         "2605181100"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111400-session-close-ibuki-delegation-revocable-leash.md",
+      "id": "adr-2606111400-session-close-ibuki-delegation-revocable-leash",
+      "title": "ADR-2606111400: Session close — 息吹 (ibuki) autonomous identity = a revocable CACAO leash (member-signed delegation + issuer)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606102000-session-close-ibuki-digest-live-run-robustness",
+        "adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
+        "adr-2606062100-moyai-inference-reciprocity-credit"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605262130-kotoba-storage-substrate-unification"
       ],
       "last_verified": "2026-06-11",
       "amends": [],
@@ -23735,6 +23865,71 @@
         "2605312345",
         "2605231525",
         "2605181100"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111700-public-sponsor-donation-solicitation-surfaces.md",
+      "id": "adr-2606111700-public-sponsor-donation-solicitation-surfaces",
+      "title": "ADR-2606111700: Public sponsor / donation solicitation surfaces — GitHub Sponsor button (custom-only) + DONATE.md + README + active /donate CTA",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "public-sponsor-donation-solicitation-surfaces",
+      "authoritative": true,
+      "authoritative_for": [
+        "the public sponsor/donation solicitation surfaces (.github/FUNDING.yml + DONATE.md + README support section + /donate CTA)",
+        "the FUNDING.yml charter-clean rule (custom-only, no fiat Sponsor rails)"
+      ],
+      "related": [
+        "2605192100",
+        "2605215000",
+        "2605301020",
+        "2605301036",
+        "2605262900"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2605192115",
+        "2605192130",
+        "2605172100"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111800-donation-media-fiat-inkind-onramp-crypto-allowlist.md",
+      "id": "adr-2606111800-donation-media-fiat-inkind-onramp-crypto-allowlist",
+      "title": "ADR-2606111800: Donation-media expansion — fiat in-kind (infrastructure-cost) recognition + non-custodial fiat on-ramp (Tier-1 amendment of ADR-2605172100) + curated crypto-asset allowlist",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "donation-media-fiat-inkind-onramp-crypto-allowlist",
+      "authoritative": true,
+      "authoritative_for": [
+        "fiat in-kind (infrastructure-cost) donation recognition (com.etzhayyim.give.infrastructureDonationAttestation)",
+        "the non-custodial fiat-on-ramp carve-in to the payments-on-chain-only rule (ADR-2605172100)",
+        "the curated crypto-asset donation allowlist"
+      ],
+      "related": [
+        "2606111700",
+        "2605301036",
+        "2605215000",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605172100",
+        "2606012100",
+        "2605192115",
+        "2605192130",
+        "2606062100",
+        "2605301020",
+        "2605262900"
       ],
       "last_verified": "2026-06-11",
       "amends": [],

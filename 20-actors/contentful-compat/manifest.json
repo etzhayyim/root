@@ -11,15 +11,106 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidaqvilflgmapzg3jmtkkuq4alba6w64jac34eqffsdgfrun5nv7m",
   "schema": "schema/contentful.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.contentful.com/developers/docs/references/content-management-api/",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Entry",
+      "Asset",
+      "ContentType",
+      "Space",
+      "Environment",
+      "Locale"
+    ],
+    "enums": {
+      "Entry": {
+        "type": [
+          "Entry",
+          "Asset",
+          "ContentType",
+          "Space",
+          "Environment",
+          "EnvironmentAlias",
+          "Locale",
+          "Link",
+          "Array"
+        ]
+      },
+      "Asset": {
+        "type": [
+          "Entry",
+          "Asset",
+          "ContentType",
+          "Space",
+          "Environment",
+          "EnvironmentAlias",
+          "Locale",
+          "Link",
+          "Array"
+        ]
+      },
+      "ContentType": {
+        "type": [
+          "Entry",
+          "Asset",
+          "ContentType",
+          "Space",
+          "Environment",
+          "EnvironmentAlias",
+          "Locale",
+          "Link",
+          "Array"
+        ]
+      },
+      "Space": {
+        "type": [
+          "Entry",
+          "Asset",
+          "ContentType",
+          "Space",
+          "Environment",
+          "EnvironmentAlias",
+          "Locale",
+          "Link",
+          "Array"
+        ]
+      },
+      "Environment": {
+        "type": [
+          "Entry",
+          "Asset",
+          "ContentType",
+          "Space",
+          "Environment",
+          "EnvironmentAlias",
+          "Locale",
+          "Link",
+          "Array"
+        ]
+      },
+      "Locale": {
+        "type": [
+          "Entry",
+          "Asset",
+          "ContentType",
+          "Space",
+          "Environment",
+          "EnvironmentAlias",
+          "Locale",
+          "Link",
+          "Array"
+        ]
+      }
+    }
+  },
   "entities": [
-    "ContentEntry",
-    "Product",
-    "Shipment",
-    "SearchIndex",
-    "Webhook",
-    "Order"
+    "Entry",
+    "Asset",
+    "ContentType",
+    "Space",
+    "Environment",
+    "Locale"
   ],
   "adr": [
     "260607",
@@ -35,153 +126,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/contententries",
-          "op": "create ContentEntry"
+          "path": "/v1/entries",
+          "op": "create Entry"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries",
-          "op": "list ContentEntry"
+          "path": "/v1/entries",
+          "op": "list Entry"
         },
         {
           "method": "GET",
-          "path": "/v1/contententries/{id}",
-          "op": "get ContentEntry"
+          "path": "/v1/entries/{id}",
+          "op": "get Entry"
         },
         {
           "method": "PATCH",
-          "path": "/v1/contententries/{id}",
-          "op": "update ContentEntry"
+          "path": "/v1/entries/{id}",
+          "op": "update Entry"
         },
         {
           "method": "DELETE",
-          "path": "/v1/contententries/{id}",
-          "op": "delete ContentEntry"
+          "path": "/v1/entries/{id}",
+          "op": "delete Entry"
         },
         {
           "method": "POST",
-          "path": "/v1/products",
-          "op": "create Product"
+          "path": "/v1/assets",
+          "op": "create Asset"
         },
         {
           "method": "GET",
-          "path": "/v1/products",
-          "op": "list Product"
+          "path": "/v1/assets",
+          "op": "list Asset"
         },
         {
           "method": "GET",
-          "path": "/v1/products/{id}",
-          "op": "get Product"
+          "path": "/v1/assets/{id}",
+          "op": "get Asset"
         },
         {
           "method": "PATCH",
-          "path": "/v1/products/{id}",
-          "op": "update Product"
+          "path": "/v1/assets/{id}",
+          "op": "update Asset"
         },
         {
           "method": "DELETE",
-          "path": "/v1/products/{id}",
-          "op": "delete Product"
+          "path": "/v1/assets/{id}",
+          "op": "delete Asset"
         },
         {
           "method": "POST",
-          "path": "/v1/shipments",
-          "op": "create Shipment"
+          "path": "/v1/contenttypes",
+          "op": "create ContentType"
         },
         {
           "method": "GET",
-          "path": "/v1/shipments",
-          "op": "list Shipment"
+          "path": "/v1/contenttypes",
+          "op": "list ContentType"
         },
         {
           "method": "GET",
-          "path": "/v1/shipments/{id}",
-          "op": "get Shipment"
+          "path": "/v1/contenttypes/{id}",
+          "op": "get ContentType"
         },
         {
           "method": "PATCH",
-          "path": "/v1/shipments/{id}",
-          "op": "update Shipment"
+          "path": "/v1/contenttypes/{id}",
+          "op": "update ContentType"
         },
         {
           "method": "DELETE",
-          "path": "/v1/shipments/{id}",
-          "op": "delete Shipment"
+          "path": "/v1/contenttypes/{id}",
+          "op": "delete ContentType"
         },
         {
           "method": "POST",
-          "path": "/v1/searchindexes",
-          "op": "create SearchIndex"
+          "path": "/v1/spaces",
+          "op": "create Space"
         },
         {
           "method": "GET",
-          "path": "/v1/searchindexes",
-          "op": "list SearchIndex"
+          "path": "/v1/spaces",
+          "op": "list Space"
         },
         {
           "method": "GET",
-          "path": "/v1/searchindexes/{id}",
-          "op": "get SearchIndex"
+          "path": "/v1/spaces/{id}",
+          "op": "get Space"
         },
         {
           "method": "PATCH",
-          "path": "/v1/searchindexes/{id}",
-          "op": "update SearchIndex"
+          "path": "/v1/spaces/{id}",
+          "op": "update Space"
         },
         {
           "method": "DELETE",
-          "path": "/v1/searchindexes/{id}",
-          "op": "delete SearchIndex"
+          "path": "/v1/spaces/{id}",
+          "op": "delete Space"
         },
         {
           "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
+          "path": "/v1/environments",
+          "op": "create Environment"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
+          "path": "/v1/environments",
+          "op": "list Environment"
         },
         {
           "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
+          "path": "/v1/environments/{id}",
+          "op": "get Environment"
         },
         {
           "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
+          "path": "/v1/environments/{id}",
+          "op": "update Environment"
         },
         {
           "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/environments/{id}",
+          "op": "delete Environment"
         },
         {
           "method": "POST",
-          "path": "/v1/orders",
-          "op": "create Order"
+          "path": "/v1/locales",
+          "op": "create Locale"
         },
         {
           "method": "GET",
-          "path": "/v1/orders",
-          "op": "list Order"
+          "path": "/v1/locales",
+          "op": "list Locale"
         },
         {
           "method": "GET",
-          "path": "/v1/orders/{id}",
-          "op": "get Order"
+          "path": "/v1/locales/{id}",
+          "op": "get Locale"
         },
         {
           "method": "PATCH",
-          "path": "/v1/orders/{id}",
-          "op": "update Order"
+          "path": "/v1/locales/{id}",
+          "op": "update Locale"
         },
         {
           "method": "DELETE",
-          "path": "/v1/orders/{id}",
-          "op": "delete Order"
+          "path": "/v1/locales/{id}",
+          "op": "delete Locale"
         }
       ],
       "features": {
@@ -247,308 +338,59 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_content_entry",
-          "description": "Create a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelName": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "modelName",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_content_entries",
-          "description": "List ContentEntries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_content_entry",
-          "description": "Get a ContentEntry by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_content_entry",
-          "description": "Update a ContentEntry.",
+          "name": "create_entry",
+          "description": "Create a Entry.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "modelName": {
+              "type": {
                 "type": "string"
               },
-              "title": {
-                "type": "string"
-              },
-              "locale": {
-                "type": "string"
-              },
-              "published": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_content_entry",
-          "description": "Delete a ContentEntry.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_product",
-          "description": "Create a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "sku": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sku",
-              "title"
-            ]
-          }
-        },
-        {
-          "name": "list_products",
-          "description": "List Products.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_product",
-          "description": "Get a Product by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_product",
-          "description": "Update a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "sku": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_product",
-          "description": "Delete a Product.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_shipment",
-          "description": "Create a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "orderId": {
-                "type": "string"
-              },
-              "carrier": {
-                "type": "string"
-              },
-              "tracking": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "carrier",
-              "tracking"
-            ]
-          }
-        },
-        {
-          "name": "list_shipments",
-          "description": "List Shipments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_shipment",
-          "description": "Get a Shipment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_shipment",
-          "description": "Update a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "orderId": {
-                "type": "string"
-              },
-              "carrier": {
-                "type": "string"
-              },
-              "tracking": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_shipment",
-          "description": "Delete a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_search_index",
-          "description": "Create a SearchIndex.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "recordCount": {
+              "version": {
                 "type": "integer"
               },
-              "primaryKey": {
+              "space": {
+                "type": "string"
+              },
+              "environment": {
+                "type": "string"
+              },
+              "contentType": {
+                "type": "string"
+              },
+              "publishedVersion": {
+                "type": "integer"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "publishedAt": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "recordCount"
+              "id",
+              "type"
             ]
           }
         },
         {
-          "name": "list_search_indexes",
-          "description": "List SearchIndexes.",
+          "name": "list_entries",
+          "description": "List Entries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_search_index",
-          "description": "Get a SearchIndex by id.",
+          "name": "get_entry",
+          "description": "Get a Entry by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -562,21 +404,267 @@
           }
         },
         {
-          "name": "update_search_index",
-          "description": "Update a SearchIndex.",
+          "name": "update_entry",
+          "description": "Update a Entry.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "space": {
+                "type": "string"
+              },
+              "environment": {
+                "type": "string"
+              },
+              "contentType": {
+                "type": "string"
+              },
+              "publishedVersion": {
+                "type": "integer"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "publishedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_entry",
+          "description": "Delete a Entry.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_asset",
+          "description": "Create a Asset.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "space": {
+                "type": "string"
+              },
+              "environment": {
+                "type": "string"
+              },
+              "publishedVersion": {
+                "type": "integer"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "publishedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_assets",
+          "description": "List Assets.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_asset",
+          "description": "Get a Asset by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_asset",
+          "description": "Update a Asset.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "space": {
+                "type": "string"
+              },
+              "environment": {
+                "type": "string"
+              },
+              "publishedVersion": {
+                "type": "integer"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "publishedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_asset",
+          "description": "Delete a Asset.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_content_type",
+          "description": "Create a ContentType.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "recordCount": {
+              "displayField": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_content_types",
+          "description": "List ContentTypes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_content_type",
+          "description": "Get a ContentType by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_content_type",
+          "description": "Update a ContentType.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "version": {
                 "type": "integer"
               },
-              "primaryKey": {
+              "name": {
+                "type": "string"
+              },
+              "displayField": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
                 "type": "string"
               }
             },
@@ -586,8 +674,8 @@
           }
         },
         {
-          "name": "delete_search_index",
-          "description": "Delete a SearchIndex.",
+          "name": "delete_content_type",
+          "description": "Delete a ContentType.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -601,38 +689,50 @@
           }
         },
         {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
+          "name": "create_space",
+          "description": "Create a Space.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "event": {
+              "id": {
                 "type": "string"
               },
-              "url": {
+              "type": {
                 "type": "string"
               },
-              "active": {
-                "type": "boolean"
+              "version": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "organization": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
               }
             },
             "required": [
-              "event",
-              "url"
+              "id",
+              "type"
             ]
           }
         },
         {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
+          "name": "list_spaces",
+          "description": "List Spaces.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
+          "name": "get_space",
+          "description": "Get a Space by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -646,22 +746,31 @@
           }
         },
         {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
+          "name": "update_space",
+          "description": "Update a Space.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "event": {
+              "type": {
                 "type": "string"
               },
-              "url": {
+              "version": {
+                "type": "integer"
+              },
+              "name": {
                 "type": "string"
               },
-              "active": {
-                "type": "boolean"
+              "organization": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
               }
             },
             "required": [
@@ -670,8 +779,8 @@
           }
         },
         {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_space",
+          "description": "Delete a Space.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -685,41 +794,53 @@
           }
         },
         {
-          "name": "create_order",
-          "description": "Create a Order.",
+          "name": "create_environment",
+          "description": "Create a Environment.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "number": {
+              "id": {
                 "type": "string"
               },
-              "total": {
-                "type": "number"
+              "type": {
+                "type": "string"
               },
-              "currency": {
+              "version": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "space": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
               }
             },
             "required": [
-              "number",
-              "total"
+              "id",
+              "type"
             ]
           }
         },
         {
-          "name": "list_orders",
-          "description": "List Orders.",
+          "name": "list_environments",
+          "description": "List Environments.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_order",
-          "description": "Get a Order by id.",
+          "name": "get_environment",
+          "description": "Get a Environment by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -733,25 +854,34 @@
           }
         },
         {
-          "name": "update_order",
-          "description": "Update a Order.",
+          "name": "update_environment",
+          "description": "Update a Environment.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "number": {
+              "type": {
                 "type": "string"
               },
-              "total": {
-                "type": "number"
+              "version": {
+                "type": "integer"
               },
-              "currency": {
+              "name": {
+                "type": "string"
+              },
+              "space": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
               }
             },
             "required": [
@@ -760,8 +890,125 @@
           }
         },
         {
-          "name": "delete_order",
-          "description": "Delete a Order.",
+          "name": "delete_environment",
+          "description": "Delete a Environment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_locale",
+          "description": "Create a Locale.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "fallbackCode": {
+                "type": "string"
+              },
+              "default": {
+                "type": "boolean"
+              },
+              "optional": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "type"
+            ]
+          }
+        },
+        {
+          "name": "list_locales",
+          "description": "List Locales.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_locale",
+          "description": "Get a Locale by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_locale",
+          "description": "Update a Locale.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "fallbackCode": {
+                "type": "string"
+              },
+              "default": {
+                "type": "boolean"
+              },
+              "optional": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_locale",
+          "description": "Delete a Locale.",
           "inputSchema": {
             "type": "object",
             "properties": {

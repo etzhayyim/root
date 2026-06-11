@@ -11,15 +11,36 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreig3iall74xf3oebjwbroylas3h2ukdpikhysml7xuoxx57av7r6ie",
   "schema": "schema/autodesk.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://aps.autodesk.com/en/docs/data/v2/reference/http/",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Hub",
+      "Project",
+      "Folder",
+      "Item",
+      "Version",
+      "Command"
+    ],
+    "enums": {
+      "Command": {
+        "status": [
+          "queued",
+          "processing",
+          "complete",
+          "failed"
+        ]
+      }
+    }
+  },
   "entities": [
+    "Hub",
     "Project",
-    "Permit",
-    "Drawing",
-    "Inspection",
-    "Asset",
-    "ServiceRequest"
+    "Folder",
+    "Item",
+    "Version",
+    "Command"
   ],
   "adr": [
     "260607",
@@ -33,6 +54,31 @@
       "runtime": "kotoba-wasm",
       "endpointCount": 30,
       "routes": [
+        {
+          "method": "POST",
+          "path": "/v1/hubs",
+          "op": "create Hub"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/hubs",
+          "op": "list Hub"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/hubs/{id}",
+          "op": "get Hub"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/hubs/{id}",
+          "op": "update Hub"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/hubs/{id}",
+          "op": "delete Hub"
+        },
         {
           "method": "POST",
           "path": "/v1/projects",
@@ -60,135 +106,110 @@
         },
         {
           "method": "POST",
-          "path": "/v1/permits",
-          "op": "create Permit"
+          "path": "/v1/folders",
+          "op": "create Folder"
         },
         {
           "method": "GET",
-          "path": "/v1/permits",
-          "op": "list Permit"
+          "path": "/v1/folders",
+          "op": "list Folder"
         },
         {
           "method": "GET",
-          "path": "/v1/permits/{id}",
-          "op": "get Permit"
+          "path": "/v1/folders/{id}",
+          "op": "get Folder"
         },
         {
           "method": "PATCH",
-          "path": "/v1/permits/{id}",
-          "op": "update Permit"
+          "path": "/v1/folders/{id}",
+          "op": "update Folder"
         },
         {
           "method": "DELETE",
-          "path": "/v1/permits/{id}",
-          "op": "delete Permit"
+          "path": "/v1/folders/{id}",
+          "op": "delete Folder"
         },
         {
           "method": "POST",
-          "path": "/v1/drawings",
-          "op": "create Drawing"
+          "path": "/v1/items",
+          "op": "create Item"
         },
         {
           "method": "GET",
-          "path": "/v1/drawings",
-          "op": "list Drawing"
+          "path": "/v1/items",
+          "op": "list Item"
         },
         {
           "method": "GET",
-          "path": "/v1/drawings/{id}",
-          "op": "get Drawing"
+          "path": "/v1/items/{id}",
+          "op": "get Item"
         },
         {
           "method": "PATCH",
-          "path": "/v1/drawings/{id}",
-          "op": "update Drawing"
+          "path": "/v1/items/{id}",
+          "op": "update Item"
         },
         {
           "method": "DELETE",
-          "path": "/v1/drawings/{id}",
-          "op": "delete Drawing"
+          "path": "/v1/items/{id}",
+          "op": "delete Item"
         },
         {
           "method": "POST",
-          "path": "/v1/inspections",
-          "op": "create Inspection"
+          "path": "/v1/versions",
+          "op": "create Version"
         },
         {
           "method": "GET",
-          "path": "/v1/inspections",
-          "op": "list Inspection"
+          "path": "/v1/versions",
+          "op": "list Version"
         },
         {
           "method": "GET",
-          "path": "/v1/inspections/{id}",
-          "op": "get Inspection"
+          "path": "/v1/versions/{id}",
+          "op": "get Version"
         },
         {
           "method": "PATCH",
-          "path": "/v1/inspections/{id}",
-          "op": "update Inspection"
+          "path": "/v1/versions/{id}",
+          "op": "update Version"
         },
         {
           "method": "DELETE",
-          "path": "/v1/inspections/{id}",
-          "op": "delete Inspection"
+          "path": "/v1/versions/{id}",
+          "op": "delete Version"
         },
         {
           "method": "POST",
-          "path": "/v1/assets",
-          "op": "create Asset"
+          "path": "/v1/commands",
+          "op": "create Command"
         },
         {
           "method": "GET",
-          "path": "/v1/assets",
-          "op": "list Asset"
+          "path": "/v1/commands",
+          "op": "list Command"
         },
         {
           "method": "GET",
-          "path": "/v1/assets/{id}",
-          "op": "get Asset"
+          "path": "/v1/commands/{id}",
+          "op": "get Command"
         },
         {
           "method": "PATCH",
-          "path": "/v1/assets/{id}",
-          "op": "update Asset"
+          "path": "/v1/commands/{id}",
+          "op": "update Command"
         },
         {
           "method": "DELETE",
-          "path": "/v1/assets/{id}",
-          "op": "delete Asset"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/servicerequests",
-          "op": "create ServiceRequest"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/servicerequests",
-          "op": "list ServiceRequest"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/servicerequests/{id}",
-          "op": "get ServiceRequest"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/servicerequests/{id}",
-          "op": "update ServiceRequest"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/servicerequests/{id}",
-          "op": "delete ServiceRequest"
+          "path": "/v1/commands/{id}",
+          "op": "delete Command"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -247,6 +268,84 @@
       "toolCount": 30,
       "tools": [
         {
+          "name": "create_hub",
+          "description": "Create a Hub.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "region"
+            ]
+          }
+        },
+        {
+          "name": "list_hubs",
+          "description": "List Hubs.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_hub",
+          "description": "Get a Hub by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_hub",
+          "description": "Update a Hub.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_hub",
+          "description": "Delete a Hub.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_project",
           "description": "Create a Project.",
           "inputSchema": {
@@ -254,17 +353,10 @@
             "properties": {
               "name": {
                 "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
               }
             },
             "required": [
-              "name",
-              "jurisdiction"
+              "name"
             ]
           }
         },
@@ -302,12 +394,6 @@
               },
               "name": {
                 "type": "string"
-              },
-              "jurisdiction": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
               }
             },
             "required": [
@@ -331,41 +417,62 @@
           }
         },
         {
-          "name": "create_permit",
-          "description": "Create a Permit.",
+          "name": "create_folder",
+          "description": "Create a Folder.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
+              "name": {
                 "type": "string"
               },
-              "type": {
+              "displayName": {
                 "type": "string"
               },
-              "number": {
+              "createTime": {
                 "type": "string"
               },
-              "status": {
+              "createUserId": {
                 "type": "string"
+              },
+              "createUserName": {
+                "type": "string"
+              },
+              "lastModifiedTime": {
+                "type": "string"
+              },
+              "lastModifiedUserId": {
+                "type": "string"
+              },
+              "lastModifiedUserName": {
+                "type": "string"
+              },
+              "lastModifiedTimeRollup": {
+                "type": "string"
+              },
+              "objectCount": {
+                "type": "integer"
+              },
+              "hidden": {
+                "type": "boolean"
               }
             },
             "required": [
-              "type",
-              "number"
+              "name",
+              "displayName"
             ]
           }
         },
         {
-          "name": "list_permits",
-          "description": "List Permits.",
+          "name": "list_folders",
+          "description": "List Folders.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_permit",
-          "description": "Get a Permit by id.",
+          "name": "get_folder",
+          "description": "Get a Folder by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -379,83 +486,263 @@
           }
         },
         {
-          "name": "update_permit",
-          "description": "Update a Permit.",
+          "name": "update_folder",
+          "description": "Update a Folder.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "number": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_permit",
-          "description": "Delete a Permit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_drawing",
-          "description": "Create a Drawing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "revision": {
+              "displayName": {
                 "type": "string"
               },
-              "contentRef": {
+              "createTime": {
+                "type": "string"
+              },
+              "createUserId": {
+                "type": "string"
+              },
+              "createUserName": {
+                "type": "string"
+              },
+              "lastModifiedTime": {
+                "type": "string"
+              },
+              "lastModifiedUserId": {
+                "type": "string"
+              },
+              "lastModifiedUserName": {
+                "type": "string"
+              },
+              "lastModifiedTimeRollup": {
+                "type": "string"
+              },
+              "objectCount": {
+                "type": "integer"
+              },
+              "hidden": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_folder",
+          "description": "Delete a Folder.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_item",
+          "description": "Create a Item.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "displayName": {
+                "type": "string"
+              },
+              "createTime": {
+                "type": "string"
+              },
+              "createUserId": {
+                "type": "string"
+              },
+              "createUserName": {
+                "type": "string"
+              },
+              "lastModifiedTime": {
+                "type": "string"
+              },
+              "lastModifiedUserId": {
+                "type": "string"
+              },
+              "lastModifiedUserName": {
+                "type": "string"
+              },
+              "hidden": {
+                "type": "boolean"
+              },
+              "reserved": {
+                "type": "boolean"
+              },
+              "reservedTime": {
+                "type": "string"
+              },
+              "reservedUserId": {
+                "type": "string"
+              },
+              "reservedUserName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "displayName",
+              "createTime"
+            ]
+          }
+        },
+        {
+          "name": "list_items",
+          "description": "List Items.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_item",
+          "description": "Get a Item by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_item",
+          "description": "Update a Item.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              },
+              "createTime": {
+                "type": "string"
+              },
+              "createUserId": {
+                "type": "string"
+              },
+              "createUserName": {
+                "type": "string"
+              },
+              "lastModifiedTime": {
+                "type": "string"
+              },
+              "lastModifiedUserId": {
+                "type": "string"
+              },
+              "lastModifiedUserName": {
+                "type": "string"
+              },
+              "hidden": {
+                "type": "boolean"
+              },
+              "reserved": {
+                "type": "boolean"
+              },
+              "reservedTime": {
+                "type": "string"
+              },
+              "reservedUserId": {
+                "type": "string"
+              },
+              "reservedUserName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_item",
+          "description": "Delete a Item.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_version",
+          "description": "Create a Version.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              },
+              "createTime": {
+                "type": "string"
+              },
+              "createUserId": {
+                "type": "string"
+              },
+              "createUserName": {
+                "type": "string"
+              },
+              "lastModifiedTime": {
+                "type": "string"
+              },
+              "lastModifiedUserId": {
+                "type": "string"
+              },
+              "lastModifiedUserName": {
+                "type": "string"
+              },
+              "versionNumber": {
+                "type": "integer"
+              },
+              "storageSize": {
+                "type": "integer"
+              },
+              "fileType": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "revision"
+              "displayName"
             ]
           }
         },
         {
-          "name": "list_drawings",
-          "description": "List Drawings.",
+          "name": "list_versions",
+          "description": "List Versions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_drawing",
-          "description": "Get a Drawing by id.",
+          "name": "get_version",
+          "description": "Get a Version by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -469,188 +756,8 @@
           }
         },
         {
-          "name": "update_drawing",
-          "description": "Update a Drawing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "revision": {
-                "type": "string"
-              },
-              "contentRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_drawing",
-          "description": "Delete a Drawing.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_inspection",
-          "description": "Create a Inspection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "permitId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "result": {
-                "type": "string"
-              },
-              "inspectedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "result"
-            ]
-          }
-        },
-        {
-          "name": "list_inspections",
-          "description": "List Inspections.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_inspection",
-          "description": "Get a Inspection by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_inspection",
-          "description": "Update a Inspection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "permitId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "result": {
-                "type": "string"
-              },
-              "inspectedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_inspection",
-          "description": "Delete a Inspection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_asset",
-          "description": "Create a Asset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "location": {
-                "type": "string"
-              },
-              "condition": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_assets",
-          "description": "List Assets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_asset",
-          "description": "Get a Asset by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_asset",
-          "description": "Update a Asset.",
+          "name": "update_version",
+          "description": "Update a Version.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -660,13 +767,34 @@
               "name": {
                 "type": "string"
               },
-              "type": {
+              "displayName": {
                 "type": "string"
               },
-              "location": {
+              "createTime": {
                 "type": "string"
               },
-              "condition": {
+              "createUserId": {
+                "type": "string"
+              },
+              "createUserName": {
+                "type": "string"
+              },
+              "lastModifiedTime": {
+                "type": "string"
+              },
+              "lastModifiedUserId": {
+                "type": "string"
+              },
+              "lastModifiedUserName": {
+                "type": "string"
+              },
+              "versionNumber": {
+                "type": "integer"
+              },
+              "storageSize": {
+                "type": "integer"
+              },
+              "fileType": {
                 "type": "string"
               }
             },
@@ -676,8 +804,8 @@
           }
         },
         {
-          "name": "delete_asset",
-          "description": "Delete a Asset.",
+          "name": "delete_version",
+          "description": "Delete a Version.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -691,38 +819,31 @@
           }
         },
         {
-          "name": "create_service_request",
-          "description": "Create a ServiceRequest.",
+          "name": "create_command",
+          "description": "Create a Command.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "citizenId": {
-                "type": "string"
-              },
-              "category": {
-                "type": "string"
-              },
               "status": {
                 "type": "string"
               }
             },
             "required": [
-              "category",
               "status"
             ]
           }
         },
         {
-          "name": "list_service_requests",
-          "description": "List ServiceRequests.",
+          "name": "list_commands",
+          "description": "List Commands.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_service_request",
-          "description": "Get a ServiceRequest by id.",
+          "name": "get_command",
+          "description": "Get a Command by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -736,18 +857,12 @@
           }
         },
         {
-          "name": "update_service_request",
-          "description": "Update a ServiceRequest.",
+          "name": "update_command",
+          "description": "Update a Command.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "citizenId": {
-                "type": "string"
-              },
-              "category": {
                 "type": "string"
               },
               "status": {
@@ -760,8 +875,8 @@
           }
         },
         {
-          "name": "delete_service_request",
-          "description": "Delete a ServiceRequest.",
+          "name": "delete_command",
+          "description": "Delete a Command.",
           "inputSchema": {
             "type": "object",
             "properties": {

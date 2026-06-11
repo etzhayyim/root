@@ -5,21 +5,52 @@
   "kind": "compat",
   "title": "ntp_time clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (ntp_time); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi",
+  "wasmCid": "bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreibrgzdsipassrtkf3ytocvds5l7c5dw62ikphbjonxlxdub4a74wi",
+  "ipfs": "ipfs://bafkreiden5tcdmomr67ulrbnmuqwui6cf7rq6xy6lmzsie7fbrqpviqhoq",
   "schema": "schema/ntp_time.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://datatracker.ietf.org/doc/html/rfc5905",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Packet",
+      "Header",
+      "KissCode"
+    ],
+    "enums": {
+      "Packet": {
+        "leapIndicator": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mode": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "version": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    }
+  },
   "entities": [
-    "Prefix",
-    "Route",
-    "Peer",
-    "Zone",
-    "Record",
-    "Tunnel"
+    "Packet",
+    "Header",
+    "KissCode"
   ],
   "adr": [
     "260607",
@@ -31,157 +62,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/prefixes",
-          "op": "create Prefix"
+          "path": "/v1/packets",
+          "op": "create Packet"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes",
-          "op": "list Prefix"
+          "path": "/v1/packets",
+          "op": "list Packet"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes/{id}",
-          "op": "get Prefix"
+          "path": "/v1/packets/{id}",
+          "op": "get Packet"
         },
         {
           "method": "PATCH",
-          "path": "/v1/prefixes/{id}",
-          "op": "update Prefix"
+          "path": "/v1/packets/{id}",
+          "op": "update Packet"
         },
         {
           "method": "DELETE",
-          "path": "/v1/prefixes/{id}",
-          "op": "delete Prefix"
+          "path": "/v1/packets/{id}",
+          "op": "delete Packet"
         },
         {
           "method": "POST",
-          "path": "/v1/routes",
-          "op": "create Route"
+          "path": "/v1/headers",
+          "op": "create Header"
         },
         {
           "method": "GET",
-          "path": "/v1/routes",
-          "op": "list Route"
+          "path": "/v1/headers",
+          "op": "list Header"
         },
         {
           "method": "GET",
-          "path": "/v1/routes/{id}",
-          "op": "get Route"
+          "path": "/v1/headers/{id}",
+          "op": "get Header"
         },
         {
           "method": "PATCH",
-          "path": "/v1/routes/{id}",
-          "op": "update Route"
+          "path": "/v1/headers/{id}",
+          "op": "update Header"
         },
         {
           "method": "DELETE",
-          "path": "/v1/routes/{id}",
-          "op": "delete Route"
+          "path": "/v1/headers/{id}",
+          "op": "delete Header"
         },
         {
           "method": "POST",
-          "path": "/v1/peers",
-          "op": "create Peer"
+          "path": "/v1/kisscodes",
+          "op": "create KissCode"
         },
         {
           "method": "GET",
-          "path": "/v1/peers",
-          "op": "list Peer"
+          "path": "/v1/kisscodes",
+          "op": "list KissCode"
         },
         {
           "method": "GET",
-          "path": "/v1/peers/{id}",
-          "op": "get Peer"
+          "path": "/v1/kisscodes/{id}",
+          "op": "get KissCode"
         },
         {
           "method": "PATCH",
-          "path": "/v1/peers/{id}",
-          "op": "update Peer"
+          "path": "/v1/kisscodes/{id}",
+          "op": "update KissCode"
         },
         {
           "method": "DELETE",
-          "path": "/v1/peers/{id}",
-          "op": "delete Peer"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/zones",
-          "op": "create Zone"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/zones",
-          "op": "list Zone"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/zones/{id}",
-          "op": "get Zone"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/zones/{id}",
-          "op": "update Zone"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/zones/{id}",
-          "op": "delete Zone"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/records",
-          "op": "create Record"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/records",
-          "op": "list Record"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/records/{id}",
-          "op": "get Record"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/records/{id}",
-          "op": "update Record"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/records/{id}",
-          "op": "delete Record"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tunnels",
-          "op": "create Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels",
-          "op": "list Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels/{id}",
-          "op": "get Tunnel"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tunnels/{id}",
-          "op": "update Tunnel"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tunnels/{id}",
-          "op": "delete Tunnel"
+          "path": "/v1/kisscodes/{id}",
+          "op": "delete KissCode"
         }
       ],
       "features": {
@@ -244,293 +200,194 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_prefix",
-          "description": "Create a Prefix.",
+          "name": "create_packet",
+          "description": "Create a Packet.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "cidr": {
-                "type": "string"
-              },
-              "originAsn": {
-                "type": "string"
-              },
-              "validity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "cidr",
-              "originAsn"
-            ]
-          }
-        },
-        {
-          "name": "list_prefixes",
-          "description": "List Prefixes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_prefix",
-          "description": "Get a Prefix by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_prefix",
-          "description": "Update a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "originAsn": {
-                "type": "string"
-              },
-              "validity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_prefix",
-          "description": "Delete a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_route",
-          "description": "Create a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "nextHop",
-              "asPath"
-            ]
-          }
-        },
-        {
-          "name": "list_routes",
-          "description": "List Routes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_route",
-          "description": "Get a Route by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_route",
-          "description": "Update a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_route",
-          "description": "Delete a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_peer",
-          "description": "Create a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "asn",
-              "ipAddress"
-            ]
-          }
-        },
-        {
-          "name": "list_peers",
-          "description": "List Peers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_peer",
-          "description": "Get a Peer by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_peer",
-          "description": "Update a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_peer",
-          "description": "Delete a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_zone",
-          "description": "Create a Zone.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "serial": {
+              "leapIndicator": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "version": {
+                "type": "integer"
+              },
+              "mode": {
+                "type": "integer"
+              },
+              "stratum": {
+                "type": "integer"
+              },
+              "poll": {
+                "type": "integer"
+              },
+              "precision": {
+                "type": "integer"
+              },
+              "rootDelay": {
+                "type": "number"
+              },
+              "rootDispersion": {
+                "type": "number"
+              },
+              "referenceId": {
+                "type": "string"
+              },
+              "referenceTimestamp": {
+                "type": "string"
+              },
+              "originTimestamp": {
+                "type": "string"
+              },
+              "receiveTimestamp": {
+                "type": "string"
+              },
+              "transmitTimestamp": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "leapIndicator",
+              "version"
+            ]
+          }
+        },
+        {
+          "name": "list_packets",
+          "description": "List Packets.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_packet",
+          "description": "Get a Packet by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_packet",
+          "description": "Update a Packet.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "leapIndicator": {
+                "type": "integer"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "mode": {
+                "type": "integer"
+              },
+              "stratum": {
+                "type": "integer"
+              },
+              "poll": {
+                "type": "integer"
+              },
+              "precision": {
+                "type": "integer"
+              },
+              "rootDelay": {
+                "type": "number"
+              },
+              "rootDispersion": {
+                "type": "number"
+              },
+              "referenceId": {
+                "type": "string"
+              },
+              "referenceTimestamp": {
+                "type": "string"
+              },
+              "originTimestamp": {
+                "type": "string"
+              },
+              "receiveTimestamp": {
+                "type": "string"
+              },
+              "transmitTimestamp": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_packet",
+          "description": "Delete a Packet.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_header",
+          "description": "Create a Header.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "leapIndicator": {
+                "type": "integer"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "mode": {
+                "type": "integer"
+              },
+              "stratum": {
+                "type": "integer"
+              },
+              "poll": {
+                "type": "integer"
+              },
+              "precision": {
                 "type": "integer"
               }
             },
             "required": [
-              "name",
-              "serial"
+              "leapIndicator",
+              "version"
             ]
           }
         },
         {
-          "name": "list_zones",
-          "description": "List Zones.",
+          "name": "list_headers",
+          "description": "List Headers.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_zone",
-          "description": "Get a Zone by id.",
+          "name": "get_header",
+          "description": "Get a Header by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -544,21 +401,30 @@
           }
         },
         {
-          "name": "update_zone",
-          "description": "Update a Zone.",
+          "name": "update_header",
+          "description": "Update a Header.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "serial": {
+              "leapIndicator": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "version": {
+                "type": "integer"
+              },
+              "mode": {
+                "type": "integer"
+              },
+              "stratum": {
+                "type": "integer"
+              },
+              "poll": {
+                "type": "integer"
+              },
+              "precision": {
                 "type": "integer"
               }
             },
@@ -568,8 +434,8 @@
           }
         },
         {
-          "name": "delete_zone",
-          "description": "Delete a Zone.",
+          "name": "delete_header",
+          "description": "Delete a Header.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -583,41 +449,35 @@
           }
         },
         {
-          "name": "create_record",
-          "description": "Create a Record.",
+          "name": "create_kiss_code",
+          "description": "Create a KissCode.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "zoneId": {
+              "code": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "value": {
+              "meaning": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "type"
+              "code",
+              "meaning"
             ]
           }
         },
         {
-          "name": "list_records",
-          "description": "List Records.",
+          "name": "list_kiss_codes",
+          "description": "List KissCodes.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_record",
-          "description": "Get a Record by id.",
+          "name": "get_kiss_code",
+          "description": "Get a KissCode by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -631,24 +491,18 @@
           }
         },
         {
-          "name": "update_record",
-          "description": "Update a Record.",
+          "name": "update_kiss_code",
+          "description": "Update a KissCode.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "zoneId": {
+              "code": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "value": {
+              "meaning": {
                 "type": "string"
               }
             },
@@ -658,98 +512,8 @@
           }
         },
         {
-          "name": "delete_record",
-          "description": "Delete a Record.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_tunnel",
-          "description": "Create a Tunnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "localAddr": {
-                "type": "string"
-              },
-              "remoteAddr": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "localAddr",
-              "remoteAddr"
-            ]
-          }
-        },
-        {
-          "name": "list_tunnels",
-          "description": "List Tunnels.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_tunnel",
-          "description": "Get a Tunnel by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_tunnel",
-          "description": "Update a Tunnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "localAddr": {
-                "type": "string"
-              },
-              "remoteAddr": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_tunnel",
-          "description": "Delete a Tunnel.",
+          "name": "delete_kiss_code",
+          "description": "Delete a KissCode.",
           "inputSchema": {
             "type": "object",
             "properties": {

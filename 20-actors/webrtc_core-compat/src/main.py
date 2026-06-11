@@ -111,404 +111,389 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/prefixes", methods=["POST"])
-def create_prefix(request):
-    """Create a Prefix."""
+@app.route("/v1/rtcpeerconnections", methods=["POST"])
+def create_r_t_c_peer_connection(request):
+    """Create a RTCPeerConnection."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['signalingState', 'iceConnectionState', 'iceGatheringState', 'connectionState'])
     if err:
         return err, 400
-    err = _require(data, ['cidr', 'originAsn'])
+    err = _require(data, ['signalingState', 'iceConnectionState'])
     if err:
         return err, 400
-    rec = {"id": new_id("webrtcco_pre")}
-    rec["cidr"] = data.get('cidr')
-    rec["originAsn"] = data.get('originAsn')
-    rec["validity"] = data.get('validity')
+    if data.get('signalingState') and data['signalingState'] not in ['stable', 'have-local-offer', 'have-remote-offer', 'have-local-pranswer', 'have-remote-pranswer', 'closed']:
+        return {"error": {"message": "invalid signalingState; allowed: " + ", ".join(['stable', 'have-local-offer', 'have-remote-offer', 'have-local-pranswer', 'have-remote-pranswer', 'closed']), "type": "invalid_request_error"}}, 400
+    if data.get('iceConnectionState') and data['iceConnectionState'] not in ['new', 'checking', 'connected', 'completed', 'failed', 'disconnected', 'closed']:
+        return {"error": {"message": "invalid iceConnectionState; allowed: " + ", ".join(['new', 'checking', 'connected', 'completed', 'failed', 'disconnected', 'closed']), "type": "invalid_request_error"}}, 400
+    if data.get('iceGatheringState') and data['iceGatheringState'] not in ['new', 'gathering', 'complete']:
+        return {"error": {"message": "invalid iceGatheringState; allowed: " + ", ".join(['new', 'gathering', 'complete']), "type": "invalid_request_error"}}, 400
+    if data.get('connectionState') and data['connectionState'] not in ['new', 'connecting', 'connected', 'disconnected', 'failed', 'closed']:
+        return {"error": {"message": "invalid connectionState; allowed: " + ", ".join(['new', 'connecting', 'connected', 'disconnected', 'failed', 'closed']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("webrtcco_rtc")}
+    rec["signalingState"] = data.get('signalingState')
+    rec["iceConnectionState"] = data.get('iceConnectionState')
+    rec["iceGatheringState"] = data.get('iceGatheringState')
+    rec["connectionState"] = data.get('connectionState')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Prefix", rec)
+    _persist("RTCPeerConnection", rec)
     return rec, 201
 
-@app.route("/v1/prefixes", methods=["GET"])
-def list_prefixes(request):
-    """List Prefixes with filtering + cursor pagination."""
+@app.route("/v1/rtcpeerconnections", methods=["GET"])
+def list_r_t_c_peer_connections(request):
+    """List RTCPeerConnections with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Prefix")
-    rows = _apply_filters(rows, params, ['cidr', 'originAsn', 'validity'])
+    rows = _query("RTCPeerConnection")
+    rows = _apply_filters(rows, params, ['signalingState', 'iceConnectionState', 'iceGatheringState', 'connectionState'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["GET"])
-def get_prefix(request, eid):
-    """Retrieve a Prefix by id (supports ?expand=)."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/rtcpeerconnections/<eid>", methods=["GET"])
+def get_r_t_c_peer_connection(request, eid):
+    """Retrieve a RTCPeerConnection by id (supports ?expand=)."""
+    rows = _query("RTCPeerConnection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["POST", "PATCH"])
-def update_prefix(request, eid):
-    """Update a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/rtcpeerconnections/<eid>", methods=["POST", "PATCH"])
+def update_r_t_c_peer_connection(request, eid):
+    """Update a RTCPeerConnection."""
+    rows = _query("RTCPeerConnection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['signalingState', 'iceConnectionState', 'iceGatheringState', 'connectionState'])
     if err:
         return err, 400
+    if data.get('signalingState') and data['signalingState'] not in ['stable', 'have-local-offer', 'have-remote-offer', 'have-local-pranswer', 'have-remote-pranswer', 'closed']:
+        return {"error": {"message": "invalid signalingState; allowed: " + ", ".join(['stable', 'have-local-offer', 'have-remote-offer', 'have-local-pranswer', 'have-remote-pranswer', 'closed']), "type": "invalid_request_error"}}, 400
+    if data.get('iceConnectionState') and data['iceConnectionState'] not in ['new', 'checking', 'connected', 'completed', 'failed', 'disconnected', 'closed']:
+        return {"error": {"message": "invalid iceConnectionState; allowed: " + ", ".join(['new', 'checking', 'connected', 'completed', 'failed', 'disconnected', 'closed']), "type": "invalid_request_error"}}, 400
+    if data.get('iceGatheringState') and data['iceGatheringState'] not in ['new', 'gathering', 'complete']:
+        return {"error": {"message": "invalid iceGatheringState; allowed: " + ", ".join(['new', 'gathering', 'complete']), "type": "invalid_request_error"}}, 400
+    if data.get('connectionState') and data['connectionState'] not in ['new', 'connecting', 'connected', 'disconnected', 'failed', 'closed']:
+        return {"error": {"message": "invalid connectionState; allowed: " + ", ".join(['new', 'connecting', 'connected', 'disconnected', 'failed', 'closed']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Prefix", rec)
+    _persist("RTCPeerConnection", rec)
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["DELETE"])
-def delete_prefix(request, eid):
-    """Delete a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/rtcpeerconnections/<eid>", methods=["DELETE"])
+def delete_r_t_c_peer_connection(request, eid):
+    """Delete a RTCPeerConnection."""
+    rows = _query("RTCPeerConnection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webrtc_core.Prefix", "id": eid})
+    db.retract({"entity": f"webrtc_core.RTCPeerConnection", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/routes", methods=["POST"])
-def create_route(request):
-    """Create a Route."""
+@app.route("/v1/rtcdatachannels", methods=["POST"])
+def create_r_t_c_data_channel(request):
+    """Create a RTCDataChannel."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['label', 'ordered', 'protocol', 'negotiated', 'id', 'readyState', 'bufferedAmount'])
     if err:
         return err, 400
-    err = _require(data, ['nextHop', 'asPath'])
+    err = _require(data, ['label', 'ordered'])
     if err:
         return err, 400
-    rec = {"id": new_id("webrtcco_rou")}
-    rec["prefixId"] = data.get('prefixId')
-    rec["nextHop"] = data.get('nextHop')
-    rec["asPath"] = data.get('asPath')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Route", rec)
-    return rec, 201
-
-@app.route("/v1/routes", methods=["GET"])
-def list_routes(request):
-    """List Routes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Route")
-    rows = _apply_filters(rows, params, ['prefixId', 'nextHop', 'asPath'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/routes/<eid>", methods=["GET"])
-def get_route(request, eid):
-    """Retrieve a Route by id (supports ?expand=)."""
-    rows = _query("Route", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'prefixId': 'Prefix'})
-    return rec, 200
-
-@app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
-def update_route(request, eid):
-    """Update a Route."""
-    rows = _query("Route", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Route", rec)
-    return rec, 200
-
-@app.route("/v1/routes/<eid>", methods=["DELETE"])
-def delete_route(request, eid):
-    """Delete a Route."""
-    rows = _query("Route", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webrtc_core.Route", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/peers", methods=["POST"])
-def create_peer(request):
-    """Create a Peer."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
-    if err:
-        return err, 400
-    err = _require(data, ['asn', 'ipAddress'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("webrtcco_pee")}
-    rec["asn"] = data.get('asn')
-    rec["ipAddress"] = data.get('ipAddress')
-    rec["state"] = data.get('state')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Peer", rec)
-    return rec, 201
-
-@app.route("/v1/peers", methods=["GET"])
-def list_peers(request):
-    """List Peers with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Peer")
-    rows = _apply_filters(rows, params, ['asn', 'ipAddress', 'state'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/peers/<eid>", methods=["GET"])
-def get_peer(request, eid):
-    """Retrieve a Peer by id (supports ?expand=)."""
-    rows = _query("Peer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/peers/<eid>", methods=["POST", "PATCH"])
-def update_peer(request, eid):
-    """Update a Peer."""
-    rows = _query("Peer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Peer", rec)
-    return rec, 200
-
-@app.route("/v1/peers/<eid>", methods=["DELETE"])
-def delete_peer(request, eid):
-    """Delete a Peer."""
-    rows = _query("Peer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webrtc_core.Peer", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/zones", methods=["POST"])
-def create_zone(request):
-    """Create a Zone."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'serial'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("webrtcco_zon")}
-    rec["name"] = data.get('name')
-    rec["serial"] = _as_int(data.get('serial'))
-    rec["refreshSec"] = _as_int(data.get('refreshSec'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Zone", rec)
-    return rec, 201
-
-@app.route("/v1/zones", methods=["GET"])
-def list_zones(request):
-    """List Zones with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Zone")
-    rows = _apply_filters(rows, params, ['name', 'serial', 'refreshSec'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/zones/<eid>", methods=["GET"])
-def get_zone(request, eid):
-    """Retrieve a Zone by id (supports ?expand=)."""
-    rows = _query("Zone", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/zones/<eid>", methods=["POST", "PATCH"])
-def update_zone(request, eid):
-    """Update a Zone."""
-    rows = _query("Zone", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Zone", rec)
-    return rec, 200
-
-@app.route("/v1/zones/<eid>", methods=["DELETE"])
-def delete_zone(request, eid):
-    """Delete a Zone."""
-    rows = _query("Zone", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webrtc_core.Zone", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/records", methods=["POST"])
-def create_record(request):
-    """Create a Record."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("webrtcco_rec")}
-    rec["zoneId"] = data.get('zoneId')
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["value"] = data.get('value')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Record", rec)
-    return rec, 201
-
-@app.route("/v1/records", methods=["GET"])
-def list_records(request):
-    """List Records with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Record")
-    rows = _apply_filters(rows, params, ['zoneId', 'name', 'type', 'value'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/records/<eid>", methods=["GET"])
-def get_record(request, eid):
-    """Retrieve a Record by id (supports ?expand=)."""
-    rows = _query("Record", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'zoneId': 'Zone'})
-    return rec, 200
-
-@app.route("/v1/records/<eid>", methods=["POST", "PATCH"])
-def update_record(request, eid):
-    """Update a Record."""
-    rows = _query("Record", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Record", rec)
-    return rec, 200
-
-@app.route("/v1/records/<eid>", methods=["DELETE"])
-def delete_record(request, eid):
-    """Delete a Record."""
-    rows = _query("Record", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webrtc_core.Record", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tunnels", methods=["POST"])
-def create_tunnel(request):
-    """Create a Tunnel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['localAddr', 'remoteAddr'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("webrtcco_tun")}
-    rec["localAddr"] = data.get('localAddr')
-    rec["remoteAddr"] = data.get('remoteAddr')
+    if data.get('readyState') and data['readyState'] not in ['connecting', 'open', 'closing', 'closed']:
+        return {"error": {"message": "invalid readyState; allowed: " + ", ".join(['connecting', 'open', 'closing', 'closed']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("webrtcco_rtc")}
+    rec["label"] = data.get('label')
+    rec["ordered"] = _as_bool(data.get('ordered'))
     rec["protocol"] = data.get('protocol')
-    rec["active"] = _as_bool(data.get('active'))
+    rec["negotiated"] = _as_bool(data.get('negotiated'))
+    rec["id"] = _as_int(data.get('id'))
+    rec["readyState"] = data.get('readyState')
+    rec["bufferedAmount"] = _as_int(data.get('bufferedAmount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Tunnel", rec)
+    _persist("RTCDataChannel", rec)
     return rec, 201
 
-@app.route("/v1/tunnels", methods=["GET"])
-def list_tunnels(request):
-    """List Tunnels with filtering + cursor pagination."""
+@app.route("/v1/rtcdatachannels", methods=["GET"])
+def list_r_t_c_data_channels(request):
+    """List RTCDataChannels with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Tunnel")
-    rows = _apply_filters(rows, params, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    rows = _query("RTCDataChannel")
+    rows = _apply_filters(rows, params, ['label', 'ordered', 'protocol', 'negotiated', 'id', 'readyState', 'bufferedAmount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["GET"])
-def get_tunnel(request, eid):
-    """Retrieve a Tunnel by id (supports ?expand=)."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/rtcdatachannels/<eid>", methods=["GET"])
+def get_r_t_c_data_channel(request, eid):
+    """Retrieve a RTCDataChannel by id (supports ?expand=)."""
+    rows = _query("RTCDataChannel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["POST", "PATCH"])
-def update_tunnel(request, eid):
-    """Update a Tunnel."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/rtcdatachannels/<eid>", methods=["POST", "PATCH"])
+def update_r_t_c_data_channel(request, eid):
+    """Update a RTCDataChannel."""
+    rows = _query("RTCDataChannel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    err = _reject_unknown(data, ['label', 'ordered', 'protocol', 'negotiated', 'id', 'readyState', 'bufferedAmount'])
     if err:
         return err, 400
+    if data.get('readyState') and data['readyState'] not in ['connecting', 'open', 'closing', 'closed']:
+        return {"error": {"message": "invalid readyState; allowed: " + ", ".join(['connecting', 'open', 'closing', 'closed']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Tunnel", rec)
+    _persist("RTCDataChannel", rec)
     return rec, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["DELETE"])
-def delete_tunnel(request, eid):
-    """Delete a Tunnel."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/rtcdatachannels/<eid>", methods=["DELETE"])
+def delete_r_t_c_data_channel(request, eid):
+    """Delete a RTCDataChannel."""
+    rows = _query("RTCDataChannel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"webrtc_core.Tunnel", "id": eid})
+    db.retract({"entity": f"webrtc_core.RTCDataChannel", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/rtcsessiondescriptions", methods=["POST"])
+def create_r_t_c_session_description(request):
+    """Create a RTCSessionDescription."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['type', 'sdp'])
+    if err:
+        return err, 400
+    err = _require(data, ['type', 'sdp'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['offer', 'pranswer', 'answer', 'rollback']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['offer', 'pranswer', 'answer', 'rollback']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("webrtcco_rtc")}
+    rec["type"] = data.get('type')
+    rec["sdp"] = data.get('sdp')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("RTCSessionDescription", rec)
+    return rec, 201
+
+@app.route("/v1/rtcsessiondescriptions", methods=["GET"])
+def list_r_t_c_session_descriptions(request):
+    """List RTCSessionDescriptions with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("RTCSessionDescription")
+    rows = _apply_filters(rows, params, ['type', 'sdp'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/rtcsessiondescriptions/<eid>", methods=["GET"])
+def get_r_t_c_session_description(request, eid):
+    """Retrieve a RTCSessionDescription by id (supports ?expand=)."""
+    rows = _query("RTCSessionDescription", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/rtcsessiondescriptions/<eid>", methods=["POST", "PATCH"])
+def update_r_t_c_session_description(request, eid):
+    """Update a RTCSessionDescription."""
+    rows = _query("RTCSessionDescription", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['type', 'sdp'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['offer', 'pranswer', 'answer', 'rollback']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['offer', 'pranswer', 'answer', 'rollback']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("RTCSessionDescription", rec)
+    return rec, 200
+
+@app.route("/v1/rtcsessiondescriptions/<eid>", methods=["DELETE"])
+def delete_r_t_c_session_description(request, eid):
+    """Delete a RTCSessionDescription."""
+    rows = _query("RTCSessionDescription", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"webrtc_core.RTCSessionDescription", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/rtcicecandidates", methods=["POST"])
+def create_r_t_c_ice_candidate(request):
+    """Create a RTCIceCandidate."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['candidate', 'sdpMLineIndex', 'sdpMid', 'protocol', 'port', 'address', 'type', 'tcpType', 'priority'])
+    if err:
+        return err, 400
+    err = _require(data, ['candidate', 'sdpMLineIndex'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['host', 'srflx', 'prflx', 'relay']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['host', 'srflx', 'prflx', 'relay']), "type": "invalid_request_error"}}, 400
+    if data.get('protocol') and data['protocol'] not in ['udp', 'tcp']:
+        return {"error": {"message": "invalid protocol; allowed: " + ", ".join(['udp', 'tcp']), "type": "invalid_request_error"}}, 400
+    if data.get('tcpType') and data['tcpType'] not in ['active', 'passive', 'so']:
+        return {"error": {"message": "invalid tcpType; allowed: " + ", ".join(['active', 'passive', 'so']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("webrtcco_rtc")}
+    rec["candidate"] = data.get('candidate')
+    rec["sdpMLineIndex"] = _as_int(data.get('sdpMLineIndex'))
+    rec["sdpMid"] = data.get('sdpMid')
+    rec["protocol"] = data.get('protocol')
+    rec["port"] = _as_int(data.get('port'))
+    rec["address"] = data.get('address')
+    rec["type"] = data.get('type')
+    rec["tcpType"] = data.get('tcpType')
+    rec["priority"] = _as_int(data.get('priority'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("RTCIceCandidate", rec)
+    return rec, 201
+
+@app.route("/v1/rtcicecandidates", methods=["GET"])
+def list_r_t_c_ice_candidates(request):
+    """List RTCIceCandidates with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("RTCIceCandidate")
+    rows = _apply_filters(rows, params, ['candidate', 'sdpMLineIndex', 'sdpMid', 'protocol', 'port', 'address', 'type', 'tcpType', 'priority'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/rtcicecandidates/<eid>", methods=["GET"])
+def get_r_t_c_ice_candidate(request, eid):
+    """Retrieve a RTCIceCandidate by id (supports ?expand=)."""
+    rows = _query("RTCIceCandidate", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/rtcicecandidates/<eid>", methods=["POST", "PATCH"])
+def update_r_t_c_ice_candidate(request, eid):
+    """Update a RTCIceCandidate."""
+    rows = _query("RTCIceCandidate", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['candidate', 'sdpMLineIndex', 'sdpMid', 'protocol', 'port', 'address', 'type', 'tcpType', 'priority'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['host', 'srflx', 'prflx', 'relay']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['host', 'srflx', 'prflx', 'relay']), "type": "invalid_request_error"}}, 400
+    if data.get('protocol') and data['protocol'] not in ['udp', 'tcp']:
+        return {"error": {"message": "invalid protocol; allowed: " + ", ".join(['udp', 'tcp']), "type": "invalid_request_error"}}, 400
+    if data.get('tcpType') and data['tcpType'] not in ['active', 'passive', 'so']:
+        return {"error": {"message": "invalid tcpType; allowed: " + ", ".join(['active', 'passive', 'so']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("RTCIceCandidate", rec)
+    return rec, 200
+
+@app.route("/v1/rtcicecandidates/<eid>", methods=["DELETE"])
+def delete_r_t_c_ice_candidate(request, eid):
+    """Delete a RTCIceCandidate."""
+    rows = _query("RTCIceCandidate", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"webrtc_core.RTCIceCandidate", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/rtcrtptransceivers", methods=["POST"])
+def create_r_t_c_rtp_transceiver(request):
+    """Create a RTCRtpTransceiver."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['mid', 'direction', 'currentDirection'])
+    if err:
+        return err, 400
+    err = _require(data, ['mid', 'direction'])
+    if err:
+        return err, 400
+    if data.get('direction') and data['direction'] not in ['sendrecv', 'sendonly', 'recvonly', 'inactive']:
+        return {"error": {"message": "invalid direction; allowed: " + ", ".join(['sendrecv', 'sendonly', 'recvonly', 'inactive']), "type": "invalid_request_error"}}, 400
+    if data.get('currentDirection') and data['currentDirection'] not in ['sendrecv', 'sendonly', 'recvonly', 'inactive']:
+        return {"error": {"message": "invalid currentDirection; allowed: " + ", ".join(['sendrecv', 'sendonly', 'recvonly', 'inactive']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("webrtcco_rtc")}
+    rec["mid"] = data.get('mid')
+    rec["direction"] = data.get('direction')
+    rec["currentDirection"] = data.get('currentDirection')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("RTCRtpTransceiver", rec)
+    return rec, 201
+
+@app.route("/v1/rtcrtptransceivers", methods=["GET"])
+def list_r_t_c_rtp_transceivers(request):
+    """List RTCRtpTransceivers with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("RTCRtpTransceiver")
+    rows = _apply_filters(rows, params, ['mid', 'direction', 'currentDirection'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/rtcrtptransceivers/<eid>", methods=["GET"])
+def get_r_t_c_rtp_transceiver(request, eid):
+    """Retrieve a RTCRtpTransceiver by id (supports ?expand=)."""
+    rows = _query("RTCRtpTransceiver", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/rtcrtptransceivers/<eid>", methods=["POST", "PATCH"])
+def update_r_t_c_rtp_transceiver(request, eid):
+    """Update a RTCRtpTransceiver."""
+    rows = _query("RTCRtpTransceiver", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['mid', 'direction', 'currentDirection'])
+    if err:
+        return err, 400
+    if data.get('direction') and data['direction'] not in ['sendrecv', 'sendonly', 'recvonly', 'inactive']:
+        return {"error": {"message": "invalid direction; allowed: " + ", ".join(['sendrecv', 'sendonly', 'recvonly', 'inactive']), "type": "invalid_request_error"}}, 400
+    if data.get('currentDirection') and data['currentDirection'] not in ['sendrecv', 'sendonly', 'recvonly', 'inactive']:
+        return {"error": {"message": "invalid currentDirection; allowed: " + ", ".join(['sendrecv', 'sendonly', 'recvonly', 'inactive']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("RTCRtpTransceiver", rec)
+    return rec, 200
+
+@app.route("/v1/rtcrtptransceivers/<eid>", methods=["DELETE"])
+def delete_r_t_c_rtp_transceiver(request, eid):
+    """Delete a RTCRtpTransceiver."""
+    rows = _query("RTCRtpTransceiver", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"webrtc_core.RTCRtpTransceiver", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "webrtc_core-compat", "tier": "L4",
-            "entities": ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']}, 200
+            "entities": ['RTCPeerConnection', 'RTCDataChannel', 'RTCSessionDescription', 'RTCIceCandidate', 'RTCRtpTransceiver']}, 200
 
 
 if __name__ == "__main__":

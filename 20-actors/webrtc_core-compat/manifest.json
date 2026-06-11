@@ -5,21 +5,111 @@
   "kind": "compat",
   "title": "webrtc_core clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (webrtc_core); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
+  "wasmCid": "bafkreia73ojcn3fiznzoivhsoylxlsfsovulinz7dpwkbuiqbd5tqsfjxu",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
+  "ipfs": "ipfs://bafkreia73ojcn3fiznzoivhsoylxlsfsovulinz7dpwkbuiqbd5tqsfjxu",
   "schema": "schema/webrtc_core.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://www.w3.org/TR/webrtc/",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "RTCPeerConnection",
+      "RTCDataChannel",
+      "RTCSessionDescription",
+      "RTCIceCandidate",
+      "RTCRtpTransceiver"
+    ],
+    "enums": {
+      "RTCPeerConnection": {
+        "signalingState": [
+          "stable",
+          "have-local-offer",
+          "have-remote-offer",
+          "have-local-pranswer",
+          "have-remote-pranswer",
+          "closed"
+        ],
+        "iceConnectionState": [
+          "new",
+          "checking",
+          "connected",
+          "completed",
+          "failed",
+          "disconnected",
+          "closed"
+        ],
+        "iceGatheringState": [
+          "new",
+          "gathering",
+          "complete"
+        ],
+        "connectionState": [
+          "new",
+          "connecting",
+          "connected",
+          "disconnected",
+          "failed",
+          "closed"
+        ]
+      },
+      "RTCDataChannel": {
+        "readyState": [
+          "connecting",
+          "open",
+          "closing",
+          "closed"
+        ]
+      },
+      "RTCSessionDescription": {
+        "type": [
+          "offer",
+          "pranswer",
+          "answer",
+          "rollback"
+        ]
+      },
+      "RTCIceCandidate": {
+        "type": [
+          "host",
+          "srflx",
+          "prflx",
+          "relay"
+        ],
+        "protocol": [
+          "udp",
+          "tcp"
+        ],
+        "tcpType": [
+          "active",
+          "passive",
+          "so"
+        ]
+      },
+      "RTCRtpTransceiver": {
+        "direction": [
+          "sendrecv",
+          "sendonly",
+          "recvonly",
+          "inactive"
+        ],
+        "currentDirection": [
+          "sendrecv",
+          "sendonly",
+          "recvonly",
+          "inactive"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Prefix",
-    "Route",
-    "Peer",
-    "Zone",
-    "Record",
-    "Tunnel"
+    "RTCPeerConnection",
+    "RTCDataChannel",
+    "RTCSessionDescription",
+    "RTCIceCandidate",
+    "RTCRtpTransceiver"
   ],
   "adr": [
     "260607",
@@ -31,157 +121,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/prefixes",
-          "op": "create Prefix"
+          "path": "/v1/rtcpeerconnections",
+          "op": "create RTCPeerConnection"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes",
-          "op": "list Prefix"
+          "path": "/v1/rtcpeerconnections",
+          "op": "list RTCPeerConnection"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes/{id}",
-          "op": "get Prefix"
+          "path": "/v1/rtcpeerconnections/{id}",
+          "op": "get RTCPeerConnection"
         },
         {
           "method": "PATCH",
-          "path": "/v1/prefixes/{id}",
-          "op": "update Prefix"
+          "path": "/v1/rtcpeerconnections/{id}",
+          "op": "update RTCPeerConnection"
         },
         {
           "method": "DELETE",
-          "path": "/v1/prefixes/{id}",
-          "op": "delete Prefix"
+          "path": "/v1/rtcpeerconnections/{id}",
+          "op": "delete RTCPeerConnection"
         },
         {
           "method": "POST",
-          "path": "/v1/routes",
-          "op": "create Route"
+          "path": "/v1/rtcdatachannels",
+          "op": "create RTCDataChannel"
         },
         {
           "method": "GET",
-          "path": "/v1/routes",
-          "op": "list Route"
+          "path": "/v1/rtcdatachannels",
+          "op": "list RTCDataChannel"
         },
         {
           "method": "GET",
-          "path": "/v1/routes/{id}",
-          "op": "get Route"
+          "path": "/v1/rtcdatachannels/{id}",
+          "op": "get RTCDataChannel"
         },
         {
           "method": "PATCH",
-          "path": "/v1/routes/{id}",
-          "op": "update Route"
+          "path": "/v1/rtcdatachannels/{id}",
+          "op": "update RTCDataChannel"
         },
         {
           "method": "DELETE",
-          "path": "/v1/routes/{id}",
-          "op": "delete Route"
+          "path": "/v1/rtcdatachannels/{id}",
+          "op": "delete RTCDataChannel"
         },
         {
           "method": "POST",
-          "path": "/v1/peers",
-          "op": "create Peer"
+          "path": "/v1/rtcsessiondescriptions",
+          "op": "create RTCSessionDescription"
         },
         {
           "method": "GET",
-          "path": "/v1/peers",
-          "op": "list Peer"
+          "path": "/v1/rtcsessiondescriptions",
+          "op": "list RTCSessionDescription"
         },
         {
           "method": "GET",
-          "path": "/v1/peers/{id}",
-          "op": "get Peer"
+          "path": "/v1/rtcsessiondescriptions/{id}",
+          "op": "get RTCSessionDescription"
         },
         {
           "method": "PATCH",
-          "path": "/v1/peers/{id}",
-          "op": "update Peer"
+          "path": "/v1/rtcsessiondescriptions/{id}",
+          "op": "update RTCSessionDescription"
         },
         {
           "method": "DELETE",
-          "path": "/v1/peers/{id}",
-          "op": "delete Peer"
+          "path": "/v1/rtcsessiondescriptions/{id}",
+          "op": "delete RTCSessionDescription"
         },
         {
           "method": "POST",
-          "path": "/v1/zones",
-          "op": "create Zone"
+          "path": "/v1/rtcicecandidates",
+          "op": "create RTCIceCandidate"
         },
         {
           "method": "GET",
-          "path": "/v1/zones",
-          "op": "list Zone"
+          "path": "/v1/rtcicecandidates",
+          "op": "list RTCIceCandidate"
         },
         {
           "method": "GET",
-          "path": "/v1/zones/{id}",
-          "op": "get Zone"
+          "path": "/v1/rtcicecandidates/{id}",
+          "op": "get RTCIceCandidate"
         },
         {
           "method": "PATCH",
-          "path": "/v1/zones/{id}",
-          "op": "update Zone"
+          "path": "/v1/rtcicecandidates/{id}",
+          "op": "update RTCIceCandidate"
         },
         {
           "method": "DELETE",
-          "path": "/v1/zones/{id}",
-          "op": "delete Zone"
+          "path": "/v1/rtcicecandidates/{id}",
+          "op": "delete RTCIceCandidate"
         },
         {
           "method": "POST",
-          "path": "/v1/records",
-          "op": "create Record"
+          "path": "/v1/rtcrtptransceivers",
+          "op": "create RTCRtpTransceiver"
         },
         {
           "method": "GET",
-          "path": "/v1/records",
-          "op": "list Record"
+          "path": "/v1/rtcrtptransceivers",
+          "op": "list RTCRtpTransceiver"
         },
         {
           "method": "GET",
-          "path": "/v1/records/{id}",
-          "op": "get Record"
+          "path": "/v1/rtcrtptransceivers/{id}",
+          "op": "get RTCRtpTransceiver"
         },
         {
           "method": "PATCH",
-          "path": "/v1/records/{id}",
-          "op": "update Record"
+          "path": "/v1/rtcrtptransceivers/{id}",
+          "op": "update RTCRtpTransceiver"
         },
         {
           "method": "DELETE",
-          "path": "/v1/records/{id}",
-          "op": "delete Record"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tunnels",
-          "op": "create Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels",
-          "op": "list Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels/{id}",
-          "op": "get Tunnel"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tunnels/{id}",
-          "op": "update Tunnel"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tunnels/{id}",
-          "op": "delete Tunnel"
+          "path": "/v1/rtcrtptransceivers/{id}",
+          "op": "delete RTCRtpTransceiver"
         }
       ],
       "features": {
@@ -244,41 +309,44 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_prefix",
-          "description": "Create a Prefix.",
+          "name": "create_r_t_c_peer_connection",
+          "description": "Create a RTCPeerConnection.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "cidr": {
+              "signalingState": {
                 "type": "string"
               },
-              "originAsn": {
+              "iceConnectionState": {
                 "type": "string"
               },
-              "validity": {
+              "iceGatheringState": {
+                "type": "string"
+              },
+              "connectionState": {
                 "type": "string"
               }
             },
             "required": [
-              "cidr",
-              "originAsn"
+              "signalingState",
+              "iceConnectionState"
             ]
           }
         },
         {
-          "name": "list_prefixes",
-          "description": "List Prefixes.",
+          "name": "list_r_t_c_peer_connections",
+          "description": "List RTCPeerConnections.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_prefix",
-          "description": "Get a Prefix by id.",
+          "name": "get_r_t_c_peer_connection",
+          "description": "Get a RTCPeerConnection by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,21 +360,24 @@
           }
         },
         {
-          "name": "update_prefix",
-          "description": "Update a Prefix.",
+          "name": "update_r_t_c_peer_connection",
+          "description": "Update a RTCPeerConnection.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "cidr": {
+              "signalingState": {
                 "type": "string"
               },
-              "originAsn": {
+              "iceConnectionState": {
                 "type": "string"
               },
-              "validity": {
+              "iceGatheringState": {
+                "type": "string"
+              },
+              "connectionState": {
                 "type": "string"
               }
             },
@@ -316,53 +387,8 @@
           }
         },
         {
-          "name": "delete_prefix",
-          "description": "Delete a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_route",
-          "description": "Create a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "nextHop",
-              "asPath"
-            ]
-          }
-        },
-        {
-          "name": "list_routes",
-          "description": "List Routes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_route",
-          "description": "Get a Route by id.",
+          "name": "delete_r_t_c_peer_connection",
+          "description": "Delete a RTCPeerConnection.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -376,161 +402,50 @@
           }
         },
         {
-          "name": "update_route",
-          "description": "Update a Route.",
+          "name": "create_r_t_c_data_channel",
+          "description": "Create a RTCDataChannel.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "label": {
+                "type": "string"
+              },
+              "ordered": {
+                "type": "boolean"
+              },
+              "protocol": {
+                "type": "string"
+              },
+              "negotiated": {
+                "type": "boolean"
+              },
               "id": {
-                "type": "string"
-              },
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_route",
-          "description": "Delete a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_peer",
-          "description": "Create a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "asn",
-              "ipAddress"
-            ]
-          }
-        },
-        {
-          "name": "list_peers",
-          "description": "List Peers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_peer",
-          "description": "Get a Peer by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_peer",
-          "description": "Update a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_peer",
-          "description": "Delete a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_zone",
-          "description": "Create a Zone.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "serial": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "readyState": {
+                "type": "string"
+              },
+              "bufferedAmount": {
                 "type": "integer"
               }
             },
             "required": [
-              "name",
-              "serial"
+              "label",
+              "ordered"
             ]
           }
         },
         {
-          "name": "list_zones",
-          "description": "List Zones.",
+          "name": "list_r_t_c_data_channels",
+          "description": "List RTCDataChannels.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_zone",
-          "description": "Get a Zone by id.",
+          "name": "get_r_t_c_data_channel",
+          "description": "Get a RTCDataChannel by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -544,21 +459,30 @@
           }
         },
         {
-          "name": "update_zone",
-          "description": "Update a Zone.",
+          "name": "update_r_t_c_data_channel",
+          "description": "Update a RTCDataChannel.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "serial": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "label": {
+                "type": "string"
+              },
+              "ordered": {
+                "type": "boolean"
+              },
+              "protocol": {
+                "type": "string"
+              },
+              "negotiated": {
+                "type": "boolean"
+              },
+              "readyState": {
+                "type": "string"
+              },
+              "bufferedAmount": {
                 "type": "integer"
               }
             },
@@ -568,8 +492,8 @@
           }
         },
         {
-          "name": "delete_zone",
-          "description": "Delete a Zone.",
+          "name": "delete_r_t_c_data_channel",
+          "description": "Delete a RTCDataChannel.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -583,41 +507,71 @@
           }
         },
         {
-          "name": "create_record",
-          "description": "Create a Record.",
+          "name": "create_r_t_c_session_description",
+          "description": "Create a RTCSessionDescription.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "zoneId": {
+              "type": {
                 "type": "string"
               },
-              "name": {
+              "sdp": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "sdp"
+            ]
+          }
+        },
+        {
+          "name": "list_r_t_c_session_descriptions",
+          "description": "List RTCSessionDescriptions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_r_t_c_session_description",
+          "description": "Get a RTCSessionDescription by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_r_t_c_session_description",
+          "description": "Update a RTCSessionDescription.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "value": {
+              "sdp": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "type"
+              "id"
             ]
           }
         },
         {
-          "name": "list_records",
-          "description": "List Records.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_record",
-          "description": "Get a Record by id.",
+          "name": "delete_r_t_c_session_description",
+          "description": "Delete a RTCSessionDescription.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -631,83 +585,56 @@
           }
         },
         {
-          "name": "update_record",
-          "description": "Update a Record.",
+          "name": "create_r_t_c_ice_candidate",
+          "description": "Create a RTCIceCandidate.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
+              "candidate": {
                 "type": "string"
               },
-              "zoneId": {
+              "sdpMLineIndex": {
+                "type": "integer"
+              },
+              "sdpMid": {
                 "type": "string"
               },
-              "name": {
+              "protocol": {
+                "type": "string"
+              },
+              "port": {
+                "type": "integer"
+              },
+              "address": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "value": {
+              "tcpType": {
                 "type": "string"
+              },
+              "priority": {
+                "type": "integer"
               }
             },
             "required": [
-              "id"
+              "candidate",
+              "sdpMLineIndex"
             ]
           }
         },
         {
-          "name": "delete_record",
-          "description": "Delete a Record.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_tunnel",
-          "description": "Create a Tunnel.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "localAddr": {
-                "type": "string"
-              },
-              "remoteAddr": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "localAddr",
-              "remoteAddr"
-            ]
-          }
-        },
-        {
-          "name": "list_tunnels",
-          "description": "List Tunnels.",
+          "name": "list_r_t_c_ice_candidates",
+          "description": "List RTCIceCandidates.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_tunnel",
-          "description": "Get a Tunnel by id.",
+          "name": "get_r_t_c_ice_candidate",
+          "description": "Get a RTCIceCandidate by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -721,25 +648,40 @@
           }
         },
         {
-          "name": "update_tunnel",
-          "description": "Update a Tunnel.",
+          "name": "update_r_t_c_ice_candidate",
+          "description": "Update a RTCIceCandidate.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "localAddr": {
+              "candidate": {
                 "type": "string"
               },
-              "remoteAddr": {
+              "sdpMLineIndex": {
+                "type": "integer"
+              },
+              "sdpMid": {
                 "type": "string"
               },
               "protocol": {
                 "type": "string"
               },
-              "active": {
-                "type": "boolean"
+              "port": {
+                "type": "integer"
+              },
+              "address": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "tcpType": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "integer"
               }
             },
             "required": [
@@ -748,8 +690,92 @@
           }
         },
         {
-          "name": "delete_tunnel",
-          "description": "Delete a Tunnel.",
+          "name": "delete_r_t_c_ice_candidate",
+          "description": "Delete a RTCIceCandidate.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_r_t_c_rtp_transceiver",
+          "description": "Create a RTCRtpTransceiver.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "mid": {
+                "type": "string"
+              },
+              "direction": {
+                "type": "string"
+              },
+              "currentDirection": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "mid",
+              "direction"
+            ]
+          }
+        },
+        {
+          "name": "list_r_t_c_rtp_transceivers",
+          "description": "List RTCRtpTransceivers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_r_t_c_rtp_transceiver",
+          "description": "Get a RTCRtpTransceiver by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_r_t_c_rtp_transceiver",
+          "description": "Update a RTCRtpTransceiver.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "mid": {
+                "type": "string"
+              },
+              "direction": {
+                "type": "string"
+              },
+              "currentDirection": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_r_t_c_rtp_transceiver",
+          "description": "Delete a RTCRtpTransceiver.",
           "inputSchema": {
             "type": "object",
             "properties": {

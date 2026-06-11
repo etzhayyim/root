@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible DevSecOps / serverless actor (pulumi); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:pulumi-compat",
-    "x-wasm-cid": "bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
+    "x-wasm-cid": "bafkreiacvan7mnyzqs64ystmdo7ooym57bcclvuwv5l3qjryxjvyxbfgc4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
+      "url": "ipfs://bafkreiacvan7mnyzqs64ystmdo7ooym57bcclvuwv5l3qjryxjvyxbfgc4",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/services": {
+    "/v1/updates": {
       "get": {
-        "summary": "List Services",
+        "summary": "List Updates",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Service"
+                        "$ref": "#/components/schemas/Update"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Service",
+        "summary": "Create a Update",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/UpdateCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Update"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/services/{id}": {
+    "/v1/updates/{id}": {
       "get": {
-        "summary": "Get a Service",
+        "summary": "Get a Update",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Update"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Service",
+        "summary": "Update a Update",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/UpdateCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Update"
                 }
               }
             }
@@ -181,7 +181,377 @@
         }
       },
       "delete": {
-        "summary": "Delete a Service",
+        "summary": "Delete a Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/stacks": {
+      "get": {
+        "summary": "List Stacks",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Stack"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Stack",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StackCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stack"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/stacks/{id}": {
+      "get": {
+        "summary": "Get a Stack",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stack"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Stack",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StackCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stack"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Stack",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/policies": {
+      "get": {
+        "summary": "List Policies",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Policy"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Policy",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PolicyCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Policy"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/policies/{id}": {
+      "get": {
+        "summary": "Get a Policy",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Policy"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Policy",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PolicyCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Policy"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Policy",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +757,9 @@
         }
       }
     },
-    "/v1/secrets": {
+    "/v1/organizations": {
       "get": {
-        "summary": "List Secrets",
+        "summary": "List Organizations",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Secret"
+                        "$ref": "#/components/schemas/Organization"
                       }
                     },
                     "has_more": {
@@ -449,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Secret",
+        "summary": "Create a Organization",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           }
@@ -466,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -477,9 +847,9 @@
         }
       }
     },
-    "/v1/secrets/{id}": {
+    "/v1/organizations/{id}": {
       "get": {
-        "summary": "Get a Secret",
+        "summary": "Get a Organization",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -514,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Secret",
+        "summary": "Update a Organization",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           }
@@ -540,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -551,562 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Secret",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/apiproxies": {
-      "get": {
-        "summary": "List ApiProxies",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ApiProxy"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a ApiProxy",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApiProxyCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/apiproxies/{id}": {
-      "get": {
-        "summary": "Get a ApiProxy",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a ApiProxy",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApiProxyCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a ApiProxy",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/databases": {
-      "get": {
-        "summary": "List Databases",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Database"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Database",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Database"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/databases/{id}": {
-      "get": {
-        "summary": "Get a Database",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Database"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Database",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Database"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Database",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/functions": {
-      "get": {
-        "summary": "List Functions",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Function"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Function",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Function"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/functions/{id}": {
-      "get": {
-        "summary": "Get a Function",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Function"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Function",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Function"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Function",
+        "summary": "Delete a Organization",
         "parameters": [
           {
             "name": "id",
@@ -1140,7 +955,162 @@
   },
   "components": {
     "schemas": {
-      "Service": {
+      "Update": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "update",
+              "preview",
+              "refresh",
+              "rename",
+              "destroy",
+              "import",
+              "resource-import"
+            ]
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "not-started",
+              "in-progress",
+              "succeeded",
+              "failed"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "resourceCount": {
+            "type": "integer"
+          },
+          "startTime": {
+            "type": "integer"
+          },
+          "endTime": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpdateCreate": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "update",
+              "preview",
+              "refresh",
+              "rename",
+              "destroy",
+              "import",
+              "resource-import"
+            ]
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "not-started",
+              "in-progress",
+              "succeeded",
+              "failed"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "resourceCount": {
+            "type": "integer"
+          },
+          "startTime": {
+            "type": "integer"
+          },
+          "endTime": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "kind",
+          "result"
+        ]
+      },
+      "Stack": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "stackName": {
+            "type": "string"
+          },
+          "orgName": {
+            "type": "string"
+          },
+          "projectName": {
+            "type": "string"
+          },
+          "lastUpdate": {
+            "type": "integer"
+          },
+          "resourceCount": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "StackCreate": {
+        "type": "object",
+        "properties": {
+          "stackName": {
+            "type": "string"
+          },
+          "orgName": {
+            "type": "string"
+          },
+          "projectName": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "lastUpdate": {
+            "type": "integer"
+          },
+          "resourceCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "stackName",
+          "orgName"
+        ]
+      },
+      "Policy": {
         "type": "object",
         "properties": {
           "id": {
@@ -1149,13 +1119,32 @@
           "name": {
             "type": "string"
           },
-          "runtime": {
+          "displayName": {
             "type": "string"
           },
-          "region": {
+          "description": {
             "type": "string"
           },
-          "status": {
+          "enforcementLevel": {
+            "type": "string",
+            "enum": [
+              "Advisory",
+              "Mandatory",
+              "Remediate",
+              "Disabled"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "PolicySeverityUnspecified",
+              "PolicySeverityLow",
+              "PolicySeverityMedium",
+              "PolicySeverityHigh",
+              "PolicySeverityCritical"
+            ]
+          },
+          "message": {
             "type": "string"
           },
           "createdAt": {
@@ -1168,25 +1157,44 @@
           }
         }
       },
-      "ServiceCreate": {
+      "PolicyCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "runtime": {
+          "displayName": {
             "type": "string"
           },
-          "region": {
+          "description": {
             "type": "string"
           },
-          "status": {
+          "enforcementLevel": {
+            "type": "string",
+            "enum": [
+              "Advisory",
+              "Mandatory",
+              "Remediate",
+              "Disabled"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "PolicySeverityUnspecified",
+              "PolicySeverityLow",
+              "PolicySeverityMedium",
+              "PolicySeverityHigh",
+              "PolicySeverityCritical"
+            ]
+          },
+          "message": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "runtime"
+          "displayName"
         ]
       },
       "Deployment": {
@@ -1195,16 +1203,31 @@
           "id": {
             "type": "string"
           },
-          "serviceId": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
           "status": {
+            "type": "string",
+            "enum": [
+              "not-started",
+              "accepted",
+              "running",
+              "failed",
+              "succeeded",
+              "skipped"
+            ]
+          },
+          "projectName": {
             "type": "string"
           },
-          "deployedAt": {
+          "stackName": {
+            "type": "string"
+          },
+          "paused": {
+            "type": "boolean"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified": {
             "type": "string",
             "format": "date-time"
           },
@@ -1221,25 +1244,42 @@
       "DeploymentCreate": {
         "type": "object",
         "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "version": {
+          "id": {
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "not-started",
+              "accepted",
+              "running",
+              "failed",
+              "succeeded",
+              "skipped"
+            ]
+          },
+          "projectName": {
             "type": "string"
           },
-          "deployedAt": {
+          "stackName": {
+            "type": "string"
+          },
+          "paused": {
+            "type": "boolean"
+          },
+          "created": {
+            "type": "string"
+          },
+          "modified": {
             "type": "string"
           }
         },
         "required": [
-          "version",
+          "id",
           "status"
         ]
       },
-      "Secret": {
+      "Organization": {
         "type": "object",
         "properties": {
           "id": {
@@ -1248,12 +1288,8 @@
           "name": {
             "type": "string"
           },
-          "scope": {
+          "role": {
             "type": "string"
-          },
-          "rotatedAt": {
-            "type": "string",
-            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1265,169 +1301,19 @@
           }
         }
       },
-      "SecretCreate": {
+      "OrganizationCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "scope": {
-            "type": "string"
-          },
-          "rotatedAt": {
+          "role": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "scope"
-        ]
-      },
-      "ApiProxy": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "basePath": {
-            "type": "string"
-          },
-          "target": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ApiProxyCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "basePath": {
-            "type": "string"
-          },
-          "target": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "name",
-          "basePath"
-        ]
-      },
-      "Database": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "engine": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DatabaseCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "engine": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "engine"
-        ]
-      },
-      "Function": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutMs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FunctionCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutMs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "memoryMb"
+          "role"
         ]
       }
     }

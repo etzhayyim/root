@@ -111,52 +111,57 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/prefixes", methods=["POST"])
-def create_prefix(request):
-    """Create a Prefix."""
+@app.route("/v1/tcpsegments", methods=["POST"])
+def create_tcp_segment(request):
+    """Create a TcpSegment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['sourcePort', 'destinationPort', 'sequenceNumber', 'acknowledgmentNumber', 'dataOffset', 'controlBits', 'window', 'urgentPointer'])
     if err:
         return err, 400
-    err = _require(data, ['cidr', 'originAsn'])
+    err = _require(data, ['sourcePort', 'destinationPort'])
     if err:
         return err, 400
-    rec = {"id": new_id("tcpip_pre")}
-    rec["cidr"] = data.get('cidr')
-    rec["originAsn"] = data.get('originAsn')
-    rec["validity"] = data.get('validity')
+    rec = {"id": new_id("tcpip_tcp")}
+    rec["sourcePort"] = _as_int(data.get('sourcePort'))
+    rec["destinationPort"] = _as_int(data.get('destinationPort'))
+    rec["sequenceNumber"] = _as_int(data.get('sequenceNumber'))
+    rec["acknowledgmentNumber"] = _as_int(data.get('acknowledgmentNumber'))
+    rec["dataOffset"] = _as_int(data.get('dataOffset'))
+    rec["controlBits"] = data.get('controlBits')
+    rec["window"] = _as_int(data.get('window'))
+    rec["urgentPointer"] = _as_int(data.get('urgentPointer'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Prefix", rec)
+    _persist("TcpSegment", rec)
     return rec, 201
 
-@app.route("/v1/prefixes", methods=["GET"])
-def list_prefixes(request):
-    """List Prefixes with filtering + cursor pagination."""
+@app.route("/v1/tcpsegments", methods=["GET"])
+def list_tcp_segments(request):
+    """List TcpSegments with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Prefix")
-    rows = _apply_filters(rows, params, ['cidr', 'originAsn', 'validity'])
+    rows = _query("TcpSegment")
+    rows = _apply_filters(rows, params, ['sourcePort', 'destinationPort', 'sequenceNumber', 'acknowledgmentNumber', 'dataOffset', 'controlBits', 'window', 'urgentPointer'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["GET"])
-def get_prefix(request, eid):
-    """Retrieve a Prefix by id (supports ?expand=)."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/tcpsegments/<eid>", methods=["GET"])
+def get_tcp_segment(request, eid):
+    """Retrieve a TcpSegment by id (supports ?expand=)."""
+    rows = _query("TcpSegment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["POST", "PATCH"])
-def update_prefix(request, eid):
-    """Update a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/tcpsegments/<eid>", methods=["POST", "PATCH"])
+def update_tcp_segment(request, eid):
+    """Update a TcpSegment."""
+    rows = _query("TcpSegment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['sourcePort', 'destinationPort', 'sequenceNumber', 'acknowledgmentNumber', 'dataOffset', 'controlBits', 'window', 'urgentPointer'])
     if err:
         return err, 400
     rec = rows[0]
@@ -164,195 +169,142 @@ def update_prefix(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Prefix", rec)
+    _persist("TcpSegment", rec)
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["DELETE"])
-def delete_prefix(request, eid):
-    """Delete a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/tcpsegments/<eid>", methods=["DELETE"])
+def delete_tcp_segment(request, eid):
+    """Delete a TcpSegment."""
+    rows = _query("TcpSegment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"tcp_ip.Prefix", "id": eid})
+    db.retract({"entity": f"tcp_ip.TcpSegment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/routes", methods=["POST"])
-def create_route(request):
-    """Create a Route."""
+@app.route("/v1/tcpconnections", methods=["POST"])
+def create_tcp_connection(request):
+    """Create a TcpConnection."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['localPort', 'remotePort', 'state', 'sequenceSendNext', 'sequenceReceiveNext'])
     if err:
         return err, 400
-    err = _require(data, ['nextHop', 'asPath'])
+    err = _require(data, ['localPort', 'remotePort'])
     if err:
         return err, 400
-    rec = {"id": new_id("tcpip_rou")}
-    rec["prefixId"] = data.get('prefixId')
-    rec["nextHop"] = data.get('nextHop')
-    rec["asPath"] = data.get('asPath')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Route", rec)
-    return rec, 201
-
-@app.route("/v1/routes", methods=["GET"])
-def list_routes(request):
-    """List Routes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Route")
-    rows = _apply_filters(rows, params, ['prefixId', 'nextHop', 'asPath'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/routes/<eid>", methods=["GET"])
-def get_route(request, eid):
-    """Retrieve a Route by id (supports ?expand=)."""
-    rows = _query("Route", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'prefixId': 'Prefix'})
-    return rec, 200
-
-@app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
-def update_route(request, eid):
-    """Update a Route."""
-    rows = _query("Route", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Route", rec)
-    return rec, 200
-
-@app.route("/v1/routes/<eid>", methods=["DELETE"])
-def delete_route(request, eid):
-    """Delete a Route."""
-    rows = _query("Route", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"tcp_ip.Route", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/peers", methods=["POST"])
-def create_peer(request):
-    """Create a Peer."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
-    if err:
-        return err, 400
-    err = _require(data, ['asn', 'ipAddress'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("tcpip_pee")}
-    rec["asn"] = data.get('asn')
-    rec["ipAddress"] = data.get('ipAddress')
+    if data.get('state') and data['state'] not in ['CLOSED', 'LISTEN', 'SYN-SENT', 'SYN-RECEIVED', 'ESTABLISHED', 'FIN-WAIT-1', 'FIN-WAIT-2', 'CLOSE-WAIT', 'CLOSING', 'LAST-ACK', 'TIME-WAIT']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['CLOSED', 'LISTEN', 'SYN-SENT', 'SYN-RECEIVED', 'ESTABLISHED', 'FIN-WAIT-1', 'FIN-WAIT-2', 'CLOSE-WAIT', 'CLOSING', 'LAST-ACK', 'TIME-WAIT']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("tcpip_tcp")}
+    rec["localPort"] = _as_int(data.get('localPort'))
+    rec["remotePort"] = _as_int(data.get('remotePort'))
     rec["state"] = data.get('state')
+    rec["sequenceSendNext"] = _as_int(data.get('sequenceSendNext'))
+    rec["sequenceReceiveNext"] = _as_int(data.get('sequenceReceiveNext'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Peer", rec)
+    _persist("TcpConnection", rec)
     return rec, 201
 
-@app.route("/v1/peers", methods=["GET"])
-def list_peers(request):
-    """List Peers with filtering + cursor pagination."""
+@app.route("/v1/tcpconnections", methods=["GET"])
+def list_tcp_connections(request):
+    """List TcpConnections with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Peer")
-    rows = _apply_filters(rows, params, ['asn', 'ipAddress', 'state'])
+    rows = _query("TcpConnection")
+    rows = _apply_filters(rows, params, ['localPort', 'remotePort', 'state', 'sequenceSendNext', 'sequenceReceiveNext'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/peers/<eid>", methods=["GET"])
-def get_peer(request, eid):
-    """Retrieve a Peer by id (supports ?expand=)."""
-    rows = _query("Peer", eid)
+@app.route("/v1/tcpconnections/<eid>", methods=["GET"])
+def get_tcp_connection(request, eid):
+    """Retrieve a TcpConnection by id (supports ?expand=)."""
+    rows = _query("TcpConnection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["POST", "PATCH"])
-def update_peer(request, eid):
-    """Update a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/tcpconnections/<eid>", methods=["POST", "PATCH"])
+def update_tcp_connection(request, eid):
+    """Update a TcpConnection."""
+    rows = _query("TcpConnection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['localPort', 'remotePort', 'state', 'sequenceSendNext', 'sequenceReceiveNext'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['CLOSED', 'LISTEN', 'SYN-SENT', 'SYN-RECEIVED', 'ESTABLISHED', 'FIN-WAIT-1', 'FIN-WAIT-2', 'CLOSE-WAIT', 'CLOSING', 'LAST-ACK', 'TIME-WAIT']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['CLOSED', 'LISTEN', 'SYN-SENT', 'SYN-RECEIVED', 'ESTABLISHED', 'FIN-WAIT-1', 'FIN-WAIT-2', 'CLOSE-WAIT', 'CLOSING', 'LAST-ACK', 'TIME-WAIT']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Peer", rec)
+    _persist("TcpConnection", rec)
     return rec, 200
 
-@app.route("/v1/peers/<eid>", methods=["DELETE"])
-def delete_peer(request, eid):
-    """Delete a Peer."""
-    rows = _query("Peer", eid)
+@app.route("/v1/tcpconnections/<eid>", methods=["DELETE"])
+def delete_tcp_connection(request, eid):
+    """Delete a TcpConnection."""
+    rows = _query("TcpConnection", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"tcp_ip.Peer", "id": eid})
+    db.retract({"entity": f"tcp_ip.TcpConnection", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/zones", methods=["POST"])
-def create_zone(request):
-    """Create a Zone."""
+@app.route("/v1/ippackets", methods=["POST"])
+def create_ip_packet(request):
+    """Create a IpPacket."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['version', 'headerLength', 'totalLength', 'identification', 'flags', 'fragmentOffset', 'timeToLive', 'protocol', 'sourceAddress', 'destinationAddress'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'serial'])
+    err = _require(data, ['version', 'headerLength'])
     if err:
         return err, 400
-    rec = {"id": new_id("tcpip_zon")}
-    rec["name"] = data.get('name')
-    rec["serial"] = _as_int(data.get('serial'))
-    rec["refreshSec"] = _as_int(data.get('refreshSec'))
+    rec = {"id": new_id("tcpip_ipp")}
+    rec["version"] = _as_int(data.get('version'))
+    rec["headerLength"] = _as_int(data.get('headerLength'))
+    rec["totalLength"] = _as_int(data.get('totalLength'))
+    rec["identification"] = _as_int(data.get('identification'))
+    rec["flags"] = data.get('flags')
+    rec["fragmentOffset"] = _as_int(data.get('fragmentOffset'))
+    rec["timeToLive"] = _as_int(data.get('timeToLive'))
+    rec["protocol"] = _as_int(data.get('protocol'))
+    rec["sourceAddress"] = data.get('sourceAddress')
+    rec["destinationAddress"] = data.get('destinationAddress')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Zone", rec)
+    _persist("IpPacket", rec)
     return rec, 201
 
-@app.route("/v1/zones", methods=["GET"])
-def list_zones(request):
-    """List Zones with filtering + cursor pagination."""
+@app.route("/v1/ippackets", methods=["GET"])
+def list_ip_packets(request):
+    """List IpPackets with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Zone")
-    rows = _apply_filters(rows, params, ['name', 'serial', 'refreshSec'])
+    rows = _query("IpPacket")
+    rows = _apply_filters(rows, params, ['version', 'headerLength', 'totalLength', 'identification', 'flags', 'fragmentOffset', 'timeToLive', 'protocol', 'sourceAddress', 'destinationAddress'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/zones/<eid>", methods=["GET"])
-def get_zone(request, eid):
-    """Retrieve a Zone by id (supports ?expand=)."""
-    rows = _query("Zone", eid)
+@app.route("/v1/ippackets/<eid>", methods=["GET"])
+def get_ip_packet(request, eid):
+    """Retrieve a IpPacket by id (supports ?expand=)."""
+    rows = _query("IpPacket", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["POST", "PATCH"])
-def update_zone(request, eid):
-    """Update a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/ippackets/<eid>", methods=["POST", "PATCH"])
+def update_ip_packet(request, eid):
+    """Update a IpPacket."""
+    rows = _query("IpPacket", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['version', 'headerLength', 'totalLength', 'identification', 'flags', 'fragmentOffset', 'timeToLive', 'protocol', 'sourceAddress', 'destinationAddress'])
     if err:
         return err, 400
     rec = rows[0]
@@ -360,66 +312,65 @@ def update_zone(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Zone", rec)
+    _persist("IpPacket", rec)
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["DELETE"])
-def delete_zone(request, eid):
-    """Delete a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/ippackets/<eid>", methods=["DELETE"])
+def delete_ip_packet(request, eid):
+    """Delete a IpPacket."""
+    rows = _query("IpPacket", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"tcp_ip.Zone", "id": eid})
+    db.retract({"entity": f"tcp_ip.IpPacket", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/records", methods=["POST"])
-def create_record(request):
-    """Create a Record."""
+@app.route("/v1/icmpmessages", methods=["POST"])
+def create_icmp_message(request):
+    """Create a IcmpMessage."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['type', 'code', 'checksum', 'restOfHeader'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['type', 'code'])
     if err:
         return err, 400
-    rec = {"id": new_id("tcpip_rec")}
-    rec["zoneId"] = data.get('zoneId')
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["value"] = data.get('value')
+    rec = {"id": new_id("tcpip_icm")}
+    rec["type"] = _as_int(data.get('type'))
+    rec["code"] = _as_int(data.get('code'))
+    rec["checksum"] = data.get('checksum')
+    rec["restOfHeader"] = data.get('restOfHeader')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Record", rec)
+    _persist("IcmpMessage", rec)
     return rec, 201
 
-@app.route("/v1/records", methods=["GET"])
-def list_records(request):
-    """List Records with filtering + cursor pagination."""
+@app.route("/v1/icmpmessages", methods=["GET"])
+def list_icmp_messages(request):
+    """List IcmpMessages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Record")
-    rows = _apply_filters(rows, params, ['zoneId', 'name', 'type', 'value'])
+    rows = _query("IcmpMessage")
+    rows = _apply_filters(rows, params, ['type', 'code', 'checksum', 'restOfHeader'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/records/<eid>", methods=["GET"])
-def get_record(request, eid):
-    """Retrieve a Record by id (supports ?expand=)."""
-    rows = _query("Record", eid)
+@app.route("/v1/icmpmessages/<eid>", methods=["GET"])
+def get_icmp_message(request, eid):
+    """Retrieve a IcmpMessage by id (supports ?expand=)."""
+    rows = _query("IcmpMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'zoneId': 'Zone'})
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["POST", "PATCH"])
-def update_record(request, eid):
-    """Update a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/icmpmessages/<eid>", methods=["POST", "PATCH"])
+def update_icmp_message(request, eid):
+    """Update a IcmpMessage."""
+    rows = _query("IcmpMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['type', 'code', 'checksum', 'restOfHeader'])
     if err:
         return err, 400
     rec = rows[0]
@@ -427,88 +378,22 @@ def update_record(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Record", rec)
+    _persist("IcmpMessage", rec)
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["DELETE"])
-def delete_record(request, eid):
-    """Delete a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/icmpmessages/<eid>", methods=["DELETE"])
+def delete_icmp_message(request, eid):
+    """Delete a IcmpMessage."""
+    rows = _query("IcmpMessage", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"tcp_ip.Record", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tunnels", methods=["POST"])
-def create_tunnel(request):
-    """Create a Tunnel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['localAddr', 'remoteAddr'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("tcpip_tun")}
-    rec["localAddr"] = data.get('localAddr')
-    rec["remoteAddr"] = data.get('remoteAddr')
-    rec["protocol"] = data.get('protocol')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Tunnel", rec)
-    return rec, 201
-
-@app.route("/v1/tunnels", methods=["GET"])
-def list_tunnels(request):
-    """List Tunnels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Tunnel")
-    rows = _apply_filters(rows, params, ['localAddr', 'remoteAddr', 'protocol', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tunnels/<eid>", methods=["GET"])
-def get_tunnel(request, eid):
-    """Retrieve a Tunnel by id (supports ?expand=)."""
-    rows = _query("Tunnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tunnels/<eid>", methods=["POST", "PATCH"])
-def update_tunnel(request, eid):
-    """Update a Tunnel."""
-    rows = _query("Tunnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Tunnel", rec)
-    return rec, 200
-
-@app.route("/v1/tunnels/<eid>", methods=["DELETE"])
-def delete_tunnel(request, eid):
-    """Delete a Tunnel."""
-    rows = _query("Tunnel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"tcp_ip.Tunnel", "id": eid})
+    db.retract({"entity": f"tcp_ip.IcmpMessage", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "tcp_ip-compat", "tier": "L4",
-            "entities": ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']}, 200
+            "entities": ['TcpSegment', 'TcpConnection', 'IpPacket', 'IcmpMessage']}, 200
 
 
 if __name__ == "__main__":

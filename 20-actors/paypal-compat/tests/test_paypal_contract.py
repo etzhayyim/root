@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "paypal.kotoba")
-ENTITIES = ['Customer', 'PaymentIntent', 'Charge', 'Refund', 'Payout', 'PaymentMethod']
-PLURALS = {'Customer': 'customers', 'PaymentIntent': 'paymentintents', 'Charge': 'charges', 'Refund': 'refunds', 'Payout': 'payouts', 'PaymentMethod': 'paymentmethods'}
+ENTITIES = ['Order', 'Authorization', 'Capture', 'Refund', 'Plan', 'Subscription']
+PLURALS = {'Order': 'orders', 'Authorization': 'authorizations', 'Capture': 'captures', 'Refund': 'refunds', 'Plan': 'plans', 'Subscription': 'subscriptions'}
 
 
 class PaypalContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class PaypalContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['intent', 'status']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

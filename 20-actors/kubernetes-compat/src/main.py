@@ -111,286 +111,171 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/repositories", methods=["POST"])
-def create_repository(request):
-    """Create a Repository."""
+@app.route("/v1/pods", methods=["POST"])
+def create_pod(request):
+    """Create a Pod."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'owner', 'defaultBranch', 'private'])
+    err = _reject_unknown(data, ['name', 'namespace', 'phase', 'nodeName', 'podIP', 'qosClass', 'restartPolicy'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'owner'])
+    err = _require(data, ['name', 'namespace'])
     if err:
         return err, 400
-    rec = {"id": new_id("kubernet_rep")}
+    if data.get('phase') and data['phase'] not in ['Pending', 'Running', 'Succeeded', 'Failed', 'Unknown']:
+        return {"error": {"message": "invalid phase; allowed: " + ", ".join(['Pending', 'Running', 'Succeeded', 'Failed', 'Unknown']), "type": "invalid_request_error"}}, 400
+    if data.get('restartPolicy') and data['restartPolicy'] not in ['Always', 'OnFailure', 'Never']:
+        return {"error": {"message": "invalid restartPolicy; allowed: " + ", ".join(['Always', 'OnFailure', 'Never']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kubernet_pod")}
     rec["name"] = data.get('name')
-    rec["owner"] = data.get('owner')
-    rec["defaultBranch"] = data.get('defaultBranch')
-    rec["private"] = _as_bool(data.get('private'))
+    rec["namespace"] = data.get('namespace')
+    rec["phase"] = data.get('phase')
+    rec["nodeName"] = data.get('nodeName')
+    rec["podIP"] = data.get('podIP')
+    rec["qosClass"] = data.get('qosClass')
+    rec["restartPolicy"] = data.get('restartPolicy')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Repository", rec)
+    _persist("Pod", rec)
     return rec, 201
 
-@app.route("/v1/repositories", methods=["GET"])
-def list_repositories(request):
-    """List Repositories with filtering + cursor pagination."""
+@app.route("/v1/pods", methods=["GET"])
+def list_pods(request):
+    """List Pods with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Repository")
-    rows = _apply_filters(rows, params, ['name', 'owner', 'defaultBranch', 'private'])
+    rows = _query("Pod")
+    rows = _apply_filters(rows, params, ['name', 'namespace', 'phase', 'nodeName', 'podIP', 'qosClass', 'restartPolicy'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/repositories/<eid>", methods=["GET"])
-def get_repository(request, eid):
-    """Retrieve a Repository by id (supports ?expand=)."""
-    rows = _query("Repository", eid)
+@app.route("/v1/pods/<eid>", methods=["GET"])
+def get_pod(request, eid):
+    """Retrieve a Pod by id (supports ?expand=)."""
+    rows = _query("Pod", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/repositories/<eid>", methods=["POST", "PATCH"])
-def update_repository(request, eid):
-    """Update a Repository."""
-    rows = _query("Repository", eid)
+@app.route("/v1/pods/<eid>", methods=["POST", "PATCH"])
+def update_pod(request, eid):
+    """Update a Pod."""
+    rows = _query("Pod", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'owner', 'defaultBranch', 'private'])
+    err = _reject_unknown(data, ['name', 'namespace', 'phase', 'nodeName', 'podIP', 'qosClass', 'restartPolicy'])
     if err:
         return err, 400
+    if data.get('phase') and data['phase'] not in ['Pending', 'Running', 'Succeeded', 'Failed', 'Unknown']:
+        return {"error": {"message": "invalid phase; allowed: " + ", ".join(['Pending', 'Running', 'Succeeded', 'Failed', 'Unknown']), "type": "invalid_request_error"}}, 400
+    if data.get('restartPolicy') and data['restartPolicy'] not in ['Always', 'OnFailure', 'Never']:
+        return {"error": {"message": "invalid restartPolicy; allowed: " + ", ".join(['Always', 'OnFailure', 'Never']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Repository", rec)
+    _persist("Pod", rec)
     return rec, 200
 
-@app.route("/v1/repositories/<eid>", methods=["DELETE"])
-def delete_repository(request, eid):
-    """Delete a Repository."""
-    rows = _query("Repository", eid)
+@app.route("/v1/pods/<eid>", methods=["DELETE"])
+def delete_pod(request, eid):
+    """Delete a Pod."""
+    rows = _query("Pod", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kubernetes.Repository", "id": eid})
+    db.retract({"entity": f"kubernetes.Pod", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/pipelines", methods=["POST"])
-def create_pipeline(request):
-    """Create a Pipeline."""
+@app.route("/v1/services", methods=["POST"])
+def create_service(request):
+    """Create a Service."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'name', 'trigger'])
+    err = _reject_unknown(data, ['name', 'namespace', 'type', 'clusterIP', 'externalName'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'trigger'])
+    err = _require(data, ['name', 'namespace'])
     if err:
         return err, 400
-    rec = {"id": new_id("kubernet_pip")}
-    rec["repoId"] = data.get('repoId')
+    if data.get('type') and data['type'] not in ['ClusterIP', 'NodePort', 'LoadBalancer', 'ExternalName']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ClusterIP', 'NodePort', 'LoadBalancer', 'ExternalName']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kubernet_ser")}
     rec["name"] = data.get('name')
-    rec["trigger"] = data.get('trigger')
+    rec["namespace"] = data.get('namespace')
+    rec["type"] = data.get('type')
+    rec["clusterIP"] = data.get('clusterIP')
+    rec["externalName"] = data.get('externalName')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Pipeline", rec)
+    _persist("Service", rec)
     return rec, 201
 
-@app.route("/v1/pipelines", methods=["GET"])
-def list_pipelines(request):
-    """List Pipelines with filtering + cursor pagination."""
+@app.route("/v1/services", methods=["GET"])
+def list_services(request):
+    """List Services with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Pipeline")
-    rows = _apply_filters(rows, params, ['repoId', 'name', 'trigger'])
+    rows = _query("Service")
+    rows = _apply_filters(rows, params, ['name', 'namespace', 'type', 'clusterIP', 'externalName'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/pipelines/<eid>", methods=["GET"])
-def get_pipeline(request, eid):
-    """Retrieve a Pipeline by id (supports ?expand=)."""
-    rows = _query("Pipeline", eid)
+@app.route("/v1/services/<eid>", methods=["GET"])
+def get_service(request, eid):
+    """Retrieve a Service by id (supports ?expand=)."""
+    rows = _query("Service", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/pipelines/<eid>", methods=["POST", "PATCH"])
-def update_pipeline(request, eid):
-    """Update a Pipeline."""
-    rows = _query("Pipeline", eid)
+@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
+def update_service(request, eid):
+    """Update a Service."""
+    rows = _query("Service", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'name', 'trigger'])
+    err = _reject_unknown(data, ['name', 'namespace', 'type', 'clusterIP', 'externalName'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['ClusterIP', 'NodePort', 'LoadBalancer', 'ExternalName']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['ClusterIP', 'NodePort', 'LoadBalancer', 'ExternalName']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Pipeline", rec)
+    _persist("Service", rec)
     return rec, 200
 
-@app.route("/v1/pipelines/<eid>", methods=["DELETE"])
-def delete_pipeline(request, eid):
-    """Delete a Pipeline."""
-    rows = _query("Pipeline", eid)
+@app.route("/v1/services/<eid>", methods=["DELETE"])
+def delete_service(request, eid):
+    """Delete a Service."""
+    rows = _query("Service", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kubernetes.Pipeline", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/builds", methods=["POST"])
-def create_build(request):
-    """Create a Build."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
-    if err:
-        return err, 400
-    err = _require(data, ['number', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kubernet_bui")}
-    rec["pipelineId"] = data.get('pipelineId')
-    rec["number"] = _as_int(data.get('number'))
-    rec["status"] = data.get('status')
-    rec["commitSha"] = data.get('commitSha')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Build", rec)
-    return rec, 201
-
-@app.route("/v1/builds", methods=["GET"])
-def list_builds(request):
-    """List Builds with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Build")
-    rows = _apply_filters(rows, params, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/builds/<eid>", methods=["GET"])
-def get_build(request, eid):
-    """Retrieve a Build by id (supports ?expand=)."""
-    rows = _query("Build", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'pipelineId': 'Pipeline'})
-    return rec, 200
-
-@app.route("/v1/builds/<eid>", methods=["POST", "PATCH"])
-def update_build(request, eid):
-    """Update a Build."""
-    rows = _query("Build", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Build", rec)
-    return rec, 200
-
-@app.route("/v1/builds/<eid>", methods=["DELETE"])
-def delete_build(request, eid):
-    """Delete a Build."""
-    rows = _query("Build", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kubernetes.Build", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/artifacts", methods=["POST"])
-def create_artifact(request):
-    """Create a Artifact."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'sizeBytes'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("kubernet_art")}
-    rec["buildId"] = data.get('buildId')
-    rec["name"] = data.get('name')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Artifact", rec)
-    return rec, 201
-
-@app.route("/v1/artifacts", methods=["GET"])
-def list_artifacts(request):
-    """List Artifacts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Artifact")
-    rows = _apply_filters(rows, params, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["GET"])
-def get_artifact(request, eid):
-    """Retrieve a Artifact by id (supports ?expand=)."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'buildId': 'Build'})
-    return rec, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["POST", "PATCH"])
-def update_artifact(request, eid):
-    """Update a Artifact."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Artifact", rec)
-    return rec, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["DELETE"])
-def delete_artifact(request, eid):
-    """Delete a Artifact."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kubernetes.Artifact", "id": eid})
+    db.retract({"entity": f"kubernetes.Service", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/deployments", methods=["POST"])
 def create_deployment(request):
     """Create a Deployment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'environment', 'status'])
+    err = _reject_unknown(data, ['name', 'namespace', 'replicas', 'readyReplicas', 'updatedReplicas', 'observedGeneration'])
     if err:
         return err, 400
-    err = _require(data, ['environment', 'status'])
+    err = _require(data, ['name', 'namespace'])
     if err:
         return err, 400
     rec = {"id": new_id("kubernet_dep")}
-    rec["buildId"] = data.get('buildId')
-    rec["environment"] = data.get('environment')
-    rec["status"] = data.get('status')
+    rec["name"] = data.get('name')
+    rec["namespace"] = data.get('namespace')
+    rec["replicas"] = _as_int(data.get('replicas'))
+    rec["readyReplicas"] = _as_int(data.get('readyReplicas'))
+    rec["updatedReplicas"] = _as_int(data.get('updatedReplicas'))
+    rec["observedGeneration"] = _as_int(data.get('observedGeneration'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Deployment", rec)
@@ -401,7 +286,7 @@ def list_deployments(request):
     """List Deployments with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Deployment")
-    rows = _apply_filters(rows, params, ['buildId', 'environment', 'status'])
+    rows = _apply_filters(rows, params, ['name', 'namespace', 'replicas', 'readyReplicas', 'updatedReplicas', 'observedGeneration'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -413,7 +298,6 @@ def get_deployment(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'buildId': 'Build'})
     return rec, 200
 
 @app.route("/v1/deployments/<eid>", methods=["POST", "PATCH"])
@@ -423,7 +307,7 @@ def update_deployment(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'environment', 'status'])
+    err = _reject_unknown(data, ['name', 'namespace', 'replicas', 'readyReplicas', 'updatedReplicas', 'observedGeneration'])
     if err:
         return err, 400
     rec = rows[0]
@@ -443,53 +327,121 @@ def delete_deployment(request, eid):
     db.retract({"entity": f"kubernetes.Deployment", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
+@app.route("/v1/namespaces", methods=["POST"])
+def create_namespace(request):
+    """Create a Namespace."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'url', 'event', 'active'])
+    err = _reject_unknown(data, ['name', 'phase', 'deletionTimestamp'])
     if err:
         return err, 400
-    err = _require(data, ['url', 'event'])
+    err = _require(data, ['name', 'phase'])
     if err:
         return err, 400
-    rec = {"id": new_id("kubernet_web")}
-    rec["repoId"] = data.get('repoId')
-    rec["url"] = data.get('url')
-    rec["event"] = data.get('event')
-    rec["active"] = _as_bool(data.get('active'))
+    if data.get('phase') and data['phase'] not in ['Active', 'Terminating']:
+        return {"error": {"message": "invalid phase; allowed: " + ", ".join(['Active', 'Terminating']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kubernet_nam")}
+    rec["name"] = data.get('name')
+    rec["phase"] = data.get('phase')
+    rec["deletionTimestamp"] = data.get('deletionTimestamp')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("Namespace", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/namespaces", methods=["GET"])
+def list_namespaces(request):
+    """List Namespaces with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['repoId', 'url', 'event', 'active'])
+    rows = _query("Namespace")
+    rows = _apply_filters(rows, params, ['name', 'phase', 'deletionTimestamp'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/namespaces/<eid>", methods=["GET"])
+def get_namespace(request, eid):
+    """Retrieve a Namespace by id (supports ?expand=)."""
+    rows = _query("Namespace", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/namespaces/<eid>", methods=["POST", "PATCH"])
+def update_namespace(request, eid):
+    """Update a Namespace."""
+    rows = _query("Namespace", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'url', 'event', 'active'])
+    err = _reject_unknown(data, ['name', 'phase', 'deletionTimestamp'])
+    if err:
+        return err, 400
+    if data.get('phase') and data['phase'] not in ['Active', 'Terminating']:
+        return {"error": {"message": "invalid phase; allowed: " + ", ".join(['Active', 'Terminating']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Namespace", rec)
+    return rec, 200
+
+@app.route("/v1/namespaces/<eid>", methods=["DELETE"])
+def delete_namespace(request, eid):
+    """Delete a Namespace."""
+    rows = _query("Namespace", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"kubernetes.Namespace", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/nodes", methods=["POST"])
+def create_node(request):
+    """Create a Node."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'address', 'addressType'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'address'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("kubernet_nod")}
+    rec["name"] = data.get('name')
+    rec["address"] = data.get('address')
+    rec["addressType"] = data.get('addressType')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Node", rec)
+    return rec, 201
+
+@app.route("/v1/nodes", methods=["GET"])
+def list_nodes(request):
+    """List Nodes with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Node")
+    rows = _apply_filters(rows, params, ['name', 'address', 'addressType'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/nodes/<eid>", methods=["GET"])
+def get_node(request, eid):
+    """Retrieve a Node by id (supports ?expand=)."""
+    rows = _query("Node", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/nodes/<eid>", methods=["POST", "PATCH"])
+def update_node(request, eid):
+    """Update a Node."""
+    rows = _query("Node", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'address', 'addressType'])
     if err:
         return err, 400
     rec = rows[0]
@@ -497,22 +449,91 @@ def update_webhook(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("Node", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/nodes/<eid>", methods=["DELETE"])
+def delete_node(request, eid):
+    """Delete a Node."""
+    rows = _query("Node", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"kubernetes.Webhook", "id": eid})
+    db.retract({"entity": f"kubernetes.Node", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/persistentvolumes", methods=["POST"])
+def create_persistent_volume(request):
+    """Create a PersistentVolume."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'phase', 'message'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'phase'])
+    if err:
+        return err, 400
+    if data.get('phase') and data['phase'] not in ['Available', 'Bound', 'Released', 'Failed']:
+        return {"error": {"message": "invalid phase; allowed: " + ", ".join(['Available', 'Bound', 'Released', 'Failed']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("kubernet_per")}
+    rec["name"] = data.get('name')
+    rec["phase"] = data.get('phase')
+    rec["message"] = data.get('message')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("PersistentVolume", rec)
+    return rec, 201
+
+@app.route("/v1/persistentvolumes", methods=["GET"])
+def list_persistent_volumes(request):
+    """List PersistentVolumes with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("PersistentVolume")
+    rows = _apply_filters(rows, params, ['name', 'phase', 'message'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/persistentvolumes/<eid>", methods=["GET"])
+def get_persistent_volume(request, eid):
+    """Retrieve a PersistentVolume by id (supports ?expand=)."""
+    rows = _query("PersistentVolume", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/persistentvolumes/<eid>", methods=["POST", "PATCH"])
+def update_persistent_volume(request, eid):
+    """Update a PersistentVolume."""
+    rows = _query("PersistentVolume", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'phase', 'message'])
+    if err:
+        return err, 400
+    if data.get('phase') and data['phase'] not in ['Available', 'Bound', 'Released', 'Failed']:
+        return {"error": {"message": "invalid phase; allowed: " + ", ".join(['Available', 'Bound', 'Released', 'Failed']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("PersistentVolume", rec)
+    return rec, 200
+
+@app.route("/v1/persistentvolumes/<eid>", methods=["DELETE"])
+def delete_persistent_volume(request, eid):
+    """Delete a PersistentVolume."""
+    rows = _query("PersistentVolume", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"kubernetes.PersistentVolume", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "kubernetes-compat", "tier": "L4",
-            "entities": ['Repository', 'Pipeline', 'Build', 'Artifact', 'Deployment', 'Webhook']}, 200
+            "entities": ['Pod', 'Service', 'Deployment', 'Namespace', 'Node', 'PersistentVolume']}, 200
 
 
 if __name__ == "__main__":

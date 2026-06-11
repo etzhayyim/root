@@ -5,21 +5,88 @@
   "kind": "compat",
   "title": "vonage clean-room actor",
   "description": "Clean-room, API-compatible communications / social actor (vonage); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidljtkyiyvaalt7tti5ekjd3l6xldc6wefemmuvvlf5xs3pbrtxuu",
+  "wasmCid": "bafkreifqilsec4lwet333vrzs7rcujememvzuz6pguihin7qrnf7bwqeu4",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidljtkyiyvaalt7tti5ekjd3l6xldc6wefemmuvvlf5xs3pbrtxuu",
+  "ipfs": "ipfs://bafkreifqilsec4lwet333vrzs7rcujememvzuz6pguihin7qrnf7bwqeu4",
   "schema": "schema/vonage.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://developer.vonage.com/en/api",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Call",
+      "Message",
+      "Number",
+      "Verification",
+      "Application"
+    ],
+    "enums": {
+      "Call": {
+        "status": [
+          "started",
+          "ringing",
+          "answered",
+          "machine",
+          "completed",
+          "busy",
+          "cancelled",
+          "failed",
+          "rejected",
+          "timeout",
+          "unanswered"
+        ],
+        "direction": [
+          "inbound",
+          "outbound"
+        ]
+      },
+      "Message": {
+        "messageType": [
+          "text",
+          "unicode",
+          "binary"
+        ],
+        "channel": [
+          "sms",
+          "mms",
+          "whatsapp",
+          "messenger",
+          "viber",
+          "rcs"
+        ]
+      },
+      "Number": {
+        "type": [
+          "landline",
+          "landline-toll-free",
+          "mobile-lvn"
+        ]
+      },
+      "Verification": {
+        "status": [
+          "IN PROGRESS",
+          "SUCCESS",
+          "FAILED",
+          "EXPIRED",
+          "CANCELLED"
+        ]
+      },
+      "Application": {
+        "type": [
+          "voice",
+          "messages"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Channel",
+    "Call",
     "Message",
-    "User",
-    "Room",
-    "Stream",
-    "Webhook"
+    "Number",
+    "Verification",
+    "Application"
   ],
   "adr": [
     "260607",
@@ -31,32 +98,32 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/channels",
-          "op": "create Channel"
+          "path": "/v1/calls",
+          "op": "create Call"
         },
         {
           "method": "GET",
-          "path": "/v1/channels",
-          "op": "list Channel"
+          "path": "/v1/calls",
+          "op": "list Call"
         },
         {
           "method": "GET",
-          "path": "/v1/channels/{id}",
-          "op": "get Channel"
+          "path": "/v1/calls/{id}",
+          "op": "get Call"
         },
         {
           "method": "PATCH",
-          "path": "/v1/channels/{id}",
-          "op": "update Channel"
+          "path": "/v1/calls/{id}",
+          "op": "update Call"
         },
         {
           "method": "DELETE",
-          "path": "/v1/channels/{id}",
-          "op": "delete Channel"
+          "path": "/v1/calls/{id}",
+          "op": "delete Call"
         },
         {
           "method": "POST",
@@ -85,103 +152,78 @@
         },
         {
           "method": "POST",
-          "path": "/v1/users",
-          "op": "create User"
+          "path": "/v1/numbers",
+          "op": "create Number"
         },
         {
           "method": "GET",
-          "path": "/v1/users",
-          "op": "list User"
+          "path": "/v1/numbers",
+          "op": "list Number"
         },
         {
           "method": "GET",
-          "path": "/v1/users/{id}",
-          "op": "get User"
+          "path": "/v1/numbers/{id}",
+          "op": "get Number"
         },
         {
           "method": "PATCH",
-          "path": "/v1/users/{id}",
-          "op": "update User"
+          "path": "/v1/numbers/{id}",
+          "op": "update Number"
         },
         {
           "method": "DELETE",
-          "path": "/v1/users/{id}",
-          "op": "delete User"
+          "path": "/v1/numbers/{id}",
+          "op": "delete Number"
         },
         {
           "method": "POST",
-          "path": "/v1/rooms",
-          "op": "create Room"
+          "path": "/v1/verifications",
+          "op": "create Verification"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms",
-          "op": "list Room"
+          "path": "/v1/verifications",
+          "op": "list Verification"
         },
         {
           "method": "GET",
-          "path": "/v1/rooms/{id}",
-          "op": "get Room"
+          "path": "/v1/verifications/{id}",
+          "op": "get Verification"
         },
         {
           "method": "PATCH",
-          "path": "/v1/rooms/{id}",
-          "op": "update Room"
+          "path": "/v1/verifications/{id}",
+          "op": "update Verification"
         },
         {
           "method": "DELETE",
-          "path": "/v1/rooms/{id}",
-          "op": "delete Room"
+          "path": "/v1/verifications/{id}",
+          "op": "delete Verification"
         },
         {
           "method": "POST",
-          "path": "/v1/streams",
-          "op": "create Stream"
+          "path": "/v1/applications",
+          "op": "create Application"
         },
         {
           "method": "GET",
-          "path": "/v1/streams",
-          "op": "list Stream"
+          "path": "/v1/applications",
+          "op": "list Application"
         },
         {
           "method": "GET",
-          "path": "/v1/streams/{id}",
-          "op": "get Stream"
+          "path": "/v1/applications/{id}",
+          "op": "get Application"
         },
         {
           "method": "PATCH",
-          "path": "/v1/streams/{id}",
-          "op": "update Stream"
+          "path": "/v1/applications/{id}",
+          "op": "update Application"
         },
         {
           "method": "DELETE",
-          "path": "/v1/streams/{id}",
-          "op": "delete Stream"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/webhooks",
-          "op": "create Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks",
-          "op": "list Webhook"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/webhooks/{id}",
-          "op": "get Webhook"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/webhooks/{id}",
-          "op": "update Webhook"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/webhooks/{id}",
-          "op": "delete Webhook"
+          "path": "/v1/applications/{id}",
+          "op": "delete Application"
         }
       ],
       "features": {
@@ -244,44 +286,50 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_channel",
-          "description": "Create a Channel.",
+          "name": "create_call",
+          "description": "Create a Call.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "fromNumber": {
                 "type": "string"
               },
-              "type": {
+              "toNumber": {
                 "type": "string"
               },
-              "topic": {
+              "status": {
                 "type": "string"
               },
-              "memberCount": {
+              "direction": {
+                "type": "string"
+              },
+              "duration": {
                 "type": "integer"
+              },
+              "price": {
+                "type": "number"
               }
             },
             "required": [
-              "name",
-              "type"
+              "fromNumber",
+              "toNumber"
             ]
           }
         },
         {
-          "name": "list_channels",
-          "description": "List Channels.",
+          "name": "list_calls",
+          "description": "List Calls.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_channel",
-          "description": "Get a Channel by id.",
+          "name": "get_call",
+          "description": "Get a Call by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +343,31 @@
           }
         },
         {
-          "name": "update_channel",
-          "description": "Update a Channel.",
+          "name": "update_call",
+          "description": "Update a Call.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "fromNumber": {
                 "type": "string"
               },
-              "type": {
+              "toNumber": {
                 "type": "string"
               },
-              "topic": {
+              "status": {
                 "type": "string"
               },
-              "memberCount": {
+              "direction": {
+                "type": "string"
+              },
+              "duration": {
                 "type": "integer"
+              },
+              "price": {
+                "type": "number"
               }
             },
             "required": [
@@ -322,8 +376,8 @@
           }
         },
         {
-          "name": "delete_channel",
-          "description": "Delete a Channel.",
+          "name": "delete_call",
+          "description": "Delete a Call.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -342,22 +396,28 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "channelId": {
+              "messageId": {
                 "type": "string"
               },
-              "authorId": {
+              "toNumber": {
                 "type": "string"
               },
-              "body": {
+              "fromNumber": {
                 "type": "string"
               },
-              "sentAt": {
+              "status": {
+                "type": "string"
+              },
+              "messageType": {
+                "type": "string"
+              },
+              "channel": {
                 "type": "string"
               }
             },
             "required": [
-              "body",
-              "sentAt"
+              "toNumber",
+              "fromNumber"
             ]
           }
         },
@@ -393,16 +453,22 @@
               "id": {
                 "type": "string"
               },
-              "channelId": {
+              "messageId": {
                 "type": "string"
               },
-              "authorId": {
+              "toNumber": {
                 "type": "string"
               },
-              "body": {
+              "fromNumber": {
                 "type": "string"
               },
-              "sentAt": {
+              "status": {
+                "type": "string"
+              },
+              "messageType": {
+                "type": "string"
+              },
+              "channel": {
                 "type": "string"
               }
             },
@@ -427,38 +493,41 @@
           }
         },
         {
-          "name": "create_user",
-          "description": "Create a User.",
+          "name": "create_number",
+          "description": "Create a Number.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "handle": {
+              "msisdn": {
                 "type": "string"
               },
-              "displayName": {
+              "country": {
                 "type": "string"
               },
-              "verified": {
-                "type": "boolean"
+              "type": {
+                "type": "string"
+              },
+              "cost": {
+                "type": "number"
               }
             },
             "required": [
-              "handle",
-              "displayName"
+              "msisdn",
+              "country"
             ]
           }
         },
         {
-          "name": "list_users",
-          "description": "List Users.",
+          "name": "list_numbers",
+          "description": "List Numbers.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_user",
-          "description": "Get a User by id.",
+          "name": "get_number",
+          "description": "Get a Number by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,22 +541,25 @@
           }
         },
         {
-          "name": "update_user",
-          "description": "Update a User.",
+          "name": "update_number",
+          "description": "Update a Number.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "handle": {
+              "msisdn": {
                 "type": "string"
               },
-              "displayName": {
+              "country": {
                 "type": "string"
               },
-              "verified": {
-                "type": "boolean"
+              "type": {
+                "type": "string"
+              },
+              "cost": {
+                "type": "number"
               }
             },
             "required": [
@@ -496,8 +568,8 @@
           }
         },
         {
-          "name": "delete_user",
-          "description": "Delete a User.",
+          "name": "delete_number",
+          "description": "Delete a Number.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -511,38 +583,128 @@
           }
         },
         {
-          "name": "create_room",
-          "description": "Create a Room.",
+          "name": "create_verification",
+          "description": "Create a Verification.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "requestId": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "codeLength": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "number",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_verifications",
+          "description": "List Verifications.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_verification",
+          "description": "Get a Verification by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_verification",
+          "description": "Update a Verification.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "codeLength": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_verification",
+          "description": "Delete a Verification.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_application",
+          "description": "Create a Application.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "maxParticipants": {
-                "type": "integer"
+              "type": {
+                "type": "string"
               },
-              "recording": {
-                "type": "boolean"
+              "answerUrl": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "maxParticipants"
+              "type"
             ]
           }
         },
         {
-          "name": "list_rooms",
-          "description": "List Rooms.",
+          "name": "list_applications",
+          "description": "List Applications.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_room",
-          "description": "Get a Room by id.",
+          "name": "get_application",
+          "description": "Get a Application by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,8 +718,8 @@
           }
         },
         {
-          "name": "update_room",
-          "description": "Update a Room.",
+          "name": "update_application",
+          "description": "Update a Application.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -567,25 +729,10 @@
               "name": {
                 "type": "string"
               },
-              "maxParticipants": {
-                "type": "integer"
+              "type": {
+                "type": "string"
               },
-              "recording": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_room",
-          "description": "Delete a Room.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "answerUrl": {
                 "type": "string"
               }
             },
@@ -595,161 +742,8 @@
           }
         },
         {
-          "name": "create_stream",
-          "description": "Create a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "roomId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "status",
-              "bitrate"
-            ]
-          }
-        },
-        {
-          "name": "list_streams",
-          "description": "List Streams.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_stream",
-          "description": "Get a Stream by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_stream",
-          "description": "Update a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "roomId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "bitrate": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_stream",
-          "description": "Delete a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_webhook",
-          "description": "Create a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "event": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "event",
-              "url"
-            ]
-          }
-        },
-        {
-          "name": "list_webhooks",
-          "description": "List Webhooks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_webhook",
-          "description": "Get a Webhook by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_webhook",
-          "description": "Update a Webhook.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "event": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_webhook",
-          "description": "Delete a Webhook.",
+          "name": "delete_application",
+          "description": "Delete a Application.",
           "inputSchema": {
             "type": "object",
             "properties": {

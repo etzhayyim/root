@@ -5,21 +5,70 @@
   "kind": "compat",
   "title": "marqeta clean-room actor",
   "description": "Clean-room, API-compatible fintech / web3 actor (marqeta); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku",
+  "wasmCid": "bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku",
+  "ipfs": "ipfs://bafkreicgrgqlyjofm7ioinwlnks4esi5bhhn27yfdqsbjyczw7gaqm2oom",
   "schema": "schema/marqeta.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/marqeta/marqeta-openapi/blob/main/yaml/CoreAPI-3.0.40.yaml",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Card",
+      "CardProduct",
+      "User",
+      "Transaction",
+      "FundingSource"
+    ],
+    "enums": {
+      "Card": {
+        "state": [
+          "ACTIVE",
+          "SUSPENDED",
+          "TERMINATED",
+          "UNSUPPORTED",
+          "UNACTIVATED",
+          "LIMITED"
+        ],
+        "fulfillmentStatus": [
+          "ISSUED",
+          "ORDERED",
+          "REORDERED",
+          "REJECTED",
+          "SHIPPED",
+          "DELIVERED",
+          "DIGITALLY_PRESENTED"
+        ]
+      },
+      "User": {
+        "status": [
+          "UNVERIFIED",
+          "LIMITED",
+          "ACTIVE",
+          "SUSPENDED",
+          "CLOSED",
+          "TERMINATED"
+        ]
+      },
+      "Transaction": {
+        "state": [
+          "PENDING",
+          "CLEARED",
+          "COMPLETION",
+          "DECLINED",
+          "ERROR"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Account",
     "Card",
+    "CardProduct",
+    "User",
     "Transaction",
-    "Order",
-    "Wallet",
-    "Ledger"
+    "FundingSource"
   ],
   "adr": [
     "260607",
@@ -31,33 +80,8 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
-        },
         {
           "method": "POST",
           "path": "/v1/cards",
@@ -82,6 +106,56 @@
           "method": "DELETE",
           "path": "/v1/cards/{id}",
           "op": "delete Card"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/cardproducts",
+          "op": "create CardProduct"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/cardproducts",
+          "op": "list CardProduct"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/cardproducts/{id}",
+          "op": "get CardProduct"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/cardproducts/{id}",
+          "op": "update CardProduct"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/cardproducts/{id}",
+          "op": "delete CardProduct"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/users",
+          "op": "create User"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/users",
+          "op": "list User"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/users/{id}",
+          "op": "get User"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/users/{id}",
+          "op": "update User"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/users/{id}",
+          "op": "delete User"
         },
         {
           "method": "POST",
@@ -110,78 +184,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/orders",
-          "op": "create Order"
+          "path": "/v1/fundingsources",
+          "op": "create FundingSource"
         },
         {
           "method": "GET",
-          "path": "/v1/orders",
-          "op": "list Order"
+          "path": "/v1/fundingsources",
+          "op": "list FundingSource"
         },
         {
           "method": "GET",
-          "path": "/v1/orders/{id}",
-          "op": "get Order"
+          "path": "/v1/fundingsources/{id}",
+          "op": "get FundingSource"
         },
         {
           "method": "PATCH",
-          "path": "/v1/orders/{id}",
-          "op": "update Order"
+          "path": "/v1/fundingsources/{id}",
+          "op": "update FundingSource"
         },
         {
           "method": "DELETE",
-          "path": "/v1/orders/{id}",
-          "op": "delete Order"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/wallets",
-          "op": "create Wallet"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/wallets",
-          "op": "list Wallet"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/wallets/{id}",
-          "op": "get Wallet"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/wallets/{id}",
-          "op": "update Wallet"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/wallets/{id}",
-          "op": "delete Wallet"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/ledgers",
-          "op": "create Ledger"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/ledgers",
-          "op": "list Ledger"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/ledgers/{id}",
-          "op": "get Ledger"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/ledgers/{id}",
-          "op": "update Ledger"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/ledgers/{id}",
-          "op": "delete Ledger"
+          "path": "/v1/fundingsources/{id}",
+          "op": "delete FundingSource"
         }
       ],
       "features": {
@@ -244,120 +268,39 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
-        {
-          "name": "create_account",
-          "description": "Create a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "holderId": {
-                "type": "string"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "currency",
-              "balance"
-            ]
-          }
-        },
-        {
-          "name": "list_accounts",
-          "description": "List Accounts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_account",
-          "description": "Get a Account by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_account",
-          "description": "Update a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "holderId": {
-                "type": "string"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
         {
           "name": "create_card",
           "description": "Create a Card.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "last4": {
-                "type": "string"
-              },
-              "network": {
+              "token": {
                 "type": "string"
               },
               "state": {
                 "type": "string"
+              },
+              "lastFour": {
+                "type": "string"
+              },
+              "cardProductToken": {
+                "type": "string"
+              },
+              "userToken": {
+                "type": "string"
+              },
+              "fulfillmentStatus": {
+                "type": "string"
+              },
+              "createdTime": {
+                "type": "string"
               }
             },
             "required": [
-              "last4",
-              "network"
+              "token",
+              "state"
             ]
           }
         },
@@ -393,16 +336,25 @@
               "id": {
                 "type": "string"
               },
-              "accountId": {
-                "type": "string"
-              },
-              "last4": {
-                "type": "string"
-              },
-              "network": {
+              "token": {
                 "type": "string"
               },
               "state": {
+                "type": "string"
+              },
+              "lastFour": {
+                "type": "string"
+              },
+              "cardProductToken": {
+                "type": "string"
+              },
+              "userToken": {
+                "type": "string"
+              },
+              "fulfillmentStatus": {
+                "type": "string"
+              },
+              "createdTime": {
                 "type": "string"
               }
             },
@@ -427,30 +379,234 @@
           }
         },
         {
+          "name": "create_card_product",
+          "description": "Create a CardProduct.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "createdTime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "token",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_card_products",
+          "description": "List CardProducts.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_card_product",
+          "description": "Get a CardProduct by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_card_product",
+          "description": "Update a CardProduct.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "token": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "createdTime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_card_product",
+          "description": "Delete a CardProduct.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_user",
+          "description": "Create a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "createdTime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "token",
+              "firstName"
+            ]
+          }
+        },
+        {
+          "name": "list_users",
+          "description": "List Users.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_user",
+          "description": "Get a User by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_user",
+          "description": "Update a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "token": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "createdTime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_user",
+          "description": "Delete a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_transaction",
           "description": "Create a Transaction.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "accountId": {
+              "token": {
                 "type": "string"
               },
               "amount": {
                 "type": "number"
               },
-              "currency": {
-                "type": "string"
-              },
               "type": {
                 "type": "string"
               },
-              "status": {
+              "state": {
+                "type": "string"
+              },
+              "cardToken": {
+                "type": "string"
+              },
+              "userToken": {
+                "type": "string"
+              },
+              "createdTime": {
                 "type": "string"
               }
             },
             "required": [
-              "amount",
-              "currency"
+              "token",
+              "amount"
             ]
           }
         },
@@ -486,19 +642,25 @@
               "id": {
                 "type": "string"
               },
-              "accountId": {
+              "token": {
                 "type": "string"
               },
               "amount": {
                 "type": "number"
               },
-              "currency": {
-                "type": "string"
-              },
               "type": {
                 "type": "string"
               },
-              "status": {
+              "state": {
+                "type": "string"
+              },
+              "cardToken": {
+                "type": "string"
+              },
+              "userToken": {
+                "type": "string"
+              },
+              "createdTime": {
                 "type": "string"
               }
             },
@@ -523,44 +685,44 @@
           }
         },
         {
-          "name": "create_order",
-          "description": "Create a Order.",
+          "name": "create_funding_source",
+          "description": "Create a FundingSource.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "symbol": {
+              "token": {
                 "type": "string"
               },
-              "side": {
+              "type": {
                 "type": "string"
               },
-              "quantity": {
-                "type": "number"
+              "active": {
+                "type": "boolean"
               },
-              "price": {
-                "type": "number"
+              "isDefaultAccount": {
+                "type": "boolean"
               },
-              "status": {
+              "createdTime": {
                 "type": "string"
               }
             },
             "required": [
-              "symbol",
-              "side"
+              "token",
+              "type"
             ]
           }
         },
         {
-          "name": "list_orders",
-          "description": "List Orders.",
+          "name": "list_funding_sources",
+          "description": "List FundingSources.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_order",
-          "description": "Get a Order by id.",
+          "name": "get_funding_source",
+          "description": "Get a FundingSource by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -574,27 +736,27 @@
           }
         },
         {
-          "name": "update_order",
-          "description": "Update a Order.",
+          "name": "update_funding_source",
+          "description": "Update a FundingSource.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "symbol": {
+              "token": {
                 "type": "string"
               },
-              "side": {
+              "type": {
                 "type": "string"
               },
-              "quantity": {
-                "type": "number"
+              "active": {
+                "type": "boolean"
               },
-              "price": {
-                "type": "number"
+              "isDefaultAccount": {
+                "type": "boolean"
               },
-              "status": {
+              "createdTime": {
                 "type": "string"
               }
             },
@@ -604,182 +766,8 @@
           }
         },
         {
-          "name": "delete_order",
-          "description": "Delete a Order.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_wallet",
-          "description": "Create a Wallet.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "address",
-              "chain"
-            ]
-          }
-        },
-        {
-          "name": "list_wallets",
-          "description": "List Wallets.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_wallet",
-          "description": "Get a Wallet by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_wallet",
-          "description": "Update a Wallet.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_wallet",
-          "description": "Delete a Wallet.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_ledger",
-          "description": "Create a Ledger.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "debit": {
-                "type": "number"
-              },
-              "credit": {
-                "type": "number"
-              },
-              "memo": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "debit",
-              "credit"
-            ]
-          }
-        },
-        {
-          "name": "list_ledgers",
-          "description": "List Ledgers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_ledger",
-          "description": "Get a Ledger by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_ledger",
-          "description": "Update a Ledger.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "accountId": {
-                "type": "string"
-              },
-              "debit": {
-                "type": "number"
-              },
-              "credit": {
-                "type": "number"
-              },
-              "memo": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_ledger",
-          "description": "Delete a Ledger.",
+          "name": "delete_funding_source",
+          "description": "Delete a FundingSource.",
           "inputSchema": {
             "type": "object",
             "properties": {

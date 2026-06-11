@@ -111,119 +111,191 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/projects", methods=["POST"])
-def create_project(request):
-    """Create a Project."""
+@app.route("/v1/designs", methods=["POST"])
+def create_design(request):
+    """Create a Design."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'teamId'])
+    err = _reject_unknown(data, ['id', 'title', 'pageCount', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name'])
+    err = _require(data, ['id', 'title'])
     if err:
         return err, 400
-    rec = {"id": new_id("canva_pro")}
+    rec = {"id": new_id("canva_des")}
+    rec["id"] = data.get('id')
+    rec["title"] = data.get('title')
+    rec["pageCount"] = _as_int(data.get('pageCount'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["updatedAt"] = _as_int(data.get('updatedAt'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Design", rec)
+    return rec, 201
+
+@app.route("/v1/designs", methods=["GET"])
+def list_designs(request):
+    """List Designs with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Design")
+    rows = _apply_filters(rows, params, ['id', 'title', 'pageCount', 'createdAt', 'updatedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/designs/<eid>", methods=["GET"])
+def get_design(request, eid):
+    """Retrieve a Design by id (supports ?expand=)."""
+    rows = _query("Design", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/designs/<eid>", methods=["POST", "PATCH"])
+def update_design(request, eid):
+    """Update a Design."""
+    rows = _query("Design", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'title', 'pageCount', 'createdAt', 'updatedAt'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Design", rec)
+    return rec, 200
+
+@app.route("/v1/designs/<eid>", methods=["DELETE"])
+def delete_design(request, eid):
+    """Delete a Design."""
+    rows = _query("Design", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"canva.Design", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/assets", methods=["POST"])
+def create_asset(request):
+    """Create a Asset."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'name', 'type', 'createdAt', 'updatedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'name'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['image', 'video']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['image', 'video']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("canva_ass")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["teamId"] = data.get('teamId')
+    rec["type"] = data.get('type')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["updatedAt"] = _as_int(data.get('updatedAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Project", rec)
+    _persist("Asset", rec)
     return rec, 201
 
-@app.route("/v1/projects", methods=["GET"])
-def list_projects(request):
-    """List Projects with filtering + cursor pagination."""
+@app.route("/v1/assets", methods=["GET"])
+def list_assets(request):
+    """List Assets with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Project")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'teamId'])
+    rows = _query("Asset")
+    rows = _apply_filters(rows, params, ['id', 'name', 'type', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/projects/<eid>", methods=["GET"])
-def get_project(request, eid):
-    """Retrieve a Project by id (supports ?expand=)."""
-    rows = _query("Project", eid)
+@app.route("/v1/assets/<eid>", methods=["GET"])
+def get_asset(request, eid):
+    """Retrieve a Asset by id (supports ?expand=)."""
+    rows = _query("Asset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
-def update_project(request, eid):
-    """Update a Project."""
-    rows = _query("Project", eid)
+@app.route("/v1/assets/<eid>", methods=["POST", "PATCH"])
+def update_asset(request, eid):
+    """Update a Asset."""
+    rows = _query("Asset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'teamId'])
+    err = _reject_unknown(data, ['id', 'name', 'type', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['image', 'video']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['image', 'video']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Project", rec)
+    _persist("Asset", rec)
     return rec, 200
 
-@app.route("/v1/projects/<eid>", methods=["DELETE"])
-def delete_project(request, eid):
-    """Delete a Project."""
-    rows = _query("Project", eid)
+@app.route("/v1/assets/<eid>", methods=["DELETE"])
+def delete_asset(request, eid):
+    """Delete a Asset."""
+    rows = _query("Asset", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"canva.Project", "id": eid})
+    db.retract({"entity": f"canva.Asset", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/files", methods=["POST"])
-def create_file(request):
-    """Create a File."""
+@app.route("/v1/folders", methods=["POST"])
+def create_folder(request):
+    """Create a Folder."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'contentRef', 'version'])
+    err = _reject_unknown(data, ['id', 'name', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'version'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("canva_fil")}
-    rec["projectId"] = data.get('projectId')
+    rec = {"id": new_id("canva_fol")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["contentRef"] = data.get('contentRef')
-    rec["version"] = _as_int(data.get('version'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["updatedAt"] = _as_int(data.get('updatedAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("File", rec)
+    _persist("Folder", rec)
     return rec, 201
 
-@app.route("/v1/files", methods=["GET"])
-def list_files(request):
-    """List Files with filtering + cursor pagination."""
+@app.route("/v1/folders", methods=["GET"])
+def list_folders(request):
+    """List Folders with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("File")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'contentRef', 'version'])
+    rows = _query("Folder")
+    rows = _apply_filters(rows, params, ['id', 'name', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/files/<eid>", methods=["GET"])
-def get_file(request, eid):
-    """Retrieve a File by id (supports ?expand=)."""
-    rows = _query("File", eid)
+@app.route("/v1/folders/<eid>", methods=["GET"])
+def get_folder(request, eid):
+    """Retrieve a Folder by id (supports ?expand=)."""
+    rows = _query("Folder", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/files/<eid>", methods=["POST", "PATCH"])
-def update_file(request, eid):
-    """Update a File."""
-    rows = _query("File", eid)
+@app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
+def update_folder(request, eid):
+    """Update a Folder."""
+    rows = _query("Folder", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'contentRef', 'version'])
+    err = _reject_unknown(data, ['id', 'name', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,66 +303,66 @@ def update_file(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("File", rec)
+    _persist("Folder", rec)
     return rec, 200
 
-@app.route("/v1/files/<eid>", methods=["DELETE"])
-def delete_file(request, eid):
-    """Delete a File."""
-    rows = _query("File", eid)
+@app.route("/v1/folders/<eid>", methods=["DELETE"])
+def delete_folder(request, eid):
+    """Delete a Folder."""
+    rows = _query("Folder", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"canva.File", "id": eid})
+    db.retract({"entity": f"canva.Folder", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/frames", methods=["POST"])
-def create_frame(request):
-    """Create a Frame."""
+@app.route("/v1/brandtemplates", methods=["POST"])
+def create_brand_template(request):
+    """Create a BrandTemplate."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'width', 'height'])
+    err = _reject_unknown(data, ['id', 'title', 'viewUrl', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'width'])
+    err = _require(data, ['id', 'title'])
     if err:
         return err, 400
-    rec = {"id": new_id("canva_fra")}
-    rec["fileId"] = data.get('fileId')
-    rec["name"] = data.get('name')
-    rec["width"] = _as_float(data.get('width'))
-    rec["height"] = _as_float(data.get('height'))
+    rec = {"id": new_id("canva_bra")}
+    rec["id"] = data.get('id')
+    rec["title"] = data.get('title')
+    rec["viewUrl"] = data.get('viewUrl')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["updatedAt"] = _as_int(data.get('updatedAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Frame", rec)
+    _persist("BrandTemplate", rec)
     return rec, 201
 
-@app.route("/v1/frames", methods=["GET"])
-def list_frames(request):
-    """List Frames with filtering + cursor pagination."""
+@app.route("/v1/brandtemplates", methods=["GET"])
+def list_brand_templates(request):
+    """List BrandTemplates with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Frame")
-    rows = _apply_filters(rows, params, ['fileId', 'name', 'width', 'height'])
+    rows = _query("BrandTemplate")
+    rows = _apply_filters(rows, params, ['id', 'title', 'viewUrl', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/frames/<eid>", methods=["GET"])
-def get_frame(request, eid):
-    """Retrieve a Frame by id (supports ?expand=)."""
-    rows = _query("Frame", eid)
+@app.route("/v1/brandtemplates/<eid>", methods=["GET"])
+def get_brand_template(request, eid):
+    """Retrieve a BrandTemplate by id (supports ?expand=)."""
+    rows = _query("BrandTemplate", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
     return rec, 200
 
-@app.route("/v1/frames/<eid>", methods=["POST", "PATCH"])
-def update_frame(request, eid):
-    """Update a Frame."""
-    rows = _query("Frame", eid)
+@app.route("/v1/brandtemplates/<eid>", methods=["POST", "PATCH"])
+def update_brand_template(request, eid):
+    """Update a BrandTemplate."""
+    rows = _query("BrandTemplate", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'width', 'height'])
+    err = _reject_unknown(data, ['id', 'title', 'viewUrl', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -298,199 +370,136 @@ def update_frame(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Frame", rec)
+    _persist("BrandTemplate", rec)
     return rec, 200
 
-@app.route("/v1/frames/<eid>", methods=["DELETE"])
-def delete_frame(request, eid):
-    """Delete a Frame."""
-    rows = _query("Frame", eid)
+@app.route("/v1/brandtemplates/<eid>", methods=["DELETE"])
+def delete_brand_template(request, eid):
+    """Delete a BrandTemplate."""
+    rows = _query("BrandTemplate", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"canva.Frame", "id": eid})
+    db.retract({"entity": f"canva.BrandTemplate", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/components", methods=["POST"])
-def create_component(request):
-    """Create a Component."""
+@app.route("/v1/exportjobs", methods=["POST"])
+def create_export_job(request):
+    """Create a ExportJob."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'description'])
+    err = _reject_unknown(data, ['id', 'status', 'format'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'description'])
+    err = _require(data, ['id', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("canva_com")}
-    rec["fileId"] = data.get('fileId')
-    rec["name"] = data.get('name')
-    rec["description"] = data.get('description')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Component", rec)
-    return rec, 201
-
-@app.route("/v1/components", methods=["GET"])
-def list_components(request):
-    """List Components with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Component")
-    rows = _apply_filters(rows, params, ['fileId', 'name', 'description'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/components/<eid>", methods=["GET"])
-def get_component(request, eid):
-    """Retrieve a Component by id (supports ?expand=)."""
-    rows = _query("Component", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
-    return rec, 200
-
-@app.route("/v1/components/<eid>", methods=["POST", "PATCH"])
-def update_component(request, eid):
-    """Update a Component."""
-    rows = _query("Component", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'name', 'description'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Component", rec)
-    return rec, 200
-
-@app.route("/v1/components/<eid>", methods=["DELETE"])
-def delete_component(request, eid):
-    """Delete a Component."""
-    rows = _query("Component", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"canva.Component", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/comments", methods=["POST"])
-def create_comment(request):
-    """Create a Comment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'authorId', 'body', 'resolved'])
-    if err:
-        return err, 400
-    err = _require(data, ['body', 'resolved'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("canva_com")}
-    rec["fileId"] = data.get('fileId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["resolved"] = _as_bool(data.get('resolved'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Comment", rec)
-    return rec, 201
-
-@app.route("/v1/comments", methods=["GET"])
-def list_comments(request):
-    """List Comments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['fileId', 'authorId', 'body', 'resolved'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/comments/<eid>", methods=["GET"])
-def get_comment(request, eid):
-    """Retrieve a Comment by id (supports ?expand=)."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
-def update_comment(request, eid):
-    """Update a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'authorId', 'body', 'resolved'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Comment", rec)
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["DELETE"])
-def delete_comment(request, eid):
-    """Delete a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"canva.Comment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/exports", methods=["POST"])
-def create_export(request):
-    """Create a Export."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'format', 'scale', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['format', 'scale'])
-    if err:
-        return err, 400
+    if data.get('status') and data['status'] not in ['in_progress', 'success', 'failed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['in_progress', 'success', 'failed']), "type": "invalid_request_error"}}, 400
+    if data.get('format') and data['format'] not in ['pdf', 'jpg', 'png', 'gif', 'pptx', 'mp4', 'svg', 'html_bundle', 'html_standalone']:
+        return {"error": {"message": "invalid format; allowed: " + ", ".join(['pdf', 'jpg', 'png', 'gif', 'pptx', 'mp4', 'svg', 'html_bundle', 'html_standalone']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("canva_exp")}
-    rec["fileId"] = data.get('fileId')
+    rec["id"] = data.get('id')
+    rec["status"] = data.get('status')
     rec["format"] = data.get('format')
-    rec["scale"] = _as_float(data.get('scale'))
-    rec["contentRef"] = data.get('contentRef')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Export", rec)
+    _persist("ExportJob", rec)
     return rec, 201
 
-@app.route("/v1/exports", methods=["GET"])
-def list_exports(request):
-    """List Exports with filtering + cursor pagination."""
+@app.route("/v1/exportjobs", methods=["GET"])
+def list_export_jobs(request):
+    """List ExportJobs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Export")
-    rows = _apply_filters(rows, params, ['fileId', 'format', 'scale', 'contentRef'])
+    rows = _query("ExportJob")
+    rows = _apply_filters(rows, params, ['id', 'status', 'format'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/exports/<eid>", methods=["GET"])
-def get_export(request, eid):
-    """Retrieve a Export by id (supports ?expand=)."""
-    rows = _query("Export", eid)
+@app.route("/v1/exportjobs/<eid>", methods=["GET"])
+def get_export_job(request, eid):
+    """Retrieve a ExportJob by id (supports ?expand=)."""
+    rows = _query("ExportJob", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'fileId': 'File'})
     return rec, 200
 
-@app.route("/v1/exports/<eid>", methods=["POST", "PATCH"])
-def update_export(request, eid):
-    """Update a Export."""
-    rows = _query("Export", eid)
+@app.route("/v1/exportjobs/<eid>", methods=["POST", "PATCH"])
+def update_export_job(request, eid):
+    """Update a ExportJob."""
+    rows = _query("ExportJob", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['fileId', 'format', 'scale', 'contentRef'])
+    err = _reject_unknown(data, ['id', 'status', 'format'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['in_progress', 'success', 'failed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['in_progress', 'success', 'failed']), "type": "invalid_request_error"}}, 400
+    if data.get('format') and data['format'] not in ['pdf', 'jpg', 'png', 'gif', 'pptx', 'mp4', 'svg', 'html_bundle', 'html_standalone']:
+        return {"error": {"message": "invalid format; allowed: " + ", ".join(['pdf', 'jpg', 'png', 'gif', 'pptx', 'mp4', 'svg', 'html_bundle', 'html_standalone']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ExportJob", rec)
+    return rec, 200
+
+@app.route("/v1/exportjobs/<eid>", methods=["DELETE"])
+def delete_export_job(request, eid):
+    """Delete a ExportJob."""
+    rows = _query("ExportJob", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"canva.ExportJob", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/users", methods=["POST"])
+def create_user(request):
+    """Create a User."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'displayName'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'displayName'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("canva_use")}
+    rec["id"] = data.get('id')
+    rec["displayName"] = data.get('displayName')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("User", rec)
+    return rec, 201
+
+@app.route("/v1/users", methods=["GET"])
+def list_users(request):
+    """List Users with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("User")
+    rows = _apply_filters(rows, params, ['id', 'displayName'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/users/<eid>", methods=["GET"])
+def get_user(request, eid):
+    """Retrieve a User by id (supports ?expand=)."""
+    rows = _query("User", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
+def update_user(request, eid):
+    """Update a User."""
+    rows = _query("User", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'displayName'])
     if err:
         return err, 400
     rec = rows[0]
@@ -498,22 +507,22 @@ def update_export(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Export", rec)
+    _persist("User", rec)
     return rec, 200
 
-@app.route("/v1/exports/<eid>", methods=["DELETE"])
-def delete_export(request, eid):
-    """Delete a Export."""
-    rows = _query("Export", eid)
+@app.route("/v1/users/<eid>", methods=["DELETE"])
+def delete_user(request, eid):
+    """Delete a User."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"canva.Export", "id": eid})
+    db.retract({"entity": f"canva.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "canva-compat", "tier": "L4",
-            "entities": ['Project', 'File', 'Frame', 'Component', 'Comment', 'Export']}, 200
+            "entities": ['Design', 'Asset', 'Folder', 'BrandTemplate', 'ExportJob', 'User']}, 200
 
 
 if __name__ == "__main__":

@@ -3,69 +3,52 @@
 
 namespace mpls {
 
-    entity Prefix {
+    entity LabelStackEntry {
         id: string @unique
-        cidr: string
-        originAsn: string
-        validity: string
+        label: integer
+        tc: integer
+        s: boolean
+        ttl: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Route {
+    entity MplsHeader {
         id: string @unique
-        prefixId: string
-        nextHop: string
-        asPath: string
+        stackDepth: integer
+        topLabel: integer
+        trafficClass: integer
+        bottomOfStack: boolean
+        timeToLive: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Peer {
+    entity ReservedLabel {
         id: string @unique
-        asn: string
-        ipAddress: string
-        state: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Zone {
-        id: string @unique
+        value: integer
         name: string
-        serial: integer
-        refreshSec: integer
+        purpose: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Record {
+    entity NhlfeOperation {
         id: string @unique
-        zoneId: string
-        name: string
-        type: string
-        value: string
+        operationType: string
+        newLabel: integer
+        nextHopDestination: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Tunnel {
+    entity MplsForwardingState {
         id: string @unique
-        localAddr: string
-        remoteAddr: string
-        protocol: string
-        active: boolean
+        incomingLabel: integer
+        fecRef: string
+        hopCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

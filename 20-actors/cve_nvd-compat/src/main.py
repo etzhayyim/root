@@ -111,119 +111,54 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/indicators", methods=["POST"])
-def create_indicator(request):
-    """Create a Indicator."""
+@app.route("/v1/cveitems", methods=["POST"])
+def create_cve_item(request):
+    """Create a CveItem."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['type', 'value', 'confidence', 'firstSeen'])
+    err = _reject_unknown(data, ['cveId', 'sourceIdentifier', 'vulnStatus', 'published', 'lastModified'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'value'])
+    err = _require(data, ['sourceIdentifier', 'vulnStatus'])
     if err:
         return err, 400
-    rec = {"id": new_id("cvenvd_ind")}
-    rec["type"] = data.get('type')
-    rec["value"] = data.get('value')
-    rec["confidence"] = _as_int(data.get('confidence'))
-    rec["firstSeen"] = data.get('firstSeen')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Indicator", rec)
-    return rec, 201
-
-@app.route("/v1/indicators", methods=["GET"])
-def list_indicators(request):
-    """List Indicators with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Indicator")
-    rows = _apply_filters(rows, params, ['type', 'value', 'confidence', 'firstSeen'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/indicators/<eid>", methods=["GET"])
-def get_indicator(request, eid):
-    """Retrieve a Indicator by id (supports ?expand=)."""
-    rows = _query("Indicator", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/indicators/<eid>", methods=["POST", "PATCH"])
-def update_indicator(request, eid):
-    """Update a Indicator."""
-    rows = _query("Indicator", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['type', 'value', 'confidence', 'firstSeen'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Indicator", rec)
-    return rec, 200
-
-@app.route("/v1/indicators/<eid>", methods=["DELETE"])
-def delete_indicator(request, eid):
-    """Delete a Indicator."""
-    rows = _query("Indicator", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cve_nvd.Indicator", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/vulnerabilities", methods=["POST"])
-def create_vulnerability(request):
-    """Create a Vulnerability."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cveId', 'cvss', 'description', 'published'])
-    if err:
-        return err, 400
-    err = _require(data, ['cvss', 'description'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("cvenvd_vul")}
+    rec = {"id": new_id("cvenvd_cve")}
     rec["cveId"] = data.get('cveId')
-    rec["cvss"] = _as_float(data.get('cvss'))
-    rec["description"] = data.get('description')
+    rec["sourceIdentifier"] = data.get('sourceIdentifier')
+    rec["vulnStatus"] = data.get('vulnStatus')
     rec["published"] = data.get('published')
+    rec["lastModified"] = data.get('lastModified')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Vulnerability", rec)
+    _persist("CveItem", rec)
     return rec, 201
 
-@app.route("/v1/vulnerabilities", methods=["GET"])
-def list_vulnerabilities(request):
-    """List Vulnerabilities with filtering + cursor pagination."""
+@app.route("/v1/cveitems", methods=["GET"])
+def list_cve_items(request):
+    """List CveItems with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Vulnerability")
-    rows = _apply_filters(rows, params, ['cveId', 'cvss', 'description', 'published'])
+    rows = _query("CveItem")
+    rows = _apply_filters(rows, params, ['cveId', 'sourceIdentifier', 'vulnStatus', 'published', 'lastModified'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/vulnerabilities/<eid>", methods=["GET"])
-def get_vulnerability(request, eid):
-    """Retrieve a Vulnerability by id (supports ?expand=)."""
-    rows = _query("Vulnerability", eid)
+@app.route("/v1/cveitems/<eid>", methods=["GET"])
+def get_cve_item(request, eid):
+    """Retrieve a CveItem by id (supports ?expand=)."""
+    rows = _query("CveItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/vulnerabilities/<eid>", methods=["POST", "PATCH"])
-def update_vulnerability(request, eid):
-    """Update a Vulnerability."""
-    rows = _query("Vulnerability", eid)
+@app.route("/v1/cveitems/<eid>", methods=["POST", "PATCH"])
+def update_cve_item(request, eid):
+    """Update a CveItem."""
+    rows = _query("CveItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cveId', 'cvss', 'description', 'published'])
+    err = _reject_unknown(data, ['cveId', 'sourceIdentifier', 'vulnStatus', 'published', 'lastModified'])
     if err:
         return err, 400
     rec = rows[0]
@@ -231,195 +166,237 @@ def update_vulnerability(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Vulnerability", rec)
+    _persist("CveItem", rec)
     return rec, 200
 
-@app.route("/v1/vulnerabilities/<eid>", methods=["DELETE"])
-def delete_vulnerability(request, eid):
-    """Delete a Vulnerability."""
-    rows = _query("Vulnerability", eid)
+@app.route("/v1/cveitems/<eid>", methods=["DELETE"])
+def delete_cve_item(request, eid):
+    """Delete a CveItem."""
+    rows = _query("CveItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cve_nvd.Vulnerability", "id": eid})
+    db.retract({"entity": f"cve_nvd.CveItem", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/threatactors", methods=["POST"])
-def create_threat_actor(request):
-    """Create a ThreatActor."""
+@app.route("/v1/cvssv3metrics", methods=["POST"])
+def create_cvss_v3_metric(request):
+    """Create a CvssV3Metric."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'motivation', 'sophistication'])
+    err = _reject_unknown(data, ['baseScore', 'baseSeverity', 'exploitabilityScore', 'impactScore'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'motivation'])
+    err = _require(data, ['baseScore', 'baseSeverity'])
     if err:
         return err, 400
-    rec = {"id": new_id("cvenvd_thr")}
-    rec["name"] = data.get('name')
-    rec["motivation"] = data.get('motivation')
-    rec["sophistication"] = data.get('sophistication')
+    if data.get('baseSeverity') and data['baseSeverity'] not in ['NONE', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL']:
+        return {"error": {"message": "invalid baseSeverity; allowed: " + ", ".join(['NONE', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("cvenvd_cvs")}
+    rec["baseScore"] = _as_float(data.get('baseScore'))
+    rec["baseSeverity"] = data.get('baseSeverity')
+    rec["exploitabilityScore"] = _as_float(data.get('exploitabilityScore'))
+    rec["impactScore"] = _as_float(data.get('impactScore'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ThreatActor", rec)
+    _persist("CvssV3Metric", rec)
     return rec, 201
 
-@app.route("/v1/threatactors", methods=["GET"])
-def list_threat_actors(request):
-    """List ThreatActors with filtering + cursor pagination."""
+@app.route("/v1/cvssv3metrics", methods=["GET"])
+def list_cvss_v3_metrics(request):
+    """List CvssV3Metrics with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ThreatActor")
-    rows = _apply_filters(rows, params, ['name', 'motivation', 'sophistication'])
+    rows = _query("CvssV3Metric")
+    rows = _apply_filters(rows, params, ['baseScore', 'baseSeverity', 'exploitabilityScore', 'impactScore'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/threatactors/<eid>", methods=["GET"])
-def get_threat_actor(request, eid):
-    """Retrieve a ThreatActor by id (supports ?expand=)."""
-    rows = _query("ThreatActor", eid)
+@app.route("/v1/cvssv3metrics/<eid>", methods=["GET"])
+def get_cvss_v3_metric(request, eid):
+    """Retrieve a CvssV3Metric by id (supports ?expand=)."""
+    rows = _query("CvssV3Metric", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/threatactors/<eid>", methods=["POST", "PATCH"])
-def update_threat_actor(request, eid):
-    """Update a ThreatActor."""
-    rows = _query("ThreatActor", eid)
+@app.route("/v1/cvssv3metrics/<eid>", methods=["POST", "PATCH"])
+def update_cvss_v3_metric(request, eid):
+    """Update a CvssV3Metric."""
+    rows = _query("CvssV3Metric", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'motivation', 'sophistication'])
+    err = _reject_unknown(data, ['baseScore', 'baseSeverity', 'exploitabilityScore', 'impactScore'])
     if err:
         return err, 400
+    if data.get('baseSeverity') and data['baseSeverity'] not in ['NONE', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL']:
+        return {"error": {"message": "invalid baseSeverity; allowed: " + ", ".join(['NONE', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ThreatActor", rec)
+    _persist("CvssV3Metric", rec)
     return rec, 200
 
-@app.route("/v1/threatactors/<eid>", methods=["DELETE"])
-def delete_threat_actor(request, eid):
-    """Delete a ThreatActor."""
-    rows = _query("ThreatActor", eid)
+@app.route("/v1/cvssv3metrics/<eid>", methods=["DELETE"])
+def delete_cvss_v3_metric(request, eid):
+    """Delete a CvssV3Metric."""
+    rows = _query("CvssV3Metric", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cve_nvd.ThreatActor", "id": eid})
+    db.retract({"entity": f"cve_nvd.CvssV3Metric", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/campaigns", methods=["POST"])
-def create_campaign(request):
-    """Create a Campaign."""
+@app.route("/v1/cvssv3vectors", methods=["POST"])
+def create_cvss_v3_vector(request):
+    """Create a CvssV3Vector."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'actorId', 'firstSeen'])
+    err = _reject_unknown(data, ['version', 'vectorString', 'attackVector', 'attackComplexity', 'privilegesRequired', 'userInteraction', 'scope', 'confidentialityImpact', 'integrityImpact', 'availabilityImpact'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'firstSeen'])
+    err = _require(data, ['version', 'vectorString'])
     if err:
         return err, 400
-    rec = {"id": new_id("cvenvd_cam")}
-    rec["name"] = data.get('name')
-    rec["actorId"] = data.get('actorId')
-    rec["firstSeen"] = data.get('firstSeen')
+    if data.get('attackVector') and data['attackVector'] not in ['NETWORK', 'ADJACENT_NETWORK', 'LOCAL', 'PHYSICAL']:
+        return {"error": {"message": "invalid attackVector; allowed: " + ", ".join(['NETWORK', 'ADJACENT_NETWORK', 'LOCAL', 'PHYSICAL']), "type": "invalid_request_error"}}, 400
+    if data.get('attackComplexity') and data['attackComplexity'] not in ['LOW', 'HIGH']:
+        return {"error": {"message": "invalid attackComplexity; allowed: " + ", ".join(['LOW', 'HIGH']), "type": "invalid_request_error"}}, 400
+    if data.get('privilegesRequired') and data['privilegesRequired'] not in ['NONE', 'LOW', 'HIGH']:
+        return {"error": {"message": "invalid privilegesRequired; allowed: " + ", ".join(['NONE', 'LOW', 'HIGH']), "type": "invalid_request_error"}}, 400
+    if data.get('userInteraction') and data['userInteraction'] not in ['NONE', 'REQUIRED']:
+        return {"error": {"message": "invalid userInteraction; allowed: " + ", ".join(['NONE', 'REQUIRED']), "type": "invalid_request_error"}}, 400
+    if data.get('scope') and data['scope'] not in ['UNCHANGED', 'CHANGED']:
+        return {"error": {"message": "invalid scope; allowed: " + ", ".join(['UNCHANGED', 'CHANGED']), "type": "invalid_request_error"}}, 400
+    if data.get('confidentialityImpact') and data['confidentialityImpact'] not in ['NONE', 'LOW', 'HIGH']:
+        return {"error": {"message": "invalid confidentialityImpact; allowed: " + ", ".join(['NONE', 'LOW', 'HIGH']), "type": "invalid_request_error"}}, 400
+    if data.get('integrityImpact') and data['integrityImpact'] not in ['NONE', 'LOW', 'HIGH']:
+        return {"error": {"message": "invalid integrityImpact; allowed: " + ", ".join(['NONE', 'LOW', 'HIGH']), "type": "invalid_request_error"}}, 400
+    if data.get('availabilityImpact') and data['availabilityImpact'] not in ['NONE', 'LOW', 'HIGH']:
+        return {"error": {"message": "invalid availabilityImpact; allowed: " + ", ".join(['NONE', 'LOW', 'HIGH']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("cvenvd_cvs")}
+    rec["version"] = data.get('version')
+    rec["vectorString"] = data.get('vectorString')
+    rec["attackVector"] = data.get('attackVector')
+    rec["attackComplexity"] = data.get('attackComplexity')
+    rec["privilegesRequired"] = data.get('privilegesRequired')
+    rec["userInteraction"] = data.get('userInteraction')
+    rec["scope"] = data.get('scope')
+    rec["confidentialityImpact"] = data.get('confidentialityImpact')
+    rec["integrityImpact"] = data.get('integrityImpact')
+    rec["availabilityImpact"] = data.get('availabilityImpact')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Campaign", rec)
+    _persist("CvssV3Vector", rec)
     return rec, 201
 
-@app.route("/v1/campaigns", methods=["GET"])
-def list_campaigns(request):
-    """List Campaigns with filtering + cursor pagination."""
+@app.route("/v1/cvssv3vectors", methods=["GET"])
+def list_cvss_v3_vectors(request):
+    """List CvssV3Vectors with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Campaign")
-    rows = _apply_filters(rows, params, ['name', 'actorId', 'firstSeen'])
+    rows = _query("CvssV3Vector")
+    rows = _apply_filters(rows, params, ['version', 'vectorString', 'attackVector', 'attackComplexity', 'privilegesRequired', 'userInteraction', 'scope', 'confidentialityImpact', 'integrityImpact', 'availabilityImpact'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/campaigns/<eid>", methods=["GET"])
-def get_campaign(request, eid):
-    """Retrieve a Campaign by id (supports ?expand=)."""
-    rows = _query("Campaign", eid)
+@app.route("/v1/cvssv3vectors/<eid>", methods=["GET"])
+def get_cvss_v3_vector(request, eid):
+    """Retrieve a CvssV3Vector by id (supports ?expand=)."""
+    rows = _query("CvssV3Vector", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/campaigns/<eid>", methods=["POST", "PATCH"])
-def update_campaign(request, eid):
-    """Update a Campaign."""
-    rows = _query("Campaign", eid)
+@app.route("/v1/cvssv3vectors/<eid>", methods=["POST", "PATCH"])
+def update_cvss_v3_vector(request, eid):
+    """Update a CvssV3Vector."""
+    rows = _query("CvssV3Vector", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'actorId', 'firstSeen'])
+    err = _reject_unknown(data, ['version', 'vectorString', 'attackVector', 'attackComplexity', 'privilegesRequired', 'userInteraction', 'scope', 'confidentialityImpact', 'integrityImpact', 'availabilityImpact'])
     if err:
         return err, 400
+    if data.get('attackVector') and data['attackVector'] not in ['NETWORK', 'ADJACENT_NETWORK', 'LOCAL', 'PHYSICAL']:
+        return {"error": {"message": "invalid attackVector; allowed: " + ", ".join(['NETWORK', 'ADJACENT_NETWORK', 'LOCAL', 'PHYSICAL']), "type": "invalid_request_error"}}, 400
+    if data.get('attackComplexity') and data['attackComplexity'] not in ['LOW', 'HIGH']:
+        return {"error": {"message": "invalid attackComplexity; allowed: " + ", ".join(['LOW', 'HIGH']), "type": "invalid_request_error"}}, 400
+    if data.get('privilegesRequired') and data['privilegesRequired'] not in ['NONE', 'LOW', 'HIGH']:
+        return {"error": {"message": "invalid privilegesRequired; allowed: " + ", ".join(['NONE', 'LOW', 'HIGH']), "type": "invalid_request_error"}}, 400
+    if data.get('userInteraction') and data['userInteraction'] not in ['NONE', 'REQUIRED']:
+        return {"error": {"message": "invalid userInteraction; allowed: " + ", ".join(['NONE', 'REQUIRED']), "type": "invalid_request_error"}}, 400
+    if data.get('scope') and data['scope'] not in ['UNCHANGED', 'CHANGED']:
+        return {"error": {"message": "invalid scope; allowed: " + ", ".join(['UNCHANGED', 'CHANGED']), "type": "invalid_request_error"}}, 400
+    if data.get('confidentialityImpact') and data['confidentialityImpact'] not in ['NONE', 'LOW', 'HIGH']:
+        return {"error": {"message": "invalid confidentialityImpact; allowed: " + ", ".join(['NONE', 'LOW', 'HIGH']), "type": "invalid_request_error"}}, 400
+    if data.get('integrityImpact') and data['integrityImpact'] not in ['NONE', 'LOW', 'HIGH']:
+        return {"error": {"message": "invalid integrityImpact; allowed: " + ", ".join(['NONE', 'LOW', 'HIGH']), "type": "invalid_request_error"}}, 400
+    if data.get('availabilityImpact') and data['availabilityImpact'] not in ['NONE', 'LOW', 'HIGH']:
+        return {"error": {"message": "invalid availabilityImpact; allowed: " + ", ".join(['NONE', 'LOW', 'HIGH']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Campaign", rec)
+    _persist("CvssV3Vector", rec)
     return rec, 200
 
-@app.route("/v1/campaigns/<eid>", methods=["DELETE"])
-def delete_campaign(request, eid):
-    """Delete a Campaign."""
-    rows = _query("Campaign", eid)
+@app.route("/v1/cvssv3vectors/<eid>", methods=["DELETE"])
+def delete_cvss_v3_vector(request, eid):
+    """Delete a CvssV3Vector."""
+    rows = _query("CvssV3Vector", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cve_nvd.Campaign", "id": eid})
+    db.retract({"entity": f"cve_nvd.CvssV3Vector", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/hosts", methods=["POST"])
-def create_host(request):
-    """Create a Host."""
+@app.route("/v1/references", methods=["POST"])
+def create_reference(request):
+    """Create a Reference."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['ipAddress', 'asn', 'country', 'openPorts'])
+    err = _reject_unknown(data, ['url', 'source'])
     if err:
         return err, 400
-    err = _require(data, ['ipAddress', 'asn'])
+    err = _require(data, ['url', 'source'])
     if err:
         return err, 400
-    rec = {"id": new_id("cvenvd_hos")}
-    rec["ipAddress"] = data.get('ipAddress')
-    rec["asn"] = data.get('asn')
-    rec["country"] = data.get('country')
-    rec["openPorts"] = data.get('openPorts')
+    rec = {"id": new_id("cvenvd_ref")}
+    rec["url"] = data.get('url')
+    rec["source"] = data.get('source')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Host", rec)
+    _persist("Reference", rec)
     return rec, 201
 
-@app.route("/v1/hosts", methods=["GET"])
-def list_hosts(request):
-    """List Hosts with filtering + cursor pagination."""
+@app.route("/v1/references", methods=["GET"])
+def list_references(request):
+    """List References with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Host")
-    rows = _apply_filters(rows, params, ['ipAddress', 'asn', 'country', 'openPorts'])
+    rows = _query("Reference")
+    rows = _apply_filters(rows, params, ['url', 'source'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/hosts/<eid>", methods=["GET"])
-def get_host(request, eid):
-    """Retrieve a Host by id (supports ?expand=)."""
-    rows = _query("Host", eid)
+@app.route("/v1/references/<eid>", methods=["GET"])
+def get_reference(request, eid):
+    """Retrieve a Reference by id (supports ?expand=)."""
+    rows = _query("Reference", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/hosts/<eid>", methods=["POST", "PATCH"])
-def update_host(request, eid):
-    """Update a Host."""
-    rows = _query("Host", eid)
+@app.route("/v1/references/<eid>", methods=["POST", "PATCH"])
+def update_reference(request, eid):
+    """Update a Reference."""
+    rows = _query("Reference", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['ipAddress', 'asn', 'country', 'openPorts'])
+    err = _reject_unknown(data, ['url', 'source'])
     if err:
         return err, 400
     rec = rows[0]
@@ -427,64 +404,64 @@ def update_host(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Host", rec)
+    _persist("Reference", rec)
     return rec, 200
 
-@app.route("/v1/hosts/<eid>", methods=["DELETE"])
-def delete_host(request, eid):
-    """Delete a Host."""
-    rows = _query("Host", eid)
+@app.route("/v1/references/<eid>", methods=["DELETE"])
+def delete_reference(request, eid):
+    """Delete a Reference."""
+    rows = _query("Reference", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cve_nvd.Host", "id": eid})
+    db.retract({"entity": f"cve_nvd.Reference", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/techniques", methods=["POST"])
-def create_technique(request):
-    """Create a Technique."""
+@app.route("/v1/weaknesses", methods=["POST"])
+def create_weakness(request):
+    """Create a Weakness."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['attckId', 'tactic', 'name'])
+    err = _reject_unknown(data, ['source', 'type', 'description'])
     if err:
         return err, 400
-    err = _require(data, ['tactic', 'name'])
+    err = _require(data, ['source', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("cvenvd_tec")}
-    rec["attckId"] = data.get('attckId')
-    rec["tactic"] = data.get('tactic')
-    rec["name"] = data.get('name')
+    rec = {"id": new_id("cvenvd_wea")}
+    rec["source"] = data.get('source')
+    rec["type"] = data.get('type')
+    rec["description"] = data.get('description')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Technique", rec)
+    _persist("Weakness", rec)
     return rec, 201
 
-@app.route("/v1/techniques", methods=["GET"])
-def list_techniques(request):
-    """List Techniques with filtering + cursor pagination."""
+@app.route("/v1/weaknesses", methods=["GET"])
+def list_weaknesses(request):
+    """List Weaknesses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Technique")
-    rows = _apply_filters(rows, params, ['attckId', 'tactic', 'name'])
+    rows = _query("Weakness")
+    rows = _apply_filters(rows, params, ['source', 'type', 'description'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/techniques/<eid>", methods=["GET"])
-def get_technique(request, eid):
-    """Retrieve a Technique by id (supports ?expand=)."""
-    rows = _query("Technique", eid)
+@app.route("/v1/weaknesses/<eid>", methods=["GET"])
+def get_weakness(request, eid):
+    """Retrieve a Weakness by id (supports ?expand=)."""
+    rows = _query("Weakness", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/techniques/<eid>", methods=["POST", "PATCH"])
-def update_technique(request, eid):
-    """Update a Technique."""
-    rows = _query("Technique", eid)
+@app.route("/v1/weaknesses/<eid>", methods=["POST", "PATCH"])
+def update_weakness(request, eid):
+    """Update a Weakness."""
+    rows = _query("Weakness", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['attckId', 'tactic', 'name'])
+    err = _reject_unknown(data, ['source', 'type', 'description'])
     if err:
         return err, 400
     rec = rows[0]
@@ -492,22 +469,90 @@ def update_technique(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Technique", rec)
+    _persist("Weakness", rec)
     return rec, 200
 
-@app.route("/v1/techniques/<eid>", methods=["DELETE"])
-def delete_technique(request, eid):
-    """Delete a Technique."""
-    rows = _query("Technique", eid)
+@app.route("/v1/weaknesses/<eid>", methods=["DELETE"])
+def delete_weakness(request, eid):
+    """Delete a Weakness."""
+    rows = _query("Weakness", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"cve_nvd.Technique", "id": eid})
+    db.retract({"entity": f"cve_nvd.Weakness", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/cvemetricses", methods=["POST"])
+def create_cve_metrics(request):
+    """Create a CveMetrics."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['source', 'type'])
+    if err:
+        return err, 400
+    err = _require(data, ['source', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['Primary', 'Secondary']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Primary', 'Secondary']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("cvenvd_cve")}
+    rec["source"] = data.get('source')
+    rec["type"] = data.get('type')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("CveMetrics", rec)
+    return rec, 201
+
+@app.route("/v1/cvemetricses", methods=["GET"])
+def list_cve_metricses(request):
+    """List CveMetricses with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("CveMetrics")
+    rows = _apply_filters(rows, params, ['source', 'type'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/cvemetricses/<eid>", methods=["GET"])
+def get_cve_metrics(request, eid):
+    """Retrieve a CveMetrics by id (supports ?expand=)."""
+    rows = _query("CveMetrics", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/cvemetricses/<eid>", methods=["POST", "PATCH"])
+def update_cve_metrics(request, eid):
+    """Update a CveMetrics."""
+    rows = _query("CveMetrics", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['source', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['Primary', 'Secondary']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Primary', 'Secondary']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("CveMetrics", rec)
+    return rec, 200
+
+@app.route("/v1/cvemetricses/<eid>", methods=["DELETE"])
+def delete_cve_metrics(request, eid):
+    """Delete a CveMetrics."""
+    rows = _query("CveMetrics", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"cve_nvd.CveMetrics", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "cve_nvd-compat", "tier": "L4",
-            "entities": ['Indicator', 'Vulnerability', 'ThreatActor', 'Campaign', 'Host', 'Technique']}, 200
+            "entities": ['CveItem', 'CvssV3Metric', 'CvssV3Vector', 'Reference', 'Weakness', 'CveMetrics']}, 200
 
 
 if __name__ == "__main__":

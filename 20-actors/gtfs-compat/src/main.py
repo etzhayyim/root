@@ -111,53 +111,57 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/stops", methods=["POST"])
-def create_stop(request):
-    """Create a Stop."""
+@app.route("/v1/agencies", methods=["POST"])
+def create_agency(request):
+    """Create a Agency."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'name', 'lat', 'lon'])
+    err = _reject_unknown(data, ['agencyId', 'agencyName', 'agencyUrl', 'agencyTimezone', 'agencyLang', 'agencyPhone', 'agencyEmail'])
     if err:
         return err, 400
-    err = _require(data, ['code', 'name'])
+    err = _require(data, ['agencyName', 'agencyUrl'])
     if err:
         return err, 400
-    rec = {"id": new_id("gtfs_sto")}
-    rec["code"] = data.get('code')
-    rec["name"] = data.get('name')
-    rec["lat"] = _as_float(data.get('lat'))
-    rec["lon"] = _as_float(data.get('lon'))
+    rec = {"id": new_id("gtfs_age")}
+    rec["agencyId"] = data.get('agencyId')
+    rec["agencyName"] = data.get('agencyName')
+    rec["agencyUrl"] = data.get('agencyUrl')
+    rec["agencyTimezone"] = data.get('agencyTimezone')
+    rec["agencyLang"] = data.get('agencyLang')
+    rec["agencyPhone"] = data.get('agencyPhone')
+    rec["agencyEmail"] = data.get('agencyEmail')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Stop", rec)
+    _persist("Agency", rec)
     return rec, 201
 
-@app.route("/v1/stops", methods=["GET"])
-def list_stops(request):
-    """List Stops with filtering + cursor pagination."""
+@app.route("/v1/agencies", methods=["GET"])
+def list_agencies(request):
+    """List Agencies with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Stop")
-    rows = _apply_filters(rows, params, ['code', 'name', 'lat', 'lon'])
+    rows = _query("Agency")
+    rows = _apply_filters(rows, params, ['agencyId', 'agencyName', 'agencyUrl', 'agencyTimezone', 'agencyLang', 'agencyPhone', 'agencyEmail'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/stops/<eid>", methods=["GET"])
-def get_stop(request, eid):
-    """Retrieve a Stop by id (supports ?expand=)."""
-    rows = _query("Stop", eid)
+@app.route("/v1/agencies/<eid>", methods=["GET"])
+def get_agency(request, eid):
+    """Retrieve a Agency by id (supports ?expand=)."""
+    rows = _query("Agency", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'agencyId': 'Agency'})
     return rec, 200
 
-@app.route("/v1/stops/<eid>", methods=["POST", "PATCH"])
-def update_stop(request, eid):
-    """Update a Stop."""
-    rows = _query("Stop", eid)
+@app.route("/v1/agencies/<eid>", methods=["POST", "PATCH"])
+def update_agency(request, eid):
+    """Update a Agency."""
+    rows = _query("Agency", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'name', 'lat', 'lon'])
+    err = _reject_unknown(data, ['agencyId', 'agencyName', 'agencyUrl', 'agencyTimezone', 'agencyLang', 'agencyPhone', 'agencyEmail'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,32 +169,45 @@ def update_stop(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Stop", rec)
+    _persist("Agency", rec)
     return rec, 200
 
-@app.route("/v1/stops/<eid>", methods=["DELETE"])
-def delete_stop(request, eid):
-    """Delete a Stop."""
-    rows = _query("Stop", eid)
+@app.route("/v1/agencies/<eid>", methods=["DELETE"])
+def delete_agency(request, eid):
+    """Delete a Agency."""
+    rows = _query("Agency", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gtfs.Stop", "id": eid})
+    db.retract({"entity": f"gtfs.Agency", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/routes", methods=["POST"])
 def create_route(request):
     """Create a Route."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['shortName', 'longName', 'mode'])
+    err = _reject_unknown(data, ['routeId', 'agencyId', 'routeShortName', 'routeLongName', 'routeDesc', 'routeType', 'routeColor', 'routeSortOrder', 'continuousPickup', 'continuousDropOff'])
     if err:
         return err, 400
-    err = _require(data, ['shortName', 'longName'])
+    err = _require(data, ['routeShortName', 'routeLongName'])
     if err:
         return err, 400
+    if data.get('routeType') and data['routeType'] not in [0, 1, 2, 3, 4, 5, 6, 7, 11, 12]:
+        return {"error": {"message": "invalid routeType; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 11, 12]), "type": "invalid_request_error"}}, 400
+    if data.get('continuousPickup') and data['continuousPickup'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid continuousPickup; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
+    if data.get('continuousDropOff') and data['continuousDropOff'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid continuousDropOff; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("gtfs_rou")}
-    rec["shortName"] = data.get('shortName')
-    rec["longName"] = data.get('longName')
-    rec["mode"] = data.get('mode')
+    rec["routeId"] = data.get('routeId')
+    rec["agencyId"] = data.get('agencyId')
+    rec["routeShortName"] = data.get('routeShortName')
+    rec["routeLongName"] = data.get('routeLongName')
+    rec["routeDesc"] = data.get('routeDesc')
+    rec["routeType"] = _as_int(data.get('routeType'))
+    rec["routeColor"] = data.get('routeColor')
+    rec["routeSortOrder"] = _as_int(data.get('routeSortOrder'))
+    rec["continuousPickup"] = _as_int(data.get('continuousPickup'))
+    rec["continuousDropOff"] = _as_int(data.get('continuousDropOff'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Route", rec)
@@ -201,7 +218,7 @@ def list_routes(request):
     """List Routes with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Route")
-    rows = _apply_filters(rows, params, ['shortName', 'longName', 'mode'])
+    rows = _apply_filters(rows, params, ['routeId', 'agencyId', 'routeShortName', 'routeLongName', 'routeDesc', 'routeType', 'routeColor', 'routeSortOrder', 'continuousPickup', 'continuousDropOff'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -213,6 +230,7 @@ def get_route(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'routeId': 'Route', 'agencyId': 'Agency'})
     return rec, 200
 
 @app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
@@ -222,9 +240,15 @@ def update_route(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['shortName', 'longName', 'mode'])
+    err = _reject_unknown(data, ['routeId', 'agencyId', 'routeShortName', 'routeLongName', 'routeDesc', 'routeType', 'routeColor', 'routeSortOrder', 'continuousPickup', 'continuousDropOff'])
     if err:
         return err, 400
+    if data.get('routeType') and data['routeType'] not in [0, 1, 2, 3, 4, 5, 6, 7, 11, 12]:
+        return {"error": {"message": "invalid routeType; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 11, 12]), "type": "invalid_request_error"}}, 400
+    if data.get('continuousPickup') and data['continuousPickup'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid continuousPickup; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
+    if data.get('continuousDropOff') and data['continuousDropOff'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid continuousDropOff; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -246,16 +270,28 @@ def delete_route(request, eid):
 def create_trip(request):
     """Create a Trip."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['routeId', 'headsign', 'serviceId'])
+    err = _reject_unknown(data, ['routeId', 'serviceId', 'tripId', 'tripHeadsign', 'directionId', 'blockId', 'shapeId', 'wheelchairAccessible', 'bikesAllowed'])
     if err:
         return err, 400
-    err = _require(data, ['headsign'])
+    err = _require(data, ['tripHeadsign', 'wheelchairAccessible'])
     if err:
         return err, 400
+    if data.get('directionId') and data['directionId'] not in [0, 1]:
+        return {"error": {"message": "invalid directionId; allowed: " + ", ".join([0, 1]), "type": "invalid_request_error"}}, 400
+    if data.get('wheelchairAccessible') and data['wheelchairAccessible'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid wheelchairAccessible; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    if data.get('bikesAllowed') and data['bikesAllowed'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid bikesAllowed; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("gtfs_tri")}
     rec["routeId"] = data.get('routeId')
-    rec["headsign"] = data.get('headsign')
     rec["serviceId"] = data.get('serviceId')
+    rec["tripId"] = data.get('tripId')
+    rec["tripHeadsign"] = data.get('tripHeadsign')
+    rec["directionId"] = _as_int(data.get('directionId'))
+    rec["blockId"] = data.get('blockId')
+    rec["shapeId"] = data.get('shapeId')
+    rec["wheelchairAccessible"] = _as_int(data.get('wheelchairAccessible'))
+    rec["bikesAllowed"] = _as_int(data.get('bikesAllowed'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Trip", rec)
@@ -266,7 +302,7 @@ def list_trips(request):
     """List Trips with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Trip")
-    rows = _apply_filters(rows, params, ['routeId', 'headsign', 'serviceId'])
+    rows = _apply_filters(rows, params, ['routeId', 'serviceId', 'tripId', 'tripHeadsign', 'directionId', 'blockId', 'shapeId', 'wheelchairAccessible', 'bikesAllowed'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -278,7 +314,7 @@ def get_trip(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'routeId': 'Route'})
+    rec = _expand(rec, request.query or {}, {'routeId': 'Route', 'tripId': 'Trip'})
     return rec, 200
 
 @app.route("/v1/trips/<eid>", methods=["POST", "PATCH"])
@@ -288,9 +324,15 @@ def update_trip(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['routeId', 'headsign', 'serviceId'])
+    err = _reject_unknown(data, ['routeId', 'serviceId', 'tripId', 'tripHeadsign', 'directionId', 'blockId', 'shapeId', 'wheelchairAccessible', 'bikesAllowed'])
     if err:
         return err, 400
+    if data.get('directionId') and data['directionId'] not in [0, 1]:
+        return {"error": {"message": "invalid directionId; allowed: " + ", ".join([0, 1]), "type": "invalid_request_error"}}, 400
+    if data.get('wheelchairAccessible') and data['wheelchairAccessible'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid wheelchairAccessible; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    if data.get('bikesAllowed') and data['bikesAllowed'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid bikesAllowed; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -308,217 +350,245 @@ def delete_trip(request, eid):
     db.retract({"entity": f"gtfs.Trip", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/vehicles", methods=["POST"])
-def create_vehicle(request):
-    """Create a Vehicle."""
+@app.route("/v1/stops", methods=["POST"])
+def create_stop(request):
+    """Create a Stop."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['routeId', 'label', 'lat', 'lon'])
+    err = _reject_unknown(data, ['stopId', 'stopCode', 'stopName', 'stopDesc', 'stopLat', 'stopLon', 'zoneId', 'locationType', 'parentStation', 'wheelchairBoarding'])
     if err:
         return err, 400
-    err = _require(data, ['label', 'lat'])
+    err = _require(data, ['stopCode', 'stopName'])
     if err:
         return err, 400
-    rec = {"id": new_id("gtfs_veh")}
-    rec["routeId"] = data.get('routeId')
-    rec["label"] = data.get('label')
-    rec["lat"] = _as_float(data.get('lat'))
-    rec["lon"] = _as_float(data.get('lon'))
+    if data.get('locationType') and data['locationType'] not in [0, 1, 2, 3, 4]:
+        return {"error": {"message": "invalid locationType; allowed: " + ", ".join([0, 1, 2, 3, 4]), "type": "invalid_request_error"}}, 400
+    if data.get('wheelchairBoarding') and data['wheelchairBoarding'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid wheelchairBoarding; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gtfs_sto")}
+    rec["stopId"] = data.get('stopId')
+    rec["stopCode"] = data.get('stopCode')
+    rec["stopName"] = data.get('stopName')
+    rec["stopDesc"] = data.get('stopDesc')
+    rec["stopLat"] = _as_float(data.get('stopLat'))
+    rec["stopLon"] = _as_float(data.get('stopLon'))
+    rec["zoneId"] = data.get('zoneId')
+    rec["locationType"] = _as_int(data.get('locationType'))
+    rec["parentStation"] = data.get('parentStation')
+    rec["wheelchairBoarding"] = _as_int(data.get('wheelchairBoarding'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Vehicle", rec)
+    _persist("Stop", rec)
     return rec, 201
 
-@app.route("/v1/vehicles", methods=["GET"])
-def list_vehicles(request):
-    """List Vehicles with filtering + cursor pagination."""
+@app.route("/v1/stops", methods=["GET"])
+def list_stops(request):
+    """List Stops with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Vehicle")
-    rows = _apply_filters(rows, params, ['routeId', 'label', 'lat', 'lon'])
+    rows = _query("Stop")
+    rows = _apply_filters(rows, params, ['stopId', 'stopCode', 'stopName', 'stopDesc', 'stopLat', 'stopLon', 'zoneId', 'locationType', 'parentStation', 'wheelchairBoarding'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["GET"])
-def get_vehicle(request, eid):
-    """Retrieve a Vehicle by id (supports ?expand=)."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/stops/<eid>", methods=["GET"])
+def get_stop(request, eid):
+    """Retrieve a Stop by id (supports ?expand=)."""
+    rows = _query("Stop", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'routeId': 'Route'})
+    rec = _expand(rec, request.query or {}, {'stopId': 'Stop'})
     return rec, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["POST", "PATCH"])
-def update_vehicle(request, eid):
-    """Update a Vehicle."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/stops/<eid>", methods=["POST", "PATCH"])
+def update_stop(request, eid):
+    """Update a Stop."""
+    rows = _query("Stop", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['routeId', 'label', 'lat', 'lon'])
+    err = _reject_unknown(data, ['stopId', 'stopCode', 'stopName', 'stopDesc', 'stopLat', 'stopLon', 'zoneId', 'locationType', 'parentStation', 'wheelchairBoarding'])
     if err:
         return err, 400
+    if data.get('locationType') and data['locationType'] not in [0, 1, 2, 3, 4]:
+        return {"error": {"message": "invalid locationType; allowed: " + ", ".join([0, 1, 2, 3, 4]), "type": "invalid_request_error"}}, 400
+    if data.get('wheelchairBoarding') and data['wheelchairBoarding'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid wheelchairBoarding; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Vehicle", rec)
+    _persist("Stop", rec)
     return rec, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["DELETE"])
-def delete_vehicle(request, eid):
-    """Delete a Vehicle."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/stops/<eid>", methods=["DELETE"])
+def delete_stop(request, eid):
+    """Delete a Stop."""
+    rows = _query("Stop", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gtfs.Vehicle", "id": eid})
+    db.retract({"entity": f"gtfs.Stop", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/servicealerts", methods=["POST"])
-def create_service_alert(request):
-    """Create a ServiceAlert."""
+@app.route("/v1/stoptimes", methods=["POST"])
+def create_stop_time(request):
+    """Create a StopTime."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['routeId', 'cause', 'effect'])
+    err = _reject_unknown(data, ['tripId', 'arrivalTime', 'departureTime', 'stopId', 'stopSequence', 'pickupType', 'dropOffType', 'timepoint', 'shapeDistTraveled'])
     if err:
         return err, 400
-    err = _require(data, ['cause', 'effect'])
+    err = _require(data, ['arrivalTime', 'departureTime'])
     if err:
         return err, 400
-    if data.get('cause') and data['cause'] not in ['UNKNOWN_CAUSE', 'OTHER_CAUSE', 'TECHNICAL_PROBLEM', 'STRIKE', 'DEMONSTRATION', 'ACCIDENT', 'HOLIDAY', 'WEATHER', 'MAINTENANCE', 'CONSTRUCTION', 'POLICE_ACTIVITY', 'MEDICAL_EMERGENCY']:
-        return {"error": {"message": "invalid cause; allowed: " + ", ".join(['UNKNOWN_CAUSE', 'OTHER_CAUSE', 'TECHNICAL_PROBLEM', 'STRIKE', 'DEMONSTRATION', 'ACCIDENT', 'HOLIDAY', 'WEATHER', 'MAINTENANCE', 'CONSTRUCTION', 'POLICE_ACTIVITY', 'MEDICAL_EMERGENCY']), "type": "invalid_request_error"}}, 400
-    if data.get('effect') and data['effect'] not in ['NO_SERVICE', 'REDUCED_SERVICE', 'SIGNIFICANT_DELAYS', 'DETOUR', 'ADDITIONAL_SERVICE', 'MODIFIED_SERVICE', 'OTHER_EFFECT', 'UNKNOWN_EFFECT', 'STOP_MOVED', 'NO_EFFECT', 'ACCESSIBILITY_ISSUE']:
-        return {"error": {"message": "invalid effect; allowed: " + ", ".join(['NO_SERVICE', 'REDUCED_SERVICE', 'SIGNIFICANT_DELAYS', 'DETOUR', 'ADDITIONAL_SERVICE', 'MODIFIED_SERVICE', 'OTHER_EFFECT', 'UNKNOWN_EFFECT', 'STOP_MOVED', 'NO_EFFECT', 'ACCESSIBILITY_ISSUE']), "type": "invalid_request_error"}}, 400
-    rec = {"id": new_id("gtfs_ser")}
-    rec["routeId"] = data.get('routeId')
-    rec["cause"] = data.get('cause')
-    rec["effect"] = data.get('effect')
+    if data.get('pickupType') and data['pickupType'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid pickupType; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
+    if data.get('dropOffType') and data['dropOffType'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid dropOffType; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
+    if data.get('timepoint') and data['timepoint'] not in [0, 1]:
+        return {"error": {"message": "invalid timepoint; allowed: " + ", ".join([0, 1]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gtfs_sto")}
+    rec["tripId"] = data.get('tripId')
+    rec["arrivalTime"] = data.get('arrivalTime')
+    rec["departureTime"] = data.get('departureTime')
+    rec["stopId"] = data.get('stopId')
+    rec["stopSequence"] = _as_int(data.get('stopSequence'))
+    rec["pickupType"] = _as_int(data.get('pickupType'))
+    rec["dropOffType"] = _as_int(data.get('dropOffType'))
+    rec["timepoint"] = _as_int(data.get('timepoint'))
+    rec["shapeDistTraveled"] = _as_float(data.get('shapeDistTraveled'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ServiceAlert", rec)
+    _persist("StopTime", rec)
     return rec, 201
 
-@app.route("/v1/servicealerts", methods=["GET"])
-def list_service_alerts(request):
-    """List ServiceAlerts with filtering + cursor pagination."""
+@app.route("/v1/stoptimes", methods=["GET"])
+def list_stop_times(request):
+    """List StopTimes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ServiceAlert")
-    rows = _apply_filters(rows, params, ['routeId', 'cause', 'effect'])
+    rows = _query("StopTime")
+    rows = _apply_filters(rows, params, ['tripId', 'arrivalTime', 'departureTime', 'stopId', 'stopSequence', 'pickupType', 'dropOffType', 'timepoint', 'shapeDistTraveled'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/servicealerts/<eid>", methods=["GET"])
-def get_service_alert(request, eid):
-    """Retrieve a ServiceAlert by id (supports ?expand=)."""
-    rows = _query("ServiceAlert", eid)
+@app.route("/v1/stoptimes/<eid>", methods=["GET"])
+def get_stop_time(request, eid):
+    """Retrieve a StopTime by id (supports ?expand=)."""
+    rows = _query("StopTime", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'routeId': 'Route'})
+    rec = _expand(rec, request.query or {}, {'tripId': 'Trip', 'stopId': 'Stop'})
     return rec, 200
 
-@app.route("/v1/servicealerts/<eid>", methods=["POST", "PATCH"])
-def update_service_alert(request, eid):
-    """Update a ServiceAlert."""
-    rows = _query("ServiceAlert", eid)
+@app.route("/v1/stoptimes/<eid>", methods=["POST", "PATCH"])
+def update_stop_time(request, eid):
+    """Update a StopTime."""
+    rows = _query("StopTime", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['routeId', 'cause', 'effect'])
+    err = _reject_unknown(data, ['tripId', 'arrivalTime', 'departureTime', 'stopId', 'stopSequence', 'pickupType', 'dropOffType', 'timepoint', 'shapeDistTraveled'])
     if err:
         return err, 400
-    if data.get('cause') and data['cause'] not in ['UNKNOWN_CAUSE', 'OTHER_CAUSE', 'TECHNICAL_PROBLEM', 'STRIKE', 'DEMONSTRATION', 'ACCIDENT', 'HOLIDAY', 'WEATHER', 'MAINTENANCE', 'CONSTRUCTION', 'POLICE_ACTIVITY', 'MEDICAL_EMERGENCY']:
-        return {"error": {"message": "invalid cause; allowed: " + ", ".join(['UNKNOWN_CAUSE', 'OTHER_CAUSE', 'TECHNICAL_PROBLEM', 'STRIKE', 'DEMONSTRATION', 'ACCIDENT', 'HOLIDAY', 'WEATHER', 'MAINTENANCE', 'CONSTRUCTION', 'POLICE_ACTIVITY', 'MEDICAL_EMERGENCY']), "type": "invalid_request_error"}}, 400
-    if data.get('effect') and data['effect'] not in ['NO_SERVICE', 'REDUCED_SERVICE', 'SIGNIFICANT_DELAYS', 'DETOUR', 'ADDITIONAL_SERVICE', 'MODIFIED_SERVICE', 'OTHER_EFFECT', 'UNKNOWN_EFFECT', 'STOP_MOVED', 'NO_EFFECT', 'ACCESSIBILITY_ISSUE']:
-        return {"error": {"message": "invalid effect; allowed: " + ", ".join(['NO_SERVICE', 'REDUCED_SERVICE', 'SIGNIFICANT_DELAYS', 'DETOUR', 'ADDITIONAL_SERVICE', 'MODIFIED_SERVICE', 'OTHER_EFFECT', 'UNKNOWN_EFFECT', 'STOP_MOVED', 'NO_EFFECT', 'ACCESSIBILITY_ISSUE']), "type": "invalid_request_error"}}, 400
+    if data.get('pickupType') and data['pickupType'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid pickupType; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
+    if data.get('dropOffType') and data['dropOffType'] not in [0, 1, 2, 3]:
+        return {"error": {"message": "invalid dropOffType; allowed: " + ", ".join([0, 1, 2, 3]), "type": "invalid_request_error"}}, 400
+    if data.get('timepoint') and data['timepoint'] not in [0, 1]:
+        return {"error": {"message": "invalid timepoint; allowed: " + ", ".join([0, 1]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ServiceAlert", rec)
+    _persist("StopTime", rec)
     return rec, 200
 
-@app.route("/v1/servicealerts/<eid>", methods=["DELETE"])
-def delete_service_alert(request, eid):
-    """Delete a ServiceAlert."""
-    rows = _query("ServiceAlert", eid)
+@app.route("/v1/stoptimes/<eid>", methods=["DELETE"])
+def delete_stop_time(request, eid):
+    """Delete a StopTime."""
+    rows = _query("StopTime", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gtfs.ServiceAlert", "id": eid})
+    db.retract({"entity": f"gtfs.StopTime", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/fares", methods=["POST"])
-def create_fare(request):
-    """Create a Fare."""
+@app.route("/v1/transfers", methods=["POST"])
+def create_transfer(request):
+    """Create a Transfer."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['routeId', 'price', 'currency'])
+    err = _reject_unknown(data, ['fromStopId', 'toStopId', 'transferType', 'minTransferTime'])
     if err:
         return err, 400
-    err = _require(data, ['price', 'currency'])
+    err = _require(data, ['transferType', 'minTransferTime'])
     if err:
         return err, 400
-    rec = {"id": new_id("gtfs_far")}
-    rec["routeId"] = data.get('routeId')
-    rec["price"] = _as_float(data.get('price'))
-    rec["currency"] = data.get('currency')
+    if data.get('transferType') and data['transferType'] not in [0, 1, 2, 3, 4]:
+        return {"error": {"message": "invalid transferType; allowed: " + ", ".join([0, 1, 2, 3, 4]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("gtfs_tra")}
+    rec["fromStopId"] = data.get('fromStopId')
+    rec["toStopId"] = data.get('toStopId')
+    rec["transferType"] = _as_int(data.get('transferType'))
+    rec["minTransferTime"] = _as_int(data.get('minTransferTime'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Fare", rec)
+    _persist("Transfer", rec)
     return rec, 201
 
-@app.route("/v1/fares", methods=["GET"])
-def list_fares(request):
-    """List Fares with filtering + cursor pagination."""
+@app.route("/v1/transfers", methods=["GET"])
+def list_transfers(request):
+    """List Transfers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Fare")
-    rows = _apply_filters(rows, params, ['routeId', 'price', 'currency'])
+    rows = _query("Transfer")
+    rows = _apply_filters(rows, params, ['fromStopId', 'toStopId', 'transferType', 'minTransferTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/fares/<eid>", methods=["GET"])
-def get_fare(request, eid):
-    """Retrieve a Fare by id (supports ?expand=)."""
-    rows = _query("Fare", eid)
+@app.route("/v1/transfers/<eid>", methods=["GET"])
+def get_transfer(request, eid):
+    """Retrieve a Transfer by id (supports ?expand=)."""
+    rows = _query("Transfer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'routeId': 'Route'})
     return rec, 200
 
-@app.route("/v1/fares/<eid>", methods=["POST", "PATCH"])
-def update_fare(request, eid):
-    """Update a Fare."""
-    rows = _query("Fare", eid)
+@app.route("/v1/transfers/<eid>", methods=["POST", "PATCH"])
+def update_transfer(request, eid):
+    """Update a Transfer."""
+    rows = _query("Transfer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['routeId', 'price', 'currency'])
+    err = _reject_unknown(data, ['fromStopId', 'toStopId', 'transferType', 'minTransferTime'])
     if err:
         return err, 400
+    if data.get('transferType') and data['transferType'] not in [0, 1, 2, 3, 4]:
+        return {"error": {"message": "invalid transferType; allowed: " + ", ".join([0, 1, 2, 3, 4]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Fare", rec)
+    _persist("Transfer", rec)
     return rec, 200
 
-@app.route("/v1/fares/<eid>", methods=["DELETE"])
-def delete_fare(request, eid):
-    """Delete a Fare."""
-    rows = _query("Fare", eid)
+@app.route("/v1/transfers/<eid>", methods=["DELETE"])
+def delete_transfer(request, eid):
+    """Delete a Transfer."""
+    rows = _query("Transfer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"gtfs.Fare", "id": eid})
+    db.retract({"entity": f"gtfs.Transfer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "gtfs-compat", "tier": "L4",
-            "entities": ['Stop', 'Route', 'Trip', 'Vehicle', 'ServiceAlert', 'Fare']}, 200
+            "entities": ['Agency', 'Route', 'Trip', 'Stop', 'StopTime', 'Transfer']}, 200
 
 
 if __name__ == "__main__":

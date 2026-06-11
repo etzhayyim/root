@@ -111,354 +111,32 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'environment'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pagerdut_ser")}
-    rec["name"] = data.get('name')
-    rec["environment"] = data.get('environment')
-    rec["language"] = data.get('language')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
-    return rec, 201
-
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'environment', 'language'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Service", rec)
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pagerduty.Service", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/errors", methods=["POST"])
-def create_error(request):
-    """Create a Error."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
-    if err:
-        return err, 400
-    err = _require(data, ['message', 'culprit'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pagerdut_err")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["message"] = data.get('message')
-    rec["culprit"] = data.get('culprit')
-    rec["count"] = _as_int(data.get('count'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Error", rec)
-    return rec, 201
-
-@app.route("/v1/errors", methods=["GET"])
-def list_errors(request):
-    """List Errors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Error")
-    rows = _apply_filters(rows, params, ['serviceId', 'message', 'culprit', 'count'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/errors/<eid>", methods=["GET"])
-def get_error(request, eid):
-    """Retrieve a Error by id (supports ?expand=)."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/errors/<eid>", methods=["POST", "PATCH"])
-def update_error(request, eid):
-    """Update a Error."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Error", rec)
-    return rec, 200
-
-@app.route("/v1/errors/<eid>", methods=["DELETE"])
-def delete_error(request, eid):
-    """Delete a Error."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pagerduty.Error", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/traces", methods=["POST"])
-def create_trace(request):
-    """Create a Trace."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['operation', 'durationMs'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pagerdut_tra")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["operation"] = data.get('operation')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Trace", rec)
-    return rec, 201
-
-@app.route("/v1/traces", methods=["GET"])
-def list_traces(request):
-    """List Traces with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Trace")
-    rows = _apply_filters(rows, params, ['serviceId', 'operation', 'durationMs', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/traces/<eid>", methods=["GET"])
-def get_trace(request, eid):
-    """Retrieve a Trace by id (supports ?expand=)."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/traces/<eid>", methods=["POST", "PATCH"])
-def update_trace(request, eid):
-    """Update a Trace."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Trace", rec)
-    return rec, 200
-
-@app.route("/v1/traces/<eid>", methods=["DELETE"])
-def delete_trace(request, eid):
-    """Delete a Trace."""
-    rows = _query("Trace", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pagerduty.Trace", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pagerdut_met")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
-    return rec, 201
-
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['serviceId', 'name', 'value', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Metric", rec)
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pagerduty.Metric", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/alerts", methods=["POST"])
-def create_alert(request):
-    """Create a Alert."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['condition', 'severity'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("pagerdut_ale")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["condition"] = data.get('condition')
-    rec["severity"] = data.get('severity')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Alert", rec)
-    return rec, 201
-
-@app.route("/v1/alerts", methods=["GET"])
-def list_alerts(request):
-    """List Alerts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Alert")
-    rows = _apply_filters(rows, params, ['serviceId', 'condition', 'severity', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/alerts/<eid>", methods=["GET"])
-def get_alert(request, eid):
-    """Retrieve a Alert by id (supports ?expand=)."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/alerts/<eid>", methods=["POST", "PATCH"])
-def update_alert(request, eid):
-    """Update a Alert."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Alert", rec)
-    return rec, 200
-
-@app.route("/v1/alerts/<eid>", methods=["DELETE"])
-def delete_alert(request, eid):
-    """Delete a Alert."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"pagerduty.Alert", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/incidents", methods=["POST"])
 def create_incident(request):
     """Create a Incident."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['title', 'incidentNumber', 'status', 'urgency', 'incidentKey', 'assignedVia', 'createdAt', 'updatedAt', 'resolvedAt'])
     if err:
         return err, 400
-    err = _require(data, ['title', 'status'])
+    err = _require(data, ['title', 'incidentNumber'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['triggered', 'acknowledged', 'resolved']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['triggered', 'acknowledged', 'resolved']), "type": "invalid_request_error"}}, 400
+    if data.get('urgency') and data['urgency'] not in ['high', 'low']:
+        return {"error": {"message": "invalid urgency; allowed: " + ", ".join(['high', 'low']), "type": "invalid_request_error"}}, 400
+    if data.get('assignedVia') and data['assignedVia'] not in ['escalation_policy', 'direct_assignment']:
+        return {"error": {"message": "invalid assignedVia; allowed: " + ", ".join(['escalation_policy', 'direct_assignment']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("pagerdut_inc")}
     rec["title"] = data.get('title')
+    rec["incidentNumber"] = _as_int(data.get('incidentNumber'))
     rec["status"] = data.get('status')
-    rec["severity"] = data.get('severity')
-    rec["startedAt"] = data.get('startedAt')
+    rec["urgency"] = data.get('urgency')
+    rec["incidentKey"] = data.get('incidentKey')
+    rec["assignedVia"] = data.get('assignedVia')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
+    rec["resolvedAt"] = data.get('resolvedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Incident", rec)
@@ -469,7 +147,7 @@ def list_incidents(request):
     """List Incidents with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Incident")
-    rows = _apply_filters(rows, params, ['title', 'status', 'severity', 'startedAt'])
+    rows = _apply_filters(rows, params, ['title', 'incidentNumber', 'status', 'urgency', 'incidentKey', 'assignedVia', 'createdAt', 'updatedAt', 'resolvedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -490,9 +168,15 @@ def update_incident(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['title', 'incidentNumber', 'status', 'urgency', 'incidentKey', 'assignedVia', 'createdAt', 'updatedAt', 'resolvedAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['triggered', 'acknowledged', 'resolved']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['triggered', 'acknowledged', 'resolved']), "type": "invalid_request_error"}}, 400
+    if data.get('urgency') and data['urgency'] not in ['high', 'low']:
+        return {"error": {"message": "invalid urgency; allowed: " + ", ".join(['high', 'low']), "type": "invalid_request_error"}}, 400
+    if data.get('assignedVia') and data['assignedVia'] not in ['escalation_policy', 'direct_assignment']:
+        return {"error": {"message": "invalid assignedVia; allowed: " + ", ".join(['escalation_policy', 'direct_assignment']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -510,10 +194,358 @@ def delete_incident(request, eid):
     db.retract({"entity": f"pagerduty.Incident", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
+@app.route("/v1/services", methods=["POST"])
+def create_service(request):
+    """Create a Service."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'description', 'status', 'autoResolveTimeout', 'acknowledgementTimeout', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'description'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['active', 'warning', 'critical', 'maintenance', 'disabled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'warning', 'critical', 'maintenance', 'disabled']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("pagerdut_ser")}
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["status"] = data.get('status')
+    rec["autoResolveTimeout"] = _as_int(data.get('autoResolveTimeout'))
+    rec["acknowledgementTimeout"] = _as_int(data.get('acknowledgementTimeout'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Service", rec)
+    return rec, 201
+
+@app.route("/v1/services", methods=["GET"])
+def list_services(request):
+    """List Services with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Service")
+    rows = _apply_filters(rows, params, ['name', 'description', 'status', 'autoResolveTimeout', 'acknowledgementTimeout', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/services/<eid>", methods=["GET"])
+def get_service(request, eid):
+    """Retrieve a Service by id (supports ?expand=)."""
+    rows = _query("Service", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
+def update_service(request, eid):
+    """Update a Service."""
+    rows = _query("Service", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'description', 'status', 'autoResolveTimeout', 'acknowledgementTimeout', 'createdAt'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['active', 'warning', 'critical', 'maintenance', 'disabled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['active', 'warning', 'critical', 'maintenance', 'disabled']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Service", rec)
+    return rec, 200
+
+@app.route("/v1/services/<eid>", methods=["DELETE"])
+def delete_service(request, eid):
+    """Delete a Service."""
+    rows = _query("Service", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"pagerduty.Service", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/escalationpolicies", methods=["POST"])
+def create_escalation_policy(request):
+    """Create a EscalationPolicy."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'description', 'numLoops', 'onCallHandoffNotifications'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'description'])
+    if err:
+        return err, 400
+    if data.get('onCallHandoffNotifications') and data['onCallHandoffNotifications'] not in ['if_has_services', 'always']:
+        return {"error": {"message": "invalid onCallHandoffNotifications; allowed: " + ", ".join(['if_has_services', 'always']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("pagerdut_esc")}
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["numLoops"] = _as_int(data.get('numLoops'))
+    rec["onCallHandoffNotifications"] = data.get('onCallHandoffNotifications')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("EscalationPolicy", rec)
+    return rec, 201
+
+@app.route("/v1/escalationpolicies", methods=["GET"])
+def list_escalation_policies(request):
+    """List EscalationPolicies with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("EscalationPolicy")
+    rows = _apply_filters(rows, params, ['name', 'description', 'numLoops', 'onCallHandoffNotifications'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/escalationpolicies/<eid>", methods=["GET"])
+def get_escalation_policy(request, eid):
+    """Retrieve a EscalationPolicy by id (supports ?expand=)."""
+    rows = _query("EscalationPolicy", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/escalationpolicies/<eid>", methods=["POST", "PATCH"])
+def update_escalation_policy(request, eid):
+    """Update a EscalationPolicy."""
+    rows = _query("EscalationPolicy", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'description', 'numLoops', 'onCallHandoffNotifications'])
+    if err:
+        return err, 400
+    if data.get('onCallHandoffNotifications') and data['onCallHandoffNotifications'] not in ['if_has_services', 'always']:
+        return {"error": {"message": "invalid onCallHandoffNotifications; allowed: " + ", ".join(['if_has_services', 'always']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("EscalationPolicy", rec)
+    return rec, 200
+
+@app.route("/v1/escalationpolicies/<eid>", methods=["DELETE"])
+def delete_escalation_policy(request, eid):
+    """Delete a EscalationPolicy."""
+    rows = _query("EscalationPolicy", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"pagerduty.EscalationPolicy", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/users", methods=["POST"])
+def create_user(request):
+    """Create a User."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'email', 'role', 'timeZone', 'jobTitle', 'invitationSent'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'email'])
+    if err:
+        return err, 400
+    if data.get('role') and data['role'] not in ['admin', 'limited_user', 'observer', 'owner', 'read_only_user', 'restricted_access', 'read_only_limited_user', 'user']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['admin', 'limited_user', 'observer', 'owner', 'read_only_user', 'restricted_access', 'read_only_limited_user', 'user']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("pagerdut_use")}
+    rec["name"] = data.get('name')
+    rec["email"] = data.get('email')
+    rec["role"] = data.get('role')
+    rec["timeZone"] = data.get('timeZone')
+    rec["jobTitle"] = data.get('jobTitle')
+    rec["invitationSent"] = _as_bool(data.get('invitationSent'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("User", rec)
+    return rec, 201
+
+@app.route("/v1/users", methods=["GET"])
+def list_users(request):
+    """List Users with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("User")
+    rows = _apply_filters(rows, params, ['name', 'email', 'role', 'timeZone', 'jobTitle', 'invitationSent'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/users/<eid>", methods=["GET"])
+def get_user(request, eid):
+    """Retrieve a User by id (supports ?expand=)."""
+    rows = _query("User", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
+def update_user(request, eid):
+    """Update a User."""
+    rows = _query("User", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'email', 'role', 'timeZone', 'jobTitle', 'invitationSent'])
+    if err:
+        return err, 400
+    if data.get('role') and data['role'] not in ['admin', 'limited_user', 'observer', 'owner', 'read_only_user', 'restricted_access', 'read_only_limited_user', 'user']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['admin', 'limited_user', 'observer', 'owner', 'read_only_user', 'restricted_access', 'read_only_limited_user', 'user']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("User", rec)
+    return rec, 200
+
+@app.route("/v1/users/<eid>", methods=["DELETE"])
+def delete_user(request, eid):
+    """Delete a User."""
+    rows = _query("User", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"pagerduty.User", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/schedules", methods=["POST"])
+def create_schedule(request):
+    """Create a Schedule."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'description', 'timeZone'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'description'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("pagerdut_sch")}
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["timeZone"] = data.get('timeZone')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Schedule", rec)
+    return rec, 201
+
+@app.route("/v1/schedules", methods=["GET"])
+def list_schedules(request):
+    """List Schedules with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Schedule")
+    rows = _apply_filters(rows, params, ['name', 'description', 'timeZone'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/schedules/<eid>", methods=["GET"])
+def get_schedule(request, eid):
+    """Retrieve a Schedule by id (supports ?expand=)."""
+    rows = _query("Schedule", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/schedules/<eid>", methods=["POST", "PATCH"])
+def update_schedule(request, eid):
+    """Update a Schedule."""
+    rows = _query("Schedule", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'description', 'timeZone'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Schedule", rec)
+    return rec, 200
+
+@app.route("/v1/schedules/<eid>", methods=["DELETE"])
+def delete_schedule(request, eid):
+    """Delete a Schedule."""
+    rows = _query("Schedule", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"pagerduty.Schedule", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/teams", methods=["POST"])
+def create_team(request):
+    """Create a Team."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'description', 'defaultRole'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'description'])
+    if err:
+        return err, 400
+    if data.get('defaultRole') and data['defaultRole'] not in ['manager', 'none']:
+        return {"error": {"message": "invalid defaultRole; allowed: " + ", ".join(['manager', 'none']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("pagerdut_tea")}
+    rec["name"] = data.get('name')
+    rec["description"] = data.get('description')
+    rec["defaultRole"] = data.get('defaultRole')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Team", rec)
+    return rec, 201
+
+@app.route("/v1/teams", methods=["GET"])
+def list_teams(request):
+    """List Teams with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Team")
+    rows = _apply_filters(rows, params, ['name', 'description', 'defaultRole'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/teams/<eid>", methods=["GET"])
+def get_team(request, eid):
+    """Retrieve a Team by id (supports ?expand=)."""
+    rows = _query("Team", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/teams/<eid>", methods=["POST", "PATCH"])
+def update_team(request, eid):
+    """Update a Team."""
+    rows = _query("Team", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'description', 'defaultRole'])
+    if err:
+        return err, 400
+    if data.get('defaultRole') and data['defaultRole'] not in ['manager', 'none']:
+        return {"error": {"message": "invalid defaultRole; allowed: " + ", ".join(['manager', 'none']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Team", rec)
+    return rec, 200
+
+@app.route("/v1/teams/<eid>", methods=["DELETE"])
+def delete_team(request, eid):
+    """Delete a Team."""
+    rows = _query("Team", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"pagerduty.Team", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "pagerduty-compat", "tier": "L4",
-            "entities": ['Service', 'Error', 'Trace', 'Metric', 'Alert', 'Incident']}, 200
+            "entities": ['Incident', 'Service', 'EscalationPolicy', 'User', 'Schedule', 'Team']}, 200
 
 
 if __name__ == "__main__":

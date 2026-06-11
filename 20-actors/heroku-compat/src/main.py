@@ -111,52 +111,54 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/projects", methods=["POST"])
-def create_project(request):
-    """Create a Project."""
+@app.route("/v1/apps", methods=["POST"])
+def create_app(request):
+    """Create a App."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'billingId'])
+    err = _reject_unknown(data, ['id', 'name', 'webUrl', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'region'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("heroku_pro")}
+    rec = {"id": new_id("heroku_app")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["billingId"] = data.get('billingId')
+    rec["webUrl"] = data.get('webUrl')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Project", rec)
+    _persist("App", rec)
     return rec, 201
 
-@app.route("/v1/projects", methods=["GET"])
-def list_projects(request):
-    """List Projects with filtering + cursor pagination."""
+@app.route("/v1/apps", methods=["GET"])
+def list_apps(request):
+    """List Apps with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Project")
-    rows = _apply_filters(rows, params, ['name', 'region', 'billingId'])
+    rows = _query("App")
+    rows = _apply_filters(rows, params, ['id', 'name', 'webUrl', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/projects/<eid>", methods=["GET"])
-def get_project(request, eid):
-    """Retrieve a Project by id (supports ?expand=)."""
-    rows = _query("Project", eid)
+@app.route("/v1/apps/<eid>", methods=["GET"])
+def get_app(request, eid):
+    """Retrieve a App by id (supports ?expand=)."""
+    rows = _query("App", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
-def update_project(request, eid):
-    """Update a Project."""
-    rows = _query("Project", eid)
+@app.route("/v1/apps/<eid>", methods=["POST", "PATCH"])
+def update_app(request, eid):
+    """Update a App."""
+    rows = _query("App", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'billingId'])
+    err = _reject_unknown(data, ['id', 'name', 'webUrl', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -164,134 +166,138 @@ def update_project(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Project", rec)
+    _persist("App", rec)
     return rec, 200
 
-@app.route("/v1/projects/<eid>", methods=["DELETE"])
-def delete_project(request, eid):
-    """Delete a Project."""
-    rows = _query("Project", eid)
+@app.route("/v1/apps/<eid>", methods=["DELETE"])
+def delete_app(request, eid):
+    """Delete a App."""
+    rows = _query("App", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"heroku.Project", "id": eid})
+    db.retract({"entity": f"heroku.App", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/computeinstances", methods=["POST"])
-def create_compute_instance(request):
-    """Create a ComputeInstance."""
+@app.route("/v1/dynos", methods=["POST"])
+def create_dyno(request):
+    """Create a Dyno."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
+    err = _reject_unknown(data, ['id', 'name', 'state', 'command', 'type', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'machineType'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("heroku_com")}
-    rec["projectId"] = data.get('projectId')
+    if data.get('state') and data['state'] not in ['crashed', 'down', 'idle', 'starting', 'up']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['crashed', 'down', 'idle', 'starting', 'up']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("heroku_dyn")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["machineType"] = data.get('machineType')
     rec["state"] = data.get('state')
-    rec["ipAddress"] = data.get('ipAddress')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ComputeInstance", rec)
-    return rec, 201
-
-@app.route("/v1/computeinstances", methods=["GET"])
-def list_compute_instances(request):
-    """List ComputeInstances with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ComputeInstance")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/computeinstances/<eid>", methods=["GET"])
-def get_compute_instance(request, eid):
-    """Retrieve a ComputeInstance by id (supports ?expand=)."""
-    rows = _query("ComputeInstance", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
-    return rec, 200
-
-@app.route("/v1/computeinstances/<eid>", methods=["POST", "PATCH"])
-def update_compute_instance(request, eid):
-    """Update a ComputeInstance."""
-    rows = _query("ComputeInstance", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ComputeInstance", rec)
-    return rec, 200
-
-@app.route("/v1/computeinstances/<eid>", methods=["DELETE"])
-def delete_compute_instance(request, eid):
-    """Delete a ComputeInstance."""
-    rows = _query("ComputeInstance", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"heroku.ComputeInstance", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/volumes", methods=["POST"])
-def create_volume(request):
-    """Create a Volume."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'sizeGb', 'type', 'attachedTo'])
-    if err:
-        return err, 400
-    err = _require(data, ['sizeGb', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("heroku_vol")}
-    rec["projectId"] = data.get('projectId')
-    rec["sizeGb"] = _as_int(data.get('sizeGb'))
+    rec["command"] = data.get('command')
     rec["type"] = data.get('type')
-    rec["attachedTo"] = data.get('attachedTo')
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Volume", rec)
+    _persist("Dyno", rec)
     return rec, 201
 
-@app.route("/v1/volumes", methods=["GET"])
-def list_volumes(request):
-    """List Volumes with filtering + cursor pagination."""
+@app.route("/v1/dynos", methods=["GET"])
+def list_dynos(request):
+    """List Dynos with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Volume")
-    rows = _apply_filters(rows, params, ['projectId', 'sizeGb', 'type', 'attachedTo'])
+    rows = _query("Dyno")
+    rows = _apply_filters(rows, params, ['id', 'name', 'state', 'command', 'type', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/volumes/<eid>", methods=["GET"])
-def get_volume(request, eid):
-    """Retrieve a Volume by id (supports ?expand=)."""
-    rows = _query("Volume", eid)
+@app.route("/v1/dynos/<eid>", methods=["GET"])
+def get_dyno(request, eid):
+    """Retrieve a Dyno by id (supports ?expand=)."""
+    rows = _query("Dyno", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/volumes/<eid>", methods=["POST", "PATCH"])
-def update_volume(request, eid):
-    """Update a Volume."""
-    rows = _query("Volume", eid)
+@app.route("/v1/dynos/<eid>", methods=["POST", "PATCH"])
+def update_dyno(request, eid):
+    """Update a Dyno."""
+    rows = _query("Dyno", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'sizeGb', 'type', 'attachedTo'])
+    err = _reject_unknown(data, ['id', 'name', 'state', 'command', 'type', 'createdAt'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['crashed', 'down', 'idle', 'starting', 'up']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['crashed', 'down', 'idle', 'starting', 'up']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Dyno", rec)
+    return rec, 200
+
+@app.route("/v1/dynos/<eid>", methods=["DELETE"])
+def delete_dyno(request, eid):
+    """Delete a Dyno."""
+    rows = _query("Dyno", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"heroku.Dyno", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/releases", methods=["POST"])
+def create_release(request):
+    """Create a Release."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'version', 'description', 'current', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'version'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("heroku_rel")}
+    rec["id"] = data.get('id')
+    rec["version"] = _as_int(data.get('version'))
+    rec["description"] = data.get('description')
+    rec["current"] = _as_bool(data.get('current'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Release", rec)
+    return rec, 201
+
+@app.route("/v1/releases", methods=["GET"])
+def list_releases(request):
+    """List Releases with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Release")
+    rows = _apply_filters(rows, params, ['id', 'version', 'description', 'current', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/releases/<eid>", methods=["GET"])
+def get_release(request, eid):
+    """Retrieve a Release by id (supports ?expand=)."""
+    rows = _query("Release", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/releases/<eid>", methods=["POST", "PATCH"])
+def update_release(request, eid):
+    """Update a Release."""
+    rows = _query("Release", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'version', 'description', 'current', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -299,198 +305,209 @@ def update_volume(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Volume", rec)
+    _persist("Release", rec)
     return rec, 200
 
-@app.route("/v1/volumes/<eid>", methods=["DELETE"])
-def delete_volume(request, eid):
-    """Delete a Volume."""
-    rows = _query("Volume", eid)
+@app.route("/v1/releases/<eid>", methods=["DELETE"])
+def delete_release(request, eid):
+    """Delete a Release."""
+    rows = _query("Release", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"heroku.Volume", "id": eid})
+    db.retract({"entity": f"heroku.Release", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/buckets", methods=["POST"])
-def create_bucket(request):
-    """Create a Bucket."""
+@app.route("/v1/addons", methods=["POST"])
+def create_addon(request):
+    """Create a Addon."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'region', 'public'])
+    err = _reject_unknown(data, ['id', 'name', 'state', 'plan', 'app', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'region'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("heroku_buc")}
-    rec["projectId"] = data.get('projectId')
+    if data.get('state') and data['state'] not in ['provisioning', 'provisioned', 'deprovisioned']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['provisioning', 'provisioned', 'deprovisioned']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("heroku_add")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["public"] = _as_bool(data.get('public'))
+    rec["state"] = data.get('state')
+    rec["plan"] = data.get('plan')
+    rec["app"] = data.get('app')
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Bucket", rec)
+    _persist("Addon", rec)
     return rec, 201
 
-@app.route("/v1/buckets", methods=["GET"])
-def list_buckets(request):
-    """List Buckets with filtering + cursor pagination."""
+@app.route("/v1/addons", methods=["GET"])
+def list_addons(request):
+    """List Addons with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Bucket")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'region', 'public'])
+    rows = _query("Addon")
+    rows = _apply_filters(rows, params, ['id', 'name', 'state', 'plan', 'app', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/buckets/<eid>", methods=["GET"])
-def get_bucket(request, eid):
-    """Retrieve a Bucket by id (supports ?expand=)."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/addons/<eid>", methods=["GET"])
+def get_addon(request, eid):
+    """Retrieve a Addon by id (supports ?expand=)."""
+    rows = _query("Addon", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/buckets/<eid>", methods=["POST", "PATCH"])
-def update_bucket(request, eid):
-    """Update a Bucket."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/addons/<eid>", methods=["POST", "PATCH"])
+def update_addon(request, eid):
+    """Update a Addon."""
+    rows = _query("Addon", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'region', 'public'])
+    err = _reject_unknown(data, ['id', 'name', 'state', 'plan', 'app', 'createdAt'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['provisioning', 'provisioned', 'deprovisioned']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['provisioning', 'provisioned', 'deprovisioned']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Bucket", rec)
+    _persist("Addon", rec)
     return rec, 200
 
-@app.route("/v1/buckets/<eid>", methods=["DELETE"])
-def delete_bucket(request, eid):
-    """Delete a Bucket."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/addons/<eid>", methods=["DELETE"])
+def delete_addon(request, eid):
+    """Delete a Addon."""
+    rows = _query("Addon", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"heroku.Bucket", "id": eid})
+    db.retract({"entity": f"heroku.Addon", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/networks", methods=["POST"])
-def create_network(request):
-    """Create a Network."""
+@app.route("/v1/builds", methods=["POST"])
+def create_build(request):
+    """Create a Build."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'cidr', 'region'])
+    err = _reject_unknown(data, ['id', 'status', 'app', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['cidr', 'region'])
+    err = _require(data, ['id', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("heroku_net")}
-    rec["projectId"] = data.get('projectId')
-    rec["cidr"] = data.get('cidr')
-    rec["region"] = data.get('region')
+    if data.get('status') and data['status'] not in ['failed', 'pending', 'succeeded']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['failed', 'pending', 'succeeded']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("heroku_bui")}
+    rec["id"] = data.get('id')
+    rec["status"] = data.get('status')
+    rec["app"] = data.get('app')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Network", rec)
+    _persist("Build", rec)
     return rec, 201
 
-@app.route("/v1/networks", methods=["GET"])
-def list_networks(request):
-    """List Networks with filtering + cursor pagination."""
+@app.route("/v1/builds", methods=["GET"])
+def list_builds(request):
+    """List Builds with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Network")
-    rows = _apply_filters(rows, params, ['projectId', 'cidr', 'region'])
+    rows = _query("Build")
+    rows = _apply_filters(rows, params, ['id', 'status', 'app', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/networks/<eid>", methods=["GET"])
-def get_network(request, eid):
-    """Retrieve a Network by id (supports ?expand=)."""
-    rows = _query("Network", eid)
+@app.route("/v1/builds/<eid>", methods=["GET"])
+def get_build(request, eid):
+    """Retrieve a Build by id (supports ?expand=)."""
+    rows = _query("Build", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/networks/<eid>", methods=["POST", "PATCH"])
-def update_network(request, eid):
-    """Update a Network."""
-    rows = _query("Network", eid)
+@app.route("/v1/builds/<eid>", methods=["POST", "PATCH"])
+def update_build(request, eid):
+    """Update a Build."""
+    rows = _query("Build", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'cidr', 'region'])
+    err = _reject_unknown(data, ['id', 'status', 'app', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['failed', 'pending', 'succeeded']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['failed', 'pending', 'succeeded']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Network", rec)
+    _persist("Build", rec)
     return rec, 200
 
-@app.route("/v1/networks/<eid>", methods=["DELETE"])
-def delete_network(request, eid):
-    """Delete a Network."""
-    rows = _query("Network", eid)
+@app.route("/v1/builds/<eid>", methods=["DELETE"])
+def delete_build(request, eid):
+    """Delete a Build."""
+    rows = _query("Build", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"heroku.Network", "id": eid})
+    db.retract({"entity": f"heroku.Build", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/iamroles", methods=["POST"])
-def create_iam_role(request):
-    """Create a IamRole."""
+@app.route("/v1/formations", methods=["POST"])
+def create_formation(request):
+    """Create a Formation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'policy'])
+    err = _reject_unknown(data, ['id', 'quantity', 'size', 'type', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'policy'])
+    err = _require(data, ['id', 'quantity'])
     if err:
         return err, 400
-    rec = {"id": new_id("heroku_iam")}
-    rec["projectId"] = data.get('projectId')
-    rec["name"] = data.get('name')
-    rec["policy"] = data.get('policy')
+    rec = {"id": new_id("heroku_for")}
+    rec["id"] = data.get('id')
+    rec["quantity"] = _as_int(data.get('quantity'))
+    rec["size"] = data.get('size')
+    rec["type"] = data.get('type')
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("IamRole", rec)
+    _persist("Formation", rec)
     return rec, 201
 
-@app.route("/v1/iamroles", methods=["GET"])
-def list_iam_roles(request):
-    """List IamRoles with filtering + cursor pagination."""
+@app.route("/v1/formations", methods=["GET"])
+def list_formations(request):
+    """List Formations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("IamRole")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'policy'])
+    rows = _query("Formation")
+    rows = _apply_filters(rows, params, ['id', 'quantity', 'size', 'type', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/iamroles/<eid>", methods=["GET"])
-def get_iam_role(request, eid):
-    """Retrieve a IamRole by id (supports ?expand=)."""
-    rows = _query("IamRole", eid)
+@app.route("/v1/formations/<eid>", methods=["GET"])
+def get_formation(request, eid):
+    """Retrieve a Formation by id (supports ?expand=)."""
+    rows = _query("Formation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/iamroles/<eid>", methods=["POST", "PATCH"])
-def update_iam_role(request, eid):
-    """Update a IamRole."""
-    rows = _query("IamRole", eid)
+@app.route("/v1/formations/<eid>", methods=["POST", "PATCH"])
+def update_formation(request, eid):
+    """Update a Formation."""
+    rows = _query("Formation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'policy'])
+    err = _reject_unknown(data, ['id', 'quantity', 'size', 'type', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -498,22 +515,22 @@ def update_iam_role(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("IamRole", rec)
+    _persist("Formation", rec)
     return rec, 200
 
-@app.route("/v1/iamroles/<eid>", methods=["DELETE"])
-def delete_iam_role(request, eid):
-    """Delete a IamRole."""
-    rows = _query("IamRole", eid)
+@app.route("/v1/formations/<eid>", methods=["DELETE"])
+def delete_formation(request, eid):
+    """Delete a Formation."""
+    rows = _query("Formation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"heroku.IamRole", "id": eid})
+    db.retract({"entity": f"heroku.Formation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "heroku-compat", "tier": "L4",
-            "entities": ['Project', 'ComputeInstance', 'Volume', 'Bucket', 'Network', 'IamRole']}, 200
+            "entities": ['App', 'Dyno', 'Release', 'Addon', 'Build', 'Formation']}, 200
 
 
 if __name__ == "__main__":

@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "modbus_tcp.kotoba")
-ENTITIES = ['Meter', 'Reading', 'Node', 'LoadForecast', 'MarketBid', 'Tag']
-PLURALS = {'Meter': 'meters', 'Reading': 'readings', 'Node': 'nodes', 'LoadForecast': 'loadforecasts', 'MarketBid': 'marketbids', 'Tag': 'tags'}
+ENTITIES = ['MbapHeader', 'Request', 'Response', 'ExceptionResponse']
+PLURALS = {'MbapHeader': 'mbapheaders', 'Request': 'requests', 'Response': 'responses', 'ExceptionResponse': 'exceptionresponses'}
 
 
 class ModbusTcpContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class ModbusTcpContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['exceptionCode', 'functionCode', 'protocolId']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

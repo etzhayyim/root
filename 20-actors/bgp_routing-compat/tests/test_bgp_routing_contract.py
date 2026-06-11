@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "bgp_routing.kotoba")
-ENTITIES = ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']
-PLURALS = {'Prefix': 'prefixes', 'Route': 'routes', 'Peer': 'peers', 'Zone': 'zones', 'Record': 'records', 'Tunnel': 'tunnels'}
+ENTITIES = ['Message', 'OpenMessage', 'UpdateMessage', 'NotificationMessage', 'PathAttribute', 'KeepaliveMessage']
+PLURALS = {'Message': 'messages', 'OpenMessage': 'openmessages', 'UpdateMessage': 'updatemessages', 'NotificationMessage': 'notificationmessages', 'PathAttribute': 'pathattributes', 'KeepaliveMessage': 'keepalivemessages'}
 
 
 class BgpRoutingContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class BgpRoutingContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['errorCode', 'origin', 'type', 'typeCode']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

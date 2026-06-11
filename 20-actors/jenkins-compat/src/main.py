@@ -111,153 +111,28 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/repositories", methods=["POST"])
-def create_repository(request):
-    """Create a Repository."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'owner', 'defaultBranch', 'private'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'owner'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("jenkins_rep")}
-    rec["name"] = data.get('name')
-    rec["owner"] = data.get('owner')
-    rec["defaultBranch"] = data.get('defaultBranch')
-    rec["private"] = _as_bool(data.get('private'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Repository", rec)
-    return rec, 201
-
-@app.route("/v1/repositories", methods=["GET"])
-def list_repositories(request):
-    """List Repositories with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Repository")
-    rows = _apply_filters(rows, params, ['name', 'owner', 'defaultBranch', 'private'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/repositories/<eid>", methods=["GET"])
-def get_repository(request, eid):
-    """Retrieve a Repository by id (supports ?expand=)."""
-    rows = _query("Repository", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/repositories/<eid>", methods=["POST", "PATCH"])
-def update_repository(request, eid):
-    """Update a Repository."""
-    rows = _query("Repository", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'owner', 'defaultBranch', 'private'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Repository", rec)
-    return rec, 200
-
-@app.route("/v1/repositories/<eid>", methods=["DELETE"])
-def delete_repository(request, eid):
-    """Delete a Repository."""
-    rows = _query("Repository", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"jenkins.Repository", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/pipelines", methods=["POST"])
-def create_pipeline(request):
-    """Create a Pipeline."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'name', 'trigger'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'trigger'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("jenkins_pip")}
-    rec["repoId"] = data.get('repoId')
-    rec["name"] = data.get('name')
-    rec["trigger"] = data.get('trigger')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Pipeline", rec)
-    return rec, 201
-
-@app.route("/v1/pipelines", methods=["GET"])
-def list_pipelines(request):
-    """List Pipelines with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Pipeline")
-    rows = _apply_filters(rows, params, ['repoId', 'name', 'trigger'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/pipelines/<eid>", methods=["GET"])
-def get_pipeline(request, eid):
-    """Retrieve a Pipeline by id (supports ?expand=)."""
-    rows = _query("Pipeline", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/pipelines/<eid>", methods=["POST", "PATCH"])
-def update_pipeline(request, eid):
-    """Update a Pipeline."""
-    rows = _query("Pipeline", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'name', 'trigger'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Pipeline", rec)
-    return rec, 200
-
-@app.route("/v1/pipelines/<eid>", methods=["DELETE"])
-def delete_pipeline(request, eid):
-    """Delete a Pipeline."""
-    rows = _query("Pipeline", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"jenkins.Pipeline", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/builds", methods=["POST"])
 def create_build(request):
     """Create a Build."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
+    err = _reject_unknown(data, ['number', 'result', 'building', 'duration', 'timestamp', 'displayName', 'description', 'id', 'queueId'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'status'])
+    err = _require(data, ['number', 'result'])
     if err:
         return err, 400
+    if data.get('result') and data['result'] not in ['SUCCESS', 'UNSTABLE', 'FAILURE', 'NOT_BUILT', 'ABORTED']:
+        return {"error": {"message": "invalid result; allowed: " + ", ".join(['SUCCESS', 'UNSTABLE', 'FAILURE', 'NOT_BUILT', 'ABORTED']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("jenkins_bui")}
-    rec["pipelineId"] = data.get('pipelineId')
     rec["number"] = _as_int(data.get('number'))
-    rec["status"] = data.get('status')
-    rec["commitSha"] = data.get('commitSha')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
+    rec["result"] = data.get('result')
+    rec["building"] = _as_bool(data.get('building'))
+    rec["duration"] = _as_int(data.get('duration'))
+    rec["timestamp"] = _as_int(data.get('timestamp'))
+    rec["displayName"] = data.get('displayName')
+    rec["description"] = data.get('description')
+    rec["id"] = data.get('id')
+    rec["queueId"] = _as_int(data.get('queueId'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Build", rec)
@@ -268,7 +143,7 @@ def list_builds(request):
     """List Builds with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Build")
-    rows = _apply_filters(rows, params, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
+    rows = _apply_filters(rows, params, ['number', 'result', 'building', 'duration', 'timestamp', 'displayName', 'description', 'id', 'queueId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -280,7 +155,6 @@ def get_build(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'pipelineId': 'Pipeline'})
     return rec, 200
 
 @app.route("/v1/builds/<eid>", methods=["POST", "PATCH"])
@@ -290,9 +164,11 @@ def update_build(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['pipelineId', 'number', 'status', 'commitSha', 'durationMs'])
+    err = _reject_unknown(data, ['number', 'result', 'building', 'duration', 'timestamp', 'displayName', 'description', 'id', 'queueId'])
     if err:
         return err, 400
+    if data.get('result') and data['result'] not in ['SUCCESS', 'UNSTABLE', 'FAILURE', 'NOT_BUILT', 'ABORTED']:
+        return {"error": {"message": "invalid result; allowed: " + ", ".join(['SUCCESS', 'UNSTABLE', 'FAILURE', 'NOT_BUILT', 'ABORTED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -310,186 +186,127 @@ def delete_build(request, eid):
     db.retract({"entity": f"jenkins.Build", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/artifacts", methods=["POST"])
-def create_artifact(request):
-    """Create a Artifact."""
+@app.route("/v1/jobs", methods=["POST"])
+def create_job(request):
+    """Create a Job."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'name', 'sizeBytes', 'contentRef'])
+    err = _reject_unknown(data, ['name', 'displayName', 'description', 'color', 'nextBuildNumber', 'url'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'sizeBytes'])
+    err = _require(data, ['name', 'displayName'])
     if err:
         return err, 400
-    rec = {"id": new_id("jenkins_art")}
-    rec["buildId"] = data.get('buildId')
+    if data.get('color') and data['color'] not in ['red', 'red_anime', 'yellow', 'yellow_anime', 'blue', 'blue_anime', 'grey', 'grey_anime', 'disabled', 'disabled_anime', 'aborted', 'aborted_anime', 'notbuilt', 'notbuilt_anime']:
+        return {"error": {"message": "invalid color; allowed: " + ", ".join(['red', 'red_anime', 'yellow', 'yellow_anime', 'blue', 'blue_anime', 'grey', 'grey_anime', 'disabled', 'disabled_anime', 'aborted', 'aborted_anime', 'notbuilt', 'notbuilt_anime']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("jenkins_job")}
     rec["name"] = data.get('name')
-    rec["sizeBytes"] = _as_int(data.get('sizeBytes'))
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Artifact", rec)
-    return rec, 201
-
-@app.route("/v1/artifacts", methods=["GET"])
-def list_artifacts(request):
-    """List Artifacts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Artifact")
-    rows = _apply_filters(rows, params, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["GET"])
-def get_artifact(request, eid):
-    """Retrieve a Artifact by id (supports ?expand=)."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'buildId': 'Build'})
-    return rec, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["POST", "PATCH"])
-def update_artifact(request, eid):
-    """Update a Artifact."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'name', 'sizeBytes', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Artifact", rec)
-    return rec, 200
-
-@app.route("/v1/artifacts/<eid>", methods=["DELETE"])
-def delete_artifact(request, eid):
-    """Delete a Artifact."""
-    rows = _query("Artifact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"jenkins.Artifact", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/deployments", methods=["POST"])
-def create_deployment(request):
-    """Create a Deployment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'environment', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['environment', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("jenkins_dep")}
-    rec["buildId"] = data.get('buildId')
-    rec["environment"] = data.get('environment')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Deployment", rec)
-    return rec, 201
-
-@app.route("/v1/deployments", methods=["GET"])
-def list_deployments(request):
-    """List Deployments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Deployment")
-    rows = _apply_filters(rows, params, ['buildId', 'environment', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/deployments/<eid>", methods=["GET"])
-def get_deployment(request, eid):
-    """Retrieve a Deployment by id (supports ?expand=)."""
-    rows = _query("Deployment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'buildId': 'Build'})
-    return rec, 200
-
-@app.route("/v1/deployments/<eid>", methods=["POST", "PATCH"])
-def update_deployment(request, eid):
-    """Update a Deployment."""
-    rows = _query("Deployment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['buildId', 'environment', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Deployment", rec)
-    return rec, 200
-
-@app.route("/v1/deployments/<eid>", methods=["DELETE"])
-def delete_deployment(request, eid):
-    """Delete a Deployment."""
-    rows = _query("Deployment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"jenkins.Deployment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'url', 'event', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['url', 'event'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("jenkins_web")}
-    rec["repoId"] = data.get('repoId')
+    rec["displayName"] = data.get('displayName')
+    rec["description"] = data.get('description')
+    rec["color"] = data.get('color')
+    rec["nextBuildNumber"] = _as_int(data.get('nextBuildNumber'))
     rec["url"] = data.get('url')
-    rec["event"] = data.get('event')
-    rec["active"] = _as_bool(data.get('active'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("Job", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/jobs", methods=["GET"])
+def list_jobs(request):
+    """List Jobs with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['repoId', 'url', 'event', 'active'])
+    rows = _query("Job")
+    rows = _apply_filters(rows, params, ['name', 'displayName', 'description', 'color', 'nextBuildNumber', 'url'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/jobs/<eid>", methods=["GET"])
+def get_job(request, eid):
+    """Retrieve a Job by id (supports ?expand=)."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/jobs/<eid>", methods=["POST", "PATCH"])
+def update_job(request, eid):
+    """Update a Job."""
+    rows = _query("Job", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['repoId', 'url', 'event', 'active'])
+    err = _reject_unknown(data, ['name', 'displayName', 'description', 'color', 'nextBuildNumber', 'url'])
+    if err:
+        return err, 400
+    if data.get('color') and data['color'] not in ['red', 'red_anime', 'yellow', 'yellow_anime', 'blue', 'blue_anime', 'grey', 'grey_anime', 'disabled', 'disabled_anime', 'aborted', 'aborted_anime', 'notbuilt', 'notbuilt_anime']:
+        return {"error": {"message": "invalid color; allowed: " + ", ".join(['red', 'red_anime', 'yellow', 'yellow_anime', 'blue', 'blue_anime', 'grey', 'grey_anime', 'disabled', 'disabled_anime', 'aborted', 'aborted_anime', 'notbuilt', 'notbuilt_anime']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Job", rec)
+    return rec, 200
+
+@app.route("/v1/jobs/<eid>", methods=["DELETE"])
+def delete_job(request, eid):
+    """Delete a Job."""
+    rows = _query("Job", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"jenkins.Job", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/queueitems", methods=["POST"])
+def create_queue_item(request):
+    """Create a QueueItem."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'inQueueSince', 'why', 'blocked', 'buildable', 'stuck'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'inQueueSince'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("jenkins_que")}
+    rec["id"] = _as_int(data.get('id'))
+    rec["inQueueSince"] = _as_int(data.get('inQueueSince'))
+    rec["why"] = data.get('why')
+    rec["blocked"] = _as_bool(data.get('blocked'))
+    rec["buildable"] = _as_bool(data.get('buildable'))
+    rec["stuck"] = _as_bool(data.get('stuck'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("QueueItem", rec)
+    return rec, 201
+
+@app.route("/v1/queueitems", methods=["GET"])
+def list_queue_items(request):
+    """List QueueItems with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("QueueItem")
+    rows = _apply_filters(rows, params, ['id', 'inQueueSince', 'why', 'blocked', 'buildable', 'stuck'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/queueitems/<eid>", methods=["GET"])
+def get_queue_item(request, eid):
+    """Retrieve a QueueItem by id (supports ?expand=)."""
+    rows = _query("QueueItem", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/queueitems/<eid>", methods=["POST", "PATCH"])
+def update_queue_item(request, eid):
+    """Update a QueueItem."""
+    rows = _query("QueueItem", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'inQueueSince', 'why', 'blocked', 'buildable', 'stuck'])
     if err:
         return err, 400
     rec = rows[0]
@@ -497,22 +314,155 @@ def update_webhook(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("QueueItem", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/queueitems/<eid>", methods=["DELETE"])
+def delete_queue_item(request, eid):
+    """Delete a QueueItem."""
+    rows = _query("QueueItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"jenkins.Webhook", "id": eid})
+    db.retract({"entity": f"jenkins.QueueItem", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/computers", methods=["POST"])
+def create_computer(request):
+    """Create a Computer."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['displayName', 'name', 'url', 'offline', 'offlineCauseReason', 'numExecutors'])
+    if err:
+        return err, 400
+    err = _require(data, ['displayName', 'name'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("jenkins_com")}
+    rec["displayName"] = data.get('displayName')
+    rec["name"] = data.get('name')
+    rec["url"] = data.get('url')
+    rec["offline"] = _as_bool(data.get('offline'))
+    rec["offlineCauseReason"] = data.get('offlineCauseReason')
+    rec["numExecutors"] = _as_int(data.get('numExecutors'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Computer", rec)
+    return rec, 201
+
+@app.route("/v1/computers", methods=["GET"])
+def list_computers(request):
+    """List Computers with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Computer")
+    rows = _apply_filters(rows, params, ['displayName', 'name', 'url', 'offline', 'offlineCauseReason', 'numExecutors'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/computers/<eid>", methods=["GET"])
+def get_computer(request, eid):
+    """Retrieve a Computer by id (supports ?expand=)."""
+    rows = _query("Computer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/computers/<eid>", methods=["POST", "PATCH"])
+def update_computer(request, eid):
+    """Update a Computer."""
+    rows = _query("Computer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['displayName', 'name', 'url', 'offline', 'offlineCauseReason', 'numExecutors'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Computer", rec)
+    return rec, 200
+
+@app.route("/v1/computers/<eid>", methods=["DELETE"])
+def delete_computer(request, eid):
+    """Delete a Computer."""
+    rows = _query("Computer", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"jenkins.Computer", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/views", methods=["POST"])
+def create_view(request):
+    """Create a View."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'url', 'description'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'url'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("jenkins_vie")}
+    rec["name"] = data.get('name')
+    rec["url"] = data.get('url')
+    rec["description"] = data.get('description')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("View", rec)
+    return rec, 201
+
+@app.route("/v1/views", methods=["GET"])
+def list_views(request):
+    """List Views with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("View")
+    rows = _apply_filters(rows, params, ['name', 'url', 'description'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/views/<eid>", methods=["GET"])
+def get_view(request, eid):
+    """Retrieve a View by id (supports ?expand=)."""
+    rows = _query("View", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/views/<eid>", methods=["POST", "PATCH"])
+def update_view(request, eid):
+    """Update a View."""
+    rows = _query("View", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'url', 'description'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("View", rec)
+    return rec, 200
+
+@app.route("/v1/views/<eid>", methods=["DELETE"])
+def delete_view(request, eid):
+    """Delete a View."""
+    rows = _query("View", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"jenkins.View", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "jenkins-compat", "tier": "L4",
-            "entities": ['Repository', 'Pipeline', 'Build', 'Artifact', 'Deployment', 'Webhook']}, 200
+            "entities": ['Build', 'Job', 'QueueItem', 'Computer', 'View']}, 200
 
 
 if __name__ == "__main__":

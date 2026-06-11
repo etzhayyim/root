@@ -3,72 +3,57 @@
 
 namespace ss7_sigtran {
 
-    entity Subscriber {
+    entity M3uaMessage {
         id: string @unique
-        imsi: string
-        msisdn: string
-        plan: string
-        status: string
+        version: integer
+        reserved: integer
+        messageClass: integer
+        messageType: integer
+        messageLength: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Session {
+    entity SuaMessage {
         id: string @unique
-        subscriberId: string
-        apn: string
-        startedAt: datetime
-        bytesUsed: integer
+        version: integer
+        messageClass: integer
+        messageType: integer
+        messageLength: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Message {
+    entity ProtocolData {
         id: string @unique
-        fromAddr: string
-        toAddr: string
-        body: string
-        status: string
+        opc: integer
+        dpc: integer
+        si: integer
+        ni: integer
+        mp: integer
+        sls: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Number {
+    entity Mtp3Message {
         id: string @unique
-        e164: string
-        type: string
-        assignedTo: string
+        serviceIndicator: integer
+        networkIndicator: integer
+        payload: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Terminal {
+    entity SccpMessage {
         id: string @unique
-        serial: string
-        satellite: string
-        signalDb: float
-        online: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity UsageRecord {
-        id: string @unique
-        subscriberId: string
-        quantity: float
-        unit: string
-        ratedAt: datetime
+        messageType: integer
+        destinationPointCode: integer
+        sourcePointCode: integer
+        subsystemNumber: integer
+        globalTitle: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

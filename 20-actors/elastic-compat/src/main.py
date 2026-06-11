@@ -111,386 +111,287 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
+@app.route("/v1/clusterhealths", methods=["POST"])
+def create_cluster_health(request):
+    """Create a ClusterHealth."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
+    err = _reject_unknown(data, ['clusterName', 'status', 'numberOfNodes', 'numberOfDataNodes', 'activePrimaryShards', 'activeShards', 'relocatingShards', 'initializingShards', 'unassignedShards', 'timedOut'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'environment'])
+    err = _require(data, ['clusterName', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("elastic_ser")}
-    rec["name"] = data.get('name')
-    rec["environment"] = data.get('environment')
-    rec["language"] = data.get('language')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
-    return rec, 201
-
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'environment', 'language'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'environment', 'language'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Service", rec)
-    return rec, 200
-
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elastic.Service", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/errors", methods=["POST"])
-def create_error(request):
-    """Create a Error."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
-    if err:
-        return err, 400
-    err = _require(data, ['message', 'culprit'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("elastic_err")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["message"] = data.get('message')
-    rec["culprit"] = data.get('culprit')
-    rec["count"] = _as_int(data.get('count'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Error", rec)
-    return rec, 201
-
-@app.route("/v1/errors", methods=["GET"])
-def list_errors(request):
-    """List Errors with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Error")
-    rows = _apply_filters(rows, params, ['serviceId', 'message', 'culprit', 'count'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/errors/<eid>", methods=["GET"])
-def get_error(request, eid):
-    """Retrieve a Error by id (supports ?expand=)."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/errors/<eid>", methods=["POST", "PATCH"])
-def update_error(request, eid):
-    """Update a Error."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'message', 'culprit', 'count'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Error", rec)
-    return rec, 200
-
-@app.route("/v1/errors/<eid>", methods=["DELETE"])
-def delete_error(request, eid):
-    """Delete a Error."""
-    rows = _query("Error", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elastic.Error", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/traces", methods=["POST"])
-def create_trace(request):
-    """Create a Trace."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['operation', 'durationMs'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("elastic_tra")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["operation"] = data.get('operation')
-    rec["durationMs"] = _as_int(data.get('durationMs'))
+    if data.get('status') and data['status'] not in ['green', 'yellow', 'red']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['green', 'yellow', 'red']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("elastic_clu")}
+    rec["clusterName"] = data.get('clusterName')
     rec["status"] = data.get('status')
+    rec["numberOfNodes"] = _as_int(data.get('numberOfNodes'))
+    rec["numberOfDataNodes"] = _as_int(data.get('numberOfDataNodes'))
+    rec["activePrimaryShards"] = _as_int(data.get('activePrimaryShards'))
+    rec["activeShards"] = _as_int(data.get('activeShards'))
+    rec["relocatingShards"] = _as_int(data.get('relocatingShards'))
+    rec["initializingShards"] = _as_int(data.get('initializingShards'))
+    rec["unassignedShards"] = _as_int(data.get('unassignedShards'))
+    rec["timedOut"] = _as_bool(data.get('timedOut'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Trace", rec)
+    _persist("ClusterHealth", rec)
     return rec, 201
 
-@app.route("/v1/traces", methods=["GET"])
-def list_traces(request):
-    """List Traces with filtering + cursor pagination."""
+@app.route("/v1/clusterhealths", methods=["GET"])
+def list_cluster_healths(request):
+    """List ClusterHealths with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Trace")
-    rows = _apply_filters(rows, params, ['serviceId', 'operation', 'durationMs', 'status'])
+    rows = _query("ClusterHealth")
+    rows = _apply_filters(rows, params, ['clusterName', 'status', 'numberOfNodes', 'numberOfDataNodes', 'activePrimaryShards', 'activeShards', 'relocatingShards', 'initializingShards', 'unassignedShards', 'timedOut'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/traces/<eid>", methods=["GET"])
-def get_trace(request, eid):
-    """Retrieve a Trace by id (supports ?expand=)."""
-    rows = _query("Trace", eid)
+@app.route("/v1/clusterhealths/<eid>", methods=["GET"])
+def get_cluster_health(request, eid):
+    """Retrieve a ClusterHealth by id (supports ?expand=)."""
+    rows = _query("ClusterHealth", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/traces/<eid>", methods=["POST", "PATCH"])
-def update_trace(request, eid):
-    """Update a Trace."""
-    rows = _query("Trace", eid)
+@app.route("/v1/clusterhealths/<eid>", methods=["POST", "PATCH"])
+def update_cluster_health(request, eid):
+    """Update a ClusterHealth."""
+    rows = _query("ClusterHealth", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'operation', 'durationMs', 'status'])
+    err = _reject_unknown(data, ['clusterName', 'status', 'numberOfNodes', 'numberOfDataNodes', 'activePrimaryShards', 'activeShards', 'relocatingShards', 'initializingShards', 'unassignedShards', 'timedOut'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['green', 'yellow', 'red']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['green', 'yellow', 'red']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Trace", rec)
+    _persist("ClusterHealth", rec)
     return rec, 200
 
-@app.route("/v1/traces/<eid>", methods=["DELETE"])
-def delete_trace(request, eid):
-    """Delete a Trace."""
-    rows = _query("Trace", eid)
+@app.route("/v1/clusterhealths/<eid>", methods=["DELETE"])
+def delete_cluster_health(request, eid):
+    """Delete a ClusterHealth."""
+    rows = _query("ClusterHealth", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elastic.Trace", "id": eid})
+    db.retract({"entity": f"elastic.ClusterHealth", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/metrics", methods=["POST"])
-def create_metric(request):
-    """Create a Metric."""
+@app.route("/v1/indexes", methods=["POST"])
+def create_index(request):
+    """Create a Index."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['name', 'health', 'status', 'uuid', 'numberOfShards', 'numberOfReplicas', 'docsCount', 'docsDeleted', 'storeSize'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'value'])
+    err = _require(data, ['name', 'health'])
     if err:
         return err, 400
-    rec = {"id": new_id("elastic_met")}
-    rec["serviceId"] = data.get('serviceId')
+    if data.get('health') and data['health'] not in ['green', 'yellow', 'red']:
+        return {"error": {"message": "invalid health; allowed: " + ", ".join(['green', 'yellow', 'red']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['open', 'closed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['open', 'closed']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("elastic_ind")}
     rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Metric", rec)
-    return rec, 201
-
-@app.route("/v1/metrics", methods=["GET"])
-def list_metrics(request):
-    """List Metrics with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Metric")
-    rows = _apply_filters(rows, params, ['serviceId', 'name', 'value', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/metrics/<eid>", methods=["GET"])
-def get_metric(request, eid):
-    """Retrieve a Metric by id (supports ?expand=)."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["POST", "PATCH"])
-def update_metric(request, eid):
-    """Update a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'name', 'value', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Metric", rec)
-    return rec, 200
-
-@app.route("/v1/metrics/<eid>", methods=["DELETE"])
-def delete_metric(request, eid):
-    """Delete a Metric."""
-    rows = _query("Metric", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elastic.Metric", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/alerts", methods=["POST"])
-def create_alert(request):
-    """Create a Alert."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
-    if err:
-        return err, 400
-    err = _require(data, ['condition', 'severity'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("elastic_ale")}
-    rec["serviceId"] = data.get('serviceId')
-    rec["condition"] = data.get('condition')
-    rec["severity"] = data.get('severity')
-    rec["active"] = _as_bool(data.get('active'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Alert", rec)
-    return rec, 201
-
-@app.route("/v1/alerts", methods=["GET"])
-def list_alerts(request):
-    """List Alerts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Alert")
-    rows = _apply_filters(rows, params, ['serviceId', 'condition', 'severity', 'active'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/alerts/<eid>", methods=["GET"])
-def get_alert(request, eid):
-    """Retrieve a Alert by id (supports ?expand=)."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'serviceId': 'Service'})
-    return rec, 200
-
-@app.route("/v1/alerts/<eid>", methods=["POST", "PATCH"])
-def update_alert(request, eid):
-    """Update a Alert."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['serviceId', 'condition', 'severity', 'active'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Alert", rec)
-    return rec, 200
-
-@app.route("/v1/alerts/<eid>", methods=["DELETE"])
-def delete_alert(request, eid):
-    """Delete a Alert."""
-    rows = _query("Alert", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elastic.Alert", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/incidents", methods=["POST"])
-def create_incident(request):
-    """Create a Incident."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['title', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("elastic_inc")}
-    rec["title"] = data.get('title')
+    rec["health"] = data.get('health')
     rec["status"] = data.get('status')
-    rec["severity"] = data.get('severity')
-    rec["startedAt"] = data.get('startedAt')
+    rec["uuid"] = data.get('uuid')
+    rec["numberOfShards"] = _as_int(data.get('numberOfShards'))
+    rec["numberOfReplicas"] = _as_int(data.get('numberOfReplicas'))
+    rec["docsCount"] = _as_int(data.get('docsCount'))
+    rec["docsDeleted"] = _as_int(data.get('docsDeleted'))
+    rec["storeSize"] = data.get('storeSize')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Incident", rec)
+    _persist("Index", rec)
     return rec, 201
 
-@app.route("/v1/incidents", methods=["GET"])
-def list_incidents(request):
-    """List Incidents with filtering + cursor pagination."""
+@app.route("/v1/indexes", methods=["GET"])
+def list_indexes(request):
+    """List Indexes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Incident")
-    rows = _apply_filters(rows, params, ['title', 'status', 'severity', 'startedAt'])
+    rows = _query("Index")
+    rows = _apply_filters(rows, params, ['name', 'health', 'status', 'uuid', 'numberOfShards', 'numberOfReplicas', 'docsCount', 'docsDeleted', 'storeSize'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/incidents/<eid>", methods=["GET"])
-def get_incident(request, eid):
-    """Retrieve a Incident by id (supports ?expand=)."""
-    rows = _query("Incident", eid)
+@app.route("/v1/indexes/<eid>", methods=["GET"])
+def get_index(request, eid):
+    """Retrieve a Index by id (supports ?expand=)."""
+    rows = _query("Index", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/incidents/<eid>", methods=["POST", "PATCH"])
-def update_incident(request, eid):
-    """Update a Incident."""
-    rows = _query("Incident", eid)
+@app.route("/v1/indexes/<eid>", methods=["POST", "PATCH"])
+def update_index(request, eid):
+    """Update a Index."""
+    rows = _query("Index", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'status', 'severity', 'startedAt'])
+    err = _reject_unknown(data, ['name', 'health', 'status', 'uuid', 'numberOfShards', 'numberOfReplicas', 'docsCount', 'docsDeleted', 'storeSize'])
+    if err:
+        return err, 400
+    if data.get('health') and data['health'] not in ['green', 'yellow', 'red']:
+        return {"error": {"message": "invalid health; allowed: " + ", ".join(['green', 'yellow', 'red']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['open', 'closed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['open', 'closed']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Index", rec)
+    return rec, 200
+
+@app.route("/v1/indexes/<eid>", methods=["DELETE"])
+def delete_index(request, eid):
+    """Delete a Index."""
+    rows = _query("Index", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"elastic.Index", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/shards", methods=["POST"])
+def create_shard(request):
+    """Create a Shard."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['index', 'shardNumber', 'primaryOrReplica', 'state', 'docsCount', 'nodeName', 'nodeId'])
+    if err:
+        return err, 400
+    err = _require(data, ['index', 'shardNumber'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['UNASSIGNED', 'INITIALIZING', 'STARTED', 'RELOCATING']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['UNASSIGNED', 'INITIALIZING', 'STARTED', 'RELOCATING']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("elastic_sha")}
+    rec["index"] = data.get('index')
+    rec["shardNumber"] = _as_int(data.get('shardNumber'))
+    rec["primaryOrReplica"] = data.get('primaryOrReplica')
+    rec["state"] = data.get('state')
+    rec["docsCount"] = _as_int(data.get('docsCount'))
+    rec["nodeName"] = data.get('nodeName')
+    rec["nodeId"] = data.get('nodeId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Shard", rec)
+    return rec, 201
+
+@app.route("/v1/shards", methods=["GET"])
+def list_shards(request):
+    """List Shards with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Shard")
+    rows = _apply_filters(rows, params, ['index', 'shardNumber', 'primaryOrReplica', 'state', 'docsCount', 'nodeName', 'nodeId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/shards/<eid>", methods=["GET"])
+def get_shard(request, eid):
+    """Retrieve a Shard by id (supports ?expand=)."""
+    rows = _query("Shard", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'nodeId': 'Node'})
+    return rec, 200
+
+@app.route("/v1/shards/<eid>", methods=["POST", "PATCH"])
+def update_shard(request, eid):
+    """Update a Shard."""
+    rows = _query("Shard", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['index', 'shardNumber', 'primaryOrReplica', 'state', 'docsCount', 'nodeName', 'nodeId'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['UNASSIGNED', 'INITIALIZING', 'STARTED', 'RELOCATING']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['UNASSIGNED', 'INITIALIZING', 'STARTED', 'RELOCATING']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Shard", rec)
+    return rec, 200
+
+@app.route("/v1/shards/<eid>", methods=["DELETE"])
+def delete_shard(request, eid):
+    """Delete a Shard."""
+    rows = _query("Shard", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"elastic.Shard", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/nodes", methods=["POST"])
+def create_node(request):
+    """Create a Node."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'ip', 'port', 'name', 'version', 'heapPercent', 'ramPercent', 'diskUsedPercent', 'master'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'ip'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("elastic_nod")}
+    rec["id"] = data.get('id')
+    rec["ip"] = data.get('ip')
+    rec["port"] = _as_int(data.get('port'))
+    rec["name"] = data.get('name')
+    rec["version"] = data.get('version')
+    rec["heapPercent"] = _as_int(data.get('heapPercent'))
+    rec["ramPercent"] = _as_int(data.get('ramPercent'))
+    rec["diskUsedPercent"] = _as_int(data.get('diskUsedPercent'))
+    rec["master"] = data.get('master')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Node", rec)
+    return rec, 201
+
+@app.route("/v1/nodes", methods=["GET"])
+def list_nodes(request):
+    """List Nodes with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Node")
+    rows = _apply_filters(rows, params, ['id', 'ip', 'port', 'name', 'version', 'heapPercent', 'ramPercent', 'diskUsedPercent', 'master'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/nodes/<eid>", methods=["GET"])
+def get_node(request, eid):
+    """Retrieve a Node by id (supports ?expand=)."""
+    rows = _query("Node", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/nodes/<eid>", methods=["POST", "PATCH"])
+def update_node(request, eid):
+    """Update a Node."""
+    rows = _query("Node", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'ip', 'port', 'name', 'version', 'heapPercent', 'ramPercent', 'diskUsedPercent', 'master'])
     if err:
         return err, 400
     rec = rows[0]
@@ -498,22 +399,158 @@ def update_incident(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Incident", rec)
+    _persist("Node", rec)
     return rec, 200
 
-@app.route("/v1/incidents/<eid>", methods=["DELETE"])
-def delete_incident(request, eid):
-    """Delete a Incident."""
-    rows = _query("Incident", eid)
+@app.route("/v1/nodes/<eid>", methods=["DELETE"])
+def delete_node(request, eid):
+    """Delete a Node."""
+    rows = _query("Node", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"elastic.Incident", "id": eid})
+    db.retract({"entity": f"elastic.Node", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/aliases", methods=["POST"])
+def create_alias(request):
+    """Create a Alias."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['alias', 'index', 'routingIndex', 'routingSearch', 'isWriteIndex'])
+    if err:
+        return err, 400
+    err = _require(data, ['alias', 'index'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("elastic_ali")}
+    rec["alias"] = data.get('alias')
+    rec["index"] = data.get('index')
+    rec["routingIndex"] = data.get('routingIndex')
+    rec["routingSearch"] = data.get('routingSearch')
+    rec["isWriteIndex"] = data.get('isWriteIndex')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Alias", rec)
+    return rec, 201
+
+@app.route("/v1/aliases", methods=["GET"])
+def list_aliases(request):
+    """List Aliases with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Alias")
+    rows = _apply_filters(rows, params, ['alias', 'index', 'routingIndex', 'routingSearch', 'isWriteIndex'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/aliases/<eid>", methods=["GET"])
+def get_alias(request, eid):
+    """Retrieve a Alias by id (supports ?expand=)."""
+    rows = _query("Alias", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/aliases/<eid>", methods=["POST", "PATCH"])
+def update_alias(request, eid):
+    """Update a Alias."""
+    rows = _query("Alias", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['alias', 'index', 'routingIndex', 'routingSearch', 'isWriteIndex'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Alias", rec)
+    return rec, 200
+
+@app.route("/v1/aliases/<eid>", methods=["DELETE"])
+def delete_alias(request, eid):
+    """Delete a Alias."""
+    rows = _query("Alias", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"elastic.Alias", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/documents", methods=["POST"])
+def create_document(request):
+    """Create a Document."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['index', 'id', 'version', 'seqNo', 'primaryTerm', 'found', 'routing'])
+    if err:
+        return err, 400
+    err = _require(data, ['index', 'id'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("elastic_doc")}
+    rec["index"] = data.get('index')
+    rec["id"] = data.get('id')
+    rec["version"] = _as_int(data.get('version'))
+    rec["seqNo"] = _as_int(data.get('seqNo'))
+    rec["primaryTerm"] = _as_int(data.get('primaryTerm'))
+    rec["found"] = _as_bool(data.get('found'))
+    rec["routing"] = data.get('routing')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Document", rec)
+    return rec, 201
+
+@app.route("/v1/documents", methods=["GET"])
+def list_documents(request):
+    """List Documents with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Document")
+    rows = _apply_filters(rows, params, ['index', 'id', 'version', 'seqNo', 'primaryTerm', 'found', 'routing'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/documents/<eid>", methods=["GET"])
+def get_document(request, eid):
+    """Retrieve a Document by id (supports ?expand=)."""
+    rows = _query("Document", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
+def update_document(request, eid):
+    """Update a Document."""
+    rows = _query("Document", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['index', 'id', 'version', 'seqNo', 'primaryTerm', 'found', 'routing'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Document", rec)
+    return rec, 200
+
+@app.route("/v1/documents/<eid>", methods=["DELETE"])
+def delete_document(request, eid):
+    """Delete a Document."""
+    rows = _query("Document", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"elastic.Document", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "elastic-compat", "tier": "L4",
-            "entities": ['Service', 'Error', 'Trace', 'Metric', 'Alert', 'Incident']}, 200
+            "entities": ['ClusterHealth', 'Index', 'Shard', 'Node', 'Alias', 'Document']}, 200
 
 
 if __name__ == "__main__":

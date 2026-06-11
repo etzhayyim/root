@@ -3,72 +3,67 @@
 
 namespace ais_marine {
 
-    entity Object {
+    entity Message {
         id: string @unique
-        designator: string
-        type: string
-        source: string
+        messageType: integer
+        repeatIndicator: integer
+        mmsi: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Position {
+    entity PositionReport {
         id: string @unique
-        objectId: string
-        lat: float
-        lon: float
-        altitudeM: float
-        asOf: datetime
+        messageType: integer
+        mmsi: integer
+        navigationStatus: integer
+        rateOfTurn: float
+        speedOverGround: float
+        longitude: float
+        latitude: float
+        courseOverGround: float
+        trueHeading: integer
+        maneuverIndicator: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Observation {
+    entity BaseStationReport {
         id: string @unique
-        objectId: string
-        parameter: string
-        value: float
-        observedAt: datetime
+        messageType: integer
+        mmsi: integer
+        longitude: float
+        latitude: float
+        typeOfEpfd: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Scene {
+    entity StaticVoyageData {
         id: string @unique
-        satellite: string
-        sceneId: string
-        cloudCover: float
-        capturedAt: datetime
+        messageType: integer
+        mmsi: integer
+        imoNumber: integer
+        callSign: string
+        vesselName: string
+        shipType: integer
+        draught: float
+        destination: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Float {
+    entity AidToNavigationReport {
         id: string @unique
-        wmoId: string
-        lat: float
-        lon: float
-        parkDepthM: float
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Station {
-        id: string @unique
-        stationId: string
+        messageType: integer
+        mmsi: integer
+        typeOfAid: integer
         name: string
-        network: string
+        longitude: float
+        latitude: float
+        typeOfEpfd: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

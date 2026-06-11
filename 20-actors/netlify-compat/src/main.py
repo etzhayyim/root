@@ -111,120 +111,61 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/projects", methods=["POST"])
-def create_project(request):
-    """Create a Project."""
+@app.route("/v1/sites", methods=["POST"])
+def create_site(request):
+    """Create a Site."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'billingId'])
+    err = _reject_unknown(data, ['id', 'name', 'url', 'sslUrl', 'adminUrl', 'state', 'customDomain', 'accountId', 'ssl', 'forceSsl', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'region'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("netlify_pro")}
+    rec = {"id": new_id("netlify_sit")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["billingId"] = data.get('billingId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Project", rec)
-    return rec, 201
-
-@app.route("/v1/projects", methods=["GET"])
-def list_projects(request):
-    """List Projects with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Project")
-    rows = _apply_filters(rows, params, ['name', 'region', 'billingId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/projects/<eid>", methods=["GET"])
-def get_project(request, eid):
-    """Retrieve a Project by id (supports ?expand=)."""
-    rows = _query("Project", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/projects/<eid>", methods=["POST", "PATCH"])
-def update_project(request, eid):
-    """Update a Project."""
-    rows = _query("Project", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'region', 'billingId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Project", rec)
-    return rec, 200
-
-@app.route("/v1/projects/<eid>", methods=["DELETE"])
-def delete_project(request, eid):
-    """Delete a Project."""
-    rows = _query("Project", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"netlify.Project", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/computeinstances", methods=["POST"])
-def create_compute_instance(request):
-    """Create a ComputeInstance."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'machineType'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("netlify_com")}
-    rec["projectId"] = data.get('projectId')
-    rec["name"] = data.get('name')
-    rec["machineType"] = data.get('machineType')
+    rec["url"] = data.get('url')
+    rec["sslUrl"] = data.get('sslUrl')
+    rec["adminUrl"] = data.get('adminUrl')
     rec["state"] = data.get('state')
-    rec["ipAddress"] = data.get('ipAddress')
+    rec["customDomain"] = data.get('customDomain')
+    rec["accountId"] = data.get('accountId')
+    rec["ssl"] = _as_bool(data.get('ssl'))
+    rec["forceSsl"] = _as_bool(data.get('forceSsl'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ComputeInstance", rec)
+    _persist("Site", rec)
     return rec, 201
 
-@app.route("/v1/computeinstances", methods=["GET"])
-def list_compute_instances(request):
-    """List ComputeInstances with filtering + cursor pagination."""
+@app.route("/v1/sites", methods=["GET"])
+def list_sites(request):
+    """List Sites with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ComputeInstance")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
+    rows = _query("Site")
+    rows = _apply_filters(rows, params, ['id', 'name', 'url', 'sslUrl', 'adminUrl', 'state', 'customDomain', 'accountId', 'ssl', 'forceSsl', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/computeinstances/<eid>", methods=["GET"])
-def get_compute_instance(request, eid):
-    """Retrieve a ComputeInstance by id (supports ?expand=)."""
-    rows = _query("ComputeInstance", eid)
+@app.route("/v1/sites/<eid>", methods=["GET"])
+def get_site(request, eid):
+    """Retrieve a Site by id (supports ?expand=)."""
+    rows = _query("Site", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
     return rec, 200
 
-@app.route("/v1/computeinstances/<eid>", methods=["POST", "PATCH"])
-def update_compute_instance(request, eid):
-    """Update a ComputeInstance."""
-    rows = _query("ComputeInstance", eid)
+@app.route("/v1/sites/<eid>", methods=["POST", "PATCH"])
+def update_site(request, eid):
+    """Update a Site."""
+    rows = _query("Site", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'machineType', 'state', 'ipAddress'])
+    err = _reject_unknown(data, ['id', 'name', 'url', 'sslUrl', 'adminUrl', 'state', 'customDomain', 'accountId', 'ssl', 'forceSsl', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,66 +173,284 @@ def update_compute_instance(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ComputeInstance", rec)
+    _persist("Site", rec)
     return rec, 200
 
-@app.route("/v1/computeinstances/<eid>", methods=["DELETE"])
-def delete_compute_instance(request, eid):
-    """Delete a ComputeInstance."""
-    rows = _query("ComputeInstance", eid)
+@app.route("/v1/sites/<eid>", methods=["DELETE"])
+def delete_site(request, eid):
+    """Delete a Site."""
+    rows = _query("Site", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"netlify.ComputeInstance", "id": eid})
+    db.retract({"entity": f"netlify.Site", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/volumes", methods=["POST"])
-def create_volume(request):
-    """Create a Volume."""
+@app.route("/v1/deploys", methods=["POST"])
+def create_deploy(request):
+    """Create a Deploy."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'sizeGb', 'type', 'attachedTo'])
+    err = _reject_unknown(data, ['id', 'siteId', 'url', 'state', 'draft', 'branch', 'commitRef', 'locked', 'createdAt', 'publishedAt'])
     if err:
         return err, 400
-    err = _require(data, ['sizeGb', 'type'])
+    err = _require(data, ['id', 'url'])
     if err:
         return err, 400
-    rec = {"id": new_id("netlify_vol")}
-    rec["projectId"] = data.get('projectId')
-    rec["sizeGb"] = _as_int(data.get('sizeGb'))
+    if data.get('state') and data['state'] not in ['new', 'pending_review', 'accepted', 'rejected', 'enqueued', 'building', 'uploading', 'uploaded', 'preparing', 'prepared', 'processing', 'processed', 'ready', 'error', 'retrying']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['new', 'pending_review', 'accepted', 'rejected', 'enqueued', 'building', 'uploading', 'uploaded', 'preparing', 'prepared', 'processing', 'processed', 'ready', 'error', 'retrying']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("netlify_dep")}
+    rec["id"] = data.get('id')
+    rec["siteId"] = data.get('siteId')
+    rec["url"] = data.get('url')
+    rec["state"] = data.get('state')
+    rec["draft"] = _as_bool(data.get('draft'))
+    rec["branch"] = data.get('branch')
+    rec["commitRef"] = data.get('commitRef')
+    rec["locked"] = _as_bool(data.get('locked'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["publishedAt"] = data.get('publishedAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Deploy", rec)
+    return rec, 201
+
+@app.route("/v1/deploys", methods=["GET"])
+def list_deploys(request):
+    """List Deploys with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Deploy")
+    rows = _apply_filters(rows, params, ['id', 'siteId', 'url', 'state', 'draft', 'branch', 'commitRef', 'locked', 'createdAt', 'publishedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/deploys/<eid>", methods=["GET"])
+def get_deploy(request, eid):
+    """Retrieve a Deploy by id (supports ?expand=)."""
+    rows = _query("Deploy", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'siteId': 'Site'})
+    return rec, 200
+
+@app.route("/v1/deploys/<eid>", methods=["POST", "PATCH"])
+def update_deploy(request, eid):
+    """Update a Deploy."""
+    rows = _query("Deploy", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'siteId', 'url', 'state', 'draft', 'branch', 'commitRef', 'locked', 'createdAt', 'publishedAt'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['new', 'pending_review', 'accepted', 'rejected', 'enqueued', 'building', 'uploading', 'uploaded', 'preparing', 'prepared', 'processing', 'processed', 'ready', 'error', 'retrying']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['new', 'pending_review', 'accepted', 'rejected', 'enqueued', 'building', 'uploading', 'uploaded', 'preparing', 'prepared', 'processing', 'processed', 'ready', 'error', 'retrying']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Deploy", rec)
+    return rec, 200
+
+@app.route("/v1/deploys/<eid>", methods=["DELETE"])
+def delete_deploy(request, eid):
+    """Delete a Deploy."""
+    rows = _query("Deploy", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"netlify.Deploy", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/builds", methods=["POST"])
+def create_build(request):
+    """Create a Build."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'deployId', 'sha', 'done', 'error', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'sha'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("netlify_bui")}
+    rec["id"] = data.get('id')
+    rec["deployId"] = data.get('deployId')
+    rec["sha"] = data.get('sha')
+    rec["done"] = _as_bool(data.get('done'))
+    rec["error"] = data.get('error')
+    rec["createdAt"] = data.get('createdAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Build", rec)
+    return rec, 201
+
+@app.route("/v1/builds", methods=["GET"])
+def list_builds(request):
+    """List Builds with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Build")
+    rows = _apply_filters(rows, params, ['id', 'deployId', 'sha', 'done', 'error', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/builds/<eid>", methods=["GET"])
+def get_build(request, eid):
+    """Retrieve a Build by id (supports ?expand=)."""
+    rows = _query("Build", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'deployId': 'Deploy'})
+    return rec, 200
+
+@app.route("/v1/builds/<eid>", methods=["POST", "PATCH"])
+def update_build(request, eid):
+    """Update a Build."""
+    rows = _query("Build", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'deployId', 'sha', 'done', 'error', 'createdAt'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Build", rec)
+    return rec, 200
+
+@app.route("/v1/builds/<eid>", methods=["DELETE"])
+def delete_build(request, eid):
+    """Delete a Build."""
+    rows = _query("Build", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"netlify.Build", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/dnszones", methods=["POST"])
+def create_dns_zone(request):
+    """Create a DnsZone."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'siteId', 'domain', 'dedicated', 'ipv6Enabled', 'accountId', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'domain'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("netlify_dns")}
+    rec["id"] = data.get('id')
+    rec["siteId"] = data.get('siteId')
+    rec["domain"] = data.get('domain')
+    rec["dedicated"] = _as_bool(data.get('dedicated'))
+    rec["ipv6Enabled"] = _as_bool(data.get('ipv6Enabled'))
+    rec["accountId"] = data.get('accountId')
+    rec["createdAt"] = data.get('createdAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("DnsZone", rec)
+    return rec, 201
+
+@app.route("/v1/dnszones", methods=["GET"])
+def list_dns_zones(request):
+    """List DnsZones with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("DnsZone")
+    rows = _apply_filters(rows, params, ['id', 'siteId', 'domain', 'dedicated', 'ipv6Enabled', 'accountId', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/dnszones/<eid>", methods=["GET"])
+def get_dns_zone(request, eid):
+    """Retrieve a DnsZone by id (supports ?expand=)."""
+    rows = _query("DnsZone", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'siteId': 'Site'})
+    return rec, 200
+
+@app.route("/v1/dnszones/<eid>", methods=["POST", "PATCH"])
+def update_dns_zone(request, eid):
+    """Update a DnsZone."""
+    rows = _query("DnsZone", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'siteId', 'domain', 'dedicated', 'ipv6Enabled', 'accountId', 'createdAt'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("DnsZone", rec)
+    return rec, 200
+
+@app.route("/v1/dnszones/<eid>", methods=["DELETE"])
+def delete_dns_zone(request, eid):
+    """Delete a DnsZone."""
+    rows = _query("DnsZone", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"netlify.DnsZone", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/hooks", methods=["POST"])
+def create_hook(request):
+    """Create a Hook."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'siteId', 'type', 'event', 'disabled', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'type'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("netlify_hoo")}
+    rec["id"] = data.get('id')
+    rec["siteId"] = data.get('siteId')
     rec["type"] = data.get('type')
-    rec["attachedTo"] = data.get('attachedTo')
+    rec["event"] = data.get('event')
+    rec["disabled"] = _as_bool(data.get('disabled'))
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Volume", rec)
+    _persist("Hook", rec)
     return rec, 201
 
-@app.route("/v1/volumes", methods=["GET"])
-def list_volumes(request):
-    """List Volumes with filtering + cursor pagination."""
+@app.route("/v1/hooks", methods=["GET"])
+def list_hooks(request):
+    """List Hooks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Volume")
-    rows = _apply_filters(rows, params, ['projectId', 'sizeGb', 'type', 'attachedTo'])
+    rows = _query("Hook")
+    rows = _apply_filters(rows, params, ['id', 'siteId', 'type', 'event', 'disabled', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/volumes/<eid>", methods=["GET"])
-def get_volume(request, eid):
-    """Retrieve a Volume by id (supports ?expand=)."""
-    rows = _query("Volume", eid)
+@app.route("/v1/hooks/<eid>", methods=["GET"])
+def get_hook(request, eid):
+    """Retrieve a Hook by id (supports ?expand=)."""
+    rows = _query("Hook", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
+    rec = _expand(rec, request.query or {}, {'siteId': 'Site'})
     return rec, 200
 
-@app.route("/v1/volumes/<eid>", methods=["POST", "PATCH"])
-def update_volume(request, eid):
-    """Update a Volume."""
-    rows = _query("Volume", eid)
+@app.route("/v1/hooks/<eid>", methods=["POST", "PATCH"])
+def update_hook(request, eid):
+    """Update a Hook."""
+    rows = _query("Hook", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'sizeGb', 'type', 'attachedTo'])
+    err = _reject_unknown(data, ['id', 'siteId', 'type', 'event', 'disabled', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -299,66 +458,67 @@ def update_volume(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Volume", rec)
+    _persist("Hook", rec)
     return rec, 200
 
-@app.route("/v1/volumes/<eid>", methods=["DELETE"])
-def delete_volume(request, eid):
-    """Delete a Volume."""
-    rows = _query("Volume", eid)
+@app.route("/v1/hooks/<eid>", methods=["DELETE"])
+def delete_hook(request, eid):
+    """Delete a Hook."""
+    rows = _query("Hook", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"netlify.Volume", "id": eid})
+    db.retract({"entity": f"netlify.Hook", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/buckets", methods=["POST"])
-def create_bucket(request):
-    """Create a Bucket."""
+@app.route("/v1/forms", methods=["POST"])
+def create_form(request):
+    """Create a Form."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'region', 'public'])
+    err = _reject_unknown(data, ['id', 'siteId', 'name', 'submissionCount', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'region'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("netlify_buc")}
-    rec["projectId"] = data.get('projectId')
+    rec = {"id": new_id("netlify_for")}
+    rec["id"] = data.get('id')
+    rec["siteId"] = data.get('siteId')
     rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
-    rec["public"] = _as_bool(data.get('public'))
+    rec["submissionCount"] = _as_int(data.get('submissionCount'))
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Bucket", rec)
+    _persist("Form", rec)
     return rec, 201
 
-@app.route("/v1/buckets", methods=["GET"])
-def list_buckets(request):
-    """List Buckets with filtering + cursor pagination."""
+@app.route("/v1/forms", methods=["GET"])
+def list_forms(request):
+    """List Forms with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Bucket")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'region', 'public'])
+    rows = _query("Form")
+    rows = _apply_filters(rows, params, ['id', 'siteId', 'name', 'submissionCount', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/buckets/<eid>", methods=["GET"])
-def get_bucket(request, eid):
-    """Retrieve a Bucket by id (supports ?expand=)."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/forms/<eid>", methods=["GET"])
+def get_form(request, eid):
+    """Retrieve a Form by id (supports ?expand=)."""
+    rows = _query("Form", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
+    rec = _expand(rec, request.query or {}, {'siteId': 'Site'})
     return rec, 200
 
-@app.route("/v1/buckets/<eid>", methods=["POST", "PATCH"])
-def update_bucket(request, eid):
-    """Update a Bucket."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/forms/<eid>", methods=["POST", "PATCH"])
+def update_form(request, eid):
+    """Update a Form."""
+    rows = _query("Form", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'region', 'public'])
+    err = _reject_unknown(data, ['id', 'siteId', 'name', 'submissionCount', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -366,154 +526,22 @@ def update_bucket(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Bucket", rec)
+    _persist("Form", rec)
     return rec, 200
 
-@app.route("/v1/buckets/<eid>", methods=["DELETE"])
-def delete_bucket(request, eid):
-    """Delete a Bucket."""
-    rows = _query("Bucket", eid)
+@app.route("/v1/forms/<eid>", methods=["DELETE"])
+def delete_form(request, eid):
+    """Delete a Form."""
+    rows = _query("Form", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"netlify.Bucket", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/networks", methods=["POST"])
-def create_network(request):
-    """Create a Network."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'cidr', 'region'])
-    if err:
-        return err, 400
-    err = _require(data, ['cidr', 'region'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("netlify_net")}
-    rec["projectId"] = data.get('projectId')
-    rec["cidr"] = data.get('cidr')
-    rec["region"] = data.get('region')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Network", rec)
-    return rec, 201
-
-@app.route("/v1/networks", methods=["GET"])
-def list_networks(request):
-    """List Networks with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Network")
-    rows = _apply_filters(rows, params, ['projectId', 'cidr', 'region'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/networks/<eid>", methods=["GET"])
-def get_network(request, eid):
-    """Retrieve a Network by id (supports ?expand=)."""
-    rows = _query("Network", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
-    return rec, 200
-
-@app.route("/v1/networks/<eid>", methods=["POST", "PATCH"])
-def update_network(request, eid):
-    """Update a Network."""
-    rows = _query("Network", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'cidr', 'region'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Network", rec)
-    return rec, 200
-
-@app.route("/v1/networks/<eid>", methods=["DELETE"])
-def delete_network(request, eid):
-    """Delete a Network."""
-    rows = _query("Network", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"netlify.Network", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/iamroles", methods=["POST"])
-def create_iam_role(request):
-    """Create a IamRole."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'policy'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'policy'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("netlify_iam")}
-    rec["projectId"] = data.get('projectId')
-    rec["name"] = data.get('name')
-    rec["policy"] = data.get('policy')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("IamRole", rec)
-    return rec, 201
-
-@app.route("/v1/iamroles", methods=["GET"])
-def list_iam_roles(request):
-    """List IamRoles with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("IamRole")
-    rows = _apply_filters(rows, params, ['projectId', 'name', 'policy'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/iamroles/<eid>", methods=["GET"])
-def get_iam_role(request, eid):
-    """Retrieve a IamRole by id (supports ?expand=)."""
-    rows = _query("IamRole", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'projectId': 'Project'})
-    return rec, 200
-
-@app.route("/v1/iamroles/<eid>", methods=["POST", "PATCH"])
-def update_iam_role(request, eid):
-    """Update a IamRole."""
-    rows = _query("IamRole", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['projectId', 'name', 'policy'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("IamRole", rec)
-    return rec, 200
-
-@app.route("/v1/iamroles/<eid>", methods=["DELETE"])
-def delete_iam_role(request, eid):
-    """Delete a IamRole."""
-    rows = _query("IamRole", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"netlify.IamRole", "id": eid})
+    db.retract({"entity": f"netlify.Form", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "netlify-compat", "tier": "L4",
-            "entities": ['Project', 'ComputeInstance', 'Volume', 'Bucket', 'Network', 'IamRole']}, 200
+            "entities": ['Site', 'Deploy', 'Build', 'DnsZone', 'Hook', 'Form']}, 200
 
 
 if __name__ == "__main__":

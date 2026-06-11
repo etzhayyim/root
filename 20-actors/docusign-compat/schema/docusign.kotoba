@@ -3,68 +3,55 @@
 
 namespace docusign {
 
-    entity Workspace {
+    entity Envelope {
         id: string @unique
-        name: string
-        ownerId: string
-        plan: string
+        emailSubject: string
+        status: string
+        sentDateTime: datetime
+        completedDateTime: datetime
+        envelopeId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Signer {
+        id: string @unique
+        email: string
+        firstName: string
+        lastName: string
+        status: string
+        signedDateTime: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Document {
         id: string @unique
-        workspaceId: string
-        title: string
-        contentRef: string
-        ownerId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Folder {
-        id: string @unique
-        workspaceId: string
-        name: string
-        parentId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Comment {
-        id: string @unique
         documentId: string
-        authorId: string
-        body: string
+        name: string
+        order: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Permission {
+    entity SignHereTab {
         id: string @unique
-        resourceId: string
-        principalId: string
-        role: string
+        tabId: string
+        pageNumber: string
+        xPosition: string
+        yPosition: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity User {
+    entity EnvelopeTemplate {
         id: string @unique
-        email: string
-        displayName: string
+        templateId: string
+        name: string
         status: string
+        description: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

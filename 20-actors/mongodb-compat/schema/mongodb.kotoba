@@ -3,70 +3,59 @@
 
 namespace mongodb {
 
-    entity Dataset {
+    entity Cluster {
         id: string @unique
         name: string
-        source: string
-        schemaRef: string
-        rowCount: integer
+        clusterType: string
+        stateName: string
+        mongoDBVersion: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Query {
+    entity DatabaseUser {
         id: string @unique
-        datasetId: string
-        sql: string
-        ownerId: string
+        username: string
+        databaseName: string
+        awsIAMType: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Dashboard {
+    entity Project {
         id: string @unique
         name: string
-        ownerId: string
-        layout: string
+        orgId: string
+        clusterCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Report {
+    entity Backup {
         id: string @unique
-        dashboardId: string
-        name: string
-        schedule: string
+        frequencyType: string
+        description: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connection {
+    entity Organization {
         id: string @unique
-        name: string
-        type: string
-        host: string
-        active: boolean
+        orgName: string
+        planType: string
+        groupId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Metric {
+    entity NetworkPeering {
         id: string @unique
-        datasetId: string
         name: string
-        expression: string
-        unit: string
+        accepterAccountId: string
+        localStatus: string
+        cloudStatus: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

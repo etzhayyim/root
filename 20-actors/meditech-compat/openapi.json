@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreigt3bzjxehmzljtlvnr6455uwwjoziqo6mkcven4cc4zox3i7s3zu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -182,191 +182,6 @@
       },
       "delete": {
         "summary": "Delete a Patient",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/encounters": {
-      "get": {
-        "summary": "List Encounters",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Encounter"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Encounter",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EncounterCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Encounter"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/encounters/{id}": {
-      "get": {
-        "summary": "Get a Encounter",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Encounter"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Encounter",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EncounterCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Encounter"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Encounter",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +387,9 @@
         }
       }
     },
-    "/v1/medications": {
+    "/v1/encounters": {
       "get": {
-        "summary": "List Medications",
+        "summary": "List Encounters",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Medication"
+                        "$ref": "#/components/schemas/Encounter"
                       }
                     },
                     "has_more": {
@@ -634,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Medication",
+        "summary": "Create a Encounter",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MedicationCreate"
+                "$ref": "#/components/schemas/EncounterCreate"
               }
             }
           }
@@ -651,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Medication"
+                  "$ref": "#/components/schemas/Encounter"
                 }
               }
             }
@@ -662,9 +477,9 @@
         }
       }
     },
-    "/v1/medications/{id}": {
+    "/v1/encounters/{id}": {
       "get": {
-        "summary": "Get a Medication",
+        "summary": "Get a Encounter",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Medication"
+                  "$ref": "#/components/schemas/Encounter"
                 }
               }
             }
@@ -699,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Medication",
+        "summary": "Update a Encounter",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MedicationCreate"
+                "$ref": "#/components/schemas/EncounterCreate"
               }
             }
           }
@@ -725,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Medication"
+                  "$ref": "#/components/schemas/Encounter"
                 }
               }
             }
@@ -736,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Medication",
+        "summary": "Delete a Encounter",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +572,9 @@
         }
       }
     },
-    "/v1/practitioners": {
+    "/v1/medicationrequests": {
       "get": {
-        "summary": "List Practitioners",
+        "summary": "List MedicationRequests",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Practitioner"
+                        "$ref": "#/components/schemas/MedicationRequest"
                       }
                     },
                     "has_more": {
@@ -819,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Practitioner",
+        "summary": "Create a MedicationRequest",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PractitionerCreate"
+                "$ref": "#/components/schemas/MedicationRequestCreate"
               }
             }
           }
@@ -836,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Practitioner"
+                  "$ref": "#/components/schemas/MedicationRequest"
                 }
               }
             }
@@ -847,9 +662,9 @@
         }
       }
     },
-    "/v1/practitioners/{id}": {
+    "/v1/medicationrequests/{id}": {
       "get": {
-        "summary": "Get a Practitioner",
+        "summary": "Get a MedicationRequest",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Practitioner"
+                  "$ref": "#/components/schemas/MedicationRequest"
                 }
               }
             }
@@ -884,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Practitioner",
+        "summary": "Update a MedicationRequest",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PractitionerCreate"
+                "$ref": "#/components/schemas/MedicationRequestCreate"
               }
             }
           }
@@ -910,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Practitioner"
+                  "$ref": "#/components/schemas/MedicationRequest"
                 }
               }
             }
@@ -921,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Practitioner",
+        "summary": "Delete a MedicationRequest",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +757,9 @@
         }
       }
     },
-    "/v1/appointments": {
+    "/v1/allergyintolerances": {
       "get": {
-        "summary": "List Appointments",
+        "summary": "List AllergyIntolerances",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Appointment"
+                        "$ref": "#/components/schemas/AllergyIntolerance"
                       }
                     },
                     "has_more": {
@@ -1004,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Appointment",
+        "summary": "Create a AllergyIntolerance",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AppointmentCreate"
+                "$ref": "#/components/schemas/AllergyIntoleranceCreate"
               }
             }
           }
@@ -1021,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Appointment"
+                  "$ref": "#/components/schemas/AllergyIntolerance"
                 }
               }
             }
@@ -1032,9 +847,9 @@
         }
       }
     },
-    "/v1/appointments/{id}": {
+    "/v1/allergyintolerances/{id}": {
       "get": {
-        "summary": "Get a Appointment",
+        "summary": "Get a AllergyIntolerance",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Appointment"
+                  "$ref": "#/components/schemas/AllergyIntolerance"
                 }
               }
             }
@@ -1069,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Appointment",
+        "summary": "Update a AllergyIntolerance",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AppointmentCreate"
+                "$ref": "#/components/schemas/AllergyIntoleranceCreate"
               }
             }
           }
@@ -1095,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Appointment"
+                  "$ref": "#/components/schemas/AllergyIntolerance"
                 }
               }
             }
@@ -1106,7 +921,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a Appointment",
+        "summary": "Delete a AllergyIntolerance",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/conditions": {
+      "get": {
+        "summary": "List Conditions",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Condition"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Condition",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConditionCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Condition"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/conditions/{id}": {
+      "get": {
+        "summary": "Get a Condition",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Condition"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Condition",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConditionCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Condition"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Condition",
         "parameters": [
           {
             "name": "id",
@@ -1146,21 +1146,26 @@
           "id": {
             "type": "string"
           },
-          "mrn": {
+          "resourceType": {
             "type": "string"
           },
-          "givenName": {
-            "type": "string"
-          },
-          "familyName": {
-            "type": "string"
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female",
+              "other",
+              "unknown"
+            ]
           },
           "birthDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "sex": {
             "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "deceasedBoolean": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1175,75 +1180,34 @@
       "PatientCreate": {
         "type": "object",
         "properties": {
-          "mrn": {
+          "id": {
             "type": "string"
           },
-          "givenName": {
+          "resourceType": {
             "type": "string"
           },
-          "familyName": {
-            "type": "string"
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female",
+              "other",
+              "unknown"
+            ]
           },
           "birthDate": {
             "type": "string"
           },
-          "sex": {
-            "type": "string"
+          "active": {
+            "type": "boolean"
+          },
+          "deceasedBoolean": {
+            "type": "boolean"
           }
         },
         "required": [
-          "mrn",
-          "givenName"
-        ]
-      },
-      "Encounter": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "patientId": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "EncounterCreate": {
-        "type": "object",
-        "properties": {
-          "patientId": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "startedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "type",
-          "status"
+          "id",
+          "resourceType"
         ]
       },
       "Observation": {
@@ -1252,19 +1216,30 @@
           "id": {
             "type": "string"
           },
-          "patientId": {
+          "resourceType": {
             "type": "string"
           },
-          "code": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "registered",
+              "preliminary",
+              "final",
+              "amended",
+              "corrected",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "effectiveDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "valueString": {
             "type": "string"
           },
-          "value": {
-            "type": "string"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "takenAt": {
+          "issued": {
             "type": "string",
             "format": "date-time"
           },
@@ -1281,179 +1256,311 @@
       "ObservationCreate": {
         "type": "object",
         "properties": {
-          "patientId": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "takenAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "code",
-          "value"
-        ]
-      },
-      "Medication": {
-        "type": "object",
-        "properties": {
           "id": {
             "type": "string"
           },
-          "patientId": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "dose": {
-            "type": "string"
-          },
-          "route": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MedicationCreate": {
-        "type": "object",
-        "properties": {
-          "patientId": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "dose": {
-            "type": "string"
-          },
-          "route": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "code",
-          "dose"
-        ]
-      },
-      "Practitioner": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "npi": {
-            "type": "string"
-          },
-          "givenName": {
-            "type": "string"
-          },
-          "familyName": {
-            "type": "string"
-          },
-          "specialty": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PractitionerCreate": {
-        "type": "object",
-        "properties": {
-          "npi": {
-            "type": "string"
-          },
-          "givenName": {
-            "type": "string"
-          },
-          "familyName": {
-            "type": "string"
-          },
-          "specialty": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "npi",
-          "givenName"
-        ]
-      },
-      "Appointment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "patientId": {
-            "type": "string"
-          },
-          "practitionerId": {
-            "type": "string"
-          },
-          "start": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AppointmentCreate": {
-        "type": "object",
-        "properties": {
-          "patientId": {
-            "type": "string"
-          },
-          "practitionerId": {
-            "type": "string"
-          },
-          "start": {
+          "resourceType": {
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "registered",
+              "preliminary",
+              "final",
+              "amended",
+              "corrected",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "effectiveDateTime": {
+            "type": "string"
+          },
+          "valueString": {
+            "type": "string"
+          },
+          "issued": {
             "type": "string"
           }
         },
         "required": [
-          "start",
-          "status"
+          "id",
+          "resourceType"
+        ]
+      },
+      "Encounter": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "arrived",
+              "triaged",
+              "in-progress",
+              "onleave",
+              "finished",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "serviceType": {
+            "type": "string"
+          },
+          "period": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "EncounterCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "arrived",
+              "triaged",
+              "in-progress",
+              "onleave",
+              "finished",
+              "cancelled",
+              "entered-in-error",
+              "unknown"
+            ]
+          },
+          "serviceType": {
+            "type": "string"
+          },
+          "period": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "resourceType"
+        ]
+      },
+      "MedicationRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "on-hold",
+              "cancelled",
+              "completed",
+              "entered-in-error",
+              "stopped",
+              "draft",
+              "unknown"
+            ]
+          },
+          "intent": {
+            "type": "string"
+          },
+          "authoredOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MedicationRequestCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "on-hold",
+              "cancelled",
+              "completed",
+              "entered-in-error",
+              "stopped",
+              "draft",
+              "unknown"
+            ]
+          },
+          "intent": {
+            "type": "string"
+          },
+          "authoredOn": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "resourceType"
+        ]
+      },
+      "AllergyIntolerance": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "clinicalStatus": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive",
+              "resolved"
+            ]
+          },
+          "criticality": {
+            "type": "string"
+          },
+          "recordedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AllergyIntoleranceCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "clinicalStatus": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive",
+              "resolved"
+            ]
+          },
+          "criticality": {
+            "type": "string"
+          },
+          "recordedDate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "resourceType"
+        ]
+      },
+      "Condition": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "clinicalStatus": {
+            "type": "string",
+            "enum": [
+              "active",
+              "recurrence",
+              "relapse",
+              "inactive",
+              "remission",
+              "resolved"
+            ]
+          },
+          "recordedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ConditionCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "clinicalStatus": {
+            "type": "string",
+            "enum": [
+              "active",
+              "recurrence",
+              "relapse",
+              "inactive",
+              "remission",
+              "resolved"
+            ]
+          },
+          "recordedDate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "resourceType"
         ]
       }
     }

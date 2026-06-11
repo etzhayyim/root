@@ -5,21 +5,42 @@
   "kind": "compat",
   "title": "un_locode clean-room actor",
   "description": "Clean-room, API-compatible physical benchmarks / classifications actor (un_locode); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreifkwfppuplhncwvhcmzb4t4edc3asm4gfqnfq7t7aysw6zoyumtxm",
+  "wasmCid": "bafkreiauaghvq5rzecl7lsus5wzr3o23z4p5iu4mkcy4cihuoz2ci6ujia",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreifkwfppuplhncwvhcmzb4t4edc3asm4gfqnfq7t7aysw6zoyumtxm",
+  "ipfs": "ipfs://bafkreiauaghvq5rzecl7lsus5wzr3o23z4p5iu4mkcy4cihuoz2ci6ujia",
   "schema": "schema/un_locode.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://unece.org/trade/cefact/codesfortrade/codes-locode",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Location",
+      "FunctionClassifier",
+      "StatusCode"
+    ],
+    "enums": {
+      "Location": {
+        "function": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "B"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Code",
-    "Unit",
-    "Reference",
-    "Mapping",
     "Location",
-    "Epoch"
+    "FunctionClassifier",
+    "StatusCode"
   ],
   "adr": [
     "260607",
@@ -31,108 +52,8 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/codes",
-          "op": "create Code"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/codes",
-          "op": "list Code"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/codes/{id}",
-          "op": "get Code"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/codes/{id}",
-          "op": "update Code"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/codes/{id}",
-          "op": "delete Code"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/units",
-          "op": "create Unit"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/units",
-          "op": "list Unit"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/units/{id}",
-          "op": "get Unit"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/units/{id}",
-          "op": "update Unit"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/units/{id}",
-          "op": "delete Unit"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/references",
-          "op": "create Reference"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/references",
-          "op": "list Reference"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/references/{id}",
-          "op": "get Reference"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/references/{id}",
-          "op": "update Reference"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/references/{id}",
-          "op": "delete Reference"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/mappings",
-          "op": "create Mapping"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/mappings",
-          "op": "list Mapping"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/mappings/{id}",
-          "op": "get Mapping"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/mappings/{id}",
-          "op": "update Mapping"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/mappings/{id}",
-          "op": "delete Mapping"
-        },
         {
           "method": "POST",
           "path": "/v1/locations",
@@ -160,28 +81,53 @@
         },
         {
           "method": "POST",
-          "path": "/v1/epoches",
-          "op": "create Epoch"
+          "path": "/v1/functionclassifiers",
+          "op": "create FunctionClassifier"
         },
         {
           "method": "GET",
-          "path": "/v1/epoches",
-          "op": "list Epoch"
+          "path": "/v1/functionclassifiers",
+          "op": "list FunctionClassifier"
         },
         {
           "method": "GET",
-          "path": "/v1/epoches/{id}",
-          "op": "get Epoch"
+          "path": "/v1/functionclassifiers/{id}",
+          "op": "get FunctionClassifier"
         },
         {
           "method": "PATCH",
-          "path": "/v1/epoches/{id}",
-          "op": "update Epoch"
+          "path": "/v1/functionclassifiers/{id}",
+          "op": "update FunctionClassifier"
         },
         {
           "method": "DELETE",
-          "path": "/v1/epoches/{id}",
-          "op": "delete Epoch"
+          "path": "/v1/functionclassifiers/{id}",
+          "op": "delete FunctionClassifier"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/statuscodes",
+          "op": "create StatusCode"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/statuscodes",
+          "op": "list StatusCode"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/statuscodes/{id}",
+          "op": "get StatusCode"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/statuscodes/{id}",
+          "op": "update StatusCode"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/statuscodes/{id}",
+          "op": "delete StatusCode"
         }
       ],
       "features": {
@@ -244,375 +190,48 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
-        {
-          "name": "create_code",
-          "description": "Create a Code.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              },
-              "scheme": {
-                "type": "string"
-              },
-              "parentCode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "description"
-            ]
-          }
-        },
-        {
-          "name": "list_codes",
-          "description": "List Codes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_code",
-          "description": "Get a Code by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_code",
-          "description": "Update a Code.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              },
-              "scheme": {
-                "type": "string"
-              },
-              "parentCode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_code",
-          "description": "Delete a Code.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_unit",
-          "description": "Create a Unit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "symbol": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "symbol",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_units",
-          "description": "List Units.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_unit",
-          "description": "Get a Unit by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_unit",
-          "description": "Update a Unit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_unit",
-          "description": "Delete a Unit.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_reference",
-          "description": "Create a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "uncertainty": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_references",
-          "description": "List References.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_reference",
-          "description": "Get a Reference by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_reference",
-          "description": "Update a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "uncertainty": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_reference",
-          "description": "Delete a Reference.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_mapping",
-          "description": "Create a Mapping.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "fromCode": {
-                "type": "string"
-              },
-              "toScheme": {
-                "type": "string"
-              },
-              "toCode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "fromCode",
-              "toScheme"
-            ]
-          }
-        },
-        {
-          "name": "list_mappings",
-          "description": "List Mappings.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_mapping",
-          "description": "Get a Mapping by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_mapping",
-          "description": "Update a Mapping.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "fromCode": {
-                "type": "string"
-              },
-              "toScheme": {
-                "type": "string"
-              },
-              "toCode": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_mapping",
-          "description": "Delete a Mapping.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
         {
           "name": "create_location",
           "description": "Create a Location.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "unLocode": {
+              "countryCode": {
+                "type": "string"
+              },
+              "locationCode": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "country": {
+              "nameWoDiacritics": {
                 "type": "string"
+              },
+              "function": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "subdivision": {
+                "type": "string"
+              },
+              "iataCode": {
+                "type": "string"
+              },
+              "latitude": {
+                "type": "number"
+              },
+              "longitude": {
+                "type": "number"
               }
             },
             "required": [
-              "unLocode",
-              "name"
+              "countryCode",
+              "locationCode"
             ]
           }
         },
@@ -648,14 +267,35 @@
               "id": {
                 "type": "string"
               },
-              "unLocode": {
+              "countryCode": {
+                "type": "string"
+              },
+              "locationCode": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "country": {
+              "nameWoDiacritics": {
                 "type": "string"
+              },
+              "function": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "subdivision": {
+                "type": "string"
+              },
+              "iataCode": {
+                "type": "string"
+              },
+              "latitude": {
+                "type": "number"
+              },
+              "longitude": {
+                "type": "number"
               }
             },
             "required": [
@@ -679,38 +319,35 @@
           }
         },
         {
-          "name": "create_epoch",
-          "description": "Create a Epoch.",
+          "name": "create_function_classifier",
+          "description": "Create a FunctionClassifier.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "code": {
                 "type": "string"
               },
-              "utcOffset": {
-                "type": "string"
-              },
-              "asOf": {
+              "definition": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "utcOffset"
+              "code",
+              "definition"
             ]
           }
         },
         {
-          "name": "list_epoches",
-          "description": "List Epoches.",
+          "name": "list_function_classifiers",
+          "description": "List FunctionClassifiers.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_epoch",
-          "description": "Get a Epoch by id.",
+          "name": "get_function_classifier",
+          "description": "Get a FunctionClassifier by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -724,21 +361,18 @@
           }
         },
         {
-          "name": "update_epoch",
-          "description": "Update a Epoch.",
+          "name": "update_function_classifier",
+          "description": "Update a FunctionClassifier.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "code": {
                 "type": "string"
               },
-              "utcOffset": {
-                "type": "string"
-              },
-              "asOf": {
+              "definition": {
                 "type": "string"
               }
             },
@@ -748,8 +382,86 @@
           }
         },
         {
-          "name": "delete_epoch",
-          "description": "Delete a Epoch.",
+          "name": "delete_function_classifier",
+          "description": "Delete a FunctionClassifier.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_status_code",
+          "description": "Create a StatusCode.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "definition": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "definition"
+            ]
+          }
+        },
+        {
+          "name": "list_status_codes",
+          "description": "List StatusCodes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_status_code",
+          "description": "Get a StatusCode by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_status_code",
+          "description": "Update a StatusCode.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "definition": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_status_code",
+          "description": "Delete a StatusCode.",
           "inputSchema": {
             "type": "object",
             "properties": {

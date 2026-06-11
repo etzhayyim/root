@@ -5,21 +5,122 @@
   "kind": "compat",
   "title": "alpaca clean-room actor",
   "description": "Clean-room, API-compatible fintech / web3 actor (alpaca); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
+  "wasmCid": "bafkreib4bqxnbuvdgcgxixoc72zsqixfjtd6zujo2gygg5mmrspqs4ikk4",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
+  "ipfs": "ipfs://bafkreib4bqxnbuvdgcgxixoc72zsqixfjtd6zujo2gygg5mmrspqs4ikk4",
   "schema": "schema/alpaca.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/alpacahq/alpaca-py/blob/master/alpaca/trading",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Asset",
+      "Order",
+      "Position",
+      "TradeAccount",
+      "TradeActivity"
+    ],
+    "enums": {
+      "Asset": {
+        "assetClass": [
+          "us_equity",
+          "us_option",
+          "crypto",
+          "crypto_perp"
+        ],
+        "status": [
+          "active",
+          "inactive"
+        ]
+      },
+      "Order": {
+        "side": [
+          "buy",
+          "sell"
+        ],
+        "type": [
+          "market",
+          "limit",
+          "stop",
+          "stop_limit",
+          "trailing_stop"
+        ],
+        "status": [
+          "new",
+          "partially_filled",
+          "filled",
+          "done_for_day",
+          "canceled",
+          "expired",
+          "replaced",
+          "pending_cancel",
+          "pending_replace",
+          "pending_review",
+          "accepted",
+          "pending_new",
+          "accepted_for_bidding",
+          "stopped",
+          "rejected",
+          "suspended",
+          "calculated",
+          "held"
+        ],
+        "timeInForce": [
+          "day",
+          "gtc",
+          "opg",
+          "cls",
+          "ioc",
+          "fok"
+        ]
+      },
+      "Position": {
+        "side": [
+          "long",
+          "short"
+        ]
+      },
+      "TradeAccount": {
+        "status": [
+          "ACCOUNT_CLOSED",
+          "ACCOUNT_UPDATED",
+          "ACTION_REQUIRED",
+          "ACTIVE",
+          "AML_REVIEW",
+          "APPROVAL_PENDING",
+          "APPROVED",
+          "DISABLED",
+          "DISABLE_PENDING",
+          "EDITED",
+          "INACTIVE",
+          "KYC_SUBMITTED",
+          "LIMITED",
+          "ONBOARDING",
+          "PAPER_ONLY",
+          "REAPPROVAL_PENDING",
+          "REJECTED",
+          "RESUBMITTED",
+          "SIGNED_UP",
+          "SUBMISSION_FAILED",
+          "SUBMITTED"
+        ]
+      },
+      "TradeActivity": {
+        "type": [
+          "partial_fill",
+          "fill"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Account",
-    "Card",
-    "Transaction",
+    "Asset",
     "Order",
-    "Wallet",
-    "Ledger"
+    "Position",
+    "TradeAccount",
+    "TradeActivity"
   ],
   "adr": [
     "260607",
@@ -31,82 +132,32 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
+          "path": "/v1/assets",
+          "op": "create Asset"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
+          "path": "/v1/assets",
+          "op": "list Asset"
         },
         {
           "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
+          "path": "/v1/assets/{id}",
+          "op": "get Asset"
         },
         {
           "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
+          "path": "/v1/assets/{id}",
+          "op": "update Asset"
         },
         {
           "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/cards",
-          "op": "create Card"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/cards",
-          "op": "list Card"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/cards/{id}",
-          "op": "get Card"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/cards/{id}",
-          "op": "update Card"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/cards/{id}",
-          "op": "delete Card"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/transactions",
-          "op": "create Transaction"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/transactions",
-          "op": "list Transaction"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/transactions/{id}",
-          "op": "get Transaction"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/transactions/{id}",
-          "op": "update Transaction"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/transactions/{id}",
-          "op": "delete Transaction"
+          "path": "/v1/assets/{id}",
+          "op": "delete Asset"
         },
         {
           "method": "POST",
@@ -135,53 +186,78 @@
         },
         {
           "method": "POST",
-          "path": "/v1/wallets",
-          "op": "create Wallet"
+          "path": "/v1/positions",
+          "op": "create Position"
         },
         {
           "method": "GET",
-          "path": "/v1/wallets",
-          "op": "list Wallet"
+          "path": "/v1/positions",
+          "op": "list Position"
         },
         {
           "method": "GET",
-          "path": "/v1/wallets/{id}",
-          "op": "get Wallet"
+          "path": "/v1/positions/{id}",
+          "op": "get Position"
         },
         {
           "method": "PATCH",
-          "path": "/v1/wallets/{id}",
-          "op": "update Wallet"
+          "path": "/v1/positions/{id}",
+          "op": "update Position"
         },
         {
           "method": "DELETE",
-          "path": "/v1/wallets/{id}",
-          "op": "delete Wallet"
+          "path": "/v1/positions/{id}",
+          "op": "delete Position"
         },
         {
           "method": "POST",
-          "path": "/v1/ledgers",
-          "op": "create Ledger"
+          "path": "/v1/tradeaccounts",
+          "op": "create TradeAccount"
         },
         {
           "method": "GET",
-          "path": "/v1/ledgers",
-          "op": "list Ledger"
+          "path": "/v1/tradeaccounts",
+          "op": "list TradeAccount"
         },
         {
           "method": "GET",
-          "path": "/v1/ledgers/{id}",
-          "op": "get Ledger"
+          "path": "/v1/tradeaccounts/{id}",
+          "op": "get TradeAccount"
         },
         {
           "method": "PATCH",
-          "path": "/v1/ledgers/{id}",
-          "op": "update Ledger"
+          "path": "/v1/tradeaccounts/{id}",
+          "op": "update TradeAccount"
         },
         {
           "method": "DELETE",
-          "path": "/v1/ledgers/{id}",
-          "op": "delete Ledger"
+          "path": "/v1/tradeaccounts/{id}",
+          "op": "delete TradeAccount"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/tradeactivities",
+          "op": "create TradeActivity"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/tradeactivities",
+          "op": "list TradeActivity"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/tradeactivities/{id}",
+          "op": "get TradeActivity"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/tradeactivities/{id}",
+          "op": "update TradeActivity"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/tradeactivities/{id}",
+          "op": "delete TradeActivity"
         }
       ],
       "features": {
@@ -244,44 +320,50 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_account",
-          "description": "Create a Account.",
+          "name": "create_asset",
+          "description": "Create a Asset.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "holderId": {
+              "symbol": {
                 "type": "string"
               },
-              "currency": {
+              "assetClass": {
                 "type": "string"
               },
-              "balance": {
-                "type": "number"
+              "exchange": {
+                "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "tradable": {
+                "type": "boolean"
+              },
+              "fractionable": {
+                "type": "boolean"
               }
             },
             "required": [
-              "currency",
-              "balance"
+              "symbol",
+              "assetClass"
             ]
           }
         },
         {
-          "name": "list_accounts",
-          "description": "List Accounts.",
+          "name": "list_assets",
+          "description": "List Assets.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_account",
-          "description": "Get a Account by id.",
+          "name": "get_asset",
+          "description": "Get a Asset by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,181 +377,31 @@
           }
         },
         {
-          "name": "update_account",
-          "description": "Update a Account.",
+          "name": "update_asset",
+          "description": "Update a Asset.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "holderId": {
+              "symbol": {
                 "type": "string"
               },
-              "currency": {
+              "assetClass": {
                 "type": "string"
               },
-              "balance": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_card",
-          "description": "Create a Card.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "last4": {
-                "type": "string"
-              },
-              "network": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "last4",
-              "network"
-            ]
-          }
-        },
-        {
-          "name": "list_cards",
-          "description": "List Cards.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_card",
-          "description": "Get a Card by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_card",
-          "description": "Update a Card.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "accountId": {
-                "type": "string"
-              },
-              "last4": {
-                "type": "string"
-              },
-              "network": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_card",
-          "description": "Delete a Card.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_transaction",
-          "description": "Create a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "type": {
+              "exchange": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
-              }
-            },
-            "required": [
-              "amount",
-              "currency"
-            ]
-          }
-        },
-        {
-          "name": "list_transactions",
-          "description": "List Transactions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_transaction",
-          "description": "Get a Transaction by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+              },
+              "tradable": {
+                "type": "boolean"
+              },
+              "fractionable": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -478,38 +410,8 @@
           }
         },
         {
-          "name": "update_transaction",
-          "description": "Update a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "accountId": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_transaction",
-          "description": "Delete a Transaction.",
+          "name": "delete_asset",
+          "description": "Delete a Asset.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -534,13 +436,16 @@
               "side": {
                 "type": "string"
               },
-              "quantity": {
-                "type": "number"
-              },
-              "price": {
-                "type": "number"
+              "type": {
+                "type": "string"
               },
               "status": {
+                "type": "string"
+              },
+              "qty": {
+                "type": "string"
+              },
+              "timeInForce": {
                 "type": "string"
               }
             },
@@ -588,13 +493,16 @@
               "side": {
                 "type": "string"
               },
-              "quantity": {
-                "type": "number"
-              },
-              "price": {
-                "type": "number"
+              "type": {
+                "type": "string"
               },
               "status": {
+                "type": "string"
+              },
+              "qty": {
+                "type": "string"
+              },
+              "timeInForce": {
                 "type": "string"
               }
             },
@@ -619,38 +527,44 @@
           }
         },
         {
-          "name": "create_wallet",
-          "description": "Create a Wallet.",
+          "name": "create_position",
+          "description": "Create a Position.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "address": {
+              "symbol": {
                 "type": "string"
               },
-              "chain": {
+              "qty": {
                 "type": "string"
               },
-              "balance": {
-                "type": "number"
+              "side": {
+                "type": "string"
+              },
+              "avgEntryPrice": {
+                "type": "string"
+              },
+              "marketValue": {
+                "type": "string"
               }
             },
             "required": [
-              "address",
-              "chain"
+              "symbol",
+              "qty"
             ]
           }
         },
         {
-          "name": "list_wallets",
-          "description": "List Wallets.",
+          "name": "list_positions",
+          "description": "List Positions.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_wallet",
-          "description": "Get a Wallet by id.",
+          "name": "get_position",
+          "description": "Get a Position by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -664,36 +578,27 @@
           }
         },
         {
-          "name": "update_wallet",
-          "description": "Update a Wallet.",
+          "name": "update_position",
+          "description": "Update a Position.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "address": {
+              "symbol": {
                 "type": "string"
               },
-              "chain": {
+              "qty": {
                 "type": "string"
               },
-              "balance": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_wallet",
-          "description": "Delete a Wallet.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "side": {
+                "type": "string"
+              },
+              "avgEntryPrice": {
+                "type": "string"
+              },
+              "marketValue": {
                 "type": "string"
               }
             },
@@ -703,41 +608,62 @@
           }
         },
         {
-          "name": "create_ledger",
-          "description": "Create a Ledger.",
+          "name": "delete_position",
+          "description": "Delete a Position.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "debit": {
-                "type": "number"
-              },
-              "credit": {
-                "type": "number"
-              },
-              "memo": {
+              "id": {
                 "type": "string"
               }
             },
             "required": [
-              "debit",
-              "credit"
+              "id"
             ]
           }
         },
         {
-          "name": "list_ledgers",
-          "description": "List Ledgers.",
+          "name": "create_trade_account",
+          "description": "Create a TradeAccount.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "accountNumber": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "equity": {
+                "type": "string"
+              },
+              "cash": {
+                "type": "string"
+              },
+              "buyingPower": {
+                "type": "string"
+              },
+              "patternDayTrader": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "accountNumber",
+              "status"
+            ]
+          }
+        },
+        {
+          "name": "list_trade_accounts",
+          "description": "List TradeAccounts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_ledger",
-          "description": "Get a Ledger by id.",
+          "name": "get_trade_account",
+          "description": "Get a TradeAccount by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -751,24 +677,45 @@
           }
         },
         {
-          "name": "update_ledger",
-          "description": "Update a Ledger.",
+          "name": "update_trade_account",
+          "description": "Update a TradeAccount.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "accountId": {
+              "accountNumber": {
                 "type": "string"
               },
-              "debit": {
-                "type": "number"
+              "status": {
+                "type": "string"
               },
-              "credit": {
-                "type": "number"
+              "equity": {
+                "type": "string"
               },
-              "memo": {
+              "cash": {
+                "type": "string"
+              },
+              "buyingPower": {
+                "type": "string"
+              },
+              "patternDayTrader": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_trade_account",
+          "description": "Delete a TradeAccount.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -778,8 +725,95 @@
           }
         },
         {
-          "name": "delete_ledger",
-          "description": "Delete a Ledger.",
+          "name": "create_trade_activity",
+          "description": "Create a TradeActivity.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string"
+              },
+              "side": {
+                "type": "string"
+              },
+              "price": {
+                "type": "number"
+              },
+              "qty": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              },
+              "orderId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "symbol",
+              "side"
+            ]
+          }
+        },
+        {
+          "name": "list_trade_activities",
+          "description": "List TradeActivities.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_trade_activity",
+          "description": "Get a TradeActivity by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_trade_activity",
+          "description": "Update a TradeActivity.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "symbol": {
+                "type": "string"
+              },
+              "side": {
+                "type": "string"
+              },
+              "price": {
+                "type": "number"
+              },
+              "qty": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              },
+              "orderId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_trade_activity",
+          "description": "Delete a TradeActivity.",
           "inputSchema": {
             "type": "object",
             "properties": {

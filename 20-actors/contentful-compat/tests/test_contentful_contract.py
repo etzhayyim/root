@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "contentful.kotoba")
-ENTITIES = ['ContentEntry', 'Product', 'Shipment', 'SearchIndex', 'Webhook', 'Order']
-PLURALS = {'ContentEntry': 'contententries', 'Product': 'products', 'Shipment': 'shipments', 'SearchIndex': 'searchindexes', 'Webhook': 'webhooks', 'Order': 'orders'}
+ENTITIES = ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'Locale']
+PLURALS = {'Entry': 'entries', 'Asset': 'assets', 'ContentType': 'contenttypes', 'Space': 'spaces', 'Environment': 'environments', 'Locale': 'locales'}
 
 
 class ContentfulContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class ContentfulContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

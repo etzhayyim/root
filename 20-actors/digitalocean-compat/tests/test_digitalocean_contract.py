@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "digitalocean.kotoba")
-ENTITIES = ['Project', 'ComputeInstance', 'Volume', 'Bucket', 'Network', 'IamRole']
-PLURALS = {'Project': 'projects', 'ComputeInstance': 'computeinstances', 'Volume': 'volumes', 'Bucket': 'buckets', 'Network': 'networks', 'IamRole': 'iamroles'}
+ENTITIES = ['Droplet', 'Volume', 'DatabaseCluster', 'LoadBalancer', 'KubernetesCluster', 'Image']
+PLURALS = {'Droplet': 'droplets', 'Volume': 'volumes', 'DatabaseCluster': 'databaseclusters', 'LoadBalancer': 'loadbalancers', 'KubernetesCluster': 'kubernetesclusters', 'Image': 'images'}
 
 
 class DigitaloceanContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class DigitaloceanContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['engine', 'filesystemType', 'status', 'type']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

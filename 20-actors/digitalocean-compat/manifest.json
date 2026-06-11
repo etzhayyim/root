@@ -11,15 +11,96 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreielbzomeatswxe67bqlg6xpuf6wnujdaypcjrfhaz4vo7nv5gx6ua",
   "schema": "schema/digitalocean.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/digitalocean/openapi/blob/main/specification/resources",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Droplet",
+      "Volume",
+      "DatabaseCluster",
+      "LoadBalancer",
+      "KubernetesCluster",
+      "Image"
+    ],
+    "enums": {
+      "Droplet": {
+        "status": [
+          "new",
+          "active",
+          "off",
+          "archive"
+        ]
+      },
+      "Volume": {
+        "filesystemType": [
+          "ext4",
+          "xfs"
+        ]
+      },
+      "DatabaseCluster": {
+        "engine": [
+          "pg",
+          "mysql",
+          "redis",
+          "valkey",
+          "mongodb",
+          "kafka",
+          "opensearch",
+          "advanced_pg",
+          "advanced_mysql"
+        ],
+        "status": [
+          "creating",
+          "online",
+          "resizing",
+          "migrating",
+          "forking"
+        ]
+      },
+      "LoadBalancer": {
+        "status": [
+          "new",
+          "active",
+          "errored"
+        ]
+      },
+      "KubernetesCluster": {
+        "status": [
+          "running",
+          "provisioning",
+          "degraded",
+          "error",
+          "deleted",
+          "upgrading",
+          "deleting"
+        ]
+      },
+      "Image": {
+        "type": [
+          "base",
+          "snapshot",
+          "backup",
+          "custom",
+          "admin"
+        ],
+        "status": [
+          "NEW",
+          "available",
+          "pending",
+          "deleted",
+          "retired"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Project",
-    "ComputeInstance",
+    "Droplet",
     "Volume",
-    "Bucket",
-    "Network",
-    "IamRole"
+    "DatabaseCluster",
+    "LoadBalancer",
+    "KubernetesCluster",
+    "Image"
   ],
   "adr": [
     "260607",
@@ -35,53 +116,28 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/projects",
-          "op": "create Project"
+          "path": "/v1/droplets",
+          "op": "create Droplet"
         },
         {
           "method": "GET",
-          "path": "/v1/projects",
-          "op": "list Project"
+          "path": "/v1/droplets",
+          "op": "list Droplet"
         },
         {
           "method": "GET",
-          "path": "/v1/projects/{id}",
-          "op": "get Project"
+          "path": "/v1/droplets/{id}",
+          "op": "get Droplet"
         },
         {
           "method": "PATCH",
-          "path": "/v1/projects/{id}",
-          "op": "update Project"
+          "path": "/v1/droplets/{id}",
+          "op": "update Droplet"
         },
         {
           "method": "DELETE",
-          "path": "/v1/projects/{id}",
-          "op": "delete Project"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/computeinstances",
-          "op": "create ComputeInstance"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/computeinstances",
-          "op": "list ComputeInstance"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/computeinstances/{id}",
-          "op": "get ComputeInstance"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/computeinstances/{id}",
-          "op": "update ComputeInstance"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/computeinstances/{id}",
-          "op": "delete ComputeInstance"
+          "path": "/v1/droplets/{id}",
+          "op": "delete Droplet"
         },
         {
           "method": "POST",
@@ -110,78 +166,103 @@
         },
         {
           "method": "POST",
-          "path": "/v1/buckets",
-          "op": "create Bucket"
+          "path": "/v1/databaseclusters",
+          "op": "create DatabaseCluster"
         },
         {
           "method": "GET",
-          "path": "/v1/buckets",
-          "op": "list Bucket"
+          "path": "/v1/databaseclusters",
+          "op": "list DatabaseCluster"
         },
         {
           "method": "GET",
-          "path": "/v1/buckets/{id}",
-          "op": "get Bucket"
+          "path": "/v1/databaseclusters/{id}",
+          "op": "get DatabaseCluster"
         },
         {
           "method": "PATCH",
-          "path": "/v1/buckets/{id}",
-          "op": "update Bucket"
+          "path": "/v1/databaseclusters/{id}",
+          "op": "update DatabaseCluster"
         },
         {
           "method": "DELETE",
-          "path": "/v1/buckets/{id}",
-          "op": "delete Bucket"
+          "path": "/v1/databaseclusters/{id}",
+          "op": "delete DatabaseCluster"
         },
         {
           "method": "POST",
-          "path": "/v1/networks",
-          "op": "create Network"
+          "path": "/v1/loadbalancers",
+          "op": "create LoadBalancer"
         },
         {
           "method": "GET",
-          "path": "/v1/networks",
-          "op": "list Network"
+          "path": "/v1/loadbalancers",
+          "op": "list LoadBalancer"
         },
         {
           "method": "GET",
-          "path": "/v1/networks/{id}",
-          "op": "get Network"
+          "path": "/v1/loadbalancers/{id}",
+          "op": "get LoadBalancer"
         },
         {
           "method": "PATCH",
-          "path": "/v1/networks/{id}",
-          "op": "update Network"
+          "path": "/v1/loadbalancers/{id}",
+          "op": "update LoadBalancer"
         },
         {
           "method": "DELETE",
-          "path": "/v1/networks/{id}",
-          "op": "delete Network"
+          "path": "/v1/loadbalancers/{id}",
+          "op": "delete LoadBalancer"
         },
         {
           "method": "POST",
-          "path": "/v1/iamroles",
-          "op": "create IamRole"
+          "path": "/v1/kubernetesclusters",
+          "op": "create KubernetesCluster"
         },
         {
           "method": "GET",
-          "path": "/v1/iamroles",
-          "op": "list IamRole"
+          "path": "/v1/kubernetesclusters",
+          "op": "list KubernetesCluster"
         },
         {
           "method": "GET",
-          "path": "/v1/iamroles/{id}",
-          "op": "get IamRole"
+          "path": "/v1/kubernetesclusters/{id}",
+          "op": "get KubernetesCluster"
         },
         {
           "method": "PATCH",
-          "path": "/v1/iamroles/{id}",
-          "op": "update IamRole"
+          "path": "/v1/kubernetesclusters/{id}",
+          "op": "update KubernetesCluster"
         },
         {
           "method": "DELETE",
-          "path": "/v1/iamroles/{id}",
-          "op": "delete IamRole"
+          "path": "/v1/kubernetesclusters/{id}",
+          "op": "delete KubernetesCluster"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/images",
+          "op": "create Image"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/images",
+          "op": "list Image"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/images/{id}",
+          "op": "get Image"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/images/{id}",
+          "op": "update Image"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/images/{id}",
+          "op": "delete Image"
         }
       ],
       "features": {
@@ -247,38 +328,53 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_project",
-          "description": "Create a Project.",
+          "name": "create_droplet",
+          "description": "Create a Droplet.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "integer"
+              },
               "name": {
                 "type": "string"
               },
-              "region": {
+              "status": {
                 "type": "string"
               },
-              "billingId": {
+              "memory": {
+                "type": "integer"
+              },
+              "vcpus": {
+                "type": "integer"
+              },
+              "disk": {
+                "type": "integer"
+              },
+              "locked": {
+                "type": "boolean"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "region"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "list_projects",
-          "description": "List Projects.",
+          "name": "list_droplets",
+          "description": "List Droplets.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_project",
-          "description": "Get a Project by id.",
+          "name": "get_droplet",
+          "description": "Get a Droplet by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,21 +388,33 @@
           }
         },
         {
-          "name": "update_project",
-          "description": "Update a Project.",
+          "name": "update_droplet",
+          "description": "Update a Droplet.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "region": {
+              "status": {
                 "type": "string"
               },
-              "billingId": {
+              "memory": {
+                "type": "integer"
+              },
+              "vcpus": {
+                "type": "integer"
+              },
+              "disk": {
+                "type": "integer"
+              },
+              "locked": {
+                "type": "boolean"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
@@ -316,104 +424,8 @@
           }
         },
         {
-          "name": "delete_project",
-          "description": "Delete a Project.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_compute_instance",
-          "description": "Create a ComputeInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "machineType": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "machineType"
-            ]
-          }
-        },
-        {
-          "name": "list_compute_instances",
-          "description": "List ComputeInstances.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_compute_instance",
-          "description": "Get a ComputeInstance by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_compute_instance",
-          "description": "Update a ComputeInstance.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "machineType": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_compute_instance",
-          "description": "Delete a ComputeInstance.",
+          "name": "delete_droplet",
+          "description": "Delete a Droplet.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -432,22 +444,25 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
+              "id": {
                 "type": "string"
               },
-              "sizeGb": {
+              "name": {
+                "type": "string"
+              },
+              "sizeGigabytes": {
                 "type": "integer"
               },
-              "type": {
+              "filesystemType": {
                 "type": "string"
               },
-              "attachedTo": {
+              "createdAt": {
                 "type": "string"
               }
             },
             "required": [
-              "sizeGb",
-              "type"
+              "id",
+              "name"
             ]
           }
         },
@@ -483,16 +498,16 @@
               "id": {
                 "type": "string"
               },
-              "projectId": {
+              "name": {
                 "type": "string"
               },
-              "sizeGb": {
+              "sizeGigabytes": {
                 "type": "integer"
               },
-              "type": {
+              "filesystemType": {
                 "type": "string"
               },
-              "attachedTo": {
+              "createdAt": {
                 "type": "string"
               }
             },
@@ -517,41 +532,374 @@
           }
         },
         {
-          "name": "create_bucket",
-          "description": "Create a Bucket.",
+          "name": "create_database_cluster",
+          "description": "Create a DatabaseCluster.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "projectId": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "engine": {
+                "type": "string"
+              },
+              "numNodes": {
+                "type": "integer"
+              },
+              "size": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_database_clusters",
+          "description": "List DatabaseClusters.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_database_cluster",
+          "description": "Get a DatabaseCluster by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_database_cluster",
+          "description": "Update a DatabaseCluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "engine": {
+                "type": "string"
+              },
+              "numNodes": {
+                "type": "integer"
+              },
+              "size": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_database_cluster",
+          "description": "Delete a DatabaseCluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_load_balancer",
+          "description": "Create a LoadBalancer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "ip": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "sizeUnit": {
+                "type": "integer"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_load_balancers",
+          "description": "List LoadBalancers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_load_balancer",
+          "description": "Get a LoadBalancer by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_load_balancer",
+          "description": "Update a LoadBalancer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "ip": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "sizeUnit": {
+                "type": "integer"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_load_balancer",
+          "description": "Delete a LoadBalancer.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_kubernetes_cluster",
+          "description": "Create a KubernetesCluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
               "region": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "endpoint": {
+                "type": "string"
+              },
+              "autoUpgrade": {
+                "type": "boolean"
+              },
+              "ha": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_kubernetes_clusters",
+          "description": "List KubernetesClusters.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_kubernetes_cluster",
+          "description": "Get a KubernetesCluster by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_kubernetes_cluster",
+          "description": "Update a KubernetesCluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "endpoint": {
+                "type": "string"
+              },
+              "autoUpgrade": {
+                "type": "boolean"
+              },
+              "ha": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_kubernetes_cluster",
+          "description": "Delete a KubernetesCluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_image",
+          "description": "Create a Image.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "slug": {
                 "type": "string"
               },
               "public": {
                 "type": "boolean"
+              },
+              "status": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "sizeGigabytes": {
+                "type": "number"
+              },
+              "createdAt": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "region"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "list_buckets",
-          "description": "List Buckets.",
+          "name": "list_images",
+          "description": "List Images.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_bucket",
-          "description": "Get a Bucket by id.",
+          "name": "get_image",
+          "description": "Get a Image by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,84 +913,33 @@
           }
         },
         {
-          "name": "update_bucket",
-          "description": "Update a Bucket.",
+          "name": "update_image",
+          "description": "Update a Image.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "region": {
+              "slug": {
                 "type": "string"
               },
               "public": {
                 "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_bucket",
-          "description": "Delete a Bucket.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_network",
-          "description": "Create a Network.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
+              },
+              "status": {
                 "type": "string"
               },
-              "cidr": {
+              "type": {
                 "type": "string"
               },
-              "region": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "cidr",
-              "region"
-            ]
-          }
-        },
-        {
-          "name": "list_networks",
-          "description": "List Networks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_network",
-          "description": "Get a Network by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "sizeGigabytes": {
+                "type": "number"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
@@ -652,116 +949,8 @@
           }
         },
         {
-          "name": "update_network",
-          "description": "Update a Network.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_network",
-          "description": "Delete a Network.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_iam_role",
-          "description": "Create a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "policy": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "policy"
-            ]
-          }
-        },
-        {
-          "name": "list_iam_roles",
-          "description": "List IamRoles.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_iam_role",
-          "description": "Get a IamRole by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_iam_role",
-          "description": "Update a IamRole.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "projectId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "policy": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_iam_role",
-          "description": "Delete a IamRole.",
+          "name": "delete_image",
+          "description": "Delete a Image.",
           "inputSchema": {
             "type": "object",
             "properties": {

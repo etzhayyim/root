@@ -111,247 +111,196 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/filings", methods=["POST"])
-def create_filing(request):
-    """Create a Filing."""
+@app.route("/v1/authenticationassertions", methods=["POST"])
+def create_authentication_assertion(request):
+    """Create a AuthenticationAssertion."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['filerId', 'scheme', 'period', 'status'])
+    err = _reject_unknown(data, ['id', 'levelOfAssurance', 'issueInstant', 'sessionIndex', 'issuer'])
     if err:
         return err, 400
-    err = _require(data, ['scheme', 'period'])
+    err = _require(data, ['id', 'levelOfAssurance'])
     if err:
         return err, 400
-    rec = {"id": new_id("eidas_fil")}
-    rec["filerId"] = data.get('filerId')
-    rec["scheme"] = data.get('scheme')
-    rec["period"] = data.get('period')
-    rec["status"] = data.get('status')
+    if data.get('levelOfAssurance') and data['levelOfAssurance'] not in ['low', 'substantial', 'high']:
+        return {"error": {"message": "invalid levelOfAssurance; allowed: " + ", ".join(['low', 'substantial', 'high']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("eidas_aut")}
+    rec["id"] = data.get('id')
+    rec["levelOfAssurance"] = data.get('levelOfAssurance')
+    rec["issueInstant"] = data.get('issueInstant')
+    rec["sessionIndex"] = data.get('sessionIndex')
+    rec["issuer"] = data.get('issuer')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Filing", rec)
+    _persist("AuthenticationAssertion", rec)
     return rec, 201
 
-@app.route("/v1/filings", methods=["GET"])
-def list_filings(request):
-    """List Filings with filtering + cursor pagination."""
+@app.route("/v1/authenticationassertions", methods=["GET"])
+def list_authentication_assertions(request):
+    """List AuthenticationAssertions with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Filing")
-    rows = _apply_filters(rows, params, ['filerId', 'scheme', 'period', 'status'])
+    rows = _query("AuthenticationAssertion")
+    rows = _apply_filters(rows, params, ['id', 'levelOfAssurance', 'issueInstant', 'sessionIndex', 'issuer'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/filings/<eid>", methods=["GET"])
-def get_filing(request, eid):
-    """Retrieve a Filing by id (supports ?expand=)."""
-    rows = _query("Filing", eid)
+@app.route("/v1/authenticationassertions/<eid>", methods=["GET"])
+def get_authentication_assertion(request, eid):
+    """Retrieve a AuthenticationAssertion by id (supports ?expand=)."""
+    rows = _query("AuthenticationAssertion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/filings/<eid>", methods=["POST", "PATCH"])
-def update_filing(request, eid):
-    """Update a Filing."""
-    rows = _query("Filing", eid)
+@app.route("/v1/authenticationassertions/<eid>", methods=["POST", "PATCH"])
+def update_authentication_assertion(request, eid):
+    """Update a AuthenticationAssertion."""
+    rows = _query("AuthenticationAssertion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['filerId', 'scheme', 'period', 'status'])
+    err = _reject_unknown(data, ['id', 'levelOfAssurance', 'issueInstant', 'sessionIndex', 'issuer'])
     if err:
         return err, 400
+    if data.get('levelOfAssurance') and data['levelOfAssurance'] not in ['low', 'substantial', 'high']:
+        return {"error": {"message": "invalid levelOfAssurance; allowed: " + ", ".join(['low', 'substantial', 'high']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Filing", rec)
+    _persist("AuthenticationAssertion", rec)
     return rec, 200
 
-@app.route("/v1/filings/<eid>", methods=["DELETE"])
-def delete_filing(request, eid):
-    """Delete a Filing."""
-    rows = _query("Filing", eid)
+@app.route("/v1/authenticationassertions/<eid>", methods=["DELETE"])
+def delete_authentication_assertion(request, eid):
+    """Delete a AuthenticationAssertion."""
+    rows = _query("AuthenticationAssertion", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eidas.Filing", "id": eid})
+    db.retract({"entity": f"eidas.AuthenticationAssertion", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/citizens", methods=["POST"])
-def create_citizen(request):
-    """Create a Citizen."""
+@app.route("/v1/eidasattributes", methods=["POST"])
+def create_eidas_attribute(request):
+    """Create a EidasAttribute."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nationalId', 'jurisdiction'])
+    err = _reject_unknown(data, ['name', 'friendlyName', 'nameFormat', 'value'])
     if err:
         return err, 400
-    err = _require(data, ['jurisdiction'])
+    err = _require(data, ['name', 'friendlyName'])
     if err:
         return err, 400
-    rec = {"id": new_id("eidas_cit")}
-    rec["nationalId"] = data.get('nationalId')
-    rec["jurisdiction"] = data.get('jurisdiction')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Citizen", rec)
-    return rec, 201
-
-@app.route("/v1/citizens", methods=["GET"])
-def list_citizens(request):
-    """List Citizens with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Citizen")
-    rows = _apply_filters(rows, params, ['nationalId', 'jurisdiction'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/citizens/<eid>", methods=["GET"])
-def get_citizen(request, eid):
-    """Retrieve a Citizen by id (supports ?expand=)."""
-    rows = _query("Citizen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/citizens/<eid>", methods=["POST", "PATCH"])
-def update_citizen(request, eid):
-    """Update a Citizen."""
-    rows = _query("Citizen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['nationalId', 'jurisdiction'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Citizen", rec)
-    return rec, 200
-
-@app.route("/v1/citizens/<eid>", methods=["DELETE"])
-def delete_citizen(request, eid):
-    """Delete a Citizen."""
-    rows = _query("Citizen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eidas.Citizen", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/services", methods=["POST"])
-def create_service(request):
-    """Create a Service."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'department'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'department'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("eidas_ser")}
+    if data.get('nameFormat') and data['nameFormat'] not in ['urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified', 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri', 'urn:oasis:names:tc:SAML:2.0:attrname-format:basic']:
+        return {"error": {"message": "invalid nameFormat; allowed: " + ", ".join(['urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified', 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri', 'urn:oasis:names:tc:SAML:2.0:attrname-format:basic']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("eidas_eid")}
     rec["name"] = data.get('name')
-    rec["department"] = data.get('department')
+    rec["friendlyName"] = data.get('friendlyName')
+    rec["nameFormat"] = data.get('nameFormat')
+    rec["value"] = data.get('value')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Service", rec)
+    _persist("EidasAttribute", rec)
     return rec, 201
 
-@app.route("/v1/services", methods=["GET"])
-def list_services(request):
-    """List Services with filtering + cursor pagination."""
+@app.route("/v1/eidasattributes", methods=["GET"])
+def list_eidas_attributes(request):
+    """List EidasAttributes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Service")
-    rows = _apply_filters(rows, params, ['name', 'department'])
+    rows = _query("EidasAttribute")
+    rows = _apply_filters(rows, params, ['name', 'friendlyName', 'nameFormat', 'value'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/services/<eid>", methods=["GET"])
-def get_service(request, eid):
-    """Retrieve a Service by id (supports ?expand=)."""
-    rows = _query("Service", eid)
+@app.route("/v1/eidasattributes/<eid>", methods=["GET"])
+def get_eidas_attribute(request, eid):
+    """Retrieve a EidasAttribute by id (supports ?expand=)."""
+    rows = _query("EidasAttribute", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/services/<eid>", methods=["POST", "PATCH"])
-def update_service(request, eid):
-    """Update a Service."""
-    rows = _query("Service", eid)
+@app.route("/v1/eidasattributes/<eid>", methods=["POST", "PATCH"])
+def update_eidas_attribute(request, eid):
+    """Update a EidasAttribute."""
+    rows = _query("EidasAttribute", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'department'])
+    err = _reject_unknown(data, ['name', 'friendlyName', 'nameFormat', 'value'])
     if err:
         return err, 400
+    if data.get('nameFormat') and data['nameFormat'] not in ['urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified', 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri', 'urn:oasis:names:tc:SAML:2.0:attrname-format:basic']:
+        return {"error": {"message": "invalid nameFormat; allowed: " + ", ".join(['urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified', 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri', 'urn:oasis:names:tc:SAML:2.0:attrname-format:basic']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Service", rec)
+    _persist("EidasAttribute", rec)
     return rec, 200
 
-@app.route("/v1/services/<eid>", methods=["DELETE"])
-def delete_service(request, eid):
-    """Delete a Service."""
-    rows = _query("Service", eid)
+@app.route("/v1/eidasattributes/<eid>", methods=["DELETE"])
+def delete_eidas_attribute(request, eid):
+    """Delete a EidasAttribute."""
+    rows = _query("EidasAttribute", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eidas.Service", "id": eid})
+    db.retract({"entity": f"eidas.EidasAttribute", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/applications", methods=["POST"])
-def create_application(request):
-    """Create a Application."""
+@app.route("/v1/trustservices", methods=["POST"])
+def create_trust_service(request):
+    """Create a TrustService."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['citizenId', 'serviceId', 'status'])
+    err = _reject_unknown(data, ['id', 'serviceProvider', 'serviceName', 'serviceType', 'status', 'statusStartingTime'])
     if err:
         return err, 400
-    err = _require(data, ['status'])
+    err = _require(data, ['id', 'serviceProvider'])
     if err:
         return err, 400
-    rec = {"id": new_id("eidas_app")}
-    rec["citizenId"] = data.get('citizenId')
-    rec["serviceId"] = data.get('serviceId')
+    rec = {"id": new_id("eidas_tru")}
+    rec["id"] = data.get('id')
+    rec["serviceProvider"] = data.get('serviceProvider')
+    rec["serviceName"] = data.get('serviceName')
+    rec["serviceType"] = data.get('serviceType')
     rec["status"] = data.get('status')
+    rec["statusStartingTime"] = data.get('statusStartingTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Application", rec)
+    _persist("TrustService", rec)
     return rec, 201
 
-@app.route("/v1/applications", methods=["GET"])
-def list_applications(request):
-    """List Applications with filtering + cursor pagination."""
+@app.route("/v1/trustservices", methods=["GET"])
+def list_trust_services(request):
+    """List TrustServices with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Application")
-    rows = _apply_filters(rows, params, ['citizenId', 'serviceId', 'status'])
+    rows = _query("TrustService")
+    rows = _apply_filters(rows, params, ['id', 'serviceProvider', 'serviceName', 'serviceType', 'status', 'statusStartingTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/applications/<eid>", methods=["GET"])
-def get_application(request, eid):
-    """Retrieve a Application by id (supports ?expand=)."""
-    rows = _query("Application", eid)
+@app.route("/v1/trustservices/<eid>", methods=["GET"])
+def get_trust_service(request, eid):
+    """Retrieve a TrustService by id (supports ?expand=)."""
+    rows = _query("TrustService", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'citizenId': 'Citizen', 'serviceId': 'Service'})
     return rec, 200
 
-@app.route("/v1/applications/<eid>", methods=["POST", "PATCH"])
-def update_application(request, eid):
-    """Update a Application."""
-    rows = _query("Application", eid)
+@app.route("/v1/trustservices/<eid>", methods=["POST", "PATCH"])
+def update_trust_service(request, eid):
+    """Update a TrustService."""
+    rows = _query("TrustService", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['citizenId', 'serviceId', 'status'])
+    err = _reject_unknown(data, ['id', 'serviceProvider', 'serviceName', 'serviceType', 'status', 'statusStartingTime'])
     if err:
         return err, 400
     rec = rows[0]
@@ -359,64 +308,64 @@ def update_application(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Application", rec)
+    _persist("TrustService", rec)
     return rec, 200
 
-@app.route("/v1/applications/<eid>", methods=["DELETE"])
-def delete_application(request, eid):
-    """Delete a Application."""
-    rows = _query("Application", eid)
+@app.route("/v1/trustservices/<eid>", methods=["DELETE"])
+def delete_trust_service(request, eid):
+    """Delete a TrustService."""
+    rows = _query("TrustService", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eidas.Application", "id": eid})
+    db.retract({"entity": f"eidas.TrustService", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/datasets", methods=["POST"])
-def create_dataset(request):
-    """Create a Dataset."""
+@app.route("/v1/subjects", methods=["POST"])
+def create_subject(request):
+    """Create a Subject."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'publisher', 'updatedAt'])
+    err = _reject_unknown(data, ['nameID', 'format', 'spNameQualifier'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'publisher'])
+    err = _require(data, ['nameID', 'format'])
     if err:
         return err, 400
-    rec = {"id": new_id("eidas_dat")}
-    rec["name"] = data.get('name')
-    rec["publisher"] = data.get('publisher')
-    rec["updatedAt"] = data.get('updatedAt')
+    rec = {"id": new_id("eidas_sub")}
+    rec["nameID"] = data.get('nameID')
+    rec["format"] = data.get('format')
+    rec["spNameQualifier"] = data.get('spNameQualifier')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Dataset", rec)
+    _persist("Subject", rec)
     return rec, 201
 
-@app.route("/v1/datasets", methods=["GET"])
-def list_datasets(request):
-    """List Datasets with filtering + cursor pagination."""
+@app.route("/v1/subjects", methods=["GET"])
+def list_subjects(request):
+    """List Subjects with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Dataset")
-    rows = _apply_filters(rows, params, ['name', 'publisher', 'updatedAt'])
+    rows = _query("Subject")
+    rows = _apply_filters(rows, params, ['nameID', 'format', 'spNameQualifier'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/datasets/<eid>", methods=["GET"])
-def get_dataset(request, eid):
-    """Retrieve a Dataset by id (supports ?expand=)."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/subjects/<eid>", methods=["GET"])
+def get_subject(request, eid):
+    """Retrieve a Subject by id (supports ?expand=)."""
+    rows = _query("Subject", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["POST", "PATCH"])
-def update_dataset(request, eid):
-    """Update a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/subjects/<eid>", methods=["POST", "PATCH"])
+def update_subject(request, eid):
+    """Update a Subject."""
+    rows = _query("Subject", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'publisher', 'updatedAt'])
+    err = _reject_unknown(data, ['nameID', 'format', 'spNameQualifier'])
     if err:
         return err, 400
     rec = rows[0]
@@ -424,88 +373,22 @@ def update_dataset(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Dataset", rec)
+    _persist("Subject", rec)
     return rec, 200
 
-@app.route("/v1/datasets/<eid>", methods=["DELETE"])
-def delete_dataset(request, eid):
-    """Delete a Dataset."""
-    rows = _query("Dataset", eid)
+@app.route("/v1/subjects/<eid>", methods=["DELETE"])
+def delete_subject(request, eid):
+    """Delete a Subject."""
+    rows = _query("Subject", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eidas.Dataset", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/identities", methods=["POST"])
-def create_identity(request):
-    """Create a Identity."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['citizenId', 'assuranceLevel', 'verified'])
-    if err:
-        return err, 400
-    err = _require(data, ['assuranceLevel', 'verified'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("eidas_ide")}
-    rec["citizenId"] = data.get('citizenId')
-    rec["assuranceLevel"] = data.get('assuranceLevel')
-    rec["verified"] = _as_bool(data.get('verified'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Identity", rec)
-    return rec, 201
-
-@app.route("/v1/identities", methods=["GET"])
-def list_identities(request):
-    """List Identities with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Identity")
-    rows = _apply_filters(rows, params, ['citizenId', 'assuranceLevel', 'verified'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/identities/<eid>", methods=["GET"])
-def get_identity(request, eid):
-    """Retrieve a Identity by id (supports ?expand=)."""
-    rows = _query("Identity", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'citizenId': 'Citizen'})
-    return rec, 200
-
-@app.route("/v1/identities/<eid>", methods=["POST", "PATCH"])
-def update_identity(request, eid):
-    """Update a Identity."""
-    rows = _query("Identity", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['citizenId', 'assuranceLevel', 'verified'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Identity", rec)
-    return rec, 200
-
-@app.route("/v1/identities/<eid>", methods=["DELETE"])
-def delete_identity(request, eid):
-    """Delete a Identity."""
-    rows = _query("Identity", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"eidas.Identity", "id": eid})
+    db.retract({"entity": f"eidas.Subject", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "eidas-compat", "tier": "L4",
-            "entities": ['Filing', 'Citizen', 'Service', 'Application', 'Dataset', 'Identity']}, 200
+            "entities": ['AuthenticationAssertion', 'EidasAttribute', 'TrustService', 'Subject']}, 200
 
 
 if __name__ == "__main__":

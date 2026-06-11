@@ -111,87 +111,29 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/channels", methods=["POST"])
-def create_channel(request):
-    """Create a Channel."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bandwidt_cha")}
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["topic"] = data.get('topic')
-    rec["memberCount"] = _as_int(data.get('memberCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Channel", rec)
-    return rec, 201
-
-@app.route("/v1/channels", methods=["GET"])
-def list_channels(request):
-    """List Channels with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Channel")
-    rows = _apply_filters(rows, params, ['name', 'type', 'topic', 'memberCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/channels/<eid>", methods=["GET"])
-def get_channel(request, eid):
-    """Retrieve a Channel by id (supports ?expand=)."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/channels/<eid>", methods=["POST", "PATCH"])
-def update_channel(request, eid):
-    """Update a Channel."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'type', 'topic', 'memberCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Channel", rec)
-    return rec, 200
-
-@app.route("/v1/channels/<eid>", methods=["DELETE"])
-def delete_channel(request, eid):
-    """Delete a Channel."""
-    rows = _query("Channel", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bandwidth.Channel", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/messages", methods=["POST"])
 def create_message(request):
     """Create a Message."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
+    err = _reject_unknown(data, ['id', 'owner', 'applicationId', 'time', 'segmentCount', 'direction', 'toNumber', 'fromNumber', 'text', 'tag'])
     if err:
         return err, 400
-    err = _require(data, ['body', 'sentAt'])
+    err = _require(data, ['id', 'owner'])
     if err:
         return err, 400
+    if data.get('direction') and data['direction'] not in ['in', 'out']:
+        return {"error": {"message": "invalid direction; allowed: " + ", ".join(['in', 'out']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("bandwidt_mes")}
-    rec["channelId"] = data.get('channelId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["sentAt"] = data.get('sentAt')
+    rec["id"] = data.get('id')
+    rec["owner"] = data.get('owner')
+    rec["applicationId"] = data.get('applicationId')
+    rec["time"] = data.get('time')
+    rec["segmentCount"] = _as_int(data.get('segmentCount'))
+    rec["direction"] = data.get('direction')
+    rec["toNumber"] = data.get('toNumber')
+    rec["fromNumber"] = data.get('fromNumber')
+    rec["text"] = data.get('text')
+    rec["tag"] = data.get('tag')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Message", rec)
@@ -202,7 +144,7 @@ def list_messages(request):
     """List Messages with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Message")
-    rows = _apply_filters(rows, params, ['channelId', 'authorId', 'body', 'sentAt'])
+    rows = _apply_filters(rows, params, ['id', 'owner', 'applicationId', 'time', 'segmentCount', 'direction', 'toNumber', 'fromNumber', 'text', 'tag'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -214,7 +156,6 @@ def get_message(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'channelId': 'Channel'})
     return rec, 200
 
 @app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
@@ -224,9 +165,11 @@ def update_message(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['channelId', 'authorId', 'body', 'sentAt'])
+    err = _reject_unknown(data, ['id', 'owner', 'applicationId', 'time', 'segmentCount', 'direction', 'toNumber', 'fromNumber', 'text', 'tag'])
     if err:
         return err, 400
+    if data.get('direction') and data['direction'] not in ['in', 'out']:
+        return {"error": {"message": "invalid direction; allowed: " + ", ".join(['in', 'out']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -244,183 +187,131 @@ def delete_message(request, eid):
     db.retract({"entity": f"bandwidth.Message", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/users", methods=["POST"])
-def create_user(request):
-    """Create a User."""
+@app.route("/v1/calls", methods=["POST"])
+def create_call(request):
+    """Create a Call."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['callId', 'accountId', 'applicationId', 'toNumber', 'fromNumber', 'state', 'direction', 'createdTime', 'startTime', 'endTime'])
     if err:
         return err, 400
-    err = _require(data, ['handle', 'displayName'])
+    err = _require(data, ['toNumber', 'fromNumber'])
     if err:
         return err, 400
-    rec = {"id": new_id("bandwidt_use")}
-    rec["handle"] = data.get('handle')
-    rec["displayName"] = data.get('displayName')
-    rec["verified"] = _as_bool(data.get('verified'))
+    if data.get('direction') and data['direction'] not in ['inbound', 'outbound']:
+        return {"error": {"message": "invalid direction; allowed: " + ", ".join(['inbound', 'outbound']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("bandwidt_cal")}
+    rec["callId"] = data.get('callId')
+    rec["accountId"] = data.get('accountId')
+    rec["applicationId"] = data.get('applicationId')
+    rec["toNumber"] = data.get('toNumber')
+    rec["fromNumber"] = data.get('fromNumber')
+    rec["state"] = data.get('state')
+    rec["direction"] = data.get('direction')
+    rec["createdTime"] = data.get('createdTime')
+    rec["startTime"] = data.get('startTime')
+    rec["endTime"] = data.get('endTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("User", rec)
+    _persist("Call", rec)
     return rec, 201
 
-@app.route("/v1/users", methods=["GET"])
-def list_users(request):
-    """List Users with filtering + cursor pagination."""
+@app.route("/v1/calls", methods=["GET"])
+def list_calls(request):
+    """List Calls with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("User")
-    rows = _apply_filters(rows, params, ['handle', 'displayName', 'verified'])
+    rows = _query("Call")
+    rows = _apply_filters(rows, params, ['callId', 'accountId', 'applicationId', 'toNumber', 'fromNumber', 'state', 'direction', 'createdTime', 'startTime', 'endTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/users/<eid>", methods=["GET"])
-def get_user(request, eid):
-    """Retrieve a User by id (supports ?expand=)."""
-    rows = _query("User", eid)
+@app.route("/v1/calls/<eid>", methods=["GET"])
+def get_call(request, eid):
+    """Retrieve a Call by id (supports ?expand=)."""
+    rows = _query("Call", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'callId': 'Call'})
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
-def update_user(request, eid):
-    """Update a User."""
-    rows = _query("User", eid)
+@app.route("/v1/calls/<eid>", methods=["POST", "PATCH"])
+def update_call(request, eid):
+    """Update a Call."""
+    rows = _query("Call", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['handle', 'displayName', 'verified'])
+    err = _reject_unknown(data, ['callId', 'accountId', 'applicationId', 'toNumber', 'fromNumber', 'state', 'direction', 'createdTime', 'startTime', 'endTime'])
     if err:
         return err, 400
+    if data.get('direction') and data['direction'] not in ['inbound', 'outbound']:
+        return {"error": {"message": "invalid direction; allowed: " + ", ".join(['inbound', 'outbound']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("User", rec)
+    _persist("Call", rec)
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["DELETE"])
-def delete_user(request, eid):
-    """Delete a User."""
-    rows = _query("User", eid)
+@app.route("/v1/calls/<eid>", methods=["DELETE"])
+def delete_call(request, eid):
+    """Delete a Call."""
+    rows = _query("Call", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bandwidth.User", "id": eid})
+    db.retract({"entity": f"bandwidth.Call", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/rooms", methods=["POST"])
-def create_room(request):
-    """Create a Room."""
+@app.route("/v1/conferences", methods=["POST"])
+def create_conference(request):
+    """Create a Conference."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
+    err = _reject_unknown(data, ['id', 'name', 'status', 'redirectUrl', 'createdTime'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'maxParticipants'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("bandwidt_roo")}
+    rec = {"id": new_id("bandwidt_con")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["maxParticipants"] = _as_int(data.get('maxParticipants'))
-    rec["recording"] = _as_bool(data.get('recording'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Room", rec)
-    return rec, 201
-
-@app.route("/v1/rooms", methods=["GET"])
-def list_rooms(request):
-    """List Rooms with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Room")
-    rows = _apply_filters(rows, params, ['name', 'maxParticipants', 'recording'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/rooms/<eid>", methods=["GET"])
-def get_room(request, eid):
-    """Retrieve a Room by id (supports ?expand=)."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/rooms/<eid>", methods=["POST", "PATCH"])
-def update_room(request, eid):
-    """Update a Room."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'maxParticipants', 'recording'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Room", rec)
-    return rec, 200
-
-@app.route("/v1/rooms/<eid>", methods=["DELETE"])
-def delete_room(request, eid):
-    """Delete a Room."""
-    rows = _query("Room", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bandwidth.Room", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
-    if err:
-        return err, 400
-    err = _require(data, ['status', 'bitrate'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bandwidt_str")}
-    rec["roomId"] = data.get('roomId')
     rec["status"] = data.get('status')
-    rec["bitrate"] = _as_int(data.get('bitrate'))
+    rec["redirectUrl"] = data.get('redirectUrl')
+    rec["createdTime"] = data.get('createdTime')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
+    _persist("Conference", rec)
     return rec, 201
 
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
+@app.route("/v1/conferences", methods=["GET"])
+def list_conferences(request):
+    """List Conferences with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['roomId', 'status', 'bitrate'])
+    rows = _query("Conference")
+    rows = _apply_filters(rows, params, ['id', 'name', 'status', 'redirectUrl', 'createdTime'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
+@app.route("/v1/conferences/<eid>", methods=["GET"])
+def get_conference(request, eid):
+    """Retrieve a Conference by id (supports ?expand=)."""
+    rows = _query("Conference", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'roomId': 'Room'})
     return rec, 200
 
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
+@app.route("/v1/conferences/<eid>", methods=["POST", "PATCH"])
+def update_conference(request, eid):
+    """Update a Conference."""
+    rows = _query("Conference", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['roomId', 'status', 'bitrate'])
+    err = _reject_unknown(data, ['id', 'name', 'status', 'redirectUrl', 'createdTime'])
     if err:
         return err, 400
     rec = rows[0]
@@ -428,87 +319,98 @@ def update_stream(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Stream", rec)
+    _persist("Conference", rec)
     return rec, 200
 
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
+@app.route("/v1/conferences/<eid>", methods=["DELETE"])
+def delete_conference(request, eid):
+    """Delete a Conference."""
+    rows = _query("Conference", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bandwidth.Stream", "id": eid})
+    db.retract({"entity": f"bandwidth.Conference", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
+@app.route("/v1/recordings", methods=["POST"])
+def create_recording(request):
+    """Create a Recording."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['recordingId', 'applicationId', 'accountId', 'name', 'status', 'fileFormat', 'startTime', 'endTime', 'duration'])
     if err:
         return err, 400
-    err = _require(data, ['event', 'url'])
+    err = _require(data, ['name', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("bandwidt_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
+    if data.get('fileFormat') and data['fileFormat'] not in ['mp3', 'wav']:
+        return {"error": {"message": "invalid fileFormat; allowed: " + ", ".join(['mp3', 'wav']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("bandwidt_rec")}
+    rec["recordingId"] = data.get('recordingId')
+    rec["applicationId"] = data.get('applicationId')
+    rec["accountId"] = data.get('accountId')
+    rec["name"] = data.get('name')
+    rec["status"] = data.get('status')
+    rec["fileFormat"] = data.get('fileFormat')
+    rec["startTime"] = data.get('startTime')
+    rec["endTime"] = data.get('endTime')
+    rec["duration"] = _as_int(data.get('duration'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("Recording", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/recordings", methods=["GET"])
+def list_recordings(request):
+    """List Recordings with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
+    rows = _query("Recording")
+    rows = _apply_filters(rows, params, ['recordingId', 'applicationId', 'accountId', 'name', 'status', 'fileFormat', 'startTime', 'endTime', 'duration'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/recordings/<eid>", methods=["GET"])
+def get_recording(request, eid):
+    """Retrieve a Recording by id (supports ?expand=)."""
+    rows = _query("Recording", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'recordingId': 'Recording'})
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/recordings/<eid>", methods=["POST", "PATCH"])
+def update_recording(request, eid):
+    """Update a Recording."""
+    rows = _query("Recording", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['recordingId', 'applicationId', 'accountId', 'name', 'status', 'fileFormat', 'startTime', 'endTime', 'duration'])
     if err:
         return err, 400
+    if data.get('fileFormat') and data['fileFormat'] not in ['mp3', 'wav']:
+        return {"error": {"message": "invalid fileFormat; allowed: " + ", ".join(['mp3', 'wav']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("Recording", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/recordings/<eid>", methods=["DELETE"])
+def delete_recording(request, eid):
+    """Delete a Recording."""
+    rows = _query("Recording", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bandwidth.Webhook", "id": eid})
+    db.retract({"entity": f"bandwidth.Recording", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "bandwidth-compat", "tier": "L4",
-            "entities": ['Channel', 'Message', 'User', 'Room', 'Stream', 'Webhook']}, 200
+            "entities": ['Message', 'Call', 'Conference', 'Recording']}, 200
 
 
 if __name__ == "__main__":

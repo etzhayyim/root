@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreift6z6rerlwxh66ep4qaunshkyn5pzwr4b6zsvlc436ow7scj2bz4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/prefixes": {
+    "/v1/messages": {
       "get": {
-        "summary": "List Prefixes",
+        "summary": "List Messages",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Prefix"
+                        "$ref": "#/components/schemas/Message"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Prefix",
+        "summary": "Create a Message",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/MessageCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/Message"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/prefixes/{id}": {
+    "/v1/messages/{id}": {
       "get": {
-        "summary": "Get a Prefix",
+        "summary": "Get a Message",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/Message"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Prefix",
+        "summary": "Update a Message",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/MessageCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/Message"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Prefix",
+        "summary": "Delete a Message",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/routes": {
+    "/v1/openmessages": {
       "get": {
-        "summary": "List Routes",
+        "summary": "List OpenMessages",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Route"
+                        "$ref": "#/components/schemas/OpenMessage"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Route",
+        "summary": "Create a OpenMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/OpenMessageCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/OpenMessage"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/routes/{id}": {
+    "/v1/openmessages/{id}": {
       "get": {
-        "summary": "Get a Route",
+        "summary": "Get a OpenMessage",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/OpenMessage"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Route",
+        "summary": "Update a OpenMessage",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/OpenMessageCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/OpenMessage"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Route",
+        "summary": "Delete a OpenMessage",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/peers": {
+    "/v1/updatemessages": {
       "get": {
-        "summary": "List Peers",
+        "summary": "List UpdateMessages",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Peer"
+                        "$ref": "#/components/schemas/UpdateMessage"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Peer",
+        "summary": "Create a UpdateMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/UpdateMessageCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/UpdateMessage"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/peers/{id}": {
+    "/v1/updatemessages/{id}": {
       "get": {
-        "summary": "Get a Peer",
+        "summary": "Get a UpdateMessage",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/UpdateMessage"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Peer",
+        "summary": "Update a UpdateMessage",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/UpdateMessageCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/UpdateMessage"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Peer",
+        "summary": "Delete a UpdateMessage",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/zones": {
+    "/v1/notificationmessages": {
       "get": {
-        "summary": "List Zones",
+        "summary": "List NotificationMessages",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Zone"
+                        "$ref": "#/components/schemas/NotificationMessage"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Zone",
+        "summary": "Create a NotificationMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/NotificationMessageCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/NotificationMessage"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/zones/{id}": {
+    "/v1/notificationmessages/{id}": {
       "get": {
-        "summary": "Get a Zone",
+        "summary": "Get a NotificationMessage",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/NotificationMessage"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Zone",
+        "summary": "Update a NotificationMessage",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/NotificationMessageCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/NotificationMessage"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Zone",
+        "summary": "Delete a NotificationMessage",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/records": {
+    "/v1/pathattributes": {
       "get": {
-        "summary": "List Records",
+        "summary": "List PathAttributes",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Record"
+                        "$ref": "#/components/schemas/PathAttribute"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Record",
+        "summary": "Create a PathAttribute",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
+                "$ref": "#/components/schemas/PathAttributeCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/PathAttribute"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/records/{id}": {
+    "/v1/pathattributes/{id}": {
       "get": {
-        "summary": "Get a Record",
+        "summary": "Get a PathAttribute",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/PathAttribute"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Record",
+        "summary": "Update a PathAttribute",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
+                "$ref": "#/components/schemas/PathAttributeCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/PathAttribute"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Record",
+        "summary": "Delete a PathAttribute",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/tunnels": {
+    "/v1/keepalivemessages": {
       "get": {
-        "summary": "List Tunnels",
+        "summary": "List KeepaliveMessages",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Tunnel"
+                        "$ref": "#/components/schemas/KeepaliveMessage"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Tunnel",
+        "summary": "Create a KeepaliveMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
+                "$ref": "#/components/schemas/KeepaliveMessageCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
+                  "$ref": "#/components/schemas/KeepaliveMessage"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/tunnels/{id}": {
+    "/v1/keepalivemessages/{id}": {
       "get": {
-        "summary": "Get a Tunnel",
+        "summary": "Get a KeepaliveMessage",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
+                  "$ref": "#/components/schemas/KeepaliveMessage"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Tunnel",
+        "summary": "Update a KeepaliveMessage",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
+                "$ref": "#/components/schemas/KeepaliveMessageCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
+                  "$ref": "#/components/schemas/KeepaliveMessage"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Tunnel",
+        "summary": "Delete a KeepaliveMessage",
         "parameters": [
           {
             "name": "id",
@@ -1140,195 +1140,26 @@
   },
   "components": {
     "schemas": {
-      "Prefix": {
+      "Message": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "cidr": {
+          "marker": {
             "type": "string"
           },
-          "originAsn": {
-            "type": "string"
-          },
-          "validity": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PrefixCreate": {
-        "type": "object",
-        "properties": {
-          "cidr": {
-            "type": "string"
-          },
-          "originAsn": {
-            "type": "string"
-          },
-          "validity": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "cidr",
-          "originAsn"
-        ]
-      },
-      "Route": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "prefixId": {
-            "type": "string"
-          },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RouteCreate": {
-        "type": "object",
-        "properties": {
-          "prefixId": {
-            "type": "string"
-          },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "nextHop",
-          "asPath"
-        ]
-      },
-      "Peer": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "asn": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PeerCreate": {
-        "type": "object",
-        "properties": {
-          "asn": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "asn",
-          "ipAddress"
-        ]
-      },
-      "Zone": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "serial": {
+          "length": {
             "type": "integer"
-          },
-          "refreshSec": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ZoneCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "serial": {
-            "type": "integer"
-          },
-          "refreshSec": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "serial"
-        ]
-      },
-      "Record": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "zoneId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
           },
           "type": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1340,43 +1171,259 @@
           }
         }
       },
-      "RecordCreate": {
+      "MessageCreate": {
         "type": "object",
         "properties": {
-          "zoneId": {
+          "marker": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "length": {
+            "type": "integer"
           },
           "type": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4
+            ]
           }
         },
         "required": [
-          "name",
-          "type"
+          "marker",
+          "length"
         ]
       },
-      "Tunnel": {
+      "OpenMessage": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "localAddr": {
+          "version": {
+            "type": "integer"
+          },
+          "myAutonomousSystem": {
+            "type": "integer"
+          },
+          "holdTime": {
+            "type": "integer"
+          },
+          "bgpIdentifier": {
             "type": "string"
           },
-          "remoteAddr": {
+          "optionalParametersLength": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OpenMessageCreate": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer"
+          },
+          "myAutonomousSystem": {
+            "type": "integer"
+          },
+          "holdTime": {
+            "type": "integer"
+          },
+          "bgpIdentifier": {
             "type": "string"
           },
-          "protocol": {
+          "optionalParametersLength": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "myAutonomousSystem"
+        ]
+      },
+      "UpdateMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
-          "active": {
+          "withdrawnRoutesLength": {
+            "type": "integer"
+          },
+          "totalPathAttributeLength": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpdateMessageCreate": {
+        "type": "object",
+        "properties": {
+          "withdrawnRoutesLength": {
+            "type": "integer"
+          },
+          "totalPathAttributeLength": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "withdrawnRoutesLength",
+          "totalPathAttributeLength"
+        ]
+      },
+      "NotificationMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "errorCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "errorSubcode": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NotificationMessageCreate": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "errorSubcode": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "errorCode",
+          "errorSubcode"
+        ]
+      },
+      "PathAttribute": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "attributeFlags": {
+            "type": "integer"
+          },
+          "typeCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          "attributeLength": {
+            "type": "integer"
+          },
+          "origin": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PathAttributeCreate": {
+        "type": "object",
+        "properties": {
+          "attributeFlags": {
+            "type": "integer"
+          },
+          "typeCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          "attributeLength": {
+            "type": "integer"
+          },
+          "origin": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          }
+        },
+        "required": [
+          "attributeFlags",
+          "typeCode"
+        ]
+      },
+      "KeepaliveMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "headerOnly": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1389,25 +1436,15 @@
           }
         }
       },
-      "TunnelCreate": {
+      "KeepaliveMessageCreate": {
         "type": "object",
         "properties": {
-          "localAddr": {
-            "type": "string"
-          },
-          "remoteAddr": {
-            "type": "string"
-          },
-          "protocol": {
-            "type": "string"
-          },
-          "active": {
+          "headerOnly": {
             "type": "boolean"
           }
         },
         "required": [
-          "localAddr",
-          "remoteAddr"
+          "headerOnly"
         ]
       }
     }

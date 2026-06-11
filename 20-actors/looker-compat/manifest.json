@@ -11,15 +11,27 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreif234wvyhsqlsq265u44ui6pavbmeth7znl7xg7ffe2d24pwp776i",
   "schema": "schema/looker.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/looker-open-source/sdk-codegen/main/spec/Looker.4.0.json",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Look",
+      "Dashboard",
+      "Query",
+      "User",
+      "Folder",
+      "ScheduledPlan"
+    ],
+    "enums": {}
+  },
   "entities": [
-    "Dataset",
-    "Query",
+    "Look",
     "Dashboard",
-    "Report",
-    "Connection",
-    "Metric"
+    "Query",
+    "User",
+    "Folder",
+    "ScheduledPlan"
   ],
   "adr": [
     "260607",
@@ -35,53 +47,28 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/datasets",
-          "op": "create Dataset"
+          "path": "/v1/looks",
+          "op": "create Look"
         },
         {
           "method": "GET",
-          "path": "/v1/datasets",
-          "op": "list Dataset"
+          "path": "/v1/looks",
+          "op": "list Look"
         },
         {
           "method": "GET",
-          "path": "/v1/datasets/{id}",
-          "op": "get Dataset"
+          "path": "/v1/looks/{id}",
+          "op": "get Look"
         },
         {
           "method": "PATCH",
-          "path": "/v1/datasets/{id}",
-          "op": "update Dataset"
+          "path": "/v1/looks/{id}",
+          "op": "update Look"
         },
         {
           "method": "DELETE",
-          "path": "/v1/datasets/{id}",
-          "op": "delete Dataset"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/queries",
-          "op": "create Query"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/queries",
-          "op": "list Query"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/queries/{id}",
-          "op": "get Query"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/queries/{id}",
-          "op": "update Query"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/queries/{id}",
-          "op": "delete Query"
+          "path": "/v1/looks/{id}",
+          "op": "delete Look"
         },
         {
           "method": "POST",
@@ -110,78 +97,103 @@
         },
         {
           "method": "POST",
-          "path": "/v1/reports",
-          "op": "create Report"
+          "path": "/v1/queries",
+          "op": "create Query"
         },
         {
           "method": "GET",
-          "path": "/v1/reports",
-          "op": "list Report"
+          "path": "/v1/queries",
+          "op": "list Query"
         },
         {
           "method": "GET",
-          "path": "/v1/reports/{id}",
-          "op": "get Report"
+          "path": "/v1/queries/{id}",
+          "op": "get Query"
         },
         {
           "method": "PATCH",
-          "path": "/v1/reports/{id}",
-          "op": "update Report"
+          "path": "/v1/queries/{id}",
+          "op": "update Query"
         },
         {
           "method": "DELETE",
-          "path": "/v1/reports/{id}",
-          "op": "delete Report"
+          "path": "/v1/queries/{id}",
+          "op": "delete Query"
         },
         {
           "method": "POST",
-          "path": "/v1/connections",
-          "op": "create Connection"
+          "path": "/v1/users",
+          "op": "create User"
         },
         {
           "method": "GET",
-          "path": "/v1/connections",
-          "op": "list Connection"
+          "path": "/v1/users",
+          "op": "list User"
         },
         {
           "method": "GET",
-          "path": "/v1/connections/{id}",
-          "op": "get Connection"
+          "path": "/v1/users/{id}",
+          "op": "get User"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connections/{id}",
-          "op": "update Connection"
+          "path": "/v1/users/{id}",
+          "op": "update User"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connections/{id}",
-          "op": "delete Connection"
+          "path": "/v1/users/{id}",
+          "op": "delete User"
         },
         {
           "method": "POST",
-          "path": "/v1/metrics",
-          "op": "create Metric"
+          "path": "/v1/folders",
+          "op": "create Folder"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics",
-          "op": "list Metric"
+          "path": "/v1/folders",
+          "op": "list Folder"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics/{id}",
-          "op": "get Metric"
+          "path": "/v1/folders/{id}",
+          "op": "get Folder"
         },
         {
           "method": "PATCH",
-          "path": "/v1/metrics/{id}",
-          "op": "update Metric"
+          "path": "/v1/folders/{id}",
+          "op": "update Folder"
         },
         {
           "method": "DELETE",
-          "path": "/v1/metrics/{id}",
-          "op": "delete Metric"
+          "path": "/v1/folders/{id}",
+          "op": "delete Folder"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/scheduledplans",
+          "op": "create ScheduledPlan"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/scheduledplans",
+          "op": "list ScheduledPlan"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/scheduledplans/{id}",
+          "op": "get ScheduledPlan"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/scheduledplans/{id}",
+          "op": "update ScheduledPlan"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/scheduledplans/{id}",
+          "op": "delete ScheduledPlan"
         }
       ],
       "features": {
@@ -247,41 +259,44 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_dataset",
-          "description": "Create a Dataset.",
+          "name": "create_look",
+          "description": "Create a Look.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "title": {
                 "type": "string"
               },
-              "source": {
+              "public": {
+                "type": "boolean"
+              },
+              "queryId": {
                 "type": "string"
               },
-              "schemaRef": {
+              "userId": {
                 "type": "string"
               },
-              "rowCount": {
-                "type": "integer"
+              "deleted": {
+                "type": "boolean"
               }
             },
             "required": [
-              "name",
-              "source"
+              "title",
+              "public"
             ]
           }
         },
         {
-          "name": "list_datasets",
-          "description": "List Datasets.",
+          "name": "list_looks",
+          "description": "List Looks.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_dataset",
-          "description": "Get a Dataset by id.",
+          "name": "get_look",
+          "description": "Get a Look by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +310,28 @@
           }
         },
         {
-          "name": "update_dataset",
-          "description": "Update a Dataset.",
+          "name": "update_look",
+          "description": "Update a Look.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "title": {
                 "type": "string"
               },
-              "source": {
+              "public": {
+                "type": "boolean"
+              },
+              "queryId": {
                 "type": "string"
               },
-              "schemaRef": {
+              "userId": {
                 "type": "string"
               },
-              "rowCount": {
-                "type": "integer"
+              "deleted": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -322,91 +340,8 @@
           }
         },
         {
-          "name": "delete_dataset",
-          "description": "Delete a Dataset.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_query",
-          "description": "Create a Query.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "datasetId": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sql"
-            ]
-          }
-        },
-        {
-          "name": "list_queries",
-          "description": "List Queries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_query",
-          "description": "Get a Query by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_query",
-          "description": "Update a Query.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "datasetId": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_query",
-          "description": "Delete a Query.",
+          "name": "delete_look",
+          "description": "Delete a Look.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -425,19 +360,22 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "title": {
                 "type": "string"
               },
-              "ownerId": {
+              "folderId": {
                 "type": "string"
               },
-              "layout": {
+              "userId": {
                 "type": "string"
+              },
+              "viewCount": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "layout"
+              "title",
+              "viewCount"
             ]
           }
         },
@@ -473,14 +411,17 @@
               "id": {
                 "type": "string"
               },
-              "name": {
+              "title": {
                 "type": "string"
               },
-              "ownerId": {
+              "folderId": {
                 "type": "string"
               },
-              "layout": {
+              "userId": {
                 "type": "string"
+              },
+              "viewCount": {
+                "type": "integer"
               }
             },
             "required": [
@@ -504,125 +445,44 @@
           }
         },
         {
-          "name": "create_report",
-          "description": "Create a Report.",
+          "name": "create_query",
+          "description": "Create a Query.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "dashboardId": {
+              "model": {
                 "type": "string"
               },
-              "name": {
+              "view": {
                 "type": "string"
               },
-              "schedule": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "schedule"
-            ]
-          }
-        },
-        {
-          "name": "list_reports",
-          "description": "List Reports.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_report",
-          "description": "Get a Report by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_report",
-          "description": "Update a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "slug": {
                 "type": "string"
               },
-              "dashboardId": {
+              "queryTimezone": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "schedule": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_report",
-          "description": "Delete a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_connection",
-          "description": "Create a Connection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "host": {
-                "type": "string"
-              },
-              "active": {
+              "hasTableCalculations": {
                 "type": "boolean"
               }
             },
             "required": [
-              "name",
-              "type"
+              "model",
+              "view"
             ]
           }
         },
         {
-          "name": "list_connections",
-          "description": "List Connections.",
+          "name": "list_queries",
+          "description": "List Queries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_connection",
-          "description": "Get a Connection by id.",
+          "name": "get_query",
+          "description": "Get a Query by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -636,24 +496,27 @@
           }
         },
         {
-          "name": "update_connection",
-          "description": "Update a Connection.",
+          "name": "update_query",
+          "description": "Update a Query.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "model": {
                 "type": "string"
               },
-              "type": {
+              "view": {
                 "type": "string"
               },
-              "host": {
+              "slug": {
                 "type": "string"
               },
-              "active": {
+              "queryTimezone": {
+                "type": "string"
+              },
+              "hasTableCalculations": {
                 "type": "boolean"
               }
             },
@@ -663,8 +526,8 @@
           }
         },
         {
-          "name": "delete_connection",
-          "description": "Delete a Connection.",
+          "name": "delete_query",
+          "description": "Delete a Query.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -678,41 +541,41 @@
           }
         },
         {
-          "name": "create_metric",
-          "description": "Create a Metric.",
+          "name": "create_user",
+          "description": "Create a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "datasetId": {
+              "email": {
                 "type": "string"
               },
-              "name": {
+              "firstName": {
                 "type": "string"
               },
-              "expression": {
+              "lastName": {
                 "type": "string"
               },
-              "unit": {
-                "type": "string"
+              "isDisabled": {
+                "type": "boolean"
               }
             },
             "required": [
-              "name",
-              "expression"
+              "email",
+              "firstName"
             ]
           }
         },
         {
-          "name": "list_metrics",
-          "description": "List Metrics.",
+          "name": "list_users",
+          "description": "List Users.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_metric",
-          "description": "Get a Metric by id.",
+          "name": "get_user",
+          "description": "Get a User by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -726,24 +589,107 @@
           }
         },
         {
-          "name": "update_metric",
-          "description": "Update a Metric.",
+          "name": "update_user",
+          "description": "Update a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "datasetId": {
+              "email": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "isDisabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_user",
+          "description": "Delete a User.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_folder",
+          "description": "Create a Folder.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "parentId": {
+                "type": "string"
+              },
+              "creatorId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "list_folders",
+          "description": "List Folders.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_folder",
+          "description": "Get a Folder by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_folder",
+          "description": "Update a Folder.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "expression": {
+              "parentId": {
                 "type": "string"
               },
-              "unit": {
+              "creatorId": {
                 "type": "string"
               }
             },
@@ -753,8 +699,92 @@
           }
         },
         {
-          "name": "delete_metric",
-          "description": "Delete a Metric.",
+          "name": "delete_folder",
+          "description": "Delete a Folder.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_scheduled_plan",
+          "description": "Create a ScheduledPlan.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
+              "enabled"
+            ]
+          }
+        },
+        {
+          "name": "list_scheduled_plans",
+          "description": "List ScheduledPlans.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_scheduled_plan",
+          "description": "Get a ScheduledPlan by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_scheduled_plan",
+          "description": "Update a ScheduledPlan.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_scheduled_plan",
+          "description": "Delete a ScheduledPlan.",
           "inputSchema": {
             "type": "object",
             "properties": {

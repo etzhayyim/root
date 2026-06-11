@@ -111,405 +111,457 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/contententries", methods=["POST"])
-def create_content_entry(request):
-    """Create a ContentEntry."""
+@app.route("/v1/entries", methods=["POST"])
+def create_entry(request):
+    """Create a Entry."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
+    err = _reject_unknown(data, ['id', 'type', 'version', 'space', 'environment', 'contentType', 'publishedVersion', 'createdAt', 'updatedAt', 'publishedAt'])
     if err:
         return err, 400
-    err = _require(data, ['modelName', 'title'])
+    err = _require(data, ['id', 'type'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("contentf_ent")}
+    rec["id"] = data.get('id')
+    rec["type"] = data.get('type')
+    rec["version"] = _as_int(data.get('version'))
+    rec["space"] = data.get('space')
+    rec["environment"] = data.get('environment')
+    rec["contentType"] = data.get('contentType')
+    rec["publishedVersion"] = _as_int(data.get('publishedVersion'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
+    rec["publishedAt"] = data.get('publishedAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Entry", rec)
+    return rec, 201
+
+@app.route("/v1/entries", methods=["GET"])
+def list_entries(request):
+    """List Entries with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Entry")
+    rows = _apply_filters(rows, params, ['id', 'type', 'version', 'space', 'environment', 'contentType', 'publishedVersion', 'createdAt', 'updatedAt', 'publishedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/entries/<eid>", methods=["GET"])
+def get_entry(request, eid):
+    """Retrieve a Entry by id (supports ?expand=)."""
+    rows = _query("Entry", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/entries/<eid>", methods=["POST", "PATCH"])
+def update_entry(request, eid):
+    """Update a Entry."""
+    rows = _query("Entry", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'type', 'version', 'space', 'environment', 'contentType', 'publishedVersion', 'createdAt', 'updatedAt', 'publishedAt'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Entry", rec)
+    return rec, 200
+
+@app.route("/v1/entries/<eid>", methods=["DELETE"])
+def delete_entry(request, eid):
+    """Delete a Entry."""
+    rows = _query("Entry", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"contentful.Entry", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/assets", methods=["POST"])
+def create_asset(request):
+    """Create a Asset."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'type', 'version', 'space', 'environment', 'publishedVersion', 'createdAt', 'updatedAt', 'publishedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("contentf_ass")}
+    rec["id"] = data.get('id')
+    rec["type"] = data.get('type')
+    rec["version"] = _as_int(data.get('version'))
+    rec["space"] = data.get('space')
+    rec["environment"] = data.get('environment')
+    rec["publishedVersion"] = _as_int(data.get('publishedVersion'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
+    rec["publishedAt"] = data.get('publishedAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Asset", rec)
+    return rec, 201
+
+@app.route("/v1/assets", methods=["GET"])
+def list_assets(request):
+    """List Assets with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Asset")
+    rows = _apply_filters(rows, params, ['id', 'type', 'version', 'space', 'environment', 'publishedVersion', 'createdAt', 'updatedAt', 'publishedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/assets/<eid>", methods=["GET"])
+def get_asset(request, eid):
+    """Retrieve a Asset by id (supports ?expand=)."""
+    rows = _query("Asset", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/assets/<eid>", methods=["POST", "PATCH"])
+def update_asset(request, eid):
+    """Update a Asset."""
+    rows = _query("Asset", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'type', 'version', 'space', 'environment', 'publishedVersion', 'createdAt', 'updatedAt', 'publishedAt'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Asset", rec)
+    return rec, 200
+
+@app.route("/v1/assets/<eid>", methods=["DELETE"])
+def delete_asset(request, eid):
+    """Delete a Asset."""
+    rows = _query("Asset", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"contentful.Asset", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/contenttypes", methods=["POST"])
+def create_content_type(request):
+    """Create a ContentType."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'type', 'version', 'name', 'displayField', 'description', 'createdAt', 'updatedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("contentf_con")}
-    rec["modelName"] = data.get('modelName')
-    rec["title"] = data.get('title')
-    rec["locale"] = data.get('locale')
-    rec["published"] = _as_bool(data.get('published'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ContentEntry", rec)
-    return rec, 201
-
-@app.route("/v1/contententries", methods=["GET"])
-def list_content_entries(request):
-    """List ContentEntries with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ContentEntry")
-    rows = _apply_filters(rows, params, ['modelName', 'title', 'locale', 'published'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contententries/<eid>", methods=["GET"])
-def get_content_entry(request, eid):
-    """Retrieve a ContentEntry by id (supports ?expand=)."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["POST", "PATCH"])
-def update_content_entry(request, eid):
-    """Update a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'title', 'locale', 'published'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ContentEntry", rec)
-    return rec, 200
-
-@app.route("/v1/contententries/<eid>", methods=["DELETE"])
-def delete_content_entry(request, eid):
-    """Delete a ContentEntry."""
-    rows = _query("ContentEntry", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"contentful.ContentEntry", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/products", methods=["POST"])
-def create_product(request):
-    """Create a Product."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency'])
-    if err:
-        return err, 400
-    err = _require(data, ['sku', 'title'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("contentf_pro")}
-    rec["sku"] = data.get('sku')
-    rec["title"] = data.get('title')
-    rec["price"] = _as_float(data.get('price'))
-    rec["currency"] = data.get('currency')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Product", rec)
-    return rec, 201
-
-@app.route("/v1/products", methods=["GET"])
-def list_products(request):
-    """List Products with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Product")
-    rows = _apply_filters(rows, params, ['sku', 'title', 'price', 'currency'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/products/<eid>", methods=["GET"])
-def get_product(request, eid):
-    """Retrieve a Product by id (supports ?expand=)."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/products/<eid>", methods=["POST", "PATCH"])
-def update_product(request, eid):
-    """Update a Product."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['sku', 'title', 'price', 'currency'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Product", rec)
-    return rec, 200
-
-@app.route("/v1/products/<eid>", methods=["DELETE"])
-def delete_product(request, eid):
-    """Delete a Product."""
-    rows = _query("Product", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"contentful.Product", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/shipments", methods=["POST"])
-def create_shipment(request):
-    """Create a Shipment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'carrier', 'tracking', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['carrier', 'tracking'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("contentf_shi")}
-    rec["orderId"] = data.get('orderId')
-    rec["carrier"] = data.get('carrier')
-    rec["tracking"] = data.get('tracking')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Shipment", rec)
-    return rec, 201
-
-@app.route("/v1/shipments", methods=["GET"])
-def list_shipments(request):
-    """List Shipments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Shipment")
-    rows = _apply_filters(rows, params, ['orderId', 'carrier', 'tracking', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/shipments/<eid>", methods=["GET"])
-def get_shipment(request, eid):
-    """Retrieve a Shipment by id (supports ?expand=)."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'orderId': 'Order'})
-    return rec, 200
-
-@app.route("/v1/shipments/<eid>", methods=["POST", "PATCH"])
-def update_shipment(request, eid):
-    """Update a Shipment."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['orderId', 'carrier', 'tracking', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Shipment", rec)
-    return rec, 200
-
-@app.route("/v1/shipments/<eid>", methods=["DELETE"])
-def delete_shipment(request, eid):
-    """Delete a Shipment."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"contentful.Shipment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/searchindexes", methods=["POST"])
-def create_search_index(request):
-    """Create a SearchIndex."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'recordCount', 'primaryKey'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'recordCount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("contentf_sea")}
+    rec["id"] = data.get('id')
+    rec["type"] = data.get('type')
+    rec["version"] = _as_int(data.get('version'))
     rec["name"] = data.get('name')
-    rec["recordCount"] = _as_int(data.get('recordCount'))
-    rec["primaryKey"] = data.get('primaryKey')
+    rec["displayField"] = data.get('displayField')
+    rec["description"] = data.get('description')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("SearchIndex", rec)
+    _persist("ContentType", rec)
     return rec, 201
 
-@app.route("/v1/searchindexes", methods=["GET"])
-def list_search_indexes(request):
-    """List SearchIndexes with filtering + cursor pagination."""
+@app.route("/v1/contenttypes", methods=["GET"])
+def list_content_types(request):
+    """List ContentTypes with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("SearchIndex")
-    rows = _apply_filters(rows, params, ['name', 'recordCount', 'primaryKey'])
+    rows = _query("ContentType")
+    rows = _apply_filters(rows, params, ['id', 'type', 'version', 'name', 'displayField', 'description', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/searchindexes/<eid>", methods=["GET"])
-def get_search_index(request, eid):
-    """Retrieve a SearchIndex by id (supports ?expand=)."""
-    rows = _query("SearchIndex", eid)
+@app.route("/v1/contenttypes/<eid>", methods=["GET"])
+def get_content_type(request, eid):
+    """Retrieve a ContentType by id (supports ?expand=)."""
+    rows = _query("ContentType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/searchindexes/<eid>", methods=["POST", "PATCH"])
-def update_search_index(request, eid):
-    """Update a SearchIndex."""
-    rows = _query("SearchIndex", eid)
+@app.route("/v1/contenttypes/<eid>", methods=["POST", "PATCH"])
+def update_content_type(request, eid):
+    """Update a ContentType."""
+    rows = _query("ContentType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'recordCount', 'primaryKey'])
+    err = _reject_unknown(data, ['id', 'type', 'version', 'name', 'displayField', 'description', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("SearchIndex", rec)
+    _persist("ContentType", rec)
     return rec, 200
 
-@app.route("/v1/searchindexes/<eid>", methods=["DELETE"])
-def delete_search_index(request, eid):
-    """Delete a SearchIndex."""
-    rows = _query("SearchIndex", eid)
+@app.route("/v1/contenttypes/<eid>", methods=["DELETE"])
+def delete_content_type(request, eid):
+    """Delete a ContentType."""
+    rows = _query("ContentType", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"contentful.SearchIndex", "id": eid})
+    db.retract({"entity": f"contentful.ContentType", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/webhooks", methods=["POST"])
-def create_webhook(request):
-    """Create a Webhook."""
+@app.route("/v1/spaces", methods=["POST"])
+def create_space(request):
+    """Create a Space."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['id', 'type', 'version', 'name', 'organization', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['event', 'url'])
+    err = _require(data, ['id', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("contentf_web")}
-    rec["event"] = data.get('event')
-    rec["url"] = data.get('url')
-    rec["active"] = _as_bool(data.get('active'))
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("contentf_spa")}
+    rec["id"] = data.get('id')
+    rec["type"] = data.get('type')
+    rec["version"] = _as_int(data.get('version'))
+    rec["name"] = data.get('name')
+    rec["organization"] = data.get('organization')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Webhook", rec)
+    _persist("Space", rec)
     return rec, 201
 
-@app.route("/v1/webhooks", methods=["GET"])
-def list_webhooks(request):
-    """List Webhooks with filtering + cursor pagination."""
+@app.route("/v1/spaces", methods=["GET"])
+def list_spaces(request):
+    """List Spaces with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Webhook")
-    rows = _apply_filters(rows, params, ['event', 'url', 'active'])
+    rows = _query("Space")
+    rows = _apply_filters(rows, params, ['id', 'type', 'version', 'name', 'organization', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["GET"])
-def get_webhook(request, eid):
-    """Retrieve a Webhook by id (supports ?expand=)."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/spaces/<eid>", methods=["GET"])
+def get_space(request, eid):
+    """Retrieve a Space by id (supports ?expand=)."""
+    rows = _query("Space", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
-def update_webhook(request, eid):
-    """Update a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/spaces/<eid>", methods=["POST", "PATCH"])
+def update_space(request, eid):
+    """Update a Space."""
+    rows = _query("Space", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['event', 'url', 'active'])
+    err = _reject_unknown(data, ['id', 'type', 'version', 'name', 'organization', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Webhook", rec)
+    _persist("Space", rec)
     return rec, 200
 
-@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
-def delete_webhook(request, eid):
-    """Delete a Webhook."""
-    rows = _query("Webhook", eid)
+@app.route("/v1/spaces/<eid>", methods=["DELETE"])
+def delete_space(request, eid):
+    """Delete a Space."""
+    rows = _query("Space", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"contentful.Webhook", "id": eid})
+    db.retract({"entity": f"contentful.Space", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/orders", methods=["POST"])
-def create_order(request):
-    """Create a Order."""
+@app.route("/v1/environments", methods=["POST"])
+def create_environment(request):
+    """Create a Environment."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['id', 'type', 'version', 'name', 'space', 'status', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'total'])
+    err = _require(data, ['id', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("contentf_ord")}
-    rec["number"] = data.get('number')
-    rec["total"] = _as_float(data.get('total'))
-    rec["currency"] = data.get('currency')
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("contentf_env")}
+    rec["id"] = data.get('id')
+    rec["type"] = data.get('type')
+    rec["version"] = _as_int(data.get('version'))
+    rec["name"] = data.get('name')
+    rec["space"] = data.get('space')
     rec["status"] = data.get('status')
+    rec["createdAt"] = data.get('createdAt')
+    rec["updatedAt"] = data.get('updatedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Order", rec)
+    _persist("Environment", rec)
     return rec, 201
 
-@app.route("/v1/orders", methods=["GET"])
-def list_orders(request):
-    """List Orders with filtering + cursor pagination."""
+@app.route("/v1/environments", methods=["GET"])
+def list_environments(request):
+    """List Environments with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Order")
-    rows = _apply_filters(rows, params, ['number', 'total', 'currency', 'status'])
+    rows = _query("Environment")
+    rows = _apply_filters(rows, params, ['id', 'type', 'version', 'name', 'space', 'status', 'createdAt', 'updatedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/orders/<eid>", methods=["GET"])
-def get_order(request, eid):
-    """Retrieve a Order by id (supports ?expand=)."""
-    rows = _query("Order", eid)
+@app.route("/v1/environments/<eid>", methods=["GET"])
+def get_environment(request, eid):
+    """Retrieve a Environment by id (supports ?expand=)."""
+    rows = _query("Environment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/orders/<eid>", methods=["POST", "PATCH"])
-def update_order(request, eid):
-    """Update a Order."""
-    rows = _query("Order", eid)
+@app.route("/v1/environments/<eid>", methods=["POST", "PATCH"])
+def update_environment(request, eid):
+    """Update a Environment."""
+    rows = _query("Environment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'total', 'currency', 'status'])
+    err = _reject_unknown(data, ['id', 'type', 'version', 'name', 'space', 'status', 'createdAt', 'updatedAt'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Order", rec)
+    _persist("Environment", rec)
     return rec, 200
 
-@app.route("/v1/orders/<eid>", methods=["DELETE"])
-def delete_order(request, eid):
-    """Delete a Order."""
-    rows = _query("Order", eid)
+@app.route("/v1/environments/<eid>", methods=["DELETE"])
+def delete_environment(request, eid):
+    """Delete a Environment."""
+    rows = _query("Environment", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"contentful.Order", "id": eid})
+    db.retract({"entity": f"contentful.Environment", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/locales", methods=["POST"])
+def create_locale(request):
+    """Create a Locale."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'type', 'version', 'name', 'code', 'fallbackCode', 'default', 'optional', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("contentf_loc")}
+    rec["id"] = data.get('id')
+    rec["type"] = data.get('type')
+    rec["version"] = _as_int(data.get('version'))
+    rec["name"] = data.get('name')
+    rec["code"] = data.get('code')
+    rec["fallbackCode"] = data.get('fallbackCode')
+    rec["default"] = _as_bool(data.get('default'))
+    rec["optional"] = _as_bool(data.get('optional'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Locale", rec)
+    return rec, 201
+
+@app.route("/v1/locales", methods=["GET"])
+def list_locales(request):
+    """List Locales with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Locale")
+    rows = _apply_filters(rows, params, ['id', 'type', 'version', 'name', 'code', 'fallbackCode', 'default', 'optional', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/locales/<eid>", methods=["GET"])
+def get_locale(request, eid):
+    """Retrieve a Locale by id (supports ?expand=)."""
+    rows = _query("Locale", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/locales/<eid>", methods=["POST", "PATCH"])
+def update_locale(request, eid):
+    """Update a Locale."""
+    rows = _query("Locale", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'type', 'version', 'name', 'code', 'fallbackCode', 'default', 'optional', 'createdAt'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'EnvironmentAlias', 'Locale', 'Link', 'Array']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Locale", rec)
+    return rec, 200
+
+@app.route("/v1/locales/<eid>", methods=["DELETE"])
+def delete_locale(request, eid):
+    """Delete a Locale."""
+    rows = _query("Locale", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"contentful.Locale", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "contentful-compat", "tier": "L4",
-            "entities": ['ContentEntry', 'Product', 'Shipment', 'SearchIndex', 'Webhook', 'Order']}, 200
+            "entities": ['Entry', 'Asset', 'ContentType', 'Space', 'Environment', 'Locale']}, 200
 
 
 if __name__ == "__main__":

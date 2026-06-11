@@ -3,69 +3,59 @@
 
 namespace webrtc_core {
 
-    entity Prefix {
+    entity RTCPeerConnection {
         id: string @unique
-        cidr: string
-        originAsn: string
-        validity: string
+        signalingState: string
+        iceConnectionState: string
+        iceGatheringState: string
+        connectionState: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Route {
+    entity RTCDataChannel {
         id: string @unique
-        prefixId: string
-        nextHop: string
-        asPath: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Peer {
-        id: string @unique
-        asn: string
-        ipAddress: string
-        state: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Zone {
-        id: string @unique
-        name: string
-        serial: integer
-        refreshSec: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Record {
-        id: string @unique
-        zoneId: string
-        name: string
-        type: string
-        value: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Tunnel {
-        id: string @unique
-        localAddr: string
-        remoteAddr: string
+        label: string
+        ordered: boolean
         protocol: string
-        active: boolean
+        negotiated: boolean
+        id: integer
+        readyState: string
+        bufferedAmount: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity RTCSessionDescription {
+        id: string @unique
+        type: string
+        sdp: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity RTCIceCandidate {
+        id: string @unique
+        candidate: string
+        sdpMLineIndex: integer
+        sdpMid: string
+        protocol: string
+        port: integer
+        address: string
+        type: string
+        tcpType: string
+        priority: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity RTCRtpTransceiver {
+        id: string @unique
+        mid: string
+        direction: string
+        currentDirection: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

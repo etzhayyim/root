@@ -19,14 +19,24 @@
  :ingest/adr "2606101000"
  :ingest/bounded? true
  :ingest/sources
- [{:source/id :mygene   :source/url "https://mygene.info/v3/query"   :source/scope "gene reference (Ensembl/NCBI)" :source/individual? false}
-  {:source/id :myvariant :source/url "https://myvariant.info/v1/query" :source/scope "ClinVar significance + gnomAD aggregate AF" :source/individual? false}]
+ [{:source/id :mygene   :source/url "https://mygene.info/v3/query"   :source/scope "gene reference (Ensembl/NCBI) + GO/UniProt" :source/individual? false}
+  {:source/id :myvariant :source/url "https://myvariant.info/v1/query" :source/scope "ClinVar significance + gnomAD aggregate AF" :source/individual? false}
+  {:source/id :reactome :source/url "https://reactome.org/ContentService/data/mapping/UniProt" :source/scope "curated pathway membership (UniProt→Reactome)" :source/individual? false}]
 
  ;; GO pathway ingest (public Gene Ontology / EBI-GOA annotations via MyGene `go.<category>`).
  ;; Bounded (G5): per gene, dedupe GO terms, keep best evidence weight, cap :max-per-gene.
  ;; Feeds :participates-in edges (gene→pathway) → enriches the pleiotropy/cascade readout.
  :ingest/go
  {:category "BP" :max-per-gene 6}
+
+ ;; Reactome pathway ingest (public curated pathways via UniProt→Reactome mapping). Bounded
+ ;; (G5): per gene, dedupe by Reactome stId, prefer top-level (lowest maxDepth), cap
+ ;; :max-per-gene. Curated membership has no GO-style evidence code → fixed representative
+ ;; weight (DISCLOSED Reactome curation, N3). Second authoritative pathway source after GO.
+ ;; OPERATOR-AUTHORIZED scope expansion (G7) — operator DID flips :enabled true; the PR merge
+ ;; is the gate record (ibuki "Council gate exercised as PR merge" precedent).
+ :ingest/reactome
+ {:enabled true :species "9606" :max-per-gene 5 :weight 0.7}
 
  ;; gnomAD af subfield → our super-population aggregate code (AGGREGATE only; G1)
  :ingest/population-map

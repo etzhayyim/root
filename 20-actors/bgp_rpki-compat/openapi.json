@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible deep internet / core routing actor (bgp_rpki); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:bgp_rpki-compat",
-    "x-wasm-cid": "bafkreicwdb64vqt37ksgu4vguo7dtfoblq7deuyihvle6xvpimdxhud2wm",
+    "x-wasm-cid": "bafkreigw2n5cqu6dy347wqqdyl4fylmzj5ygyig7m3axju3o6ea6nidtrm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicwdb64vqt37ksgu4vguo7dtfoblq7deuyihvle6xvpimdxhud2wm",
+      "url": "ipfs://bafkreigw2n5cqu6dy347wqqdyl4fylmzj5ygyig7m3axju3o6ea6nidtrm",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/prefixes": {
+    "/v1/routeoriginauthorizations": {
       "get": {
-        "summary": "List Prefixes",
+        "summary": "List RouteOriginAuthorizations",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Prefix"
+                        "$ref": "#/components/schemas/RouteOriginAuthorization"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Prefix",
+        "summary": "Create a RouteOriginAuthorization",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/RouteOriginAuthorizationCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/RouteOriginAuthorization"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/prefixes/{id}": {
+    "/v1/routeoriginauthorizations/{id}": {
       "get": {
-        "summary": "Get a Prefix",
+        "summary": "Get a RouteOriginAuthorization",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/RouteOriginAuthorization"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Prefix",
+        "summary": "Update a RouteOriginAuthorization",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PrefixCreate"
+                "$ref": "#/components/schemas/RouteOriginAuthorizationCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Prefix"
+                  "$ref": "#/components/schemas/RouteOriginAuthorization"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Prefix",
+        "summary": "Delete a RouteOriginAuthorization",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/routes": {
+    "/v1/validationresults": {
       "get": {
-        "summary": "List Routes",
+        "summary": "List ValidationResults",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Route"
+                        "$ref": "#/components/schemas/ValidationResult"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Route",
+        "summary": "Create a ValidationResult",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/ValidationResultCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/ValidationResult"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/routes/{id}": {
+    "/v1/validationresults/{id}": {
       "get": {
-        "summary": "Get a Route",
+        "summary": "Get a ValidationResult",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/ValidationResult"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Route",
+        "summary": "Update a ValidationResult",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RouteCreate"
+                "$ref": "#/components/schemas/ValidationResultCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Route"
+                  "$ref": "#/components/schemas/ValidationResult"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Route",
+        "summary": "Delete a ValidationResult",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/peers": {
+    "/v1/rpkitorouterpdus": {
       "get": {
-        "summary": "List Peers",
+        "summary": "List RpkiToRouterPdus",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Peer"
+                        "$ref": "#/components/schemas/RpkiToRouterPdu"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Peer",
+        "summary": "Create a RpkiToRouterPdu",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/RpkiToRouterPduCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/RpkiToRouterPdu"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/peers/{id}": {
+    "/v1/rpkitorouterpdus/{id}": {
       "get": {
-        "summary": "Get a Peer",
+        "summary": "Get a RpkiToRouterPdu",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/RpkiToRouterPdu"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Peer",
+        "summary": "Update a RpkiToRouterPdu",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PeerCreate"
+                "$ref": "#/components/schemas/RpkiToRouterPduCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Peer"
+                  "$ref": "#/components/schemas/RpkiToRouterPdu"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Peer",
+        "summary": "Delete a RpkiToRouterPdu",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/zones": {
+    "/v1/prefixpdus": {
       "get": {
-        "summary": "List Zones",
+        "summary": "List PrefixPdus",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Zone"
+                        "$ref": "#/components/schemas/PrefixPdu"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Zone",
+        "summary": "Create a PrefixPdu",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/PrefixPduCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/PrefixPdu"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/zones/{id}": {
+    "/v1/prefixpdus/{id}": {
       "get": {
-        "summary": "Get a Zone",
+        "summary": "Get a PrefixPdu",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/PrefixPdu"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Zone",
+        "summary": "Update a PrefixPdu",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ZoneCreate"
+                "$ref": "#/components/schemas/PrefixPduCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Zone"
+                  "$ref": "#/components/schemas/PrefixPdu"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Zone",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/records": {
-      "get": {
-        "summary": "List Records",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Record"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Record",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Record"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/records/{id}": {
-      "get": {
-        "summary": "Get a Record",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Record"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Record",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecordCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Record"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Record",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/tunnels": {
-      "get": {
-        "summary": "List Tunnels",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Tunnel"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Tunnel",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/tunnels/{id}": {
-      "get": {
-        "summary": "Get a Tunnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Tunnel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TunnelCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tunnel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Tunnel",
+        "summary": "Delete a PrefixPdu",
         "parameters": [
           {
             "name": "id",
@@ -1140,19 +770,28 @@
   },
   "components": {
     "schemas": {
-      "Prefix": {
+      "RouteOriginAuthorization": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "cidr": {
+          "version": {
+            "type": "integer"
+          },
+          "asn": {
+            "type": "integer"
+          },
+          "prefix": {
             "type": "string"
           },
-          "originAsn": {
-            "type": "string"
+          "prefixLength": {
+            "type": "integer"
           },
-          "validity": {
+          "maxLength": {
+            "type": "integer"
+          },
+          "addressFamily": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,81 +804,55 @@
           }
         }
       },
-      "PrefixCreate": {
+      "RouteOriginAuthorizationCreate": {
         "type": "object",
         "properties": {
-          "cidr": {
+          "version": {
+            "type": "integer"
+          },
+          "asn": {
+            "type": "integer"
+          },
+          "prefix": {
             "type": "string"
           },
-          "originAsn": {
-            "type": "string"
+          "prefixLength": {
+            "type": "integer"
           },
-          "validity": {
+          "maxLength": {
+            "type": "integer"
+          },
+          "addressFamily": {
             "type": "string"
           }
         },
         "required": [
-          "cidr",
-          "originAsn"
+          "version",
+          "asn"
         ]
       },
-      "Route": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "prefixId": {
-            "type": "string"
-          },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RouteCreate": {
-        "type": "object",
-        "properties": {
-          "prefixId": {
-            "type": "string"
-          },
-          "nextHop": {
-            "type": "string"
-          },
-          "asPath": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "nextHop",
-          "asPath"
-        ]
-      },
-      "Peer": {
+      "ValidationResult": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
           "asn": {
+            "type": "integer"
+          },
+          "prefix": {
             "type": "string"
           },
-          "ipAddress": {
-            "type": "string"
+          "prefixLength": {
+            "type": "integer"
           },
-          "state": {
-            "type": "string"
+          "validationState": {
+            "type": "string",
+            "enum": [
+              "valid",
+              "invalid",
+              "not-found"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1251,37 +864,63 @@
           }
         }
       },
-      "PeerCreate": {
+      "ValidationResultCreate": {
         "type": "object",
         "properties": {
           "asn": {
+            "type": "integer"
+          },
+          "prefix": {
             "type": "string"
           },
-          "ipAddress": {
-            "type": "string"
+          "prefixLength": {
+            "type": "integer"
           },
-          "state": {
-            "type": "string"
+          "validationState": {
+            "type": "string",
+            "enum": [
+              "valid",
+              "invalid",
+              "not-found"
+            ]
           }
         },
         "required": [
           "asn",
-          "ipAddress"
+          "prefix"
         ]
       },
-      "Zone": {
+      "RpkiToRouterPdu": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "serial": {
+          "protocolVersion": {
             "type": "integer"
           },
-          "refreshSec": {
+          "pduType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              6,
+              7,
+              8,
+              9,
+              10
+            ]
+          },
+          "sessionId": {
+            "type": "integer"
+          },
+          "serialNumber": {
+            "type": "integer"
+          },
+          "length": {
             "type": "integer"
           },
           "createdAt": {
@@ -1294,41 +933,68 @@
           }
         }
       },
-      "ZoneCreate": {
+      "RpkiToRouterPduCreate": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "serial": {
+          "protocolVersion": {
             "type": "integer"
           },
-          "refreshSec": {
+          "pduType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              6,
+              7,
+              8,
+              9,
+              10
+            ]
+          },
+          "sessionId": {
+            "type": "integer"
+          },
+          "serialNumber": {
+            "type": "integer"
+          },
+          "length": {
             "type": "integer"
           }
         },
         "required": [
-          "name",
-          "serial"
+          "protocolVersion",
+          "pduType"
         ]
       },
-      "Record": {
+      "PrefixPdu": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "zoneId": {
+          "protocolVersion": {
+            "type": "integer"
+          },
+          "pduType": {
+            "type": "integer"
+          },
+          "flags": {
+            "type": "integer"
+          },
+          "prefixLength": {
+            "type": "integer"
+          },
+          "maxLength": {
+            "type": "integer"
+          },
+          "prefix": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
+          "asn": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1340,74 +1006,34 @@
           }
         }
       },
-      "RecordCreate": {
+      "PrefixPduCreate": {
         "type": "object",
         "properties": {
-          "zoneId": {
+          "protocolVersion": {
+            "type": "integer"
+          },
+          "pduType": {
+            "type": "integer"
+          },
+          "flags": {
+            "type": "integer"
+          },
+          "prefixLength": {
+            "type": "integer"
+          },
+          "maxLength": {
+            "type": "integer"
+          },
+          "prefix": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
+          "asn": {
+            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "type"
-        ]
-      },
-      "Tunnel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "localAddr": {
-            "type": "string"
-          },
-          "remoteAddr": {
-            "type": "string"
-          },
-          "protocol": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TunnelCreate": {
-        "type": "object",
-        "properties": {
-          "localAddr": {
-            "type": "string"
-          },
-          "remoteAddr": {
-            "type": "string"
-          },
-          "protocol": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "localAddr",
-          "remoteAddr"
+          "protocolVersion",
+          "pduType"
         ]
       }
     }

@@ -5,21 +5,76 @@
   "kind": "compat",
   "title": "mpls clean-room actor",
   "description": "Clean-room, API-compatible deep internet / core routing actor (mpls); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq",
+  "wasmCid": "bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq",
+  "ipfs": "ipfs://bafkreigto7ff6x5rcgjffvnlxrllts3o6owndlu4pt6oetf2xwmtcyuwuy",
   "schema": "schema/mpls.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://datatracker.ietf.org/doc/html/rfc3032",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "LabelStackEntry",
+      "MplsHeader",
+      "ReservedLabel",
+      "NhlfeOperation",
+      "MplsForwardingState"
+    ],
+    "enums": {
+      "LabelStackEntry": {
+        "tc": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "MplsHeader": {
+        "trafficClass": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "ReservedLabel": {
+        "value": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          7,
+          13,
+          14,
+          15
+        ]
+      },
+      "NhlfeOperation": {
+        "operationType": [
+          "replace",
+          "pop",
+          "replace-and-push"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Prefix",
-    "Route",
-    "Peer",
-    "Zone",
-    "Record",
-    "Tunnel"
+    "LabelStackEntry",
+    "MplsHeader",
+    "ReservedLabel",
+    "NhlfeOperation",
+    "MplsForwardingState"
   ],
   "adr": [
     "260607",
@@ -31,157 +86,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/prefixes",
-          "op": "create Prefix"
+          "path": "/v1/labelstackentries",
+          "op": "create LabelStackEntry"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes",
-          "op": "list Prefix"
+          "path": "/v1/labelstackentries",
+          "op": "list LabelStackEntry"
         },
         {
           "method": "GET",
-          "path": "/v1/prefixes/{id}",
-          "op": "get Prefix"
+          "path": "/v1/labelstackentries/{id}",
+          "op": "get LabelStackEntry"
         },
         {
           "method": "PATCH",
-          "path": "/v1/prefixes/{id}",
-          "op": "update Prefix"
+          "path": "/v1/labelstackentries/{id}",
+          "op": "update LabelStackEntry"
         },
         {
           "method": "DELETE",
-          "path": "/v1/prefixes/{id}",
-          "op": "delete Prefix"
+          "path": "/v1/labelstackentries/{id}",
+          "op": "delete LabelStackEntry"
         },
         {
           "method": "POST",
-          "path": "/v1/routes",
-          "op": "create Route"
+          "path": "/v1/mplsheaders",
+          "op": "create MplsHeader"
         },
         {
           "method": "GET",
-          "path": "/v1/routes",
-          "op": "list Route"
+          "path": "/v1/mplsheaders",
+          "op": "list MplsHeader"
         },
         {
           "method": "GET",
-          "path": "/v1/routes/{id}",
-          "op": "get Route"
+          "path": "/v1/mplsheaders/{id}",
+          "op": "get MplsHeader"
         },
         {
           "method": "PATCH",
-          "path": "/v1/routes/{id}",
-          "op": "update Route"
+          "path": "/v1/mplsheaders/{id}",
+          "op": "update MplsHeader"
         },
         {
           "method": "DELETE",
-          "path": "/v1/routes/{id}",
-          "op": "delete Route"
+          "path": "/v1/mplsheaders/{id}",
+          "op": "delete MplsHeader"
         },
         {
           "method": "POST",
-          "path": "/v1/peers",
-          "op": "create Peer"
+          "path": "/v1/reservedlabels",
+          "op": "create ReservedLabel"
         },
         {
           "method": "GET",
-          "path": "/v1/peers",
-          "op": "list Peer"
+          "path": "/v1/reservedlabels",
+          "op": "list ReservedLabel"
         },
         {
           "method": "GET",
-          "path": "/v1/peers/{id}",
-          "op": "get Peer"
+          "path": "/v1/reservedlabels/{id}",
+          "op": "get ReservedLabel"
         },
         {
           "method": "PATCH",
-          "path": "/v1/peers/{id}",
-          "op": "update Peer"
+          "path": "/v1/reservedlabels/{id}",
+          "op": "update ReservedLabel"
         },
         {
           "method": "DELETE",
-          "path": "/v1/peers/{id}",
-          "op": "delete Peer"
+          "path": "/v1/reservedlabels/{id}",
+          "op": "delete ReservedLabel"
         },
         {
           "method": "POST",
-          "path": "/v1/zones",
-          "op": "create Zone"
+          "path": "/v1/nhlfeoperations",
+          "op": "create NhlfeOperation"
         },
         {
           "method": "GET",
-          "path": "/v1/zones",
-          "op": "list Zone"
+          "path": "/v1/nhlfeoperations",
+          "op": "list NhlfeOperation"
         },
         {
           "method": "GET",
-          "path": "/v1/zones/{id}",
-          "op": "get Zone"
+          "path": "/v1/nhlfeoperations/{id}",
+          "op": "get NhlfeOperation"
         },
         {
           "method": "PATCH",
-          "path": "/v1/zones/{id}",
-          "op": "update Zone"
+          "path": "/v1/nhlfeoperations/{id}",
+          "op": "update NhlfeOperation"
         },
         {
           "method": "DELETE",
-          "path": "/v1/zones/{id}",
-          "op": "delete Zone"
+          "path": "/v1/nhlfeoperations/{id}",
+          "op": "delete NhlfeOperation"
         },
         {
           "method": "POST",
-          "path": "/v1/records",
-          "op": "create Record"
+          "path": "/v1/mplsforwardingstates",
+          "op": "create MplsForwardingState"
         },
         {
           "method": "GET",
-          "path": "/v1/records",
-          "op": "list Record"
+          "path": "/v1/mplsforwardingstates",
+          "op": "list MplsForwardingState"
         },
         {
           "method": "GET",
-          "path": "/v1/records/{id}",
-          "op": "get Record"
+          "path": "/v1/mplsforwardingstates/{id}",
+          "op": "get MplsForwardingState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/records/{id}",
-          "op": "update Record"
+          "path": "/v1/mplsforwardingstates/{id}",
+          "op": "update MplsForwardingState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/records/{id}",
-          "op": "delete Record"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tunnels",
-          "op": "create Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels",
-          "op": "list Tunnel"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tunnels/{id}",
-          "op": "get Tunnel"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tunnels/{id}",
-          "op": "update Tunnel"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tunnels/{id}",
-          "op": "delete Tunnel"
+          "path": "/v1/mplsforwardingstates/{id}",
+          "op": "delete MplsForwardingState"
         }
       ],
       "features": {
@@ -244,293 +274,44 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_prefix",
-          "description": "Create a Prefix.",
+          "name": "create_label_stack_entry",
+          "description": "Create a LabelStackEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "cidr": {
-                "type": "string"
-              },
-              "originAsn": {
-                "type": "string"
-              },
-              "validity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "cidr",
-              "originAsn"
-            ]
-          }
-        },
-        {
-          "name": "list_prefixes",
-          "description": "List Prefixes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_prefix",
-          "description": "Get a Prefix by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_prefix",
-          "description": "Update a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "cidr": {
-                "type": "string"
-              },
-              "originAsn": {
-                "type": "string"
-              },
-              "validity": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_prefix",
-          "description": "Delete a Prefix.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_route",
-          "description": "Create a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "nextHop",
-              "asPath"
-            ]
-          }
-        },
-        {
-          "name": "list_routes",
-          "description": "List Routes.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_route",
-          "description": "Get a Route by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_route",
-          "description": "Update a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "prefixId": {
-                "type": "string"
-              },
-              "nextHop": {
-                "type": "string"
-              },
-              "asPath": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_route",
-          "description": "Delete a Route.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_peer",
-          "description": "Create a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "asn",
-              "ipAddress"
-            ]
-          }
-        },
-        {
-          "name": "list_peers",
-          "description": "List Peers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_peer",
-          "description": "Get a Peer by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_peer",
-          "description": "Update a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "asn": {
-                "type": "string"
-              },
-              "ipAddress": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_peer",
-          "description": "Delete a Peer.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_zone",
-          "description": "Create a Zone.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "serial": {
+              "label": {
                 "type": "integer"
               },
-              "refreshSec": {
+              "tc": {
+                "type": "integer"
+              },
+              "s": {
+                "type": "boolean"
+              },
+              "ttl": {
                 "type": "integer"
               }
             },
             "required": [
-              "name",
-              "serial"
+              "label",
+              "tc"
             ]
           }
         },
         {
-          "name": "list_zones",
-          "description": "List Zones.",
+          "name": "list_label_stack_entries",
+          "description": "List LabelStackEntries.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_zone",
-          "description": "Get a Zone by id.",
+          "name": "get_label_stack_entry",
+          "description": "Get a LabelStackEntry by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -544,32 +325,176 @@
           }
         },
         {
-          "name": "update_zone",
-          "description": "Update a Zone.",
+          "name": "update_label_stack_entry",
+          "description": "Update a LabelStackEntry.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
+              },
+              "label": {
+                "type": "integer"
+              },
+              "tc": {
+                "type": "integer"
+              },
+              "s": {
+                "type": "boolean"
+              },
+              "ttl": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_label_stack_entry",
+          "description": "Delete a LabelStackEntry.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_mpls_header",
+          "description": "Create a MplsHeader.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "stackDepth": {
+                "type": "integer"
+              },
+              "topLabel": {
+                "type": "integer"
+              },
+              "trafficClass": {
+                "type": "integer"
+              },
+              "bottomOfStack": {
+                "type": "boolean"
+              },
+              "timeToLive": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "stackDepth",
+              "topLabel"
+            ]
+          }
+        },
+        {
+          "name": "list_mpls_headers",
+          "description": "List MplsHeaders.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_mpls_header",
+          "description": "Get a MplsHeader by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_mpls_header",
+          "description": "Update a MplsHeader.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "stackDepth": {
+                "type": "integer"
+              },
+              "topLabel": {
+                "type": "integer"
+              },
+              "trafficClass": {
+                "type": "integer"
+              },
+              "bottomOfStack": {
+                "type": "boolean"
+              },
+              "timeToLive": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_mpls_header",
+          "description": "Delete a MplsHeader.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_reserved_label",
+          "description": "Create a ReservedLabel.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "serial": {
-                "type": "integer"
-              },
-              "refreshSec": {
-                "type": "integer"
+              "purpose": {
+                "type": "string"
               }
             },
             "required": [
-              "id"
+              "value",
+              "name"
             ]
           }
         },
         {
-          "name": "delete_zone",
-          "description": "Delete a Zone.",
+          "name": "list_reserved_labels",
+          "description": "List ReservedLabels.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_reserved_label",
+          "description": "Get a ReservedLabel by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -583,72 +508,21 @@
           }
         },
         {
-          "name": "create_record",
-          "description": "Create a Record.",
+          "name": "update_reserved_label",
+          "description": "Update a ReservedLabel.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "zoneId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "type": {
+              "id": {
                 "type": "string"
               },
               "value": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_records",
-          "description": "List Records.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_record",
-          "description": "Get a Record by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_record",
-          "description": "Update a Record.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "zoneId": {
-                "type": "string"
+                "type": "integer"
               },
               "name": {
                 "type": "string"
               },
-              "type": {
-                "type": "string"
-              },
-              "value": {
+              "purpose": {
                 "type": "string"
               }
             },
@@ -658,8 +532,8 @@
           }
         },
         {
-          "name": "delete_record",
-          "description": "Delete a Record.",
+          "name": "delete_reserved_label",
+          "description": "Delete a ReservedLabel.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -673,41 +547,38 @@
           }
         },
         {
-          "name": "create_tunnel",
-          "description": "Create a Tunnel.",
+          "name": "create_nhlfe_operation",
+          "description": "Create a NhlfeOperation.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "localAddr": {
+              "operationType": {
                 "type": "string"
               },
-              "remoteAddr": {
-                "type": "string"
+              "newLabel": {
+                "type": "integer"
               },
-              "protocol": {
+              "nextHopDestination": {
                 "type": "string"
-              },
-              "active": {
-                "type": "boolean"
               }
             },
             "required": [
-              "localAddr",
-              "remoteAddr"
+              "operationType",
+              "newLabel"
             ]
           }
         },
         {
-          "name": "list_tunnels",
-          "description": "List Tunnels.",
+          "name": "list_nhlfe_operations",
+          "description": "List NhlfeOperations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_tunnel",
-          "description": "Get a Tunnel by id.",
+          "name": "get_nhlfe_operation",
+          "description": "Get a NhlfeOperation by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -721,25 +592,22 @@
           }
         },
         {
-          "name": "update_tunnel",
-          "description": "Update a Tunnel.",
+          "name": "update_nhlfe_operation",
+          "description": "Update a NhlfeOperation.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "localAddr": {
+              "operationType": {
                 "type": "string"
               },
-              "remoteAddr": {
-                "type": "string"
+              "newLabel": {
+                "type": "integer"
               },
-              "protocol": {
+              "nextHopDestination": {
                 "type": "string"
-              },
-              "active": {
-                "type": "boolean"
               }
             },
             "required": [
@@ -748,8 +616,92 @@
           }
         },
         {
-          "name": "delete_tunnel",
-          "description": "Delete a Tunnel.",
+          "name": "delete_nhlfe_operation",
+          "description": "Delete a NhlfeOperation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_mpls_forwarding_state",
+          "description": "Create a MplsForwardingState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "incomingLabel": {
+                "type": "integer"
+              },
+              "fecRef": {
+                "type": "string"
+              },
+              "hopCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "incomingLabel",
+              "hopCount"
+            ]
+          }
+        },
+        {
+          "name": "list_mpls_forwarding_states",
+          "description": "List MplsForwardingStates.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_mpls_forwarding_state",
+          "description": "Get a MplsForwardingState by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_mpls_forwarding_state",
+          "description": "Update a MplsForwardingState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "incomingLabel": {
+                "type": "integer"
+              },
+              "fecRef": {
+                "type": "string"
+              },
+              "hopCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_mpls_forwarding_state",
+          "description": "Delete a MplsForwardingState.",
           "inputSchema": {
             "type": "object",
             "properties": {

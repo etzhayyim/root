@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreibg5ziqrvwg5676ahgu6wuktjva35akzwtyarlrifpjm4svwfq7ku",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,6 +17,561 @@
     }
   ],
   "paths": {
+    "/v1/voices": {
+      "get": {
+        "summary": "List Voices",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Voice"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Voice",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VoiceCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voice"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/voices/{id}": {
+      "get": {
+        "summary": "Get a Voice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voice"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Voice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VoiceCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voice"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Voice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/samples": {
+      "get": {
+        "summary": "List Samples",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Sample"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Sample",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SampleCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sample"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/samples/{id}": {
+      "get": {
+        "summary": "Get a Sample",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sample"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Sample",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SampleCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sample"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Sample",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/historyitems": {
+      "get": {
+        "summary": "List HistoryItems",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/HistoryItem"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a HistoryItem",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HistoryItemCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/historyitems/{id}": {
+      "get": {
+        "summary": "Get a HistoryItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryItem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a HistoryItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HistoryItemCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryItem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a HistoryItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
     "/v1/models": {
       "get": {
         "summary": "List Models",
@@ -202,9 +757,9 @@
         }
       }
     },
-    "/v1/completions": {
+    "/v1/subscriptions": {
       "get": {
-        "summary": "List Completions",
+        "summary": "List Subscriptions",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Completion"
+                        "$ref": "#/components/schemas/Subscription"
                       }
                     },
                     "has_more": {
@@ -264,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Completion",
+        "summary": "Create a Subscription",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompletionCreate"
+                "$ref": "#/components/schemas/SubscriptionCreate"
               }
             }
           }
@@ -281,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Completion"
+                  "$ref": "#/components/schemas/Subscription"
                 }
               }
             }
@@ -292,9 +847,9 @@
         }
       }
     },
-    "/v1/completions/{id}": {
+    "/v1/subscriptions/{id}": {
       "get": {
-        "summary": "Get a Completion",
+        "summary": "Get a Subscription",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Completion"
+                  "$ref": "#/components/schemas/Subscription"
                 }
               }
             }
@@ -329,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Completion",
+        "summary": "Update a Subscription",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompletionCreate"
+                "$ref": "#/components/schemas/SubscriptionCreate"
               }
             }
           }
@@ -355,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Completion"
+                  "$ref": "#/components/schemas/Subscription"
                 }
               }
             }
@@ -366,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Completion",
+        "summary": "Delete a Subscription",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +942,9 @@
         }
       }
     },
-    "/v1/embeddings": {
+    "/v1/projects": {
       "get": {
-        "summary": "List Embeddings",
+        "summary": "List Projects",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Embedding"
+                        "$ref": "#/components/schemas/Project"
                       }
                     },
                     "has_more": {
@@ -449,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Embedding",
+        "summary": "Create a Project",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmbeddingCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -466,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Embedding"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -477,9 +1032,9 @@
         }
       }
     },
-    "/v1/embeddings/{id}": {
+    "/v1/projects/{id}": {
       "get": {
-        "summary": "Get a Embedding",
+        "summary": "Get a Project",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Embedding"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -514,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Embedding",
+        "summary": "Update a Project",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmbeddingCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -540,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Embedding"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -551,562 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Embedding",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/finetunes": {
-      "get": {
-        "summary": "List FineTunes",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/FineTune"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a FineTune",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FineTuneCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FineTune"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/finetunes/{id}": {
-      "get": {
-        "summary": "Get a FineTune",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FineTune"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a FineTune",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FineTuneCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FineTune"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a FineTune",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/datasets": {
-      "get": {
-        "summary": "List Datasets",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Dataset"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Dataset",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/datasets/{id}": {
-      "get": {
-        "summary": "Get a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dataset"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/files": {
-      "get": {
-        "summary": "List Files",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/File"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a File",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FileCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/files/{id}": {
-      "get": {
-        "summary": "Get a File",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a File",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FileCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a File",
+        "summary": "Delete a Project",
         "parameters": [
           {
             "name": "id",
@@ -1140,22 +1140,264 @@
   },
   "components": {
     "schemas": {
+      "Voice": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "voiceId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "generated",
+              "cloned",
+              "premade",
+              "professional",
+              "famous",
+              "high_quality"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "previewUrl": {
+            "type": "string"
+          },
+          "createdAtUnix": {
+            "type": "integer"
+          },
+          "isOwner": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VoiceCreate": {
+        "type": "object",
+        "properties": {
+          "voiceId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "generated",
+              "cloned",
+              "premade",
+              "professional",
+              "famous",
+              "high_quality"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "previewUrl": {
+            "type": "string"
+          },
+          "createdAtUnix": {
+            "type": "integer"
+          },
+          "isOwner": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "category"
+        ]
+      },
+      "Sample": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sampleId": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "mimeType": {
+            "type": "string"
+          },
+          "sizeBytes": {
+            "type": "integer"
+          },
+          "durationSecs": {
+            "type": "number"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "removeBackgroundNoise": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SampleCreate": {
+        "type": "object",
+        "properties": {
+          "sampleId": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "mimeType": {
+            "type": "string"
+          },
+          "sizeBytes": {
+            "type": "integer"
+          },
+          "durationSecs": {
+            "type": "number"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "removeBackgroundNoise": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "fileName",
+          "mimeType"
+        ]
+      },
+      "HistoryItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "historyItemId": {
+            "type": "string"
+          },
+          "voiceId": {
+            "type": "string"
+          },
+          "modelId": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "dateUnix": {
+            "type": "integer"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "created",
+              "deleted",
+              "processing"
+            ]
+          },
+          "characterCountChangeTo": {
+            "type": "integer"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "HistoryItemCreate": {
+        "type": "object",
+        "properties": {
+          "historyItemId": {
+            "type": "string"
+          },
+          "voiceId": {
+            "type": "string"
+          },
+          "modelId": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "dateUnix": {
+            "type": "integer"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "created",
+              "deleted",
+              "processing"
+            ]
+          },
+          "characterCountChangeTo": {
+            "type": "integer"
+          },
+          "contentType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "dateUnix"
+        ]
+      },
       "Model": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
+          "modelId": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "family": {
-            "type": "string"
+          "canBeFinetune": {
+            "type": "boolean"
           },
-          "contextWindow": {
-            "type": "integer"
+          "canDoTextToSpeech": {
+            "type": "boolean"
           },
-          "modality": {
+          "canUseStyle": {
+            "type": "boolean"
+          },
+          "tokenCostFactor": {
+            "type": "number"
+          },
+          "description": {
             "type": "string"
           },
           "createdAt": {
@@ -1171,139 +1413,67 @@
       "ModelCreate": {
         "type": "object",
         "properties": {
+          "modelId": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "family": {
-            "type": "string"
+          "canBeFinetune": {
+            "type": "boolean"
           },
-          "contextWindow": {
-            "type": "integer"
+          "canDoTextToSpeech": {
+            "type": "boolean"
           },
-          "modality": {
+          "canUseStyle": {
+            "type": "boolean"
+          },
+          "tokenCostFactor": {
+            "type": "number"
+          },
+          "description": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "family"
+          "canBeFinetune"
         ]
       },
-      "Completion": {
+      "Subscription": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "modelId": {
+          "tier": {
             "type": "string"
           },
-          "prompt": {
-            "type": "string"
-          },
-          "output": {
-            "type": "string"
-          },
-          "tokens": {
+          "characterCount": {
             "type": "integer"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CompletionCreate": {
-        "type": "object",
-        "properties": {
-          "modelId": {
-            "type": "string"
-          },
-          "prompt": {
-            "type": "string"
-          },
-          "output": {
-            "type": "string"
-          },
-          "tokens": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "prompt",
-          "output"
-        ]
-      },
-      "Embedding": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "modelId": {
-            "type": "string"
-          },
-          "input": {
-            "type": "string"
-          },
-          "dimensions": {
+          "characterLimit": {
             "type": "integer"
           },
-          "vectorRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "EmbeddingCreate": {
-        "type": "object",
-        "properties": {
-          "modelId": {
-            "type": "string"
-          },
-          "input": {
-            "type": "string"
-          },
-          "dimensions": {
+          "voiceSlotsUsed": {
             "type": "integer"
           },
-          "vectorRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "input",
-          "dimensions"
-        ]
-      },
-      "FineTune": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "baseModelId": {
-            "type": "string"
-          },
-          "datasetId": {
-            "type": "string"
+          "voiceLimit": {
+            "type": "integer"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "trialing",
+              "active",
+              "incomplete",
+              "past_due",
+              "free",
+              "free_disabled"
+            ]
           },
-          "epochs": {
-            "type": "integer"
+          "canExtendCharacterLimit": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1315,41 +1485,85 @@
           }
         }
       },
-      "FineTuneCreate": {
+      "SubscriptionCreate": {
         "type": "object",
         "properties": {
-          "baseModelId": {
+          "tier": {
             "type": "string"
           },
-          "datasetId": {
-            "type": "string"
+          "characterCount": {
+            "type": "integer"
+          },
+          "characterLimit": {
+            "type": "integer"
+          },
+          "voiceSlotsUsed": {
+            "type": "integer"
+          },
+          "voiceLimit": {
+            "type": "integer"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "trialing",
+              "active",
+              "incomplete",
+              "past_due",
+              "free",
+              "free_disabled"
+            ]
           },
-          "epochs": {
-            "type": "integer"
+          "canExtendCharacterLimit": {
+            "type": "boolean"
           }
         },
         "required": [
-          "status",
-          "epochs"
+          "tier",
+          "characterCount"
         ]
       },
-      "Dataset": {
+      "Project": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "string"
+          },
+          "projectId": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "rows": {
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "createDateUnix": {
             "type": "integer"
           },
-          "contentRef": {
-            "type": "string"
+          "state": {
+            "type": "string",
+            "enum": [
+              "creating",
+              "default",
+              "converting",
+              "in_queue"
+            ]
+          },
+          "accessLevel": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "editor",
+              "commenter",
+              "viewer"
+            ]
+          },
+          "canBeDownloaded": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1361,71 +1575,49 @@
           }
         }
       },
-      "DatasetCreate": {
+      "ProjectCreate": {
         "type": "object",
         "properties": {
+          "projectId": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "rows": {
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "createDateUnix": {
             "type": "integer"
           },
-          "contentRef": {
-            "type": "string"
+          "state": {
+            "type": "string",
+            "enum": [
+              "creating",
+              "default",
+              "converting",
+              "in_queue"
+            ]
+          },
+          "accessLevel": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "editor",
+              "commenter",
+              "viewer"
+            ]
+          },
+          "canBeDownloaded": {
+            "type": "boolean"
           }
         },
         "required": [
           "name",
-          "rows"
-        ]
-      },
-      "File": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "purpose": {
-            "type": "string"
-          },
-          "filename": {
-            "type": "string"
-          },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FileCreate": {
-        "type": "object",
-        "properties": {
-          "purpose": {
-            "type": "string"
-          },
-          "filename": {
-            "type": "string"
-          },
-          "sizeBytes": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "purpose",
-          "filename"
+          "title"
         ]
       }
     }

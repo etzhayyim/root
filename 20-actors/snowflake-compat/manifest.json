@@ -11,15 +11,84 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreiagvcjly3vx5ud4umfifxxosiksvo4wqdataawijz2vtog2i7foua",
   "schema": "schema/snowflake.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/snowflakedb/snowflake-rest-api-specs/blob/main/specifications",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Warehouse",
+      "Database",
+      "Schema",
+      "Table",
+      "Task",
+      "Role"
+    ],
+    "enums": {
+      "Warehouse": {
+        "warehouseType": [
+          "STANDARD",
+          "SNOWPARK-OPTIMIZED"
+        ],
+        "warehouseSize": [
+          "XSMALL",
+          "SMALL",
+          "MEDIUM",
+          "LARGE",
+          "XLARGE",
+          "XXLARGE",
+          "XXXLARGE",
+          "X4LARGE",
+          "X5LARGE",
+          "X6LARGE"
+        ],
+        "scalingPolicy": [
+          "STANDARD",
+          "ECONOMY"
+        ],
+        "state": [
+          "STARTED",
+          "STARTING",
+          "DYNAMIC",
+          "SUSPENDED",
+          "RESIZING",
+          "RESUMING",
+          "SUSPENDING"
+        ]
+      },
+      "Database": {
+        "kind": [
+          "PERMANENT",
+          "TRANSIENT"
+        ]
+      },
+      "Schema": {
+        "kind": [
+          "PERMANENT",
+          "TRANSIENT"
+        ]
+      },
+      "Table": {
+        "kind": [
+          "PERMANENT",
+          "TRANSIENT",
+          "TEMPORARY"
+        ]
+      },
+      "Task": {
+        "state": [
+          "started",
+          "suspended"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Dataset",
-    "Query",
-    "Dashboard",
-    "Report",
-    "Connection",
-    "Metric"
+    "Warehouse",
+    "Database",
+    "Schema",
+    "Table",
+    "Task",
+    "Role"
   ],
   "adr": [
     "260607",
@@ -35,153 +104,153 @@
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/datasets",
-          "op": "create Dataset"
+          "path": "/v1/warehouses",
+          "op": "create Warehouse"
         },
         {
           "method": "GET",
-          "path": "/v1/datasets",
-          "op": "list Dataset"
+          "path": "/v1/warehouses",
+          "op": "list Warehouse"
         },
         {
           "method": "GET",
-          "path": "/v1/datasets/{id}",
-          "op": "get Dataset"
+          "path": "/v1/warehouses/{id}",
+          "op": "get Warehouse"
         },
         {
           "method": "PATCH",
-          "path": "/v1/datasets/{id}",
-          "op": "update Dataset"
+          "path": "/v1/warehouses/{id}",
+          "op": "update Warehouse"
         },
         {
           "method": "DELETE",
-          "path": "/v1/datasets/{id}",
-          "op": "delete Dataset"
+          "path": "/v1/warehouses/{id}",
+          "op": "delete Warehouse"
         },
         {
           "method": "POST",
-          "path": "/v1/queries",
-          "op": "create Query"
+          "path": "/v1/databases",
+          "op": "create Database"
         },
         {
           "method": "GET",
-          "path": "/v1/queries",
-          "op": "list Query"
+          "path": "/v1/databases",
+          "op": "list Database"
         },
         {
           "method": "GET",
-          "path": "/v1/queries/{id}",
-          "op": "get Query"
+          "path": "/v1/databases/{id}",
+          "op": "get Database"
         },
         {
           "method": "PATCH",
-          "path": "/v1/queries/{id}",
-          "op": "update Query"
+          "path": "/v1/databases/{id}",
+          "op": "update Database"
         },
         {
           "method": "DELETE",
-          "path": "/v1/queries/{id}",
-          "op": "delete Query"
+          "path": "/v1/databases/{id}",
+          "op": "delete Database"
         },
         {
           "method": "POST",
-          "path": "/v1/dashboards",
-          "op": "create Dashboard"
+          "path": "/v1/schemas",
+          "op": "create Schema"
         },
         {
           "method": "GET",
-          "path": "/v1/dashboards",
-          "op": "list Dashboard"
+          "path": "/v1/schemas",
+          "op": "list Schema"
         },
         {
           "method": "GET",
-          "path": "/v1/dashboards/{id}",
-          "op": "get Dashboard"
+          "path": "/v1/schemas/{id}",
+          "op": "get Schema"
         },
         {
           "method": "PATCH",
-          "path": "/v1/dashboards/{id}",
-          "op": "update Dashboard"
+          "path": "/v1/schemas/{id}",
+          "op": "update Schema"
         },
         {
           "method": "DELETE",
-          "path": "/v1/dashboards/{id}",
-          "op": "delete Dashboard"
+          "path": "/v1/schemas/{id}",
+          "op": "delete Schema"
         },
         {
           "method": "POST",
-          "path": "/v1/reports",
-          "op": "create Report"
+          "path": "/v1/tables",
+          "op": "create Table"
         },
         {
           "method": "GET",
-          "path": "/v1/reports",
-          "op": "list Report"
+          "path": "/v1/tables",
+          "op": "list Table"
         },
         {
           "method": "GET",
-          "path": "/v1/reports/{id}",
-          "op": "get Report"
+          "path": "/v1/tables/{id}",
+          "op": "get Table"
         },
         {
           "method": "PATCH",
-          "path": "/v1/reports/{id}",
-          "op": "update Report"
+          "path": "/v1/tables/{id}",
+          "op": "update Table"
         },
         {
           "method": "DELETE",
-          "path": "/v1/reports/{id}",
-          "op": "delete Report"
+          "path": "/v1/tables/{id}",
+          "op": "delete Table"
         },
         {
           "method": "POST",
-          "path": "/v1/connections",
-          "op": "create Connection"
+          "path": "/v1/tasks",
+          "op": "create Task"
         },
         {
           "method": "GET",
-          "path": "/v1/connections",
-          "op": "list Connection"
+          "path": "/v1/tasks",
+          "op": "list Task"
         },
         {
           "method": "GET",
-          "path": "/v1/connections/{id}",
-          "op": "get Connection"
+          "path": "/v1/tasks/{id}",
+          "op": "get Task"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connections/{id}",
-          "op": "update Connection"
+          "path": "/v1/tasks/{id}",
+          "op": "update Task"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connections/{id}",
-          "op": "delete Connection"
+          "path": "/v1/tasks/{id}",
+          "op": "delete Task"
         },
         {
           "method": "POST",
-          "path": "/v1/metrics",
-          "op": "create Metric"
+          "path": "/v1/roles",
+          "op": "create Role"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics",
-          "op": "list Metric"
+          "path": "/v1/roles",
+          "op": "list Role"
         },
         {
           "method": "GET",
-          "path": "/v1/metrics/{id}",
-          "op": "get Metric"
+          "path": "/v1/roles/{id}",
+          "op": "get Role"
         },
         {
           "method": "PATCH",
-          "path": "/v1/metrics/{id}",
-          "op": "update Metric"
+          "path": "/v1/roles/{id}",
+          "op": "update Role"
         },
         {
           "method": "DELETE",
-          "path": "/v1/metrics/{id}",
-          "op": "delete Metric"
+          "path": "/v1/roles/{id}",
+          "op": "delete Role"
         }
       ],
       "features": {
@@ -247,41 +316,50 @@
       "toolCount": 30,
       "tools": [
         {
-          "name": "create_dataset",
-          "description": "Create a Dataset.",
+          "name": "create_warehouse",
+          "description": "Create a Warehouse.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "source": {
+              "warehouseType": {
                 "type": "string"
               },
-              "schemaRef": {
+              "warehouseSize": {
                 "type": "string"
               },
-              "rowCount": {
+              "scalingPolicy": {
+                "type": "string"
+              },
+              "autoSuspend": {
                 "type": "integer"
+              },
+              "autoResume": {
+                "type": "boolean"
+              },
+              "state": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "source"
+              "warehouseType"
             ]
           }
         },
         {
-          "name": "list_datasets",
-          "description": "List Datasets.",
+          "name": "list_warehouses",
+          "description": "List Warehouses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_dataset",
-          "description": "Get a Dataset by id.",
+          "name": "get_warehouse",
+          "description": "Get a Warehouse by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +373,8 @@
           }
         },
         {
-          "name": "update_dataset",
-          "description": "Update a Dataset.",
+          "name": "update_warehouse",
+          "description": "Update a Warehouse.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,14 +384,23 @@
               "name": {
                 "type": "string"
               },
-              "source": {
+              "warehouseType": {
                 "type": "string"
               },
-              "schemaRef": {
+              "warehouseSize": {
                 "type": "string"
               },
-              "rowCount": {
+              "scalingPolicy": {
+                "type": "string"
+              },
+              "autoSuspend": {
                 "type": "integer"
+              },
+              "autoResume": {
+                "type": "boolean"
+              },
+              "state": {
+                "type": "string"
               }
             },
             "required": [
@@ -322,8 +409,8 @@
           }
         },
         {
-          "name": "delete_dataset",
-          "description": "Delete a Dataset.",
+          "name": "delete_warehouse",
+          "description": "Delete a Warehouse.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,292 +424,44 @@
           }
         },
         {
-          "name": "create_query",
-          "description": "Create a Query.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "datasetId": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sql"
-            ]
-          }
-        },
-        {
-          "name": "list_queries",
-          "description": "List Queries.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_query",
-          "description": "Get a Query by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_query",
-          "description": "Update a Query.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "datasetId": {
-                "type": "string"
-              },
-              "sql": {
-                "type": "string"
-              },
-              "ownerId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_query",
-          "description": "Delete a Query.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_dashboard",
-          "description": "Create a Dashboard.",
+          "name": "create_database",
+          "description": "Create a Database.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "ownerId": {
+              "kind": {
                 "type": "string"
               },
-              "layout": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "layout"
-            ]
-          }
-        },
-        {
-          "name": "list_dashboards",
-          "description": "List Dashboards.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_dashboard",
-          "description": "Get a Dashboard by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_dashboard",
-          "description": "Update a Dashboard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "owner": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
+              "retentionTime": {
+                "type": "integer"
               },
-              "ownerId": {
-                "type": "string"
-              },
-              "layout": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_dashboard",
-          "description": "Delete a Dashboard.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_report",
-          "description": "Create a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "dashboardId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "schedule": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "schedule"
-            ]
-          }
-        },
-        {
-          "name": "list_reports",
-          "description": "List Reports.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_report",
-          "description": "Get a Report by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_report",
-          "description": "Update a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "dashboardId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "schedule": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_report",
-          "description": "Delete a Report.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_connection",
-          "description": "Create a Connection.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "host": {
-                "type": "string"
-              },
-              "active": {
+              "isDefault": {
                 "type": "boolean"
               }
             },
             "required": [
               "name",
-              "type"
+              "kind"
             ]
           }
         },
         {
-          "name": "list_connections",
-          "description": "List Connections.",
+          "name": "list_databases",
+          "description": "List Databases.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_connection",
-          "description": "Get a Connection by id.",
+          "name": "get_database",
+          "description": "Get a Database by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -636,8 +475,8 @@
           }
         },
         {
-          "name": "update_connection",
-          "description": "Update a Connection.",
+          "name": "update_database",
+          "description": "Update a Database.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -647,13 +486,16 @@
               "name": {
                 "type": "string"
               },
-              "type": {
+              "kind": {
                 "type": "string"
               },
-              "host": {
+              "owner": {
                 "type": "string"
               },
-              "active": {
+              "retentionTime": {
+                "type": "integer"
+              },
+              "isDefault": {
                 "type": "boolean"
               }
             },
@@ -663,8 +505,8 @@
           }
         },
         {
-          "name": "delete_connection",
-          "description": "Delete a Connection.",
+          "name": "delete_database",
+          "description": "Delete a Database.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -678,41 +520,44 @@
           }
         },
         {
-          "name": "create_metric",
-          "description": "Create a Metric.",
+          "name": "create_schema",
+          "description": "Create a Schema.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "datasetId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "expression": {
+              "kind": {
                 "type": "string"
               },
-              "unit": {
+              "databaseName": {
                 "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "managedAccess": {
+                "type": "boolean"
               }
             },
             "required": [
               "name",
-              "expression"
+              "kind"
             ]
           }
         },
         {
-          "name": "list_metrics",
-          "description": "List Metrics.",
+          "name": "list_schemas",
+          "description": "List Schemas.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_metric",
-          "description": "Get a Metric by id.",
+          "name": "get_schema",
+          "description": "Get a Schema by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -726,24 +571,42 @@
           }
         },
         {
-          "name": "update_metric",
-          "description": "Update a Metric.",
+          "name": "update_schema",
+          "description": "Update a Schema.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "datasetId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "expression": {
+              "kind": {
                 "type": "string"
               },
-              "unit": {
+              "databaseName": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "managedAccess": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_schema",
+          "description": "Delete a Schema.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               }
             },
@@ -753,8 +616,263 @@
           }
         },
         {
-          "name": "delete_metric",
-          "description": "Delete a Metric.",
+          "name": "create_table",
+          "description": "Create a Table.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "databaseName": {
+                "type": "string"
+              },
+              "schemaName": {
+                "type": "string"
+              },
+              "rows": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "name",
+              "kind"
+            ]
+          }
+        },
+        {
+          "name": "list_tables",
+          "description": "List Tables.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_table",
+          "description": "Get a Table by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_table",
+          "description": "Update a Table.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "databaseName": {
+                "type": "string"
+              },
+              "schemaName": {
+                "type": "string"
+              },
+              "rows": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_table",
+          "description": "Delete a Table.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_task",
+          "description": "Create a Task.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "warehouse": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "warehouse"
+            ]
+          }
+        },
+        {
+          "name": "list_tasks",
+          "description": "List Tasks.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_task",
+          "description": "Get a Task by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_task",
+          "description": "Update a Task.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "warehouse": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_task",
+          "description": "Delete a Task.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_role",
+          "description": "Create a Role.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "owner"
+            ]
+          }
+        },
+        {
+          "name": "list_roles",
+          "description": "List Roles.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_role",
+          "description": "Get a Role by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_role",
+          "description": "Update a Role.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_role",
+          "description": "Delete a Role.",
           "inputSchema": {
             "type": "object",
             "properties": {

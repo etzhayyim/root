@@ -115,17 +115,37 @@ def _expand(rec, params, refs):
 def create_connector(request):
     """Create a Connector."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'destination', 'status'])
+    err = _reject_unknown(data, ['id', 'service', 'schema', 'groupId', 'setupState', 'syncState', 'updateState', 'scheduleType', 'networkingMethod', 'syncFrequency', 'paused', 'createdAt', 'succeededAt', 'failedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'source'])
+    err = _require(data, ['id', 'service'])
     if err:
         return err, 400
+    if data.get('setupState') and data['setupState'] not in ['incomplete', 'connected', 'broken']:
+        return {"error": {"message": "invalid setupState; allowed: " + ", ".join(['incomplete', 'connected', 'broken']), "type": "invalid_request_error"}}, 400
+    if data.get('syncState') and data['syncState'] not in ['scheduled', 'syncing', 'paused', 'rescheduled']:
+        return {"error": {"message": "invalid syncState; allowed: " + ", ".join(['scheduled', 'syncing', 'paused', 'rescheduled']), "type": "invalid_request_error"}}, 400
+    if data.get('updateState') and data['updateState'] not in ['on_schedule', 'delayed']:
+        return {"error": {"message": "invalid updateState; allowed: " + ", ".join(['on_schedule', 'delayed']), "type": "invalid_request_error"}}, 400
+    if data.get('scheduleType') and data['scheduleType'] not in ['auto', 'manual']:
+        return {"error": {"message": "invalid scheduleType; allowed: " + ", ".join(['auto', 'manual']), "type": "invalid_request_error"}}, 400
+    if data.get('networkingMethod') and data['networkingMethod'] not in ['Directly', 'SshTunnel', 'ProxyAgent', 'PrivateLink', 'UnmanagedProxyAgent', 'Unknown']:
+        return {"error": {"message": "invalid networkingMethod; allowed: " + ", ".join(['Directly', 'SshTunnel', 'ProxyAgent', 'PrivateLink', 'UnmanagedProxyAgent', 'Unknown']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("fivetran_con")}
-    rec["name"] = data.get('name')
-    rec["source"] = data.get('source')
-    rec["destination"] = data.get('destination')
-    rec["status"] = data.get('status')
+    rec["id"] = data.get('id')
+    rec["service"] = data.get('service')
+    rec["schema"] = data.get('schema')
+    rec["groupId"] = data.get('groupId')
+    rec["setupState"] = data.get('setupState')
+    rec["syncState"] = data.get('syncState')
+    rec["updateState"] = data.get('updateState')
+    rec["scheduleType"] = data.get('scheduleType')
+    rec["networkingMethod"] = data.get('networkingMethod')
+    rec["syncFrequency"] = _as_int(data.get('syncFrequency'))
+    rec["paused"] = _as_bool(data.get('paused'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["succeededAt"] = data.get('succeededAt')
+    rec["failedAt"] = data.get('failedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Connector", rec)
@@ -136,7 +156,7 @@ def list_connectors(request):
     """List Connectors with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Connector")
-    rows = _apply_filters(rows, params, ['name', 'source', 'destination', 'status'])
+    rows = _apply_filters(rows, params, ['id', 'service', 'schema', 'groupId', 'setupState', 'syncState', 'updateState', 'scheduleType', 'networkingMethod', 'syncFrequency', 'paused', 'createdAt', 'succeededAt', 'failedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -148,6 +168,7 @@ def get_connector(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'groupId': 'Group'})
     return rec, 200
 
 @app.route("/v1/connectors/<eid>", methods=["POST", "PATCH"])
@@ -157,9 +178,19 @@ def update_connector(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'source', 'destination', 'status'])
+    err = _reject_unknown(data, ['id', 'service', 'schema', 'groupId', 'setupState', 'syncState', 'updateState', 'scheduleType', 'networkingMethod', 'syncFrequency', 'paused', 'createdAt', 'succeededAt', 'failedAt'])
     if err:
         return err, 400
+    if data.get('setupState') and data['setupState'] not in ['incomplete', 'connected', 'broken']:
+        return {"error": {"message": "invalid setupState; allowed: " + ", ".join(['incomplete', 'connected', 'broken']), "type": "invalid_request_error"}}, 400
+    if data.get('syncState') and data['syncState'] not in ['scheduled', 'syncing', 'paused', 'rescheduled']:
+        return {"error": {"message": "invalid syncState; allowed: " + ", ".join(['scheduled', 'syncing', 'paused', 'rescheduled']), "type": "invalid_request_error"}}, 400
+    if data.get('updateState') and data['updateState'] not in ['on_schedule', 'delayed']:
+        return {"error": {"message": "invalid updateState; allowed: " + ", ".join(['on_schedule', 'delayed']), "type": "invalid_request_error"}}, 400
+    if data.get('scheduleType') and data['scheduleType'] not in ['auto', 'manual']:
+        return {"error": {"message": "invalid scheduleType; allowed: " + ", ".join(['auto', 'manual']), "type": "invalid_request_error"}}, 400
+    if data.get('networkingMethod') and data['networkingMethod'] not in ['Directly', 'SshTunnel', 'ProxyAgent', 'PrivateLink', 'UnmanagedProxyAgent', 'Unknown']:
+        return {"error": {"message": "invalid networkingMethod; allowed: " + ", ".join(['Directly', 'SshTunnel', 'ProxyAgent', 'PrivateLink', 'UnmanagedProxyAgent', 'Unknown']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -177,119 +208,131 @@ def delete_connector(request, eid):
     db.retract({"entity": f"fivetran.Connector", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/syncs", methods=["POST"])
-def create_sync(request):
-    """Create a Sync."""
+@app.route("/v1/destinations", methods=["POST"])
+def create_destination(request):
+    """Create a Destination."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['connectorId', 'status', 'rows', 'startedAt'])
+    err = _reject_unknown(data, ['id', 'groupId', 'service', 'region', 'setupStatus', 'networkingMethod', 'daylightSavingTimeEnabled', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['status', 'rows'])
+    err = _require(data, ['id', 'service'])
     if err:
         return err, 400
-    rec = {"id": new_id("fivetran_syn")}
-    rec["connectorId"] = data.get('connectorId')
-    rec["status"] = data.get('status')
-    rec["rows"] = _as_int(data.get('rows'))
-    rec["startedAt"] = data.get('startedAt')
+    if data.get('setupStatus') and data['setupStatus'] not in ['connected', 'incomplete', 'broken']:
+        return {"error": {"message": "invalid setupStatus; allowed: " + ", ".join(['connected', 'incomplete', 'broken']), "type": "invalid_request_error"}}, 400
+    if data.get('networkingMethod') and data['networkingMethod'] not in ['Directly', 'PrivateLink', 'SshTunnel', 'ProxyAgent']:
+        return {"error": {"message": "invalid networkingMethod; allowed: " + ", ".join(['Directly', 'PrivateLink', 'SshTunnel', 'ProxyAgent']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("fivetran_des")}
+    rec["id"] = data.get('id')
+    rec["groupId"] = data.get('groupId')
+    rec["service"] = data.get('service')
+    rec["region"] = data.get('region')
+    rec["setupStatus"] = data.get('setupStatus')
+    rec["networkingMethod"] = data.get('networkingMethod')
+    rec["daylightSavingTimeEnabled"] = _as_bool(data.get('daylightSavingTimeEnabled'))
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Sync", rec)
+    _persist("Destination", rec)
     return rec, 201
 
-@app.route("/v1/syncs", methods=["GET"])
-def list_syncs(request):
-    """List Syncs with filtering + cursor pagination."""
+@app.route("/v1/destinations", methods=["GET"])
+def list_destinations(request):
+    """List Destinations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Sync")
-    rows = _apply_filters(rows, params, ['connectorId', 'status', 'rows', 'startedAt'])
+    rows = _query("Destination")
+    rows = _apply_filters(rows, params, ['id', 'groupId', 'service', 'region', 'setupStatus', 'networkingMethod', 'daylightSavingTimeEnabled', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/syncs/<eid>", methods=["GET"])
-def get_sync(request, eid):
-    """Retrieve a Sync by id (supports ?expand=)."""
-    rows = _query("Sync", eid)
+@app.route("/v1/destinations/<eid>", methods=["GET"])
+def get_destination(request, eid):
+    """Retrieve a Destination by id (supports ?expand=)."""
+    rows = _query("Destination", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'connectorId': 'Connector'})
+    rec = _expand(rec, request.query or {}, {'groupId': 'Group'})
     return rec, 200
 
-@app.route("/v1/syncs/<eid>", methods=["POST", "PATCH"])
-def update_sync(request, eid):
-    """Update a Sync."""
-    rows = _query("Sync", eid)
+@app.route("/v1/destinations/<eid>", methods=["POST", "PATCH"])
+def update_destination(request, eid):
+    """Update a Destination."""
+    rows = _query("Destination", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['connectorId', 'status', 'rows', 'startedAt'])
+    err = _reject_unknown(data, ['id', 'groupId', 'service', 'region', 'setupStatus', 'networkingMethod', 'daylightSavingTimeEnabled', 'createdAt'])
     if err:
         return err, 400
+    if data.get('setupStatus') and data['setupStatus'] not in ['connected', 'incomplete', 'broken']:
+        return {"error": {"message": "invalid setupStatus; allowed: " + ", ".join(['connected', 'incomplete', 'broken']), "type": "invalid_request_error"}}, 400
+    if data.get('networkingMethod') and data['networkingMethod'] not in ['Directly', 'PrivateLink', 'SshTunnel', 'ProxyAgent']:
+        return {"error": {"message": "invalid networkingMethod; allowed: " + ", ".join(['Directly', 'PrivateLink', 'SshTunnel', 'ProxyAgent']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Sync", rec)
+    _persist("Destination", rec)
     return rec, 200
 
-@app.route("/v1/syncs/<eid>", methods=["DELETE"])
-def delete_sync(request, eid):
-    """Delete a Sync."""
-    rows = _query("Sync", eid)
+@app.route("/v1/destinations/<eid>", methods=["DELETE"])
+def delete_destination(request, eid):
+    """Delete a Destination."""
+    rows = _query("Destination", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fivetran.Sync", "id": eid})
+    db.retract({"entity": f"fivetran.Destination", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/models", methods=["POST"])
-def create_model(request):
-    """Create a Model."""
+@app.route("/v1/groups", methods=["POST"])
+def create_group(request):
+    """Create a Group."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'materialization', 'sql'])
+    err = _reject_unknown(data, ['id', 'name', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'materialization'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("fivetran_mod")}
+    rec = {"id": new_id("fivetran_gro")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["materialization"] = data.get('materialization')
-    rec["sql"] = data.get('sql')
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Model", rec)
+    _persist("Group", rec)
     return rec, 201
 
-@app.route("/v1/models", methods=["GET"])
-def list_models(request):
-    """List Models with filtering + cursor pagination."""
+@app.route("/v1/groups", methods=["GET"])
+def list_groups(request):
+    """List Groups with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Model")
-    rows = _apply_filters(rows, params, ['name', 'materialization', 'sql'])
+    rows = _query("Group")
+    rows = _apply_filters(rows, params, ['id', 'name', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/models/<eid>", methods=["GET"])
-def get_model(request, eid):
-    """Retrieve a Model by id (supports ?expand=)."""
-    rows = _query("Model", eid)
+@app.route("/v1/groups/<eid>", methods=["GET"])
+def get_group(request, eid):
+    """Retrieve a Group by id (supports ?expand=)."""
+    rows = _query("Group", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/models/<eid>", methods=["POST", "PATCH"])
-def update_model(request, eid):
-    """Update a Model."""
-    rows = _query("Model", eid)
+@app.route("/v1/groups/<eid>", methods=["POST", "PATCH"])
+def update_group(request, eid):
+    """Update a Group."""
+    rows = _query("Group", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'materialization', 'sql'])
+    err = _reject_unknown(data, ['id', 'name', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,64 +340,69 @@ def update_model(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Model", rec)
+    _persist("Group", rec)
     return rec, 200
 
-@app.route("/v1/models/<eid>", methods=["DELETE"])
-def delete_model(request, eid):
-    """Delete a Model."""
-    rows = _query("Model", eid)
+@app.route("/v1/groups/<eid>", methods=["DELETE"])
+def delete_group(request, eid):
+    """Delete a Group."""
+    rows = _query("Group", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fivetran.Model", "id": eid})
+    db.retract({"entity": f"fivetran.Group", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/streams", methods=["POST"])
-def create_stream(request):
-    """Create a Stream."""
+@app.route("/v1/users", methods=["POST"])
+def create_user(request):
+    """Create a User."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'partitions', 'retentionMs'])
+    err = _reject_unknown(data, ['id', 'email', 'givenName', 'familyName', 'role', 'verified', 'active', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'partitions'])
+    err = _require(data, ['id', 'email'])
     if err:
         return err, 400
-    rec = {"id": new_id("fivetran_str")}
-    rec["name"] = data.get('name')
-    rec["partitions"] = _as_int(data.get('partitions'))
-    rec["retentionMs"] = _as_int(data.get('retentionMs'))
+    rec = {"id": new_id("fivetran_use")}
+    rec["id"] = data.get('id')
+    rec["email"] = data.get('email')
+    rec["givenName"] = data.get('givenName')
+    rec["familyName"] = data.get('familyName')
+    rec["role"] = data.get('role')
+    rec["verified"] = _as_bool(data.get('verified'))
+    rec["active"] = _as_bool(data.get('active'))
+    rec["createdAt"] = data.get('createdAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Stream", rec)
+    _persist("User", rec)
     return rec, 201
 
-@app.route("/v1/streams", methods=["GET"])
-def list_streams(request):
-    """List Streams with filtering + cursor pagination."""
+@app.route("/v1/users", methods=["GET"])
+def list_users(request):
+    """List Users with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Stream")
-    rows = _apply_filters(rows, params, ['name', 'partitions', 'retentionMs'])
+    rows = _query("User")
+    rows = _apply_filters(rows, params, ['id', 'email', 'givenName', 'familyName', 'role', 'verified', 'active', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/streams/<eid>", methods=["GET"])
-def get_stream(request, eid):
-    """Retrieve a Stream by id (supports ?expand=)."""
-    rows = _query("Stream", eid)
+@app.route("/v1/users/<eid>", methods=["GET"])
+def get_user(request, eid):
+    """Retrieve a User by id (supports ?expand=)."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/streams/<eid>", methods=["POST", "PATCH"])
-def update_stream(request, eid):
-    """Update a Stream."""
-    rows = _query("Stream", eid)
+@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
+def update_user(request, eid):
+    """Update a User."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'partitions', 'retentionMs'])
+    err = _reject_unknown(data, ['id', 'email', 'givenName', 'familyName', 'role', 'verified', 'active', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -362,152 +410,99 @@ def update_stream(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Stream", rec)
+    _persist("User", rec)
     return rec, 200
 
-@app.route("/v1/streams/<eid>", methods=["DELETE"])
-def delete_stream(request, eid):
-    """Delete a Stream."""
-    rows = _query("Stream", eid)
+@app.route("/v1/users/<eid>", methods=["DELETE"])
+def delete_user(request, eid):
+    """Delete a User."""
+    rows = _query("User", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fivetran.Stream", "id": eid})
+    db.retract({"entity": f"fivetran.User", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/schemas", methods=["POST"])
-def create_schema(request):
-    """Create a Schema."""
+@app.route("/v1/transformations", methods=["POST"])
+def create_transformation(request):
+    """Create a Transformation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'database', 'tableCount'])
+    err = _reject_unknown(data, ['id', 'type', 'status', 'paused', 'createdAt', 'lastStartedAt', 'lastEndedAt'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'database'])
+    err = _require(data, ['id', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("fivetran_sch")}
-    rec["name"] = data.get('name')
-    rec["database"] = data.get('database')
-    rec["tableCount"] = _as_int(data.get('tableCount'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Schema", rec)
-    return rec, 201
-
-@app.route("/v1/schemas", methods=["GET"])
-def list_schemas(request):
-    """List Schemas with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Schema")
-    rows = _apply_filters(rows, params, ['name', 'database', 'tableCount'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/schemas/<eid>", methods=["GET"])
-def get_schema(request, eid):
-    """Retrieve a Schema by id (supports ?expand=)."""
-    rows = _query("Schema", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/schemas/<eid>", methods=["POST", "PATCH"])
-def update_schema(request, eid):
-    """Update a Schema."""
-    rows = _query("Schema", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'database', 'tableCount'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Schema", rec)
-    return rec, 200
-
-@app.route("/v1/schemas/<eid>", methods=["DELETE"])
-def delete_schema(request, eid):
-    """Delete a Schema."""
-    rows = _query("Schema", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fivetran.Schema", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tests", methods=["POST"])
-def create_test(request):
-    """Create a Test."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'type', 'passed'])
-    if err:
-        return err, 400
-    err = _require(data, ['modelName', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("fivetran_tes")}
-    rec["modelName"] = data.get('modelName')
+    if data.get('type') and data['type'] not in ['DBT_CORE', 'QUICKSTART']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['DBT_CORE', 'QUICKSTART']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['NEW', 'SCHEDULING', 'RUNNING', 'TERMINATING', 'SUCCEEDED', 'PARTIALLY_SUCCEEDED', 'FAILED', 'CANCELED', 'BLOCKED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['NEW', 'SCHEDULING', 'RUNNING', 'TERMINATING', 'SUCCEEDED', 'PARTIALLY_SUCCEEDED', 'FAILED', 'CANCELED', 'BLOCKED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("fivetran_tra")}
+    rec["id"] = data.get('id')
     rec["type"] = data.get('type')
-    rec["passed"] = _as_bool(data.get('passed'))
+    rec["status"] = data.get('status')
+    rec["paused"] = _as_bool(data.get('paused'))
+    rec["createdAt"] = data.get('createdAt')
+    rec["lastStartedAt"] = data.get('lastStartedAt')
+    rec["lastEndedAt"] = data.get('lastEndedAt')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Test", rec)
+    _persist("Transformation", rec)
     return rec, 201
 
-@app.route("/v1/tests", methods=["GET"])
-def list_tests(request):
-    """List Tests with filtering + cursor pagination."""
+@app.route("/v1/transformations", methods=["GET"])
+def list_transformations(request):
+    """List Transformations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Test")
-    rows = _apply_filters(rows, params, ['modelName', 'type', 'passed'])
+    rows = _query("Transformation")
+    rows = _apply_filters(rows, params, ['id', 'type', 'status', 'paused', 'createdAt', 'lastStartedAt', 'lastEndedAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tests/<eid>", methods=["GET"])
-def get_test(request, eid):
-    """Retrieve a Test by id (supports ?expand=)."""
-    rows = _query("Test", eid)
+@app.route("/v1/transformations/<eid>", methods=["GET"])
+def get_transformation(request, eid):
+    """Retrieve a Transformation by id (supports ?expand=)."""
+    rows = _query("Transformation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tests/<eid>", methods=["POST", "PATCH"])
-def update_test(request, eid):
-    """Update a Test."""
-    rows = _query("Test", eid)
+@app.route("/v1/transformations/<eid>", methods=["POST", "PATCH"])
+def update_transformation(request, eid):
+    """Update a Transformation."""
+    rows = _query("Transformation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['modelName', 'type', 'passed'])
+    err = _reject_unknown(data, ['id', 'type', 'status', 'paused', 'createdAt', 'lastStartedAt', 'lastEndedAt'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['DBT_CORE', 'QUICKSTART']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['DBT_CORE', 'QUICKSTART']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['NEW', 'SCHEDULING', 'RUNNING', 'TERMINATING', 'SUCCEEDED', 'PARTIALLY_SUCCEEDED', 'FAILED', 'CANCELED', 'BLOCKED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['NEW', 'SCHEDULING', 'RUNNING', 'TERMINATING', 'SUCCEEDED', 'PARTIALLY_SUCCEEDED', 'FAILED', 'CANCELED', 'BLOCKED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Test", rec)
+    _persist("Transformation", rec)
     return rec, 200
 
-@app.route("/v1/tests/<eid>", methods=["DELETE"])
-def delete_test(request, eid):
-    """Delete a Test."""
-    rows = _query("Test", eid)
+@app.route("/v1/transformations/<eid>", methods=["DELETE"])
+def delete_transformation(request, eid):
+    """Delete a Transformation."""
+    rows = _query("Transformation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fivetran.Test", "id": eid})
+    db.retract({"entity": f"fivetran.Transformation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "fivetran-compat", "tier": "L4",
-            "entities": ['Connector', 'Sync', 'Model', 'Stream', 'Schema', 'Test']}, 200
+            "entities": ['Connector', 'Destination', 'Group', 'User', 'Transformation']}, 200
 
 
 if __name__ == "__main__":

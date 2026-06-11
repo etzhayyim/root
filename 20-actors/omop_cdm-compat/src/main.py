@@ -111,53 +111,58 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/patients", methods=["POST"])
-def create_patient(request):
-    """Create a Patient."""
+@app.route("/v1/persons", methods=["POST"])
+def create_person(request):
+    """Create a Person."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['identifier', 'givenName', 'familyName', 'birthDate'])
+    err = _reject_unknown(data, ['personId', 'genderConceptId', 'yearOfBirth', 'monthOfBirth', 'dayOfBirth', 'birthDatetime', 'raceConceptId', 'ethnicityConceptId'])
     if err:
         return err, 400
-    err = _require(data, ['identifier', 'givenName'])
+    err = _require(data, ['yearOfBirth', 'monthOfBirth'])
     if err:
         return err, 400
-    rec = {"id": new_id("omopcdm_pat")}
-    rec["identifier"] = data.get('identifier')
-    rec["givenName"] = data.get('givenName')
-    rec["familyName"] = data.get('familyName')
-    rec["birthDate"] = data.get('birthDate')
+    rec = {"id": new_id("omopcdm_per")}
+    rec["personId"] = _as_int(data.get('personId'))
+    rec["genderConceptId"] = _as_int(data.get('genderConceptId'))
+    rec["yearOfBirth"] = _as_int(data.get('yearOfBirth'))
+    rec["monthOfBirth"] = _as_int(data.get('monthOfBirth'))
+    rec["dayOfBirth"] = _as_int(data.get('dayOfBirth'))
+    rec["birthDatetime"] = data.get('birthDatetime')
+    rec["raceConceptId"] = _as_int(data.get('raceConceptId'))
+    rec["ethnicityConceptId"] = _as_int(data.get('ethnicityConceptId'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Patient", rec)
+    _persist("Person", rec)
     return rec, 201
 
-@app.route("/v1/patients", methods=["GET"])
-def list_patients(request):
-    """List Patients with filtering + cursor pagination."""
+@app.route("/v1/persons", methods=["GET"])
+def list_persons(request):
+    """List Persons with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Patient")
-    rows = _apply_filters(rows, params, ['identifier', 'givenName', 'familyName', 'birthDate'])
+    rows = _query("Person")
+    rows = _apply_filters(rows, params, ['personId', 'genderConceptId', 'yearOfBirth', 'monthOfBirth', 'dayOfBirth', 'birthDatetime', 'raceConceptId', 'ethnicityConceptId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/patients/<eid>", methods=["GET"])
-def get_patient(request, eid):
-    """Retrieve a Patient by id (supports ?expand=)."""
-    rows = _query("Patient", eid)
+@app.route("/v1/persons/<eid>", methods=["GET"])
+def get_person(request, eid):
+    """Retrieve a Person by id (supports ?expand=)."""
+    rows = _query("Person", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'personId': 'Person'})
     return rec, 200
 
-@app.route("/v1/patients/<eid>", methods=["POST", "PATCH"])
-def update_patient(request, eid):
-    """Update a Patient."""
-    rows = _query("Patient", eid)
+@app.route("/v1/persons/<eid>", methods=["POST", "PATCH"])
+def update_person(request, eid):
+    """Update a Person."""
+    rows = _query("Person", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['identifier', 'givenName', 'familyName', 'birthDate'])
+    err = _reject_unknown(data, ['personId', 'genderConceptId', 'yearOfBirth', 'monthOfBirth', 'dayOfBirth', 'birthDatetime', 'raceConceptId', 'ethnicityConceptId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,33 +170,323 @@ def update_patient(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Patient", rec)
+    _persist("Person", rec)
     return rec, 200
 
-@app.route("/v1/patients/<eid>", methods=["DELETE"])
-def delete_patient(request, eid):
-    """Delete a Patient."""
-    rows = _query("Patient", eid)
+@app.route("/v1/persons/<eid>", methods=["DELETE"])
+def delete_person(request, eid):
+    """Delete a Person."""
+    rows = _query("Person", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"omop_cdm.Patient", "id": eid})
+    db.retract({"entity": f"omop_cdm.Person", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/concepts", methods=["POST"])
+def create_concept(request):
+    """Create a Concept."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['conceptId', 'conceptName', 'domainId', 'vocabularyId', 'conceptClassId', 'standardConcept', 'conceptCode', 'validStartDate', 'validEndDate', 'invalidReason'])
+    if err:
+        return err, 400
+    err = _require(data, ['conceptName', 'standardConcept'])
+    if err:
+        return err, 400
+    if data.get('standardConcept') and data['standardConcept'] not in ['S', 'C']:
+        return {"error": {"message": "invalid standardConcept; allowed: " + ", ".join(['S', 'C']), "type": "invalid_request_error"}}, 400
+    if data.get('invalidReason') and data['invalidReason'] not in ['D', 'U']:
+        return {"error": {"message": "invalid invalidReason; allowed: " + ", ".join(['D', 'U']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("omopcdm_con")}
+    rec["conceptId"] = _as_int(data.get('conceptId'))
+    rec["conceptName"] = data.get('conceptName')
+    rec["domainId"] = data.get('domainId')
+    rec["vocabularyId"] = data.get('vocabularyId')
+    rec["conceptClassId"] = data.get('conceptClassId')
+    rec["standardConcept"] = data.get('standardConcept')
+    rec["conceptCode"] = data.get('conceptCode')
+    rec["validStartDate"] = data.get('validStartDate')
+    rec["validEndDate"] = data.get('validEndDate')
+    rec["invalidReason"] = data.get('invalidReason')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Concept", rec)
+    return rec, 201
+
+@app.route("/v1/concepts", methods=["GET"])
+def list_concepts(request):
+    """List Concepts with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Concept")
+    rows = _apply_filters(rows, params, ['conceptId', 'conceptName', 'domainId', 'vocabularyId', 'conceptClassId', 'standardConcept', 'conceptCode', 'validStartDate', 'validEndDate', 'invalidReason'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/concepts/<eid>", methods=["GET"])
+def get_concept(request, eid):
+    """Retrieve a Concept by id (supports ?expand=)."""
+    rows = _query("Concept", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'conceptId': 'Concept'})
+    return rec, 200
+
+@app.route("/v1/concepts/<eid>", methods=["POST", "PATCH"])
+def update_concept(request, eid):
+    """Update a Concept."""
+    rows = _query("Concept", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['conceptId', 'conceptName', 'domainId', 'vocabularyId', 'conceptClassId', 'standardConcept', 'conceptCode', 'validStartDate', 'validEndDate', 'invalidReason'])
+    if err:
+        return err, 400
+    if data.get('standardConcept') and data['standardConcept'] not in ['S', 'C']:
+        return {"error": {"message": "invalid standardConcept; allowed: " + ", ".join(['S', 'C']), "type": "invalid_request_error"}}, 400
+    if data.get('invalidReason') and data['invalidReason'] not in ['D', 'U']:
+        return {"error": {"message": "invalid invalidReason; allowed: " + ", ".join(['D', 'U']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Concept", rec)
+    return rec, 200
+
+@app.route("/v1/concepts/<eid>", methods=["DELETE"])
+def delete_concept(request, eid):
+    """Delete a Concept."""
+    rows = _query("Concept", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"omop_cdm.Concept", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/conditionoccurrences", methods=["POST"])
+def create_condition_occurrence(request):
+    """Create a ConditionOccurrence."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['conditionOccurrenceId', 'personId', 'conditionConceptId', 'conditionStartDate', 'conditionEndDate', 'visitOccurrenceId'])
+    if err:
+        return err, 400
+    err = _require(data, ['conditionStartDate', 'conditionEndDate'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("omopcdm_con")}
+    rec["conditionOccurrenceId"] = _as_int(data.get('conditionOccurrenceId'))
+    rec["personId"] = _as_int(data.get('personId'))
+    rec["conditionConceptId"] = _as_int(data.get('conditionConceptId'))
+    rec["conditionStartDate"] = data.get('conditionStartDate')
+    rec["conditionEndDate"] = data.get('conditionEndDate')
+    rec["visitOccurrenceId"] = _as_int(data.get('visitOccurrenceId'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("ConditionOccurrence", rec)
+    return rec, 201
+
+@app.route("/v1/conditionoccurrences", methods=["GET"])
+def list_condition_occurrences(request):
+    """List ConditionOccurrences with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("ConditionOccurrence")
+    rows = _apply_filters(rows, params, ['conditionOccurrenceId', 'personId', 'conditionConceptId', 'conditionStartDate', 'conditionEndDate', 'visitOccurrenceId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/conditionoccurrences/<eid>", methods=["GET"])
+def get_condition_occurrence(request, eid):
+    """Retrieve a ConditionOccurrence by id (supports ?expand=)."""
+    rows = _query("ConditionOccurrence", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'conditionOccurrenceId': 'ConditionOccurrence', 'personId': 'Person', 'visitOccurrenceId': 'VisitOccurrence'})
+    return rec, 200
+
+@app.route("/v1/conditionoccurrences/<eid>", methods=["POST", "PATCH"])
+def update_condition_occurrence(request, eid):
+    """Update a ConditionOccurrence."""
+    rows = _query("ConditionOccurrence", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['conditionOccurrenceId', 'personId', 'conditionConceptId', 'conditionStartDate', 'conditionEndDate', 'visitOccurrenceId'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("ConditionOccurrence", rec)
+    return rec, 200
+
+@app.route("/v1/conditionoccurrences/<eid>", methods=["DELETE"])
+def delete_condition_occurrence(request, eid):
+    """Delete a ConditionOccurrence."""
+    rows = _query("ConditionOccurrence", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"omop_cdm.ConditionOccurrence", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/drugexposures", methods=["POST"])
+def create_drug_exposure(request):
+    """Create a DrugExposure."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['drugExposureId', 'personId', 'drugConceptId', 'drugExposureStartDate', 'quantity', 'daysSupply'])
+    if err:
+        return err, 400
+    err = _require(data, ['drugExposureStartDate', 'quantity'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("omopcdm_dru")}
+    rec["drugExposureId"] = _as_int(data.get('drugExposureId'))
+    rec["personId"] = _as_int(data.get('personId'))
+    rec["drugConceptId"] = _as_int(data.get('drugConceptId'))
+    rec["drugExposureStartDate"] = data.get('drugExposureStartDate')
+    rec["quantity"] = _as_float(data.get('quantity'))
+    rec["daysSupply"] = _as_int(data.get('daysSupply'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("DrugExposure", rec)
+    return rec, 201
+
+@app.route("/v1/drugexposures", methods=["GET"])
+def list_drug_exposures(request):
+    """List DrugExposures with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("DrugExposure")
+    rows = _apply_filters(rows, params, ['drugExposureId', 'personId', 'drugConceptId', 'drugExposureStartDate', 'quantity', 'daysSupply'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/drugexposures/<eid>", methods=["GET"])
+def get_drug_exposure(request, eid):
+    """Retrieve a DrugExposure by id (supports ?expand=)."""
+    rows = _query("DrugExposure", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'drugExposureId': 'DrugExposure', 'personId': 'Person'})
+    return rec, 200
+
+@app.route("/v1/drugexposures/<eid>", methods=["POST", "PATCH"])
+def update_drug_exposure(request, eid):
+    """Update a DrugExposure."""
+    rows = _query("DrugExposure", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['drugExposureId', 'personId', 'drugConceptId', 'drugExposureStartDate', 'quantity', 'daysSupply'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("DrugExposure", rec)
+    return rec, 200
+
+@app.route("/v1/drugexposures/<eid>", methods=["DELETE"])
+def delete_drug_exposure(request, eid):
+    """Delete a DrugExposure."""
+    rows = _query("DrugExposure", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"omop_cdm.DrugExposure", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/visitoccurrences", methods=["POST"])
+def create_visit_occurrence(request):
+    """Create a VisitOccurrence."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['visitOccurrenceId', 'personId', 'visitConceptId', 'visitStartDate', 'visitEndDate', 'providerId'])
+    if err:
+        return err, 400
+    err = _require(data, ['visitStartDate', 'visitEndDate'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("omopcdm_vis")}
+    rec["visitOccurrenceId"] = _as_int(data.get('visitOccurrenceId'))
+    rec["personId"] = _as_int(data.get('personId'))
+    rec["visitConceptId"] = _as_int(data.get('visitConceptId'))
+    rec["visitStartDate"] = data.get('visitStartDate')
+    rec["visitEndDate"] = data.get('visitEndDate')
+    rec["providerId"] = _as_int(data.get('providerId'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("VisitOccurrence", rec)
+    return rec, 201
+
+@app.route("/v1/visitoccurrences", methods=["GET"])
+def list_visit_occurrences(request):
+    """List VisitOccurrences with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("VisitOccurrence")
+    rows = _apply_filters(rows, params, ['visitOccurrenceId', 'personId', 'visitConceptId', 'visitStartDate', 'visitEndDate', 'providerId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/visitoccurrences/<eid>", methods=["GET"])
+def get_visit_occurrence(request, eid):
+    """Retrieve a VisitOccurrence by id (supports ?expand=)."""
+    rows = _query("VisitOccurrence", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'visitOccurrenceId': 'VisitOccurrence', 'personId': 'Person'})
+    return rec, 200
+
+@app.route("/v1/visitoccurrences/<eid>", methods=["POST", "PATCH"])
+def update_visit_occurrence(request, eid):
+    """Update a VisitOccurrence."""
+    rows = _query("VisitOccurrence", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['visitOccurrenceId', 'personId', 'visitConceptId', 'visitStartDate', 'visitEndDate', 'providerId'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("VisitOccurrence", rec)
+    return rec, 200
+
+@app.route("/v1/visitoccurrences/<eid>", methods=["DELETE"])
+def delete_visit_occurrence(request, eid):
+    """Delete a VisitOccurrence."""
+    rows = _query("VisitOccurrence", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"omop_cdm.VisitOccurrence", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/observations", methods=["POST"])
 def create_observation(request):
     """Create a Observation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'value', 'unit'])
+    err = _reject_unknown(data, ['observationId', 'personId', 'observationConceptId', 'observationDate', 'valueAsNumber', 'valueAsString'])
     if err:
         return err, 400
-    err = _require(data, ['code', 'value'])
+    err = _require(data, ['observationDate', 'valueAsNumber'])
     if err:
         return err, 400
     rec = {"id": new_id("omopcdm_obs")}
-    rec["patientId"] = data.get('patientId')
-    rec["code"] = data.get('code')
-    rec["value"] = data.get('value')
-    rec["unit"] = data.get('unit')
+    rec["observationId"] = _as_int(data.get('observationId'))
+    rec["personId"] = _as_int(data.get('personId'))
+    rec["observationConceptId"] = _as_int(data.get('observationConceptId'))
+    rec["observationDate"] = data.get('observationDate')
+    rec["valueAsNumber"] = _as_float(data.get('valueAsNumber'))
+    rec["valueAsString"] = data.get('valueAsString')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Observation", rec)
@@ -202,7 +497,7 @@ def list_observations(request):
     """List Observations with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Observation")
-    rows = _apply_filters(rows, params, ['patientId', 'code', 'value', 'unit'])
+    rows = _apply_filters(rows, params, ['observationId', 'personId', 'observationConceptId', 'observationDate', 'valueAsNumber', 'valueAsString'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -214,7 +509,7 @@ def get_observation(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
+    rec = _expand(rec, request.query or {}, {'observationId': 'Observation', 'personId': 'Person'})
     return rec, 200
 
 @app.route("/v1/observations/<eid>", methods=["POST", "PATCH"])
@@ -224,7 +519,7 @@ def update_observation(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'value', 'unit'])
+    err = _reject_unknown(data, ['observationId', 'personId', 'observationConceptId', 'observationDate', 'valueAsNumber', 'valueAsString'])
     if err:
         return err, 400
     rec = rows[0]
@@ -244,275 +539,10 @@ def delete_observation(request, eid):
     db.retract({"entity": f"omop_cdm.Observation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/conditions", methods=["POST"])
-def create_condition(request):
-    """Create a Condition."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'clinicalStatus'])
-    if err:
-        return err, 400
-    err = _require(data, ['code', 'clinicalStatus'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("omopcdm_con")}
-    rec["patientId"] = data.get('patientId')
-    rec["code"] = data.get('code')
-    rec["clinicalStatus"] = data.get('clinicalStatus')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Condition", rec)
-    return rec, 201
-
-@app.route("/v1/conditions", methods=["GET"])
-def list_conditions(request):
-    """List Conditions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Condition")
-    rows = _apply_filters(rows, params, ['patientId', 'code', 'clinicalStatus'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/conditions/<eid>", methods=["GET"])
-def get_condition(request, eid):
-    """Retrieve a Condition by id (supports ?expand=)."""
-    rows = _query("Condition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
-    return rec, 200
-
-@app.route("/v1/conditions/<eid>", methods=["POST", "PATCH"])
-def update_condition(request, eid):
-    """Update a Condition."""
-    rows = _query("Condition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'clinicalStatus'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Condition", rec)
-    return rec, 200
-
-@app.route("/v1/conditions/<eid>", methods=["DELETE"])
-def delete_condition(request, eid):
-    """Delete a Condition."""
-    rows = _query("Condition", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"omop_cdm.Condition", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/diagnosticreports", methods=["POST"])
-def create_diagnostic_report(request):
-    """Create a DiagnosticReport."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'status', 'issuedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['code', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("omopcdm_dia")}
-    rec["patientId"] = data.get('patientId')
-    rec["code"] = data.get('code')
-    rec["status"] = data.get('status')
-    rec["issuedAt"] = data.get('issuedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("DiagnosticReport", rec)
-    return rec, 201
-
-@app.route("/v1/diagnosticreports", methods=["GET"])
-def list_diagnostic_reports(request):
-    """List DiagnosticReports with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("DiagnosticReport")
-    rows = _apply_filters(rows, params, ['patientId', 'code', 'status', 'issuedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/diagnosticreports/<eid>", methods=["GET"])
-def get_diagnostic_report(request, eid):
-    """Retrieve a DiagnosticReport by id (supports ?expand=)."""
-    rows = _query("DiagnosticReport", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
-    return rec, 200
-
-@app.route("/v1/diagnosticreports/<eid>", methods=["POST", "PATCH"])
-def update_diagnostic_report(request, eid):
-    """Update a DiagnosticReport."""
-    rows = _query("DiagnosticReport", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'code', 'status', 'issuedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("DiagnosticReport", rec)
-    return rec, 200
-
-@app.route("/v1/diagnosticreports/<eid>", methods=["DELETE"])
-def delete_diagnostic_report(request, eid):
-    """Delete a DiagnosticReport."""
-    rows = _query("DiagnosticReport", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"omop_cdm.DiagnosticReport", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/sequences", methods=["POST"])
-def create_sequence(request):
-    """Create a Sequence."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'accession', 'referenceGenome'])
-    if err:
-        return err, 400
-    err = _require(data, ['accession', 'referenceGenome'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("omopcdm_seq")}
-    rec["patientId"] = data.get('patientId')
-    rec["accession"] = data.get('accession')
-    rec["referenceGenome"] = data.get('referenceGenome')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Sequence", rec)
-    return rec, 201
-
-@app.route("/v1/sequences", methods=["GET"])
-def list_sequences(request):
-    """List Sequences with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Sequence")
-    rows = _apply_filters(rows, params, ['patientId', 'accession', 'referenceGenome'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/sequences/<eid>", methods=["GET"])
-def get_sequence(request, eid):
-    """Retrieve a Sequence by id (supports ?expand=)."""
-    rows = _query("Sequence", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
-    return rec, 200
-
-@app.route("/v1/sequences/<eid>", methods=["POST", "PATCH"])
-def update_sequence(request, eid):
-    """Update a Sequence."""
-    rows = _query("Sequence", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'accession', 'referenceGenome'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Sequence", rec)
-    return rec, 200
-
-@app.route("/v1/sequences/<eid>", methods=["DELETE"])
-def delete_sequence(request, eid):
-    """Delete a Sequence."""
-    rows = _query("Sequence", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"omop_cdm.Sequence", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/specimens", methods=["POST"])
-def create_specimen(request):
-    """Create a Specimen."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'type', 'collectedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'collectedAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("omopcdm_spe")}
-    rec["patientId"] = data.get('patientId')
-    rec["type"] = data.get('type')
-    rec["collectedAt"] = data.get('collectedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Specimen", rec)
-    return rec, 201
-
-@app.route("/v1/specimens", methods=["GET"])
-def list_specimens(request):
-    """List Specimens with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Specimen")
-    rows = _apply_filters(rows, params, ['patientId', 'type', 'collectedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/specimens/<eid>", methods=["GET"])
-def get_specimen(request, eid):
-    """Retrieve a Specimen by id (supports ?expand=)."""
-    rows = _query("Specimen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'patientId': 'Patient'})
-    return rec, 200
-
-@app.route("/v1/specimens/<eid>", methods=["POST", "PATCH"])
-def update_specimen(request, eid):
-    """Update a Specimen."""
-    rows = _query("Specimen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['patientId', 'type', 'collectedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Specimen", rec)
-    return rec, 200
-
-@app.route("/v1/specimens/<eid>", methods=["DELETE"])
-def delete_specimen(request, eid):
-    """Delete a Specimen."""
-    rows = _query("Specimen", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"omop_cdm.Specimen", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "omop_cdm-compat", "tier": "L4",
-            "entities": ['Patient', 'Observation', 'Condition', 'DiagnosticReport', 'Sequence', 'Specimen']}, 200
+            "entities": ['Person', 'Concept', 'ConditionOccurrence', 'DrugExposure', 'VisitOccurrence', 'Observation']}, 200
 
 
 if __name__ == "__main__":

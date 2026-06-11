@@ -965,7 +965,13 @@
             "type": "string"
           },
           "type": {
-            "type": "integer"
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              8
+            ]
           },
           "status": {
             "type": "string",
@@ -1007,7 +1013,13 @@
             "type": "string"
           },
           "type": {
-            "type": "integer"
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              8
+            ]
           },
           "status": {
             "type": "string",

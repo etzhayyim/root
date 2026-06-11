@@ -3,74 +3,52 @@
 
 namespace adyen {
 
-    entity Customer {
+    entity Payment {
         id: string @unique
-        email: string
-        name: string
-        phone: string
-        balance: integer
+        pspReference: string
+        merchantReference: string
+        merchantAccount: string
+        reference: string
+        resultCode: string
+        shopperReference: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity PaymentIntent {
+    entity Amount {
         id: string @unique
-        customerId: string
-        amount: integer
+        value: integer
         currency: string
-        status: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Charge {
+    entity ModificationResult {
         id: string @unique
-        customerId: string
-        paymentIntentId: string
-        amount: integer
-        currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Refund {
-        id: string @unique
-        chargeId: string
-        amount: integer
-        reason: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Payout {
-        id: string @unique
-        amount: integer
-        currency: string
-        arrivalDate: datetime
-        status: string
+        pspReference: string
+        resultCode: string
+        response: string
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity PaymentMethod {
         id: string @unique
-        customerId: string
         type: string
-        last4: string
-        brand: string
+        storedPaymentMethodId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Notification {
+        id: string @unique
+        eventCode: string
+        pspReference: string
+        merchantReference: string
+        eventDate: datetime
+        success: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

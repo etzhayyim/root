@@ -3,69 +3,50 @@
 
 namespace bgp_rpki {
 
-    entity Prefix {
+    entity RouteOriginAuthorization {
         id: string @unique
-        cidr: string
-        originAsn: string
-        validity: string
+        version: integer
+        asn: integer
+        prefix: string
+        prefixLength: integer
+        maxLength: integer
+        addressFamily: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Route {
+    entity ValidationResult {
         id: string @unique
-        prefixId: string
-        nextHop: string
-        asPath: string
+        asn: integer
+        prefix: string
+        prefixLength: integer
+        validationState: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Peer {
+    entity RpkiToRouterPdu {
         id: string @unique
-        asn: string
-        ipAddress: string
-        state: string
+        protocolVersion: integer
+        pduType: integer
+        sessionId: integer
+        serialNumber: integer
+        length: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Zone {
+    entity PrefixPdu {
         id: string @unique
-        name: string
-        serial: integer
-        refreshSec: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Record {
-        id: string @unique
-        zoneId: string
-        name: string
-        type: string
-        value: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Tunnel {
-        id: string @unique
-        localAddr: string
-        remoteAddr: string
-        protocol: string
-        active: boolean
+        protocolVersion: integer
+        pduType: integer
+        flags: integer
+        prefixLength: integer
+        maxLength: integer
+        prefix: string
+        asn: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

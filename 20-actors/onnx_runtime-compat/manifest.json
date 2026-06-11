@@ -5,21 +5,57 @@
   "kind": "compat",
   "title": "onnx_runtime clean-room actor",
   "description": "Clean-room, API-compatible AI/ML infrastructure / chips actor (onnx_runtime); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidzybaagz5iwy322dsoh25fbxotoqbu5hogllrnf74rqgdjocha7e",
+  "wasmCid": "bafkreidz6camr2k22jct7rkn2s77mc244gbynvb5bqgdap6xs7yi3x2bzq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidzybaagz5iwy322dsoh25fbxotoqbu5hogllrnf74rqgdjocha7e",
+  "ipfs": "ipfs://bafkreidz6camr2k22jct7rkn2s77mc244gbynvb5bqgdap6xs7yi3x2bzq",
   "schema": "schema/onnx_runtime.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://raw.githubusercontent.com/onnx/onnx/main/onnx/onnx.proto3 (commit ef516e7b)",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "ModelProto",
+      "GraphProto",
+      "NodeProto",
+      "TensorProto",
+      "AttributeProto"
+    ],
+    "enums": {
+      "TensorProto": {
+        "dataLocation": [
+          0,
+          1
+        ]
+      },
+      "AttributeProto": {
+        "type": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ]
+      }
+    }
+  },
   "entities": [
-    "Device",
-    "Kernel",
-    "MemoryAlloc",
-    "InferenceJob",
-    "Engine",
-    "Utilization"
+    "ModelProto",
+    "GraphProto",
+    "NodeProto",
+    "TensorProto",
+    "AttributeProto"
   ],
   "adr": [
     "260607",
@@ -31,157 +67,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/devices",
-          "op": "create Device"
+          "path": "/v1/modelprotos",
+          "op": "create ModelProto"
         },
         {
           "method": "GET",
-          "path": "/v1/devices",
-          "op": "list Device"
+          "path": "/v1/modelprotos",
+          "op": "list ModelProto"
         },
         {
           "method": "GET",
-          "path": "/v1/devices/{id}",
-          "op": "get Device"
+          "path": "/v1/modelprotos/{id}",
+          "op": "get ModelProto"
         },
         {
           "method": "PATCH",
-          "path": "/v1/devices/{id}",
-          "op": "update Device"
+          "path": "/v1/modelprotos/{id}",
+          "op": "update ModelProto"
         },
         {
           "method": "DELETE",
-          "path": "/v1/devices/{id}",
-          "op": "delete Device"
+          "path": "/v1/modelprotos/{id}",
+          "op": "delete ModelProto"
         },
         {
           "method": "POST",
-          "path": "/v1/kernels",
-          "op": "create Kernel"
+          "path": "/v1/graphprotos",
+          "op": "create GraphProto"
         },
         {
           "method": "GET",
-          "path": "/v1/kernels",
-          "op": "list Kernel"
+          "path": "/v1/graphprotos",
+          "op": "list GraphProto"
         },
         {
           "method": "GET",
-          "path": "/v1/kernels/{id}",
-          "op": "get Kernel"
+          "path": "/v1/graphprotos/{id}",
+          "op": "get GraphProto"
         },
         {
           "method": "PATCH",
-          "path": "/v1/kernels/{id}",
-          "op": "update Kernel"
+          "path": "/v1/graphprotos/{id}",
+          "op": "update GraphProto"
         },
         {
           "method": "DELETE",
-          "path": "/v1/kernels/{id}",
-          "op": "delete Kernel"
+          "path": "/v1/graphprotos/{id}",
+          "op": "delete GraphProto"
         },
         {
           "method": "POST",
-          "path": "/v1/memoryallocs",
-          "op": "create MemoryAlloc"
+          "path": "/v1/nodeprotos",
+          "op": "create NodeProto"
         },
         {
           "method": "GET",
-          "path": "/v1/memoryallocs",
-          "op": "list MemoryAlloc"
+          "path": "/v1/nodeprotos",
+          "op": "list NodeProto"
         },
         {
           "method": "GET",
-          "path": "/v1/memoryallocs/{id}",
-          "op": "get MemoryAlloc"
+          "path": "/v1/nodeprotos/{id}",
+          "op": "get NodeProto"
         },
         {
           "method": "PATCH",
-          "path": "/v1/memoryallocs/{id}",
-          "op": "update MemoryAlloc"
+          "path": "/v1/nodeprotos/{id}",
+          "op": "update NodeProto"
         },
         {
           "method": "DELETE",
-          "path": "/v1/memoryallocs/{id}",
-          "op": "delete MemoryAlloc"
+          "path": "/v1/nodeprotos/{id}",
+          "op": "delete NodeProto"
         },
         {
           "method": "POST",
-          "path": "/v1/inferencejobs",
-          "op": "create InferenceJob"
+          "path": "/v1/tensorprotos",
+          "op": "create TensorProto"
         },
         {
           "method": "GET",
-          "path": "/v1/inferencejobs",
-          "op": "list InferenceJob"
+          "path": "/v1/tensorprotos",
+          "op": "list TensorProto"
         },
         {
           "method": "GET",
-          "path": "/v1/inferencejobs/{id}",
-          "op": "get InferenceJob"
+          "path": "/v1/tensorprotos/{id}",
+          "op": "get TensorProto"
         },
         {
           "method": "PATCH",
-          "path": "/v1/inferencejobs/{id}",
-          "op": "update InferenceJob"
+          "path": "/v1/tensorprotos/{id}",
+          "op": "update TensorProto"
         },
         {
           "method": "DELETE",
-          "path": "/v1/inferencejobs/{id}",
-          "op": "delete InferenceJob"
+          "path": "/v1/tensorprotos/{id}",
+          "op": "delete TensorProto"
         },
         {
           "method": "POST",
-          "path": "/v1/engines",
-          "op": "create Engine"
+          "path": "/v1/attributeprotos",
+          "op": "create AttributeProto"
         },
         {
           "method": "GET",
-          "path": "/v1/engines",
-          "op": "list Engine"
+          "path": "/v1/attributeprotos",
+          "op": "list AttributeProto"
         },
         {
           "method": "GET",
-          "path": "/v1/engines/{id}",
-          "op": "get Engine"
+          "path": "/v1/attributeprotos/{id}",
+          "op": "get AttributeProto"
         },
         {
           "method": "PATCH",
-          "path": "/v1/engines/{id}",
-          "op": "update Engine"
+          "path": "/v1/attributeprotos/{id}",
+          "op": "update AttributeProto"
         },
         {
           "method": "DELETE",
-          "path": "/v1/engines/{id}",
-          "op": "delete Engine"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/utilizations",
-          "op": "create Utilization"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/utilizations",
-          "op": "list Utilization"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/utilizations/{id}",
-          "op": "get Utilization"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/utilizations/{id}",
-          "op": "update Utilization"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/utilizations/{id}",
-          "op": "delete Utilization"
+          "path": "/v1/attributeprotos/{id}",
+          "op": "delete AttributeProto"
         }
       ],
       "features": {
@@ -244,44 +255,140 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_device",
-          "description": "Create a Device.",
+          "name": "create_model_proto",
+          "description": "Create a ModelProto.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "irVersion": {
+                "type": "integer"
+              },
+              "producerName": {
+                "type": "string"
+              },
+              "producerVersion": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "string"
+              },
+              "modelVersion": {
+                "type": "integer"
+              },
+              "docString": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "irVersion",
+              "producerName"
+            ]
+          }
+        },
+        {
+          "name": "list_model_protos",
+          "description": "List ModelProtos.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_model_proto",
+          "description": "Get a ModelProto by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_model_proto",
+          "description": "Update a ModelProto.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "irVersion": {
+                "type": "integer"
+              },
+              "producerName": {
+                "type": "string"
+              },
+              "producerVersion": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "string"
+              },
+              "modelVersion": {
+                "type": "integer"
+              },
+              "docString": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_model_proto",
+          "description": "Delete a ModelProto.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_graph_proto",
+          "description": "Create a GraphProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "vendor": {
+              "docString": {
                 "type": "string"
-              },
-              "memoryGb": {
-                "type": "integer"
-              },
-              "index": {
-                "type": "integer"
               }
             },
             "required": [
               "name",
-              "vendor"
+              "docString"
             ]
           }
         },
         {
-          "name": "list_devices",
-          "description": "List Devices.",
+          "name": "list_graph_protos",
+          "description": "List GraphProtos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_device",
-          "description": "Get a Device by id.",
+          "name": "get_graph_proto",
+          "description": "Get a GraphProto by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +402,8 @@
           }
         },
         {
-          "name": "update_device",
-          "description": "Update a Device.",
+          "name": "update_graph_proto",
+          "description": "Update a GraphProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,14 +413,8 @@
               "name": {
                 "type": "string"
               },
-              "vendor": {
+              "docString": {
                 "type": "string"
-              },
-              "memoryGb": {
-                "type": "integer"
-              },
-              "index": {
-                "type": "integer"
               }
             },
             "required": [
@@ -322,8 +423,8 @@
           }
         },
         {
-          "name": "delete_device",
-          "description": "Delete a Device.",
+          "name": "delete_graph_proto",
+          "description": "Delete a GraphProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +438,41 @@
           }
         },
         {
-          "name": "create_kernel",
-          "description": "Create a Kernel.",
+          "name": "create_node_proto",
+          "description": "Create a NodeProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "deviceId": {
-                "type": "string"
-              },
               "name": {
                 "type": "string"
               },
-              "gridDim": {
+              "opType": {
                 "type": "string"
               },
-              "blockDim": {
+              "domain": {
+                "type": "string"
+              },
+              "docString": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "gridDim"
+              "opType"
             ]
           }
         },
         {
-          "name": "list_kernels",
-          "description": "List Kernels.",
+          "name": "list_node_protos",
+          "description": "List NodeProtos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_kernel",
-          "description": "Get a Kernel by id.",
+          "name": "get_node_proto",
+          "description": "Get a NodeProto by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,24 +486,24 @@
           }
         },
         {
-          "name": "update_kernel",
-          "description": "Update a Kernel.",
+          "name": "update_node_proto",
+          "description": "Update a NodeProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "deviceId": {
                 "type": "string"
               },
               "name": {
                 "type": "string"
               },
-              "gridDim": {
+              "opType": {
                 "type": "string"
               },
-              "blockDim": {
+              "domain": {
+                "type": "string"
+              },
+              "docString": {
                 "type": "string"
               }
             },
@@ -412,8 +513,8 @@
           }
         },
         {
-          "name": "delete_kernel",
-          "description": "Delete a Kernel.",
+          "name": "delete_node_proto",
+          "description": "Delete a NodeProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,212 +528,41 @@
           }
         },
         {
-          "name": "create_memory_alloc",
-          "description": "Create a MemoryAlloc.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "deviceId": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "ptr": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "sizeBytes",
-              "ptr"
-            ]
-          }
-        },
-        {
-          "name": "list_memory_allocs",
-          "description": "List MemoryAllocs.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_memory_alloc",
-          "description": "Get a MemoryAlloc by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_memory_alloc",
-          "description": "Update a MemoryAlloc.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "sizeBytes": {
-                "type": "integer"
-              },
-              "ptr": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_memory_alloc",
-          "description": "Delete a MemoryAlloc.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_inference_job",
-          "description": "Create a InferenceJob.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelRef": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "latencyMs": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "status",
-              "latencyMs"
-            ]
-          }
-        },
-        {
-          "name": "list_inference_jobs",
-          "description": "List InferenceJobs.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_inference_job",
-          "description": "Get a InferenceJob by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_inference_job",
-          "description": "Update a InferenceJob.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "modelRef": {
-                "type": "string"
-              },
-              "deviceId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "latencyMs": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_inference_job",
-          "description": "Delete a InferenceJob.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_engine",
-          "description": "Create a Engine.",
+          "name": "create_tensor_proto",
+          "description": "Create a TensorProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "precision": {
-                "type": "string"
-              },
-              "maxBatch": {
+              "dataType": {
                 "type": "integer"
+              },
+              "dataLocation": {
+                "type": "integer"
+              },
+              "docString": {
+                "type": "string"
               }
             },
             "required": [
               "name",
-              "precision"
+              "dataType"
             ]
           }
         },
         {
-          "name": "list_engines",
-          "description": "List Engines.",
+          "name": "list_tensor_protos",
+          "description": "List TensorProtos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_engine",
-          "description": "Get a Engine by id.",
+          "name": "get_tensor_proto",
+          "description": "Get a TensorProto by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -646,8 +576,8 @@
           }
         },
         {
-          "name": "update_engine",
-          "description": "Update a Engine.",
+          "name": "update_tensor_proto",
+          "description": "Update a TensorProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -657,11 +587,14 @@
               "name": {
                 "type": "string"
               },
-              "precision": {
-                "type": "string"
-              },
-              "maxBatch": {
+              "dataType": {
                 "type": "integer"
+              },
+              "dataLocation": {
+                "type": "integer"
+              },
+              "docString": {
+                "type": "string"
               }
             },
             "required": [
@@ -670,8 +603,8 @@
           }
         },
         {
-          "name": "delete_engine",
-          "description": "Delete a Engine.",
+          "name": "delete_tensor_proto",
+          "description": "Delete a TensorProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -685,41 +618,38 @@
           }
         },
         {
-          "name": "create_utilization",
-          "description": "Create a Utilization.",
+          "name": "create_attribute_proto",
+          "description": "Create a AttributeProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "deviceId": {
+              "name": {
                 "type": "string"
               },
-              "gpuPct": {
-                "type": "number"
+              "type": {
+                "type": "integer"
               },
-              "memPct": {
-                "type": "number"
-              },
-              "sampledAt": {
+              "docString": {
                 "type": "string"
               }
             },
             "required": [
-              "gpuPct",
-              "memPct"
+              "name",
+              "type"
             ]
           }
         },
         {
-          "name": "list_utilizations",
-          "description": "List Utilizations.",
+          "name": "list_attribute_protos",
+          "description": "List AttributeProtos.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_utilization",
-          "description": "Get a Utilization by id.",
+          "name": "get_attribute_proto",
+          "description": "Get a AttributeProto by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -733,24 +663,21 @@
           }
         },
         {
-          "name": "update_utilization",
-          "description": "Update a Utilization.",
+          "name": "update_attribute_proto",
+          "description": "Update a AttributeProto.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "deviceId": {
+              "name": {
                 "type": "string"
               },
-              "gpuPct": {
-                "type": "number"
+              "type": {
+                "type": "integer"
               },
-              "memPct": {
-                "type": "number"
-              },
-              "sampledAt": {
+              "docString": {
                 "type": "string"
               }
             },
@@ -760,8 +687,8 @@
           }
         },
         {
-          "name": "delete_utilization",
-          "description": "Delete a Utilization.",
+          "name": "delete_attribute_proto",
+          "description": "Delete a AttributeProto.",
           "inputSchema": {
             "type": "object",
             "properties": {

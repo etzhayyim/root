@@ -17,6 +17,7 @@ import ingest  # noqa: E402
 
 FIX = ACTOR_DIR / "tests" / "fixtures" / "myvariant_rs334.json"
 GO_FIX = ACTOR_DIR / "tests" / "fixtures" / "mygene_brca1_go.json"
+REACT_FIX = ACTOR_DIR / "tests" / "fixtures" / "reactome_brca1.json"
 SOURCES = ingest.read_edn((ACTOR_DIR / "data" / "ingest-sources.edn").read_text(encoding="utf-8"))
 POP_MAP = SOURCES[":ingest/population-map"]
 CLINSIG_MAP = SOURCES[":ingest/clinsig-map"]
@@ -50,6 +51,29 @@ def test_go_pathways_capped():
     # the cap keeps the HIGHEST-evidence terms (all returned weights ≥ any dropped term's)
     kept = sorted(float(e[":en/grasping-load"]) for e in edges)
     assert kept[0] >= 0.7, f"cap should keep high-evidence terms first, got {kept}"
+
+
+def test_reactome_pathways_deduped_topfirst_bounded():
+    """Reactome: dedupe by stId (top-level/lowest maxDepth wins), cap, emit :participates-in."""
+    entries = json.loads(REACT_FIX.read_text(encoding="utf-8"))
+    pw_nodes, edges = ingest.build_reactome_pathways(entries, "gene.brca1", weight=0.7, max_per_gene=5)
+    # 6 distinct R-HSA stIds in the fixture (R-HSA-73894 appears twice), 1 row has no stId → 5 capped
+    assert len(pw_nodes) == 5 and len(edges) == 5
+    for pid, n in pw_nodes.items():
+        assert n[":genome/kind"] == ":pathway" and n[":pathway/source"] == ":reactome"
+        assert n[":pathway/acc"].startswith("R-HSA-") and pid.startswith("pw.react-")
+    for e in edges:
+        assert e[":en/from"] == "gene.brca1" and e[":en/kind"] == ":participates-in"
+        assert abs(float(e[":en/grasping-load"]) - 0.7) < 1e-9
+    # the cap keeps the most TOP-LEVEL pathways: DNA Repair (maxDepth 1) must survive
+    assert "pw.react-r-hsa-73894" in pw_nodes
+
+
+def test_reactome_disabled_or_empty_is_safe():
+    """No entries / empty list → no nodes, no edges (defensive)."""
+    for empty in ([], None, [{"name": ["x"]}]):
+        pw_nodes, edges = ingest.build_reactome_pathways(empty, "gene.x", 0.7, 5)
+        assert pw_nodes == {} and edges == []
 
 
 def test_cid_matches_ipfs_vector():

@@ -5,21 +5,46 @@
   "kind": "compat",
   "title": "as2_protocol clean-room actor",
   "description": "Clean-room, API-compatible deep logistics / supply chain actor (as2_protocol); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreib5rcm2vpuociso7dx67i7osvenbh74bovulqiic4z45qfkus2mg4",
+  "wasmCid": "bafkreih64ia2wcfkmp3b4wfrg4bq2kn5nfs2cdzkdb3rg46p62orcfvlra",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreib5rcm2vpuociso7dx67i7osvenbh74bovulqiic4z45qfkus2mg4",
+  "ipfs": "ipfs://bafkreih64ia2wcfkmp3b4wfrg4bq2kn5nfs2cdzkdb3rg46p62orcfvlra",
   "schema": "schema/as2_protocol.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://datatracker.ietf.org/doc/html/rfc4130",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "As2Message",
+      "Mdn",
+      "DispositionNotification"
+    ],
+    "enums": {
+      "Mdn": {
+        "dispositionType": [
+          "processed",
+          "failed"
+        ],
+        "dispositionModifier": [
+          "error",
+          "warning"
+        ],
+        "actionMode": [
+          "manual-action",
+          "automatic-action"
+        ],
+        "sendingMode": [
+          "MDN-sent-manually",
+          "MDN-sent-automatically"
+        ]
+      }
+    }
+  },
   "entities": [
-    "TradeItem",
-    "Event",
-    "Document",
-    "Container",
-    "Party",
-    "Shipment"
+    "As2Message",
+    "Mdn",
+    "DispositionNotification"
   ],
   "adr": [
     "260607",
@@ -31,157 +56,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/tradeitems",
-          "op": "create TradeItem"
+          "path": "/v1/as2messages",
+          "op": "create As2Message"
         },
         {
           "method": "GET",
-          "path": "/v1/tradeitems",
-          "op": "list TradeItem"
+          "path": "/v1/as2messages",
+          "op": "list As2Message"
         },
         {
           "method": "GET",
-          "path": "/v1/tradeitems/{id}",
-          "op": "get TradeItem"
+          "path": "/v1/as2messages/{id}",
+          "op": "get As2Message"
         },
         {
           "method": "PATCH",
-          "path": "/v1/tradeitems/{id}",
-          "op": "update TradeItem"
+          "path": "/v1/as2messages/{id}",
+          "op": "update As2Message"
         },
         {
           "method": "DELETE",
-          "path": "/v1/tradeitems/{id}",
-          "op": "delete TradeItem"
+          "path": "/v1/as2messages/{id}",
+          "op": "delete As2Message"
         },
         {
           "method": "POST",
-          "path": "/v1/events",
-          "op": "create Event"
+          "path": "/v1/mdns",
+          "op": "create Mdn"
         },
         {
           "method": "GET",
-          "path": "/v1/events",
-          "op": "list Event"
+          "path": "/v1/mdns",
+          "op": "list Mdn"
         },
         {
           "method": "GET",
-          "path": "/v1/events/{id}",
-          "op": "get Event"
+          "path": "/v1/mdns/{id}",
+          "op": "get Mdn"
         },
         {
           "method": "PATCH",
-          "path": "/v1/events/{id}",
-          "op": "update Event"
+          "path": "/v1/mdns/{id}",
+          "op": "update Mdn"
         },
         {
           "method": "DELETE",
-          "path": "/v1/events/{id}",
-          "op": "delete Event"
+          "path": "/v1/mdns/{id}",
+          "op": "delete Mdn"
         },
         {
           "method": "POST",
-          "path": "/v1/documents",
-          "op": "create Document"
+          "path": "/v1/dispositionnotifications",
+          "op": "create DispositionNotification"
         },
         {
           "method": "GET",
-          "path": "/v1/documents",
-          "op": "list Document"
+          "path": "/v1/dispositionnotifications",
+          "op": "list DispositionNotification"
         },
         {
           "method": "GET",
-          "path": "/v1/documents/{id}",
-          "op": "get Document"
+          "path": "/v1/dispositionnotifications/{id}",
+          "op": "get DispositionNotification"
         },
         {
           "method": "PATCH",
-          "path": "/v1/documents/{id}",
-          "op": "update Document"
+          "path": "/v1/dispositionnotifications/{id}",
+          "op": "update DispositionNotification"
         },
         {
           "method": "DELETE",
-          "path": "/v1/documents/{id}",
-          "op": "delete Document"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/containers",
-          "op": "create Container"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/containers",
-          "op": "list Container"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/containers/{id}",
-          "op": "get Container"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/containers/{id}",
-          "op": "update Container"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/containers/{id}",
-          "op": "delete Container"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/parties",
-          "op": "create Party"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/parties",
-          "op": "list Party"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/parties/{id}",
-          "op": "get Party"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/parties/{id}",
-          "op": "update Party"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/parties/{id}",
-          "op": "delete Party"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/shipments",
-          "op": "create Shipment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/shipments",
-          "op": "list Shipment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/shipments/{id}",
-          "op": "get Shipment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/shipments/{id}",
-          "op": "update Shipment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/shipments/{id}",
-          "op": "delete Shipment"
+          "path": "/v1/dispositionnotifications/{id}",
+          "op": "delete DispositionNotification"
         }
       ],
       "features": {
@@ -244,41 +194,56 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_trade_item",
-          "description": "Create a TradeItem.",
+          "name": "create_as2_message",
+          "description": "Create a As2Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "gtin": {
+              "messageId": {
                 "type": "string"
               },
-              "description": {
+              "as2From": {
                 "type": "string"
               },
-              "brand": {
+              "as2To": {
+                "type": "string"
+              },
+              "as2Version": {
+                "type": "string"
+              },
+              "contentType": {
+                "type": "string"
+              },
+              "micalg": {
+                "type": "string"
+              },
+              "contentTransferEncoding": {
+                "type": "string"
+              },
+              "dispositionNotificationTo": {
                 "type": "string"
               }
             },
             "required": [
-              "gtin",
-              "description"
+              "as2From",
+              "as2To"
             ]
           }
         },
         {
-          "name": "list_trade_items",
-          "description": "List TradeItems.",
+          "name": "list_as2_messages",
+          "description": "List As2Messages.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_trade_item",
-          "description": "Get a TradeItem by id.",
+          "name": "get_as2_message",
+          "description": "Get a As2Message by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,21 +257,36 @@
           }
         },
         {
-          "name": "update_trade_item",
-          "description": "Update a TradeItem.",
+          "name": "update_as2_message",
+          "description": "Update a As2Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "gtin": {
+              "messageId": {
                 "type": "string"
               },
-              "description": {
+              "as2From": {
                 "type": "string"
               },
-              "brand": {
+              "as2To": {
+                "type": "string"
+              },
+              "as2Version": {
+                "type": "string"
+              },
+              "contentType": {
+                "type": "string"
+              },
+              "micalg": {
+                "type": "string"
+              },
+              "contentTransferEncoding": {
+                "type": "string"
+              },
+              "dispositionNotificationTo": {
                 "type": "string"
               }
             },
@@ -316,8 +296,8 @@
           }
         },
         {
-          "name": "delete_trade_item",
-          "description": "Delete a TradeItem.",
+          "name": "delete_as2_message",
+          "description": "Delete a As2Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -331,41 +311,164 @@
           }
         },
         {
-          "name": "create_event",
-          "description": "Create a Event.",
+          "name": "create_mdn",
+          "description": "Create a Mdn.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "itemId": {
+              "messageId": {
                 "type": "string"
               },
-              "bizStep": {
+              "originalMessageId": {
+                "type": "string"
+              },
+              "finalRecipient": {
+                "type": "string"
+              },
+              "dispositionType": {
+                "type": "string"
+              },
+              "dispositionMode": {
+                "type": "string"
+              },
+              "actionMode": {
+                "type": "string"
+              },
+              "sendingMode": {
+                "type": "string"
+              },
+              "dispositionModifier": {
+                "type": "string"
+              },
+              "digestAlgorithm": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "finalRecipient",
+              "dispositionType"
+            ]
+          }
+        },
+        {
+          "name": "list_mdns",
+          "description": "List Mdns.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_mdn",
+          "description": "Get a Mdn by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_mdn",
+          "description": "Update a Mdn.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "messageId": {
+                "type": "string"
+              },
+              "originalMessageId": {
+                "type": "string"
+              },
+              "finalRecipient": {
+                "type": "string"
+              },
+              "dispositionType": {
+                "type": "string"
+              },
+              "dispositionMode": {
+                "type": "string"
+              },
+              "actionMode": {
+                "type": "string"
+              },
+              "sendingMode": {
+                "type": "string"
+              },
+              "dispositionModifier": {
+                "type": "string"
+              },
+              "digestAlgorithm": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_mdn",
+          "description": "Delete a Mdn.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_disposition_notification",
+          "description": "Create a DispositionNotification.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "reportingUa": {
+                "type": "string"
+              },
+              "finalRecipient": {
+                "type": "string"
+              },
+              "originalMessageId": {
                 "type": "string"
               },
               "disposition": {
                 "type": "string"
               },
-              "recordedAt": {
+              "receivedContentMic": {
                 "type": "string"
               }
             },
             "required": [
-              "bizStep",
-              "disposition"
+              "reportingUa",
+              "finalRecipient"
             ]
           }
         },
         {
-          "name": "list_events",
-          "description": "List Events.",
+          "name": "list_disposition_notifications",
+          "description": "List DispositionNotifications.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_event",
-          "description": "Get a Event by id.",
+          "name": "get_disposition_notification",
+          "description": "Get a DispositionNotification by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -379,24 +482,27 @@
           }
         },
         {
-          "name": "update_event",
-          "description": "Update a Event.",
+          "name": "update_disposition_notification",
+          "description": "Update a DispositionNotification.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "itemId": {
+              "reportingUa": {
                 "type": "string"
               },
-              "bizStep": {
+              "finalRecipient": {
+                "type": "string"
+              },
+              "originalMessageId": {
                 "type": "string"
               },
               "disposition": {
                 "type": "string"
               },
-              "recordedAt": {
+              "receivedContentMic": {
                 "type": "string"
               }
             },
@@ -406,356 +512,8 @@
           }
         },
         {
-          "name": "delete_event",
-          "description": "Delete a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_document",
-          "description": "Create a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string"
-              },
-              "senderId": {
-                "type": "string"
-              },
-              "receiverId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_documents",
-          "description": "List Documents.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_document",
-          "description": "Get a Document by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_document",
-          "description": "Update a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "senderId": {
-                "type": "string"
-              },
-              "receiverId": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_document",
-          "description": "Delete a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_container",
-          "description": "Create a Container.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "bicCode": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "bicCode",
-              "type"
-            ]
-          }
-        },
-        {
-          "name": "list_containers",
-          "description": "List Containers.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_container",
-          "description": "Get a Container by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_container",
-          "description": "Update a Container.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "bicCode": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_container",
-          "description": "Delete a Container.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_party",
-          "description": "Create a Party.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "gln": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "gln",
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_parties",
-          "description": "List Parties.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_party",
-          "description": "Get a Party by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_party",
-          "description": "Update a Party.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "gln": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_party",
-          "description": "Delete a Party.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_shipment",
-          "description": "Create a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "documentId": {
-                "type": "string"
-              },
-              "origin": {
-                "type": "string"
-              },
-              "destination": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "origin",
-              "destination"
-            ]
-          }
-        },
-        {
-          "name": "list_shipments",
-          "description": "List Shipments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_shipment",
-          "description": "Get a Shipment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_shipment",
-          "description": "Update a Shipment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "documentId": {
-                "type": "string"
-              },
-              "origin": {
-                "type": "string"
-              },
-              "destination": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_shipment",
-          "description": "Delete a Shipment.",
+          "name": "delete_disposition_notification",
+          "description": "Delete a DispositionNotification.",
           "inputSchema": {
             "type": "object",
             "properties": {

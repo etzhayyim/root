@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreia3wgn4oqn54bsastmganksmxsgx2z4l7257cqp35xhpotcn7ykt4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/services": {
+    "/v1/projects": {
       "get": {
-        "summary": "List Services",
+        "summary": "List Projects",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Service"
+                        "$ref": "#/components/schemas/Project"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Service",
+        "summary": "Create a Project",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/services/{id}": {
+    "/v1/projects/{id}": {
       "get": {
-        "summary": "Get a Service",
+        "summary": "Get a Project",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Service",
+        "summary": "Update a Project",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/ProjectCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Project"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Service",
+        "summary": "Delete a Project",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/deployments": {
+    "/v1/organizations": {
       "get": {
-        "summary": "List Deployments",
+        "summary": "List Organizations",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Deployment"
+                        "$ref": "#/components/schemas/Organization"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Deployment",
+        "summary": "Create a Organization",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/deployments/{id}": {
+    "/v1/organizations/{id}": {
       "get": {
-        "summary": "Get a Deployment",
+        "summary": "Get a Organization",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Deployment",
+        "summary": "Update a Organization",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeploymentCreate"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Deployment"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Deployment",
+        "summary": "Delete a Organization",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/secrets": {
+    "/v1/edgefunctions": {
       "get": {
-        "summary": "List Secrets",
+        "summary": "List EdgeFunctions",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Secret"
+                        "$ref": "#/components/schemas/EdgeFunction"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Secret",
+        "summary": "Create a EdgeFunction",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
+                "$ref": "#/components/schemas/EdgeFunctionCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/EdgeFunction"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/secrets/{id}": {
+    "/v1/edgefunctions/{id}": {
       "get": {
-        "summary": "Get a Secret",
+        "summary": "Get a EdgeFunction",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/EdgeFunction"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Secret",
+        "summary": "Update a EdgeFunction",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecretCreate"
+                "$ref": "#/components/schemas/EdgeFunctionCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Secret"
+                  "$ref": "#/components/schemas/EdgeFunction"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Secret",
+        "summary": "Delete a EdgeFunction",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/apiproxies": {
+    "/v1/apikeys": {
       "get": {
-        "summary": "List ApiProxies",
+        "summary": "List ApiKeys",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ApiProxy"
+                        "$ref": "#/components/schemas/ApiKey"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a ApiProxy",
+        "summary": "Create a ApiKey",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ApiProxyCreate"
+                "$ref": "#/components/schemas/ApiKeyCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/ApiKey"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/apiproxies/{id}": {
+    "/v1/apikeys/{id}": {
       "get": {
-        "summary": "Get a ApiProxy",
+        "summary": "Get a ApiKey",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/ApiKey"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ApiProxy",
+        "summary": "Update a ApiKey",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ApiProxyCreate"
+                "$ref": "#/components/schemas/ApiKeyCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiProxy"
+                  "$ref": "#/components/schemas/ApiKey"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ApiProxy",
+        "summary": "Delete a ApiKey",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/databases": {
+    "/v1/branches": {
       "get": {
-        "summary": "List Databases",
+        "summary": "List Branches",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Database"
+                        "$ref": "#/components/schemas/Branch"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Database",
+        "summary": "Create a Branch",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
+                "$ref": "#/components/schemas/BranchCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Branch"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/databases/{id}": {
+    "/v1/branches/{id}": {
       "get": {
-        "summary": "Get a Database",
+        "summary": "Get a Branch",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Branch"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Database",
+        "summary": "Update a Branch",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatabaseCreate"
+                "$ref": "#/components/schemas/BranchCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Database"
+                  "$ref": "#/components/schemas/Branch"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Database",
+        "summary": "Delete a Branch",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/functions": {
+    "/v1/backups": {
       "get": {
-        "summary": "List Functions",
+        "summary": "List Backups",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Function"
+                        "$ref": "#/components/schemas/Backup"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Function",
+        "summary": "Create a Backup",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
+                "$ref": "#/components/schemas/BackupCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/Backup"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/functions/{id}": {
+    "/v1/backups/{id}": {
       "get": {
-        "summary": "Get a Function",
+        "summary": "Get a Backup",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/Backup"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Function",
+        "summary": "Update a Backup",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunctionCreate"
+                "$ref": "#/components/schemas/BackupCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Function"
+                  "$ref": "#/components/schemas/Backup"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Function",
+        "summary": "Delete a Backup",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +1140,63 @@
   },
   "components": {
     "schemas": {
-      "Service": {
+      "Project": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
+          "ref": {
+            "type": "string"
+          },
+          "organizationSlug": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "runtime": {
-            "type": "string"
-          },
           "region": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "us-east-1",
+              "us-east-2",
+              "us-west-1",
+              "us-west-2",
+              "ap-southeast-1",
+              "ap-northeast-1",
+              "ap-northeast-2",
+              "ap-east-1",
+              "ap-southeast-2",
+              "eu-west-1",
+              "eu-west-2",
+              "eu-west-3",
+              "eu-north-1",
+              "eu-central-1",
+              "eu-central-2",
+              "ca-central-1",
+              "ap-south-1",
+              "sa-east-1"
+            ]
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "INACTIVE",
+              "ACTIVE_HEALTHY",
+              "ACTIVE_UNHEALTHY",
+              "COMING_UP",
+              "UNKNOWN",
+              "GOING_DOWN",
+              "INIT_FAILED",
+              "REMOVED",
+              "RESTORING",
+              "UPGRADING",
+              "PAUSING",
+              "RESTORE_FAILED",
+              "RESTARTING",
+              "PAUSE_FAILED",
+              "RESIZING"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1168,43 +1208,409 @@
           }
         }
       },
-      "ServiceCreate": {
+      "ProjectCreate": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
+          "ref": {
+            "type": "string"
+          },
+          "organizationSlug": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "runtime": {
-            "type": "string"
-          },
           "region": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "us-east-1",
+              "us-east-2",
+              "us-west-1",
+              "us-west-2",
+              "ap-southeast-1",
+              "ap-northeast-1",
+              "ap-northeast-2",
+              "ap-east-1",
+              "ap-southeast-2",
+              "eu-west-1",
+              "eu-west-2",
+              "eu-west-3",
+              "eu-north-1",
+              "eu-central-1",
+              "eu-central-2",
+              "ca-central-1",
+              "ap-south-1",
+              "sa-east-1"
+            ]
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "INACTIVE",
+              "ACTIVE_HEALTHY",
+              "ACTIVE_UNHEALTHY",
+              "COMING_UP",
+              "UNKNOWN",
+              "GOING_DOWN",
+              "INIT_FAILED",
+              "REMOVED",
+              "RESTORING",
+              "UPGRADING",
+              "PAUSING",
+              "RESTORE_FAILED",
+              "RESTARTING",
+              "PAUSE_FAILED",
+              "RESIZING"
+            ]
+          },
+          "createdAt": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "runtime"
+          "id",
+          "ref"
         ]
       },
-      "Deployment": {
+      "Organization": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "serviceId": {
+          "slug": {
             "type": "string"
           },
-          "version": {
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OrganizationCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "slug"
+        ]
+      },
+      "EdgeFunction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "REMOVED",
+              "THROTTLED"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "verifyJwt": {
+            "type": "boolean"
+          },
+          "entrypointPath": {
             "type": "string"
           },
-          "deployedAt": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "EdgeFunctionCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "REMOVED",
+              "THROTTLED"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "verifyJwt": {
+            "type": "boolean"
+          },
+          "entrypointPath": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "integer"
+          },
+          "updatedAt": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "slug"
+        ]
+      },
+      "ApiKey": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "legacy",
+              "publishable",
+              "secret"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "prefix": {
+            "type": "string"
+          },
+          "insertedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ApiKeyCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "legacy",
+              "publishable",
+              "secret"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "prefix": {
+            "type": "string"
+          },
+          "insertedAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      },
+      "Branch": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "projectRef": {
+            "type": "string"
+          },
+          "parentProjectRef": {
+            "type": "string"
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "persistent": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "CREATING_PROJECT",
+              "RUNNING_MIGRATIONS",
+              "MIGRATIONS_PASSED",
+              "MIGRATIONS_FAILED",
+              "FUNCTIONS_DEPLOYED",
+              "FUNCTIONS_FAILED"
+            ]
+          },
+          "previewProjectStatus": {
+            "type": "string",
+            "enum": [
+              "INACTIVE",
+              "ACTIVE_HEALTHY",
+              "ACTIVE_UNHEALTHY",
+              "COMING_UP",
+              "UNKNOWN",
+              "GOING_DOWN",
+              "INIT_FAILED",
+              "REMOVED",
+              "RESTORING",
+              "UPGRADING",
+              "PAUSING",
+              "RESTORE_FAILED",
+              "RESTARTING",
+              "PAUSE_FAILED",
+              "RESIZING"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "BranchCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "projectRef": {
+            "type": "string"
+          },
+          "parentProjectRef": {
+            "type": "string"
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "persistent": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "CREATING_PROJECT",
+              "RUNNING_MIGRATIONS",
+              "MIGRATIONS_PASSED",
+              "MIGRATIONS_FAILED",
+              "FUNCTIONS_DEPLOYED",
+              "FUNCTIONS_FAILED"
+            ]
+          },
+          "previewProjectStatus": {
+            "type": "string",
+            "enum": [
+              "INACTIVE",
+              "ACTIVE_HEALTHY",
+              "ACTIVE_UNHEALTHY",
+              "COMING_UP",
+              "UNKNOWN",
+              "GOING_DOWN",
+              "INIT_FAILED",
+              "REMOVED",
+              "RESTORING",
+              "UPGRADING",
+              "PAUSING",
+              "RESTORE_FAILED",
+              "RESTARTING",
+              "PAUSE_FAILED",
+              "RESIZING"
+            ]
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Backup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "COMPLETED",
+              "FAILED",
+              "PENDING",
+              "REMOVED",
+              "ARCHIVED",
+              "CANCELLED"
+            ]
+          },
+          "isPhysicalBackup": {
+            "type": "boolean"
+          },
+          "insertedAt": {
             "type": "string",
             "format": "date-time"
           },
@@ -1218,216 +1624,33 @@
           }
         }
       },
-      "DeploymentCreate": {
+      "BackupCreate": {
         "type": "object",
         "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
+          "id": {
+            "type": "integer"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "COMPLETED",
+              "FAILED",
+              "PENDING",
+              "REMOVED",
+              "ARCHIVED",
+              "CANCELLED"
+            ]
           },
-          "deployedAt": {
+          "isPhysicalBackup": {
+            "type": "boolean"
+          },
+          "insertedAt": {
             "type": "string"
           }
         },
         "required": [
-          "version",
+          "id",
           "status"
-        ]
-      },
-      "Secret": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "scope": {
-            "type": "string"
-          },
-          "rotatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SecretCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "scope": {
-            "type": "string"
-          },
-          "rotatedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "scope"
-        ]
-      },
-      "ApiProxy": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "basePath": {
-            "type": "string"
-          },
-          "target": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ApiProxyCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "basePath": {
-            "type": "string"
-          },
-          "target": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "name",
-          "basePath"
-        ]
-      },
-      "Database": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "engine": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DatabaseCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "engine": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "sizeGb": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "engine"
-        ]
-      },
-      "Function": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutMs": {
-            "type": "integer"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FunctionCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "memoryMb": {
-            "type": "integer"
-          },
-          "timeoutMs": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "memoryMb"
         ]
       }
     }

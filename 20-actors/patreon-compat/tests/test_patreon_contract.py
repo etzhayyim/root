@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "patreon.kotoba")
-ENTITIES = ['Event', 'Ticket', 'Attendee', 'Donor', 'Donation', 'Membership']
-PLURALS = {'Event': 'events', 'Ticket': 'tickets', 'Attendee': 'attendees', 'Donor': 'donors', 'Donation': 'donations', 'Membership': 'memberships'}
+ENTITIES = ['User', 'Member', 'Campaign', 'Tier', 'Benefit']
+PLURALS = {'User': 'users', 'Member': 'members', 'Campaign': 'campaigns', 'Tier': 'tiers', 'Benefit': 'benefits'}
 
 
 class PatreonContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class PatreonContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['lastChargeStatus', 'patronStatus']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

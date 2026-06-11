@@ -5,21 +5,91 @@
   "kind": "compat",
   "title": "fivetran clean-room actor",
   "description": "Clean-room, API-compatible modern data stack actor (fivetran); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
+  "wasmCid": "bafkreicugs3dppeto2nxvc7vehue7trg3vmvhqrebzveshhyc6fu6kye54",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
+  "ipfs": "ipfs://bafkreicugs3dppeto2nxvc7vehue7trg3vmvhqrebzveshhyc6fu6kye54",
   "schema": "schema/fivetran.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://fivetran.com/docs/rest-api",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Connector",
+      "Destination",
+      "Group",
+      "User",
+      "Transformation"
+    ],
+    "enums": {
+      "Connector": {
+        "setupState": [
+          "incomplete",
+          "connected",
+          "broken"
+        ],
+        "syncState": [
+          "scheduled",
+          "syncing",
+          "paused",
+          "rescheduled"
+        ],
+        "updateState": [
+          "on_schedule",
+          "delayed"
+        ],
+        "scheduleType": [
+          "auto",
+          "manual"
+        ],
+        "networkingMethod": [
+          "Directly",
+          "SshTunnel",
+          "ProxyAgent",
+          "PrivateLink",
+          "UnmanagedProxyAgent",
+          "Unknown"
+        ]
+      },
+      "Destination": {
+        "setupStatus": [
+          "connected",
+          "incomplete",
+          "broken"
+        ],
+        "networkingMethod": [
+          "Directly",
+          "PrivateLink",
+          "SshTunnel",
+          "ProxyAgent"
+        ]
+      },
+      "Transformation": {
+        "type": [
+          "DBT_CORE",
+          "QUICKSTART"
+        ],
+        "status": [
+          "NEW",
+          "SCHEDULING",
+          "RUNNING",
+          "TERMINATING",
+          "SUCCEEDED",
+          "PARTIALLY_SUCCEEDED",
+          "FAILED",
+          "CANCELED",
+          "BLOCKED"
+        ]
+      }
+    }
+  },
   "entities": [
     "Connector",
-    "Sync",
-    "Model",
-    "Stream",
-    "Schema",
-    "Test"
+    "Destination",
+    "Group",
+    "User",
+    "Transformation"
   ],
   "adr": [
     "260607",
@@ -31,7 +101,7 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
@@ -60,128 +130,103 @@
         },
         {
           "method": "POST",
-          "path": "/v1/syncs",
-          "op": "create Sync"
+          "path": "/v1/destinations",
+          "op": "create Destination"
         },
         {
           "method": "GET",
-          "path": "/v1/syncs",
-          "op": "list Sync"
+          "path": "/v1/destinations",
+          "op": "list Destination"
         },
         {
           "method": "GET",
-          "path": "/v1/syncs/{id}",
-          "op": "get Sync"
+          "path": "/v1/destinations/{id}",
+          "op": "get Destination"
         },
         {
           "method": "PATCH",
-          "path": "/v1/syncs/{id}",
-          "op": "update Sync"
+          "path": "/v1/destinations/{id}",
+          "op": "update Destination"
         },
         {
           "method": "DELETE",
-          "path": "/v1/syncs/{id}",
-          "op": "delete Sync"
+          "path": "/v1/destinations/{id}",
+          "op": "delete Destination"
         },
         {
           "method": "POST",
-          "path": "/v1/models",
-          "op": "create Model"
+          "path": "/v1/groups",
+          "op": "create Group"
         },
         {
           "method": "GET",
-          "path": "/v1/models",
-          "op": "list Model"
+          "path": "/v1/groups",
+          "op": "list Group"
         },
         {
           "method": "GET",
-          "path": "/v1/models/{id}",
-          "op": "get Model"
+          "path": "/v1/groups/{id}",
+          "op": "get Group"
         },
         {
           "method": "PATCH",
-          "path": "/v1/models/{id}",
-          "op": "update Model"
+          "path": "/v1/groups/{id}",
+          "op": "update Group"
         },
         {
           "method": "DELETE",
-          "path": "/v1/models/{id}",
-          "op": "delete Model"
+          "path": "/v1/groups/{id}",
+          "op": "delete Group"
         },
         {
           "method": "POST",
-          "path": "/v1/streams",
-          "op": "create Stream"
+          "path": "/v1/users",
+          "op": "create User"
         },
         {
           "method": "GET",
-          "path": "/v1/streams",
-          "op": "list Stream"
+          "path": "/v1/users",
+          "op": "list User"
         },
         {
           "method": "GET",
-          "path": "/v1/streams/{id}",
-          "op": "get Stream"
+          "path": "/v1/users/{id}",
+          "op": "get User"
         },
         {
           "method": "PATCH",
-          "path": "/v1/streams/{id}",
-          "op": "update Stream"
+          "path": "/v1/users/{id}",
+          "op": "update User"
         },
         {
           "method": "DELETE",
-          "path": "/v1/streams/{id}",
-          "op": "delete Stream"
+          "path": "/v1/users/{id}",
+          "op": "delete User"
         },
         {
           "method": "POST",
-          "path": "/v1/schemas",
-          "op": "create Schema"
+          "path": "/v1/transformations",
+          "op": "create Transformation"
         },
         {
           "method": "GET",
-          "path": "/v1/schemas",
-          "op": "list Schema"
+          "path": "/v1/transformations",
+          "op": "list Transformation"
         },
         {
           "method": "GET",
-          "path": "/v1/schemas/{id}",
-          "op": "get Schema"
+          "path": "/v1/transformations/{id}",
+          "op": "get Transformation"
         },
         {
           "method": "PATCH",
-          "path": "/v1/schemas/{id}",
-          "op": "update Schema"
+          "path": "/v1/transformations/{id}",
+          "op": "update Transformation"
         },
         {
           "method": "DELETE",
-          "path": "/v1/schemas/{id}",
-          "op": "delete Schema"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tests",
-          "op": "create Test"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tests",
-          "op": "list Test"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tests/{id}",
-          "op": "get Test"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tests/{id}",
-          "op": "update Test"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tests/{id}",
-          "op": "delete Test"
+          "path": "/v1/transformations/{id}",
+          "op": "delete Transformation"
         }
       ],
       "features": {
@@ -244,7 +289,7 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
           "name": "create_connector",
@@ -252,22 +297,52 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "id": {
                 "type": "string"
               },
-              "source": {
+              "service": {
                 "type": "string"
               },
-              "destination": {
+              "schema": {
                 "type": "string"
               },
-              "status": {
+              "groupId": {
+                "type": "string"
+              },
+              "setupState": {
+                "type": "string"
+              },
+              "syncState": {
+                "type": "string"
+              },
+              "updateState": {
+                "type": "string"
+              },
+              "scheduleType": {
+                "type": "string"
+              },
+              "networkingMethod": {
+                "type": "string"
+              },
+              "syncFrequency": {
+                "type": "integer"
+              },
+              "paused": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "succeededAt": {
+                "type": "string"
+              },
+              "failedAt": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "source"
+              "id",
+              "service"
             ]
           }
         },
@@ -303,16 +378,43 @@
               "id": {
                 "type": "string"
               },
-              "name": {
+              "service": {
                 "type": "string"
               },
-              "source": {
+              "schema": {
                 "type": "string"
               },
-              "destination": {
+              "groupId": {
                 "type": "string"
               },
-              "status": {
+              "setupState": {
+                "type": "string"
+              },
+              "syncState": {
+                "type": "string"
+              },
+              "updateState": {
+                "type": "string"
+              },
+              "scheduleType": {
+                "type": "string"
+              },
+              "networkingMethod": {
+                "type": "string"
+              },
+              "syncFrequency": {
+                "type": "integer"
+              },
+              "paused": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "succeededAt": {
+                "type": "string"
+              },
+              "failedAt": {
                 "type": "string"
               }
             },
@@ -337,41 +439,53 @@
           }
         },
         {
-          "name": "create_sync",
-          "description": "Create a Sync.",
+          "name": "create_destination",
+          "description": "Create a Destination.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "connectorId": {
+              "id": {
                 "type": "string"
               },
-              "status": {
+              "groupId": {
                 "type": "string"
               },
-              "rows": {
-                "type": "integer"
+              "service": {
+                "type": "string"
               },
-              "startedAt": {
+              "region": {
+                "type": "string"
+              },
+              "setupStatus": {
+                "type": "string"
+              },
+              "networkingMethod": {
+                "type": "string"
+              },
+              "daylightSavingTimeEnabled": {
+                "type": "boolean"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
             "required": [
-              "status",
-              "rows"
+              "id",
+              "service"
             ]
           }
         },
         {
-          "name": "list_syncs",
-          "description": "List Syncs.",
+          "name": "list_destinations",
+          "description": "List Destinations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_sync",
-          "description": "Get a Sync by id.",
+          "name": "get_destination",
+          "description": "Get a Destination by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,24 +499,33 @@
           }
         },
         {
-          "name": "update_sync",
-          "description": "Update a Sync.",
+          "name": "update_destination",
+          "description": "Update a Destination.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "connectorId": {
+              "groupId": {
                 "type": "string"
               },
-              "status": {
+              "service": {
                 "type": "string"
               },
-              "rows": {
-                "type": "integer"
+              "region": {
+                "type": "string"
               },
-              "startedAt": {
+              "setupStatus": {
+                "type": "string"
+              },
+              "networkingMethod": {
+                "type": "string"
+              },
+              "daylightSavingTimeEnabled": {
+                "type": "boolean"
+              },
+              "createdAt": {
                 "type": "string"
               }
             },
@@ -412,8 +535,8 @@
           }
         },
         {
-          "name": "delete_sync",
-          "description": "Delete a Sync.",
+          "name": "delete_destination",
+          "description": "Delete a Destination.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,38 +550,38 @@
           }
         },
         {
-          "name": "create_model",
-          "description": "Create a Model.",
+          "name": "create_group",
+          "description": "Create a Group.",
           "inputSchema": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "materialization": {
-                "type": "string"
-              },
-              "sql": {
+              "createdAt": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "materialization"
+              "id",
+              "name"
             ]
           }
         },
         {
-          "name": "list_models",
-          "description": "List Models.",
+          "name": "list_groups",
+          "description": "List Groups.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_model",
-          "description": "Get a Model by id.",
+          "name": "get_group",
+          "description": "Get a Group by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,8 +595,8 @@
           }
         },
         {
-          "name": "update_model",
-          "description": "Update a Model.",
+          "name": "update_group",
+          "description": "Update a Group.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -483,10 +606,7 @@
               "name": {
                 "type": "string"
               },
-              "materialization": {
-                "type": "string"
-              },
-              "sql": {
+              "createdAt": {
                 "type": "string"
               }
             },
@@ -496,8 +616,8 @@
           }
         },
         {
-          "name": "delete_model",
-          "description": "Delete a Model.",
+          "name": "delete_group",
+          "description": "Delete a Group.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -511,38 +631,53 @@
           }
         },
         {
-          "name": "create_stream",
-          "description": "Create a Stream.",
+          "name": "create_user",
+          "description": "Create a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "id": {
                 "type": "string"
               },
-              "partitions": {
-                "type": "integer"
+              "email": {
+                "type": "string"
               },
-              "retentionMs": {
-                "type": "integer"
+              "givenName": {
+                "type": "string"
+              },
+              "familyName": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "verified": {
+                "type": "boolean"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
               }
             },
             "required": [
-              "name",
-              "partitions"
+              "id",
+              "email"
             ]
           }
         },
         {
-          "name": "list_streams",
-          "description": "List Streams.",
+          "name": "list_users",
+          "description": "List Users.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_stream",
-          "description": "Get a Stream by id.",
+          "name": "get_user",
+          "description": "Get a User by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -556,22 +691,34 @@
           }
         },
         {
-          "name": "update_stream",
-          "description": "Update a Stream.",
+          "name": "update_user",
+          "description": "Update a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "email": {
                 "type": "string"
               },
-              "partitions": {
-                "type": "integer"
+              "givenName": {
+                "type": "string"
               },
-              "retentionMs": {
-                "type": "integer"
+              "familyName": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "verified": {
+                "type": "boolean"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
               }
             },
             "required": [
@@ -580,53 +727,8 @@
           }
         },
         {
-          "name": "delete_stream",
-          "description": "Delete a Stream.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_schema",
-          "description": "Create a Schema.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "database": {
-                "type": "string"
-              },
-              "tableCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "database"
-            ]
-          }
-        },
-        {
-          "name": "list_schemas",
-          "description": "List Schemas.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_schema",
-          "description": "Get a Schema by id.",
+          "name": "delete_user",
+          "description": "Delete a User.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -640,77 +742,50 @@
           }
         },
         {
-          "name": "update_schema",
-          "description": "Update a Schema.",
+          "name": "create_transformation",
+          "description": "Create a Transformation.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "database": {
-                "type": "string"
-              },
-              "tableCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_schema",
-          "description": "Delete a Schema.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_test",
-          "description": "Create a Test.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "modelName": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "passed": {
+              "status": {
+                "type": "string"
+              },
+              "paused": {
                 "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "lastStartedAt": {
+                "type": "string"
+              },
+              "lastEndedAt": {
+                "type": "string"
               }
             },
             "required": [
-              "modelName",
+              "id",
               "type"
             ]
           }
         },
         {
-          "name": "list_tests",
-          "description": "List Tests.",
+          "name": "list_transformations",
+          "description": "List Transformations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_test",
-          "description": "Get a Test by id.",
+          "name": "get_transformation",
+          "description": "Get a Transformation by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -724,22 +799,31 @@
           }
         },
         {
-          "name": "update_test",
-          "description": "Update a Test.",
+          "name": "update_transformation",
+          "description": "Update a Transformation.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "modelName": {
                 "type": "string"
               },
               "type": {
                 "type": "string"
               },
-              "passed": {
+              "status": {
+                "type": "string"
+              },
+              "paused": {
                 "type": "boolean"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "lastStartedAt": {
+                "type": "string"
+              },
+              "lastEndedAt": {
+                "type": "string"
               }
             },
             "required": [
@@ -748,8 +832,8 @@
           }
         },
         {
-          "name": "delete_test",
-          "description": "Delete a Test.",
+          "name": "delete_transformation",
+          "description": "Delete a Transformation.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "pinecone.kotoba")
-ENTITIES = ['Model', 'Completion', 'Embedding', 'FineTune', 'Dataset', 'File']
-PLURALS = {'Model': 'models', 'Completion': 'completions', 'Embedding': 'embeddings', 'FineTune': 'finetunes', 'Dataset': 'datasets', 'File': 'files'}
+ENTITIES = ['Index', 'Collection', 'Vector', 'Namespace']
+PLURALS = {'Index': 'indexes', 'Collection': 'collections', 'Vector': 'vectors', 'Namespace': 'namespaces'}
 
 
 class PineconeContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class PineconeContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['cloud', 'deletionProtection', 'metric', 'state', 'status', 'vectorType']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

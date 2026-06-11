@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible payments / money movement actor (iso_8583); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:iso_8583-compat",
-    "x-wasm-cid": "bafkreicvml64rgkqlpzx56sx6gag2hmlg6576afbunxy26txw6t2tpvqry",
+    "x-wasm-cid": "bafkreidy3mtzo2iveh64modihcf3ac5nvmfg2wzp5uo7bx5jm66r2pmzjm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreicvml64rgkqlpzx56sx6gag2hmlg6576afbunxy26txw6t2tpvqry",
+      "url": "ipfs://bafkreidy3mtzo2iveh64modihcf3ac5nvmfg2wzp5uo7bx5jm66r2pmzjm",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/customers": {
+    "/v1/messages": {
       "get": {
-        "summary": "List Customers",
+        "summary": "List Messages",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Customer"
+                        "$ref": "#/components/schemas/Message"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Customer",
+        "summary": "Create a Message",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreate"
+                "$ref": "#/components/schemas/MessageCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/Message"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/customers/{id}": {
+    "/v1/messages/{id}": {
       "get": {
-        "summary": "Get a Customer",
+        "summary": "Get a Message",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/Message"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Customer",
+        "summary": "Update a Message",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreate"
+                "$ref": "#/components/schemas/MessageCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/Message"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Customer",
+        "summary": "Delete a Message",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/paymentintents": {
+    "/v1/processingcodes": {
       "get": {
-        "summary": "List PaymentIntents",
+        "summary": "List ProcessingCodes",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/PaymentIntent"
+                        "$ref": "#/components/schemas/ProcessingCode"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a PaymentIntent",
+        "summary": "Create a ProcessingCode",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentIntentCreate"
+                "$ref": "#/components/schemas/ProcessingCodeCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
+                  "$ref": "#/components/schemas/ProcessingCode"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/paymentintents/{id}": {
+    "/v1/processingcodes/{id}": {
       "get": {
-        "summary": "Get a PaymentIntent",
+        "summary": "Get a ProcessingCode",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
+                  "$ref": "#/components/schemas/ProcessingCode"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a PaymentIntent",
+        "summary": "Update a ProcessingCode",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentIntentCreate"
+                "$ref": "#/components/schemas/ProcessingCodeCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
+                  "$ref": "#/components/schemas/ProcessingCode"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a PaymentIntent",
+        "summary": "Delete a ProcessingCode",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/charges": {
+    "/v1/dataelements": {
       "get": {
-        "summary": "List Charges",
+        "summary": "List DataElements",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Charge"
+                        "$ref": "#/components/schemas/DataElement"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Charge",
+        "summary": "Create a DataElement",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeCreate"
+                "$ref": "#/components/schemas/DataElementCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Charge"
+                  "$ref": "#/components/schemas/DataElement"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/charges/{id}": {
+    "/v1/dataelements/{id}": {
       "get": {
-        "summary": "Get a Charge",
+        "summary": "Get a DataElement",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Charge"
+                  "$ref": "#/components/schemas/DataElement"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Charge",
+        "summary": "Update a DataElement",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeCreate"
+                "$ref": "#/components/schemas/DataElementCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Charge"
+                  "$ref": "#/components/schemas/DataElement"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Charge",
+        "summary": "Delete a DataElement",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/refunds": {
+    "/v1/responsecodes": {
       "get": {
-        "summary": "List Refunds",
+        "summary": "List ResponseCodes",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Refund"
+                        "$ref": "#/components/schemas/ResponseCode"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Refund",
+        "summary": "Create a ResponseCode",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RefundCreate"
+                "$ref": "#/components/schemas/ResponseCodeCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Refund"
+                  "$ref": "#/components/schemas/ResponseCode"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/refunds/{id}": {
+    "/v1/responsecodes/{id}": {
       "get": {
-        "summary": "Get a Refund",
+        "summary": "Get a ResponseCode",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Refund"
+                  "$ref": "#/components/schemas/ResponseCode"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Refund",
+        "summary": "Update a ResponseCode",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RefundCreate"
+                "$ref": "#/components/schemas/ResponseCodeCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Refund"
+                  "$ref": "#/components/schemas/ResponseCode"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Refund",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/payouts": {
-      "get": {
-        "summary": "List Payouts",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Payout"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Payout",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PayoutCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Payout"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/payouts/{id}": {
-      "get": {
-        "summary": "Get a Payout",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Payout"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Payout",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PayoutCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Payout"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Payout",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/paymentmethods": {
-      "get": {
-        "summary": "List PaymentMethods",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/PaymentMethod"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a PaymentMethod",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PaymentMethodCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentMethod"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/paymentmethods/{id}": {
-      "get": {
-        "summary": "Get a PaymentMethod",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentMethod"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a PaymentMethod",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PaymentMethodCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentMethod"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a PaymentMethod",
+        "summary": "Delete a ResponseCode",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +770,70 @@
   },
   "components": {
     "schemas": {
-      "Customer": {
+      "Message": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "email": {
+          "mti": {
             "type": "string"
           },
-          "name": {
+          "messageClass": {
+            "type": "string",
+            "enum": [
+              "authorization",
+              "financial",
+              "fileActions",
+              "reversals",
+              "reconciliation",
+              "administrative",
+              "feeCollection",
+              "networkManagement"
+            ]
+          },
+          "messageFunction": {
+            "type": "string",
+            "enum": [
+              "request",
+              "response",
+              "advice",
+              "adviceResponse",
+              "notification",
+              "notificationAcknowledgment",
+              "instruction",
+              "instructionAcknowledgment"
+            ]
+          },
+          "messageOrigin": {
+            "type": "string",
+            "enum": [
+              "acquirer",
+              "acquirerRepeat",
+              "issuer",
+              "issuerRepeat",
+              "other"
+            ]
+          },
+          "version": {
+            "type": "string",
+            "enum": [
+              "1987",
+              "1993",
+              "2003",
+              "reserved",
+              "national"
+            ]
+          },
+          "stan": {
             "type": "string"
           },
-          "phone": {
+          "processingCode": {
             "type": "string"
           },
-          "balance": {
-            "type": "integer"
+          "transmissionDateTime": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1168,44 +845,185 @@
           }
         }
       },
-      "CustomerCreate": {
+      "MessageCreate": {
         "type": "object",
         "properties": {
-          "email": {
+          "mti": {
             "type": "string"
+          },
+          "messageClass": {
+            "type": "string",
+            "enum": [
+              "authorization",
+              "financial",
+              "fileActions",
+              "reversals",
+              "reconciliation",
+              "administrative",
+              "feeCollection",
+              "networkManagement"
+            ]
+          },
+          "messageFunction": {
+            "type": "string",
+            "enum": [
+              "request",
+              "response",
+              "advice",
+              "adviceResponse",
+              "notification",
+              "notificationAcknowledgment",
+              "instruction",
+              "instructionAcknowledgment"
+            ]
+          },
+          "messageOrigin": {
+            "type": "string",
+            "enum": [
+              "acquirer",
+              "acquirerRepeat",
+              "issuer",
+              "issuerRepeat",
+              "other"
+            ]
+          },
+          "version": {
+            "type": "string",
+            "enum": [
+              "1987",
+              "1993",
+              "2003",
+              "reserved",
+              "national"
+            ]
+          },
+          "stan": {
+            "type": "string"
+          },
+          "processingCode": {
+            "type": "string"
+          },
+          "transmissionDateTime": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "mti",
+          "messageClass"
+        ]
+      },
+      "ProcessingCode": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "transactionType": {
+            "type": "string"
+          },
+          "accountTypeFrom": {
+            "type": "string"
+          },
+          "accountTypeTo": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProcessingCodeCreate": {
+        "type": "object",
+        "properties": {
+          "transactionType": {
+            "type": "string"
+          },
+          "accountTypeFrom": {
+            "type": "string"
+          },
+          "accountTypeTo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "transactionType",
+          "accountTypeFrom"
+        ]
+      },
+      "DataElement": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "fieldNumber": {
+            "type": "integer"
           },
           "name": {
             "type": "string"
           },
-          "phone": {
+          "dataType": {
             "type": "string"
           },
-          "balance": {
+          "length": {
             "type": "integer"
+          },
+          "value": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DataElementCreate": {
+        "type": "object",
+        "properties": {
+          "fieldNumber": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dataType": {
+            "type": "string"
+          },
+          "length": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "string"
           }
         },
         "required": [
-          "email",
+          "fieldNumber",
           "name"
         ]
       },
-      "PaymentIntent": {
+      "ResponseCode": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "customerId": {
+          "code": {
             "type": "string"
           },
-          "amount": {
-            "type": "integer"
-          },
-          "currency": {
+          "meaning": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "requiresCardPickup": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1217,228 +1035,22 @@
           }
         }
       },
-      "PaymentIntentCreate": {
+      "ResponseCodeCreate": {
         "type": "object",
         "properties": {
-          "customerId": {
+          "code": {
             "type": "string"
           },
-          "amount": {
-            "type": "integer"
-          },
-          "currency": {
+          "meaning": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "requiresCardPickup": {
+            "type": "boolean"
           }
         },
         "required": [
-          "amount",
-          "currency"
-        ]
-      },
-      "Charge": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "customerId": {
-            "type": "string"
-          },
-          "paymentIntentId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "integer"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ChargeCreate": {
-        "type": "object",
-        "properties": {
-          "customerId": {
-            "type": "string"
-          },
-          "paymentIntentId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "integer"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "amount",
-          "currency"
-        ]
-      },
-      "Refund": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "chargeId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "integer"
-          },
-          "reason": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RefundCreate": {
-        "type": "object",
-        "properties": {
-          "chargeId": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "integer"
-          },
-          "reason": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "amount",
-          "reason"
-        ]
-      },
-      "Payout": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "amount": {
-            "type": "integer"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "arrivalDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PayoutCreate": {
-        "type": "object",
-        "properties": {
-          "amount": {
-            "type": "integer"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "arrivalDate": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "amount",
-          "currency"
-        ]
-      },
-      "PaymentMethod": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "customerId": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "last4": {
-            "type": "string"
-          },
-          "brand": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PaymentMethodCreate": {
-        "type": "object",
-        "properties": {
-          "customerId": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "last4": {
-            "type": "string"
-          },
-          "brand": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "type",
-          "last4"
+          "code",
+          "meaning"
         ]
       }
     }

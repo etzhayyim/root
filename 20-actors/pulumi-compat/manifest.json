@@ -5,21 +5,74 @@
   "kind": "compat",
   "title": "pulumi clean-room actor",
   "description": "Clean-room, API-compatible DevSecOps / serverless actor (pulumi); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
+  "wasmCid": "bafkreiacvan7mnyzqs64ystmdo7ooym57bcclvuwv5l3qjryxjvyxbfgc4",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
+  "ipfs": "ipfs://bafkreiacvan7mnyzqs64ystmdo7ooym57bcclvuwv5l3qjryxjvyxbfgc4",
   "schema": "schema/pulumi.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/pulumi/pulumi/blob/master/sdk/go/common/apitype",
+    "verifiedAt": "2026-06-09",
+    "resources": [
+      "Update",
+      "Stack",
+      "Policy",
+      "Deployment",
+      "Organization"
+    ],
+    "enums": {
+      "Update": {
+        "kind": [
+          "update",
+          "preview",
+          "refresh",
+          "rename",
+          "destroy",
+          "import",
+          "resource-import"
+        ],
+        "result": [
+          "not-started",
+          "in-progress",
+          "succeeded",
+          "failed"
+        ]
+      },
+      "Policy": {
+        "enforcementLevel": [
+          "Advisory",
+          "Mandatory",
+          "Remediate",
+          "Disabled"
+        ],
+        "severity": [
+          "PolicySeverityUnspecified",
+          "PolicySeverityLow",
+          "PolicySeverityMedium",
+          "PolicySeverityHigh",
+          "PolicySeverityCritical"
+        ]
+      },
+      "Deployment": {
+        "status": [
+          "not-started",
+          "accepted",
+          "running",
+          "failed",
+          "succeeded",
+          "skipped"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Service",
+    "Update",
+    "Stack",
+    "Policy",
     "Deployment",
-    "Secret",
-    "ApiProxy",
-    "Database",
-    "Function"
+    "Organization"
   ],
   "adr": [
     "260607",
@@ -31,32 +84,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/services",
-          "op": "create Service"
+          "path": "/v1/updates",
+          "op": "create Update"
         },
         {
           "method": "GET",
-          "path": "/v1/services",
-          "op": "list Service"
+          "path": "/v1/updates",
+          "op": "list Update"
         },
         {
           "method": "GET",
-          "path": "/v1/services/{id}",
-          "op": "get Service"
+          "path": "/v1/updates/{id}",
+          "op": "get Update"
         },
         {
           "method": "PATCH",
-          "path": "/v1/services/{id}",
-          "op": "update Service"
+          "path": "/v1/updates/{id}",
+          "op": "update Update"
         },
         {
           "method": "DELETE",
-          "path": "/v1/services/{id}",
-          "op": "delete Service"
+          "path": "/v1/updates/{id}",
+          "op": "delete Update"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/stacks",
+          "op": "create Stack"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/stacks",
+          "op": "list Stack"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/stacks/{id}",
+          "op": "get Stack"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/stacks/{id}",
+          "op": "update Stack"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/stacks/{id}",
+          "op": "delete Stack"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/policies",
+          "op": "create Policy"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/policies",
+          "op": "list Policy"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/policies/{id}",
+          "op": "get Policy"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/policies/{id}",
+          "op": "update Policy"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/policies/{id}",
+          "op": "delete Policy"
         },
         {
           "method": "POST",
@@ -85,103 +188,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/secrets",
-          "op": "create Secret"
+          "path": "/v1/organizations",
+          "op": "create Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/secrets",
-          "op": "list Secret"
+          "path": "/v1/organizations",
+          "op": "list Organization"
         },
         {
           "method": "GET",
-          "path": "/v1/secrets/{id}",
-          "op": "get Secret"
+          "path": "/v1/organizations/{id}",
+          "op": "get Organization"
         },
         {
           "method": "PATCH",
-          "path": "/v1/secrets/{id}",
-          "op": "update Secret"
+          "path": "/v1/organizations/{id}",
+          "op": "update Organization"
         },
         {
           "method": "DELETE",
-          "path": "/v1/secrets/{id}",
-          "op": "delete Secret"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/apiproxies",
-          "op": "create ApiProxy"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/apiproxies",
-          "op": "list ApiProxy"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/apiproxies/{id}",
-          "op": "get ApiProxy"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/apiproxies/{id}",
-          "op": "update ApiProxy"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/apiproxies/{id}",
-          "op": "delete ApiProxy"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/databases",
-          "op": "create Database"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/databases",
-          "op": "list Database"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/databases/{id}",
-          "op": "get Database"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/databases/{id}",
-          "op": "update Database"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/databases/{id}",
-          "op": "delete Database"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/functions",
-          "op": "create Function"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/functions",
-          "op": "list Function"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/functions/{id}",
-          "op": "get Function"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/functions/{id}",
-          "op": "update Function"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/functions/{id}",
-          "op": "delete Function"
+          "path": "/v1/organizations/{id}",
+          "op": "delete Organization"
         }
       ],
       "features": {
@@ -244,44 +272,53 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_service",
-          "description": "Create a Service.",
+          "name": "create_update",
+          "description": "Create a Update.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "kind": {
                 "type": "string"
               },
-              "runtime": {
+              "result": {
                 "type": "string"
               },
-              "region": {
+              "message": {
                 "type": "string"
               },
-              "status": {
-                "type": "string"
+              "version": {
+                "type": "integer"
+              },
+              "resourceCount": {
+                "type": "integer"
+              },
+              "startTime": {
+                "type": "integer"
+              },
+              "endTime": {
+                "type": "integer"
               }
             },
             "required": [
-              "name",
-              "runtime"
+              "kind",
+              "result"
             ]
           }
         },
         {
-          "name": "list_services",
-          "description": "List Services.",
+          "name": "list_updates",
+          "description": "List Updates.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_service",
-          "description": "Get a Service by id.",
+          "name": "get_update",
+          "description": "Get a Update by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,8 +332,212 @@
           }
         },
         {
-          "name": "update_service",
-          "description": "Update a Service.",
+          "name": "update_update",
+          "description": "Update a Update.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "result": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              },
+              "resourceCount": {
+                "type": "integer"
+              },
+              "startTime": {
+                "type": "integer"
+              },
+              "endTime": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_update",
+          "description": "Delete a Update.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_stack",
+          "description": "Create a Stack.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "stackName": {
+                "type": "string"
+              },
+              "orgName": {
+                "type": "string"
+              },
+              "projectName": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "lastUpdate": {
+                "type": "integer"
+              },
+              "resourceCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "stackName",
+              "orgName"
+            ]
+          }
+        },
+        {
+          "name": "list_stacks",
+          "description": "List Stacks.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_stack",
+          "description": "Get a Stack by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_stack",
+          "description": "Update a Stack.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "stackName": {
+                "type": "string"
+              },
+              "orgName": {
+                "type": "string"
+              },
+              "projectName": {
+                "type": "string"
+              },
+              "lastUpdate": {
+                "type": "integer"
+              },
+              "resourceCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_stack",
+          "description": "Delete a Stack.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_policy",
+          "description": "Create a Policy.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enforcementLevel": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "displayName"
+            ]
+          }
+        },
+        {
+          "name": "list_policies",
+          "description": "List Policies.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_policy",
+          "description": "Get a Policy by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_policy",
+          "description": "Update a Policy.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -306,13 +547,19 @@
               "name": {
                 "type": "string"
               },
-              "runtime": {
+              "displayName": {
                 "type": "string"
               },
-              "region": {
+              "description": {
                 "type": "string"
               },
-              "status": {
+              "enforcementLevel": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string"
+              },
+              "message": {
                 "type": "string"
               }
             },
@@ -322,8 +569,8 @@
           }
         },
         {
-          "name": "delete_service",
-          "description": "Delete a Service.",
+          "name": "delete_policy",
+          "description": "Delete a Policy.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -342,21 +589,30 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "version": {
+              "id": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
               },
-              "deployedAt": {
+              "projectName": {
+                "type": "string"
+              },
+              "stackName": {
+                "type": "string"
+              },
+              "paused": {
+                "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              },
+              "modified": {
                 "type": "string"
               }
             },
             "required": [
-              "version",
+              "id",
               "status"
             ]
           }
@@ -393,16 +649,22 @@
               "id": {
                 "type": "string"
               },
-              "serviceId": {
-                "type": "string"
-              },
-              "version": {
-                "type": "string"
-              },
               "status": {
                 "type": "string"
               },
-              "deployedAt": {
+              "projectName": {
+                "type": "string"
+              },
+              "stackName": {
+                "type": "string"
+              },
+              "paused": {
+                "type": "boolean"
+              },
+              "created": {
+                "type": "string"
+              },
+              "modified": {
                 "type": "string"
               }
             },
@@ -427,38 +689,35 @@
           }
         },
         {
-          "name": "create_secret",
-          "description": "Create a Secret.",
+          "name": "create_organization",
+          "description": "Create a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "scope": {
-                "type": "string"
-              },
-              "rotatedAt": {
+              "role": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "scope"
+              "role"
             ]
           }
         },
         {
-          "name": "list_secrets",
-          "description": "List Secrets.",
+          "name": "list_organizations",
+          "description": "List Organizations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_secret",
-          "description": "Get a Secret by id.",
+          "name": "get_organization",
+          "description": "Get a Organization by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -472,95 +731,8 @@
           }
         },
         {
-          "name": "update_secret",
-          "description": "Update a Secret.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "scope": {
-                "type": "string"
-              },
-              "rotatedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_secret",
-          "description": "Delete a Secret.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_api_proxy",
-          "description": "Create a ApiProxy.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "basePath": {
-                "type": "string"
-              },
-              "target": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "name",
-              "basePath"
-            ]
-          }
-        },
-        {
-          "name": "list_api_proxies",
-          "description": "List ApiProxies.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_api_proxy",
-          "description": "Get a ApiProxy by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_api_proxy",
-          "description": "Update a ApiProxy.",
+          "name": "update_organization",
+          "description": "Update a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -570,28 +742,7 @@
               "name": {
                 "type": "string"
               },
-              "basePath": {
-                "type": "string"
-              },
-              "target": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_api_proxy",
-          "description": "Delete a ApiProxy.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
+              "role": {
                 "type": "string"
               }
             },
@@ -601,173 +752,8 @@
           }
         },
         {
-          "name": "create_database",
-          "description": "Create a Database.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "engine": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              },
-              "sizeGb": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "engine"
-            ]
-          }
-        },
-        {
-          "name": "list_databases",
-          "description": "List Databases.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_database",
-          "description": "Get a Database by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_database",
-          "description": "Update a Database.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "engine": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              },
-              "sizeGb": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_database",
-          "description": "Delete a Database.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_function",
-          "description": "Create a Function.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "serviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "memoryMb": {
-                "type": "integer"
-              },
-              "timeoutMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "name",
-              "memoryMb"
-            ]
-          }
-        },
-        {
-          "name": "list_functions",
-          "description": "List Functions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_function",
-          "description": "Get a Function by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_function",
-          "description": "Update a Function.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "serviceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "memoryMb": {
-                "type": "integer"
-              },
-              "timeoutMs": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_function",
-          "description": "Delete a Function.",
+          "name": "delete_organization",
+          "description": "Delete a Organization.",
           "inputSchema": {
             "type": "object",
             "properties": {

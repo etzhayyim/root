@@ -111,21 +111,254 @@ def _expand(rec, params, refs):
     return rec
 
 
+@app.route("/v1/payments", methods=["POST"])
+def create_payment(request):
+    """Create a Payment."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amount', 'currency', 'status', 'method', 'orderId', 'email', 'contact', 'captured', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'amount'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['created', 'authorized', 'captured', 'refunded', 'failed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['created', 'authorized', 'captured', 'refunded', 'failed']), "type": "invalid_request_error"}}, 400
+    if data.get('method') and data['method'] not in ['card', 'netbanking', 'wallet', 'upi', 'emi']:
+        return {"error": {"message": "invalid method; allowed: " + ", ".join(['card', 'netbanking', 'wallet', 'upi', 'emi']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("razorpay_pay")}
+    rec["id"] = data.get('id')
+    rec["amount"] = _as_int(data.get('amount'))
+    rec["currency"] = data.get('currency')
+    rec["status"] = data.get('status')
+    rec["method"] = data.get('method')
+    rec["orderId"] = data.get('orderId')
+    rec["email"] = data.get('email')
+    rec["contact"] = data.get('contact')
+    rec["captured"] = _as_bool(data.get('captured'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Payment", rec)
+    return rec, 201
+
+@app.route("/v1/payments", methods=["GET"])
+def list_payments(request):
+    """List Payments with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Payment")
+    rows = _apply_filters(rows, params, ['id', 'amount', 'currency', 'status', 'method', 'orderId', 'email', 'contact', 'captured', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/payments/<eid>", methods=["GET"])
+def get_payment(request, eid):
+    """Retrieve a Payment by id (supports ?expand=)."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'orderId': 'Order'})
+    return rec, 200
+
+@app.route("/v1/payments/<eid>", methods=["POST", "PATCH"])
+def update_payment(request, eid):
+    """Update a Payment."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amount', 'currency', 'status', 'method', 'orderId', 'email', 'contact', 'captured', 'createdAt'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['created', 'authorized', 'captured', 'refunded', 'failed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['created', 'authorized', 'captured', 'refunded', 'failed']), "type": "invalid_request_error"}}, 400
+    if data.get('method') and data['method'] not in ['card', 'netbanking', 'wallet', 'upi', 'emi']:
+        return {"error": {"message": "invalid method; allowed: " + ", ".join(['card', 'netbanking', 'wallet', 'upi', 'emi']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Payment", rec)
+    return rec, 200
+
+@app.route("/v1/payments/<eid>", methods=["DELETE"])
+def delete_payment(request, eid):
+    """Delete a Payment."""
+    rows = _query("Payment", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"razorpay.Payment", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/orders", methods=["POST"])
+def create_order(request):
+    """Create a Order."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amount', 'currency', 'status', 'receipt', 'attempts', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'amount'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['created', 'attempted', 'paid']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['created', 'attempted', 'paid']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("razorpay_ord")}
+    rec["id"] = data.get('id')
+    rec["amount"] = _as_int(data.get('amount'))
+    rec["currency"] = data.get('currency')
+    rec["status"] = data.get('status')
+    rec["receipt"] = data.get('receipt')
+    rec["attempts"] = _as_int(data.get('attempts'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Order", rec)
+    return rec, 201
+
+@app.route("/v1/orders", methods=["GET"])
+def list_orders(request):
+    """List Orders with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Order")
+    rows = _apply_filters(rows, params, ['id', 'amount', 'currency', 'status', 'receipt', 'attempts', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/orders/<eid>", methods=["GET"])
+def get_order(request, eid):
+    """Retrieve a Order by id (supports ?expand=)."""
+    rows = _query("Order", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/orders/<eid>", methods=["POST", "PATCH"])
+def update_order(request, eid):
+    """Update a Order."""
+    rows = _query("Order", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amount', 'currency', 'status', 'receipt', 'attempts', 'createdAt'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['created', 'attempted', 'paid']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['created', 'attempted', 'paid']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Order", rec)
+    return rec, 200
+
+@app.route("/v1/orders/<eid>", methods=["DELETE"])
+def delete_order(request, eid):
+    """Delete a Order."""
+    rows = _query("Order", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"razorpay.Order", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/refunds", methods=["POST"])
+def create_refund(request):
+    """Create a Refund."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amount', 'currency', 'status', 'speed', 'paymentId', 'createdAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['id', 'amount'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'processed', 'failed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'processed', 'failed']), "type": "invalid_request_error"}}, 400
+    if data.get('speed') and data['speed'] not in ['normal', 'optimum', 'instant']:
+        return {"error": {"message": "invalid speed; allowed: " + ", ".join(['normal', 'optimum', 'instant']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("razorpay_ref")}
+    rec["id"] = data.get('id')
+    rec["amount"] = _as_int(data.get('amount'))
+    rec["currency"] = data.get('currency')
+    rec["status"] = data.get('status')
+    rec["speed"] = data.get('speed')
+    rec["paymentId"] = data.get('paymentId')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Refund", rec)
+    return rec, 201
+
+@app.route("/v1/refunds", methods=["GET"])
+def list_refunds(request):
+    """List Refunds with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Refund")
+    rows = _apply_filters(rows, params, ['id', 'amount', 'currency', 'status', 'speed', 'paymentId', 'createdAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/refunds/<eid>", methods=["GET"])
+def get_refund(request, eid):
+    """Retrieve a Refund by id (supports ?expand=)."""
+    rows = _query("Refund", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'paymentId': 'Payment'})
+    return rec, 200
+
+@app.route("/v1/refunds/<eid>", methods=["POST", "PATCH"])
+def update_refund(request, eid):
+    """Update a Refund."""
+    rows = _query("Refund", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['id', 'amount', 'currency', 'status', 'speed', 'paymentId', 'createdAt'])
+    if err:
+        return err, 400
+    if data.get('status') and data['status'] not in ['pending', 'processed', 'failed']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['pending', 'processed', 'failed']), "type": "invalid_request_error"}}, 400
+    if data.get('speed') and data['speed'] not in ['normal', 'optimum', 'instant']:
+        return {"error": {"message": "invalid speed; allowed: " + ", ".join(['normal', 'optimum', 'instant']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Refund", rec)
+    return rec, 200
+
+@app.route("/v1/refunds/<eid>", methods=["DELETE"])
+def delete_refund(request, eid):
+    """Delete a Refund."""
+    rows = _query("Refund", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"razorpay.Refund", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/v1/customers", methods=["POST"])
 def create_customer(request):
     """Create a Customer."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'name', 'phone', 'balance'])
+    err = _reject_unknown(data, ['id', 'name', 'email', 'contact', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'name'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
     rec = {"id": new_id("razorpay_cus")}
-    rec["email"] = data.get('email')
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["phone"] = data.get('phone')
-    rec["balance"] = _as_int(data.get('balance'))
+    rec["email"] = data.get('email')
+    rec["contact"] = data.get('contact')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Customer", rec)
@@ -136,7 +369,7 @@ def list_customers(request):
     """List Customers with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Customer")
-    rows = _apply_filters(rows, params, ['email', 'name', 'phone', 'balance'])
+    rows = _apply_filters(rows, params, ['id', 'name', 'email', 'contact', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -157,7 +390,7 @@ def update_customer(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'name', 'phone', 'balance'])
+    err = _reject_unknown(data, ['id', 'name', 'email', 'contact', 'createdAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -177,345 +410,82 @@ def delete_customer(request, eid):
     db.retract({"entity": f"razorpay.Customer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/paymentintents", methods=["POST"])
-def create_payment_intent(request):
-    """Create a PaymentIntent."""
+@app.route("/v1/settlements", methods=["POST"])
+def create_settlement(request):
+    """Create a Settlement."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'amount', 'currency', 'status'])
+    err = _reject_unknown(data, ['id', 'amount', 'status', 'fees', 'tax', 'createdAt'])
     if err:
         return err, 400
-    err = _require(data, ['amount', 'currency'])
+    err = _require(data, ['id', 'amount'])
     if err:
         return err, 400
-    rec = {"id": new_id("razorpay_pay")}
-    rec["customerId"] = data.get('customerId')
+    if data.get('status') and data['status'] not in ['processed', 'failed', 'initiated']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['processed', 'failed', 'initiated']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("razorpay_set")}
+    rec["id"] = data.get('id')
     rec["amount"] = _as_int(data.get('amount'))
-    rec["currency"] = data.get('currency')
     rec["status"] = data.get('status')
+    rec["fees"] = _as_int(data.get('fees'))
+    rec["tax"] = _as_int(data.get('tax'))
+    rec["createdAt"] = _as_int(data.get('createdAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("PaymentIntent", rec)
+    _persist("Settlement", rec)
     return rec, 201
 
-@app.route("/v1/paymentintents", methods=["GET"])
-def list_payment_intents(request):
-    """List PaymentIntents with filtering + cursor pagination."""
+@app.route("/v1/settlements", methods=["GET"])
+def list_settlements(request):
+    """List Settlements with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("PaymentIntent")
-    rows = _apply_filters(rows, params, ['customerId', 'amount', 'currency', 'status'])
+    rows = _query("Settlement")
+    rows = _apply_filters(rows, params, ['id', 'amount', 'status', 'fees', 'tax', 'createdAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/paymentintents/<eid>", methods=["GET"])
-def get_payment_intent(request, eid):
-    """Retrieve a PaymentIntent by id (supports ?expand=)."""
-    rows = _query("PaymentIntent", eid)
+@app.route("/v1/settlements/<eid>", methods=["GET"])
+def get_settlement(request, eid):
+    """Retrieve a Settlement by id (supports ?expand=)."""
+    rows = _query("Settlement", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'customerId': 'Customer'})
     return rec, 200
 
-@app.route("/v1/paymentintents/<eid>", methods=["POST", "PATCH"])
-def update_payment_intent(request, eid):
-    """Update a PaymentIntent."""
-    rows = _query("PaymentIntent", eid)
+@app.route("/v1/settlements/<eid>", methods=["POST", "PATCH"])
+def update_settlement(request, eid):
+    """Update a Settlement."""
+    rows = _query("Settlement", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'amount', 'currency', 'status'])
+    err = _reject_unknown(data, ['id', 'amount', 'status', 'fees', 'tax', 'createdAt'])
     if err:
         return err, 400
+    if data.get('status') and data['status'] not in ['processed', 'failed', 'initiated']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['processed', 'failed', 'initiated']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("PaymentIntent", rec)
+    _persist("Settlement", rec)
     return rec, 200
 
-@app.route("/v1/paymentintents/<eid>", methods=["DELETE"])
-def delete_payment_intent(request, eid):
-    """Delete a PaymentIntent."""
-    rows = _query("PaymentIntent", eid)
+@app.route("/v1/settlements/<eid>", methods=["DELETE"])
+def delete_settlement(request, eid):
+    """Delete a Settlement."""
+    rows = _query("Settlement", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"razorpay.PaymentIntent", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/charges", methods=["POST"])
-def create_charge(request):
-    """Create a Charge."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'paymentIntentId', 'amount', 'currency', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'currency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("razorpay_cha")}
-    rec["customerId"] = data.get('customerId')
-    rec["paymentIntentId"] = data.get('paymentIntentId')
-    rec["amount"] = _as_int(data.get('amount'))
-    rec["currency"] = data.get('currency')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Charge", rec)
-    return rec, 201
-
-@app.route("/v1/charges", methods=["GET"])
-def list_charges(request):
-    """List Charges with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Charge")
-    rows = _apply_filters(rows, params, ['customerId', 'paymentIntentId', 'amount', 'currency', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/charges/<eid>", methods=["GET"])
-def get_charge(request, eid):
-    """Retrieve a Charge by id (supports ?expand=)."""
-    rows = _query("Charge", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'customerId': 'Customer', 'paymentIntentId': 'PaymentIntent'})
-    return rec, 200
-
-@app.route("/v1/charges/<eid>", methods=["POST", "PATCH"])
-def update_charge(request, eid):
-    """Update a Charge."""
-    rows = _query("Charge", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'paymentIntentId', 'amount', 'currency', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Charge", rec)
-    return rec, 200
-
-@app.route("/v1/charges/<eid>", methods=["DELETE"])
-def delete_charge(request, eid):
-    """Delete a Charge."""
-    rows = _query("Charge", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"razorpay.Charge", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/refunds", methods=["POST"])
-def create_refund(request):
-    """Create a Refund."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['chargeId', 'amount', 'reason', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'reason'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("razorpay_ref")}
-    rec["chargeId"] = data.get('chargeId')
-    rec["amount"] = _as_int(data.get('amount'))
-    rec["reason"] = data.get('reason')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Refund", rec)
-    return rec, 201
-
-@app.route("/v1/refunds", methods=["GET"])
-def list_refunds(request):
-    """List Refunds with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Refund")
-    rows = _apply_filters(rows, params, ['chargeId', 'amount', 'reason', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/refunds/<eid>", methods=["GET"])
-def get_refund(request, eid):
-    """Retrieve a Refund by id (supports ?expand=)."""
-    rows = _query("Refund", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'chargeId': 'Charge'})
-    return rec, 200
-
-@app.route("/v1/refunds/<eid>", methods=["POST", "PATCH"])
-def update_refund(request, eid):
-    """Update a Refund."""
-    rows = _query("Refund", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['chargeId', 'amount', 'reason', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Refund", rec)
-    return rec, 200
-
-@app.route("/v1/refunds/<eid>", methods=["DELETE"])
-def delete_refund(request, eid):
-    """Delete a Refund."""
-    rows = _query("Refund", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"razorpay.Refund", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/payouts", methods=["POST"])
-def create_payout(request):
-    """Create a Payout."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['amount', 'currency', 'arrivalDate', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'currency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("razorpay_pay")}
-    rec["amount"] = _as_int(data.get('amount'))
-    rec["currency"] = data.get('currency')
-    rec["arrivalDate"] = data.get('arrivalDate')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Payout", rec)
-    return rec, 201
-
-@app.route("/v1/payouts", methods=["GET"])
-def list_payouts(request):
-    """List Payouts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Payout")
-    rows = _apply_filters(rows, params, ['amount', 'currency', 'arrivalDate', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/payouts/<eid>", methods=["GET"])
-def get_payout(request, eid):
-    """Retrieve a Payout by id (supports ?expand=)."""
-    rows = _query("Payout", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/payouts/<eid>", methods=["POST", "PATCH"])
-def update_payout(request, eid):
-    """Update a Payout."""
-    rows = _query("Payout", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['amount', 'currency', 'arrivalDate', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Payout", rec)
-    return rec, 200
-
-@app.route("/v1/payouts/<eid>", methods=["DELETE"])
-def delete_payout(request, eid):
-    """Delete a Payout."""
-    rows = _query("Payout", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"razorpay.Payout", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/paymentmethods", methods=["POST"])
-def create_payment_method(request):
-    """Create a PaymentMethod."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'type', 'last4', 'brand'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'last4'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("razorpay_pay")}
-    rec["customerId"] = data.get('customerId')
-    rec["type"] = data.get('type')
-    rec["last4"] = data.get('last4')
-    rec["brand"] = data.get('brand')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("PaymentMethod", rec)
-    return rec, 201
-
-@app.route("/v1/paymentmethods", methods=["GET"])
-def list_payment_methods(request):
-    """List PaymentMethods with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("PaymentMethod")
-    rows = _apply_filters(rows, params, ['customerId', 'type', 'last4', 'brand'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/paymentmethods/<eid>", methods=["GET"])
-def get_payment_method(request, eid):
-    """Retrieve a PaymentMethod by id (supports ?expand=)."""
-    rows = _query("PaymentMethod", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'customerId': 'Customer'})
-    return rec, 200
-
-@app.route("/v1/paymentmethods/<eid>", methods=["POST", "PATCH"])
-def update_payment_method(request, eid):
-    """Update a PaymentMethod."""
-    rows = _query("PaymentMethod", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['customerId', 'type', 'last4', 'brand'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("PaymentMethod", rec)
-    return rec, 200
-
-@app.route("/v1/paymentmethods/<eid>", methods=["DELETE"])
-def delete_payment_method(request, eid):
-    """Delete a PaymentMethod."""
-    rows = _query("PaymentMethod", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"razorpay.PaymentMethod", "id": eid})
+    db.retract({"entity": f"razorpay.Settlement", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "razorpay-compat", "tier": "L4",
-            "entities": ['Customer', 'PaymentIntent', 'Charge', 'Refund', 'Payout', 'PaymentMethod']}, 200
+            "entities": ['Payment', 'Order', 'Refund', 'Customer', 'Settlement']}, 200
 
 
 if __name__ == "__main__":

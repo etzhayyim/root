@@ -3,74 +3,69 @@
 
 namespace razorpay {
 
-    entity Customer {
+    entity Payment {
         id: string @unique
+        id: string
+        amount: integer
+        currency: string
+        status: string
+        method: string
+        orderId: string
         email: string
-        name: string
-        phone: string
-        balance: integer
+        contact: string
+        captured: boolean
+        createdAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity PaymentIntent {
+    entity Order {
         id: string @unique
-        customerId: string
+        id: string
         amount: integer
         currency: string
         status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Charge {
-        id: string @unique
-        customerId: string
-        paymentIntentId: string
-        amount: integer
-        currency: string
-        status: string
+        receipt: string
+        attempts: integer
+        createdAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Refund {
         id: string @unique
-        chargeId: string
-        amount: integer
-        reason: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Payout {
-        id: string @unique
+        id: string
         amount: integer
         currency: string
-        arrivalDate: datetime
         status: string
+        speed: string
+        paymentId: string
+        createdAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity PaymentMethod {
+    entity Customer {
         id: string @unique
-        customerId: string
-        type: string
-        last4: string
-        brand: string
+        id: string
+        name: string
+        email: string
+        contact: string
+        createdAt: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Settlement {
+        id: string @unique
+        id: string
+        amount: integer
+        status: string
+        fees: integer
+        tax: integer
+        createdAt: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

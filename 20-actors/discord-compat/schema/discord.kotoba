@@ -5,67 +5,64 @@ namespace discord {
 
     entity Channel {
         id: string @unique
+        id: string
+        type: integer
         name: string
-        type: string
+        guildId: string
+        position: integer
         topic: string
-        memberCount: integer
+        nsfw: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Guild {
+        id: string @unique
+        id: string
+        name: string
+        ownerId: string
+        description: string
+        premiumTier: integer
+        verificationLevel: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Message {
         id: string @unique
+        id: string
         channelId: string
-        authorId: string
-        body: string
-        sentAt: datetime
+        content: string
+        type: integer
+        pinned: boolean
+        tts: boolean
+        timestamp: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity User {
         id: string @unique
-        handle: string
-        displayName: string
-        verified: boolean
+        id: string
+        username: string
+        discriminator: string
+        globalName: string
+        bot: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Room {
+    entity Role {
         id: string @unique
+        id: string
         name: string
-        maxParticipants: integer
-        recording: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Stream {
-        id: string @unique
-        roomId: string
-        status: string
-        bitrate: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        event: string
-        url: string
-        active: boolean
+        color: integer
+        position: integer
+        hoist: boolean
+        managed: boolean
+        mentionable: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

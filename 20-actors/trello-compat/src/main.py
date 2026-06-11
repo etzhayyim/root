@@ -111,185 +111,137 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/workspaces", methods=["POST"])
-def create_workspace(request):
-    """Create a Workspace."""
+@app.route("/v1/cards", methods=["POST"])
+def create_card(request):
+    """Create a Card."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['id', 'idShort', 'name', 'desc', 'closed', 'due', 'dueComplete', 'pos', 'url', 'idBoard', 'idList', 'cardRole', 'dateLastActivity'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'plan'])
+    err = _require(data, ['id', 'idShort'])
     if err:
         return err, 400
-    rec = {"id": new_id("trello_wor")}
+    if data.get('cardRole') and data['cardRole'] not in ['separator', 'board', 'mirror', 'link']:
+        return {"error": {"message": "invalid cardRole; allowed: " + ", ".join(['separator', 'board', 'mirror', 'link']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("trello_car")}
+    rec["id"] = data.get('id')
+    rec["idShort"] = _as_int(data.get('idShort'))
     rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["plan"] = data.get('plan')
+    rec["desc"] = data.get('desc')
+    rec["closed"] = _as_bool(data.get('closed'))
+    rec["due"] = data.get('due')
+    rec["dueComplete"] = _as_bool(data.get('dueComplete'))
+    rec["pos"] = _as_float(data.get('pos'))
+    rec["url"] = data.get('url')
+    rec["idBoard"] = data.get('idBoard')
+    rec["idList"] = data.get('idList')
+    rec["cardRole"] = data.get('cardRole')
+    rec["dateLastActivity"] = data.get('dateLastActivity')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Workspace", rec)
+    _persist("Card", rec)
     return rec, 201
 
-@app.route("/v1/workspaces", methods=["GET"])
-def list_workspaces(request):
-    """List Workspaces with filtering + cursor pagination."""
+@app.route("/v1/cards", methods=["GET"])
+def list_cards(request):
+    """List Cards with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Workspace")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'plan'])
+    rows = _query("Card")
+    rows = _apply_filters(rows, params, ['id', 'idShort', 'name', 'desc', 'closed', 'due', 'dueComplete', 'pos', 'url', 'idBoard', 'idList', 'cardRole', 'dateLastActivity'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["GET"])
-def get_workspace(request, eid):
-    """Retrieve a Workspace by id (supports ?expand=)."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/cards/<eid>", methods=["GET"])
+def get_card(request, eid):
+    """Retrieve a Card by id (supports ?expand=)."""
+    rows = _query("Card", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["POST", "PATCH"])
-def update_workspace(request, eid):
-    """Update a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/cards/<eid>", methods=["POST", "PATCH"])
+def update_card(request, eid):
+    """Update a Card."""
+    rows = _query("Card", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['id', 'idShort', 'name', 'desc', 'closed', 'due', 'dueComplete', 'pos', 'url', 'idBoard', 'idList', 'cardRole', 'dateLastActivity'])
     if err:
         return err, 400
+    if data.get('cardRole') and data['cardRole'] not in ['separator', 'board', 'mirror', 'link']:
+        return {"error": {"message": "invalid cardRole; allowed: " + ", ".join(['separator', 'board', 'mirror', 'link']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Workspace", rec)
+    _persist("Card", rec)
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["DELETE"])
-def delete_workspace(request, eid):
-    """Delete a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/cards/<eid>", methods=["DELETE"])
+def delete_card(request, eid):
+    """Delete a Card."""
+    rows = _query("Card", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"trello.Workspace", "id": eid})
+    db.retract({"entity": f"trello.Card", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/documents", methods=["POST"])
-def create_document(request):
-    """Create a Document."""
+@app.route("/v1/boards", methods=["POST"])
+def create_board(request):
+    """Create a Board."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    err = _reject_unknown(data, ['id', 'name', 'desc', 'closed', 'url', 'idOrganization', 'pinned', 'starred', 'dateLastActivity'])
     if err:
         return err, 400
-    err = _require(data, ['title'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("trello_doc")}
-    rec["workspaceId"] = data.get('workspaceId')
-    rec["title"] = data.get('title')
-    rec["contentRef"] = data.get('contentRef')
-    rec["ownerId"] = data.get('ownerId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Document", rec)
-    return rec, 201
-
-@app.route("/v1/documents", methods=["GET"])
-def list_documents(request):
-    """List Documents with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Document")
-    rows = _apply_filters(rows, params, ['workspaceId', 'title', 'contentRef', 'ownerId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/documents/<eid>", methods=["GET"])
-def get_document(request, eid):
-    """Retrieve a Document by id (supports ?expand=)."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
-    return rec, 200
-
-@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
-def update_document(request, eid):
-    """Update a Document."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Document", rec)
-    return rec, 200
-
-@app.route("/v1/documents/<eid>", methods=["DELETE"])
-def delete_document(request, eid):
-    """Delete a Document."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"trello.Document", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/folders", methods=["POST"])
-def create_folder(request):
-    """Create a Folder."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
-    if err:
-        return err, 400
-    err = _require(data, ['name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("trello_fol")}
-    rec["workspaceId"] = data.get('workspaceId')
+    rec = {"id": new_id("trello_boa")}
+    rec["id"] = data.get('id')
     rec["name"] = data.get('name')
-    rec["parentId"] = data.get('parentId')
+    rec["desc"] = data.get('desc')
+    rec["closed"] = _as_bool(data.get('closed'))
+    rec["url"] = data.get('url')
+    rec["idOrganization"] = data.get('idOrganization')
+    rec["pinned"] = _as_bool(data.get('pinned'))
+    rec["starred"] = _as_bool(data.get('starred'))
+    rec["dateLastActivity"] = data.get('dateLastActivity')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Folder", rec)
+    _persist("Board", rec)
     return rec, 201
 
-@app.route("/v1/folders", methods=["GET"])
-def list_folders(request):
-    """List Folders with filtering + cursor pagination."""
+@app.route("/v1/boards", methods=["GET"])
+def list_boards(request):
+    """List Boards with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Folder")
-    rows = _apply_filters(rows, params, ['workspaceId', 'name', 'parentId'])
+    rows = _query("Board")
+    rows = _apply_filters(rows, params, ['id', 'name', 'desc', 'closed', 'url', 'idOrganization', 'pinned', 'starred', 'dateLastActivity'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/folders/<eid>", methods=["GET"])
-def get_folder(request, eid):
-    """Retrieve a Folder by id (supports ?expand=)."""
-    rows = _query("Folder", eid)
+@app.route("/v1/boards/<eid>", methods=["GET"])
+def get_board(request, eid):
+    """Retrieve a Board by id (supports ?expand=)."""
+    rows = _query("Board", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
     return rec, 200
 
-@app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
-def update_folder(request, eid):
-    """Update a Folder."""
-    rows = _query("Folder", eid)
+@app.route("/v1/boards/<eid>", methods=["POST", "PATCH"])
+def update_board(request, eid):
+    """Update a Board."""
+    rows = _query("Board", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
+    err = _reject_unknown(data, ['id', 'name', 'desc', 'closed', 'url', 'idOrganization', 'pinned', 'starred', 'dateLastActivity'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,65 +249,66 @@ def update_folder(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Folder", rec)
+    _persist("Board", rec)
     return rec, 200
 
-@app.route("/v1/folders/<eid>", methods=["DELETE"])
-def delete_folder(request, eid):
-    """Delete a Folder."""
-    rows = _query("Folder", eid)
+@app.route("/v1/boards/<eid>", methods=["DELETE"])
+def delete_board(request, eid):
+    """Delete a Board."""
+    rows = _query("Board", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"trello.Folder", "id": eid})
+    db.retract({"entity": f"trello.Board", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/comments", methods=["POST"])
-def create_comment(request):
-    """Create a Comment."""
+@app.route("/v1/lists", methods=["POST"])
+def create_list(request):
+    """Create a List."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
+    err = _reject_unknown(data, ['id', 'name', 'closed', 'pos', 'idBoard'])
     if err:
         return err, 400
-    err = _require(data, ['body'])
+    err = _require(data, ['id', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("trello_com")}
-    rec["documentId"] = data.get('documentId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
+    rec = {"id": new_id("trello_lis")}
+    rec["id"] = data.get('id')
+    rec["name"] = data.get('name')
+    rec["closed"] = _as_bool(data.get('closed'))
+    rec["pos"] = _as_float(data.get('pos'))
+    rec["idBoard"] = data.get('idBoard')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Comment", rec)
+    _persist("List", rec)
     return rec, 201
 
-@app.route("/v1/comments", methods=["GET"])
-def list_comments(request):
-    """List Comments with filtering + cursor pagination."""
+@app.route("/v1/lists", methods=["GET"])
+def list_lists(request):
+    """List Lists with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['documentId', 'authorId', 'body'])
+    rows = _query("List")
+    rows = _apply_filters(rows, params, ['id', 'name', 'closed', 'pos', 'idBoard'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/comments/<eid>", methods=["GET"])
-def get_comment(request, eid):
-    """Retrieve a Comment by id (supports ?expand=)."""
-    rows = _query("Comment", eid)
+@app.route("/v1/lists/<eid>", methods=["GET"])
+def get_list(request, eid):
+    """Retrieve a List by id (supports ?expand=)."""
+    rows = _query("List", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
     return rec, 200
 
-@app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
-def update_comment(request, eid):
-    """Update a Comment."""
-    rows = _query("Comment", eid)
+@app.route("/v1/lists/<eid>", methods=["POST", "PATCH"])
+def update_list(request, eid):
+    """Update a List."""
+    rows = _query("List", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
+    err = _reject_unknown(data, ['id', 'name', 'closed', 'pos', 'idBoard'])
     if err:
         return err, 400
     rec = rows[0]
@@ -363,152 +316,164 @@ def update_comment(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Comment", rec)
+    _persist("List", rec)
     return rec, 200
 
-@app.route("/v1/comments/<eid>", methods=["DELETE"])
-def delete_comment(request, eid):
-    """Delete a Comment."""
-    rows = _query("Comment", eid)
+@app.route("/v1/lists/<eid>", methods=["DELETE"])
+def delete_list(request, eid):
+    """Delete a List."""
+    rows = _query("List", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"trello.Comment", "id": eid})
+    db.retract({"entity": f"trello.List", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/permissions", methods=["POST"])
-def create_permission(request):
-    """Create a Permission."""
+@app.route("/v1/members", methods=["POST"])
+def create_member(request):
+    """Create a Member."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
+    err = _reject_unknown(data, ['id', 'username', 'fullName', 'initials', 'memberType', 'confirmed'])
     if err:
         return err, 400
-    err = _require(data, ['role'])
+    err = _require(data, ['id', 'username'])
     if err:
         return err, 400
-    rec = {"id": new_id("trello_per")}
-    rec["resourceId"] = data.get('resourceId')
-    rec["principalId"] = data.get('principalId')
-    rec["role"] = data.get('role')
+    if data.get('memberType') and data['memberType'] not in ['normal', 'ghost']:
+        return {"error": {"message": "invalid memberType; allowed: " + ", ".join(['normal', 'ghost']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("trello_mem")}
+    rec["id"] = data.get('id')
+    rec["username"] = data.get('username')
+    rec["fullName"] = data.get('fullName')
+    rec["initials"] = data.get('initials')
+    rec["memberType"] = data.get('memberType')
+    rec["confirmed"] = _as_bool(data.get('confirmed'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Permission", rec)
+    _persist("Member", rec)
     return rec, 201
 
-@app.route("/v1/permissions", methods=["GET"])
-def list_permissions(request):
-    """List Permissions with filtering + cursor pagination."""
+@app.route("/v1/members", methods=["GET"])
+def list_members(request):
+    """List Members with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Permission")
-    rows = _apply_filters(rows, params, ['resourceId', 'principalId', 'role'])
+    rows = _query("Member")
+    rows = _apply_filters(rows, params, ['id', 'username', 'fullName', 'initials', 'memberType', 'confirmed'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/permissions/<eid>", methods=["GET"])
-def get_permission(request, eid):
-    """Retrieve a Permission by id (supports ?expand=)."""
-    rows = _query("Permission", eid)
+@app.route("/v1/members/<eid>", methods=["GET"])
+def get_member(request, eid):
+    """Retrieve a Member by id (supports ?expand=)."""
+    rows = _query("Member", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/permissions/<eid>", methods=["POST", "PATCH"])
-def update_permission(request, eid):
-    """Update a Permission."""
-    rows = _query("Permission", eid)
+@app.route("/v1/members/<eid>", methods=["POST", "PATCH"])
+def update_member(request, eid):
+    """Update a Member."""
+    rows = _query("Member", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
+    err = _reject_unknown(data, ['id', 'username', 'fullName', 'initials', 'memberType', 'confirmed'])
     if err:
         return err, 400
+    if data.get('memberType') and data['memberType'] not in ['normal', 'ghost']:
+        return {"error": {"message": "invalid memberType; allowed: " + ", ".join(['normal', 'ghost']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Permission", rec)
+    _persist("Member", rec)
     return rec, 200
 
-@app.route("/v1/permissions/<eid>", methods=["DELETE"])
-def delete_permission(request, eid):
-    """Delete a Permission."""
-    rows = _query("Permission", eid)
+@app.route("/v1/members/<eid>", methods=["DELETE"])
+def delete_member(request, eid):
+    """Delete a Member."""
+    rows = _query("Member", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"trello.Permission", "id": eid})
+    db.retract({"entity": f"trello.Member", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/users", methods=["POST"])
-def create_user(request):
-    """Create a User."""
+@app.route("/v1/labels", methods=["POST"])
+def create_label(request):
+    """Create a Label."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['id', 'idBoard', 'name', 'color'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'displayName'])
+    err = _require(data, ['id', 'idBoard'])
     if err:
         return err, 400
-    rec = {"id": new_id("trello_use")}
-    rec["email"] = data.get('email')
-    rec["displayName"] = data.get('displayName')
-    rec["status"] = data.get('status')
+    if data.get('color') and data['color'] not in ['green', 'yellow', 'orange', 'red', 'purple', 'blue', 'sky', 'lime', 'pink', 'black']:
+        return {"error": {"message": "invalid color; allowed: " + ", ".join(['green', 'yellow', 'orange', 'red', 'purple', 'blue', 'sky', 'lime', 'pink', 'black']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("trello_lab")}
+    rec["id"] = data.get('id')
+    rec["idBoard"] = data.get('idBoard')
+    rec["name"] = data.get('name')
+    rec["color"] = data.get('color')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("User", rec)
+    _persist("Label", rec)
     return rec, 201
 
-@app.route("/v1/users", methods=["GET"])
-def list_users(request):
-    """List Users with filtering + cursor pagination."""
+@app.route("/v1/labels", methods=["GET"])
+def list_labels(request):
+    """List Labels with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("User")
-    rows = _apply_filters(rows, params, ['email', 'displayName', 'status'])
+    rows = _query("Label")
+    rows = _apply_filters(rows, params, ['id', 'idBoard', 'name', 'color'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/users/<eid>", methods=["GET"])
-def get_user(request, eid):
-    """Retrieve a User by id (supports ?expand=)."""
-    rows = _query("User", eid)
+@app.route("/v1/labels/<eid>", methods=["GET"])
+def get_label(request, eid):
+    """Retrieve a Label by id (supports ?expand=)."""
+    rows = _query("Label", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
-def update_user(request, eid):
-    """Update a User."""
-    rows = _query("User", eid)
+@app.route("/v1/labels/<eid>", methods=["POST", "PATCH"])
+def update_label(request, eid):
+    """Update a Label."""
+    rows = _query("Label", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['id', 'idBoard', 'name', 'color'])
     if err:
         return err, 400
+    if data.get('color') and data['color'] not in ['green', 'yellow', 'orange', 'red', 'purple', 'blue', 'sky', 'lime', 'pink', 'black']:
+        return {"error": {"message": "invalid color; allowed: " + ", ".join(['green', 'yellow', 'orange', 'red', 'purple', 'blue', 'sky', 'lime', 'pink', 'black']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("User", rec)
+    _persist("Label", rec)
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["DELETE"])
-def delete_user(request, eid):
-    """Delete a User."""
-    rows = _query("User", eid)
+@app.route("/v1/labels/<eid>", methods=["DELETE"])
+def delete_label(request, eid):
+    """Delete a Label."""
+    rows = _query("Label", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"trello.User", "id": eid})
+    db.retract({"entity": f"trello.Label", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "trello-compat", "tier": "L4",
-            "entities": ['Workspace', 'Document', 'Folder', 'Comment', 'Permission', 'User']}, 200
+            "entities": ['Card', 'Board', 'List', 'Member', 'Label']}, 200
 
 
 if __name__ == "__main__":

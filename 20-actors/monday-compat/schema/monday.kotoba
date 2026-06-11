@@ -3,68 +3,68 @@
 
 namespace monday {
 
-    entity Workspace {
+    entity Board {
         id: string @unique
         name: string
-        ownerId: string
-        plan: string
+        description: string
+        state: string
+        boardKind: string
+        itemsCount: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Document {
+    entity Item {
         id: string @unique
-        workspaceId: string
+        name: string
+        email: string
+        creatorId: string
+        state: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Column {
+        id: string @unique
         title: string
-        contentRef: string
-        ownerId: string
+        description: string
+        type: string
+        archived: boolean
+        width: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Folder {
+    entity Group {
         id: string @unique
-        workspaceId: string
-        name: string
-        parentId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Comment {
-        id: string @unique
-        documentId: string
-        authorId: string
-        body: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Permission {
-        id: string @unique
-        resourceId: string
-        principalId: string
-        role: string
+        title: string
+        color: string
+        position: string
+        archived: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity User {
         id: string @unique
+        name: string
         email: string
-        displayName: string
-        status: string
+        enabled: boolean
+        isAdmin: boolean
+        isGuest: boolean
+        countryCode: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Update {
+        id: string @unique
+        body: string
+        textBody: string
+        creatorId: string
+        itemId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

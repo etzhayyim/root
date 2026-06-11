@@ -111,386 +111,277 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/objects", methods=["POST"])
-def create_object(request):
-    """Create a Object."""
+@app.route("/v1/messages", methods=["POST"])
+def create_message(request):
+    """Create a Message."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['designator', 'type', 'source'])
+    err = _reject_unknown(data, ['messageType', 'repeatIndicator', 'mmsi'])
     if err:
         return err, 400
-    err = _require(data, ['designator', 'type'])
+    err = _require(data, ['messageType', 'repeatIndicator'])
     if err:
         return err, 400
-    rec = {"id": new_id("aismarin_obj")}
-    rec["designator"] = data.get('designator')
-    rec["type"] = data.get('type')
-    rec["source"] = data.get('source')
+    if data.get('messageType') and data['messageType'] not in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]:
+        return {"error": {"message": "invalid messageType; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aismarin_mes")}
+    rec["messageType"] = _as_int(data.get('messageType'))
+    rec["repeatIndicator"] = _as_int(data.get('repeatIndicator'))
+    rec["mmsi"] = _as_int(data.get('mmsi'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Object", rec)
+    _persist("Message", rec)
     return rec, 201
 
-@app.route("/v1/objects", methods=["GET"])
-def list_objects(request):
-    """List Objects with filtering + cursor pagination."""
+@app.route("/v1/messages", methods=["GET"])
+def list_messages(request):
+    """List Messages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Object")
-    rows = _apply_filters(rows, params, ['designator', 'type', 'source'])
+    rows = _query("Message")
+    rows = _apply_filters(rows, params, ['messageType', 'repeatIndicator', 'mmsi'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/objects/<eid>", methods=["GET"])
-def get_object(request, eid):
-    """Retrieve a Object by id (supports ?expand=)."""
-    rows = _query("Object", eid)
+@app.route("/v1/messages/<eid>", methods=["GET"])
+def get_message(request, eid):
+    """Retrieve a Message by id (supports ?expand=)."""
+    rows = _query("Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/objects/<eid>", methods=["POST", "PATCH"])
-def update_object(request, eid):
-    """Update a Object."""
-    rows = _query("Object", eid)
+@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
+def update_message(request, eid):
+    """Update a Message."""
+    rows = _query("Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['designator', 'type', 'source'])
+    err = _reject_unknown(data, ['messageType', 'repeatIndicator', 'mmsi'])
     if err:
         return err, 400
+    if data.get('messageType') and data['messageType'] not in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]:
+        return {"error": {"message": "invalid messageType; allowed: " + ", ".join([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Object", rec)
+    _persist("Message", rec)
     return rec, 200
 
-@app.route("/v1/objects/<eid>", methods=["DELETE"])
-def delete_object(request, eid):
-    """Delete a Object."""
-    rows = _query("Object", eid)
+@app.route("/v1/messages/<eid>", methods=["DELETE"])
+def delete_message(request, eid):
+    """Delete a Message."""
+    rows = _query("Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ais_marine.Object", "id": eid})
+    db.retract({"entity": f"ais_marine.Message", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/positions", methods=["POST"])
-def create_position(request):
-    """Create a Position."""
+@app.route("/v1/positionreports", methods=["POST"])
+def create_position_report(request):
+    """Create a PositionReport."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['objectId', 'lat', 'lon', 'altitudeM', 'asOf'])
+    err = _reject_unknown(data, ['messageType', 'mmsi', 'navigationStatus', 'rateOfTurn', 'speedOverGround', 'longitude', 'latitude', 'courseOverGround', 'trueHeading', 'maneuverIndicator'])
     if err:
         return err, 400
-    err = _require(data, ['lat', 'lon'])
+    err = _require(data, ['messageType', 'mmsi'])
     if err:
         return err, 400
+    if data.get('navigationStatus') and data['navigationStatus'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]:
+        return {"error": {"message": "invalid navigationStatus; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]), "type": "invalid_request_error"}}, 400
+    if data.get('maneuverIndicator') and data['maneuverIndicator'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid maneuverIndicator; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("aismarin_pos")}
-    rec["objectId"] = data.get('objectId')
-    rec["lat"] = _as_float(data.get('lat'))
-    rec["lon"] = _as_float(data.get('lon'))
-    rec["altitudeM"] = _as_float(data.get('altitudeM'))
-    rec["asOf"] = data.get('asOf')
+    rec["messageType"] = _as_int(data.get('messageType'))
+    rec["mmsi"] = _as_int(data.get('mmsi'))
+    rec["navigationStatus"] = _as_int(data.get('navigationStatus'))
+    rec["rateOfTurn"] = _as_float(data.get('rateOfTurn'))
+    rec["speedOverGround"] = _as_float(data.get('speedOverGround'))
+    rec["longitude"] = _as_float(data.get('longitude'))
+    rec["latitude"] = _as_float(data.get('latitude'))
+    rec["courseOverGround"] = _as_float(data.get('courseOverGround'))
+    rec["trueHeading"] = _as_int(data.get('trueHeading'))
+    rec["maneuverIndicator"] = _as_int(data.get('maneuverIndicator'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Position", rec)
+    _persist("PositionReport", rec)
     return rec, 201
 
-@app.route("/v1/positions", methods=["GET"])
-def list_positions(request):
-    """List Positions with filtering + cursor pagination."""
+@app.route("/v1/positionreports", methods=["GET"])
+def list_position_reports(request):
+    """List PositionReports with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Position")
-    rows = _apply_filters(rows, params, ['objectId', 'lat', 'lon', 'altitudeM', 'asOf'])
+    rows = _query("PositionReport")
+    rows = _apply_filters(rows, params, ['messageType', 'mmsi', 'navigationStatus', 'rateOfTurn', 'speedOverGround', 'longitude', 'latitude', 'courseOverGround', 'trueHeading', 'maneuverIndicator'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/positions/<eid>", methods=["GET"])
-def get_position(request, eid):
-    """Retrieve a Position by id (supports ?expand=)."""
-    rows = _query("Position", eid)
+@app.route("/v1/positionreports/<eid>", methods=["GET"])
+def get_position_report(request, eid):
+    """Retrieve a PositionReport by id (supports ?expand=)."""
+    rows = _query("PositionReport", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'objectId': 'Object'})
     return rec, 200
 
-@app.route("/v1/positions/<eid>", methods=["POST", "PATCH"])
-def update_position(request, eid):
-    """Update a Position."""
-    rows = _query("Position", eid)
+@app.route("/v1/positionreports/<eid>", methods=["POST", "PATCH"])
+def update_position_report(request, eid):
+    """Update a PositionReport."""
+    rows = _query("PositionReport", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['objectId', 'lat', 'lon', 'altitudeM', 'asOf'])
+    err = _reject_unknown(data, ['messageType', 'mmsi', 'navigationStatus', 'rateOfTurn', 'speedOverGround', 'longitude', 'latitude', 'courseOverGround', 'trueHeading', 'maneuverIndicator'])
     if err:
         return err, 400
+    if data.get('navigationStatus') and data['navigationStatus'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]:
+        return {"error": {"message": "invalid navigationStatus; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]), "type": "invalid_request_error"}}, 400
+    if data.get('maneuverIndicator') and data['maneuverIndicator'] not in [0, 1, 2]:
+        return {"error": {"message": "invalid maneuverIndicator; allowed: " + ", ".join([0, 1, 2]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Position", rec)
+    _persist("PositionReport", rec)
     return rec, 200
 
-@app.route("/v1/positions/<eid>", methods=["DELETE"])
-def delete_position(request, eid):
-    """Delete a Position."""
-    rows = _query("Position", eid)
+@app.route("/v1/positionreports/<eid>", methods=["DELETE"])
+def delete_position_report(request, eid):
+    """Delete a PositionReport."""
+    rows = _query("PositionReport", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ais_marine.Position", "id": eid})
+    db.retract({"entity": f"ais_marine.PositionReport", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/observations", methods=["POST"])
-def create_observation(request):
-    """Create a Observation."""
+@app.route("/v1/basestationreports", methods=["POST"])
+def create_base_station_report(request):
+    """Create a BaseStationReport."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['objectId', 'parameter', 'value', 'observedAt'])
+    err = _reject_unknown(data, ['messageType', 'mmsi', 'longitude', 'latitude', 'typeOfEpfd'])
     if err:
         return err, 400
-    err = _require(data, ['parameter', 'value'])
+    err = _require(data, ['messageType', 'mmsi'])
     if err:
         return err, 400
-    rec = {"id": new_id("aismarin_obs")}
-    rec["objectId"] = data.get('objectId')
-    rec["parameter"] = data.get('parameter')
-    rec["value"] = _as_float(data.get('value'))
-    rec["observedAt"] = data.get('observedAt')
+    if data.get('typeOfEpfd') and data['typeOfEpfd'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 15]:
+        return {"error": {"message": "invalid typeOfEpfd; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 15]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aismarin_bas")}
+    rec["messageType"] = _as_int(data.get('messageType'))
+    rec["mmsi"] = _as_int(data.get('mmsi'))
+    rec["longitude"] = _as_float(data.get('longitude'))
+    rec["latitude"] = _as_float(data.get('latitude'))
+    rec["typeOfEpfd"] = _as_int(data.get('typeOfEpfd'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Observation", rec)
+    _persist("BaseStationReport", rec)
     return rec, 201
 
-@app.route("/v1/observations", methods=["GET"])
-def list_observations(request):
-    """List Observations with filtering + cursor pagination."""
+@app.route("/v1/basestationreports", methods=["GET"])
+def list_base_station_reports(request):
+    """List BaseStationReports with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Observation")
-    rows = _apply_filters(rows, params, ['objectId', 'parameter', 'value', 'observedAt'])
+    rows = _query("BaseStationReport")
+    rows = _apply_filters(rows, params, ['messageType', 'mmsi', 'longitude', 'latitude', 'typeOfEpfd'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/observations/<eid>", methods=["GET"])
-def get_observation(request, eid):
-    """Retrieve a Observation by id (supports ?expand=)."""
-    rows = _query("Observation", eid)
+@app.route("/v1/basestationreports/<eid>", methods=["GET"])
+def get_base_station_report(request, eid):
+    """Retrieve a BaseStationReport by id (supports ?expand=)."""
+    rows = _query("BaseStationReport", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'objectId': 'Object'})
     return rec, 200
 
-@app.route("/v1/observations/<eid>", methods=["POST", "PATCH"])
-def update_observation(request, eid):
-    """Update a Observation."""
-    rows = _query("Observation", eid)
+@app.route("/v1/basestationreports/<eid>", methods=["POST", "PATCH"])
+def update_base_station_report(request, eid):
+    """Update a BaseStationReport."""
+    rows = _query("BaseStationReport", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['objectId', 'parameter', 'value', 'observedAt'])
+    err = _reject_unknown(data, ['messageType', 'mmsi', 'longitude', 'latitude', 'typeOfEpfd'])
     if err:
         return err, 400
+    if data.get('typeOfEpfd') and data['typeOfEpfd'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 15]:
+        return {"error": {"message": "invalid typeOfEpfd; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 15]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Observation", rec)
+    _persist("BaseStationReport", rec)
     return rec, 200
 
-@app.route("/v1/observations/<eid>", methods=["DELETE"])
-def delete_observation(request, eid):
-    """Delete a Observation."""
-    rows = _query("Observation", eid)
+@app.route("/v1/basestationreports/<eid>", methods=["DELETE"])
+def delete_base_station_report(request, eid):
+    """Delete a BaseStationReport."""
+    rows = _query("BaseStationReport", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ais_marine.Observation", "id": eid})
+    db.retract({"entity": f"ais_marine.BaseStationReport", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/scenes", methods=["POST"])
-def create_scene(request):
-    """Create a Scene."""
+@app.route("/v1/staticvoyagedatas", methods=["POST"])
+def create_static_voyage_data(request):
+    """Create a StaticVoyageData."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['satellite', 'sceneId', 'cloudCover', 'capturedAt'])
+    err = _reject_unknown(data, ['messageType', 'mmsi', 'imoNumber', 'callSign', 'vesselName', 'shipType', 'draught', 'destination'])
     if err:
         return err, 400
-    err = _require(data, ['satellite', 'cloudCover'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aismarin_sce")}
-    rec["satellite"] = data.get('satellite')
-    rec["sceneId"] = data.get('sceneId')
-    rec["cloudCover"] = _as_float(data.get('cloudCover'))
-    rec["capturedAt"] = data.get('capturedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Scene", rec)
-    return rec, 201
-
-@app.route("/v1/scenes", methods=["GET"])
-def list_scenes(request):
-    """List Scenes with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Scene")
-    rows = _apply_filters(rows, params, ['satellite', 'sceneId', 'cloudCover', 'capturedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/scenes/<eid>", methods=["GET"])
-def get_scene(request, eid):
-    """Retrieve a Scene by id (supports ?expand=)."""
-    rows = _query("Scene", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'sceneId': 'Scene'})
-    return rec, 200
-
-@app.route("/v1/scenes/<eid>", methods=["POST", "PATCH"])
-def update_scene(request, eid):
-    """Update a Scene."""
-    rows = _query("Scene", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['satellite', 'sceneId', 'cloudCover', 'capturedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Scene", rec)
-    return rec, 200
-
-@app.route("/v1/scenes/<eid>", methods=["DELETE"])
-def delete_scene(request, eid):
-    """Delete a Scene."""
-    rows = _query("Scene", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ais_marine.Scene", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/floats", methods=["POST"])
-def create_float(request):
-    """Create a Float."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['wmoId', 'lat', 'lon', 'parkDepthM'])
-    if err:
-        return err, 400
-    err = _require(data, ['lat', 'lon'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aismarin_flo")}
-    rec["wmoId"] = data.get('wmoId')
-    rec["lat"] = _as_float(data.get('lat'))
-    rec["lon"] = _as_float(data.get('lon'))
-    rec["parkDepthM"] = _as_float(data.get('parkDepthM'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Float", rec)
-    return rec, 201
-
-@app.route("/v1/floats", methods=["GET"])
-def list_floats(request):
-    """List Floats with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Float")
-    rows = _apply_filters(rows, params, ['wmoId', 'lat', 'lon', 'parkDepthM'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/floats/<eid>", methods=["GET"])
-def get_float(request, eid):
-    """Retrieve a Float by id (supports ?expand=)."""
-    rows = _query("Float", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/floats/<eid>", methods=["POST", "PATCH"])
-def update_float(request, eid):
-    """Update a Float."""
-    rows = _query("Float", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['wmoId', 'lat', 'lon', 'parkDepthM'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Float", rec)
-    return rec, 200
-
-@app.route("/v1/floats/<eid>", methods=["DELETE"])
-def delete_float(request, eid):
-    """Delete a Float."""
-    rows = _query("Float", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ais_marine.Float", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/stations", methods=["POST"])
-def create_station(request):
-    """Create a Station."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'name', 'network'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'network'])
+    err = _require(data, ['messageType', 'mmsi'])
     if err:
         return err, 400
     rec = {"id": new_id("aismarin_sta")}
-    rec["stationId"] = data.get('stationId')
-    rec["name"] = data.get('name')
-    rec["network"] = data.get('network')
+    rec["messageType"] = _as_int(data.get('messageType'))
+    rec["mmsi"] = _as_int(data.get('mmsi'))
+    rec["imoNumber"] = _as_int(data.get('imoNumber'))
+    rec["callSign"] = data.get('callSign')
+    rec["vesselName"] = data.get('vesselName')
+    rec["shipType"] = _as_int(data.get('shipType'))
+    rec["draught"] = _as_float(data.get('draught'))
+    rec["destination"] = data.get('destination')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Station", rec)
+    _persist("StaticVoyageData", rec)
     return rec, 201
 
-@app.route("/v1/stations", methods=["GET"])
-def list_stations(request):
-    """List Stations with filtering + cursor pagination."""
+@app.route("/v1/staticvoyagedatas", methods=["GET"])
+def list_static_voyage_datas(request):
+    """List StaticVoyageDatas with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Station")
-    rows = _apply_filters(rows, params, ['stationId', 'name', 'network'])
+    rows = _query("StaticVoyageData")
+    rows = _apply_filters(rows, params, ['messageType', 'mmsi', 'imoNumber', 'callSign', 'vesselName', 'shipType', 'draught', 'destination'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/stations/<eid>", methods=["GET"])
-def get_station(request, eid):
-    """Retrieve a Station by id (supports ?expand=)."""
-    rows = _query("Station", eid)
+@app.route("/v1/staticvoyagedatas/<eid>", methods=["GET"])
+def get_static_voyage_data(request, eid):
+    """Retrieve a StaticVoyageData by id (supports ?expand=)."""
+    rows = _query("StaticVoyageData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'stationId': 'Station'})
     return rec, 200
 
-@app.route("/v1/stations/<eid>", methods=["POST", "PATCH"])
-def update_station(request, eid):
-    """Update a Station."""
-    rows = _query("Station", eid)
+@app.route("/v1/staticvoyagedatas/<eid>", methods=["POST", "PATCH"])
+def update_static_voyage_data(request, eid):
+    """Update a StaticVoyageData."""
+    rows = _query("StaticVoyageData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'name', 'network'])
+    err = _reject_unknown(data, ['messageType', 'mmsi', 'imoNumber', 'callSign', 'vesselName', 'shipType', 'draught', 'destination'])
     if err:
         return err, 400
     rec = rows[0]
@@ -498,22 +389,99 @@ def update_station(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Station", rec)
+    _persist("StaticVoyageData", rec)
     return rec, 200
 
-@app.route("/v1/stations/<eid>", methods=["DELETE"])
-def delete_station(request, eid):
-    """Delete a Station."""
-    rows = _query("Station", eid)
+@app.route("/v1/staticvoyagedatas/<eid>", methods=["DELETE"])
+def delete_static_voyage_data(request, eid):
+    """Delete a StaticVoyageData."""
+    rows = _query("StaticVoyageData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"ais_marine.Station", "id": eid})
+    db.retract({"entity": f"ais_marine.StaticVoyageData", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/aidtonavigationreports", methods=["POST"])
+def create_aid_to_navigation_report(request):
+    """Create a AidToNavigationReport."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['messageType', 'mmsi', 'typeOfAid', 'name', 'longitude', 'latitude', 'typeOfEpfd'])
+    if err:
+        return err, 400
+    err = _require(data, ['messageType', 'mmsi'])
+    if err:
+        return err, 400
+    if data.get('typeOfAid') and data['typeOfAid'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]:
+        return {"error": {"message": "invalid typeOfAid; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]), "type": "invalid_request_error"}}, 400
+    if data.get('typeOfEpfd') and data['typeOfEpfd'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 15]:
+        return {"error": {"message": "invalid typeOfEpfd; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 15]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aismarin_aid")}
+    rec["messageType"] = _as_int(data.get('messageType'))
+    rec["mmsi"] = _as_int(data.get('mmsi'))
+    rec["typeOfAid"] = _as_int(data.get('typeOfAid'))
+    rec["name"] = data.get('name')
+    rec["longitude"] = _as_float(data.get('longitude'))
+    rec["latitude"] = _as_float(data.get('latitude'))
+    rec["typeOfEpfd"] = _as_int(data.get('typeOfEpfd'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("AidToNavigationReport", rec)
+    return rec, 201
+
+@app.route("/v1/aidtonavigationreports", methods=["GET"])
+def list_aid_to_navigation_reports(request):
+    """List AidToNavigationReports with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("AidToNavigationReport")
+    rows = _apply_filters(rows, params, ['messageType', 'mmsi', 'typeOfAid', 'name', 'longitude', 'latitude', 'typeOfEpfd'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/aidtonavigationreports/<eid>", methods=["GET"])
+def get_aid_to_navigation_report(request, eid):
+    """Retrieve a AidToNavigationReport by id (supports ?expand=)."""
+    rows = _query("AidToNavigationReport", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/aidtonavigationreports/<eid>", methods=["POST", "PATCH"])
+def update_aid_to_navigation_report(request, eid):
+    """Update a AidToNavigationReport."""
+    rows = _query("AidToNavigationReport", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['messageType', 'mmsi', 'typeOfAid', 'name', 'longitude', 'latitude', 'typeOfEpfd'])
+    if err:
+        return err, 400
+    if data.get('typeOfAid') and data['typeOfAid'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]:
+        return {"error": {"message": "invalid typeOfAid; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]), "type": "invalid_request_error"}}, 400
+    if data.get('typeOfEpfd') and data['typeOfEpfd'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 15]:
+        return {"error": {"message": "invalid typeOfEpfd; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7, 8, 15]), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("AidToNavigationReport", rec)
+    return rec, 200
+
+@app.route("/v1/aidtonavigationreports/<eid>", methods=["DELETE"])
+def delete_aid_to_navigation_report(request, eid):
+    """Delete a AidToNavigationReport."""
+    rows = _query("AidToNavigationReport", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"ais_marine.AidToNavigationReport", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "ais_marine-compat", "tier": "L4",
-            "entities": ['Object', 'Position', 'Observation', 'Scene', 'Float', 'Station']}, 200
+            "entities": ['Message', 'PositionReport', 'BaseStationReport', 'StaticVoyageData', 'AidToNavigationReport']}, 200
 
 
 if __name__ == "__main__":

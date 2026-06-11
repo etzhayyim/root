@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreidljzcjkllk5suekgtz7hmk6w6ga5i5q5xhufl6o2rmiee5viro3a",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/services": {
+    "/v1/dashboards": {
       "get": {
-        "summary": "List Services",
+        "summary": "List Dashboards",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Service"
+                        "$ref": "#/components/schemas/Dashboard"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Service",
+        "summary": "Create a Dashboard",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/DashboardCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Dashboard"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/services/{id}": {
+    "/v1/dashboards/{id}": {
       "get": {
-        "summary": "Get a Service",
+        "summary": "Get a Dashboard",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Dashboard"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Service",
+        "summary": "Update a Dashboard",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ServiceCreate"
+                "$ref": "#/components/schemas/DashboardCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Service"
+                  "$ref": "#/components/schemas/Dashboard"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Service",
+        "summary": "Delete a Dashboard",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/errors": {
+    "/v1/datasources": {
       "get": {
-        "summary": "List Errors",
+        "summary": "List DataSources",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Error"
+                        "$ref": "#/components/schemas/DataSource"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Error",
+        "summary": "Create a DataSource",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ErrorCreate"
+                "$ref": "#/components/schemas/DataSourceCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/DataSource"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/errors/{id}": {
+    "/v1/datasources/{id}": {
       "get": {
-        "summary": "Get a Error",
+        "summary": "Get a DataSource",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/DataSource"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Error",
+        "summary": "Update a DataSource",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ErrorCreate"
+                "$ref": "#/components/schemas/DataSourceCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/DataSource"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Error",
+        "summary": "Delete a DataSource",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/traces": {
+    "/v1/folders": {
       "get": {
-        "summary": "List Traces",
+        "summary": "List Folders",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Trace"
+                        "$ref": "#/components/schemas/Folder"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Trace",
+        "summary": "Create a Folder",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TraceCreate"
+                "$ref": "#/components/schemas/FolderCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trace"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/traces/{id}": {
+    "/v1/folders/{id}": {
       "get": {
-        "summary": "Get a Trace",
+        "summary": "Get a Folder",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trace"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Trace",
+        "summary": "Update a Folder",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TraceCreate"
+                "$ref": "#/components/schemas/FolderCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trace"
+                  "$ref": "#/components/schemas/Folder"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Trace",
+        "summary": "Delete a Folder",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/metrics": {
+    "/v1/alertrules": {
       "get": {
-        "summary": "List Metrics",
+        "summary": "List AlertRules",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Metric"
+                        "$ref": "#/components/schemas/AlertRule"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Metric",
+        "summary": "Create a AlertRule",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
+                "$ref": "#/components/schemas/AlertRuleCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/AlertRule"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/metrics/{id}": {
+    "/v1/alertrules/{id}": {
       "get": {
-        "summary": "Get a Metric",
+        "summary": "Get a AlertRule",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/AlertRule"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Metric",
+        "summary": "Update a AlertRule",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
+                "$ref": "#/components/schemas/AlertRuleCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/AlertRule"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Metric",
+        "summary": "Delete a AlertRule",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/alerts": {
+    "/v1/users": {
       "get": {
-        "summary": "List Alerts",
+        "summary": "List Users",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Alert"
+                        "$ref": "#/components/schemas/User"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Alert",
+        "summary": "Create a User",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/alerts/{id}": {
+    "/v1/users/{id}": {
       "get": {
-        "summary": "Get a Alert",
+        "summary": "Get a User",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Alert",
+        "summary": "Update a User",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AlertCreate"
+                "$ref": "#/components/schemas/UserCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Alert"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Alert",
+        "summary": "Delete a User",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/incidents": {
+    "/v1/organizations": {
       "get": {
-        "summary": "List Incidents",
+        "summary": "List Organizations",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Incident"
+                        "$ref": "#/components/schemas/Organization"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Incident",
+        "summary": "Create a Organization",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IncidentCreate"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Incident"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/incidents/{id}": {
+    "/v1/organizations/{id}": {
       "get": {
-        "summary": "Get a Incident",
+        "summary": "Get a Organization",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Incident"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Incident",
+        "summary": "Update a Organization",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IncidentCreate"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Incident"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Incident",
+        "summary": "Delete a Organization",
         "parameters": [
           {
             "name": "id",
@@ -1140,19 +1140,28 @@
   },
   "components": {
     "schemas": {
-      "Service": {
+      "Dashboard": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "integer"
+          },
+          "uid": {
             "type": "string"
           },
-          "name": {
+          "title": {
             "type": "string"
           },
-          "environment": {
-            "type": "string"
+          "schemaVersion": {
+            "type": "integer"
           },
-          "language": {
+          "version": {
+            "type": "integer"
+          },
+          "editable": {
+            "type": "boolean"
+          },
+          "timezone": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,187 +1174,62 @@
           }
         }
       },
-      "ServiceCreate": {
+      "DashboardCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "id": {
+            "type": "integer"
+          },
+          "uid": {
             "type": "string"
           },
-          "environment": {
+          "title": {
             "type": "string"
           },
-          "language": {
+          "schemaVersion": {
+            "type": "integer"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "editable": {
+            "type": "boolean"
+          },
+          "timezone": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "environment"
+          "id",
+          "uid"
         ]
       },
-      "Error": {
+      "DataSource": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          },
-          "culprit": {
-            "type": "string"
-          },
-          "count": {
             "type": "integer"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ErrorCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          },
-          "culprit": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "message",
-          "culprit"
-        ]
-      },
-      "Trace": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "operation": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TraceCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "string"
-          },
-          "operation": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "operation",
-          "durationMs"
-        ]
-      },
-      "Metric": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
+          "uid": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
+          "type": {
             "type": "string"
           },
-          "createdAt": {
+          "access": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "proxy",
+              "direct"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MetricCreate": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
+          "url": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "value"
-        ]
-      },
-      "Alert": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "serviceId": {
-            "type": "string"
-          },
-          "condition": {
-            "type": "string"
-          },
-          "severity": {
-            "type": "string"
-          },
-          "active": {
+          "isDefault": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1358,43 +1242,59 @@
           }
         }
       },
-      "AlertCreate": {
+      "DataSourceCreate": {
         "type": "object",
         "properties": {
-          "serviceId": {
+          "id": {
+            "type": "integer"
+          },
+          "uid": {
             "type": "string"
           },
-          "condition": {
+          "name": {
             "type": "string"
           },
-          "severity": {
+          "type": {
             "type": "string"
           },
-          "active": {
+          "access": {
+            "type": "string",
+            "enum": [
+              "proxy",
+              "direct"
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "isDefault": {
             "type": "boolean"
           }
         },
         "required": [
-          "condition",
-          "severity"
+          "id",
+          "uid"
         ]
       },
-      "Incident": {
+      "Folder": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
+          "uid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
           "title": {
             "type": "string"
           },
-          "status": {
+          "resourceVersion": {
             "type": "string"
           },
-          "severity": {
-            "type": "string"
-          },
-          "startedAt": {
+          "creationTimestamp": {
             "type": "string",
             "format": "date-time"
           },
@@ -1408,25 +1308,187 @@
           }
         }
       },
-      "IncidentCreate": {
+      "FolderCreate": {
         "type": "object",
         "properties": {
+          "uid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
           "title": {
             "type": "string"
           },
-          "status": {
+          "resourceVersion": {
             "type": "string"
           },
-          "severity": {
-            "type": "string"
-          },
-          "startedAt": {
+          "creationTimestamp": {
             "type": "string"
           }
         },
         "required": [
-          "title",
-          "status"
+          "uid",
+          "name"
+        ]
+      },
+      "AlertRule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "uid": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "condition": {
+            "type": "string"
+          },
+          "noDataState": {
+            "type": "string"
+          },
+          "execErrState": {
+            "type": "string"
+          },
+          "isPaused": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AlertRuleCreate": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "condition": {
+            "type": "string"
+          },
+          "noDataState": {
+            "type": "string"
+          },
+          "execErrState": {
+            "type": "string"
+          },
+          "isPaused": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "uid",
+          "title"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "login": {
+            "type": "string"
+          },
+          "isGrafanaAdmin": {
+            "type": "boolean"
+          },
+          "isDisabled": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UserCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "login": {
+            "type": "string"
+          },
+          "isGrafanaAdmin": {
+            "type": "boolean"
+          },
+          "isDisabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "email"
+        ]
+      },
+      "Organization": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OrganizationCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
         ]
       }
     }

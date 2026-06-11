@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible spatial computing / XR actor (openxr); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:openxr-compat",
-    "x-wasm-cid": "bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+    "x-wasm-cid": "bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreihdrqp5l57dzbdj3jk5brnwg6ymit26ypt6fffmfujzfucaqhb74y",
+      "url": "ipfs://bafkreia242ozfvenexltp234pcpawhzh4p2i557gewfkcgt3g3osluv4nq",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/anchors": {
+    "/v1/instances": {
       "get": {
-        "summary": "List Anchors",
+        "summary": "List Instances",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Anchor"
+                        "$ref": "#/components/schemas/Instance"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Anchor",
+        "summary": "Create a Instance",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AnchorCreate"
+                "$ref": "#/components/schemas/InstanceCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Anchor"
+                  "$ref": "#/components/schemas/Instance"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/anchors/{id}": {
+    "/v1/instances/{id}": {
       "get": {
-        "summary": "Get a Anchor",
+        "summary": "Get a Instance",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Anchor"
+                  "$ref": "#/components/schemas/Instance"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Anchor",
+        "summary": "Update a Instance",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AnchorCreate"
+                "$ref": "#/components/schemas/InstanceCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Anchor"
+                  "$ref": "#/components/schemas/Instance"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Anchor",
+        "summary": "Delete a Instance",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/scenes": {
+    "/v1/systems": {
       "get": {
-        "summary": "List Scenes",
+        "summary": "List Systems",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Scene"
+                        "$ref": "#/components/schemas/System"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Scene",
+        "summary": "Create a System",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SceneCreate"
+                "$ref": "#/components/schemas/SystemCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Scene"
+                  "$ref": "#/components/schemas/System"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/scenes/{id}": {
+    "/v1/systems/{id}": {
       "get": {
-        "summary": "Get a Scene",
+        "summary": "Get a System",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Scene"
+                  "$ref": "#/components/schemas/System"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Scene",
+        "summary": "Update a System",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SceneCreate"
+                "$ref": "#/components/schemas/SystemCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Scene"
+                  "$ref": "#/components/schemas/System"
                 }
               }
             }
@@ -366,192 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Scene",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/meshes": {
-      "get": {
-        "summary": "List Meshes",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Mesh"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Mesh",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MeshCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Mesh"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/meshes/{id}": {
-      "get": {
-        "summary": "Get a Mesh",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Mesh"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Mesh",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MeshCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Mesh"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Mesh",
+        "summary": "Delete a System",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +572,9 @@
         }
       }
     },
-    "/v1/assets": {
+    "/v1/viewconfigurations": {
       "get": {
-        "summary": "List Assets",
+        "summary": "List ViewConfigurations",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Asset"
+                        "$ref": "#/components/schemas/ViewConfiguration"
                       }
                     },
                     "has_more": {
@@ -819,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Asset",
+        "summary": "Create a ViewConfiguration",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssetCreate"
+                "$ref": "#/components/schemas/ViewConfigurationCreate"
               }
             }
           }
@@ -836,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/ViewConfiguration"
                 }
               }
             }
@@ -847,9 +662,9 @@
         }
       }
     },
-    "/v1/assets/{id}": {
+    "/v1/viewconfigurations/{id}": {
       "get": {
-        "summary": "Get a Asset",
+        "summary": "Get a ViewConfiguration",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/ViewConfiguration"
                 }
               }
             }
@@ -884,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Asset",
+        "summary": "Update a ViewConfiguration",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssetCreate"
+                "$ref": "#/components/schemas/ViewConfigurationCreate"
               }
             }
           }
@@ -910,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Asset"
+                  "$ref": "#/components/schemas/ViewConfiguration"
                 }
               }
             }
@@ -921,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Asset",
+        "summary": "Delete a ViewConfiguration",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +757,9 @@
         }
       }
     },
-    "/v1/devices": {
+    "/v1/swapchains": {
       "get": {
-        "summary": "List Devices",
+        "summary": "List Swapchains",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Device"
+                        "$ref": "#/components/schemas/Swapchain"
                       }
                     },
                     "has_more": {
@@ -1004,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Device",
+        "summary": "Create a Swapchain",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeviceCreate"
+                "$ref": "#/components/schemas/SwapchainCreate"
               }
             }
           }
@@ -1021,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Device"
+                  "$ref": "#/components/schemas/Swapchain"
                 }
               }
             }
@@ -1032,9 +847,9 @@
         }
       }
     },
-    "/v1/devices/{id}": {
+    "/v1/swapchains/{id}": {
       "get": {
-        "summary": "Get a Device",
+        "summary": "Get a Swapchain",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Device"
+                  "$ref": "#/components/schemas/Swapchain"
                 }
               }
             }
@@ -1069,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Device",
+        "summary": "Update a Swapchain",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeviceCreate"
+                "$ref": "#/components/schemas/SwapchainCreate"
               }
             }
           }
@@ -1095,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Device"
+                  "$ref": "#/components/schemas/Swapchain"
                 }
               }
             }
@@ -1106,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Device",
+        "summary": "Delete a Swapchain",
         "parameters": [
           {
             "name": "id",
@@ -1140,25 +955,99 @@
   },
   "components": {
     "schemas": {
-      "Anchor": {
+      "Instance": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "sceneId": {
+          "applicationName": {
             "type": "string"
           },
-          "x": {
-            "type": "number"
+          "applicationVersion": {
+            "type": "integer"
           },
-          "y": {
-            "type": "number"
+          "engineName": {
+            "type": "string"
           },
-          "z": {
-            "type": "number"
+          "engineVersion": {
+            "type": "integer"
           },
-          "persistent": {
+          "apiVersion": {
+            "type": "integer"
+          },
+          "enabledExtensionCount": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "InstanceCreate": {
+        "type": "object",
+        "properties": {
+          "applicationName": {
+            "type": "string"
+          },
+          "applicationVersion": {
+            "type": "integer"
+          },
+          "engineName": {
+            "type": "string"
+          },
+          "engineVersion": {
+            "type": "integer"
+          },
+          "apiVersion": {
+            "type": "integer"
+          },
+          "enabledExtensionCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "applicationName",
+          "applicationVersion"
+        ]
+      },
+      "System": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "systemId": {
+            "type": "integer"
+          },
+          "formFactor": {
+            "type": "integer",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "systemName": {
+            "type": "string"
+          },
+          "vendorId": {
+            "type": "integer"
+          },
+          "maxSwapchainImageWidth": {
+            "type": "integer"
+          },
+          "maxSwapchainImageHeight": {
+            "type": "integer"
+          },
+          "orientationTracking": {
+            "type": "boolean"
+          },
+          "positionTracking": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1171,112 +1060,41 @@
           }
         }
       },
-      "AnchorCreate": {
+      "SystemCreate": {
         "type": "object",
         "properties": {
-          "sceneId": {
+          "systemId": {
+            "type": "integer"
+          },
+          "formFactor": {
+            "type": "integer",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "systemName": {
             "type": "string"
           },
-          "x": {
-            "type": "number"
+          "vendorId": {
+            "type": "integer"
           },
-          "y": {
-            "type": "number"
+          "maxSwapchainImageWidth": {
+            "type": "integer"
           },
-          "z": {
-            "type": "number"
+          "maxSwapchainImageHeight": {
+            "type": "integer"
           },
-          "persistent": {
+          "orientationTracking": {
+            "type": "boolean"
+          },
+          "positionTracking": {
             "type": "boolean"
           }
         },
         "required": [
-          "x",
-          "y"
-        ]
-      },
-      "Scene": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "string"
-          },
-          "meshRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SceneCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "string"
-          },
-          "meshRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
-      "Mesh": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "sceneId": {
-            "type": "string"
-          },
-          "vertexCount": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MeshCreate": {
-        "type": "object",
-        "properties": {
-          "sceneId": {
-            "type": "string"
-          },
-          "vertexCount": {
-            "type": "integer"
-          },
-          "contentRef": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "vertexCount"
+          "formFactor",
+          "systemName"
         ]
       },
       "Session": {
@@ -1285,15 +1103,25 @@
           "id": {
             "type": "string"
           },
-          "deviceId": {
-            "type": "string"
+          "systemId": {
+            "type": "integer"
           },
-          "appId": {
-            "type": "string"
+          "createFlags": {
+            "type": "integer"
           },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
+          "state": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1308,34 +1136,57 @@
       "SessionCreate": {
         "type": "object",
         "properties": {
-          "deviceId": {
-            "type": "string"
+          "systemId": {
+            "type": "integer"
           },
-          "appId": {
-            "type": "string"
+          "createFlags": {
+            "type": "integer"
           },
-          "startedAt": {
-            "type": "string"
+          "state": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
           }
         },
         "required": [
-          "startedAt"
+          "createFlags",
+          "state"
         ]
       },
-      "Asset": {
+      "ViewConfiguration": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "sceneId": {
-            "type": "string"
+          "viewConfigurationType": {
+            "type": "integer"
           },
-          "type": {
-            "type": "string"
+          "recommendedImageRectWidth": {
+            "type": "integer"
           },
-          "contentRef": {
-            "type": "string"
+          "recommendedImageRectHeight": {
+            "type": "integer"
+          },
+          "recommendedSwapchainSampleCount": {
+            "type": "integer"
+          },
+          "environmentBlendMode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1347,37 +1198,67 @@
           }
         }
       },
-      "AssetCreate": {
+      "ViewConfigurationCreate": {
         "type": "object",
         "properties": {
-          "sceneId": {
-            "type": "string"
+          "viewConfigurationType": {
+            "type": "integer"
           },
-          "type": {
-            "type": "string"
+          "recommendedImageRectWidth": {
+            "type": "integer"
           },
-          "contentRef": {
-            "type": "string"
+          "recommendedImageRectHeight": {
+            "type": "integer"
+          },
+          "recommendedSwapchainSampleCount": {
+            "type": "integer"
+          },
+          "environmentBlendMode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3
+            ]
           }
         },
         "required": [
-          "type"
+          "viewConfigurationType",
+          "recommendedImageRectWidth"
         ]
       },
-      "Device": {
+      "Swapchain": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "model": {
-            "type": "string"
+          "createFlags": {
+            "type": "integer"
           },
-          "platform": {
-            "type": "string"
+          "usageFlags": {
+            "type": "integer"
           },
-          "trackingMode": {
-            "type": "string"
+          "format": {
+            "type": "integer"
+          },
+          "sampleCount": {
+            "type": "integer"
+          },
+          "width": {
+            "type": "integer"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "faceCount": {
+            "type": "integer"
+          },
+          "arraySize": {
+            "type": "integer"
+          },
+          "mipCount": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1389,22 +1270,40 @@
           }
         }
       },
-      "DeviceCreate": {
+      "SwapchainCreate": {
         "type": "object",
         "properties": {
-          "model": {
-            "type": "string"
+          "createFlags": {
+            "type": "integer"
           },
-          "platform": {
-            "type": "string"
+          "usageFlags": {
+            "type": "integer"
           },
-          "trackingMode": {
-            "type": "string"
+          "format": {
+            "type": "integer"
+          },
+          "sampleCount": {
+            "type": "integer"
+          },
+          "width": {
+            "type": "integer"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "faceCount": {
+            "type": "integer"
+          },
+          "arraySize": {
+            "type": "integer"
+          },
+          "mipCount": {
+            "type": "integer"
           }
         },
         "required": [
-          "model",
-          "platform"
+          "createFlags",
+          "usageFlags"
         ]
       }
     }

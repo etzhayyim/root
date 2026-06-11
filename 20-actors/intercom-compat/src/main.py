@@ -111,349 +111,23 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/tickets", methods=["POST"])
-def create_ticket(request):
-    """Create a Ticket."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subject', 'requesterId', 'priority', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['subject', 'priority'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("intercom_tic")}
-    rec["subject"] = data.get('subject')
-    rec["requesterId"] = data.get('requesterId')
-    rec["priority"] = data.get('priority')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Ticket", rec)
-    return rec, 201
-
-@app.route("/v1/tickets", methods=["GET"])
-def list_tickets(request):
-    """List Tickets with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Ticket")
-    rows = _apply_filters(rows, params, ['subject', 'requesterId', 'priority', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tickets/<eid>", methods=["GET"])
-def get_ticket(request, eid):
-    """Retrieve a Ticket by id (supports ?expand=)."""
-    rows = _query("Ticket", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tickets/<eid>", methods=["POST", "PATCH"])
-def update_ticket(request, eid):
-    """Update a Ticket."""
-    rows = _query("Ticket", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subject', 'requesterId', 'priority', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Ticket", rec)
-    return rec, 200
-
-@app.route("/v1/tickets/<eid>", methods=["DELETE"])
-def delete_ticket(request, eid):
-    """Delete a Ticket."""
-    rows = _query("Ticket", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"intercom.Ticket", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/surveys", methods=["POST"])
-def create_survey(request):
-    """Create a Survey."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['title', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("intercom_sur")}
-    rec["title"] = data.get('title')
-    rec["type"] = data.get('type')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Survey", rec)
-    return rec, 201
-
-@app.route("/v1/surveys", methods=["GET"])
-def list_surveys(request):
-    """List Surveys with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Survey")
-    rows = _apply_filters(rows, params, ['title', 'type', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/surveys/<eid>", methods=["GET"])
-def get_survey(request, eid):
-    """Retrieve a Survey by id (supports ?expand=)."""
-    rows = _query("Survey", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/surveys/<eid>", methods=["POST", "PATCH"])
-def update_survey(request, eid):
-    """Update a Survey."""
-    rows = _query("Survey", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Survey", rec)
-    return rec, 200
-
-@app.route("/v1/surveys/<eid>", methods=["DELETE"])
-def delete_survey(request, eid):
-    """Delete a Survey."""
-    rows = _query("Survey", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"intercom.Survey", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/responses", methods=["POST"])
-def create_response(request):
-    """Create a Response."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['surveyId', 'respondentId', 'score', 'submittedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['score', 'submittedAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("intercom_res")}
-    rec["surveyId"] = data.get('surveyId')
-    rec["respondentId"] = data.get('respondentId')
-    rec["score"] = _as_int(data.get('score'))
-    rec["submittedAt"] = data.get('submittedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Response", rec)
-    return rec, 201
-
-@app.route("/v1/responses", methods=["GET"])
-def list_responses(request):
-    """List Responses with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Response")
-    rows = _apply_filters(rows, params, ['surveyId', 'respondentId', 'score', 'submittedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/responses/<eid>", methods=["GET"])
-def get_response(request, eid):
-    """Retrieve a Response by id (supports ?expand=)."""
-    rows = _query("Response", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'surveyId': 'Survey'})
-    return rec, 200
-
-@app.route("/v1/responses/<eid>", methods=["POST", "PATCH"])
-def update_response(request, eid):
-    """Update a Response."""
-    rows = _query("Response", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['surveyId', 'respondentId', 'score', 'submittedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Response", rec)
-    return rec, 200
-
-@app.route("/v1/responses/<eid>", methods=["DELETE"])
-def delete_response(request, eid):
-    """Delete a Response."""
-    rows = _query("Response", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"intercom.Response", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'healthScore', 'arr'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'healthScore'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("intercom_acc")}
-    rec["name"] = data.get('name')
-    rec["healthScore"] = _as_float(data.get('healthScore'))
-    rec["arr"] = _as_float(data.get('arr'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
-    return rec, 201
-
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['name', 'healthScore', 'arr'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'healthScore', 'arr'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Account", rec)
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"intercom.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/conversations", methods=["POST"])
-def create_conversation(request):
-    """Create a Conversation."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'channel', 'sentiment'])
-    if err:
-        return err, 400
-    err = _require(data, ['channel', 'sentiment'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("intercom_con")}
-    rec["accountId"] = data.get('accountId')
-    rec["channel"] = data.get('channel')
-    rec["sentiment"] = _as_float(data.get('sentiment'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Conversation", rec)
-    return rec, 201
-
-@app.route("/v1/conversations", methods=["GET"])
-def list_conversations(request):
-    """List Conversations with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Conversation")
-    rows = _apply_filters(rows, params, ['accountId', 'channel', 'sentiment'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/conversations/<eid>", methods=["GET"])
-def get_conversation(request, eid):
-    """Retrieve a Conversation by id (supports ?expand=)."""
-    rows = _query("Conversation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/conversations/<eid>", methods=["POST", "PATCH"])
-def update_conversation(request, eid):
-    """Update a Conversation."""
-    rows = _query("Conversation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'channel', 'sentiment'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Conversation", rec)
-    return rec, 200
-
-@app.route("/v1/conversations/<eid>", methods=["DELETE"])
-def delete_conversation(request, eid):
-    """Delete a Conversation."""
-    rows = _query("Conversation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"intercom.Conversation", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/contacts", methods=["POST"])
 def create_contact(request):
     """Create a Contact."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'firstName', 'lastName'])
+    err = _reject_unknown(data, ['email', 'phone', 'name', 'role', 'createdAt', 'signedUpAt'])
     if err:
         return err, 400
-    err = _require(data, ['email', 'firstName'])
+    err = _require(data, ['email', 'phone'])
     if err:
         return err, 400
     rec = {"id": new_id("intercom_con")}
     rec["email"] = data.get('email')
-    rec["firstName"] = data.get('firstName')
-    rec["lastName"] = data.get('lastName')
+    rec["phone"] = data.get('phone')
+    rec["name"] = data.get('name')
+    rec["role"] = data.get('role')
+    rec["createdAt"] = _as_int(data.get('createdAt'))
+    rec["signedUpAt"] = _as_int(data.get('signedUpAt'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Contact", rec)
@@ -464,7 +138,7 @@ def list_contacts(request):
     """List Contacts with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Contact")
-    rows = _apply_filters(rows, params, ['email', 'firstName', 'lastName'])
+    rows = _apply_filters(rows, params, ['email', 'phone', 'name', 'role', 'createdAt', 'signedUpAt'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -485,7 +159,7 @@ def update_contact(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'firstName', 'lastName'])
+    err = _reject_unknown(data, ['email', 'phone', 'name', 'role', 'createdAt', 'signedUpAt'])
     if err:
         return err, 400
     rec = rows[0]
@@ -505,10 +179,354 @@ def delete_contact(request, eid):
     db.retract({"entity": f"intercom.Contact", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
+@app.route("/v1/conversations", methods=["POST"])
+def create_conversation(request):
+    """Create a Conversation."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['state', 'priority', 'open', 'read', 'adminAssigneeId'])
+    if err:
+        return err, 400
+    err = _require(data, ['state', 'priority'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['open', 'closed', 'snoozed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['open', 'closed', 'snoozed']), "type": "invalid_request_error"}}, 400
+    if data.get('priority') and data['priority'] not in ['priority', 'not_priority']:
+        return {"error": {"message": "invalid priority; allowed: " + ", ".join(['priority', 'not_priority']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("intercom_con")}
+    rec["state"] = data.get('state')
+    rec["priority"] = data.get('priority')
+    rec["open"] = _as_bool(data.get('open'))
+    rec["read"] = _as_bool(data.get('read'))
+    rec["adminAssigneeId"] = _as_int(data.get('adminAssigneeId'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Conversation", rec)
+    return rec, 201
+
+@app.route("/v1/conversations", methods=["GET"])
+def list_conversations(request):
+    """List Conversations with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Conversation")
+    rows = _apply_filters(rows, params, ['state', 'priority', 'open', 'read', 'adminAssigneeId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/conversations/<eid>", methods=["GET"])
+def get_conversation(request, eid):
+    """Retrieve a Conversation by id (supports ?expand=)."""
+    rows = _query("Conversation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/conversations/<eid>", methods=["POST", "PATCH"])
+def update_conversation(request, eid):
+    """Update a Conversation."""
+    rows = _query("Conversation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['state', 'priority', 'open', 'read', 'adminAssigneeId'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['open', 'closed', 'snoozed']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['open', 'closed', 'snoozed']), "type": "invalid_request_error"}}, 400
+    if data.get('priority') and data['priority'] not in ['priority', 'not_priority']:
+        return {"error": {"message": "invalid priority; allowed: " + ", ".join(['priority', 'not_priority']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Conversation", rec)
+    return rec, 200
+
+@app.route("/v1/conversations/<eid>", methods=["DELETE"])
+def delete_conversation(request, eid):
+    """Delete a Conversation."""
+    rows = _query("Conversation", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"intercom.Conversation", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/companies", methods=["POST"])
+def create_company(request):
+    """Create a Company."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'industry', 'monthlySpend', 'size', 'companyId'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'industry'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("intercom_com")}
+    rec["name"] = data.get('name')
+    rec["industry"] = data.get('industry')
+    rec["monthlySpend"] = _as_int(data.get('monthlySpend'))
+    rec["size"] = _as_int(data.get('size'))
+    rec["companyId"] = data.get('companyId')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Company", rec)
+    return rec, 201
+
+@app.route("/v1/companies", methods=["GET"])
+def list_companies(request):
+    """List Companies with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Company")
+    rows = _apply_filters(rows, params, ['name', 'industry', 'monthlySpend', 'size', 'companyId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/companies/<eid>", methods=["GET"])
+def get_company(request, eid):
+    """Retrieve a Company by id (supports ?expand=)."""
+    rows = _query("Company", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'companyId': 'Company'})
+    return rec, 200
+
+@app.route("/v1/companies/<eid>", methods=["POST", "PATCH"])
+def update_company(request, eid):
+    """Update a Company."""
+    rows = _query("Company", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'industry', 'monthlySpend', 'size', 'companyId'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Company", rec)
+    return rec, 200
+
+@app.route("/v1/companies/<eid>", methods=["DELETE"])
+def delete_company(request, eid):
+    """Delete a Company."""
+    rows = _query("Company", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"intercom.Company", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/admins", methods=["POST"])
+def create_admin(request):
+    """Create a Admin."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'email', 'awayModeEnabled', 'hasInboxSeat', 'jobTitle'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'email'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("intercom_adm")}
+    rec["name"] = data.get('name')
+    rec["email"] = data.get('email')
+    rec["awayModeEnabled"] = _as_bool(data.get('awayModeEnabled'))
+    rec["hasInboxSeat"] = _as_bool(data.get('hasInboxSeat'))
+    rec["jobTitle"] = data.get('jobTitle')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Admin", rec)
+    return rec, 201
+
+@app.route("/v1/admins", methods=["GET"])
+def list_admins(request):
+    """List Admins with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Admin")
+    rows = _apply_filters(rows, params, ['name', 'email', 'awayModeEnabled', 'hasInboxSeat', 'jobTitle'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/admins/<eid>", methods=["GET"])
+def get_admin(request, eid):
+    """Retrieve a Admin by id (supports ?expand=)."""
+    rows = _query("Admin", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/admins/<eid>", methods=["POST", "PATCH"])
+def update_admin(request, eid):
+    """Update a Admin."""
+    rows = _query("Admin", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'email', 'awayModeEnabled', 'hasInboxSeat', 'jobTitle'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Admin", rec)
+    return rec, 200
+
+@app.route("/v1/admins/<eid>", methods=["DELETE"])
+def delete_admin(request, eid):
+    """Delete a Admin."""
+    rows = _query("Admin", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"intercom.Admin", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/articles", methods=["POST"])
+def create_article(request):
+    """Create a Article."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['title', 'body', 'state', 'authorId'])
+    if err:
+        return err, 400
+    err = _require(data, ['title', 'body'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['published', 'draft']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['published', 'draft']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("intercom_art")}
+    rec["title"] = data.get('title')
+    rec["body"] = data.get('body')
+    rec["state"] = data.get('state')
+    rec["authorId"] = _as_int(data.get('authorId'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Article", rec)
+    return rec, 201
+
+@app.route("/v1/articles", methods=["GET"])
+def list_articles(request):
+    """List Articles with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Article")
+    rows = _apply_filters(rows, params, ['title', 'body', 'state', 'authorId'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/articles/<eid>", methods=["GET"])
+def get_article(request, eid):
+    """Retrieve a Article by id (supports ?expand=)."""
+    rows = _query("Article", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/articles/<eid>", methods=["POST", "PATCH"])
+def update_article(request, eid):
+    """Update a Article."""
+    rows = _query("Article", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['title', 'body', 'state', 'authorId'])
+    if err:
+        return err, 400
+    if data.get('state') and data['state'] not in ['published', 'draft']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['published', 'draft']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Article", rec)
+    return rec, 200
+
+@app.route("/v1/articles/<eid>", methods=["DELETE"])
+def delete_article(request, eid):
+    """Delete a Article."""
+    rows = _query("Article", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"intercom.Article", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/tags", methods=["POST"])
+def create_tag(request):
+    """Create a Tag."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'appliedAt'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'appliedAt'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("intercom_tag")}
+    rec["name"] = data.get('name')
+    rec["appliedAt"] = _as_int(data.get('appliedAt'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Tag", rec)
+    return rec, 201
+
+@app.route("/v1/tags", methods=["GET"])
+def list_tags(request):
+    """List Tags with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Tag")
+    rows = _apply_filters(rows, params, ['name', 'appliedAt'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/tags/<eid>", methods=["GET"])
+def get_tag(request, eid):
+    """Retrieve a Tag by id (supports ?expand=)."""
+    rows = _query("Tag", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/tags/<eid>", methods=["POST", "PATCH"])
+def update_tag(request, eid):
+    """Update a Tag."""
+    rows = _query("Tag", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'appliedAt'])
+    if err:
+        return err, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Tag", rec)
+    return rec, 200
+
+@app.route("/v1/tags/<eid>", methods=["DELETE"])
+def delete_tag(request, eid):
+    """Delete a Tag."""
+    rows = _query("Tag", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"intercom.Tag", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "intercom-compat", "tier": "L4",
-            "entities": ['Ticket', 'Survey', 'Response', 'Account', 'Conversation', 'Contact']}, 200
+            "entities": ['Contact', 'Conversation', 'Company', 'Admin', 'Article', 'Tag']}, 200
 
 
 if __name__ == "__main__":

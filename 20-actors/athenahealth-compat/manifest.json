@@ -11,15 +11,27 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidyhu3tq3twxzlznejvx6wgm6z772deyzzqt2lfwnrdhbk45sy2xa",
   "schema": "schema/athenahealth.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.athenahealth.com/api",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Patient",
+      "Appointment",
+      "Encounter",
+      "Claim",
+      "Provider",
+      "Department"
+    ],
+    "enums": {}
+  },
   "entities": [
     "Patient",
+    "Appointment",
     "Encounter",
-    "Observation",
-    "Medication",
-    "Practitioner",
-    "Appointment"
+    "Claim",
+    "Provider",
+    "Department"
   ],
   "adr": [
     "260607",
@@ -60,6 +72,31 @@
         },
         {
           "method": "POST",
+          "path": "/v1/appointments",
+          "op": "create Appointment"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/appointments",
+          "op": "list Appointment"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/appointments/{id}",
+          "op": "get Appointment"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/appointments/{id}",
+          "op": "update Appointment"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/appointments/{id}",
+          "op": "delete Appointment"
+        },
+        {
+          "method": "POST",
           "path": "/v1/encounters",
           "op": "create Encounter"
         },
@@ -85,110 +122,85 @@
         },
         {
           "method": "POST",
-          "path": "/v1/observations",
-          "op": "create Observation"
+          "path": "/v1/claims",
+          "op": "create Claim"
         },
         {
           "method": "GET",
-          "path": "/v1/observations",
-          "op": "list Observation"
+          "path": "/v1/claims",
+          "op": "list Claim"
         },
         {
           "method": "GET",
-          "path": "/v1/observations/{id}",
-          "op": "get Observation"
+          "path": "/v1/claims/{id}",
+          "op": "get Claim"
         },
         {
           "method": "PATCH",
-          "path": "/v1/observations/{id}",
-          "op": "update Observation"
+          "path": "/v1/claims/{id}",
+          "op": "update Claim"
         },
         {
           "method": "DELETE",
-          "path": "/v1/observations/{id}",
-          "op": "delete Observation"
+          "path": "/v1/claims/{id}",
+          "op": "delete Claim"
         },
         {
           "method": "POST",
-          "path": "/v1/medications",
-          "op": "create Medication"
+          "path": "/v1/providers",
+          "op": "create Provider"
         },
         {
           "method": "GET",
-          "path": "/v1/medications",
-          "op": "list Medication"
+          "path": "/v1/providers",
+          "op": "list Provider"
         },
         {
           "method": "GET",
-          "path": "/v1/medications/{id}",
-          "op": "get Medication"
+          "path": "/v1/providers/{id}",
+          "op": "get Provider"
         },
         {
           "method": "PATCH",
-          "path": "/v1/medications/{id}",
-          "op": "update Medication"
+          "path": "/v1/providers/{id}",
+          "op": "update Provider"
         },
         {
           "method": "DELETE",
-          "path": "/v1/medications/{id}",
-          "op": "delete Medication"
+          "path": "/v1/providers/{id}",
+          "op": "delete Provider"
         },
         {
           "method": "POST",
-          "path": "/v1/practitioners",
-          "op": "create Practitioner"
+          "path": "/v1/departments",
+          "op": "create Department"
         },
         {
           "method": "GET",
-          "path": "/v1/practitioners",
-          "op": "list Practitioner"
+          "path": "/v1/departments",
+          "op": "list Department"
         },
         {
           "method": "GET",
-          "path": "/v1/practitioners/{id}",
-          "op": "get Practitioner"
+          "path": "/v1/departments/{id}",
+          "op": "get Department"
         },
         {
           "method": "PATCH",
-          "path": "/v1/practitioners/{id}",
-          "op": "update Practitioner"
+          "path": "/v1/departments/{id}",
+          "op": "update Department"
         },
         {
           "method": "DELETE",
-          "path": "/v1/practitioners/{id}",
-          "op": "delete Practitioner"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/appointments",
-          "op": "create Appointment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/appointments",
-          "op": "list Appointment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/appointments/{id}",
-          "op": "get Appointment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/appointments/{id}",
-          "op": "update Appointment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/appointments/{id}",
-          "op": "delete Appointment"
+          "path": "/v1/departments/{id}",
+          "op": "delete Department"
         }
       ],
       "features": {
-        "pagination": true,
-        "filtering": true,
-        "relationExpansion": true,
-        "strictValidation": true,
+        "pagination": false,
+        "filtering": false,
+        "relationExpansion": false,
+        "strictValidation": false,
         "contractTest": true
       },
       "health": "/healthz"
@@ -252,25 +264,82 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "mrn": {
+              "homeboundyn": {
+                "type": "boolean"
+              },
+              "assignedsexatbirth": {
                 "type": "string"
               },
-              "givenName": {
+              "altfirstname": {
                 "type": "string"
               },
-              "familyName": {
+              "ethnicitycode": {
                 "type": "string"
               },
-              "birthDate": {
+              "industrycode": {
+                "type": "integer"
+              },
+              "language6392code": {
                 "type": "string"
               },
-              "sex": {
+              "localpatientid": {
                 "type": "string"
+              },
+              "deceaseddate": {
+                "type": "string"
+              },
+              "firstappointment": {
+                "type": "string"
+              },
+              "primaryproviderid": {
+                "type": "integer"
+              },
+              "genderidentityother": {
+                "type": "string"
+              },
+              "preferredpronouns": {
+                "type": "string"
+              },
+              "lastappointment": {
+                "type": "string"
+              },
+              "donotcallyn": {
+                "type": "boolean"
+              },
+              "primarydepartmentid": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "lastemail": {
+                "type": "string"
+              },
+              "racecode": {
+                "type": "string"
+              },
+              "sexualorientation": {
+                "type": "string"
+              },
+              "genderidentity": {
+                "type": "string"
+              },
+              "emailexistsyn": {
+                "type": "boolean"
+              },
+              "occupationcode": {
+                "type": "integer"
+              },
+              "sexualorientationother": {
+                "type": "string"
+              },
+              "patientid": {
+                "type": "integer"
               }
             },
             "required": [
-              "mrn",
-              "givenName"
+              "homeboundyn",
+              "assignedsexatbirth"
             ]
           }
         },
@@ -306,20 +375,77 @@
               "id": {
                 "type": "string"
               },
-              "mrn": {
+              "homeboundyn": {
+                "type": "boolean"
+              },
+              "assignedsexatbirth": {
                 "type": "string"
               },
-              "givenName": {
+              "altfirstname": {
                 "type": "string"
               },
-              "familyName": {
+              "ethnicitycode": {
                 "type": "string"
               },
-              "birthDate": {
+              "industrycode": {
+                "type": "integer"
+              },
+              "language6392code": {
                 "type": "string"
               },
-              "sex": {
+              "localpatientid": {
                 "type": "string"
+              },
+              "deceaseddate": {
+                "type": "string"
+              },
+              "firstappointment": {
+                "type": "string"
+              },
+              "primaryproviderid": {
+                "type": "integer"
+              },
+              "genderidentityother": {
+                "type": "string"
+              },
+              "preferredpronouns": {
+                "type": "string"
+              },
+              "lastappointment": {
+                "type": "string"
+              },
+              "donotcallyn": {
+                "type": "boolean"
+              },
+              "primarydepartmentid": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "lastemail": {
+                "type": "string"
+              },
+              "racecode": {
+                "type": "string"
+              },
+              "sexualorientation": {
+                "type": "string"
+              },
+              "genderidentity": {
+                "type": "string"
+              },
+              "emailexistsyn": {
+                "type": "boolean"
+              },
+              "occupationcode": {
+                "type": "integer"
+              },
+              "sexualorientationother": {
+                "type": "string"
+              },
+              "patientid": {
+                "type": "integer"
               }
             },
             "required": [
@@ -343,399 +469,87 @@
           }
         },
         {
-          "name": "create_encounter",
-          "description": "Create a Encounter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_encounters",
-          "description": "List Encounters.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_encounter",
-          "description": "Get a Encounter by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_encounter",
-          "description": "Update a Encounter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_encounter",
-          "description": "Delete a Encounter.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_observation",
-          "description": "Create a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              },
-              "takenAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_observations",
-          "description": "List Observations.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_observation",
-          "description": "Get a Observation by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_observation",
-          "description": "Update a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              },
-              "unit": {
-                "type": "string"
-              },
-              "takenAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_observation",
-          "description": "Delete a Observation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_medication",
-          "description": "Create a Medication.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "dose": {
-                "type": "string"
-              },
-              "route": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "code",
-              "dose"
-            ]
-          }
-        },
-        {
-          "name": "list_medications",
-          "description": "List Medications.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_medication",
-          "description": "Get a Medication by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_medication",
-          "description": "Update a Medication.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "dose": {
-                "type": "string"
-              },
-              "route": {
-                "type": "string"
-              },
-              "active": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_medication",
-          "description": "Delete a Medication.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_practitioner",
-          "description": "Create a Practitioner.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "npi": {
-                "type": "string"
-              },
-              "givenName": {
-                "type": "string"
-              },
-              "familyName": {
-                "type": "string"
-              },
-              "specialty": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "npi",
-              "givenName"
-            ]
-          }
-        },
-        {
-          "name": "list_practitioners",
-          "description": "List Practitioners.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_practitioner",
-          "description": "Get a Practitioner by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_practitioner",
-          "description": "Update a Practitioner.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "npi": {
-                "type": "string"
-              },
-              "givenName": {
-                "type": "string"
-              },
-              "familyName": {
-                "type": "string"
-              },
-              "specialty": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_practitioner",
-          "description": "Delete a Practitioner.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
           "name": "create_appointment",
           "description": "Create a Appointment.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "patientId": {
+              "reasonid": {
+                "type": "integer"
+              },
+              "appointmentstatus": {
                 "type": "string"
               },
-              "practitionerId": {
+              "cancelleddatetime": {
                 "type": "string"
               },
-              "start": {
+              "chargeentrynotrequired": {
+                "type": "boolean"
+              },
+              "hl7providerid": {
+                "type": "integer"
+              },
+              "cancelreasonname": {
                 "type": "string"
               },
-              "status": {
+              "chargeentrynotrequiredreason": {
                 "type": "string"
+              },
+              "lastmodified": {
+                "type": "string"
+              },
+              "departmentid": {
+                "type": "integer"
+              },
+              "checkoutdatetime": {
+                "type": "string"
+              },
+              "copay": {
+                "type": "string"
+              },
+              "encounterid": {
+                "type": "string"
+              },
+              "scheduledby": {
+                "type": "string"
+              },
+              "checkindatetime": {
+                "type": "string"
+              },
+              "cancelledby": {
+                "type": "string"
+              },
+              "stopintakedatetime": {
+                "type": "string"
+              },
+              "encounterstatus": {
+                "type": "string"
+              },
+              "frozenyn": {
+                "type": "boolean"
+              },
+              "appointmenttype": {
+                "type": "string"
+              },
+              "appointmenttypeid": {
+                "type": "integer"
+              },
+              "cancelreasonid": {
+                "type": "integer"
+              },
+              "cancelreasonnoshow": {
+                "type": "boolean"
+              },
+              "cancelreasonslotavailable": {
+                "type": "boolean"
+              },
+              "coordinatorenterpriseyn": {
+                "type": "boolean"
               }
             },
             "required": [
-              "start",
-              "status"
+              "reasonid",
+              "appointmentstatus"
             ]
           }
         },
@@ -771,17 +585,77 @@
               "id": {
                 "type": "string"
               },
-              "patientId": {
+              "reasonid": {
+                "type": "integer"
+              },
+              "appointmentstatus": {
                 "type": "string"
               },
-              "practitionerId": {
+              "cancelleddatetime": {
                 "type": "string"
               },
-              "start": {
+              "chargeentrynotrequired": {
+                "type": "boolean"
+              },
+              "hl7providerid": {
+                "type": "integer"
+              },
+              "cancelreasonname": {
                 "type": "string"
               },
-              "status": {
+              "chargeentrynotrequiredreason": {
                 "type": "string"
+              },
+              "lastmodified": {
+                "type": "string"
+              },
+              "departmentid": {
+                "type": "integer"
+              },
+              "checkoutdatetime": {
+                "type": "string"
+              },
+              "copay": {
+                "type": "string"
+              },
+              "encounterid": {
+                "type": "string"
+              },
+              "scheduledby": {
+                "type": "string"
+              },
+              "checkindatetime": {
+                "type": "string"
+              },
+              "cancelledby": {
+                "type": "string"
+              },
+              "stopintakedatetime": {
+                "type": "string"
+              },
+              "encounterstatus": {
+                "type": "string"
+              },
+              "frozenyn": {
+                "type": "boolean"
+              },
+              "appointmenttype": {
+                "type": "string"
+              },
+              "appointmenttypeid": {
+                "type": "integer"
+              },
+              "cancelreasonid": {
+                "type": "integer"
+              },
+              "cancelreasonnoshow": {
+                "type": "boolean"
+              },
+              "cancelreasonslotavailable": {
+                "type": "boolean"
+              },
+              "coordinatorenterpriseyn": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -792,6 +666,708 @@
         {
           "name": "delete_appointment",
           "description": "Delete a Appointment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_encounter",
+          "description": "Create a Encounter.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "encounterid": {
+                "type": "integer"
+              },
+              "appointmentid": {
+                "type": "integer"
+              },
+              "departmentid": {
+                "type": "integer"
+              },
+              "encountervisitname": {
+                "type": "string"
+              },
+              "encountertype": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "patientlocationid": {
+                "type": "integer"
+              },
+              "patientlocation": {
+                "type": "string"
+              },
+              "patientstatusid": {
+                "type": "integer"
+              },
+              "patientstatus": {
+                "type": "string"
+              },
+              "encounterdate": {
+                "type": "string"
+              },
+              "stage": {
+                "type": "string"
+              },
+              "providerid": {
+                "type": "integer"
+              },
+              "providerfirstname": {
+                "type": "string"
+              },
+              "providerlastname": {
+                "type": "string"
+              },
+              "providerphone": {
+                "type": "string"
+              },
+              "lastupdated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "encounterid",
+              "appointmentid"
+            ]
+          }
+        },
+        {
+          "name": "list_encounters",
+          "description": "List Encounters.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_encounter",
+          "description": "Get a Encounter by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_encounter",
+          "description": "Update a Encounter.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "encounterid": {
+                "type": "integer"
+              },
+              "appointmentid": {
+                "type": "integer"
+              },
+              "departmentid": {
+                "type": "integer"
+              },
+              "encountervisitname": {
+                "type": "string"
+              },
+              "encountertype": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "patientlocationid": {
+                "type": "integer"
+              },
+              "patientlocation": {
+                "type": "string"
+              },
+              "patientstatusid": {
+                "type": "integer"
+              },
+              "patientstatus": {
+                "type": "string"
+              },
+              "encounterdate": {
+                "type": "string"
+              },
+              "stage": {
+                "type": "string"
+              },
+              "providerid": {
+                "type": "integer"
+              },
+              "providerfirstname": {
+                "type": "string"
+              },
+              "providerlastname": {
+                "type": "string"
+              },
+              "providerphone": {
+                "type": "string"
+              },
+              "lastupdated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_encounter",
+          "description": "Delete a Encounter.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_claim",
+          "description": "Create a Claim.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "referringproviderid": {
+                "type": "integer"
+              },
+              "claimcreateddate": {
+                "type": "string"
+              },
+              "billedservicedate": {
+                "type": "string"
+              },
+              "billedproviderid": {
+                "type": "integer"
+              },
+              "appointmentid": {
+                "type": "integer"
+              },
+              "chargeamount": {
+                "type": "string"
+              },
+              "transactionid": {
+                "type": "integer"
+              },
+              "claimid": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "referringproviderid",
+              "claimcreateddate"
+            ]
+          }
+        },
+        {
+          "name": "list_claims",
+          "description": "List Claims.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_claim",
+          "description": "Get a Claim by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_claim",
+          "description": "Update a Claim.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "referringproviderid": {
+                "type": "integer"
+              },
+              "claimcreateddate": {
+                "type": "string"
+              },
+              "billedservicedate": {
+                "type": "string"
+              },
+              "billedproviderid": {
+                "type": "integer"
+              },
+              "appointmentid": {
+                "type": "integer"
+              },
+              "chargeamount": {
+                "type": "string"
+              },
+              "transactionid": {
+                "type": "integer"
+              },
+              "claimid": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_claim",
+          "description": "Delete a Claim.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_provider",
+          "description": "Create a Provider.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "billable": {
+                "type": "boolean"
+              },
+              "ansispecialtycode": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "entitytype": {
+                "type": "string"
+              },
+              "otherprovideridlist": {
+                "type": "string"
+              },
+              "ansinamecode": {
+                "type": "string"
+              },
+              "displayname": {
+                "type": "string"
+              },
+              "homedepartment": {
+                "type": "string"
+              },
+              "providerid": {
+                "type": "integer"
+              },
+              "providertypeid": {
+                "type": "string"
+              },
+              "providerusername": {
+                "type": "string"
+              },
+              "supervisingproviderid": {
+                "type": "integer"
+              },
+              "providertype": {
+                "type": "string"
+              },
+              "createencounterprovideridlist": {
+                "type": "string"
+              },
+              "schedulingname": {
+                "type": "string"
+              },
+              "usualdepartmentid": {
+                "type": "string"
+              },
+              "createencounteroncheckinyn": {
+                "type": "boolean"
+              },
+              "specialty": {
+                "type": "string"
+              },
+              "hideinportalyn": {
+                "type": "boolean"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "npi": {
+                "type": "integer"
+              },
+              "providergrouplist": {
+                "type": "string"
+              },
+              "federalidnumber": {
+                "type": "string"
+              },
+              "supervisingproviderusername": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "billable",
+              "ansispecialtycode"
+            ]
+          }
+        },
+        {
+          "name": "list_providers",
+          "description": "List Providers.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_provider",
+          "description": "Get a Provider by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_provider",
+          "description": "Update a Provider.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "billable": {
+                "type": "boolean"
+              },
+              "ansispecialtycode": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "entitytype": {
+                "type": "string"
+              },
+              "otherprovideridlist": {
+                "type": "string"
+              },
+              "ansinamecode": {
+                "type": "string"
+              },
+              "displayname": {
+                "type": "string"
+              },
+              "homedepartment": {
+                "type": "string"
+              },
+              "providerid": {
+                "type": "integer"
+              },
+              "providertypeid": {
+                "type": "string"
+              },
+              "providerusername": {
+                "type": "string"
+              },
+              "supervisingproviderid": {
+                "type": "integer"
+              },
+              "providertype": {
+                "type": "string"
+              },
+              "createencounterprovideridlist": {
+                "type": "string"
+              },
+              "schedulingname": {
+                "type": "string"
+              },
+              "usualdepartmentid": {
+                "type": "string"
+              },
+              "createencounteroncheckinyn": {
+                "type": "boolean"
+              },
+              "specialty": {
+                "type": "string"
+              },
+              "hideinportalyn": {
+                "type": "boolean"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "npi": {
+                "type": "integer"
+              },
+              "providergrouplist": {
+                "type": "string"
+              },
+              "federalidnumber": {
+                "type": "string"
+              },
+              "supervisingproviderusername": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_provider",
+          "description": "Delete a Provider.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_department",
+          "description": "Create a Department.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "timezoneoffset": {
+                "type": "integer"
+              },
+              "singleappointmentcontractmax": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "placeofservicefacility": {
+                "type": "boolean"
+              },
+              "latitude": {
+                "type": "string"
+              },
+              "departmentid": {
+                "type": "integer"
+              },
+              "address": {
+                "type": "string"
+              },
+              "placeofservicetypeid": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              },
+              "clinicals": {
+                "type": "string"
+              },
+              "timezone": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "patientdepartmentname": {
+                "type": "string"
+              },
+              "chartsharinggroupid": {
+                "type": "string"
+              },
+              "placeofservicetypename": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              },
+              "timezonename": {
+                "type": "string"
+              },
+              "communicatorbrandid": {
+                "type": "string"
+              },
+              "medicationhistoryconsent": {
+                "type": "boolean"
+              },
+              "ishospitaldepartment": {
+                "type": "boolean"
+              },
+              "providergroupid": {
+                "type": "string"
+              },
+              "portalurl": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "servicedepartment": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "timezoneoffset",
+              "singleappointmentcontractmax"
+            ]
+          }
+        },
+        {
+          "name": "list_departments",
+          "description": "List Departments.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_department",
+          "description": "Get a Department by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_department",
+          "description": "Update a Department.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "timezoneoffset": {
+                "type": "integer"
+              },
+              "singleappointmentcontractmax": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "placeofservicefacility": {
+                "type": "boolean"
+              },
+              "latitude": {
+                "type": "string"
+              },
+              "departmentid": {
+                "type": "integer"
+              },
+              "address": {
+                "type": "string"
+              },
+              "placeofservicetypeid": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              },
+              "clinicals": {
+                "type": "string"
+              },
+              "timezone": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "patientdepartmentname": {
+                "type": "string"
+              },
+              "chartsharinggroupid": {
+                "type": "string"
+              },
+              "placeofservicetypename": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              },
+              "timezonename": {
+                "type": "string"
+              },
+              "communicatorbrandid": {
+                "type": "string"
+              },
+              "medicationhistoryconsent": {
+                "type": "boolean"
+              },
+              "ishospitaldepartment": {
+                "type": "boolean"
+              },
+              "providergroupid": {
+                "type": "string"
+              },
+              "portalurl": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "servicedepartment": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_department",
+          "description": "Delete a Department.",
           "inputSchema": {
             "type": "object",
             "properties": {

@@ -3,75 +3,67 @@
 
 namespace deel {
 
-    entity Employee {
+    entity Contract {
         id: string @unique
-        firstName: string
-        lastName: string
-        email: string
-        title: string
-        department: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Candidate {
-        id: string @unique
-        firstName: string
-        lastName: string
-        email: string
-        stage: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity JobReq {
-        id: string @unique
-        title: string
-        department: string
-        status: string
-        openings: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity PayrollRun {
-        id: string @unique
-        period: string
-        grossTotal: float
-        currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity TimeOff {
-        id: string @unique
-        employeeId: string
+        id: string
+        contractId: string
         type: string
-        start: datetime
-        days: float
         status: string
+        teamId: string
+        country: string
+        currency: string
+        externalId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Review {
+    entity Worker {
         id: string @unique
-        employeeId: string
-        cycle: string
-        rating: float
-        reviewerId: string
+        profileId: string
+        name: string
+        firstName: string
+        lastName: string
+        email: string
+        country: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Milestone {
+        id: string @unique
+        id: string
+        title: string
+        amount: float
+        status: string
+        contractId: string
+        createdAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Timesheet {
+        id: string @unique
+        id: string
+        contractId: string
+        date: datetime
+        hours: float
+        description: string
+        status: string
+        reporterId: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Payment {
+        id: string @unique
+        paymentId: string
+        dateFrom: datetime
+        dateTo: datetime
+        status: string
+        currency: string
+        entityType: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

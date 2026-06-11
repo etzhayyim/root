@@ -111,381 +111,331 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/prefixes", methods=["POST"])
-def create_prefix(request):
-    """Create a Prefix."""
+@app.route("/v1/labelstackentries", methods=["POST"])
+def create_label_stack_entry(request):
+    """Create a LabelStackEntry."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['label', 'tc', 's', 'ttl'])
     if err:
         return err, 400
-    err = _require(data, ['cidr', 'originAsn'])
+    err = _require(data, ['label', 'tc'])
     if err:
         return err, 400
-    rec = {"id": new_id("mpls_pre")}
-    rec["cidr"] = data.get('cidr')
-    rec["originAsn"] = data.get('originAsn')
-    rec["validity"] = data.get('validity')
+    if data.get('tc') and data['tc'] not in [0, 1, 2, 3, 4, 5, 6, 7]:
+        return {"error": {"message": "invalid tc; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mpls_lab")}
+    rec["label"] = _as_int(data.get('label'))
+    rec["tc"] = _as_int(data.get('tc'))
+    rec["s"] = _as_bool(data.get('s'))
+    rec["ttl"] = _as_int(data.get('ttl'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Prefix", rec)
+    _persist("LabelStackEntry", rec)
     return rec, 201
 
-@app.route("/v1/prefixes", methods=["GET"])
-def list_prefixes(request):
-    """List Prefixes with filtering + cursor pagination."""
+@app.route("/v1/labelstackentries", methods=["GET"])
+def list_label_stack_entries(request):
+    """List LabelStackEntries with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Prefix")
-    rows = _apply_filters(rows, params, ['cidr', 'originAsn', 'validity'])
+    rows = _query("LabelStackEntry")
+    rows = _apply_filters(rows, params, ['label', 'tc', 's', 'ttl'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["GET"])
-def get_prefix(request, eid):
-    """Retrieve a Prefix by id (supports ?expand=)."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/labelstackentries/<eid>", methods=["GET"])
+def get_label_stack_entry(request, eid):
+    """Retrieve a LabelStackEntry by id (supports ?expand=)."""
+    rows = _query("LabelStackEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["POST", "PATCH"])
-def update_prefix(request, eid):
-    """Update a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/labelstackentries/<eid>", methods=["POST", "PATCH"])
+def update_label_stack_entry(request, eid):
+    """Update a LabelStackEntry."""
+    rows = _query("LabelStackEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['cidr', 'originAsn', 'validity'])
+    err = _reject_unknown(data, ['label', 'tc', 's', 'ttl'])
     if err:
         return err, 400
+    if data.get('tc') and data['tc'] not in [0, 1, 2, 3, 4, 5, 6, 7]:
+        return {"error": {"message": "invalid tc; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Prefix", rec)
+    _persist("LabelStackEntry", rec)
     return rec, 200
 
-@app.route("/v1/prefixes/<eid>", methods=["DELETE"])
-def delete_prefix(request, eid):
-    """Delete a Prefix."""
-    rows = _query("Prefix", eid)
+@app.route("/v1/labelstackentries/<eid>", methods=["DELETE"])
+def delete_label_stack_entry(request, eid):
+    """Delete a LabelStackEntry."""
+    rows = _query("LabelStackEntry", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mpls.Prefix", "id": eid})
+    db.retract({"entity": f"mpls.LabelStackEntry", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/routes", methods=["POST"])
-def create_route(request):
-    """Create a Route."""
+@app.route("/v1/mplsheaders", methods=["POST"])
+def create_mpls_header(request):
+    """Create a MplsHeader."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['stackDepth', 'topLabel', 'trafficClass', 'bottomOfStack', 'timeToLive'])
     if err:
         return err, 400
-    err = _require(data, ['nextHop', 'asPath'])
+    err = _require(data, ['stackDepth', 'topLabel'])
     if err:
         return err, 400
-    rec = {"id": new_id("mpls_rou")}
-    rec["prefixId"] = data.get('prefixId')
-    rec["nextHop"] = data.get('nextHop')
-    rec["asPath"] = data.get('asPath')
+    if data.get('trafficClass') and data['trafficClass'] not in [0, 1, 2, 3, 4, 5, 6, 7]:
+        return {"error": {"message": "invalid trafficClass; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mpls_mpl")}
+    rec["stackDepth"] = _as_int(data.get('stackDepth'))
+    rec["topLabel"] = _as_int(data.get('topLabel'))
+    rec["trafficClass"] = _as_int(data.get('trafficClass'))
+    rec["bottomOfStack"] = _as_bool(data.get('bottomOfStack'))
+    rec["timeToLive"] = _as_int(data.get('timeToLive'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Route", rec)
+    _persist("MplsHeader", rec)
     return rec, 201
 
-@app.route("/v1/routes", methods=["GET"])
-def list_routes(request):
-    """List Routes with filtering + cursor pagination."""
+@app.route("/v1/mplsheaders", methods=["GET"])
+def list_mpls_headers(request):
+    """List MplsHeaders with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Route")
-    rows = _apply_filters(rows, params, ['prefixId', 'nextHop', 'asPath'])
+    rows = _query("MplsHeader")
+    rows = _apply_filters(rows, params, ['stackDepth', 'topLabel', 'trafficClass', 'bottomOfStack', 'timeToLive'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/routes/<eid>", methods=["GET"])
-def get_route(request, eid):
-    """Retrieve a Route by id (supports ?expand=)."""
-    rows = _query("Route", eid)
+@app.route("/v1/mplsheaders/<eid>", methods=["GET"])
+def get_mpls_header(request, eid):
+    """Retrieve a MplsHeader by id (supports ?expand=)."""
+    rows = _query("MplsHeader", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'prefixId': 'Prefix'})
     return rec, 200
 
-@app.route("/v1/routes/<eid>", methods=["POST", "PATCH"])
-def update_route(request, eid):
-    """Update a Route."""
-    rows = _query("Route", eid)
+@app.route("/v1/mplsheaders/<eid>", methods=["POST", "PATCH"])
+def update_mpls_header(request, eid):
+    """Update a MplsHeader."""
+    rows = _query("MplsHeader", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['prefixId', 'nextHop', 'asPath'])
+    err = _reject_unknown(data, ['stackDepth', 'topLabel', 'trafficClass', 'bottomOfStack', 'timeToLive'])
     if err:
         return err, 400
+    if data.get('trafficClass') and data['trafficClass'] not in [0, 1, 2, 3, 4, 5, 6, 7]:
+        return {"error": {"message": "invalid trafficClass; allowed: " + ", ".join([0, 1, 2, 3, 4, 5, 6, 7]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Route", rec)
+    _persist("MplsHeader", rec)
     return rec, 200
 
-@app.route("/v1/routes/<eid>", methods=["DELETE"])
-def delete_route(request, eid):
-    """Delete a Route."""
-    rows = _query("Route", eid)
+@app.route("/v1/mplsheaders/<eid>", methods=["DELETE"])
+def delete_mpls_header(request, eid):
+    """Delete a MplsHeader."""
+    rows = _query("MplsHeader", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mpls.Route", "id": eid})
+    db.retract({"entity": f"mpls.MplsHeader", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/peers", methods=["POST"])
-def create_peer(request):
-    """Create a Peer."""
+@app.route("/v1/reservedlabels", methods=["POST"])
+def create_reserved_label(request):
+    """Create a ReservedLabel."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
+    err = _reject_unknown(data, ['value', 'name', 'purpose'])
     if err:
         return err, 400
-    err = _require(data, ['asn', 'ipAddress'])
+    err = _require(data, ['value', 'name'])
     if err:
         return err, 400
-    rec = {"id": new_id("mpls_pee")}
-    rec["asn"] = data.get('asn')
-    rec["ipAddress"] = data.get('ipAddress')
-    rec["state"] = data.get('state')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Peer", rec)
-    return rec, 201
-
-@app.route("/v1/peers", methods=["GET"])
-def list_peers(request):
-    """List Peers with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Peer")
-    rows = _apply_filters(rows, params, ['asn', 'ipAddress', 'state'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/peers/<eid>", methods=["GET"])
-def get_peer(request, eid):
-    """Retrieve a Peer by id (supports ?expand=)."""
-    rows = _query("Peer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/peers/<eid>", methods=["POST", "PATCH"])
-def update_peer(request, eid):
-    """Update a Peer."""
-    rows = _query("Peer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['asn', 'ipAddress', 'state'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Peer", rec)
-    return rec, 200
-
-@app.route("/v1/peers/<eid>", methods=["DELETE"])
-def delete_peer(request, eid):
-    """Delete a Peer."""
-    rows = _query("Peer", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mpls.Peer", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/zones", methods=["POST"])
-def create_zone(request):
-    """Create a Zone."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'serial'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("mpls_zon")}
+    if data.get('value') and data['value'] not in [0, 1, 2, 3, 4, 7, 13, 14, 15]:
+        return {"error": {"message": "invalid value; allowed: " + ", ".join([0, 1, 2, 3, 4, 7, 13, 14, 15]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mpls_res")}
+    rec["value"] = _as_int(data.get('value'))
     rec["name"] = data.get('name')
-    rec["serial"] = _as_int(data.get('serial'))
-    rec["refreshSec"] = _as_int(data.get('refreshSec'))
+    rec["purpose"] = data.get('purpose')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Zone", rec)
+    _persist("ReservedLabel", rec)
     return rec, 201
 
-@app.route("/v1/zones", methods=["GET"])
-def list_zones(request):
-    """List Zones with filtering + cursor pagination."""
+@app.route("/v1/reservedlabels", methods=["GET"])
+def list_reserved_labels(request):
+    """List ReservedLabels with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Zone")
-    rows = _apply_filters(rows, params, ['name', 'serial', 'refreshSec'])
+    rows = _query("ReservedLabel")
+    rows = _apply_filters(rows, params, ['value', 'name', 'purpose'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/zones/<eid>", methods=["GET"])
-def get_zone(request, eid):
-    """Retrieve a Zone by id (supports ?expand=)."""
-    rows = _query("Zone", eid)
+@app.route("/v1/reservedlabels/<eid>", methods=["GET"])
+def get_reserved_label(request, eid):
+    """Retrieve a ReservedLabel by id (supports ?expand=)."""
+    rows = _query("ReservedLabel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["POST", "PATCH"])
-def update_zone(request, eid):
-    """Update a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/reservedlabels/<eid>", methods=["POST", "PATCH"])
+def update_reserved_label(request, eid):
+    """Update a ReservedLabel."""
+    rows = _query("ReservedLabel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'serial', 'refreshSec'])
+    err = _reject_unknown(data, ['value', 'name', 'purpose'])
     if err:
         return err, 400
+    if data.get('value') and data['value'] not in [0, 1, 2, 3, 4, 7, 13, 14, 15]:
+        return {"error": {"message": "invalid value; allowed: " + ", ".join([0, 1, 2, 3, 4, 7, 13, 14, 15]), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Zone", rec)
+    _persist("ReservedLabel", rec)
     return rec, 200
 
-@app.route("/v1/zones/<eid>", methods=["DELETE"])
-def delete_zone(request, eid):
-    """Delete a Zone."""
-    rows = _query("Zone", eid)
+@app.route("/v1/reservedlabels/<eid>", methods=["DELETE"])
+def delete_reserved_label(request, eid):
+    """Delete a ReservedLabel."""
+    rows = _query("ReservedLabel", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mpls.Zone", "id": eid})
+    db.retract({"entity": f"mpls.ReservedLabel", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/records", methods=["POST"])
-def create_record(request):
-    """Create a Record."""
+@app.route("/v1/nhlfeoperations", methods=["POST"])
+def create_nhlfe_operation(request):
+    """Create a NhlfeOperation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['operationType', 'newLabel', 'nextHopDestination'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'type'])
+    err = _require(data, ['operationType', 'newLabel'])
     if err:
         return err, 400
-    rec = {"id": new_id("mpls_rec")}
-    rec["zoneId"] = data.get('zoneId')
-    rec["name"] = data.get('name')
-    rec["type"] = data.get('type')
-    rec["value"] = data.get('value')
+    if data.get('operationType') and data['operationType'] not in ['replace', 'pop', 'replace-and-push']:
+        return {"error": {"message": "invalid operationType; allowed: " + ", ".join(['replace', 'pop', 'replace-and-push']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("mpls_nhl")}
+    rec["operationType"] = data.get('operationType')
+    rec["newLabel"] = _as_int(data.get('newLabel'))
+    rec["nextHopDestination"] = data.get('nextHopDestination')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Record", rec)
+    _persist("NhlfeOperation", rec)
     return rec, 201
 
-@app.route("/v1/records", methods=["GET"])
-def list_records(request):
-    """List Records with filtering + cursor pagination."""
+@app.route("/v1/nhlfeoperations", methods=["GET"])
+def list_nhlfe_operations(request):
+    """List NhlfeOperations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Record")
-    rows = _apply_filters(rows, params, ['zoneId', 'name', 'type', 'value'])
+    rows = _query("NhlfeOperation")
+    rows = _apply_filters(rows, params, ['operationType', 'newLabel', 'nextHopDestination'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/records/<eid>", methods=["GET"])
-def get_record(request, eid):
-    """Retrieve a Record by id (supports ?expand=)."""
-    rows = _query("Record", eid)
+@app.route("/v1/nhlfeoperations/<eid>", methods=["GET"])
+def get_nhlfe_operation(request, eid):
+    """Retrieve a NhlfeOperation by id (supports ?expand=)."""
+    rows = _query("NhlfeOperation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'zoneId': 'Zone'})
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["POST", "PATCH"])
-def update_record(request, eid):
-    """Update a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/nhlfeoperations/<eid>", methods=["POST", "PATCH"])
+def update_nhlfe_operation(request, eid):
+    """Update a NhlfeOperation."""
+    rows = _query("NhlfeOperation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['zoneId', 'name', 'type', 'value'])
+    err = _reject_unknown(data, ['operationType', 'newLabel', 'nextHopDestination'])
     if err:
         return err, 400
+    if data.get('operationType') and data['operationType'] not in ['replace', 'pop', 'replace-and-push']:
+        return {"error": {"message": "invalid operationType; allowed: " + ", ".join(['replace', 'pop', 'replace-and-push']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Record", rec)
+    _persist("NhlfeOperation", rec)
     return rec, 200
 
-@app.route("/v1/records/<eid>", methods=["DELETE"])
-def delete_record(request, eid):
-    """Delete a Record."""
-    rows = _query("Record", eid)
+@app.route("/v1/nhlfeoperations/<eid>", methods=["DELETE"])
+def delete_nhlfe_operation(request, eid):
+    """Delete a NhlfeOperation."""
+    rows = _query("NhlfeOperation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mpls.Record", "id": eid})
+    db.retract({"entity": f"mpls.NhlfeOperation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/tunnels", methods=["POST"])
-def create_tunnel(request):
-    """Create a Tunnel."""
+@app.route("/v1/mplsforwardingstates", methods=["POST"])
+def create_mpls_forwarding_state(request):
+    """Create a MplsForwardingState."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    err = _reject_unknown(data, ['incomingLabel', 'fecRef', 'hopCount'])
     if err:
         return err, 400
-    err = _require(data, ['localAddr', 'remoteAddr'])
+    err = _require(data, ['incomingLabel', 'hopCount'])
     if err:
         return err, 400
-    rec = {"id": new_id("mpls_tun")}
-    rec["localAddr"] = data.get('localAddr')
-    rec["remoteAddr"] = data.get('remoteAddr')
-    rec["protocol"] = data.get('protocol')
-    rec["active"] = _as_bool(data.get('active'))
+    rec = {"id": new_id("mpls_mpl")}
+    rec["incomingLabel"] = _as_int(data.get('incomingLabel'))
+    rec["fecRef"] = data.get('fecRef')
+    rec["hopCount"] = _as_int(data.get('hopCount'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Tunnel", rec)
+    _persist("MplsForwardingState", rec)
     return rec, 201
 
-@app.route("/v1/tunnels", methods=["GET"])
-def list_tunnels(request):
-    """List Tunnels with filtering + cursor pagination."""
+@app.route("/v1/mplsforwardingstates", methods=["GET"])
+def list_mpls_forwarding_states(request):
+    """List MplsForwardingStates with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Tunnel")
-    rows = _apply_filters(rows, params, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    rows = _query("MplsForwardingState")
+    rows = _apply_filters(rows, params, ['incomingLabel', 'fecRef', 'hopCount'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["GET"])
-def get_tunnel(request, eid):
-    """Retrieve a Tunnel by id (supports ?expand=)."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/mplsforwardingstates/<eid>", methods=["GET"])
+def get_mpls_forwarding_state(request, eid):
+    """Retrieve a MplsForwardingState by id (supports ?expand=)."""
+    rows = _query("MplsForwardingState", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["POST", "PATCH"])
-def update_tunnel(request, eid):
-    """Update a Tunnel."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/mplsforwardingstates/<eid>", methods=["POST", "PATCH"])
+def update_mpls_forwarding_state(request, eid):
+    """Update a MplsForwardingState."""
+    rows = _query("MplsForwardingState", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['localAddr', 'remoteAddr', 'protocol', 'active'])
+    err = _reject_unknown(data, ['incomingLabel', 'fecRef', 'hopCount'])
     if err:
         return err, 400
     rec = rows[0]
@@ -493,22 +443,22 @@ def update_tunnel(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Tunnel", rec)
+    _persist("MplsForwardingState", rec)
     return rec, 200
 
-@app.route("/v1/tunnels/<eid>", methods=["DELETE"])
-def delete_tunnel(request, eid):
-    """Delete a Tunnel."""
-    rows = _query("Tunnel", eid)
+@app.route("/v1/mplsforwardingstates/<eid>", methods=["DELETE"])
+def delete_mpls_forwarding_state(request, eid):
+    """Delete a MplsForwardingState."""
+    rows = _query("MplsForwardingState", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"mpls.Tunnel", "id": eid})
+    db.retract({"entity": f"mpls.MplsForwardingState", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "mpls-compat", "tier": "L4",
-            "entities": ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']}, 200
+            "entities": ['LabelStackEntry', 'MplsHeader', 'ReservedLabel', 'NhlfeOperation', 'MplsForwardingState']}, 200
 
 
 if __name__ == "__main__":

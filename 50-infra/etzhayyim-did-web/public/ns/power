@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "@vocab": "https://etzhayyim.com/ns/power#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+  },
+  "@id": "https://etzhayyim.com/ns/power#",
+  "@type": "owl:Ontology",
+  "rdfs:label": "etzhayyim power-dynamics vocabulary (tsumugi 紡ぎ)",
+  "rdfs:comment": "Self-sovereign linked-data vocabulary. Dataset: /dataset/tsumugi-power.json. License: Apache-2.0 + etzhayyim Charter Compliance Rider v3.1 (/CHARTER-RIDER.md). Publisher: did:web:etzhayyim.com:actor:tsumugi",
+  "terms": {
+    "https://etzhayyim.com/ns/power#Org": "an organisation / 法人 / institution (a power-holding collective)",
+    "https://etzhayyim.com/ns/power#PublicSeat": "a public-power SEAT (chair/exec/official) — never a private individual (S2)",
+    "https://etzhayyim.com/ns/power#Locality": "a place cluster bearing an etzhayyim-derived 産官学報 concentration readout",
+    "https://etzhayyim.com/ns/power#custodies": "parent organisation controls/owns the object (P749-grade)",
+    "https://etzhayyim.com/ns/power#dependsOn": "supply / funding / IP dependency",
+    "https://etzhayyim.com/ns/power#concentration": "etzhayyim-DERIVED 産官学報 cross-sector concentration (edge-primary integral × diversity)",
+    "https://etzhayyim.com/ns/power#scale": "global→supranational→national→regional→municipal→local→intra-org",
+    "https://etzhayyim.com/ns/power#sector": "産官学報民金",
+    "https://etzhayyim.com/ns/power#collectiveKind": "組織/地域/市区町村/コミュニティ/社内派閥/学閥/系列/審議会",
+    "https://etzhayyim.com/ns/power#derivedBy": "the DID that authored this (etzhayyim-original) assertion"
+  }
+}

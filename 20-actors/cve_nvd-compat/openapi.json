@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreifadegkbjriotklhgnjxsata3txjamtctkrvlu3zifh5yn6cmpvsm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/indicators": {
+    "/v1/cveitems": {
       "get": {
-        "summary": "List Indicators",
+        "summary": "List CveItems",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Indicator"
+                        "$ref": "#/components/schemas/CveItem"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Indicator",
+        "summary": "Create a CveItem",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IndicatorCreate"
+                "$ref": "#/components/schemas/CveItemCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Indicator"
+                  "$ref": "#/components/schemas/CveItem"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/indicators/{id}": {
+    "/v1/cveitems/{id}": {
       "get": {
-        "summary": "Get a Indicator",
+        "summary": "Get a CveItem",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Indicator"
+                  "$ref": "#/components/schemas/CveItem"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Indicator",
+        "summary": "Update a CveItem",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IndicatorCreate"
+                "$ref": "#/components/schemas/CveItemCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Indicator"
+                  "$ref": "#/components/schemas/CveItem"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Indicator",
+        "summary": "Delete a CveItem",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/vulnerabilities": {
+    "/v1/cvssv3metrics": {
       "get": {
-        "summary": "List Vulnerabilities",
+        "summary": "List CvssV3Metrics",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Vulnerability"
+                        "$ref": "#/components/schemas/CvssV3Metric"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Vulnerability",
+        "summary": "Create a CvssV3Metric",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VulnerabilityCreate"
+                "$ref": "#/components/schemas/CvssV3MetricCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vulnerability"
+                  "$ref": "#/components/schemas/CvssV3Metric"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/vulnerabilities/{id}": {
+    "/v1/cvssv3metrics/{id}": {
       "get": {
-        "summary": "Get a Vulnerability",
+        "summary": "Get a CvssV3Metric",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vulnerability"
+                  "$ref": "#/components/schemas/CvssV3Metric"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Vulnerability",
+        "summary": "Update a CvssV3Metric",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VulnerabilityCreate"
+                "$ref": "#/components/schemas/CvssV3MetricCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vulnerability"
+                  "$ref": "#/components/schemas/CvssV3Metric"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Vulnerability",
+        "summary": "Delete a CvssV3Metric",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/threatactors": {
+    "/v1/cvssv3vectors": {
       "get": {
-        "summary": "List ThreatActors",
+        "summary": "List CvssV3Vectors",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ThreatActor"
+                        "$ref": "#/components/schemas/CvssV3Vector"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a ThreatActor",
+        "summary": "Create a CvssV3Vector",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ThreatActorCreate"
+                "$ref": "#/components/schemas/CvssV3VectorCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ThreatActor"
+                  "$ref": "#/components/schemas/CvssV3Vector"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/threatactors/{id}": {
+    "/v1/cvssv3vectors/{id}": {
       "get": {
-        "summary": "Get a ThreatActor",
+        "summary": "Get a CvssV3Vector",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ThreatActor"
+                  "$ref": "#/components/schemas/CvssV3Vector"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ThreatActor",
+        "summary": "Update a CvssV3Vector",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ThreatActorCreate"
+                "$ref": "#/components/schemas/CvssV3VectorCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ThreatActor"
+                  "$ref": "#/components/schemas/CvssV3Vector"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ThreatActor",
+        "summary": "Delete a CvssV3Vector",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/campaigns": {
+    "/v1/references": {
       "get": {
-        "summary": "List Campaigns",
+        "summary": "List References",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Campaign"
+                        "$ref": "#/components/schemas/Reference"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Campaign",
+        "summary": "Create a Reference",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CampaignCreate"
+                "$ref": "#/components/schemas/ReferenceCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Campaign"
+                  "$ref": "#/components/schemas/Reference"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/campaigns/{id}": {
+    "/v1/references/{id}": {
       "get": {
-        "summary": "Get a Campaign",
+        "summary": "Get a Reference",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Campaign"
+                  "$ref": "#/components/schemas/Reference"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Campaign",
+        "summary": "Update a Reference",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CampaignCreate"
+                "$ref": "#/components/schemas/ReferenceCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Campaign"
+                  "$ref": "#/components/schemas/Reference"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Campaign",
+        "summary": "Delete a Reference",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/hosts": {
+    "/v1/weaknesses": {
       "get": {
-        "summary": "List Hosts",
+        "summary": "List Weaknesses",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Host"
+                        "$ref": "#/components/schemas/Weakness"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Host",
+        "summary": "Create a Weakness",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/HostCreate"
+                "$ref": "#/components/schemas/WeaknessCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Host"
+                  "$ref": "#/components/schemas/Weakness"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/hosts/{id}": {
+    "/v1/weaknesses/{id}": {
       "get": {
-        "summary": "Get a Host",
+        "summary": "Get a Weakness",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Host"
+                  "$ref": "#/components/schemas/Weakness"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Host",
+        "summary": "Update a Weakness",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/HostCreate"
+                "$ref": "#/components/schemas/WeaknessCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Host"
+                  "$ref": "#/components/schemas/Weakness"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Host",
+        "summary": "Delete a Weakness",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/techniques": {
+    "/v1/cvemetricses": {
       "get": {
-        "summary": "List Techniques",
+        "summary": "List CveMetricses",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Technique"
+                        "$ref": "#/components/schemas/CveMetrics"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Technique",
+        "summary": "Create a CveMetrics",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TechniqueCreate"
+                "$ref": "#/components/schemas/CveMetricsCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Technique"
+                  "$ref": "#/components/schemas/CveMetrics"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/techniques/{id}": {
+    "/v1/cvemetricses/{id}": {
       "get": {
-        "summary": "Get a Technique",
+        "summary": "Get a CveMetrics",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Technique"
+                  "$ref": "#/components/schemas/CveMetrics"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Technique",
+        "summary": "Update a CveMetrics",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TechniqueCreate"
+                "$ref": "#/components/schemas/CveMetricsCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Technique"
+                  "$ref": "#/components/schemas/CveMetrics"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Technique",
+        "summary": "Delete a CveMetrics",
         "parameters": [
           {
             "name": "id",
@@ -1140,57 +1140,7 @@
   },
   "components": {
     "schemas": {
-      "Indicator": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          },
-          "confidence": {
-            "type": "integer"
-          },
-          "firstSeen": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "IndicatorCreate": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          },
-          "confidence": {
-            "type": "integer"
-          },
-          "firstSeen": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "type",
-          "value"
-        ]
-      },
-      "Vulnerability": {
+      "CveItem": {
         "type": "object",
         "properties": {
           "id": {
@@ -1199,13 +1149,17 @@
           "cveId": {
             "type": "string"
           },
-          "cvss": {
-            "type": "number"
+          "sourceIdentifier": {
+            "type": "string"
           },
-          "description": {
+          "vulnStatus": {
             "type": "string"
           },
           "published": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModified": {
             "type": "string",
             "format": "date-time"
           },
@@ -1219,40 +1173,264 @@
           }
         }
       },
-      "VulnerabilityCreate": {
+      "CveItemCreate": {
         "type": "object",
         "properties": {
           "cveId": {
             "type": "string"
           },
-          "cvss": {
-            "type": "number"
+          "sourceIdentifier": {
+            "type": "string"
           },
-          "description": {
+          "vulnStatus": {
             "type": "string"
           },
           "published": {
             "type": "string"
+          },
+          "lastModified": {
+            "type": "string"
           }
         },
         "required": [
-          "cvss",
-          "description"
+          "sourceIdentifier",
+          "vulnStatus"
         ]
       },
-      "ThreatActor": {
+      "CvssV3Metric": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "baseScore": {
+            "type": "number"
+          },
+          "baseSeverity": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
+          },
+          "exploitabilityScore": {
+            "type": "number"
+          },
+          "impactScore": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CvssV3MetricCreate": {
+        "type": "object",
+        "properties": {
+          "baseScore": {
+            "type": "number"
+          },
+          "baseSeverity": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "CRITICAL"
+            ]
+          },
+          "exploitabilityScore": {
+            "type": "number"
+          },
+          "impactScore": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "baseScore",
+          "baseSeverity"
+        ]
+      },
+      "CvssV3Vector": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
-          "motivation": {
+          "version": {
             "type": "string"
           },
-          "sophistication": {
+          "vectorString": {
+            "type": "string"
+          },
+          "attackVector": {
+            "type": "string",
+            "enum": [
+              "NETWORK",
+              "ADJACENT_NETWORK",
+              "LOCAL",
+              "PHYSICAL"
+            ]
+          },
+          "attackComplexity": {
+            "type": "string",
+            "enum": [
+              "LOW",
+              "HIGH"
+            ]
+          },
+          "privilegesRequired": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ]
+          },
+          "userInteraction": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "REQUIRED"
+            ]
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "UNCHANGED",
+              "CHANGED"
+            ]
+          },
+          "confidentialityImpact": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ]
+          },
+          "integrityImpact": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ]
+          },
+          "availabilityImpact": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CvssV3VectorCreate": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "vectorString": {
+            "type": "string"
+          },
+          "attackVector": {
+            "type": "string",
+            "enum": [
+              "NETWORK",
+              "ADJACENT_NETWORK",
+              "LOCAL",
+              "PHYSICAL"
+            ]
+          },
+          "attackComplexity": {
+            "type": "string",
+            "enum": [
+              "LOW",
+              "HIGH"
+            ]
+          },
+          "privilegesRequired": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ]
+          },
+          "userInteraction": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "REQUIRED"
+            ]
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "UNCHANGED",
+              "CHANGED"
+            ]
+          },
+          "confidentialityImpact": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ]
+          },
+          "integrityImpact": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ]
+          },
+          "availabilityImpact": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LOW",
+              "HIGH"
+            ]
+          }
+        },
+        "required": [
+          "version",
+          "vectorString"
+        ]
+      },
+      "Reference": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "source": {
             "type": "string"
           },
           "createdAt": {
@@ -1265,84 +1443,34 @@
           }
         }
       },
-      "ThreatActorCreate": {
+      "ReferenceCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "url": {
             "type": "string"
           },
-          "motivation": {
-            "type": "string"
-          },
-          "sophistication": {
+          "source": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "motivation"
+          "url",
+          "source"
         ]
       },
-      "Campaign": {
+      "Weakness": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "source": {
             "type": "string"
           },
-          "actorId": {
+          "type": {
             "type": "string"
           },
-          "firstSeen": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CampaignCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "actorId": {
-            "type": "string"
-          },
-          "firstSeen": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "firstSeen"
-        ]
-      },
-      "Host": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "ipAddress": {
-            "type": "string"
-          },
-          "asn": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "openPorts": {
+          "description": {
             "type": "string"
           },
           "createdAt": {
@@ -1355,41 +1483,39 @@
           }
         }
       },
-      "HostCreate": {
+      "WeaknessCreate": {
         "type": "object",
         "properties": {
-          "ipAddress": {
+          "source": {
             "type": "string"
           },
-          "asn": {
+          "type": {
             "type": "string"
           },
-          "country": {
-            "type": "string"
-          },
-          "openPorts": {
+          "description": {
             "type": "string"
           }
         },
         "required": [
-          "ipAddress",
-          "asn"
+          "source",
+          "type"
         ]
       },
-      "Technique": {
+      "CveMetrics": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "attckId": {
+          "source": {
             "type": "string"
           },
-          "tactic": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
+          "type": {
+            "type": "string",
+            "enum": [
+              "Primary",
+              "Secondary"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1401,22 +1527,23 @@
           }
         }
       },
-      "TechniqueCreate": {
+      "CveMetricsCreate": {
         "type": "object",
         "properties": {
-          "attckId": {
+          "source": {
             "type": "string"
           },
-          "tactic": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
+          "type": {
+            "type": "string",
+            "enum": [
+              "Primary",
+              "Secondary"
+            ]
           }
         },
         "required": [
-          "tactic",
-          "name"
+          "source",
+          "type"
         ]
       }
     }

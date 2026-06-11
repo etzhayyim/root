@@ -11,15 +11,90 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreih4p3ipmeeo3jpdm4fb7omctr3mcpfhatsok3niv3fp5xx7fj2fja",
   "schema": "schema/epic_fhir.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://hl7.org/fhir/R4",
+    "verifiedAt": "2026-06-10",
+    "resources": [
+      "Patient",
+      "Observation",
+      "Encounter",
+      "MedicationRequest",
+      "AllergyIntolerance",
+      "Condition"
+    ],
+    "enums": {
+      "Patient": {
+        "gender": [
+          "male",
+          "female",
+          "other",
+          "unknown"
+        ]
+      },
+      "Observation": {
+        "status": [
+          "registered",
+          "preliminary",
+          "final",
+          "amended",
+          "corrected",
+          "cancelled",
+          "entered-in-error",
+          "unknown"
+        ]
+      },
+      "Encounter": {
+        "status": [
+          "planned",
+          "arrived",
+          "triaged",
+          "in-progress",
+          "onleave",
+          "finished",
+          "cancelled",
+          "entered-in-error",
+          "unknown"
+        ]
+      },
+      "MedicationRequest": {
+        "status": [
+          "active",
+          "on-hold",
+          "cancelled",
+          "completed",
+          "entered-in-error",
+          "stopped",
+          "draft",
+          "unknown"
+        ]
+      },
+      "AllergyIntolerance": {
+        "clinicalStatus": [
+          "active",
+          "inactive",
+          "resolved"
+        ]
+      },
+      "Condition": {
+        "clinicalStatus": [
+          "active",
+          "recurrence",
+          "relapse",
+          "inactive",
+          "remission",
+          "resolved"
+        ]
+      }
+    }
+  },
   "entities": [
     "Patient",
     "Observation",
-    "Condition",
-    "DiagnosticReport",
-    "Sequence",
-    "Specimen"
+    "Encounter",
+    "MedicationRequest",
+    "AllergyIntolerance",
+    "Condition"
   ],
   "adr": [
     "260607",
@@ -85,6 +160,81 @@
         },
         {
           "method": "POST",
+          "path": "/v1/encounters",
+          "op": "create Encounter"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/encounters",
+          "op": "list Encounter"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/encounters/{id}",
+          "op": "get Encounter"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/encounters/{id}",
+          "op": "update Encounter"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/encounters/{id}",
+          "op": "delete Encounter"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/medicationrequests",
+          "op": "create MedicationRequest"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/medicationrequests",
+          "op": "list MedicationRequest"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/medicationrequests/{id}",
+          "op": "get MedicationRequest"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/medicationrequests/{id}",
+          "op": "update MedicationRequest"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/medicationrequests/{id}",
+          "op": "delete MedicationRequest"
+        },
+        {
+          "method": "POST",
+          "path": "/v1/allergyintolerances",
+          "op": "create AllergyIntolerance"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/allergyintolerances",
+          "op": "list AllergyIntolerance"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/allergyintolerances/{id}",
+          "op": "get AllergyIntolerance"
+        },
+        {
+          "method": "PATCH",
+          "path": "/v1/allergyintolerances/{id}",
+          "op": "update AllergyIntolerance"
+        },
+        {
+          "method": "DELETE",
+          "path": "/v1/allergyintolerances/{id}",
+          "op": "delete AllergyIntolerance"
+        },
+        {
+          "method": "POST",
           "path": "/v1/conditions",
           "op": "create Condition"
         },
@@ -107,81 +257,6 @@
           "method": "DELETE",
           "path": "/v1/conditions/{id}",
           "op": "delete Condition"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/diagnosticreports",
-          "op": "create DiagnosticReport"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/diagnosticreports",
-          "op": "list DiagnosticReport"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/diagnosticreports/{id}",
-          "op": "get DiagnosticReport"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/diagnosticreports/{id}",
-          "op": "update DiagnosticReport"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/diagnosticreports/{id}",
-          "op": "delete DiagnosticReport"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/sequences",
-          "op": "create Sequence"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/sequences",
-          "op": "list Sequence"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/sequences/{id}",
-          "op": "get Sequence"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/sequences/{id}",
-          "op": "update Sequence"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/sequences/{id}",
-          "op": "delete Sequence"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/specimens",
-          "op": "create Specimen"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/specimens",
-          "op": "list Specimen"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/specimens/{id}",
-          "op": "get Specimen"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/specimens/{id}",
-          "op": "update Specimen"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/specimens/{id}",
-          "op": "delete Specimen"
         }
       ],
       "features": {
@@ -252,22 +327,28 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "identifier": {
+              "id": {
                 "type": "string"
               },
-              "givenName": {
+              "resourceType": {
                 "type": "string"
               },
-              "familyName": {
+              "gender": {
                 "type": "string"
               },
               "birthDate": {
                 "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "deceasedBoolean": {
+                "type": "boolean"
               }
             },
             "required": [
-              "identifier",
-              "givenName"
+              "id",
+              "resourceType"
             ]
           }
         },
@@ -303,17 +384,20 @@
               "id": {
                 "type": "string"
               },
-              "identifier": {
+              "resourceType": {
                 "type": "string"
               },
-              "givenName": {
-                "type": "string"
-              },
-              "familyName": {
+              "gender": {
                 "type": "string"
               },
               "birthDate": {
                 "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "deceasedBoolean": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -342,22 +426,28 @@
           "inputSchema": {
             "type": "object",
             "properties": {
-              "patientId": {
+              "id": {
                 "type": "string"
               },
-              "code": {
+              "resourceType": {
                 "type": "string"
               },
-              "value": {
+              "status": {
                 "type": "string"
               },
-              "unit": {
+              "effectiveDateTime": {
+                "type": "string"
+              },
+              "valueString": {
+                "type": "string"
+              },
+              "issued": {
                 "type": "string"
               }
             },
             "required": [
-              "code",
-              "value"
+              "id",
+              "resourceType"
             ]
           }
         },
@@ -393,16 +483,19 @@
               "id": {
                 "type": "string"
               },
-              "patientId": {
+              "resourceType": {
                 "type": "string"
               },
-              "code": {
+              "status": {
                 "type": "string"
               },
-              "value": {
+              "effectiveDateTime": {
                 "type": "string"
               },
-              "unit": {
+              "valueString": {
+                "type": "string"
+              },
+              "issued": {
                 "type": "string"
               }
             },
@@ -427,24 +520,306 @@
           }
         },
         {
+          "name": "create_encounter",
+          "description": "Create a Encounter.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "serviceType": {
+                "type": "string"
+              },
+              "period": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "resourceType"
+            ]
+          }
+        },
+        {
+          "name": "list_encounters",
+          "description": "List Encounters.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_encounter",
+          "description": "Get a Encounter by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_encounter",
+          "description": "Update a Encounter.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "serviceType": {
+                "type": "string"
+              },
+              "period": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_encounter",
+          "description": "Delete a Encounter.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_medication_request",
+          "description": "Create a MedicationRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "intent": {
+                "type": "string"
+              },
+              "authoredOn": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "resourceType"
+            ]
+          }
+        },
+        {
+          "name": "list_medication_requests",
+          "description": "List MedicationRequests.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_medication_request",
+          "description": "Get a MedicationRequest by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_medication_request",
+          "description": "Update a MedicationRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "intent": {
+                "type": "string"
+              },
+              "authoredOn": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_medication_request",
+          "description": "Delete a MedicationRequest.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_allergy_intolerance",
+          "description": "Create a AllergyIntolerance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "clinicalStatus": {
+                "type": "string"
+              },
+              "criticality": {
+                "type": "string"
+              },
+              "recordedDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "resourceType"
+            ]
+          }
+        },
+        {
+          "name": "list_allergy_intolerances",
+          "description": "List AllergyIntolerances.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_allergy_intolerance",
+          "description": "Get a AllergyIntolerance by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_allergy_intolerance",
+          "description": "Update a AllergyIntolerance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "resourceType": {
+                "type": "string"
+              },
+              "clinicalStatus": {
+                "type": "string"
+              },
+              "criticality": {
+                "type": "string"
+              },
+              "recordedDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_allergy_intolerance",
+          "description": "Delete a AllergyIntolerance.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
           "name": "create_condition",
           "description": "Create a Condition.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "patientId": {
+              "id": {
                 "type": "string"
               },
-              "code": {
+              "resourceType": {
                 "type": "string"
               },
               "clinicalStatus": {
                 "type": "string"
+              },
+              "recordedDate": {
+                "type": "string"
               }
             },
             "required": [
-              "code",
-              "clinicalStatus"
+              "id",
+              "resourceType"
             ]
           }
         },
@@ -480,13 +855,13 @@
               "id": {
                 "type": "string"
               },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
+              "resourceType": {
                 "type": "string"
               },
               "clinicalStatus": {
+                "type": "string"
+              },
+              "recordedDate": {
                 "type": "string"
               }
             },
@@ -498,264 +873,6 @@
         {
           "name": "delete_condition",
           "description": "Delete a Condition.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_diagnostic_report",
-          "description": "Create a DiagnosticReport.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "issuedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_diagnostic_reports",
-          "description": "List DiagnosticReports.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_diagnostic_report",
-          "description": "Get a DiagnosticReport by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_diagnostic_report",
-          "description": "Update a DiagnosticReport.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "issuedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_diagnostic_report",
-          "description": "Delete a DiagnosticReport.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_sequence",
-          "description": "Create a Sequence.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "accession": {
-                "type": "string"
-              },
-              "referenceGenome": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "accession",
-              "referenceGenome"
-            ]
-          }
-        },
-        {
-          "name": "list_sequences",
-          "description": "List Sequences.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_sequence",
-          "description": "Get a Sequence by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_sequence",
-          "description": "Update a Sequence.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "accession": {
-                "type": "string"
-              },
-              "referenceGenome": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_sequence",
-          "description": "Delete a Sequence.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_specimen",
-          "description": "Create a Specimen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "collectedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "collectedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_specimens",
-          "description": "List Specimens.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_specimen",
-          "description": "Get a Specimen by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_specimen",
-          "description": "Update a Specimen.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "patientId": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "collectedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_specimen",
-          "description": "Delete a Specimen.",
           "inputSchema": {
             "type": "object",
             "properties": {

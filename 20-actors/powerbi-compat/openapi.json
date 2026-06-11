@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreic4tuyqmrtnoognjngjeetpcz67yqlzuvowjbjuumigdijhiaohg4",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -182,376 +182,6 @@
       },
       "delete": {
         "summary": "Delete a Dataset",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/queries": {
-      "get": {
-        "summary": "List Queries",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Query"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Query",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/QueryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Query"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/queries/{id}": {
-      "get": {
-        "summary": "Get a Query",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Query"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Query",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/QueryCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Query"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Query",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/dashboards": {
-      "get": {
-        "summary": "List Dashboards",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Dashboard"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Dashboard",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DashboardCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dashboard"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/dashboards/{id}": {
-      "get": {
-        "summary": "Get a Dashboard",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dashboard"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Dashboard",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DashboardCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dashboard"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Dashboard",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +387,9 @@
         }
       }
     },
-    "/v1/connections": {
+    "/v1/dashboards": {
       "get": {
-        "summary": "List Connections",
+        "summary": "List Dashboards",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connection"
+                        "$ref": "#/components/schemas/Dashboard"
                       }
                     },
                     "has_more": {
@@ -819,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connection",
+        "summary": "Create a Dashboard",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionCreate"
+                "$ref": "#/components/schemas/DashboardCreate"
               }
             }
           }
@@ -836,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/Dashboard"
                 }
               }
             }
@@ -847,9 +477,9 @@
         }
       }
     },
-    "/v1/connections/{id}": {
+    "/v1/dashboards/{id}": {
       "get": {
-        "summary": "Get a Connection",
+        "summary": "Get a Dashboard",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/Dashboard"
                 }
               }
             }
@@ -884,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connection",
+        "summary": "Update a Dashboard",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionCreate"
+                "$ref": "#/components/schemas/DashboardCreate"
               }
             }
           }
@@ -910,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/Dashboard"
                 }
               }
             }
@@ -921,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connection",
+        "summary": "Delete a Dashboard",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +572,9 @@
         }
       }
     },
-    "/v1/metrics": {
+    "/v1/groups": {
       "get": {
-        "summary": "List Metrics",
+        "summary": "List Groups",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Metric"
+                        "$ref": "#/components/schemas/Group"
                       }
                     },
                     "has_more": {
@@ -1004,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Metric",
+        "summary": "Create a Group",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
+                "$ref": "#/components/schemas/GroupCreate"
               }
             }
           }
@@ -1021,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Group"
                 }
               }
             }
@@ -1032,9 +662,9 @@
         }
       }
     },
-    "/v1/metrics/{id}": {
+    "/v1/groups/{id}": {
       "get": {
-        "summary": "Get a Metric",
+        "summary": "Get a Group",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Group"
                 }
               }
             }
@@ -1069,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Metric",
+        "summary": "Update a Group",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
+                "$ref": "#/components/schemas/GroupCreate"
               }
             }
           }
@@ -1095,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Metric"
+                  "$ref": "#/components/schemas/Group"
                 }
               }
             }
@@ -1106,7 +736,377 @@
         }
       },
       "delete": {
-        "summary": "Delete a Metric",
+        "summary": "Delete a Group",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/tiles": {
+      "get": {
+        "summary": "List Tiles",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Tile"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Tile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TileCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tile"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/tiles/{id}": {
+      "get": {
+        "summary": "Get a Tile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tile"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Tile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TileCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tile"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Tile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/gateways": {
+      "get": {
+        "summary": "List Gateways",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Gateway"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Gateway",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GatewayCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gateway"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/gateways/{id}": {
+      "get": {
+        "summary": "Get a Gateway",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gateway"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Gateway",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GatewayCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gateway"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Gateway",
         "parameters": [
           {
             "name": "id",
@@ -1149,14 +1149,37 @@
           "name": {
             "type": "string"
           },
-          "source": {
+          "description": {
             "type": "string"
           },
-          "schemaRef": {
+          "contentProviderType": {
+            "type": "string",
+            "enum": [
+              "Excel",
+              "CSV",
+              "UsageMetricsUserReport",
+              "UsageMetricsUserDashboard",
+              "RealTimeInPushMode",
+              "RealTimeInPubNubMode",
+              "RealTimeInStreamingMode",
+              "PowerBIDesktop",
+              "PowerBIModelingService",
+              "PbixInImportMode",
+              "PbixInDirectQueryMode",
+              "PbixInCompositeMode",
+              "InImportMode",
+              "InDirectQueryMode",
+              "InCompositeMode"
+            ]
+          },
+          "targetStorageMode": {
             "type": "string"
           },
-          "rowCount": {
-            "type": "integer"
+          "isRefreshable": {
+            "type": "boolean"
+          },
+          "addRowsAPIEnabled": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1174,104 +1197,42 @@
           "name": {
             "type": "string"
           },
-          "source": {
+          "description": {
             "type": "string"
           },
-          "schemaRef": {
+          "contentProviderType": {
+            "type": "string",
+            "enum": [
+              "Excel",
+              "CSV",
+              "UsageMetricsUserReport",
+              "UsageMetricsUserDashboard",
+              "RealTimeInPushMode",
+              "RealTimeInPubNubMode",
+              "RealTimeInStreamingMode",
+              "PowerBIDesktop",
+              "PowerBIModelingService",
+              "PbixInImportMode",
+              "PbixInDirectQueryMode",
+              "PbixInCompositeMode",
+              "InImportMode",
+              "InDirectQueryMode",
+              "InCompositeMode"
+            ]
+          },
+          "targetStorageMode": {
             "type": "string"
           },
-          "rowCount": {
-            "type": "integer"
+          "isRefreshable": {
+            "type": "boolean"
+          },
+          "addRowsAPIEnabled": {
+            "type": "boolean"
           }
         },
         "required": [
           "name",
-          "source"
-        ]
-      },
-      "Query": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "datasetId": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "QueryCreate": {
-        "type": "object",
-        "properties": {
-          "datasetId": {
-            "type": "string"
-          },
-          "sql": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "sql"
-        ]
-      },
-      "Dashboard": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "layout": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DashboardCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "layout": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "layout"
+          "description"
         ]
       },
       "Report": {
@@ -1280,14 +1241,24 @@
           "id": {
             "type": "string"
           },
-          "dashboardId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "schedule": {
+          "description": {
             "type": "string"
+          },
+          "reportType": {
+            "type": "string",
+            "enum": [
+              "PaginatedReport",
+              "PowerBIReport"
+            ]
+          },
+          "datasetId": {
+            "type": "string"
+          },
+          "isOwnedByMe": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1302,37 +1273,41 @@
       "ReportCreate": {
         "type": "object",
         "properties": {
-          "dashboardId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "schedule": {
+          "description": {
             "type": "string"
+          },
+          "reportType": {
+            "type": "string",
+            "enum": [
+              "PaginatedReport",
+              "PowerBIReport"
+            ]
+          },
+          "datasetId": {
+            "type": "string"
+          },
+          "isOwnedByMe": {
+            "type": "boolean"
           }
         },
         "required": [
           "name",
-          "schedule"
+          "description"
         ]
       },
-      "Connection": {
+      "Dashboard": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "displayName": {
             "type": "string"
           },
-          "type": {
-            "type": "string"
-          },
-          "host": {
-            "type": "string"
-          },
-          "active": {
+          "isReadOnly": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1345,7 +1320,159 @@
           }
         }
       },
-      "ConnectionCreate": {
+      "DashboardCreate": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "isReadOnly": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "displayName",
+          "isReadOnly"
+        ]
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "isReadOnly": {
+            "type": "boolean"
+          },
+          "isOnDedicatedCapacity": {
+            "type": "boolean"
+          },
+          "defaultDatasetStorageFormat": {
+            "type": "string",
+            "enum": [
+              "Small",
+              "Large"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GroupCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "isReadOnly": {
+            "type": "boolean"
+          },
+          "isOnDedicatedCapacity": {
+            "type": "boolean"
+          },
+          "defaultDatasetStorageFormat": {
+            "type": "string",
+            "enum": [
+              "Small",
+              "Large"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "isReadOnly"
+        ]
+      },
+      "Tile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "reportId": {
+            "type": "string"
+          },
+          "datasetId": {
+            "type": "string"
+          },
+          "rowSpan": {
+            "type": "integer"
+          },
+          "colSpan": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TileCreate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "reportId": {
+            "type": "string"
+          },
+          "datasetId": {
+            "type": "string"
+          },
+          "rowSpan": {
+            "type": "integer"
+          },
+          "colSpan": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "title",
+          "rowSpan"
+        ]
+      },
+      "Gateway": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "gatewayStatus": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GatewayCreate": {
         "type": "object",
         "properties": {
           "name": {
@@ -1354,65 +1481,13 @@
           "type": {
             "type": "string"
           },
-          "host": {
+          "gatewayStatus": {
             "type": "string"
-          },
-          "active": {
-            "type": "boolean"
           }
         },
         "required": [
           "name",
           "type"
-        ]
-      },
-      "Metric": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "datasetId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "expression": {
-            "type": "string"
-          },
-          "unit": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MetricCreate": {
-        "type": "object",
-        "properties": {
-          "datasetId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "expression": {
-            "type": "string"
-          },
-          "unit": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "expression"
         ]
       }
     }

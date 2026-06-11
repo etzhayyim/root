@@ -37,6 +37,7 @@
           "accepted",
           "scheduled",
           "read",
+          "partially_delivered",
           "canceled"
         ],
         "direction": [
@@ -51,11 +52,11 @@
           "queued",
           "ringing",
           "in-progress",
-          "canceled",
           "completed",
           "busy",
           "failed",
-          "no-answer"
+          "no-answer",
+          "canceled"
         ]
       },
       "Verification": {
@@ -83,6 +84,17 @@
           "init",
           "in-progress",
           "completed"
+        ]
+      },
+      "Recording": {
+        "status": [
+          "in-progress",
+          "paused",
+          "stopped",
+          "processing",
+          "completed",
+          "absent",
+          "deleted"
         ]
       }
     }
@@ -688,6 +700,9 @@
               },
               "contentRef": {
                 "type": "string"
+              },
+              "status": {
+                "type": "string"
               }
             },
             "required": [
@@ -735,6 +750,9 @@
                 "type": "integer"
               },
               "contentRef": {
+                "type": "string"
+              },
+              "status": {
                 "type": "string"
               }
             },

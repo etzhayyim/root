@@ -3,69 +3,57 @@
 
 namespace vonage {
 
-    entity Channel {
+    entity Call {
         id: string @unique
-        name: string
-        type: string
-        topic: string
-        memberCount: integer
+        fromNumber: string
+        toNumber: string
+        status: string
+        direction: string
+        duration: integer
+        price: float
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Message {
         id: string @unique
-        channelId: string
-        authorId: string
-        body: string
-        sentAt: datetime
+        messageId: string
+        toNumber: string
+        fromNumber: string
+        status: string
+        messageType: string
+        channel: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity User {
+    entity Number {
         id: string @unique
-        handle: string
-        displayName: string
-        verified: boolean
+        msisdn: string
+        country: string
+        type: string
+        cost: float
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Room {
+    entity Verification {
+        id: string @unique
+        requestId: string
+        number: string
+        status: string
+        codeLength: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Application {
         id: string @unique
         name: string
-        maxParticipants: integer
-        recording: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Stream {
-        id: string @unique
-        roomId: string
-        status: string
-        bitrate: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        event: string
-        url: string
-        active: boolean
+        type: string
+        answerUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

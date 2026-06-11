@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible mobility / auto / EV actor (can_bus); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:can_bus-compat",
-    "x-wasm-cid": "bafkreig3sbxzupvpzqqc3z65i2b7dmvdpsfjqsijcu3ud34hbiswnt7i3u",
+    "x-wasm-cid": "bafkreib5n7rjlb56z335kptcwthjki6ozjscpo7zbmawox3w4nhqboyome",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreig3sbxzupvpzqqc3z65i2b7dmvdpsfjqsijcu3ud34hbiswnt7i3u",
+      "url": "ipfs://bafkreib5n7rjlb56z335kptcwthjki6ozjscpo7zbmawox3w4nhqboyome",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/vehicles": {
+    "/v1/canframes": {
       "get": {
-        "summary": "List Vehicles",
+        "summary": "List CanFrames",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Vehicle"
+                        "$ref": "#/components/schemas/CanFrame"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Vehicle",
+        "summary": "Create a CanFrame",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreate"
+                "$ref": "#/components/schemas/CanFrameCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/CanFrame"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/vehicles/{id}": {
+    "/v1/canframes/{id}": {
       "get": {
-        "summary": "Get a Vehicle",
+        "summary": "Get a CanFrame",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/CanFrame"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Vehicle",
+        "summary": "Update a CanFrame",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreate"
+                "$ref": "#/components/schemas/CanFrameCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/CanFrame"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Vehicle",
+        "summary": "Delete a CanFrame",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/signals": {
+    "/v1/canfdframes": {
       "get": {
-        "summary": "List Signals",
+        "summary": "List CanFdFrames",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Signal"
+                        "$ref": "#/components/schemas/CanFdFrame"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Signal",
+        "summary": "Create a CanFdFrame",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
+                "$ref": "#/components/schemas/CanFdFrameCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/CanFdFrame"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/signals/{id}": {
+    "/v1/canfdframes/{id}": {
       "get": {
-        "summary": "Get a Signal",
+        "summary": "Get a CanFdFrame",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/CanFdFrame"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Signal",
+        "summary": "Update a CanFdFrame",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
+                "$ref": "#/components/schemas/CanFdFrameCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/CanFdFrame"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Signal",
+        "summary": "Delete a CanFdFrame",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/chargesessions": {
+    "/v1/errorframes": {
       "get": {
-        "summary": "List ChargeSessions",
+        "summary": "List ErrorFrames",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ChargeSession"
+                        "$ref": "#/components/schemas/ErrorFrame"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a ChargeSession",
+        "summary": "Create a ErrorFrame",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeSessionCreate"
+                "$ref": "#/components/schemas/ErrorFrameCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/ErrorFrame"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/chargesessions/{id}": {
+    "/v1/errorframes/{id}": {
       "get": {
-        "summary": "Get a ChargeSession",
+        "summary": "Get a ErrorFrame",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/ErrorFrame"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ChargeSession",
+        "summary": "Update a ErrorFrame",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeSessionCreate"
+                "$ref": "#/components/schemas/ErrorFrameCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/ErrorFrame"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ChargeSession",
+        "summary": "Delete a ErrorFrame",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/connectors": {
+    "/v1/remoteframes": {
       "get": {
-        "summary": "List Connectors",
+        "summary": "List RemoteFrames",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connector"
+                        "$ref": "#/components/schemas/RemoteFrame"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connector",
+        "summary": "Create a RemoteFrame",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/RemoteFrameCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/RemoteFrame"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/connectors/{id}": {
+    "/v1/remoteframes/{id}": {
       "get": {
-        "summary": "Get a Connector",
+        "summary": "Get a RemoteFrame",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/RemoteFrame"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connector",
+        "summary": "Update a RemoteFrame",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/RemoteFrameCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/RemoteFrame"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connector",
+        "summary": "Delete a RemoteFrame",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/trips": {
+    "/v1/overloadframes": {
       "get": {
-        "summary": "List Trips",
+        "summary": "List OverloadFrames",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Trip"
+                        "$ref": "#/components/schemas/OverloadFrame"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Trip",
+        "summary": "Create a OverloadFrame",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TripCreate"
+                "$ref": "#/components/schemas/OverloadFrameCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trip"
+                  "$ref": "#/components/schemas/OverloadFrame"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/trips/{id}": {
+    "/v1/overloadframes/{id}": {
       "get": {
-        "summary": "Get a Trip",
+        "summary": "Get a OverloadFrame",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trip"
+                  "$ref": "#/components/schemas/OverloadFrame"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Trip",
+        "summary": "Update a OverloadFrame",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TripCreate"
+                "$ref": "#/components/schemas/OverloadFrameCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trip"
+                  "$ref": "#/components/schemas/OverloadFrame"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Trip",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/commands": {
-      "get": {
-        "summary": "List Commands",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Command"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Command",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/commands/{id}": {
-      "get": {
-        "summary": "Get a Command",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Command",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Command",
+        "summary": "Delete a OverloadFrame",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +955,42 @@
   },
   "components": {
     "schemas": {
-      "Vehicle": {
+      "CanFrame": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vin": {
+          "identifier": {
+            "type": "integer"
+          },
+          "frameType": {
+            "type": "string",
+            "enum": [
+              "DataFrame",
+              "RemoteFrame",
+              "ErrorFrame",
+              "OverloadFrame"
+            ]
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "Standard",
+              "Extended"
+            ]
+          },
+          "dlc": {
+            "type": "integer"
+          },
+          "rtr": {
+            "type": "boolean"
+          },
+          "data": {
             "type": "string"
           },
-          "model": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "odometerKm": {
-            "type": "number"
+          "crc": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1168,44 +1002,79 @@
           }
         }
       },
-      "VehicleCreate": {
+      "CanFrameCreate": {
         "type": "object",
         "properties": {
-          "vin": {
+          "identifier": {
+            "type": "integer"
+          },
+          "frameType": {
+            "type": "string",
+            "enum": [
+              "DataFrame",
+              "RemoteFrame",
+              "ErrorFrame",
+              "OverloadFrame"
+            ]
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "Standard",
+              "Extended"
+            ]
+          },
+          "dlc": {
+            "type": "integer"
+          },
+          "rtr": {
+            "type": "boolean"
+          },
+          "data": {
             "type": "string"
           },
-          "model": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "odometerKm": {
-            "type": "number"
+          "crc": {
+            "type": "integer"
           }
         },
         "required": [
-          "vin",
-          "model"
+          "identifier",
+          "frameType"
         ]
       },
-      "Signal": {
+      "CanFdFrame": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
+          "identifier": {
+            "type": "integer"
+          },
+          "frameType": {
             "type": "string"
           },
-          "name": {
+          "format": {
+            "type": "string",
+            "enum": [
+              "Standard",
+              "Extended"
+            ]
+          },
+          "dlc": {
+            "type": "integer"
+          },
+          "brs": {
+            "type": "boolean"
+          },
+          "esi": {
+            "type": "boolean"
+          },
+          "data": {
             "type": "string"
           },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
+          "crc": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1217,44 +1086,79 @@
           }
         }
       },
-      "SignalCreate": {
+      "CanFdFrameCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
+          "identifier": {
+            "type": "integer"
+          },
+          "frameType": {
             "type": "string"
           },
-          "name": {
+          "format": {
+            "type": "string",
+            "enum": [
+              "Standard",
+              "Extended"
+            ]
+          },
+          "dlc": {
+            "type": "integer"
+          },
+          "brs": {
+            "type": "boolean"
+          },
+          "esi": {
+            "type": "boolean"
+          },
+          "data": {
             "type": "string"
           },
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
+          "crc": {
+            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "value"
+          "identifier",
+          "frameType"
         ]
       },
-      "ChargeSession": {
+      "ErrorFrame": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
-            "type": "string"
+          "errorType": {
+            "type": "string",
+            "enum": [
+              "BitError",
+              "StuffError",
+              "CrcError",
+              "FormError",
+              "AcknowledgmentError"
+            ]
           },
-          "connectorId": {
-            "type": "string"
+          "errorFlag": {
+            "type": "string",
+            "enum": [
+              "ActiveErrorFlag",
+              "PassiveErrorFlag"
+            ]
           },
-          "energyKwh": {
-            "type": "number"
+          "transmitErrorCounter": {
+            "type": "integer"
           },
-          "status": {
-            "type": "string"
+          "receiveErrorCounter": {
+            "type": "integer"
+          },
+          "nodeState": {
+            "type": "string",
+            "enum": [
+              "ErrorActive",
+              "ErrorPassive",
+              "BusOff"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1266,44 +1170,67 @@
           }
         }
       },
-      "ChargeSessionCreate": {
+      "ErrorFrameCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
-            "type": "string"
+          "errorType": {
+            "type": "string",
+            "enum": [
+              "BitError",
+              "StuffError",
+              "CrcError",
+              "FormError",
+              "AcknowledgmentError"
+            ]
           },
-          "connectorId": {
-            "type": "string"
+          "errorFlag": {
+            "type": "string",
+            "enum": [
+              "ActiveErrorFlag",
+              "PassiveErrorFlag"
+            ]
           },
-          "energyKwh": {
-            "type": "number"
+          "transmitErrorCounter": {
+            "type": "integer"
           },
-          "status": {
-            "type": "string"
+          "receiveErrorCounter": {
+            "type": "integer"
+          },
+          "nodeState": {
+            "type": "string",
+            "enum": [
+              "ErrorActive",
+              "ErrorPassive",
+              "BusOff"
+            ]
           }
         },
         "required": [
-          "energyKwh",
-          "status"
+          "errorType",
+          "errorFlag"
         ]
       },
-      "Connector": {
+      "RemoteFrame": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "stationId": {
-            "type": "string"
+          "identifier": {
+            "type": "integer"
           },
-          "standard": {
-            "type": "string"
+          "format": {
+            "type": "string",
+            "enum": [
+              "Standard",
+              "Extended"
+            ]
           },
-          "powerKw": {
-            "type": "number"
+          "dlc": {
+            "type": "integer"
           },
-          "status": {
-            "type": "string"
+          "rtr": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1315,40 +1242,41 @@
           }
         }
       },
-      "ConnectorCreate": {
+      "RemoteFrameCreate": {
         "type": "object",
         "properties": {
-          "stationId": {
-            "type": "string"
+          "identifier": {
+            "type": "integer"
           },
-          "standard": {
-            "type": "string"
+          "format": {
+            "type": "string",
+            "enum": [
+              "Standard",
+              "Extended"
+            ]
           },
-          "powerKw": {
-            "type": "number"
+          "dlc": {
+            "type": "integer"
           },
-          "status": {
-            "type": "string"
+          "rtr": {
+            "type": "boolean"
           }
         },
         "required": [
-          "standard",
-          "powerKw"
+          "identifier",
+          "format"
         ]
       },
-      "Trip": {
+      "OverloadFrame": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
+          "overloadFlag": {
             "type": "string"
           },
-          "distanceKm": {
-            "type": "number"
-          },
-          "startedAt": {
+          "timestamp": {
             "type": "string",
             "format": "date-time"
           },
@@ -1362,65 +1290,19 @@
           }
         }
       },
-      "TripCreate": {
+      "OverloadFrameCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
+          "overloadFlag": {
             "type": "string"
           },
-          "distanceKm": {
-            "type": "number"
-          },
-          "startedAt": {
+          "timestamp": {
             "type": "string"
           }
         },
         "required": [
-          "distanceKm",
-          "startedAt"
-        ]
-      },
-      "Command": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CommandCreate": {
-        "type": "object",
-        "properties": {
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "status"
+          "overloadFlag",
+          "timestamp"
         ]
       }
     }

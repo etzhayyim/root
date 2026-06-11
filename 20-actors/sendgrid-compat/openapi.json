@@ -1250,7 +1250,12 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "draft",
+              "scheduled",
+              "triggered"
+            ]
           },
           "templateId": {
             "type": "string"
@@ -1275,7 +1280,12 @@
             "type": "string"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "draft",
+              "scheduled",
+              "triggered"
+            ]
           },
           "templateId": {
             "type": "string"

@@ -3,74 +3,90 @@
 
 namespace binance {
 
-    entity Account {
-        id: string @unique
-        holderId: string
-        currency: string
-        balance: float
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Card {
-        id: string @unique
-        accountId: string
-        last4: string
-        network: string
-        state: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Transaction {
-        id: string @unique
-        accountId: string
-        amount: float
-        currency: string
-        type: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Order {
         id: string @unique
         symbol: string
-        side: string
-        quantity: float
-        price: float
+        orderId: integer
+        clientOrderId: string
+        price: string
+        origQty: string
+        executedQty: string
+        cummulativeQuoteQty: string
         status: string
+        type: string
+        side: string
+        timeInForce: string
+        transactTime: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Wallet {
+    entity Trade {
         id: string @unique
-        address: string
-        chain: string
-        balance: float
+        id: integer
+        symbol: string
+        orderId: integer
+        price: string
+        qty: string
+        quoteQty: string
+        commission: string
+        commissionAsset: string
+        time: integer
+        isBuyer: boolean
+        isMaker: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Ledger {
+    entity Balance {
         id: string @unique
-        accountId: string
-        debit: float
-        credit: float
-        memo: string
+        asset: string
+        free: string
+        locked: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Account {
+        id: string @unique
+        makerCommission: integer
+        takerCommission: integer
+        canTrade: boolean
+        canWithdraw: boolean
+        canDeposit: boolean
+        updateTime: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Ticker {
+        id: string @unique
+        symbol: string
+        lastPrice: string
+        priceChange: string
+        priceChangePercent: string
+        highPrice: string
+        lowPrice: string
+        volume: string
+        quoteVolume: string
+        openTime: integer
+        closeTime: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Kline {
+        id: string @unique
+        openTime: integer
+        open: string
+        high: string
+        low: string
+        close: string
+        volume: string
+        closeTime: integer
+        trades: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

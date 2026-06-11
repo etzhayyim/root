@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreifvh6rtorgwik6i77ghzp7hw646i3tisp6rkdhfbermklzvuhccfu",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/flows": {
+    "/v1/sites": {
       "get": {
-        "summary": "List Flows",
+        "summary": "List Sites",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Flow"
+                        "$ref": "#/components/schemas/Site"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Flow",
+        "summary": "Create a Site",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FlowCreate"
+                "$ref": "#/components/schemas/SiteCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Flow"
+                  "$ref": "#/components/schemas/Site"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/flows/{id}": {
+    "/v1/sites/{id}": {
       "get": {
-        "summary": "Get a Flow",
+        "summary": "Get a Site",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Flow"
+                  "$ref": "#/components/schemas/Site"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Flow",
+        "summary": "Update a Site",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FlowCreate"
+                "$ref": "#/components/schemas/SiteCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Flow"
+                  "$ref": "#/components/schemas/Site"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Flow",
+        "summary": "Delete a Site",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/steps": {
+    "/v1/collections": {
       "get": {
-        "summary": "List Steps",
+        "summary": "List Collections",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Step"
+                        "$ref": "#/components/schemas/Collection"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Step",
+        "summary": "Create a Collection",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StepCreate"
+                "$ref": "#/components/schemas/CollectionCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Step"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/steps/{id}": {
+    "/v1/collections/{id}": {
       "get": {
-        "summary": "Get a Step",
+        "summary": "Get a Collection",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Step"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Step",
+        "summary": "Update a Collection",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StepCreate"
+                "$ref": "#/components/schemas/CollectionCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Step"
+                  "$ref": "#/components/schemas/Collection"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Step",
+        "summary": "Delete a Collection",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/connections": {
+    "/v1/collectionitems": {
       "get": {
-        "summary": "List Connections",
+        "summary": "List CollectionItems",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connection"
+                        "$ref": "#/components/schemas/CollectionItem"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connection",
+        "summary": "Create a CollectionItem",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionCreate"
+                "$ref": "#/components/schemas/CollectionItemCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/CollectionItem"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/connections/{id}": {
+    "/v1/collectionitems/{id}": {
       "get": {
-        "summary": "Get a Connection",
+        "summary": "Get a CollectionItem",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/CollectionItem"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connection",
+        "summary": "Update a CollectionItem",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionCreate"
+                "$ref": "#/components/schemas/CollectionItemCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/CollectionItem"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connection",
+        "summary": "Delete a CollectionItem",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/runs": {
+    "/v1/pages": {
       "get": {
-        "summary": "List Runs",
+        "summary": "List Pages",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Run"
+                        "$ref": "#/components/schemas/Page"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Run",
+        "summary": "Create a Page",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RunCreate"
+                "$ref": "#/components/schemas/PageCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Run"
+                  "$ref": "#/components/schemas/Page"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/runs/{id}": {
+    "/v1/pages/{id}": {
       "get": {
-        "summary": "Get a Run",
+        "summary": "Get a Page",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Run"
+                  "$ref": "#/components/schemas/Page"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Run",
+        "summary": "Update a Page",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RunCreate"
+                "$ref": "#/components/schemas/PageCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Run"
+                  "$ref": "#/components/schemas/Page"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Run",
+        "summary": "Delete a Page",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/apps": {
+    "/v1/forms": {
       "get": {
-        "summary": "List Apps",
+        "summary": "List Forms",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/App"
+                        "$ref": "#/components/schemas/Form"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a App",
+        "summary": "Create a Form",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AppCreate"
+                "$ref": "#/components/schemas/FormCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/App"
+                  "$ref": "#/components/schemas/Form"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/apps/{id}": {
+    "/v1/forms/{id}": {
       "get": {
-        "summary": "Get a App",
+        "summary": "Get a Form",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/App"
+                  "$ref": "#/components/schemas/Form"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a App",
+        "summary": "Update a Form",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AppCreate"
+                "$ref": "#/components/schemas/FormCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/App"
+                  "$ref": "#/components/schemas/Form"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a App",
+        "summary": "Delete a Form",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/webhooks": {
+    "/v1/fields": {
       "get": {
-        "summary": "List Webhooks",
+        "summary": "List Fields",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Webhook"
+                        "$ref": "#/components/schemas/Field"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Webhook",
+        "summary": "Create a Field",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
+                "$ref": "#/components/schemas/FieldCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Field"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/webhooks/{id}": {
+    "/v1/fields/{id}": {
       "get": {
-        "summary": "Get a Webhook",
+        "summary": "Get a Field",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Field"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Webhook",
+        "summary": "Update a Field",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookCreate"
+                "$ref": "#/components/schemas/FieldCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Webhook"
+                  "$ref": "#/components/schemas/Field"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Webhook",
+        "summary": "Delete a Field",
         "parameters": [
           {
             "name": "id",
@@ -1140,20 +1140,32 @@
   },
   "components": {
     "schemas": {
-      "Flow": {
+      "Site": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "displayName": {
             "type": "string"
           },
-          "trigger": {
+          "shortName": {
             "type": "string"
           },
-          "status": {
+          "timeZone": {
             "type": "string"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastPublished": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1165,41 +1177,58 @@
           }
         }
       },
-      "FlowCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "trigger": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "trigger"
-        ]
-      },
-      "Step": {
+      "SiteCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "flowId": {
+          "displayName": {
             "type": "string"
           },
-          "appName": {
+          "shortName": {
             "type": "string"
           },
-          "action": {
+          "timeZone": {
             "type": "string"
           },
-          "position": {
-            "type": "integer"
+          "createdOn": {
+            "type": "string"
+          },
+          "lastUpdated": {
+            "type": "string"
+          },
+          "lastPublished": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "displayName"
+        ]
+      },
+      "Collection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "singularName": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1211,40 +1240,289 @@
           }
         }
       },
-      "StepCreate": {
-        "type": "object",
-        "properties": {
-          "flowId": {
-            "type": "string"
-          },
-          "appName": {
-            "type": "string"
-          },
-          "action": {
-            "type": "string"
-          },
-          "position": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "appName",
-          "action"
-        ]
-      },
-      "Connection": {
+      "CollectionCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "appName": {
+          "displayName": {
             "type": "string"
           },
-          "authType": {
+          "singularName": {
             "type": "string"
           },
-          "active": {
+          "slug": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string"
+          },
+          "lastUpdated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "displayName"
+        ]
+      },
+      "CollectionItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "cmsLocaleId": {
+            "type": "string"
+          },
+          "isArchived": {
+            "type": "boolean"
+          },
+          "isDraft": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastPublished": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CollectionItemCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "cmsLocaleId": {
+            "type": "string"
+          },
+          "isArchived": {
+            "type": "boolean"
+          },
+          "isDraft": {
+            "type": "boolean"
+          },
+          "createdOn": {
+            "type": "string"
+          },
+          "lastUpdated": {
+            "type": "string"
+          },
+          "lastPublished": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "isArchived"
+        ]
+      },
+      "Page": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "draft": {
+            "type": "boolean"
+          },
+          "publishedPath": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PageCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "draft": {
+            "type": "boolean"
+          },
+          "publishedPath": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string"
+          },
+          "lastUpdated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      },
+      "Form": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string"
+          },
+          "pageId": {
+            "type": "string"
+          },
+          "pageName": {
+            "type": "string"
+          },
+          "formElementId": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FormCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string"
+          },
+          "pageId": {
+            "type": "string"
+          },
+          "pageName": {
+            "type": "string"
+          },
+          "formElementId": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string"
+          },
+          "lastUpdated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "displayName"
+        ]
+      },
+      "Field": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "PlainText",
+              "RichText",
+              "Image",
+              "Link",
+              "Email",
+              "Phone",
+              "Number",
+              "DateTime",
+              "Switch",
+              "Color",
+              "Option",
+              "Reference",
+              "MultiReference",
+              "File",
+              "VideoLink"
+            ]
+          },
+          "isRequired": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1257,152 +1535,45 @@
           }
         }
       },
-      "ConnectionCreate": {
-        "type": "object",
-        "properties": {
-          "appName": {
-            "type": "string"
-          },
-          "authType": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "appName",
-          "authType"
-        ]
-      },
-      "Run": {
+      "FieldCreate": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "flowId": {
+          "displayName": {
             "type": "string"
           },
-          "status": {
+          "slug": {
             "type": "string"
           },
-          "durationMs": {
-            "type": "integer"
-          },
-          "startedAt": {
+          "type": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "PlainText",
+              "RichText",
+              "Image",
+              "Link",
+              "Email",
+              "Phone",
+              "Number",
+              "DateTime",
+              "Switch",
+              "Color",
+              "Option",
+              "Reference",
+              "MultiReference",
+              "File",
+              "VideoLink"
+            ]
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "RunCreate": {
-        "type": "object",
-        "properties": {
-          "flowId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "durationMs": {
-            "type": "integer"
-          },
-          "startedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "status",
-          "durationMs"
-        ]
-      },
-      "App": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "category": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AppCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "category": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "category"
-        ]
-      },
-      "Webhook": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "flowId": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "WebhookCreate": {
-        "type": "object",
-        "properties": {
-          "flowId": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "active": {
+          "isRequired": {
             "type": "boolean"
           }
         },
         "required": [
-          "url",
-          "active"
+          "id",
+          "displayName"
         ]
       }
     }

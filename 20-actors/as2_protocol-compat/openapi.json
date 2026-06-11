@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible deep logistics / supply chain actor (as2_protocol); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:as2_protocol-compat",
-    "x-wasm-cid": "bafkreib5rcm2vpuociso7dx67i7osvenbh74bovulqiic4z45qfkus2mg4",
+    "x-wasm-cid": "bafkreih64ia2wcfkmp3b4wfrg4bq2kn5nfs2cdzkdb3rg46p62orcfvlra",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreib5rcm2vpuociso7dx67i7osvenbh74bovulqiic4z45qfkus2mg4",
+      "url": "ipfs://bafkreih64ia2wcfkmp3b4wfrg4bq2kn5nfs2cdzkdb3rg46p62orcfvlra",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/tradeitems": {
+    "/v1/as2messages": {
       "get": {
-        "summary": "List TradeItems",
+        "summary": "List As2Messages",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/TradeItem"
+                        "$ref": "#/components/schemas/As2Message"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a TradeItem",
+        "summary": "Create a As2Message",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TradeItemCreate"
+                "$ref": "#/components/schemas/As2MessageCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TradeItem"
+                  "$ref": "#/components/schemas/As2Message"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/tradeitems/{id}": {
+    "/v1/as2messages/{id}": {
       "get": {
-        "summary": "Get a TradeItem",
+        "summary": "Get a As2Message",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TradeItem"
+                  "$ref": "#/components/schemas/As2Message"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a TradeItem",
+        "summary": "Update a As2Message",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TradeItemCreate"
+                "$ref": "#/components/schemas/As2MessageCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TradeItem"
+                  "$ref": "#/components/schemas/As2Message"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a TradeItem",
+        "summary": "Delete a As2Message",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/events": {
+    "/v1/mdns": {
       "get": {
-        "summary": "List Events",
+        "summary": "List Mdns",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Event"
+                        "$ref": "#/components/schemas/Mdn"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Event",
+        "summary": "Create a Mdn",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventCreate"
+                "$ref": "#/components/schemas/MdnCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/Mdn"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/events/{id}": {
+    "/v1/mdns/{id}": {
       "get": {
-        "summary": "Get a Event",
+        "summary": "Get a Mdn",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/Mdn"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Event",
+        "summary": "Update a Mdn",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventCreate"
+                "$ref": "#/components/schemas/MdnCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/Mdn"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Event",
+        "summary": "Delete a Mdn",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/documents": {
+    "/v1/dispositionnotifications": {
       "get": {
-        "summary": "List Documents",
+        "summary": "List DispositionNotifications",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Document"
+                        "$ref": "#/components/schemas/DispositionNotification"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Document",
+        "summary": "Create a DispositionNotification",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DocumentCreate"
+                "$ref": "#/components/schemas/DispositionNotificationCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/DispositionNotification"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/documents/{id}": {
+    "/v1/dispositionnotifications/{id}": {
       "get": {
-        "summary": "Get a Document",
+        "summary": "Get a DispositionNotification",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/DispositionNotification"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Document",
+        "summary": "Update a DispositionNotification",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DocumentCreate"
+                "$ref": "#/components/schemas/DispositionNotificationCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/DispositionNotification"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Document",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/containers": {
-      "get": {
-        "summary": "List Containers",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Container"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Container",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ContainerCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Container"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/containers/{id}": {
-      "get": {
-        "summary": "Get a Container",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Container"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Container",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ContainerCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Container"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Container",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/parties": {
-      "get": {
-        "summary": "List Parties",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Party"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Party",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PartyCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Party"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/parties/{id}": {
-      "get": {
-        "summary": "Get a Party",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Party"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Party",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PartyCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Party"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Party",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/shipments": {
-      "get": {
-        "summary": "List Shipments",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Shipment"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Shipment",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ShipmentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Shipment"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/shipments/{id}": {
-      "get": {
-        "summary": "Get a Shipment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Shipment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Shipment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ShipmentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Shipment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Shipment",
+        "summary": "Delete a DispositionNotification",
         "parameters": [
           {
             "name": "id",
@@ -1140,19 +585,34 @@
   },
   "components": {
     "schemas": {
-      "TradeItem": {
+      "As2Message": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "gtin": {
+          "messageId": {
             "type": "string"
           },
-          "description": {
+          "as2From": {
             "type": "string"
           },
-          "brand": {
+          "as2To": {
+            "type": "string"
+          },
+          "as2Version": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "micalg": {
+            "type": "string"
+          },
+          "contentTransferEncoding": {
+            "type": "string"
+          },
+          "dispositionNotificationTo": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,42 +625,170 @@
           }
         }
       },
-      "TradeItemCreate": {
+      "As2MessageCreate": {
         "type": "object",
         "properties": {
-          "gtin": {
+          "messageId": {
             "type": "string"
           },
-          "description": {
+          "as2From": {
             "type": "string"
           },
-          "brand": {
+          "as2To": {
+            "type": "string"
+          },
+          "as2Version": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "micalg": {
+            "type": "string"
+          },
+          "contentTransferEncoding": {
+            "type": "string"
+          },
+          "dispositionNotificationTo": {
             "type": "string"
           }
         },
         "required": [
-          "gtin",
-          "description"
+          "as2From",
+          "as2To"
         ]
       },
-      "Event": {
+      "Mdn": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "itemId": {
+          "messageId": {
             "type": "string"
           },
-          "bizStep": {
+          "originalMessageId": {
+            "type": "string"
+          },
+          "finalRecipient": {
+            "type": "string"
+          },
+          "dispositionType": {
+            "type": "string",
+            "enum": [
+              "processed",
+              "failed"
+            ]
+          },
+          "dispositionMode": {
+            "type": "string"
+          },
+          "actionMode": {
+            "type": "string",
+            "enum": [
+              "manual-action",
+              "automatic-action"
+            ]
+          },
+          "sendingMode": {
+            "type": "string",
+            "enum": [
+              "MDN-sent-manually",
+              "MDN-sent-automatically"
+            ]
+          },
+          "dispositionModifier": {
+            "type": "string",
+            "enum": [
+              "error",
+              "warning"
+            ]
+          },
+          "digestAlgorithm": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MdnCreate": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string"
+          },
+          "originalMessageId": {
+            "type": "string"
+          },
+          "finalRecipient": {
+            "type": "string"
+          },
+          "dispositionType": {
+            "type": "string",
+            "enum": [
+              "processed",
+              "failed"
+            ]
+          },
+          "dispositionMode": {
+            "type": "string"
+          },
+          "actionMode": {
+            "type": "string",
+            "enum": [
+              "manual-action",
+              "automatic-action"
+            ]
+          },
+          "sendingMode": {
+            "type": "string",
+            "enum": [
+              "MDN-sent-manually",
+              "MDN-sent-automatically"
+            ]
+          },
+          "dispositionModifier": {
+            "type": "string",
+            "enum": [
+              "error",
+              "warning"
+            ]
+          },
+          "digestAlgorithm": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "finalRecipient",
+          "dispositionType"
+        ]
+      },
+      "DispositionNotification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "reportingUa": {
+            "type": "string"
+          },
+          "finalRecipient": {
+            "type": "string"
+          },
+          "originalMessageId": {
             "type": "string"
           },
           "disposition": {
             "type": "string"
           },
-          "recordedAt": {
-            "type": "string",
-            "format": "date-time"
+          "receivedContentMic": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1212,209 +800,28 @@
           }
         }
       },
-      "EventCreate": {
+      "DispositionNotificationCreate": {
         "type": "object",
         "properties": {
-          "itemId": {
+          "reportingUa": {
             "type": "string"
           },
-          "bizStep": {
+          "finalRecipient": {
+            "type": "string"
+          },
+          "originalMessageId": {
             "type": "string"
           },
           "disposition": {
             "type": "string"
           },
-          "recordedAt": {
+          "receivedContentMic": {
             "type": "string"
           }
         },
         "required": [
-          "bizStep",
-          "disposition"
-        ]
-      },
-      "Document": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "senderId": {
-            "type": "string"
-          },
-          "receiverId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DocumentCreate": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string"
-          },
-          "senderId": {
-            "type": "string"
-          },
-          "receiverId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "type",
-          "status"
-        ]
-      },
-      "Container": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "bicCode": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ContainerCreate": {
-        "type": "object",
-        "properties": {
-          "bicCode": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "bicCode",
-          "type"
-        ]
-      },
-      "Party": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "gln": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PartyCreate": {
-        "type": "object",
-        "properties": {
-          "gln": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "gln",
-          "name"
-        ]
-      },
-      "Shipment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "documentId": {
-            "type": "string"
-          },
-          "origin": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ShipmentCreate": {
-        "type": "object",
-        "properties": {
-          "documentId": {
-            "type": "string"
-          },
-          "origin": {
-            "type": "string"
-          },
-          "destination": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "origin",
-          "destination"
+          "reportingUa",
+          "finalRecipient"
         ]
       }
     }

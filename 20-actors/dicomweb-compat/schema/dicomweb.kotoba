@@ -3,70 +3,58 @@
 
 namespace dicomweb {
 
+    entity Study {
+        id: string @unique
+        studyInstanceUid: string
+        studyDate: string
+        studyTime: string
+        studyDescription: string
+        accessionNumber: string
+        referringPhysicianName: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Series {
+        id: string @unique
+        seriesInstanceUid: string
+        seriesNumber: integer
+        seriesDescription: string
+        modality: string
+        seriesDate: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Instance {
+        id: string @unique
+        sopInstanceUid: string
+        sopClassUid: string
+        instanceNumber: integer
+        contentDate: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
     entity Patient {
         id: string @unique
-        identifier: string
-        givenName: string
-        familyName: string
-        birthDate: datetime
+        patientId: string
+        patientName: string
+        patientBirthDate: string
+        patientSex: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Observation {
+    entity QidoQuery {
         id: string @unique
         patientId: string
-        code: string
-        value: string
-        unit: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Condition {
-        id: string @unique
-        patientId: string
-        code: string
-        clinicalStatus: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity DiagnosticReport {
-        id: string @unique
-        patientId: string
-        code: string
-        status: string
-        issuedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Sequence {
-        id: string @unique
-        patientId: string
-        accession: string
-        referenceGenome: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Specimen {
-        id: string @unique
-        patientId: string
-        type: string
-        collectedAt: datetime
+        patientName: string
+        studyInstanceUid: string
+        modality: string
+        fuzzyMatching: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

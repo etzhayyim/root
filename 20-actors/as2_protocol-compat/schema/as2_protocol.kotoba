@@ -3,70 +3,44 @@
 
 namespace as2_protocol {
 
-    entity TradeItem {
+    entity As2Message {
         id: string @unique
-        gtin: string
-        description: string
-        brand: string
+        messageId: string
+        as2From: string
+        as2To: string
+        as2Version: string
+        contentType: string
+        micalg: string
+        contentTransferEncoding: string
+        dispositionNotificationTo: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Event {
+    entity Mdn {
         id: string @unique
-        itemId: string
-        bizStep: string
+        messageId: string
+        originalMessageId: string
+        finalRecipient: string
+        dispositionType: string
+        dispositionMode: string
+        actionMode: string
+        sendingMode: string
+        dispositionModifier: string
+        digestAlgorithm: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity DispositionNotification {
+        id: string @unique
+        reportingUa: string
+        finalRecipient: string
+        originalMessageId: string
         disposition: string
-        recordedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Document {
-        id: string @unique
-        type: string
-        senderId: string
-        receiverId: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Container {
-        id: string @unique
-        bicCode: string
-        type: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Party {
-        id: string @unique
-        gln: string
-        name: string
-        role: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Shipment {
-        id: string @unique
-        documentId: string
-        origin: string
-        destination: string
-        status: string
+        receivedContentMic: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

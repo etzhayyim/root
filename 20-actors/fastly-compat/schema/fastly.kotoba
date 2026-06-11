@@ -3,70 +3,69 @@
 
 namespace fastly {
 
-    entity Asset {
+    entity Service {
         id: string @unique
-        title: string
+        id: string
+        name: string
         type: string
-        durationMs: integer
-        contentRef: string
+        customerId: string
+        comment: string
+        paused: boolean
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Rendition {
+    entity Version {
         id: string @unique
-        assetId: string
-        format: string
-        bitrate: integer
-        contentRef: string
+        id: string
+        serviceId: string
+        number: integer
+        active: boolean
+        locked: boolean
+        deployed: boolean
+        staging: boolean
+        comment: string
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Channel {
+    entity Backend {
         id: string @unique
         name: string
+        serviceId: string
+        versionNumber: integer
+        hostname: string
+        port: integer
+        comment: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Domain {
+        id: string @unique
+        id: string
+        serviceId: string
+        fqdn: string
         description: string
-        public: boolean
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Playlist {
-        id: string @unique
-        channelId: string
-        title: string
-        itemCount: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity ContentEntry {
-        id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Experiment {
+    entity Dictionary {
         id: string @unique
         name: string
-        variant: string
-        conversionRate: float
+        serviceId: string
+        versionNumber: integer
+        description: string
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

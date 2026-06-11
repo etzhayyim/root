@@ -899,7 +899,7 @@ PLATFORM_OVERRIDES = {
         "Call": E(fromNumber="string", toNumber="string", status="string", durationSec="integer"),
         "PhoneNumber": E(e164="string", capabilities="string", friendlyName="string"),
         "Verification": E(toNumber="string", channel="string", status="string"),
-        "Recording": E(callSid="string", durationSec="integer", contentRef="string"),
+        "Recording": E(callSid="string", durationSec="integer", contentRef="string", status="string"),
         "Conference": E(friendlyName="string", status="string", participantCount="integer"),
     },
     "github": {
@@ -1041,8 +1041,141 @@ PLATFORM_OVERRIDES = {
         "Deployment": E(name="string", projectId="string", url="string", readyState="string", target="string", type="string"),
         "Project": E(name="string", accountId="string", nodeVersion="string", framework="string", buildCommand="string"),
         "Domain": E(name="string", verified="boolean", serviceType="string", expiresAt="integer"),
-        "Alias": E(alias="string", deploymentId="string", projectId="string"),
+        "Alias": E(alias="string", deploymentId="string", projectId="string", redirectStatusCode="integer"),
         "Team": E(name="string", slug="string", description="string"),
+    },
+    # Faithful Benchling (synthetic-biology R&D cloud) model — doc-verified vs benchling.com/api/v2/openapi.yaml
+    "benchling": {
+        "CustomEntity": E(apiURL="string", entityRegistryId="string", folderId="string", modifiedAt="datetime", name="string", registryId="string", url="string", webURL="string"),
+        "DnaSequence": E(apiURL="string", bases="string", entityRegistryId="string", folderId="string", isCircular="boolean", length="integer", modifiedAt="datetime", name="string", registryId="string", url="string", webURL="string"),
+        "Entry": E(apiURL="string", displayId="string", entryTemplateId="string", folderId="string", modifiedAt="string", name="string", webURL="string"),
+        "Folder": E(name="string", parentFolderId="string", projectId="string"),
+        "Project": E(name="string"),
+        "Request": E(apiURL="string", displayId="string", projectId="string", requestStatus="string", scheduledOn="datetime", webURL="string"),
+    },
+    # Faithful Autodesk Platform Services (APS Data Management) model — doc-verified vs aps.autodesk.com
+    "autodesk": {
+        "Hub": E(name="string", region="string"),
+        "Project": E(name="string"),
+        "Folder": E(name="string", displayName="string", createTime="datetime", createUserId="string", createUserName="string", lastModifiedTime="datetime", lastModifiedUserId="string", lastModifiedUserName="string", lastModifiedTimeRollup="datetime", objectCount="integer", hidden="boolean"),
+        "Item": E(displayName="string", createTime="datetime", createUserId="string", createUserName="string", lastModifiedTime="datetime", lastModifiedUserId="string", lastModifiedUserName="string", hidden="boolean", reserved="boolean", reservedTime="datetime", reservedUserId="string", reservedUserName="string"),
+        "Version": E(name="string", displayName="string", createTime="datetime", createUserId="string", createUserName="string", lastModifiedTime="datetime", lastModifiedUserId="string", lastModifiedUserName="string", versionNumber="integer", storageSize="integer", fileType="string"),
+        "Command": E(status="string"),
+    },
+    # Faithful Universal Robots model (RTDE + Dashboard Server) — doc-verified vs universal-robots.com interface docs
+    "universal_robots": {
+        "RtdeRobotState": E(timestamp="float", robot_mode="integer", robot_status_bits="integer", safety_mode="integer", safety_status_bits="integer", actual_main_voltage="float", actual_robot_voltage="float", actual_robot_current="float"),
+        "RtdeExecutionState": E(runtime_state="integer", actual_execution_time="float", speed_scaling="float", target_speed_fraction="float"),
+        "RtdeToolState": E(tool_mode="integer", tool_output_voltage="integer", tool_output_current="float", tool_temperature="float"),
+        "DashboardRobotState": E(robotmode="string", safetystatus="string", running="boolean"),
+        "DashboardProgram": E(programName="string", state="string"),
+        "DashboardInstallation": E(installationName="string"),
+    },
+    # Faithful Materials Project model — doc-verified vs api.materialsproject.org/openapi.json
+    "materials_project": {
+        "SummaryDoc": E(material_id="string", formula_pretty="string", formula_anonymous="string", chemsys="string", volume="float", density="float", density_atomic="float", nsites="integer", nelements="integer", theoretical="boolean", deprecated="boolean", is_stable="boolean", is_magnetic="boolean", is_metal="boolean", is_gap_direct="boolean", band_gap="float", efermi="float", formation_energy_per_atom="float", energy_above_hull="float", uncorrected_energy_per_atom="float", energy_per_atom="float", equilibrium_reaction_energy_per_atom="float", total_magnetization="float", total_magnetization_normalized_vol="float"),
+        "MaterialsDoc": E(material_id="string", formula_pretty="string", formula_anonymous="string", chemsys="string", volume="float", density="float", density_atomic="float", nsites="integer", nelements="integer", last_updated="datetime"),
+        "ThermoDoc": E(material_id="string", thermo_type="string", energy_type="string", uncorrected_energy_per_atom="float", energy_per_atom="float", formation_energy_per_atom="float", energy_above_hull="float", is_stable="boolean", equilibrium_reaction_energy_per_atom="float", decomposition_enthalpy="float"),
+        "CoreTaskDoc": E(task_id="string", task_type="string", run_type="string", calc_type="string", batch_id="string", dir_name="string", vasp_version="string", completed_at="datetime", last_updated="datetime", nsites="integer"),
+        "ElectronicStructureDoc": E(material_id="string", band_gap="float", cbm="float", vbm="float", efermi="float", is_gap_direct="boolean", is_metal="boolean", magnetic_ordering="string"),
+        "MagnetismDoc": E(material_id="string", ordering="string", is_magnetic="boolean", total_magnetization="float", total_magnetization_normalized_vol="float", total_magnetization_normalized_formula_units="float", num_magnetic_sites="integer", num_unique_magnetic_sites="integer", exchange_symmetry="integer"),
+    },
+    # Faithful athenahealth (cloud EHR) model — doc-verified vs docs.athenahealth.com/api (API-shape only, no PHI)
+    "athenahealth": {
+        "Patient": E(homeboundyn="boolean", assignedsexatbirth="string", altfirstname="string", ethnicitycode="string", industrycode="integer", language6392code="string", localpatientid="string", deceaseddate="string", firstappointment="string", primaryproviderid="integer", genderidentityother="string", preferredpronouns="string", lastappointment="string", donotcallyn="boolean", primarydepartmentid="integer", status="string", lastemail="string", racecode="string", sexualorientation="string", genderidentity="string", emailexistsyn="boolean", occupationcode="integer", sexualorientationother="string", patientid="integer"),
+        "Appointment": E(reasonid="integer", appointmentstatus="string", cancelleddatetime="string", chargeentrynotrequired="boolean", hl7providerid="integer", cancelreasonname="string", chargeentrynotrequiredreason="string", lastmodified="string", departmentid="integer", checkoutdatetime="string", copay="string", encounterid="string", scheduledby="string", checkindatetime="string", cancelledby="string", stopintakedatetime="string", encounterstatus="string", frozenyn="boolean", appointmenttype="string", appointmenttypeid="integer", cancelreasonid="integer", cancelreasonnoshow="boolean", cancelreasonslotavailable="boolean", coordinatorenterpriseyn="boolean"),
+        "Encounter": E(encounterid="integer", appointmentid="integer", departmentid="integer", encountervisitname="string", encountertype="string", status="string", patientlocationid="integer", patientlocation="string", patientstatusid="integer", patientstatus="string", encounterdate="string", stage="string", providerid="integer", providerfirstname="string", providerlastname="string", providerphone="string", lastupdated="string"),
+        "Claim": E(referringproviderid="integer", claimcreateddate="string", billedservicedate="string", billedproviderid="integer", appointmentid="integer", chargeamount="string", transactionid="integer", claimid="integer"),
+        "Provider": E(billable="boolean", ansispecialtycode="string", firstname="string", entitytype="string", otherprovideridlist="string", ansinamecode="string", displayname="string", homedepartment="string", providerid="integer", providertypeid="string", providerusername="string", supervisingproviderid="integer", providertype="string", createencounterprovideridlist="string", schedulingname="string", usualdepartmentid="string", createencounteroncheckinyn="boolean", specialty="string", hideinportalyn="boolean", lastname="string", npi="integer", providergrouplist="string", federalidnumber="string", supervisingproviderusername="string"),
+        "Department": E(timezoneoffset="integer", singleappointmentcontractmax="string", state="string", placeofservicefacility="boolean", latitude="string", departmentid="integer", address="string", placeofservicetypeid="string", longitude="string", clinicals="string", timezone="integer", name="string", patientdepartmentname="string", chartsharinggroupid="string", placeofservicetypename="string", zip="string", timezonename="string", communicatorbrandid="string", medicationhistoryconsent="boolean", ishospitaldepartment="boolean", providergroupid="string", portalurl="string", city="string", servicedepartment="boolean"),
+    },
+    # Faithful Epic on FHIR R4 model — doc-verified vs fhir.epic.com (API-shape only, no PHI)
+    "epic-systems": {
+        "Patient": E(resourceType="string", implicitRules="string", language="string", active="boolean", gender="string", birthDate="string", deceasedBoolean="boolean", deceasedDateTime="string", multipleBirthBoolean="boolean", multipleBirthInteger="integer"),
+        "Observation": E(resourceType="string", implicitRules="string", language="string", status="string", issued="string"),
+        "Encounter": E(resourceType="string", implicitRules="string", language="string", status="string"),
+        "Condition": E(resourceType="string", implicitRules="string", language="string", recordedDate="string"),
+        "MedicationRequest": E(resourceType="string", implicitRules="string", language="string", status="string", intent="string", priority="string", doNotPerform="boolean", reportedBoolean="boolean", authoredOn="string", instantiatesUri="string"),
+        "Procedure": E(resourceType="string", implicitRules="string", language="string", instantiatesUri="string", status="string"),
+    },
+    # Faithful Oracle Health/Cerner Millennium FHIR R4 model — doc-verified vs fhir.cerner.com/millennium/r4 (API-shape only, no PHI)
+    "cerner": {
+        "Patient": E(active="boolean", gender="string", birthDate="datetime", deceasedBoolean="boolean", deceasedDateTime="datetime", multipleBirthBoolean="boolean", multipleBirthInteger="integer"),
+        "Observation": E(status="string", effectiveDateTime="datetime", effectiveInstant="datetime", issued="datetime", valueString="string", valueBoolean="boolean", valueInteger="integer", valueDateTime="datetime"),
+        "Encounter": E(status="string"),
+        "Condition": E(recordedDate="datetime", onsetDateTime="datetime", abatementDateTime="datetime"),
+        "MedicationRequest": E(status="string", intent="string", priority="string", doNotPerform="boolean", reportedBoolean="boolean", authoredOn="datetime"),
+        "AllergyIntolerance": E(type="string", criticality="string", recordedDate="datetime", onsetDateTime="datetime", lastOccurrence="datetime"),
+    },
+    # Faithful Bentley iTwin Platform model — doc-verified vs developer.bentley.com/apis
+    "bentley": {
+        "iModel": E(name="string", description="string", iTwinId="string", state="string", createdDateTime="datetime", dataCenterLocation="string", initialized="boolean", displayName="string"),
+        "iTwin": E(subClass="string", type="string", status="string", displayName="string", number="string", iTwinAccountId="string"),
+        "Changeset": E(index="integer", displayName="string", description="string", parentId="string", pushDateTime="datetime", creatorId="string", briefcaseId="integer", changesetGroupId="string", fileSize="integer", state="string"),
+        "NamedVersion": E(displayName="string", changesetId="string", changesetIndex="integer", name="string", description="string", createdDateTime="datetime", state="string"),
+        "Connection": E(displayName="string", description="string", iModelId="string", iTwinId="string", connectorName="string", authenticationType="string"),
+        "Job": E(status="string", progress="integer", createdDateTime="datetime", lastModifiedDateTime="datetime", iModelId="string", iTwinId="string", testId="string", changesetId="string"),
+    },
+    # Faithful Miro (REST API v2) model (remodeled from the generic
+    # office_productivity archetype whose Workspace/Document/Folder doc entities
+    # did not match Miro's whiteboard API), doc-verified L5 vs
+    # github.com/miroapp/api-clients (generated miro-api model TS).
+    "miro": {
+        "Board": E(name="string", description="string", type="string", viewLink="string"),
+        "Item": E(type="string"),
+        "Tag": E(title="string", fillColor="string", type="string"),
+        "BoardMember": E(name="string", role="string", type="string"),
+        "Organization": E(name="string", plan="string", fullLicensesPurchased="integer", type="string"),
+        "Connector": E(shape="string", isSupported="boolean", type="string"),
+    },
+
+    # Faithful X (Twitter API v2) model (remodeled from the generic comms_social
+    # chat archetype whose Channel/Message/Room entities did not match X's
+    # microblog API), doc-verified L5 vs the official api.twitter.com/2/openapi.json.
+    "x": {
+        "Tweet": E(text="string", lang="string", source="string", paidPartnership="boolean", possiblySensitive="boolean", replySettings="string", conversationId="string", authorId="string"),
+        "User": E(name="string", description="string", location="string", url="string", protected="boolean", verified="boolean", verifiedType="string", subscriptionType="string", profileImageUrl="string", profileBannerUrl="string", receivesYourDm="boolean"),
+        "Space": E(title="string", state="string", lang="string", isTicketed="boolean", participantCount="integer", subscriberCount="integer", scheduledStart="datetime", startedAt="datetime", endedAt="datetime"),
+        "List": E(name="string", description="string", private="boolean", followerCount="integer", memberCount="integer"),
+        "Media": E(type="string"),
+        "Poll": E(durationMinutes="integer", endDatetime="datetime", votingStatus="string"),
+    },
+
+    # Faithful Paystack model (remodeled from the generic Stripe-shaped payments
+    # archetype whose Customer/PaymentIntent/Charge/Payout entities did not match
+    # Paystack's API), doc-verified L5 vs github.com/PaystackOSS/openapi.
+    "paystack": {
+        "Transaction": E(email="string", amount="integer", reference="string", callbackUrl="string", plan="string", invoiceLimit="integer", splitCode="string", subaccount="string", transactionCharge="string", bearer="string", label="string"),
+        "Customer": E(email="string", firstName="string", lastName="string", phone="string", metadata="string"),
+        "Plan": E(name="string", amount="integer", interval="string", description="string", sendInvoices="boolean", sendSms="boolean", currency="string", invoiceLimit="integer"),
+        "Subscription": E(customer="string", plan="string", authorization="string", startDate="datetime"),
+        "Product": E(name="string", description="string", price="integer", currency="string", unlimited="boolean", quantity="integer", splitCode="string", metadata="string"),
+        "Page": E(name="string", description="string", amount="integer", currency="string", slug="string", type="string", plan="string", fixedAmount="boolean", splitCode="string", redirectUrl="string", successMessage="string", notificationEmail="string", collectPhone="boolean"),
+    },
+
+    # Faithful Vimeo model (remodeled from the generic media_video_cms archetype
+    # whose Asset/Rendition/Channel/Playlist entities did not match Vimeo's video
+    # API), doc-verified L5 vs Vimeo's official OpenAPI (via apis.guru).
+    "vimeo": {
+        "Video": E(name="string", description="string", duration="float", width="integer", height="integer", language="string", license="string", status="string", link="string", releaseTime="datetime", resourceKey="string", uri="string"),
+        "Channel": E(name="string", description="string", link="string", resourceKey="string", uri="string"),
+        "Album": E(name="string", description="string", duration="float", layout="string", sort="string", theme="string", brandColor="string", allowDownloads="boolean", allowShare="boolean", allowContinuousPlay="boolean", reviewMode="boolean", hideNav="boolean", link="string", url="string", resourceKey="string", uri="string"),
+        "User": E(name="string", bio="string", email="string", location="string", account="string", link="string", resourceKey="string", uri="string"),
+        "Group": E(name="string", description="string", link="string", resourceKey="string", uri="string"),
+        "Category": E(name="string", topLevel="boolean", lastVideoFeaturedTime="datetime", link="string", resourceKey="string", uri="string"),
+    },
+
+    # Faithful DrChrono (EHR) model (remodeled from the generic FHIR-shaped health
+    # archetype — Encounter/Observation/Practitioner — to DrChrono's proprietary
+    # REST entities), doc-verified L5 vs DrChrono's official OpenAPI (via apis.guru).
+    # API-shape only (field names/types); no real PHI is stored.
+    "drchrono": {
+        "Patient": E(chartId="string", dateOfBirth="string", email="string", cellPhone="string", address="string", city="string", copay="string", defaultPharmacy="string", disableSmsMessages="boolean", doctor="integer", emergencyContactName="string", emergencyContactPhone="string", employer="string", dateOfFirstAppointment="string", dateOfLastAppointment="string"),
+        "Appointment": E(doctor="integer", duration="integer", examRoom="integer", color="string", billingStatus="string", ins1Status="string", allowOverlapping="boolean", apptIsBreak="boolean", deletedFlag="boolean", baseRecurringAppointment="string", billingProvider="string", firstBilledDate="string"),
+        "Doctor": E(firstName="string", lastName="string", email="string", cellPhone="string", officePhone="string", npiNumber="string", groupNpiNumber="string", specialty="string", jobTitle="string", practiceGroupName="string", isAccountSuspended="boolean"),
+        "Office": E(name="string", address="string", city="string", state="string", zipCode="string", phoneNumber="string", faxNumber="string", doctor="string", archived="boolean", onlineScheduling="boolean", startTime="string", endTime="string", taxIdNumberProfessional="string"),
+        "ClinicalNote": E(patient="string", appointment="string", archived="boolean"),
+        "LabResult": E(labTest="integer", labOrder="string", observationCode="string", observationDescription="string", value="string", unit="string", normalRange="string", abnormalStatus="string", status="string", comments="string", groupCode="string", testPerformed="string", specimenReceived="string"),
     },
     # Faithful Airtable model (remodeled from generic office_productivity), L5.
     "airtable": {
@@ -1145,6 +1278,1068 @@ PLATFORM_OVERRIDES = {
         "Ticket": E(subject="string", hsTicketPriority="string", hsPipelineStage="string"),
         "LineItem": E(name="string", quantity="integer", price="float"),
         "Pipeline": E(label="string", displayOrder="integer"),
+    },
+    # Faithful Jira Cloud model (recovered from the official Atlassian swagger), L5.
+    "atlassian": {
+        "Project": E(key="string", name="string", projectTypeKey="string", style="string", archived="boolean", simplified="boolean"),
+        "IssueType": E(name="string", description="string", subtask="boolean", hierarchyLevel="integer"),
+        "Status": E(name="string", description="string"),
+        "StatusCategory": E(key="string", name="string", colorName="string"),
+        "User": E(accountId="string", accountType="string", displayName="string", emailAddress="string", active="boolean"),
+        "Comment": E(body="string", created="datetime", updated="datetime", jsdPublic="boolean"),
+    },
+    # Faithful DocuSign eSignature model (recovered from the official OpenAPI v2.1), L5.
+    "docusign": {
+        "Envelope": E(emailSubject="string", status="string", sentDateTime="datetime", completedDateTime="datetime", envelopeId="string"),
+        "Signer": E(email="string", firstName="string", lastName="string", status="string", signedDateTime="datetime"),
+        "Document": E(documentId="string", name="string", order="integer"),
+        "SignHereTab": E(tabId="string", pageNumber="string", xPosition="string", yPosition="string"),
+        "EnvelopeTemplate": E(templateId="string", name="string", status="string", description="string"),
+    },
+    # Faithful Gusto model (recovered from the official Gusto Python SDK), L5.
+    "gusto": {
+        "Employee": E(uuid="string", firstName="string", lastName="string", email="string", onboardingStatus="string", paymentMethod="string", terminated="boolean", flsaStatus="string"),
+        "Company": E(uuid="string", name="string", status="string", entityType="string", tier="string"),
+        "Compensation": E(rate="string", paymentUnit="string", flsaStatus="string", effectiveDate="string", adjustForMinimumWage="boolean"),
+        "Job": E(uuid="string", title="string", rate="string", paymentUnit="string", primary="boolean"),
+        "Contractor": E(firstName="string", lastName="string", businessName="string", wageType="string", contractorType="string", isActive="boolean"),
+        "Payroll": E(uuid="string", processed="boolean", offCycle="boolean", offCycleReason="string"),
+    },
+    # Faithful MongoDB Atlas model (remodeled from generic data_analytics), L5
+    # (confirmed against the official mongodb/openapi Atlas Admin API v2 spec).
+    "mongodb": {
+        "Cluster": E(name="string", clusterType="string", stateName="string", mongoDBVersion="string"),
+        "DatabaseUser": E(username="string", databaseName="string", awsIAMType="string"),
+        "Project": E(name="string", orgId="string", clusterCount="integer"),
+        "Backup": E(frequencyType="string", description="string"),
+        "Organization": E(orgName="string", planType="string", groupId="string"),
+        "NetworkPeering": E(name="string", accepterAccountId="string", localStatus="string", cloudStatus="string"),
+    },
+    # Faithful Intercom model (remodeled from generic cx_survey), L5
+    # (confirmed against the official Intercom OpenAPI v2.15). *_at are unix int.
+    "intercom": {
+        "Contact": E(email="string", phone="string", name="string", role="string", createdAt="integer", signedUpAt="integer"),
+        "Conversation": E(state="string", priority="string", open="boolean", read="boolean", adminAssigneeId="integer"),
+        "Company": E(name="string", industry="string", monthlySpend="integer", size="integer", companyId="string"),
+        "Admin": E(name="string", email="string", awayModeEnabled="boolean", hasInboxSeat="boolean", jobTitle="string"),
+        "Article": E(title="string", body="string", state="string", authorId="integer"),
+        "Tag": E(name="string", appliedAt="integer"),
+    },
+    # Faithful monday.com model (remodeled from generic office_productivity), L5
+    # (confirmed against the official monday-graphql-api SDK types).
+    "monday": {
+        "Board": E(name="string", description="string", state="string", boardKind="string", itemsCount="integer"),
+        "Item": E(name="string", email="string", creatorId="string", state="string"),
+        "Column": E(title="string", description="string", type="string", archived="boolean", width="integer"),
+        "Group": E(title="string", color="string", position="string", archived="boolean"),
+        "User": E(name="string", email="string", enabled="boolean", isAdmin="boolean", isGuest="boolean", countryCode="string"),
+        "Update": E(body="string", textBody="string", creatorId="string", itemId="string"),
+    },
+    # Faithful PayPal model (remodeled from generic payments), L5
+    # (confirmed against the official paypal-rest-api-specifications OpenAPI).
+    "paypal": {
+        "Order": E(status="string", intent="string"),
+        "Authorization": E(status="string", createTime="datetime", updateTime="datetime"),
+        "Capture": E(status="string", invoiceId="string", customId="string"),
+        "Refund": E(status="string", invoiceId="string", customId="string"),
+        "Plan": E(productId="string", status="string", name="string", description="string"),
+        "Subscription": E(status="string", planId="string", createTime="datetime", startTime="datetime"),
+    },
+    # Faithful Adyen Checkout model (remodeled from generic payments), L5
+    # (confirmed against the official Adyen CheckoutService v71 OpenAPI).
+    "adyen": {
+        "PaymentRequest": E(reference="string", merchantAccount="string", shopperEmail="string", channel="string", recurringProcessingModel="string", storePaymentMethod="boolean"),
+        "PaymentResponse": E(pspReference="string", resultCode="string", merchantReference="string", refusalReason="string", refusalReasonCode="string"),
+        "Amount": E(currency="string", value="integer"),
+        "PaymentRefundRequest": E(merchantAccount="string", reference="string", merchantRefundReason="string"),
+        "PaymentRefundResponse": E(pspReference="string", paymentPspReference="string", status="string", merchantRefundReason="string", reference="string"),
+        "PaymentCaptureResponse": E(pspReference="string", paymentPspReference="string", status="string", merchantAccount="string", reference="string"),
+    },
+    # Faithful Looker API 4.0 model (remodeled from generic data_analytics), L5
+    # (confirmed against the official looker-open-source/sdk-codegen spec).
+    "looker": {
+        "Look": E(title="string", public="boolean", queryId="string", userId="string", deleted="boolean"),
+        "Dashboard": E(title="string", folderId="string", userId="string", viewCount="integer"),
+        "Query": E(model="string", view="string", slug="string", queryTimezone="string", hasTableCalculations="boolean"),
+        "User": E(email="string", firstName="string", lastName="string", isDisabled="boolean"),
+        "Folder": E(name="string", parentId="string", creatorId="string"),
+        "ScheduledPlan": E(name="string", userId="string", enabled="boolean"),
+    },
+    # Faithful Snowflake model (remodeled from generic data_analytics), L5
+    # (confirmed against the official snowflakedb/snowflake-rest-api-specs).
+    "snowflake": {
+        "Warehouse": E(name="string", warehouseType="string", warehouseSize="string", scalingPolicy="string", autoSuspend="integer", autoResume="boolean", state="string"),
+        "Database": E(name="string", kind="string", owner="string", retentionTime="integer", isDefault="boolean"),
+        "Schema": E(name="string", kind="string", databaseName="string", owner="string", managedAccess="boolean"),
+        "Table": E(name="string", kind="string", databaseName="string", schemaName="string", rows="integer"),
+        "Task": E(name="string", warehouse="string", state="string", owner="string"),
+        "Role": E(name="string", owner="string", comment="string"),
+    },
+    # Faithful Power BI model (recovered via official Microsoft Learn REST docs), L5.
+    "powerbi": {
+        "Dataset": E(name="string", description="string", contentProviderType="string", targetStorageMode="string", isRefreshable="boolean", addRowsAPIEnabled="boolean"),
+        "Report": E(name="string", description="string", reportType="string", datasetId="string", isOwnedByMe="boolean"),
+        "Dashboard": E(displayName="string", isReadOnly="boolean"),
+        "Group": E(name="string", isReadOnly="boolean", isOnDedicatedCapacity="boolean", defaultDatasetStorageFormat="string"),
+        "Tile": E(title="string", reportId="string", datasetId="string", rowSpan="integer", colSpan="integer"),
+        "Gateway": E(name="string", type="string", gatewayStatus="string"),
+    },
+    # Faithful Alpaca Trading model (recovered via alpaca-py SDK), L5. Numeric=string.
+    "alpaca": {
+        "Asset": E(symbol="string", assetClass="string", exchange="string", status="string", tradable="boolean", fractionable="boolean"),
+        "Order": E(symbol="string", side="string", type="string", status="string", qty="string", timeInForce="string"),
+        "Position": E(symbol="string", qty="string", side="string", avgEntryPrice="string", marketValue="string"),
+        "TradeAccount": E(accountNumber="string", status="string", equity="string", cash="string", buyingPower="string", patternDayTrader="boolean"),
+        "TradeActivity": E(symbol="string", side="string", price="float", qty="float", type="string", orderId="string"),
+    },
+    # Faithful Vonage model (recovered via official Vonage API docs), L5.
+    "vonage": {
+        "Call": E(fromNumber="string", toNumber="string", status="string", direction="string", duration="integer", price="float"),
+        "Message": E(messageId="string", toNumber="string", fromNumber="string", status="string", messageType="string", channel="string"),
+        "Number": E(msisdn="string", country="string", type="string", cost="float"),
+        "Verification": E(requestId="string", number="string", status="string", codeLength="integer"),
+        "Application": E(name="string", type="string", answerUrl="string"),
+    },
+    # Faithful Segment model — verified against segmentio/facade (the open-source
+    # event parser all SDKs share); the `type` discriminator is a documented closed set.
+    "segment": {
+        "TrackEvent": E(type="string", event="string", userId="string", anonymousId="string", messageId="string", timestamp="datetime"),
+        "IdentifyEvent": E(type="string", userId="string", anonymousId="string", messageId="string", timestamp="datetime"),
+        "PageEvent": E(type="string", userId="string", anonymousId="string", category="string", name="string", messageId="string", timestamp="datetime"),
+        "GroupEvent": E(type="string", userId="string", anonymousId="string", groupId="string", messageId="string", timestamp="datetime"),
+        "Source": E(name="string", slug="string", enabled="boolean", workspaceId="string"),
+        "Destination": E(name="string", enabled="boolean", sourceId="string", workspaceId="string"),
+    },
+    # Faithful Marqeta Core API model — verified against the official Marqeta
+    # OpenAPI 3.0.40 spec (github.com/marqeta/marqeta-openapi).
+    "marqeta": {
+        "Card": E(token="string", state="string", lastFour="string", cardProductToken="string", userToken="string", fulfillmentStatus="string", createdTime="datetime"),
+        "CardProduct": E(token="string", name="string", active="boolean", createdTime="datetime"),
+        "User": E(token="string", firstName="string", lastName="string", email="string", status="string", active="boolean", createdTime="datetime"),
+        "Transaction": E(token="string", amount="float", type="string", state="string", cardToken="string", userToken="string", createdTime="datetime"),
+        "FundingSource": E(token="string", type="string", active="boolean", isDefaultAccount="boolean", createdTime="datetime"),
+    },
+    # Faithful Plaid model — verified against the official Plaid OpenAPI
+    # (github.com/plaid/plaid-openapi 2020-09-14.yml). Object/array fields dropped.
+    "plaid": {
+        "Account": E(accountId="string", name="string", officialName="string", mask="string", type="string", subtype="string", verificationStatus="string"),
+        "AccountBalance": E(available="float", current="float", limit="float", isoCurrencyCode="string", lastUpdatedDatetime="datetime"),
+        "Transaction": E(accountId="string", transactionId="string", amount="float", date="datetime", pending="boolean", name="string", merchantName="string", isoCurrencyCode="string", paymentChannel="string", checkNumber="string"),
+        "Item": E(itemId="string", institutionId="string", institutionName="string", webhook="string", authMethod="string", oauth="boolean"),
+        "Institution": E(institutionId="string", name="string", url="string", oauth="boolean"),
+        "Holding": E(accountId="string", securityId="string", symbol="string", name="string", quantity="float", institutionValue="float", costBasis="float", currencyCode="string"),
+    },
+    # Faithful Adyen model — verified against the official Adyen OpenAPI
+    # (github.com/Adyen/adyen-openapi). PARTIAL: resultCode closed sets enforced;
+    # eventCode flagged non-exhaustive by source -> left as gap. Object refs dropped.
+    "adyen": {
+        "Payment": E(pspReference="string", merchantReference="string", merchantAccount="string", reference="string", resultCode="string", shopperReference="string"),
+        "Amount": E(value="integer", currency="string"),
+        "ModificationResult": E(pspReference="string", resultCode="string", response="string"),
+        "PaymentMethod": E(type="string", storedPaymentMethodId="string"),
+        "Notification": E(eventCode="string", pspReference="string", merchantReference="string", eventDate="datetime", success="boolean"),
+    },
+    # Faithful PagerDuty model — verified against the official PagerDuty OpenAPI
+    # 3.0.2 (github.com/PagerDuty/api-schema). snake_case -> camelCase.
+    "pagerduty": {
+        "Incident": E(title="string", incidentNumber="integer", status="string", urgency="string", incidentKey="string", assignedVia="string", createdAt="datetime", updatedAt="datetime", resolvedAt="datetime"),
+        "Service": E(name="string", description="string", status="string", autoResolveTimeout="integer", acknowledgementTimeout="integer", createdAt="datetime"),
+        "EscalationPolicy": E(name="string", description="string", numLoops="integer", onCallHandoffNotifications="string"),
+        "User": E(name="string", email="string", role="string", timeZone="string", jobTitle="string", invitationSent="boolean"),
+        "Schedule": E(name="string", description="string", timeZone="string"),
+        "Team": E(name="string", description="string", defaultRole="string"),
+    },
+    # Faithful DigitalOcean model — verified against the official DigitalOcean
+    # OpenAPI (github.com/digitalocean/openapi). Array fields dropped.
+    "digitalocean": {
+        "Droplet": E(id="integer", name="string", status="string", memory="integer", vcpus="integer", disk="integer", locked="boolean", createdAt="datetime"),
+        "Volume": E(id="string", name="string", sizeGigabytes="integer", filesystemType="string", createdAt="datetime"),
+        "DatabaseCluster": E(id="string", name="string", engine="string", numNodes="integer", size="string", region="string", status="string", createdAt="datetime"),
+        "LoadBalancer": E(id="string", name="string", ip="string", status="string", sizeUnit="integer", createdAt="datetime"),
+        "KubernetesCluster": E(id="string", name="string", region="string", version="string", endpoint="string", autoUpgrade="boolean", ha="boolean", createdAt="datetime"),
+        "Image": E(id="integer", name="string", slug="string", public="boolean", status="string", type="string", sizeGigabytes="float", createdAt="datetime"),
+    },
+    # Faithful Razorpay model — verified against the official razorpay-python SDK
+    # (github.com/razorpay/razorpay-python). amounts in paise (integer); timestamps epoch.
+    "razorpay": {
+        "Payment": E(id="string", amount="integer", currency="string", status="string", method="string", orderId="string", email="string", contact="string", captured="boolean", createdAt="integer"),
+        "Order": E(id="string", amount="integer", currency="string", status="string", receipt="string", attempts="integer", createdAt="integer"),
+        "Refund": E(id="string", amount="integer", currency="string", status="string", speed="string", paymentId="string", createdAt="integer"),
+        "Customer": E(id="string", name="string", email="string", contact="string", createdAt="integer"),
+        "Settlement": E(id="string", amount="integer", status="string", fees="integer", tax="integer", createdAt="integer"),
+    },
+    # Faithful CircleCI v2 model — fields verified against the official
+    # circleci.com/api/v2/openapi.json; enum sets NOT enforced (the fetch returned
+    # a reduced status set vs the documented one — enforcing it would false-reject).
+    "circleci": {
+        "Pipeline": E(id="string", number="integer", state="string", projectSlug="string", createdAt="datetime", updatedAt="datetime"),
+        "Workflow": E(id="string", pipelineId="string", name="string", status="string", startedBy="string", createdAt="datetime", stoppedAt="datetime"),
+        "Job": E(id="string", jobNumber="integer", name="string", status="string", duration="integer", workflowId="string", createdAt="datetime", stoppedAt="datetime"),
+        "Project": E(id="string", slug="string", name="string", externalUrl="string"),
+        "User": E(id="string", login="string", name="string", avatarUrl="string"),
+    },
+    # Faithful Linode API v4 model — verified against the official Linode OpenAPI
+    # (github.com/linode/linode-api-openapi). snake_case -> camelCase.
+    "linode": {
+        "Instance": E(id="integer", label="string", status="string", region="string", type="string", image="string", created="datetime", updated="datetime"),
+        "Volume": E(id="integer", label="string", status="string", size="integer", region="string", encryption="string", created="datetime", updated="datetime"),
+        "Domain": E(id="integer", domain="string", type="string", status="string", soaEmail="string", created="datetime"),
+        "NodeBalancer": E(id="integer", label="string", type="string", region="string", ipv4="string", ipv6="string", created="datetime", updated="datetime"),
+        "LKECluster": E(id="integer", label="string", region="string", k8sVersion="string", tier="string", created="datetime", updated="datetime"),
+        "Image": E(id="string", label="string", status="string", type="string", size="integer", isPublic="boolean", created="datetime", updated="datetime"),
+    },
+    # Faithful Heroku Platform API model — verified against the official Heroku
+    # schema (api.heroku.com/schema). snake_case -> camelCase.
+    "heroku": {
+        "App": E(id="string", name="string", webUrl="string", createdAt="datetime", updatedAt="datetime"),
+        "Dyno": E(id="string", name="string", state="string", command="string", type="string", createdAt="datetime"),
+        "Release": E(id="string", version="integer", description="string", current="boolean", createdAt="datetime"),
+        "Addon": E(id="string", name="string", state="string", plan="string", app="string", createdAt="datetime"),
+        "Build": E(id="string", status="string", app="string", createdAt="datetime", updatedAt="datetime"),
+        "Formation": E(id="string", quantity="integer", size="string", type="string", createdAt="datetime"),
+    },
+    # Faithful Fastly model — fields verified against official Fastly API docs
+    # (developer.fastly.com). PARTIAL: Fastly docs publish no closed enum arrays.
+    "fastly": {
+        "Service": E(id="string", name="string", type="string", customerId="string", comment="string", paused="boolean", createdAt="datetime", updatedAt="datetime"),
+        "Version": E(id="string", serviceId="string", number="integer", active="boolean", locked="boolean", deployed="boolean", staging="boolean", comment="string", createdAt="datetime"),
+        "Backend": E(name="string", serviceId="string", versionNumber="integer", hostname="string", port="integer", comment="string"),
+        "Domain": E(id="string", serviceId="string", fqdn="string", description="string", createdAt="datetime", updatedAt="datetime"),
+        "Dictionary": E(name="string", serviceId="string", versionNumber="integer", description="string", createdAt="datetime", updatedAt="datetime"),
+    },
+    # Faithful Algolia model — verified against the official Algolia OpenAPI
+    # (github.com/algolia/api-clients-automation specs/). Array/object fields dropped.
+    "algolia": {
+        "Index": E(name="string", entries="integer", dataSize="integer", fileSize="integer", lastBuildTimeS="integer", numberOfPendingTasks="integer", pendingTask="boolean", virtual="boolean", createdAt="datetime", updatedAt="datetime"),
+        "ApiKey": E(value="string", description="string", maxHitsPerQuery="integer", maxQueriesPerIPPerHour="integer", validity="integer"),
+        "Synonym": E(objectID="string", type="string", input="string", word="string", placeholder="string", replacements="string"),
+        "Rule": E(objectID="string", description="string", enabled="boolean"),
+        "Task": E(taskID="integer", status="string"),
+    },
+    # Faithful Bitbucket Cloud model — verified against the official Bitbucket
+    # swagger (api.bitbucket.org/swagger.json). snake_case->camelCase.
+    "bitbucket": {
+        "PullRequest": E(id="integer", title="string", state="string", draft="boolean", createdOn="datetime"),
+        "Repository": E(name="string", fullName="string", scm="string", isPrivate="boolean", uuid="string", createdOn="datetime"),
+        "Workspace": E(name="string", slug="string", uuid="string", isPrivate="boolean", createdOn="datetime"),
+        "Project": E(name="string", key="string", uuid="string", isPrivate="boolean", createdOn="datetime"),
+        "Issue": E(id="integer", title="string", state="string", priority="string", kind="string", createdOn="datetime"),
+        "Commit": E(hash="string", message="string", date="datetime", summary="string", author="string"),
+    },
+    # Faithful Contentful model — verified against the official CMA docs +
+    # contentful-management.js SDK. sys.* flattened; localized/link objects dropped.
+    "contentful": {
+        "Entry": E(id="string", type="string", version="integer", space="string", environment="string", contentType="string", publishedVersion="integer", createdAt="datetime", updatedAt="datetime", publishedAt="datetime"),
+        "Asset": E(id="string", type="string", version="integer", space="string", environment="string", publishedVersion="integer", createdAt="datetime", updatedAt="datetime", publishedAt="datetime"),
+        "ContentType": E(id="string", type="string", version="integer", name="string", displayField="string", description="string", createdAt="datetime", updatedAt="datetime"),
+        "Space": E(id="string", type="string", version="integer", name="string", organization="string", createdAt="datetime", updatedAt="datetime"),
+        "Environment": E(id="string", type="string", version="integer", name="string", space="string", status="string", createdAt="datetime", updatedAt="datetime"),
+        "Locale": E(id="string", type="string", version="integer", name="string", code="string", fallbackCode="string", default="boolean", optional="boolean", createdAt="datetime"),
+    },
+    # Faithful Binance Spot model — verified against the official spec
+    # (github.com/binance/binance-spot-api-docs rest-api.md + enums.md).
+    # prices/qty are decimal strings; timestamps are integer ms.
+    "binance": {
+        "Order": E(symbol="string", orderId="integer", clientOrderId="string", price="string", origQty="string", executedQty="string", cummulativeQuoteQty="string", status="string", type="string", side="string", timeInForce="string", transactTime="integer"),
+        "Trade": E(id="integer", symbol="string", orderId="integer", price="string", qty="string", quoteQty="string", commission="string", commissionAsset="string", time="integer", isBuyer="boolean", isMaker="boolean"),
+        "Balance": E(asset="string", free="string", locked="string"),
+        "Account": E(makerCommission="integer", takerCommission="integer", canTrade="boolean", canWithdraw="boolean", canDeposit="boolean", updateTime="integer"),
+        "Ticker": E(symbol="string", lastPrice="string", priceChange="string", priceChangePercent="string", highPrice="string", lowPrice="string", volume="string", quoteVolume="string", openTime="integer", closeTime="integer"),
+        "Kline": E(openTime="integer", open="string", high="string", low="string", close="string", volume="string", closeTime="integer", trades="integer"),
+    },
+    # Faithful Shippo model — verified against the official Shippo OpenAPI + SDK
+    # (docs.goshippo.com + goshippo/shippo-node-sdk). Object/array fields dropped.
+    "shippo": {
+        "Address": E(name="string", company="string", street1="string", city="string", state="string", zip="string", country="string", phone="string", email="string", isResidential="boolean"),
+        "Parcel": E(objectId="string", weight="string", massUnit="string", length="string", width="string", height="string", distanceUnit="string", objectCreated="datetime"),
+        "Shipment": E(objectId="string", status="string", addressFrom="string", addressTo="string", shipmentDate="datetime", objectCreated="datetime"),
+        "Rate": E(objectId="string", amount="string", currency="string", carrierAccount="string", servicelevelToken="string", estimatedDays="integer", objectCreated="datetime"),
+        "Transaction": E(objectId="string", status="string", objectState="string", trackingNumber="string", trackingStatus="string", labelUrl="string", labelFileType="string", rate="string", test="boolean", objectCreated="datetime"),
+        "TrackingStatus": E(objectId="string", status="string", statusDetails="string", substatus="string", statusDate="datetime"),
+    },
+    # Faithful Trello model — verified against the official Trello swagger
+    # (dac-static.atlassian.com/cloud/trello/swagger.v3.json). Array fields dropped.
+    "trello": {
+        "Card": E(id="string", idShort="integer", name="string", desc="string", closed="boolean", due="datetime", dueComplete="boolean", pos="float", url="string", idBoard="string", idList="string", cardRole="string", dateLastActivity="datetime"),
+        "Board": E(id="string", name="string", desc="string", closed="boolean", url="string", idOrganization="string", pinned="boolean", starred="boolean", dateLastActivity="datetime"),
+        "List": E(id="string", name="string", closed="boolean", pos="float", idBoard="string"),
+        "Member": E(id="string", username="string", fullName="string", initials="string", memberType="string", confirmed="boolean"),
+        "Label": E(id="string", idBoard="string", name="string", color="string"),
+    },
+    # Faithful Canva Connect API model — verified against the official OpenAPI
+    # (canva-sdks/canva-connect-api-starter-kit spec.yml). Timestamps Unix int seconds.
+    "canva": {
+        "Design": E(id="string", title="string", pageCount="integer", createdAt="integer", updatedAt="integer"),
+        "Asset": E(id="string", name="string", type="string", createdAt="integer", updatedAt="integer"),
+        "Folder": E(id="string", name="string", createdAt="integer", updatedAt="integer"),
+        "BrandTemplate": E(id="string", title="string", viewUrl="string", createdAt="integer", updatedAt="integer"),
+        "ExportJob": E(id="string", status="string", format="string"),
+        "User": E(id="string", displayName="string"),
+    },
+    # Faithful BigCommerce model — verified against the official BigCommerce
+    # OpenAPI specs (github.com/bigcommerce/api-specs).
+    "bigcommerce": {
+        "Product": E(id="integer", name="string", type="string", sku="string", description="string", price="float", availability="string", condition="string", inventoryTracking="string", isVisible="boolean", dateCreated="datetime"),
+        "Order": E(id="integer", customerId="integer", email="string", status="string", total="float", subtotal="float", currencyCode="string", paymentMethod="string", dateCreated="datetime"),
+        "Customer": E(id="integer", email="string", firstName="string", lastName="string", company="string", phone="string", customerGroupId="integer", dateCreated="datetime"),
+        "Category": E(id="integer", name="string", parentId="integer", description="string", isVisible="boolean", sortOrder="integer", defaultProductSort="string"),
+        "Brand": E(id="integer", name="string", pageTitle="string", searchKeywords="string", imageUrl="string"),
+        "Cart": E(id="string", customerId="integer", email="string", channelId="integer", baseAmount="float", cartAmount="float", createdTime="datetime"),
+    },
+    # Faithful LaunchDarkly model — verified against the official OpenAPI
+    # (github.com/launchdarkly/ld-openapi). _id->id; Member.role left a gap.
+    "launchdarkly": {
+        "FeatureFlag": E(key="string", name="string", kind="string", description="string", temporary="boolean", archived="boolean"),
+        "Project": E(id="string", key="string", name="string", includeInSnippetByDefault="boolean"),
+        "Environment": E(id="string", key="string", name="string", apiKey="string", mobileKey="string", color="string"),
+        "Segment": E(key="string", name="string", environmentKey="string", description="string", deleted="boolean", creationDate="integer"),
+        "Member": E(id="string", email="string", firstName="string", lastName="string", role="string"),
+        "Webhook": E(id="string", name="string", url="string", on="boolean"),
+    },
+    # Faithful WooCommerce REST v3 model — verified against the official docs
+    # (woocommerce.github.io/woocommerce-rest-api-docs).
+    "woocommerce": {
+        "Order": E(id="integer", number="string", orderKey="string", status="string", currency="string", total="float", totalTax="float", discountTotal="float", customerId="integer", dateCreated="datetime"),
+        "Product": E(id="integer", name="string", slug="string", type="string", status="string", featured="boolean", catalogVisibility="string", sku="string", regularPrice="float", salePrice="float", onSale="boolean", stockQuantity="integer", stockStatus="string", virtual="boolean", downloadable="boolean"),
+        "Customer": E(id="integer", email="string", firstName="string", lastName="string", username="string", role="string", isPayingCustomer="boolean", dateCreated="datetime"),
+        "Coupon": E(id="integer", code="string", amount="float", discountType="string", description="string", individualUse="boolean", freeShipping="boolean", minimumAmount="float"),
+        "ProductCategory": E(id="integer", name="string", slug="string", parent="integer", description="string", display="string", menuOrder="integer"),
+        "Refund": E(id="integer", amount="float", reason="string", refundedBy="integer", refundedPayment="boolean", dateCreated="datetime"),
+    },
+    # Faithful Mux Video model — verified against official Mux docs. Asset/PlaybackId/
+    # Track fully confirmed; Upload/LiveStream status not accessible -> gaps.
+    "mux": {
+        "Asset": E(id="string", status="string", duration="float", resolutionTier="string", videoQuality="string", aspectRatio="string", test="boolean", createdAt="integer"),
+        "PlaybackId": E(id="string", policy="string"),
+        "Track": E(id="string", type="string", duration="float", maxWidth="integer", maxHeight="integer", status="string", primary="boolean"),
+        "Upload": E(id="string", status="string", timeout="integer", test="boolean"),
+        "LiveStream": E(id="string", status="string", latencyMode="string"),
+    },
+    # Faithful Netlify model — verified against the official Netlify OpenAPI
+    # (github.com/netlify/open-api swagger.yml). Object fields dropped.
+    "netlify": {
+        "Site": E(id="string", name="string", url="string", sslUrl="string", adminUrl="string", state="string", customDomain="string", accountId="string", ssl="boolean", forceSsl="boolean", createdAt="datetime", updatedAt="datetime"),
+        "Deploy": E(id="string", siteId="string", url="string", state="string", draft="boolean", branch="string", commitRef="string", locked="boolean", createdAt="datetime", publishedAt="datetime"),
+        "Build": E(id="string", deployId="string", sha="string", done="boolean", error="string", createdAt="datetime"),
+        "DnsZone": E(id="string", siteId="string", domain="string", dedicated="boolean", ipv6Enabled="boolean", accountId="string", createdAt="datetime"),
+        "Hook": E(id="string", siteId="string", type="string", event="string", disabled="boolean", createdAt="datetime"),
+        "Form": E(id="string", siteId="string", name="string", submissionCount="integer", createdAt="datetime"),
+    },
+    # Faithful Supabase Management API model — verified against the live OpenAPI
+    # (api.supabase.com/api/v1-json). _id->id; snake_case->camelCase.
+    "supabase": {
+        "Project": E(id="string", ref="string", organizationSlug="string", name="string", region="string", status="string", createdAt="datetime"),
+        "Organization": E(id="string", slug="string", name="string"),
+        "EdgeFunction": E(id="string", slug="string", name="string", status="string", version="integer", verifyJwt="boolean", entrypointPath="string", createdAt="integer", updatedAt="integer"),
+        "ApiKey": E(id="string", type="string", name="string", description="string", prefix="string", insertedAt="datetime", updatedAt="datetime"),
+        "Branch": E(id="string", name="string", projectRef="string", parentProjectRef="string", isDefault="boolean", persistent="boolean", status="string", previewProjectStatus="string", createdAt="datetime"),
+        "Backup": E(id="integer", status="string", isPhysicalBackup="boolean", insertedAt="datetime"),
+    },
+    # Faithful OpenAI model — verified against the official OpenAPI
+    # (github.com/openai/openai-openapi openapi.yaml). timestamps Unix int seconds.
+    "openai": {
+        "Model": E(id="string", object="string", created="integer", ownedBy="string"),
+        "FineTuningJob": E(id="string", model="string", status="string", fineTunedModel="string", createdAt="integer", finishedAt="integer"),
+        "Batch": E(id="string", object="string", endpoint="string", model="string", status="string", inputFileId="string", createdAt="integer"),
+        "File": E(id="string", bytes="integer", filename="string", object="string", purpose="string", status="string", createdAt="integer"),
+        "Embedding": E(index="integer", object="string"),
+        "ChatCompletion": E(id="string", model="string", object="string", created="integer"),
+    },
+    # Faithful Typeform model — verified against the official Typeform Create +
+    # Responses API docs. Object/array fields dropped.
+    "typeform": {
+        "Form": E(id="string", title="string", type="string"),
+        "Field": E(ref="string", id="string", title="string", type="string"),
+        "Response": E(token="string", landedAt="datetime", submittedAt="datetime", formId="string"),
+        "Answer": E(fieldId="string", fieldType="string", type="string", value="string"),
+        "Webhook": E(eventId="string", eventType="string", timestamp="datetime"),
+    },
+    # Faithful ElevenLabs model — verified against the live official OpenAPI
+    # (api.elevenlabs.io/openapi.json). timestamps Unix int seconds.
+    "elevenlabs": {
+        "Voice": E(voiceId="string", name="string", category="string", description="string", previewUrl="string", createdAtUnix="integer", isOwner="boolean"),
+        "Sample": E(sampleId="string", fileName="string", mimeType="string", sizeBytes="integer", durationSecs="float", hash="string", removeBackgroundNoise="boolean"),
+        "HistoryItem": E(historyItemId="string", voiceId="string", modelId="string", text="string", dateUnix="integer", state="string", characterCountChangeTo="integer", contentType="string"),
+        "Model": E(modelId="string", name="string", canBeFinetune="boolean", canDoTextToSpeech="boolean", canUseStyle="boolean", tokenCostFactor="float", description="string"),
+        "Subscription": E(tier="string", characterCount="integer", characterLimit="integer", voiceSlotsUsed="integer", voiceLimit="integer", status="string", canExtendCharacterLimit="boolean"),
+        "Project": E(projectId="string", name="string", title="string", author="string", createDateUnix="integer", state="string", accessLevel="string", canBeDownloaded="boolean"),
+    },
+    # Faithful Grafana HTTP API model — verified against the official Grafana docs.
+    # Only DataSource.access enforced (alert-state enums are version-dependent).
+    "grafana": {
+        "Dashboard": E(id="integer", uid="string", title="string", schemaVersion="integer", version="integer", editable="boolean", timezone="string"),
+        "DataSource": E(id="integer", uid="string", name="string", type="string", access="string", url="string", isDefault="boolean"),
+        "Folder": E(uid="string", name="string", title="string", resourceVersion="string", creationTimestamp="datetime"),
+        "AlertRule": E(uid="string", title="string", condition="string", noDataState="string", execErrState="string", isPaused="boolean"),
+        "User": E(id="integer", email="string", name="string", login="string", isGrafanaAdmin="boolean", isDisabled="boolean"),
+        "Organization": E(id="integer", name="string", address="string"),
+    },
+    # Faithful Webflow Data API v2 model — verified against the official OpenAPI
+    # (github.com/webflow/openapi-spec). Object/array fields dropped.
+    "webflow": {
+        "Site": E(id="string", displayName="string", shortName="string", timeZone="string", createdOn="datetime", lastUpdated="datetime", lastPublished="datetime"),
+        "Collection": E(id="string", displayName="string", singularName="string", slug="string", createdOn="datetime", lastUpdated="datetime"),
+        "CollectionItem": E(id="string", cmsLocaleId="string", isArchived="boolean", isDraft="boolean", createdOn="datetime", lastUpdated="datetime", lastPublished="datetime"),
+        "Page": E(id="string", siteId="string", title="string", slug="string", archived="boolean", draft="boolean", publishedPath="string", parentId="string", createdOn="datetime", lastUpdated="datetime"),
+        "Form": E(id="string", displayName="string", siteId="string", pageId="string", pageName="string", formElementId="string", createdOn="datetime", lastUpdated="datetime"),
+        "Field": E(id="string", displayName="string", slug="string", type="string", isRequired="boolean"),
+    },
+    # Faithful Bandwidth model — verified against the OFFICIAL Bandwidth repo
+    # (github.com/Bandwidth/api-docs). Only enums both official sources agree on are
+    # enforced (directions + fileFormat); disputed lifecycle enums left as gaps.
+    "bandwidth": {
+        "Message": E(id="string", owner="string", applicationId="string", time="datetime", segmentCount="integer", direction="string", toNumber="string", fromNumber="string", text="string", tag="string"),
+        "Call": E(callId="string", accountId="string", applicationId="string", toNumber="string", fromNumber="string", state="string", direction="string", createdTime="datetime", startTime="datetime", endTime="datetime"),
+        "Conference": E(id="string", name="string", status="string", redirectUrl="string", createdTime="datetime"),
+        "Recording": E(recordingId="string", applicationId="string", accountId="string", name="string", status="string", fileFormat="string", startTime="datetime", endTime="datetime", duration="integer"),
+    },
+    # Faithful Fivetran model — verified against the official Fivetran REST API docs.
+    # Nested status.* flattened. User.role left open (custom roles allowed).
+    "fivetran": {
+        "Connector": E(id="string", service="string", schema="string", groupId="string", setupState="string", syncState="string", updateState="string", scheduleType="string", networkingMethod="string", syncFrequency="integer", paused="boolean", createdAt="datetime", succeededAt="datetime", failedAt="datetime"),
+        "Destination": E(id="string", groupId="string", service="string", region="string", setupStatus="string", networkingMethod="string", daylightSavingTimeEnabled="boolean", createdAt="datetime"),
+        "Group": E(id="string", name="string", createdAt="datetime"),
+        "User": E(id="string", email="string", givenName="string", familyName="string", role="string", verified="boolean", active="boolean", createdAt="datetime"),
+        "Transformation": E(id="string", type="string", status="string", paused="boolean", createdAt="datetime", lastStartedAt="datetime", lastEndedAt="datetime"),
+    },
+    # Faithful Cohere model — verified against official docs.cohere.com. Only the 3
+    # confirmed entities modeled (EmbedJob/FineTunedModel/Connector 404'd -> deferred).
+    "cohere": {
+        "Dataset": E(id="string", name="string", validationStatus="string", datasetType="string", createdAt="datetime"),
+        "DatasetPart": E(id="string", name="string", sizeBytes="integer", numRows="integer"),
+        "Model": E(name="string", isDeprecated="boolean", contextLength="integer", finetuned="boolean"),
+    },
+    # Faithful SonarQube Web API model — verified against official SonarSource docs.
+    "sonarqube": {
+        "Issue": E(key="string", severity="string", status="string", type="string", resolution="string", component="string", line="integer", message="string"),
+        "Hotspot": E(key="string", status="string", message="string", component="string"),
+        "QualityGate": E(status="string", ignoredConditions="boolean"),
+        "Condition": E(status="string", metricKey="string", comparator="string", errorThreshold="string", actualValue="string"),
+        "Measure": E(metric="string", value="string", bestValue="boolean"),
+    },
+    # Faithful Terraform Cloud / HCP Terraform API model — verified against the
+    # official HashiCorp Cloud API docs. JSON:API attributes flattened.
+    "terraform": {
+        "Run": E(id="string", type="string", status="string", message="string", source="string", triggerReason="string", hasChanges="boolean", autoApply="boolean", isDestroy="boolean", planOnly="boolean", createdAt="datetime", canceledAt="datetime"),
+        "Plan": E(id="string", type="string", status="string", hasChanges="boolean", resourceAdditions="integer", resourceChanges="integer", resourceDestructions="integer"),
+        "Apply": E(id="string", type="string", status="string", resourceAdditions="integer", resourceChanges="integer", resourceDestructions="integer"),
+        "Workspace": E(id="string", name="string", type="string", description="string", executionMode="string", locked="boolean", resourceCount="integer", autoApply="boolean", terraformVersion="string", createdAt="datetime", updatedAt="datetime"),
+        "StateVersion": E(id="string", status="string", serial="integer", terraformVersion="string", resourcesProcessed="boolean", createdAt="datetime"),
+        "ConfigurationVersion": E(id="string", type="string", status="string", source="string", speculative="boolean", provisional="boolean", autoQueueRuns="boolean"),
+    },
+    # Faithful Jenkins Remote Access API model — verified against the official
+    # Jenkins core source (@Exported fields + Result/BallColor enums).
+    "jenkins": {
+        "Build": E(number="integer", result="string", building="boolean", duration="integer", timestamp="integer", displayName="string", description="string", id="string", queueId="integer"),
+        "Job": E(name="string", displayName="string", description="string", color="string", nextBuildNumber="integer", url="string"),
+        "QueueItem": E(id="integer", inQueueSince="integer", why="string", blocked="boolean", buildable="boolean", stuck="boolean"),
+        "Computer": E(displayName="string", name="string", url="string", offline="boolean", offlineCauseReason="string", numExecutors="integer"),
+        "View": E(name="string", url="string", description="string"),
+    },
+    # Faithful Elasticsearch model — verified against official Elastic.co reference docs.
+    "elastic": {
+        "ClusterHealth": E(clusterName="string", status="string", numberOfNodes="integer", numberOfDataNodes="integer", activePrimaryShards="integer", activeShards="integer", relocatingShards="integer", initializingShards="integer", unassignedShards="integer", timedOut="boolean"),
+        "Index": E(name="string", health="string", status="string", uuid="string", numberOfShards="integer", numberOfReplicas="integer", docsCount="integer", docsDeleted="integer", storeSize="string"),
+        "Shard": E(index="string", shardNumber="integer", primaryOrReplica="string", state="string", docsCount="integer", nodeName="string", nodeId="string"),
+        "Node": E(id="string", ip="string", port="integer", name="string", version="string", heapPercent="integer", ramPercent="integer", diskUsedPercent="integer", master="string"),
+        "Alias": E(alias="string", index="string", routingIndex="string", routingSearch="string", isWriteIndex="string"),
+        "Document": E(index="string", id="string", version="integer", seqNo="integer", primaryTerm="integer", found="boolean", routing="string"),
+    },
+    # Faithful Pulumi Cloud model — verified against the official Pulumi Go SDK
+    # apitype package (github.com/pulumi/pulumi). Organization.role left open.
+    "pulumi": {
+        "Update": E(kind="string", result="string", message="string", version="integer", resourceCount="integer", startTime="integer", endTime="integer"),
+        "Stack": E(stackName="string", orgName="string", projectName="string", id="string", lastUpdate="integer", resourceCount="integer"),
+        "Policy": E(name="string", displayName="string", description="string", enforcementLevel="string", severity="string", message="string"),
+        "Deployment": E(id="string", status="string", projectName="string", stackName="string", paused="boolean", created="datetime", modified="datetime"),
+        "Organization": E(name="string", role="string"),
+    },
+    # Faithful SS7/SIGTRAN model — M3UA (RFC 4666) + SUA (RFC 3868) message classes
+    # are RFC-verified closed sets; SCCP/ISUP message types are ITU-T-paywalled -> gapped.
+    "ss7_sigtran": {
+        "M3uaMessage": E(version="integer", reserved="integer", messageClass="integer", messageType="integer", messageLength="integer"),
+        "SuaMessage": E(version="integer", messageClass="integer", messageType="integer", messageLength="integer"),
+        "ProtocolData": E(opc="integer", dpc="integer", si="integer", ni="integer", mp="integer", sls="integer"),
+        "Mtp3Message": E(serviceIndicator="integer", networkIndicator="integer", payload="string"),
+        "SccpMessage": E(messageType="integer", destinationPointCode="integer", sourcePointCode="integer", subsystemNumber="integer", globalTitle="string"),
+    },
+    # Faithful CVE/NVD + CVSS v3.1 model — verified vs the FIRST CVSS v3.1 spec +
+    # the official NIST NVD API schema. All CVSS metric value sets are closed.
+    "cve_nvd": {
+        "CveItem": E(cveId="string", sourceIdentifier="string", vulnStatus="string", published="datetime", lastModified="datetime"),
+        "CvssV3Metric": E(baseScore="float", baseSeverity="string", exploitabilityScore="float", impactScore="float"),
+        "CvssV3Vector": E(version="string", vectorString="string", attackVector="string", attackComplexity="string", privilegesRequired="string", userInteraction="string", scope="string", confidentialityImpact="string", integrityImpact="string", availabilityImpact="string"),
+        "Reference": E(url="string", source="string"),
+        "Weakness": E(source="string", type="string", description="string"),
+        "CveMetrics": E(source="string", type="string"),
+    },
+    # Faithful MITRE ATT&CK model — verified vs the official attack-stix-data. Only
+    # Software.type (closed STIX object set) enforced; Tactic.shortName fetch was
+    # contaminated (bogus values) -> gapped rather than enforce a corrupted set.
+    "mitre_attck": {
+        "Technique": E(techniqueId="string", name="string", description="string", isSubtechnique="boolean", created="datetime", modified="datetime"),
+        "Tactic": E(tacticId="string", shortName="string", name="string", description="string", created="datetime"),
+        "Software": E(softwareId="string", name="string", type="string", description="string", isFamily="boolean", created="datetime"),
+        "Group": E(groupId="string", name="string", description="string", created="datetime"),
+        "Mitigation": E(mitigationId="string", name="string", description="string", deprecated="boolean", created="datetime"),
+    },
+    # Faithful WebRTC model — verified against the official W3C WebRTC 1.0 spec.
+    "webrtc_core": {
+        "RTCPeerConnection": E(signalingState="string", iceConnectionState="string", iceGatheringState="string", connectionState="string"),
+        "RTCDataChannel": E(label="string", ordered="boolean", protocol="string", negotiated="boolean", id="integer", readyState="string", bufferedAmount="integer"),
+        "RTCSessionDescription": E(type="string", sdp="string"),
+        "RTCIceCandidate": E(candidate="string", sdpMLineIndex="integer", sdpMid="string", protocol="string", port="integer", address="string", type="string", tcpType="string", priority="integer"),
+        "RTCRtpTransceiver": E(mid="string", direction="string", currentDirection="string"),
+    },
+    # Faithful QUIC (RFC 9000) + HTTP/3 (RFC 9114) model — verified vs RFC + IANA.
+    # Http3Settings.identifier is an open registry -> not enforced.
+    "quic_http3": {
+        "QuicPacket": E(packetType="string", version="integer", sourceConnectionId="string", destinationConnectionId="string", payloadLength="integer", packetNumber="integer"),
+        "QuicFrame": E(frameType="integer", payload="string", streamId="integer", offsetInStream="integer"),
+        "Http3Frame": E(frameType="integer", length="integer", payload="string"),
+        "Http3Settings": E(identifier="integer", value="integer"),
+        "QuicConnection": E(connectionId="string", version="integer", state="string", createdAt="datetime", lastActivityAt="datetime"),
+    },
+    # Faithful RPKI model (RFC 6811 origin validation + RFC 6482 ROA + RFC 8210 RPKI-Router).
+    # validationState (valid/invalid/not-found) is the closed RFC 6811 §2 set; pduType is the
+    # fully-enumerated RFC 8210 §5 set (type 5 unassigned). PrefixPdu.flags is a bitfield -> gapped.
+    "bgp_rpki": {
+        "RouteOriginAuthorization": E(version="integer", asn="integer", prefix="string", prefixLength="integer", maxLength="integer", addressFamily="string"),
+        "ValidationResult": E(asn="integer", prefix="string", prefixLength="integer", validationState="string"),
+        "RpkiToRouterPdu": E(protocolVersion="integer", pduType="integer", sessionId="integer", serialNumber="integer", length="integer"),
+        "PrefixPdu": E(protocolVersion="integer", pduType="integer", flags="integer", prefixLength="integer", maxLength="integer", prefix="string", asn="integer"),
+    },
+    # Faithful CAN bus model (ISO 11898 / Bosch CAN 2.0 + CAN FD). frameType, format, errorType,
+    # errorFlag, nodeState are documented closed sets. CanFdFrame.frameType gapped (FD remote-frame
+    # nuance); dlc is a numeric field (0-8 classic / 0-15 FD) -> not an enum.
+    "can_bus": {
+        "CanFrame": E(identifier="integer", frameType="string", format="string", dlc="integer", rtr="boolean", data="string", crc="integer"),
+        "CanFdFrame": E(identifier="integer", frameType="string", format="string", dlc="integer", brs="boolean", esi="boolean", data="string", crc="integer"),
+        "ErrorFrame": E(errorType="string", errorFlag="string", transmitErrorCounter="integer", receiveErrorCounter="integer", nodeState="string"),
+        "RemoteFrame": E(identifier="integer", format="string", dlc="integer", rtr="boolean"),
+        "OverloadFrame": E(overloadFlag="string", timestamp="datetime"),
+    },
+    # Faithful OPC UA model (IEC 62541, OPC Foundation UA-Nodeset Opc.Ua.Types.bsd +
+    # AttributeIds.csv). nodeClass (bitmask 0..128), attributeId (1..27), monitoringMode
+    # (0..2), timestampsToReturn (0..4) are documented closed integer enums.
+    "opc_ua": {
+        "Node": E(nodeId="string", nodeClass="integer", browseName="string", displayName="string", description="string", writeMask="integer", accessLevel="integer", valueRank="integer", historizing="boolean"),
+        "ReferenceDescription": E(referenceTypeId="string", isForward="boolean", nodeId="string", browseName="string", displayName="string", nodeClass="integer", typeDefinition="string"),
+        "ReadValueId": E(nodeId="string", attributeId="integer", indexRange="string", dataEncoding="string"),
+        "MonitoredItem": E(clientHandle="integer", monitoringMode="integer", samplingInterval="float", queueSize="integer", discardOldest="boolean"),
+        "CreateSubscriptionRequest": E(requestedPublishingInterval="float", requestedLifetimeCount="integer", requestedMaxKeepAliveCount="integer", maxNotificationsPerPublish="integer", publishingEnabled="boolean", priority="integer"),
+        "ReadRequest": E(maxAge="float", timestampsToReturn="integer"),
+    },
+    # Faithful Redis RESP model (redis.io official protocol-spec + TYPE command). firstByte
+    # is the definitively-closed RESP3 first-byte marker set (superset of RESP2). dataType is
+    # the TYPE-command return set (inclusive of newer vectorset to avoid false-reject). Command
+    # flags are an open/extensible set -> not enforced.
+    "redis": {
+        "RespMessage": E(firstByte="string", respType="string", payload="string", elementCount="integer", length="integer"),
+        "RedisCommand": E(commandName="string", arity="integer", flags="string", keyPosition="integer"),
+        "RedisKey": E(keyName="string", dataType="string", ttl="integer", encoding="string"),
+        "RedisDataType": E(dataType="string", encoding="string", isBinary="boolean"),
+        "RespProtocolVersion": E(majorVersion="integer", supportedSince="string"),
+    },
+    # Faithful TCP/IP model (RFC 9293 TCP + RFC 792 ICMP + IANA). ICMP type + IP protocol
+    # are large extensible IANA registries -> not enforced as closed enums.
+    "tcp_ip": {
+        "TcpSegment": E(sourcePort="integer", destinationPort="integer", sequenceNumber="integer", acknowledgmentNumber="integer", dataOffset="integer", controlBits="string", window="integer", urgentPointer="integer"),
+        "TcpConnection": E(localPort="integer", remotePort="integer", state="string", sequenceSendNext="integer", sequenceReceiveNext="integer"),
+        "IpPacket": E(version="integer", headerLength="integer", totalLength="integer", identification="integer", flags="string", fragmentOffset="integer", timeToLive="integer", protocol="integer", sourceAddress="string", destinationAddress="string"),
+        "IcmpMessage": E(type="integer", code="integer", checksum="string", restOfHeader="string"),
+    },
+    # Faithful DNS model (RFC 1035 + IANA dns-parameters). rrType/qtype are open
+    # extensible registries + rcode is EDNS-extensible -> not enforced as closed enums.
+    "dns_root_zone": {
+        "Header": E(id="integer", qr="boolean", opcode="integer", aa="boolean", tc="boolean", rd="boolean", ra="boolean", rcode="integer", qdcount="integer", ancount="integer", nscount="integer", arcount="integer"),
+        "Question": E(qname="string", qtype="integer", qclass="integer"),
+        "ResourceRecord": E(name="string", type="integer", class_="integer", ttl="integer", rdlength="integer", rdata="string"),
+        "OptRecord": E(extendedRcode="integer", version="integer", flags="integer", rdlength="integer"),
+    },
+    # Faithful IPsec / IKEv2 model (RFC 7296 + IANA ikev2-parameters). Per-type transform
+    # IDs + the large Notify-type registry are volatile -> not enforced as closed enums.
+    "ipsec": {
+        "IkeHeader": E(initiatorSpi="integer", responderSpi="integer", nextPayload="integer", majorVersion="integer", minorVersion="integer", exchangeType="integer", flags="integer", messageId="integer", totalLength="integer"),
+        "Payload": E(nextPayload="integer", critical="boolean", payloadLength="integer", payloadType="integer"),
+        "SecurityAssociation": E(payloadType="integer", proposals="integer"),
+        "Proposal": E(number="integer", protocolId="integer", spiSize="integer", transformCount="integer", spi="string"),
+        "Transform": E(type="integer", transformId="integer", transformLength="integer", attributes="string"),
+        "Notify": E(protocolId="integer", spiSize="integer", notifyMessageType="integer", spi="string", notificationData="string"),
+    },
+    # Faithful GTFS Schedule model — verified vs gtfs.org/schedule/reference. Many
+    # small closed integer enums. (newer/experimental carsAllowed/cemvSupport excluded.)
+    "gtfs": {
+        "Agency": E(agencyId="string", agencyName="string", agencyUrl="string", agencyTimezone="string", agencyLang="string", agencyPhone="string", agencyEmail="string"),
+        "Route": E(routeId="string", agencyId="string", routeShortName="string", routeLongName="string", routeDesc="string", routeType="integer", routeColor="string", routeSortOrder="integer", continuousPickup="integer", continuousDropOff="integer"),
+        "Trip": E(routeId="string", serviceId="string", tripId="string", tripHeadsign="string", directionId="integer", blockId="string", shapeId="string", wheelchairAccessible="integer", bikesAllowed="integer"),
+        "Stop": E(stopId="string", stopCode="string", stopName="string", stopDesc="string", stopLat="float", stopLon="float", zoneId="string", locationType="integer", parentStation="string", wheelchairBoarding="integer"),
+        "StopTime": E(tripId="string", arrivalTime="datetime", departureTime="datetime", stopId="string", stopSequence="integer", pickupType="integer", dropOffType="integer", timepoint="integer", shapeDistTraveled="float"),
+        "Transfer": E(fromStopId="string", toStopId="string", transferType="integer", minTransferTime="integer"),
+    },
+    # Faithful UN/LOCODE model — function classifier is a closed UNECE set; status codes
+    # gapped (UNECE site 403; public reference may be incomplete).
+    "un_locode": {
+        "Location": E(countryCode="string", locationCode="string", name="string", nameWoDiacritics="string", function="string", status="string", subdivision="string", iataCode="string", latitude="float", longitude="float"),
+        "FunctionClassifier": E(code="string", definition="string"),
+        "StatusCode": E(code="string", definition="string"),
+    },
+    # Faithful OMOP CDM v5.4 (OHDSI) model — verified vs ohdsi.github.io/CommonDataModel.
+    # *_concept_id fields are CONCEPT-table vocab refs (not enums) -> not enforced.
+    "omop_cdm": {
+        "Person": E(personId="integer", genderConceptId="integer", yearOfBirth="integer", monthOfBirth="integer", dayOfBirth="integer", birthDatetime="datetime", raceConceptId="integer", ethnicityConceptId="integer"),
+        "Concept": E(conceptId="integer", conceptName="string", domainId="string", vocabularyId="string", conceptClassId="string", standardConcept="string", conceptCode="string", validStartDate="datetime", validEndDate="datetime", invalidReason="string"),
+        "ConditionOccurrence": E(conditionOccurrenceId="integer", personId="integer", conditionConceptId="integer", conditionStartDate="datetime", conditionEndDate="datetime", visitOccurrenceId="integer"),
+        "DrugExposure": E(drugExposureId="integer", personId="integer", drugConceptId="integer", drugExposureStartDate="datetime", quantity="float", daysSupply="integer"),
+        "VisitOccurrence": E(visitOccurrenceId="integer", personId="integer", visitConceptId="integer", visitStartDate="datetime", visitEndDate="datetime", providerId="integer"),
+        "Observation": E(observationId="integer", personId="integer", observationConceptId="integer", observationDate="datetime", valueAsNumber="float", valueAsString="string"),
+    },
+    # Faithful eIDAS model — levelOfAssurance is the closed Art.8 Reg 910/2014 set;
+    # SAML attrname-format is closed. serviceType/classRef/status not exhaustive -> gapped.
+    "eidas": {
+        "AuthenticationAssertion": E(id="string", levelOfAssurance="string", issueInstant="datetime", sessionIndex="string", issuer="string"),
+        "EidasAttribute": E(name="string", friendlyName="string", nameFormat="string", value="string"),
+        "TrustService": E(id="string", serviceProvider="string", serviceName="string", serviceType="string", status="string", statusStartingTime="datetime"),
+        "Subject": E(nameID="string", format="string", spNameQualifier="string"),
+    },
+    # Faithful DICOMweb model (DICOM PS3.18). PatientSex (M/F/O) is closed; Modality
+    # (large extensible defined-terms) + SOP Class UIDs (huge registry) -> not enforced.
+    "dicomweb": {
+        "Study": E(studyInstanceUid="string", studyDate="string", studyTime="string", studyDescription="string", accessionNumber="string", referringPhysicianName="string"),
+        "Series": E(seriesInstanceUid="string", seriesNumber="integer", seriesDescription="string", modality="string", seriesDate="string"),
+        "Instance": E(sopInstanceUid="string", sopClassUid="string", instanceNumber="integer", contentDate="string"),
+        "Patient": E(patientId="string", patientName="string", patientBirthDate="string", patientSex="string"),
+        "QidoQuery": E(patientId="string", patientName="string", studyInstanceUid="string", modality="string", fuzzyMatching="boolean"),
+    },
+    # Faithful eClinicalWorks FHIR R4 model — ONC (g)(10)-certified (HL7 product registry
+    # product_id=461) exposes HL7 FHIR R4 US Core; normative R4 value sets (hl7.org/fhir/R4).
+    "eclinicalworks": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful IPv6/ICMPv6 model (RFC 8200 + RFC 4443). version is fixed (6); per-type
+    # ICMPv6 code sets are closed. Icmpv6.type (extensible) + nextHeader (protocol registry) gapped.
+    "ipv6_routing": {
+        "Ipv6Header": E(version="integer", trafficClass="integer", flowLabel="integer", payloadLength="integer", nextHeader="integer", hopLimit="integer"),
+        "Icmpv6Message": E(type="integer", code="integer", checksum="integer"),
+        "DestinationUnreachable": E(type="integer", code="integer", checksum="integer"),
+        "TimeExceeded": E(type="integer", code="integer", checksum="integer"),
+        "ParameterProblem": E(type="integer", code="integer", pointer="integer"),
+        "NdpMessage": E(type="integer", code="integer", targetAddress="string"),
+    },
+    # Faithful MPLS model (RFC 3032/3031 + IANA mpls-label-values). General labels
+    # 16+ are user-allocated -> not enforced; reserved labels 0-15 + TC + NHLFE ops closed.
+    "mpls": {
+        "LabelStackEntry": E(label="integer", tc="integer", s="boolean", ttl="integer"),
+        "MplsHeader": E(stackDepth="integer", topLabel="integer", trafficClass="integer", bottomOfStack="boolean", timeToLive="integer"),
+        "ReservedLabel": E(value="integer", name="string", purpose="string"),
+        "NhlfeOperation": E(operationType="string", newLabel="integer", nextHopDestination="string"),
+        "MplsForwardingState": E(incomingLabel="integer", fecRef="string", hopCount="integer"),
+    },
+    # Faithful AIS (ITU-R M.1371) model — verified vs gpsd AIVDM canonical reference.
+    # shipType (0-99) is a large IMO code list -> not enforced.
+    "ais_marine": {
+        "Message": E(messageType="integer", repeatIndicator="integer", mmsi="integer"),
+        "PositionReport": E(messageType="integer", mmsi="integer", navigationStatus="integer", rateOfTurn="float", speedOverGround="float", longitude="float", latitude="float", courseOverGround="float", trueHeading="integer", maneuverIndicator="integer"),
+        "BaseStationReport": E(messageType="integer", mmsi="integer", longitude="float", latitude="float", typeOfEpfd="integer"),
+        "StaticVoyageData": E(messageType="integer", mmsi="integer", imoNumber="integer", callSign="string", vesselName="string", shipType="integer", draught="float", destination="string"),
+        "AidToNavigationReport": E(messageType="integer", mmsi="integer", typeOfAid="integer", name="string", longitude="float", latitude="float", typeOfEpfd="integer"),
+    },
+    # Faithful AS2 (RFC 4130) model — verified vs the official RFC. micalg/digestAlgorithm
+    # algorithm sets evolve past RFC 4130 (sha1/md5) -> not enforced; MDN grammar enums are.
+    "as2_protocol": {
+        "As2Message": E(messageId="string", as2From="string", as2To="string", as2Version="string", contentType="string", micalg="string", contentTransferEncoding="string", dispositionNotificationTo="string"),
+        "Mdn": E(messageId="string", originalMessageId="string", finalRecipient="string", dispositionType="string", dispositionMode="string", actionMode="string", sendingMode="string", dispositionModifier="string", digestAlgorithm="string"),
+        "DispositionNotification": E(reportingUa="string", finalRecipient="string", originalMessageId="string", disposition="string", receivedContentMic="string"),
+    },
+    # Faithful BGP-4 (RFC 4271) model — verified against the official RFC 4271 + IANA
+    # BGP parameters registry. Enums scoped to RFC 4271 core (ROUTE-REFRESH is RFC 2918).
+    "bgp_routing": {
+        "Message": E(marker="string", length="integer", type="integer"),
+        "OpenMessage": E(version="integer", myAutonomousSystem="integer", holdTime="integer", bgpIdentifier="string", optionalParametersLength="integer"),
+        "UpdateMessage": E(withdrawnRoutesLength="integer", totalPathAttributeLength="integer"),
+        "NotificationMessage": E(errorCode="integer", errorSubcode="integer"),
+        "PathAttribute": E(attributeFlags="integer", typeCode="integer", attributeLength="integer", origin="integer"),
+        "KeepaliveMessage": E(headerOnly="boolean"),
+    },
+    # Faithful NTPv4 (RFC 5905) packet model — verified against the official RFC 5905.
+    # stratum (0-255 range) + KissCode (extensible) -> not enforced as closed enums.
+    "ntp_time": {
+        "Packet": E(leapIndicator="integer", version="integer", mode="integer", stratum="integer", poll="integer", precision="integer", rootDelay="float", rootDispersion="float", referenceId="string", referenceTimestamp="datetime", originTimestamp="datetime", receiveTimestamp="datetime", transmitTimestamp="datetime"),
+        "Header": E(leapIndicator="integer", version="integer", mode="integer", stratum="integer", poll="integer", precision="integer"),
+        "KissCode": E(code="string", meaning="string"),
+    },
+    # Faithful MAVLink model — verified against the official mavlink XML message defs.
+    # Only the stable/confirmed-complete enums enforced (MAV_STATE, MAV_MISSION_TYPE);
+    # version-growing enums (MAV_TYPE/GPS_FIX_TYPE/MAV_FRAME) left as gaps.
+    "mavlink_drones": {
+        "Heartbeat": E(type="integer", autopilot="integer", baseMode="integer", customMode="integer", systemStatus="integer", mavlinkVersion="integer"),
+        "SysStatus": E(load="integer", voltageBattery="integer", currentBattery="integer", batteryRemaining="integer", dropRateComm="integer", errorsComm="integer"),
+        "GpsRawInt": E(timeUsec="integer", fixType="integer", lat="integer", lon="integer", alt="integer", vel="integer", satellitesVisible="integer"),
+        "Attitude": E(timeBootMs="integer", roll="float", pitch="float", yaw="float", rollspeed="float", pitchspeed="float", yawspeed="float"),
+        "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
+        "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
+    },
+    # px4_autopilot shares the verified MAVLink common.xml model (PX4 docs officially
+    # state MAVLink is its protocol — normative-standard leverage, 3rd MAVLink-family member).
+    "px4_autopilot": {
+        "Heartbeat": E(type="integer", autopilot="integer", baseMode="integer", customMode="integer", systemStatus="integer", mavlinkVersion="integer"),
+        "SysStatus": E(load="integer", voltageBattery="integer", currentBattery="integer", batteryRemaining="integer", dropRateComm="integer", errorsComm="integer"),
+        "GpsRawInt": E(timeUsec="integer", fixType="integer", lat="integer", lon="integer", alt="integer", vel="integer", satellitesVisible="integer"),
+        "Attitude": E(timeBootMs="integer", roll="float", pitch="float", yaw="float", rollspeed="float", pitchspeed="float", yawspeed="float"),
+        "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
+        "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
+    },
+    # Faithful OpenXR model (official Khronos xr.xml registry, spec 1.1). Extension-free
+    # core enums enforced: formFactor(2), sessionState(9), environmentBlendMode(3).
+    # viewConfigurationType / referenceSpaceType have vendor-extension values -> gapped
+    # (core-only enforcement would false-reject valid Varjo/MSFT values).
+    "openxr": {
+        "Instance": E(applicationName="string", applicationVersion="integer", engineName="string", engineVersion="integer", apiVersion="integer", enabledExtensionCount="integer"),
+        "System": E(systemId="integer", formFactor="integer", systemName="string", vendorId="integer", maxSwapchainImageWidth="integer", maxSwapchainImageHeight="integer", orientationTracking="boolean", positionTracking="boolean"),
+        "Session": E(systemId="integer", createFlags="integer", state="integer"),
+        "ViewConfiguration": E(viewConfigurationType="integer", recommendedImageRectWidth="integer", recommendedImageRectHeight="integer", recommendedSwapchainSampleCount="integer", environmentBlendMode="integer"),
+        "Swapchain": E(createFlags="integer", usageFlags="integer", format="integer", sampleCount="integer", width="integer", height="integer", faceCount="integer", arraySize="integer", mipCount="integer"),
+    },
+    # Faithful Apache Kafka model (official apache/kafka Java enums + protocol guide).
+    # permissionType + isolationLevel stable since 2017 -> enforced. operation
+    # (TWO_PHASE_COMMIT 2025) / groupState (KIP-848) / resourceType (USER added) are
+    # version-growing; ApiKeys + error codes are large growing tables -> all gapped.
+    "kafka": {
+        "Topic": E(name="string", numPartitions="integer", replicationFactor="integer", isInternal="boolean", minInsyncReplicas="integer"),
+        "Partition": E(topicName="string", partitionIndex="integer", leader="integer", replicas="string", isr="string"),
+        "AclBinding": E(resourceType="string", resourceName="string", principal="string", host="string", operation="string", permissionType="string"),
+        "ConsumerGroup": E(groupId="string", protocolType="string", state="string", generationId="integer"),
+        "FetchRequest": E(topicName="string", partitionIndex="integer", fetchOffset="integer", maxBytes="integer", isolationLevel="string"),
+    },
+    # Faithful ONNX model (official onnx/onnx onnx.proto3, commit ef516e7b). attributeType
+    # (15, stable since IR v8) + dataLocation (2) enforced. dataType is version-growing
+    # (FP8 v9 / INT4 v10 / FP4 v11 / INT2 v13, ~yearly) -> gapped per MAVLink precedent.
+    "onnx_runtime": {
+        "ModelProto": E(irVersion="integer", producerName="string", producerVersion="string", domain="string", modelVersion="integer", docString="string"),
+        "GraphProto": E(name="string", docString="string"),
+        "NodeProto": E(name="string", opType="string", domain="string", docString="string"),
+        "TensorProto": E(name="string", dataType="integer", dataLocation="integer", docString="string"),
+        "AttributeProto": E(name="string", type="integer", docString="string"),
+    },
+    # Faithful ROS 2 navigation model (official ros2 .msg files, rolling branch).
+    # GoalStatus.status / NavSatFix.status+positionCovarianceType / BatteryState
+    # status+health enforced. service is a combinable BITMASK (not an enum) and
+    # powerSupplyTechnology is version-growing (TERNARY/VRLA recent) -> both gapped.
+    "ros2_nav": {
+        "GoalStatus": E(goalId="string", stamp="datetime", status="integer"),
+        "NavSatFix": E(latitude="float", longitude="float", altitude="float", status="integer", service="integer", positionCovarianceType="integer"),
+        "BatteryState": E(voltage="float", temperature="float", current="float", charge="float", percentage="float", powerSupplyStatus="integer", powerSupplyHealth="integer", powerSupplyTechnology="integer", present="boolean"),
+        "Odometry": E(childFrameId="string", poseX="float", poseY="float", poseZ="float", twistLinearX="float", twistLinearY="float", twistLinearZ="float", twistAngularX="float", twistAngularY="float", twistAngularZ="float"),
+    },
+    # mavlink_swarm shares the verified MAVLink common.xml model (same official spec as
+    # mavlink_drones — normative-standard leverage, FHIR-family pattern). Same enum
+    # discipline: MAV_STATE + MAV_MISSION_TYPE enforced; version-growing sets gapped.
+    "mavlink_swarm": {
+        "Heartbeat": E(type="integer", autopilot="integer", baseMode="integer", customMode="integer", systemStatus="integer", mavlinkVersion="integer"),
+        "SysStatus": E(load="integer", voltageBattery="integer", currentBattery="integer", batteryRemaining="integer", dropRateComm="integer", errorsComm="integer"),
+        "GpsRawInt": E(timeUsec="integer", fixType="integer", lat="integer", lon="integer", alt="integer", vel="integer", satellitesVisible="integer"),
+        "Attitude": E(timeBootMs="integer", roll="float", pitch="float", yaw="float", rollspeed="float", pitchspeed="float", yawspeed="float"),
+        "GlobalPositionInt": E(timeBootMs="integer", lat="integer", lon="integer", alt="integer", relativeAlt="integer", vx="integer", vy="integer", vz="integer", hdg="integer"),
+        "MissionItem": E(targetSystem="integer", targetComponent="integer", seq="integer", frame="integer", command="integer", current="integer", autocontinue="integer", x="float", y="float", z="float", missionType="integer"),
+    },
+    # Faithful Modbus TCP model — verified against the Modbus Application Protocol spec
+    # (public function/exception code tables). protocolId is always 0 for Modbus/TCP.
+    "modbus_tcp": {
+        "MbapHeader": E(transactionId="integer", protocolId="integer", length="integer", unitId="integer"),
+        "Request": E(transactionId="integer", protocolId="integer", unitId="integer", functionCode="integer", startingAddress="integer", quantity="integer"),
+        "Response": E(transactionId="integer", unitId="integer", functionCode="integer", byteCount="integer"),
+        "ExceptionResponse": E(transactionId="integer", unitId="integer", exceptionFunctionCode="integer", exceptionCode="integer"),
+    },
+    # Faithful GS1 EPCIS 2.0 model — verified against the official GS1 EPCIS 2.0
+    # standard (ref.gs1.org). bizStep/disposition are large CBV vocabs -> not enforced.
+    "gs1_epcis": {
+        "EPCISEvent": E(eventId="string", eventType="string", eventTime="datetime", recordTime="datetime", eventTimeZoneOffset="string", certificationInfo="string"),
+        "ObjectEvent": E(eventId="string", action="string", bizStep="string", disposition="string", readPoint="string", bizLocation="string", eventTime="datetime", recordTime="datetime"),
+        "AggregationEvent": E(eventId="string", parentID="string", action="string", bizStep="string", disposition="string", readPoint="string", eventTime="datetime"),
+        "TransactionEvent": E(eventId="string", parentID="string", action="string", bizStep="string", eventTime="datetime"),
+        "TransformationEvent": E(eventId="string", transformationID="string", bizStep="string", disposition="string", readPoint="string", eventTime="datetime"),
+        "AssociationEvent": E(eventId="string", parentID="string", action="string", bizStep="string", eventTime="datetime"),
+    },
+    # Faithful ISO 8583 model — MTI-position enums from the public ISO 8583 reference
+    # (the ISO standard itself is paywalled). transactionType/responseCode partial -> gapped.
+    "iso_8583": {
+        "Message": E(mti="string", messageClass="string", messageFunction="string", messageOrigin="string", version="string", stan="string", processingCode="string", transmissionDateTime="datetime"),
+        "ProcessingCode": E(transactionType="string", accountTypeFrom="string", accountTypeTo="string"),
+        "DataElement": E(fieldNumber="integer", name="string", dataType="string", length="integer", value="string"),
+        "ResponseCode": E(code="string", meaning="string", requiresCardPickup="boolean"),
+    },
+    # Faithful The Graph (Studio + Network) model — verified against the official
+    # graph-network-subgraph schema + Studio API. Subgraph.status is array -> dropped.
+    "thegraph": {
+        "Subgraph": E(id="integer", name="string", displayName="string", description="string", sourceCodeUrl="string", imageUrl="string", createdAt="datetime", updatedAt="datetime"),
+        "SubgraphDeployment": E(id="string", ipfsHash="string", createdAt="integer", stakedTokens="integer", signalledTokens="integer", queryFeesAmount="integer", activeSubgraphCount="integer", transferredToL2="boolean"),
+        "Indexer": E(id="string", createdAt="integer", stakedTokens="integer", allocatedTokens="integer", queryFeesCollected="integer", delegatedTokens="integer", isLegacy="boolean"),
+        "Allocation": E(id="string", allocatedTokens="integer", createdAtEpoch="integer", closedAtEpoch="integer", queryFeesCollected="integer", status="string", isLegacy="boolean"),
+        "PublishedSubgraph": E(id="string", networkCaip2Id="string", networkSubgraphId="string", createdAt="datetime", updatedAt="datetime"),
+    },
+    # Faithful Magento 2 / Adobe Commerce model — verified against the official
+    # magento2 source (Sales/Catalog model constants). status/visibility are int-coded.
+    "magento": {
+        "Order": E(entityId="integer", incrementId="string", state="string", status="string", customerId="integer", customerEmail="string", grandTotal="float", subtotal="float", createdAt="datetime", updatedAt="datetime"),
+        "Product": E(id="integer", sku="string", name="string", price="float", weight="float", status="integer", visibility="integer", typeId="string", attributeSetId="integer", createdAt="datetime"),
+        "Customer": E(id="integer", email="string", firstname="string", lastname="string", groupId="integer", storeId="integer", websiteId="integer", createdAt="datetime"),
+        "Category": E(id="integer", parentId="integer", name="string", isActive="boolean", position="integer", level="integer", path="string", productCount="integer"),
+        "Invoice": E(entityId="integer", incrementId="string", orderId="integer", state="integer", grandTotal="float", subtotal="float", createdAt="datetime"),
+        "Shipment": E(entityId="integer", incrementId="string", orderId="integer", storeId="integer", totalQty="float", totalWeight="float", createdAt="datetime"),
+    },
+    # Faithful Cloudinary Admin API model — verified against cloudinary.com/documentation.
+    "cloudinary": {
+        "Resource": E(assetId="string", publicId="string", resourceType="string", type="string", format="string", bytes="integer", width="integer", height="integer", version="integer", url="string", secureUrl="string", createdAt="datetime"),
+        "Folder": E(name="string", path="string", externalId="string", createdAt="datetime", updatedAt="datetime"),
+        "Transformation": E(name="string", named="boolean", used="boolean", allowedForStrict="boolean"),
+        "UploadPreset": E(name="string", unsigned="boolean", externalId="string", live="boolean"),
+        "Tag": E(name="string"),
+    },
+    # Faithful MEDITECH FHIR R4 model — ONC-certified EHR exposes HL7 FHIR R4 US Core;
+    # normative R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
+    "meditech": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful NextGen Healthcare FHIR R4 model — ONC-certified EHR exposes HL7 FHIR R4
+    # US Core; normative R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
+    "nextgen": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful Cerner/Oracle Health Ignite FHIR R4 model — Cerner Millennium exposes
+    # HL7 FHIR R4; normative R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
+    "cerner_ignite": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful Allscripts/Veradigm FHIR R4 model — exposes HL7 FHIR R4; normative
+    # R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
+    "allscripts": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful Epic on FHIR R4 model — Epic's FHIR endpoint implements HL7 FHIR R4;
+    # status fields use the normative R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
+    "epic_fhir": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful SMART on FHIR R4 model — SMART apps consume HL7 FHIR R4; same normative
+    # R4 REQUIRED-binding value sets (hl7.org/fhir/R4).
+    "smart_on_fhir": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful Pinecone API model — verified against the official pinecone-io OpenAPI.
+    "pinecone": {
+        "Index": E(name="string", dimension="integer", metric="string", host="string", state="string", deletionProtection="string", vectorType="string", cloud="string", ready="boolean"),
+        "Collection": E(name="string", dimension="integer", status="string", vectorCount="integer", size="integer", environment="string"),
+        "Vector": E(id="string", namespace="string"),
+        "Namespace": E(name="string", recordCount="integer"),
+    },
+    # Faithful Deel API model — verified against developer.deel.com OpenAPI. Contract
+    # .status partial + Adjustment variant-specific + Milestone inferred -> not enforced.
+    "deel": {
+        "Contract": E(id="string", contractId="string", type="string", status="string", teamId="string", country="string", currency="string", externalId="string"),
+        "Worker": E(profileId="string", name="string", firstName="string", lastName="string", email="string", country="string"),
+        "Milestone": E(id="string", title="string", amount="float", status="string", contractId="string", createdAt="datetime"),
+        "Timesheet": E(id="string", contractId="string", date="datetime", hours="float", description="string", status="string", reporterId="string"),
+        "Payment": E(paymentId="string", dateFrom="datetime", dateTo="datetime", status="string", currency="string", entityType="string"),
+    },
+    # Faithful GBFS (General Bikeshare Feed Spec) model — verified against the
+    # official MobilityData/gbfs spec. rentalMethods is array-valued -> not enforced.
+    "gbfs": {
+        "SystemInformation": E(systemId="string", name="string", operator="string", url="string", timezone="string", openingHours="string", phoneNumber="string", email="string", feedContactEmail="string"),
+        "VehicleType": E(vehicleTypeId="string", formFactor="string", propulsionType="string", returnConstraint="string", maxRangeMeters="float", riderCapacity="integer", wheelCount="integer", maxPermittedSpeed="integer", minAge="integer"),
+        "Station": E(stationId="string", name="string", lat="float", lon="float", address="string", city="string", regionId="string", capacity="integer", isVirtualStation="boolean", isChargingStation="boolean", parkingType="string"),
+        "StationStatus": E(stationId="string", numVehiclesAvailable="integer", numDocksAvailable="integer", isInstalled="boolean", isRenting="boolean", isReturning="boolean", lastReported="datetime"),
+        "Vehicle": E(vehicleId="string", lat="float", lon="float", isReserved="boolean", isDisabled="boolean", vehicleTypeId="string", currentRangeMeters="float", lastReported="datetime"),
+        "Region": E(regionId="string", name="string"),
+    },
+    # Faithful Mambu API v2 model — verified against the official Mambu OpenAPI
+    # (api.mambu.com / demo.mambu.com openapi resources).
+    "mambu": {
+        "LoanAccount": E(id="string", encodedKey="string", accountState="string", accountSubState="string", accountHolderType="string", accountHolderKey="string", loanAmount="float", loanName="string", daysInArrears="integer", creationDate="datetime", approvedDate="datetime", closedDate="datetime"),
+        "DepositAccount": E(id="string", encodedKey="string", accountState="string", accountHolderType="string", accountHolderKey="string", creationDate="datetime", approvedDate="datetime"),
+        "Client": E(id="string", encodedKey="string", state="string", firstName="string", lastName="string", emailAddress="string", mobilePhone="string", creationDate="datetime"),
+        "Group": E(id="string", encodedKey="string", groupName="string", assignedBranchKey="string", creationDate="datetime"),
+        "LoanTransaction": E(id="string", encodedKey="string", type="string", amount="float", notes="string", creationDate="datetime", bookingDate="datetime", valueDate="datetime"),
+    },
+    # Faithful Patreon API v2 model — verified against docs.patreon.com.
+    # amounts integer cents; null enum members handled by the falsy guard.
+    "patreon": {
+        "User": E(id="string", about="string", fullName="string", firstName="string", lastName="string", email="string", isCreator="boolean", isEmailVerified="boolean", likeCount="integer", created="datetime"),
+        "Member": E(id="string", patronStatus="string", lastChargeStatus="string", fullName="string", email="string", currentlyEntitledAmountCents="integer", campaignLifetimeSupportCents="integer", willPayAmountCents="integer", isFollower="boolean", isFreeTrial="boolean", lastChargeDate="datetime", nextChargeDate="datetime", pledgeRelationshipStart="datetime"),
+        "Campaign": E(id="string", creationName="string", currency="string", name="string", patronCount="integer", payPerName="string", isMonthly="boolean", isNsfw="boolean", createdAt="datetime", publishedAt="datetime"),
+        "Tier": E(id="string", amountCents="integer", description="string", patronCount="integer", published="boolean", requiresShipping="boolean", title="string", createdAt="datetime"),
+        "Benefit": E(id="string", benefitType="string", description="string", isDeleted="boolean", isPublished="boolean", title="string", tiersCount="integer", createdAt="datetime"),
+    },
+    # Faithful commercetools Composable Commerce API model — verified against
+    # docs.commercetools.com + commercetools-api-reference. Money objects dropped.
+    "commercetools": {
+        "Order": E(id="string", version="integer", orderNumber="string", customerId="string", customerEmail="string", orderState="string", paymentState="string", shipmentState="string", createdAt="datetime", lastModifiedAt="datetime"),
+        "Cart": E(id="string", version="integer", customerId="string", cartState="string", createdAt="datetime", lastModifiedAt="datetime"),
+        "Payment": E(id="string", version="integer", key="string", customerId="string", createdAt="datetime", lastModifiedAt="datetime"),
+        "Product": E(id="string", version="integer", key="string", priceMode="string", createdAt="datetime", lastModifiedAt="datetime"),
+        "Customer": E(id="string", version="integer", key="string", email="string", firstName="string", lastName="string", isEmailVerified="boolean", createdAt="datetime"),
+        "Transaction": E(id="string", timestamp="datetime", type="string", state="string", interactionId="string"),
+    },
+    # Faithful Sendbird Chat Platform API model — verified against sendbird.com/docs.
+    # Channels partially confirmed (some endpoints 404); timestamps Unix int ms.
+    "sendbird": {
+        "User": E(userId="string", nickname="string", profileUrl="string", accessToken="string", isActive="boolean", role="string", createdAt="integer", lastSeenAt="integer", isOnline="boolean"),
+        "Message": E(messageId="integer", type="string", customType="string", message="string", channelUrl="string", createdAt="integer", updatedAt="integer", isRemoved="boolean"),
+        "GroupChannel": E(channelUrl="string", name="string", memberCount="integer", isDistinct="boolean", createdAt="integer"),
+        "OpenChannel": E(channelUrl="string", name="string", participantCount="integer", createdAt="integer"),
+    },
+    # Faithful OpenSea API v2 model — verified against @opensea/api-types + docs.
+    # nested price/asset/criteria objects dropped. Listing.type inferred -> not enforced.
+    "opensea": {
+        "Nft": E(identifier="string", collection="string", contract="string", tokenStandard="string", name="string", description="string", imageUrl="string", openseaUrl="string", isDisabled="boolean", isNsfw="boolean", updatedAt="datetime"),
+        "Collection": E(collection="string", name="string", description="string", imageUrl="string", safelistStatus="string", isDisabled="boolean", isNsfw="boolean", totalSupply="integer", createdDate="datetime"),
+        "Listing": E(orderHash="string", chain="string", protocolAddress="string", remainingQuantity="integer", orderCreatedAt="integer", type="string", status="string"),
+        "Offer": E(orderHash="string", chain="string", protocolAddress="string", remainingQuantity="integer", orderCreatedAt="integer", status="string"),
+        "Account": E(address="string", username="string", bio="string", website="string", joinedDate="datetime"),
+    }
+,
+    # Faithful Docker Engine API model — verified against the official moby/moby
+    # swagger.yaml. Network scope/driver are open (plugins) -> not enforced.
+    "docker": {
+        "Container": E(id="string", image="string", imageID="string", command="string", state="string", created="integer", sizeRw="integer"),
+        "Image": E(id="string", parent="string", comment="string", container="string", size="integer", created="string"),
+        "Network": E(id="string", name="string", scope="string", driver="string", enableIPv6="boolean", internal="boolean", attachable="boolean", created="string"),
+        "Volume": E(name="string", driver="string", mountpoint="string", scope="string", createdAt="string"),
+    },
+    # Faithful Kubernetes API model — verified against the official k8s OpenAPI.
+    "kubernetes": {
+        "Pod": E(name="string", namespace="string", phase="string", nodeName="string", podIP="string", qosClass="string", restartPolicy="string"),
+        "Service": E(name="string", namespace="string", type="string", clusterIP="string", externalName="string"),
+        "Deployment": E(name="string", namespace="string", replicas="integer", readyReplicas="integer", updatedReplicas="integer", observedGeneration="integer"),
+        "Namespace": E(name="string", phase="string", deletionTimestamp="datetime"),
+        "Node": E(name="string", address="string", addressType="string"),
+        "PersistentVolume": E(name="string", phase="string", message="string"),
+    },
+    # Faithful LINE Messaging API model — verified against github.com/line/line-openapi.
+    "line_api": {
+        "Message": E(type="string", text="string", originalContentUrl="string", previewImageUrl="string", duration="integer"),
+        "Source": E(type="string", userId="string", groupId="string", roomId="string"),
+        "Event": E(type="string", mode="string", replyToken="string", timestamp="integer", webhookEventId="string"),
+        "Profile": E(displayName="string", userId="string", pictureUrl="string", statusMessage="string", language="string"),
+        "SentMessage": E(id="string", quoteToken="string"),
+        "NarrowcastProgress": E(phase="string", successCount="integer", failureCount="integer", targetCount="integer"),
+    },
+    # Faithful Telegram Bot API model — verified against core.telegram.org/bots/api.
+    # timestamps Unix integer; nested object refs dropped.
+    "telegram_api": {
+        "User": E(id="integer", isBot="boolean", firstName="string", lastName="string", username="string", languageCode="string", isPremium="boolean"),
+        "Chat": E(id="integer", type="string", title="string", username="string", firstName="string", lastName="string", isForum="boolean"),
+        "Message": E(messageId="integer", date="integer", text="string", chatId="integer"),
+        "ChatMember": E(status="string", isAnonymous="boolean", customTitle="string"),
+    },
+    # Faithful Kong Gateway Admin API model — verified against the official Kong
+    # entity schemas (github.com/Kong/kong db/schema/entities). timestamps Unix int.
+    "kong": {
+        "Service": E(id="string", name="string", protocol="string", host="string", port="integer", path="string", retries="integer", enabled="boolean", connectTimeout="integer", createdAt="integer", updatedAt="integer"),
+        "Route": E(id="string", name="string", service="string", stripPath="boolean", preserveHost="boolean", priority="integer", pathHandling="string", httpsRedirectStatusCode="integer", createdAt="integer"),
+        "Consumer": E(id="string", username="string", customId="string", createdAt="integer", updatedAt="integer"),
+        "Plugin": E(id="string", name="string", instanceName="string", service="string", route="string", consumer="string", enabled="boolean", createdAt="integer"),
+        "Upstream": E(id="string", name="string", algorithm="string", hashOn="string", hashFallback="string", hashOnHeader="string", createdAt="integer"),
+        "Target": E(id="string", upstream="string", target="string", weight="integer", createdAt="integer"),
+    },
+    # Faithful World Bank Indicators API model — verified against the live
+    # api.worldbank.org/v2 endpoints (code lists are documented closed sets).
+    "worldbank": {
+        "Country": E(id="string", iso2Code="string", name="string", capitalCity="string", incomeLevelId="string", lendingTypeId="string", regionId="string", longitude="string", latitude="string"),
+        "Indicator": E(id="string", name="string", unit="string", sourceId="string", sourceNote="string", sourceOrganization="string"),
+        "Source": E(id="string", name="string", code="string", lastUpdated="string", dataAvailability="boolean", concepts="integer"),
+        "IncomeLevel": E(id="string", name="string"),
+        "LendingType": E(id="string", name="string"),
+        "Topic": E(id="string", name="string"),
+    },
+    # Faithful HL7 FHIR R4 model — verified against the official HL7 FHIR R4 spec
+    # (hl7.org/fhir/R4). Status fields use the REQUIRED-binding closed value sets.
+    "hl7_fhir": {
+        "Patient": E(id="string", resourceType="string", gender="string", birthDate="string", active="boolean", deceasedBoolean="boolean"),
+        "Observation": E(id="string", resourceType="string", status="string", effectiveDateTime="datetime", valueString="string", issued="datetime"),
+        "Encounter": E(id="string", resourceType="string", status="string", serviceType="string", period="string"),
+        "MedicationRequest": E(id="string", resourceType="string", status="string", intent="string", authoredOn="datetime"),
+        "AllergyIntolerance": E(id="string", resourceType="string", clinicalStatus="string", criticality="string", recordedDate="datetime"),
+        "Condition": E(id="string", resourceType="string", clinicalStatus="string", recordedDate="datetime"),
+    },
+    # Faithful ChEMBL Web Services model — verified against the EBI ChEMBL API.
+    "chembl": {
+        "Molecule": E(chemblId="string", prefName="string", moleculeType="string", blackBoxWarning="integer", therapeuticFlag="boolean", firstApproval="integer"),
+        "Assay": E(chemblId="string", assayType="string", description="string", confidenceScore="integer", targetChemblId="string", documentChemblId="string"),
+        "Target": E(chemblId="string", prefName="string", targetType="string", organism="string", speciesGroupFlag="boolean"),
+        "Activity": E(activityId="integer", moleculeChemblId="string", assayChemblId="string", standardValue="string", standardType="string", documentYear="integer"),
+        "Document": E(chemblId="string", title="string", docType="string", year="integer", pubmedId="integer", doi="string"),
+    },
+    # Faithful Discord model — verified against the official discord-api-docs
+    # (Channel Types table, etc.). Channel.type is the documented int-coded enum.
+    "discord": {
+        "Channel": E(id="string", type="integer", name="string", guildId="string", position="integer", topic="string", nsfw="boolean"),
+        "Guild": E(id="string", name="string", ownerId="string", description="string", premiumTier="integer", verificationLevel="integer"),
+        "Message": E(id="string", channelId="string", content="string", type="integer", pinned="boolean", tts="boolean", timestamp="datetime"),
+        "User": E(id="string", username="string", discriminator="string", globalName="string", bot="boolean"),
+        "Role": E(id="string", name="string", color="integer", position="integer", hoist="boolean", managed="boolean", mentionable="boolean"),
+    },
+    # Faithful Monzo model — verified against official docs.monzo.com.
+    # amounts integer minor units (pennies).
+    "monzo": {
+        "Account": E(id="string", description="string", type="string", created="datetime"),
+        "Balance": E(balance="integer", totalBalance="integer", currency="string", spendToday="integer"),
+        "Transaction": E(id="string", amount="integer", currency="string", description="string", category="string", declineReason="string", isLoad="boolean", merchant="string", created="datetime", settled="datetime"),
+        "Pot": E(id="string", name="string", balance="integer", currency="string", deleted="boolean", created="datetime", updated="datetime"),
+        "Attachment": E(id="string", userId="string", externalId="string", fileUrl="string", fileType="string", created="datetime"),
+    },
+    # Faithful Ramp model — verified against the official Ramp Developer API OpenAPI
+    # (docs.ramp.com/openapi/developer-api.json). snake_case->camelCase.
+    "ramp": {
+        "Card": E(id="string", state="string", lastFour="string", cardholderName="string", cardholderID="string", isPhysical="boolean", createdAt="datetime"),
+        "Transaction": E(id="string", state="string", amount="float", currencyCode="string", cardID="string", merchantName="string", userTransactionTime="datetime", settlementDate="datetime"),
+        "User": E(id="string", email="string", firstName="string", lastName="string", role="string", status="string", departmentID="string", isManager="boolean"),
+        "Department": E(id="string", name="string"),
+        "Reimbursement": E(id="string", state="string", amount="float", currency="string", type="string", userID="string", direction="string", createdAt="datetime"),
+        "Bill": E(id="string", status="string", amount="integer", currencyCode="string", invoiceNumber="string", statusSummary="string", createdAt="datetime", dueAt="datetime"),
+    },
+    # Faithful AfterShip Tracking model — verified against the official AfterShip SDK
+    # (github.com/AfterShip/aftership-sdk-nodejs). snake_case->camelCase.
+    "aftership": {
+        "Tracking": E(id="string", trackingNumber="string", slug="string", tag="string", subtag="string", deliveryType="string", active="boolean", expectedDelivery="string", orderId="string", createdAt="datetime", updatedAt="datetime"),
+        "Checkpoint": E(checkpointTime="datetime", slug="string", tag="string", subtag="string", message="string", location="string", city="string", countryIso3="string"),
+        "Courier": E(slug="string", name="string", phone="string", webUrl="string", defaultLanguage="string"),
+        "Notification": E(emails="string", smses="string"),
+        "EstimatedDeliveryDate": E(estimatedDeliveryDate="string", confidenceScore="float", estimatedDeliveryDateMin="string", estimatedDeliveryDateMax="string"),
     },
     # Faithful Square model (replaces the generic Stripe-shaped payments model)
     # so the actor can be doc-verified to L5 (ADR 260607 §8).

@@ -3,73 +3,69 @@
 
 namespace thegraph {
 
-    entity Block {
+    entity Subgraph {
         id: string @unique
-        number: integer
-        hash: string
-        chain: string
-        minedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Transaction {
-        id: string @unique
-        hash: string
-        fromAddr: string
-        toAddr: string
-        value: float
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Contract {
-        id: string @unique
-        address: string
-        chain: string
-        abiRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Account {
-        id: string @unique
-        address: string
-        chain: string
-        balance: float
-        nonce: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Event {
-        id: string @unique
-        contractAddr: string
+        id: integer
         name: string
-        blockNumber: integer
-        dataRef: string
+        displayName: string
+        description: string
+        sourceCodeUrl: string
+        imageUrl: string
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Token {
+    entity SubgraphDeployment {
         id: string @unique
-        contractAddr: string
-        symbol: string
-        decimals: integer
-        standard: string
+        id: string
+        ipfsHash: string
+        createdAt: integer
+        stakedTokens: integer
+        signalledTokens: integer
+        queryFeesAmount: integer
+        activeSubgraphCount: integer
+        transferredToL2: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Indexer {
+        id: string @unique
+        id: string
+        createdAt: integer
+        stakedTokens: integer
+        allocatedTokens: integer
+        queryFeesCollected: integer
+        delegatedTokens: integer
+        isLegacy: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Allocation {
+        id: string @unique
+        id: string
+        allocatedTokens: integer
+        createdAtEpoch: integer
+        closedAtEpoch: integer
+        queryFeesCollected: integer
+        status: string
+        isLegacy: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity PublishedSubgraph {
+        id: string @unique
+        id: string
+        networkCaip2Id: string
+        networkSubgraphId: string
+        createdAt: datetime
+        updatedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

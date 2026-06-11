@@ -190,6 +190,8 @@ def create_order(request):
     err = _require(data, ['state', 'totalAmount'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['OPEN', 'COMPLETED', 'CANCELED', 'DRAFT']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['OPEN', 'COMPLETED', 'CANCELED', 'DRAFT']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("square_ord")}
     rec["locationId"] = data.get('locationId')
     rec["customerId"] = data.get('customerId')
@@ -231,6 +233,8 @@ def update_order(request, eid):
     err = _reject_unknown(data, ['locationId', 'customerId', 'state', 'totalAmount', 'currency'])
     if err:
         return err, 400
+    if data.get('state') and data['state'] not in ['OPEN', 'COMPLETED', 'CANCELED', 'DRAFT']:
+        return {"error": {"message": "invalid state; allowed: " + ", ".join(['OPEN', 'COMPLETED', 'CANCELED', 'DRAFT']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -324,8 +328,8 @@ def create_refund(request):
     err = _require(data, ['amount', 'currency'])
     if err:
         return err, 400
-    if data.get('status') and data['status'] not in ['PENDING', 'COMPLETED', 'REJECTED', 'FAILED']:
-        return {"error": {"message": "invalid status; allowed: " + ", ".join(['PENDING', 'COMPLETED', 'REJECTED', 'FAILED']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['PENDING', 'APPROVED', 'REJECTED', 'FAILED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['PENDING', 'APPROVED', 'REJECTED', 'FAILED']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("square_ref")}
     rec["paymentId"] = data.get('paymentId')
     rec["amount"] = _as_int(data.get('amount'))
@@ -367,8 +371,8 @@ def update_refund(request, eid):
     err = _reject_unknown(data, ['paymentId', 'amount', 'currency', 'status', 'reason'])
     if err:
         return err, 400
-    if data.get('status') and data['status'] not in ['PENDING', 'COMPLETED', 'REJECTED', 'FAILED']:
-        return {"error": {"message": "invalid status; allowed: " + ", ".join(['PENDING', 'COMPLETED', 'REJECTED', 'FAILED']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['PENDING', 'APPROVED', 'REJECTED', 'FAILED']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['PENDING', 'APPROVED', 'REJECTED', 'FAILED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
@@ -465,8 +469,8 @@ def create_invoice(request):
     err = _require(data, ['status', 'invoiceNumber'])
     if err:
         return err, 400
-    if data.get('status') and data['status'] not in ['DRAFT', 'PUBLISHED', 'SCHEDULED', 'SENT', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED']:
-        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DRAFT', 'PUBLISHED', 'SCHEDULED', 'SENT', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['DRAFT', 'UNPAID', 'SCHEDULED', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED', 'PAYMENT_PENDING']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DRAFT', 'UNPAID', 'SCHEDULED', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED', 'PAYMENT_PENDING']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("square_inv")}
     rec["orderId"] = data.get('orderId')
     rec["status"] = data.get('status')
@@ -506,8 +510,8 @@ def update_invoice(request, eid):
     err = _reject_unknown(data, ['orderId', 'status', 'invoiceNumber'])
     if err:
         return err, 400
-    if data.get('status') and data['status'] not in ['DRAFT', 'PUBLISHED', 'SCHEDULED', 'SENT', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED']:
-        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DRAFT', 'PUBLISHED', 'SCHEDULED', 'SENT', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['DRAFT', 'UNPAID', 'SCHEDULED', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED', 'PAYMENT_PENDING']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['DRAFT', 'UNPAID', 'SCHEDULED', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'CANCELED', 'FAILED', 'PAYMENT_PENDING']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):

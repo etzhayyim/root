@@ -14525,6 +14525,25 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606081748-kotoba-bounded-rsi-build-deploy-contract",
+      "type": "TechArticle",
+      "title": "ADR-2606081748: Kotoba bounded RSI build/deploy contract",
+      "status": "accepted",
+      "topic": "kotoba-bounded-rsi-build-deploy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba-rsi-build-deploy-contract",
+        "murakumo-modal-training-artifact-loop",
+        "token-bounded-self-modification"
+      ],
+      "related": [
+        "doc:adr-2605232200",
+        "doc:adr-2605191346",
+        "doc:adr-2605182312"
+      ],
+      "lastVerified": "2026-06-08"
+    },
+    {
       "id": "doc:adr-2606081800",
       "type": "TechArticle",
       "title": "ADR-2606081800: uchiwake (内訳) — World Product Bill-of-Materials / GTIN Knowledge Graph Tier-B Actor R0",
@@ -14621,6 +14640,21 @@
         "the keyless Tailscale-SSH access convention for fleet nodes"
       ],
       "related": "doc:2605201400",
+      "lastVerified": "2026-06-08"
+    },
+    {
+      "id": "doc:adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "type": "TechArticle",
+      "title": "ADR-2606082300: hydrogen electrolysis CFE efficiency actor — actor logic, kami simulation, kotoba deploy",
+      "status": "active",
+      "topic": "hydrogen-electrolysis-cfe-actor-kami-kotoba",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hydrogen_electrolysis actor placement",
+        "kami-hydrogen-electrolysis-sim package placement",
+        "hydrogen electrolysis efficiency kotoba deploy boundary"
+      ],
+      "related": "doc:2605262130",
       "lastVerified": "2026-06-08"
     },
     {
@@ -14790,14 +14824,15 @@
         "canonical remote IPFS pin endpoint (kotobase.net)",
         "deps.toml [platform.kotobase_pin] config block",
         "kotoba-store IpfsPinClient remote-pin default (KOTOBA_IPFS_PIN_ENDPOINT)",
-        "e7m-dataset publish-ipfs remote-pin fanout (ETZ_KOTOBASE_PIN)"
+        "e7m-dataset publish-ipfs remote-pin fanout (ETZ_KOTOBASE_PIN)",
+        "ipfs-pinner kotobase provider (MST-CAR remote pin, ETZ_PINNER_PROVIDERS=kubo,kotobase)"
       ],
       "related": [
         "doc:adr-2606041130-kotoba-b2-blockstore-cold-pin",
         "doc:adr-2605262400-public-data-organism-ipfs-ingestion",
         "doc:adr-2605262800-public-data-legal-corpus-ipfs-ingestion"
       ],
-      "lastVerified": "2026-06-09"
+      "lastVerified": "2026-06-11"
     },
     {
       "id": "doc:adr-2606091800-infra-robotics-3layer-operational-substrate",
@@ -15042,6 +15077,33 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606111011",
+      "type": "TechArticle",
+      "title": "ADR-2606111011: Session-Close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)",
+      "status": "accepted",
+      "topic": "session-close-land-hydrogen-branch-to-main",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close summary of the 2026-06-11 hydrogen-branch landing",
+        "record of the 14-file conflict resolution (8 manifests, kotoba submodule, L5 ledger, CLAUDE.md, deps.toml, registries)"
+      ],
+      "related": [
+        "doc:adr-2606110955-session-close-pr-backlog-review-merge",
+        "doc:adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
+      "id": "doc:adr-2606111330-session-close-shionome-t1-wasm-live-did-actor-kotobase-pin",
+      "type": "TechArticle",
+      "title": "ADR-2606111330: Session close — 潮目 T1 browser-wasm DID actor LIVE on etzhayyim.com + kotobase.net pin saga (root-caused)",
+      "status": "active",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": "doc:90-docs/adr/2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat.md",
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-2606111400-charter-synthetic-persona-forward-simulation-carve-in",
       "type": "TechArticle",
       "title": "ADR-2606111400: Charter observation-doctrine consolidation — the synthetic-persona / forward-simulation carve-in (simulating fictional latent agents ≠ surveilling real people)",
@@ -15063,6 +15125,20 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606111400-session-close-ibuki-delegation-revocable-leash",
+      "type": "TechArticle",
+      "title": "ADR-2606111400: Session close — 息吹 (ibuki) autonomous identity = a revocable CACAO leash (member-signed delegation + issuer)",
+      "status": "accepted",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606102000-session-close-ibuki-digest-live-run-robustness",
+        "doc:adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
+        "doc:adr-2606062100-moyai-inference-reciprocity-credit"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-2606111500-hakoniwa-forward-simulation-observatory",
       "type": "TechArticle",
       "title": "ADR-2606111500: hakoniwa 箱庭 — forward-simulation observatory (synthetic-persona swarm; the charter-clean inversion of a MiroFish-class prediction engine)",
@@ -15079,6 +15155,46 @@
         "doc:2606061500",
         "doc:2605263200",
         "doc:2605262130"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
+      "id": "doc:adr-2606111700-public-sponsor-donation-solicitation-surfaces",
+      "type": "TechArticle",
+      "title": "ADR-2606111700: Public sponsor / donation solicitation surfaces — GitHub Sponsor button (custom-only) + DONATE.md + README + active /donate CTA",
+      "status": "accepted",
+      "topic": "public-sponsor-donation-solicitation-surfaces",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the public sponsor/donation solicitation surfaces (.github/FUNDING.yml + DONATE.md + README support section + /donate CTA)",
+        "the FUNDING.yml charter-clean rule (custom-only, no fiat Sponsor rails)"
+      ],
+      "related": [
+        "doc:2605192100",
+        "doc:2605215000",
+        "doc:2605301020",
+        "doc:2605301036",
+        "doc:2605262900"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
+      "id": "doc:adr-2606111800-donation-media-fiat-inkind-onramp-crypto-allowlist",
+      "type": "TechArticle",
+      "title": "ADR-2606111800: Donation-media expansion — fiat in-kind (infrastructure-cost) recognition + non-custodial fiat on-ramp (Tier-1 amendment of ADR-2605172100) + curated crypto-asset allowlist",
+      "status": "accepted",
+      "topic": "donation-media-fiat-inkind-onramp-crypto-allowlist",
+      "authoritative": true,
+      "authoritativeFor": [
+        "fiat in-kind (infrastructure-cost) donation recognition (com.etzhayyim.give.infrastructureDonationAttestation)",
+        "the non-custodial fiat-on-ramp carve-in to the payments-on-chain-only rule (ADR-2605172100)",
+        "the curated crypto-asset donation allowlist"
+      ],
+      "related": [
+        "doc:2606111700",
+        "doc:2605301036",
+        "doc:2605215000",
+        "doc:2605231525"
       ],
       "lastVerified": "2026-06-11"
     },

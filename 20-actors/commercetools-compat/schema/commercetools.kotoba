@@ -3,71 +3,81 @@
 
 namespace commercetools {
 
-    entity ContentEntry {
+    entity Order {
         id: string @unique
-        modelName: string
-        title: string
-        locale: string
-        published: boolean
+        id: string
+        version: integer
+        orderNumber: string
+        customerId: string
+        customerEmail: string
+        orderState: string
+        paymentState: string
+        shipmentState: string
+        createdAt: datetime
+        lastModifiedAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Cart {
+        id: string @unique
+        id: string
+        version: integer
+        customerId: string
+        cartState: string
+        createdAt: datetime
+        lastModifiedAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Payment {
+        id: string @unique
+        id: string
+        version: integer
+        key: string
+        customerId: string
+        createdAt: datetime
+        lastModifiedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
     entity Product {
         id: string @unique
-        sku: string
-        title: string
-        price: float
-        currency: string
+        id: string
+        version: integer
+        key: string
+        priceMode: string
+        createdAt: datetime
+        lastModifiedAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Shipment {
+    entity Customer {
         id: string @unique
-        orderId: string
-        carrier: string
-        tracking: string
-        status: string
+        id: string
+        version: integer
+        key: string
+        email: string
+        firstName: string
+        lastName: string
+        isEmailVerified: boolean
+        createdAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity SearchIndex {
+    entity Transaction {
         id: string @unique
-        name: string
-        recordCount: integer
-        primaryKey: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        event: string
-        url: string
-        active: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Order {
-        id: string @unique
-        number: string
-        total: float
-        currency: string
-        status: string
+        id: string
+        timestamp: datetime
+        type: string
+        state: string
+        interactionId: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

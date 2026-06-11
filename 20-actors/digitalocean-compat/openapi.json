@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreielbzomeatswxe67bqlg6xpuf6wnujdaypcjrfhaz4vo7nv5gx6ua",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/projects": {
+    "/v1/droplets": {
       "get": {
-        "summary": "List Projects",
+        "summary": "List Droplets",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Project"
+                        "$ref": "#/components/schemas/Droplet"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Project",
+        "summary": "Create a Droplet",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/DropletCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Droplet"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/projects/{id}": {
+    "/v1/droplets/{id}": {
       "get": {
-        "summary": "Get a Project",
+        "summary": "Get a Droplet",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Droplet"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Project",
+        "summary": "Update a Droplet",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectCreate"
+                "$ref": "#/components/schemas/DropletCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Project"
+                  "$ref": "#/components/schemas/Droplet"
                 }
               }
             }
@@ -181,192 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Project",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/computeinstances": {
-      "get": {
-        "summary": "List ComputeInstances",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ComputeInstance"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a ComputeInstance",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/computeinstances/{id}": {
-      "get": {
-        "summary": "Get a ComputeInstance",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a ComputeInstance",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ComputeInstanceCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ComputeInstance"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a ComputeInstance",
+        "summary": "Delete a Droplet",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +387,9 @@
         }
       }
     },
-    "/v1/buckets": {
+    "/v1/databaseclusters": {
       "get": {
-        "summary": "List Buckets",
+        "summary": "List DatabaseClusters",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Bucket"
+                        "$ref": "#/components/schemas/DatabaseCluster"
                       }
                     },
                     "has_more": {
@@ -634,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Bucket",
+        "summary": "Create a DatabaseCluster",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/DatabaseClusterCreate"
               }
             }
           }
@@ -651,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/DatabaseCluster"
                 }
               }
             }
@@ -662,9 +477,9 @@
         }
       }
     },
-    "/v1/buckets/{id}": {
+    "/v1/databaseclusters/{id}": {
       "get": {
-        "summary": "Get a Bucket",
+        "summary": "Get a DatabaseCluster",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/DatabaseCluster"
                 }
               }
             }
@@ -699,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Bucket",
+        "summary": "Update a DatabaseCluster",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BucketCreate"
+                "$ref": "#/components/schemas/DatabaseClusterCreate"
               }
             }
           }
@@ -725,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Bucket"
+                  "$ref": "#/components/schemas/DatabaseCluster"
                 }
               }
             }
@@ -736,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Bucket",
+        "summary": "Delete a DatabaseCluster",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +572,9 @@
         }
       }
     },
-    "/v1/networks": {
+    "/v1/loadbalancers": {
       "get": {
-        "summary": "List Networks",
+        "summary": "List LoadBalancers",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Network"
+                        "$ref": "#/components/schemas/LoadBalancer"
                       }
                     },
                     "has_more": {
@@ -819,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Network",
+        "summary": "Create a LoadBalancer",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
+                "$ref": "#/components/schemas/LoadBalancerCreate"
               }
             }
           }
@@ -836,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/LoadBalancer"
                 }
               }
             }
@@ -847,9 +662,9 @@
         }
       }
     },
-    "/v1/networks/{id}": {
+    "/v1/loadbalancers/{id}": {
       "get": {
-        "summary": "Get a Network",
+        "summary": "Get a LoadBalancer",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/LoadBalancer"
                 }
               }
             }
@@ -884,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Network",
+        "summary": "Update a LoadBalancer",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NetworkCreate"
+                "$ref": "#/components/schemas/LoadBalancerCreate"
               }
             }
           }
@@ -910,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Network"
+                  "$ref": "#/components/schemas/LoadBalancer"
                 }
               }
             }
@@ -921,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Network",
+        "summary": "Delete a LoadBalancer",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +757,9 @@
         }
       }
     },
-    "/v1/iamroles": {
+    "/v1/kubernetesclusters": {
       "get": {
-        "summary": "List IamRoles",
+        "summary": "List KubernetesClusters",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/IamRole"
+                        "$ref": "#/components/schemas/KubernetesCluster"
                       }
                     },
                     "has_more": {
@@ -1004,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a IamRole",
+        "summary": "Create a KubernetesCluster",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
+                "$ref": "#/components/schemas/KubernetesClusterCreate"
               }
             }
           }
@@ -1021,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/KubernetesCluster"
                 }
               }
             }
@@ -1032,9 +847,9 @@
         }
       }
     },
-    "/v1/iamroles/{id}": {
+    "/v1/kubernetesclusters/{id}": {
       "get": {
-        "summary": "Get a IamRole",
+        "summary": "Get a KubernetesCluster",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/KubernetesCluster"
                 }
               }
             }
@@ -1069,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a IamRole",
+        "summary": "Update a KubernetesCluster",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IamRoleCreate"
+                "$ref": "#/components/schemas/KubernetesClusterCreate"
               }
             }
           }
@@ -1095,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IamRole"
+                  "$ref": "#/components/schemas/KubernetesCluster"
                 }
               }
             }
@@ -1106,7 +921,192 @@
         }
       },
       "delete": {
-        "summary": "Delete a IamRole",
+        "summary": "Delete a KubernetesCluster",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted"
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      }
+    },
+    "/v1/images": {
+      "get": {
+        "summary": "List Images",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "starting_after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Image",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Image"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid_request_error"
+          }
+        }
+      }
+    },
+    "/v1/images/{id}": {
+      "get": {
+        "summary": "Get a Image",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Image"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a Image",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Image"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Image",
         "parameters": [
           {
             "name": "id",
@@ -1140,20 +1140,35 @@
   },
   "components": {
     "schemas": {
-      "Project": {
+      "Droplet": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "integer"
           },
           "name": {
             "type": "string"
           },
-          "region": {
-            "type": "string"
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "active",
+              "off",
+              "archive"
+            ]
           },
-          "billingId": {
-            "type": "string"
+          "memory": {
+            "type": "integer"
+          },
+          "vcpus": {
+            "type": "integer"
+          },
+          "disk": {
+            "type": "integer"
+          },
+          "locked": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1165,77 +1180,43 @@
           }
         }
       },
-      "ProjectCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "billingId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "region"
-        ]
-      },
-      "ComputeInstance": {
+      "DropletCreate": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
+            "type": "integer"
           },
           "name": {
             "type": "string"
           },
-          "machineType": {
-            "type": "string"
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "active",
+              "off",
+              "archive"
+            ]
           },
-          "state": {
-            "type": "string"
+          "memory": {
+            "type": "integer"
           },
-          "ipAddress": {
-            "type": "string"
+          "vcpus": {
+            "type": "integer"
+          },
+          "disk": {
+            "type": "integer"
+          },
+          "locked": {
+            "type": "boolean"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ComputeInstanceCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "machineType": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "ipAddress": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "machineType"
+          "id",
+          "name"
         ]
       },
       "Volume": {
@@ -1244,17 +1225,18 @@
           "id": {
             "type": "string"
           },
-          "projectId": {
+          "name": {
             "type": "string"
           },
-          "sizeGb": {
+          "sizeGigabytes": {
             "type": "integer"
           },
-          "type": {
-            "type": "string"
-          },
-          "attachedTo": {
-            "type": "string"
+          "filesystemType": {
+            "type": "string",
+            "enum": [
+              "ext4",
+              "xfs"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1269,157 +1251,359 @@
       "VolumeCreate": {
         "type": "object",
         "properties": {
-          "projectId": {
+          "id": {
             "type": "string"
           },
-          "sizeGb": {
+          "name": {
+            "type": "string"
+          },
+          "sizeGigabytes": {
             "type": "integer"
           },
+          "filesystemType": {
+            "type": "string",
+            "enum": [
+              "ext4",
+              "xfs"
+            ]
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "DatabaseCluster": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "engine": {
+            "type": "string",
+            "enum": [
+              "pg",
+              "mysql",
+              "redis",
+              "valkey",
+              "mongodb",
+              "kafka",
+              "opensearch",
+              "advanced_pg",
+              "advanced_mysql"
+            ]
+          },
+          "numNodes": {
+            "type": "integer"
+          },
+          "size": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "creating",
+              "online",
+              "resizing",
+              "migrating",
+              "forking"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DatabaseClusterCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "engine": {
+            "type": "string",
+            "enum": [
+              "pg",
+              "mysql",
+              "redis",
+              "valkey",
+              "mongodb",
+              "kafka",
+              "opensearch",
+              "advanced_pg",
+              "advanced_mysql"
+            ]
+          },
+          "numNodes": {
+            "type": "integer"
+          },
+          "size": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "creating",
+              "online",
+              "resizing",
+              "migrating",
+              "forking"
+            ]
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "LoadBalancer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "ip": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "active",
+              "errored"
+            ]
+          },
+          "sizeUnit": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LoadBalancerCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "ip": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "active",
+              "errored"
+            ]
+          },
+          "sizeUnit": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "KubernetesCluster": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "autoUpgrade": {
+            "type": "boolean"
+          },
+          "ha": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "KubernetesClusterCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "autoUpgrade": {
+            "type": "boolean"
+          },
+          "ha": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Image": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "public": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "NEW",
+              "available",
+              "pending",
+              "deleted",
+              "retired"
+            ]
+          },
           "type": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "base",
+              "snapshot",
+              "backup",
+              "custom",
+              "admin"
+            ]
           },
-          "attachedTo": {
-            "type": "string"
+          "sizeGigabytes": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           }
-        },
-        "required": [
-          "sizeGb",
-          "type"
-        ]
+        }
       },
-      "Bucket": {
+      "ImageCreate": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
+            "type": "integer"
           },
           "name": {
             "type": "string"
           },
-          "region": {
+          "slug": {
             "type": "string"
           },
           "public": {
             "type": "boolean"
           },
-          "createdAt": {
+          "status": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "NEW",
+              "available",
+              "pending",
+              "deleted",
+              "retired"
+            ]
           },
-          "updatedAt": {
+          "type": {
             "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "BucketCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
+            "enum": [
+              "base",
+              "snapshot",
+              "backup",
+              "custom",
+              "admin"
+            ]
           },
-          "name": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
-          },
-          "public": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "name",
-          "region"
-        ]
-      },
-      "Network": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
-            "type": "string"
+          "sizeGigabytes": {
+            "type": "number"
           },
           "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "NetworkCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "cidr": {
-            "type": "string"
-          },
-          "region": {
             "type": "string"
           }
         },
         "required": [
-          "cidr",
-          "region"
-        ]
-      },
-      "IamRole": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "policy": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "IamRoleCreate": {
-        "type": "object",
-        "properties": {
-          "projectId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "policy": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "policy"
+          "id",
+          "name"
         ]
       }
     }

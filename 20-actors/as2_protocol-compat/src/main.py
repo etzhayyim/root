@@ -111,52 +111,57 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/tradeitems", methods=["POST"])
-def create_trade_item(request):
-    """Create a TradeItem."""
+@app.route("/v1/as2messages", methods=["POST"])
+def create_as2_message(request):
+    """Create a As2Message."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['gtin', 'description', 'brand'])
+    err = _reject_unknown(data, ['messageId', 'as2From', 'as2To', 'as2Version', 'contentType', 'micalg', 'contentTransferEncoding', 'dispositionNotificationTo'])
     if err:
         return err, 400
-    err = _require(data, ['gtin', 'description'])
+    err = _require(data, ['as2From', 'as2To'])
     if err:
         return err, 400
-    rec = {"id": new_id("as2proto_tra")}
-    rec["gtin"] = data.get('gtin')
-    rec["description"] = data.get('description')
-    rec["brand"] = data.get('brand')
+    rec = {"id": new_id("as2proto_as2")}
+    rec["messageId"] = data.get('messageId')
+    rec["as2From"] = data.get('as2From')
+    rec["as2To"] = data.get('as2To')
+    rec["as2Version"] = data.get('as2Version')
+    rec["contentType"] = data.get('contentType')
+    rec["micalg"] = data.get('micalg')
+    rec["contentTransferEncoding"] = data.get('contentTransferEncoding')
+    rec["dispositionNotificationTo"] = data.get('dispositionNotificationTo')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("TradeItem", rec)
+    _persist("As2Message", rec)
     return rec, 201
 
-@app.route("/v1/tradeitems", methods=["GET"])
-def list_trade_items(request):
-    """List TradeItems with filtering + cursor pagination."""
+@app.route("/v1/as2messages", methods=["GET"])
+def list_as2_messages(request):
+    """List As2Messages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("TradeItem")
-    rows = _apply_filters(rows, params, ['gtin', 'description', 'brand'])
+    rows = _query("As2Message")
+    rows = _apply_filters(rows, params, ['messageId', 'as2From', 'as2To', 'as2Version', 'contentType', 'micalg', 'contentTransferEncoding', 'dispositionNotificationTo'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/tradeitems/<eid>", methods=["GET"])
-def get_trade_item(request, eid):
-    """Retrieve a TradeItem by id (supports ?expand=)."""
-    rows = _query("TradeItem", eid)
+@app.route("/v1/as2messages/<eid>", methods=["GET"])
+def get_as2_message(request, eid):
+    """Retrieve a As2Message by id (supports ?expand=)."""
+    rows = _query("As2Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/tradeitems/<eid>", methods=["POST", "PATCH"])
-def update_trade_item(request, eid):
-    """Update a TradeItem."""
-    rows = _query("TradeItem", eid)
+@app.route("/v1/as2messages/<eid>", methods=["POST", "PATCH"])
+def update_as2_message(request, eid):
+    """Update a As2Message."""
+    rows = _query("As2Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['gtin', 'description', 'brand'])
+    err = _reject_unknown(data, ['messageId', 'as2From', 'as2To', 'as2Version', 'contentType', 'micalg', 'contentTransferEncoding', 'dispositionNotificationTo'])
     if err:
         return err, 400
     rec = rows[0]
@@ -164,65 +169,153 @@ def update_trade_item(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("TradeItem", rec)
+    _persist("As2Message", rec)
     return rec, 200
 
-@app.route("/v1/tradeitems/<eid>", methods=["DELETE"])
-def delete_trade_item(request, eid):
-    """Delete a TradeItem."""
-    rows = _query("TradeItem", eid)
+@app.route("/v1/as2messages/<eid>", methods=["DELETE"])
+def delete_as2_message(request, eid):
+    """Delete a As2Message."""
+    rows = _query("As2Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"as2_protocol.TradeItem", "id": eid})
+    db.retract({"entity": f"as2_protocol.As2Message", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
+@app.route("/v1/mdns", methods=["POST"])
+def create_mdn(request):
+    """Create a Mdn."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['itemId', 'bizStep', 'disposition', 'recordedAt'])
+    err = _reject_unknown(data, ['messageId', 'originalMessageId', 'finalRecipient', 'dispositionType', 'dispositionMode', 'actionMode', 'sendingMode', 'dispositionModifier', 'digestAlgorithm'])
     if err:
         return err, 400
-    err = _require(data, ['bizStep', 'disposition'])
+    err = _require(data, ['finalRecipient', 'dispositionType'])
     if err:
         return err, 400
-    rec = {"id": new_id("as2proto_eve")}
-    rec["itemId"] = data.get('itemId')
-    rec["bizStep"] = data.get('bizStep')
+    if data.get('dispositionType') and data['dispositionType'] not in ['processed', 'failed']:
+        return {"error": {"message": "invalid dispositionType; allowed: " + ", ".join(['processed', 'failed']), "type": "invalid_request_error"}}, 400
+    if data.get('dispositionModifier') and data['dispositionModifier'] not in ['error', 'warning']:
+        return {"error": {"message": "invalid dispositionModifier; allowed: " + ", ".join(['error', 'warning']), "type": "invalid_request_error"}}, 400
+    if data.get('actionMode') and data['actionMode'] not in ['manual-action', 'automatic-action']:
+        return {"error": {"message": "invalid actionMode; allowed: " + ", ".join(['manual-action', 'automatic-action']), "type": "invalid_request_error"}}, 400
+    if data.get('sendingMode') and data['sendingMode'] not in ['MDN-sent-manually', 'MDN-sent-automatically']:
+        return {"error": {"message": "invalid sendingMode; allowed: " + ", ".join(['MDN-sent-manually', 'MDN-sent-automatically']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("as2proto_mdn")}
+    rec["messageId"] = data.get('messageId')
+    rec["originalMessageId"] = data.get('originalMessageId')
+    rec["finalRecipient"] = data.get('finalRecipient')
+    rec["dispositionType"] = data.get('dispositionType')
+    rec["dispositionMode"] = data.get('dispositionMode')
+    rec["actionMode"] = data.get('actionMode')
+    rec["sendingMode"] = data.get('sendingMode')
+    rec["dispositionModifier"] = data.get('dispositionModifier')
+    rec["digestAlgorithm"] = data.get('digestAlgorithm')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Mdn", rec)
+    return rec, 201
+
+@app.route("/v1/mdns", methods=["GET"])
+def list_mdns(request):
+    """List Mdns with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Mdn")
+    rows = _apply_filters(rows, params, ['messageId', 'originalMessageId', 'finalRecipient', 'dispositionType', 'dispositionMode', 'actionMode', 'sendingMode', 'dispositionModifier', 'digestAlgorithm'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/mdns/<eid>", methods=["GET"])
+def get_mdn(request, eid):
+    """Retrieve a Mdn by id (supports ?expand=)."""
+    rows = _query("Mdn", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/mdns/<eid>", methods=["POST", "PATCH"])
+def update_mdn(request, eid):
+    """Update a Mdn."""
+    rows = _query("Mdn", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['messageId', 'originalMessageId', 'finalRecipient', 'dispositionType', 'dispositionMode', 'actionMode', 'sendingMode', 'dispositionModifier', 'digestAlgorithm'])
+    if err:
+        return err, 400
+    if data.get('dispositionType') and data['dispositionType'] not in ['processed', 'failed']:
+        return {"error": {"message": "invalid dispositionType; allowed: " + ", ".join(['processed', 'failed']), "type": "invalid_request_error"}}, 400
+    if data.get('dispositionModifier') and data['dispositionModifier'] not in ['error', 'warning']:
+        return {"error": {"message": "invalid dispositionModifier; allowed: " + ", ".join(['error', 'warning']), "type": "invalid_request_error"}}, 400
+    if data.get('actionMode') and data['actionMode'] not in ['manual-action', 'automatic-action']:
+        return {"error": {"message": "invalid actionMode; allowed: " + ", ".join(['manual-action', 'automatic-action']), "type": "invalid_request_error"}}, 400
+    if data.get('sendingMode') and data['sendingMode'] not in ['MDN-sent-manually', 'MDN-sent-automatically']:
+        return {"error": {"message": "invalid sendingMode; allowed: " + ", ".join(['MDN-sent-manually', 'MDN-sent-automatically']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Mdn", rec)
+    return rec, 200
+
+@app.route("/v1/mdns/<eid>", methods=["DELETE"])
+def delete_mdn(request, eid):
+    """Delete a Mdn."""
+    rows = _query("Mdn", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"as2_protocol.Mdn", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/dispositionnotifications", methods=["POST"])
+def create_disposition_notification(request):
+    """Create a DispositionNotification."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['reportingUa', 'finalRecipient', 'originalMessageId', 'disposition', 'receivedContentMic'])
+    if err:
+        return err, 400
+    err = _require(data, ['reportingUa', 'finalRecipient'])
+    if err:
+        return err, 400
+    rec = {"id": new_id("as2proto_dis")}
+    rec["reportingUa"] = data.get('reportingUa')
+    rec["finalRecipient"] = data.get('finalRecipient')
+    rec["originalMessageId"] = data.get('originalMessageId')
     rec["disposition"] = data.get('disposition')
-    rec["recordedAt"] = data.get('recordedAt')
+    rec["receivedContentMic"] = data.get('receivedContentMic')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
+    _persist("DispositionNotification", rec)
     return rec, 201
 
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
+@app.route("/v1/dispositionnotifications", methods=["GET"])
+def list_disposition_notifications(request):
+    """List DispositionNotifications with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['itemId', 'bizStep', 'disposition', 'recordedAt'])
+    rows = _query("DispositionNotification")
+    rows = _apply_filters(rows, params, ['reportingUa', 'finalRecipient', 'originalMessageId', 'disposition', 'receivedContentMic'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
+@app.route("/v1/dispositionnotifications/<eid>", methods=["GET"])
+def get_disposition_notification(request, eid):
+    """Retrieve a DispositionNotification by id (supports ?expand=)."""
+    rows = _query("DispositionNotification", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
+@app.route("/v1/dispositionnotifications/<eid>", methods=["POST", "PATCH"])
+def update_disposition_notification(request, eid):
+    """Update a DispositionNotification."""
+    rows = _query("DispositionNotification", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['itemId', 'bizStep', 'disposition', 'recordedAt'])
+    err = _reject_unknown(data, ['reportingUa', 'finalRecipient', 'originalMessageId', 'disposition', 'receivedContentMic'])
     if err:
         return err, 400
     rec = rows[0]
@@ -230,285 +323,22 @@ def update_event(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Event", rec)
+    _persist("DispositionNotification", rec)
     return rec, 200
 
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
+@app.route("/v1/dispositionnotifications/<eid>", methods=["DELETE"])
+def delete_disposition_notification(request, eid):
+    """Delete a DispositionNotification."""
+    rows = _query("DispositionNotification", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"as2_protocol.Event", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/documents", methods=["POST"])
-def create_document(request):
-    """Create a Document."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['type', 'senderId', 'receiverId', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['type', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("as2proto_doc")}
-    rec["type"] = data.get('type')
-    rec["senderId"] = data.get('senderId')
-    rec["receiverId"] = data.get('receiverId')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Document", rec)
-    return rec, 201
-
-@app.route("/v1/documents", methods=["GET"])
-def list_documents(request):
-    """List Documents with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Document")
-    rows = _apply_filters(rows, params, ['type', 'senderId', 'receiverId', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/documents/<eid>", methods=["GET"])
-def get_document(request, eid):
-    """Retrieve a Document by id (supports ?expand=)."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
-def update_document(request, eid):
-    """Update a Document."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['type', 'senderId', 'receiverId', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Document", rec)
-    return rec, 200
-
-@app.route("/v1/documents/<eid>", methods=["DELETE"])
-def delete_document(request, eid):
-    """Delete a Document."""
-    rows = _query("Document", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"as2_protocol.Document", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/containers", methods=["POST"])
-def create_container(request):
-    """Create a Container."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['bicCode', 'type', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['bicCode', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("as2proto_con")}
-    rec["bicCode"] = data.get('bicCode')
-    rec["type"] = data.get('type')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Container", rec)
-    return rec, 201
-
-@app.route("/v1/containers", methods=["GET"])
-def list_containers(request):
-    """List Containers with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Container")
-    rows = _apply_filters(rows, params, ['bicCode', 'type', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/containers/<eid>", methods=["GET"])
-def get_container(request, eid):
-    """Retrieve a Container by id (supports ?expand=)."""
-    rows = _query("Container", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/containers/<eid>", methods=["POST", "PATCH"])
-def update_container(request, eid):
-    """Update a Container."""
-    rows = _query("Container", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['bicCode', 'type', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Container", rec)
-    return rec, 200
-
-@app.route("/v1/containers/<eid>", methods=["DELETE"])
-def delete_container(request, eid):
-    """Delete a Container."""
-    rows = _query("Container", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"as2_protocol.Container", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/parties", methods=["POST"])
-def create_party(request):
-    """Create a Party."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['gln', 'name', 'role'])
-    if err:
-        return err, 400
-    err = _require(data, ['gln', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("as2proto_par")}
-    rec["gln"] = data.get('gln')
-    rec["name"] = data.get('name')
-    rec["role"] = data.get('role')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Party", rec)
-    return rec, 201
-
-@app.route("/v1/parties", methods=["GET"])
-def list_parties(request):
-    """List Parties with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Party")
-    rows = _apply_filters(rows, params, ['gln', 'name', 'role'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/parties/<eid>", methods=["GET"])
-def get_party(request, eid):
-    """Retrieve a Party by id (supports ?expand=)."""
-    rows = _query("Party", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/parties/<eid>", methods=["POST", "PATCH"])
-def update_party(request, eid):
-    """Update a Party."""
-    rows = _query("Party", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['gln', 'name', 'role'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Party", rec)
-    return rec, 200
-
-@app.route("/v1/parties/<eid>", methods=["DELETE"])
-def delete_party(request, eid):
-    """Delete a Party."""
-    rows = _query("Party", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"as2_protocol.Party", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/shipments", methods=["POST"])
-def create_shipment(request):
-    """Create a Shipment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'origin', 'destination', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['origin', 'destination'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("as2proto_shi")}
-    rec["documentId"] = data.get('documentId')
-    rec["origin"] = data.get('origin')
-    rec["destination"] = data.get('destination')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Shipment", rec)
-    return rec, 201
-
-@app.route("/v1/shipments", methods=["GET"])
-def list_shipments(request):
-    """List Shipments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Shipment")
-    rows = _apply_filters(rows, params, ['documentId', 'origin', 'destination', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/shipments/<eid>", methods=["GET"])
-def get_shipment(request, eid):
-    """Retrieve a Shipment by id (supports ?expand=)."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
-    return rec, 200
-
-@app.route("/v1/shipments/<eid>", methods=["POST", "PATCH"])
-def update_shipment(request, eid):
-    """Update a Shipment."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'origin', 'destination', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Shipment", rec)
-    return rec, 200
-
-@app.route("/v1/shipments/<eid>", methods=["DELETE"])
-def delete_shipment(request, eid):
-    """Delete a Shipment."""
-    rows = _query("Shipment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"as2_protocol.Shipment", "id": eid})
+    db.retract({"entity": f"as2_protocol.DispositionNotification", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "as2_protocol-compat", "tier": "L4",
-            "entities": ['TradeItem', 'Event', 'Document', 'Container', 'Party', 'Shipment']}, 200
+            "entities": ['As2Message', 'Mdn', 'DispositionNotification']}, 200
 
 
 if __name__ == "__main__":

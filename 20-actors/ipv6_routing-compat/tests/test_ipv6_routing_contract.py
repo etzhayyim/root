@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "ipv6_routing.kotoba")
-ENTITIES = ['Prefix', 'Route', 'Peer', 'Zone', 'Record', 'Tunnel']
-PLURALS = {'Prefix': 'prefixes', 'Route': 'routes', 'Peer': 'peers', 'Zone': 'zones', 'Record': 'records', 'Tunnel': 'tunnels'}
+ENTITIES = ['Ipv6Header', 'Icmpv6Message', 'DestinationUnreachable', 'TimeExceeded', 'ParameterProblem', 'NdpMessage']
+PLURALS = {'Ipv6Header': 'ipv6headers', 'Icmpv6Message': 'icmpv6messages', 'DestinationUnreachable': 'destinationunreachables', 'TimeExceeded': 'timeexceededs', 'ParameterProblem': 'parameterproblems', 'NdpMessage': 'ndpmessages'}
 
 
 class Ipv6RoutingContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class Ipv6RoutingContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['code', 'version']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

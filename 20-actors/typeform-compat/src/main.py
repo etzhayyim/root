@@ -111,118 +111,52 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/tickets", methods=["POST"])
-def create_ticket(request):
-    """Create a Ticket."""
+@app.route("/v1/forms", methods=["POST"])
+def create_form(request):
+    """Create a Form."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subject', 'requesterId', 'priority', 'status'])
+    err = _reject_unknown(data, ['id', 'title', 'type'])
     if err:
         return err, 400
-    err = _require(data, ['subject', 'priority'])
+    err = _require(data, ['id', 'title'])
     if err:
         return err, 400
-    rec = {"id": new_id("typeform_tic")}
-    rec["subject"] = data.get('subject')
-    rec["requesterId"] = data.get('requesterId')
-    rec["priority"] = data.get('priority')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Ticket", rec)
-    return rec, 201
-
-@app.route("/v1/tickets", methods=["GET"])
-def list_tickets(request):
-    """List Tickets with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Ticket")
-    rows = _apply_filters(rows, params, ['subject', 'requesterId', 'priority', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tickets/<eid>", methods=["GET"])
-def get_ticket(request, eid):
-    """Retrieve a Ticket by id (supports ?expand=)."""
-    rows = _query("Ticket", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tickets/<eid>", methods=["POST", "PATCH"])
-def update_ticket(request, eid):
-    """Update a Ticket."""
-    rows = _query("Ticket", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subject', 'requesterId', 'priority', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Ticket", rec)
-    return rec, 200
-
-@app.route("/v1/tickets/<eid>", methods=["DELETE"])
-def delete_ticket(request, eid):
-    """Delete a Ticket."""
-    rows = _query("Ticket", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"typeform.Ticket", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/surveys", methods=["POST"])
-def create_survey(request):
-    """Create a Survey."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['title', 'type'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("typeform_sur")}
+    rec = {"id": new_id("typeform_for")}
+    rec["id"] = data.get('id')
     rec["title"] = data.get('title')
     rec["type"] = data.get('type')
-    rec["status"] = data.get('status')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Survey", rec)
+    _persist("Form", rec)
     return rec, 201
 
-@app.route("/v1/surveys", methods=["GET"])
-def list_surveys(request):
-    """List Surveys with filtering + cursor pagination."""
+@app.route("/v1/forms", methods=["GET"])
+def list_forms(request):
+    """List Forms with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Survey")
-    rows = _apply_filters(rows, params, ['title', 'type', 'status'])
+    rows = _query("Form")
+    rows = _apply_filters(rows, params, ['id', 'title', 'type'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/surveys/<eid>", methods=["GET"])
-def get_survey(request, eid):
-    """Retrieve a Survey by id (supports ?expand=)."""
-    rows = _query("Survey", eid)
+@app.route("/v1/forms/<eid>", methods=["GET"])
+def get_form(request, eid):
+    """Retrieve a Form by id (supports ?expand=)."""
+    rows = _query("Form", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/surveys/<eid>", methods=["POST", "PATCH"])
-def update_survey(request, eid):
-    """Update a Survey."""
-    rows = _query("Survey", eid)
+@app.route("/v1/forms/<eid>", methods=["POST", "PATCH"])
+def update_form(request, eid):
+    """Update a Form."""
+    rows = _query("Form", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'type', 'status'])
+    err = _reject_unknown(data, ['id', 'title', 'type'])
     if err:
         return err, 400
     rec = rows[0]
@@ -230,33 +164,103 @@ def update_survey(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Survey", rec)
+    _persist("Form", rec)
     return rec, 200
 
-@app.route("/v1/surveys/<eid>", methods=["DELETE"])
-def delete_survey(request, eid):
-    """Delete a Survey."""
-    rows = _query("Survey", eid)
+@app.route("/v1/forms/<eid>", methods=["DELETE"])
+def delete_form(request, eid):
+    """Delete a Form."""
+    rows = _query("Form", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"typeform.Survey", "id": eid})
+    db.retract({"entity": f"typeform.Form", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/fields", methods=["POST"])
+def create_field(request):
+    """Create a Field."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['ref', 'id', 'title', 'type'])
+    if err:
+        return err, 400
+    err = _require(data, ['ref', 'id'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['calendar', 'contact_info', 'date', 'dropdown', 'email', 'file_upload', 'group', 'legal', 'long_text', 'matrix', 'multi_format', 'multiple_choice', 'nps', 'number', 'opinion_scale', 'payment', 'phone_number', 'picture_choice', 'ranking', 'rating', 'short_text', 'statement', 'website', 'yes_no']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['calendar', 'contact_info', 'date', 'dropdown', 'email', 'file_upload', 'group', 'legal', 'long_text', 'matrix', 'multi_format', 'multiple_choice', 'nps', 'number', 'opinion_scale', 'payment', 'phone_number', 'picture_choice', 'ranking', 'rating', 'short_text', 'statement', 'website', 'yes_no']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("typeform_fie")}
+    rec["ref"] = data.get('ref')
+    rec["id"] = data.get('id')
+    rec["title"] = data.get('title')
+    rec["type"] = data.get('type')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Field", rec)
+    return rec, 201
+
+@app.route("/v1/fields", methods=["GET"])
+def list_fields(request):
+    """List Fields with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Field")
+    rows = _apply_filters(rows, params, ['ref', 'id', 'title', 'type'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/fields/<eid>", methods=["GET"])
+def get_field(request, eid):
+    """Retrieve a Field by id (supports ?expand=)."""
+    rows = _query("Field", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/fields/<eid>", methods=["POST", "PATCH"])
+def update_field(request, eid):
+    """Update a Field."""
+    rows = _query("Field", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['ref', 'id', 'title', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['calendar', 'contact_info', 'date', 'dropdown', 'email', 'file_upload', 'group', 'legal', 'long_text', 'matrix', 'multi_format', 'multiple_choice', 'nps', 'number', 'opinion_scale', 'payment', 'phone_number', 'picture_choice', 'ranking', 'rating', 'short_text', 'statement', 'website', 'yes_no']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['calendar', 'contact_info', 'date', 'dropdown', 'email', 'file_upload', 'group', 'legal', 'long_text', 'matrix', 'multi_format', 'multiple_choice', 'nps', 'number', 'opinion_scale', 'payment', 'phone_number', 'picture_choice', 'ranking', 'rating', 'short_text', 'statement', 'website', 'yes_no']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Field", rec)
+    return rec, 200
+
+@app.route("/v1/fields/<eid>", methods=["DELETE"])
+def delete_field(request, eid):
+    """Delete a Field."""
+    rows = _query("Field", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"typeform.Field", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/responses", methods=["POST"])
 def create_response(request):
     """Create a Response."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['surveyId', 'respondentId', 'score', 'submittedAt'])
+    err = _reject_unknown(data, ['token', 'landedAt', 'submittedAt', 'formId'])
     if err:
         return err, 400
-    err = _require(data, ['score', 'submittedAt'])
+    err = _require(data, ['token', 'landedAt'])
     if err:
         return err, 400
     rec = {"id": new_id("typeform_res")}
-    rec["surveyId"] = data.get('surveyId')
-    rec["respondentId"] = data.get('respondentId')
-    rec["score"] = _as_int(data.get('score'))
+    rec["token"] = data.get('token')
+    rec["landedAt"] = data.get('landedAt')
     rec["submittedAt"] = data.get('submittedAt')
+    rec["formId"] = data.get('formId')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Response", rec)
@@ -267,7 +271,7 @@ def list_responses(request):
     """List Responses with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Response")
-    rows = _apply_filters(rows, params, ['surveyId', 'respondentId', 'score', 'submittedAt'])
+    rows = _apply_filters(rows, params, ['token', 'landedAt', 'submittedAt', 'formId'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -279,7 +283,7 @@ def get_response(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'surveyId': 'Survey'})
+    rec = _expand(rec, request.query or {}, {'formId': 'Form'})
     return rec, 200
 
 @app.route("/v1/responses/<eid>", methods=["POST", "PATCH"])
@@ -289,7 +293,7 @@ def update_response(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['surveyId', 'respondentId', 'score', 'submittedAt'])
+    err = _reject_unknown(data, ['token', 'landedAt', 'submittedAt', 'formId'])
     if err:
         return err, 400
     rec = rows[0]
@@ -309,118 +313,123 @@ def delete_response(request, eid):
     db.retract({"entity": f"typeform.Response", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
+@app.route("/v1/answers", methods=["POST"])
+def create_answer(request):
+    """Create a Answer."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'healthScore', 'arr'])
+    err = _reject_unknown(data, ['fieldId', 'fieldType', 'type', 'value'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'healthScore'])
+    err = _require(data, ['fieldType', 'type'])
     if err:
         return err, 400
-    rec = {"id": new_id("typeform_acc")}
-    rec["name"] = data.get('name')
-    rec["healthScore"] = _as_float(data.get('healthScore'))
-    rec["arr"] = _as_float(data.get('arr'))
+    if data.get('type') and data['type'] not in ['text', 'choice', 'choices', 'email', 'url', 'file_url', 'multi_format', 'boolean', 'number', 'date', 'payment', 'phone_number', 'signature', 'checkbox']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['text', 'choice', 'choices', 'email', 'url', 'file_url', 'multi_format', 'boolean', 'number', 'date', 'payment', 'phone_number', 'signature', 'checkbox']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("typeform_ans")}
+    rec["fieldId"] = data.get('fieldId')
+    rec["fieldType"] = data.get('fieldType')
+    rec["type"] = data.get('type')
+    rec["value"] = data.get('value')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
+    _persist("Answer", rec)
     return rec, 201
 
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
+@app.route("/v1/answers", methods=["GET"])
+def list_answers(request):
+    """List Answers with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['name', 'healthScore', 'arr'])
+    rows = _query("Answer")
+    rows = _apply_filters(rows, params, ['fieldId', 'fieldType', 'type', 'value'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
+@app.route("/v1/answers/<eid>", methods=["GET"])
+def get_answer(request, eid):
+    """Retrieve a Answer by id (supports ?expand=)."""
+    rows = _query("Answer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'fieldId': 'Field'})
     return rec, 200
 
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
+@app.route("/v1/answers/<eid>", methods=["POST", "PATCH"])
+def update_answer(request, eid):
+    """Update a Answer."""
+    rows = _query("Answer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'healthScore', 'arr'])
+    err = _reject_unknown(data, ['fieldId', 'fieldType', 'type', 'value'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['text', 'choice', 'choices', 'email', 'url', 'file_url', 'multi_format', 'boolean', 'number', 'date', 'payment', 'phone_number', 'signature', 'checkbox']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['text', 'choice', 'choices', 'email', 'url', 'file_url', 'multi_format', 'boolean', 'number', 'date', 'payment', 'phone_number', 'signature', 'checkbox']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Account", rec)
+    _persist("Answer", rec)
     return rec, 200
 
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
+@app.route("/v1/answers/<eid>", methods=["DELETE"])
+def delete_answer(request, eid):
+    """Delete a Answer."""
+    rows = _query("Answer", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"typeform.Account", "id": eid})
+    db.retract({"entity": f"typeform.Answer", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/conversations", methods=["POST"])
-def create_conversation(request):
-    """Create a Conversation."""
+@app.route("/v1/webhooks", methods=["POST"])
+def create_webhook(request):
+    """Create a Webhook."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'channel', 'sentiment'])
+    err = _reject_unknown(data, ['eventId', 'eventType', 'timestamp'])
     if err:
         return err, 400
-    err = _require(data, ['channel', 'sentiment'])
+    err = _require(data, ['eventType', 'timestamp'])
     if err:
         return err, 400
-    rec = {"id": new_id("typeform_con")}
-    rec["accountId"] = data.get('accountId')
-    rec["channel"] = data.get('channel')
-    rec["sentiment"] = _as_float(data.get('sentiment'))
+    rec = {"id": new_id("typeform_web")}
+    rec["eventId"] = data.get('eventId')
+    rec["eventType"] = data.get('eventType')
+    rec["timestamp"] = data.get('timestamp')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Conversation", rec)
+    _persist("Webhook", rec)
     return rec, 201
 
-@app.route("/v1/conversations", methods=["GET"])
-def list_conversations(request):
-    """List Conversations with filtering + cursor pagination."""
+@app.route("/v1/webhooks", methods=["GET"])
+def list_webhooks(request):
+    """List Webhooks with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Conversation")
-    rows = _apply_filters(rows, params, ['accountId', 'channel', 'sentiment'])
+    rows = _query("Webhook")
+    rows = _apply_filters(rows, params, ['eventId', 'eventType', 'timestamp'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/conversations/<eid>", methods=["GET"])
-def get_conversation(request, eid):
-    """Retrieve a Conversation by id (supports ?expand=)."""
-    rows = _query("Conversation", eid)
+@app.route("/v1/webhooks/<eid>", methods=["GET"])
+def get_webhook(request, eid):
+    """Retrieve a Webhook by id (supports ?expand=)."""
+    rows = _query("Webhook", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
     return rec, 200
 
-@app.route("/v1/conversations/<eid>", methods=["POST", "PATCH"])
-def update_conversation(request, eid):
-    """Update a Conversation."""
-    rows = _query("Conversation", eid)
+@app.route("/v1/webhooks/<eid>", methods=["POST", "PATCH"])
+def update_webhook(request, eid):
+    """Update a Webhook."""
+    rows = _query("Webhook", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'channel', 'sentiment'])
+    err = _reject_unknown(data, ['eventId', 'eventType', 'timestamp'])
     if err:
         return err, 400
     rec = rows[0]
@@ -428,87 +437,22 @@ def update_conversation(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Conversation", rec)
+    _persist("Webhook", rec)
     return rec, 200
 
-@app.route("/v1/conversations/<eid>", methods=["DELETE"])
-def delete_conversation(request, eid):
-    """Delete a Conversation."""
-    rows = _query("Conversation", eid)
+@app.route("/v1/webhooks/<eid>", methods=["DELETE"])
+def delete_webhook(request, eid):
+    """Delete a Webhook."""
+    rows = _query("Webhook", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"typeform.Conversation", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/contacts", methods=["POST"])
-def create_contact(request):
-    """Create a Contact."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'firstName', 'lastName'])
-    if err:
-        return err, 400
-    err = _require(data, ['email', 'firstName'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("typeform_con")}
-    rec["email"] = data.get('email')
-    rec["firstName"] = data.get('firstName')
-    rec["lastName"] = data.get('lastName')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Contact", rec)
-    return rec, 201
-
-@app.route("/v1/contacts", methods=["GET"])
-def list_contacts(request):
-    """List Contacts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Contact")
-    rows = _apply_filters(rows, params, ['email', 'firstName', 'lastName'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contacts/<eid>", methods=["GET"])
-def get_contact(request, eid):
-    """Retrieve a Contact by id (supports ?expand=)."""
-    rows = _query("Contact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contacts/<eid>", methods=["POST", "PATCH"])
-def update_contact(request, eid):
-    """Update a Contact."""
-    rows = _query("Contact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'firstName', 'lastName'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Contact", rec)
-    return rec, 200
-
-@app.route("/v1/contacts/<eid>", methods=["DELETE"])
-def delete_contact(request, eid):
-    """Delete a Contact."""
-    rows = _query("Contact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"typeform.Contact", "id": eid})
+    db.retract({"entity": f"typeform.Webhook", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "typeform-compat", "tier": "L4",
-            "entities": ['Ticket', 'Survey', 'Response', 'Account', 'Conversation', 'Contact']}, 200
+            "entities": ['Form', 'Field', 'Response', 'Answer', 'Webhook']}, 200
 
 
 if __name__ == "__main__":

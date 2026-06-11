@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreig5txyrgdharc6eglhpafdeuvcappsh37rrcifb4cwho74s4pns6q",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/campaigns": {
+    "/v1/trackevents": {
       "get": {
-        "summary": "List Campaigns",
+        "summary": "List TrackEvents",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Campaign"
+                        "$ref": "#/components/schemas/TrackEvent"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Campaign",
+        "summary": "Create a TrackEvent",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CampaignCreate"
+                "$ref": "#/components/schemas/TrackEventCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Campaign"
+                  "$ref": "#/components/schemas/TrackEvent"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/campaigns/{id}": {
+    "/v1/trackevents/{id}": {
       "get": {
-        "summary": "Get a Campaign",
+        "summary": "Get a TrackEvent",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Campaign"
+                  "$ref": "#/components/schemas/TrackEvent"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Campaign",
+        "summary": "Update a TrackEvent",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CampaignCreate"
+                "$ref": "#/components/schemas/TrackEventCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Campaign"
+                  "$ref": "#/components/schemas/TrackEvent"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Campaign",
+        "summary": "Delete a TrackEvent",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/audiences": {
+    "/v1/identifyevents": {
       "get": {
-        "summary": "List Audiences",
+        "summary": "List IdentifyEvents",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Audience"
+                        "$ref": "#/components/schemas/IdentifyEvent"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Audience",
+        "summary": "Create a IdentifyEvent",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AudienceCreate"
+                "$ref": "#/components/schemas/IdentifyEventCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Audience"
+                  "$ref": "#/components/schemas/IdentifyEvent"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/audiences/{id}": {
+    "/v1/identifyevents/{id}": {
       "get": {
-        "summary": "Get a Audience",
+        "summary": "Get a IdentifyEvent",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Audience"
+                  "$ref": "#/components/schemas/IdentifyEvent"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Audience",
+        "summary": "Update a IdentifyEvent",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AudienceCreate"
+                "$ref": "#/components/schemas/IdentifyEventCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Audience"
+                  "$ref": "#/components/schemas/IdentifyEvent"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Audience",
+        "summary": "Delete a IdentifyEvent",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/events": {
+    "/v1/pageevents": {
       "get": {
-        "summary": "List Events",
+        "summary": "List PageEvents",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Event"
+                        "$ref": "#/components/schemas/PageEvent"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Event",
+        "summary": "Create a PageEvent",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventCreate"
+                "$ref": "#/components/schemas/PageEventCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/PageEvent"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/events/{id}": {
+    "/v1/pageevents/{id}": {
       "get": {
-        "summary": "Get a Event",
+        "summary": "Get a PageEvent",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/PageEvent"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Event",
+        "summary": "Update a PageEvent",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventCreate"
+                "$ref": "#/components/schemas/PageEventCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/PageEvent"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Event",
+        "summary": "Delete a PageEvent",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/profiles": {
+    "/v1/groupevents": {
       "get": {
-        "summary": "List Profiles",
+        "summary": "List GroupEvents",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Profile"
+                        "$ref": "#/components/schemas/GroupEvent"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Profile",
+        "summary": "Create a GroupEvent",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfileCreate"
+                "$ref": "#/components/schemas/GroupEventCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Profile"
+                  "$ref": "#/components/schemas/GroupEvent"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/profiles/{id}": {
+    "/v1/groupevents/{id}": {
       "get": {
-        "summary": "Get a Profile",
+        "summary": "Get a GroupEvent",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Profile"
+                  "$ref": "#/components/schemas/GroupEvent"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Profile",
+        "summary": "Update a GroupEvent",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfileCreate"
+                "$ref": "#/components/schemas/GroupEventCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Profile"
+                  "$ref": "#/components/schemas/GroupEvent"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Profile",
+        "summary": "Delete a GroupEvent",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/messages": {
+    "/v1/sources": {
       "get": {
-        "summary": "List Messages",
+        "summary": "List Sources",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Message"
+                        "$ref": "#/components/schemas/Source"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Message",
+        "summary": "Create a Source",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
+                "$ref": "#/components/schemas/SourceCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/Source"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/messages/{id}": {
+    "/v1/sources/{id}": {
       "get": {
-        "summary": "Get a Message",
+        "summary": "Get a Source",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/Source"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Message",
+        "summary": "Update a Source",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MessageCreate"
+                "$ref": "#/components/schemas/SourceCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/Source"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Message",
+        "summary": "Delete a Source",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/funnels": {
+    "/v1/destinations": {
       "get": {
-        "summary": "List Funnels",
+        "summary": "List Destinations",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Funnel"
+                        "$ref": "#/components/schemas/Destination"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Funnel",
+        "summary": "Create a Destination",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunnelCreate"
+                "$ref": "#/components/schemas/DestinationCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Funnel"
+                  "$ref": "#/components/schemas/Destination"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/funnels/{id}": {
+    "/v1/destinations/{id}": {
       "get": {
-        "summary": "Get a Funnel",
+        "summary": "Get a Destination",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Funnel"
+                  "$ref": "#/components/schemas/Destination"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Funnel",
+        "summary": "Update a Destination",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FunnelCreate"
+                "$ref": "#/components/schemas/DestinationCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Funnel"
+                  "$ref": "#/components/schemas/Destination"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Funnel",
+        "summary": "Delete a Destination",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +1140,38 @@
   },
   "components": {
     "schemas": {
-      "Campaign": {
+      "TrackEvent": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "event": {
             "type": "string"
           },
-          "channel": {
+          "userId": {
             "type": "string"
           },
-          "status": {
+          "anonymousId": {
             "type": "string"
           },
-          "budget": {
-            "type": "number"
+          "messageId": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
           },
           "createdAt": {
             "type": "string",
@@ -1168,28 +1183,325 @@
           }
         }
       },
-      "CampaignCreate": {
+      "TrackEventCreate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "event": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "anonymousId": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "event"
+        ]
+      },
+      "IdentifyEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "userId": {
+            "type": "string"
+          },
+          "anonymousId": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "IdentifyEventCreate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "userId": {
+            "type": "string"
+          },
+          "anonymousId": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "timestamp"
+        ]
+      },
+      "PageEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "userId": {
+            "type": "string"
+          },
+          "anonymousId": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PageEventCreate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "userId": {
+            "type": "string"
+          },
+          "anonymousId": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "category"
+        ]
+      },
+      "GroupEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "userId": {
+            "type": "string"
+          },
+          "anonymousId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GroupEventCreate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "track",
+              "identify",
+              "page",
+              "screen",
+              "group",
+              "alias"
+            ]
+          },
+          "userId": {
+            "type": "string"
+          },
+          "anonymousId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "timestamp"
+        ]
+      },
+      "Source": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "workspaceId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SourceCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "channel": {
+          "slug": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "enabled": {
+            "type": "boolean"
           },
-          "budget": {
-            "type": "number"
+          "workspaceId": {
+            "type": "string"
           }
         },
         "required": [
           "name",
-          "channel"
+          "slug"
         ]
       },
-      "Audience": {
+      "Destination": {
         "type": "object",
         "properties": {
           "id": {
@@ -1198,10 +1510,13 @@
           "name": {
             "type": "string"
           },
-          "size": {
-            "type": "integer"
+          "enabled": {
+            "type": "boolean"
           },
-          "definition": {
+          "sourceId": {
+            "type": "string"
+          },
+          "workspaceId": {
             "type": "string"
           },
           "createdAt": {
@@ -1214,207 +1529,25 @@
           }
         }
       },
-      "AudienceCreate": {
+      "DestinationCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "size": {
-            "type": "integer"
+          "enabled": {
+            "type": "boolean"
           },
-          "definition": {
+          "sourceId": {
+            "type": "string"
+          },
+          "workspaceId": {
             "type": "string"
           }
         },
         "required": [
           "name",
-          "size"
-        ]
-      },
-      "Event": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "profileId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "properties": {
-            "type": "string"
-          },
-          "occurredAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "EventCreate": {
-        "type": "object",
-        "properties": {
-          "profileId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "properties": {
-            "type": "string"
-          },
-          "occurredAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "properties"
-        ]
-      },
-      "Profile": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "externalId": {
-            "type": "string"
-          },
-          "traits": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProfileCreate": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "externalId": {
-            "type": "string"
-          },
-          "traits": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "email",
-          "traits"
-        ]
-      },
-      "Message": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "campaignId": {
-            "type": "string"
-          },
-          "profileId": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MessageCreate": {
-        "type": "object",
-        "properties": {
-          "campaignId": {
-            "type": "string"
-          },
-          "profileId": {
-            "type": "string"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "channel",
-          "status"
-        ]
-      },
-      "Funnel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "steps": {
-            "type": "string"
-          },
-          "conversionRate": {
-            "type": "number"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FunnelCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "steps": {
-            "type": "string"
-          },
-          "conversionRate": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "steps"
+          "enabled"
         ]
       }
     }

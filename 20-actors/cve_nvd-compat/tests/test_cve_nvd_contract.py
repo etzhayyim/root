@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "cve_nvd.kotoba")
-ENTITIES = ['Indicator', 'Vulnerability', 'ThreatActor', 'Campaign', 'Host', 'Technique']
-PLURALS = {'Indicator': 'indicators', 'Vulnerability': 'vulnerabilities', 'ThreatActor': 'threatactors', 'Campaign': 'campaigns', 'Host': 'hosts', 'Technique': 'techniques'}
+ENTITIES = ['CveItem', 'CvssV3Metric', 'CvssV3Vector', 'Reference', 'Weakness', 'CveMetrics']
+PLURALS = {'CveItem': 'cveitems', 'CvssV3Metric': 'cvssv3metrics', 'CvssV3Vector': 'cvssv3vectors', 'Reference': 'references', 'Weakness': 'weaknesses', 'CveMetrics': 'cvemetricses'}
 
 
 class CveNvdContract(unittest.TestCase):
@@ -62,6 +62,12 @@ class CveNvdContract(unittest.TestCase):
     def test_no_proprietary_imports(self):
         for bad in ("requests", "openai", "stripe", "boto3"):
             self.assertNotIn("import " + bad, self.src)
+
+    def test_verified_enums_enforced(self):
+        """L5: discovered enums from official docs are enforced."""
+        for field in ['attackComplexity', 'attackVector', 'availabilityImpact', 'baseSeverity', 'confidentialityImpact', 'integrityImpact', 'privilegesRequired', 'scope', 'type', 'userInteraction']:
+            self.assertIn(f"invalid {field}; allowed:", self.src,
+                          f"verified enum for {field} not enforced")
 
 
 if __name__ == "__main__":

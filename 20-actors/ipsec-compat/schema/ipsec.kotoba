@@ -3,69 +3,69 @@
 
 namespace ipsec {
 
-    entity Prefix {
+    entity IkeHeader {
         id: string @unique
-        cidr: string
-        originAsn: string
-        validity: string
+        initiatorSpi: integer
+        responderSpi: integer
+        nextPayload: integer
+        majorVersion: integer
+        minorVersion: integer
+        exchangeType: integer
+        flags: integer
+        messageId: integer
+        totalLength: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Route {
+    entity Payload {
         id: string @unique
-        prefixId: string
-        nextHop: string
-        asPath: string
+        nextPayload: integer
+        critical: boolean
+        payloadLength: integer
+        payloadType: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Peer {
+    entity SecurityAssociation {
         id: string @unique
-        asn: string
-        ipAddress: string
-        state: string
+        payloadType: integer
+        proposals: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Zone {
+    entity Proposal {
         id: string @unique
-        name: string
-        serial: integer
-        refreshSec: integer
+        number: integer
+        protocolId: integer
+        spiSize: integer
+        transformCount: integer
+        spi: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Record {
+    entity Transform {
         id: string @unique
-        zoneId: string
-        name: string
-        type: string
-        value: string
+        type: integer
+        transformId: integer
+        transformLength: integer
+        attributes: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Tunnel {
+    entity Notify {
         id: string @unique
-        localAddr: string
-        remoteAddr: string
-        protocol: string
-        active: boolean
+        protocolId: integer
+        spiSize: integer
+        notifyMessageType: integer
+        spi: string
+        notificationData: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

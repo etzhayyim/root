@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreicbz5mvt5hpzumfurl7gzvt27j4qzejptocifzymtkqumjts4vpqm",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/vehicles": {
+    "/v1/heartbeats": {
       "get": {
-        "summary": "List Vehicles",
+        "summary": "List Heartbeats",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Vehicle"
+                        "$ref": "#/components/schemas/Heartbeat"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Vehicle",
+        "summary": "Create a Heartbeat",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreate"
+                "$ref": "#/components/schemas/HeartbeatCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/Heartbeat"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/vehicles/{id}": {
+    "/v1/heartbeats/{id}": {
       "get": {
-        "summary": "Get a Vehicle",
+        "summary": "Get a Heartbeat",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/Heartbeat"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Vehicle",
+        "summary": "Update a Heartbeat",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreate"
+                "$ref": "#/components/schemas/HeartbeatCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/Heartbeat"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Vehicle",
+        "summary": "Delete a Heartbeat",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/signals": {
+    "/v1/sysstatuses": {
       "get": {
-        "summary": "List Signals",
+        "summary": "List SysStatuses",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Signal"
+                        "$ref": "#/components/schemas/SysStatus"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Signal",
+        "summary": "Create a SysStatus",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
+                "$ref": "#/components/schemas/SysStatusCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/SysStatus"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/signals/{id}": {
+    "/v1/sysstatuses/{id}": {
       "get": {
-        "summary": "Get a Signal",
+        "summary": "Get a SysStatus",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/SysStatus"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Signal",
+        "summary": "Update a SysStatus",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
+                "$ref": "#/components/schemas/SysStatusCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/SysStatus"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Signal",
+        "summary": "Delete a SysStatus",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/chargesessions": {
+    "/v1/gpsrawints": {
       "get": {
-        "summary": "List ChargeSessions",
+        "summary": "List GpsRawInts",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ChargeSession"
+                        "$ref": "#/components/schemas/GpsRawInt"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a ChargeSession",
+        "summary": "Create a GpsRawInt",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeSessionCreate"
+                "$ref": "#/components/schemas/GpsRawIntCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/GpsRawInt"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/chargesessions/{id}": {
+    "/v1/gpsrawints/{id}": {
       "get": {
-        "summary": "Get a ChargeSession",
+        "summary": "Get a GpsRawInt",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/GpsRawInt"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ChargeSession",
+        "summary": "Update a GpsRawInt",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeSessionCreate"
+                "$ref": "#/components/schemas/GpsRawIntCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/GpsRawInt"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ChargeSession",
+        "summary": "Delete a GpsRawInt",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/connectors": {
+    "/v1/attitudes": {
       "get": {
-        "summary": "List Connectors",
+        "summary": "List Attitudes",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connector"
+                        "$ref": "#/components/schemas/Attitude"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connector",
+        "summary": "Create a Attitude",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/AttitudeCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Attitude"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/connectors/{id}": {
+    "/v1/attitudes/{id}": {
       "get": {
-        "summary": "Get a Connector",
+        "summary": "Get a Attitude",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Attitude"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connector",
+        "summary": "Update a Attitude",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/AttitudeCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/Attitude"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connector",
+        "summary": "Delete a Attitude",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/trips": {
+    "/v1/globalpositionints": {
       "get": {
-        "summary": "List Trips",
+        "summary": "List GlobalPositionInts",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Trip"
+                        "$ref": "#/components/schemas/GlobalPositionInt"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Trip",
+        "summary": "Create a GlobalPositionInt",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TripCreate"
+                "$ref": "#/components/schemas/GlobalPositionIntCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trip"
+                  "$ref": "#/components/schemas/GlobalPositionInt"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/trips/{id}": {
+    "/v1/globalpositionints/{id}": {
       "get": {
-        "summary": "Get a Trip",
+        "summary": "Get a GlobalPositionInt",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trip"
+                  "$ref": "#/components/schemas/GlobalPositionInt"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Trip",
+        "summary": "Update a GlobalPositionInt",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TripCreate"
+                "$ref": "#/components/schemas/GlobalPositionIntCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Trip"
+                  "$ref": "#/components/schemas/GlobalPositionInt"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Trip",
+        "summary": "Delete a GlobalPositionInt",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/commands": {
+    "/v1/missionitems": {
       "get": {
-        "summary": "List Commands",
+        "summary": "List MissionItems",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Command"
+                        "$ref": "#/components/schemas/MissionItem"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Command",
+        "summary": "Create a MissionItem",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
+                "$ref": "#/components/schemas/MissionItemCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/MissionItem"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/commands/{id}": {
+    "/v1/missionitems/{id}": {
       "get": {
-        "summary": "Get a Command",
+        "summary": "Get a MissionItem",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/MissionItem"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Command",
+        "summary": "Update a MissionItem",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
+                "$ref": "#/components/schemas/MissionItemCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Command"
+                  "$ref": "#/components/schemas/MissionItem"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Command",
+        "summary": "Delete a MissionItem",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +1140,40 @@
   },
   "components": {
     "schemas": {
-      "Vehicle": {
+      "Heartbeat": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vin": {
-            "type": "string"
+          "type": {
+            "type": "integer"
           },
-          "model": {
-            "type": "string"
+          "autopilot": {
+            "type": "integer"
           },
-          "state": {
-            "type": "string"
+          "baseMode": {
+            "type": "integer"
           },
-          "odometerKm": {
-            "type": "number"
+          "customMode": {
+            "type": "integer"
+          },
+          "systemStatus": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "mavlinkVersion": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1168,44 +1185,67 @@
           }
         }
       },
-      "VehicleCreate": {
+      "HeartbeatCreate": {
         "type": "object",
         "properties": {
-          "vin": {
-            "type": "string"
+          "type": {
+            "type": "integer"
           },
-          "model": {
-            "type": "string"
+          "autopilot": {
+            "type": "integer"
           },
-          "state": {
-            "type": "string"
+          "baseMode": {
+            "type": "integer"
           },
-          "odometerKm": {
-            "type": "number"
+          "customMode": {
+            "type": "integer"
+          },
+          "systemStatus": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "mavlinkVersion": {
+            "type": "integer"
           }
         },
         "required": [
-          "vin",
-          "model"
+          "type",
+          "autopilot"
         ]
       },
-      "Signal": {
+      "SysStatus": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
-            "type": "string"
+          "load": {
+            "type": "integer"
           },
-          "name": {
-            "type": "string"
+          "voltageBattery": {
+            "type": "integer"
           },
-          "value": {
-            "type": "number"
+          "currentBattery": {
+            "type": "integer"
           },
-          "unit": {
-            "type": "string"
+          "batteryRemaining": {
+            "type": "integer"
+          },
+          "dropRateComm": {
+            "type": "integer"
+          },
+          "errorsComm": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1217,44 +1257,59 @@
           }
         }
       },
-      "SignalCreate": {
+      "SysStatusCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
-            "type": "string"
+          "load": {
+            "type": "integer"
           },
-          "name": {
-            "type": "string"
+          "voltageBattery": {
+            "type": "integer"
           },
-          "value": {
-            "type": "number"
+          "currentBattery": {
+            "type": "integer"
           },
-          "unit": {
-            "type": "string"
+          "batteryRemaining": {
+            "type": "integer"
+          },
+          "dropRateComm": {
+            "type": "integer"
+          },
+          "errorsComm": {
+            "type": "integer"
           }
         },
         "required": [
-          "name",
-          "value"
+          "load",
+          "voltageBattery"
         ]
       },
-      "ChargeSession": {
+      "GpsRawInt": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
-            "type": "string"
+          "timeUsec": {
+            "type": "integer"
           },
-          "connectorId": {
-            "type": "string"
+          "fixType": {
+            "type": "integer"
           },
-          "energyKwh": {
-            "type": "number"
+          "lat": {
+            "type": "integer"
           },
-          "status": {
-            "type": "string"
+          "lon": {
+            "type": "integer"
+          },
+          "alt": {
+            "type": "integer"
+          },
+          "vel": {
+            "type": "integer"
+          },
+          "satellitesVisible": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1266,44 +1321,62 @@
           }
         }
       },
-      "ChargeSessionCreate": {
+      "GpsRawIntCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
-            "type": "string"
+          "timeUsec": {
+            "type": "integer"
           },
-          "connectorId": {
-            "type": "string"
+          "fixType": {
+            "type": "integer"
           },
-          "energyKwh": {
-            "type": "number"
+          "lat": {
+            "type": "integer"
           },
-          "status": {
-            "type": "string"
+          "lon": {
+            "type": "integer"
+          },
+          "alt": {
+            "type": "integer"
+          },
+          "vel": {
+            "type": "integer"
+          },
+          "satellitesVisible": {
+            "type": "integer"
           }
         },
         "required": [
-          "energyKwh",
-          "status"
+          "timeUsec",
+          "fixType"
         ]
       },
-      "Connector": {
+      "Attitude": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "stationId": {
-            "type": "string"
+          "timeBootMs": {
+            "type": "integer"
           },
-          "standard": {
-            "type": "string"
-          },
-          "powerKw": {
+          "roll": {
             "type": "number"
           },
-          "status": {
-            "type": "string"
+          "pitch": {
+            "type": "number"
+          },
+          "yaw": {
+            "type": "number"
+          },
+          "rollspeed": {
+            "type": "number"
+          },
+          "pitchspeed": {
+            "type": "number"
+          },
+          "yawspeed": {
+            "type": "number"
           },
           "createdAt": {
             "type": "string",
@@ -1315,42 +1388,68 @@
           }
         }
       },
-      "ConnectorCreate": {
+      "AttitudeCreate": {
         "type": "object",
         "properties": {
-          "stationId": {
-            "type": "string"
+          "timeBootMs": {
+            "type": "integer"
           },
-          "standard": {
-            "type": "string"
-          },
-          "powerKw": {
+          "roll": {
             "type": "number"
           },
-          "status": {
-            "type": "string"
+          "pitch": {
+            "type": "number"
+          },
+          "yaw": {
+            "type": "number"
+          },
+          "rollspeed": {
+            "type": "number"
+          },
+          "pitchspeed": {
+            "type": "number"
+          },
+          "yawspeed": {
+            "type": "number"
           }
         },
         "required": [
-          "standard",
-          "powerKw"
+          "timeBootMs",
+          "roll"
         ]
       },
-      "Trip": {
+      "GlobalPositionInt": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
-            "type": "string"
+          "timeBootMs": {
+            "type": "integer"
           },
-          "distanceKm": {
-            "type": "number"
+          "lat": {
+            "type": "integer"
           },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
+          "lon": {
+            "type": "integer"
+          },
+          "alt": {
+            "type": "integer"
+          },
+          "relativeAlt": {
+            "type": "integer"
+          },
+          "vx": {
+            "type": "integer"
+          },
+          "vy": {
+            "type": "integer"
+          },
+          "vz": {
+            "type": "integer"
+          },
+          "hdg": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
@@ -1362,38 +1461,86 @@
           }
         }
       },
-      "TripCreate": {
+      "GlobalPositionIntCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
-            "type": "string"
+          "timeBootMs": {
+            "type": "integer"
           },
-          "distanceKm": {
-            "type": "number"
+          "lat": {
+            "type": "integer"
           },
-          "startedAt": {
-            "type": "string"
+          "lon": {
+            "type": "integer"
+          },
+          "alt": {
+            "type": "integer"
+          },
+          "relativeAlt": {
+            "type": "integer"
+          },
+          "vx": {
+            "type": "integer"
+          },
+          "vy": {
+            "type": "integer"
+          },
+          "vz": {
+            "type": "integer"
+          },
+          "hdg": {
+            "type": "integer"
           }
         },
         "required": [
-          "distanceKm",
-          "startedAt"
+          "timeBootMs",
+          "lat"
         ]
       },
-      "Command": {
+      "MissionItem": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
-            "type": "string"
+          "targetSystem": {
+            "type": "integer"
           },
-          "name": {
-            "type": "string"
+          "targetComponent": {
+            "type": "integer"
           },
-          "status": {
-            "type": "string"
+          "seq": {
+            "type": "integer"
+          },
+          "frame": {
+            "type": "integer"
+          },
+          "command": {
+            "type": "integer"
+          },
+          "current": {
+            "type": "integer"
+          },
+          "autocontinue": {
+            "type": "integer"
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          },
+          "missionType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              255
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1405,22 +1552,52 @@
           }
         }
       },
-      "CommandCreate": {
+      "MissionItemCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
-            "type": "string"
+          "targetSystem": {
+            "type": "integer"
           },
-          "name": {
-            "type": "string"
+          "targetComponent": {
+            "type": "integer"
           },
-          "status": {
-            "type": "string"
+          "seq": {
+            "type": "integer"
+          },
+          "frame": {
+            "type": "integer"
+          },
+          "command": {
+            "type": "integer"
+          },
+          "current": {
+            "type": "integer"
+          },
+          "autocontinue": {
+            "type": "integer"
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          },
+          "missionType": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              255
+            ]
           }
         },
         "required": [
-          "name",
-          "status"
+          "targetSystem",
+          "targetComponent"
         ]
       }
     }

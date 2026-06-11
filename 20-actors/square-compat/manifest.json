@@ -24,10 +24,18 @@
       "Invoice"
     ],
     "enums": {
+      "Order": {
+        "state": [
+          "OPEN",
+          "COMPLETED",
+          "CANCELED",
+          "DRAFT"
+        ]
+      },
       "Refund": {
         "status": [
           "PENDING",
-          "COMPLETED",
+          "APPROVED",
           "REJECTED",
           "FAILED"
         ]
@@ -58,15 +66,15 @@
       "Invoice": {
         "status": [
           "DRAFT",
-          "PUBLISHED",
+          "UNPAID",
           "SCHEDULED",
-          "SENT",
           "PARTIALLY_PAID",
           "PAID",
           "PARTIALLY_REFUNDED",
           "REFUNDED",
           "CANCELED",
-          "FAILED"
+          "FAILED",
+          "PAYMENT_PENDING"
         ]
       }
     }

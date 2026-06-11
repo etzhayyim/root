@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible data / analytics actor (redis); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:redis-compat",
-    "x-wasm-cid": "bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq",
+    "x-wasm-cid": "bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq",
+      "url": "ipfs://bafkreib76qr2fgutdms3jhodtdhfulpqu6cthudmfa424kbczt3hmps32u",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/datasets": {
+    "/v1/respmessages": {
       "get": {
-        "summary": "List Datasets",
+        "summary": "List RespMessages",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Dataset"
+                        "$ref": "#/components/schemas/RespMessage"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Dataset",
+        "summary": "Create a RespMessage",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
+                "$ref": "#/components/schemas/RespMessageCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dataset"
+                  "$ref": "#/components/schemas/RespMessage"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/datasets/{id}": {
+    "/v1/respmessages/{id}": {
       "get": {
-        "summary": "Get a Dataset",
+        "summary": "Get a RespMessage",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dataset"
+                  "$ref": "#/components/schemas/RespMessage"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Dataset",
+        "summary": "Update a RespMessage",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetCreate"
+                "$ref": "#/components/schemas/RespMessageCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dataset"
+                  "$ref": "#/components/schemas/RespMessage"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Dataset",
+        "summary": "Delete a RespMessage",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/queries": {
+    "/v1/rediscommands": {
       "get": {
-        "summary": "List Queries",
+        "summary": "List RedisCommands",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Query"
+                        "$ref": "#/components/schemas/RedisCommand"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Query",
+        "summary": "Create a RedisCommand",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QueryCreate"
+                "$ref": "#/components/schemas/RedisCommandCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Query"
+                  "$ref": "#/components/schemas/RedisCommand"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/queries/{id}": {
+    "/v1/rediscommands/{id}": {
       "get": {
-        "summary": "Get a Query",
+        "summary": "Get a RedisCommand",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Query"
+                  "$ref": "#/components/schemas/RedisCommand"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Query",
+        "summary": "Update a RedisCommand",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QueryCreate"
+                "$ref": "#/components/schemas/RedisCommandCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Query"
+                  "$ref": "#/components/schemas/RedisCommand"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Query",
+        "summary": "Delete a RedisCommand",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/dashboards": {
+    "/v1/rediskeys": {
       "get": {
-        "summary": "List Dashboards",
+        "summary": "List RedisKeys",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Dashboard"
+                        "$ref": "#/components/schemas/RedisKey"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Dashboard",
+        "summary": "Create a RedisKey",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DashboardCreate"
+                "$ref": "#/components/schemas/RedisKeyCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dashboard"
+                  "$ref": "#/components/schemas/RedisKey"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/dashboards/{id}": {
+    "/v1/rediskeys/{id}": {
       "get": {
-        "summary": "Get a Dashboard",
+        "summary": "Get a RedisKey",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dashboard"
+                  "$ref": "#/components/schemas/RedisKey"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Dashboard",
+        "summary": "Update a RedisKey",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DashboardCreate"
+                "$ref": "#/components/schemas/RedisKeyCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Dashboard"
+                  "$ref": "#/components/schemas/RedisKey"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Dashboard",
+        "summary": "Delete a RedisKey",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/reports": {
+    "/v1/redisdatatypes": {
       "get": {
-        "summary": "List Reports",
+        "summary": "List RedisDataTypes",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Report"
+                        "$ref": "#/components/schemas/RedisDataType"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Report",
+        "summary": "Create a RedisDataType",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReportCreate"
+                "$ref": "#/components/schemas/RedisDataTypeCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/RedisDataType"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/reports/{id}": {
+    "/v1/redisdatatypes/{id}": {
       "get": {
-        "summary": "Get a Report",
+        "summary": "Get a RedisDataType",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/RedisDataType"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Report",
+        "summary": "Update a RedisDataType",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReportCreate"
+                "$ref": "#/components/schemas/RedisDataTypeCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/RedisDataType"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Report",
+        "summary": "Delete a RedisDataType",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/connections": {
+    "/v1/respprotocolversions": {
       "get": {
-        "summary": "List Connections",
+        "summary": "List RespProtocolVersions",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connection"
+                        "$ref": "#/components/schemas/RespProtocolVersion"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connection",
+        "summary": "Create a RespProtocolVersion",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionCreate"
+                "$ref": "#/components/schemas/RespProtocolVersionCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/RespProtocolVersion"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/connections/{id}": {
+    "/v1/respprotocolversions/{id}": {
       "get": {
-        "summary": "Get a Connection",
+        "summary": "Get a RespProtocolVersion",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/RespProtocolVersion"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connection",
+        "summary": "Update a RespProtocolVersion",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionCreate"
+                "$ref": "#/components/schemas/RespProtocolVersionCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connection"
+                  "$ref": "#/components/schemas/RespProtocolVersion"
                 }
               }
             }
@@ -921,192 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connection",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/metrics": {
-      "get": {
-        "summary": "List Metrics",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Metric"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Metric",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Metric"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/metrics/{id}": {
-      "get": {
-        "summary": "Get a Metric",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Metric"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Metric",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MetricCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Metric"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Metric",
+        "summary": "Delete a RespProtocolVersion",
         "parameters": [
           {
             "name": "id",
@@ -1140,22 +955,42 @@
   },
   "components": {
     "schemas": {
-      "Dataset": {
+      "RespMessage": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "firstByte": {
+            "type": "string",
+            "enum": [
+              "+",
+              "-",
+              ":",
+              "$",
+              "*",
+              "_",
+              "#",
+              ",",
+              "(",
+              "!",
+              "=",
+              "%",
+              "|",
+              "~",
+              ">"
+            ]
+          },
+          "respType": {
             "type": "string"
           },
-          "source": {
+          "payload": {
             "type": "string"
           },
-          "schemaRef": {
-            "type": "string"
+          "elementCount": {
+            "type": "integer"
           },
-          "rowCount": {
+          "length": {
             "type": "integer"
           },
           "createdAt": {
@@ -1168,40 +1003,122 @@
           }
         }
       },
-      "DatasetCreate": {
+      "RespMessageCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "firstByte": {
+            "type": "string",
+            "enum": [
+              "+",
+              "-",
+              ":",
+              "$",
+              "*",
+              "_",
+              "#",
+              ",",
+              "(",
+              "!",
+              "=",
+              "%",
+              "|",
+              "~",
+              ">"
+            ]
+          },
+          "respType": {
             "type": "string"
           },
-          "source": {
+          "payload": {
             "type": "string"
           },
-          "schemaRef": {
-            "type": "string"
+          "elementCount": {
+            "type": "integer"
           },
-          "rowCount": {
+          "length": {
             "type": "integer"
           }
         },
         "required": [
-          "name",
-          "source"
+          "firstByte",
+          "respType"
         ]
       },
-      "Query": {
+      "RedisCommand": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "datasetId": {
+          "commandName": {
             "type": "string"
           },
-          "sql": {
+          "arity": {
+            "type": "integer"
+          },
+          "flags": {
             "type": "string"
           },
-          "ownerId": {
+          "keyPosition": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RedisCommandCreate": {
+        "type": "object",
+        "properties": {
+          "commandName": {
+            "type": "string"
+          },
+          "arity": {
+            "type": "integer"
+          },
+          "flags": {
+            "type": "string"
+          },
+          "keyPosition": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "commandName",
+          "arity"
+        ]
+      },
+      "RedisKey": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "keyName": {
+            "type": "string"
+          },
+          "dataType": {
+            "type": "string",
+            "enum": [
+              "string",
+              "list",
+              "set",
+              "zset",
+              "hash",
+              "stream",
+              "vectorset",
+              "none"
+            ]
+          },
+          "ttl": {
+            "type": "integer"
+          },
+          "encoding": {
             "type": "string"
           },
           "createdAt": {
@@ -1214,125 +1131,60 @@
           }
         }
       },
-      "QueryCreate": {
+      "RedisKeyCreate": {
         "type": "object",
         "properties": {
-          "datasetId": {
+          "keyName": {
             "type": "string"
           },
-          "sql": {
-            "type": "string"
+          "dataType": {
+            "type": "string",
+            "enum": [
+              "string",
+              "list",
+              "set",
+              "zset",
+              "hash",
+              "stream",
+              "vectorset",
+              "none"
+            ]
           },
-          "ownerId": {
+          "ttl": {
+            "type": "integer"
+          },
+          "encoding": {
             "type": "string"
           }
         },
         "required": [
-          "sql"
+          "keyName",
+          "dataType"
         ]
       },
-      "Dashboard": {
+      "RedisDataType": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "layout": {
-            "type": "string"
-          },
-          "createdAt": {
+          "dataType": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "string",
+              "list",
+              "set",
+              "zset",
+              "hash",
+              "stream",
+              "vectorset",
+              "none"
+            ]
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DashboardCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
+          "encoding": {
             "type": "string"
           },
-          "ownerId": {
-            "type": "string"
-          },
-          "layout": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "layout"
-        ]
-      },
-      "Report": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "dashboardId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "schedule": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ReportCreate": {
-        "type": "object",
-        "properties": {
-          "dashboardId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "schedule": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "schedule"
-        ]
-      },
-      "Connection": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "host": {
-            "type": "string"
-          },
-          "active": {
+          "isBinary": {
             "type": "boolean"
           },
           "createdAt": {
@@ -1345,43 +1197,44 @@
           }
         }
       },
-      "ConnectionCreate": {
+      "RedisDataTypeCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "dataType": {
+            "type": "string",
+            "enum": [
+              "string",
+              "list",
+              "set",
+              "zset",
+              "hash",
+              "stream",
+              "vectorset",
+              "none"
+            ]
+          },
+          "encoding": {
             "type": "string"
           },
-          "type": {
-            "type": "string"
-          },
-          "host": {
-            "type": "string"
-          },
-          "active": {
+          "isBinary": {
             "type": "boolean"
           }
         },
         "required": [
-          "name",
-          "type"
+          "dataType",
+          "encoding"
         ]
       },
-      "Metric": {
+      "RespProtocolVersion": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "datasetId": {
-            "type": "string"
+          "majorVersion": {
+            "type": "integer"
           },
-          "name": {
-            "type": "string"
-          },
-          "expression": {
-            "type": "string"
-          },
-          "unit": {
+          "supportedSince": {
             "type": "string"
           },
           "createdAt": {
@@ -1394,25 +1247,19 @@
           }
         }
       },
-      "MetricCreate": {
+      "RespProtocolVersionCreate": {
         "type": "object",
         "properties": {
-          "datasetId": {
-            "type": "string"
+          "majorVersion": {
+            "type": "integer"
           },
-          "name": {
-            "type": "string"
-          },
-          "expression": {
-            "type": "string"
-          },
-          "unit": {
+          "supportedSince": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "expression"
+          "majorVersion",
+          "supportedSince"
         ]
       }
     }

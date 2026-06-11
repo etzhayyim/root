@@ -3,74 +3,81 @@
 
 namespace ramp {
 
-    entity Customer {
+    entity Card {
         id: string @unique
+        id: string
+        state: string
+        lastFour: string
+        cardholderName: string
+        cardholderID: string
+        isPhysical: boolean
+        createdAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Transaction {
+        id: string @unique
+        id: string
+        state: string
+        amount: float
+        currencyCode: string
+        cardID: string
+        merchantName: string
+        userTransactionTime: datetime
+        settlementDate: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity User {
+        id: string @unique
+        id: string
         email: string
+        firstName: string
+        lastName: string
+        role: string
+        status: string
+        departmentID: string
+        isManager: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Department {
+        id: string @unique
+        id: string
         name: string
-        phone: string
-        balance: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity PaymentIntent {
+    entity Reimbursement {
         id: string @unique
-        customerId: string
-        amount: integer
+        id: string
+        state: string
+        amount: float
         currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Charge {
-        id: string @unique
-        customerId: string
-        paymentIntentId: string
-        amount: integer
-        currency: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Refund {
-        id: string @unique
-        chargeId: string
-        amount: integer
-        reason: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Payout {
-        id: string @unique
-        amount: integer
-        currency: string
-        arrivalDate: datetime
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity PaymentMethod {
-        id: string @unique
-        customerId: string
         type: string
-        last4: string
-        brand: string
+        userID: string
+        direction: string
+        createdAt: datetime
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Bill {
+        id: string @unique
+        id: string
+        status: string
+        amount: integer
+        currencyCode: string
+        invoiceNumber: string
+        statusSummary: string
+        createdAt: datetime
+        dueAt: datetime
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

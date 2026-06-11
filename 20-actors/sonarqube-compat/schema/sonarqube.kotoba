@@ -3,72 +3,56 @@
 
 namespace sonarqube {
 
-    entity Service {
+    entity Issue {
         id: string @unique
-        name: string
-        environment: string
-        language: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Error {
-        id: string @unique
-        serviceId: string
+        key: string
+        severity: string
+        status: string
+        type: string
+        resolution: string
+        component: string
+        line: integer
         message: string
-        culprit: string
-        count: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Trace {
+    entity Hotspot {
         id: string @unique
-        serviceId: string
-        operation: string
-        durationMs: integer
+        key: string
         status: string
+        message: string
+        component: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Metric {
+    entity QualityGate {
         id: string @unique
-        serviceId: string
-        name: string
-        value: float
-        unit: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Alert {
-        id: string @unique
-        serviceId: string
-        condition: string
-        severity: string
-        active: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Incident {
-        id: string @unique
-        title: string
         status: string
-        severity: string
-        startedAt: datetime
+        ignoredConditions: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Condition {
+        id: string @unique
+        status: string
+        metricKey: string
+        comparator: string
+        errorThreshold: string
+        actualValue: string
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Measure {
+        id: string @unique
+        metric: string
+        value: string
+        bestValue: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

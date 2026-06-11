@@ -3,72 +3,64 @@
 
 namespace jenkins {
 
-    entity Repository {
-        id: string @unique
-        name: string
-        owner: string
-        defaultBranch: string
-        private: boolean
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Pipeline {
-        id: string @unique
-        repoId: string
-        name: string
-        trigger: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
     entity Build {
         id: string @unique
-        pipelineId: string
         number: integer
-        status: string
-        commitSha: string
-        durationMs: integer
+        result: string
+        building: boolean
+        duration: integer
+        timestamp: integer
+        displayName: string
+        description: string
+        id: string
+        queueId: integer
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Artifact {
+    entity Job {
         id: string @unique
-        buildId: string
         name: string
-        sizeBytes: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Deployment {
-        id: string @unique
-        buildId: string
-        environment: string
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Webhook {
-        id: string @unique
-        repoId: string
+        displayName: string
+        description: string
+        color: string
+        nextBuildNumber: integer
         url: string
-        event: string
-        active: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity QueueItem {
+        id: string @unique
+        id: integer
+        inQueueSince: integer
+        why: string
+        blocked: boolean
+        buildable: boolean
+        stuck: boolean
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity Computer {
+        id: string @unique
+        displayName: string
+        name: string
+        url: string
+        offline: boolean
+        offlineCauseReason: string
+        numExecutors: integer
+        createdAt: datetime
+        updatedAt: datetime
+    }
+
+    entity View {
+        id: string @unique
+        name: string
+        url: string
+        description: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }
