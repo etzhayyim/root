@@ -1749,17 +1749,14 @@
       "handle": "bis-compat",
       "platform": "bis",
       "bytes": 2117,
-      "wasmCid": "bafkreigczgtb4b7htcjsuaypcnnqj7ktigv2jqtkhl6jtwxhc3ilys4q54",
+      "wasmCid": "bafkreibyrofdydcgwqtjj4ugtjbqfyqwnvm4hpu2tyam5swat5z7rxayzu",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Indicator",
-        "Observation",
-        "Country",
-        "Series",
-        "Report",
-        "ExchangeRate"
+        "DataQuery",
+        "Dataflow",
+        "Series"
       ]
     },
     {
@@ -5479,17 +5476,13 @@
       "handle": "fdic-compat",
       "platform": "fdic",
       "bytes": 2118,
-      "wasmCid": "bafkreif7nu4b3yeaxfy2rn74e4qbx7xyeahjm2lhsl4bo57n37zea26b2q",
+      "wasmCid": "bafkreif62o3vumpujkb76gee2mtngt6jivwiauwtmakmvnwpvmdab5deou",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Account",
-        "Consent",
-        "Transaction",
-        "PaymentInitiation",
         "Institution",
-        "Filing"
+        "Failure"
       ]
     },
     {

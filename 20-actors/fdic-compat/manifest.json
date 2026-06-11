@@ -5,21 +5,25 @@
   "kind": "compat",
   "title": "fdic clean-room actor",
   "description": "Clean-room, API-compatible open banking / financial regulation actor (fdic); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreif7nu4b3yeaxfy2rn74e4qbx7xyeahjm2lhsl4bo57n37zea26b2q",
+  "wasmCid": "bafkreif62o3vumpujkb76gee2mtngt6jivwiauwtmakmvnwpvmdab5deou",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreif7nu4b3yeaxfy2rn74e4qbx7xyeahjm2lhsl4bo57n37zea26b2q",
+  "ipfs": "ipfs://bafkreif62o3vumpujkb76gee2mtngt6jivwiauwtmakmvnwpvmdab5deou",
   "schema": "schema/fdic.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://banks.data.fdic.gov/api (official FDIC BankFind Suite API; live entities)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "Institution",
+      "Failure"
+    ],
+    "enums": {}
+  },
   "entities": [
-    "Account",
-    "Consent",
-    "Transaction",
-    "PaymentInitiation",
     "Institution",
-    "Filing"
+    "Failure"
   ],
   "adr": [
     "260607",
@@ -31,108 +35,8 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 10,
       "routes": [
-        {
-          "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/consents",
-          "op": "create Consent"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/consents",
-          "op": "list Consent"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/consents/{id}",
-          "op": "get Consent"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/consents/{id}",
-          "op": "update Consent"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/consents/{id}",
-          "op": "delete Consent"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/transactions",
-          "op": "create Transaction"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/transactions",
-          "op": "list Transaction"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/transactions/{id}",
-          "op": "get Transaction"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/transactions/{id}",
-          "op": "update Transaction"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/transactions/{id}",
-          "op": "delete Transaction"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/paymentinitiations",
-          "op": "create PaymentInitiation"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/paymentinitiations",
-          "op": "list PaymentInitiation"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/paymentinitiations/{id}",
-          "op": "get PaymentInitiation"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/paymentinitiations/{id}",
-          "op": "update PaymentInitiation"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/paymentinitiations/{id}",
-          "op": "delete PaymentInitiation"
-        },
         {
           "method": "POST",
           "path": "/v1/institutions",
@@ -160,28 +64,28 @@
         },
         {
           "method": "POST",
-          "path": "/v1/filings",
-          "op": "create Filing"
+          "path": "/v1/failures",
+          "op": "create Failure"
         },
         {
           "method": "GET",
-          "path": "/v1/filings",
-          "op": "list Filing"
+          "path": "/v1/failures",
+          "op": "list Failure"
         },
         {
           "method": "GET",
-          "path": "/v1/filings/{id}",
-          "op": "get Filing"
+          "path": "/v1/failures/{id}",
+          "op": "get Failure"
         },
         {
           "method": "PATCH",
-          "path": "/v1/filings/{id}",
-          "op": "update Filing"
+          "path": "/v1/failures/{id}",
+          "op": "update Failure"
         },
         {
           "method": "DELETE",
-          "path": "/v1/filings/{id}",
-          "op": "delete Filing"
+          "path": "/v1/failures/{id}",
+          "op": "delete Failure"
         }
       ],
       "features": {
@@ -244,368 +148,8 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 10,
       "tools": [
-        {
-          "name": "create_account",
-          "description": "Create a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "holderId": {
-                "type": "string"
-              },
-              "iban": {
-                "type": "string"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "iban",
-              "currency"
-            ]
-          }
-        },
-        {
-          "name": "list_accounts",
-          "description": "List Accounts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_account",
-          "description": "Get a Account by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_account",
-          "description": "Update a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "holderId": {
-                "type": "string"
-              },
-              "iban": {
-                "type": "string"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_account",
-          "description": "Delete a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_consent",
-          "description": "Create a Consent.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "scope": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "expiresAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "scope",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_consents",
-          "description": "List Consents.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_consent",
-          "description": "Get a Consent by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_consent",
-          "description": "Update a Consent.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "accountId": {
-                "type": "string"
-              },
-              "scope": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "expiresAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_consent",
-          "description": "Delete a Consent.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_transaction",
-          "description": "Create a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "bookedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "amount",
-              "currency"
-            ]
-          }
-        },
-        {
-          "name": "list_transactions",
-          "description": "List Transactions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_transaction",
-          "description": "Get a Transaction by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_transaction",
-          "description": "Update a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "accountId": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "number"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "bookedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_transaction",
-          "description": "Delete a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_payment_initiation",
-          "description": "Create a PaymentInitiation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "debtorAccount": {
-                "type": "string"
-              },
-              "creditorAccount": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "debtorAccount",
-              "creditorAccount"
-            ]
-          }
-        },
-        {
-          "name": "list_payment_initiations",
-          "description": "List PaymentInitiations.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_payment_initiation",
-          "description": "Get a PaymentInitiation by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_payment_initiation",
-          "description": "Update a PaymentInitiation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "debtorAccount": {
-                "type": "string"
-              },
-              "creditorAccount": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_payment_initiation",
-          "description": "Delete a PaymentInitiation.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
         {
           "name": "create_institution",
           "description": "Create a Institution.",
@@ -615,16 +159,40 @@
               "name": {
                 "type": "string"
               },
-              "bic": {
+              "cert": {
+                "type": "integer"
+              },
+              "city": {
                 "type": "string"
               },
-              "country": {
+              "stname": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              },
+              "bkclass": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "charter": {
+                "type": "string"
+              },
+              "insdate": {
+                "type": "string"
+              },
+              "effdate": {
+                "type": "string"
+              },
+              "webaddr": {
                 "type": "string"
               }
             },
             "required": [
               "name",
-              "bic"
+              "cert"
             ]
           }
         },
@@ -663,10 +231,34 @@
               "name": {
                 "type": "string"
               },
-              "bic": {
+              "cert": {
+                "type": "integer"
+              },
+              "city": {
                 "type": "string"
               },
-              "country": {
+              "stname": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              },
+              "bkclass": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "charter": {
+                "type": "string"
+              },
+              "insdate": {
+                "type": "string"
+              },
+              "effdate": {
+                "type": "string"
+              },
+              "webaddr": {
                 "type": "string"
               }
             },
@@ -691,41 +283,59 @@
           }
         },
         {
-          "name": "create_filing",
-          "description": "Create a Filing.",
+          "name": "create_failure",
+          "description": "Create a Failure.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "institutionId": {
+              "name": {
                 "type": "string"
               },
-              "regime": {
+              "cert": {
+                "type": "integer"
+              },
+              "city": {
                 "type": "string"
               },
-              "period": {
+              "faildate": {
                 "type": "string"
               },
-              "status": {
+              "failyr": {
+                "type": "integer"
+              },
+              "restype": {
+                "type": "string"
+              },
+              "cost": {
+                "type": "number"
+              },
+              "qbfdep": {
+                "type": "number"
+              },
+              "qbfasset": {
+                "type": "number"
+              },
+              "savr": {
                 "type": "string"
               }
             },
             "required": [
-              "regime",
-              "period"
+              "name",
+              "cert"
             ]
           }
         },
         {
-          "name": "list_filings",
-          "description": "List Filings.",
+          "name": "list_failures",
+          "description": "List Failures.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_filing",
-          "description": "Get a Filing by id.",
+          "name": "get_failure",
+          "description": "Get a Failure by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -739,24 +349,42 @@
           }
         },
         {
-          "name": "update_filing",
-          "description": "Update a Filing.",
+          "name": "update_failure",
+          "description": "Update a Failure.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "institutionId": {
+              "name": {
                 "type": "string"
               },
-              "regime": {
+              "cert": {
+                "type": "integer"
+              },
+              "city": {
                 "type": "string"
               },
-              "period": {
+              "faildate": {
                 "type": "string"
               },
-              "status": {
+              "failyr": {
+                "type": "integer"
+              },
+              "restype": {
+                "type": "string"
+              },
+              "cost": {
+                "type": "number"
+              },
+              "qbfdep": {
+                "type": "number"
+              },
+              "qbfasset": {
+                "type": "number"
+              },
+              "savr": {
                 "type": "string"
               }
             },
@@ -766,8 +394,8 @@
           }
         },
         {
-          "name": "delete_filing",
-          "description": "Delete a Filing.",
+          "name": "delete_failure",
+          "description": "Delete a Failure.",
           "inputSchema": {
             "type": "object",
             "properties": {

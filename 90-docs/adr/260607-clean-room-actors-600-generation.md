@@ -696,3 +696,13 @@ the IMF's NEW api.imf.org/external/sdmx/2.1/ returns SDMX-ML carrying the
 official v2_1 schema namespace — which also resolves the imf carry from
 wave 12 (the legacy dataservices endpoint was retired; the new portal
 speaks the standard).
+
+### §16.15 /loop iteration 14 — wave 15: SDMX ×4 + FDIC live (210, 21.0%)
+
+bis + fdic → ledger **210** (790 L4 / 210 L5 = **21.0%**), enforced 202 /
+**831 enum fields**, verify PASS 0/0, 2/2 green. Harness-direct.
+
+| Actor | Anchor |
+|---|---|
+| bis | SDMX family member #4 (ecb/eurostat/imf/bis): stats.bis.org/api/v1 serves live SDMX-ML 2.1 with the official v2_1 namespace — even its error messages are namespaced SDMX |
+| fdic | the official BankFind Suite live API (27,835 institutions at verification); Institution + Failure surfaces from live entities per the real-object rule; BKCLASS/RESTYPE observed-not-declared → enums refused (the third fields-verified L5) |

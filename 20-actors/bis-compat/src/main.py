@@ -111,185 +111,127 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/indicators", methods=["POST"])
-def create_indicator(request):
-    """Create a Indicator."""
+@app.route("/v1/dataqueries", methods=["POST"])
+def create_data_query(request):
+    """Create a DataQuery."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'name', 'unit', 'source'])
+    err = _reject_unknown(data, ['flowRef', 'key', 'startPeriod', 'endPeriod', 'updatedAfter', 'firstNObservations', 'lastNObservations', 'detail', 'includeHistory'])
     if err:
         return err, 400
-    err = _require(data, ['code', 'name'])
+    err = _require(data, ['key', 'startPeriod'])
     if err:
         return err, 400
-    rec = {"id": new_id("bis_ind")}
-    rec["code"] = data.get('code')
-    rec["name"] = data.get('name')
-    rec["unit"] = data.get('unit')
-    rec["source"] = data.get('source')
+    if data.get('detail') and data['detail'] not in ['full', 'dataonly', 'serieskeysonly', 'nodata']:
+        return {"error": {"message": "invalid detail; allowed: " + ", ".join(['full', 'dataonly', 'serieskeysonly', 'nodata']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("bis_dat")}
+    rec["flowRef"] = data.get('flowRef')
+    rec["key"] = data.get('key')
+    rec["startPeriod"] = data.get('startPeriod')
+    rec["endPeriod"] = data.get('endPeriod')
+    rec["updatedAfter"] = data.get('updatedAfter')
+    rec["firstNObservations"] = _as_int(data.get('firstNObservations'))
+    rec["lastNObservations"] = _as_int(data.get('lastNObservations'))
+    rec["detail"] = data.get('detail')
+    rec["includeHistory"] = _as_bool(data.get('includeHistory'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Indicator", rec)
+    _persist("DataQuery", rec)
     return rec, 201
 
-@app.route("/v1/indicators", methods=["GET"])
-def list_indicators(request):
-    """List Indicators with filtering + cursor pagination."""
+@app.route("/v1/dataqueries", methods=["GET"])
+def list_data_queries(request):
+    """List DataQueries with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Indicator")
-    rows = _apply_filters(rows, params, ['code', 'name', 'unit', 'source'])
+    rows = _query("DataQuery")
+    rows = _apply_filters(rows, params, ['flowRef', 'key', 'startPeriod', 'endPeriod', 'updatedAfter', 'firstNObservations', 'lastNObservations', 'detail', 'includeHistory'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/indicators/<eid>", methods=["GET"])
-def get_indicator(request, eid):
-    """Retrieve a Indicator by id (supports ?expand=)."""
-    rows = _query("Indicator", eid)
+@app.route("/v1/dataqueries/<eid>", methods=["GET"])
+def get_data_query(request, eid):
+    """Retrieve a DataQuery by id (supports ?expand=)."""
+    rows = _query("DataQuery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/indicators/<eid>", methods=["POST", "PATCH"])
-def update_indicator(request, eid):
-    """Update a Indicator."""
-    rows = _query("Indicator", eid)
+@app.route("/v1/dataqueries/<eid>", methods=["POST", "PATCH"])
+def update_data_query(request, eid):
+    """Update a DataQuery."""
+    rows = _query("DataQuery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['code', 'name', 'unit', 'source'])
+    err = _reject_unknown(data, ['flowRef', 'key', 'startPeriod', 'endPeriod', 'updatedAfter', 'firstNObservations', 'lastNObservations', 'detail', 'includeHistory'])
     if err:
         return err, 400
+    if data.get('detail') and data['detail'] not in ['full', 'dataonly', 'serieskeysonly', 'nodata']:
+        return {"error": {"message": "invalid detail; allowed: " + ", ".join(['full', 'dataonly', 'serieskeysonly', 'nodata']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Indicator", rec)
+    _persist("DataQuery", rec)
     return rec, 200
 
-@app.route("/v1/indicators/<eid>", methods=["DELETE"])
-def delete_indicator(request, eid):
-    """Delete a Indicator."""
-    rows = _query("Indicator", eid)
+@app.route("/v1/dataqueries/<eid>", methods=["DELETE"])
+def delete_data_query(request, eid):
+    """Delete a DataQuery."""
+    rows = _query("DataQuery", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bis.Indicator", "id": eid})
+    db.retract({"entity": f"bis.DataQuery", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/observations", methods=["POST"])
-def create_observation(request):
-    """Create a Observation."""
+@app.route("/v1/dataflows", methods=["POST"])
+def create_dataflow(request):
+    """Create a Dataflow."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['indicatorId', 'country', 'period', 'value'])
+    err = _reject_unknown(data, ['agencyID', 'version', 'name'])
     if err:
         return err, 400
-    err = _require(data, ['country', 'period'])
+    err = _require(data, ['agencyID', 'version'])
     if err:
         return err, 400
-    rec = {"id": new_id("bis_obs")}
-    rec["indicatorId"] = data.get('indicatorId')
-    rec["country"] = data.get('country')
-    rec["period"] = data.get('period')
-    rec["value"] = _as_float(data.get('value'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Observation", rec)
-    return rec, 201
-
-@app.route("/v1/observations", methods=["GET"])
-def list_observations(request):
-    """List Observations with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Observation")
-    rows = _apply_filters(rows, params, ['indicatorId', 'country', 'period', 'value'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/observations/<eid>", methods=["GET"])
-def get_observation(request, eid):
-    """Retrieve a Observation by id (supports ?expand=)."""
-    rows = _query("Observation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'indicatorId': 'Indicator'})
-    return rec, 200
-
-@app.route("/v1/observations/<eid>", methods=["POST", "PATCH"])
-def update_observation(request, eid):
-    """Update a Observation."""
-    rows = _query("Observation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['indicatorId', 'country', 'period', 'value'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Observation", rec)
-    return rec, 200
-
-@app.route("/v1/observations/<eid>", methods=["DELETE"])
-def delete_observation(request, eid):
-    """Delete a Observation."""
-    rows = _query("Observation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bis.Observation", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/countries", methods=["POST"])
-def create_country(request):
-    """Create a Country."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['iso3', 'name', 'region'])
-    if err:
-        return err, 400
-    err = _require(data, ['iso3', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bis_cou")}
-    rec["iso3"] = data.get('iso3')
+    rec = {"id": new_id("bis_dat")}
+    rec["agencyID"] = data.get('agencyID')
+    rec["version"] = data.get('version')
     rec["name"] = data.get('name')
-    rec["region"] = data.get('region')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Country", rec)
+    _persist("Dataflow", rec)
     return rec, 201
 
-@app.route("/v1/countries", methods=["GET"])
-def list_countries(request):
-    """List Countries with filtering + cursor pagination."""
+@app.route("/v1/dataflows", methods=["GET"])
+def list_dataflows(request):
+    """List Dataflows with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Country")
-    rows = _apply_filters(rows, params, ['iso3', 'name', 'region'])
+    rows = _query("Dataflow")
+    rows = _apply_filters(rows, params, ['agencyID', 'version', 'name'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/countries/<eid>", methods=["GET"])
-def get_country(request, eid):
-    """Retrieve a Country by id (supports ?expand=)."""
-    rows = _query("Country", eid)
+@app.route("/v1/dataflows/<eid>", methods=["GET"])
+def get_dataflow(request, eid):
+    """Retrieve a Dataflow by id (supports ?expand=)."""
+    rows = _query("Dataflow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/countries/<eid>", methods=["POST", "PATCH"])
-def update_country(request, eid):
-    """Update a Country."""
-    rows = _query("Country", eid)
+@app.route("/v1/dataflows/<eid>", methods=["POST", "PATCH"])
+def update_dataflow(request, eid):
+    """Update a Dataflow."""
+    rows = _query("Dataflow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['iso3', 'name', 'region'])
+    err = _reject_unknown(data, ['agencyID', 'version', 'name'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,32 +239,32 @@ def update_country(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Country", rec)
+    _persist("Dataflow", rec)
     return rec, 200
 
-@app.route("/v1/countries/<eid>", methods=["DELETE"])
-def delete_country(request, eid):
-    """Delete a Country."""
-    rows = _query("Country", eid)
+@app.route("/v1/dataflows/<eid>", methods=["DELETE"])
+def delete_dataflow(request, eid):
+    """Delete a Dataflow."""
+    rows = _query("Dataflow", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bis.Country", "id": eid})
+    db.retract({"entity": f"bis.Dataflow", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/v1/serieses", methods=["POST"])
 def create_series(request):
     """Create a Series."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['indicatorId', 'frequency', 'startPeriod'])
+    err = _reject_unknown(data, ['seriesKey', 'frequency', 'lastUpdated'])
     if err:
         return err, 400
-    err = _require(data, ['frequency', 'startPeriod'])
+    err = _require(data, ['seriesKey', 'frequency'])
     if err:
         return err, 400
     rec = {"id": new_id("bis_ser")}
-    rec["indicatorId"] = data.get('indicatorId')
+    rec["seriesKey"] = data.get('seriesKey')
     rec["frequency"] = data.get('frequency')
-    rec["startPeriod"] = data.get('startPeriod')
+    rec["lastUpdated"] = data.get('lastUpdated')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Series", rec)
@@ -333,7 +275,7 @@ def list_serieses(request):
     """List Serieses with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Series")
-    rows = _apply_filters(rows, params, ['indicatorId', 'frequency', 'startPeriod'])
+    rows = _apply_filters(rows, params, ['seriesKey', 'frequency', 'lastUpdated'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -345,7 +287,6 @@ def get_series(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'indicatorId': 'Indicator'})
     return rec, 200
 
 @app.route("/v1/serieses/<eid>", methods=["POST", "PATCH"])
@@ -355,7 +296,7 @@ def update_series(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['indicatorId', 'frequency', 'startPeriod'])
+    err = _reject_unknown(data, ['seriesKey', 'frequency', 'lastUpdated'])
     if err:
         return err, 400
     rec = rows[0]
@@ -375,141 +316,10 @@ def delete_series(request, eid):
     db.retract({"entity": f"bis.Series", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/reports", methods=["POST"])
-def create_report(request):
-    """Create a Report."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'publishedAt', 'contentRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['title', 'publishedAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bis_rep")}
-    rec["title"] = data.get('title')
-    rec["publishedAt"] = data.get('publishedAt')
-    rec["contentRef"] = data.get('contentRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Report", rec)
-    return rec, 201
-
-@app.route("/v1/reports", methods=["GET"])
-def list_reports(request):
-    """List Reports with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Report")
-    rows = _apply_filters(rows, params, ['title', 'publishedAt', 'contentRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/reports/<eid>", methods=["GET"])
-def get_report(request, eid):
-    """Retrieve a Report by id (supports ?expand=)."""
-    rows = _query("Report", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/reports/<eid>", methods=["POST", "PATCH"])
-def update_report(request, eid):
-    """Update a Report."""
-    rows = _query("Report", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['title', 'publishedAt', 'contentRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Report", rec)
-    return rec, 200
-
-@app.route("/v1/reports/<eid>", methods=["DELETE"])
-def delete_report(request, eid):
-    """Delete a Report."""
-    rows = _query("Report", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bis.Report", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/exchangerates", methods=["POST"])
-def create_exchange_rate(request):
-    """Create a ExchangeRate."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['base', 'quote', 'rate', 'asOf'])
-    if err:
-        return err, 400
-    err = _require(data, ['base', 'quote'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("bis_exc")}
-    rec["base"] = data.get('base')
-    rec["quote"] = data.get('quote')
-    rec["rate"] = _as_float(data.get('rate'))
-    rec["asOf"] = data.get('asOf')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("ExchangeRate", rec)
-    return rec, 201
-
-@app.route("/v1/exchangerates", methods=["GET"])
-def list_exchange_rates(request):
-    """List ExchangeRates with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("ExchangeRate")
-    rows = _apply_filters(rows, params, ['base', 'quote', 'rate', 'asOf'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/exchangerates/<eid>", methods=["GET"])
-def get_exchange_rate(request, eid):
-    """Retrieve a ExchangeRate by id (supports ?expand=)."""
-    rows = _query("ExchangeRate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/exchangerates/<eid>", methods=["POST", "PATCH"])
-def update_exchange_rate(request, eid):
-    """Update a ExchangeRate."""
-    rows = _query("ExchangeRate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['base', 'quote', 'rate', 'asOf'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("ExchangeRate", rec)
-    return rec, 200
-
-@app.route("/v1/exchangerates/<eid>", methods=["DELETE"])
-def delete_exchange_rate(request, eid):
-    """Delete a ExchangeRate."""
-    rows = _query("ExchangeRate", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"bis.ExchangeRate", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "bis-compat", "tier": "L4",
-            "entities": ['Indicator', 'Observation', 'Country', 'Series', 'Report', 'ExchangeRate']}, 200
+            "entities": ['DataQuery', 'Dataflow', 'Series']}, 200
 
 
 if __name__ == "__main__":

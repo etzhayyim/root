@@ -111,286 +111,28 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['holderId', 'iban', 'currency', 'balance'])
-    if err:
-        return err, 400
-    err = _require(data, ['iban', 'currency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("fdic_acc")}
-    rec["holderId"] = data.get('holderId')
-    rec["iban"] = data.get('iban')
-    rec["currency"] = data.get('currency')
-    rec["balance"] = _as_float(data.get('balance'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
-    return rec, 201
-
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['holderId', 'iban', 'currency', 'balance'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['holderId', 'iban', 'currency', 'balance'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Account", rec)
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fdic.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/consents", methods=["POST"])
-def create_consent(request):
-    """Create a Consent."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'scope', 'status', 'expiresAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['scope', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("fdic_con")}
-    rec["accountId"] = data.get('accountId')
-    rec["scope"] = data.get('scope')
-    rec["status"] = data.get('status')
-    rec["expiresAt"] = data.get('expiresAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Consent", rec)
-    return rec, 201
-
-@app.route("/v1/consents", methods=["GET"])
-def list_consents(request):
-    """List Consents with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Consent")
-    rows = _apply_filters(rows, params, ['accountId', 'scope', 'status', 'expiresAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/consents/<eid>", methods=["GET"])
-def get_consent(request, eid):
-    """Retrieve a Consent by id (supports ?expand=)."""
-    rows = _query("Consent", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/consents/<eid>", methods=["POST", "PATCH"])
-def update_consent(request, eid):
-    """Update a Consent."""
-    rows = _query("Consent", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'scope', 'status', 'expiresAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Consent", rec)
-    return rec, 200
-
-@app.route("/v1/consents/<eid>", methods=["DELETE"])
-def delete_consent(request, eid):
-    """Delete a Consent."""
-    rows = _query("Consent", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fdic.Consent", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/transactions", methods=["POST"])
-def create_transaction(request):
-    """Create a Transaction."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'amount', 'currency', 'bookedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['amount', 'currency'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("fdic_tra")}
-    rec["accountId"] = data.get('accountId')
-    rec["amount"] = _as_float(data.get('amount'))
-    rec["currency"] = data.get('currency')
-    rec["bookedAt"] = data.get('bookedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Transaction", rec)
-    return rec, 201
-
-@app.route("/v1/transactions", methods=["GET"])
-def list_transactions(request):
-    """List Transactions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Transaction")
-    rows = _apply_filters(rows, params, ['accountId', 'amount', 'currency', 'bookedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/transactions/<eid>", methods=["GET"])
-def get_transaction(request, eid):
-    """Retrieve a Transaction by id (supports ?expand=)."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
-def update_transaction(request, eid):
-    """Update a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'amount', 'currency', 'bookedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Transaction", rec)
-    return rec, 200
-
-@app.route("/v1/transactions/<eid>", methods=["DELETE"])
-def delete_transaction(request, eid):
-    """Delete a Transaction."""
-    rows = _query("Transaction", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fdic.Transaction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/paymentinitiations", methods=["POST"])
-def create_payment_initiation(request):
-    """Create a PaymentInitiation."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['debtorAccount', 'creditorAccount', 'amount', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['debtorAccount', 'creditorAccount'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("fdic_pay")}
-    rec["debtorAccount"] = data.get('debtorAccount')
-    rec["creditorAccount"] = data.get('creditorAccount')
-    rec["amount"] = _as_float(data.get('amount'))
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("PaymentInitiation", rec)
-    return rec, 201
-
-@app.route("/v1/paymentinitiations", methods=["GET"])
-def list_payment_initiations(request):
-    """List PaymentInitiations with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("PaymentInitiation")
-    rows = _apply_filters(rows, params, ['debtorAccount', 'creditorAccount', 'amount', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/paymentinitiations/<eid>", methods=["GET"])
-def get_payment_initiation(request, eid):
-    """Retrieve a PaymentInitiation by id (supports ?expand=)."""
-    rows = _query("PaymentInitiation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/paymentinitiations/<eid>", methods=["POST", "PATCH"])
-def update_payment_initiation(request, eid):
-    """Update a PaymentInitiation."""
-    rows = _query("PaymentInitiation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['debtorAccount', 'creditorAccount', 'amount', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("PaymentInitiation", rec)
-    return rec, 200
-
-@app.route("/v1/paymentinitiations/<eid>", methods=["DELETE"])
-def delete_payment_initiation(request, eid):
-    """Delete a PaymentInitiation."""
-    rows = _query("PaymentInitiation", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fdic.PaymentInitiation", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
 @app.route("/v1/institutions", methods=["POST"])
 def create_institution(request):
     """Create a Institution."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'bic', 'country'])
+    err = _reject_unknown(data, ['name', 'cert', 'city', 'stname', 'zip', 'bkclass', 'active', 'charter', 'insdate', 'effdate', 'webaddr'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'bic'])
+    err = _require(data, ['name', 'cert'])
     if err:
         return err, 400
     rec = {"id": new_id("fdic_ins")}
     rec["name"] = data.get('name')
-    rec["bic"] = data.get('bic')
-    rec["country"] = data.get('country')
+    rec["cert"] = _as_int(data.get('cert'))
+    rec["city"] = data.get('city')
+    rec["stname"] = data.get('stname')
+    rec["zip"] = data.get('zip')
+    rec["bkclass"] = data.get('bkclass')
+    rec["active"] = _as_bool(data.get('active'))
+    rec["charter"] = data.get('charter')
+    rec["insdate"] = data.get('insdate')
+    rec["effdate"] = data.get('effdate')
+    rec["webaddr"] = data.get('webaddr')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
     _persist("Institution", rec)
@@ -401,7 +143,7 @@ def list_institutions(request):
     """List Institutions with filtering + cursor pagination."""
     params = request.query or {}
     rows = _query("Institution")
-    rows = _apply_filters(rows, params, ['name', 'bic', 'country'])
+    rows = _apply_filters(rows, params, ['name', 'cert', 'city', 'stname', 'zip', 'bkclass', 'active', 'charter', 'insdate', 'effdate', 'webaddr'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
@@ -422,7 +164,7 @@ def update_institution(request, eid):
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'bic', 'country'])
+    err = _reject_unknown(data, ['name', 'cert', 'city', 'stname', 'zip', 'bkclass', 'active', 'charter', 'insdate', 'effdate', 'webaddr'])
     if err:
         return err, 400
     rec = rows[0]
@@ -442,54 +184,59 @@ def delete_institution(request, eid):
     db.retract({"entity": f"fdic.Institution", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/filings", methods=["POST"])
-def create_filing(request):
-    """Create a Filing."""
+@app.route("/v1/failures", methods=["POST"])
+def create_failure(request):
+    """Create a Failure."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['institutionId', 'regime', 'period', 'status'])
+    err = _reject_unknown(data, ['name', 'cert', 'city', 'faildate', 'failyr', 'restype', 'cost', 'qbfdep', 'qbfasset', 'savr'])
     if err:
         return err, 400
-    err = _require(data, ['regime', 'period'])
+    err = _require(data, ['name', 'cert'])
     if err:
         return err, 400
-    rec = {"id": new_id("fdic_fil")}
-    rec["institutionId"] = data.get('institutionId')
-    rec["regime"] = data.get('regime')
-    rec["period"] = data.get('period')
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("fdic_fai")}
+    rec["name"] = data.get('name')
+    rec["cert"] = _as_int(data.get('cert'))
+    rec["city"] = data.get('city')
+    rec["faildate"] = data.get('faildate')
+    rec["failyr"] = _as_int(data.get('failyr'))
+    rec["restype"] = data.get('restype')
+    rec["cost"] = _as_float(data.get('cost'))
+    rec["qbfdep"] = _as_float(data.get('qbfdep'))
+    rec["qbfasset"] = _as_float(data.get('qbfasset'))
+    rec["savr"] = data.get('savr')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Filing", rec)
+    _persist("Failure", rec)
     return rec, 201
 
-@app.route("/v1/filings", methods=["GET"])
-def list_filings(request):
-    """List Filings with filtering + cursor pagination."""
+@app.route("/v1/failures", methods=["GET"])
+def list_failures(request):
+    """List Failures with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Filing")
-    rows = _apply_filters(rows, params, ['institutionId', 'regime', 'period', 'status'])
+    rows = _query("Failure")
+    rows = _apply_filters(rows, params, ['name', 'cert', 'city', 'faildate', 'failyr', 'restype', 'cost', 'qbfdep', 'qbfasset', 'savr'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/filings/<eid>", methods=["GET"])
-def get_filing(request, eid):
-    """Retrieve a Filing by id (supports ?expand=)."""
-    rows = _query("Filing", eid)
+@app.route("/v1/failures/<eid>", methods=["GET"])
+def get_failure(request, eid):
+    """Retrieve a Failure by id (supports ?expand=)."""
+    rows = _query("Failure", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'institutionId': 'Institution'})
     return rec, 200
 
-@app.route("/v1/filings/<eid>", methods=["POST", "PATCH"])
-def update_filing(request, eid):
-    """Update a Filing."""
-    rows = _query("Filing", eid)
+@app.route("/v1/failures/<eid>", methods=["POST", "PATCH"])
+def update_failure(request, eid):
+    """Update a Failure."""
+    rows = _query("Failure", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['institutionId', 'regime', 'period', 'status'])
+    err = _reject_unknown(data, ['name', 'cert', 'city', 'faildate', 'failyr', 'restype', 'cost', 'qbfdep', 'qbfasset', 'savr'])
     if err:
         return err, 400
     rec = rows[0]
@@ -497,22 +244,22 @@ def update_filing(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Filing", rec)
+    _persist("Failure", rec)
     return rec, 200
 
-@app.route("/v1/filings/<eid>", methods=["DELETE"])
-def delete_filing(request, eid):
-    """Delete a Filing."""
-    rows = _query("Filing", eid)
+@app.route("/v1/failures/<eid>", methods=["DELETE"])
+def delete_failure(request, eid):
+    """Delete a Failure."""
+    rows = _query("Failure", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"fdic.Filing", "id": eid})
+    db.retract({"entity": f"fdic.Failure", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "fdic-compat", "tier": "L4",
-            "entities": ['Account', 'Consent', 'Transaction', 'PaymentInitiation', 'Institution', 'Filing']}, 200
+            "entities": ['Institution', 'Failure']}, 200
 
 
 if __name__ == "__main__":

@@ -2812,8 +2812,17 @@ PLATFORM_OVERRIDES["epsg_registry"] = {
 # (the family anchor, already L5). Conformance evidence: eurostat serves at
 # .../api/dissemination/sdmx/2.1/ and IMF's api.imf.org/external/sdmx/2.1/
 # returns SDMX-ML with the official v2_1 namespace (harness-fetched).
-for _sdmx_agency in ("eurostat", "imf"):
+for _sdmx_agency in ("eurostat", "imf", "bis"):
     PLATFORM_OVERRIDES[_sdmx_agency] = PLATFORM_OVERRIDES["ecb"]
+
+# Faithful FDIC BankFind Suite model (the official banks.data.fdic.gov API;
+# field surfaces from live entities per the real-object rule — 27,835
+# institutions live). BKCLASS/RESTYPE values observed-not-declared (the
+# property YAMLs are SPA-walled) -> fields-verified, enums gapped.
+PLATFORM_OVERRIDES["fdic"] = {
+    "Institution": E(name="string", cert="integer", city="string", stname="string", zip="string", bkclass="string", active="boolean", charter="string", insdate="datetime", effdate="datetime", webaddr="string"),
+    "Failure": E(name="string", cert="integer", city="string", faildate="datetime", failyr="integer", restype="string", cost="float", qbfdep="float", qbfasset="float", savr="string"),
+}
 
 # GBFS conformance-leverage family (MAVLink/FHIR-family pattern): operators that
 # OFFICIALLY serve public GBFS feeds from their own domains (per the official

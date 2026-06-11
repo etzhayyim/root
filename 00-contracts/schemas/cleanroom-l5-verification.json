@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 208,
+  "count": 210,
   "actors": [
     {
       "handle": "aave-compat",
@@ -4141,6 +4141,68 @@
       ],
       "notApplicable": [],
       "note": "CONFORMANCE-LEVERAGED (6/6) onto the gbfs-compat verified model. Evidence: 124 operator-domain feeds in the official registry + live 2.3 feed measured. Enforced enums: VehicleType formFactor(7)/propulsionType(8)/returnConstraint(4) + Station.parkingType(5) = 4 enum fields."
+    },
+    {
+      "handle": "bis-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec) + https://stats.bis.org/api/v1/dataflow/BIS/all/latest (live SDMX-ML 2.1 Structure message, official v2_1 namespace)",
+      "remodeled": "SDMX 2.1 REST conformance leverage (4th family member after ecb/eurostat/imf): stats.bis.org/api/v1 returns live SDMX-ML 2.1 Structure messages carrying the official v2_1 schema namespace (harness-fetched; even its error messages are namespaced SDMX). Joins the spec-verified DataQuery model with detail {full, dataonly, serieskeysonly, nodata} per the official sdmx-twg v1.5.0 spec.",
+      "resources": [
+        {
+          "entity": "DataQuery",
+          "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec)",
+          "verifiedFields": [
+            "flowRef",
+            "key",
+            "startPeriod",
+            "endPeriod",
+            "updatedAfter",
+            "firstNObservations",
+            "lastNObservations",
+            "detail",
+            "includeHistory"
+          ],
+          "fieldStatus": "confirmed (SDMX 2.1 REST data-query parameters)",
+          "discoveredEnums": {
+            "detail": [
+              "full",
+              "dataonly",
+              "serieskeysonly",
+              "nodata"
+            ]
+          },
+          "gaps": []
+        },
+        {
+          "entity": "Dataflow",
+          "source": "https://stats.bis.org/api/v1/dataflow/BIS/all/latest (live SDMX-ML 2.1 Structure message, official v2_1 namespace)",
+          "verifiedFields": [
+            "agencyID",
+            "version",
+            "name"
+          ],
+          "fieldStatus": "confirmed (live BIS structure message)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "Series",
+          "source": "https://raw.githubusercontent.com/sdmx-twg/sdmx-rest/v1.5.0/v2_1/ws/rest/docs/4_4_data_queries.md (official SDMX 2.1 REST spec)",
+          "verifiedFields": [
+            "seriesKey",
+            "frequency",
+            "lastUpdated"
+          ],
+          "fieldStatus": "confirmed",
+          "discoveredEnums": {},
+          "gaps": [
+            "frequency-codelist-CL_FREQ-externally-versioned"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-LEVERAGED (3/3) onto the SDMX 2.1 spec-verified model (family: ecb/eurostat/imf/bis). Enforced enums: detail(4) = 1 enum field."
     },
     {
       "handle": "bitbucket-compat",
@@ -10003,6 +10065,61 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (4/4) vs the FDA's own field-spec YAMLs (possible_values one_of). Enforced enums: serious(2)+reporttype(4)+fulfillexpeditecriteria(2)+status(4)+classification(3)+productType(3)+eventType(7)+adverseEventFlag(2) = 8 enum fields — the largest regulatory-anchored haul in the corpus."
+    },
+    {
+      "handle": "fdic-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://banks.data.fdic.gov/api (official FDIC BankFind Suite API; live entities)",
+      "remodeled": "Remodeled to the faithful FDIC BankFind Suite surface verified against the OFFICIAL live API (banks.data.fdic.gov; 27,835 institutions served at verification time) per the real-object rule. Institution and Failure field surfaces machine-read from live entities (call-report mnemonics NAME/CERT/BKCLASS/... kept verbatim, lowercased per corpus camel convention). BKCLASS / RESTYPE / SAVR value sets observed in live data but NOT declared (the per-entity property YAMLs are behind an SPA router) -> enums gapped per the censusgov observed-is-not-declared discipline; a fields-verified L5.",
+      "resources": [
+        {
+          "entity": "Institution",
+          "source": "https://banks.data.fdic.gov/api (official FDIC BankFind Suite API; live entities)/institutions",
+          "verifiedFields": [
+            "name",
+            "cert",
+            "city",
+            "stname",
+            "zip",
+            "bkclass",
+            "active",
+            "charter",
+            "insdate",
+            "effdate",
+            "webaddr"
+          ],
+          "fieldStatus": "confirmed (live entity, real-object rule)",
+          "discoveredEnums": {},
+          "gaps": [
+            "bkclass-observed-not-declared (SPA-walled property YAML)"
+          ]
+        },
+        {
+          "entity": "Failure",
+          "source": "https://banks.data.fdic.gov/api (official FDIC BankFind Suite API; live entities)/failures",
+          "verifiedFields": [
+            "name",
+            "cert",
+            "city",
+            "faildate",
+            "failyr",
+            "restype",
+            "cost",
+            "qbfdep",
+            "qbfasset",
+            "savr"
+          ],
+          "fieldStatus": "confirmed (live entity)",
+          "discoveredEnums": {},
+          "gaps": [
+            "restype-observed-not-declared",
+            "savr-observed-not-declared"
+          ]
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (2/2) vs the official FDIC BankFind Suite live API. Zero enums (observed-not-declared discipline) — the third fields-verified L5."
     },
     {
       "handle": "figma-compat",

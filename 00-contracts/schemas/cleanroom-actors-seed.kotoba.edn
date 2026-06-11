@@ -1377,11 +1377,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible intl org / central bank data actor (bis); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "bis.kotoba"
-   :actor/wasm-cid "bafkreigczgtb4b7htcjsuaypcnnqj7ktigv2jqtkhl6jtwxhc3ilys4q54"
+   :actor/wasm-cid "bafkreibyrofdydcgwqtjj4ugtjbqfyqwnvm4hpu2tyam5swat5z7rxayzu"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:bis-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreigczgtb4b7htcjsuaypcnnqj7ktigv2jqtkhl6jtwxhc3ilys4q54" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bis-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreigczgtb4b7htcjsuaypcnnqj7ktigv2jqtkhl6jtwxhc3ilys4q54" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bis-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreigczgtb4b7htcjsuaypcnnqj7ktigv2jqtkhl6jtwxhc3ilys4q54" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bis-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreigczgtb4b7htcjsuaypcnnqj7ktigv2jqtkhl6jtwxhc3ilys4q54" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:bis-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreibyrofdydcgwqtjj4ugtjbqfyqwnvm4hpu2tyam5swat5z7rxayzu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bis-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreibyrofdydcgwqtjj4ugtjbqfyqwnvm4hpu2tyam5swat5z7rxayzu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:bis-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreibyrofdydcgwqtjj4ugtjbqfyqwnvm4hpu2tyam5swat5z7rxayzu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:bis-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreibyrofdydcgwqtjj4ugtjbqfyqwnvm4hpu2tyam5swat5z7rxayzu" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "bitbucket-compat"
    :actor/did "did:web:etzhayyim.com:actor:bitbucket-compat"
    :actor/kind :compat
@@ -4263,11 +4263,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible open banking / financial regulation actor (fdic); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "fdic.kotoba"
-   :actor/wasm-cid "bafkreif7nu4b3yeaxfy2rn74e4qbx7xyeahjm2lhsl4bo57n37zea26b2q"
+   :actor/wasm-cid "bafkreif62o3vumpujkb76gee2mtngt6jivwiauwtmakmvnwpvmdab5deou"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:fdic-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreif7nu4b3yeaxfy2rn74e4qbx7xyeahjm2lhsl4bo57n37zea26b2q" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:fdic-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreif7nu4b3yeaxfy2rn74e4qbx7xyeahjm2lhsl4bo57n37zea26b2q" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:fdic-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreif7nu4b3yeaxfy2rn74e4qbx7xyeahjm2lhsl4bo57n37zea26b2q" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:fdic-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreif7nu4b3yeaxfy2rn74e4qbx7xyeahjm2lhsl4bo57n37zea26b2q" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:fdic-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreif62o3vumpujkb76gee2mtngt6jivwiauwtmakmvnwpvmdab5deou" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:fdic-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreif62o3vumpujkb76gee2mtngt6jivwiauwtmakmvnwpvmdab5deou" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:fdic-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreif62o3vumpujkb76gee2mtngt6jivwiauwtmakmvnwpvmdab5deou" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:fdic-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreif62o3vumpujkb76gee2mtngt6jivwiauwtmakmvnwpvmdab5deou" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "fednow-compat"
    :actor/did "did:web:etzhayyim.com:actor:fednow-compat"
    :actor/kind :compat

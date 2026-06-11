@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "fdic.kotoba")
-ENTITIES = ['Account', 'Consent', 'Transaction', 'PaymentInitiation', 'Institution', 'Filing']
-PLURALS = {'Account': 'accounts', 'Consent': 'consents', 'Transaction': 'transactions', 'PaymentInitiation': 'paymentinitiations', 'Institution': 'institutions', 'Filing': 'filings'}
+ENTITIES = ['Institution', 'Failure']
+PLURALS = {'Institution': 'institutions', 'Failure': 'failures'}
 
 
 class FdicContract(unittest.TestCase):
