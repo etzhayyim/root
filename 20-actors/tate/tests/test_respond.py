@@ -120,7 +120,75 @@ def test_plans_cover_all_notices():
     _, notices = load_docs()
     ps = plans(notices, load_procs())
     assert len(ps) == len(notices)
-    assert {p["status"] for p in ps} <= {":genuine", ":suspected-fake", ":unknown"}
+    assert {p["status"] for p in ps} <= {":genuine", ":suspected-fake", ":unknown",
+                                         ":unknown-jurisdiction"}
+
+
+# ── worldwide (ADR-2606112400) ───────────────────────────────────────────────
+
+def test_us_summons_genuine_and_referral_forward():
+    ps, _ = _by_id()
+    p = ps["ntc:us-summons-real"]
+    assert p["status"] == ":genuine" and p["proc"] == "proc:us-summons"
+    assert any("FRCP 12(a)" in d["anchor"] for d in p["deadlines"])
+    # civil suit referral-forward always (G7), with the US directory
+    assert any("state bar" in r for r in p["referrals"])
+
+
+def test_us_fake_email_guard():
+    """G6 generalizes: 'summons' vocabulary over email → suspected-fake, US help lines."""
+    ps, _ = _by_id()
+    p = ps["ntc:us-fake-email"]
+    assert p["status"] == ":suspected-fake"
+    assert p["steps"][0]["verb"] == "do-not-contact-sender"
+    assert p["deadlines"] == [] and p["options"] == []
+    assert any("FTC" in r for r in p["referrals"])
+
+
+def test_de_mahnbescheid():
+    ps, _ = _by_id()
+    p = ps["ntc:de-mahn"]
+    assert p["status"] == ":genuine" and p["proc"] == "proc:de-mahnbescheid"
+    assert any("ZPO" in d["anchor"] for d in p["deadlines"])
+    assert any(o["id"] == ":widerspruch" for o in p["options"])
+
+
+def test_eu_order_for_payment():
+    ps, _ = _by_id()
+    p = ps["ntc:eu-ofp"]
+    assert p["status"] == ":genuine" and p["proc"] == "proc:eu-order-for-payment"
+    dl = p["deadlines"][0]
+    assert "30日" in dl["rule"] and "1896/2006" in dl["anchor"]
+
+
+def test_uk_claim_referral_over_line():
+    """£12,500 > the :uk refer-over line (£10,000) → UK directory appended (G7)."""
+    ps, _ = _by_id()
+    p = ps["ntc:uk-claim"]
+    assert p["status"] == ":genuine" and p["proc"] == "proc:uk-claim-form"
+    assert any("CPR" in d["anchor"] for d in p["deadlines"])
+    assert any("Citizens Advice" in r for r in p["referrals"])
+
+
+def test_unknown_jurisdiction_degrades_honestly():
+    """G10: an uncovered jurisdiction (:br) gets NO deadlines/options — tate never
+    guesses foreign law; it declares the gap and refers."""
+    ps, _ = _by_id()
+    p = ps["ntc:br-unknown"]
+    assert p["status"] == ":unknown-jurisdiction"
+    assert p["deadlines"] == [] and p["options"] == []
+    assert p["steps"][0]["verb"] == "declare-uncovered"
+    assert p["referrals"], "must still refer to local professionals"
+
+
+def test_procedures_never_cross_jurisdictions():
+    """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
+    _, procs = _by_id()
+    n = {":notice/id": "ntc:x", ":notice/jurisdiction": ":us",
+         ":notice/channel": ":special-service", ":notice/text": "支払督促を発する。",
+         ":notice/sourcing": ":synthetic"}
+    proc, status = classify(n, procs)
+    assert proc is None and status in (":unknown", ":suspected-fake")
 
 
 if __name__ == "__main__":

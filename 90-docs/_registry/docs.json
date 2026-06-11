@@ -24108,6 +24108,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606112400-tate-worldwide-jurisdiction-expansion-r1.md",
+      "id": "adr-2606112400-tate-worldwide-jurisdiction-expansion-r1",
+      "title": "ADR-2606112400: tate 盾 R1 — worldwide jurisdiction expansion (日本以外にも対応)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tate-worldwide-jurisdictions",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-jurisdiction-registry"
+      ],
+      "related": [
+        "adr-2606112200",
+        "adr-2606021600",
+        "adr-2606072000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606112300"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

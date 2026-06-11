@@ -1,0 +1,47 @@
+;; tate 盾 — jurisdiction registry (ADR-2606112400). :representative — a bounded, honest
+;; subset of the world's legal systems (5 of ~193 UN member states / blocs; coverage_report.py
+;; measures the gap, G10). Each entry carries the DISCLOSED unauthorized-practice anchor
+;; (the G3 representation-unrepresentable gate is GLOBAL and structural; the anchor is the
+;; per-jurisdiction citation), the genuine-service note (架空請求/fake-notice discrimination),
+;; referral + fake-help directories, and a representative refer-over line (small-claims-scale
+;; ceiling — :verify-current-law everywhere; amounts vary by state/Land/track).
+
+[{:juris/id :jp :juris/label "日本"
+  :juris/upl-anchor "弁護士法72条"
+  :juris/service-note "裁判所の書類は特別送達 (郵便職員手渡し・受領印)"
+  :juris/referrals ["法テラス 0570-078374" "地元弁護士会の法律相談" "認定司法書士 (簡裁・140万円以下)"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "警察相談専用電話 #9110" "消費者ホットライン 188"]
+  :juris/refer-over-amount 600000 :juris/refer-over-currency "JPY"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :us :juris/label "United States"
+  :juris/upl-anchor "州 UPL (unauthorized practice of law) statutes — 代理は州ライセンス弁護士のみ"
+  :juris/service-note "service of process: personal service / certified mail / sheriff — 州規則による"
+  :juris/referrals ["state bar lawyer-referral service" "Legal aid (lsc.gov)" "state AG consumer protection"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "FTC reportfraud.ftc.gov" "state AG consumer line"]
+  :juris/refer-over-amount 10000 :juris/refer-over-currency "USD"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :eu :juris/label "EU (cross-border instruments)"
+  :juris/upl-anchor "加盟国の法律業務独占規制 (member-state reserved-activity rules)"
+  :juris/service-note "European order for payment / Small Claims は加盟国法の formal service による"
+  :juris/referrals ["ECC-Net (European Consumer Centres, 越境消費者)" "national bar association"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "local police" "ECC-Net"]
+  :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :uk :juris/label "United Kingdom (England & Wales)"
+  :juris/upl-anchor "Legal Services Act 2007 (reserved legal activities)"
+  :juris/service-note "claim form / court documents は裁判所から郵送 (court post) — CPR Part 6"
+  :juris/referrals ["Citizens Advice" "Law Society find-a-solicitor"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Action Fraud 0300 123 2040" "Citizens Advice"]
+  :juris/refer-over-amount 10000 :juris/refer-over-currency "GBP"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :de :juris/label "Deutschland"
+  :juris/upl-anchor "Rechtsdienstleistungsgesetz (RDG)"
+  :juris/service-note "Mahnbescheid/Klage は förmliche Zustellung (gelber Umschlag, ZPO §166 ff.)"
+  :juris/referrals ["Verbraucherzentrale" "örtliche Rechtsanwaltskammer"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "Polizei Onlinewache" "Verbraucherzentrale"]
+  :juris/refer-over-amount 5000 :juris/refer-over-currency "EUR"
+  :juris/sourcing :representative :juris/verify-current-law true}]

@@ -1,9 +1,14 @@
-# tate 盾 — citizen legal-defense concierge
+# tate 盾 — citizen legal-defense concierge (worldwide)
 
-**DID**: `did:web:etzhayyim.com:actor:tate` · **Tier**: B · **Status**: 🟡 R0 ·
-**ADR**: 2606112300 · **depends**: 2606112200 (kaiyaku) · 2605312500 (kurashimori) ·
-2605262700 (chigiri UPL prior art) · 2606060900 (tasuke) · 2605231525 (no-server-key) ·
-2605215000 (Murakumo-only) · 2605312345 (Datom = canonical state)
+**DID**: `did:web:etzhayyim.com:actor:tate` · **Tier**: B · **Status**: 🟡 R0+R1 ·
+**ADR**: 2606112300 (R0 JP) + **2606112400 (R1 worldwide)** · **depends**: 2606112200
+(kaiyaku) · 2605312500 (kurashimori) · 2605262700 (chigiri UPL prior art) · 2606060900
+(tasuke) · 2605231525 (no-server-key) · 2605215000 (Murakumo-only) · 2605312345
+(Datom = canonical state)
+
+**Jurisdictions (R1)**: `:jp :us :eu :uk :de` — representative 5 of ~193
+(`coverage_report.py` measures + names the gap, G10). Uncovered jurisdictions degrade
+to `:unknown-jurisdiction` — tate **never guesses foreign law**.
 
 ## What this is
 
@@ -46,8 +51,18 @@ vocabulary on SMS / email / 普通郵便 → `:suspected-fake`: the plan's first
   when they were actually served.
 - **G5 context honesty.** Consumer anchors never fire on `:b2b` docs (disjoint by
   construction in `scan_doc`); B2B routes referral-forward instead.
-- **G7 referral-forward.** 本訴 / claim >¥600,000 (少額訴訟 ceiling, 民訴368条) /
-  執行段階 / 重大処分 always carry 法テラス 0570-078374 / 弁護士会 / 認定司法書士.
+- **G7 referral-forward.** 本訴 / claim > the jurisdiction's refer-over line
+  (¥600,000 · $10,000 · £10,000 · €5,000 — representative) / 執行段階 / 重大処分
+  always carry the jurisdiction's directory: 法テラス · state bar + legal aid ·
+  Citizens Advice · Verbraucherzentrale · ECC-Net.
+- **G10 jurisdiction-honesty (R1).** Anchors and procedures **never cross
+  jurisdictions** (structural filters in `scan_doc` / `classify` — a 消費者契約法
+  anchor cannot fire on a US doc; JP 支払督促 vocabulary under a `:us` notice does not
+  match the JP procedure). Per-jurisdiction UPL anchors (弁護士法72条 / state UPL /
+  Legal Services Act 2007 / RDG) live in `data/jurisdictions.edn`; the G3 gate itself
+  is global and structural. The G6 guard generalizes via `:proc/genuine-channels`
+  (特別送達 · personal service / certified mail · förmliche Zustellung · court post ·
+  formal service) with multilingual court-vocab trip-wires.
 
 ## Non-goals
 
@@ -76,19 +91,23 @@ N6 刑事 out of scope → immediate 弁護士 referral.
 ├── CLAUDE.md                      # this file
 ├── manifest.edn                   # actor manifest (5 cells, 9 gates, 6 non-goals)
 ├── data/
-│   ├── clause-patterns.edn        # coded clause-pattern registry (:representative)
-│   ├── procedure-registry.edn     # coded procedure registry (disclosed rules)
-│   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices (G1)
+│   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
+│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (22 shapes, 5 juris)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (11 procs)
+│   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # pure-stdlib → kotoba pywasm-runnable
-│   ├── terms_scan.py              # 不利条項 scanner (non-adjudicating flags)
-│   ├── respond_plan.py            # response planner + 架空請求 guard
+│   ├── terms_scan.py              # 不利条項 scanner (non-adjudicating flags, G10 filter)
+│   ├── respond_plan.py            # response planner + fake-notice guard (G6/G10)
+│   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 17 tests, pure stdlib
+├── tests/                         # 30 tests, pure stdlib
 │   ├── test_terms.py
-│   └── test_respond.py
+│   ├── test_respond.py
+│   └── test_coverage.py
 └── out/                           # GENERATED — do not hand-edit
     ├── clause-readout.md
     ├── response-plans.md
+    ├── coverage-report.md
     └── tate-datoms.kotoba.edn
 ```
 
@@ -96,10 +115,12 @@ N6 刑事 out of scope → immediate 弁護士 referral.
 
 ```bash
 cd 20-actors/tate
-python3 methods/terms_scan.py      # → out/clause-readout.md
-python3 methods/respond_plan.py    # → out/response-plans.md (dry-run)
-python3 methods/datom_emit.py      # → out/tate-datoms.kotoba.edn (EAVT)
-python3 tests/test_terms.py && python3 tests/test_respond.py   # 17 green
+python3 methods/terms_scan.py        # → out/clause-readout.md
+python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
+python3 methods/coverage_report.py   # → out/coverage-report.md (5/193, named gaps)
+python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
+python3 tests/test_terms.py && python3 tests/test_respond.py \
+  && python3 tests/test_coverage.py  # 30 green
 ```
 
 ## Do not
@@ -116,3 +137,8 @@ python3 tests/test_terms.py && python3 tests/test_respond.py   # 17 green
   docs are consent-gated + encrypted (ADR-2605181100).
 - Statutory rules in the registries carry `:verify-current-law true` — when amending
   them, cite the current statute text, never memory.
+- Do not answer for an uncovered jurisdiction (no LLM-guessed foreign law — the most
+  dangerous failure mode this actor can have), and never let an anchor or procedure
+  cross jurisdictions — G10 (tests enforce: adversarial JP-keywords-on-US-doc fires
+  nothing; `:br` notice gets no deadlines/options). Adding a jurisdiction = one
+  `jurisdictions.edn` entry + patterns + procedures + tests; no code change.

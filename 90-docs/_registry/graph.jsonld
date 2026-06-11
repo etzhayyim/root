@@ -15303,6 +15303,23 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606112400-tate-worldwide-jurisdiction-expansion-r1",
+      "type": "TechArticle",
+      "title": "ADR-2606112400: tate 盾 R1 — worldwide jurisdiction expansion (日本以外にも対応)",
+      "status": "proposed",
+      "topic": "tate-worldwide-jurisdictions",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tate-jurisdiction-registry"
+      ],
+      "related": [
+        "doc:adr-2606112200",
+        "doc:adr-2606021600",
+        "doc:adr-2606072000"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

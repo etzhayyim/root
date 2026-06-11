@@ -101,6 +101,37 @@ def test_risk_ordering():
         assert ranks == sorted(ranks), d[":doc/id"]
 
 
+def test_intl_expected_shapes_hit():
+    """Worldwide (ADR-2606112400): representative intl clause shapes fire."""
+    _, res = _res()
+    hits = {(f["doc"], f["clause"]) for f in res["flags"]}
+    assert ("doc:us-saas-tos", "cl:us-arbitration-class-waiver") in hits
+    assert ("doc:us-saas-tos", "cl:us-auto-renewal-negative-option") in hits
+    assert ("doc:us-saas-tos", "cl:us-early-termination-fee") in hits
+    assert ("doc:eu-sub-tos", "cl:eu-withdrawal-exclusion") in hits
+    assert ("doc:eu-sub-tos", "cl:eu-unilateral-change") in hits
+    assert ("doc:uk-gym-terms", "cl:uk-liability-exclusion") in hits
+    assert ("doc:de-agb", "cl:de-price-increase") in hits
+    assert ("doc:de-agb", "cl:de-lump-damages") in hits
+
+
+def test_jurisdiction_isolation():
+    """G10: anchors never cross jurisdictions — JP statutes never fire on a US doc,
+    even when the keywords are present."""
+    docs, _ = load_docs()
+    patterns = load_patterns()
+    for d in docs:
+        for f in scan_doc(d, patterns):
+            p = next(p for p in patterns if p[":clause/id"] == f["clause"])
+            assert p.get(":clause/jurisdiction", ":jp") == d.get(":doc/jurisdiction", ":jp"), f
+    # adversarial: a US consumer doc containing JP keywords yields NO JP anchor
+    adv = {":doc/id": "doc:adv-us", ":doc/jurisdiction": ":us", ":doc/context": ":consumer",
+           ":doc/sourcing": ":synthetic",
+           ":doc/text": "当社は一切の責任を負いません。遅延損害金は年率19.9%。"}
+    for f in scan_doc(adv, patterns):
+        assert "消費者契約法" not in f["anchor"], f
+
+
 def test_datoms_ground_and_transient():
     text = datom_emit.emit(tx=3)
     assert ":clause/anchor" in text and ":doc/context" in text

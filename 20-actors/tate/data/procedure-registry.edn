@@ -1,17 +1,22 @@
-;; tate 盾 — coded legal-procedure registry (ADR-2606112300). :representative — the
-;; common procedures a private individual RECEIVES from courts / government / companies,
-;; with DISCLOSED response options + deadline RULES (never computed dates — the member
-;; verifies the service date themselves, G4 deadline-honesty; :verify-current-law true
-;; everywhere). tate maps notice → options; the MEMBER decides and self-submits (G1/G3
-;; UPL: no representation, no individualized legal judgment).
+;; tate 盾 — coded legal-procedure registry (ADR-2606112300 + worldwide ADR-2606112400).
+;; :representative — the common procedures a private individual RECEIVES from courts /
+;; government / companies, per jurisdiction, with DISCLOSED response options + deadline
+;; RULES (never computed dates — the member verifies the service date, G4;
+;; :verify-current-law true everywhere). tate maps notice → options; the MEMBER decides
+;; and self-submits (G1/G3 UPL: no representation, no individualized legal judgment).
 ;;
-;; :proc/genuine-channel — how the REAL document arrives. 特別送達 (court special
-;; service, postal worker hands it over with receipt) is the key 架空請求 discriminator:
-;; a "court" notice by SMS / email / ordinary mail claiming 支払督促/訴訟 is :suspected-fake.
+;; :proc/jurisdiction      :jp | :us | :eu | :uk | :de (G10 — never crossed)
+;; :proc/genuine-channels  how the REAL document arrives (vector). The 架空請求 / fake-
+;;   lawsuit-notice discriminator (G6): court vocabulary on any OTHER channel (SMS /
+;;   email / ordinary mail where formal service is required) is :suspected-fake.
+;;   JP 特別送達 · US personal service / certified mail / sheriff · DE förmliche
+;;   Zustellung (gelber Umschlag) · UK court post · EU 加盟国法の formal service.
 
-[{:proc/id "proc:shiharai-tokusoku" :proc/label "支払督促 (簡易裁判所)"
+[;; ── :jp ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:shiharai-tokusoku" :proc/label "支払督促 (簡易裁判所)"
+  :proc/jurisdiction :jp
   :proc/trigger-keywords ["支払督促" "督促異議"]
-  :proc/genuine-channel :special-service
+  :proc/genuine-channels [:special-service]
   :proc/deadline-rules
   [{:dl/label "督促異議の申立て"
     :dl/rule "支払督促の送達を受けた日から2週間以内 (経過後も仮執行宣言送達から2週間は申立て可)"
@@ -25,8 +30,9 @@
   :proc/verify-current-law true}
 
  {:proc/id "proc:shougaku-sosho" :proc/label "少額訴訟の呼出状 (60万円以下)"
+  :proc/jurisdiction :jp
   :proc/trigger-keywords ["少額訴訟" "口頭弁論期日呼出状"]
-  :proc/genuine-channel :special-service
+  :proc/genuine-channels [:special-service]
   :proc/claim-ceiling-jpy 600000
   :proc/deadline-rules
   [{:dl/label "答弁書の提出"
@@ -46,8 +52,9 @@
   :proc/verify-current-law true}
 
  {:proc/id "proc:sojou" :proc/label "訴状の送達 (通常訴訟)"
+  :proc/jurisdiction :jp
   :proc/trigger-keywords ["訴状" "第1回口頭弁論"]
-  :proc/genuine-channel :special-service
+  :proc/genuine-channels [:special-service]
   :proc/deadline-rules
   [{:dl/label "答弁書の提出"
     :dl/rule "呼出状に記載された裁判所指定の期限まで (欠席+答弁書なし → 欠席判決)"
@@ -58,8 +65,9 @@
   :proc/verify-current-law true}
 
  {:proc/id "proc:gyousei-shobun" :proc/label "行政処分の通知 (許認可取消・課税処分等)"
+  :proc/jurisdiction :jp
   :proc/trigger-keywords ["行政処分" "処分通知書" "審査請求"]
-  :proc/genuine-channel :mail
+  :proc/genuine-channels [:mail]
   :proc/deadline-rules
   [{:dl/label "審査請求"
     :dl/rule "処分があったことを知った日の翌日から起算して3月以内"
@@ -74,8 +82,9 @@
   :proc/verify-current-law true}
 
  {:proc/id "proc:naiyou-shoumei" :proc/label "内容証明郵便 (企業・個人からの請求/通告)"
+  :proc/jurisdiction :jp
   :proc/trigger-keywords ["内容証明" "催告書" "通告書"]
-  :proc/genuine-channel :mail
+  :proc/genuine-channels [:mail]
   :proc/deadline-rules
   [{:dl/label "(法定期限なし)"
     :dl/rule "法的な応答義務はないが、無視は時効中断・次手続きの布石になり得る — 内容の真偽を確認の上対応を選ぶ"
@@ -84,4 +93,93 @@
   [{:opt/id :reply-written :opt/kind :self-submit :opt/label "書面で回答 (認否を明確に・口頭/電話を避ける)"}
    {:opt/id :no-action :opt/kind :self-decide :opt/label "請求に根拠がない場合: 応答せず記録保全"}]
   :proc/refer-when ["請求額が大きい" "退職・不動産・名誉毀損など専門領域"]
+  :proc/verify-current-law true}
+
+ ;; ── :us ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:us-summons" :proc/label "Summons + Complaint (民事訴訟・米国)"
+  :proc/jurisdiction :us
+  :proc/trigger-keywords ["summons" "complaint has been filed against you"]
+  :proc/genuine-channels [:personal-service :certified-mail :sheriff-service]
+  :proc/deadline-rules
+  [{:dl/label "Answer の提出"
+    :dl/rule "連邦: 送達から21日以内 (FRCP 12(a)(1)(A)); 州裁判所は概ね20〜30日 — サモンズ記載の期限と州規則を確認"
+    :dl/anchor "FRCP 12(a) / 各州 Rules of Civil Procedure" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :answer :opt/kind :self-submit :opt/label "Answer (認否 + affirmative defenses) を裁判所へ提出"}
+   {:opt/id :appear :opt/kind :self-decide :opt/label "default judgment 回避のため必ず応答 (欠席 = 敗訴扱い)"}]
+  :proc/refer-when ["claim が大きい" "連邦訴訟・クラスアクション → 常に弁護士"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:us-small-claims" :proc/label "Small Claims 通知 (米国・州裁判所)"
+  :proc/jurisdiction :us
+  :proc/trigger-keywords ["small claims"]
+  :proc/genuine-channels [:personal-service :certified-mail]
+  :proc/deadline-rules
+  [{:dl/label "応答/出頭"
+    :dl/rule "州により異なる (上限額も $2,500〜$25,000 程度で州差) — 通知記載の期日と州規則を確認"
+    :dl/anchor "各州 small-claims rules" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :appear :opt/kind :self-decide :opt/label "期日に出頭して主張 (多くの州で弁護士なし前提の手続)"}
+   {:opt/id :answer :opt/kind :self-submit :opt/label "州が求める場合: 書面 Answer を提出"}]
+  :proc/refer-when ["反訴 (counterclaim) を検討する"]
+  :proc/verify-current-law true}
+
+ ;; ── :eu ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:eu-order-for-payment" :proc/label "European Order for Payment (欧州支払命令)"
+  :proc/jurisdiction :eu
+  :proc/trigger-keywords ["European order for payment" "order for payment"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Statement of opposition (異議)"
+    :dl/rule "送達から30日以内に異議 → 通常民事手続へ移行"
+    :dl/anchor "Regulation (EC) No 1896/2006 Art.16" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :opposition :opt/kind :self-submit :opt/label "Form F で異議を提出 (発令裁判所へ)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
+  :proc/refer-when ["越境取引で準拠法が不明確"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:eu-small-claims" :proc/label "European Small Claims (€5,000以下・越境)"
+  :proc/jurisdiction :eu
+  :proc/trigger-keywords ["European Small Claims" "Form C answer"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/claim-ceiling-eur 5000
+  :proc/deadline-rules
+  [{:dl/label "Answer (Form C) の提出"
+    :dl/rule "送達から30日以内"
+    :dl/anchor "Regulation (EC) No 861/2007 Art.5(3) (Reg 2015/2421 改正)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :answer :opt/kind :self-submit :opt/label "Form C で応答 (書面手続が原則)"}]
+  :proc/refer-when ["反対請求が €5,000 を超える"]
+  :proc/verify-current-law true}
+
+ ;; ── :uk ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:uk-claim-form" :proc/label "Claim Form (county court, England & Wales)"
+  :proc/jurisdiction :uk
+  :proc/trigger-keywords ["claim form" "particulars of claim"]
+  :proc/genuine-channels [:court-post :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Acknowledgment of service / Defence"
+    :dl/rule "particulars of claim 送達から14日以内に defence (acknowledgment を出せば28日)"
+    :dl/anchor "CPR Part 10 / 15.4" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :acknowledge :opt/kind :self-submit :opt/label "Acknowledgment of service (応答期間を28日に延長)"}
+   {:opt/id :defence :opt/kind :self-submit :opt/label "Defence を提出 (認否 + 反論)"}
+   {:opt/id :admit :opt/kind :self-decide :opt/label "請求に理由がある場合: admission + 分割提案"}]
+  :proc/refer-when ["£10,000 超 (small claims track 外)" "default judgment が既に出ている"]
+  :proc/verify-current-law true}
+
+ ;; ── :de ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:de-mahnbescheid" :proc/label "Mahnbescheid (支払督促・ドイツ)"
+  :proc/jurisdiction :de
+  :proc/trigger-keywords ["Mahnbescheid" "Vollstreckungsbescheid"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Widerspruch (異議)"
+    :dl/rule "送達から2週間以内の Widerspruch が原則 (経過後も Vollstreckungsbescheid 発令まで可; 発令後は2週間以内の Einspruch)"
+    :dl/anchor "ZPO §692・694・700" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :widerspruch :opt/kind :self-submit :opt/label "同封の Widerspruch 用紙で異議 (→ 通常訴訟へ)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/分割の交渉"}]
+  :proc/refer-when ["Vollstreckungsbescheid が既に出ている"]
   :proc/verify-current-law true}]

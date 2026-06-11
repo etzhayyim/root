@@ -94,19 +94,25 @@ def load_docs(path: pathlib.Path | None = None):
 
 
 def scan_doc(doc: dict, patterns: list) -> list:
-    """Flags for one document. G5: pattern context must match the document context."""
+    """Flags for one document. G5: pattern context must match the document context.
+    G10: pattern jurisdiction must match the document jurisdiction (default :jp for
+    R0 back-compat) — a 消費者契約法 anchor can never fire on a US doc and vice versa."""
     flags = []
     text = doc.get(":doc/text", "")
     ctx = doc.get(":doc/context")
+    juris = doc.get(":doc/jurisdiction", ":jp")
     for p in patterns:
         if p[":clause/context"] != ctx:
             continue  # G5 — consumer anchors never cross into :b2b and vice versa
+        if p.get(":clause/jurisdiction", ":jp") != juris:
+            continue  # G10 — anchors never cross jurisdictions
         hit = next((k for k in p[":clause/keywords"] if k in text), None)
         if hit is None:
             continue
         flags.append({
             "doc": doc[":doc/id"],
             "doc_label": doc.get(":doc/label", doc[":doc/id"]),
+            "jurisdiction": juris,
             "clause": p[":clause/id"],
             "clause_label": p[":clause/label"],
             "matched": hit,
@@ -135,10 +141,10 @@ def report(res: dict) -> str:
     L.append(f"- docs scanned: {res['docs_scanned']} · flags: {len(res['flags'])} · "
              f"routes: {res['counts_by_route']}")
     L.append("")
-    L.append("| doc | clause | risk | 開示アンカー | route |")
-    L.append("|---|---|---|---|---|")
+    L.append("| doc | juris | clause | risk | 開示アンカー | route |")
+    L.append("|---|---|---|---|---|---|")
     for f in res["flags"]:
-        L.append(f"| {f['doc_label']} | {f['clause_label']} | {f['risk']} "
+        L.append(f"| {f['doc_label']} | {f['jurisdiction']} | {f['clause_label']} | {f['risk']} "
                  f"| {f['anchor']} | {f['route']} |")
     L.append("")
     L.append("各フラグは「該当する **可能性** のある条項パターン + 開示済み法令アンカー」です。"

@@ -1,94 +1,170 @@
-;; tate 盾 — coded clause-pattern registry (ADR-2606112300). :representative — a bounded,
-;; honest subset of common disadvantageous-clause SHAPES in consumer ToS / credit-card
-;; member agreements / B2B contracts. NOT a verdict table: each entry carries a DISCLOSED
-;; statutory anchor the member (or their professional) checks against; tate never asserts
-;; invalidity (G2 non-adjudicating). :verify-current-law true on every entry — statutes
-;; amend; the anchor is a pointer, not legal advice.
+;; tate 盾 — coded clause-pattern registry (ADR-2606112300 + worldwide ADR-2606112400).
+;; :representative — a bounded, honest subset of common disadvantageous-clause SHAPES in
+;; consumer ToS / credit-card member agreements / B2B contracts. NOT a verdict table: each
+;; entry carries a DISCLOSED statutory anchor the member (or their professional) checks
+;; against; tate never asserts invalidity (G2 non-adjudicating). :verify-current-law true
+;; on every entry — statutes amend; the anchor is a pointer, not legal advice.
 ;;
-;; :clause/context :consumer | :card | :b2b   (consumer anchors NEVER applied to :b2b — G5)
-;; :clause/route   where a hit goes: :kurashimori (rights) | :kaiyaku (sever the tie)
-;;                 | :referral (professional) | :info
+;; :clause/context      :consumer | :card | :b2b (consumer anchors NEVER on :b2b — G5)
+;; :clause/jurisdiction :jp | :us | :eu | :uk | :de — anchors NEVER cross jurisdictions
+;;                      (G10; see data/jurisdictions.edn; coverage_report.py names gaps)
+;; :clause/route        :kurashimori (JP rights) | :kaiyaku (sever the tie)
+;;                      | :referral (professional) | :info
 
 [{:clause/id "cl:auto-renewal-trap" :clause/label "自動更新 + 狭い解約通知窓"
+  :clause/jurisdiction :jp
   :clause/context :consumer :clause/risk :mid
   :clause/keywords ["自動的に更新" "更新月の前月までに" "申出がない限り更新"]
   :clause/anchor "民法548条の2第2項 (定型約款・不当条項の組入制限)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
  {:clause/id "cl:excessive-penalty" :clause/label "過大な中途解約違約金"
+  :clause/jurisdiction :jp
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["残期間の利用料全額" "違約金として" "解約金として残額"]
   :clause/anchor "消費者契約法9条1号 (平均的な損害を超える部分)"
   :clause/route :kurashimori :clause/verify-current-law true}
 
  {:clause/id "cl:excessive-late-interest" :clause/label "年14.6%超の遅延損害金"
+  :clause/jurisdiction :jp
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["遅延損害金" "年率19" "年率20"]
   :clause/anchor "消費者契約法9条2号 (年14.6%を超える部分)"
   :clause/route :kurashimori :clause/verify-current-law true}
 
  {:clause/id "cl:full-exemption" :clause/label "事業者の全部免責"
+  :clause/jurisdiction :jp
   :clause/context :consumer :clause/risk :high
   :clause/keywords ["一切の責任を負いません" "いかなる損害についても責任を負わない"]
   :clause/anchor "消費者契約法8条 (損害賠償責任の全部免除条項)"
   :clause/route :kurashimori :clause/verify-current-law true}
 
  {:clause/id "cl:unilateral-change" :clause/label "一方的変更権 (裁量変更)"
+  :clause/jurisdiction :jp
   :clause/context :consumer :clause/risk :mid
   :clause/keywords ["当社の裁量により変更" "いつでも変更できるものとし"]
   :clause/anchor "消費者契約法10条 / 民法548条の4 (定型約款の変更要件)"
   :clause/route :info :clause/verify-current-law true}
 
  {:clause/id "cl:exclusive-jurisdiction" :clause/label "専属的合意管轄 (遠隔地)"
+  :clause/jurisdiction :jp
   :clause/context :consumer :clause/risk :mid
   :clause/keywords ["専属的合意管轄"]
   :clause/anchor "消費者契約法10条 (一方的に害する条項) — 司法判断が分かれる類型"
   :clause/route :info :clause/verify-current-law true}
 
  {:clause/id "cl:auto-revolving" :clause/label "リボルビング払い自動設定"
+  :clause/jurisdiction :jp
   :clause/context :card :clause/risk :high
   :clause/keywords ["自動的にリボルビング払い" "リボ払いに設定され"]
   :clause/anchor "割賦販売法30条の2の3 (書面交付・表示義務) — 手数料総額の確認"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
  {:clause/id "cl:defense-cutoff" :clause/label "支払停止の抗弁の放棄"
+  :clause/jurisdiction :jp
   :clause/context :card :clause/risk :high
   :clause/keywords ["抗弁を放棄" "販売店との紛争にかかわらず支払う"]
   :clause/anchor "割賦販売法30条の4 (支払停止の抗弁 — 片面的強行規定; 適用には政令金額要件)"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:annual-fee-silent" :clause/label "年会費の自動課金 (無利用でも)"
+  :clause/jurisdiction :jp
   :clause/context :card :clause/risk :info
   :clause/keywords ["年会費は利用の有無にかかわらず"]
   :clause/anchor "— (適法だが kaiyaku 縁-ledger の休眠カード退会候補)"
   :clause/route :kaiyaku :clause/verify-current-law true}
 
  {:clause/id "cl:b2b-unlimited-liability" :clause/label "無限定の損害賠償 (片務)"
+  :clause/jurisdiction :jp
   :clause/context :b2b :clause/risk :high
   :clause/keywords ["一切の損害を賠償する" "逸失利益を含む全ての損害"]
   :clause/anchor "民法90条 (公序良俗) — B2B は消費者契約法の保護なし; 上限条項の相互化を交渉"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:b2b-noncompete" :clause/label "広汎な競業避止義務"
+  :clause/jurisdiction :jp
   :clause/context :b2b :clause/risk :high
   :clause/keywords ["競合する業務を行ってはならない" "競業避止"]
   :clause/anchor "民法90条 / 独禁法 (拘束条件付取引) — 期間・地域・代償の相当性"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:b2b-long-payment" :clause/label "長期支払サイト"
+  :clause/jurisdiction :jp
   :clause/context :b2b :clause/risk :mid
   :clause/keywords ["検収後90日" "支払期日は納品後120日"]
   :clause/anchor "下請法2条の2 (受領後60日以内の支払期日) — 適用は資本金区分による"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:b2b-ip-assignment" :clause/label "成果物知財の包括譲渡 (無償)"
+  :clause/jurisdiction :jp
   :clause/context :b2b :clause/risk :mid
   :clause/keywords ["一切の知的財産権は甲に帰属" "著作者人格権を行使しない"]
   :clause/anchor "下請法4条2項3号 (不当な経済上の利益の提供要請) / 独禁法 優越的地位の濫用"
   :clause/route :referral :clause/verify-current-law true}
 
  {:clause/id "cl:b2b-auto-renew-lock" :clause/label "最低契約期間 + 自動更新ロック"
+  :clause/jurisdiction :jp
   :clause/context :b2b :clause/risk :mid
   :clause/keywords ["最低利用期間" "更新拒絶は6か月前までに"]
   :clause/anchor "— (B2B は私的自治; 更新窓のカレンダー化 → kaiyaku notice-days)"
-  :clause/route :kaiyaku :clause/verify-current-law true}]
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :us — United States (G10: US anchors only on :us docs) ─────────────────
+ {:clause/id "cl:us-arbitration-class-waiver" :clause/label "拘束的仲裁 + クラスアクション放棄"
+  :clause/jurisdiction :us
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["binding arbitration" "class action waiver" "waive your right to a jury trial"]
+  :clause/anchor "Federal Arbitration Act — 米国では原則ENFORCEABLE (JPと逆); opt-out 窓があれば期限内に行使"
+  :clause/route :info :clause/verify-current-law true}
+
+ {:clause/id "cl:us-auto-renewal-negative-option" :clause/label "自動更新 (negative option)"
+  :clause/jurisdiction :us
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["automatically renews" "auto-renew" "unless you cancel before"]
+  :clause/anchor "FTC Negative Option Rule (16 CFR Part 425) / 州 ARL (例: Cal. Bus. & Prof. Code §17600 以下)"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ {:clause/id "cl:us-early-termination-fee" :clause/label "過大な早期解約手数料 (ETF)"
+  :clause/jurisdiction :us
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["early termination fee" "remaining balance of your contract becomes due"]
+  :clause/anchor "州 UDAP (unfair or deceptive acts and practices) — 過大な ETF は争いうる"
+  :clause/route :referral :clause/verify-current-law true}
+
+ ;; ── :eu — EU instruments (G10) ──────────────────────────────────────────────
+ {:clause/id "cl:eu-withdrawal-exclusion" :clause/label "14日撤回権の排除"
+  :clause/jurisdiction :eu
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["no right of withdrawal" "waive your right of withdrawal"]
+  :clause/anchor "Consumer Rights Directive 2011/83/EU Art.9 (14日撤回権) — 例外は Art.16 列挙に限定"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:eu-unilateral-change" :clause/label "一方的変更権 (sole discretion)"
+  :clause/jurisdiction :eu
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["at our sole discretion" "modify these terms at any time without notice"]
+  :clause/anchor "Unfair Contract Terms Directive 93/13/EEC Annex 1(j) (正当理由なき一方的変更)"
+  :clause/route :info :clause/verify-current-law true}
+
+ ;; ── :uk — England & Wales (G10) ─────────────────────────────────────────────
+ {:clause/id "cl:uk-liability-exclusion" :clause/label "包括免責 (negligence 含む)"
+  :clause/jurisdiction :uk
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["we accept no liability whatsoever" "howsoever caused"]
+  :clause/anchor "Consumer Rights Act 2015 s.62 (fairness) / s.65 (negligence 死傷責任は排除不可)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ ;; ── :de — Deutschland (G10) ─────────────────────────────────────────────────
+ {:clause/id "cl:de-price-increase" :clause/label "短期の一方的値上げ条項"
+  :clause/jurisdiction :de
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["Preiserhöhung jederzeit" "Preisanpassung ohne Ankündigung"]
+  :clause/anchor "BGB §309 Nr.1 (kurzfristige Preiserhöhung — AGB Klauselverbot)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:de-lump-damages" :clause/label "過大な損害賠償の定額化"
+  :clause/jurisdiction :de
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["pauschalierter Schadensersatz"]
+  :clause/anchor "BGB §309 Nr.5 (Pauschalierung von Schadensersatzansprüchen)"
+  :clause/route :referral :clause/verify-current-law true}]
