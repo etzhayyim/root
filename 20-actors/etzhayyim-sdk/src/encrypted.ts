@@ -28,16 +28,24 @@ import {
   type SymmetricKey,
 } from "./crypto.js";
 import {
-  verifySignalIdentity,
+  verifySignalIdentityHybrid,
   type SignedSignalIdentity,
 } from "./did-signal.js";
 import * as pds from "./pds.js";
 import {
   establishSession,
+  establishSessionInitiator,
+  establishSessionResponder,
   unwrapKey,
   wrapKey,
   type SessionHandle,
 } from "./signal.js";
+import {
+  PQ_SUITE,
+  type HybridKemHandshake,
+  type HybridKemPublicBundle,
+  type HybridKemSecretBundle,
+} from "./pq.js";
 
 const COLLECTION_RECORD = "com.etzhayyim.encrypted.record";
 const COLLECTION_KEYWRAP = "com.etzhayyim.encrypted.keyWrap";
@@ -58,6 +66,12 @@ export interface ResolvedRecipientIdentity {
   signed: SignedSignalIdentity;
   /** Recipient's Ed25519 DID verification key (resolved from DID document). */
   didVerificationKey: Uint8Array;
+  /**
+   * Recipient's ML-DSA-65 verification key, when the DID document publishes
+   * one (pqh-v1, ADR-2606111300). When set, the binding's pqSignature is
+   * REQUIRED — stripping it fails verification.
+   */
+  didPqVerificationKey?: Uint8Array;
 }
 
 /**
@@ -208,7 +222,32 @@ interface KeyWrapLex {
   signalSessionId: string;
   /** AT URI of the encrypted envelope this wrap unlocks. */
   recordUri: string;
+  /**
+   * pqh-v1 hybrid handshake (ADR-2606111300). When present the recipient
+   * derives the wrap key via X25519+ML-KEM-768 decapsulation with their own
+   * secret bundle — no pre-established session needed, and a recorded wire
+   * capture requires breaking BOTH components to recover the record key.
+   */
+  pqSuite?: typeof PQ_SUITE;
+  pqX25519Ephemeral?: Uint8Array;
+  pqMlkemCiphertext?: Uint8Array;
   createdAt: string;
+}
+
+/** Extract the recipient's published pqh-v1 KEM bundle, if complete. */
+function kemBundleOf(signed: SignedSignalIdentity): HybridKemPublicBundle | null {
+  if (
+    signed.pqSuite === PQ_SUITE &&
+    signed.pqX25519PublicKey instanceof Uint8Array &&
+    signed.pqMlkemPublicKey instanceof Uint8Array
+  ) {
+    return {
+      suite: PQ_SUITE,
+      x25519PublicKey: signed.pqX25519PublicKey,
+      mlkemPublicKey: signed.pqMlkemPublicKey,
+    };
+  }
+  return null;
 }
 
 // ── Standalone write ─────────────────────────────────────────────────────────
@@ -294,9 +333,10 @@ export async function encryptedWriteStandalone<T extends Record<string, unknown>
       });
       continue;
     }
-    const binding = verifySignalIdentity({
+    const binding = verifySignalIdentityHybrid({
       signed: resolved.signed,
       didVerificationKey: resolved.didVerificationKey,
+      didPqVerificationKey: resolved.didPqVerificationKey,
     });
     if (!binding) {
       skipped.push({
@@ -308,16 +348,31 @@ export async function encryptedWriteStandalone<T extends Record<string, unknown>
 
     let session: SessionHandle;
     let wrap: ReturnType<typeof wrapKey>;
+    let handshake: HybridKemHandshake | undefined;
     try {
-      // R1.0 (ADR-2605181100): the recipient identity is resolved + DID-bound
-      // above for authenticity; the key-wrap itself uses the placeholder
-      // in-memory XChaCha20 session (signal.ts R1.0), not the recipient's
-      // published prekey bundle. The symKey is base64-wrapped through the
-      // session. Cross-party key agreement is a future (R2) signal.ts concern.
-      session = establishSession({
-        senderDid: deps.senderDid,
-        recipientDid,
-      });
+      const recipientKem = kemBundleOf(resolved.signed);
+      if (recipientKem) {
+        // R2 (ADR-2606111300, suite pqh-v1): encapsulate to the recipient's
+        // signature-covered hybrid KEM bundle. The handshake travels in the
+        // keyWrap record; the recipient decapsulates with their own secret
+        // bundle — no shared in-memory session required.
+        const init = establishSessionInitiator({
+          senderDid: deps.senderDid,
+          recipientDid,
+          recipientKem,
+        });
+        session = init.session;
+        handshake = init.handshake;
+      } else {
+        // Legacy R1.0 placeholder (no published KEM bundle): in-memory
+        // XChaCha20 session, same-process only. One R-cycle read-compat per
+        // crypto-agility-policy; recipients SHOULD republish their
+        // signalIdentity with a pqh-v1 bundle.
+        session = establishSession({
+          senderDid: deps.senderDid,
+          recipientDid,
+        });
+      }
       wrap = wrapKey({
         session,
         plaintext: Buffer.from(symKey).toString("base64"),
@@ -338,6 +393,9 @@ export async function encryptedWriteStandalone<T extends Record<string, unknown>
       ciphertext: wrap.ciphertext,
       signalSessionId: wrap.signalSessionId,
       recordUri: envelopeReceipt.uri,
+      pqSuite: handshake ? PQ_SUITE : undefined,
+      pqX25519Ephemeral: handshake?.x25519Ephemeral,
+      pqMlkemCiphertext: handshake?.mlkemCiphertext,
       createdAt: envelope.createdAt,
     };
     const kwRkey = opts.blindRkey ? blindRkey(symKey, kwSeq) : undefined;
@@ -375,6 +433,17 @@ export interface StandaloneReadDeps {
    * (single-PDS model used by tests).
    */
   fetchEnvelope?: (senderDid: string, recordUri: string) => Promise<EncryptedRecordLex | null>;
+  /**
+   * Recipient's own pqh-v1 hybrid KEM key material (ADR-2606111300). The
+   * secret bundle NEVER leaves the member device; the public bundle MUST be
+   * the one published (signature-covered) in the recipient's signalIdentity.
+   * Required to unwrap pqSuite="pqh-v1" keyWraps; legacy wraps fall back to
+   * the in-memory session model.
+   */
+  recipientKem?: {
+    secretBundle: HybridKemSecretBundle;
+    publicBundle: HybridKemPublicBundle;
+  };
 }
 
 export async function encryptedReadStandalone<T>(
@@ -424,13 +493,36 @@ export async function encryptedReadStandalone<T>(
 
   for (const kwRecord of allKwRecords) {
     const kw = kwRecord.value as KeyWrapLex;
-    // 2. Unwrap the symmetric key via Signal session.
+    // 2. Unwrap the symmetric key.
     let symKey: Uint8Array;
     try {
-      // R1.0: unwrap via the in-memory XChaCha20 session (same-process model;
-      // see write-path note). Returns the base64 of the envelope symKey.
+      let session: SessionHandle;
+      if (kw.pqSuite === PQ_SUITE) {
+        // R2 (pqh-v1): re-derive the wrap key from the handshake carried in
+        // the keyWrap record + our own KEM secret bundle. Works across
+        // processes/devices — nothing was pre-shared except published keys.
+        if (!deps.recipientKem) {
+          throw new Error(
+            "keyWrap is pqh-v1 but StandaloneReadDeps.recipientKem is not configured"
+          );
+        }
+        session = establishSessionResponder({
+          senderDid: kw.sender,
+          recipientDid: kw.recipient,
+          handshake: {
+            suite: PQ_SUITE,
+            x25519Ephemeral: ensureBytes(kw.pqX25519Ephemeral),
+            mlkemCiphertext: ensureBytes(kw.pqMlkemCiphertext),
+          },
+          recipientKemSecret: deps.recipientKem.secretBundle,
+          recipientKemPublic: deps.recipientKem.publicBundle,
+        });
+      } else {
+        // Legacy R1.0: in-memory XChaCha20 session (same-process model).
+        session = kw.signalSessionId;
+      }
       const symKeyB64 = unwrapKey({
-        session: kw.signalSessionId,
+        session,
         ciphertext: ensureBytes(kw.ciphertext),
       });
       symKey = Uint8Array.from(Buffer.from(symKeyB64, "base64"));
@@ -550,8 +642,12 @@ export async function publishSignalIdentity(
       signedPreKey: opts.signed.signedPreKey,
       signedPreKeyId: opts.signed.signedPreKeyId,
       signedPreKeySignature: opts.signed.signedPreKeySignature,
+      pqSuite: opts.signed.pqSuite,
+      pqX25519PublicKey: opts.signed.pqX25519PublicKey,
+      pqMlkemPublicKey: opts.signed.pqMlkemPublicKey,
       createdAt: opts.signed.createdAt,
       signature: opts.signed.signature,
+      pqSignature: opts.signed.pqSignature,
     }
   );
 }
@@ -598,6 +694,7 @@ export async function encryptedRead<T>(
   e: Etzhayyim & {
     pdsAgent?: AtpAgent;
     fetchEnvelope?: StandaloneReadDeps["fetchEnvelope"];
+    recipientKem?: StandaloneReadDeps["recipientKem"];
   },
   opts: EncryptedReadOpts
 ): Promise<EncryptedReadResponse<T>> {
@@ -613,6 +710,7 @@ export async function encryptedRead<T>(
       agent: e.pdsAgent,
       selfDid: e.config.did,
       fetchEnvelope: e.fetchEnvelope,
+      recipientKem: e.recipientKem,
     },
     opts
   );
