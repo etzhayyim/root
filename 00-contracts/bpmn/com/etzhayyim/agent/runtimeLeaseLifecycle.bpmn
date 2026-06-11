@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  com.etzhayyim.apps.agent.runtimeLeaseLifecycle — ADR-2604301200 P2.
+
+  XRPC/message-started process for reserving a persistent autonomous-agent
+  runtime lease. The k8s namespace is always explicit; `default` is rejected
+  again by the worker primitive.
+
+  Flow:
+    Start -> Quote runtime bond -> Reserve runtime lease -> Audit -> End
+
+  Inputs:
+    rootDid, agentDid
+    runtimeNamespace default "yoro-actors"
+    runtimeKind default "zeebe-langgraph"
+    cpuMillicores, memoryMiB, gpuClass, gpuSecondsCapDay
+    storageGiB, networkEgressGiBDay, maxParallelJobs, leasePeriodSec
+    resourcePolicyCid, slashPolicyHash
+    submitOnChain default false
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_agent_runtime_lease_lifecycle"
+    targetNamespace="https://etzhayyim.ai/bpmn/agent"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="agent_runtime_lease_lifecycle" name="agent runtime lease lifecycle" isExecutable="true">
+    <bpmn:documentation>
+      {"nsid":"com.etzhayyim.apps.agent.runtimeLeaseLifecycle","version":1,"tier":"T2"}
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="runtime lease request">
+      <bpmn:outgoing>Flow_ToQuote</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToQuote" sourceRef="Start" targetRef="Task_Quote"/>
+
+    <bpmn:serviceTask id="Task_Quote" name="quote runtime">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="agent.runtime.quote" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=rootDid" target="rootDid"/>
+          <zeebe:input source="=agentDid" target="agentDid"/>
+          <zeebe:input source="=if runtimeKind = null then &quot;zeebe-langgraph&quot; else runtimeKind" target="runtimeKind"/>
+          <zeebe:input source="=if runtimeNamespace = null then &quot;yoro-actors&quot; else runtimeNamespace" target="runtimeNamespace"/>
+          <zeebe:input source="=if cpuMillicores = null then 500 else cpuMillicores" target="cpuMillicores"/>
+          <zeebe:input source="=if memoryMiB = null then 1024 else memoryMiB" target="memoryMiB"/>
+          <zeebe:input source="=if gpuClass = null then &quot;none&quot; else gpuClass" target="gpuClass"/>
+          <zeebe:input source="=if gpuSecondsCapDay = null then 0 else gpuSecondsCapDay" target="gpuSecondsCapDay"/>
+          <zeebe:input source="=if storageGiB = null then 10 else storageGiB" target="storageGiB"/>
+          <zeebe:input source="=if networkEgressGiBDay = null then 1 else networkEgressGiBDay" target="networkEgressGiBDay"/>
+          <zeebe:input source="=if maxParallelJobs = null then 1 else maxParallelJobs" target="maxParallelJobs"/>
+          <zeebe:input source="=if leasePeriodSec = null then 86400 else leasePeriodSec" target="leasePeriodSec"/>
+          <zeebe:input source="=if riskMultiplierBps = null then 10000 else riskMultiplierBps" target="riskMultiplierBps"/>
+          <zeebe:output source="=baseCostGccWei" target="baseCostGccWei"/>
+          <zeebe:output source="=riskAdjustedCostGccWei" target="riskAdjustedCostGccWei"/>
+          <zeebe:output source="=bondGccWei" target="bondGccWei"/>
+          <zeebe:output source="=resourceHash" target="resourceHash"/>
+          <zeebe:output source="=escrowAddr" target="escrowAddr"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToQuote</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToReserve</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToReserve" sourceRef="Task_Quote" targetRef="Task_Reserve"/>
+
+    <bpmn:serviceTask id="Task_Reserve" name="reserve runtime">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="agent.runtime.reserve" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=rootDid" target="rootDid"/>
+          <zeebe:input source="=agentDid" target="agentDid"/>
+          <zeebe:input source="=if leaseId = null then &quot;&quot; else leaseId" target="leaseId"/>
+          <zeebe:input source="=if runtimeKind = null then &quot;zeebe-langgraph&quot; else runtimeKind" target="runtimeKind"/>
+          <zeebe:input source="=if runtimeNamespace = null then &quot;yoro-actors&quot; else runtimeNamespace" target="runtimeNamespace"/>
+          <zeebe:input source="=if cpuMillicores = null then 500 else cpuMillicores" target="cpuMillicores"/>
+          <zeebe:input source="=if memoryMiB = null then 1024 else memoryMiB" target="memoryMiB"/>
+          <zeebe:input source="=if gpuClass = null then &quot;none&quot; else gpuClass" target="gpuClass"/>
+          <zeebe:input source="=if gpuSecondsCapDay = null then 0 else gpuSecondsCapDay" target="gpuSecondsCapDay"/>
+          <zeebe:input source="=if storageGiB = null then 10 else storageGiB" target="storageGiB"/>
+          <zeebe:input source="=if networkEgressGiBDay = null then 1 else networkEgressGiBDay" target="networkEgressGiBDay"/>
+          <zeebe:input source="=if maxParallelJobs = null then 1 else maxParallelJobs" target="maxParallelJobs"/>
+          <zeebe:input source="=if leasePeriodSec = null then 86400 else leasePeriodSec" target="leasePeriodSec"/>
+          <zeebe:input source="=bondGccWei" target="bondGccWei"/>
+          <zeebe:input source="=if resourcePolicyCid = null then &quot;&quot; else resourcePolicyCid" target="resourcePolicyCid"/>
+          <zeebe:input source="=if slashPolicyHash = null then &quot;&quot; else slashPolicyHash" target="slashPolicyHash"/>
+          <zeebe:input source="=if submitOnChain = null then false else submitOnChain" target="submitOnChain"/>
+          <zeebe:output source="=leaseId" target="leaseId"/>
+          <zeebe:output source="=vertexId" target="runtimeLeaseVertexId"/>
+          <zeebe:output source="=expiresAt" target="runtimeLeaseExpiresAt"/>
+          <zeebe:output source="=pendingOnChain" target="runtimeLeasePendingOnChain"/>
+          <zeebe:output source="=onchain.txHash" target="runtimeLeaseTxHash"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToReserve</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Reserve" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit runtime lease">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:agent.etzhayyim.com:runtime&quot;" target="actor"/>
+          <zeebe:input source="=&quot;agent.runtime.lease.reserve&quot;" target="action"/>
+          <zeebe:input source="={
+            rootDid: rootDid,
+            agentDid: agentDid,
+            leaseId: leaseId,
+            runtimeNamespace: if runtimeNamespace = null then &quot;yoro-actors&quot; else runtimeNamespace,
+            bondGccWei: bondGccWei,
+            resourceHash: resourceHash,
+            pendingOnChain: runtimeLeasePendingOnChain,
+            txHash: runtimeLeaseTxHash,
+            vertexId: runtimeLeaseVertexId
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="runtimeLeaseAuditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="reserved">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

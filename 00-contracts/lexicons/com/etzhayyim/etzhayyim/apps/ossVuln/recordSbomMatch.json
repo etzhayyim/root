@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ossVuln.recordSbomMatch",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "SBOM ↔ advisory match (bridges cyber-compliance + ai-supply-chain + telecom-infra)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "matchId",
+            "advisoryVid",
+            "productName",
+            "affectedComponents",
+            "matchedAt"
+          ],
+          "properties": {
+            "matchId": {
+              "type": "string"
+            },
+            "advisoryVid": {
+              "type": "string",
+              "description": "bridges registerAdvisory"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "productName": {
+              "type": "string"
+            },
+            "sbomFormat": {
+              "type": "string",
+              "enum": [
+                "spdx",
+                "cyclonedx",
+                "swid"
+              ]
+            },
+            "componentCount": {
+              "type": "integer"
+            },
+            "affectedComponents": {
+              "type": "integer"
+            },
+            "remediationStatus": {
+              "type": "string",
+              "enum": [
+                "patched",
+                "mitigated",
+                "accepted_risk",
+                "unpatched",
+                "out_of_scope"
+              ]
+            },
+            "matchedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

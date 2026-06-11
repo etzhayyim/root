@@ -1,0 +1,99 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.offshoreRmb.recordClearing",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Offshore RMB / CNH clearing bank / CIPS (bridges bisTriennial.flagShift + swift-institution + fx-swap-lines)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "clearingId",
+            "jurisdiction",
+            "productKind",
+            "asOfDate"
+          ],
+          "properties": {
+            "clearingId": {
+              "type": "string"
+            },
+            "clearingBankLei": {
+              "type": "string"
+            },
+            "jurisdiction": {
+              "type": "string",
+              "enum": [
+                "hk",
+                "sg",
+                "uk",
+                "fr",
+                "ca",
+                "au",
+                "ch",
+                "my",
+                "th",
+                "lu",
+                "kz",
+                "ru",
+                "br",
+                "sa",
+                "pk",
+                "ngn",
+                "rmb_oil"
+              ]
+            },
+            "productKind": {
+              "type": "string",
+              "enum": [
+                "cnh_spot",
+                "cnh_ndf",
+                "cnh_cross_currency",
+                "cnh_bond",
+                "dim_sum",
+                "panda_bond",
+                "bond_connect",
+                "rmb_account",
+                "rmb_loan",
+                "rmb_qfii_rqfii",
+                "cips_settlement",
+                "mbridge"
+              ]
+            },
+            "shiftVid": {
+              "type": "string",
+              "description": "bridges bisTriennial.flagShift"
+            },
+            "dailyVolumeBrmb": {
+              "type": "number"
+            },
+            "asOfDate": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

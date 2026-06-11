@@ -1,0 +1,109 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.registry",
+  "description": "Registry record — land / property / business / construction-permit / operating-license / environmental-permit / zoning. Discriminated by `registryType`. Per maps CLAUDE.md §Graph Schema (`vertex_registry`) + ADR-2605231400 kotoba-datomic L1 target.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{registryKey}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "registryKey",
+          "registryType",
+          "registryNumber",
+          "jurisdiction",
+          "registeredAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "registryKey": {
+            "type": "string",
+            "description": "Stable rkey-safe key. Format: '{registry-type-slug}-{registryNumber}' (lowercased, hyphenated).",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "registryType": {
+            "type": "string",
+            "knownValues": [
+              "LandRegistry",
+              "PropertyRegistry",
+              "BusinessRegistry",
+              "VehicleRegistry",
+              "ConstructionPermit",
+              "OperatingLicense",
+              "EnvironmentalPermit",
+              "ZoningRecord"
+            ]
+          },
+          "registryNumber": {
+            "type": "string",
+            "description": "Issuer-assigned registration / permit / license number.",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "jurisdiction": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "propertyType": {
+            "type": "string",
+            "description": "Land / building / vehicle / facility / etc."
+          },
+          "parcelNumber": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "landAreaSqm": {
+            "type": "integer",
+            "description": "Land area in square meters (integer).",
+            "minimum": 0
+          },
+          "assessedValueUsdc": {
+            "type": "integer",
+            "description": "Assessed value in USDC micros (Charter-compliant fiat-free denomination). Optional.",
+            "minimum": 0
+          },
+          "regionDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Owning region (e.g., did:web:maps.etzhayyim.com:region:{nanoid})."
+          },
+          "geoLat": {
+            "type": "integer",
+            "description": "Latitude (WGS84) in microdegrees (×1e7)."
+          },
+          "geoLng": {
+            "type": "integer",
+            "description": "Longitude (WGS84) in microdegrees (×1e7)."
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "sourceDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "supersedesRegistryKey": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

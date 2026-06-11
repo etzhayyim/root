@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 11 / 12 — 音響 / sound cue. ADR-2604231328.
+  Caller fanouts per cue type (dialogue / sfx / bgm).
+  in:  cutId, trackType ('dialogue'|'sfx'|'bgm'), text, voiceOrPrompt, durationSec
+  out: soundCueVertexId, blobCid
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_animeka_generate_sound_cue"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="animeka_generate_sound_cue" name="animeka generate sound cue" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Gate"/>
+    <bpmn:exclusiveGateway id="Gate" name="trackType?" default="Flow_BGM">
+      <bpmn:incoming>F1</bpmn:incoming>
+      <bpmn:outgoing>Flow_Dialogue</bpmn:outgoing>
+      <bpmn:outgoing>Flow_SFX</bpmn:outgoing>
+      <bpmn:outgoing>Flow_BGM</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Dialogue" sourceRef="Gate" targetRef="Task_TTS">
+      <bpmn:conditionExpression>=trackType = "dialogue"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_SFX" sourceRef="Gate" targetRef="Task_SFX">
+      <bpmn:conditionExpression>=trackType = "sfx"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_BGM" sourceRef="Gate" targetRef="Task_BGM"/>
+    <bpmn:serviceTask id="Task_TTS" name="synthesize speech (Style-Bert-VITS2 JP)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.comfyui.call"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;/v1/audio/speech&quot;" target="route"/>
+          <zeebe:input source="={ input: string(text), voice: string(voiceOrPrompt), model: &quot;sbv2&quot;, language: &quot;ja&quot; }" target="body"/>
+          <zeebe:input source="=&quot;binary&quot;" target="outputFormat"/>
+          <zeebe:input source="=60" target="timeoutSec"/>
+          <zeebe:output source="=blobCid" target="blobCid"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Dialogue</bpmn:incoming>
+      <bpmn:outgoing>F_Merge1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F_Merge1" sourceRef="Task_TTS" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_SFX" name="synthesize SFX (Stable Audio Open)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.comfyui.call"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;/v1/audio/music&quot;" target="route"/>
+          <zeebe:input source="={ prompt: string(voiceOrPrompt), duration: durationSec, model: &quot;stable-audio&quot; }" target="body"/>
+          <zeebe:input source="=&quot;binary&quot;" target="outputFormat"/>
+          <zeebe:input source="=120" target="timeoutSec"/>
+          <zeebe:output source="=blobCid" target="blobCid"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_SFX</bpmn:incoming>
+      <bpmn:outgoing>F_Merge2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F_Merge2" sourceRef="Task_SFX" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_BGM" name="synthesize BGM (MusicGen medium)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.comfyui.call"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;/v1/audio/music&quot;" target="route"/>
+          <zeebe:input source="={ prompt: string(voiceOrPrompt), duration: durationSec, model: &quot;musicgen-medium&quot; }" target="body"/>
+          <zeebe:input source="=&quot;binary&quot;" target="outputFormat"/>
+          <zeebe:input source="=180" target="timeoutSec"/>
+          <zeebe:output source="=blobCid" target="blobCid"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_BGM</bpmn:incoming>
+      <bpmn:outgoing>F_Merge3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F_Merge3" sourceRef="Task_BGM" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="persist soundCue">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:  &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.soundCue/&quot; + string(cutId) + &quot;-&quot; + string(trackType),
+              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,
+              collection: &quot;com.etzhayyim.apps.animeka.soundCue&quot;,
+              rkey:       string(cutId) + &quot;-&quot; + string(trackType),
+              kind:       &quot;soundCue&quot;,
+              cut_id:     string(cutId),
+              stage:      &quot;sound&quot;,
+              method:     string(trackType),
+              duration_sec: durationSec,
+              priority:   &quot;review&quot;,
+              description: string(text),
+              master_cid:    string(blobCid),
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_Merge1</bpmn:incoming>
+      <bpmn:incoming>F_Merge2</bpmn:incoming>
+      <bpmn:incoming>F_Merge3</bpmn:incoming>
+      <bpmn:outgoing>F_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F_End" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;generateSoundCue&quot;" target="action"/>
+          <zeebe:input source="={cutId: string(cutId), trackType: string(trackType), blobCid: string(blobCid)}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_End</bpmn:incoming><bpmn:outgoing>F_Last</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F_Last" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>F_Last</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

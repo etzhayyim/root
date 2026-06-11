@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  graph.consumeRepoCommits — scheduled vertex_repo_commit projection tick.
+
+  The existing Cloudflare graph Worker still owns the projection logic. This
+  BPMN process moves cron/retry ownership to Zeebe/PyZeebe by invoking the
+  Worker `/consume` endpoint and writing a graph-visible audit record.
+
+  NSID: com.etzhayyim.apps.graph.consumeRepoCommits
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_graph_consume_repo_commits"
+    targetNamespace="https://etzhayyim.ai/bpmn/graph"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="graph_consume_repo_commits" name="graph consumeRepoCommits" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.graph.consumeRepoCommits", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="every 1m">
+      <bpmn:outgoing>Flow_ToConsume</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_1m">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToConsume" sourceRef="Start" targetRef="Task_Consume"/>
+
+    <bpmn:serviceTask id="Task_Consume" name="consume repo commits">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="graph.repo.consumeCommits"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if consumerUrl = null then &quot;&quot; else string(consumerUrl)" target="consumerUrl"/>
+          <zeebe:input source="=if batchSize = null then 50 else batchSize" target="batchSize"/>
+          <zeebe:input source="=false" target="flush"/>
+          <zeebe:output source="=ok" target="graphConsumerOk"/>
+          <zeebe:output source="=processed" target="graphConsumerProcessed"/>
+          <zeebe:output source="=lastSeq" target="graphConsumerLastSeq"/>
+          <zeebe:output source="=auditUri" target="graphConsumerAuditUri"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToConsume</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Consume" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

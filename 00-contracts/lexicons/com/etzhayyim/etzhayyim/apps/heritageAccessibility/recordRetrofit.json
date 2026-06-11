@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.heritageAccessibility.recordRetrofit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Heritage-building / listed-monument accessibility retrofit (bridges universalDesign.flagImplementationShortfall + cultural-heritage + cultural-repatriation)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "retrofitId",
+            "siteId",
+            "heritageKind",
+            "retrofitKind",
+            "completedAt"
+          ],
+          "properties": {
+            "retrofitId": {
+              "type": "string"
+            },
+            "siteId": {
+              "type": "string"
+            },
+            "heritageKind": {
+              "type": "string",
+              "enum": [
+                "world_heritage",
+                "national_listed",
+                "religious_structure",
+                "castle_fortress",
+                "vernacular_housing",
+                "industrial",
+                "archaeological",
+                "cemetery",
+                "liturgical",
+                "ceremonial",
+                "botanic_garden"
+              ]
+            },
+            "retrofitKind": {
+              "type": "string",
+              "enum": [
+                "ramp",
+                "elevator",
+                "tactile_paving",
+                "audio_guide",
+                "screen_reader_signage",
+                "reserved_parking",
+                "sensory_rooms",
+                "service_dog",
+                "video_relay_guide",
+                "bsl_british_sign",
+                "mobile_app_companion"
+              ]
+            },
+            "shortfallVid": {
+              "type": "string",
+              "description": "bridges universalDesign.flagImplementationShortfall"
+            },
+            "completedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

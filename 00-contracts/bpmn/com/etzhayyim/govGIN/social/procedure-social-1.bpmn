@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="P_GIN" targetNamespace="http://etzhayyim.com/gov/GIN/social">
+  <bpmn:process id="Process_GIN_social" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Start"/>
+    <bpmn:task id="T1" name="Handle"/>
+    <bpmn:endEvent id="End" name="End"/>
+  </bpmn:process>
+</bpmn:definitions>

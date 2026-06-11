@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — IPFS pin worker (R/PT5M timer-start, autonomous).
+
+  Lifts new edges from RisingWave (L0) to:
+    - L2 IPFS self-hosted cluster (ipfs.etzhayyim.com)
+    - L3 IPFS external pinning (Pinata + Filebase + Web3.Storage)
+    - writes ipfs_cid back into edge_karma_dependency
+    - inserts vertex_karma_ipfs_pin rows per (cid, service)
+
+  Filecoin (L4 long-term storage deal) is handled by a separate daily BPMN.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_ipfs_pin"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_ipfs_pin" name="karma ipfs pin" isExecutable="true">
+
+    <bpmn:documentation>
+      { "version": 1 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartTimer" name="every 5 min">
+      <bpmn:outgoing>Flow_ToFind</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT5M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Find" name="find unpinned edges (mv_karma_unpinned)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.ipfs.findUnpinned"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=200" target="batchSize"/>
+          <zeebe:output source="=edgeIds" target="edgeIds"/>
+          <zeebe:output source="=count" target="count"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFind</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToFind" sourceRef="StartTimer" targetRef="Task_Find"/>
+
+    <bpmn:exclusiveGateway id="Gate_HasWork" name="has work?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Work</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoWork</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_Find" targetRef="Gate_HasWork"/>
+
+    <bpmn:sequenceFlow id="Flow_Work" sourceRef="Gate_HasWork" targetRef="Task_Pin">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count > 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoWork" sourceRef="Gate_HasWork" targetRef="EndIdle">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count = 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_Pin" name="encode IPLD + pin to 4 services">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.ipfs.pinBatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=edgeIds" target="edgeIds"/>
+          <zeebe:output source="=pinned" target="pinned"/>
+          <zeebe:output source="=failed" target="failed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Work</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.ipfsPin&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;pinned&quot;: pinned, &quot;failed&quot;: failed }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Pin" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="pinned">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndIdle" name="idle">
+      <bpmn:incoming>Flow_NoWork</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.listLiveSatellites",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List satellites with currently active passes over the requested observer cell or globally (N2YO-equivalent). Backed by pre-computed vertex_satellite_pass + mv_satellite_visible_now.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "observerH3": { "type": "string", "description": "H3 res-5 cell. If omitted, returns all currently visible passes." },
+          "catalogGroup": { "type": "string", "description": "Filter by catalog group (active|starlink|gnss|iss)." },
+          "limit": { "type": "integer", "default": 100, "minimum": 1, "maximum": 1000 }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["satellites", "count", "asOfMs"],
+          "properties": {
+            "satellites": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "noradId": { "type": "integer" },
+                  "name": { "type": "string" },
+                  "observerH3": { "type": "string" },
+                  "aosMs": { "type": "integer" },
+                  "losMs": { "type": "integer" },
+                  "maxElevationDeg": { "type": "number" },
+                  "peakAzimuthDeg": { "type": "number" },
+                  "visibleAtNight": { "type": "boolean" },
+                  "magnitude": { "type": "number" }
+                }
+              }
+            },
+            "count": { "type": "integer" },
+            "asOfMs": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

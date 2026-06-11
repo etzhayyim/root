@@ -1,0 +1,14 @@
+{:lexicon 1
+ :id "com.etzhayyim.makura.foamBatchAttestation"
+ :defs
+ {:main
+  {:type "record"
+   :key  "tid"
+   :record
+   {:type       "object"
+    :required   ["tid" "chemistry" "density" "cellStructure" "vocTest"]
+    :properties {:tid           {:type "string" :description "Transaction ID"}
+                 :chemistry     {:type "string" :description "L2 chemistry details"}
+                 :density       {:type "string" :description "Density measurement"}
+                 :cellStructure {:type "string" :description "Cell structure details"}
+                 :vocTest       {:type "string" :description "VOC test results"}}}}}}

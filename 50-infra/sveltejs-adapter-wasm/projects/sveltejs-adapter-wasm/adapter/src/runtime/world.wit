@@ -1,0 +1,6 @@
+package etzhayyimcojp:svelte-adapter;
+
+world svelte-server {
+  include wasmcloud:component-go/sdk;
+  export wasi:http/incoming-handler@0.2.0;
+}

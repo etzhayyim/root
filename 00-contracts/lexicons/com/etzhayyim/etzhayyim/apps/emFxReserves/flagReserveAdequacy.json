@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.emFxReserves.flagReserveAdequacy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Reserve adequacy / burn rate / credibility concern (bridges fxSwapLines.flagLineStress + imf-surveillance + sovereign-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "snapshotVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "snapshotVid": {
+              "type": "string",
+              "description": "bridges recordReserveComposition"
+            },
+            "swapStressVid": {
+              "type": "string",
+              "description": "bridges fxSwapLines.flagLineStress"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "below_ara_100pct",
+                "reserve_burn",
+                "composition_concentration",
+                "gold_revaluation",
+                "sdr_mobilization_refused",
+                "capital_flight",
+                "dedollarization_stress"
+              ]
+            },
+            "burnRateBusdMo": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "adequacyTier": {
+              "type": "string",
+              "enum": [
+                "watch",
+                "stressed",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

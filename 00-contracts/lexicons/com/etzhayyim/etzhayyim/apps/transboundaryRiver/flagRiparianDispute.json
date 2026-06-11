@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.transboundaryRiver.flagRiparianDispute",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Upstream-downstream dispute / dam / withdrawal (bridges waterStewardship.flagBasinStress + civil-liability + disaster-response)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "commissionVid",
+            "disputeKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "commissionVid": {
+              "type": "string",
+              "description": "bridges recordCommission"
+            },
+            "disputeKind": {
+              "type": "string",
+              "enum": [
+                "upstream_dam",
+                "diversion",
+                "flow_below_minimum",
+                "data_sharing_refused",
+                "flood_release",
+                "navigation_blocked",
+                "sediment_blocked",
+                "pollution_upstream",
+                "colossal_withdrawal",
+                "aquifer_transnational",
+                "climate_scarcity"
+              ]
+            },
+            "affectedPersons": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

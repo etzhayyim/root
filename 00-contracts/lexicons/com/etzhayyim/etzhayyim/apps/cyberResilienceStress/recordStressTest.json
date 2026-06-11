@@ -1,0 +1,95 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cyberResilienceStress.recordStressTest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DORA TLPT / NIS2 / CROE / TIBER-EU penetration test (bridges cyber-compliance + banking + antitrust-dma)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "testId",
+            "regime",
+            "entityCategory",
+            "testType",
+            "completedAt"
+          ],
+          "properties": {
+            "testId": {
+              "type": "string"
+            },
+            "entityLei": {
+              "type": "string"
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "dora_tlpt",
+                "nis2",
+                "tiber_eu",
+                "croe",
+                "cbest",
+                "apra_cps234",
+                "nydfs_part500"
+              ]
+            },
+            "entityCategory": {
+              "type": "string",
+              "enum": [
+                "bank_significant",
+                "ccp",
+                "exchange",
+                "cii",
+                "ict_third_party",
+                "cloud",
+                "crypto_casp"
+              ]
+            },
+            "testType": {
+              "type": "string",
+              "enum": [
+                "threat_led",
+                "red_team",
+                "tabletop",
+                "vulnerability_assessment",
+                "business_continuity"
+              ]
+            },
+            "providerLei": {
+              "type": "string"
+            },
+            "scenariosExecuted": {
+              "type": "integer"
+            },
+            "completedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

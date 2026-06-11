@@ -1,0 +1,160 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "sanctions XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://sanctions.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.sanctions.getEntry": {
+      "get": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.sanctions.getEntry",
+        "parameters": [
+          {
+            "name": "entryId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.sanctions.listUpdates": {
+      "get": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.sanctions.listUpdates",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "updates": {
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.sanctions.searchByName": {
+      "get": {
+        "summary": "Tranche F stub — fuzzy name search across all sanctions lists. Full schema pending Phase 3 content copy.",
+        "operationId": "com.etzhayyim.sanctions.searchByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 256,
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "name": "minScorePermille",
+            "in": "query",
+            "required": false,
+            "description": "Minimum match score in permille (700 = 0.70)",
+            "schema": {
+              "type": "integer",
+              "description": "Minimum match score in permille (700 = 0.70)",
+              "minimum": 0,
+              "maximum": 1000,
+              "default": 700
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/_match"
+                      }
+                    }
+                  },
+                  "required": [
+                    "results"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

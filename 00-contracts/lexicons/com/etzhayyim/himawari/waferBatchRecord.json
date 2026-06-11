@@ -1,0 +1,149 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himawari.waferBatchRecord",
+  "description": "Ingot growth + wafer slicing batch record, emitted by the himawari ingot_wafer cell (fed by polysilicon_refine). Carries the polysilicon lot → wafer batch link (G11 traceability), G5 (kerf-Si recovery, ≥90% circular) + G4 (renewable process energy from hikari only) structural enforcement, and a >=2 robot witness quorum over the slicing QA bundle. Materializes into the kotoba Datom log (EAVT); each property is one attribute keyed by the record CID, and per-lot history is queryable as-of any point. solar-grade c-Si only (N1) — NOT the iwakura/fuigo/tsukuru logic-grade EG-Si track. Per ADR-2606021200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "properties": {
+          "batchId": {
+            "type": "string",
+            "description": "himawari-assigned ingot/wafer batch identifier; second link in the polysilicon → wafer → cell → module serial chain (G11 traceability)"
+          },
+          "polysiliconLotId": {
+            "type": "string",
+            "description": "G11: feedstock lot consumed by this batch; chains back to com.etzhayyim.himawari.polysiliconProvenanceAttestation.lotId (G2 XUAR-exclusion provenance inherited from the lot)"
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "batch attestation timestamp (ISO-8601); as-of point for the kotoba Datom history of this batch"
+          },
+          "ingotMethod": {
+            "type": "string",
+            "knownValues": [
+              "czochralski-monocrystalline",
+              "directional-cast-multicrystalline"
+            ],
+            "description": "ingot growth route; Cz monocrystalline (mono-Si) vs directional-solidification cast multicrystalline (mc-Si)"
+          },
+          "sliceMethod": {
+            "type": "string",
+            "knownValues": [
+              "diamond-wire",
+              "slurry-wire"
+            ],
+            "description": "wafer slicing route; diamond-wire enables cleaner kerf-Si recovery (G5) and lower-toxicity process than slurry"
+          },
+          "waferCount": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "number of good wafers produced by this batch"
+          },
+          "waferThicknessUm": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "as-cut wafer thickness (micrometres; integer); thinner = less Si per Wp (G5 material efficiency)"
+          },
+          "ingotMassKg": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "ingot mass grown from the feedstock lot (kilograms; integer); G5 mass-balance numerator"
+          },
+          "kerfRecoveredGrams": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "G5: kerf-Si mass recovered from slicing for the circular recycled loop (grams; integer); fed back as recycled-kerf feedstock"
+          },
+          "kerfRecoveryFractionBps": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "G5: recovered-kerf fraction of total kerf loss, basis points 0-10000 (9000 = 90%; ≥9000 satisfies the ≥90% circular anchor)"
+          },
+          "yieldBps": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "good-wafer yield in basis points 0-10000 (integer; 10000 = 100%)"
+          },
+          "processEnergyWh": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "G4: ingot-growth + slicing process energy (Wh; integer); accounted toward EPBT"
+          },
+          "renewableEnergyFractionBps": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "G4: fraction of process energy from hikari renewable, basis points 0-10000 (10000 = 100%; fossil/nuclear prohibited at any tier)"
+          },
+          "bomCid": {
+            "type": "string",
+            "description": "G8: per-batch SBOM (CycloneDX → kotoba EAVT, ADR-2605312330); consumables (wire, slurry, coolant) + the consumed polysilicon lot"
+          },
+          "qaMetrologyCid": {
+            "type": "string",
+            "description": "content-addressed wafer metrology bundle (resistivity / minority-carrier lifetime / total-thickness-variation / microcrack inspection)"
+          },
+          "processParametersCid": {
+            "type": "string",
+            "description": "G1: open process parameters for this batch (growth pull-rate, thermal profile, wire feed); content-addressed"
+          },
+          "attestingEngineerDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the PV-process engineer attesting this batch (Council technical-advisory member at R1 activation)"
+          },
+          "attestingRobots": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#robotSignature"
+            },
+            "minItems": 2,
+            "description": "Ed25519 robot witness quorum (>=2 distinct robots) over the slicing QA + mass-balance bundle"
+          }
+        },
+        "required": [
+          "batchId",
+          "polysiliconLotId",
+          "recordedAt",
+          "ingotMethod",
+          "waferCount",
+          "attestingEngineerDid",
+          "attestingRobots"
+        ]
+      }
+    },
+    "robotSignature": {
+      "type": "object",
+      "description": "G7-coupled Ed25519 robot witness attestation. Robot DID lineage logged so automated-away human QA tasks are accountable to the Liberation Metric (ADR-2605261000).",
+      "properties": {
+        "robotDid": {
+          "type": "string",
+          "format": "did"
+        },
+        "role": {
+          "type": "string",
+          "description": "witness role (e.g. metrology / wire-saw / mass-balance / microcrack-inspection)"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Ed25519 signature over the attested batch bundle"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "datetime"
+        }
+      },
+      "required": [
+        "robotDid",
+        "signature"
+      ]
+    }
+  }
+}

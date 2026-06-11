@@ -1,0 +1,152 @@
+# KaizenPrAgentCell — the self-evolution ACTUATOR (Wave 4, ADR-2605240200).
+#
+# Counterpart to the kaizen-observer Deployment. The observer writes
+# KaizenProposal NDJSON lines to /var/lib/etzhayyim/kaizen-proposals/observer.ndjson
+# (a hostPath on levi); this resident process drains that queue via
+# kaizen_pr_agent_main.serve_loop → KaizenPrAgent.consume_all, applies
+# structured patches to a checkout of github.com/etzhayyim/root, and opens
+# PRs / issues — closing the recursive self-evolution loop on the fleet.
+#
+# Co-located on levi: the proposal queue is a node-local hostPath, so the
+# consumer MUST run on the same node as the observer that writes it
+# (multi-node read is Wave 5 — NFS / OBJECT_STORE, same as the observer).
+#
+# no-server-key (ADR-2605231525): GH_TOKEN is an OPERATOR-injected,
+# short-lived GitHub token (k8s Secret), NOT a platform-held master key.
+#
+# Wave-4 ENABLEMENT APPROVED 2026-06-08 (Council Lv7+ unanimity, founder 1/1):
+# KAIZEN_PR_AGENT_DRY_RUN is now "false" (the agent opens real PRs/issues). It
+# still fails SAFE: if the `kaizen-pr-agent-gh` Secret is absent, _verify_gh_auth
+# fails → the cycle is skipped + retried (no crash, no push). An initContainer
+# clones github.com/etzhayyim/root into the shared volume each start (repo-sync).
+#
+# IMAGE REQUIREMENT: ghcr.io/etzhayyim/kotodama:main MUST ship `git` + `gh` on
+# PATH for the actuator path (clone, branch, gh pr/issue create). If absent,
+# rebuild the image with them before enabling on the live cluster.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kaizen-pr-agent
+  namespace: etzhayyim-organism
+  labels:
+    app.kubernetes.io/name: kaizen-pr-agent
+    etzhayyim.com/role: ecosystem-self-evolution-actuator
+    etzhayyim.com/leader-node: levi
+  annotations:
+    etzhayyim.com/adr: "2605240200,2605240100,2605240000,2605231525"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kaizen-pr-agent
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kaizen-pr-agent
+        etzhayyim.com/leader-node: levi
+    spec:
+      serviceAccountName: kaizen-pr-agent
+      nodeSelector:
+        kubernetes.io/hostname: levinomac-mini.local
+      imagePullSecrets:
+        - name: ghcr-pull
+      initContainers:
+        # repo-sync: a fresh clone of the public repo each pod start, into the
+        # shared emptyDir the agent patches + branches from. Public repo → no
+        # auth needed for clone (gh pr/issue create uses GH_TOKEN at push time).
+        #
+        # --depth 1 --single-branch --no-tags: the full root checkout's tracked
+        # files at HEAD are ~54 MiB, but a deeper clone drags in many commits of
+        # yoro static-asset churn (hashed immutable chunks) and overflows the
+        # repo-checkout emptyDir → pod Evicted ("exceeds the limit"). A shallow
+        # single-branch clone keeps the volume small and the actuator alive.
+        # (Verified live 2026-06-08: --depth 50 evicted at 1Gi; --depth 1 stays
+        # well under and the pr-agent runs 0-restart.)
+        - name: repo-clone
+          image: ghcr.io/etzhayyim/kotodama:main
+          imagePullPolicy: Always
+          command:
+            - sh
+            - -c
+            - >-
+              rm -rf /workspace/root &&
+              git clone --depth 1 --single-branch --no-tags https://github.com/etzhayyim/root /workspace/root &&
+              git -C /workspace/root config user.name  "kaizen-pr-agent" &&
+              git -C /workspace/root config user.email "kaizen-pr-agent@etzhayyim.com"
+          env:
+            - name: HOME
+              value: /tmp
+          volumeMounts:
+            - name: repo-checkout
+              mountPath: /workspace
+            - name: tmp
+              mountPath: /tmp
+      containers:
+        - name: pr-agent
+          image: ghcr.io/etzhayyim/kotodama:main
+          imagePullPolicy: Always
+          command:
+            - python
+            - -m
+            - kotodama.organism.kaizen_pr_agent_main
+          env:
+            - name: HOME
+              value: /tmp  # git/gh need a writable HOME under readOnlyRootFilesystem
+            - name: KAIZEN_PR_AGENT_INTERVAL_S
+              value: "600"  # 10 min — match the observer cadence
+            - name: KAIZEN_PROPOSAL_PATH
+              value: /var/lib/etzhayyim/kaizen-proposals/observer.ndjson
+            - name: KAIZEN_PR_AGENT_REPO_ROOT
+              value: /workspace/root
+            # Wave-4 ENABLED (Council Lv7+ unanimity 2026-06-08): opens real
+            # PRs/issues. Fails safe — absent GH_TOKEN → auth skip, no push.
+            - name: KAIZEN_PR_AGENT_DRY_RUN
+              value: "false"
+            # Operator-injected short-lived token (optional; absent → dry-run
+            # cycles are skipped at auth, daemon stays up).
+            - name: GH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: kaizen-pr-agent-gh
+                  key: token
+                  optional: true
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              # 2Gi (not 512Mi): a non-dry-run cycle clones + patches + runs git
+              # over the large root checkout; 512Mi OOMKilled (exit 137) the pod
+              # on the live fleet. 2Gi gives the actuator headroom.
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: kaizen-proposals
+              mountPath: /var/lib/etzhayyim/kaizen-proposals
+            - name: repo-checkout
+              mountPath: /workspace
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        # Same hostPath the observer writes to (co-located on levi).
+        - name: kaizen-proposals
+          hostPath:
+            path: /var/lib/etzhayyim/kaizen-proposals
+            type: DirectoryOrCreate
+        # Fresh per-pod clone target — the repo-clone initContainer populates
+        # /workspace/root each start (repo-sync), the agent patches + branches
+        # from it. emptyDir so a restart always starts from a clean origin/main.
+        - name: repo-checkout
+          emptyDir:
+            # 2Gi headroom for the shallow clone + the agent's working branches
+            # (1Gi evicted the pod on the live fleet during clone).
+            sizeLimit: 2Gi
+        - name: tmp
+          emptyDir:
+            sizeLimit: 256Mi

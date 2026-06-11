@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_lawfirm_subscription_start"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
+                  exporter="hand-written" exporterVersion="1.0">
+
+  <bpmn:process id="lawfirm_subscription_start"
+                name="lawfirm Subscription Start (Mode A flat)"
+                isExecutable="true">
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.lawfirm.subscriptionStart", "version": 1, "resultTimeoutMs": 60000 }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_XRPC" name="XRPC: subscriptionStart">
+      <bpmn:outgoing>Flow_start_to_create</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_create" sourceRef="Start_XRPC" targetRef="Task_CreateSubscription"/>
+
+    <bpmn:serviceTask id="Task_CreateSubscription" name="Create Stripe customer + price + subscription">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.billing.modeAStartSubscription"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=tenantId"             target="tenant_id"/>
+          <zeebe:input source="=legalName"            target="legal_name"/>
+          <zeebe:input source="=adminEmail"           target="admin_email"/>
+          <zeebe:input source="=monthlyAmountMinor"   target="monthly_amount_minor"/>
+          <zeebe:input source="=currency"             target="currency"/>
+          <zeebe:output source="=stripe_customer_id"     target="stripeCustomerId"/>
+          <zeebe:output source="=stripe_price_id"        target="stripePriceId"/>
+          <zeebe:output source="=stripe_subscription_id" target="stripeSubscriptionId"/>
+          <zeebe:output source="=account_label"          target="accountLabel"/>
+          <zeebe:output source="=dry_run"                target="dryRun"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_create</bpmn:incoming>
+      <bpmn:outgoing>Flow_create_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_create_to_audit" sourceRef="Task_CreateSubscription" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit Audit (OCEL)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;lawfirm.subscription.started&quot;" target="event_type"/>
+          <zeebe:input source="={tenant_id: tenantId, stripe_customer_id: stripeCustomerId, stripe_subscription_id: stripeSubscriptionId, dry_run: dryRun}" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_create_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

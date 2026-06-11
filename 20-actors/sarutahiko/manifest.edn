@@ -1,0 +1,50 @@
+;; sarutahiko 猿田彦 — actor manifest (Gen-3 kotoba-native)
+;; Heavy Class-8 truck manufacturing — vehicle order, production line, assembly stations, QC, parts/BOM, loading robot, settlement
+;; ADR-2605252500 (R0 scaffold)
+{:actor/id        "sarutahiko"
+ :actor/glyph     "猿田彦"
+ :actor/tier      :tier-b
+ :actor/domain    "sarutahiko.etzhayyim.com"
+ :actor/purpose   "Heavy Class-8 truck manufacturing — vehicle order, production line, assembly stations, QC, parts/BOM, loading robot, settlement. Inflow is USDC Base L2 + ERC-4337 + TitheRouter 10% only. Murakumo-only, kotoba-EAVT-native. R0 scaffold."
+ :actor/status    :r0
+ :actor/adr       "2605252500"
+ :actor/related   []
+
+ :actor/charter-rider
+ {:rider/version "2.0"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "ecu-firmware-open-source" :gate/rule "ECU + all electrical firmware open-source (Apache 2.0 + Charter Rider). No proprietary ECU."}
+  {:gate/id "G2"  :gate/name "vin-kotoba-datomic-anchor"     :gate/rule "Per-VIN manufacturing log kotoba-datomic anchor + open VIN registry."}
+  {:gate/id "G3"  :gate/name "ipfs-pinned-media"        :gate/rule "Per-VIN IPFS-pinned photo + video (welding / paint / road test)."}
+  {:gate/id "G4"  :gate/name "robot-witness-quorum"     :gate/rule "Witness quorum >=2 distinct robots per critical weld + final marriage."}
+  {:gate/id "G7"  :gate/name "fuel-type-progression"    :gate/rule "R0/R1 transition: B100 biodiesel + diesel hybrid acceptable. R2+: LFP / H₂ / NH₃ / methanol fuel-cell only. Pure-fossil phased out at R2."}
+  {:gate/id "G8"  :gate/name "emissions-compliance"     :gate/rule "Emissions <= Euro 7 + ポスト新長期 + Bharat Stage VI (R0-R1); R2+ zero tailpipe."}
+  {:gate/id "G12" :gate/name "vehicle-specs"            :gate/rule "GVWR <=40 t / max speed <=90 km/h / autonomous <= SAE J3016 Level 4 (Level 5 = non-goal)."}
+  {:gate/id "G13" :gate/name "per-vin-did"              :gate/rule "Per-VIN DID did:web:etzhayyim.com:sarutahiko:vehicle:<vin>."}
+  {:gate/id "G14" :gate/name "eol-recyclability"        :gate/rule "EoL recyclability >=90% by mass (closes loop with kanayama)."}
+  {:gate/id "G15" :gate/name "no-server-key"            :gate/rule "member/operator signs; platform holds no key (ADR-2605231525)."}
+  {:gate/id "G16" :gate/name "murakumo-only"            :gate/rule "any LLM call in `py/agent.py` must use the kotoba host binding `llm.infer(model="gemma3:4b", ...)` at `127.0.0.1:4000`."}
+  {:gate/id "G17" :gate/name "kotoba-eavt-native"       :gate/rule "State is kotoba EAVT Datoms — no SQL/RisingWave/Cypher."}
+  {:gate/id "G18" :gate/name "payments-usdc-tithe"      :gate/rule "Payments are USDC on Base L2 + ERC-4337 + TitheRouter 10%."}]
+
+ :actor/cells
+ [{:cell/id "frame-fabrication" :cell/kind :langgraph :cell/runtime :wasm} ; Originally listed as Pregel, but tsukuru uses langgraph/wasm
+  {:cell/id "powertrain-assembly" :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "cab-body-forming" :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "final-marriage" :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "paint-finishing" :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "electrical-integration" :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "quality-road-test" :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "emissions-audit" :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "vin-attestation-binder" :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "vehicle-order" :cell/kind :datalog   :cell/runtime :kotoba}
+  {:cell/id "production-ledger" :cell/kind :datalog   :cell/runtime :kotoba}]
+
+ :actor/lex
+ [{:lex/id "vehicle-order"}
+  {:lex/id "production-progress"}
+  {:lex/id "quality"}
+  {:lex/id "settlement"}]
+}

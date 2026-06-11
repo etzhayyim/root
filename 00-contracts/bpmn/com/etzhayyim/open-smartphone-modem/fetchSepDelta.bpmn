@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_smartphone_modem_fetch_sep_delta" targetNamespace="https://etzhayyim.ai/bpmn/open-smartphone-modem" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_smartphone_modem_fetch_sep_delta" name="fetchSepDelta" isExecutable="true">
+    <bpmn:startEvent id="Start" name="every 1d"><bpmn:outgoing>Flow_F</bpmn:outgoing>
+      <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P1D</bpmn:timeCycle></bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual"><bpmn:outgoing>Flow_FM</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_FM" sourceRef="Start_Manual" targetRef="Task_Fetch"/>
+    <bpmn:sequenceFlow id="Flow_F" sourceRef="Start" targetRef="Task_Fetch"/>
+    <bpmn:serviceTask id="Task_Fetch" name="fetch etsi ipr database">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.http.fetch" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="=&quot;https://www.etsi.org/ipr-and-licensing/etsi-ipr-database&quot;" target="url"/>
+          <zeebe:output source="=body" target="rawHtml"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F</bpmn:incoming><bpmn:incoming>Flow_FM</bpmn:incoming><bpmn:outgoing>Flow_L</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_L" sourceRef="Task_Fetch" targetRef="Task_Parse"/>
+    <bpmn:serviceTask id="Task_Parse" name="extract sep declarations via llm">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.llm.json" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;Extract newly declared 5G/4G SEPs from: &quot; + rawHtml" target="prompt"/>
+          <zeebe:input source="={type: &quot;object&quot;, properties: {seps: {type: &quot;array&quot;, items: {type: &quot;object&quot;, properties: {patentNo: {type: &quot;string&quot;}, holder: {type: &quot;string&quot;}, rat: {type: &quot;string&quot;}, frandDeclared: {type: &quot;boolean&quot;}}}}}}" target="schema"/>
+          <zeebe:output source="=result" target="parsed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Parse" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-smartphone-modem.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;open.smartphoneModem.fetchSepDelta&quot;" target="action"/>
+          <zeebe:input source="={count: count(parsed.seps)}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

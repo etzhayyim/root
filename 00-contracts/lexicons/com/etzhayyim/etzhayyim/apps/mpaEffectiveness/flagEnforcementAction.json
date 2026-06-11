@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mpaEffectiveness.flagEnforcementAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MPA enforcement action / IUU encounter (bridges fisheries-iuu + maritime-piracy + cites-wildlife + bbnj-highseas)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "assessmentVid",
+            "actionKind",
+            "actedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "assessmentVid": {
+              "type": "string",
+              "description": "bridges recordAssessment"
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "surveillance",
+                "warning",
+                "vessel_boarding",
+                "seizure",
+                "fine",
+                "arrest",
+                "prosecution",
+                "no_action"
+              ]
+            },
+            "targetVesselImo": {
+              "type": "string"
+            },
+            "iuuFlagVid": {
+              "type": "string",
+              "description": "bridges open-fisheries-iuu"
+            },
+            "actedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

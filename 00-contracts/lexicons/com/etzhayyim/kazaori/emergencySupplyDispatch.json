@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kazaori.emergencySupplyDispatch",
+  "description": "Per-dispatch event. Cross-actor mizuho (water) / mitsuho (food). Carve-out citation via $ref when normally-prohibited operation activated (mizuho G5 single-use container, etc.).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "emergencyDeclarationCid",
+          "dispatchCategory",
+          "dispatchDestinationCid",
+          "supplySource",
+          "quantityInteger",
+          "unitCode",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "emergencyDeclarationCid": {"type": "string"},
+          "dispatchCategory": {
+            "type": "string",
+            "knownValues": [
+              "potable-water-closed-loop-container",
+              "potable-water-single-use-carve-out",
+              "food-reserve-stock",
+              "food-mutual-aid",
+              "shelter-material",
+              "medical-supply",
+              "power-battery-redirection",
+              "other"
+            ]
+          },
+          "dispatchDestinationCid": {
+            "type": "string",
+            "description": "Safe-site or community-cell destination registry CID"
+          },
+          "supplySource": {
+            "type": "string",
+            "knownValues": [
+              "mizuho-water-source",
+              "mitsuho-reserve-stock",
+              "mitsuho-mutual-aid",
+              "iyashi-stockpile",
+              "yakushi-stockpile",
+              "hikari-grid-edge-battery",
+              "tatekata-shelter-material",
+              "external-donation-attested"
+            ]
+          },
+          "supplySourceRecordCid": {"type": "string"},
+          "quantityInteger": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Quantity in unitCode units (integer; e.g., liters / kg / meal-units / kWh)"
+          },
+          "unitCode": {
+            "type": "string",
+            "knownValues": ["liters", "kg", "meal-units", "kwh", "shelter-spaces", "medical-doses"]
+          },
+          "carveOutCitations": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#carveOutCitation"},
+            "description": "If dispatch invoked a time-bounded carve-out (e.g., mizuho G5 single-use container), citation to emergencyCarveOutLog CID + gate"
+          },
+          "deliveredAtUtc": {"type": "string", "format": "datetime"},
+          "deliveryConfirmationCid": {
+            "type": "string",
+            "description": "Destination site confirmation (encrypted if PII present)"
+          },
+          "kotobaDatomicAttestationCid": {"type": "string"},
+          "attestingCellDid": {"type": "string"}
+        }
+      }
+    },
+    "carveOutCitation": {
+      "type": "object",
+      "required": ["emergencyCarveOutLogCid", "gateCarved"],
+      "properties": {
+        "emergencyCarveOutLogCid": {"type": "string"},
+        "gateCarved": {
+          "type": "string",
+          "description": "Specific gate suspended (e.g., 'mizuho.G5-single-use-container', 'iyashi.G4-expedited-consent')"
+        }
+      }
+    }
+  }
+}

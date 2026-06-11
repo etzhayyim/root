@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  media-gamers.chartFetch
+
+  Weekly game chart ingestion + LLM analysis pipeline.
+  Timer R/P7D fires every Monday → fetch top-20 from SteamSpy + RAWG →
+  persist vertex_game_chart_snapshot → LLM analyze → social post.
+
+  Task types (kotodama primitives/media_gamers_chart.py):
+    mediaGamers.chart.fetchAndPersist  — HTTP fetch + title matching + DB insert
+    mediaGamers.chart.analyze          — LLM trend analysis + social post
+
+  Input variables (timer-start, no explicit input):
+    none — weekStart computed inside fetchAndPersist
+
+  Output variables produced by fetchAndPersist:
+    weekStart    — ISO date string (Monday of this week)
+    source       — primary source used ("steamspy_top2w")
+    snapshotCount — rows inserted into vertex_game_chart_snapshot
+
+  Output variables produced by analyze:
+    analysisUri  — vertex_id of vertex_game_chart_analysis row
+    socialText   — Japanese post text (≤300 chars)
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_media_gamers_chart_fetch"
+    targetNamespace="https://etzhayyim.ai/bpmn/media-gamers"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="media_gamers_chart_fetch" name="media gamers chart fetch" isExecutable="true">
+
+    <bpmn:startEvent id="Start_Timer" name="weekly chart fetch timer">
+      <bpmn:outgoing>Flow_ToFetch</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_7d">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P7D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToFetch" sourceRef="Start_Timer" targetRef="Task_Fetch"/>
+
+    <bpmn:serviceTask id="Task_Fetch" name="fetch and persist chart snapshots">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="mediaGamers.chart.fetchAndPersist"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=weekStart"     target="weekStart"/>
+          <zeebe:output source="=source"        target="source"/>
+          <zeebe:output source="=snapshotCount" target="snapshotCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFetch</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAnalyze</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAnalyze" sourceRef="Task_Fetch" targetRef="Task_Analyze"/>
+
+    <bpmn:serviceTask id="Task_Analyze" name="LLM analyze and post">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="mediaGamers.chart.analyze"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=weekStart" target="weekStart"/>
+          <zeebe:input source="=source"    target="source"/>
+          <zeebe:output source="=analysisUri"  target="analysisUri"/>
+          <zeebe:output source="=socialText"   target="socialText"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAnalyze</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Analyze" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="chart analysis complete"/>
+
+  </bpmn:process>
+</bpmn:definitions>

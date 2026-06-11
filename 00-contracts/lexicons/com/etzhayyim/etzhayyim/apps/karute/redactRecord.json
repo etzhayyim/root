@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.redactRecord",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Logical-delete a karute encrypted record by writing an com.etzhayyim.encrypted.tombstone with tombstoneType='redact'. The ciphertext envelope is left in place (MST is append-only); future reads MUST treat redacted records as absent. Optional sealing destroys the sender's copy of the sym_key (`tombstoneType='sealed'`), making future decrypt impossible even by the sender. Per ADR-2605231603. Common use: data-correction (mis-entered patient), patient-request redaction (post-Phase-1 GDPR-style erasure for non-medical-mandatory fields).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["targetCid", "targetAtUri", "reason"],
+          "properties": {
+            "targetCid": {"type": "string"},
+            "targetAtUri": {"type": "string"},
+            "seal": {"type": "boolean", "description": "If true, sender destroys the sym_key — recipients with cached key-wraps can still decrypt"},
+            "reason": {
+              "type": "string",
+              "enum": [
+                "patient-request-redaction",
+                "data-correction",
+                "regulator-order",
+                "consent-revocation-flush"
+              ]
+            },
+            "notes": {"type": "string"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "tombstoneCid": {"type": "string"},
+            "tombstoneAtUri": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

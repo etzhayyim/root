@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.agriFoodSecurity.recordHarvest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FAO / USDA crop harvest record (bridges commodity-trade + hs + m49 region)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "harvestId",
+            "cropHsCode",
+            "regionM49",
+            "harvestYear",
+            "productionTonnes",
+            "recordedAt"
+          ],
+          "properties": {
+            "harvestId": {
+              "type": "string"
+            },
+            "cropHsCode": {
+              "type": "string",
+              "description": "HS chapter 10-12 grains/oilseeds, 07 veg, 08 fruit"
+            },
+            "regionM49": {
+              "type": "string",
+              "description": "UN M49 geographic code"
+            },
+            "harvestYear": {
+              "type": "integer"
+            },
+            "yieldKgHa": {
+              "type": "number"
+            },
+            "productionTonnes": {
+              "type": "number"
+            },
+            "faoStockUseRatio": {
+              "type": "number"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "supplyTier": {
+              "type": "string",
+              "enum": [
+                "adequate",
+                "tight",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

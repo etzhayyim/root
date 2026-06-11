@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airSched.assignGate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assign a gate to a scheduled flight departure.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["flight_no", "dep_date", "gate_code"],
+          "properties": {
+            "flight_no": { "type": "string" },
+            "dep_date": { "type": "string" },
+            "gate_code": { "type": "string" },
+            "terminal": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

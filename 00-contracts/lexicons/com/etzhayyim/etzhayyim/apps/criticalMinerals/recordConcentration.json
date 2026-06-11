@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.criticalMinerals.recordConcentration",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Supply concentration metric (HHI) per material / origin country",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "metricId",
+            "classificationVid",
+            "measuredYear"
+          ],
+          "properties": {
+            "metricId": {
+              "type": "string"
+            },
+            "classificationVid": {
+              "type": "string",
+              "description": "bridges classifyMaterial"
+            },
+            "topProducerIso3": {
+              "type": "string"
+            },
+            "topProducerSharePct": {
+              "type": "number"
+            },
+            "hhiIndex": {
+              "type": "number",
+              "description": "Herfindahl-Hirschman Index 0-10000"
+            },
+            "commodityTradeVid": {
+              "type": "string",
+              "description": "bridges open-commodity-trade"
+            },
+            "measuredYear": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "concentrationTier": {
+              "type": "string",
+              "enum": [
+                "competitive",
+                "moderately_concentrated",
+                "concentrated",
+                "monopoly_like"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

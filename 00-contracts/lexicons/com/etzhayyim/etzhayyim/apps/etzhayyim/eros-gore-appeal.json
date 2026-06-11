@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.eros-gore-appeal",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Appeal of a Council Eros/Gore precedent. 30-day window. Larger Council quorum (≥5) for re-deliberation. Per ADR-2605192400 §4.",
+      "record": {
+        "type": "object",
+        "required": ["precedentUri", "appellantDid", "appealNarrative", "submittedAt"],
+        "properties": {
+          "precedentUri": { "type": "string", "format": "at-uri" },
+          "appellantDid": { "type": "string" },
+          "appealNarrative": { "type": "string", "maxLength": 8000 },
+          "counterEvidenceUris": {
+            "type": "array",
+            "maxLength": 50,
+            "items": { "type": "string" }
+          },
+          "appellantSignature": { "type": "string" },
+          "submittedAt": { "type": "string", "format": "datetime" },
+          "councilReReviewResult": {
+            "type": "string",
+            "enum": ["pending", "precedent-confirmed", "precedent-modified", "precedent-overturned"]
+          },
+          "newPrecedentUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the new precedent if council modified or overturned (uses supersedesPrecedent link)."
+          },
+          "councilSigners": {
+            "type": "array",
+            "minLength": 5,
+            "items": { "type": "string" },
+            "description": "≥5 Lv6+ required for appeal review (higher than initial 3)."
+          },
+          "councilReReviewedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

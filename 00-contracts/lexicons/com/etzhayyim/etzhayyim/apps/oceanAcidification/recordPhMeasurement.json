@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oceanAcidification.recordPhMeasurement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OA-ICC / SDG 14.3 pH measurement (bridges biodiversity-gbf + fisheries-iuu + coastal-slr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "measurementId",
+            "stationId",
+            "regionM49",
+            "totalPh",
+            "measuredAt"
+          ],
+          "properties": {
+            "measurementId": {
+              "type": "string"
+            },
+            "stationId": {
+              "type": "string"
+            },
+            "regionM49": {
+              "type": "string"
+            },
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            },
+            "totalPh": {
+              "type": "number"
+            },
+            "omegaAragonite": {
+              "type": "number"
+            },
+            "temperatureC": {
+              "type": "number"
+            },
+            "salinityPsu": {
+              "type": "number"
+            },
+            "methodQualityFlag": {
+              "type": "string",
+              "enum": [
+                "climate",
+                "weather",
+                "regional"
+              ]
+            },
+            "measuredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "acidityTier": {
+              "type": "string",
+              "enum": [
+                "ambient",
+                "elevated",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

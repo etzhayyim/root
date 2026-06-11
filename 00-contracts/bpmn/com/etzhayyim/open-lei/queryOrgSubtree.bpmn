@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_open_lei_query_org_subtree"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-lei"
+    exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="open_lei_query_org_subtree" name="Org Subtree 検索" isExecutable="true">
+
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Query"/>
+
+    <!-- Read-only materialized-path prefix scan; no audit needed -->
+    <bpmn:serviceTask id="Task_Query" name="Subtree 検索">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="openLei.org.subtree"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=lei"          target="lei"/>
+          <zeebe:input source="=rootOrgVid"   target="rootOrgVid"/>
+          <zeebe:input source="=orgType"      target="orgType"/>
+          <zeebe:input source="=statusFilter" target="statusFilter"/>
+          <zeebe:input source="=maxDepth"     target="maxDepth"/>
+          <zeebe:input source="=limit"        target="limit"/>
+          <zeebe:input source="=offset"       target="offset"/>
+          <zeebe:output source="=ok"     target="queryOk"/>
+          <zeebe:output source="=units"  target="orgUnits"/>
+          <zeebe:output source="=total"  target="totalCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Query" targetRef="End"/>
+
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

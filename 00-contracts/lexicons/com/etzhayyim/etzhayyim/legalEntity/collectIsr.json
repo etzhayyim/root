@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.collectIsr",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Collect Israeli corporate data from Companies Registrar (Rasham HaChavarot). Company number as primary key.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pages": { "type": "integer", "description": "Number of pages to fetch (default 5, max 50)" },
+            "pageSize": { "type": "integer", "description": "Records per page (max 100)" },
+            "startPage": { "type": "integer", "description": "Starting page number (default 0)" },
+            "companyType": { "type": "string", "description": "Filter: private, public, foreign, partnership" },
+            "status": { "type": "string", "description": "Filter: active, struck-off, dissolved, liquidation" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "pagesProcessed": { "type": "integer" },
+            "totalInserted": { "type": "integer" },
+            "totalSkipped": { "type": "integer" },
+            "apiTotal": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

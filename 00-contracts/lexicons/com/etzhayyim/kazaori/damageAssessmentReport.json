@@ -1,0 +1,107 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kazaori.damageAssessmentReport",
+  "description": "Per-area damage assessment report. G6 STRUCTURAL: assessmentMethod enum DELIBERATELY excludes surveillance-based methods (aerial-drone, facial-recognition, bluetooth-beacon). G7 Murakumo-only inference for prediction. Cross-actor data fusion sources via $ref pattern.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "emergencyDeclarationCid",
+          "assessmentAreaCid",
+          "assessmentMethod",
+          "damageSeverity",
+          "crossActorDataSources",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "emergencyDeclarationCid": {
+            "type": "string",
+            "description": "Active emergencyDeclarationAttestation CID"
+          },
+          "assessmentAreaCid": {
+            "type": "string",
+            "description": "GeoJSON or Land Registry area CID"
+          },
+          "assessmentMethod": {
+            "type": "string",
+            "knownValues": [
+              "community-self-report",
+              "responder-on-site-visual",
+              "cross-actor-attestation-fusion",
+              "satellite-public-imagery-post-event",
+              "ground-sensor-public-network",
+              "open-source-news-aggregation"
+            ],
+            "description": "G6 STRUCTURAL: surveillance-based methods (aerial-drone-surveillance, facial-recognition, bluetooth-beacon-tracking) DELIBERATELY excluded from enum"
+          },
+          "damageSeverity": {
+            "type": "string",
+            "knownValues": ["none", "minor", "moderate", "severe", "catastrophic"]
+          },
+          "damageCategoryBreakdown": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#damageCategoryEntry"}
+          },
+          "crossActorDataSources": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#crossActorSource"},
+            "description": "Data fusion sources from cross-actors (mizuho / hikari / tatekata / iyashi / mitsuho)"
+          },
+          "needsPrediction": {
+            "type": "object",
+            "properties": {
+              "waterLitersNeeded": {"type": "integer", "minimum": 0},
+              "foodMealsNeeded": {"type": "integer", "minimum": 0},
+              "shelterSpacesNeeded": {"type": "integer", "minimum": 0},
+              "medicalSurgeBedsNeeded": {"type": "integer", "minimum": 0},
+              "powerKwhNeeded": {"type": "integer", "minimum": 0},
+              "predictionConfidencePctIntegerHundredths": {"type": "integer", "minimum": 0, "maximum": 10000}
+            }
+          },
+          "murakumoInferenceRunCid": {
+            "type": "string",
+            "description": "G7 attestation: needs prediction generated via Murakumo only"
+          },
+          "kotobaDatomicAttestationCid": {"type": "string"},
+          "attestingCellDid": {"type": "string"}
+        }
+      }
+    },
+    "damageCategoryEntry": {
+      "type": "object",
+      "required": ["category", "severity"],
+      "properties": {
+        "category": {
+          "type": "string",
+          "knownValues": ["buildings", "water-systems", "power-grid", "roads-bridges", "food-stores", "communications", "medical-facilities", "agricultural"]
+        },
+        "severity": {"type": "string", "knownValues": ["none", "minor", "moderate", "severe", "catastrophic"]},
+        "estimatedAssetCountAffected": {"type": "integer"}
+      }
+    },
+    "crossActorSource": {
+      "type": "object",
+      "required": ["actorDid", "sourceRecordCid"],
+      "properties": {
+        "actorDid": {
+          "type": "string",
+          "knownValues": [
+            "did:web:mizuho.etzhayyim.com",
+            "did:web:hikari.etzhayyim.com",
+            "did:web:tatekata.etzhayyim.com",
+            "did:web:iyashi.etzhayyim.com",
+            "did:web:mitsuho.etzhayyim.com",
+            "did:web:hagukumi.etzhayyim.com"
+          ]
+        },
+        "sourceRecordCid": {"type": "string"},
+        "fusionWeightIntegerHundredths": {"type": "integer", "minimum": 0, "maximum": 10000}
+      }
+    }
+  }
+}

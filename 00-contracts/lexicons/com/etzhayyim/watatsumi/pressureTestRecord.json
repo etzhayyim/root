@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watatsumi.pressureTestRecord",
+  "description": "Pressure test record (L5b). 1.25× design-depth water-pressure test with continuous Hibiki AE monitoring. G12 KPI cap (designDepthM ≤ 6500 civilian). Per ADR-2605252200 L5b.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "craftId": {"type": "string"},
+          "designDepthM": {"type": "integer", "maximum": 6500},
+          "testDepthEquivalentM": {"type": "integer"},
+          "testPressureDbar": {"type": "integer", "description": "Test pressure, implied unit deci-bar (×10) per Lexicon v1 integer-only rule (ADR-2605190900). 8125 = 812.5 bar gauge."},
+          "hibikiAEStream": {"type": "array", "items": {"type": "unknown"}},
+          "holdDurationMinutes": {"type": "integer", "minimum": 60},
+          "leakRateMicrolitrePerMin": {"type": "integer", "maximum": 1000, "description": "Leak-rate ceiling, implied unit µL/min per Lexicon v1 integer-only rule. 1000 = 1.0 mL/min acceptance ceiling."},
+          "overallAccept": {"type": "boolean"},
+          "g12KpiCheck": {
+            "type": "object",
+            "properties": {
+              "maxCivilianDepthM": {"type": "integer", "const": 6500},
+              "accept": {"type": "boolean"}
+            },
+            "required": ["maxCivilianDepthM", "accept"]
+          },
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["craftId", "designDepthM", "testPressureDbar", "overallAccept", "g12KpiCheck"]
+      }
+    }
+  }
+}

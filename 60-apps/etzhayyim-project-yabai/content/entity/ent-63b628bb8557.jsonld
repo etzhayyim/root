@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-63b628bb8557",
+  "entityId": "ent-63b628bb8557",
+  "canonicalName": "muhindo akili mundos",
+  "aliases": [
+    "muhindo akili mundos"
+  ]
+}

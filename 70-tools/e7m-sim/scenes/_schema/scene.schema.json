@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etzhayyim.com/schemas/e7m-sim/scene.schema.json",
+  "title": "e7m-sim scene.yaml schema",
+  "description": "Schema for 70-tools/e7m-sim/scenes/<name>/scene.yaml. Validates the existing cartpole/kusawake convention (per ADR-2605261800 R1.1) plus the `world:` section added by ADR-2605262500 §3 for outdoor robotics sim. Permissive on sections that haven't yet been canonicalized (additionalProperties: true).",
+
+  "type": "object",
+  "required": ["adr"],
+  "additionalProperties": true,
+
+  "properties": {
+    "adr": {
+      "type": "string",
+      "pattern": "^ADR-\\d{10}$",
+      "description": "Authoritative ADR for this scene (e.g. ADR-2605261800 for cartpole; ADR-2605262500 for wadachi-r1-shibuya-1km)."
+    },
+    "phase": {
+      "type": "string",
+      "description": "Wave / R-phase tag, e.g. 'R1.1' or 'W1'."
+    },
+    "sim_consumer": {
+      "type": "string",
+      "description": "Robot/task identifier this scene targets, e.g. 'wadachi-r1', 'kusawake-r1'."
+    },
+    "nv_compat_target": {
+      "type": "string",
+      "description": "Optional nv-compat facade target class (ADR-2605261800 §4), e.g. 'isaacsim.core.api.World'."
+    },
+
+    "world": {
+      "type": "object",
+      "description": "Geospatial world-data composition (ADR-2605262500 §3). Maps datasetPin CIDs into per-layer USD primitives. PRESENT only on outdoor scenes; absent on cartpole/kusawake.",
+      "required": ["crs", "bbox", "output_subdataset", "layers"],
+      "additionalProperties": false,
+      "properties": {
+        "crs": {
+          "type": "string",
+          "pattern": "^EPSG:\\d+$",
+          "description": "Coordinate reference system, e.g. 'EPSG:4326'."
+        },
+        "bbox": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 4,
+          "maxItems": 4,
+          "description": "Spatial bbox as [west, south, east, north] in `crs` units."
+        },
+        "output_subdataset": {
+          "type": "string",
+          "description": "Path under 90-docs/baien/datasets/ where the assembled USD scene CID is pinned."
+        },
+        "layers": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/worldLayer" },
+          "description": "Ordered list of world-data layers. Order matters for shader/material stacking."
+        },
+        "props": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/worldProp" },
+          "description": "Optional object-instance props placed on the world (e.g. parked cars). Tier-C-tagged props force the scene's max_tier to C and require `-nc-` infix in the scene name (G4 + G5 of ADR-2605262500)."
+        }
+      }
+    },
+
+    "scene": {
+      "type": "object",
+      "description": "Genesis-physics scene-level config (matches ADR-2605261800 R1.1 cartpole convention).",
+      "additionalProperties": true,
+      "properties": {
+        "num_envs": { "type": "integer", "minimum": 1 },
+        "env_spacing": { "type": "number" },
+        "gravity": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "dt": { "type": "number", "exclusiveMinimum": 0 },
+        "decimation": { "type": "integer", "minimum": 1 }
+      }
+    },
+
+    "robot": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "urdf": { "type": "string" },
+        "base_link": { "type": "string" }
+      }
+    },
+
+    "observation": { "type": "object", "additionalProperties": true },
+    "action":      { "type": "object", "additionalProperties": true },
+    "reward":      { "type": "object", "additionalProperties": true },
+    "termination": { "type": "object", "additionalProperties": true },
+
+    "quality_gate": {
+      "type": "object",
+      "description": "G5 (ADR-2605261600) / G11 (ADR-2605262500) quality target vs Isaac Sim reference scene.",
+      "additionalProperties": true,
+      "properties": {
+        "reference_baseline": { "type": "string" },
+        "combined_target": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+
+    "charter": {
+      "type": "object",
+      "description": "ADR-2605262500 charter compliance assertions per scene.",
+      "additionalProperties": false,
+      "properties": {
+        "max_tier": {
+          "type": "string",
+          "enum": ["A", "B", "C"],
+          "description": "Maximum tier across all layers + props. Used by assemble-usd-scene.py to enforce `-nc-` infix on Tier-C (G4)."
+        },
+        "charter_rider_scan": {
+          "type": "string",
+          "enum": ["required", "skipped-with-attestation"],
+          "description": "G1 — must be 'required' for any scene that ingests external CIDs."
+        },
+        "pii_filter": {
+          "type": "string",
+          "enum": ["required", "not_applicable"],
+          "description": "G2 — 'required' when any layer references Mapillary (vision PII applies)."
+        },
+        "replication_min": {
+          "type": "integer",
+          "minimum": 2,
+          "description": "G3 — minimum IPFS replication for source subdatasets."
+        },
+        "physics_backend": {
+          "type": "string",
+          "const": "kami-genesis",
+          "description": "G7 — PhysX N1..N9 NEVER per ADR-2605261800 §2(b)."
+        },
+        "render_backend": {
+          "type": "string",
+          "enum": ["kami-pbrt", "kami-pbrt-embree"],
+          "description": "G8 — OptiX / RTX Renderer / Replicator NEVER."
+        },
+        "inference_substrate": {
+          "type": "string",
+          "const": "murakumo-only",
+          "description": "G9 — ADR-2605215000 invariant."
+        }
+      }
+    },
+
+    "budget": {
+      "type": "object",
+      "description": "G12 — Murakumo capacity caps per ADR-2605261600.",
+      "additionalProperties": false,
+      "properties": {
+        "phase": { "type": "string", "enum": ["R1", "R2", "R3"] },
+        "gpu_hr_eq_per_day_max": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    }
+  },
+
+  "$defs": {
+    "worldLayer": {
+      "type": "object",
+      "required": ["kind", "source_subdataset", "datasetPin_at", "tier"],
+      "additionalProperties": true,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "terrain",
+            "raster_overlay",
+            "vector_roads",
+            "vector_buildings",
+            "vector_landuse",
+            "vector_water",
+            "vector_pois"
+          ],
+          "description": "ADR-2605262500 §3 layer kinds. Each maps to a per-kind dispatch in assemble-usd-scene.py §4."
+        },
+        "source_subdataset": {
+          "type": "string",
+          "description": "Path under 90-docs/baien/datasets/ — e.g. 'geo/srtm/n35e139'."
+        },
+        "datasetPin_at": {
+          "type": "string",
+          "pattern": "^at://.+",
+          "description": "AT URI of the com.etzhayyim.substrate.datasetPin receipt. Placeholder `<rkey-placeholder>` is permitted at W1 path-reserved stage."
+        },
+        "tier": {
+          "type": "string",
+          "enum": ["A", "B", "C"],
+          "description": "Charter Rider license tier per ADR-2605262500 §2. Tier C forces G4 (`-nc-` infix on derived sim recordings)."
+        }
+      }
+    },
+    "worldProp": {
+      "type": "object",
+      "required": ["kind", "source_subdataset", "datasetPin_at", "tier"],
+      "additionalProperties": true,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["object_3d_instances", "skinned_humanoid_instances"],
+          "description": "Prop kinds. Object instances = static rigid (cars, signs); skinned humanoid = pedestrian rigs (W4+, requires PII vetting)."
+        },
+        "source_subdataset": { "type": "string" },
+        "datasetPin_at": {
+          "type": "string",
+          "pattern": "^at://.+"
+        },
+        "tier": {
+          "type": "string",
+          "enum": ["A", "B", "C"]
+        },
+        "count": { "type": "integer", "minimum": 0 },
+        "placement_strategy": {
+          "type": "string",
+          "description": "Free-form strategy slug (e.g. 'road_lane_center_jitter'). assemble-usd-scene.py looks up the implementation."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.amrSurveillance.recordResistanceSample",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "AMR isolate surveillance (GLASS / EARS-Net / JVARM / FAO InFARM — bridges one-health + livestock-antibiotics + hospital-infection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "sampleId",
+            "pathogenSpecies",
+            "sourceCompartment",
+            "countryIso3",
+            "antibioticClass",
+            "resistancePhenotype",
+            "collectedAt"
+          ],
+          "properties": {
+            "sampleId": {
+              "type": "string"
+            },
+            "pathogenSpecies": {
+              "type": "string"
+            },
+            "sourceCompartment": {
+              "type": "string",
+              "enum": [
+                "human",
+                "animal_food_producing",
+                "animal_companion",
+                "environment",
+                "food",
+                "water"
+              ]
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "antibioticClass": {
+              "type": "string",
+              "enum": [
+                "beta_lactam",
+                "carbapenem",
+                "fluoroquinolone",
+                "polymyxin",
+                "glycopeptide",
+                "macrolide",
+                "aminoglycoside",
+                "tetracycline",
+                "oxazolidinone"
+              ]
+            },
+            "resistancePhenotype": {
+              "type": "string",
+              "enum": [
+                "susceptible",
+                "intermediate",
+                "resistant",
+                "mdr",
+                "xdr",
+                "pdr"
+              ]
+            },
+            "mlsTypeOrStLike": {
+              "type": "string"
+            },
+            "collectedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "alertTier": {
+              "type": "string",
+              "enum": [
+                "routine",
+                "watch",
+                "high",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

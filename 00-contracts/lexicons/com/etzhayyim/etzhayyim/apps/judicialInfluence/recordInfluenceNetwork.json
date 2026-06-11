@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.judicialInfluence.recordInfluenceNetwork",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Judicial influence network / confirmation bias / donor linkage (bridges amicusBrief.flagCitation + academic-integrity + press-freedom)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "networkId",
+            "judgeJurisdiction",
+            "linkageKind",
+            "observedAt"
+          ],
+          "properties": {
+            "networkId": {
+              "type": "string"
+            },
+            "judgeJurisdiction": {
+              "type": "string",
+              "enum": [
+                "scotus",
+                "us_circuit",
+                "state_supreme",
+                "uk_supreme",
+                "echr",
+                "cjeu",
+                "icj",
+                "itlos",
+                "wto",
+                "icc",
+                "arbitral_panel"
+              ]
+            },
+            "linkageKind": {
+              "type": "string",
+              "enum": [
+                "federalist_society",
+                "american_constitution_society",
+                "donor_club",
+                "clerkship_pipeline",
+                "law_firm_revolver",
+                "think_tank_fellow",
+                "shadow_docket_case",
+                "textualist_network",
+                "am_bar_committee",
+                "white_house_pipeline"
+              ]
+            },
+            "citationFlagVid": {
+              "type": "string",
+              "description": "bridges amicusBrief.flagCitation"
+            },
+            "observedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

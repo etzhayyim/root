@@ -1,0 +1,95 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.dataAdequacy.flagSupervisoryAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Supervisory authority action (bridges antitrust-dma + data-broker-registry)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "mechanismVid",
+            "authority",
+            "actionKind",
+            "actedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "mechanismVid": {
+              "type": "string",
+              "description": "bridges recordTransferMechanism"
+            },
+            "authority": {
+              "type": "string",
+              "enum": [
+                "edpb",
+                "cnil",
+                "ico",
+                "bfdi",
+                "apd",
+                "acm",
+                "cac",
+                "pipc",
+                "ppc",
+                "opc",
+                "anpd",
+                "fpb"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "reprimand",
+                "fine",
+                "suspension",
+                "order_to_cease",
+                "certification_withdrawal",
+                "adequacy_reassessment"
+              ]
+            },
+            "fineEur": {
+              "type": "number"
+            },
+            "actedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "severe",
+                "systemic"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

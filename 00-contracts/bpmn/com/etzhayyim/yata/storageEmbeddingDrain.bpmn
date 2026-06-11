@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  yatabase.etzhayyim.com — embedding queue drain (autonomous, R/PT5M).
+
+  Reads `mv_yata_blob_embedding_queue` (blobs with embedding_status='pending'),
+  picks up to 32 blobs per tick, downloads bytes from B2, posts to RunPod
+  (Gemma-4-E2B 768-dim) in 1 batch, INSERTs vec into vertex_yata_blob_embedding,
+  then UPDATE vertex_yata_blob SET embedding_status='done'.
+
+  Failure path: 5 retries → embedding_status='failed' (excluded from queue MV
+  so dead letters don't burn LLM cost on retry). Operators can re-flag a
+  failed row to 'pending' to retry manually.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yata_storage_embedding_drain"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="yata_storage_embedding_drain" name="yata embedding queue drain (5min)" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="every 5 minutes">
+      <bpmn:outgoing>Flow_ToDrain</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT5M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Drain" name="batch embed up to 32 blobs">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yata.storage.embedding.drain"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=32" target="batchSize"/>
+          <zeebe:output source="=processed" target="processed"/>
+          <zeebe:output source="=failed" target="failed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToDrain</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToDrain" sourceRef="StartTimer" targetRef="Task_Drain"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yatabase.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.yata.storageEmbeddingDrain&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;processed&quot;: processed, &quot;failed&quot;: failed }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Drain" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

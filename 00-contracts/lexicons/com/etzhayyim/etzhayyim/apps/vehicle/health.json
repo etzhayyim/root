@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.vehicle.health",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Health check for the Vehicle Manufacturing Graph worker.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" },
+            "nanoid": { "type": "string" },
+            "did": { "type": "string" },
+            "now": { "type": "string" }
+          },
+          "required": ["status"]
+        }
+      }
+    }
+  }
+}

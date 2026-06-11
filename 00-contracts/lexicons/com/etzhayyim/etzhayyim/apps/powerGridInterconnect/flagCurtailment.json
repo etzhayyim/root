@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.powerGridInterconnect.flagCurtailment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Renewable curtailment or load shedding event",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eventId",
+            "regionIso3",
+            "eventKind",
+            "occurredAt"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "flowVid": {
+              "type": "string",
+              "description": "bridges recordCrossBorderFlow"
+            },
+            "regionIso3": {
+              "type": "string"
+            },
+            "eventKind": {
+              "type": "string",
+              "enum": [
+                "renewable_curtailment",
+                "load_shedding",
+                "grid_separation",
+                "frequency_deviation",
+                "re_dispatch",
+                "ancillary_services"
+              ]
+            },
+            "spaceWxEventVid": {
+              "type": "string",
+              "description": "bridges open-space-weather"
+            },
+            "energyMwh": {
+              "type": "number"
+            },
+            "durationMinutes": {
+              "type": "integer"
+            },
+            "occurredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "impactTier": {
+              "type": "string",
+              "enum": [
+                "routine",
+                "significant",
+                "major"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

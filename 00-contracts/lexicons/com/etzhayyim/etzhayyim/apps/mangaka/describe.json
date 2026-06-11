@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.describe",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {},
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "did": {
+              "type": "string"
+            },
+            "nanoid": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "capabilities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "protocols": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

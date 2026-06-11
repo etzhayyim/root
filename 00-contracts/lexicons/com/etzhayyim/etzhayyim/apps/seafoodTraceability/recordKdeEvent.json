@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.seafoodTraceability.recordKdeEvent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "GDST 1.1 / UNSCEFACT seafood KDE event (bridges fisheries-iuu + customs-clearance + biosecurity + biodiversity-gbf)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eventId",
+            "kdeType",
+            "speciesAsfis",
+            "occurredAt"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "kdeType": {
+              "type": "string",
+              "enum": [
+                "catch",
+                "landing",
+                "processing",
+                "aggregation",
+                "shipment",
+                "sale_to_consumer"
+              ]
+            },
+            "speciesAsfis": {
+              "type": "string",
+              "description": "FAO ASFIS 3-alpha"
+            },
+            "weightKg": {
+              "type": "number"
+            },
+            "gearType": {
+              "type": "string"
+            },
+            "vesselImo": {
+              "type": "string"
+            },
+            "faoArea": {
+              "type": "string"
+            },
+            "recordingPartyLei": {
+              "type": "string"
+            },
+            "occurredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

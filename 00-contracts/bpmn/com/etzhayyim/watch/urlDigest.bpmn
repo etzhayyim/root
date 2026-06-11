@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  F5 batch — `watch.urlDigest` — fetch a URL, ask Devstral for a
+  one-paragraph digest, leave an audit trail. Exercises the
+  http.fetch + llm.json + audit.emit primitive chain that replaces
+  the typical "scrape + summarize + commit" T2 actor.
+
+  Flow:
+    Start (input: url)
+      → generic.http.fetch   (GET url)
+      → generic.llm.json     ({title, summary, lang})
+      → generic.audit.emit   (actor=did:web:watch.etzhayyim.com)
+      → End
+
+  Variables on the instance:
+    in:     url (required)
+    middle: fetchStatus, fetchBody, digest
+    out:    digest, auditEmitted, auditRkey, fetchStatus
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_watch_url_digest"
+    targetNamespace="https://etzhayyim.ai/bpmn/watch"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="watch_url_digest" name="watch url digest" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="url submitted">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Fetch"/>
+
+    <bpmn:serviceTask id="Task_Fetch" name="fetch url">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=string(url)" target="url"/>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="=20"            target="timeoutSec"/>
+          <zeebe:output source="=status"    target="fetchStatus"/>
+          <zeebe:output source="=bodyText"  target="fetchBody"/>
+          <zeebe:output source="=latencyMs" target="fetchLatencyMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Fetch" targetRef="Task_Digest"/>
+
+    <bpmn:serviceTask id="Task_Digest" name="LLM digest">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are a web-page digester. Output ONE JSON object: {&apos;title&apos;:string&lt;=120chars,&apos;summary&apos;:string&lt;=400chars,&apos;lang&apos;:2-letter-code}. JSON only, no prose.&quot;" target="system"/>
+          <zeebe:input source="=&quot;URL: &quot; + string(url) + &quot;\nFetched body (may be truncated):\n&quot; + string(fetchBody)" target="user"/>
+          <zeebe:input source="=240" target="maxTokens"/>
+          <zeebe:input source="=0.2" target="temperature"/>
+          <zeebe:output source="=ok"        target="llmOk"/>
+          <zeebe:output source="=data"      target="digest"/>
+          <zeebe:output source="=model"     target="llmModel"/>
+          <zeebe:output source="=latencyMs" target="llmLatencyMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Digest" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit: digest">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:watch.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;urlDigest&quot;" target="action"/>
+          <zeebe:input source="={
+              url:            string(url),
+              fetchStatus:    fetchStatus,
+              fetchLatencyMs: fetchLatencyMs,
+              digest:         digest,
+              llmOk:          llmOk,
+              llmModel:       llmModel,
+              llmLatencyMs:   llmLatencyMs
+          }" target="payload"/>
+          <zeebe:output source="=emitted" target="auditEmitted"/>
+          <zeebe:output source="=rkey"    target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

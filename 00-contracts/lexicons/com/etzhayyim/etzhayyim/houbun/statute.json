@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.houbun.statute",
+  "description": "Record of a statute / regulation / by-law as an addressable document. Full article bodies are emitted as separate `com.etzhayyim.apps.houbun.article` records linked via `statute_ref`. See ADR-0052.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "jurisdiction",
+          "statuteId",
+          "title",
+          "source",
+          "sourceUrl",
+          "createdAt"
+        ],
+        "properties": {
+          "jurisdiction": { "type": "string", "description": "ISO 3166-1 alpha-3 or supra-national code (e.g. 'jpn', 'usa', 'eu', 'int')." },
+          "statuteId": { "type": "string", "description": "Source-native statute identifier (e.g. e-Gov lawId, GovInfo packageId, CELEX number)." },
+          "title": { "type": "string" },
+          "titleNative": { "type": "string", "description": "Title in the original language if different from `title`." },
+          "statuteType": { "type": "string", "knownValues": ["law", "regulation", "ordinance", "rule", "by-law", "treaty-domestic"], "description": "Instrument class." },
+          "enactedDate": { "type": "string", "format": "date" },
+          "effectiveDate": { "type": "string", "format": "date" },
+          "repealedDate": { "type": "string", "format": "date" },
+          "source": { "type": "string", "knownValues": ["e-gov", "govinfo-cfr", "govinfo-usc", "eur-lex"] },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "license": { "type": "string", "description": "e.g. CC-BY-4.0 (e-Gov), public-domain (GovInfo)." },
+          "language": { "type": "string", "description": "ISO 639-1 code of the authoritative text." },
+          "articleCount": { "type": "integer" },
+          "props": { "type": "string", "description": "Opaque JSON string for source-specific metadata." },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.relocateEdgeAppInstance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MEC orchestrator — record an EAS relocation (ACR — Application Context Relocation) between MEC hosts. Trigger may reference Phase 7 capacity_forecast (breach), Phase 4 ue_mobility (handover), or Phase 8 NWDAF SERVICE_EXPERIENCE.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["easId", "fromHostId", "toHostId", "triggerKind", "acrMode", "observedAt"],
+          "properties": {
+            "relocationId": { "type": "string" },
+            "easId": { "type": "string" },
+            "fromHostId": { "type": "string" },
+            "toHostId": { "type": "string" },
+            "triggerKind": { "type": "string", "enum": ["ue_mobility", "load_balance", "capacity_breach", "host_failure", "operator_request", "policy_driven"] },
+            "triggerVid": { "type": "string" },
+            "acrMode": { "type": "string", "enum": ["s8", "s8s9", "s8c", "stateless", "stateful"] },
+            "statePackageHash": { "type": "string" },
+            "statePackageRef": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "relocationId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

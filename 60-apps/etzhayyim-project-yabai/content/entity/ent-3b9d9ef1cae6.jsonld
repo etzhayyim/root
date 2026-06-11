@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-3b9d9ef1cae6",
+  "entityId": "ent-3b9d9ef1cae6",
+  "canonicalName": "françois yangouvonda bozizé",
+  "aliases": [
+    "françois yangouvonda bozizé"
+  ]
+}

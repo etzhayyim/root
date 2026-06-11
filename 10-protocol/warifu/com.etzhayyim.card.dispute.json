@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.card.dispute",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A chargeback/dispute record over a warifu settlement. Resolution runs through chigiri 契 (legal procedure) / Council arbitration; loss is mutualised by wakai 和会.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["settlementId", "reasonCode", "openedBy", "createdAt"],
+        "properties": {
+          "settlementId": { "type": "string" },
+          "reasonCode": { "type": "string", "enum": ["fraud", "not-received", "not-as-described", "duplicate", "other"] },
+          "openedBy": { "type": "string", "format": "did" },
+          "amountUsdc": { "type": "integer", "minimum": 1 },
+          "evidence": { "type": "array", "items": { "type": "string", "description": "encrypted blob CID (com.etzhayyim.encrypted.*)" } },
+          "status": { "type": "string", "enum": ["open", "evidence", "chigiri", "resolved", "absorbed"] },
+          "resolution": { "type": "string", "enum": ["wakai-absorbed", "reversed", "upheld"] },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

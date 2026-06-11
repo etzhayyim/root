@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shosha.etzhayyim.com — trade book recompute (autonomous, R/PT4H).
+
+  Pipeline:
+    1. shosha.exposure.recompute  Aggregate open trades minus hedges → vertex_shosha_exposure_snapshot
+    2. shosha.pnl.dailyRecompute  Mark-to-market open trades against latest market view
+
+  No XRPC entry. Pure timer-start BPMN-as-actor (ADR-0056).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shosha_trade_book_recompute"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="shosha_trade_book_recompute" name="shosha trade book recompute (4h)" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="every 4 hours">
+      <bpmn:outgoing>Flow_ToExposure</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT4H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Exposure" name="recompute exposure snapshot">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.exposure.recompute"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=rows" target="exposureRows"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToExposure</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToPnl</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToExposure" sourceRef="StartTimer" targetRef="Task_Exposure"/>
+
+    <bpmn:serviceTask id="Task_Pnl" name="recompute daily P&amp;L (mark-to-market)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.pnl.dailyRecompute"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=tradesUpdated" target="tradesUpdated"/>
+          <zeebe:output source="=totalUnrealized" target="totalUnrealized"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPnl</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPnl" sourceRef="Task_Exposure" targetRef="Task_Pnl"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.tradeBookRecompute&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;exposureRows&quot;: exposureRows, &quot;tradesUpdated&quot;: tradesUpdated, &quot;totalUnrealized&quot;: totalUnrealized }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Pnl" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

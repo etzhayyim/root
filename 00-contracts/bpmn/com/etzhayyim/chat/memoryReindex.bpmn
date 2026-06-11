@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  etzhayyim.ai chat — memory reindex (timer-start, autonomous, R/PT24H).
+
+  Walks vertex_chat_message.embedding IS NULL rows (last 24h),
+  embeds via Murakumo-served sentence-transformers actor, writes
+  embedding + ivf_cluster_id back. Promotes "important" messages
+  to vertex_chat_memory (long-term) based on importance_score.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_chat_memory_reindex"
+    targetNamespace="https://etzhayyim.ai/bpmn/chat"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="chat_memory_reindex" name="chat memory reindex" isExecutable="true">
+
+    <bpmn:documentation>
+      { "version": 1, "schedule": "R/PT24H" }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="daily 03:00 UTC">
+      <bpmn:outgoing>Flow_ToReindex</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_Daily">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 3 * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Reindex" name="embed unindexed messages">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="chat.memory.reindex"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=embedded" target="embedded"/>
+          <zeebe:output source="=promotedToLongTerm" target="promotedToLongTerm"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToReindex</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToReindex" sourceRef="Start" targetRef="Task_Reindex"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.chat.memoryReindex&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;embedded&quot;: embedded, &quot;promotedToLongTerm&quot;: promotedToLongTerm }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Reindex" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

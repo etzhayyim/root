@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0bbb5bae882c",
+  "entityId": "ent-0bbb5bae882c",
+  "canonicalName": "michel rukunda",
+  "aliases": [
+    "michel rukunda"
+  ]
+}

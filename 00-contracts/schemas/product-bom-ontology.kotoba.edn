@@ -1,0 +1,141 @@
+;; product-bom-ontology — kotoba EAVT vocabulary for the world's TRADE ITEMS (products) and
+;; what they are MADE OF, end-to-end. ADR-2606081800 · actor: uchiwake 内訳.
+;;
+;; PURPOSE
+;;   The product-level layer that kabuto 兜 (company-level supply edges) does not reach. A
+;;   content-addressed Datom (EAVT) vocabulary describing the world's TRADE ITEMS as a knowledge
+;;   graph keyed on the GS1 GTIN (Global Trade Item Number), decomposed into its bill of
+;;   materials: PRODUCT → PART (sub-assembly/component) → raw MATERIAL, plus the PROCESS steps
+;;   that transform them, the LOGISTICS legs that move them, and the DESIGN/standard refs that
+;;   specify them. The brand-owner of every product links into kabuto's :company/id space
+;;   (org.corp.*), and ownership edges roll a brand-owning SUBSIDIARY up to its ULTIMATE PARENT
+;;   (GLEIF Level-2 relationship records — the 子会社 dimension). The lens is the same as kabuto:
+;;   SUPPLY-CHAIN RESILIENCE + corporate-power TRANSPARENCY — where a product's material inputs,
+;;   processing, or transport concentrate onto a single source/jurisdiction, routed to redundancy
+;;   + accountability. An aggregate-first resilience map, NEVER a target-list (uchiwake G2).
+;;
+;; SUBSTRATE (ADR-2605262130 + 2605312345): the canonical state is the kotoba Datom log.
+;;   IPFS = block backend, MST = ingress/interop wire, Base L2 = trust anchor. NO RisingWave,
+;;   NO centralized SQL. Large assets (spec sheets, CAD, label images) → DataLad → IPFS under
+;;   80-data/product-bom (NO git-lfs; G8).
+;;
+;; SOURCING HONESTY (G5, mirrors kabuto/tsumugi/watatsuna ontologies):
+;;   :*/sourcing ∈ { :authoritative  ; from a primary registry (GS1 GDSN / GS1 Verified, an
+;;                                      official product spec sheet, GLEIF LEI/RR record)
+;;                   :representative  ; publicly documented but a bounded illustrative sample;
+;;                                      a BOM decomposition inferred from public teardowns /
+;;                                      ingredient labels / press / supplier disclosure — NOT an
+;;                                      exhaustive, authoritative bill of materials
+;;                   :synthesized }   ; derived/estimated by uchiwake; MUST be flagged, never
+;;                                      presented as observed fact
+;;   Every node and edge carries an explicit sourcing keyword. A GTIN present in the seed is a
+;;   REAL, publicly-documented identifier where marked :authoritative; its decomposition is
+;;   :representative unless it comes from an official spec. Absence of a product = "not yet
+;;   ingested", NOT "does not exist". Mass fractions / quantities are bounded public estimates,
+;;   NEVER a manufacturer's confidential recipe or contract figure.
+;;
+;; SCOPE GUARD (constitutional):
+;;   - PUBLIC trade items + PUBLIC-RECORD data only. GTIN, brand, brand-owner, GS1 prefix,
+;;     product classification (GPC/UNSPSC), HS code, published ingredient/material labels, public
+;;     teardown findings, and disclosed supplier relationships are matters of public record.
+;;   - NO confidential recipes / formulations, NO non-public commercial terms, NO trade secrets,
+;;     NO data that would aid a counterfeit / takeover / interdiction. Material & process
+;;     concentration is emitted AGGREGATE-FIRST and framed toward redundancy + accountability,
+;;     never "who to hit" and never "how to clone this product".
+;;   - uchiwake does NOT adjudicate (G4). It records public facts; it does not rule on legality,
+;;     safety compliance, or origin claims (UPL / conformity-assessment boundary).
+
+{:schema/id        "product-bom-ontology"
+ :schema/version   "0.1.0"
+ :schema/adr       "2606081800"
+ :schema/note      "kotoba-native vocabulary for uchiwake 内訳; the product-level layer beneath kabuto 兜. Products link to kabuto :company/id (brand-owner / supplier / carrier / operator) and to the existing UNSPSC commodity space (entity-as-actor, 18,342 codes). Ownership edges (:company.ownership/*) roll a brand-owning subsidiary up to its ultimate parent (GLEIF Level-2 RR — the 子会社 dimension)."
+
+ :attributes
+ [;; ── :product/* — a TRADE ITEM, keyed on the GS1 GTIN ──
+  {:db/ident :product/id            :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id; canonically \"gtin.<14-digit GTIN-14>\" when a GTIN is known, else \"prod.<slug>\""}
+  {:db/ident :product/gtin          :db/valueType :db.type/string  :db/doc "GS1 Global Trade Item Number, normalized to 14 digits (GTIN-14). Smaller forms (GTIN-8/12/13) are left-zero-padded to 14. The worldwide product key."}
+  {:db/ident :product/gtin-format   :db/valueType :db.type/keyword :db/doc ":gtin-8 | :gtin-12 (UPC-A) | :gtin-13 (EAN-13) | :gtin-14 — the source format before padding"}
+  {:db/ident :product/name          :db/valueType :db.type/string  :db/doc "trade-item name as labelled"}
+  {:db/ident :product/brand         :db/valueType :db.type/string  :db/doc "brand name on the item"}
+  {:db/ident :product/brand-owner   :db/valueType :db.type/string  :db/doc "→ kabuto :company/id (org.corp.*) of the brand-owning legal entity (may be a subsidiary; see :company.ownership/*)"}
+  {:db/ident :product/gs1-prefix    :db/valueType :db.type/string  :db/doc "GS1 company prefix (leading digits of the GTIN that GS1 allocates to a licensee)"}
+  {:db/ident :product/gs1-prefix-country :db/valueType :db.type/string :db/doc "ISO 3166-1 alpha-2 of the GS1 Member Organisation that issued the prefix. NOTE: prefix country = where the GTIN was licensed, NOT necessarily country of origin/manufacture (a common misread; surfaced honestly)."}
+  {:db/ident :product/gpc-brick     :db/valueType :db.type/string  :db/doc "GS1 Global Product Classification brick code (8-digit), if known"}
+  {:db/ident :product/unspsc        :db/valueType :db.type/string  :db/doc "UNSPSC commodity code (ties to the existing 18,342-code space)"}
+  {:db/ident :product/hs-code       :db/valueType :db.type/string  :db/doc "Harmonized System (HS) code for cross-border trade classification, if known"}
+  {:db/ident :product/net-content   :db/valueType :db.type/double  :db/doc "net content magnitude (e.g. 330.0)"}
+  {:db/ident :product/net-content-unit :db/valueType :db.type/string :db/doc "UN/ECE unit code or label (e.g. \"ml\", \"g\", \"unit\")"}
+  {:db/ident :product/sector        :db/valueType :db.type/keyword :db/doc "coarse sector lens, kabuto-flavoured (:electronics | :automotive | :food-beverage | :apparel | :pharma | :consumer | :industrials | …)"}
+  {:db/ident :product/sourcing      :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :part/* — a sub-assembly or component in a product's bill of materials ──
+  {:db/ident :part/id               :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id, e.g. \"part.li-ion-cell-18650\""}
+  {:db/ident :part/name             :db/valueType :db.type/string  :db/doc "part / sub-assembly name"}
+  {:db/ident :part/kind             :db/valueType :db.type/keyword :db/doc ":sub-assembly | :component | :ingredient | :packaging"}
+  {:db/ident :part/unspsc           :db/valueType :db.type/string  :db/doc "UNSPSC commodity code for the part, if known"}
+  {:db/ident :part/sourcing         :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :material/* — a raw / refined MATERIAL input ──
+  {:db/ident :material/id           :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id, e.g. \"mat.lithium\", \"mat.cotton-fibre\""}
+  {:db/ident :material/name         :db/valueType :db.type/string  :db/doc "material name"}
+  {:db/ident :material/kind         :db/valueType :db.type/keyword :db/doc ":metal | :mineral | :polymer | :agricultural | :chemical | :glass | :ceramic | :textile | :composite"}
+  {:db/ident :material/hs-code      :db/valueType :db.type/string  :db/doc "HS code of the raw material commodity, if known"}
+  {:db/ident :material/unspsc       :db/valueType :db.type/string  :db/doc "UNSPSC commodity code, if known"}
+  {:db/ident :material/sourcing     :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :bom.edge/* — first-class directed BILL-OF-MATERIALS edge: parent CONTAINS child ──
+  {:db/ident :bom.edge/id           :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable edge id"}
+  {:db/ident :bom.edge/parent       :db/valueType :db.type/string  :db/doc "→ :product/id or :part/id (the assembly)"}
+  {:db/ident :bom.edge/child        :db/valueType :db.type/string  :db/doc "→ :part/id or :material/id (the constituent)"}
+  {:db/ident :bom.edge/qty          :db/valueType :db.type/double  :db/doc "quantity of child per one parent; bounded public estimate, NEVER a confidential recipe"}
+  {:db/ident :bom.edge/qty-unit     :db/valueType :db.type/string  :db/doc "unit of :bom.edge/qty (e.g. \"unit\", \"g\", \"%mass\")"}
+  {:db/ident :bom.edge/tier         :db/valueType :db.type/long    :db/doc "BOM depth tier: 1 = direct component of finished good, 2 = component-of-component, …"}
+  {:db/ident :bom.edge/supplier     :db/valueType :db.type/string  :db/doc "→ kabuto :company/id of the disclosed supplier of the child, if known (links to kabuto :supply.edge/*)"}
+  {:db/ident :bom.edge/criticality  :db/valueType :db.type/double  :db/doc "0.0–1.0 bounded estimate of how single-sourced / hard-to-substitute the child is; NEVER a contract figure"}
+  {:db/ident :bom.edge/sourcing     :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :process.step/* — a transformation step (extraction → refining → fab → assembly → …) ──
+  {:db/ident :process.step/id       :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id"}
+  {:db/ident :process.step/name     :db/valueType :db.type/string  :db/doc "step name, e.g. \"polysilicon refining\", \"cut-make-trim\""}
+  {:db/ident :process.step/kind     :db/valueType :db.type/keyword :db/doc ":design | :extraction | :refining | :fabrication | :assembly | :finishing | :packaging | :testing (the 設計 activity dimension uses :design, with operator = the design house)"}
+  {:db/ident :process.step/of       :db/valueType :db.type/string  :db/doc "→ :product/id or :part/id this step produces"}
+  {:db/ident :process.step/operator :db/valueType :db.type/string  :db/doc "→ kabuto :company/id performing the step, if disclosed"}
+  {:db/ident :process.step/country  :db/valueType :db.type/string  :db/doc "ISO 3166-1 alpha-2 where the step is performed, if known"}
+  {:db/ident :process.step/seq      :db/valueType :db.type/long    :db/doc "ordinal position in the production sequence (1 = first)"}
+  {:db/ident :process.step/sourcing :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :logistics.leg/* — a TRANSPORT leg moving a product/part/material origin → dest ──
+  {:db/ident :logistics.leg/id      :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id"}
+  {:db/ident :logistics.leg/of      :db/valueType :db.type/string  :db/doc "→ :product/id | :part/id | :material/id being moved"}
+  {:db/ident :logistics.leg/origin-country :db/valueType :db.type/string :db/doc "ISO 3166-1 alpha-2 origin"}
+  {:db/ident :logistics.leg/dest-country   :db/valueType :db.type/string :db/doc "ISO 3166-1 alpha-2 destination"}
+  {:db/ident :logistics.leg/mode    :db/valueType :db.type/keyword :db/doc ":sea | :air | :rail | :road | :pipeline | :inland-water"}
+  {:db/ident :logistics.leg/carrier :db/valueType :db.type/string  :db/doc "→ kabuto :company/id of the carrier, if disclosed"}
+  {:db/ident :logistics.leg/seq     :db/valueType :db.type/long    :db/doc "ordinal position in the transport chain (1 = first)"}
+  {:db/ident :logistics.leg/sourcing :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :design.ref/* — a DESIGN / STANDARD / spec reference governing a product or part ──
+  {:db/ident :design.ref/id         :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id"}
+  {:db/ident :design.ref/of         :db/valueType :db.type/string  :db/doc "→ :product/id or :part/id the spec governs"}
+  {:db/ident :design.ref/standard   :db/valueType :db.type/string  :db/doc "standard / spec identifier, e.g. \"IEC 62133-2\", \"ISO 105-C06\", \"USB-IF\""}
+  {:db/ident :design.ref/kind       :db/valueType :db.type/keyword :db/doc ":safety-standard | :material-spec | :interface-spec | :cad-ref | :regulatory"}
+  {:db/ident :design.ref/body       :db/valueType :db.type/string  :db/doc "issuing body (IEC, ISO, JEDEC, USB-IF, …)"}
+  {:db/ident :design.ref/sourcing   :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :company.ownership/* — SUBSIDIARY edge (子会社): child entity ⟶ ultimate/direct parent ──
+  ;;    Sourced from GLEIF Level-2 Relationship Records (RR). Lets a brand-owning subsidiary
+  ;;    (:product/brand-owner) roll up to its ULTIMATE parent so concentration is computed at the
+  ;;    true beneficial-owner level, not the marketing-entity level. Company-domain, kotoba-native.
+  {:db/ident :company.ownership/id  :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id"}
+  {:db/ident :company.ownership/child  :db/valueType :db.type/string :db/doc "→ kabuto :company/id of the owned entity (the subsidiary)"}
+  {:db/ident :company.ownership/parent :db/valueType :db.type/string :db/doc "→ kabuto :company/id of the owning entity (the parent)"}
+  {:db/ident :company.ownership/relationship :db/valueType :db.type/keyword :db/doc ":is-directly-consolidated-by | :is-ultimately-consolidated-by (GLEIF RR relationship types)"}
+  {:db/ident :company.ownership/sourcing :db/valueType :db.type/keyword :db/doc ":authoritative (GLEIF RR) | :representative | :synthesized"}
+
+  ;; ── derived :concentration/* — COMPUTED by analyze.py; flagged :derived, never re-ingested ──
+  {:db/ident :concentration/id      :db/valueType :db.type/string  :db/unique :db.unique/identity}
+  {:db/ident :concentration/dimension :db/valueType :db.type/keyword :db/doc ":material | :gs1-prefix-country | :process-country | :brand-owner | :ultimate-parent | :carrier"}
+  {:db/ident :concentration/key     :db/valueType :db.type/string  :db/doc "the concentrated value (material id, country, parent company id, …)"}
+  {:db/ident :concentration/share   :db/valueType :db.type/double  :db/doc "0.0–1.0 share of the dimension this key accounts for in the ingested slice"}
+  {:db/ident :concentration/count   :db/valueType :db.type/long    :db/doc "number of products/parts touching this key"}
+  {:db/ident :concentration/derived :db/valueType :db.type/boolean :db/doc "always true — a uchiwake observation, NOT an authoritative fact"}]}

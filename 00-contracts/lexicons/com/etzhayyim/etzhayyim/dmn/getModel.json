@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.dmn.getModel",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a deployed DMN decision model by decision key.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "decisionKey": { "type": "string", "description": "Decision definition key" },
+          "did": { "type": "string", "description": "Actor DID scope" }
+        },
+        "required": ["decisionKey"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "decisionKey": { "type": "string" },
+            "name": { "type": "string" },
+            "decisionType": { "type": "string", "description": "decisionTable, literalExpression, bkm" },
+            "hitPolicy": { "type": "string" },
+            "aggregation": { "type": "string" },
+            "inputsJson": { "type": "string" },
+            "outputsJson": { "type": "string" },
+            "rulesJson": { "type": "string" },
+            "dmnXml": { "type": "string" },
+            "version": { "type": "integer" },
+            "status": { "type": "string" }
+          },
+          "required": ["decisionKey", "status"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{:lexicon 1
+ :id "com.etzhayyim.sanae.fieldStateRecord"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["parcelId" "phase" "createdAt"]
+    :properties
+    {:parcelId {:type "string"}
+     :phase {:type "string" :enum ["prepared" "seeded" "weeded" "harvested" "fallow"]}
+     :soilCarbonBaselinePermille {:type "integer"}
+     :moisturePermille {:type "integer"}
+     :bedPrepMethod {:type "string" :enum ["low-till" "no-till"] :description "G9: no deep plough"}
+     :createdAt {:type "string" :format "datetime"}}}}}}

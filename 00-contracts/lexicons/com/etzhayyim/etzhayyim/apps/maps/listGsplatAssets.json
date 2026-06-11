@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.listGsplatAssets",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List 3D Gaussian Splat preview assets, optionally filtered by tile (H3) or source DID. Standard `{offset,limit,total}` pagination envelope.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "tileH3": { "type": "string" },
+          "sourceDid": { "type": "string" },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["assets", "total", "offset", "limit"],
+          "properties": {
+            "assets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "vertexId",
+                  "sourceDid",
+                  "tileH3",
+                  "b2Key",
+                  "byteSize",
+                  "splatCount",
+                  "shDegree",
+                  "format",
+                  "generatedAt"
+                ],
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "sourceDid": { "type": "string" },
+                  "tileH3": { "type": "string" },
+                  "b2Key": { "type": "string" },
+                  "byteSize": { "type": "integer" },
+                  "splatCount": { "type": "integer" },
+                  "shDegree": { "type": "integer" },
+                  "format": { "type": "string", "knownValues": ["ply", "splat"] },
+                  "generatedAt": { "type": "string", "format": "datetime" },
+                  "bakeJobId": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

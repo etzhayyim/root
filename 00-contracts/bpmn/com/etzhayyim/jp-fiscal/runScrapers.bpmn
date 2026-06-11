@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — ADR-0040 schema-first DSL scraper batch run (jp-fiscal T2 migration).
+
+  Pipeline:
+    1. jpFiscal.run.scrapers — load all active vertex_scraper_dsl rows,
+                               fetch each source_url, call Murakumo LLM to
+                               extract typed rows, INSERT into target_table,
+                               record vertex_scraper_run per DSL.
+    2. generic.audit.emit   — OCEL event with aggregate write counts.
+
+  Pass dsl_vid variable to limit to a single DSL entry (on-demand mode).
+
+  Cadence: R/PT6H (every 6 hours; Zeebe timer-start).
+
+  NSID: com.etzhayyim.apps.jpFiscal.runScrapers
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jp-fiscal-run-scrapers-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_jp_fiscal_run_scrapers"
+    targetNamespace="https://etzhayyim.ai/bpmn/jp-fiscal"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="jp_fiscal_run_scrapers" name="JP Fiscal run scrapers" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.jpFiscal.runScrapers", "version": 1, "resultTimeoutMs": 600000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 6h">
+      <bpmn:outgoing>Flow_ToRun</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT6H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT6H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_ToRun_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_ToRun"        sourceRef="Start_Timer"   targetRef="Task_Run"/>
+    <bpmn:sequenceFlow id="Flow_ToRun_Manual" sourceRef="Start_Manual"  targetRef="Task_Run"/>
+    <bpmn:sequenceFlow id="Flow_ToAudit"      sourceRef="Task_Run"      targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_End"          sourceRef="Task_Audit"    targetRef="End"/>
+
+    <!-- Step 1: Run all active schema-first DSL scrapers. -->
+    <bpmn:serviceTask id="Task_Run" name="run jp-fiscal DSL scrapers">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="jpFiscal.run.scrapers"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=dsl_vid" target="dsl_vid"/>
+          <zeebe:output source="=ran"     target="scraperRan"/>
+          <zeebe:output source="=emitted" target="scraperEmitted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <!-- Step 2: Emit OCEL audit event. -->
+    <bpmn:serviceTask id="Task_Audit" name="emit scraper run audit event">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.jpFiscal.runScrapers&quot;" target="event_type"/>
+          <zeebe:input source="=&quot;did:web:jp-fiscal.etzhayyim.com&quot;"          target="actor_did"/>
+          <zeebe:input source="={ ran: scraperRan, emitted: scraperEmitted }"   target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End" name="done"/>
+
+  </bpmn:process>
+</bpmn:definitions>

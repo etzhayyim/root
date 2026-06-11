@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — compact recent state vectors into per-flight tracks.
+
+  Pipeline:
+    1. flight.track.compact — group last 5 minutes of vertex_aircraft_state
+       by icao24 + callsign, build LineString GeoJSON (max 500 sample points
+       per flight), write vertex_aircraft_track.
+
+  Cadence: R/PT5M. Independent from polling cron.
+
+  com.etzhayyim.apps.maps.computeAircraftTrack.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-computeAircraftTrack-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_compute_aircraft_track"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_compute_aircraft_track" name="maps compute aircraft track" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.computeAircraftTrack", "version": 1, "resultTimeoutMs": 120000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 5 minutes">
+      <bpmn:outgoing>Flow_ToCompact</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT5M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT5M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual">
+      <bpmn:outgoing>Flow_ToCompact_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToCompact" sourceRef="Start_Timer" targetRef="Task_Compact"/>
+    <bpmn:sequenceFlow id="Flow_ToCompact_Manual" sourceRef="Start_Manual" targetRef="Task_Compact"/>
+
+    <bpmn:serviceTask id="Task_Compact" name="compact state vectors → tracks">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="flight.track.compact"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=300" target="window_sec"/>
+          <zeebe:output source="=runId" target="runId"/>
+          <zeebe:output source="=tracksWritten" target="tracksWritten"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCompact</bpmn:incoming>
+      <bpmn:incoming>Flow_ToCompact_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Compact" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit track-compact OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.computeAircraftTrack&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;tracksWritten&quot;: tracksWritten }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

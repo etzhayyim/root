@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watari.registerCraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a MOVING craft's stable identity into the kotoba Datom log (:craft/*). Public, commercial, transponder-broadcasting craft only — ships (AIS/MMSI/IMO) and scheduled aircraft (ADS-B/ICAO24). kotoba-native successor to the legacy maps aismarine/aircraft_live + vessel registry pipelines. watari G1 (public broadcast only) + G4 (a craft is a craft, NOT a person — private yacht/jet owners, crew, passengers MUST NOT be linked).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["craftId", "kind", "sourcing", "observedAt"],
+          "properties": {
+            "craftId": { "type": "string", "description": ":craft/id, e.g. \"craft.vessel.imo9811000\" or \"craft.aircraft.86d100\"" },
+            "kind": { "type": "string", "enum": ["vessel", "aircraft"] },
+            "name": { "type": "string", "description": "vessel name or aircraft type/operator label — never a person" },
+            "callsign": { "type": "string" },
+            "mmsi": { "type": "integer", "description": "ITU MMSI (vessels)" },
+            "imo": { "type": "integer", "description": "IMO number (vessels)" },
+            "vesselType": { "type": "string", "enum": ["container", "tanker", "bulk", "lng", "roro", "passenger", "other"] },
+            "icao24": { "type": "string", "description": "ICAO 24-bit hex (aircraft)" },
+            "registration": { "type": "string", "description": "national registration / tail" },
+            "aircraftType": { "type": "string", "enum": ["widebody", "narrowbody", "regional", "freighter", "other"] },
+            "flag": { "type": "string", "description": "ISO 3166-1 alpha-2 flag/registry state" },
+            "operator": { "type": "string", "description": "operator org id (links :organism/id); a company, never a person" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "watari G5 sourcing honesty" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "craftId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID (content-addressed Datom log; ADR-2605312345)" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_search_document" targetNamespace="https://etzhayyim.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="legal_corpus_search_document" name="searchDocument" isExecutable="true">
+
+    <!-- Manual trigger (for ad-hoc testing) -->
+    <bpmn:startEvent id="Start_Manual" name="Manual">
+      <bpmn:outgoing>Flow_M</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_M" sourceRef="Start_Manual" targetRef="Task_Search"/>
+
+    <!-- Single-step: embed query + cosine search in the worker (avoids
+         ::vector parameterization issues in RisingWave generic.db.select) -->
+    <bpmn:serviceTask id="Task_Search" name="embed + cosine search">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="legal.corpus.searchDocument" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=queryText"     target="queryText"/>
+          <zeebe:input source="=jurisdiction"  target="jurisdiction"/>
+          <zeebe:input source="=documentType"  target="documentType"/>
+          <zeebe:input source="=languageCode"  target="languageCode"/>
+          <zeebe:input source="=decidedAfter"  target="decidedAfter"/>
+          <zeebe:input source="=decidedBefore" target="decidedBefore"/>
+          <zeebe:input source="=if limit = null then 10 else limit" target="limit"/>
+          <zeebe:output source="=hits"         target="hits"/>
+          <zeebe:output source="=hitCount"     target="hitCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_M</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Search" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

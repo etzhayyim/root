@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airOps.createDispatchBrief",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a dispatch briefing package for a flight crew.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["flight_no", "dep_date"],
+          "properties": {
+            "flight_no": { "type": "string" },
+            "dep_date": { "type": "string" },
+            "wx_summary": { "type": "string" },
+            "notam_list": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

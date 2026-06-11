@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  kouza resident sync scheduler.
+
+  Zeebe owns the cadence. Python owns the due-connection scan and sync_run
+  audit write. This intentionally does not claim external bank/provider sync
+  success; provider adapters can later replace the placeholder status while
+  preserving the same resident process boundary.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_kouza_sync_due_connections"
+    targetNamespace="https://etzhayyim.ai/bpmn/kouza"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="kouza_sync_due_connections" name="kouza sync due connections" isExecutable="true">
+    <bpmn:startEvent id="Start" name="every 30min">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_30m">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT30M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_SyncDue"/>
+
+    <bpmn:serviceTask id="Task_SyncDue" name="scan and mark due kouza connections">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="com.etzhayyim.kouza.syncDueConnections"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if maxConnections = null then 25 else maxConnections" target="maxConnections"/>
+          <zeebe:input source="=if staleMinutes = null then 60 else staleMinutes" target="staleMinutes"/>
+          <zeebe:input source="=if ownerDid = null then &quot;&quot; else ownerDid" target="ownerDid"/>
+          <zeebe:input source="=if dryRun = null then false else dryRun" target="dryRun"/>
+          <zeebe:output source="=ok" target="kouzaSyncOk"/>
+          <zeebe:output source="=connectionsScanned" target="kouzaConnectionsScanned"/>
+          <zeebe:output source="=syncRunsCreated" target="kouzaSyncRunsCreated"/>
+          <zeebe:output source="=syncRunDids" target="kouzaSyncRunDids"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_SyncDue" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit kouza resident sync">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:kouza.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;kouza.syncDueConnections&quot;" target="action"/>
+          <zeebe:input source="={connectionsScanned: kouzaConnectionsScanned, syncRunsCreated: kouzaSyncRunsCreated}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

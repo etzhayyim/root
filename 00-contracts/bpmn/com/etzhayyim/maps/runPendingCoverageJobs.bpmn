@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — drives pending MapsJob rows to completion.
+
+  Pipeline (multi-instance parallel over at most 5 pending jobs per tick):
+
+    1. generic.db.select    — pending, dispatchable jobs (UDF filters out 'unsupported')
+    2. multi-instance loop  — one instance per row, parallel, capped at 5
+         generic.http.fetch — POST /xrpc/com.etzhayyim.apps.maps.runCoverageJob {jobId}
+                               (Worker fetches from external source, writes vertex_spatial,
+                                advances the job)
+    3. generic.audit.emit   — OCEL event with aggregate stats
+
+  Cadence (PT3M):
+    advanceCoverage       PT2M  →   (creates up to 1 new pending job per tick)
+    runPendingCoverageJobs PT3M →   (drains up to 5 pending jobs per tick)
+    refreshCoverageStats  PT15M →   (re-counts collected_count back into targets)
+
+  Max steady-state throughput ≈ 5 jobs/3 min = 100 jobs/hour per BPMN
+  instance. Overpass / GLEIF / Wikidata each have their own rate limits,
+  enforced by the Worker handler's internal retry-on-429 logic.
+
+  NSID: com.etzhayyim.apps.maps.runPendingCoverageJobs
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-run-pending-coverage-jobs-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_maps_run_pending_coverage_jobs"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="maps_run_pending_coverage_jobs" name="maps run pending coverage jobs" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.runPendingCoverageJobs", "version": 1, "resultTimeoutMs": 180000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 3 minutes">
+      <bpmn:outgoing>Flow_Timer</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT3M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT3M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Timer" sourceRef="Start_Timer" targetRef="Task_Select"/>
+    <bpmn:sequenceFlow id="Flow_Manual" sourceRef="Start_Manual" targetRef="Task_Select"/>
+
+    <!-- Step 1 — pick pending jobs whose source has a wired dispatch kind.
+         UDF keeps the WHERE clause declarative; BPMN stays source-agnostic. -->
+    <bpmn:serviceTask id="Task_Select" name="select dispatchable pending jobs">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_maps_job&quot;"             target="table"/>
+          <zeebe:input source="=&quot;job_id, source_id, label, pipeline_type&quot;" target="columns"/>
+          <zeebe:input source="=5"                                       target="limit"/>
+          <zeebe:input source="=&quot;created_at ASC&quot;"               target="orderBy"/>
+          <zeebe:input source="=&quot;status = 'pending' AND maps_source_dispatch_kind(source_id, COALESCE(label, '')) IN ('overpass', 'gleif', 'wikidata', 'stac', 'seismic', 'wikipedia', 'commons', 'inaturalist', 'gbif', 'wikivoyage', 'eonet', 'opensky')&quot;" target="where"/>
+          <zeebe:output source="=rows"     target="jobRows"/>
+          <zeebe:output source="=rowCount" target="jobCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Timer</bpmn:incoming>
+      <bpmn:incoming>Flow_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Select" targetRef="Gateway_HasWork"/>
+
+    <bpmn:exclusiveGateway id="Gateway_HasWork" name="pending?">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_Work</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoWork</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Work" sourceRef="Gateway_HasWork" targetRef="Task_Run">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"
+                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">=jobCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoWork" sourceRef="Gateway_HasWork" targetRef="End">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"
+                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">=jobCount &lt;= 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Step 2 — multi-instance parallel: one runCoverageJob XRPC call per pending row. -->
+    <bpmn:serviceTask id="Task_Run" name="runCoverageJob (parallel fan-out)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.runCoverageJob&quot;" target="url"/>
+          <zeebe:input source="=&quot;POST&quot;"             target="method"/>
+          <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
+          <zeebe:input source="={ &quot;jobId&quot;: job.job_id, &quot;maxRecords&quot;: 100 }" target="body"/>
+          <zeebe:input source="=90000"                        target="timeoutMs"/>
+          <zeebe:output source="=bodyJson" target="runResult"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Work</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="false">
+        <bpmn:extensionElements>
+          <zeebe:loopCharacteristics
+            inputCollection="=jobRows"
+            inputElement="job"/>
+        </bpmn:extensionElements>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Run" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit coverage.runBatch OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.coverage.runBatch&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;jobsPicked&quot;: jobCount }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:incoming>Flow_NoWork</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

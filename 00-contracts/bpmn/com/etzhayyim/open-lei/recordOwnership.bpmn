@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_lei_record_ownership"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-lei"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_lei_record_ownership" name="LEI ownership 記録" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="ownership 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_lei_ownership&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, parent_lei: parentLei, child_lei: childLei,
+              relationship_type: relationshipType, ownership_pct: ownershipPct,
+              relationship_period_start: relationshipPeriodStart,
+              relationship_period_end: relationshipPeriodEnd,
+              confidence: confidence, source: source,
+              status: &quot;active&quot;, created_at: string(now()),
+              owner_did: callerDid, sensitivity_ord: 1,
+              org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-lei&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Edge</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Edge" sourceRef="Task_Save" targetRef="Task_Edge"/>
+
+    <bpmn:serviceTask id="Task_Edge" name="parent ↔ child edge">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_lei_ownership_pair&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id: string(vertexId) + &quot;:pair&quot;,
+              src_vid: &quot;at://did:web:open-lei.etzhayyim.com/com.etzhayyim.apps.openLei.entity/&quot; + string(parentLei),
+              dst_vid: &quot;at://did:web:open-lei.etzhayyim.com/com.etzhayyim.apps.openLei.entity/&quot; + string(childLei),
+              role: relationshipType,
+              created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1,
+              org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-lei&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Edge</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Edge" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit ownership.record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-lei.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openLei.ownership.record&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, parentLei: parentLei, childLei: childLei, relationshipType: relationshipType}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_webmk_create_proposal" targetNamespace="https://etzhayyim.ai/bpmn/webmk">
+  <bpmn:process id="webmk_create_proposal" name="webmk createProposal" isExecutable="true">
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.webmk.createProposal", "version": 1, "resultTimeoutMs": 180000, "adr": "2605072000-langgraph-agent-loop-pattern" }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>F1</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- Step 1: LangGraph agent loop (research → competitors → strategy → copy → quality gate) -->
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="RunAgentLoop"/>
+    <bpmn:serviceTask id="RunAgentLoop" name="Run LangGraph proposal agent">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="webmk.run_proposal_agent" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming>
+      <bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Step 2: Deliver via Resend -->
+    <bpmn:sequenceFlow id="F2" sourceRef="RunAgentLoop" targetRef="DeliverEmail"/>
+    <bpmn:serviceTask id="DeliverEmail" name="Deliver proposal via Resend">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="webmk.deliver_via_resend" retries="3"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming>
+      <bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Step 3: Optionally create ads.etzhayyim.com campaign -->
+    <bpmn:sequenceFlow id="F3" sourceRef="DeliverEmail" targetRef="CampaignGateway"/>
+    <bpmn:exclusiveGateway id="CampaignGateway" name="createAdCampaign?">
+      <bpmn:incoming>F3</bpmn:incoming>
+      <bpmn:outgoing>F4_yes</bpmn:outgoing>
+      <bpmn:outgoing>F4_no</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="F4_yes" sourceRef="CampaignGateway" targetRef="CreateAdCampaign">
+      <bpmn:conditionExpression>=createAdCampaign = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="CreateAdCampaign" name="Create ads.etzhayyim.com campaign">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="webmk.create_ad_campaign" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F4_yes</bpmn:incoming>
+      <bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4_no" sourceRef="CampaignGateway" targetRef="End">
+      <bpmn:conditionExpression>=createAdCampaign != true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F5" sourceRef="CreateAdCampaign" targetRef="End"/>
+
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>F4_no</bpmn:incoming>
+      <bpmn:incoming>F5</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

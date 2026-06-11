@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stream construction-phase super-step progress at 1–10 Hz checkpointer cadence. N >= 2 robot DID signatures REQUIRED (witness invariant). Sensor / photo blob CIDs are IPFS-pinned. Hard-RT motion data is NOT in this record — that stays in Giemon firmware (per ADR-2605201400 §3 Phase 3 cadence rules).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["planDid", "siteDid", "superStepIndex", "cellId", "phase", "witnessAttestations"],
+          "properties": {
+            "planDid": { "type": "string" },
+            "siteDid": { "type": "string" },
+            "superStepIndex": { "type": "integer", "description": "Pregel super-step counter for this plan (0-indexed)" },
+            "cellId": { "type": "string", "description": "Construction cell identifier (1 cell = 1 Giemon unit per super-step)" },
+            "phase": { "type": "string", "enum": ["queued", "in-progress", "complete", "halted", "handoff-ready"] },
+            "completionPct": { "type": "number", "description": "0..100 percent complete for this cell at this super-step" },
+            "robotDid": { "type": "string", "description": "Primary actor robot DID" },
+            "sensorBlobCids": { "type": "array", "items": { "type": "string" }, "description": "IPFS CIDs of streamed photo / sensor / depth snapshots" },
+            "anomalyFlags": { "type": "array", "items": { "type": "string" }, "description": "Anomaly tags (e.g., 'material-shortage', 'unexpected-obstruction', 'tolerance-breach')" },
+            "witnessAttestations": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "object",
+                "required": ["robotDid", "blobHash", "signature"],
+                "properties": {
+                  "robotDid": { "type": "string" },
+                  "blobHash": { "type": "string" },
+                  "signature": { "type": "string", "description": "Ed25519 base64url" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "progressDid": { "type": "string" },
+            "planDid": { "type": "string" },
+            "superStepIndex": { "type": "integer" },
+            "phase": { "type": "string" },
+            "witnessCount": { "type": "integer" },
+            "recordedAt": { "type": "string", "format": "datetime" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

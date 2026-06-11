@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  coverage.inferPosterior — read mv_cohort_identity_posterior (ADR-0056).
+
+  Mirrors `etzhayyim coverage infer posterior`. Pure read against the streaming
+  MV `mv_cohort_identity_posterior`. XRPC trigger only (no timer — cheap
+  enough to call on demand from agents / dashboards).
+
+  Pipeline:
+    1. generic.db.select — top-N by max_posterior DESC
+
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-posterior-v1
+  NSID:      com.etzhayyim.apps.coverage.inferPosterior
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_coverage_infer_posterior"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="coverage_infer_posterior" name="coverage infer posterior" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.coverage.inferPosterior", "version": 1, "resultTimeoutMs": 15000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Select"/>
+
+    <bpmn:serviceTask id="Task_Select" name="select cohort posteriors">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;mv_cohort_identity_posterior&quot;" target="table"/>
+          <zeebe:input source="=&quot;cohort_did, evidence_count, avg_posterior, max_posterior, fission_ready_count, last_evidence_at&quot;" target="columns"/>
+          <zeebe:input source="=if (limit = null) then 100 else limit" target="limit"/>
+          <zeebe:input source="=&quot;max_posterior DESC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows"     target="rows"/>
+          <zeebe:output source="=rowCount" target="rowCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Select" targetRef="End"/>
+
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

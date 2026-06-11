@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mangaka.createEnvironment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "workId": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "slug": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "basePrompt": {
+              "type": "string"
+            },
+            "organizationId": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  DMN SSoT for the `compose_character_vrm` validate_vrm routing decision.
+
+  Referenced from `compose_character_vrm.topology.yaml`:
+      conditional_edges:
+        - from: validate_vrm
+          condition_ref: dmn:com.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0
+          paths:
+            retry:  bind_vrm
+            accept: attach_vrm
+            reject: END
+
+  Decision logic (FIRST hit policy):
+    * valid = true                          → accept   (publish the VRM)
+    * valid = false AND iteration < 2       → retry    (rebind once)
+    * otherwise                              → reject  (give up, state.status='error')
+
+  Hit policy = FIRST: the first matching rule wins, and the catch-all
+  rule guarantees a defined output for every input combination.
+
+  Phase C wiring (deferred):
+    Same as composeScene3dRefinement — `kotodama.langgraph_node_resolvers`
+    does not yet dereference `dmn:...` refs. Until the resolver gains a
+    DMN evaluator, this file + its seed migration land the SSoT row in
+    `vertex_dmn_model` so audit / governance / lineage tooling can read
+    it. The actual routing decision is implemented in the Pregel node
+    (`validate_vrm`'s post-edge selector) once Phase C activates.
+
+  Self-hosted invariant: this decision references only state local to
+  the Pregel run (`valid`, `iteration`, `errors`). It never calls an
+  external service. See `data/ghosthacker/TRAINING_PIPELINE.md`.
+-->
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             id="Definitions_vrm_bind_retry"
+             name="vrmBindRetry"
+             namespace="https://etzhayyim.ai/dmn/mangaka">
+  <decision id="com.etzhayyim.policies.mangaka.vrmBindRetry"
+            name="vrmBindRetry">
+    <decisionTable id="DecisionTable_vrmBindRetry" hitPolicy="FIRST">
+      <input id="Input_valid">
+        <inputExpression id="InputExpression_valid" typeRef="boolean">
+          <text>valid</text>
+        </inputExpression>
+      </input>
+      <input id="Input_iteration">
+        <inputExpression id="InputExpression_iteration" typeRef="number">
+          <text>iteration</text>
+        </inputExpression>
+      </input>
+      <output id="Output_route" label="route" typeRef="string" name="route"/>
+      <output id="Output_reason" label="reason" typeRef="string" name="reason"/>
+
+      <!-- Rule 1: VRM passed validation — move on to attach_vrm. -->
+      <rule id="VrmBindRule_accept">
+        <inputEntry id="VrmBindRule_accept_ie_valid">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="VrmBindRule_accept_ie_iteration">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="VrmBindRule_accept_oe_route">
+          <text>"accept"</text>
+        </outputEntry>
+        <outputEntry id="VrmBindRule_accept_oe_reason">
+          <text>"validation-passed"</text>
+        </outputEntry>
+      </rule>
+
+      <!-- Rule 2: VRM failed validation AND retry budget remaining.
+           iteration counts the number of bind_vrm attempts so far;
+           `< 2` allows one retry (1st = original, 2nd = retry). -->
+      <rule id="VrmBindRule_retry">
+        <inputEntry id="VrmBindRule_retry_ie_valid">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="VrmBindRule_retry_ie_iteration">
+          <text>&lt; 2</text>
+        </inputEntry>
+        <outputEntry id="VrmBindRule_retry_oe_route">
+          <text>"retry"</text>
+        </outputEntry>
+        <outputEntry id="VrmBindRule_retry_oe_reason">
+          <text>"validation-failed-retry-allowed"</text>
+        </outputEntry>
+      </rule>
+
+      <!-- Rule 3: catch-all. Reached when valid=false AND iteration>=2.
+           Pregel ends with state.status='error'. -->
+      <rule id="VrmBindRule_reject">
+        <inputEntry id="VrmBindRule_reject_ie_valid">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="VrmBindRule_reject_ie_iteration">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="VrmBindRule_reject_oe_route">
+          <text>"reject"</text>
+        </outputEntry>
+        <outputEntry id="VrmBindRule_reject_oe_reason">
+          <text>"validation-failed-budget-exhausted"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

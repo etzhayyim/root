@@ -1,0 +1,98 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.commodityTrade.recordTrade",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Commodity futures trade (LME/CME/SGX bridges refiner+broker+cargo)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "tradeId",
+            "exchange",
+            "contract",
+            "side",
+            "tradedAt"
+          ],
+          "properties": {
+            "tradeId": {
+              "type": "string"
+            },
+            "exchange": {
+              "type": "string",
+              "enum": [
+                "LME",
+                "CME",
+                "SGX",
+                "ICE",
+                "DCE",
+                "SHFE"
+              ]
+            },
+            "contract": {
+              "type": "string"
+            },
+            "productHs": {
+              "type": "string",
+              "description": "HS code bridging refiner-product"
+            },
+            "refinerYieldVid": {
+              "type": "string",
+              "description": "bridges open-refiner-product"
+            },
+            "hormuzCargoVid": {
+              "type": "string",
+              "description": "bridges open-hormuz-cargo"
+            },
+            "brokerCharterVid": {
+              "type": "string",
+              "description": "bridges open-broker-charter"
+            },
+            "side": {
+              "type": "string",
+              "enum": [
+                "buy",
+                "sell"
+              ]
+            },
+            "priceUsd": {
+              "type": "number"
+            },
+            "qtyBbl": {
+              "type": "number"
+            },
+            "counterpartyLei": {
+              "type": "string"
+            },
+            "tradedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_gov_zaf_ingest_official_sources"
+    targetNamespace="https://etzhayyim.ai/bpmn/govZaf"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="gov_zaf_ingest_official_sources" name="govZaf ingest official sources" isExecutable="true">
+    <bpmn:startEvent id="Start" name="ingest requested">
+      <bpmn:outgoing>Flow_Task</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Ingest"/>
+    <bpmn:serviceTask id="Task_Ingest" name="ingest official sources">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govZaf.ingestOfficialSources"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=enqueued" target="enqueued"/>
+          <zeebe:output source="=targets" target="targets"/>
+          <zeebe:output source="=processed" target="processed"/>
+          <zeebe:output source="=processStatus" target="processStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Task</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Ingest" targetRef="End"/>
+    <bpmn:endEvent id="End" name="ingest queued">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

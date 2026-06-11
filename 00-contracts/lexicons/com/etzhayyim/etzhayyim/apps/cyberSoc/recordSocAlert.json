@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cyberSoc.recordSocAlert",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "SIEM alert 記録",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "alertId",
+            "sourceSiem",
+            "severity",
+            "firedAt"
+          ],
+          "properties": {
+            "alertId": {
+              "type": "string"
+            },
+            "sourceSiem": {
+              "type": "string",
+              "enum": [
+                "splunk",
+                "sentinel",
+                "elastic",
+                "chronicle",
+                "qradar",
+                "crowdstrike-falcon"
+              ]
+            },
+            "detectionRule": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "info",
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "firedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "triagedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "falsePositive": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "triageTier": {
+              "type": "string",
+              "enum": [
+                "auto-close",
+                "routine",
+                "priority",
+                "flash"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

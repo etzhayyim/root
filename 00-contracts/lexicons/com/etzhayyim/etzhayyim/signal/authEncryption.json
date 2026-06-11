@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.signal.authEncryption",
+  "description": "Encryption & Signal Protocol permissions. etzhayyim-only (no official AT Protocol equivalent). Includes com.atproto.server.getServiceAuth for key exchange bootstrapping.",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Encryption & Signal Protocol",
+      "title:lang": {
+        "ja": "暗号化・Signal Protocol"
+      },
+      "detail": "Manage encryption devices, prekeys, identity verification, and group key rotation for end-to-end encrypted communication. Includes official service auth for key exchange bootstrapping.",
+      "detail:lang": {
+        "ja": "E2E暗号化通信のためのデバイス管理、プリキー、ID検証、グループキーローテーション。鍵交換ブートストラップのため公式サービス認証を含む"
+      },
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official com.atproto RPCs used for key exchange bootstrapping",
+          "lxm": [
+            "com.atproto.server.getServiceAuth",
+            "com.atproto.identity.resolveIdentity",
+            "com.atproto.identity.getRecommendedDidCredentials"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "repo",
+          "description": "etzhayyim signal record collections",
+          "collection": ["com.etzhayyim.signal.*"],
+          "action": ["create", "update", "delete"]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "etzhayyim signal extension RPCs",
+          "lxm": [
+            "com.etzhayyim.signal.listDevices",
+            "com.etzhayyim.signal.getIdentityFingerprint",
+            "com.etzhayyim.signal.getPrekeyBundle",
+            "com.etzhayyim.signal.getPrekeyBundles",
+            "com.etzhayyim.signal.setEncryption",
+            "com.etzhayyim.signal.ensureDevice",
+            "com.etzhayyim.signal.revokeDevice",
+            "com.etzhayyim.signal.renameDevice",
+            "com.etzhayyim.signal.verifyIdentity",
+            "com.etzhayyim.signal.registerPrekeys",
+            "com.etzhayyim.signal.replenishOtpks",
+            "com.etzhayyim.signal.rotateGroupKey"
+          ]
+        }
+      ]
+    }
+  }
+}

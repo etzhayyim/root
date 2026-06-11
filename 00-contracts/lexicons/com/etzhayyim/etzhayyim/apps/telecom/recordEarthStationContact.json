@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordEarthStationContact",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NTN — record a feeder-link or TT&C contact window between an earth station and a satellite. AOS / LOS times define the window; duration_seconds computed automatically.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["stationId", "satelliteId", "contactKind", "aosAt", "losAt", "observedAt"],
+          "properties": {
+            "contactId": { "type": "string" },
+            "stationId": { "type": "string" },
+            "satelliteId": { "type": "string" },
+            "contactKind": { "type": "string", "enum": ["feeder_uplink", "feeder_downlink", "feeder_bidirectional", "tt_and_c", "ranging"] },
+            "aosAt": { "type": "string", "format": "datetime" },
+            "losAt": { "type": "string", "format": "datetime" },
+            "peakElevationDeg": { "type": "number" },
+            "dopplerShiftHz": { "type": "number" },
+            "ingressBytes": { "type": "integer" },
+            "egressBytes": { "type": "integer" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "contactId": { "type": "string" },
+          "durationSeconds": { "type": "number" },
+          "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

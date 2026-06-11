@@ -1,0 +1,309 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "legalAid XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://legalAid.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.legalAid.assignDefender": {
+      "post": {
+        "summary": "Assign a public defender / panel attorney to a legal aid case.",
+        "operationId": "com.etzhayyim.legalAid.assignDefender",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "caseDid": {
+                    "type": "string",
+                    "format": "did"
+                  },
+                  "lawyerDid": {
+                    "type": "string",
+                    "description": "bengoshi.etzhayyim.com DID",
+                    "format": "did"
+                  },
+                  "assignedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "lead",
+                      "associate",
+                      "duty-counsel"
+                    ]
+                  },
+                  "feeStructure": {
+                    "type": "string",
+                    "enum": [
+                      "pro-bono",
+                      "panel-rate",
+                      "subsidized"
+                    ]
+                  }
+                },
+                "required": [
+                  "caseDid",
+                  "lawyerDid",
+                  "assignedAt"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    }
+                  },
+                  "required": [
+                    "uri"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.legalAid.createCase": {
+      "post": {
+        "summary": "Create a legal aid case (public defender / 法テラス assignment). Sources: ILAG + 法テラス + national legal aid bodies.",
+        "operationId": "com.etzhayyim.legalAid.createCase",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "jurisdiction": {
+                    "type": "string",
+                    "description": "ISO 3166-1 alpha-3"
+                  },
+                  "applicantDid": {
+                    "type": "string",
+                    "description": "natural-person DID (PII Tier 3)",
+                    "format": "did"
+                  },
+                  "matter": {
+                    "type": "string",
+                    "enum": [
+                      "criminal-defense",
+                      "family",
+                      "housing",
+                      "immigration",
+                      "consumer",
+                      "labor",
+                      "civil"
+                    ]
+                  },
+                  "courtDid": {
+                    "type": "string",
+                    "format": "did"
+                  },
+                  "filedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                  },
+                  "meansTestPassed": {
+                    "type": "boolean"
+                  },
+                  "estimatedHours": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "jurisdiction",
+                  "applicantDid",
+                  "matter"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string",
+                      "format": "did"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "caseNumber": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "uri"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.legalAid.listCases": {
+      "get": {
+        "summary": "List legal aid cases with offset/limit pagination, optional filters.",
+        "operationId": "com.etzhayyim.legalAid.listCases",
+        "parameters": [
+          {
+            "name": "jurisdiction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "matter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending-means-test",
+                "approved",
+                "in-progress",
+                "closed",
+                "denied"
+              ]
+            }
+          },
+          {
+            "name": "lawyerDid",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "did"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cases": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "did": {
+                            "type": "string",
+                            "format": "did"
+                          },
+                          "jurisdiction": {
+                            "type": "string"
+                          },
+                          "matter": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "filedAt": {
+                            "type": "string",
+                            "format": "datetime"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "cases",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

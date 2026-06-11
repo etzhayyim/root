@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pocIhl.recordIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Protection of Civilians / IHL incident (bridges humanitarianCorridor.flagAccessDenial + laws-autonomous-weapons + disarmament-treaties)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "countryIso3",
+            "incidentKind",
+            "reportingAuthority",
+            "occurredAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "incidentKind": {
+              "type": "string",
+              "enum": [
+                "indiscriminate_attack",
+                "protected_site_strike",
+                "ambulance_hospital",
+                "aid_worker_targeting",
+                "sexual_violence_war",
+                "forced_displacement",
+                "siege_starvation",
+                "civilian_detain",
+                "school_attack",
+                "water_infra_strike",
+                "communications_blackout"
+              ]
+            },
+            "reportingAuthority": {
+              "type": "string",
+              "enum": [
+                "un_cohchr",
+                "icrc",
+                "save_the_children",
+                "msf",
+                "hrw",
+                "amnesty",
+                "un_poc",
+                "ijm",
+                "airwars",
+                "ua_ombudsman"
+              ]
+            },
+            "accessDenialVid": {
+              "type": "string",
+              "description": "bridges humanitarianCorridor.flagAccessDenial"
+            },
+            "civilianCasualties": {
+              "type": "integer"
+            },
+            "occurredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

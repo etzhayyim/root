@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  naturalPerson.materializeAllLatentEntities
+
+  Timer:
+    R/PT1M. Every minute, materialize a bounded batch of individual latent
+    vertices from natural-person cohort estimated counts. Progress is tracked
+    in vertex_natural_person_latent_materialization_cursor, so the job is
+    idempotent and resumable.
+
+  NSID: com.etzhayyim.apps.naturalPerson.materializeAllLatentEntities
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="naturalPersonMaterializeAllLatentEntities"
+    targetNamespace="http://bpmn.io/schema/bpmn"
+    exporter="Camunda Modeler"
+    exporterVersion="3.0">
+
+  <bpmn:process id="natural_person_materialize_all_latent_entities_v1" name="naturalPerson.materializeAllLatentEntities" isExecutable="true">
+
+    <bpmn:startEvent id="Start_Timer" name="R/PT1M timer">
+      <bpmn:outgoing>Flow_timer_to_ensure_cursors</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerDef_1M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:startEvent id="Start_Manual" name="XRPC trigger">
+      <bpmn:outgoing>Flow_manual_to_ensure_cursors</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_EnsureCursors" name="Ensure cohort materialization cursors">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;INSERT INTO vertex_natural_person_latent_materialization_cursor (vertex_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, updated_at, cohort_vid, cohort_hash, target_count, next_ordinal, materialized_count, batch_size, status) SELECT 'at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.latentCursor/' || c.cohort_hash, 1, 300, 'did:web:natural-person.etzhayyim.com', 'did:web:natural-person.etzhayyim.com', 'did:web:natural-person.etzhayyim.com', NOW(), NOW(), c.vertex_id, c.cohort_hash, GREATEST(COALESCE(c.intel_estimated_count, 0), 0), 1, 0, 100000, CASE WHEN GREATEST(COALESCE(c.intel_estimated_count, 0), 0) &gt; 0 THEN 'active' ELSE 'complete' END FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM vertex_natural_person_latent_materialization_cursor x WHERE x.cohort_hash = c.cohort_hash)&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:input source="=300000" target="resultTimeoutMs"/>
+          <zeebe:output source="=updated" target="cursorsInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_timer_to_ensure_cursors</bpmn:incoming>
+      <bpmn:incoming>Flow_manual_to_ensure_cursors</bpmn:incoming>
+      <bpmn:outgoing>Flow_ensure_to_read_work</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_ReadWork" name="Read next cursor batch">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT vertex_id, cohort_vid, cohort_hash, target_count, next_ordinal, batch_size, LEAST(next_ordinal + batch_size - 1, target_count) AS end_ordinal, LEAST(batch_size, target_count - next_ordinal + 1) AS planned_individuals FROM vertex_natural_person_latent_materialization_cursor WHERE status = 'active' AND next_ordinal &lt;= target_count ORDER BY updated_at ASC NULLS FIRST, cohort_hash LIMIT 1&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:input source="=60000" target="resultTimeoutMs"/>
+          <zeebe:output source="=rows[1]" target="latentBatch"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ensure_to_read_work</bpmn:incoming>
+      <bpmn:outgoing>Flow_read_to_insert_vertices</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_InsertVertices" name="Insert individual latent vertices">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;INSERT INTO vertex_latent_entity (vertex_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, entity_kind, canonical_label, existence_probability, k_evidence_count, viewpoint_consensus, fission_eligible, status, primary_topic_vid, individual_did) SELECT 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-individual-' || w.cohort_hash || '-' || LPAD(g.i::VARCHAR, 12, '0'), g.i, 300, 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', NOW(), 'natural_person_individual_latent', 'natural person latent: ' || w.cohort_hash || ' #' || g.i::VARCHAR, 0.50, 1, 1, false, 'active', w.cohort_vid, 'did:web:natural-person.etzhayyim.com:latent:' || w.cohort_hash || ':' || g.i::VARCHAR FROM (SELECT vertex_id, cohort_vid, cohort_hash, target_count, next_ordinal, LEAST(next_ordinal + batch_size - 1, target_count) AS end_ordinal FROM vertex_natural_person_latent_materialization_cursor WHERE status = 'active' AND next_ordinal &lt;= target_count ORDER BY updated_at ASC NULLS FIRST, cohort_hash LIMIT 1) w, generate_series(w.next_ordinal, w.end_ordinal) AS g(i)&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:input source="=300000" target="resultTimeoutMs"/>
+          <zeebe:output source="=updated" target="insertedIndividuals"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_read_to_insert_vertices</bpmn:incoming>
+      <bpmn:outgoing>Flow_insert_to_advance_cursor</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_AdvanceCursor" name="Advance cursor">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;UPDATE vertex_natural_person_latent_materialization_cursor SET next_ordinal = LEAST(target_count + 1, next_ordinal + batch_size), materialized_count = LEAST(target_count, materialized_count + batch_size), status = CASE WHEN next_ordinal + batch_size &gt; target_count THEN 'complete' ELSE 'active' END, updated_at = NOW() WHERE vertex_id = (SELECT vertex_id FROM vertex_natural_person_latent_materialization_cursor WHERE status = 'active' AND next_ordinal &lt;= target_count ORDER BY updated_at ASC NULLS FIRST, cohort_hash LIMIT 1)&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:input source="=60000" target="resultTimeoutMs"/>
+          <zeebe:output source="=updated" target="advancedCursors"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_insert_to_advance_cursor</bpmn:incoming>
+      <bpmn:outgoing>Flow_advance_to_verify</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Verify" name="Verify materialization totals">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT (SELECT COUNT(*)::bigint FROM vertex_latent_entity WHERE entity_kind = 'natural_person_individual_latent') AS total_individual_latent_entities, (SELECT COALESCE(SUM(GREATEST(target_count - next_ordinal + 1, 0)), 0)::bigint FROM vertex_natural_person_latent_materialization_cursor WHERE status = 'active') AS remaining_individuals&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:input source="=60000" target="resultTimeoutMs"/>
+          <zeebe:output source="=rows[1]" target="materializationVerify"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_advance_to_verify</bpmn:incoming>
+      <bpmn:outgoing>Flow_verify_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Audit" name="OCEL audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:natural-person.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;naturalPerson.materializeAllLatentEntities.complete&quot;" target="action"/>
+          <zeebe:input source="={
+              &quot;cursorsInserted&quot;: cursorsInserted,
+              &quot;plannedIndividuals&quot;: latentBatch.planned_individuals,
+              &quot;insertedIndividuals&quot;: insertedIndividuals,
+              &quot;advancedCursors&quot;: advancedCursors,
+              &quot;totalIndividualLatentEntities&quot;: materializationVerify.total_individual_latent_entities,
+              &quot;remainingIndividuals&quot;: materializationVerify.remaining_individuals
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_verify_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_timer_to_ensure_cursors" sourceRef="Start_Timer" targetRef="Task_EnsureCursors"/>
+    <bpmn:sequenceFlow id="Flow_manual_to_ensure_cursors" sourceRef="Start_Manual" targetRef="Task_EnsureCursors"/>
+    <bpmn:sequenceFlow id="Flow_ensure_to_read_work" sourceRef="Task_EnsureCursors" targetRef="Task_ReadWork"/>
+    <bpmn:sequenceFlow id="Flow_read_to_insert_vertices" sourceRef="Task_ReadWork" targetRef="Task_InsertVertices"/>
+    <bpmn:sequenceFlow id="Flow_insert_to_advance_cursor" sourceRef="Task_InsertVertices" targetRef="Task_AdvanceCursor"/>
+    <bpmn:sequenceFlow id="Flow_advance_to_verify" sourceRef="Task_AdvanceCursor" targetRef="Task_Verify"/>
+    <bpmn:sequenceFlow id="Flow_verify_to_audit" sourceRef="Task_Verify" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End"/>
+
+  </bpmn:process>
+</bpmn:definitions>

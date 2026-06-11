@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "ai.etzhayyim.yorishiro.huggingface.searchModels",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List models with optional free-text search, author filter, and sort. Returns a JSON array of model summaries.",
+      "x-yorishiro-external": true,
+      "x-yorishiro-kami": "huggingface.co",
+      "x-yorishiro-transport": "openapi-v3",
+      "x-yorishiro-http": {
+        "method": "GET",
+        "pathTemplate": "/api/models",
+        "responseContentType": "application/json",
+        "pathParams": [],
+        "queryParams": [
+          "search",
+          "author",
+          "filter",
+          "sort",
+          "direction",
+          "limit"
+        ],
+        "bodyParams": []
+      },
+      "x-charter-purpose": [
+        "grant"
+      ],
+      "parameters": {
+        "type": "params",
+        "required": [],
+        "properties": {
+          "search": {
+            "type": "string",
+            "maxLength": 512,
+            "description": "Free-text query."
+          },
+          "author": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Filter by author/organization."
+          },
+          "filter": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Tag filter (e.g. `pytorch`, `text-generation`)."
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "downloads",
+              "likes",
+              "lastModified"
+            ],
+            "description": "Sort key."
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "-1",
+              "1"
+            ],
+            "description": "Sort direction (-1 desc, 1 asc)."
+          },
+          "limit": {
+            "type": "integer",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 1000,
+            "description": "Maximum number of results."
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "httpStatus"
+          ],
+          "properties": {
+            "httpStatus": {
+              "type": "integer"
+            },
+            "json": {
+              "type": "object",
+              "description": "Array of model summary objects. Each entry includes id, downloads, likes, tags, lastModified."
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

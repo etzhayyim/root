@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.generateScript",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stage 1/8 — Draft a chapter script (page-by-page beat list). Claude deep drafts the story, Qwen 7B structures it into a pages[] JSON array. Writes one vertex_mangaka row (kind=script). Backed by BPMN mangaka_generate_script (ADR-2604231328 applied to mangaka).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chapterId", "chapterTitle", "synopsis"],
+          "properties": {
+            "workId": { "type": "string" },
+            "chapterId": { "type": "string" },
+            "chapterTitle": { "type": "string" },
+            "synopsis": { "type": "string" },
+            "targetPageCount": { "type": "integer", "default": 18, "minimum": 1, "maximum": 60 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "scriptVertexId": { "type": "string", "format": "at-uri" },
+            "pagesJson": { "type": "string", "description": "Stringified JSON {pages:[{pageNum,location,beat,dialogue,charactersAppearing[]}]}" },
+            "model": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

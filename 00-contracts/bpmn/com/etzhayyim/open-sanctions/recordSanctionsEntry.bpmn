@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_sanctions_record_entry"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-sanctions"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_sanctions_record_entry" name="制裁リスト エントリ記録" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="sanctions entry 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_sanctions_entry&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, program: program, list_id: listId,
+              entity_name: entityName, entity_type: entityType,
+              country: country, sanction_type: sanctionType,
+              aliases: aliases, listed_at: listedAt,
+              status: &quot;active&quot;, created_at: string(now()),
+              owner_did: callerDid, sensitivity_ord: 1,
+              org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-sanctions&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit sanctions.record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-sanctions.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSanctions.entry.record&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, program: program, listId: listId, entityName: entityName, entityType: entityType}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.opensaas.salesforce.activity",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Salesforce-equivalent Activity: call / email / task / meeting note. PRIMARILY DERIVED — do not write directly from handlers. Written automatically by the PDS commit pipeline derive rule on: opportunity stage change, case status change, convoSendMessage with agentTool invocation, and lead conversion. Explicit create is allowed only for manual logs from the operator UI.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["tenantDid", "kind", "subject", "occurredAt", "source"],
+        "properties": {
+          "tenantDid": { "type": "string" },
+          "accountDid": { "type": "string" },
+          "contactDid": { "type": "string" },
+          "leadDid": { "type": "string" },
+          "opportunityDid": { "type": "string" },
+          "caseDid": { "type": "string" },
+          "actorDid": { "type": "string", "description": "who performed the activity (seat DID or AI agent DID)" },
+          "kind": { "type": "string", "enum": ["call", "email", "meeting", "task", "note", "stage-change", "status-change", "conversion"] },
+          "subject": { "type": "string", "maxLength": 255 },
+          "summary": { "type": "string", "maxLength": 2048, "description": "signal:v1: prefix when quoting customer PII" },
+          "direction": { "type": "string", "enum": ["inbound", "outbound", "internal"] },
+          "source": { "type": "string", "enum": ["derived-stage-change", "derived-status-change", "derived-convo", "derived-conversion", "manual-ui", "import"] },
+          "convoUri": { "type": "string", "description": "AT URI to a wproto.convo message if this was derived from a conversation" },
+          "durationSec": { "type": "integer", "minimum": 0 },
+          "occurredAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

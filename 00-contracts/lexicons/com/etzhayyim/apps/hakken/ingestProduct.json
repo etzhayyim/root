@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hakken.ingestProduct",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Ingest a branded reference product (and its observed price) into the kotoba product knowledge graph as an on-chain com.etzhayyim.apps.hakken.brandedProduct record. Idempotent: re-ingesting the same productSlug upserts.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["productSlug", "name", "brand", "category", "priceJpy"],
+          "properties": {
+            "productSlug": { "type": "string", "description": "Stable slug, used as record key. e.g. brain-sleep-pillow-standard." },
+            "name": { "type": "string" },
+            "brand": { "type": "string" },
+            "category": { "type": "string", "description": "e.g. mattress, pillow, topper." },
+            "priceJpy": { "type": "integer", "description": "Observed retail price in JPY (integer; AT Lexicon has no float)." },
+            "url": { "type": "string" },
+            "material": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["status", "productSlug"],
+          "properties": {
+            "status": { "type": "string", "knownValues": ["ingested", "upserted", "rejected"] },
+            "productSlug": { "type": "string" },
+            "uri": { "type": "string", "description": "AT URI of the brandedProduct record." },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

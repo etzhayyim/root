@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.euSummitConclusion.recordConclusion",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "European Council summit conclusions / position (bridges councilPresidency.flagPriorityShift + eu-trilogue + cbam-embedded)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "conclusionId",
+            "summitKind",
+            "topic",
+            "adoptedAt"
+          ],
+          "properties": {
+            "conclusionId": {
+              "type": "string"
+            },
+            "summitKind": {
+              "type": "string",
+              "enum": [
+                "regular",
+                "extraordinary",
+                "informal",
+                "euro_summit",
+                "tripartite_social",
+                "strategic_agenda",
+                "mff_negotiation",
+                "jumbo_council"
+              ]
+            },
+            "topic": {
+              "type": "string",
+              "enum": [
+                "enlargement",
+                "ukraine",
+                "mff",
+                "strategic_autonomy",
+                "competitiveness",
+                "security_defense",
+                "middle_east",
+                "trade",
+                "green_deal",
+                "energy",
+                "health",
+                "social"
+              ]
+            },
+            "priorityShiftVid": {
+              "type": "string",
+              "description": "bridges councilPresidency.flagPriorityShift"
+            },
+            "adoptedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

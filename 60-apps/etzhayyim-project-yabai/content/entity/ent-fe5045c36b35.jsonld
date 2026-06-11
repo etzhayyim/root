@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fe5045c36b35",
+  "entityId": "ent-fe5045c36b35",
+  "canonicalName": "rhine shipping dmcc",
+  "aliases": [
+    "rhine shipping dmcc"
+  ]
+}

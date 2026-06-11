@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Read the planned and active dock schedule for a window.
+
+  Inputs:
+    requestId
+    fromTs
+    toTs
+
+  Outputs:
+    schedule
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_yard_ops_get_dock_schedule"
+    targetNamespace="https://etzhayyim.ai/bpmn/yard-ops"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="yard_ops_get_dock_schedule" name="Yard dock schedule query" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Schedule requested">
+      <bpmn:outgoing>Flow_Start_Read</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Read" sourceRef="Start" targetRef="Task_Read"/>
+
+    <bpmn:serviceTask id="Task_Read" name="Read dock schedule">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yardOps.dockSchedule.read"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=fromTs" target="fromTs"/>
+          <zeebe:input source="=toTs" target="toTs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Read</bpmn:incoming>
+      <bpmn:outgoing>Flow_Read_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Read_End" sourceRef="Task_Read" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Schedule returned">
+      <bpmn:incoming>Flow_Read_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

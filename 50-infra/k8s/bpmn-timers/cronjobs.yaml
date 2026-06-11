@@ -1,0 +1,4164 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bpmn-timers
+  labels:
+    app.kubernetes.io/part-of: mitama.etzhayyim.com
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-bulkrefreshgtfsjp
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshgtfsjp
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_gtfs_jp
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshGtfsJp
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-refreshcoveragestats
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-refreshcoveragestats
+    etzhayyim.com/bpmn-process: maps_refresh_coverage_stats
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.refreshCoverageStats
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-computeaircrafttrack
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-computeaircrafttrack
+    etzhayyim.com/bpmn-process: maps_compute_aircraft_track
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.computeAircraftTrack
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-bulkrefreshwikipedia
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshwikipedia
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_wikipedia
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshWikipedia
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-ingestcelestialcatalogs
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-ingestcelestialcatalogs
+    etzhayyim.com/bpmn-process: maps_ingest_celestial_catalogs
+spec:
+  schedule: "0 0 1 * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.ingestCelestialCatalogs
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-sciencetaxonsync
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-sciencetaxonsync
+    etzhayyim.com/bpmn-process: science_taxon_sync
+spec:
+  schedule: "0 */12 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.scienceTaxonSync
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-bulkrefreshosmplanet
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshosmplanet
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_osm_planet
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshOsmPlanet
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-sentinelingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-sentinelingest
+    etzhayyim.com/bpmn-process: maps_sentinel_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.sentinelIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-runpendingcoveragejobs
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-runpendingcoveragejobs
+    etzhayyim.com/bpmn-process: maps_run_pending_coverage_jobs
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.runPendingCoverageJobs
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-sciencepaperingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-sciencepaperingest
+    etzhayyim.com/bpmn-process: science_paper_ingest
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.sciencePaperIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-refreshtlecatalog
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-refreshtlecatalog
+    etzhayyim.com/bpmn-process: maps_refresh_tle_catalog
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.refreshTleCatalog
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-advancecoverage
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-advancecoverage
+    etzhayyim.com/bpmn-process: maps_advance_coverage
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.advanceCoverage
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-backfillaircraftregistry
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-backfillaircraftregistry
+    etzhayyim.com/bpmn-process: maps_backfill_aircraft_registry
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.backfillAircraftRegistry
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-bulkrefreshgeonames
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshgeonames
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_geonames
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshGeonames
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-buildingingest3d
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-buildingingest3d
+    etzhayyim.com/bpmn-process: maps_building_ingest_3d
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.buildingIngest3d
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-bulkrefreshferryroutes
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshferryroutes
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_ferry_routes
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshFerryRoutes
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-bulkrefreshwikidata
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshwikidata
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_wikidata
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshWikidata
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-bulkrefreshopenflights
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshopenflights
+    etzhayyim.com/bpmn-process: maps_bulk_refresh_openflights
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshOpenflights
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-precomputesatellitepasses
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-precomputesatellitepasses
+    etzhayyim.com/bpmn-process: maps_precompute_satellite_passes
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.precomputeSatellitePasses
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-purgestalelivetracker
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-purgestalelivetracker
+    etzhayyim.com/bpmn-process: maps_purge_stale_live_tracker
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.purgeStaleLiveTracker
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-livetrackaircraft
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-livetrackaircraft
+    etzhayyim.com/bpmn-process: maps_live_track_aircraft
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.liveTrackAircraft
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-scienceelementseed
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-scienceelementseed
+    etzhayyim.com/bpmn-process: science_element_seed
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.scienceElementSeed
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-aismarine-refreshvesseldensity
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-aismarine-refreshvesseldensity
+    etzhayyim.com/bpmn-process: maps_aismarine_refresh_vessel_density
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.aismarine.refreshVesselDensity
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-aismarine-voyagedetector
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-aismarine-voyagedetector
+    etzhayyim.com/bpmn-process: maps_aismarine_voyage_detector
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.aismarine.voyageDetector
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps-aismarine-refreshvesselmaster
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps-aismarine-refreshvesselmaster
+    etzhayyim.com/bpmn-process: maps_aismarine_refresh_vessel_master
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.aismarine.refreshVesselMaster
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-tasks-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-tasks-crontick
+    etzhayyim.com/bpmn-process: tasks_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.tasks.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-calendar-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-calendar-crontick
+    etzhayyim.com/bpmn-process: calendar_cron_tick
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.calendar.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-sheets-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-sheets-crontick
+    etzhayyim.com/bpmn-process: sheets_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.sheets.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-murakumo-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-murakumo-crontick
+    etzhayyim.com/bpmn-process: murakumo_cron_tick
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.murakumo.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-murakumo-fleethealthcheck
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-murakumo-fleethealthcheck
+    etzhayyim.com/bpmn-process: murakumo_fleet_health_check
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.murakumo.fleetHealthCheck
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-otakiage-matsurischedule
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-otakiage-matsurischedule
+    etzhayyim.com/bpmn-process: otakiage_matsuri_schedule
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.otakiage.matsuriSchedule
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-otakiage-reuseexpire
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-otakiage-reuseexpire
+    etzhayyim.com/bpmn-process: otakiage_reuse_expire
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.otakiage.reuseExpire
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-otakiage-certificateanchorsweep
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-otakiage-certificateanchorsweep
+    etzhayyim.com/bpmn-process: otakiage_certificate_anchor_sweep
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.otakiage.certificateAnchorSweep
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-otakiage-reusematch
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-otakiage-reusematch
+    etzhayyim.com/bpmn-process: otakiage_reuse_match
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.otakiage.reuseMatch
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-meet-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-meet-crontick
+    etzhayyim.com/bpmn-process: meet_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.meet.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-ingest-netintelfingerprintdelta
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-ingest-netintelfingerprintdelta
+    etzhayyim.com/bpmn-process: netintel_fingerprint_delta
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.ingest.netintelFingerprintDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-ingest-netintelwhoisdelta
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-ingest-netintelwhoisdelta
+    etzhayyim.com/bpmn-process: netintel_whois_delta
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.ingest.netintelWhoisDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-ingest-netintelipenrichdelta
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-ingest-netintelipenrichdelta
+    etzhayyim.com/bpmn-process: netintel_ip_enrich_delta
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.ingest.netintelIpEnrichDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-ingest-netintelscanbannerdelta
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-ingest-netintelscanbannerdelta
+    etzhayyim.com/bpmn-process: netintel_scan_banner_delta
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.ingest.netintelScanBannerDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-ingest-netinteldnsdelta
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-ingest-netinteldnsdelta
+    etzhayyim.com/bpmn-process: netintel_dns_delta
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.ingest.netintelDnsDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-contacts-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-contacts-crontick
+    etzhayyim.com/bpmn-process: contacts_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.contacts.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-graph-expandtick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-graph-expandtick
+    etzhayyim.com/bpmn-process: graph_expand_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.graph.expandTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-graph-consumerepocommits
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-graph-consumerepocommits
+    etzhayyim.com/bpmn-process: graph_consume_repo_commits
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.graph.consumeRepoCommits
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-wellbecoming-minimaxsweep
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-minimaxsweep
+    etzhayyim.com/bpmn-process: wellbecoming_minimax_sweep
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.minimaxSweep
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-wellbecoming-beliefnoiseinject
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-beliefnoiseinject
+    etzhayyim.com/bpmn-process: wellbecoming_belief_noise_inject
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.beliefNoiseInject
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-wellbecoming-processmining
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-processmining
+    etzhayyim.com/bpmn-process: wellbecoming_process_mining
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.processMining
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-wellbecoming-floorviolationalert
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-floorviolationalert
+    etzhayyim.com/bpmn-process: wellbecoming_floor_violation_alert
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.floorViolationAlert
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-wellbecoming-trustweightupdate
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-trustweightupdate
+    etzhayyim.com/bpmn-process: wellbecoming_trust_weight_update
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.trustWeightUpdate
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-wellbecoming-beliefinfluencepropagate
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-beliefinfluencepropagate
+    etzhayyim.com/bpmn-process: wellbecoming_belief_influence_propagate
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.beliefInfluencePropagate
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-wellbecoming-detectbottleneck
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-detectbottleneck
+    etzhayyim.com/bpmn-process: wellbecoming_detect_bottleneck
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.detectBottleneck
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-wellbecoming-beliefrestoringcapture
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-beliefrestoringcapture
+    etzhayyim.com/bpmn-process: wellbecoming_belief_restoring_capture
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.beliefRestoringCapture
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-wellbecoming-proactiveconnect
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-proactiveconnect
+    etzhayyim.com/bpmn-process: wellbecoming_proactive_connect
+spec:
+  schedule: "0 */2 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.proactiveConnect
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-science-sciencepaperingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-science-sciencepaperingest
+    etzhayyim.com/bpmn-process: science_paper_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.science.sciencePaperIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-science-kamiseedscientific
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-science-kamiseedscientific
+    etzhayyim.com/bpmn-process: science_kami_seed_scientific
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.science.kamiSeedScientific
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-lifehack-dailydustpost
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-lifehack-dailydustpost
+    etzhayyim.com/bpmn-process: lifehack_daily_dust_post
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.lifehack.dailyDustPost
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-pds-resyncmitamacrontriggers
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-pds-resyncmitamacrontriggers
+    etzhayyim.com/bpmn-process: pds_resync_mitama_cron_triggers
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.pds.resyncMitamaCronTriggers
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-pds-warmdiscovercache
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-pds-warmdiscovercache
+    etzhayyim.com/bpmn-process: pds_warm_discover_cache
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.pds.warmDiscoverCache
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-pds-syncwriteoutbox
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-pds-syncwriteoutbox
+    etzhayyim.com/bpmn-process: pds_sync_write_outbox
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.pds.syncWriteOutbox
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-pds-runheartbeatcron
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-pds-runheartbeatcron
+    etzhayyim.com/bpmn-process: pds_run_heartbeat_cron
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.pds.runHeartbeatCron
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-pds-rotatesigningkeys
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-pds-rotatesigningkeys
+    etzhayyim.com/bpmn-process: pds_rotate_signing_keys
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.pds.rotateSigningKeys
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-opensmartphonesoc-fetchriscvecosystemde
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-opensmartphonesoc-fetchriscvecosystemde
+    etzhayyim.com/bpmn-process: open_smartphone_soc_fetch_riscv_ecosystem_delta
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.openSmartphoneSoc.fetchRiscvEcosystemDelta
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-docs-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-docs-crontick
+    etzhayyim.com/bpmn-process: docs_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.docs.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-yoro-platformpulse
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-yoro-platformpulse
+    etzhayyim.com/bpmn-process: yoro_platform_pulse
+spec:
+  schedule: "0 */4 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.yoro.platformPulse
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-atproto-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-atproto-crontick
+    etzhayyim.com/bpmn-process: atproto_cron_tick
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.atproto.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-slides-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-slides-crontick
+    etzhayyim.com/bpmn-process: slides_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.slides.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-hanrei-hanreiingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-hanrei-hanreiingest
+    etzhayyim.com/bpmn-process: hanrei_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.hanrei.hanreiIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-businessperson-enrichorglei
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-businessperson-enrichorglei
+    etzhayyim.com/bpmn-process: business_person_enrich_org_lei
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.businessPerson.enrichOrgLei
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-businessperson-scoreinfluence
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-businessperson-scoreinfluence
+    etzhayyim.com/bpmn-process: business_person_score_influence
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.businessPerson.scoreInfluence
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-businessperson-enrichglobalpersons
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-businessperson-enrichglobalpersons
+    etzhayyim.com/bpmn-process: business_person_enrich_global_persons
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.businessPerson.enrichGlobalPersons
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-businessperson-enrichcareerllm
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-businessperson-enrichcareerllm
+    etzhayyim.com/bpmn-process: business_person_enrich_career_llm
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.businessPerson.enrichCareerLLM
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-jpcorpfinance-startdailyingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-jpcorpfinance-startdailyingest
+    etzhayyim.com/bpmn-process: jp_corp_finance_daily
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.jpCorpFinance.startDailyIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-aria-attentioningest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-aria-attentioningest
+    etzhayyim.com/bpmn-process: aria_attention_ingest
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.attentionIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-aria-marketingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-aria-marketingest
+    etzhayyim.com/bpmn-process: aria_market_ingest
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.marketIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-aria-emotioningest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-aria-emotioningest
+    etzhayyim.com/bpmn-process: aria_emotion_ingest
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.emotionIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-aria-requestingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-aria-requestingest
+    etzhayyim.com/bpmn-process: aria_request_ingest
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.requestIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-aria-influenceingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-aria-influenceingest
+    etzhayyim.com/bpmn-process: aria_influence_ingest
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.influenceIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-aria-moneyflowingest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-aria-moneyflowingest
+    etzhayyim.com/bpmn-process: aria_money_flow_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.moneyFlowIngest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-aria-minimaxsweep
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-aria-minimaxsweep
+    etzhayyim.com/bpmn-process: aria_minimax_sweep
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.minimaxSweep
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-bluesky-refreshstalest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-bluesky-refreshstalest
+    etzhayyim.com/bpmn-process: bluesky_refresh_stalest
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.bluesky.refreshStalest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-hf-modelscan
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-hf-modelscan
+    etzhayyim.com/bpmn-process: hf_model_scan
+spec:
+  schedule: "0 */12 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.hf.modelScan
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-hf-datasetscan
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-hf-datasetscan
+    etzhayyim.com/bpmn-process: hf_dataset_scan
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.hf.datasetScan
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-irscrape-processqueue
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-irscrape-processqueue
+    etzhayyim.com/bpmn-process: ir_scrape_process_queue
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.irScrape.processQueue
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-irscrape-queueseeds
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-irscrape-queueseeds
+    etzhayyim.com/bpmn-process: ir_scrape_queue_seeds
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.irScrape.queueSeeds
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-handotai-handotaicollect
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-handotai-handotaicollect
+    etzhayyim.com/bpmn-process: handotai_collect
+spec:
+  schedule: "0 */4 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.handotai.handotaiCollect
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-market-chaindemandpoll
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-market-chaindemandpoll
+    etzhayyim.com/bpmn-process: market_chain_demand_poll
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.market.chainDemandPoll
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-market-internetdemandpoll
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-market-internetdemandpoll
+    etzhayyim.com/bpmn-process: market_internet_demand_poll
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.market.internetDemandPoll
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-market-settlementbundle
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-market-settlementbundle
+    etzhayyim.com/bpmn-process: market_settlement_bundle
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.market.settlementBundle
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-arb-scanrealestate
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-arb-scanrealestate
+    etzhayyim.com/bpmn-process: arb_scan_re
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanRealEstate
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-arb-scanequities
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-arb-scanequities
+    etzhayyim.com/bpmn-process: arb_scan_eq
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanEquities
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-arb-scancommodities
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-arb-scancommodities
+    etzhayyim.com/bpmn-process: arb_scan_com
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanCommodities
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-arb-publishdigest
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-arb-publishdigest
+    etzhayyim.com/bpmn-process: arb_publish_digest
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.publishDigest
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-arb-scanfx
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-arb-scanfx
+    etzhayyim.com/bpmn-process: arb_scan_fx
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanFx
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-arb-scanfutures
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-arb-scanfutures
+    etzhayyim.com/bpmn-process: arb_scan_fut
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanFutures
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-arb-scancrypto
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-arb-scancrypto
+    etzhayyim.com/bpmn-process: arb_scan_cr
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanCrypto
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-copyright-socialcoveragereport
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-copyright-socialcoveragereport
+    etzhayyim.com/bpmn-process: copyright_coverage_report
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.copyright.socialCoverageReport
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-copyright-ingestdatacite
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-copyright-ingestdatacite
+    etzhayyim.com/bpmn-process: copyright_datacite_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.copyright.ingestDatacite
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-copyright-ingestcrossref
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-copyright-ingestcrossref
+    etzhayyim.com/bpmn-process: copyright_crossref_ingest
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.copyright.ingestCrossref
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-flightoffer-cleanupruns
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-flightoffer-cleanupruns
+    etzhayyim.com/bpmn-process: flight_offer_cleanup_runs
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.flightOffer.cleanupRuns
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-flightoffer-pollwatchlist
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-flightoffer-pollwatchlist
+    etzhayyim.com/bpmn-process: flight_offer_poll_watchlist
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.flightOffer.pollWatchlist
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-kotodama-organizerrun
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-kotodama-organizerrun
+    etzhayyim.com/bpmn-process: kotodama_organizer_run
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.kotodama.organizerRun
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-arms-scanexpiredpermits
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-arms-scanexpiredpermits
+    etzhayyim.com/bpmn-process: arms_expired_permit_scanner
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arms.scanExpiredPermits
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-drive-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-drive-crontick
+    etzhayyim.com/bpmn-process: drive_cron_tick
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.drive.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-resourceflow-detectanomaly
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-resourceflow-detectanomaly
+    etzhayyim.com/bpmn-process: resource_flow_detect_anomaly
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.resourceFlow.detectAnomaly
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-isin-isincollect
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-isin-isincollect
+    etzhayyim.com/bpmn-process: isin_collect
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.isin.isinCollect
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-maps3d-processtile
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-maps3d-processtile
+    etzhayyim.com/bpmn-process: maps3d_process_tile
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps3d.processTile
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-jpfiscal-fiscaledinetdaily
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-jpfiscal-fiscaledinetdaily
+    etzhayyim.com/bpmn-process: jp_fiscal_edinet_daily
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.jpFiscal.fiscalEdinetDaily
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-jpfiscal-runscrapers
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-jpfiscal-runscrapers
+    etzhayyim.com/bpmn-process: jp_fiscal_run_scrapers
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.jpFiscal.runScrapers
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-jpfiscal-fiscalcontractweekly
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-jpfiscal-fiscalcontractweekly
+    etzhayyim.com/bpmn-process: jp_fiscal_contract_weekly
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.jpFiscal.fiscalContractWeekly
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-coverage-inferkdrift
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferkdrift
+    etzhayyim.com/bpmn-process: coverage_infer_kdrift
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferKdrift
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-coverage-inferpersoncohorts
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferpersoncohorts
+    etzhayyim.com/bpmn-process: coverage_infer_person_cohorts
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferPersonCohorts
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-coverage-inferldatopics
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferldatopics
+    etzhayyim.com/bpmn-process: coverage_infer_lda_topics
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferLdaTopics
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-coverage-coveragegapbridge
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-coverage-coveragegapbridge
+    etzhayyim.com/bpmn-process: coverage_gap_bridge
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.coverageGapBridge
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-coverage-inferdeceasedcohorts
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferdeceasedcohorts
+    etzhayyim.com/bpmn-process: coverage_infer_deceased_cohorts
+spec:
+  schedule: "0 0 1 * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferDeceasedCohorts
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-coverage-inferldasignals
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferldasignals
+    etzhayyim.com/bpmn-process: coverage_infer_lda_signals
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferLdaSignals
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-coverage-inferldaentities
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferldaentities
+    etzhayyim.com/bpmn-process: coverage_infer_lda_entities
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferLdaEntities
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-coverage-inferldaincremental
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferldaincremental
+    etzhayyim.com/bpmn-process: coverage_infer_lda_incremental_v1
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferLdaIncremental
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-coverage-inferfission
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferfission
+    etzhayyim.com/bpmn-process: coverage_infer_fission_v1
+spec:
+  schedule: "0 0 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferFission
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-gmail-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-gmail-crontick
+    etzhayyim.com/bpmn-process: gmail_cron_tick
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.gmail.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-rl-collecttrajectories
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-rl-collecttrajectories
+    etzhayyim.com/bpmn-process: rl_collect_trajectories
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.collectTrajectories
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-rl-aifattributeoutcomes
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-rl-aifattributeoutcomes
+    etzhayyim.com/bpmn-process: rl_aif_attribute_outcomes
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.aifAttributeOutcomes
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-rl-aiflearnmodel
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-rl-aiflearnmodel
+    etzhayyim.com/bpmn-process: rl_aif_learn_model
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.aifLearnModel
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-rl-policydispatch
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-rl-policydispatch
+    etzhayyim.com/bpmn-process: rl_policy_dispatch
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.policyDispatch
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-rl-generatepreferences
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-rl-generatepreferences
+    etzhayyim.com/bpmn-process: rl_generate_preferences
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.generatePreferences
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-rl-aifupdatebeliefs
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-rl-aifupdatebeliefs
+    etzhayyim.com/bpmn-process: rl_aif_belief_update
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.aifUpdateBeliefs
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-claim-crontick
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-claim-crontick
+    etzhayyim.com/bpmn-process: claim_cron_tick
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.claim.cronTick
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etzhayyim-apps-claim-unchallengedsweep
+  namespace: bpmn-timers
+  labels:
+    app.kubernetes.io/name: etzhayyim-apps-claim-unchallengedsweep
+    etzhayyim.com/bpmn-process: claim_auto_challenge
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 300
+      template:
+        spec:
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: osm-ingest
+              effect: NoSchedule
+          containers:
+            - name: trigger
+              image: curlimages/curl:8.6.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.claim.unchallengedSweep
+          restartPolicy: OnFailure

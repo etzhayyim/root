@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.parisClub.flagNonParisHoldout",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Non-Paris creditor / holdout / comparability concern (bridges bricsBank.flagGovernanceDispute + sovereign-debt + debt-transparency)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "treatmentVid",
+            "holdoutKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "treatmentVid": {
+              "type": "string",
+              "description": "bridges recordTreatment"
+            },
+            "holdoutKind": {
+              "type": "string",
+              "enum": [
+                "china_exim",
+                "china_dev_bank",
+                "gcc_bilateral",
+                "resource_backed_holdout",
+                "private_bond",
+                "commercial_bank",
+                "lira_hedgefund",
+                "ccac_cuba",
+                "debt_buyback",
+                "lone_wolf",
+                "pari_passu_litigation"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

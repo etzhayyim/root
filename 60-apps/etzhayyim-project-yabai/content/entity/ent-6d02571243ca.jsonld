@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6d02571243ca",
+  "entityId": "ent-6d02571243ca",
+  "canonicalName": "william amuri yakutumba",
+  "aliases": [
+    "william amuri yakutumba"
+  ]
+}

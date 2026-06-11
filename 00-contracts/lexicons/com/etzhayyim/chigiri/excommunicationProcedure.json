@@ -1,0 +1,107 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.excommunicationProcedure",
+  "description": "Excommunication (破門) procedure. Triggered by Charter §2(a)-(h) severe violation evidenced by ≥2 independent attestations. Enforces G12: Council Lv6+ ≥4/7 + 30-day cure period + on-chain memorial record. Schema enforces curePeriodEndsAt > cureWindowStartsAt + 30 days. Reversal requires fresh Adherent ceremony (no fast-track restoration). Rabbinic-court analog: documents the breach, not the person's character.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "subjectDid",
+          "charterViolationCategory",
+          "evidenceAttestationCids",
+          "cureWindowStartsAt",
+          "curePeriodEndsAt",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "subjectDid": {
+            "type": "string",
+            "description": "DID of the member subject to the procedure."
+          },
+          "charterViolationCategory": {
+            "type": "string",
+            "knownValues": [
+              "2a-weapons",
+              "2b-speculative-finance",
+              "2c-covert-ops-surveillance",
+              "2d-fossil-extraction",
+              "2e-anti-gatekeeping",
+              "2f-multi-generational-harm",
+              "2g-state-aligned-coercion",
+              "2h-wellbecoming-violation"
+            ],
+            "description": "Charter Rider §2 sub-category alleged. Severe violation only — minor breaches handled via mediation cell, not excommunication."
+          },
+          "evidenceAttestationCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 2,
+            "description": "≥2 independent on-chain attestations evidencing the violation (constitutional minimum for excommunication initiation)."
+          },
+          "cureWindowStartsAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 UTC start of the 30-day cure period (G12 invariant)."
+          },
+          "curePeriodEndsAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 UTC end of the 30-day cure period. MUST be ≥ cureWindowStartsAt + 30 days (G12 structural enforcement)."
+          },
+          "cureAttempts": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#cureAttempt"
+            },
+            "description": "Member-initiated cure attempts during the 30-day window. May be empty if member chose not to cure."
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 4,
+            "description": "≥4 of 7 Council seat DIDs attesting finalization (Lv6+ ≥4/7 supermajority per G12)."
+          },
+          "finalizedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 UTC timestamp of finalization vote. MUST be ≥ curePeriodEndsAt."
+          },
+          "automaticSbtRevokeTxCid": {
+            "type": "string",
+            "description": "On-chain Adherent SBT revoke transaction CID. MUST be emitted at finalization."
+          },
+          "memorialRecordCid": {
+            "type": "string",
+            "description": "On-chain memorial record CID (documents the breach + cure-attempt summary; NO PII beyond DID + category)."
+          },
+          "reversalRequiresFreshCeremony": {
+            "type": "boolean",
+            "const": true,
+            "description": "Constitutional invariant — re-onboarding requires fresh Adherent ceremony (no fast-track restoration)."
+          },
+          "attestingDid": {
+            "type": "string",
+            "description": "DID of Council seat emitting this procedure record."
+          }
+        }
+      }
+    },
+    "cureAttempt": {
+      "type": "object",
+      "properties": {
+        "attemptAt": {"type": "string", "format": "datetime"},
+        "remediationCid": {"type": "string"},
+        "councilReviewCids": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

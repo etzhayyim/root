@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.infra.meterInstallation",
+  "description": "Meter installation confirmation emitted by the infra-utility-connect meter_install Pregel cell. Records the installed meter's serial / model / calibration certificate (G2 IPFS-pinned) and the installer's witness signature (G3 minLength 1, installer DID MUST differ from submitter DID). Cited by utilityActivation as a prerequisite. Per ADR-2605250900 + gates G2, G3.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "meterInstallationId",
+          "approvalId",
+          "utilityClass",
+          "meterSerialNumber",
+          "meterModelReference",
+          "installedAt",
+          "calibrationCertificateIpfsCid",
+          "installerWitnessSignature",
+          "meterInstallCellAttestationCid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "meterInstallationId": {
+            "type": "string"
+          },
+          "approvalId": {
+            "type": "string",
+            "description": "Parent providerApproval this installation acts upon."
+          },
+          "utilityClass": {
+            "type": "string",
+            "knownValues": [
+              "water",
+              "gas",
+              "electric",
+              "telecom"
+            ]
+          },
+          "meterSerialNumber": {
+            "type": "string",
+            "description": "Provider-recognized unique serial of the installed meter unit."
+          },
+          "meterModelReference": {
+            "type": "string",
+            "description": "Provider-published meter model reference (e.g. model number). Free-text product names disallowed."
+          },
+          "installedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "calibrationCertificateIpfsCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "G2: IPFS CID of the meter's calibration certificate (factory + jurisdiction-required field-verification)."
+          },
+          "installerWitnessSignature": {
+            "type": "ref",
+            "ref": "#installerSignature",
+            "description": "G3: signed by the installer's witness DID; MUST differ from the parent serviceRequest.submitterDid."
+          },
+          "meterInstallCellAttestationCid": {
+            "type": "string",
+            "format": "cid"
+          },
+          "initialReadingValue": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Initial meter reading at install time (raw integer in meter's native unit; unit context held by meterModelReference)."
+          }
+        }
+      }
+    },
+    "installerSignature": {
+      "type": "object",
+      "required": ["installerDid", "providerEmployeeReference", "signedAt", "signature"],
+      "properties": {
+        "installerDid": {
+          "type": "string",
+          "description": "DID of the installer. MUST differ from the parent serviceRequest.submitterDid."
+        },
+        "providerEmployeeReference": {
+          "type": "string",
+          "description": "Opaque provider-internal employee reference. PII filter applies."
+        },
+        "signedAt": {
+          "type": "string",
+          "format": "datetime"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Ed25519 signature over (meterInstallationId + meterSerialNumber + installedAt + calibrationCertificateIpfsCid)."
+        }
+      }
+    }
+  }
+}

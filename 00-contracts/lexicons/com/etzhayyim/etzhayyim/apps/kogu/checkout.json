@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kogu.checkout",
+  "description": "工具の貸出・返却記録。status=checked-out 中は他者への重複貸出をブロック。返却時に conditionOnReturn を記録し、damage 検出時は maintenance を自動起票。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["toolId", "borrowerDid", "checkedOutAt"],
+        "properties": {
+          "toolId": { "type": "string" },
+          "borrowerDid": { "type": "string" },
+          "workOrderId": { "type": "string", "description": "作業指示番号 (tsukuru 製造オーダー等)" },
+          "checkedOutAt": { "type": "string", "format": "date-time" },
+          "expectedReturnAt": { "type": "string", "format": "date-time" },
+          "returnedAt": { "type": "string", "format": "date-time" },
+          "conditionOnReturn": { "type": "string", "enum": ["good", "minor-wear", "damaged", "lost"] },
+          "status": { "type": "string", "enum": ["checked-out", "returned", "overdue"] },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

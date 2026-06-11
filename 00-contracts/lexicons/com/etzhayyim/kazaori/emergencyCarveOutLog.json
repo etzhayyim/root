@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kazaori.emergencyCarveOutLog",
+  "description": "Per-carve-out activation log. G8 STRUCTURAL: autoRevokeAtUtc REQUIRED (≤ emergencyDeclaration.autoLiftAtUtc); gateCarved cited from specific actor.gate-id format; Council Lv6+ ≥4/7 attestation required for activation. Auto-revoke on emergency-lifting; carve-outs do NOT carry over to normal operations.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "emergencyDeclarationCid",
+          "gateCarved",
+          "carveOutJustificationCid",
+          "councilAttestations",
+          "activatedAtUtc",
+          "autoRevokeAtUtc",
+          "carveOutScope"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "emergencyDeclarationCid": {
+            "type": "string",
+            "description": "Active emergencyDeclarationAttestation CID (must be active state when activated)"
+          },
+          "gateCarved": {
+            "type": "string",
+            "description": "Specific gate suspended in format 'actor.gate-id' (e.g., 'mizuho.G5-single-use-container', 'iyashi.G4-expedited-consent-abridgment-unconscious')"
+          },
+          "gateCategoryDescription": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Human-readable description of what is being carved out and why"
+          },
+          "carveOutJustificationCid": {
+            "type": "string",
+            "description": "Detailed justification document CID (may be encrypted if operational details sensitive)"
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 4,
+            "description": "G8 STRUCTURAL: Council Lv6+ ≥4/7 required for carve-out activation"
+          },
+          "activatedAtUtc": {"type": "string", "format": "datetime"},
+          "autoRevokeAtUtc": {
+            "type": "string",
+            "format": "datetime",
+            "description": "G8 STRUCTURAL: MUST be ≤ active emergencyDeclaration.autoLiftAtUtc; auto-revoke on emergency-lifting"
+          },
+          "carveOutScope": {
+            "type": "object",
+            "properties": {
+              "geographicScopeCids": {"type": "array", "items": {"type": "string"}},
+              "communitySiteScope": {"type": "array", "items": {"type": "string"}},
+              "operationalLimit": {"type": "string", "description": "e.g., 'max 5000 single-use containers'"}
+            }
+          },
+          "actualRevokedAtUtc": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Actual revoke timestamp (≤ autoRevokeAtUtc); MUST be set on emergency-lifting"
+          },
+          "carveOutUsageMetrics": {
+            "type": "object",
+            "properties": {
+              "totalActivationsCount": {"type": "integer"},
+              "operationalScopeUsedDescription": {"type": "string"}
+            }
+          },
+          "postEmergencyAuditCid": {
+            "type": "string",
+            "description": "Reference to silenKazaoriReview entry that audits this carve-out's use + outcome"
+          },
+          "kotobaDatomicAttestationCid": {"type": "string"},
+          "attestingDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

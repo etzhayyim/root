@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oilDistribution.listTerminals",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List downstream product terminals / wholesale hubs.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "country": { "type": "string" },
+          "terminalType": { "type": "string" },
+          "operatorDid": { "type": "string", "format": "did" },
+          "product": { "type": "string" },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "required": ["terminals", "total", "offset", "limit"], "properties": { "terminals": { "type": "array", "items": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "name": { "type": "string" }, "country": { "type": "string" }, "terminalType": { "type": "string" }, "throughputBopd": { "type": "number" } } } }, "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" } } } }
+    }
+  }
+}

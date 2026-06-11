@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.houbun.article",
+  "description": "A single article / section of a statute — the atomic unit of citation. `articleDid` is content-addressed via blake3_prefix12(jurisdiction + statuteId + articleNo + amendedAt) so amendments produce a new DID; lineage is captured by `com.etzhayyim.apps.houbun.amendmentEvent`. See ADR-0052.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "statuteRef",
+          "articleNo",
+          "text",
+          "articleDid",
+          "createdAt"
+        ],
+        "properties": {
+          "statuteRef": { "type": "string", "description": "AT URI of the parent `com.etzhayyim.apps.houbun.statute` record." },
+          "articleNo": { "type": "string", "description": "Article number as printed in the source (e.g. '第九条', '§1001', 'Art. 7')." },
+          "section": { "type": "string", "description": "Optional sub-structure (paragraph / item / sub-section)." },
+          "title": { "type": "string", "description": "Optional article heading if the source provides one." },
+          "text": { "type": "string", "description": "Full article body in the authoritative language." },
+          "language": { "type": "string", "description": "ISO 639-1 code of the body." },
+          "articleDid": { "type": "string", "description": "did:web:houbun.etzhayyim.com:article:{blake3_prefix12}" },
+          "blake3Hash": { "type": "string", "description": "12-char hex prefix of blake3(jurisdiction|statuteId|articleNo|amendedAt). Used as the DID suffix." },
+          "amendedAt": { "type": "string", "format": "date", "description": "Effective date of the version captured in `text`. NULL for the original enactment." },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "props": { "type": "string", "description": "Opaque JSON string for source-specific metadata (e.g. e-Gov 条文番号 + 項 + 号)." },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

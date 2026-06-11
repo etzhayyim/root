@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-35d54d1989d1",
+  "entityId": "ent-35d54d1989d1",
+  "canonicalName": "star dragon corporation limited",
+  "aliases": [
+    "star dragon corporation limited"
+  ]
+}

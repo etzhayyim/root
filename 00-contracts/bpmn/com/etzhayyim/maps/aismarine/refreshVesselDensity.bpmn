@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — Vessel density verify (R/PT15M).
+
+  The density MV (mv_vessel_density_h3_r6) is autonomous (RisingWave streaming
+  MV). This BPMN is observability only — periodically samples row count + the
+  latest bucket_ms to confirm the MV is being updated. Alerts on stale MV are
+  routed via the OCEL audit event.
+
+  Pipeline:
+    1. aismarine.density.verify — SELECT COUNT(*) + MAX(bucket_ms).
+    2. generic.audit.emit        — OCEL event with row_count + latest_bucket_ms.
+
+  ADR-2605011500. NSID: com.etzhayyim.apps.maps.aismarine.refreshVesselDensity.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-refresh-vessel-density-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_aismarine_refresh_vessel_density"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps/aismarine"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_aismarine_refresh_vessel_density" name="maps aismarine refresh vessel density" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.aismarine.refreshVesselDensity", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 15 minutes">
+      <bpmn:outgoing>Flow_ToVerify</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT15M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT15M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_ToVerify_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToVerify" sourceRef="Start_Timer" targetRef="Task_Verify"/>
+    <bpmn:sequenceFlow id="Flow_ToVerify_Manual" sourceRef="Start_Manual" targetRef="Task_Verify"/>
+
+    <bpmn:serviceTask id="Task_Verify" name="verify density MV freshness">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="aismarine.density.verify"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=row_count"        target="rowCount"/>
+          <zeebe:output source="=latest_bucket_ms" target="latestBucketMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToVerify</bpmn:incoming>
+      <bpmn:incoming>Flow_ToVerify_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Verify" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit density.verify OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.aismarine.density.verify&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;rowCount&quot;: rowCount, &quot;latestBucketMs&quot;: latestBucketMs }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

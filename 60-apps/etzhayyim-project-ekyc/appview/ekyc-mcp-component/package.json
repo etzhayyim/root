@@ -1,0 +1,15 @@
+{
+  "name": "ekyc-mcp-component",
+  "version": "1.0.0",
+  "description": "ekyc.etzhayyim.com TS-native identity verification, AML/CTF compliance platform",
+  "main": "src/app.ts",
+  "type": "module",
+  "dependencies": {
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.0"
+  }
+}

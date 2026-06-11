@@ -1,0 +1,66 @@
+{
+  "lexicon": 1,
+  "id": "ai.etzhayyim.yorishiro.example-portal.readHeading",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Navigates to the kami's base URL, waits for the H1 to render, and extracts its textContent. Exists as the minimum L1 demonstration for browser-only mode.",
+      "x-yorishiro-external": true,
+      "x-yorishiro-kami": "browser:example-portal",
+      "x-yorishiro-transport": "browser-only",
+      "x-yorishiro-browser": {
+        "base_url": "https://example.com",
+        "auth_hint": "none",
+        "steps": [
+          {
+            "kind": "goto",
+            "url_template": "https://example.com/"
+          },
+          {
+            "kind": "wait_for",
+            "selector": "h1",
+            "timeout_ms": 5000
+          }
+        ],
+        "extract": [
+          {
+            "output_key": "heading",
+            "selector": "h1"
+          }
+        ]
+      },
+      "x-charter-purpose": [
+        "grant"
+      ],
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [],
+          "properties": {}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "ok"
+          ],
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "error": {
+              "type": "string"
+            },
+            "heading": {
+              "type": "string",
+              "description": "DOM extract h1"
+            }
+          }
+        }
+      }
+    }
+  }
+}

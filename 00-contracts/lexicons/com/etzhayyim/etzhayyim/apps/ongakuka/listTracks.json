@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ongakuka.listTracks",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List tracks for a DID (or all published if did omitted). Pagination required.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "did": { "type": "string" },
+          "status": { "type": "string" },
+          "language": { "type": "string" },
+          "offset": { "type": "integer", "default": 0 },
+          "limit": { "type": "integer", "default": 50, "minimum": 1, "maximum": 200 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "total", "offset", "limit"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["uri", "title", "status"],
+                "properties": {
+                  "uri": { "type": "string" },
+                  "title": { "type": "string" },
+                  "status": { "type": "string" },
+                  "language": { "type": "string" },
+                  "durationSec": { "type": "integer" },
+                  "blobKey": { "type": "string" },
+                  "createdAt": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

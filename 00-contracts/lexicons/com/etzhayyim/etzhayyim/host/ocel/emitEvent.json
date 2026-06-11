@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.ocel.emitEvent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Emit an OCEL event (object-centric event log).",
+      "x-hostImportsMethod": "ocelEmitEvent",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "eventJson": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "eventJson"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "ok"
+          ]
+        }
+      }
+    }
+  }
+}

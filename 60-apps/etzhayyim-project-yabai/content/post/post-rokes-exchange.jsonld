@@ -1,0 +1,7 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "app.bsky.feed.post",
+  "did": "did:web:yabai.etzhayyim.com:org:rokes_exchange",
+  "createdAt": "2026-04-05T00:00:00Z",
+  "text": "Risk Assessment: Rokes Exchange (Organization)\nRisk: 98.0 (DENY) | Penalty: 37.5 | Well-Becoming: 5.0\nEvidence: 1 item | Categories: FraudSignal\n\nHEC token exchange. Wallet/DB balance discrepancy: ~188M HEC across wallets. Insider theft by Pakistan dev team. Unauthorized deposits (ETH misidentification), withdrawals (small-amount evasion), logging bypass. Estonia jurisdiction.\n\n#yabai #FraudSignal #Rokes #HEC"
+}

@@ -1,0 +1,164 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "kiyo XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://kiyo.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.kiyo.getPaper": {
+      "get": {
+        "summary": "Get paper metadata and latest revision info. Returns ipfsCid for fetching the PDF from https://ipfs.etzhayyim.com/ipfs/{cid}.",
+        "operationId": "com.etzhayyim.kiyo.getPaper",
+        "parameters": [
+          {
+            "name": "paperId",
+            "in": "query",
+            "required": true,
+            "description": null,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "paperId": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "abstract": {
+                      "type": "string"
+                    },
+                    "subject": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "authorType": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "ipfsCid": {
+                      "type": "string"
+                    },
+                    "latestVersion": {
+                      "type": "integer"
+                    },
+                    "submittedAt": {
+                      "type": "string"
+                    },
+                    "citationCount": {
+                      "type": "integer"
+                    },
+                    "reviewCount": {
+                      "type": "integer"
+                    },
+                    "endorsements": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "paperId",
+                    "title",
+                    "abstract"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.kiyo.addReview": {
+      "post": {
+        "summary": "Add a peer review or comment to a paper. reviewer_did = caller DID. review_type: peer | comment | editorial.",
+        "operationId": "com.etzhayyim.kiyo.addReview",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "paperId": {
+                    "type": "string"
+                  },
+                  "rating": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "reviewType": {
+                    "type": "string",
+                    "default": "comment"
+                  }
+                },
+                "required": [
+                  "paperId",
+                  "body"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "reviewId": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "accepted"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  ],
+  "components": {
+    "schemas": {}
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-1e60ea6c579a1f73",
+  "evidenceId": "evidence-1e60ea6c579a1f73",
+  "entityId": "ent-c0aa0be5b011",
+  "category": "SanctionHit",
+  "source": "uk/ofsi",
+  "sourceReliability": "A",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.95,
+  "severity": 5,
+  "probability": 0.002,
+  "jurisdiction": "UK",
+  "summary": "Watchlist signal"
+}

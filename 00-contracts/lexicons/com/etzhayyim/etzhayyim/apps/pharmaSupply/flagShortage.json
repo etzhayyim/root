@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pharmaSupply.flagShortage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Drug shortage (FDA/EMA — bridges forced-labor + supply-chain-finance + critical-minerals)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "shortageId",
+            "productVid",
+            "reporter",
+            "flaggedAt"
+          ],
+          "properties": {
+            "shortageId": {
+              "type": "string"
+            },
+            "productVid": {
+              "type": "string",
+              "description": "bridges registerProduct"
+            },
+            "reporter": {
+              "type": "string",
+              "enum": [
+                "FDA",
+                "EMA",
+                "PMDA",
+                "HC",
+                "TGA",
+                "WHO",
+                "ASHP"
+              ]
+            },
+            "rootCause": {
+              "type": "string",
+              "enum": [
+                "api_shortage",
+                "mfg_disruption",
+                "demand_spike",
+                "recall",
+                "regulatory",
+                "logistics"
+              ]
+            },
+            "criticalMineralVid": {
+              "type": "string",
+              "description": "bridges open-critical-minerals"
+            },
+            "supplyChainFinanceVid": {
+              "type": "string",
+              "description": "bridges open-supply-chain-finance"
+            },
+            "estimatedRestoreDate": {
+              "type": "string"
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "high",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

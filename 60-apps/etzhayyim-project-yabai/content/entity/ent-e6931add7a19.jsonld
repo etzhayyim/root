@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e6931add7a19",
+  "entityId": "ent-e6931add7a19",
+  "canonicalName": "bank maskan",
+  "aliases": [
+    "bank maskan"
+  ]
+}

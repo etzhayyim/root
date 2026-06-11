@@ -1,0 +1,107 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.sensorAlert",
+  "description": "Sensor alert rule definition. One record per alert condition (e.g., 'fire-detector room-203 must report within 60s' / 'CO2 in room 408 > 1000 ppm'). The rule itself is witnessable Tier B; firing events emitted against the rule are high-frequency time-series and live in a kotoba-datomic-projection (Tier C, per OQ-M-5). Per maps CLAUDE.md §Sensor Intelligence + ADR-2605231400.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{alertId}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "alertId",
+          "subjectUri",
+          "condition",
+          "severity",
+          "registeredAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "alertId": {
+            "type": "string",
+            "description": "Stable rkey-safe identifier for the alert rule.",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "subjectUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the Sensor or PhysicalAsset this alert watches."
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "condition": {
+            "type": "string",
+            "description": "Free-form predicate expression (DSL TBD — currently used as a human-readable rule for ops, e.g. 'valueNumeric > 1000 OR no-reading-for > PT5M'). Future: parse server-side for actual evaluation.",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "severity": {
+            "type": "string",
+            "knownValues": [
+              "info",
+              "warning",
+              "critical",
+              "fatal"
+            ]
+          },
+          "scope": {
+            "type": "string",
+            "description": "Operational scope — drives downstream pager / dashboard routing.",
+            "knownValues": [
+              "infrastructure",
+              "safety",
+              "compliance",
+              "environment",
+              "performance",
+              "custom"
+            ]
+          },
+          "throttleSeconds": {
+            "type": "integer",
+            "description": "Minimum seconds between consecutive firings of this alert (rate-limit). Default 60.",
+            "minimum": 0,
+            "default": 60
+          },
+          "notifyDids": {
+            "type": "array",
+            "description": "DIDs to notify when the alert fires. Notification dispatch is via cross-actor invoke (not in this lexicon).",
+            "items": {
+              "type": "string",
+              "format": "did"
+            },
+            "maxLength": 20
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "registeredBy": {
+            "type": "string",
+            "format": "did"
+          },
+          "supersedesAlertId": {
+            "type": "string",
+            "description": "If this rule replaces an earlier alert (e.g., threshold change), name the prior alertId."
+          },
+          "deactivatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Soft-delete: when set, the alert no longer fires. Caller publishes a successor record rather than mutating in place."
+          }
+        }
+      }
+    }
+  }
+}

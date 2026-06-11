@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-51bdbaff2ec0",
+  "entityId": "ent-51bdbaff2ec0",
+  "canonicalName": "islambouli, mohammad shawqi",
+  "aliases": [
+    "islambouli, mohammad shawqi"
+  ]
+}

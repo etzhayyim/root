@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0aa4e32f4a3f",
+  "entityId": "ent-0aa4e32f4a3f",
+  "canonicalName": "golden luxury jewellery trading l.l.c",
+  "aliases": [
+    "golden luxury jewellery trading l.l.c"
+  ]
+}

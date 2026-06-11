@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  yabai.ingestEvidence — migration of cmdIngestEvidence.
+
+  TS handler does: entity upsert → evidence insert → `evaluateAndPersist`
+  (risk recompute). v1 BPMN covers the first two; risk recompute is a
+  **deferred chained task** — to be added once generic.db.call or a
+  dedicated `com.etzhayyim.yabai.evaluate` primitive lands. For now, callers
+  who need the updated risk must hit getRisk after ingest.
+
+  Flow:
+    Start (entityId, category, entityType?, entityName?, entityValue?,
+           source?, confidence?, description?)
+      → generic.db.insert (vertex_yabai_entity, WHERE NOT EXISTS on vertex_id)
+      → generic.db.insert (vertex_yabai_evidence)
+      → generic.audit.emit
+      → End
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_yabai_ingest_evidence"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="yabai_ingest_evidence" name="yabai ingest evidence" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_UpsertEntity"/>
+
+    <bpmn:serviceTask id="Task_UpsertEntity" name="upsert entity">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_yabai_entity&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:   &quot;yabai-entity:&quot; + string(entityId),
+              entity_id:   string(entityId),
+              entity_type: if entityType  = null then &quot;Unknown&quot; else string(entityType),
+              name:        if entityName  = null then &quot;&quot;      else string(entityName),
+              value:       if entityValue = null then &quot;&quot;      else string(entityValue),
+              source:      if source      = null then &quot;manual&quot; else string(source),
+              created_at:  string(now()),
+              org_id:      &quot;anon&quot;, user_id: &quot;anon&quot;, actor_id: &quot;did:web:yabcom.etzhayyim.ai&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="entityInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming><bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_UpsertEntity" targetRef="Task_InsertEvidence"/>
+
+    <bpmn:serviceTask id="Task_InsertEvidence" name="insert evidence">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_yabai_evidence&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:     &quot;yabai-evidence:&quot; + string(entityId) + &quot;:&quot; + string(category) + &quot;:&quot; + string(now()),
+              evidence_id:   &quot;ev-&quot; + string(now()),
+              entity_id:     string(entityId),
+              category:      string(category),
+              confidence:    if confidence = null then 0.5 else confidence,
+              source:        if source      = null then &quot;manual&quot; else string(source),
+              description:   if description = null then &quot;&quot;      else string(description),
+              created_at:    string(now()),
+              org_id:        &quot;anon&quot;, user_id: &quot;anon&quot;, actor_id: &quot;did:web:yabcom.etzhayyim.ai&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="evidenceInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming><bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_InsertEvidence" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit: ingestEvidence">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yabcom.etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;ingestEvidence&quot;"        target="action"/>
+          <zeebe:input source="={ entityId: string(entityId), category: string(category), entityInserted: entityInserted, evidenceInserted: evidenceInserted }" target="payload"/>
+          <zeebe:output source="=emitted" target="auditEmitted"/>
+          <zeebe:output source="=rkey"    target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming><bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_4</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

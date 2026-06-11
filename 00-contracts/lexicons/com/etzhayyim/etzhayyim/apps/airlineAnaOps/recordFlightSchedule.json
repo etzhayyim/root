@@ -1,0 +1,113 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airlineAnaOps.recordFlightSchedule",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ANA group flight schedule (Star Alliance) (bridges aviation-safety + airplane-flight + iata-codeshare)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "scheduleId",
+            "entityKind",
+            "routeKind",
+            "aircraftFamily",
+            "scheduledAt"
+          ],
+          "properties": {
+            "scheduleId": {
+              "type": "string"
+            },
+            "entityKind": {
+              "type": "string",
+              "enum": [
+                "ana_main_nh",
+                "ana_wings_ek",
+                "peach_mm",
+                "airdo_hd",
+                "solaseed_air_6j",
+                "star_flyer_7g",
+                "ana_cargo_nh",
+                "ibex_fw",
+                "ana_codeshare_star",
+                "ana_codeshare_ua",
+                "ana_codeshare_lh",
+                "ana_codeshare_sq",
+                "ana_codeshare_oz",
+                "ana_codeshare_th"
+              ]
+            },
+            "routeKind": {
+              "type": "string",
+              "enum": [
+                "dom_trunk",
+                "dom_local",
+                "int_north_america",
+                "int_europe",
+                "int_asia",
+                "int_oceania",
+                "int_india",
+                "cargo_freighter",
+                "star_alliance_codeshare",
+                "atlantic_jv_with_united",
+                "mexico_jv_with_aeromexico",
+                "seasonal",
+                "int_japan_taiwan_jv"
+              ]
+            },
+            "aircraftFamily": {
+              "type": "string",
+              "enum": [
+                "b787_family",
+                "b777_family",
+                "b737_family",
+                "a380_family_pikachu",
+                "a380_family_orange",
+                "a320_family",
+                "a321_family",
+                "mrj_replaced",
+                "saf_blend",
+                "cargo_b767f",
+                "retired_b747",
+                "drone_logistics"
+              ]
+            },
+            "flightNumberPrefix": {
+              "type": "string"
+            },
+            "flightVid": {
+              "type": "string",
+              "description": "bridges airplane-flight"
+            },
+            "scheduledAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

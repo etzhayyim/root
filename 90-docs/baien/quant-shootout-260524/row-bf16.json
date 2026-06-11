@@ -1,0 +1,20 @@
+{
+  "quant": "bf16",
+  "status": "ok",
+  "device": "cuda",
+  "n_params": 494032768,
+  "trainable_params": 2162688,
+  "quantize_sec": 0.0,
+  "model_gb": 0.92,
+  "step_count": 3,
+  "step_cold_sec": 6.64,
+  "step_warm_sec": 1.61,
+  "train_wall_sec": 11.19,
+  "peak_vram_gb": 2.281,
+  "final_loss": 1.7602,
+  "samples_per_sec": 2.484,
+  "tokens_per_sec_est": 1552.8,
+  "sustained_tflops_est": 4.603,
+  "pct_of_hw_peak_30_tflops": 15.34,
+  "speedup_vs_bf16": 1.0
+}

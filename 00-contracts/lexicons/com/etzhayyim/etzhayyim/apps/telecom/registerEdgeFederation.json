@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerEdgeFederation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MEC Federation (GSMA OPG / ETSI MEC Fed) — register a federation partnership with another operator's MEC platform under an existing Phase 3 interconnect agreement.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["partnerOperatorId", "agreementId", "federationKind", "billingMode", "validUntil", "observedAt"],
+          "properties": {
+            "federationId": { "type": "string" },
+            "partnerOperatorId": { "type": "string" },
+            "agreementId": { "type": "string" },
+            "federationKind": { "type": "string", "enum": ["bilateral", "hub_spoke", "mesh"] },
+            "exposedZones": { "type": "array", "items": { "type": "string" } },
+            "exposedAppCatalog": { "type": "array", "items": { "type": "string" } },
+            "billingMode": { "type": "string", "enum": ["bill_back", "settlement", "free", "consumption_based"] },
+            "contractRef": { "type": "string" },
+            "validUntil": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "federationId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

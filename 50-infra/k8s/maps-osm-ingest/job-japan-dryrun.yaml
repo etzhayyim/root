@@ -1,0 +1,94 @@
+---
+# Japan PBF dry-run (~2 GB, ~45-60 min wallclock).
+# Validates the full pipeline end-to-end before the 12-24h planet ingest.
+#
+# Prerequisites:
+#   - ghcr.io/etzhayyim/maps-osm-ingest:latest pushed
+#   - maps-osm-ingest-secrets { KOTOBA_URL } exists in `maps` namespace
+#   - Temporary osm-ingest node pool running with taint workload=osm-ingest:NoSchedule
+#     (see 50-infra/k8s/maps-osm-ingest/README.md bootstrap runbook)
+#
+# Trigger:
+#   kubectl apply -f job-japan-dryrun.yaml
+#   kubectl -n maps logs -f job/maps-osm-ingest-japan-dryrun
+#
+# Verify (after success):
+#   SELECT COUNT(*) FROM vertex_osm_element WHERE source_did = 'did:web:maps.etzhayyim.com:jp';
+#     -- expect ~70-80M rows (nodes + ways + relations for Japan)
+#   SELECT osm_type, COUNT(*) FROM vertex_osm_element WHERE source_did='did:web:maps.etzhayyim.com:jp' GROUP BY osm_type;
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: maps-osm-ingest-japan-dryrun
+  namespace: maps
+  labels:
+    app.kubernetes.io/name: maps-osm-ingest
+    app.kubernetes.io/part-of: maps.etzhayyim.com
+    maps.etzhayyim.com/phase: dry-run
+spec:
+  backoffLimit: 3
+  activeDeadlineSeconds: 7200   # 2h hard cap
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: maps-osm-ingest
+        maps.etzhayyim.com/phase: dry-run
+    spec:
+      serviceAccountName: maps-osm-ingest
+      imagePullSecrets:
+        - name: ghcr-creds
+      restartPolicy: OnFailure
+      terminationGracePeriodSeconds: 120
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: osm-ingest
+          effect: NoSchedule
+      nodeSelector:
+        workload: osm-ingest
+      # Use cluster-default DNS (Vultr VKE CoreDNS). Kotoba/Datomic is reachable
+      # via in-cluster service name (kotoba.kotoba.svc.cluster.local).
+      dnsPolicy: ClusterFirst
+      containers:
+        - name: ingest
+          image: ghcr.io/etzhayyim/maps-osm-ingest:latest
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--pbf-url"
+            - "https://download.openstreetmap.fr/extracts/asia/japan.osm.pbf"
+            - "--db"
+            - "$(KOTOBA_URL)"
+            - "--source-did"
+            - "did:web:maps.etzhayyim.com:jp"
+            - "--batch-size"
+            - "5000"
+            - "--parallelism"
+            - "2"
+            - "--dml-rate-limit"
+            - "150000"
+            - "--scratch-dir"
+            - "/scratch"
+          env:
+            - name: RUST_LOG
+              value: "info,maps_osm_ingest=debug,tokio_postgres=warn"
+            - name: KOTOBA_URL
+              valueFrom:
+                secretKeyRef:
+                  name: maps-osm-ingest-secrets
+                  key: KOTOBA_URL
+          resources:
+            requests:
+              cpu: "4"
+              memory: "8Gi"
+              ephemeral-storage: "20Gi"
+            limits:
+              cpu: "8"
+              memory: "16Gi"
+              ephemeral-storage: "30Gi"
+          volumeMounts:
+            - name: scratch
+              mountPath: /scratch
+      volumes:
+        - name: scratch
+          emptyDir:
+            sizeLimit: 25Gi

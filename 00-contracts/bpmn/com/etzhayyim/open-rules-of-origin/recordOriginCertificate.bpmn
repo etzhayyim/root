@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_rules_of_origin_record_origin_certificate" targetNamespace="https://etzhayyim.ai/bpmn/open-rules-of-origin" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_rules_of_origin_record_origin_certificate" name="recordOriginCertificate" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="save">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;vertex_open_rules_of_origin&quot;" target="table"/><zeebe:input source="={vertex_id: vertexId, cert_id: certId, fta_kind: ftaKind, product_hs6: productHs6, exporting_country_iso3: exportingCountryIso3, importing_country_iso3: importingCountryIso3, roo_kind: rooKind, material_finding_vid: materialFindingVid, issued_at: issuedAt, status: &quot;active&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-rules-of-origin&quot;}" target="values"/><zeebe:input source="=&quot;ignore&quot;" target="onConflict"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-rules-of-origin.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;open.rulesOfOrigin.recordOriginCertificate&quot;" target="action"/><zeebe:input source="={vertexId: vertexId}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

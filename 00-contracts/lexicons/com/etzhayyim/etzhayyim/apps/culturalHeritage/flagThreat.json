@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.culturalHeritage.flagThreat",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Heritage threat (in-Danger list / SOC — bridges disaster-response + maritime-piracy + forced-labor)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "threatId",
+            "propertyVid",
+            "threatType",
+            "reportedAt"
+          ],
+          "properties": {
+            "threatId": {
+              "type": "string"
+            },
+            "propertyVid": {
+              "type": "string",
+              "description": "bridges listProperty"
+            },
+            "threatType": {
+              "type": "string",
+              "enum": [
+                "armed_conflict",
+                "climate",
+                "development",
+                "tourism",
+                "poaching",
+                "pollution",
+                "natural_disaster",
+                "neglect"
+              ]
+            },
+            "disasterVid": {
+              "type": "string",
+              "description": "bridges open-disaster-response"
+            },
+            "inDangerListing": {
+              "type": "boolean"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "high",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

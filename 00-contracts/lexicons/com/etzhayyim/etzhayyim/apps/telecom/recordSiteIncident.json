@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordSiteIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record an incident on a cell site / RAN node. Drives downstream SLA breach (Phase 1 escalateSlaBreach).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["siteId", "incidentKind", "severity", "detectedAt"],
+          "properties": {
+            "incidentId": { "type": "string" },
+            "siteId": { "type": "string" },
+            "nodeId": { "type": "string" },
+            "incidentKind": { "type": "string", "enum": ["outage", "degradation", "vandalism", "power_loss", "transport_loss", "weather", "vendor_alarm"] },
+            "severity": { "type": "string", "enum": ["minor", "major", "critical"] },
+            "detectedAt": { "type": "string", "format": "datetime" },
+            "resolvedAt": { "type": "string", "format": "datetime" },
+            "summary": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "incidentId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

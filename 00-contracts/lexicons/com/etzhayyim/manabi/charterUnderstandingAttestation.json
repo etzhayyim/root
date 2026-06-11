@@ -1,0 +1,22 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.manabi.charterUnderstandingAttestation",
+  "description": "Civics-charter cell output. Adherent SBT informed-consent baseline per ADR-2605261000 §2. Demonstrates adherent has engaged with charter content (not a graded test — see G10 no examination-as-coercion; self-paced demonstration only). Per ADR-2605261045.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "adherentDid": {"type": "string"},
+          "charterSectionsCovered": {"type": "array", "items": {"type": "string"}, "description": "Mission charter (ADR-2605192100) sections demonstrated understanding"},
+          "demonstrationCid": {"type": "string", "description": "Self-paced demonstration artifact (essay / discussion log / question-asking record); NOT a graded test"},
+          "selfAttestationTimestamp": {"type": "string"},
+          "tutorCoSignDid": {"type": "string", "description": "Optional R2+ human tutor co-sign"},
+          "languageOfDemonstration": {"type": "string"}
+        },
+        "required": ["adherentDid", "charterSectionsCovered", "demonstrationCid", "selfAttestationTimestamp"]
+      }
+    }
+  }
+}

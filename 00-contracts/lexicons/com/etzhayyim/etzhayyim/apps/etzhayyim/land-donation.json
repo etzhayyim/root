@@ -1,0 +1,107 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.land-donation",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Land donation to the etzhayyim Land Trust. 4-layer permanent record (Base L2 NFT + geth-private LandRegistry + IPFS GeoJSON+imagery+deed + git LANDS.md PR). Per ADR-2605192245 §2.2. Dual-recognition with state cadastre — donor remains owner of record in national registry but holds religious-corp stewardship only.",
+      "record": {
+        "type": "object",
+        "required": [
+          "oathText",
+          "oathHashKeccak256Hex",
+          "donorDid",
+          "donorSignature",
+          "landId",
+          "geojsonCid",
+          "imageryBundleCid",
+          "deedCid",
+          "nationalRegistryRef",
+          "areaM2",
+          "landType",
+          "stewardDid",
+          "donatedAt"
+        ],
+        "properties": {
+          "oathText": {
+            "type": "string",
+            "maxLength": 4000,
+            "description": "Full canonical land-donation oath text as signed by donor."
+          },
+          "oathHashKeccak256Hex": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64,
+            "description": "keccak256(utf8(oathText)) lower-case hex; LandRegistry.donate() argument."
+          },
+          "donorDid": { "type": "string" },
+          "donorSignature": {
+            "type": "string",
+            "description": "DID-bound signature over the oathText bytes."
+          },
+          "landId": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "LandRegistry tokenId (assigned by donate() call)."
+          },
+          "gethPrivateTxHash": { "type": "string" },
+          "baseL2NftTokenId": { "type": "integer" },
+          "baseL2TxHash": { "type": "string" },
+          "geojsonCid": {
+            "type": "string",
+            "description": "IPFS CID of WGS84 GeoJSON boundary (±1m precision)."
+          },
+          "imageryBundleCid": {
+            "type": "string",
+            "description": "IPFS CID of satellite imagery time series bundle (≥3 months, Sentinel-2 / Landsat / commercial)."
+          },
+          "deedCid": {
+            "type": "string",
+            "description": "IPFS CID of notarized national registry deed PDF."
+          },
+          "nationalRegistryRef": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Canonical national registry reference (e.g., 'JP:東京都:文京区:本郷:123-4')."
+          },
+          "areaM2": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Land area in square meters."
+          },
+          "landType": {
+            "type": "string",
+            "enum": [
+              "agricultural",
+              "residential",
+              "forest",
+              "religious-facility",
+              "other",
+              "ocean",
+              "water",
+              "air",
+              "orbit"
+            ],
+            "description": "Per ADR-2605192245 (5 terrestrial) + 2605192330 (4 extended)."
+          },
+          "stewardDid": {
+            "type": "string",
+            "description": "Initial steward DID (typically the donor; assigned Lv5 護 role)."
+          },
+          "stewardLevel": {
+            "type": "integer",
+            "minimum": 5,
+            "maximum": 7
+          },
+          "successionDeclarationUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the steward-succession-declaration record (per ADR-2605192345 — primary + 2 backup successors REQUIRED at donation time)."
+          },
+          "donatedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

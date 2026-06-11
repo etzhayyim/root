@@ -1,0 +1,114 @@
+;; corporate-financials-ontology — kotoba EAVT vocabulary for PUBLIC-company 決算 (financial disclosure)
+;; ADR-2606032000 · actor: kanjō 勘定 (勘定 = reckoning/account — the public-company financial-facts reader)
+;;
+;; PURPOSE
+;;   A content-addressed Datom (EAVT) vocabulary that records the world's PUBLIC (exchange-listed)
+;;   companies' DISCLOSED FINANCIAL FACTS — the numbers in their periodic filings: the balance
+;;   sheet (貸借対照表 / BS), the income statement (損益計算書 / PL), and the cash-flow statement
+;;   (キャッシュフロー計算書 / CF). Each fact is one line item (a "concept" + a value + a period),
+;;   linked to the FILING it came from and to the COMPANY (the kabuto / tsumugi `org.corp.*` id
+;;   space). The lens is TRANSPARENCY + FINANCIAL RESILIENCE: report what the company itself
+;;   disclosed, normalized across JP-GAAP / US-GAAP / IFRS so sectors can be compared, with
+;;   aggregate-first concentration + health observations routed to accountability. kanjō is the
+;;   EXTERNAL public-company sibling of toritate 執帳 (etzhayyim's own internal accounting) and the
+;;   financials face of kabuto 兜 (supply chain). It is NON-ADJUDICATING (G2) and gives NO
+;;   investment advice (G4) — it never says "buy", "good", "overvalued", or "will fraud".
+;;
+;; SOURCES (constitutional — G1): PRIMARY public disclosure ONLY, all Tier-A per ADR-2605263800 §2:
+;;   - JP  EDINET   有価証券報告書 / 半期報告書 / 四半期報告書  (金融庁 free-redistribution; XBRL)
+;;   - US  SEC EDGAR  10-K / 10-Q / 20-F  (US-gov public-domain; companyfacts JSON / XBRL)
+;;   - UK  Companies House annual accounts (OGL v3.0) · EU OAM Transparency-Directive reports
+;;   PROHIBITED inputs (Charter Rider §2(e) anti-gatekeeping + §2(c)): 会社四季報 (東洋経済, a paid
+;;   copyrighted editorial compilation + 業績予想) and ALL paid commercial terminals — Bloomberg /
+;;   S&P Capital IQ / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase. The
+;;   DISCLOSED FACTS are public and admissible; the VENDOR COMPILATION of them is not. We read the
+;;   filing, never the terminal.
+;;
+;; SUBSTRATE (ADR-2605262130 + 2605312345): canonical state is the kotoba Datom log. IPFS = block
+;;   backend, MST = ingress/interop wire, Base L2 = trust anchor. NO RisingWave / SQL. Source XBRL
+;;   / PDF filings → DataLad → IPFS under 80-data/corporate-financials (NO git-lfs; G8); the filing
+;;   document CID is anchored on :fin.filing/doc-cid.
+;;
+;; HISTORY / 非終末論 (ADR-2605192100 §1.15): a 訂正報告書 (restatement) does NOT delete the prior
+;;   fact — it asserts a NEW fact at a later transaction time. The Datom `as-of` history is the
+;;   record of what was disclosed when; there is no single "final" earnings state. Read the truth
+;;   "as-of" a date. :fin.fact/superseded-by links a restated fact to its correction (forward
+;;   pointer only; the original Datom stays).
+;;
+;; SOURCING HONESTY (G5, mirrors kabuto / tsumugi / watatsuna):
+;;   :*/sourcing ∈ { :authoritative  ; parsed from a primary filing's XBRL (EDINET docID / EDGAR
+;;                                      accession), value mirrors the disclosed figure verbatim
+;;                   :representative  ; a publicly-documented approximate figure (e.g. the headline
+;;                                      number from a press release / summary), bounded illustrative
+;;                                      seed — NOT the line-item-exact authoritative XBRL
+;;                   :synthesized }   ; DERIVED by kanjō (a ratio / YoY / aggregate); MUST be flagged,
+;;                                      never presented as a disclosed figure
+;;   Every fact and metric carries an explicit sourcing keyword. The R0 seed is :representative.
+
+{:schema/id      "corporate-financials-ontology"
+ :schema/version "0.1.0"
+ :schema/adr     "2606032000"
+ :schema/note    "kotoba-native 決算 vocabulary for kanjō 勘定. Companies reference :company/id from public-company-ontology (kabuto, ADR-2606022000) — shared :org.corp.* id space with tsumugi. Resurrects the financial-fact model of the superseded ADR-2604291500 onto the kotoba Datom log; consumes the primary-disclosure sources of ADR-2605263800 §2 (EDINET / EDGAR — Tier-A only)."
+
+ :attributes
+ [;; ── :fin.filing/* — a single PRIMARY disclosure filing (the source document) ──
+  {:db/ident :fin.filing/id            :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id, e.g. \"fil.jp.edinet.S100TFGE\" (EDINET docID) or \"fil.us.edgar.0000320193-24-000123\" (EDGAR accession)"}
+  {:db/ident :fin.filing/company       :db/valueType :db.type/ref     :db/doc "→ :company/id (kabuto / tsumugi org.corp.* space)"}
+  {:db/ident :fin.filing/source        :db/valueType :db.type/keyword :db/doc ":edinet | :edgar | :companies-house | :eu-oam | … (the primary-disclosure system; G1 = Tier-A only, NEVER :shikiho / :bloomberg / a paid terminal)"}
+  {:db/ident :fin.filing/form          :db/valueType :db.type/keyword :db/doc "filing form: :yuho (有価証券報告書) | :hanki (半期報告書) | :shihanki (四半期報告書) | :teisei (訂正報告書, a restatement) | :10-K | :10-Q | :20-F | :8-K | :annual-accounts"}
+  {:db/ident :fin.filing/fiscal-year   :db/valueType :db.type/long    :db/doc "fiscal year the filing reports (the year the period ENDS in), e.g. 2024"}
+  {:db/ident :fin.filing/period-type   :db/valueType :db.type/keyword :db/doc ":annual | :half | :quarter"}
+  {:db/ident :fin.filing/period-start  :db/valueType :db.type/string  :db/doc "ISO-8601 period start (the reporting period the facts cover)"}
+  {:db/ident :fin.filing/period-end    :db/valueType :db.type/string  :db/doc "ISO-8601 period end (決算日 / fiscal period close)"}
+  {:db/ident :fin.filing/filed-date    :db/valueType :db.type/string  :db/doc "ISO-8601 date the filing was submitted to the regulator"}
+  {:db/ident :fin.filing/accession     :db/valueType :db.type/string  :db/doc "source-system accession / document id (EDINET docID, EDGAR accession-number) — the upstream primary key for re-fetch / verification"}
+  {:db/ident :fin.filing/doc-cid       :db/valueType :db.type/string  :db/doc "IPFS CIDv1 of the source XBRL / PDF (DataLad-pinned under 80-data/corporate-financials; G8 no git-lfs). Empty in the :representative seed (no document fetched)"}
+  {:db/ident :fin.filing/currency      :db/valueType :db.type/keyword :db/doc "reporting currency of the filing: :jpy | :usd | :eur | :gbp | …"}
+  {:db/ident :fin.filing/accounting    :db/valueType :db.type/keyword :db/doc "accounting standard the filing uses: :jgaap (日本基準) | :ifrs | :usgaap | :sec-jgaap (米国基準, JP filer). Cross-standard concepts are NOT always comparable (e.g. 経常利益 is JGAAP-only) — see G7"}
+  {:db/ident :fin.filing/sourcing      :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :fin.fact/* — ONE disclosed financial line item (the EAVT-native 決算 datum) ──
+  {:db/ident :fin.fact/id              :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id, e.g. \"fact.org.corp.jp.toyota.2024.pl.revenue.consolidated\""}
+  {:db/ident :fin.fact/filing          :db/valueType :db.type/ref     :db/doc "→ :fin.filing/id (the disclosure this fact was parsed from)"}
+  {:db/ident :fin.fact/company         :db/valueType :db.type/ref     :db/doc "→ :company/id (denormalized for direct AVET lookup)"}
+  {:db/ident :fin.fact/statement       :db/valueType :db.type/keyword :db/doc ":bs (貸借対照表 / balance sheet) | :pl (損益計算書 / income statement) | :cf (キャッシュフロー計算書) | :eps (per-share / 諸数値)"}
+  {:db/ident :fin.fact/concept         :db/valueType :db.type/keyword :db/doc "CANONICAL concept keyword, normalized across GAAPs by concept_map — see :fin.concept/*. e.g. :revenue :operating-income :ordinary-income :net-income :total-assets :total-equity :total-liabilities :cash-and-equivalents :cfo :cfi :cff :capex :eps"}
+  {:db/ident :fin.fact/concept-raw     :db/valueType :db.type/string  :db/doc "the SOURCE taxonomy element name the canonical concept was mapped FROM, e.g. \"jppfs_cor:NetSales\", \"us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax\", \"ifrs-full:Revenue\" — kept for audit / re-mapping (G5)"}
+  {:db/ident :fin.fact/value           :db/valueType :db.type/double  :db/doc "the disclosed magnitude, expressed in :fin.fact/scale units of :fin.fact/unit. Mirrors the filing verbatim when :authoritative"}
+  {:db/ident :fin.fact/unit            :db/valueType :db.type/keyword :db/doc ":jpy | :usd | :eur | :gbp | :shares | :ratio (dimensionless) | :pure"}
+  {:db/ident :fin.fact/scale           :db/valueType :db.type/keyword :db/doc ":ones | :thousands | :millions | :billions — the multiplier on :fin.fact/value. Monetary facts in the seed use :millions (e.g. value 45100000.0 unit :jpy scale :millions = ¥45.1tn)"}
+  {:db/ident :fin.fact/context         :db/valueType :db.type/keyword :db/doc ":consolidated (連結) | :nonconsolidated (単体 / parent-only). Consolidated is preferred for cross-company comparison"}
+  {:db/ident :fin.fact/period-end      :db/valueType :db.type/string  :db/doc "ISO-8601 — denormalized from the filing for direct period queries (BS = instant at period end; PL/CF = flow over the period)"}
+  {:db/ident :fin.fact/superseded-by   :db/valueType :db.type/ref     :db/doc "→ :fin.fact/id of a later :teisei (restatement) fact, when this figure was corrected. FORWARD pointer only — the original Datom is RETAINED (非終末論; read as-of). Absent when never restated"}
+  {:db/ident :fin.fact/sourcing        :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :fin.concept/* — the canonical concept DICTIONARY (the GAAP-normalization map) ──
+  ;;   One record per canonical concept; lists the source taxonomy elements that map INTO it.
+  ;;   Generated/maintained by methods/concept_map.py (G5 :synthesized normalization layer).
+  {:db/ident :fin.concept/id           :db/valueType :db.type/keyword :db/unique :db.unique/identity :db/doc "the canonical concept keyword, e.g. :revenue"}
+  {:db/ident :fin.concept/label        :db/valueType :db.type/string  :db/doc "human label, e.g. \"Revenue / 売上高\""}
+  {:db/ident :fin.concept/statement    :db/valueType :db.type/keyword :db/doc ":bs | :pl | :cf | :eps"}
+  {:db/ident :fin.concept/jgaap        :db/valueType :db.type/string  :db/doc "comma-joined EDINET (jppfs_cor / jpcrp_cor) taxonomy elements that map into this concept"}
+  {:db/ident :fin.concept/usgaap       :db/valueType :db.type/string  :db/doc "comma-joined us-gaap taxonomy elements that map into this concept"}
+  {:db/ident :fin.concept/ifrs         :db/valueType :db.type/string  :db/doc "comma-joined ifrs-full taxonomy elements that map into this concept"}
+  {:db/ident :fin.concept/note         :db/valueType :db.type/string  :db/doc "comparability caveat, e.g. \"ordinary-income (経常利益) is JGAAP-only; no US-GAAP / IFRS equivalent — do not cross-compare\""}
+
+  ;; ── :fin.metric/* — DERIVED ratio / growth (aggregate-first, :synthesized, G5-flagged) ──
+  ;;   NEVER re-ingested as a disclosed fact. Health observation, NOT a verdict (G2) or advice (G4).
+  {:db/ident :fin.metric/id            :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id, e.g. \"metric.org.corp.jp.toyota.2024.operating-margin\""}
+  {:db/ident :fin.metric/company       :db/valueType :db.type/ref     :db/doc "→ :company/id"}
+  {:db/ident :fin.metric/fiscal-year   :db/valueType :db.type/long    :db/doc "fiscal year the metric is computed for"}
+  {:db/ident :fin.metric/kind          :db/valueType :db.type/keyword :db/doc ":operating-margin | :net-margin | :gross-margin | :roe | :roa | :equity-ratio (自己資本比率) | :current-ratio | :revenue-yoy | :operating-income-yoy | :net-income-yoy"}
+  {:db/ident :fin.metric/value         :db/valueType :db.type/double  :db/doc "the computed value (a ratio in [−∞,∞], typically expressed as a fraction; e.g. 0.118 = 11.8%)"}
+  {:db/ident :fin.metric/basis         :db/valueType :db.type/string  :db/doc "the fact ids the metric was derived from (audit trail for the :synthesized value)"}
+  {:db/ident :fin.metric/sourcing      :db/valueType :db.type/keyword :db/doc "always :synthesized — kanjō computed it; it is NOT a disclosed figure"}
+
+  ;; ── :fin.agg/* — sector / jurisdiction AGGREGATE (aggregate-first output, G3) ──
+  {:db/ident :fin.agg/id               :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "e.g. \"agg.sector.semiconductors.2024.revenue\""}
+  {:db/ident :fin.agg/dimension        :db/valueType :db.type/keyword :db/doc ":sector | :country | :exchange"}
+  {:db/ident :fin.agg/key              :db/valueType :db.type/string  :db/doc "the dimension value, e.g. \"semiconductors\" or \"JP\""}
+  {:db/ident :fin.agg/fiscal-year      :db/valueType :db.type/long    :db/doc "fiscal year"}
+  {:db/ident :fin.agg/concept          :db/valueType :db.type/keyword :db/doc "the aggregated concept, e.g. :revenue"}
+  {:db/ident :fin.agg/sum              :db/valueType :db.type/double  :db/doc "Σ of the concept across the dimension members in the graph (bounded by what is ingested — NOT a market total; G5)"}
+  {:db/ident :fin.agg/n                :db/valueType :db.type/long    :db/doc "number of companies contributing (coverage denominator — read every aggregate against n; absence ≠ zero)"}
+  {:db/ident :fin.agg/sourcing         :db/valueType :db.type/keyword :db/doc "always :synthesized"}]}

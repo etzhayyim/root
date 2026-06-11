@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.damSafety.flagCriticalRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Critical risk / break imminent / tailings dam failure (bridges transboundaryRiver.flagRiparianDispute + disaster-response + cyclone-prepo)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "inspectionVid",
+            "riskKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "inspectionVid": {
+              "type": "string",
+              "description": "bridges recordInspection"
+            },
+            "riskKind": {
+              "type": "string",
+              "enum": [
+                "seepage",
+                "piping",
+                "overtopping",
+                "foundation_failure",
+                "tailings_liquefaction",
+                "cracks_propagating",
+                "freeboard_inadequate",
+                "spillway_capacity",
+                "emergency_plan_missing",
+                "inundation_zone",
+                "seismic",
+                "terrorism_threat"
+              ]
+            },
+            "populationDownstream": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

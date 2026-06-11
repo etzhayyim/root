@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5c38b93ae0bc",
+  "entityId": "ent-5c38b93ae0bc",
+  "canonicalName": "fu yuan yu 7603",
+  "aliases": [
+    "fu yuan yu 7603"
+  ]
+}

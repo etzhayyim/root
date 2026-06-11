@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hatsubai.storeAsset",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["listingDid", "assetKind", "cid", "createdAt"],
+        "properties": {
+          "listingDid":   { "type": "string" },
+          "assetKind": {
+            "type": "string",
+            "knownValues": ["screenshot", "trailer", "key_art", "icon", "banner", "promo_3d"]
+          },
+          "cid":          { "type": "string" },
+          "widthPx":      { "type": "integer" },
+          "heightPx":     { "type": "integer" },
+          "durationMs":   { "type": "integer" },
+          "displayOrder": { "type": "integer" },
+          "altText":      { "type": "string" },
+          "createdAt":    { "type": "string", "format": "datetime" },
+          "updatedAt":    { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

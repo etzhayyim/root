@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.influence.influenceFlow",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A directed DIACHRONIC influence 縁 between two public historical nodes (figure/document/event/tradition) — the channel across which an idea/text/practice flowed forward in time and deformed the receiver's metric (junkawasaki.com 'spirit is information'). tsumugi diachronic extension, ADR-2606061500. N1 edge-primary: influence/karma lives HERE ('signedWeight'), never on a node — a node's influence is the integral of its incident flows. N5: 'from' must be temporally before 'to' (information cannot precede its source). N3: 'kind' is descriptive transmission, never an endorsement of the tradition's truth.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["from", "to", "kind", "signedWeight", "sourcing"],
+        "properties": {
+          "from": { "type": "string", "description": "the EARLIER node (source of the information)" },
+          "to": { "type": "string", "description": "the LATER node (receiver whose metric the information deformed)" },
+          "kind": {
+            "type": "string",
+            "enum": ["influences", "transmits", "cites", "reinterprets", "synthesizes", "translates", "opposes"],
+            "description": "channel type — descriptive, never an endorsement (N3). 'opposes' is still a channel (defined-against)."
+          },
+          "signedWeight": {
+            "type": "integer",
+            "minimum": -1000,
+            "maximum": 1000,
+            "description": "N1 — influence magnitude on THIS edge in milli-units (×1000 of [-1,1]): + transmission/continuation, − reaction/opposition. The ONLY home for influence-karma."
+          },
+          "strain": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "ε — metric deformation the receiver underwent (blog strain tensor magnitude) in milli-units (×1000 of [0,1])"
+          },
+          "thermoLength": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "L — thermodynamic length of the receiver's reframing (W_diss ≥ L²/2τ) in milli-units; cost of integrating the influence"
+          },
+          "lagYears": {
+            "type": "integer",
+            "description": "diffusion delay to.yearFrom − from.yearTo"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["canon", "scholarship", "citation", "declared", "attested"],
+            "description": "provenance of the CLAIM (never asserts truth of the tradition, only that the influence is documented; N3)"
+          },
+          "sourcing": {
+            "type": "string",
+            "enum": ["authoritative", "representative"],
+            "description": "G5 sourcing honesty; the seed is representative"
+          }
+        }
+      }
+    }
+  }
+}

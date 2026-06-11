@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.product.rfq.export",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Export an EMS / Alibaba-ready robotics or automotive manufacturing RFQ package from CAD, PCB, BOM, assembly, QA, tooling, EOL, and commercial requirements.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["packageId", "fileCatalog"],
+          "properties": {
+            "requestId": { "type": "string" },
+            "packageId": { "type": "string" },
+            "quantity": { "type": "integer" },
+            "targetUnitCost": { "type": "number" },
+            "incoterms": { "type": "string" },
+            "supplierRegion": { "type": "string" },
+            "supplierTier": { "type": "string", "enum": ["tier1", "tier2", "tooling", "ems", "validation_lab", "logistics"] },
+            "vehicleProgram": { "type": "string" },
+            "fileCatalog": { "type": "unknown" },
+            "processPlan": { "type": "unknown" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "roboticsRfqExport": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

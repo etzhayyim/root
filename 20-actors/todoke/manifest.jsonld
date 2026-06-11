@@ -1,0 +1,72 @@
+{
+  "@context": ["https://www.w3.org/ns/did/v1", "https://schema.org"],
+  "@type": "ActorManifest",
+  "id": "did:web:etzhayyim.com:actor:todoke",
+  "name": "todoke",
+  "displayName": "届け — Last-Mile (one-mile) Autonomous Delivery",
+  "tier": "Tier-B",
+  "status": "R0+R1",
+  "adr": { "master": "etzhayyim:adr:2606042300", "autonomy": "etzhayyim:adr:2606010600", "dividend": "etzhayyim:adr:2606032130" },
+  "labor": {
+    "isic": "H53",
+    "isco": ["9621", "8322"],
+    "unspsc": ["78"]
+  },
+  "purpose": "Last-mile ('one-mile') autonomous delivery — curb-to-door small-payload transport that closes the gap between wadachi inter-site ground autonomy and the recipient's door. Consumes kami-autodrive GNC; the no-gig delivery limb of okaimono; couples to the courier Displacement Dividend.",
+  "fleet": [
+    { "id": "hakobi", "glyph": "運び", "role": "sidewalk last-mile delivery rover (curb-to-door, <=25 kg)" },
+    { "id": "tobira", "glyph": "扉", "role": "smart parcel-locker dock (curb hand-off / pickup)" },
+    { "id": "meyasu", "glyph": "目安", "role": "perception + telemetry pod (on-device only, G8)" },
+    { "id": "tedori", "glyph": "手取", "role": "load/unload manipulator (curb <-> rover bay)" }
+  ],
+  "cells": [
+    { "name": "parcel_intake", "module": "todoke.cells.parcel_intake", "murakumoNode": "naphtali" },
+    { "name": "route_sequencing", "module": "todoke.cells.route_sequencing", "murakumoNode": "joseph" },
+    { "name": "autonomous_run", "module": "todoke.cells.autonomous_run", "murakumoNode": "judah" },
+    { "name": "handoff_proof", "module": "todoke.cells.handoff_proof", "murakumoNode": "simeon" },
+    { "name": "telemetry_log", "module": "todoke.cells.telemetry_log", "murakumoNode": "levi" }
+  ],
+  "rustCore": {
+    "crate": "route/",
+    "name": "todoke-route",
+    "purpose": "last-mile stop sequencing (NN + 2-opt) + SAE-L4 sidewalk ODD safety envelope (G7) + R1 curb-to-door rover sim (kinematic stand-in for kami-autodrive); 13 tests green (7 route + 6 sim) + curb_to_door example; sequencer mirrored by methods/last_mile.py (parity-tested)"
+  },
+  "lexiconNamespaces": [
+    "com.etzhayyim.todoke.deliveryJob",
+    "com.etzhayyim.todoke.lastMileRoute",
+    "com.etzhayyim.todoke.handoffProof",
+    "com.etzhayyim.todoke.missionCompleteRecord",
+    "com.etzhayyim.todoke.safetyAlert"
+  ],
+  "constitutionalGates": {
+    "G1": "open-source firmware (Apache 2.0 Rust/WASM)",
+    "G2": "displacement-dividend coupling — no live courier displacement without funded tenure-weighted cohort (ADR-2606032130)",
+    "G3": "witness quorum >=1 safety-monitor + recipient consent",
+    "G4": "Murakumo-only inference",
+    "G5": "no-gig; no payroll; cash to adherents ≡0",
+    "G6": "Wellbecoming — remove courier toil, never intensify",
+    "G7": "SAE-L4 sidewalk safety envelope — speed/zone/level refusal by construction (todoke-route)",
+    "G8": "privacy-by-construction — on-device proof-of-delivery only, no cloud imagery/biometric",
+    "G9": "outward-gated — live operation Council Lv6+ + operator; Transparent-Force bound",
+    "G10": "sourcing-honesty — :representative",
+    "G11": "kotoba-EAVT-native",
+    "G12": "no-server-key — recipient signs, server never does",
+    "G13": "consent-bound — no hand-off without recorded encrypted consent",
+    "G14": "Charter Rider — no armed platform/payload, no contraband class",
+    "G15": "tithe-non-fiat — USDC + ERC-4337 + TitheRouter 10%"
+  },
+  "nonGoals": {
+    "N1": "no military/weaponized/surveillance-payload delivery",
+    "N2": "no SAE Level 5; no high-speed vehicular-road autonomy (wadachi R2+)",
+    "N3": "no regulated/contraband payloads (pharma→yakushi)",
+    "N4": "no gig-labour / piece-rate courier model",
+    "N5": "no cloud imagery / facial-recognition recipient ID",
+    "N6": "no aerial drone delivery at R0"
+  },
+  "roadmap": [
+    { "phase": "R0", "date": "2026-06-04", "scope": "charter + manifests + 5 cells (RuntimeError; route_sequencing + handoff_proof fully coded) + 5 lexicons + :representative seed + todoke-route Rust crate (7 tests) + Python parity method (7 tests) + cell tests (12)", "gate": "ADR-2606042300 (proposed)" },
+    { "phase": "R1", "date": "2026-06-04", "scope": "LANDED — curb-to-door rover sim (route/src/sim.rs) wired to the todoke-route core: per-zone speed cap, accel/cruise/brake, obstacle emergency-stop + resume, rolling-resistance energy; 6 sim tests + curb_to_door example (32 tests total). Real kami-autodrive GNC wiring deferred to 40-engine/kami-engine submodule population.", "gate": "ADR-2606042300" },
+    { "phase": "R2", "scope": "pilot route (private campus) + courier displacement cohort sized & Public-Fund-voted", "gate": "future ADR + 30-day comment" },
+    { "phase": "R3", "scope": "community-scale last-mile + live displacement WITH dividend active (G2), Transparent-Force authorized", "gate": "future ADR + 60-day review + Council Lv6+" }
+  ]
+}

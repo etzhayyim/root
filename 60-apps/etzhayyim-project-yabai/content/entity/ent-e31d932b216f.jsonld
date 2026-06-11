@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e31d932b216f",
+  "entityId": "ent-e31d932b216f",
+  "canonicalName": "abid hamid mahmud",
+  "aliases": [
+    "abid hamid mahmud"
+  ]
+}

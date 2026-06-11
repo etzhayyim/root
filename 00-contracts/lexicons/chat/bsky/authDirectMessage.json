@@ -1,0 +1,22 @@
+{
+  "lexicon": 1,
+  "id": "chat.bsky.authDirectMessage",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Direct Messages",
+      "title:lang": {},
+      "detail": "Send and receive direct messages via Bluesky chat",
+      "detail:lang": {},
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "lxm": [
+            "chat.bsky.convo.*"
+          ]
+        }
+      ]
+    }
+  }
+}

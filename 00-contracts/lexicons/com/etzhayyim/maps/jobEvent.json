@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.jobEvent",
+  "description": "Job state-transition event. Append-only TID-keyed. Replaces the RW `advanceJob` UPDATE pattern with an event log; latest state derived by reading all events for a `jobUri`, sorting by `emittedAt`, taking the last. Per ADR-2605231400 + maps MIGRATION-TODO Phase 1 (Tier A).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "jobUri",
+          "state",
+          "emittedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "jobUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the com.etzhayyim.maps.collectionJob record this event advances."
+          },
+          "state": {
+            "type": "string",
+            "description": "Job state at this point in time. Terminal states: completed / failed / skipped / superseded.",
+            "knownValues": [
+              "queued",
+              "running",
+              "completed",
+              "failed",
+              "skipped",
+              "superseded"
+            ]
+          },
+          "phase": {
+            "type": "string",
+            "description": "Free-form sub-phase within `state` (e.g., 'fetching', 'parsing', 'loading' during running).",
+            "maxLength": 64
+          },
+          "progressPctBps": {
+            "type": "integer",
+            "description": "Progress in basis points (10000 = 100%). Integer to avoid float drift.",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "itemsProcessed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "itemsTotal": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "detail": {
+            "type": "string",
+            "description": "Free-form human-readable message.",
+            "maxLength": 1024
+          },
+          "errorClass": {
+            "type": "string",
+            "description": "Required when state == 'failed'. Stable identifier for the failure category (e.g., 'upstream-timeout', 'parse-error', 'rate-limit').",
+            "maxLength": 64
+          },
+          "errorDetail": {
+            "type": "string",
+            "description": "Free-form failure detail. Required when state == 'failed'.",
+            "maxLength": 2048
+          },
+          "emittedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "emittedBy": {
+            "type": "string",
+            "format": "did",
+            "description": "Worker / dispatcher DID that emitted the event."
+          }
+        }
+      }
+    }
+  }
+}

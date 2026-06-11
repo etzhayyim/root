@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kanayama.decoatingAttestation",
+  "description": "De-coating + shred + sort attestation (L2). ~500°C lacquer/paint burnoff with off-gas capture, rotary shredder, magnetic + eddy-current separation. Per ADR-2605252400 L2.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "lotId": {"type": "string"},
+          "decoaterTempC": {"type": "integer"},
+          "offGasCaptureCid": {"type": "string"},
+          "shredFractionMm": {"type": "unknown"},
+          "magneticFraction": {"type": "unknown", "description": "diverted to kanayama-wave2-feedstock-bin"},
+          "nonAlFraction": {"type": "unknown"},
+          "cleanAlMassKg": {"type": "number"},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["lotId", "decoaterTempC", "cleanAlMassKg"]
+      }
+    }
+  }
+}

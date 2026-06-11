@@ -1,0 +1,47 @@
+// Host-side world for instantiating the plc-control component (ADR-2606031600
+// §D2/§D3 end-to-end). It re-declares ONLY the kotoba:os interfaces the
+// tree-shaken component actually imports (io-analog read, io-digital write,
+// datom assert) + the same `scan` export, so wasmtime bindgen generates just
+// three Host traits instead of all eight device worlds. Same package identity
+// (kotoba:os@0.1.0) so the import names match the component.
+package kotoba:os@0.1.0;
+
+interface io-digital {
+  type channel = u32;
+  write-output: func(ch: channel, value: bool) -> result<_, string>;
+}
+
+interface io-analog {
+  type channel = u32;
+  read-input: func(ch: channel) -> result<f32, string>;
+}
+
+interface datom {
+  record fact {
+    graph: string,
+    entity: string,
+    attribute: string,
+    value-cbor: list<u8>,
+  }
+  assert-facts: func(facts: list<fact>) -> result<_, string>;
+}
+
+world plc-host {
+  record scan-report {
+    cycle: u64,
+    inputs-read: u32,
+    outputs-staged: u32,
+    facts-asserted: u32,
+    duration-us: u64,
+  }
+  import io-digital;
+  import io-analog;
+  import datom;
+  export scan: func(cycle: u64) -> result<scan-report, string>;
+}
+
+// Host side for the mesh-agent component (datom-only, no device authority).
+world mesh-host {
+  import datom;
+  export step: func() -> result<u32, string>;
+}

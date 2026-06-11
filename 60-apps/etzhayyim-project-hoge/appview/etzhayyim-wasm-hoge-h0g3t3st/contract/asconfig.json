@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "release": {
+      "outFile": "build/optimized.wasm",
+      "optimize": true,
+      "noExportRuntime": true,
+      "runtime": "stub"
+    },
+    "debug": {
+      "outFile": "build/debug.wasm",
+      "debug": true
+    }
+  }
+}

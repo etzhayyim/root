@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.artemisLunar.flagOuterSpaceTreatyViolation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave3 arms (stub): 外気圏宇宙条約 違反. Starts BPMN process open_artemis_lunar_flag_outer_space_treaty_violation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "missionVid": { "type": "string" },
+            "treatyArticle": { "type": "string" },
+            "actorLei": { "type": "string" }
+          },
+          "required": ["vertexId", "missionVid", "treatyArticle"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

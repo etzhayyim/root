@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.spr.recordLevel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "SPR level snapshot",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "snapshotId",
+            "country",
+            "reserveMmbbl",
+            "capacityMmbbl",
+            "measuredAt"
+          ],
+          "properties": {
+            "snapshotId": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string",
+              "description": "USA/JPN/IND/CHN/KOR 等"
+            },
+            "operatorOrgId": {
+              "type": "string"
+            },
+            "reserveMmbbl": {
+              "type": "number"
+            },
+            "capacityMmbbl": {
+              "type": "number"
+            },
+            "coverageDays": {
+              "type": "number",
+              "description": "crude import coverage at current consumption"
+            },
+            "measuredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "pctFull": {
+              "type": "number"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

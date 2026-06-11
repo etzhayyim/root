@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tsukuroi.silenTsukuroiReview",
+  "description": "Quarterly Council audit of tsukuroi. Four structural zero-counters encode the actor's constitutional ceiling: autonomousMergeCount (G4), exploitArtifactCount (G5), outOfScopeWriteCount (G6), platformHeldKeyCount (G8). Any nonzero value is a critical violation ⇒ cell halt + chigiri.disputeMediation (ADR-2605262700) + Bonsai seed-tier prune (ADR-2605091800, G13). R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "periodStart",
+          "periodEnd",
+          "attestingCouncilDids",
+          "autonomousMergeCount",
+          "exploitArtifactCount",
+          "outOfScopeWriteCount",
+          "platformHeldKeyCount"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime", "description": "ISO 8601 UTC timestamp of review emit."},
+          "periodStart": {"type": "string", "format": "datetime", "description": "Review period start."},
+          "periodEnd": {"type": "string", "format": "datetime", "description": "Review period end (quarterly cadence)."},
+          "attestingCouncilDids": {"type": "array", "items": {"type": "string"}, "minLength": 3, "description": "Council Lv6+ seat DIDs attesting the review (≥3)."},
+          "autonomousMergeCount": {"type": "integer", "const": 0, "description": "G4: count of merges/deploys tsukuroi performed itself. MUST be 0 (propose-only). Nonzero ⇒ critical violation."},
+          "exploitArtifactCount": {"type": "integer", "const": 0, "description": "G5: count of exploit/PoC/offensive artifacts generated. MUST be 0 (defensive-only, §2(a)). Nonzero ⇒ critical violation."},
+          "outOfScopeWriteCount": {"type": "integer", "const": 0, "description": "G6: count of writes outside mandate.allowedPaths. MUST be 0. Nonzero ⇒ critical violation."},
+          "platformHeldKeyCount": {"type": "integer", "const": 0, "description": "G8: count of platform-held master/merge credentials tsukuroi held. MUST be 0 (ADR-2605231525). Nonzero ⇒ critical violation."},
+          "mandatesActive": {"type": "integer", "minimum": 0, "description": "Number of active RemediationMandates in the period."},
+          "proposalsSubmitted": {"type": "integer", "minimum": 0, "description": "Number of patch proposals submitted in the period."},
+          "remediationsClosed": {"type": "integer", "minimum": 0, "description": "Number of closures (ownerMerged + akumaReprobePass) in the period."},
+          "violationDisputeCids": {"type": "array", "items": {"type": "string"}, "description": "If any zero-counter was nonzero, the chigiri.disputeMediation record CIDs opened."}
+        }
+      }
+    }
+  }
+}

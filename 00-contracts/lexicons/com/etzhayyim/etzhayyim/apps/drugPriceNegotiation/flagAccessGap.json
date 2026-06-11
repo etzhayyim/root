@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.drugPriceNegotiation.flagAccessGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Access gap / launch delay / managed-access scheme (bridges vaccineEquity.flagAccessGap + universal-health-coverage + pharma-supply)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "roundVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "roundVid": {
+              "type": "string",
+              "description": "bridges recordRound"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "launch_delay",
+                "reimbursement_denied",
+                "managed_access",
+                "conditional_reimbursement",
+                "price_volume_agreement",
+                "outcomes_based",
+                "late_inclusion",
+                "ema_lagged",
+                "fda_lagged",
+                "commission_pricing_dispute",
+                "parallel_import",
+                "lmic_excluded"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

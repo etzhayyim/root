@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.variantClin.interpretVariant",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Interpret clinical variant via ClinVar/dbSNP/COSMIC/gnomAD + ACMG classification. Auto-generated stub (coverage expansion 2026-04-17). PII Tier 3 if patient-derived.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["hgvs"],
+          "properties": {
+            "hgvs": { "type": "string", "description": "HGVS nomenclature (e.g. NM_000059.3:c.5946delT)" },
+            "assembly": { "type": "string", "default": "GRCh38" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "clinVarId": { "type": "string" },
+            "rsId": { "type": "string" },
+            "acmgClass": { "type": "string", "enum": ["pathogenic", "likely-pathogenic", "vus", "likely-benign", "benign"] },
+            "alleleFrequency": { "type": "number" },
+            "pathogenicityScore": { "type": "number" }
+          }
+        }
+      }
+    }
+  }
+}

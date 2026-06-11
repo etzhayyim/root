@@ -1,0 +1,196 @@
+require "base64"
+require "fileutils"
+require "shellwords"
+
+default_platform(:ios)
+
+def project_root
+  File.expand_path("..", __dir__)
+end
+
+def app_version
+  ENV["APP_VERSION"] || "1.0.0"
+end
+
+def ios_team_id
+  ENV["DEVELOPER_PORTAL_TEAM_ID"] || ENV["APP_STORE_CONNECT_TEAM_ID"] || "U7W6HNNJCS"
+end
+
+def android_version_code
+  ENV["ANDROID_VERSION_CODE"] || Time.now.utc.strftime("%Y%m%d%H")
+end
+
+def asc_api_key
+  required = %w[ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_CONTENT]
+  missing = required.select { |key| ENV[key].to_s.empty? }
+  UI.user_error!("Missing App Store Connect API env: #{missing.join(', ')}") unless missing.empty?
+
+  key_content = ENV["ASC_KEY_CONTENT"]
+  key_content = Base64.decode64(key_content) if ENV["ASC_KEY_IS_BASE64"] == "1"
+
+  app_store_connect_api_key(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    key_content: key_content,
+    is_key_content_base64: false,
+    duration: 1200
+  )
+end
+
+def asc_key_file
+  key_content = ENV["ASC_KEY_CONTENT"].to_s
+  UI.user_error!("Missing ASC_KEY_CONTENT") if key_content.empty?
+
+  key_content = Base64.decode64(key_content) if ENV["ASC_KEY_IS_BASE64"] == "1"
+  dir = File.join(project_root, "fastlane", ".tmp")
+  FileUtils.mkdir_p(dir)
+  path = File.join(dir, "AuthKey_#{ENV.fetch('ASC_KEY_ID')}.p8")
+  File.write(path, key_content)
+  path
+end
+
+def ios_xcargs
+  args = ["DEVELOPMENT_TEAM=#{ios_team_id}", "-allowProvisioningUpdates"]
+
+  if ENV["ASC_KEY_ID"] && ENV["ASC_ISSUER_ID"] && ENV["ASC_KEY_CONTENT"]
+    args << "-authenticationKeyPath #{Shellwords.escape(asc_key_file)}"
+    args << "-authenticationKeyID #{Shellwords.escape(ENV.fetch('ASC_KEY_ID'))}"
+    args << "-authenticationKeyIssuerID #{Shellwords.escape(ENV.fetch('ASC_ISSUER_ID'))}"
+  end
+
+  args.join(" ")
+end
+
+def play_store_key_file
+  path = ENV["PLAY_STORE_JSON_KEY_PATH"]
+  return path unless path.to_s.empty?
+
+  content = ENV["PLAY_STORE_JSON_KEY"]
+  UI.user_error!("Missing PLAY_STORE_JSON_KEY_PATH or PLAY_STORE_JSON_KEY") if content.to_s.empty?
+
+  generated = File.join(project_root, "fastlane", "play-store-service-account.auto.json")
+  File.write(generated, content)
+  generated
+end
+
+platform :ios do
+  desc "Build native web assets and sync the iOS Capacitor shell"
+  lane :sync do
+    sh("pnpm cap:build:ios")
+  end
+
+  desc "Build an IPA and upload to TestFlight"
+  lane :beta do
+    sync
+    api_key = asc_api_key
+    build_number = ENV["IOS_BUILD_NUMBER"] || android_version_code
+
+    increment_version_number(
+      xcodeproj: "ios/App/App.xcodeproj",
+      version_number: app_version
+    )
+    increment_build_number(
+      xcodeproj: "ios/App/App.xcodeproj",
+      build_number: build_number
+    )
+
+    build_app(
+      project: "ios/App/App.xcodeproj",
+      scheme: ENV["IOS_SCHEME"] || "App",
+      export_method: "app-store",
+      export_team_id: ios_team_id,
+      xcargs: ios_xcargs,
+      clean: true,
+      output_directory: "dist/ios",
+      output_name: "AIMA.ipa"
+    )
+
+    upload_to_testflight(
+      api_key: api_key,
+      app_identifier: ENV.fetch("IOS_APP_IDENTIFIER", "com.etzhayyim.aima"),
+      apple_id: ENV.fetch("IOS_APPLE_ID", "6760442304"),
+      app_platform: "ios",
+      skip_waiting_for_build_processing: true,
+      distribute_external: ENV["TESTFLIGHT_EXTERNAL"] == "1",
+      changelog: ENV["CHANGELOG"]
+    )
+  end
+
+  desc "Build an IPA and upload to App Store Connect"
+  lane :release do
+    sync
+    api_key = asc_api_key
+    build_number = ENV["IOS_BUILD_NUMBER"] || android_version_code
+
+    increment_version_number(
+      xcodeproj: "ios/App/App.xcodeproj",
+      version_number: app_version
+    )
+    increment_build_number(
+      xcodeproj: "ios/App/App.xcodeproj",
+      build_number: build_number
+    )
+
+    build_app(
+      project: "ios/App/App.xcodeproj",
+      scheme: ENV["IOS_SCHEME"] || "App",
+      export_method: "app-store",
+      export_team_id: ios_team_id,
+      xcargs: ios_xcargs,
+      clean: true,
+      output_directory: "dist/ios",
+      output_name: "AIMA.ipa"
+    )
+
+    upload_to_app_store(
+      api_key: api_key,
+      ipa: "dist/ios/AIMA.ipa",
+      app_identifier: ENV.fetch("IOS_APP_IDENTIFIER", "com.etzhayyim.aima"),
+      apple_id: ENV.fetch("IOS_APPLE_ID", "6760442304"),
+      submit_for_review: ENV["IOS_SUBMIT_FOR_REVIEW"] == "1",
+      automatic_release: ENV["IOS_AUTO_RELEASE"] == "1",
+      force: true,
+      skip_metadata: true,
+      skip_screenshots: true
+    )
+  end
+end
+
+platform :android do
+  desc "Build native web assets and sync the Android Capacitor shell"
+  lane :sync do
+    sh("pnpm cap:build:android")
+  end
+
+  desc "Build an Android App Bundle and upload to Internal testing"
+  lane :beta do
+    sync
+
+    required = %w[ANDROID_KEYSTORE_PATH ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD]
+    missing = required.select { |key| ENV[key].to_s.empty? }
+    UI.user_error!("Missing Android signing env: #{missing.join(', ')}") unless missing.empty?
+
+    ENV["ANDROID_VERSION_NAME"] = app_version
+    ENV["ANDROID_VERSION_CODE"] = android_version_code
+
+    gradle(
+      task: "bundle",
+      build_type: "Release",
+      project_dir: "android"
+    )
+
+    upload_to_play_store(
+      aab: "android/app/build/outputs/bundle/release/app-release.aab",
+      track: ENV["ANDROID_TRACK"] || "internal",
+      json_key: play_store_key_file,
+      package_name: ENV.fetch("ANDROID_PACKAGE_NAME", "com.etzhayyim.aima"),
+      release_status: ENV["ANDROID_RELEASE_STATUS"] || "completed"
+    )
+  end
+
+  desc "Build an Android App Bundle and upload to Production"
+  lane :release do
+    ENV["ANDROID_TRACK"] ||= "production"
+    beta
+  end
+end

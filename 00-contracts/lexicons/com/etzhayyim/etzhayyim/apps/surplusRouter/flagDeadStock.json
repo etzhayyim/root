@@ -1,0 +1,111 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.surplusRouter.flagDeadStock",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Flag a surplus lot as no longer redistributable. Triggers downstream routing decision. Per ADR-2605211241. Wellbecoming constraint (ADR-2605192100 §1.13): routing priority is recycle-via-kozan -> dispose-licensed; dispose-first is prohibited and requires an explicit prohibitedReasonOverride from Council Lv6+ multisig (see governance.attestationUri). Eschatological framing such as 'Last Days clearance' is forbidden in reason text (ADR-2605192100 §1.15).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "lotDid",
+            "reason",
+            "routing",
+            "decidedBy",
+            "decidedAt"
+          ],
+          "properties": {
+            "lotDid": { "type": "string", "format": "did" },
+            "reason": {
+              "type": "string",
+              "enum": [
+                "expired-shelf-life",
+                "no-match-found-after-threshold",
+                "damaged-not-refurbishable",
+                "hazard-isolation-required",
+                "contaminated",
+                "regulatory-recall",
+                "other"
+              ]
+            },
+            "reasonDetail": {
+              "type": "string",
+              "maxLength": 1024,
+              "description": "PII-free. Eschatological / clearance / fire-sale language prohibited (Charter Rider §2 + ADR-2605192100 §1.15)."
+            },
+            "routing": {
+              "type": "string",
+              "enum": [
+                "recycle-via-kozan",
+                "dispose-licensed"
+              ],
+              "description": "Wellbecoming order: recycle-via-kozan is the default. dispose-licensed requires governance.attestationUri."
+            },
+            "kozanStreamTypeHint": {
+              "type": "string",
+              "enum": [
+                "smartphone",
+                "pc",
+                "server",
+                "battery-li-ion",
+                "battery-lead",
+                "pv-panel",
+                "auto-pcb",
+                "white-goods",
+                "mixed-pcb",
+                "rare-earth-magnet"
+              ],
+              "description": "Hint for the subsequent toshiKozan.registerEwasteStream call (see recordKozanHandoff)."
+            },
+            "decidedBy": {
+              "type": "string",
+              "format": "did",
+              "description": "DID of the deciding actor. For dispose-licensed routing, this DID must be referenced by a Council Lv6+ multisig attestation."
+            },
+            "governance": {
+              "type": "object",
+              "description": "Required only when routing = dispose-licensed.",
+              "properties": {
+                "attestationUri": {
+                  "type": "string",
+                  "format": "at-uri",
+                  "description": "AT URI of Council Lv6+ multisig attestation that overrides Wellbecoming default routing."
+                },
+                "councilSeats": {
+                  "type": "array",
+                  "items": { "type": "string", "format": "did" },
+                  "description": "DIDs of the Council members who signed."
+                }
+              }
+            },
+            "decidedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "flagUri": { "type": "string", "format": "at-uri" },
+            "lotState": {
+              "type": "string",
+              "enum": ["flagged-dead-stock"]
+            },
+            "nextActionHint": {
+              "type": "string",
+              "enum": [
+                "call-recordKozanHandoff",
+                "call-disposeLicensed-external"
+              ]
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

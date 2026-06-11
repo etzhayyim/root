@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpMhlw.flagPolicyConcern",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Policy concern / population decline / labor shortage (bridges jpMof + reskillingFund + minorityRights)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordAction"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "pension_solvency",
+                "health_insurance_solvency",
+                "labor_shortage",
+                "care_worker_shortage",
+                "tokutei_skill_law_pace",
+                "jinko_decline",
+                "aging_society_2025_problem",
+                "mof_zaisei_pressure",
+                "industry_dependence",
+                "local_health_disparity",
+                "medical_dx_gap",
+                "drug_lag",
+                "drug_loss_global"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

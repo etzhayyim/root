@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.euDgClima.recordAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "EU DG Climate Action policy / ETS / CBAM / Fit for 55 (bridges cbam-embedded + climate-value-chain + euTrilogue)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "policyKind",
+            "scopeKind",
+            "publishedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "policyKind": {
+              "type": "string",
+              "enum": [
+                "ets_cap_review",
+                "ets_aviation",
+                "ets_maritime",
+                "cbam_phase",
+                "fit_for_55",
+                "climate_law_revision",
+                "mrv_shipping",
+                "mrv_aviation",
+                "carbon_market_buildup",
+                "accc_anti_crisis",
+                "industrial_decarb",
+                "just_transition_fund",
+                "green_taxonomy",
+                "sfdr_climate",
+                "csrd_climate"
+              ]
+            },
+            "scopeKind": {
+              "type": "string",
+              "enum": [
+                "sector_steel",
+                "sector_cement",
+                "sector_aluminium",
+                "sector_chemicals",
+                "sector_aviation",
+                "sector_shipping",
+                "sector_road",
+                "sector_buildings",
+                "sector_lulucf",
+                "economy_wide",
+                "cross_border",
+                "third_country"
+              ]
+            },
+            "relatedActorVid": {
+              "type": "string",
+              "description": "bridges cbam-embedded / euTrilogue / climate-value-chain"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

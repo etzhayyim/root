@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a9369f39d2d5",
+  "entityId": "ent-a9369f39d2d5",
+  "canonicalName": "yousef ali muraj",
+  "aliases": [
+    "yousef ali muraj"
+  ]
+}

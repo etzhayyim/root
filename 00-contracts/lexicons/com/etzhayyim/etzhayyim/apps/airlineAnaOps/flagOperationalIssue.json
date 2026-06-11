@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airlineAnaOps.flagOperationalIssue",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ANA operational issue / star alliance disruption / safety event (bridges aviation-safety + airplane-incident + airplane-flight)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "scheduleVid",
+            "issueKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "scheduleVid": {
+              "type": "string",
+              "description": "bridges recordFlightSchedule"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "aircraft_swap",
+                "crew_shortage",
+                "weather_div",
+                "atc_constraint",
+                "ata_disruption",
+                "etops_loss",
+                "engine_repair_pwa",
+                "gtf_grounded",
+                "bird_strike",
+                "fuel_quality",
+                "tail_strike",
+                "go_around",
+                "compressor_stall",
+                "atlantic_jv_break",
+                "star_alliance_disruption"
+              ]
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "incident",
+                "serious",
+                "report_published",
+                "investigation_open",
+                "investigation_closed",
+                "atsb_jasc_report",
+                "trent_pwa_recall"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

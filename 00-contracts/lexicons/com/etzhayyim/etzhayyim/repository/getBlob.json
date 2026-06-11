@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.repository.getBlob",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch blob bytes by sha256 hash. Global dedup — no owner scope in read path.",
+      "parameters": {
+        "type": "params",
+        "required": ["hash"],
+        "properties": {
+          "hash": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["hash", "sizeBytes", "content"],
+          "properties": {
+            "hash": { "type": "string" },
+            "sizeBytes": { "type": "integer" },
+            "content": {
+              "type": "bytes",
+              "description": "Full blob bytes. Transparent R2 pull when tier = r2."
+            },
+            "mimeType": { "type": "string" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "BlobNotFound" }
+      ]
+    }
+  }
+}

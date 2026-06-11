@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-50c895d3ac58",
+  "entityId": "ent-50c895d3ac58",
+  "canonicalName": "cranha danfa",
+  "aliases": [
+    "cranha danfa"
+  ]
+}

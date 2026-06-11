@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Standalone project chat. Appview dispatches only; Python Zeebe generic LLM
+  primitive handles generation outside the Worker.
+  in:  projectId?, message
+  out: reply, model, latencyMs
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_mangaka_project_chat_standalone"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="mangaka_project_chat_standalone" name="mangaka standalone project chat" isExecutable="true">
+    <bpmn:startEvent id="Start" name="chat requested">
+      <bpmn:outgoing>F1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Chat"/>
+    <bpmn:serviceTask id="Task_Chat" name="chat">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.chat"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are Mangaka AI, a manga creation assistant. Help with story, character design, panel layout, and art direction. Reply in the user's language. Be concrete and concise.&quot;" target="system"/>
+          <zeebe:input source="=if projectId = null then string(message) else (&quot;Project ID: &quot; + string(projectId) + &quot;\nUser: &quot; + string(message))" target="user"/>
+          <zeebe:input source="=700" target="maxTokens"/>
+          <zeebe:input source="=0.4" target="temperature"/>
+          <zeebe:output source="=content" target="reply"/>
+          <zeebe:output source="=model" target="model"/>
+          <zeebe:output source="=latencyMs" target="latencyMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming>
+      <bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Chat" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;projectChat&quot;" target="action"/>
+          <zeebe:input source="={projectId: (if projectId = null then &quot;&quot; else string(projectId)), model: string(model), latencyMs: latencyMs}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming>
+      <bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>F3</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  otakiage.agentChat — XRPC com.etzhayyim.apps.otakiage.agentChat (Phase 2).
+
+  Conversational agent backed by LangGraph (graph id otakiage.agent.chat.v1).
+  3 LLM call (parse_intent + extract_details + compose_reply on submit path)
+  satisfies ADR-2605072000 intra-job ≥3 LLM branches condition.
+
+  Flow:
+    1. otakiage.agent.chat — invoke LangGraph (load_history → parse_intent →
+       branch (submit/search/ritual/inquire/chat) → compose_reply →
+       persist_turn). Output: {ok, threadId, reply, intent, actions[], llmCalls}
+    2. generic.audit.emit — record OCEL event (PII redacted, only intent +
+       turn count emitted)
+
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-agent-chat-v1
+  NSID: com.etzhayyim.apps.otakiage.agentChat
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_otakiage_agent_chat"
+    targetNamespace="https://etzhayyim.ai/bpmn/otakiage"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="otakiage_agent_chat" name="otakiage agentChat" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.otakiage.agentChat", "version": 1, "resultTimeoutMs": 90000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="agentChat">
+      <bpmn:outgoing>Flow_ToChat</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Chat" name="otakiage agent chat (LangGraph)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="otakiage.agent.chat"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=message" target="message"/>
+          <zeebe:input source="=callerDid" target="callerDid"/>
+          <zeebe:input source="=threadId" target="threadId"/>
+          <zeebe:input source="=intentHint" target="intentHint"/>
+          <zeebe:input source="=h3Cell" target="h3Cell"/>
+          <zeebe:input source="=maxTurns" target="maxTurns"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=threadId" target="threadId"/>
+          <zeebe:output source="=reply" target="reply"/>
+          <zeebe:output source="=intent" target="intent"/>
+          <zeebe:output source="=actions" target="actions"/>
+          <zeebe:output source="=draftItem" target="draftItem"/>
+          <zeebe:output source="=candidates" target="candidates"/>
+          <zeebe:output source="=llmCalls" target="llmCalls"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToChat</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToChat" sourceRef="Start" targetRef="Task_Chat"/>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Chat" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:otakiage.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.otakiage.agentChat&quot;" target="nsid"/>
+          <zeebe:input source="={ threadId: threadId, intent: intent, llmCalls: llmCalls, actionCount: count(actions) }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

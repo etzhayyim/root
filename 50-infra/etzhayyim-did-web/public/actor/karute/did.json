@@ -1,0 +1,35 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:etzhayyim.com:actor:karute",
+  "alsoKnownAs": [
+    "did:web:karute.etzhayyim.com"
+  ],
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "did:web:etzhayyim.com:actor:karute#atproto_pds",
+      "type": "AtprotoPersonalDataServer",
+      "serviceEndpoint": "https://pds.etzhayyim.com"
+    }
+  ],
+  "_meta": {
+    "adr": [
+      "2605212030",
+      "2605241800",
+      "2606013800",
+      "2606014500",
+      "2605231100",
+      "2605231900"
+    ],
+    "source": "kotoba",
+    "kind": "substrate-service",
+    "status": "landed",
+    "wasmCid": null,
+    "execModel": "service",
+    "primaryLexicon": "com.etzhayyim.apps.karute",
+    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
+  }
+}

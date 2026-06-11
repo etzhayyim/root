@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fueleuMaritime.reportGhgIntensity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FuelEU Maritime + IMO NZF GHG intensity (bridges imo-emissions + hydrogen-economy + carrier-fleet + climate-carbon-market)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "imo",
+            "reportingYear",
+            "wtwIntensityGco2eMj",
+            "submittedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "companyLei": {
+              "type": "string"
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "energyUsedGj": {
+              "type": "number"
+            },
+            "wttIntensityGco2eMj": {
+              "type": "number",
+              "description": "well-to-tank"
+            },
+            "ttwIntensityGco2eMj": {
+              "type": "number",
+              "description": "tank-to-wake"
+            },
+            "wtwIntensityGco2eMj": {
+              "type": "number",
+              "description": "well-to-wake"
+            },
+            "onshorePowerUsageMwh": {
+              "type": "number"
+            },
+            "submittedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "complianceTier": {
+              "type": "string",
+              "enum": [
+                "non_compliant",
+                "near_compliant",
+                "fueleu_2026_compliant"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

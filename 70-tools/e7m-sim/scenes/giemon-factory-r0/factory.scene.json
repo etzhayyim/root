@@ -1,0 +1,133 @@
+{
+  "name": "giemon-factory-r0",
+  "title": "Giemon ロボット製造工場 R0 — single-bay light-assembly plant (full MEP + 外構)",
+  "source": "hand-authored layout (ADR-2606010030); not OSM",
+  "units": "metres, z-up (sim) — renderer rotates -90° about X to y-up",
+  "bbox_m": [-40.0, -25.0, 40.0, 25.0],
+  "site_bbox_m": [-62.0, -44.0, 62.0, 44.0],
+  "wall_height_m": 8.0,
+  "walls": [
+    { "id": "wall_s", "aabb": [-40.0, -25.0, 40.0, -24.7], "height": 8.0 },
+    { "id": "wall_n", "aabb": [-40.0, 24.7, 40.0, 25.0], "height": 8.0 },
+    { "id": "wall_w", "aabb": [-40.0, -25.0, -39.7, 25.0], "height": 8.0 },
+    { "id": "wall_e", "aabb": [39.7, -25.0, 40.0, 25.0], "height": 8.0 },
+    { "id": "wall_insp", "aabb": [11.85, 6.0, 12.15, 25.0], "height": 4.0 }
+  ],
+  "columns": [
+    { "id": "col_0", "x": -24.0, "y": -12.0, "w": 0.5, "height": 8.0 },
+    { "id": "col_1", "x": -24.0, "y": 12.0, "w": 0.5, "height": 8.0 },
+    { "id": "col_2", "x": -8.0, "y": -12.0, "w": 0.5, "height": 8.0 },
+    { "id": "col_3", "x": -8.0, "y": 12.0, "w": 0.5, "height": 8.0 },
+    { "id": "col_4", "x": 8.0, "y": -12.0, "w": 0.5, "height": 8.0 },
+    { "id": "col_5", "x": 8.0, "y": 12.0, "w": 0.5, "height": 8.0 },
+    { "id": "col_6", "x": 24.0, "y": -12.0, "w": 0.5, "height": 8.0 },
+    { "id": "col_7", "x": 24.0, "y": 12.0, "w": 0.5, "height": 8.0 }
+  ],
+  "beams": [
+    { "id": "beam_0", "x": -16.0, "span_y": [-24.7, 24.7], "section": 0.35, "z": 7.7 },
+    { "id": "beam_1", "x": 0.0, "span_y": [-24.7, 24.7], "section": 0.35, "z": 7.7 },
+    { "id": "beam_2", "x": 16.0, "span_y": [-24.7, 24.7], "section": 0.35, "z": 7.7 }
+  ],
+  "zones": [
+    { "id": "zone_recv", "label": "受入 Receiving", "rect": [-40.0, -25.0, -24.0, 25.0], "tint": [0.30, 0.34, 0.42] },
+    { "id": "zone_mach", "label": "機械加工 Machining", "rect": [-24.0, -25.0, -8.0, 25.0], "tint": [0.40, 0.34, 0.30] },
+    { "id": "zone_asm", "label": "組立 Assembly", "rect": [-8.0, -25.0, 12.0, 25.0], "tint": [0.30, 0.40, 0.34] },
+    { "id": "zone_insp", "label": "検査 Inspection", "rect": [12.0, -25.0, 24.0, 25.0], "tint": [0.36, 0.36, 0.42] },
+    { "id": "zone_ship", "label": "出荷 Shipping", "rect": [24.0, -25.0, 40.0, 25.0], "tint": [0.42, 0.40, 0.30] }
+  ],
+  "machines": [
+    { "id": "rack_in", "kind": "rack", "aabb": [-38.0, -22.0, -34.0, 22.0], "height": 3.0 },
+    { "id": "cnc_1", "kind": "cnc-mill", "aabb": [-22.0, -18.0, -18.0, -12.0], "height": 2.2 },
+    { "id": "cnc_2", "kind": "cnc-mill", "aabb": [-22.0, 2.0, -18.0, 8.0], "height": 2.2 },
+    { "id": "lathe_1", "kind": "lathe", "aabb": [-14.0, -7.0, -10.0, -1.0], "height": 1.8 },
+    { "id": "asm_bench_1", "kind": "bench", "aabb": [-6.0, -16.0, -1.0, -11.0], "height": 1.0 },
+    { "id": "asm_bench_2", "kind": "bench", "aabb": [3.0, 9.0, 8.0, 14.0], "height": 1.0 },
+    { "id": "cmm_1", "kind": "cmm", "aabb": [15.0, -7.0, 19.0, -2.0], "height": 1.6 },
+    { "id": "insp_bench", "kind": "bench", "aabb": [17.0, 9.0, 22.0, 14.0], "height": 1.0 },
+    { "id": "pack_1", "kind": "packing", "aabb": [26.0, -15.0, 31.0, -10.0], "height": 1.4 },
+    { "id": "rack_out", "kind": "rack", "aabb": [34.0, -22.0, 38.0, 22.0], "height": 3.0 }
+  ],
+  "conveyors": [
+    { "id": "conv_main", "path": [[-32.0, 0.0], [-16.0, 0.0], [0.0, 0.0], [16.0, 0.0], [32.0, 0.0]], "width": 1.4 }
+  ],
+  "cells": [
+    { "id": "cell_asm_1", "urdf": "giemon_arm6", "pos": [-5.0, -4.0, 0.0], "yaw": 0.0 },
+    { "id": "cell_asm_2", "urdf": "giemon_arm6", "pos": [3.0, -4.0, 0.0], "yaw": 1.5708 },
+    { "id": "cell_asm_3", "urdf": "giemon_arm6", "pos": [9.0, 4.0, 0.0], "yaw": 3.1416 },
+    { "id": "cell_insp_1", "urdf": "giemon_arm6", "pos": [20.0, 2.0, 0.0], "yaw": 3.1416 }
+  ],
+  "agvs": [
+    { "id": "agv_1", "pos": [-30.0, 0.0, 0.6], "yaw": 0.0, "size": [2.0, 1.2, 0.8], "mass": 220.0 },
+    { "id": "agv_2", "pos": [30.0, 4.0, 0.6], "yaw": 3.1416, "size": [2.0, 1.2, 0.8], "mass": 220.0 }
+  ],
+
+  "service_nodes": [
+    { "id": "svc_elec", "kind": "受電設備 (高圧キュービクル+変圧器)", "aabb": [42.0, -22.0, 46.0, -16.0], "height": 2.4 },
+    { "id": "svc_gen", "kind": "非常用発電機 + UPS", "aabb": [42.0, -14.0, 46.0, -9.0], "height": 2.2 },
+    { "id": "svc_water", "kind": "受水槽 + 加圧ポンプ + 量水器", "aabb": [42.0, -6.0, 47.0, 0.0], "height": 2.6 },
+    { "id": "svc_gas", "kind": "ガス整圧器 + メーター", "aabb": [42.0, 2.0, 45.0, 6.0], "height": 1.6 },
+    { "id": "svc_data", "kind": "通信引込盤 (光配線盤)", "aabb": [42.0, 9.0, 44.0, 12.0], "height": 1.8 }
+  ],
+
+  "utilities": [
+    { "id": "util_elec_incoming", "kind": "electrical-underground", "path": [[44.0, -19.0], [40.0, -19.0], [36.0, -19.0]], "z": -0.3, "width": 0.26 },
+    { "id": "util_busway", "kind": "electrical-busway", "path": [[36.0, -19.0], [36.0, 0.0], [16.0, 0.0], [0.0, 0.0], [-16.0, 0.0], [-32.0, 0.0]], "z": 7.3, "width": 0.30 },
+    { "id": "util_branch_mach", "kind": "electrical-branch", "path": [[-20.0, 0.0], [-20.0, -15.0]], "z": 5.0, "width": 0.14 },
+    { "id": "util_branch_asm", "kind": "electrical-branch", "path": [[0.0, 0.0], [0.0, -4.0]], "z": 5.0, "width": 0.14 },
+    { "id": "util_air_ring", "kind": "compressed-air", "path": [[-36.0, -22.0], [36.0, -22.0], [36.0, 22.0], [-36.0, 22.0], [-36.0, -22.0]], "z": 4.0, "width": 0.18 },
+    { "id": "util_data", "kind": "data-backbone", "path": [[43.0, 10.5], [36.0, 10.5], [36.0, 18.0], [0.0, 18.0]], "z": 3.6, "width": 0.12 },
+    { "id": "util_water", "kind": "water-supply", "path": [[44.0, -3.0], [36.0, -3.0], [36.0, 18.0], [20.0, 18.0]], "z": -0.4, "width": 0.18 },
+    { "id": "util_hotwater", "kind": "hot-water", "path": [[36.0, 18.0], [24.0, 18.0]], "z": -0.35, "width": 0.12 },
+    { "id": "util_drainage", "kind": "drainage", "path": [[20.0, 18.0], [36.0, 18.0], [36.0, -23.0], [10.0, -23.0], [-30.0, -23.0]], "z": -0.6, "width": 0.22 },
+    { "id": "util_storm", "kind": "storm-drain", "path": [[-39.0, 24.0], [-39.0, -24.0], [0.0, -26.0], [40.0, -26.0]], "z": -0.5, "width": 0.26 },
+    { "id": "util_gas", "kind": "gas-supply", "path": [[43.5, 4.0], [36.0, 4.0], [36.0, -12.0], [-12.0, -12.0]], "z": -0.3, "width": 0.15 },
+    { "id": "util_fire", "kind": "fire-main", "path": [[-39.0, -22.0], [-39.0, 22.0], [39.0, 22.0], [39.0, -22.0]], "z": 0.6, "width": 0.18 }
+  ],
+
+  "fixtures": [
+    { "id": "lighting", "kind": "LED high-bay 150W", "size": 0.7, "points": [
+      [-30.0, -18.0, 7.0], [-18.0, -18.0, 7.0], [-6.0, -18.0, 7.0], [6.0, -18.0, 7.0], [18.0, -18.0, 7.0], [30.0, -18.0, 7.0],
+      [-30.0, -6.0, 7.0], [-18.0, -6.0, 7.0], [-6.0, -6.0, 7.0], [6.0, -6.0, 7.0], [18.0, -6.0, 7.0], [30.0, -6.0, 7.0],
+      [-30.0, 6.0, 7.0], [-18.0, 6.0, 7.0], [-6.0, 6.0, 7.0], [6.0, 6.0, 7.0], [18.0, 6.0, 7.0], [30.0, 6.0, 7.0],
+      [-30.0, 18.0, 7.0], [-18.0, 18.0, 7.0], [-6.0, 18.0, 7.0], [6.0, 18.0, 7.0], [18.0, 18.0, 7.0], [30.0, 18.0, 7.0]
+    ] },
+    { "id": "exit_lights", "kind": "誘導灯 + 非常照明", "size": 0.4, "points": [
+      [-14.0, -24.5, 2.6], [14.0, -24.5, 2.6], [39.0, 12.0, 2.6], [-39.0, 0.0, 2.6]
+    ] }
+  ],
+
+  "site_pavements": [
+    { "id": "site_road", "kind": "access-road (asphalt)", "rect": [-15.0, -44.0, -5.0, -25.0] },
+    { "id": "site_apron", "kind": "truck-apron (asphalt)", "rect": [-22.0, -32.0, 22.0, -25.0] },
+    { "id": "site_parking", "kind": "car-park (asphalt)", "rect": [-60.0, -14.0, -44.0, 14.0] },
+    { "id": "site_eastdrive", "kind": "service-drive (asphalt)", "rect": [40.0, -30.0, 54.0, 30.0] },
+    { "id": "site_walkway", "kind": "pedestrian walkway", "rect": [44.0, 11.0, 60.0, 15.0] }
+  ],
+  "site_greens": [
+    { "id": "site_landscape", "kind": "緑地+植栽", "rect": [-40.0, 26.0, 40.0, 40.0] },
+    { "id": "site_landscape", "kind": "緑地+植栽", "rect": [-60.0, 16.0, -44.0, 40.0] },
+    { "id": "site_landscape", "kind": "緑地+植栽", "rect": [-60.0, -44.0, -44.0, -16.0] }
+  ],
+  "site_structures": [
+    { "id": "site_fence", "kind": "メッシュフェンス", "aabb": [-62.0, -44.0, -15.0, -43.5], "height": 2.0 },
+    { "id": "site_fence", "kind": "メッシュフェンス", "aabb": [-5.0, -44.0, 62.0, -43.5], "height": 2.0 },
+    { "id": "site_fence", "kind": "メッシュフェンス", "aabb": [-62.0, 43.5, 62.0, 44.0], "height": 2.0 },
+    { "id": "site_fence", "kind": "メッシュフェンス", "aabb": [-62.0, -44.0, -61.5, 44.0], "height": 2.0 },
+    { "id": "site_fence", "kind": "メッシュフェンス", "aabb": [61.5, -44.0, 62.0, 44.0], "height": 2.0 },
+    { "id": "site_gate", "kind": "引込門扉 (スライドゲート)", "aabb": [-15.0, -44.0, -5.0, -43.6], "height": 2.2 }
+  ],
+  "site_posts": [
+    { "id": "site_poles", "kind": "外灯ポール", "x": -10.0, "y": -30.0, "height": 6.0 },
+    { "id": "site_poles", "kind": "外灯ポール", "x": -50.0, "y": -14.0, "height": 6.0 },
+    { "id": "site_poles", "kind": "外灯ポール", "x": -50.0, "y": 14.0, "height": 6.0 },
+    { "id": "site_poles", "kind": "外灯ポール", "x": 20.0, "y": -30.0, "height": 6.0 },
+    { "id": "site_poles", "kind": "外灯ポール", "x": 48.0, "y": -20.0, "height": 6.0 },
+    { "id": "site_poles", "kind": "外灯ポール", "x": 48.0, "y": 20.0, "height": 6.0 },
+    { "id": "site_bollards", "kind": "車止めボラード", "x": -18.0, "y": -25.8, "height": 0.6 },
+    { "id": "site_bollards", "kind": "車止めボラード", "x": -9.0, "y": -25.8, "height": 0.6 },
+    { "id": "site_bollards", "kind": "車止めボラード", "x": 0.0, "y": -25.8, "height": 0.6 },
+    { "id": "site_bollards", "kind": "車止めボラード", "x": 9.0, "y": -25.8, "height": 0.6 },
+    { "id": "site_bollards", "kind": "車止めボラード", "x": 18.0, "y": -25.8, "height": 0.6 },
+    { "id": "site_sign", "kind": "工場サイン看板", "x": -14.0, "y": -42.0, "height": 3.0 }
+  ]
+}

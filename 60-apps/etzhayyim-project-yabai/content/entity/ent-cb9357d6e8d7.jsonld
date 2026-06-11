@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-cb9357d6e8d7",
+  "entityId": "ent-cb9357d6e8d7",
+  "canonicalName": "ali muhammad abu turab",
+  "aliases": [
+    "ali muhammad abu turab"
+  ]
+}

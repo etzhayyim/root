@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.m365.sendDraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Send a previously created draft via Graph POST /users/{fromUpn}/messages/{id}/send. Post-approval transition from createDraft → sent. The draft is consumed (removed from Drafts, copy in Sent Items).",
+      "x-hostImportsMethod": "m365SendDraft",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "token": { "type": "string" },
+            "fromUpn": { "type": "string" },
+            "draftId": { "type": "string", "description": "Message id returned by createDraft" }
+          },
+          "required": ["token", "fromUpn", "draftId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }
+          },
+          "required": ["ok"]
+        }
+      }
+    }
+  }
+}

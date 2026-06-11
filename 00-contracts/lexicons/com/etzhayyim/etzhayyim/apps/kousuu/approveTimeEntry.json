@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kousuu.approveTimeEntry",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Approve (or reject) a submitted time entry. Only approvers with project-lead or firm-admin role may call. Approved entries become eligible for billing via seikyu.issueInvoice(includeApprovedTimeEntries=true).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["timeEntryDids", "decision"],
+          "properties": {
+            "timeEntryDids":{ "type": "array", "items": { "type": "string", "format": "did" } },
+            "decision":     { "type": "string", "enum": ["approve","reject"] },
+            "note":         { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["updated"],
+          "properties": {
+            "updated": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "timeEntryDid":   { "type": "string", "format": "did" },
+                  "approvalStatus": { "type": "string", "enum": ["approved","rejected"] }
+                }
+              }
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "Forbidden",        "description": "caller lacks approval role for one or more entries' project" },
+        { "name": "InvalidTransition","description": "one or more entries are not in 'submitted' state" }
+      ]
+    }
+  }
+}

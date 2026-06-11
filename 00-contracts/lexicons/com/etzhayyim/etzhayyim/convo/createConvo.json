@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.convo.createConvo",
+  "description": "Create a conversation. Extends chat.bsky.convo.getConvoForMembers concept — adds name, kind for group/channel convos.",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string",
+              "description": "etzhayyim extension: conversation kind",
+              "knownValues": ["dm", "group", "channel", "project"]
+            },
+            "members": {
+              "type": "array",
+              "description": "Initial member DIDs. Compatible with chat.bsky.convo member model.",
+              "items": { "type": "string", "format": "did" }
+            }
+          },
+          "required": [
+            "name"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rkey": { "type": "string" },
+            "uri": { "type": "string", "format": "at-uri" },
+            "cid": { "type": "string", "format": "cid" }
+          },
+          "required": ["rkey", "uri", "cid"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_org_yamato_cold_chain_delivery_exception"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-org-yamato"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="open_org_yamato_cold_chain_delivery_exception" name="Yamato cold-chain delivery exception" isExecutable="true">
+    <bpmn:startEvent id="Start" name="exception reported">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_ClassifyException"/>
+
+    <bpmn:serviceTask id="Task_ClassifyException" name="classify delivery exception">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.rules.evaluate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;open-org-yamato.cold-chain-exception.v1&quot;" target="ruleSet"/>
+          <zeebe:input source="={
+              vertexId:                vertexId,
+              organizationId:          organizationId,
+              shipmentId:              shipmentId,
+              originDepotId:           originDepotId,
+              destinationDepotId:      destinationDepotId,
+              temperatureBreach:       temperatureBreach,
+              minutesLate:             minutesLate,
+              damageReported:          damageReported,
+              customerContactRequired: customerContactRequired
+          }" target="facts"/>
+          <zeebe:output source="=exceptionSeverity" target="exceptionSeverity"/>
+          <zeebe:output source="=recoveryRequired" target="recoveryRequired"/>
+          <zeebe:output source="=findings" target="exceptionFindings"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_Classified</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Classified" sourceRef="Task_ClassifyException" targetRef="Task_SaveException"/>
+
+    <bpmn:serviceTask id="Task_SaveException" name="save exception">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_org_yamato&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:                 vertexId,
+              organization_id:           organizationId,
+              shipment_id:               shipmentId,
+              origin_depot_id:           originDepotId,
+              destination_depot_id:      destinationDepotId,
+              temperature_breach:        temperatureBreach,
+              minutes_late:              minutesLate,
+              damage_reported:           damageReported,
+              customer_contact_required: customerContactRequired,
+              exception_severity:        exceptionSeverity,
+              exception_findings:        exceptionFindings,
+              status:                    &quot;exception_open&quot;,
+              created_at:                string(now()),
+              owner_did:                 callerDid,
+              sensitivity_ord:           1,
+              org_id:                    callerDid,
+              user_id:                   callerDid,
+              actor_id:                  &quot;sys.bpmn.open-org-yamato&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Classified</bpmn:incoming>
+      <bpmn:outgoing>Flow_RecoveryGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_RecoveryGate" sourceRef="Task_SaveException" targetRef="Gate_RecoveryRequired"/>
+
+    <bpmn:exclusiveGateway id="Gate_RecoveryRequired" name="recovery required?" default="Flow_NoRecovery">
+      <bpmn:incoming>Flow_RecoveryGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Recovery</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoRecovery</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Recovery" sourceRef="Gate_RecoveryRequired" targetRef="Task_OpenRecovery">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=recoveryRequired = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoRecovery" sourceRef="Gate_RecoveryRequired" targetRef="Task_AuditException"/>
+
+    <bpmn:serviceTask id="Task_OpenRecovery" name="open recovery action">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_org_yamato&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:           recoveryVertexId,
+              parent_vid:          vertexId,
+              shipment_id:         shipmentId,
+              recovery_kind:       if temperatureBreach = true then &quot;cold_chain_review&quot; else if damageReported = true then &quot;damage_claim&quot; else &quot;customer_contact&quot;,
+              exception_severity:  exceptionSeverity,
+              status:              &quot;recovery_open&quot;,
+              created_at:          string(now()),
+              owner_did:           callerDid,
+              sensitivity_ord:     1,
+              org_id:              callerDid,
+              user_id:             callerDid,
+              actor_id:            &quot;sys.bpmn.open-org-yamato&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Recovery</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditRecovery</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditRecovery" sourceRef="Task_OpenRecovery" targetRef="Task_AuditRecovery"/>
+
+    <bpmn:serviceTask id="Task_AuditRecovery" name="audit recovery">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-org-yamato.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openOrg.yamato.coldChain.recovery&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, recoveryVertexId: recoveryVertexId, shipmentId: shipmentId, severity: exceptionSeverity}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditRecovery</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndRecovery</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndRecovery" sourceRef="Task_AuditRecovery" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditException" name="audit exception">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-org-yamato.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openOrg.yamato.coldChain.exception&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, shipmentId: shipmentId, severity: exceptionSeverity}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoRecovery</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_AuditException" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="recorded">
+      <bpmn:incoming>Flow_EndRecovery</bpmn:incoming>
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

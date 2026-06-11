@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.retake",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a retake (リテイク) — a frame-pinned review comment demanding revision. Targets any record type (cut / storyboard / layout / keyframe / colorTrace / composite). Open retakes flip cut.priority='retake' and surface in the Review Room.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["targetUri", "stage", "comment", "status", "createdAt"],
+        "properties": {
+          "targetUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the record being retaken."
+          },
+          "cutRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Cut the retake belongs to (for board priority aggregation)."
+          },
+          "stage": {
+            "type": "string",
+            "enum": ["script", "storyboard", "layout", "keyAnim", "inbetween", "colorDesign", "finish", "background", "composite", "edit", "sound", "delivery"],
+            "description": "Pipeline stage the retake applies to."
+          },
+          "timecodeFrame": {
+            "type": "integer",
+            "description": "Frame pin within the cut (for per-frame comments). Omit for cut-level retake."
+          },
+          "region": {
+            "type": "ref",
+            "ref": "#regionPin",
+            "description": "Optional image-space region pin (rectangle in normalized coords)."
+          },
+          "comment": {
+            "type": "string",
+            "description": "Review comment text."
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["nit", "minor", "major", "blocker"]
+          },
+          "author": {
+            "type": "string",
+            "description": "Reviewer DID (typ. director or episode director)."
+          },
+          "assignee": {
+            "type": "string",
+            "description": "DID expected to fix (overrides cut.assignees if set)."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["open", "acknowledged", "inProgress", "resolved", "wontFix"]
+          },
+          "resolvedByUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the new record that resolves this retake (e.g. updated keyframe)."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    },
+    "regionPin": {
+      "type": "object",
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "w": { "type": "number" },
+        "h": { "type": "number" }
+      }
+    }
+  }
+}

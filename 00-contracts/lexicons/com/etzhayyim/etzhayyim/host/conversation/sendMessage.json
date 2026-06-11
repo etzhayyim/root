@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.conversation.sendMessage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Send a message into an existing conversation session.",
+      "x-hostImportsMethod": "conversationSendMessage",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sessionId": {
+              "type": "string"
+            },
+            "content": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "sessionId",
+            "content"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "envelopeJson": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "envelopeJson"
+          ]
+        }
+      }
+    }
+  }
+}

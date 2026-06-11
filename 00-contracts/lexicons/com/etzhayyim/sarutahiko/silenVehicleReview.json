@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sarutahiko.silenVehicleReview",
+  "description": "Council 5-of-7 Safe attestation review for every new Wave / new vehicle type / new robot class / G7 fuel transition / gate amendment. Per ADR-2605252500 Council Lv6+ supermajority for any G/N amendment.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "reviewSubjectId": {"type": "string"},
+          "scope": {
+            "type": "string",
+            "knownValues": [
+              "r0-scaffold-baseline",
+              "r1-benchtop-prototype",
+              "r2-pilot-line",
+              "r3-community-scale",
+              "wave-1-class-8-cargo-truck",
+              "wave-2-mid-light-commercial",
+              "wave-3-civilian-specialty-fire-ambulance-cold-chain",
+              "g7-fuel-transition-r1-to-r2",
+              "robot-class-activation-kasane",
+              "robot-class-activation-tsutsumi",
+              "robot-class-activation-akari",
+              "robot-class-activation-norimichi",
+              "non-goal-amendment-tourist-bus",
+              "gate-amendment-G12-gvwr-revision"
+            ]
+          },
+          "councilSafeAddress": {"type": "string"},
+          "councilSignatures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "councilMemberDid": {"type": "string", "format": "did"},
+                "signature": {"type": "string"},
+                "timestamp": {"type": "string", "format": "datetime"}
+              }
+            },
+            "minItems": 5
+          },
+          "decision": {"type": "string", "knownValues": ["approve", "reject", "request-revision"]},
+          "rationale": {"type": "string"},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["reviewSubjectId", "scope", "councilSignatures", "decision", "recordedAt"]
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.applyA1Policy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "O-RAN A1 — apply / modify / delete a policy instance from Non-RT RIC (rApp) to a Near-RT RIC. Statement body persisted via vault:// ref + sha256 hash.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["rappId", "nearRtRicId", "policyTypeId", "useCase", "scopeKind", "scopeVid", "statementHash", "action", "observedAt"],
+          "properties": {
+            "policyInstanceId": { "type": "string" },
+            "rappId": { "type": "string" },
+            "nearRtRicId": { "type": "string" },
+            "policyTypeId": { "type": "string" },
+            "useCase": { "type": "string", "enum": ["qos_assurance", "traffic_steering", "energy_saving", "anomaly_detection", "slice_assurance", "rrm_optimization"] },
+            "scopeKind": { "type": "string", "enum": ["ueGroup", "snssai", "cellSite", "ranNode", "service"] },
+            "scopeVid": { "type": "string" },
+            "statementHash": { "type": "string" },
+            "statementRef": { "type": "string" },
+            "action": { "type": "string", "enum": ["create", "modify", "delete"] },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "policyInstanceId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

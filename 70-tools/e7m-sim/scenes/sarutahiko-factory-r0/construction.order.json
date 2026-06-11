@@ -1,0 +1,370 @@
+{
+  "of": "sarutahiko-factory-r0",
+  "steps": [
+    {
+      "seq": 1,
+      "id": "step:01-siteprep",
+      "name": "敷地造成・地業 Site prep + earthworks",
+      "trade": "earthworks",
+      "robot": "robot:doboku",
+      "zone": "site",
+      "duration_d": 10,
+      "reveals": [
+        "ground"
+      ]
+    },
+    {
+      "seq": 2,
+      "id": "step:02-incoming",
+      "name": "引込工事 (電気/水道/ガス/通信) Service connections",
+      "trade": "utility-service",
+      "robot": "robot:mep",
+      "zone": "site",
+      "duration_d": 12,
+      "reveals": [
+        "svc_elec",
+        "svc_gen",
+        "svc_water",
+        "svc_gas",
+        "svc_data"
+      ]
+    },
+    {
+      "seq": 3,
+      "id": "step:03-underground",
+      "name": "地中埋設配管 (給水/ガス/排水/雨水) Underground services",
+      "trade": "underground-mep",
+      "robot": "robot:mep",
+      "zone": "all",
+      "duration_d": 12,
+      "reveals": [
+        "util_water",
+        "util_hotwater",
+        "util_drainage",
+        "util_storm",
+        "util_gas"
+      ]
+    },
+    {
+      "seq": 4,
+      "id": "step:04-foundation",
+      "name": "基礎・土間コンクリート Foundation + RC slab",
+      "trade": "concrete",
+      "robot": "robot:printer",
+      "zone": "all",
+      "duration_d": 20,
+      "reveals": [
+        "floor"
+      ]
+    },
+    {
+      "seq": 5,
+      "id": "step:05-steel",
+      "name": "鉄骨建方 Steel column erection",
+      "trade": "steel-erection",
+      "robot": "robot:crane",
+      "zone": "all",
+      "duration_d": 16,
+      "reveals": [
+        "col_0",
+        "col_1",
+        "col_2",
+        "col_3",
+        "col_4",
+        "col_5",
+        "col_6",
+        "col_7",
+        "col_8",
+        "col_9",
+        "col_10",
+        "col_11"
+      ]
+    },
+    {
+      "seq": 6,
+      "id": "step:06-roofsteel",
+      "name": "屋根鉄骨・90m大スパントラス Roof trusses",
+      "trade": "steel-erection",
+      "robot": "robot:crane",
+      "zone": "all",
+      "duration_d": 14,
+      "reveals": [
+        "beam_0",
+        "beam_1",
+        "beam_2",
+        "beam_3"
+      ]
+    },
+    {
+      "seq": 7,
+      "id": "step:07-roofdeck",
+      "name": "屋根葺き・防水 Roof deck + waterproofing",
+      "trade": "roofing",
+      "robot": "robot:panel",
+      "zone": "all",
+      "duration_d": 10,
+      "reveals": []
+    },
+    {
+      "seq": 8,
+      "id": "step:08-cladding",
+      "name": "外装パネル + 建具 Wall cladding",
+      "trade": "cladding",
+      "robot": "robot:panel",
+      "zone": "all",
+      "duration_d": 16,
+      "reveals": [
+        "wall_s",
+        "wall_n",
+        "wall_w",
+        "wall_e"
+      ]
+    },
+    {
+      "seq": 9,
+      "id": "step:09-partition",
+      "name": "塗装ブース隔壁 Paint-booth partition",
+      "trade": "interior",
+      "robot": "robot:fitout",
+      "zone": "zone_paint",
+      "duration_d": 6,
+      "reveals": [
+        "wall_paint"
+      ]
+    },
+    {
+      "seq": 10,
+      "id": "step:10-elec-rough",
+      "name": "電気配線 (受電盤→ラック→幹線→分電盤) Electrical rough-in",
+      "trade": "electrical",
+      "robot": "robot:mep",
+      "zone": "all",
+      "duration_d": 16,
+      "reveals": [
+        "util_elec_incoming",
+        "util_busway",
+        "util_branch_frame",
+        "util_branch_ga"
+      ]
+    },
+    {
+      "seq": 11,
+      "id": "step:11-air-data",
+      "name": "圧空配管 + 通信幹線 + 換気/塗装AHU Mechanical",
+      "trade": "mechanical",
+      "robot": "robot:mep",
+      "zone": "all",
+      "duration_d": 10,
+      "reveals": [
+        "util_air_ring",
+        "util_data"
+      ]
+    },
+    {
+      "seq": 12,
+      "id": "step:12-lighting",
+      "name": "照明設置 (高天井LED + 誘導/非常灯) Lighting",
+      "trade": "electrical",
+      "robot": "robot:mep",
+      "zone": "all",
+      "duration_d": 8,
+      "reveals": [
+        "lighting",
+        "exit_lights"
+      ]
+    },
+    {
+      "seq": 13,
+      "id": "step:13-floorcoat",
+      "name": "床塗装・ゾーニング Epoxy floor + zoning",
+      "trade": "finishes",
+      "robot": "robot:printer",
+      "zone": "all",
+      "duration_d": 8,
+      "reveals": [
+        "zone_recv",
+        "zone_frame",
+        "zone_pwtrain",
+        "zone_cab",
+        "zone_paint",
+        "zone_ga",
+        "zone_eol"
+      ]
+    },
+    {
+      "seq": 14,
+      "id": "step:14-sanitary",
+      "name": "衛生設備 (給湯/便所/手洗/シャワー) Sanitary fit-out",
+      "trade": "plumbing",
+      "robot": "robot:mep",
+      "zone": "all",
+      "duration_d": 8,
+      "reveals": []
+    },
+    {
+      "seq": 15,
+      "id": "step:15-fire",
+      "name": "消防設備 (消火栓/火報/泡消火/SP) Fire + life-safety",
+      "trade": "fire-protection",
+      "robot": "robot:mep",
+      "zone": "all",
+      "duration_d": 12,
+      "reveals": [
+        "util_fire"
+      ]
+    },
+    {
+      "seq": 16,
+      "id": "step:16-machines",
+      "name": "重量機械据付 (プレス/治具/ダイナモ/CMM) Heavy machine install",
+      "trade": "machine-install",
+      "robot": "robot:fitout",
+      "zone": "all",
+      "duration_d": 20,
+      "reveals": [
+        "coil_rack",
+        "frame_jig_1",
+        "frame_jig_2",
+        "pwt_bench_1",
+        "pwt_bench_2",
+        "press_1",
+        "weld_jig_1",
+        "weld_jig_2",
+        "leak_test",
+        "ga_skid_1",
+        "ga_skid_2",
+        "dyno",
+        "eol_cmm"
+      ]
+    },
+    {
+      "seq": 17,
+      "id": "step:17-paintbooth",
+      "name": "塗装ブース据付 Paint-booth install",
+      "trade": "machine-install",
+      "robot": "robot:fitout",
+      "zone": "zone_paint",
+      "duration_d": 14,
+      "reveals": [
+        "paint_booth"
+      ]
+    },
+    {
+      "seq": 18,
+      "id": "step:18-marriage",
+      "name": "結合ガントリ据付 Marriage gantry install",
+      "trade": "machine-install",
+      "robot": "robot:fitout",
+      "zone": "zone_ga",
+      "duration_d": 8,
+      "reveals": [
+        "marriage_gantry"
+      ]
+    },
+    {
+      "seq": 19,
+      "id": "step:19-conveyor",
+      "name": "EMS搬送コンベア敷設 Conveyor spine install",
+      "trade": "material-handling",
+      "robot": "robot:fitout",
+      "zone": "all",
+      "duration_d": 8,
+      "reveals": [
+        "conv_main"
+      ]
+    },
+    {
+      "seq": 20,
+      "id": "step:20-robots",
+      "name": "ラインロボットセル設置 (arm6 溶接/塗装/艤装/検査)",
+      "trade": "robotics",
+      "robot": "robot:fitout",
+      "zone": "all",
+      "duration_d": 10,
+      "reveals": [
+        "cell_frame_1",
+        "cell_frame_2",
+        "cell_weld_1",
+        "cell_weld_2",
+        "cell_paint_1",
+        "cell_paint_2",
+        "cell_harness_1",
+        "cell_insp_1"
+      ]
+    },
+    {
+      "seq": 21,
+      "id": "step:21-site-pave",
+      "name": "外構舗装 (車道/ヤード/駐車/出荷ヤード) Site paving",
+      "trade": "civil-paving",
+      "robot": "robot:doboku",
+      "zone": "site",
+      "duration_d": 12,
+      "reveals": [
+        "site_road",
+        "site_apron",
+        "site_parking",
+        "site_ship_yard"
+      ]
+    },
+    {
+      "seq": 22,
+      "id": "step:22-site-flow",
+      "name": "外部動線 (歩道/区画線/車止め) External circulation",
+      "trade": "civil-finishes",
+      "robot": "robot:doboku",
+      "zone": "site",
+      "duration_d": 5,
+      "reveals": [
+        "site_walkway",
+        "site_bollards"
+      ]
+    },
+    {
+      "seq": 23,
+      "id": "step:23-site-fence",
+      "name": "外灯 + フェンス + 門扉 Site lighting + perimeter",
+      "trade": "site-electrical",
+      "robot": "robot:fitout",
+      "zone": "site",
+      "duration_d": 8,
+      "reveals": [
+        "site_poles",
+        "site_fence",
+        "site_gate"
+      ]
+    },
+    {
+      "seq": 24,
+      "id": "step:24-landscape",
+      "name": "植栽 + サイン Landscaping + signage",
+      "trade": "landscape",
+      "robot": "robot:fitout",
+      "zone": "site",
+      "duration_d": 6,
+      "reveals": [
+        "site_landscape",
+        "site_sign"
+      ]
+    },
+    {
+      "seq": 25,
+      "id": "step:25-commission",
+      "name": "通電・通水 + AGV/積込ロボット投入 + 試運転 Commissioning + go-live",
+      "trade": "commissioning",
+      "robot": "robot:fitout",
+      "zone": "all",
+      "duration_d": 16,
+      "reveals": [
+        "agv_1",
+        "agv_2",
+        "loader_1",
+        "loader_2",
+        "carrier_1",
+        "carrier_2",
+        "veh_stage_1",
+        "veh_stage_2"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+;; tatekata 建方 — actor manifest (Gen-3 kotoba-native)
+;; Construction (civil + MEP ≤2 story) — 5-phase Pregel orchestration
+;; ADR-2605250715 (R0 scaffold, 2026-05-25)
+{:actor/id        "tatekata"
+ :actor/glyph     "建"
+ :actor/tier      :tier-b
+ :actor/domain    "tatekata.etzhayyim.com"
+ :actor/purpose   "Construction (civil + MEP ≤2 story) — 5-phase linear Pregel orchestration: foundation_excavation → structural_assembly → mep_installation → finishing_handoff → commissioning. All phase progress + robot attestation (G3) recorded as kotoba Datoms (G6). Murakumo-only inference (G5). Member-driven project scoping; no proprietary robot control loops (G1). Charter-rider compliant sourcing (G5) + IPFS site-attestation pinning (G2)."
+ :actor/status    :r0
+ :actor/adr       "2605250715"
+ :actor/related   ["2605250700" "2605201400"]
+
+ :actor/charter-rider
+ {:rider/version "2.0"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "open-source-firmware-recipes" :gate/rule "All robot firmware (Giemon/Otete/Mimi) open-source (Apache 2.0 + Charter Rider); no proprietary control loops"}
+  {:gate/id "G2"  :gate/name "ipfs-pinned-site-attestation"  :gate/rule "Site survey photos + depth maps pinned to IPFS before human equipment enters (G2)"}
+  {:gate/id "G3"  :gate/name "witness-quorum-robots"        :gate/rule "Progress records signed by ≥2 distinct robot DIDs (Giemon + Otete + Mimi; G3)"}
+  {:gate/id "G5"  :gate/name "charter-rider-sourcing-audit" :gate/rule "Sourcing audit (no conflict minerals, no rare-earth for R0 scope); Charter Rider §2(a-h) compliance"}
+  {:gate/id "G6"  :gate/name "trajectory-determinism"       :gate/rule "Giemon joint angles logged @ 10 Hz; WASM state machine sealed (deterministic execution)"}
+  {:gate/id "G9"  :gate/name "transparency-mesh-30day"      :gate/rule "30-day mesh transparency notice required before site access"}
+  {:gate/id "G10" :gate/name "personnel-vetting"            :gate/rule "Personnel vetting (human supervisors, equipment operators)"}
+  {:gate/id "G11" :gate/name "kpi-caps"                     :gate/rule "Project scope ≤2 story, ≤5000 m² footprint (prevents scope creep)"}
+  {:gate/id "G12" :gate/name "waste-tracking"               :gate/rule "Material waste categorization (reused / recycled / landfill %)"}
+  {:gate/id "G13" :gate/name "murakumo-only"                :gate/rule "Inference is Murakumo-only (KotobaLLM 127.0.0.1:4000); external LLM prohibited (G5)"}
+  {:gate/id "G14" :gate/name "kotoba-eavt-native"           :gate/rule "State is kotoba EAVT Datoms (no SQL/RisingWave/Cypher)"}
+  {:gate/id "G15" :gate/name "tithe-non-fiat"               :gate/rule "Payments are USDC Base L2 + ERC-4337 + TitheRouter 10% (no Stripe/fiat)"}
+  {:gate/id "G16" :gate/name "no-server-key"                :gate/rule "Platform holds no key (member/operator signs attestations)"}
+  {:gate/id "G17" :gate/name "consent-bound"                :gate/rule "Real outward actions stay gated (compute-only R0; settlement stops at 'intent')"}
+  {:gate/id "G18" :gate/name "pii-encrypted"                :gate/rule "PII is encrypted (ADR-2605181100)"}]
+
+ :actor/cells
+ [{:cell/id "foundation_excavation"  :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "structural_assembly"    :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "mep_installation"       :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "finishing_handoff"      :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "commissioning"          :cell/kind :langgraph :cell/runtime :wasm}]
+
+ :actor/lex
+ [{:lex/id "siteAttestation"}
+  {:lex/id "materialAttestation"}
+  {:lex/id "constructionProgressRecord"}
+  {:lex/id "safetyIncidentReport"}
+  {:lex/id "settlement"}]
+
+ ;; legacy (gen-1) artifacts pending decommission per migration plan Phase 3/5
+ :actor/legacy
+ {:manifest    "manifest.jsonld"
+  :note "R0 scaffold: cells import-time RuntimeError on .solve(); activation awaits Council ratification + ADR-2605250715 Phase 1 engineering onboarding"}}

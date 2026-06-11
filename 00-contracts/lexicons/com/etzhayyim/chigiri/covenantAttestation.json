@@ -1,0 +1,99 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.covenantAttestation",
+  "description": "Generic religious-corp covenant attestation. Used for Adherent SBT issuance, marriage (covenant ceremony performed by musubi), naming, funeral attestation, and other state-function routing-around procedures per Charter §1.12. Schema-level enforcement of ceremony type enum + Council attestation chain + kotoba-datomic attestation lineage. R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "ceremonyType",
+          "covenantPartyDids",
+          "attestingDid",
+          "charterRiderScanPass",
+          "kotobaDatomicAttestationCid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 UTC timestamp of attestation emit."
+          },
+          "ceremonyType": {
+            "type": "string",
+            "knownValues": [
+              "sbt-issuance",
+              "marriage",
+              "naming",
+              "baptism-equivalent",
+              "funeral",
+              "vocation-vow",
+              "rededication",
+              "covenant-restoration"
+            ],
+            "description": "Type of covenant ceremony. State-function routing-around alternatives per Charter §1.12 (no state recognition required for internal effect)."
+          },
+          "covenantPartyDids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 1,
+            "description": "DID(s) of the covenant party/parties. 1 for sbt-issuance / naming / funeral; ≥2 for marriage; varies otherwise."
+          },
+          "musubiCeremonyCid": {
+            "type": "string",
+            "description": "IPFS CID of the musubi-actor ceremony record (when musubi performed the ceremony; chigiri only attests)."
+          },
+          "consentRecordCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Per-party consent record CIDs. Required for marriage / vocation-vow / rededication; optional for naming (parental consent for under-14 already handled at member onboarding)."
+          },
+          "ceremonyAdrCid": {
+            "type": "string",
+            "description": "ADR or template CID this ceremony followed (e.g., ADR-2605250200 religious_marriage)."
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Council seat DIDs attesting the ceremony (≥1 required for sbt-issuance; ≥2 for marriage; ≥3 for rededication / vocation-vow)."
+          },
+          "attestingDid": {
+            "type": "string",
+            "description": "DID of person/Council seat emitting this attestation."
+          },
+          "ceremonyLocationLandCid": {
+            "type": "string",
+            "description": "Optional. Land Registry CID for the ceremony location (waqf-equivalent inalienable donation per ADR-2605192245)."
+          },
+          "wellbecomingAttestationCid": {
+            "type": "string",
+            "description": "Charter §1.13 Wellbecoming attestation for the ceremony (Eros / Gore compliance check)."
+          },
+          "charterRiderScanPass": {
+            "type": "boolean",
+            "description": "Charter Rider §2(a)-(h) scan PASS for ceremony documentation (etzhayyim_organism.sensors.charter_rider.scan)."
+          },
+          "charterRiderScanRunCid": {
+            "type": "string",
+            "description": "IPFS CID of the Charter Rider scan report."
+          },
+          "kotobaDatomicAttestationCid": {
+            "type": "string",
+            "description": "Kotoba block CID of the on-chain attestation entry (ADR-2605262130)."
+          },
+          "sbtMintCid": {
+            "type": "string",
+            "description": "When ceremonyType=sbt-issuance, the Adherent SBT mint transaction CID."
+          },
+          "sbtBurnCid": {
+            "type": "string",
+            "description": "When ceremonyType=funeral, the Adherent SBT burn transaction CID (companion to inheritance chain handover)."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sarutahiko.marriageAttestation",
+  "description": "Final marriage attestation (L4). Chassis lowering + cab drop + powertrain mount + harness. ≥2 robot witness on critical fastener torque (G4). Per ADR-2605252500 L4.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "chassisId": {"type": "string"},
+          "inputs": {
+            "type": "object",
+            "properties": {
+              "frameAttestationCid": {"type": "string"},
+              "powertrainAttestationCid": {"type": "string"},
+              "cabBodyAttestationCid": {"type": "string"}
+            },
+            "required": ["frameAttestationCid", "powertrainAttestationCid", "cabBodyAttestationCid"]
+          },
+          "criticalTorques": {"type": "array", "items": {"type": "unknown"}},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["chassisId", "inputs", "criticalTorques", "attestingRobots"]
+      }
+    }
+  }
+}

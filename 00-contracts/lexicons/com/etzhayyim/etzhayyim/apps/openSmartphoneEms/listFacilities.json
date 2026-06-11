@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneEms.listFacilities",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List registered EMS manufacturing facilities",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "locationIso3": { "type": "string" },
+          "facilityType": { "type": "string" },
+          "rbaAuditStatus": { "type": "string" },
+          "conflictMineralCompliant": { "type": "boolean" },
+          "limit": { "type": "integer", "default": 50, "maximum": 200 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["facilities", "total"],
+          "properties": {
+            "facilities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["vertexId", "facilityId", "operatorName", "locationIso3", "facilityType"],
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "facilityId": { "type": "string" },
+                  "operatorName": { "type": "string" },
+                  "locationIso3": { "type": "string" },
+                  "city": { "type": "string" },
+                  "facilityType": { "type": "string" },
+                  "monthlyCapacityUnits": { "type": "integer" },
+                  "rbaAuditStatus": { "type": "string" },
+                  "conflictMineralCompliant": { "type": "boolean" }
+                }
+              }
+            },
+            "total": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

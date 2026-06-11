@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_real_estate_register_property" targetNamespace="https://etzhayyim.ai/bpmn/real-estate" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="real_estate_register_property" name="registerProperty" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Save</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="save property">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;vertex_real_estate_property&quot;" target="table"/><zeebe:input source="={vertex_id: vertexId, property_id: propertyId, canonical_property_key: canonicalPropertyKey, property_type: propertyType, country_iso2: countryIso2, country_iso3: countryIso3, admin1: admin1, admin2: admin2, city: city, postal_code: postalCode, address_text: addressText, latitude: latitude, longitude: longitude, geohash: geohash, land_area_sqm: landAreaSqm, floor_area_sqm: floorAreaSqm, building_area_sqm: buildingAreaSqm, rooms: rooms, bedrooms: bedrooms, bathrooms: bathrooms, year_built: yearBuilt, land_rights_type: landRightsType, registry_number: registryNumber, cadastral_id: cadastralId, source_id: sourceId, source_url: sourceUrl, data_hash: dataHash, observed_at: observedAt, status: &quot;active&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.real-estate&quot;}" target="values"/><zeebe:input source="=&quot;ignore&quot;" target="onConflict"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit"><bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/><zeebe:ioMapping><zeebe:input source="=&quot;did:web:real-estate.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;realEstate.registerProperty&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, propertyId: propertyId, canonicalPropertyKey: canonicalPropertyKey}" target="payload"/></zeebe:ioMapping></bpmn:extensionElements><bpmn:incoming>Flow_Audit</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing></bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

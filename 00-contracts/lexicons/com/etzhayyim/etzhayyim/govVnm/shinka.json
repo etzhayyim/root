@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.govVnm.shinka",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Post a periodic graph-visible Vietnam government organization update.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "default": 1
+            },
+            "postUpdates": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "posted": {
+              "type": "integer"
+            },
+            "touched": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

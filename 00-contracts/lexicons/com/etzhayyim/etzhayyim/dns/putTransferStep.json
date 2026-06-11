@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.dns.putTransferStep",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Server-side INSERT of a transferStep row into vertex_dns_transferStep (ADR-2605111200). Replaces direct Worker→Hyperdrive INSERT. Caller is sqExporter / cfRegistrar.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["rkey", "transferRequestUri", "step", "status", "actorDid", "occurredAt"],
+          "properties": {
+            "rkey": { "type": "string", "description": "Record key, unique per (actorDid, transferRequestUri, step)" },
+            "transferRequestUri": { "type": "string" },
+            "step": { "type": "string", "enum": ["disableAutoRenew", "unlock", "authCode", "dnsExport", "cfTransfer"] },
+            "status": { "type": "string", "enum": ["started", "succeeded", "failed", "skipped"] },
+            "actorDid": { "type": "string" },
+            "occurredAt": { "type": "string", "format": "datetime" },
+            "errorMessage": { "type": "string", "maxLength": 1024 },
+            "bindZoneFileUri": { "type": "string" },
+            "cfTransferId": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.debtReschedulingContract.recordContract",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bilateral sovereign debt rescheduling contract (bridges parisClub.flagNonParisHoldout + sovereign-debt + debt-transparency)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "contractId",
+            "debtorCountryIso3",
+            "creditorCountryIso3",
+            "contractKind",
+            "executedAt"
+          ],
+          "properties": {
+            "contractId": {
+              "type": "string"
+            },
+            "debtorCountryIso3": {
+              "type": "string"
+            },
+            "creditorCountryIso3": {
+              "type": "string"
+            },
+            "contractKind": {
+              "type": "string",
+              "enum": [
+                "bilateral_treaty",
+                "commercial_agreement",
+                "cacs_holdout",
+                "pari_passu",
+                "resource_backed",
+                "collateralized",
+                "currency_swap_debt",
+                "sdr_allocation",
+                "memo_of_understanding",
+                "facility_letter",
+                "amendment"
+              ]
+            },
+            "holdoutVid": {
+              "type": "string",
+              "description": "bridges parisClub.flagNonParisHoldout"
+            },
+            "executedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

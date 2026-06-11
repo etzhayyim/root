@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7c3951a24d9c",
+  "entityId": "ent-7c3951a24d9c",
+  "canonicalName": "mar azul",
+  "aliases": [
+    "mar azul"
+  ]
+}

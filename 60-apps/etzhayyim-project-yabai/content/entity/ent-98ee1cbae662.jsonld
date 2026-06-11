@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-98ee1cbae662",
+  "entityId": "ent-98ee1cbae662",
+  "canonicalName": "captain dynasty shipping l.l.c",
+  "aliases": [
+    "captain dynasty shipping l.l.c"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.force-rd-proposal",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Open-source R&D proposal for Transparent Religious Force (defensive technology / tactical doctrine / training method / detection system). Apache 2.0 + Charter Rider v2.0 mandatory. Dual-use analysis required. Per ADR-2605192315.",
+      "record": {
+        "type": "object",
+        "required": ["category", "title", "description", "designSpecCid", "safetyAnalysisCid", "dualUseAnalysis", "proposerDid", "proposedAt"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["defensive-technology", "tactical-doctrine", "training-method", "detection-system"]
+          },
+          "title": { "type": "string", "maxLength": 200 },
+          "description": { "type": "string", "maxLength": 4000 },
+          "designSpecCid": {
+            "type": "string",
+            "description": "IPFS CID of full design specification (markdown / PDF). Draft acceptable at proposal time."
+          },
+          "safetyAnalysisCid": {
+            "type": "string",
+            "description": "IPFS CID of safety analysis document. Required."
+          },
+          "dualUseAnalysis": {
+            "type": "string",
+            "maxLength": 8000,
+            "description": "Constitutional REQUIREMENT per ADR-2605192315 §4: explicit analysis of how this design could be misused by adversaries + mitigations. Charter Rider §2 exposure analysis included."
+          },
+          "intendedUse": {
+            "type": "string",
+            "enum": [
+              "religious-corp-self-defense",
+              "adherent-rescue",
+              "land-defense",
+              "training-curriculum",
+              "open-research",
+              "international-law-advocacy"
+            ]
+          },
+          "estimatedDevelopmentMonths": { "type": "integer", "minimum": 0 },
+          "estimatedBudgetUsdcMicros": { "type": "integer", "minimum": 0 },
+          "proposerDid": { "type": "string" },
+          "proposerSignature": { "type": "string" },
+          "proposedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

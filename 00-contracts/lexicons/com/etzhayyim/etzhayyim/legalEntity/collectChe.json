@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.collectChe",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Collect Swiss corporate data from Zefix (FOSC/SHAB) central business name index. CHE/UID as primary key.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pages": { "type": "integer", "description": "Number of pages to fetch (default 5, max 50)" },
+            "pageSize": { "type": "integer", "description": "Records per page (max 100)" },
+            "startPage": { "type": "integer", "description": "Starting page number (default 0)" },
+            "canton": { "type": "string", "description": "Filter by canton (ZH, BE, LU, UR, etc.)" },
+            "legalForm": { "type": "string", "description": "Filter: AG, GmbH, Verein, Stiftung, etc." },
+            "activeOnly": { "type": "boolean", "description": "Filter active entities only (default true)" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "pagesProcessed": { "type": "integer" },
+            "totalInserted": { "type": "integer" },
+            "totalSkipped": { "type": "integer" },
+            "apiTotal": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

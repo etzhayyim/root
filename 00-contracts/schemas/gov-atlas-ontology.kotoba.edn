@@ -1,0 +1,398 @@
+;; Gov-Atlas Ontology — canonical kotoba-EAVT vocabulary for the WORLD GOVERNMENT ATLAS
+;; ADR-2606021600 (ooyake 公)  (depends-on ADR-2606011000 engi-organism-ontology,
+;;   ADR-2605262130 kotoba substrate, ADR-2605312345 datom-first-class,
+;;   ADR-2605242330 gov-procedure coverage taxonomy [SCOPE AMENDED here],
+;;   ADR-2605212100 gov 5-layer taxonomy, ADR-2606013800 actor-profile dynamic did.json)
+;;
+;; PURPOSE: the canonical, content-addressed STRUCTURAL atlas of every government
+;; unit on Earth — supranational → country → region/subdivision → prefecture →
+;; municipality/ward → ministry → agency → bureau → division → section → 窓口 —
+;; each carrying 住所 (address) / 窓口 (service window) / 書式 (form) / 手続き
+;; (procedure) / BPMN. This is the READ-SIDE atlas that danjo (watch), kanae
+;; (fiscal viz), tsumugi (power-graph), toritsugi (citizen concierge) and
+;; himotoki (disclosure) all consume — the single SSoT for "who/where/how" of
+;; public administration.
+;;
+;; FOUR distinctions from sibling ontologies:
+;;   :gov.unit/*  the administrative node (recursive tree). A STRUCTURAL overlay,
+;;                NOT the karma/縁 node — it links to :organism (engi) via
+;;                :gov.unit/organism for the tsumugi power-graph, never duplicates it.
+;;   :gov.address/* :gov.window/* :gov.form/* :gov.procedure/* :gov.bpmn/*
+;;                the concrete service surface (住所/窓口/書式/手続き/BPMN), mirroring
+;;                the :company.address/* / :company.contact/* style of
+;;                public-company-ontology for cross-graph consistency.
+;;
+;; CONSTITUTIONAL (ADR-2606021600 §4):
+;;   - OBSERVATIONAL MIRROR ONLY (G3): the per-unit atlas DID
+;;     `did:web:etzhayyim.com:gov:<iso3>:...` is an etzhayyim civic-atlas MIRROR.
+;;     It NEVER claims to BE the government, NEVER is an official channel, NEVER
+;;     issues/accepts anything on a government's behalf (§2(c) impersonation ban).
+;;   - PUBLIC-DATA-ONLY (G4): only public official sources; respect robots/ToS/
+;;     rate-limits; no behind-auth access; no official's personal data beyond
+;;     public role-contact (G6 data-minimization).
+;;   - NON-FABRICATION (G5): every datom carries :*/provenance + :*/last-verified +
+;;     :*/sourcing (:authoritative | :representative). :representative rows are
+;;     illustrative and MUST NOT be counted as coverage.
+;;   - CIVIC WAYFINDING, NEVER A TARGET-LIST (G10): like tsumugi/watatsuna — a map
+;;     that helps a citizen FIND a service, never an attack-surface map of the state
+;;     (Transparent Religious Force discipline, ADR-2605192100 §1.12).
+;;
+;; STATUS: proposed R0 scaffold. NOT executed — no cell runs and no real-world data
+;; is ingested beyond the unverified-seed proof-of-model until Council Lv6+ ratifies
+;; ADR-2606021600 and the §4 outbound gates are honored.
+
+[;; ════════════════════════════════════════════════════════════════════════════
+ ;; :gov.unit/* — the administrative node (recursive tree)
+ ;; ════════════════════════════════════════════════════════════════════════════
+ {:db/ident :gov.unit/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "stable dotted unit key, e.g. gov.jpn / gov.jpn.mof / gov.jpn.mof.nta.tokyo.kojimachi / gov.jpn.city.13104"}
+ {:db/ident :gov.unit/atlas-did
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "etzhayyim civic-atlas MIRROR DID: did:web:etzhayyim.com:gov:<iso3>[:<level>:<code>]... — OBSERVATIONAL only (G3); never claims to BE the gov, never an official channel"}
+ {:db/ident :gov.unit/official-did
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "the government's OWN did:web/did:plc IF it publishes one (mirrored, never minted by us). Absent for nearly all units today"}
+ {:db/ident :gov.unit/parent
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref :gov.unit/id — the parent node in the administrative tree (absent only for :supranational / top :country)"}
+ {:db/ident :gov.unit/level
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":supranational :country :region :subdivision :prefecture :municipality :ward :ministry :agency :bureau :division :section :madoguchi (窓口) :legislature (legislative-branch body — parliament/congress) :court (judicial-branch body) :cabinet (executive body — government/cabinet of a country)"}
+ {:db/ident :gov.unit/branch
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc "branch of state: :executive :legislative :judicial :independent :local :intergovernmental — descriptive, never ranked"}
+ {:db/ident :gov.unit/cofog
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/many
+  :db/doc "UN COFOG functional code(s) this unit serves (e.g. 01.1 general public services, 10 social protection). Reconciles with the legacy gov* COFOG actor-bundles"}
+ {:db/ident :gov.unit/hq-city
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "headquarters city name (descriptive, for supranational/intergovernmental units that have no single jurisdiction address; e.g. an IGO's seat). Optional"}
+ {:db/ident :gov.unit/jurisdiction
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "ISO-3166: iso3 country + optional -subdivision, e.g. jpn / jpn-13 / usa-DC"}
+ {:db/ident :gov.unit/name-local
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "official name in the local language/script, e.g. 財務省 / 新宿区"}
+ {:db/ident :gov.unit/name-en
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "English name, e.g. Ministry of Finance"}
+ {:db/ident :gov.unit/name-romanized
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "romanized local name, e.g. Zaimu-shō"}
+ {:db/ident :gov.unit/official-url
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "canonical official website"}
+ {:db/ident :gov.unit/external-code
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/many
+  :db/doc "external authority key(s) for reconciliation, prefixed: jp-soshiki:<行政機関コード> / jp-jichitai:<全国地方公共団体コード> / iso3166-2:<code> / geonames:<id> (cite the registry)"}
+ {:db/ident :gov.unit/wikidata
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Wikidata QID for entity reconciliation (e.g. Q1023766 財務省)"}
+ {:db/ident :gov.unit/organism
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref :organism/id (engi-organism-ontology, ADR-2606011000) — the SAME unit as a node-in-relation for tsumugi's 縁/取 power-graph. Atlas = structure; engi = karma. Never duplicate the karma here"}
+ {:db/ident :gov.unit/geo
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "IPFS CID of a GeoJSON boundary OR a 'lat,lon' centroid string — jurisdiction footprint for findService proximity"}
+ {:db/ident :gov.unit/status
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":active :reorganized :superseded :dissolved — administrative lifecycle (as-of history via datom tx, not a mutated column)"}
+ {:db/ident :gov.unit/sourcing
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc "G5: :authoritative (verified against the official source) | :representative (illustrative/synthesized — NEVER counted as coverage)"}
+ {:db/ident :gov.unit/provenance
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "G5: source URL/citation the node was derived from"}
+ {:db/ident :gov.unit/last-verified
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "G5: ISO-8601 last verification timestamp; freshness cell re-checks within the window"}
+ {:db/ident :gov.unit/verification-status
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":unverified-seed | :maintainer-verified | :stale — downstream (toritsugi G14) MUST refuse action on :unverified-seed/:stale"}
+
+ ;; ════════════════════════════════════════════════════════════════════════════
+ ;; :gov.address/* — 住所 (physical/postal address of a unit or window)
+ ;; ════════════════════════════════════════════════════════════════════════════
+ {:db/ident :gov.address/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "stable address key, e.g. addr.gov.jpn.mof.hq"}
+ {:db/ident :gov.address/unit
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref :gov.unit/id this address belongs to"}
+ {:db/ident :gov.address/kind
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":headquarters :branch :madoguchi :mailing :registered"}
+ {:db/ident :gov.address/postal-code
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "postal/ZIP code, e.g. 100-8940"}
+ {:db/ident :gov.address/line-local
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "full address in local script, e.g. 東京都千代田区霞が関3-1-1"}
+ {:db/ident :gov.address/line-en
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "full address romanized/English"}
+ {:db/ident :gov.address/country
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "ISO-3 country code"}
+ {:db/ident :gov.address/lat
+  :db/valueType :db.type/double
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.address/lon
+  :db/valueType :db.type/double
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.address/geohash
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "geohash for findService proximity bucketing"}
+ {:db/ident :gov.address/phone
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "public switchboard/role phone (NOT an individual official's private line — G6)"}
+ {:db/ident :gov.address/hours
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "opening hours, e.g. 平日 8:30-17:15 (土日祝休)"}
+ {:db/ident :gov.address/sourcing
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc "G5 sourcing tier (:authoritative | :representative)"}
+ {:db/ident :gov.address/provenance
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.address/last-verified
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ ;; ════════════════════════════════════════════════════════════════════════════
+ ;; :gov.window/* — 窓口 (service counter / contact point)
+ ;; ════════════════════════════════════════════════════════════════════════════
+ {:db/ident :gov.window/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "stable window key, e.g. madoguchi.gov.jpn.city.13104.koseki-jumin"}
+ {:db/ident :gov.window/unit
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref :gov.unit/id that operates this window"}
+ {:db/ident :gov.window/address
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref :gov.address/id where the window is physically located"}
+ {:db/ident :gov.window/name-local
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "窓口/課 name, e.g. 戸籍住民課 住民記録係"}
+ {:db/ident :gov.window/name-en
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.window/handles
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/doc "ref :gov.procedure/id — the procedures this window serves (citizen wayfinding edge)"}
+ {:db/ident :gov.window/channel
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/many
+  :db/doc ":in-person :phone :online :mail :kiosk (コンビニ交付)"}
+ {:db/ident :gov.window/url
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "online window / portal URL if channel includes :online"}
+ {:db/ident :gov.window/appointment-required?
+  :db/valueType :db.type/boolean
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.window/hours
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.window/sourcing
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.window/provenance
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.window/last-verified
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ ;; ════════════════════════════════════════════════════════════════════════════
+ ;; :gov.procedure/* — 手続き (administrative procedure)
+ ;; ATLAS view (who/where/structure). The citizen-execution view (guide/draft/
+ ;; submit/track) lives in toritsugi (com.etzhayyim.toritsugi.procedure). Linked
+ ;; via :gov.procedure/toritsugi-ref — ooyake catalogs, toritsugi delivers.
+ ;; ════════════════════════════════════════════════════════════════════════════
+ {:db/ident :gov.procedure/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "stable procedure key, e.g. proc.jpn.juminhyo-utsushi"}
+ {:db/ident :gov.procedure/title-local
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "e.g. 住民票の写し交付請求"}
+ {:db/ident :gov.procedure/title-en
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.procedure/owner-unit
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref :gov.unit/id — the authority that owns/runs the procedure (所管)"}
+ {:db/ident :gov.procedure/jurisdiction
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.procedure/legal-basis
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "根拠法令, e.g. 住民基本台帳法 §12 (G5 mandatory — no procedure without a cited basis)"}
+ {:db/ident :gov.procedure/channel
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/many
+  :db/doc ":in-person :online :mail :kiosk"}
+ {:db/ident :gov.procedure/online-url
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.procedure/fee
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "fee as a string incl. currency + variance note, e.g. JPY 300 (自治体により200-400)"}
+ {:db/ident :gov.procedure/statutory-days
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "法定処理期間 in days (0 = 即日)"}
+ {:db/ident :gov.procedure/required-docs
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/many
+  :db/doc "必要書類 list"}
+ {:db/ident :gov.procedure/form
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/doc "ref :gov.form/id — the 書式 used by this procedure"}
+ {:db/ident :gov.procedure/window
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/doc "ref :gov.window/id — where it is filed"}
+ {:db/ident :gov.procedure/bpmn
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref :gov.bpmn/id — the process model"}
+ {:db/ident :gov.procedure/toritsugi-ref
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "procedureId in toritsugi's com.etzhayyim.toritsugi.procedure registry (e.g. jp-juminhyo-utsushi). ooyake = catalog; toritsugi = citizen delivery"}
+ {:db/ident :gov.procedure/sourcing
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.procedure/provenance
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.procedure/last-verified
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.procedure/verification-status
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":unverified-seed | :maintainer-verified | :stale"}
+
+ ;; ════════════════════════════════════════════════════════════════════════════
+ ;; :gov.form/* — 書式 (form / document template)
+ ;; ════════════════════════════════════════════════════════════════════════════
+ {:db/ident :gov.form/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "stable form key, e.g. form.jpn.juminhyo-seikyu"}
+ {:db/ident :gov.form/title-local
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.form/title-en
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.form/unit
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref :gov.unit/id that issues the form"}
+ {:db/ident :gov.form/format
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":pdf :web :paper :xml"}
+ {:db/ident :gov.form/url
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "official URL of the blank form"}
+ {:db/ident :gov.form/template-cid
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "IPFS CID of an archived copy of the blank form (immutable provenance)"}
+ {:db/ident :gov.form/chigiri-ref
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "chigiri template id (e.g. chigiri:gov:jp-juminhyo:v0) — the UPL-bounded fillable template chigiri owns; ooyake only points to it"}
+ {:db/ident :gov.form/version
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.form/sourcing
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.form/provenance
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :gov.form/last-verified
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ ;; ════════════════════════════════════════════════════════════════════════════
+ ;; :gov.bpmn/* — process-model link (BPMN 2.0 / Zeebe)
+ ;; ════════════════════════════════════════════════════════════════════════════
+ {:db/ident :gov.bpmn/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "stable bpmn key, e.g. bpmn.ooyake.find-service"}
+ {:db/ident :gov.bpmn/procedure
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref :gov.procedure/id this model serves (absent for atlas-generic models)"}
+ {:db/ident :gov.bpmn/path
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "repo path to the .bpmn definition, e.g. 00-contracts/bpmn/com/etzhayyim/ooyake/findService.bpmn"}
+ {:db/ident :gov.bpmn/engine
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":zeebe (Camunda 8) — matches the legacy gov* country stubs"}
+ {:db/ident :gov.bpmn/status
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":model-only (no engine deployed at R0) | :deployed"}]

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  yabai.crtshFuzzySearch — crt.sh Certificate Transparency fuzzy search.
+
+  Replaces (one half of): 60-apps/etzhayyim-project-yabai/tools/track-phishing-infra/expand-coverage.mjs
+  Callers loop brand-typosquat keywords (e.g. "whtaspp", "mastecard", "mstaer")
+  and aggregate the unique candidate list.
+
+  Pipeline:
+    1. generic.http.fetch  — GET https://crt.sh/?q=%{keyword}%&output=json
+                              (returns JSON array of cert rows; each row has
+                              name_value which may contain \n-separated SANs)
+    2. scriptTask          — FEEL: extract all SAN entries, dedup, lowercase,
+                              strip "*." wildcard prefix via substring-after
+    3. generic.audit.emit  — OCEL trail
+
+  Returns: `{siblings: [...], totalHits, status}`. Caller dedups across keywords,
+  filters against known domains + brand keywords.
+
+  NSID: com.etzhayyim.apps.yabai.crtshFuzzySearch
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yabai_crtsh_fuzzy_search"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="yabai_crtsh_fuzzy_search" name="yabai crtshFuzzySearch" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.yabai.crtshFuzzySearch", "version": 1, "resultTimeoutMs": 20000 }
+    </bpmn:documentation>
+
+    <!-- Body: { keyword: string } -->
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_ToEncode</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToEncode" sourceRef="Start" targetRef="Task_EncodeUrl"/>
+
+    <!-- Step 0: URL-encode keyword (same trick as enrichLegalEntity) -->
+    <bpmn:scriptTask id="Task_EncodeUrl" name="build crt.sh url">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=string join(["https://crt.sh/?q=%25", replace(replace(keyword, " ", "%20"), "&amp;", "%26"), "%25&amp;output=json"], "")'
+            resultVariable="crtshUrl"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToEncode</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToFetch</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToFetch" sourceRef="Task_EncodeUrl" targetRef="Task_Fetch"/>
+
+    <!-- Step 1: fetch JSON -->
+    <bpmn:serviceTask id="Task_Fetch" name="crt.sh fuzzy">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="=crtshUrl" target="url"/>
+          <zeebe:input source="=12" target="timeoutSec"/>
+          <zeebe:output source="=status"   target="fetchStatus"/>
+          <zeebe:output source="=bodyJson" target="fetchBody"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFetch</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToExtract</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToExtract" sourceRef="Task_Fetch" targetRef="Task_Extract"/>
+
+    <!-- Step 2: extract SAN values. crt.sh returns a list where each entry has
+         a `name_value` field containing newline-separated SAN DNS names. -->
+    <bpmn:scriptTask id="Task_Extract" name="flatten SAN names">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=if fetchStatus != 200 or fetchBody = null then [] else (for e in fetchBody return if e.name_value = null then [] else split(e.name_value, "\n"))'
+            resultVariable="nameGroups"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToExtract</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToFlatten</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToFlatten" sourceRef="Task_Extract" targetRef="Task_Flatten"/>
+
+    <!-- Step 2b: flatten nested list<list<string>> → list<string> via flatten() -->
+    <bpmn:scriptTask id="Task_Flatten" name="flatten groups + lower + dedup">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=distinct values(for n in flatten(nameGroups) return lower case(n))'
+            resultVariable="siblings"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFlatten</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Flatten" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit yabai.coverage.crtsh">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yabcom.etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;yabai.coverage.crtsh&quot;" target="action"/>
+          <zeebe:input source="={
+              keyword:     keyword,
+              fetchStatus: fetchStatus,
+              totalHits:   count(siblings)
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

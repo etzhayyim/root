@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.tools.persistScene3d",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pregel step 9 (terminal) of com.etzhayyim.apps.mangaka.composeScene3d. INSERTs the selected render + scene state into vertex_mangaka_scene_3d via asyncpg. Per ADR-2605111200 this MUST run on a pod (the appview CF Worker is edge-only). delete-then-insert per RW convention (no ON CONFLICT). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_persist_scene_3d.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["panelRkey", "iteration", "selected", "sceneDag", "cameraPlan", "posePlan", "score", "simSeed"],
+          "properties": {
+            "panelRkey":  { "type": "string" },
+            "iteration":  { "type": "integer", "minimum": 0 },
+            "selected":   { "type": "ref", "ref": "com.etzhayyim.apps.mangaka.tools.renderKeyframes#renderEntry" },
+            "sceneDag":   { "type": "unknown" },
+            "cameraPlan": { "type": "unknown" },
+            "posePlan":   { "type": "unknown" },
+            "score":      { "type": "number", "description": "Aggregate 7-axis vision score 0..1." },
+            "simSeed":    { "type": "integer" },
+            "dryRun":     { "type": "boolean", "description": "Skip INSERT for inspection paths." },
+            "rwUrl":      { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sceneRkey": { "type": "string", "description": "rkey of the new vertex_mangaka_scene_3d row, or null on dryRun." },
+            "status":    { "type": "string", "description": "'rendered' on success." },
+            "error":     { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sovereignGuarantee.recordGuarantee",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Explicit sovereign guarantee / letter of comfort / SOE backstop (bridges soeBalanceSheet.flagContingentRisk + sovereign-debt + debt-transparency)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "guaranteeId",
+            "guarantorIso3",
+            "instrumentKind",
+            "principalBusd",
+            "disclosedAt"
+          ],
+          "properties": {
+            "guaranteeId": {
+              "type": "string"
+            },
+            "guarantorIso3": {
+              "type": "string"
+            },
+            "beneficiaryLei": {
+              "type": "string"
+            },
+            "instrumentKind": {
+              "type": "string",
+              "enum": [
+                "explicit_guarantee",
+                "letter_of_comfort",
+                "cross_default_support",
+                "keep_well",
+                "credit_wrap",
+                "pri_multilateral",
+                "export_credit",
+                "central_bank_put",
+                "fiscal_agency"
+              ]
+            },
+            "principalBusd": {
+              "type": "number"
+            },
+            "soeRiskVid": {
+              "type": "string",
+              "description": "bridges soeBalanceSheet.flagContingentRisk"
+            },
+            "disclosedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

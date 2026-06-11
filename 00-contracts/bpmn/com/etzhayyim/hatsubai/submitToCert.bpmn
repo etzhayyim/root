@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  hatsubai.submitToCert — open a new cert submission round for a built
+  master candidate (Switch 2 / PS5 / Xbox / Steam, branched on
+  vertex_hatsubai_title.platform_code).
+
+  P1 skeleton. Full pipeline (target):
+    Start (XRPC com.etzhayyim.apps.hatsubai.submitToCert)
+      → Task_LoadBuild              generic.db.select vertex_hatsubai_title_build
+      → Task_GuardOpenSubmission    generic.db.select latest cert_submission;
+                                    throw if result='pending' for this build
+      → Task_ComputeRound           scriptTask FEEL (max(round_no)+1)
+      → Task_BuildRkey              scriptTask FEEL ("submission-" + epoch)
+      → Task_BuildVertexId          scriptTask FEEL (at:// uri)
+      → Task_BuildCreatedAt         scriptTask FEEL (now())
+      → Task_PersistSubmission      generic.db.insert vertex_hatsubai_cert_submission
+      → Task_DispatchAtRecord       generic.pds.dispatch createRecord
+      → Task_Audit                  generic.audit.emit hatsubai.cert.submitted
+      → End
+
+  P1 simplifications (deferred):
+    - Task_GuardOpenSubmission: precondition is checked by the caller
+      (XRPC handler) for now; BPMN-side guard lands after we have the
+      generic.db.select primitive wired for hatsubai.
+    - Task_DispatchAtRecord: optional once we move from
+      Worker-direct INSERT to a PDS-pipethrough variant (we don't, per
+      ADR-0036). Kept as a trace point.
+
+  NSID: com.etzhayyim.apps.hatsubai.submitToCert (XRPC procedure)
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/hatsubai-submit-to-cert-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_hatsubai_submit_to_cert"
+    targetNamespace="https://etzhayyim.ai/bpmn/hatsubai"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="hatsubai_submit_to_cert" name="hatsubai submitToCert" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.hatsubai.submitToCert", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="XRPC submitToCert">
+      <bpmn:outgoing>Flow_ToComputeRound</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToComputeRound" sourceRef="Start" targetRef="Task_ComputeRound"/>
+
+    <bpmn:scriptTask id="Task_ComputeRound" name="round_no = priorRound + 1">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=if priorRound = null then 1 else priorRound + 1" resultVariable="roundNo"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToComputeRound</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBuildRkey</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToBuildRkey" sourceRef="Task_ComputeRound" targetRef="Task_BuildRkey"/>
+
+    <bpmn:scriptTask id="Task_BuildRkey" name='rkey = "submission-" + epoch'>
+      <bpmn:extensionElements>
+        <zeebe:script expression='="submission-" + string(processInstanceKey)' resultVariable="rkey"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBuildRkey</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBuildVertexId</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToBuildVertexId" sourceRef="Task_BuildRkey" targetRef="Task_BuildVertexId"/>
+
+    <bpmn:scriptTask id="Task_BuildVertexId" name="vertexId = at://...">
+      <bpmn:extensionElements>
+        <zeebe:script expression='="at://did:web:hatsubcom.etzhayyim.ai/com.etzhayyim.apps.hatsubai.certSubmission/" + rkey' resultVariable="vertexId"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBuildVertexId</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBuildCreatedAt</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToBuildCreatedAt" sourceRef="Task_BuildVertexId" targetRef="Task_BuildCreatedAt"/>
+
+    <bpmn:scriptTask id="Task_BuildCreatedAt" name="createdAt = now()">
+      <bpmn:extensionElements>
+        <zeebe:script expression='=string(date and time(now()))' resultVariable="createdAt"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBuildCreatedAt</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToPersist</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToPersist" sourceRef="Task_BuildCreatedAt" targetRef="Task_PersistSubmission"/>
+
+    <!-- Persist: generic.db.insert into vertex_hatsubai_cert_submission.
+         result='pending' until advanceCertSubmission.bpmn flips it. -->
+    <bpmn:serviceTask id="Task_PersistSubmission" name="INSERT vertex_hatsubai_cert_submission">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source='="vertex_hatsubai_cert_submission"' target="table"/>
+          <zeebe:input source='={
+            "vertex_id": vertexId,
+            "_seq": 0,
+            "sensitivity_ord": 0,
+            "owner_did": "did:web:hatsubcom.etzhayyim.ai",
+            "build_did": buildDid,
+            "round_no": roundNo,
+            "submitted_at": createdAt,
+            "result": "pending",
+            "reviewer_note_uri": if reviewerNoteUri = null then "" else reviewerNoteUri,
+            "fail_count": 0,
+            "must_fail_count": 0,
+            "actor_did": "did:erc725:etzhayyim:260425:hatsubai",
+            "org_did": "did:erc725:etzhayyim:260425:etzhayim",
+            "created_at": createdAt
+          }' target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPersist</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_PersistSubmission" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit hatsubai.cert.submitted">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source='="did:web:hatsubcom.etzhayyim.ai"' target="repo"/>
+          <zeebe:input source='="com.etzhayyim.bpmn.audit"' target="collection"/>
+          <zeebe:input source='="create"' target="action"/>
+          <zeebe:input source='={
+            "event": "hatsubai.cert.submitted",
+            "buildDid": buildDid,
+            "submissionUri": vertexId,
+            "roundNo": roundNo,
+            "createdAt": createdAt
+          }' target="recordJson"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="submission opened">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

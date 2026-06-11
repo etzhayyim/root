@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_network_request_change"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-network"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="open_network_request_change" name="変更申請" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_ClassifyRisk"/>
+
+    <!--
+      risk:
+        high   = changeType in {emergency-patch, retire} OR affectedCustomers >= 1000
+        medium = 100..999
+        low    = < 100
+      requireCabApproval = risk = "high"
+    -->
+    <bpmn:serviceTask id="Task_ClassifyRisk" name="risk 分類">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok LIMIT 1&quot;" target="query"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=if list contains([&quot;emergency-patch&quot;,&quot;retire&quot;], changeType) or affectedCustomers &gt;= 1000 then &quot;high&quot;
+                                else if affectedCustomers &gt;= 100 then &quot;medium&quot;
+                                else &quot;low&quot;" target="risk"/>
+          <zeebe:output source="=list contains([&quot;emergency-patch&quot;,&quot;retire&quot;], changeType) or affectedCustomers &gt;= 1000" target="requireCabApproval"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_ClassifyRisk" targetRef="Task_SaveChange"/>
+
+    <bpmn:serviceTask id="Task_SaveChange" name="change 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_network_change&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:             vertexId,
+              operator_org_id:       operatorOrgId,
+              target_vertex_id:      targetVertexId,
+              change_type:           changeType,
+              narrative:             narrative,
+              affected_customers:    affectedCustomers,
+              risk:                  risk,
+              require_cab_approval:  requireCabApproval,
+              status:                &quot;requested&quot;,
+              requested_at:          requestedAt,
+              created_at:            string(now()),
+              owner_did:             callerDid,
+              sensitivity_ord:       1,
+              org_id:                operatorOrgId,
+              user_id:               callerDid,
+              actor_id:              &quot;sys.bpmn.open-network&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_SaveChange" targetRef="Gate"/>
+
+    <bpmn:exclusiveGateway id="Gate" name="CAB必要?" default="Flow_AutoApprove">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Cab</bpmn:outgoing>
+      <bpmn:outgoing>Flow_AutoApprove</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Cab" sourceRef="Gate" targetRef="Task_CabAudit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=requireCabApproval = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_AutoApprove" sourceRef="Gate" targetRef="Task_AutoAudit"/>
+
+    <bpmn:serviceTask id="Task_CabAudit" name="audit change.cab.request">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-network.etzhayyim.com:core&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openNetwork.change.cabRequest&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, risk: risk, changeType: changeType, affectedCustomers: affectedCustomers}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Cab</bpmn:incoming><bpmn:outgoing>Flow_EndC</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndC" sourceRef="Task_CabAudit" targetRef="End_C"/>
+
+    <bpmn:serviceTask id="Task_AutoAudit" name="audit change.autoApprove">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-network.etzhayyim.com:core&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openNetwork.change.autoApprove&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, risk: risk, changeType: changeType}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AutoApprove</bpmn:incoming><bpmn:outgoing>Flow_EndA</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndA" sourceRef="Task_AutoAudit" targetRef="End_A"/>
+
+    <bpmn:endEvent id="End_A"><bpmn:incoming>Flow_EndA</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_C"><bpmn:incoming>Flow_EndC</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

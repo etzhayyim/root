@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "etzhayyim": {
+      "command": "/Users/junkawasaki/github/etzhayyim-root/70-tools/e7m/.venv/bin/e7m-mcp",
+      "args": [],
+      "env": {
+        "E7M_VIZ_URL": "http://127.0.0.1:8081"
+      }
+    },
+    "open-seiyaku-mcp": {
+      "command": "npx",
+      "args": ["tsx", "/Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/mcp/open-seiyaku-mcp/src/cli.ts"]
+    }
+  }
+}

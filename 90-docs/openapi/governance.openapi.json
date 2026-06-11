@@ -1,0 +1,727 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "governance XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://governance.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.governance.approveAllFollowRequests": {
+      "post": {
+        "summary": "com.etzhayyim.governance.approveAllFollowRequests",
+        "operationId": "com.etzhayyim.governance.approveAllFollowRequests",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "approvedAll": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "approvedAll"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.approveFollowRequest": {
+      "post": {
+        "summary": "com.etzhayyim.governance.approveFollowRequest",
+        "operationId": "com.etzhayyim.governance.approveFollowRequest",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "did"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "approved": {
+                      "type": "boolean"
+                    },
+                    "did": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "approved",
+                    "did"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.checkAccess": {
+      "get": {
+        "summary": "com.etzhayyim.governance.checkAccess",
+        "operationId": "com.etzhayyim.governance.checkAccess",
+        "parameters": [
+          {
+            "name": "targetDid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "method",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "allowed": {
+                      "type": "boolean"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "allowed"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.createLabel": {
+      "post": {
+        "summary": "com.etzhayyim.governance.createLabel",
+        "operationId": "com.etzhayyim.governance.createLabel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "$ref": "#/components/schemas/com_atproto_label_defs_label"
+                  }
+                },
+                "required": [
+                  "label"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rkey": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "format": "at-uri"
+                    },
+                    "cid": {
+                      "type": "string",
+                      "format": "cid"
+                    }
+                  },
+                  "required": [
+                    "rkey",
+                    "uri",
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.getPolicy": {
+      "get": {
+        "summary": "com.etzhayyim.governance.getPolicy",
+        "operationId": "com.etzhayyim.governance.getPolicy",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ownerDid",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "rules": {
+                      "type": "object"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "rules",
+                    "updatedAt"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.queryLabels": {
+      "get": {
+        "summary": "com.etzhayyim.governance.queryLabels",
+        "operationId": "com.etzhayyim.governance.queryLabels",
+        "parameters": [
+          {
+            "name": "uriPatterns",
+            "in": "query",
+            "required": false,
+            "description": "List of AT URI patterns to match. Compatible with com.atproto.label.queryLabels.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "sources",
+            "in": "query",
+            "required": false,
+            "description": "Optional list of label source DIDs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "did"
+              }
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 250,
+              "default": 50
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "labels": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/com_atproto_label_defs_label"
+                      }
+                    },
+                    "cursor": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "labels"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.registerManifest": {
+      "post": {
+        "summary": "com.etzhayyim.governance.registerManifest",
+        "operationId": "com.etzhayyim.governance.registerManifest",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "manifestJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "manifestJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "registered": {
+                      "type": "boolean"
+                    },
+                    "appId": {
+                      "type": "string"
+                    },
+                    "policyCount": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "registered",
+                    "appId",
+                    "policyCount"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.registerMethodPolicy": {
+      "post": {
+        "summary": "com.etzhayyim.governance.registerMethodPolicy",
+        "operationId": "com.etzhayyim.governance.registerMethodPolicy",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "method": {
+                    "type": "string"
+                  },
+                  "requiredRoles": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "trustLevel": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "method"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "method": {
+                      "type": "string"
+                    },
+                    "registered": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "method",
+                    "registered"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.registerPolicy": {
+      "post": {
+        "summary": "com.etzhayyim.governance.registerPolicy",
+        "operationId": "com.etzhayyim.governance.registerPolicy",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "rules": {
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name",
+                  "rules"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "registered": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "registered"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.registerRoleBindings": {
+      "post": {
+        "summary": "com.etzhayyim.governance.registerRoleBindings",
+        "operationId": "com.etzhayyim.governance.registerRoleBindings",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "appNanoid": {
+                    "type": "string"
+                  },
+                  "roles": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "required": [
+                  "appNanoid",
+                  "roles"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "registered": {
+                      "type": "boolean"
+                    },
+                    "bound": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "registered",
+                    "bound"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.rejectFollowRequest": {
+      "post": {
+        "summary": "com.etzhayyim.governance.rejectFollowRequest",
+        "operationId": "com.etzhayyim.governance.rejectFollowRequest",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "did"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rejected": {
+                      "type": "boolean"
+                    },
+                    "did": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rejected",
+                    "did"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.resolveActorVisibility": {
+      "get": {
+        "summary": "com.etzhayyim.governance.resolveActorVisibility",
+        "operationId": "com.etzhayyim.governance.resolveActorVisibility",
+        "parameters": [
+          {
+            "name": "actor",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sensitivity": {
+                      "type": "string"
+                    },
+                    "tier": {
+                      "type": "integer"
+                    },
+                    "visible": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "sensitivity",
+                    "tier",
+                    "visible"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.governance.setActorSensitivity": {
+      "post": {
+        "summary": "com.etzhayyim.governance.setActorSensitivity",
+        "operationId": "com.etzhayyim.governance.setActorSensitivity",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sensitivity": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "sensitivity"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "sensitivity": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "sensitivity"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sekkei.drawing",
+  "description": "設計図・技術図面のマスタ登録。図番体系: {projectCode}-{assemblyCode}-{seqNo}。CAD ファイルは Drive/B2 blob ref。currentRevNo が最新改訂番号。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["drawingId", "title", "drawingType", "ownerDid"],
+        "properties": {
+          "drawingId": { "type": "string", "description": "図番 (例: etzhayyim-AGM-0001)" },
+          "title": { "type": "string" },
+          "drawingType": {
+            "type": "string",
+            "enum": ["assembly", "detail", "schematic", "wiring", "layout", "bom", "spec", "other"],
+            "description": "組立図/部品図/回路図/配線図/レイアウト図/BOM/仕様書/その他"
+          },
+          "ownerDid": { "type": "string", "description": "設計責任者 DID" },
+          "projectCode": { "type": "string" },
+          "assemblyCode": { "type": "string" },
+          "currentRevNo": { "type": "string", "description": "最新改訂番号 (例: A, B, 01)" },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "review", "approved", "released", "obsolete"],
+            "description": "草案/レビュー中/承認済/リリース済/廃版"
+          },
+          "cadFileRef": { "type": "string", "description": "CAD ファイル blob ref (Drive または B2)" },
+          "pdfFileRef": { "type": "string", "description": "PDF 閲覧用 blob ref" },
+          "linkedActorDid": {
+            "type": "string",
+            "description": "対象機器の actor DID (例: did:web:nogu.etzhayyim.com:item:{serialId})"
+          },
+          "tsukuruManufacturerDid": { "type": "string", "description": "製造委託先 tsukuru 製造業者 DID" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

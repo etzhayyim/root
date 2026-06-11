@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_esg_risk_rating_score" targetNamespace="https://etzhayyim.ai/bpmn/open-esg-risk-rating" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_esg_risk_rating_score" name="ESG score" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="score">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;vertex_open_esg_rating&quot;" target="table"/><zeebe:input source="={vertex_id: vertexId, rating_id: ratingId, entity_lei: entityLei, agency: agency, env_score: envScore, social_score: socialScore, gov_score: govScore, composite_score: compositeScore, cii_vid: ciiVid, audit_vid: auditVid, green_bunker_vid: greenBunkerVid, rating_tier: if compositeScore &gt;= 70 then &quot;leader&quot; else if compositeScore &gt;= 50 then &quot;average&quot; else if compositeScore &gt;= 30 then &quot;laggard&quot; else &quot;non-compliant&quot;, published_at: publishedAt, status: &quot;published&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-esg-risk-rating&quot;}" target="values"/><zeebe:input source="=&quot;ignore&quot;" target="onConflict"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-esg-risk-rating.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;openEsgRiskRating.score.publish&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, entityLei: entityLei, compositeScore: compositeScore}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

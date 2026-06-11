@@ -1,0 +1,2412 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "host XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://host.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.host.virtualActor.invoke": {
+      "post": {
+        "summary": "Invoke a method on a virtual actor (lifecycle-managed, reentrant).",
+        "operationId": "com.etzhayyim.host.virtualActor.invoke",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "actorType": {
+                    "type": "string"
+                  },
+                  "actorId": {
+                    "type": "string"
+                  },
+                  "method": {
+                    "type": "string"
+                  },
+                  "paramsJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "actorType",
+                  "actorId",
+                  "method",
+                  "paramsJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "resultJson": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "resultJson"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.telemetry.emitMetric": {
+      "post": {
+        "summary": "Emit an OTEL metric sample.",
+        "operationId": "com.etzhayyim.host.telemetry.emitMetric",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  },
+                  "tagsJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "value",
+                  "tagsJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.telemetry.log": {
+      "post": {
+        "summary": "Emit a structured log line (OTEL logs).",
+        "operationId": "com.etzhayyim.host.telemetry.log",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "level": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "attributesJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "level",
+                  "message",
+                  "attributesJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.storage.getObject": {
+      "get": {
+        "summary": "Get an object from the storage satellite.",
+        "operationId": "com.etzhayyim.host.storage.getObject",
+        "parameters": [
+          {
+            "name": "bucket",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "string",
+                      "description": "base64-encoded bytes"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.storage.putObject": {
+      "post": {
+        "summary": "Put an object to the storage satellite (bucket/key addressed).",
+        "operationId": "com.etzhayyim.host.storage.putObject",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bucket": {
+                    "type": "string"
+                  },
+                  "key": {
+                    "type": "string"
+                  },
+                  "data": {
+                    "type": "string",
+                    "description": "base64-encoded bytes"
+                  },
+                  "contentType": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "bucket",
+                  "key",
+                  "data",
+                  "contentType"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "etag": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "etag"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.pubsub.publish": {
+      "post": {
+        "summary": "Publish a message to a pubsub topic (at-least-once).",
+        "operationId": "com.etzhayyim.host.pubsub.publish",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "topic": {
+                    "type": "string"
+                  },
+                  "payload": {
+                    "type": "string",
+                    "description": "base64-encoded bytes"
+                  }
+                },
+                "required": [
+                  "topic",
+                  "payload"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.pubsub.pull": {
+      "get": {
+        "summary": "Pull up to N messages from a topic.",
+        "operationId": "com.etzhayyim.host.pubsub.pull",
+        "parameters": [
+          {
+            "name": "topic",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "maxMessages",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "envelopesJson": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "envelopesJson"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.ocel.emitEvent": {
+      "post": {
+        "summary": "Emit an OCEL event (object-centric event log).",
+        "operationId": "com.etzhayyim.host.ocel.emitEvent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "eventJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "eventJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.m365.acquireAppToken": {
+      "post": {
+        "summary": "Acquire a Microsoft Graph app-only access token via client credentials flow. Uses tenant secret from Cloudflare Secrets Store.",
+        "operationId": "com.etzhayyim.host.m365.acquireAppToken",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string"
+                    },
+                    "expires_in": {
+                      "type": "integer",
+                      "description": "seconds until expiry"
+                    },
+                    "scope": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "access_token",
+                    "expires_in"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.m365.batchMoveMessages": {
+      "post": {
+        "summary": "Move up to 20 messages to a well-known folder via Graph $batch API.",
+        "operationId": "com.etzhayyim.host.m365.batchMoveMessages",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "upn": {
+                    "type": "string"
+                  },
+                  "messageIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "targetFolder": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token",
+                  "upn",
+                  "messageIds",
+                  "targetFolder"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "ok": {
+                            "type": "boolean"
+                          },
+                          "status": {
+                            "type": "integer"
+                          },
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "succeeded": {
+                      "type": "integer"
+                    },
+                    "failed": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "results",
+                    "succeeded",
+                    "failed"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.m365.createDraft": {
+      "post": {
+        "summary": "Create a draft email via Graph POST /users/{fromUpn}/messages. The message lands in the Drafts folder and is NOT sent. Returns the draft id + Outlook web link for human review/approval. Used for external-recipient policy (draft_only).",
+        "operationId": "com.etzhayyim.host.m365.createDraft",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "fromUpn": {
+                    "type": "string"
+                  },
+                  "to": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "cc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "bcc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "subject": {
+                    "type": "string"
+                  },
+                  "bodyHtml": {
+                    "type": "string"
+                  },
+                  "bodyText": {
+                    "type": "string"
+                  },
+                  "importance": {
+                    "type": "string",
+                    "enum": [
+                      "low",
+                      "normal",
+                      "high"
+                    ],
+                    "default": "normal"
+                  },
+                  "replyTo": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "token",
+                  "fromUpn",
+                  "to",
+                  "subject"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Graph message id (unique to the fromUpn mailbox)"
+                    },
+                    "webLink": {
+                      "type": "string",
+                      "description": "Outlook web URL for the draft"
+                    },
+                    "conversationId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.m365.enumerateUsers": {
+      "get": {
+        "summary": "Enumerate tenant users matching a UPN domain filter. Uses ConsistencyLevel=eventual for advanced filters.",
+        "operationId": "com.etzhayyim.host.m365.enumerateUsers",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "description": "App-only Graph access token",
+            "schema": {
+              "type": "string",
+              "description": "App-only Graph access token"
+            }
+          },
+          {
+            "name": "upnDomainSuffix",
+            "in": "query",
+            "required": false,
+            "description": "Filter: endsWith(userPrincipalName, suffix), e.g. '@etzhayyim.com'",
+            "schema": {
+              "type": "string",
+              "description": "Filter: endsWith(userPrincipalName, suffix), e.g. '@etzhayyim.com'"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 999,
+              "default": 999
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "userPrincipalName": {
+                            "type": "string"
+                          },
+                          "mail": {
+                            "type": "string"
+                          },
+                          "displayName": {
+                            "type": "string"
+                          },
+                          "accountEnabled": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "users"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.m365.fetchMailFolders": {
+      "get": {
+        "summary": "Fetch all mail folders (recursive childFolders) for a user. Returns flat id→displayName map.",
+        "operationId": "com.etzhayyim.host.m365.fetchMailFolders",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "upn",
+            "in": "query",
+            "required": true,
+            "description": "Target user principal name",
+            "schema": {
+              "type": "string",
+              "description": "Target user principal name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "folders": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "displayName": {
+                            "type": "string"
+                          },
+                          "parentFolderId": {
+                            "type": "string"
+                          },
+                          "totalItemCount": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "folders"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.m365.fetchMessagesPage": {
+      "get": {
+        "summary": "Fetch one page of /users/{upn}/messages. Pagination via nextLink. Classification (folder → signal_class, sender_kind) is caller responsibility.",
+        "operationId": "com.etzhayyim.host.m365.fetchMessagesPage",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "upn",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "description": "ISO8601: receivedDateTime >= since. Omit for full sync.",
+            "schema": {
+              "type": "string",
+              "description": "ISO8601: receivedDateTime >= since. Omit for full sync."
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 999,
+              "default": 999
+            }
+          },
+          {
+            "name": "nextLink",
+            "in": "query",
+            "required": false,
+            "description": "OData @odata.nextLink for pagination",
+            "schema": {
+              "type": "string",
+              "description": "OData @odata.nextLink for pagination"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "messages": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "nextLink": {
+                      "type": "string",
+                      "description": "null/empty when no more pages"
+                    }
+                  },
+                  "required": [
+                    "messages"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.m365.listDrafts": {
+      "get": {
+        "summary": "List drafts in /users/{fromUpn}/mailFolders/drafts/messages (newest first). Used for approval UIs / audit trails.",
+        "operationId": "com.etzhayyim.host.m365.listDrafts",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fromUpn",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "drafts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "subject": {
+                            "type": "string"
+                          },
+                          "toRecipients": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "createdDateTime": {
+                            "type": "string"
+                          },
+                          "lastModifiedDateTime": {
+                            "type": "string"
+                          },
+                          "webLink": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "drafts"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.m365.sendDraft": {
+      "post": {
+        "summary": "Send a previously created draft via Graph POST /users/{fromUpn}/messages/{id}/send. Post-approval transition from createDraft → sent. The draft is consumed (removed from Drafts, copy in Sent Items).",
+        "operationId": "com.etzhayyim.host.m365.sendDraft",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "fromUpn": {
+                    "type": "string"
+                  },
+                  "draftId": {
+                    "type": "string",
+                    "description": "Message id returned by createDraft"
+                  }
+                },
+                "required": [
+                  "token",
+                  "fromUpn",
+                  "draftId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.m365.sendMail": {
+      "post": {
+        "summary": "Send an email via Graph POST /users/{fromUpn}/sendMail. Requires Azure app-only Mail.Send. This host capability is unconditional — policy routing (internal direct / external draft_only) is enforced by the caller (e.g. com.etzhayyim.apps.microsoft.sendMail). For Teams channel posting, pass the channel email address as a recipient (channel_email_via_mail_send pattern).",
+        "operationId": "com.etzhayyim.host.m365.sendMail",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string",
+                    "description": "App-only Bearer access token from m365.acquireAppToken"
+                  },
+                  "fromUpn": {
+                    "type": "string",
+                    "description": "Sender mailbox UPN (required). Caller resolves this from role / caller identity / configured default."
+                  },
+                  "to": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "cc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "bcc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "subject": {
+                    "type": "string"
+                  },
+                  "bodyHtml": {
+                    "type": "string",
+                    "description": "HTML body. Takes precedence over bodyText if both provided."
+                  },
+                  "bodyText": {
+                    "type": "string",
+                    "description": "Plain text body (fallback when bodyHtml absent)."
+                  },
+                  "saveToSentItems": {
+                    "type": "boolean",
+                    "default": true
+                  },
+                  "importance": {
+                    "type": "string",
+                    "enum": [
+                      "low",
+                      "normal",
+                      "high"
+                    ],
+                    "default": "normal"
+                  },
+                  "replyTo": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "token",
+                  "fromUpn",
+                  "to",
+                  "subject"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.lock.tryLock": {
+      "post": {
+        "summary": "Attempt to acquire a distributed lock with a TTL lease.",
+        "operationId": "com.etzhayyim.host.lock.tryLock",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "ttlMs": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "key",
+                  "ttlMs"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "acquired": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "acquired"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.lock.unlock": {
+      "post": {
+        "summary": "Release a previously acquired lock.",
+        "operationId": "com.etzhayyim.host.lock.unlock",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.llm.chat": {
+      "post": {
+        "summary": "Single-turn LLM chat (legacy agentChat). Prefer llm.converse for structured I/O.",
+        "operationId": "com.etzhayyim.host.llm.chat",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userMessage": {
+                    "type": "string"
+                  },
+                  "llmContextJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "userMessage",
+                  "llmContextJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "response"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.llm.converse": {
+      "post": {
+        "summary": "Multi-turn structured LLM conversation. Routes to Murakumo or CF Workers AI per llm-model-registry. In-process capability (BindingTransport).",
+        "operationId": "com.etzhayyim.host.llm.converse",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "type": "string"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "role",
+                        "content"
+                      ]
+                    }
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "useCase": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "messages"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "string"
+                    },
+                    "model": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "response"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.llm.react": {
+      "post": {
+        "summary": "ReAct loop: LLM → tool → observe → repeat until stop condition or max iterations.",
+        "operationId": "com.etzhayyim.host.llm.react",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "taskJson": {
+                    "type": "string"
+                  },
+                  "optionsJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "taskJson",
+                  "optionsJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "resultJson": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "resultJson"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.llm.route": {
+      "post": {
+        "summary": "Intent classification via LLM tool_choice=required. Returns tool name, does not execute.",
+        "operationId": "com.etzhayyim.host.llm.route",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "inputJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "inputJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "toolName": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "toolName"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.ipfs.publish": {
+      "post": {
+        "summary": "Publish bytes to IPFS (S3/R2-backed). Returns CIDv1.",
+        "operationId": "com.etzhayyim.host.ipfs.publish",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "string",
+                    "description": "base64-encoded bytes"
+                  },
+                  "contentType": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "contentType"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cid": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "cid"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.invoke.call": {
+      "post": {
+        "summary": "DID-addressed RPC call. Governance-gated. Empty did = host auto-discovers provider.",
+        "operationId": "com.etzhayyim.host.invoke.call",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string"
+                  },
+                  "method": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "string",
+                    "description": "base64-encoded bytes"
+                  }
+                },
+                "required": [
+                  "did",
+                  "method",
+                  "params"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "description": "base64-encoded bytes"
+                    }
+                  },
+                  "required": [
+                    "result"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.identity.listActors": {
+      "get": {
+        "summary": "Paginated list of registered actor DIDs.",
+        "operationId": "com.etzhayyim.host.identity.listActors",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "actorsJson": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "actorsJson"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.identity.resolve": {
+      "get": {
+        "summary": "Resolve a nanoid to its DID. Returns null if not registered.",
+        "operationId": "com.etzhayyim.host.identity.resolve",
+        "parameters": [
+          {
+            "name": "nanoid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.governance.checkPolicy": {
+      "get": {
+        "summary": "Check whether a command is permitted for a user under current policy.",
+        "operationId": "com.etzhayyim.host.governance.checkPolicy",
+        "parameters": [
+          {
+            "name": "command",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "verdictJson": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "verdictJson"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.governance.registerManifest": {
+      "post": {
+        "summary": "Register a governance manifest (RACI / approval policy) for the current actor.",
+        "operationId": "com.etzhayyim.host.governance.registerManifest",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "manifestJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "manifestJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.core.configGet": {
+      "get": {
+        "summary": "Resolve a configuration value (env var / SPIN_VARIABLE_*).",
+        "operationId": "com.etzhayyim.host.core.configGet",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.core.logAppend": {
+      "post": {
+        "summary": "Append a log record to a named stream.",
+        "operationId": "com.etzhayyim.host.core.logAppend",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "stream": {
+                    "type": "string"
+                  },
+                  "subject": {
+                    "type": "string"
+                  },
+                  "payload": {
+                    "type": "string",
+                    "description": "base64-encoded bytes"
+                  }
+                },
+                "required": [
+                  "stream",
+                  "subject",
+                  "payload"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "offset": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "offset"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.conversation.createSession": {
+      "post": {
+        "summary": "Create a W Protocol WChannel conversation session.",
+        "operationId": "com.etzhayyim.host.conversation.createSession",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "topic": {
+                    "type": "string"
+                  },
+                  "participantsJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "topic",
+                  "participantsJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sessionId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "sessionId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.conversation.sendMessage": {
+      "post": {
+        "summary": "Send a message into an existing conversation session.",
+        "operationId": "com.etzhayyim.host.conversation.sendMessage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sessionId": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "sessionId",
+                  "content"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "envelopeJson": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "envelopeJson"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.cdn.publicUrl": {
+      "get": {
+        "summary": "Resolve the public URL for a CDN object.",
+        "operationId": "com.etzhayyim.host.cdn.publicUrl",
+        "parameters": [
+          {
+            "name": "subdomain",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "url"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.cdn.upload": {
+      "post": {
+        "summary": "Upload bytes to the CDN under a subdomain/path.",
+        "operationId": "com.etzhayyim.host.cdn.upload",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subdomain": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "data": {
+                    "type": "string",
+                    "description": "base64-encoded bytes"
+                  },
+                  "contentType": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subdomain",
+                  "path",
+                  "data",
+                  "contentType"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "url"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.capability.discover": {
+      "get": {
+        "summary": "Discover capabilities by tag/status (CV-1 discovery).",
+        "operationId": "com.etzhayyim.host.capability.discover",
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "capabilitiesJson": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "capabilitiesJson"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.capability.listOwn": {
+      "get": {
+        "summary": "List capabilities owned by the current actor.",
+        "operationId": "com.etzhayyim.host.capability.listOwn",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "capabilitiesJson": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "capabilitiesJson"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.authz.enforce": {
+      "post": {
+        "summary": "In-process RBAC enforcement. Throws on deny, returns on allow.",
+        "operationId": "com.etzhayyim.host.authz.enforce",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "orgId": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "permissions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "requiredPermissions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "requiredRoles": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "orgId",
+                  "role",
+                  "permissions",
+                  "requiredPermissions",
+                  "requiredRoles"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "allowed": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "allowed"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.authn.verifyToken": {
+      "post": {
+        "summary": "Verify a bearer token and return its claims (base64 bytes).",
+        "operationId": "com.etzhayyim.host.authn.verifyToken",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "claims": {
+                      "type": "string",
+                      "description": "base64-encoded bytes"
+                    }
+                  },
+                  "required": [
+                    "claims"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.activity.awaitAll": {
+      "post": {
+        "summary": "Join on a previously spawned parallel batch. Returns results array.",
+        "operationId": "com.etzhayyim.host.activity.awaitAll",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "batchId": {
+                    "type": "string"
+                  },
+                  "timeoutMs": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "batchId",
+                  "timeoutMs"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "resultsJson": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "resultsJson"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.activity.spawnParallel": {
+      "post": {
+        "summary": "Fan out a batch of activities for parallel execution. Returns batch ID.",
+        "operationId": "com.etzhayyim.host.activity.spawnParallel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "activitiesJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "activitiesJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "batchId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "batchId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.host.accessLog.record": {
+      "post": {
+        "summary": "Record an access log entry (auto-collected path).",
+        "operationId": "com.etzhayyim.host.accessLog.record",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "entryJson": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "entryJson"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_lawfirm_sales_cadence_tick"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
+                  exporter="hand-written" exporterVersion="2.0">
+
+  <bpmn:process id="lawfirm_sales_cadence_tick"
+                name="lawfirm Sales Cadence Tick (R/PT24H)"
+                isExecutable="true">
+    <bpmn:documentation>{ "version": 1, "trigger": "timer", "cycle": "R/PT24H" }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="Daily 09:00 JST">
+      <bpmn:outgoing>Flow_start_to_dispatch</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_dispatch" sourceRef="Start_Timer" targetRef="Task_DispatchDueMails"/>
+
+    <bpmn:serviceTask id="Task_DispatchDueMails" name="Dispatch Tier-2 due warm-intro mails (draft mode)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.cadence.dispatchDueMails"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=0"     target="horizon_days"/>
+          <zeebe:input source="=20"    target="max_dispatches"/>
+          <zeebe:input source="=false" target="send_now"/>
+          <zeebe:output source="=dispatched_count" target="cadence_dispatched_count"/>
+          <zeebe:output source="=skipped_count"    target="cadence_skipped_count"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_dispatch</bpmn:incoming>
+      <bpmn:outgoing>Flow_dispatch_to_followups</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_dispatch_to_followups" sourceRef="Task_DispatchDueMails" targetRef="Task_DispatchFollowUps"/>
+
+    <bpmn:serviceTask id="Task_DispatchFollowUps" name="Dispatch T+5d / T+12d follow-up drafts">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.cadence.dispatchFollowUps"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=20"    target="max_dispatches"/>
+          <zeebe:input source="=false" target="send_now"/>
+          <zeebe:output source="=dispatched_count" target="followup_dispatched_count"/>
+          <zeebe:output source="=skipped_count"    target="followup_skipped_count"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_dispatch_to_followups</bpmn:incoming>
+      <bpmn:outgoing>Flow_followups_to_scan</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_followups_to_scan" sourceRef="Task_DispatchFollowUps" targetRef="Task_ScanStale"/>
+
+    <bpmn:serviceTask id="Task_ScanStale" name="Scan stale leads (5+ days no touch)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT lead_id, target_name, target_email, stage, last_touch_at, next_action FROM mv_lawfirm_lead_stale LIMIT 20&quot;" target="sql"/>
+          <zeebe:output source="=rows" target="stale_leads"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_scan</bpmn:incoming>
+      <bpmn:outgoing>Flow_scan_to_draft</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_scan_to_draft" sourceRef="Task_ScanStale" targetRef="Task_DraftReoutreach"/>
+
+    <bpmn:serviceTask id="Task_DraftReoutreach" name="Draft re-outreach via LangGraph">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.marketing.submit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;marketing.outreachMail&quot;" target="task_type"/>
+          <zeebe:input source="=&quot;advocate&quot;"               target="brand"/>
+          <zeebe:input source="=&quot;stale lead re-engagement&quot;" target="audience"/>
+          <zeebe:input source="=&quot;Polite re-engagement after 5+ days silence; offer flexible meeting slot&quot;" target="topic"/>
+          <zeebe:input source="=stale_leads" target="payload"/>
+          <zeebe:output source="=summary"           target="reoutreach_summary"/>
+          <zeebe:output source="=asset_uris"        target="reoutreach_asset_uris"/>
+          <zeebe:output source="=compliance_check"  target="reoutreach_compliance"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_scan_to_draft</bpmn:incoming>
+      <bpmn:outgoing>Flow_draft_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_draft_to_audit" sourceRef="Task_DraftReoutreach" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit Audit (OCEL)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;lawfirm.sales.cadence.tick&quot;" target="event_type"/>
+          <zeebe:input source="={stale_count: count(stale_leads), reoutreach_drafted: count(reoutreach_asset_uris), compliance: reoutreach_compliance, cadence_dispatched: cadence_dispatched_count, cadence_skipped: cadence_skipped_count, followup_dispatched: followup_dispatched_count, followup_skipped: followup_skipped_count}" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_draft_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

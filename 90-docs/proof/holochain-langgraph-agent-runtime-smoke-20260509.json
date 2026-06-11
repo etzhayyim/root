@@ -1,0 +1,81 @@
+{
+  "verifiedAt": "2026-05-09T17:39:00+09:00",
+  "clusterContext": "vke-a61d513b-f9b7-4121-abb9-b53732aa5ec4",
+  "remoteBuilder": "etzhayyim-vke",
+  "runtimeImage": {
+    "image": "ghcr.io/etzhayyim/holochain-agent-actor-runtime:experimental-amd64",
+    "digest": "sha256:29a1f2f037a31a8ae0518272706368714610b3eba845667e9690834b31a031b0",
+    "platform": "linux/amd64"
+  },
+  "langgraphServer": {
+    "namespace": "mitama-udf",
+    "service": "langgraph-server",
+    "healthz": {
+      "ok": true,
+      "service": "langgraph-server",
+      "version": "2.0.0"
+    },
+    "assistantId": "echo",
+    "actorDid": "did:web:holochain-agent-runtime.etzhayyim.com",
+    "threadId": "holochain-actor-thread-20260509",
+    "runId": "be761cd8-0a01-46e4-836f-4709ceabd925",
+    "status": "success",
+    "output": {
+      "input": "holochain langgraph actor smoke 2026-05-09",
+      "output": "echo: holochain langgraph actor smoke 2026-05-09"
+    }
+  },
+  "holochainArtifactSmoke": {
+    "namespace": "agent-runtime-holochain",
+    "imagePullSecret": "ghcr-creds",
+    "status": "success",
+    "artifactFiles": [
+      "/artifact/actor_runtime.wasm",
+      "/artifact/actor_runtime_integrity.wasm",
+      "/artifact/dnas/agent_actor_runtime/workdir/dna.yaml",
+      "/artifact/examples/commit-actor-event.json",
+      "/artifact/examples/langchain-tool-agent.json",
+      "/artifact/examples/langgraph-echo-agent.json",
+      "/artifact/workdir/happ.yaml"
+    ]
+  },
+  "langchainActorSmoke": {
+    "namespace": "agent-runtime-holochain",
+    "image": "ghcr.io/etzhayyim/kotodama:biblio-asia-resident-c2bcf065dc95-20260509073828-amd64",
+    "actorDid": "did:web:holochain-agent-runtime.etzhayyim.com",
+    "assistantId": "langchain-tool-agent",
+    "threadId": "holochain-langchain-thread-20260509",
+    "runId": "langchain-smoke-20260509",
+    "status": "success",
+    "source": "langchain-core.RunnableLambda",
+    "output": {
+      "output": "tool:HOLOCHAIN LANGCHAIN ACTOR SMOKE 2026-05-09",
+      "toolCalls": [
+        {
+          "name": "upper",
+          "args": {
+            "input": "holochain langchain actor smoke 2026-05-09"
+          }
+        }
+      ]
+    }
+  },
+  "holochainReceipt": {
+    "runtime": "holochain-agent-actor-runtime",
+    "happ": "agent-actor-runtime",
+    "dna": "agent_actor_runtime",
+    "zome": "actor_runtime",
+    "actor": {
+      "id": "holo-langgraph-echo",
+      "did": "did:web:holochain-agent-runtime.etzhayyim.com",
+      "runtimeFamily": "LangGraph",
+      "assistantId": "echo",
+      "threadId": "holochain-actor-thread-20260509"
+    },
+    "event": {
+      "kind": "GraphRunCompleted",
+      "head": "be761cd8-0a01-46e4-836f-4709ceabd925",
+      "source": "langgraph-server.mitama-udf.svc.cluster.local"
+    }
+  }
+}

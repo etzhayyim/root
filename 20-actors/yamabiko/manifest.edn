@@ -1,0 +1,61 @@
+;; yamabiko 山彦 — actor manifest (Gen-3 kotoba-native)
+;; High-speed rail (Shinkansen-class) trainset manufacturing — 250-320 km/h, 8-16 car configurations
+;; ADR-2605252600 (R0 scaffold) · L1..L5 5-layer assembly + 2 cross-cutting cells
+{:actor/id        "yamabiko"
+ :actor/glyph     "山"
+ :actor/tier      :tier-b
+ :actor/domain    "yamabiko.etzhayyim.com"
+ :actor/purpose   "High-speed rail (Shinkansen-class) trainset manufacturing — 9 Pregel cells implementing 5-layer assembly (carbody + bogie + interior-HVAC + traction-electrical → final-assembly → dynamic-test → homologation). Civilian only (≤320 km/h, no military, no border transit). ATP/ATO/traction firmware open-source; no proprietary signalling NDA. Murakumo-only inference; kotoba-EAVT-native state; USDC Base L2 + TitheRouter settlement; no server keys."
+ :actor/status    :r0
+ :actor/adr       "2605252600"
+ :actor/related   ["2605252500" "2605242000"]
+
+ :actor/charter-rider
+ {:rider/version "2.0"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "open-source-firmware-atp-ato"     :gate/rule "ATP/ATO/traction firmware Apache 2.0 + Charter Rider; no proprietary signalling NDA (N5)"}
+  {:gate/id "G2"  :gate/name "per-trainset-registry"             :gate/rule "Per-trainset DID + kotoba-datomic anchor + open trainset registry"}
+  {:gate/id "G4"  :gate/name "robot-witness-quorum"              :gate/rule "≥2 robot witness per FSW + bogie marriage (Tsugite + Wadasa minimum quorum)"}
+  {:gate/id "G7"  :gate/name "propulsion-phase-in"               :gate/rule "R0/R1 BEMU + H₂ acceptable; R2+ full electrification + H₂/NH₃ only (diesel phased out)"}
+  {:gate/id "G8"  :gate/name "noise-emc-compliance"              :gate/rule "ISO 3095 wayside noise + 騒音規制法 + IEC 62236 EMC before homologation"}
+  {:gate/id "G12" :gate/name "autonomous-cap"                    :gate/rule "Wave 1 ≤320 km/h / ≤450 m trainset / autonomous ≤ GoA 3 (GoA 4 = N7)"}
+  {:gate/id "G13" :gate/name "trainset-did-per-serial"           :gate/rule "Per-trainset DID did:web:etzhayyim.com:yamabiko:trainset:<serial>"}
+  {:gate/id "G14" :gate/name "eol-recyclability"                 :gate/rule "EoL recyclability ≥90% (closes loop with kanayama)"}
+  {:gate/id "G15" :gate/name "murakumo-only"                     :gate/rule "Assembly spec / design interpretation via KotobaLLM 127.0.0.1:4000; no external LLM (ADR-2605215000)"}
+  {:gate/id "G16" :gate/name "kotoba-eavt-native"                :gate/rule "Trainset/assembly/progress state = kotoba Datom; no Cypher MATCH / RisingWave canonical"}
+  {:gate/id "G17" :gate/name "tithe-non-fiat"                    :gate/rule "Settlement USDC Base L2 + ERC-4337 + TitheRouter 10% only; no fiat/Stripe (constitutional)"}
+  {:gate/id "G18" :gate/name "labor-dignity-provenance"          :gate/rule "Manufacturing labor provenance disclosed; gig-exploitation prohibited; fulfillment via etzhayyim logistics"}
+  {:gate/id "G19" :gate/name "pii-encrypted-envelope"            :gate/rule "Order/build history → com.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}
+  {:gate/id "G20" :gate/name "manufacturing-legality"            :gate/rule "Factory data public/API-ToS compliant; no price/inventory manipulation; :representative honesty"}
+  {:gate/id "G21" :gate/name "no-server-key"                     :gate/rule "Member/factory sign with own keys; platform holds no private key (ADR-2605231525)"}
+  {:gate/id "G22" :gate/name "full-traceability"                 :gate/rule "Assembly L1..L5 → final → test → homologation all recorded as Datoms; no silent truncation"}]
+
+ :actor/cells
+ [{:cell/id "carbody_fabrication"        :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "bogie_assembly"              :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "interior_hvac"               :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "traction_electrical"         :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "final_assembly"              :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "dynamic_test"                :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "homologation_binder"         :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "emissions_acoustic_audit"    :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "silen_rail_review"           :cell/kind :langgraph :cell/runtime :wasm}]
+
+ :actor/lex
+ [{:lex/id "carbodyAttestation"}
+  {:lex/id "bogieAttestation"}
+  {:lex/id "interiorAttestation"}
+  {:lex/id "tractionElectricalAttestation"}
+  {:lex/id "finalAssemblyAttestation"}
+  {:lex/id "dynamicTestRecord"}
+  {:lex/id "acousticEmissionsAuditRecord"}
+  {:lex/id "homologationRecord"}
+  {:lex/id "trainsetManufactureRecord"}
+  {:lex/id "silenRailReview"}]
+
+ ;; legacy (gen-1) artifacts pending decommission
+ :actor/legacy
+ {:manifest    "actor-manifest.jsonld"
+  :note "CLAUDE.md ADR-2605252600; cells/ Python gen-1 retain for R0 reference only (import-time RuntimeError)"}}

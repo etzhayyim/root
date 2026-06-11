@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a22f02d6fda1",
+  "entityId": "ent-a22f02d6fda1",
+  "canonicalName": "ooo standard line",
+  "aliases": [
+    "ooo standard line"
+  ]
+}

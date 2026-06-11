@@ -1,0 +1,580 @@
+;; rasen 螺旋 — GENERATED ingested public-genetics graph (ADR-2606101000). DO NOT hand-edit.
+;; PUBLIC reference only — no individual genotypes; gnomAD super-population AGGREGATE freq (G1).
+;; sources: https://mygene.info/v3/query, https://myvariant.info/v1/query, https://reactome.org/ContentService/data/mapping/UniProt
+;; counts: {'genes': 24, 'variants': 12, 'phenotypes': 46, 'populations': 6, 'edges': 305}
+[
+ {:genome/id "gene.apc" :genome/kind :gene :genome/label "APC regulator of Wnt signaling pathway" :gene/symbol "APC" :gene/cytoband "5q22.2" :gene/ensembl "ENSG00000134982" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.apoe" :genome/kind :gene :genome/label "apolipoprotein E" :gene/symbol "APOE" :gene/cytoband "19q13.32" :gene/ensembl "ENSG00000130203" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.brca1" :genome/kind :gene :genome/label "BRCA1 DNA repair associated" :gene/symbol "BRCA1" :gene/cytoband "17q21.31" :gene/ensembl "ENSG00000012048" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.brca2" :genome/kind :gene :genome/label "BRCA2 DNA repair associated" :gene/symbol "BRCA2" :gene/cytoband "13q13.1" :gene/ensembl "ENSG00000139618" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.cftr" :genome/kind :gene :genome/label "CF transmembrane conductance regulator" :gene/symbol "CFTR" :gene/cytoband "7q31.2" :gene/ensembl "ENSG00000001626" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.dmd" :genome/kind :gene :genome/label "dystrophin" :gene/symbol "DMD" :gene/cytoband "Xp21.2-p21.1" :gene/ensembl "ENSG00000198947" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.f2" :genome/kind :gene :genome/label "F2" :gene/symbol "F2" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.f5" :genome/kind :gene :genome/label "F5" :gene/symbol "F5" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.f8" :genome/kind :gene :genome/label "coagulation factor VIII" :gene/symbol "F8" :gene/cytoband "Xq28" :gene/ensembl "ENSG00000185010" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.fbn1" :genome/kind :gene :genome/label "fibrillin 1" :gene/symbol "FBN1" :gene/cytoband "15q21.1" :gene/ensembl "ENSG00000166147" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.g6pd" :genome/kind :gene :genome/label "glucose-6-phosphate dehydrogenase" :gene/symbol "G6PD" :gene/cytoband "Xq28" :gene/ensembl "ENSG00000160211" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.hbb" :genome/kind :gene :genome/label "hemoglobin subunit beta" :gene/symbol "HBB" :gene/cytoband "11p15.4" :gene/ensembl "ENSG00000244734" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.hfe" :genome/kind :gene :genome/label "HFE" :gene/symbol "HFE" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.htt" :genome/kind :gene :genome/label "huntingtin" :gene/symbol "HTT" :gene/cytoband "4p16.3" :gene/ensembl "ENSG00000197386" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.ldlr" :genome/kind :gene :genome/label "low density lipoprotein receptor" :gene/symbol "LDLR" :gene/cytoband "19p13.2" :gene/ensembl "ENSG00000130164" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.mlh1" :genome/kind :gene :genome/label "mutL homolog 1" :gene/symbol "MLH1" :gene/cytoband "3p22.2" :gene/ensembl "ENSG00000076242" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.msh2" :genome/kind :gene :genome/label "mutS homolog 2" :gene/symbol "MSH2" :gene/cytoband "2p21-p16.3" :gene/ensembl "ENSG00000095002" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.mthfr" :genome/kind :gene :genome/label "methylenetetrahydrofolate reductase" :gene/symbol "MTHFR" :gene/cytoband "1p36.22" :gene/ensembl "ENSG00000177000" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.pah" :genome/kind :gene :genome/label "phenylalanine hydroxylase" :gene/symbol "PAH" :gene/cytoband "12q23.2" :gene/ensembl "ENSG00000171759" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.pten" :genome/kind :gene :genome/label "phosphatase and tensin homolog" :gene/symbol "PTEN" :gene/cytoband "10q23.31" :gene/ensembl "ENSG00000284792" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.rb1" :genome/kind :gene :genome/label "RB transcriptional corepressor 1" :gene/symbol "RB1" :gene/cytoband "13q14.2" :gene/ensembl "ENSG00000139687" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.star" :genome/kind :gene :genome/label "STAR" :gene/symbol "STAR" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.tp53" :genome/kind :gene :genome/label "tumor protein p53" :gene/symbol "TP53" :gene/cytoband "17p13.1" :gene/ensembl "ENSG00000141510" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "gene.vhl" :genome/kind :gene :genome/label "von Hippel-Lindau tumor suppressor" :gene/symbol "VHL" :gene/cytoband "3p25.3" :gene/ensembl "ENSG00000134086" :gene/taxon :homo-sapiens :genome/sourcing :authoritative}
+ {:genome/id "var.rs104894090" :genome/kind :variant :genome/label "rs104894090" :variant/rsid "rs104894090" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs113993960" :genome/kind :variant :genome/label "rs113993960" :variant/rsid "rs113993960" :genome/sourcing :authoritative}
+ {:genome/id "var.rs1799945" :genome/kind :variant :genome/label "rs1799945" :variant/rsid "rs1799945" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs1799963" :genome/kind :variant :genome/label "rs1799963" :variant/rsid "rs1799963" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs1801133" :genome/kind :variant :genome/label "rs1801133" :variant/rsid "rs1801133" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs28934578" :genome/kind :variant :genome/label "rs28934578" :variant/rsid "rs28934578" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs334" :genome/kind :variant :genome/label "rs334" :variant/rsid "rs334" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs429358" :genome/kind :variant :genome/label "rs429358" :variant/rsid "rs429358" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs5030868" :genome/kind :variant :genome/label "rs5030868" :variant/rsid "rs5030868" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs6025" :genome/kind :variant :genome/label "rs6025" :variant/rsid "rs6025" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs7412" :genome/kind :variant :genome/label "rs7412" :variant/rsid "rs7412" :variant/category :snv :genome/sourcing :authoritative}
+ {:genome/id "var.rs80357914" :genome/kind :variant :genome/label "rs80357914" :variant/rsid "rs80357914" :genome/sourcing :authoritative}
+ {:genome/id "ph.apoe4--freiburg" :genome/kind :phenotype :genome/label "APOE4(-)-FREIBURG" :genome/sourcing :authoritative}
+ {:genome/id "ph.g6pd-deficient-hemolytic-anemia" :genome/kind :phenotype :genome/label "G6PD deficient hemolytic anemia" :genome/sourcing :authoritative}
+ {:genome/id "ph.g6pd-related-disorder" :genome/kind :phenotype :genome/label "G6PD-related disorder" :genome/sourcing :authoritative}
+ {:genome/id "ph.hemoglobin-s-antilles" :genome/kind :phenotype :genome/label "HEMOGLOBIN S (ANTILLES)" :genome/sourcing :authoritative}
+ {:genome/id "ph.hemoglobin-s-cameroon" :genome/kind :phenotype :genome/label "HEMOGLOBIN S (CAMEROON)" :genome/sourcing :authoritative}
+ {:genome/id "ph.hemoglobin-s-providence" :genome/kind :phenotype :genome/label "HEMOGLOBIN S (PROVIDENCE)" :genome/sourcing :authoritative}
+ {:genome/id "ph.hemoglobin-s-travis" :genome/kind :phenotype :genome/label "HEMOGLOBIN S (TRAVIS)" :genome/sourcing :authoritative}
+ {:genome/id "ph.hemolytic-anemia-g6pd-deficient-favism" :genome/kind :phenotype :genome/label "Hemolytic anemia, G6PD deficient (favism)" :genome/sourcing :authoritative}
+ {:genome/id "ph.hyperlipoproteinemia-due-to-apoe1" :genome/kind :phenotype :genome/label "Hyperlipoproteinemia due to APOE1" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-C0020443" :genome/kind :phenotype :genome/label "Hypercholesterolemia" :phenotype/code "MedGen:C0020443" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-C0948008" :genome/kind :phenotype :genome/label "Ischemic stroke" :phenotype/code "MedGen:C0948008" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-C0950123" :genome/kind :phenotype :genome/label "Inborn genetic diseases" :phenotype/code "MedGen:C0950123" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-C1264000" :genome/kind :phenotype :genome/label "Sickle cell-Hemoglobin O Arab disease" :phenotype/code "MedGen:C1264000" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-C1841621" :genome/kind :phenotype :genome/label "Fetal hemoglobin quantitative trait locus 1 (HBFQTL1)" :phenotype/code "MedGen:C1841621" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-C2720293" :genome/kind :phenotype :genome/label "Malaria, resistance to" :phenotype/code "MedGen:C2720293" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-C3661900" :genome/kind :phenotype :genome/label "not provided" :phenotype/code "MedGen:C3661900" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-C4479660" :genome/kind :phenotype :genome/label "APOE5 VARIANT" :phenotype/code "MedGen:C4479660" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-C5680749" :genome/kind :phenotype :genome/label "Sickle cell disease and related diseases" :phenotype/code "MedGen:C5680749" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-C5779573" :genome/kind :phenotype :genome/label "Primary degenerative dementia of the Alzheimer type, presenile onset" :phenotype/code "MedGen:C5779573" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-CN169374" :genome/kind :phenotype :genome/label "not specified" :phenotype/code "MedGen:CN169374" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-CN239378" :genome/kind :phenotype :genome/label "HBB-related disorder" :phenotype/code "MedGen:CN239378" :genome/sourcing :authoritative}
+ {:genome/id "ph.medgen-CN322724" :genome/kind :phenotype :genome/label "atorvastatin response - Efficacy" :phenotype/code "MedGen:CN322724" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0004975" :genome/kind :phenotype :genome/label "Alzheimer disease" :phenotype/code "MONDO:0004975" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0004994" :genome/kind :phenotype :genome/label "Cardiomyopathy (CMYO)" :phenotype/code "MONDO:0004994" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0005399" :genome/kind :phenotype :genome/label "Venous thromboembolism" :phenotype/code "MONDO:0005399" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0005439" :genome/kind :phenotype :genome/label "Familial hypercholesterolemia" :phenotype/code "MONDO:0005439" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0005775" :genome/kind :phenotype :genome/label "G6PD deficiency" :phenotype/code "MONDO:0005775" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0006497" :genome/kind :phenotype :genome/label "Cerebral palsy" :phenotype/code "MONDO:0006497" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0007390" :genome/kind :phenotype :genome/label "Warfarin response" :phenotype/code "MONDO:0007390" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0008297" :genome/kind :phenotype :genome/label "Variegate porphyria (VP)" :phenotype/code "MONDO:0008297" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0008559" :genome/kind :phenotype :genome/label "Thrombophilia due to thrombin defect (THPH1)" :phenotype/code "MONDO:0008559" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0008725" :genome/kind :phenotype :genome/label "Congenital lipoid adrenal hyperplasia due to STAR deficency" :phenotype/code "MONDO:0008725" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0009061" :genome/kind :phenotype :genome/label "Cystic fibrosis (CF)" :phenotype/code "MONDO:0009061" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0010480" :genome/kind :phenotype :genome/label "Anemia, nonspherocytic hemolytic, due to G6PD deficiency (CNSHA1)" :phenotype/code "MONDO:0010480" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0011381" :genome/kind :phenotype :genome/label "Dominant beta-thalassemia" :phenotype/code "MONDO:0011381" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0011382" :genome/kind :phenotype :genome/label "Hb SS disease (SCD)" :phenotype/code "MONDO:0011382" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0011743" :genome/kind :phenotype :genome/label "Alzheimer disease 4 (AD4)" :phenotype/code "MONDO:0011743" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0012725" :genome/kind :phenotype :genome/label "Lipoprotein glomerulopathy (LPG)" :phenotype/code "MONDO:0012725" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0013517" :genome/kind :phenotype :genome/label "Beta-thalassemia HBB/LCRB" :phenotype/code "MONDO:0013517" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0013728" :genome/kind :phenotype :genome/label "Pregnancy loss, recurrent, susceptibility to, 2 (RPRGL2)" :phenotype/code "MONDO:0013728" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0016669" :genome/kind :phenotype :genome/label "Sickle cell-hemoglobin C disease" :phenotype/code "MONDO:0016669" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0018473" :genome/kind :phenotype :genome/label "Familial type 3 hyperlipoproteinemia" :phenotype/code "MONDO:0018473" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0019402" :genome/kind :phenotype :genome/label "beta Thalassemia (BTHAL)" :phenotype/code "MONDO:0019402" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0020989" :genome/kind :phenotype :genome/label "Hereditary persistence of fetal hemoglobin" :phenotype/code "MONDO:0020989" :genome/sourcing :authoritative}
+ {:genome/id "ph.mondo-0021024" :genome/kind :phenotype :genome/label "Malaria, susceptibility to" :phenotype/code "MONDO:0021024" :genome/sourcing :authoritative}
+ {:genome/id "ph.see-cases" :genome/kind :phenotype :genome/label "See cases" :genome/sourcing :authoritative}
+ {:genome/id "pop.afr" :genome/kind :population :genome/label "African / African-American (AFR)" :population/code :AFR :genome/sourcing :authoritative}
+ {:genome/id "pop.amr" :genome/kind :population :genome/label "Admixed American (AMR)" :population/code :AMR :genome/sourcing :authoritative}
+ {:genome/id "pop.eas" :genome/kind :population :genome/label "East Asian (EAS)" :population/code :EAS :genome/sourcing :authoritative}
+ {:genome/id "pop.eur" :genome/kind :population :genome/label "European (non-Finnish, EUR)" :population/code :EUR :genome/sourcing :authoritative}
+ {:genome/id "pop.global" :genome/kind :population :genome/label "Global (all super-populations)" :population/code :global :genome/sourcing :authoritative}
+ {:genome/id "pop.sas" :genome/kind :population :genome/label "South Asian (SAS)" :population/code :SAS :genome/sourcing :authoritative}
+ {:genome/id "pw.go-0000122" :genome/kind :pathway :genome/label "negative regulation of transcription by RNA polymerase II" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0000122"}
+ {:genome/id "pw.go-0000132" :genome/kind :pathway :genome/label "establishment of mitotic spindle orientation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0000132"}
+ {:genome/id "pw.go-0000281" :genome/kind :pathway :genome/label "mitotic cytokinesis" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0000281"}
+ {:genome/id "pw.go-0000710" :genome/kind :pathway :genome/label "meiotic mismatch repair" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0000710"}
+ {:genome/id "pw.go-0000724" :genome/kind :pathway :genome/label "double-strand break repair via homologous recombination" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0000724"}
+ {:genome/id "pw.go-0000730" :genome/kind :pathway :genome/label "DNA recombinase assembly" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0000730"}
+ {:genome/id "pw.go-0001501" :genome/kind :pathway :genome/label "skeletal system development" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0001501"}
+ {:genome/id "pw.go-0001666" :genome/kind :pathway :genome/label "response to hypoxia" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0001666"}
+ {:genome/id "pw.go-0001843" :genome/kind :pathway :genome/label "neural tube closure" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0001843"}
+ {:genome/id "pw.go-0001920" :genome/kind :pathway :genome/label "negative regulation of receptor recycling" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0001920"}
+ {:genome/id "pw.go-0001937" :genome/kind :pathway :genome/label "negative regulation of endothelial cell proliferation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0001937"}
+ {:genome/id "pw.go-0002027" :genome/kind :pathway :genome/label "regulation of heart rate" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0002027"}
+ {:genome/id "pw.go-0002204" :genome/kind :pathway :genome/label "somatic recombination of immunoglobulin genes involved in immune response" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0002204"}
+ {:genome/id "pw.go-0002244" :genome/kind :pathway :genome/label "hematopoietic progenitor cell differentiation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0002244"}
+ {:genome/id "pw.go-0006006" :genome/kind :pathway :genome/label "glucose metabolic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006006"}
+ {:genome/id "pw.go-0006098" :genome/kind :pathway :genome/label "pentose-phosphate shunt" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006098"}
+ {:genome/id "pw.go-0006281" :genome/kind :pathway :genome/label "DNA repair" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006281"}
+ {:genome/id "pw.go-0006289" :genome/kind :pathway :genome/label "nucleotide-excision repair" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006289"}
+ {:genome/id "pw.go-0006298" :genome/kind :pathway :genome/label "mismatch repair" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006298"}
+ {:genome/id "pw.go-0006301" :genome/kind :pathway :genome/label "DNA damage tolerance" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006301"}
+ {:genome/id "pw.go-0006302" :genome/kind :pathway :genome/label "double-strand break repair" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006302"}
+ {:genome/id "pw.go-0006355" :genome/kind :pathway :genome/label "regulation of DNA-templated transcription" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006355"}
+ {:genome/id "pw.go-0006357" :genome/kind :pathway :genome/label "regulation of transcription by RNA polymerase II" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006357"}
+ {:genome/id "pw.go-0006469" :genome/kind :pathway :genome/label "negative regulation of protein kinase activity" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006469"}
+ {:genome/id "pw.go-0006470" :genome/kind :pathway :genome/label "protein dephosphorylation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006470"}
+ {:genome/id "pw.go-0006508" :genome/kind :pathway :genome/label "proteolysis" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006508"}
+ {:genome/id "pw.go-0006559" :genome/kind :pathway :genome/label "L-phenylalanine catabolic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006559"}
+ {:genome/id "pw.go-0006571" :genome/kind :pathway :genome/label "L-tyrosine biosynthetic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006571"}
+ {:genome/id "pw.go-0006641" :genome/kind :pathway :genome/label "triglyceride metabolic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006641"}
+ {:genome/id "pw.go-0006695" :genome/kind :pathway :genome/label "cholesterol biosynthetic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006695"}
+ {:genome/id "pw.go-0006739" :genome/kind :pathway :genome/label "NADP+ metabolic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006739"}
+ {:genome/id "pw.go-0006749" :genome/kind :pathway :genome/label "glutathione metabolic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006749"}
+ {:genome/id "pw.go-0006890" :genome/kind :pathway :genome/label "retrograde vesicle-mediated transport, Golgi to endoplasmic reticulum" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006890"}
+ {:genome/id "pw.go-0006898" :genome/kind :pathway :genome/label "receptor-mediated endocytosis" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006898"}
+ {:genome/id "pw.go-0006914" :genome/kind :pathway :genome/label "autophagy" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006914"}
+ {:genome/id "pw.go-0006950" :genome/kind :pathway :genome/label "response to stress" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006950"}
+ {:genome/id "pw.go-0006954" :genome/kind :pathway :genome/label "inflammatory response" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006954"}
+ {:genome/id "pw.go-0006974" :genome/kind :pathway :genome/label "DNA damage response" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0006974"}
+ {:genome/id "pw.go-0007026" :genome/kind :pathway :genome/label "negative regulation of microtubule depolymerization" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007026"}
+ {:genome/id "pw.go-0007030" :genome/kind :pathway :genome/label "Golgi organization" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007030"}
+ {:genome/id "pw.go-0007056" :genome/kind :pathway :genome/label "spindle assembly involved in female meiosis" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007056"}
+ {:genome/id "pw.go-0007059" :genome/kind :pathway :genome/label "chromosome segregation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007059"}
+ {:genome/id "pw.go-0007094" :genome/kind :pathway :genome/label "mitotic spindle assembly checkpoint signaling" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007094"}
+ {:genome/id "pw.go-0007095" :genome/kind :pathway :genome/label "mitotic G2 DNA damage checkpoint signaling" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007095"}
+ {:genome/id "pw.go-0007186" :genome/kind :pathway :genome/label "G protein-coupled receptor signaling pathway" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007186"}
+ {:genome/id "pw.go-0007189" :genome/kind :pathway :genome/label "adenylate cyclase-activating G protein-coupled receptor signaling pathway" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007189"}
+ {:genome/id "pw.go-0007265" :genome/kind :pathway :genome/label "Ras protein signal transduction" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007265"}
+ {:genome/id "pw.go-0007346" :genome/kind :pathway :genome/label "regulation of mitotic cell cycle" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007346"}
+ {:genome/id "pw.go-0007507" :genome/kind :pathway :genome/label "heart development" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007507"}
+ {:genome/id "pw.go-0007596" :genome/kind :pathway :genome/label "blood coagulation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007596"}
+ {:genome/id "pw.go-0007597" :genome/kind :pathway :genome/label "blood coagulation, intrinsic pathway" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007597"}
+ {:genome/id "pw.go-0007616" :genome/kind :pathway :genome/label "long-term memory" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0007616"}
+ {:genome/id "pw.go-0008104" :genome/kind :pathway :genome/label "intracellular protein localization" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0008104"}
+ {:genome/id "pw.go-0008203" :genome/kind :pathway :genome/label "cholesterol metabolic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0008203"}
+ {:genome/id "pw.go-0008285" :genome/kind :pathway :genome/label "negative regulation of cell population proliferation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0008285"}
+ {:genome/id "pw.go-0008286" :genome/kind :pathway :genome/label "insulin receptor signaling pathway" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0008286"}
+ {:genome/id "pw.go-0008652" :genome/kind :pathway :genome/label "amino acid biosynthetic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0008652"}
+ {:genome/id "pw.go-0009051" :genome/kind :pathway :genome/label "pentose-phosphate shunt, oxidative branch" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0009051"}
+ {:genome/id "pw.go-0009072" :genome/kind :pathway :genome/label "aromatic amino acid metabolic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0009072"}
+ {:genome/id "pw.go-0009968" :genome/kind :pathway :genome/label "negative regulation of signal transduction" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0009968"}
+ {:genome/id "pw.go-0010468" :genome/kind :pathway :genome/label "regulation of gene expression" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0010468"}
+ {:genome/id "pw.go-0010507" :genome/kind :pathway :genome/label "negative regulation of autophagy" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0010507"}
+ {:genome/id "pw.go-0010629" :genome/kind :pathway :genome/label "negative regulation of gene expression" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0010629"}
+ {:genome/id "pw.go-0010719" :genome/kind :pathway :genome/label "negative regulation of epithelial to mesenchymal transition" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0010719"}
+ {:genome/id "pw.go-0010976" :genome/kind :pathway :genome/label "positive regulation of neuron projection development" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0010976"}
+ {:genome/id "pw.go-0010989" :genome/kind :pathway :genome/label "negative regulation of low-density lipoprotein particle clearance" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0010989"}
+ {:genome/id "pw.go-0015671" :genome/kind :pathway :genome/label "oxygen transport" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0015671"}
+ {:genome/id "pw.go-0015701" :genome/kind :pathway :genome/label "bicarbonate transport" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0015701"}
+ {:genome/id "pw.go-0016446" :genome/kind :pathway :genome/label "somatic hypermutation of immunoglobulin genes" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0016446"}
+ {:genome/id "pw.go-0019322" :genome/kind :pathway :genome/label "pentose biosynthetic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0019322"}
+ {:genome/id "pw.go-0030185" :genome/kind :pathway :genome/label "nitric oxide transport" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0030185"}
+ {:genome/id "pw.go-0030299" :genome/kind :pathway :genome/label "intestinal cholesterol absorption" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0030299"}
+ {:genome/id "pw.go-0030301" :genome/kind :pathway :genome/label "cholesterol transport" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0030301"}
+ {:genome/id "pw.go-0030336" :genome/kind :pathway :genome/label "negative regulation of cell migration" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0030336"}
+ {:genome/id "pw.go-0031134" :genome/kind :pathway :genome/label "sister chromatid biorientation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0031134"}
+ {:genome/id "pw.go-0031638" :genome/kind :pathway :genome/label "zymogen activation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0031638"}
+ {:genome/id "pw.go-0031647" :genome/kind :pathway :genome/label "regulation of protein stability" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0031647"}
+ {:genome/id "pw.go-0031648" :genome/kind :pathway :genome/label "protein destabilization" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0031648"}
+ {:genome/id "pw.go-0033600" :genome/kind :pathway :genome/label "negative regulation of mammary gland epithelial cell proliferation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0033600"}
+ {:genome/id "pw.go-0033627" :genome/kind :pathway :genome/label "cell adhesion mediated by integrin" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0033627"}
+ {:genome/id "pw.go-0034383" :genome/kind :pathway :genome/label "low-density lipoprotein particle clearance" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0034383"}
+ {:genome/id "pw.go-0034976" :genome/kind :pathway :genome/label "response to endoplasmic reticulum stress" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0034976"}
+ {:genome/id "pw.go-0035377" :genome/kind :pathway :genome/label "transepithelial water transport" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0035377"}
+ {:genome/id "pw.go-0035999" :genome/kind :pathway :genome/label "tetrahydrofolate interconversion" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0035999"}
+ {:genome/id "pw.go-0042297" :genome/kind :pathway :genome/label "vocal learning" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0042297"}
+ {:genome/id "pw.go-0042423" :genome/kind :pathway :genome/label "catecholamine biosynthetic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0042423"}
+ {:genome/id "pw.go-0042542" :genome/kind :pathway :genome/label "response to hydrogen peroxide" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0042542"}
+ {:genome/id "pw.go-0042593" :genome/kind :pathway :genome/label "glucose homeostasis" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0042593"}
+ {:genome/id "pw.go-0042744" :genome/kind :pathway :genome/label "hydrogen peroxide catabolic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0042744"}
+ {:genome/id "pw.go-0043043" :genome/kind :pathway :genome/label "peptide biosynthetic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0043043"}
+ {:genome/id "pw.go-0043065" :genome/kind :pathway :genome/label "positive regulation of apoptotic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0043065"}
+ {:genome/id "pw.go-0043570" :genome/kind :pathway :genome/label "maintenance of DNA repeat elements" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0043570"}
+ {:genome/id "pw.go-0045666" :genome/kind :pathway :genome/label "positive regulation of neuron differentiation" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0045666"}
+ {:genome/id "pw.go-0045910" :genome/kind :pathway :genome/label "negative regulation of DNA recombination" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0045910"}
+ {:genome/id "pw.go-0048298" :genome/kind :pathway :genome/label "positive regulation of isotype switching to IgA isotypes" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0048298"}
+ {:genome/id "pw.go-0048304" :genome/kind :pathway :genome/label "positive regulation of isotype switching to IgG isotypes" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0048304"}
+ {:genome/id "pw.go-0050667" :genome/kind :pathway :genome/label "homocysteine metabolic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0050667"}
+ {:genome/id "pw.go-0050891" :genome/kind :pathway :genome/label "multicellular organismal-level water homeostasis" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0050891"}
+ {:genome/id "pw.go-0060048" :genome/kind :pathway :genome/label "cardiac muscle contraction" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0060048"}
+ {:genome/id "pw.go-0070293" :genome/kind :pathway :genome/label "renal absorption" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0070293"}
+ {:genome/id "pw.go-0070828" :genome/kind :pathway :genome/label "heterochromatin organization" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0070828"}
+ {:genome/id "pw.go-0071265" :genome/kind :pathway :genome/label "L-methionine biosynthetic process" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:0071265"}
+ {:genome/id "pw.go-1902476" :genome/kind :pathway :genome/label "chloride transmembrane transport" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:1902476"}
+ {:genome/id "pw.go-1904322" :genome/kind :pathway :genome/label "cellular response to forskolin" :genome/sourcing :authoritative :pathway/source :GO :pathway/acc "GO:1904322"}
+ {:genome/id "pw.react-r-hsa-111448" :genome/kind :pathway :genome/label "Activation of NOXA and translocation to mitochondria" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-111448"}
+ {:genome/id "pw.react-r-hsa-113501" :genome/kind :pathway :genome/label "Inhibition of replication initiation of damaged DNA by RB1/E2F1" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-113501"}
+ {:genome/id "pw.react-r-hsa-114608" :genome/kind :pathway :genome/label "Platelet degranulation " :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-114608"}
+ {:genome/id "pw.react-r-hsa-1221632" :genome/kind :pathway :genome/label "Meiotic synapsis" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-1221632"}
+ {:genome/id "pw.react-r-hsa-1234176" :genome/kind :pathway :genome/label "Oxygen-dependent proline hydroxylation of Hypoxia-inducible Factor Alpha" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-1234176"}
+ {:genome/id "pw.react-r-hsa-1237044" :genome/kind :pathway :genome/label "Erythrocytes take up carbon dioxide and release oxygen" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-1237044"}
+ {:genome/id "pw.react-r-hsa-1247673" :genome/kind :pathway :genome/label "Erythrocytes take up oxygen and release carbon dioxide" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-1247673"}
+ {:genome/id "pw.react-r-hsa-1251985" :genome/kind :pathway :genome/label "Nuclear signaling by ERBB4" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-1251985"}
+ {:genome/id "pw.react-r-hsa-139915" :genome/kind :pathway :genome/label "Activation of PUMA and translocation to mitochondria" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-139915"}
+ {:genome/id "pw.react-r-hsa-1474228" :genome/kind :pathway :genome/label "Degradation of the extracellular matrix" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-1474228"}
+ {:genome/id "pw.react-r-hsa-1660499" :genome/kind :pathway :genome/label "Synthesis of PIPs at the plasma membrane" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-1660499"}
+ {:genome/id "pw.react-r-hsa-174178" :genome/kind :pathway :genome/label "APC/C:Cdh1 mediated degradation of Cdc20 and other APC/C:Cdh1 targeted proteins in late mitosis/early G1" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-174178"}
+ {:genome/id "pw.react-r-hsa-1855204" :genome/kind :pathway :genome/label "Synthesis of IP3 and IP4 in the cytosol" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-1855204"}
+ {:genome/id "pw.react-r-hsa-196299" :genome/kind :pathway :genome/label "Beta-catenin phosphorylation cascade" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-196299"}
+ {:genome/id "pw.react-r-hsa-196757" :genome/kind :pathway :genome/label "Metabolism of folate and pterines" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-196757"}
+ {:genome/id "pw.react-r-hsa-202424" :genome/kind :pathway :genome/label "Downstream TCR signaling" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-202424"}
+ {:genome/id "pw.react-r-hsa-204005" :genome/kind :pathway :genome/label "COPII-mediated vesicle transport" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-204005"}
+ {:genome/id "pw.react-r-hsa-2129379" :genome/kind :pathway :genome/label "Molecules associated with elastic fibres" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-2129379"}
+ {:genome/id "pw.react-r-hsa-2160456" :genome/kind :pathway :genome/label "Phenylketonuria" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-2160456"}
+ {:genome/id "pw.react-r-hsa-216083" :genome/kind :pathway :genome/label "Integrin cell surface interactions" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-216083"}
+ {:genome/id "pw.react-r-hsa-2168880" :genome/kind :pathway :genome/label "Scavenging of heme from plasma" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-2168880"}
+ {:genome/id "pw.react-r-hsa-2299718" :genome/kind :pathway :genome/label "Condensation of Prophase Chromosomes" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-2299718"}
+ {:genome/id "pw.react-r-hsa-2559580" :genome/kind :pathway :genome/label "Oxidative Stress Induced Senescence" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-2559580"}
+ {:genome/id "pw.react-r-hsa-2559584" :genome/kind :pathway :genome/label "Formation of Senescence-Associated Heterochromatin Foci (SAHF)" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-2559584"}
+ {:genome/id "pw.react-r-hsa-2559585" :genome/kind :pathway :genome/label "Oncogene Induced Senescence" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-2559585"}
+ {:genome/id "pw.react-r-hsa-3000171" :genome/kind :pathway :genome/label "Non-integrin membrane-ECM interactions" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-3000171"}
+ {:genome/id "pw.react-r-hsa-3000480" :genome/kind :pathway :genome/label "Scavenging by Class A Receptors" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-3000480"}
+ {:genome/id "pw.react-r-hsa-3108214" :genome/kind :pathway :genome/label "SUMOylation of DNA damage response and repair proteins" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-3108214"}
+ {:genome/id "pw.react-r-hsa-3232142" :genome/kind :pathway :genome/label "SUMOylation of ubiquitinylation proteins" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-3232142"}
+ {:genome/id "pw.react-r-hsa-3769402" :genome/kind :pathway :genome/label "Deactivation of the beta-catenin transactivating complex" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-3769402"}
+ {:genome/id "pw.react-r-hsa-381426" :genome/kind :pathway :genome/label "Regulation of Insulin-like Growth Factor (IGF) transport and uptake by Insulin-like Growth Factor Binding Proteins (IGFBPs)" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-381426"}
+ {:genome/id "pw.react-r-hsa-390522" :genome/kind :pathway :genome/label "Striated Muscle Contraction" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-390522"}
+ {:genome/id "pw.react-r-hsa-4641262" :genome/kind :pathway :genome/label "Disassembly of the destruction complex and recruitment of AXIN to the membrane" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-4641262"}
+ {:genome/id "pw.react-r-hsa-5339716" :genome/kind :pathway :genome/label "Signaling by GSK3beta mutants" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5339716"}
+ {:genome/id "pw.react-r-hsa-5358565" :genome/kind :pathway :genome/label "Mismatch repair (MMR) directed by MSH2:MSH6 (MutSalpha)" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5358565"}
+ {:genome/id "pw.react-r-hsa-5358606" :genome/kind :pathway :genome/label "Mismatch repair (MMR) directed by MSH2:MSH3 (MutSbeta)" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5358606"}
+ {:genome/id "pw.react-r-hsa-5358747" :genome/kind :pathway :genome/label "CTNNB1 S33 mutants aren't phosphorylated" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5358747"}
+ {:genome/id "pw.react-r-hsa-5545483" :genome/kind :pathway :genome/label "Defective Mismatch Repair Associated With MLH1" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5545483"}
+ {:genome/id "pw.react-r-hsa-5627083" :genome/kind :pathway :genome/label "RHO GTPases regulate CFTR trafficking" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5627083"}
+ {:genome/id "pw.react-r-hsa-5628897" :genome/kind :pathway :genome/label "TP53 Regulates Metabolic Genes" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5628897"}
+ {:genome/id "pw.react-r-hsa-5632927" :genome/kind :pathway :genome/label "Defective Mismatch Repair Associated With MSH3" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5632927"}
+ {:genome/id "pw.react-r-hsa-5632928" :genome/kind :pathway :genome/label "Defective Mismatch Repair Associated With MSH2" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5632928"}
+ {:genome/id "pw.react-r-hsa-5632968" :genome/kind :pathway :genome/label "Defective Mismatch Repair Associated With MSH6" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5632968"}
+ {:genome/id "pw.react-r-hsa-5632987" :genome/kind :pathway :genome/label "Defective Mismatch Repair Associated With PMS2" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5632987"}
+ {:genome/id "pw.react-r-hsa-5674404" :genome/kind :pathway :genome/label "PTEN Loss of Function in Cancer" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5674404"}
+ {:genome/id "pw.react-r-hsa-5678895" :genome/kind :pathway :genome/label "Defective CFTR causes cystic fibrosis" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5678895"}
+ {:genome/id "pw.react-r-hsa-5685938" :genome/kind :pathway :genome/label "HDR through Single Strand Annealing (SSA)" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5685938"}
+ {:genome/id "pw.react-r-hsa-5685939" :genome/kind :pathway :genome/label "HDR through MMEJ (alt-NHEJ)" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5685939"}
+ {:genome/id "pw.react-r-hsa-5689880" :genome/kind :pathway :genome/label "Ub-specific processing proteases" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5689880"}
+ {:genome/id "pw.react-r-hsa-5689901" :genome/kind :pathway :genome/label "Metalloprotease DUBs" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5689901"}
+ {:genome/id "pw.react-r-hsa-5693554" :genome/kind :pathway :genome/label "Resolution of D-loop Structures through Synthesis-Dependent Strand Annealing (SDSA)" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5693554"}
+ {:genome/id "pw.react-r-hsa-5693568" :genome/kind :pathway :genome/label "Resolution of D-loop Structures through Holliday Junction Intermediates" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5693568"}
+ {:genome/id "pw.react-r-hsa-5693616" :genome/kind :pathway :genome/label "Presynaptic phase of homologous DNA pairing and strand exchange" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5693616"}
+ {:genome/id "pw.react-r-hsa-5694530" :genome/kind :pathway :genome/label "Cargo concentration in the ER" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-5694530"}
+ {:genome/id "pw.react-r-hsa-6796648" :genome/kind :pathway :genome/label "TP53 Regulates Transcription of DNA Repair Genes" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-6796648"}
+ {:genome/id "pw.react-r-hsa-6798695" :genome/kind :pathway :genome/label "Neutrophil degranulation" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-6798695"}
+ {:genome/id "pw.react-r-hsa-71336" :genome/kind :pathway :genome/label "Pentose phosphate pathway" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-71336"}
+ {:genome/id "pw.react-r-hsa-8856825" :genome/kind :pathway :genome/label "Cargo recognition for clathrin-mediated endocytosis" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-8856825"}
+ {:genome/id "pw.react-r-hsa-8856828" :genome/kind :pathway :genome/label "Clathrin-mediated endocytosis" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-8856828"}
+ {:genome/id "pw.react-r-hsa-8951664" :genome/kind :pathway :genome/label "Neddylation" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-8951664"}
+ {:genome/id "pw.react-r-hsa-8957275" :genome/kind :pathway :genome/label "Post-translational protein phosphorylation" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-8957275"}
+ {:genome/id "pw.react-r-hsa-8963888" :genome/kind :pathway :genome/label "Chylomicron assembly" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-8963888"}
+ {:genome/id "pw.react-r-hsa-8964026" :genome/kind :pathway :genome/label "Chylomicron clearance" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-8964026"}
+ {:genome/id "pw.react-r-hsa-8964038" :genome/kind :pathway :genome/label "LDL clearance" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-8964038"}
+ {:genome/id "pw.react-r-hsa-8964208" :genome/kind :pathway :genome/label "Phenylalanine metabolism" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-8964208"}
+ {:genome/id "pw.react-r-hsa-9013406" :genome/kind :pathway :genome/label "RHOQ GTPase cycle" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-9013406"}
+ {:genome/id "pw.react-r-hsa-9022692" :genome/kind :pathway :genome/label "Regulation of MECP2 expression and activity" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-9022692"}
+ {:genome/id "pw.react-r-hsa-912446" :genome/kind :pathway :genome/label "Meiotic recombination" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-912446"}
+ {:genome/id "pw.react-r-hsa-9613829" :genome/kind :pathway :genome/label "Chaperone Mediated Autophagy" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-9613829"}
+ {:genome/id "pw.react-r-hsa-9672383" :genome/kind :pathway :genome/label "Defective factor IX causes thrombophilia" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-9672383"}
+ {:genome/id "pw.react-r-hsa-9672387" :genome/kind :pathway :genome/label "Defective F8 accelerates dissociation of the A2 domain" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-9672387"}
+ {:genome/id "pw.react-r-hsa-9682706" :genome/kind :pathway :genome/label "Replication of the SARS-CoV-1 genome" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-9682706"}
+ {:genome/id "pw.react-r-hsa-9694686" :genome/kind :pathway :genome/label "Replication of the SARS-CoV-2 genome" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-9694686"}
+ {:genome/id "pw.react-r-hsa-975634" :genome/kind :pathway :genome/label "Retinoid metabolism and transport" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-975634"}
+ {:genome/id "pw.react-r-hsa-9818028" :genome/kind :pathway :genome/label "NFE2L2 regulates pentose phosphate pathway genes" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-9818028"}
+ {:genome/id "pw.react-r-hsa-9913351" :genome/kind :pathway :genome/label "Formation of the dystrophin-glycoprotein complex (DGC)" :genome/sourcing :authoritative :pathway/source :reactome :pathway/acc "R-HSA-9913351"}
+
+ {:en/from "pop.afr" :en/to "var.rs1799945" :en/kind :allele-frequency :en/grasping-load 0.026999 :en/sourcing :authoritative}
+ {:en/from "pop.afr" :en/to "var.rs1799963" :en/kind :allele-frequency :en/grasping-load 0.002754 :en/sourcing :authoritative}
+ {:en/from "pop.afr" :en/to "var.rs334" :en/kind :allele-frequency :en/grasping-load 0.040997 :en/sourcing :authoritative}
+ {:en/from "pop.afr" :en/to "var.rs429358" :en/kind :allele-frequency :en/grasping-load 0.212191 :en/sourcing :authoritative}
+ {:en/from "pop.afr" :en/to "var.rs5030868" :en/kind :allele-frequency :en/grasping-load 0.000172 :en/sourcing :authoritative}
+ {:en/from "pop.afr" :en/to "var.rs7412" :en/kind :allele-frequency :en/grasping-load 0.106134 :en/sourcing :authoritative}
+ {:en/from "pop.amr" :en/to "var.rs1799945" :en/kind :allele-frequency :en/grasping-load 0.096927 :en/sourcing :authoritative}
+ {:en/from "pop.amr" :en/to "var.rs1799963" :en/kind :allele-frequency :en/grasping-load 0.017689 :en/sourcing :authoritative}
+ {:en/from "pop.amr" :en/to "var.rs334" :en/kind :allele-frequency :en/grasping-load 0.001179 :en/sourcing :authoritative}
+ {:en/from "pop.amr" :en/to "var.rs429358" :en/kind :allele-frequency :en/grasping-load 0.123223 :en/sourcing :authoritative}
+ {:en/from "pop.amr" :en/to "var.rs5030868" :en/kind :allele-frequency :en/grasping-load 0 :en/sourcing :authoritative}
+ {:en/from "pop.amr" :en/to "var.rs7412" :en/kind :allele-frequency :en/grasping-load 0.041565 :en/sourcing :authoritative}
+ {:en/from "pop.eas" :en/to "var.rs1799945" :en/kind :allele-frequency :en/grasping-load 0.026958 :en/sourcing :authoritative}
+ {:en/from "pop.eas" :en/to "var.rs1799963" :en/kind :allele-frequency :en/grasping-load 0 :en/sourcing :authoritative}
+ {:en/from "pop.eas" :en/to "var.rs334" :en/kind :allele-frequency :en/grasping-load 0 :en/sourcing :authoritative}
+ {:en/from "pop.eas" :en/to "var.rs429358" :en/kind :allele-frequency :en/grasping-load 0.096879 :en/sourcing :authoritative}
+ {:en/from "pop.eas" :en/to "var.rs5030868" :en/kind :allele-frequency :en/grasping-load 0 :en/sourcing :authoritative}
+ {:en/from "pop.eas" :en/to "var.rs7412" :en/kind :allele-frequency :en/grasping-load 0.081619 :en/sourcing :authoritative}
+ {:en/from "pop.eur" :en/to "var.rs1799945" :en/kind :allele-frequency :en/grasping-load 0.145222 :en/sourcing :authoritative}
+ {:en/from "pop.eur" :en/to "var.rs1799963" :en/kind :allele-frequency :en/grasping-load 0.01245 :en/sourcing :authoritative}
+ {:en/from "pop.eur" :en/to "var.rs334" :en/kind :allele-frequency :en/grasping-load 0.00013 :en/sourcing :authoritative}
+ {:en/from "pop.eur" :en/to "var.rs429358" :en/kind :allele-frequency :en/grasping-load 0.141796 :en/sourcing :authoritative}
+ {:en/from "pop.eur" :en/to "var.rs5030868" :en/kind :allele-frequency :en/grasping-load 0.000191 :en/sourcing :authoritative}
+ {:en/from "pop.eur" :en/to "var.rs7412" :en/kind :allele-frequency :en/grasping-load 0.082082 :en/sourcing :authoritative}
+ {:en/from "pop.global" :en/to "var.rs1799945" :en/kind :allele-frequency :en/grasping-load 0.09949 :en/sourcing :authoritative}
+ {:en/from "pop.global" :en/to "var.rs1799963" :en/kind :allele-frequency :en/grasping-load 0.008441 :en/sourcing :authoritative}
+ {:en/from "pop.global" :en/to "var.rs334" :en/kind :allele-frequency :en/grasping-load 0.011529 :en/sourcing :authoritative}
+ {:en/from "pop.global" :en/to "var.rs429358" :en/kind :allele-frequency :en/grasping-load 0.164436 :en/sourcing :authoritative}
+ {:en/from "pop.global" :en/to "var.rs5030868" :en/kind :allele-frequency :en/grasping-load 0.00014 :en/sourcing :authoritative}
+ {:en/from "pop.global" :en/to "var.rs7412" :en/kind :allele-frequency :en/grasping-load 0.082685 :en/sourcing :authoritative}
+ {:en/from "var.rs104894090" :en/to "ph.medgen-C3661900" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs104894090" :en/to "ph.mondo-0008725" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs1799945" :en/to "ph.mondo-0004975" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs1799945" :en/to "ph.mondo-0004994" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs1799945" :en/to "ph.mondo-0008297" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs1799945" :en/to "ph.mondo-0009061" :en/kind :associated-with :en/clinsig :risk-factor :en/grasping-load 0.5 :en/sourcing :authoritative}
+ {:en/from "var.rs1799945" :en/to "ph.see-cases" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs1799963" :en/to "ph.medgen-C0948008" :en/kind :associated-with :en/clinsig :risk-factor :en/grasping-load 0.5 :en/sourcing :authoritative}
+ {:en/from "var.rs1799963" :en/to "ph.medgen-C0948008" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs1799963" :en/to "ph.medgen-C3661900" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs1799963" :en/to "ph.mondo-0005399" :en/kind :associated-with :en/clinsig :risk-factor :en/grasping-load 0.5 :en/sourcing :authoritative}
+ {:en/from "var.rs1799963" :en/to "ph.mondo-0006497" :en/kind :associated-with :en/clinsig :risk-factor :en/grasping-load 0.5 :en/sourcing :authoritative}
+ {:en/from "var.rs1799963" :en/to "ph.mondo-0008559" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs1799963" :en/to "ph.mondo-0013728" :en/kind :associated-with :en/clinsig :risk-factor :en/grasping-load 0.5 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.hemoglobin-s-antilles" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.hemoglobin-s-cameroon" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.hemoglobin-s-providence" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.hemoglobin-s-travis" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.medgen-C0950123" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.medgen-C1264000" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.medgen-C1841621" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.medgen-C2720293" :en/kind :associated-with :en/clinsig :protective :en/grasping-load 0.1 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.medgen-C3661900" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.medgen-C5680749" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.medgen-CN239378" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.mondo-0011381" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.mondo-0011382" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.mondo-0013517" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.mondo-0016669" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.mondo-0019402" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.mondo-0020989" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.mondo-0021024" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "ph.see-cases" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.apoe4--freiburg" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.medgen-C4479660" :en/kind :associated-with :en/clinsig :risk-factor :en/grasping-load 0.5 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.medgen-C5779573" :en/kind :associated-with :en/clinsig :risk-factor :en/grasping-load 0.5 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.medgen-CN169374" :en/kind :associated-with :en/clinsig :uncertain :en/grasping-load 0.3 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.mondo-0004975" :en/kind :associated-with :en/clinsig :likely-pathogenic :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.mondo-0005439" :en/kind :associated-with :en/clinsig :likely-pathogenic :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.mondo-0007390" :en/kind :associated-with :en/clinsig :drug-response :en/grasping-load 0.4 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.mondo-0011743" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.mondo-0012725" :en/kind :associated-with :en/clinsig :uncertain :en/grasping-load 0.3 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "ph.mondo-0018473" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.g6pd-deficient-hemolytic-anemia" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.g6pd-related-disorder" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.hemolytic-anemia-g6pd-deficient-favism" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.medgen-C0950123" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.medgen-C3661900" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.mondo-0005775" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.mondo-0010480" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.mondo-0010480" :en/kind :associated-with :en/clinsig :uncertain :en/grasping-load 0.3 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.mondo-0010480" :en/kind :associated-with :en/clinsig :likely-pathogenic :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.mondo-0021024" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "ph.see-cases" :en/kind :associated-with :en/clinsig :likely-pathogenic :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "var.rs7412" :en/to "ph.hyperlipoproteinemia-due-to-apoe1" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs7412" :en/to "ph.medgen-C0020443" :en/kind :associated-with :en/clinsig :benign :en/grasping-load 0.05 :en/sourcing :authoritative}
+ {:en/from "var.rs7412" :en/to "ph.medgen-CN169374" :en/kind :associated-with :en/clinsig :uncertain :en/grasping-load 0.3 :en/sourcing :authoritative}
+ {:en/from "var.rs7412" :en/to "ph.medgen-CN169374" :en/kind :associated-with :en/clinsig :benign :en/grasping-load 0.05 :en/sourcing :authoritative}
+ {:en/from "var.rs7412" :en/to "ph.medgen-CN322724" :en/kind :associated-with :en/clinsig :drug-response :en/grasping-load 0.4 :en/sourcing :authoritative}
+ {:en/from "var.rs7412" :en/to "ph.mondo-0007390" :en/kind :associated-with :en/clinsig :drug-response :en/grasping-load 0.4 :en/sourcing :authoritative}
+ {:en/from "var.rs7412" :en/to "ph.mondo-0018473" :en/kind :associated-with :en/clinsig :pathogenic :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "var.rs104894090" :en/to "gene.star" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs113993960" :en/to "gene.cftr" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs1799945" :en/to "gene.hfe" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs1799963" :en/to "gene.f2" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs1801133" :en/to "gene.mthfr" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs28934578" :en/to "gene.tp53" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs334" :en/to "gene.hbb" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs429358" :en/to "gene.apoe" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs5030868" :en/to "gene.g6pd" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs6025" :en/to "gene.f5" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs7412" :en/to "gene.apoe" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "var.rs80357914" :en/to "gene.brca1" :en/kind :located-in :en/grasping-load 1 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.go-0000281" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.go-0006974" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.go-0007026" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.go-0007094" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.go-0008285" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.go-0008286" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.react-r-hsa-196299" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.react-r-hsa-3769402" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.react-r-hsa-4641262" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.react-r-hsa-5339716" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.apc" :en/to "pw.react-r-hsa-5358747" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.go-0001937" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.go-0006641" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.go-0006898" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.go-0007186" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.go-0007616" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.go-0008203" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.react-r-hsa-1251985" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.react-r-hsa-3000480" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.react-r-hsa-381426" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.react-r-hsa-8957275" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.apoe" :en/to "pw.react-r-hsa-8963888" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.go-0000724" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.go-0006301" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.go-0006302" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.go-0006357" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.go-0007059" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.go-0007095" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.react-r-hsa-1221632" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.react-r-hsa-3108214" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.react-r-hsa-5685938" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.react-r-hsa-5689901" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.brca1" :en/to "pw.react-r-hsa-5693554" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.go-0000724" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.go-0000730" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.go-0006289" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.go-0006302" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.go-0006974" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.go-0033600" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.react-r-hsa-5685939" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.react-r-hsa-5693554" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.react-r-hsa-5693568" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.react-r-hsa-5693616" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.brca2" :en/to "pw.react-r-hsa-912446" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.go-0015701" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.go-0034976" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.go-0035377" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.go-0050891" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.go-1902476" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.go-1904322" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.react-r-hsa-5627083" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.react-r-hsa-5678895" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.react-r-hsa-5689880" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.react-r-hsa-8856825" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.cftr" :en/to "pw.react-r-hsa-9013406" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.dmd" :en/to "pw.go-0002027" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.dmd" :en/to "pw.go-0008104" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.dmd" :en/to "pw.go-0010976" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.dmd" :en/to "pw.go-0043043" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.dmd" :en/to "pw.go-0045666" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.dmd" :en/to "pw.go-0060048" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.dmd" :en/to "pw.react-r-hsa-3000171" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.dmd" :en/to "pw.react-r-hsa-390522" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.dmd" :en/to "pw.react-r-hsa-9913351" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.f8" :en/to "pw.go-0006508" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.f8" :en/to "pw.go-0007596" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.f8" :en/to "pw.go-0007597" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.f8" :en/to "pw.go-0031638" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.f8" :en/to "pw.react-r-hsa-114608" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.f8" :en/to "pw.react-r-hsa-204005" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.f8" :en/to "pw.react-r-hsa-5694530" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.f8" :en/to "pw.react-r-hsa-9672383" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.f8" :en/to "pw.react-r-hsa-9672387" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.go-0001501" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.go-0006006" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.go-0007189" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.go-0007507" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.go-0033627" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.go-0042593" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.react-r-hsa-1474228" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.react-r-hsa-2129379" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.react-r-hsa-216083" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.react-r-hsa-381426" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.fbn1" :en/to "pw.react-r-hsa-8957275" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.g6pd" :en/to "pw.go-0006098" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.g6pd" :en/to "pw.go-0006695" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.g6pd" :en/to "pw.go-0006739" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.g6pd" :en/to "pw.go-0006749" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.g6pd" :en/to "pw.go-0009051" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.g6pd" :en/to "pw.go-0019322" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.g6pd" :en/to "pw.react-r-hsa-5628897" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.g6pd" :en/to "pw.react-r-hsa-71336" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.g6pd" :en/to "pw.react-r-hsa-9818028" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.go-0006954" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.go-0015671" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.go-0030185" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.go-0042542" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.go-0042744" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.go-0070293" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.react-r-hsa-1237044" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.react-r-hsa-1247673" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.react-r-hsa-2168880" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.react-r-hsa-6798695" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.hbb" :en/to "pw.react-r-hsa-9613829" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.htt" :en/to "pw.go-0000132" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.htt" :en/to "pw.go-0006890" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.htt" :en/to "pw.go-0007030" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.htt" :en/to "pw.go-0031648" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.htt" :en/to "pw.go-0042297" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.htt" :en/to "pw.go-0043065" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.htt" :en/to "pw.react-r-hsa-9022692" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.go-0001920" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.go-0007616" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.go-0010989" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.go-0030299" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.go-0030301" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.go-0034383" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.react-r-hsa-8856825" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.react-r-hsa-8856828" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.react-r-hsa-8964026" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.react-r-hsa-8964038" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.ldlr" :en/to "pw.react-r-hsa-975634" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.go-0000710" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.go-0006298" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.go-0006950" :en/kind :participates-in :en/grasping-load 0.4 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.go-0016446" :en/kind :participates-in :en/grasping-load 0.6 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.go-0048298" :en/kind :participates-in :en/grasping-load 0.4 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.go-0048304" :en/kind :participates-in :en/grasping-load 0.4 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.react-r-hsa-5358565" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.react-r-hsa-5358606" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.react-r-hsa-5545483" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.react-r-hsa-5632987" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.mlh1" :en/to "pw.react-r-hsa-6796648" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.go-0002204" :en/kind :participates-in :en/grasping-load 0.6 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.go-0006281" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.go-0006298" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.go-0006301" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.go-0043570" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.go-0045910" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.react-r-hsa-5358565" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.react-r-hsa-5358606" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.react-r-hsa-5632927" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.react-r-hsa-5632928" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.msh2" :en/to "pw.react-r-hsa-5632968" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.mthfr" :en/to "pw.go-0001666" :en/kind :participates-in :en/grasping-load 0.4 :en/sourcing :authoritative}
+ {:en/from "gene.mthfr" :en/to "pw.go-0001843" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.mthfr" :en/to "pw.go-0035999" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.mthfr" :en/to "pw.go-0050667" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.mthfr" :en/to "pw.go-0070828" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.mthfr" :en/to "pw.go-0071265" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.mthfr" :en/to "pw.react-r-hsa-196757" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.pah" :en/to "pw.go-0006559" :en/kind :participates-in :en/grasping-load 0.6 :en/sourcing :authoritative}
+ {:en/from "gene.pah" :en/to "pw.go-0006571" :en/kind :participates-in :en/grasping-load 0.6 :en/sourcing :authoritative}
+ {:en/from "gene.pah" :en/to "pw.go-0008652" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.pah" :en/to "pw.go-0009072" :en/kind :participates-in :en/grasping-load 0.4 :en/sourcing :authoritative}
+ {:en/from "gene.pah" :en/to "pw.go-0042423" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.pah" :en/to "pw.react-r-hsa-2160456" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.pah" :en/to "pw.react-r-hsa-8964208" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.go-0006470" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.go-0007056" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.go-0008285" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.go-0010719" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.go-0030336" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.go-0031647" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.react-r-hsa-1660499" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.react-r-hsa-1855204" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.react-r-hsa-202424" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.react-r-hsa-5628897" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.pten" :en/to "pw.react-r-hsa-5674404" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.go-0006355" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.go-0006469" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.go-0007265" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.go-0007346" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.go-0010629" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.go-0031134" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.react-r-hsa-113501" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.react-r-hsa-174178" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.react-r-hsa-2299718" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.react-r-hsa-2559584" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.rb1" :en/to "pw.react-r-hsa-2559585" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.go-0000122" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.go-0002244" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.go-0006289" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.go-0006355" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.go-0006357" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.go-0006914" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.react-r-hsa-111448" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.react-r-hsa-139915" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.react-r-hsa-2559580" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.react-r-hsa-2559584" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.tp53" :en/to "pw.react-r-hsa-2559585" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.go-0000122" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.go-0006355" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.go-0008285" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.go-0009968" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.go-0010468" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.go-0010507" :en/kind :participates-in :en/grasping-load 0.9 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.react-r-hsa-1234176" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.react-r-hsa-3232142" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.react-r-hsa-8951664" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.react-r-hsa-9682706" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+ {:en/from "gene.vhl" :en/to "pw.react-r-hsa-9694686" :en/kind :participates-in :en/grasping-load 0.7 :en/sourcing :authoritative}
+]

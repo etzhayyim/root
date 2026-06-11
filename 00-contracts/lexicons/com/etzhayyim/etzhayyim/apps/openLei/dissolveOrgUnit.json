@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openLei.dissolveOrgUnit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Mark an org unit as dissolved and optionally cascade to all active descendant units.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["orgUnitVid"],
+          "properties": {
+            "orgUnitVid":  { "type": "string" },
+            "validUntil":  { "type": "string", "format": "date", "description": "Dissolution date. Defaults to today." },
+            "cascade":     { "type": "boolean", "default": true, "description": "Also dissolve all active descendant units." },
+            "dryRun":      { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok":         { "type": "boolean" },
+            "dissolved":  { "type": "integer" },
+            "validUntil": { "type": "string" },
+            "dryRun":     { "type": "boolean" },
+            "errors":     { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  }
+}

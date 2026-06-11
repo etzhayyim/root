@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shosha.etzhayyim.com — proposeHedge workflow (XRPC com.etzhayyim.apps.shosha.proposeHedge).
+
+  Pipeline:
+    1. shosha.exposure.recompute   ensure exposure snapshot is fresh for commodity
+    2. shosha.hedge.propose        compute target hedge given exposure × ratio
+                                    → insert vertex_shosha_hedge (status=proposed)
+    3. generic.audit.emit          OCEL trail
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shosha_propose_hedge"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="shosha_propose_hedge" name="shosha propose hedge" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.shosha.proposeHedge", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="proposeHedge">
+      <bpmn:outgoing>Flow_ToExposure</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Exposure" name="recompute exposure (commodity-scoped)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.exposure.recompute"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=commodity" target="commodityFilter"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToExposure</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToPropose</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToExposure" sourceRef="Start" targetRef="Task_Exposure"/>
+
+    <bpmn:serviceTask id="Task_Propose" name="compute hedge ratio + insert hedge">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.hedge.propose"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=commodity" target="commodity"/>
+          <zeebe:input source="=instrument" target="instrument"/>
+          <zeebe:input source="=targetHedgeRatio" target="targetHedgeRatio"/>
+          <zeebe:input source="=expiryDate" target="expiryDate"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=hedgeId" target="hedgeId"/>
+          <zeebe:output source="=vertexId" target="vertexId"/>
+          <zeebe:output source="=direction" target="direction"/>
+          <zeebe:output source="=notional" target="notional"/>
+          <zeebe:output source="=currentExposure" target="currentExposure"/>
+          <zeebe:output source="=rationale" target="rationale"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPropose</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPropose" sourceRef="Task_Exposure" targetRef="Task_Propose"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.proposeHedge&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;hedgeId&quot;: hedgeId, &quot;commodity&quot;: commodity, &quot;notional&quot;: notional, &quot;direction&quot;: direction }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Propose" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

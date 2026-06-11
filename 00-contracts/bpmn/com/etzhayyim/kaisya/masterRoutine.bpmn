@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_kaisya_master_routine" targetNamespace="https://etzhayyim.ai/bpmn/kaisya" exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="kaisya_master_routine" name="kaisya Master Routine" isExecutable="true">
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.kaisya.masterRoutine", "version": 1, "resultTimeoutMs": 120000 }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="Every 30 min">
+      <bpmn:outgoing>Flow_start_to_collect</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerDef_30m">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT30M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_collect" sourceRef="Start_Timer" targetRef="Task_collectState"/>
+
+    <bpmn:serviceTask id="Task_collectState" name="Collect Org State">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="kaisya.master.collectState"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=orgState" target="orgState"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_collect</bpmn:incoming>
+      <bpmn:outgoing>Flow_collect_to_evaluate</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_collect_to_evaluate" sourceRef="Task_collectState" targetRef="Task_evaluateObjective"/>
+
+    <bpmn:serviceTask id="Task_evaluateObjective" name="Evaluate Objective Ω(t)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="kaisya.master.evaluateObjective"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=orgState" target="orgState"/>
+          <zeebe:output source="=omega" target="omega"/>
+          <zeebe:output source="=etaValue" target="etaValue"/>
+          <zeebe:output source="=uTotal" target="uTotal"/>
+          <zeebe:output source="=spiritScore" target="spiritScore"/>
+          <zeebe:output source="=bufferScore" target="bufferScore"/>
+          <zeebe:output source="=feelingScore" target="feelingScore"/>
+          <zeebe:output source="=wellbecomingScore" target="wellbecomingScore"/>
+          <zeebe:output source="=separationDelta" target="separationDelta"/>
+          <zeebe:output source="=decisions" target="decisions"/>
+          <zeebe:output source="=criticalAlerts" target="criticalAlerts"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_collect_to_evaluate</bpmn:incoming>
+      <bpmn:outgoing>Flow_evaluate_to_execute</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_evaluate_to_execute" sourceRef="Task_evaluateObjective" targetRef="Task_executeDecisions"/>
+
+    <bpmn:serviceTask id="Task_executeDecisions" name="Execute Decisions">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="kaisya.master.executeDecisions"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=decisions" target="decisions"/>
+          <zeebe:input source="=omega" target="omega"/>
+          <zeebe:output source="=actionsExecuted" target="actionsExecuted"/>
+          <zeebe:output source="=tasksCreated" target="tasksCreated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_evaluate_to_execute</bpmn:incoming>
+      <bpmn:outgoing>Flow_execute_to_snapshot</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_execute_to_snapshot" sourceRef="Task_executeDecisions" targetRef="Task_writeSnapshot"/>
+
+    <bpmn:serviceTask id="Task_writeSnapshot" name="Write Org Snapshot">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="kaisya.master.writeSnapshot"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=omega" target="omega"/>
+          <zeebe:input source="=etaValue" target="etaValue"/>
+          <zeebe:input source="=uTotal" target="uTotal"/>
+          <zeebe:input source="=spiritScore" target="spiritScore"/>
+          <zeebe:input source="=bufferScore" target="bufferScore"/>
+          <zeebe:input source="=feelingScore" target="feelingScore"/>
+          <zeebe:input source="=wellbecomingScore" target="wellbecomingScore"/>
+          <zeebe:input source="=separationDelta" target="separationDelta"/>
+          <zeebe:input source="=actionsExecuted" target="actionsExecuted"/>
+          <zeebe:input source="=tasksCreated" target="tasksCreated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_execute_to_snapshot</bpmn:incoming>
+      <bpmn:outgoing>Flow_snapshot_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_snapshot_to_end" sourceRef="Task_writeSnapshot" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="Done">
+      <bpmn:incoming>Flow_snapshot_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

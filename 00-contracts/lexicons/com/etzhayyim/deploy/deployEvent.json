@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.deploy.deployEvent",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Audit record for an agent-led deploy stage. Written by the agent after each `e7m actor deploy --only <stage>` step completes. Per ADR-2605232000. Public record — carries no PHI, only DIDs + target NSIDs + outcome + L2-anchor-pending-seq.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["version", "agentDid", "stewardDid", "stage", "target", "outcome", "occurredAt", "signature"],
+        "properties": {
+          "version": {"type": "integer", "const": 1},
+          "agentDid": {"type": "string"},
+          "stewardDid": {"type": "string", "description": "DID of the human Steward who issued the capability authorizing this deploy"},
+          "capabilityUri": {"type": "string", "description": "AT URI of the parent consent capability (purpose=deploy-execution)"},
+          "agentTokenJwsHash": {"type": "string", "description": "SHA-256 of the JWS used for this specific call (correlates to com.etzhayyim.deploy.agentToken.jwsHash)"},
+          "stage": {
+            "type": "string",
+            "enum": [
+              "did-worker",
+              "audit-worker",
+              "k8s-pod-build",
+              "k8s-pod-apply",
+              "cf-tunnel",
+              "pages-deploy",
+              "dns-record",
+              "smoke",
+              "rollback",
+              "image-build",
+              "image-push",
+              "lexicon-bundle-rebuild"
+            ]
+          },
+          "target": {
+            "type": "object",
+            "required": ["nsid", "identifier"],
+            "properties": {
+              "nsid": {"type": "string", "description": "e.g. deploy.cfWorker / deploy.k8s.deployment / deploy.k8s.service / deploy.pages / deploy.docker.image"},
+              "identifier": {"type": "string", "description": "Concrete resource name (e.g. karute-did-web / lg-karute / karute-pages / ghcr.io/etzhayyim/lg-karute)"},
+              "namespace": {"type": "string", "description": "k8s namespace where applicable"}
+            }
+          },
+          "command": {"type": "string", "description": "Sanitized command executed (no secrets); e.g. 'wrangler deploy' / 'kubectl apply -f deployment.yaml'"},
+          "commitSha": {"type": "string", "description": "git commit the deploy was built from"},
+          "outcome": {"type": "string", "enum": ["ok", "denied", "error", "dry-run"]},
+          "errorCode": {"type": "string"},
+          "durationMs": {"type": "integer"},
+          "occurredAt": {"type": "string", "format": "datetime"},
+          "signature": {
+            "type": "object",
+            "required": ["alg", "value", "keyId"],
+            "properties": {
+              "alg": {"type": "string", "const": "ed25519"},
+              "value": {"type": "string"},
+              "keyId": {"type": "string", "description": "DID-doc verification method id of agentDid"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

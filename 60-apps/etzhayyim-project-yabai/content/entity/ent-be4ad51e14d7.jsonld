@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-be4ad51e14d7",
+  "entityId": "ent-be4ad51e14d7",
+  "canonicalName": "khawa panga mandro",
+  "aliases": [
+    "khawa panga mandro"
+  ]
+}

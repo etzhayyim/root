@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.rekeyRecord",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Rekey a karute encrypted record. Generates a fresh per-record sym_key, re-AEAD-encrypts the plaintext, writes a new com.etzhayyim.encrypted.record envelope, emits new keyWrap records for the (possibly reduced) recipient set, and writes an com.etzhayyim.encrypted.tombstone pointing prior→successor. Used for: scheduled rekey, member removal (consent revocation flush), key compromise rotation, data correction. Per ADR-2605231603.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["priorCid", "priorAtUri", "newRecipientDids", "reason"],
+          "properties": {
+            "priorCid": {"type": "string"},
+            "priorAtUri": {"type": "string"},
+            "newRecipientDids": {"type": "array", "items": {"type": "string"}, "description": "Recipient set for the SUCCESSOR. Excludes removed members."},
+            "removedRecipientDid": {"type": "string"},
+            "reason": {
+              "type": "string",
+              "enum": [
+                "scheduled-rekey",
+                "member-removal",
+                "key-compromise",
+                "patient-request-redaction",
+                "regulator-order",
+                "data-correction",
+                "consent-revocation-flush"
+              ]
+            },
+            "innerType": {"type": "string", "description": "MUST match the prior record's innerType (one of com.etzhayyim.karute.*)"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "successorCid": {"type": "string"},
+            "successorAtUri": {"type": "string"},
+            "tombstoneCid": {"type": "string"},
+            "newKeyWrapUris": {"type": "array", "items": {"type": "string"}},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

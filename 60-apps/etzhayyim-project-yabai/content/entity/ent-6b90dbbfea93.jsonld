@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6b90dbbfea93",
+  "entityId": "ent-6b90dbbfea93",
+  "canonicalName": "khalid sbaa",
+  "aliases": [
+    "khalid sbaa"
+  ]
+}

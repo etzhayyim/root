@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  yabai.flagEntity — migration from TS handler (60-apps/etzhayyim-project-yabai/
+  appview/etzhayyim-wasm-yabai-y8b41k0x/src/app.ts cmdFlagEntity).
+
+  Single-task actor: insert a YabaiFlag row. The TS handler also calls
+  sdk.hostImports.ocelEmit() for governance audit — covered by F5 watcher
+  pattern via generic.audit.emit (here we emit explicitly).
+
+  Flow:
+    Start (input: entityVid, flagType, severity?, confidence?, accountDid?,
+                  tlp?, notes?, tags?, expiresAt?)
+      → generic.db.insert (vertex_yabai_flag)
+      → generic.audit.emit
+      → End
+
+  Coexists with the TS handler at the same NSID until PDS pipethrough
+  routing is updated (see ADR-0059 Phase 1 migration). Testable directly
+  via `POST dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.apps.yabai.flagEntity`.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_yabai_flag_entity"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="yabai_flag_entity" name="yabai flag entity" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="flag requested">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_InsertFlag"/>
+
+    <bpmn:serviceTask id="Task_InsertFlag" name="insert flag">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_yabai_flag&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:    &quot;flag:&quot; + string(flagType) + &quot;:&quot; + string(entityVid) + &quot;:&quot; + string(now()),
+              node_id:      &quot;flag:&quot; + string(flagType) + &quot;:&quot; + string(entityVid),
+              account_did:  if accountDid = null then &quot;did:web:yabcom.etzhayyim.ai&quot; else string(accountDid),
+              entity_vid:   string(entityVid),
+              entity_type:  if entityType = null then &quot;Unknown&quot; else string(entityType),
+              flag_type:    string(flagType),
+              severity:     if severity = null then &quot;medium&quot; else string(severity),
+              confidence:   if confidence = null then 0.5 else confidence,
+              tlp:          if tlp = null then &quot;TLP:AMBER&quot; else string(tlp),
+              notes:        if notes = null then &quot;&quot; else string(notes),
+              tags:         &quot;[]&quot;,
+              expires_at:   if expiresAt = null then &quot;&quot; else string(expiresAt),
+              created_at:   string(now()),
+              org_id:       &quot;anon&quot;,
+              user_id:      &quot;anon&quot;,
+              actor_id:     &quot;did:web:yabcom.etzhayyim.ai&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_InsertFlag" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit: flag emitted">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yabcom.etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;flagEntity&quot;" target="action"/>
+          <zeebe:input source="={
+              entityVid: string(entityVid),
+              flagType:  string(flagType),
+              severity:  if severity = null then &quot;medium&quot; else string(severity),
+              tlp:       if tlp = null then &quot;TLP:AMBER&quot; else string(tlp),
+              inserted:  inserted
+          }" target="payload"/>
+          <zeebe:output source="=emitted" target="auditEmitted"/>
+          <zeebe:output source="=rkey"    target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

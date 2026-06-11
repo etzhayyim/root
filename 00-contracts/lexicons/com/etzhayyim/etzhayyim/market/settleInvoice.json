@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.market.settleInvoice",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Enqueue an invoice for ERC-4337 UserOp bundling (ADR 2605011300). N invoices → 1 UserOp via generic.settlement.bundle BPMN. Returns settlementTxHash once the bundled UserOp is mined; before that, returns bundleQueueId. Mokuteki child/future floor is re-checked at bundle time.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["listingId", "quantity", "payerDid"],
+          "properties": {
+            "listingId": { "type": "string" },
+            "quantity": { "type": "number", "minimum": 0 },
+            "payerDid": {
+              "type": "string",
+              "description": "did:erc725 of the payer (smart wallet account, ADR-0074)"
+            },
+            "quoteSignature": {
+              "type": "string",
+              "description": "Optional signed quote from quotePrice (binds the price within the expiresAt window)"
+            },
+            "memo": { "type": "string", "maxLength": 240 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "invoiceId": { "type": "string" },
+            "bundleQueueId": { "type": "string", "description": "Identifier for the pending bundle slot. Poll observeDemand or settlement webhook for tx hash." },
+            "settlementTxHash": { "type": "string", "description": "Set once the bundled UserOp is mined" },
+            "mokutekiFloorPass": { "type": "boolean" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

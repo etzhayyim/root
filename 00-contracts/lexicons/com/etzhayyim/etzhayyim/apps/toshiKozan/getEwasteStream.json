@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.toshiKozan.getEwasteStream",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a 都市鉱山 e-waste material stream by DID.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "required": ["did"], "properties": { "did": { "type": "string", "format": "did" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "streamType": { "type": "string" }, "country": { "type": "string" }, "tonnesPerYear": { "type": "number" }, "recoveryFacilityDid": { "type": "string", "format": "did" }, "targetMaterials": { "type": "array", "items": { "type": "string" } }, "yieldGramsPerTonne": { "type": "object", "additionalProperties": { "type": "number" } }, "co2eKgPerTonneRecovered": { "type": "number" } } } }
+    }
+  }
+}

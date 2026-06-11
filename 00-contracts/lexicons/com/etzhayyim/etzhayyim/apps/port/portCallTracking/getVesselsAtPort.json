@@ -1,0 +1,21 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.port.portCallTracking.getVesselsAtPort",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "com.etzhayyim.apps.port.portCallTracking.getVesselsAtPort BPMN-backed port operation.",
+      "parameters": {
+        "type": "params",
+        "properties": {},
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

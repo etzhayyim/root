@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.public-fund.execution",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Execution result of a successfully passed Public Fund proposal. Either simple 0xSplits disbursement or first stage of MilestoneEscrow. Per ADR-2605192145 §4.",
+      "record": {
+        "type": "object",
+        "required": ["proposalUri", "executedAt", "executionPath", "txHash"],
+        "properties": {
+          "proposalUri": { "type": "string", "format": "at-uri" },
+          "onchainProposalId": { "type": "string" },
+          "executionPath": {
+            "type": "string",
+            "enum": ["simple-disbursement", "milestone-escrow"]
+          },
+          "splitContractAddress": {
+            "type": "string",
+            "description": "0xSplits immutable split contract address (simple-disbursement path)."
+          },
+          "milestoneEscrowAddress": {
+            "type": "string",
+            "description": "MilestoneEscrow contract address (milestone-escrow path)."
+          },
+          "totalAmountUsdcMicros": { "type": "integer" },
+          "recipients": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "amounts": {
+            "type": "array",
+            "items": { "type": "integer" }
+          },
+          "txHash": { "type": "string" },
+          "blockNumber": { "type": "integer" },
+          "executedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

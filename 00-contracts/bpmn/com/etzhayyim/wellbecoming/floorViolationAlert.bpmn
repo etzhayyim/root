@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  wellbecoming.floorViolationAlert — ADR-2604291800.
+
+  Fires every 30 min. Checks for recent floor violations (responses that
+  could harm children / future generations). If any new violations found,
+  emits an alert record and triggers the alert task.
+
+  Hard floor = Von Neumann minimax constraint — never negotiable.
+
+  NSID: com.etzhayyim.apps.wellbecoming.floorViolationAlert
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_wellbecoming_floor_violation_alert"
+    targetNamespace="https://etzhayyim.ai/bpmn/wellbecoming"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="wellbecoming_floor_violation_alert" name="Well-Becoming Floor Violation Alert" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.wellbecoming.floorViolationAlert", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <!-- Timer: every 30 min -->
+    <bpmn:startEvent id="Start" name="every 30m">
+      <bpmn:outgoing>Flow_ToCheck</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_30m">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT30M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToCheck" sourceRef="Start" targetRef="Task_Check"/>
+
+    <!-- Check for new floor violations in last 30 min -->
+    <bpmn:serviceTask id="Task_Check" name="check floor violations">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="wellbecoming.floor.check"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=30" target="lookback_minutes"/>
+          <zeebe:output source="=violation_count"    target="violationCount"/>
+          <zeebe:output source="=has_violations"     target="hasViolations"/>
+          <zeebe:output source="=violation_vertex_ids" target="violationVertexIds"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCheck</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGateway</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToGateway" sourceRef="Task_Check" targetRef="Gateway_HasViolations"/>
+
+    <!-- Only alert if violations found -->
+    <bpmn:exclusiveGateway id="Gateway_HasViolations" name="has violations?">
+      <bpmn:incoming>Flow_ToGateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAlert</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_ToAlert" sourceRef="Gateway_HasViolations" targetRef="Task_Alert">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=hasViolations = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Gateway_HasViolations" targetRef="End">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=hasViolations = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Emit alert record + log -->
+    <bpmn:serviceTask id="Task_Alert" name="emit floor alert">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="wellbecoming.floor.alert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=violationCount"      target="violation_count"/>
+          <zeebe:input source="=violationVertexIds"  target="violation_vertex_ids"/>
+          <zeebe:output source="=alert_uri"          target="alertUri"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAlert</bpmn:incoming>
+      <bpmn:outgoing>Flow_AlertToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AlertToEnd" sourceRef="Task_Alert" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+      <bpmn:incoming>Flow_AlertToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

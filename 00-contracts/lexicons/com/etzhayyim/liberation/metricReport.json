@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.liberation.metricReport",
+  "description": "Quarterly Liberation Metric aggregate report (no PII). Mission KPI for ADR-2605261000 §4. Published by ChartersComplianceRegistry.reportLiberationMetric(). Aggregation enforced structurally (cf. ADR-2605260215 yakushi cross-actor AE aggregation pattern). All quantities are integer-with-implied-units per ADR-2605190900 (no float types in Lexicons).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reportingQuarter": {"type": "string", "description": "ISO quarter format e.g. 2027-Q1"},
+          "stage": {"type": "string", "knownValues": ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]},
+          "adherentsAtStage": {"type": "integer"},
+          "aggregateLaborHoursReduction": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "All labor-hours figures are centihours per week (1 hr/wk = 100). e.g. 38.2 hr/wk = 3820.",
+            "properties": {
+              "wageLaborMedianCentihrsWk": {"type": "integer", "minimum": 0, "description": "Median wage-labor, centihours/week (×100)"},
+              "subsistenceLaborMedianCentihrsWk": {"type": "integer", "minimum": 0, "description": "Median subsistence-labor, centihours/week (×100)"},
+              "totalReductionMedianCentihrsWk": {"type": "integer", "description": "Median total labor-hours reduction vs join baseline, centihours/week (×100)"},
+              "targetReductionCentihrsWk": {"type": "integer", "minimum": 0, "description": "Stage target reduction, centihours/week (×100)"},
+              "achievementRatioPermille": {"type": "integer", "minimum": 0, "description": "totalReduction / targetReduction, per-mille (×1000); stage advances only at ≥800 (=0.8) × 2 consecutive quarters"}
+            },
+            "required": ["wageLaborMedianCentihrsWk", "subsistenceLaborMedianCentihrsWk", "totalReductionMedianCentihrsWk", "targetReductionCentihrsWk", "achievementRatioPermille"]
+          },
+          "wellbecomingFailureRateBps": {"type": "integer", "minimum": 0, "maximum": 10000, "description": "Fraction of adherents currently on stage-hold for Wellbecoming attestation failure, basis points (×10000; 0.012 = 120)"},
+          "exitRateBps": {"type": "integer", "minimum": 0, "maximum": 10000, "description": "Voluntary stage-exit rate for the quarter, basis points (×10000)"},
+          "basicHighIncome": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Non-cash income/asset accounting per ADR-2605301020 (Basic High Income doctrine — clarifying extension of this ADR's §5 N1). Aggregate-only; no per-adherent figures (no leaderboard → no class formation, §7 + N6). Computed by toritate (ADR-2605262900) imputed_income_compute + commons_asset_value cells over encrypted per-adherent figures (ADR-2605181100). cashStipendUsdMicros is a structural invariant fixed at 0 = on-chain proof that N1 (no fiat-replacement UBI) holds. All USD quantities are micros (1 USD = 1000000) per ADR-2605190900.",
+            "properties": {
+              "imputedIncomeMedianUsdMicrosYr": {"type": "integer", "minimum": 0, "description": "FLOW. Market-equivalent value of in-kind services consumed per adherent at this stage (trailing 12-month median), USD micros/year (×1e6). NOT cash paid — provisioning is in-kind. Valued via the versioned table named in imputedIncomeValuationMethod."},
+              "imputedIncomeValuationMethod": {"type": "string", "description": "Versioned valuation-method id resolving to an open, Council-attested table under 20-actors/toritate/valuation/ (e.g. v1-retail-equiv). Method-versioning makes the imputed figure auditable."},
+              "commonsAssetAccessMedianUsdMicros": {"type": "integer", "minimum": 0, "description": "STOCK. Market-equivalent value of the SBT-bound NON-ALIENABLE commons-asset ACCESS per adherent (Land Trust residency / actor-mesh productive output / kotoba data substrate / hikari energy infra), USD micros (×1e6). An access right, never title — never sellable, transferable, collateralizable, or inheritable as title (ADR-2605301020 §2; generalizes ADR-2605192245 land waqf inalienability)."},
+              "highIncomeBenchmarkRatioPermille": {"type": "integer", "minimum": 0, "description": "(imputedIncome + commonsAssetAccess) measured against the OECD upper-income-decile household consumption basket, per-mille (×1000). Target ≥1000 (=1.0) at L6 (a target, not a promise — N8 asymptotic); rises across the ladder."},
+              "cashStipendUsdMicros": {"type": "integer", "const": 0, "description": "INVARIANT ≡ 0. Its presence-and-zero in EVERY report is the structural on-chain proof that §5 N1 holds (no cash stipend replaces a wage; the wage's NEED is removed by in-kind provisioning). Any nonzero value is a constitutional violation."}
+            },
+            "required": ["imputedIncomeMedianUsdMicrosYr", "imputedIncomeValuationMethod", "commonsAssetAccessMedianUsdMicros", "highIncomeBenchmarkRatioPermille", "cashStipendUsdMicros"]
+          },
+          "publicFundReserveUsdcMicros": {"type": "integer", "minimum": 0, "description": "Current Public Fund USDC reserve vs §3 sizing target, USDC micros (×1e6)"},
+          "attestationCid": {"type": "string"},
+          "councilAttestation": {"type": "array", "items": {"type": "string"}, "minItems": 3, "description": "Council Lv6+ ≥3 sign-off"}
+        },
+        "required": ["reportingQuarter", "stage", "adherentsAtStage", "aggregateLaborHoursReduction", "basicHighIncome", "publicFundReserveUsdcMicros", "attestationCid", "councilAttestation"]
+      }
+    }
+  }
+}

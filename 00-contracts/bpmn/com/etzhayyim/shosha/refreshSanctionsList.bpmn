@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shosha.etzhayyim.com — sanctions list refresh (autonomous, cron 0 0 1 * * ? = 01:00 UTC).
+
+  Pipeline:
+    1. shosha.sanctions.refreshOfac    Fetch OFAC SDN.CSV (US Treasury), parse,
+                                        upsert into vertex_shosha_sanctions_list.
+                                        Phase 2b: OFAC only. EU/UN/JP-MOFA in
+                                        Phase 2b-extended.
+    2. generic.audit.emit              OCEL trail.
+
+  Cron 01:00 UTC chosen so refresh completes before US East Coast business
+  hours and well before any TZ's typical daily report fire.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shosha_refresh_sanctions_list"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="shosha_refresh_sanctions_list" name="shosha refresh sanctions list (daily 01 UTC)" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="daily 01:00 UTC">
+      <bpmn:outgoing>Flow_ToOfac</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 1 * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Ofac" name="refresh OFAC SDN list">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.sanctions.refreshOfac"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=rows" target="ofacRows"/>
+          <zeebe:output source="=inserted" target="ofacInserted"/>
+          <zeebe:output source="=updated" target="ofacUpdated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToOfac</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToUn</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToOfac" sourceRef="StartTimer" targetRef="Task_Ofac"/>
+
+    <bpmn:serviceTask id="Task_Un" name="refresh UN 1267 list">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.sanctions.refreshUn"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=rows" target="unRows"/>
+          <zeebe:output source="=inserted" target="unInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToUn</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToUn" sourceRef="Task_Ofac" targetRef="Task_Un"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.refreshSanctionsList&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;ofacRows&quot;: ofacRows, &quot;ofacInserted&quot;: ofacInserted, &quot;ofacUpdated&quot;: ofacUpdated, &quot;unRows&quot;: unRows, &quot;unInserted&quot;: unInserted }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Un" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

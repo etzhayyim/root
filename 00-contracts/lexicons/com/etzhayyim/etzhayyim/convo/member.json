@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.convo.member",
+  "description": "Conversation member record. Extends chat.bsky.convo member concept with roles.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "memberDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "profile": {
+            "type": "ref",
+            "description": "Member profile via official chat.bsky type.",
+            "ref": "chat.bsky.actor.defs#profileViewBasic"
+          },
+          "role": {
+            "type": "string",
+            "description": "etzhayyim extension: member role in conversation",
+            "knownValues": ["owner", "admin", "member", "guest"]
+          }
+        },
+        "required": [
+          "convoId",
+          "memberDid"
+        ]
+      }
+    }
+  }
+}

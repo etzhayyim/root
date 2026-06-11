@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpMof.recordAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "日本財務省 action / 予算 / 為替 / 国際金融 (bridges advanceTaxRuling + bepsPillar + sovereign-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "bureau",
+            "actionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "bureau": {
+              "type": "string",
+              "enum": [
+                "honsho_minister",
+                "shukei_budget",
+                "shusha_revenue",
+                "shukan_customs_tariff",
+                "kokuyu_tax",
+                "saimu_debt_management",
+                "kokusai_intl",
+                "kanzei_customs",
+                "kokugu_treasury",
+                "fsa_jfsa_supervisory",
+                "jcps_rinkoku_jbic",
+                "nettzaisei_pension",
+                "atomori_grants"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "budget_jp",
+                "supplementary_budget",
+                "jgb_issuance",
+                "fx_intervention",
+                "fx_intervention_authorization",
+                "stamp_duty_change",
+                "ineffective_protection",
+                "insurance_finance_act",
+                "tax_treaty_signed",
+                "oecd_tax_treaty",
+                "kokueki_kankei_intl",
+                "sankei_tomoyari_aid",
+                "jbic_loan",
+                "jica_loan",
+                "emergency_fiscal"
+              ]
+            },
+            "relatedActorVid": {
+              "type": "string",
+              "description": "bridges advanceTaxRuling / bepsPillar / fxSwapLines"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

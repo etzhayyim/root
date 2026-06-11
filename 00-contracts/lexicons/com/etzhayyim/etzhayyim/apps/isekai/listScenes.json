@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.isekai.listScenes",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List all worldScene placements for a given worldMap (ADR-0040). Feeds minimap UI and open-world runtime scene pool.",
+      "parameters": {
+        "type": "params",
+        "required": ["worldMapUri"],
+        "properties": {
+          "worldMapUri": { "type": "string", "format": "at-uri" },
+          "offset": { "type": "integer", "default": 0, "minimum": 0 },
+          "limit": { "type": "integer", "default": 100, "minimum": 1, "maximum": 500 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["scenes", "offset", "limit", "total"],
+          "properties": {
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "scenes": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#sceneEntry" }
+            }
+          }
+        }
+      }
+    },
+    "sceneEntry": {
+      "type": "object",
+      "required": ["uri", "sceneType", "x", "z", "radius"],
+      "properties": {
+        "uri": { "type": "string", "format": "at-uri" },
+        "sceneType": { "type": "string" },
+        "x": { "type": "integer" },
+        "z": { "type": "integer" },
+        "radius": { "type": "integer" },
+        "label": { "type": "string" },
+        "paramsJson": { "type": "string" }
+      }
+    }
+  }
+}

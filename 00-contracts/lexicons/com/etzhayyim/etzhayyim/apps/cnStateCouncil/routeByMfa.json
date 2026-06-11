@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cnStateCouncil.routeByMfa",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ベラルーシ外務省 (Lukashenka 政権 / Minsk)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "issuedAt",
+            "vertexId"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "relatedActorVid": {
+              "type": "string"
+            },
+            "issuedAt": {
+              "type": "string"
+            },
+            "vertexId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "vertexId"
+          ],
+          "properties": {
+            "vertexId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

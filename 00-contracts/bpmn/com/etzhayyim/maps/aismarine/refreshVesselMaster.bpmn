@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — Vessel master backfill (R/PT24H).
+
+  Pipeline:
+    1. aismarine.master.refresh — backfill flag_iso / flag_mid / type_class
+                                   for vertex_vessel rows missing them.
+                                   Open-data only (vessel_flag_iso UDF +
+                                   vessel_type_class UDF, ADR-2605011500).
+                                   Returns rows_scanned/rows_updated.
+    2. generic.audit.emit        — OCEL event with stats.
+
+  ADR-2605011500. NSID: com.etzhayyim.apps.maps.aismarine.refreshVesselMaster.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-refresh-vessel-master-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_aismarine_refresh_vessel_master"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps/aismarine"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_aismarine_refresh_vessel_master" name="maps aismarine refresh vessel master" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.aismarine.refreshVesselMaster", "version": 1, "resultTimeoutMs": 240000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 24 hours">
+      <bpmn:outgoing>Flow_ToRefresh</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT24H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_ToRefresh_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToRefresh" sourceRef="Start_Timer" targetRef="Task_Refresh"/>
+    <bpmn:sequenceFlow id="Flow_ToRefresh_Manual" sourceRef="Start_Manual" targetRef="Task_Refresh"/>
+
+    <bpmn:serviceTask id="Task_Refresh" name="backfill flag_iso / type_class">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="aismarine.master.refresh"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=5000" target="limit"/>
+          <zeebe:output source="=rows_scanned" target="rowsScanned"/>
+          <zeebe:output source="=rows_updated" target="rowsUpdated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRefresh</bpmn:incoming>
+      <bpmn:incoming>Flow_ToRefresh_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Refresh" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit master.refresh OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.aismarine.master.refresh&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;rowsScanned&quot;: rowsScanned, &quot;rowsUpdated&quot;: rowsUpdated }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kinship.estimateCoefficient",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Estimate kinship coefficient (IBD/IBS, KING/PLINK). Auto-generated stub (coverage expansion 2026-04-17). PII Tier 3 — personal genome data, consent-gated (ADR-0018).",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sampleA", "sampleB"],
+          "properties": {
+            "sampleA": { "type": "string", "description": "sample DID or anonymized ID" },
+            "sampleB": { "type": "string" },
+            "method": { "type": "string", "enum": ["KING", "PLINK", "IBDSeq"], "default": "KING" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "kinshipCoefficient": { "type": "number" },
+            "ibdSegments": { "type": "integer" },
+            "inferredRelation": { "type": "string", "enum": ["mz-twin", "parent-child", "full-sibling", "2nd-degree", "3rd-degree", "unrelated"] }
+          }
+        }
+      }
+    }
+  }
+}

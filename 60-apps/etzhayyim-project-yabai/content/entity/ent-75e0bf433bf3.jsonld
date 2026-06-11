@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-75e0bf433bf3",
+  "entityId": "ent-75e0bf433bf3",
+  "canonicalName": "ep-cfm",
+  "aliases": [
+    "ep-cfm"
+  ]
+}

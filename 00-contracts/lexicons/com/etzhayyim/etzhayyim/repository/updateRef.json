@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.repository.updateRef",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "The only mutable write in ADR-0039. Move a ref's points-to from expectedCurrent to newCommit. CAS-safe by default; force=true skips ancestry check. Emits OCEL event ref:updated / ref:rolledBack / ref:forcePushed and a firehose com.etzhayyim.repository.refUpdate record.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ownerDid", "refName", "newCommit"],
+          "properties": {
+            "ownerDid": { "type": "string", "format": "did" },
+            "refName": { "type": "string" },
+            "expectedCurrent": {
+              "type": "string",
+              "description": "Current head commit hash the caller expects. Server rejects with RefOutOfDate if mismatch. Omit only with force=true."
+            },
+            "newCommit": { "type": "string" },
+            "force": {
+              "type": "boolean",
+              "default": false,
+              "description": "If true, skip fast-forward/ancestry check. Generates OCEL event ref:forcePushed."
+            },
+            "reason": {
+              "type": "string",
+              "description": "Human-readable reason. Required when force=true or when newCommit is an ancestor of current (= rollback). Logged to OCEL event payload."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ownerDid", "refName", "previousCommit", "newCommit", "updateKind"],
+          "properties": {
+            "ownerDid": { "type": "string", "format": "did" },
+            "refName": { "type": "string" },
+            "previousCommit": { "type": "string" },
+            "newCommit": { "type": "string" },
+            "updateKind": {
+              "type": "string",
+              "knownValues": ["fastForward", "rolledBack", "forcePushed"],
+              "description": "fastForward = new is descendant of previous; rolledBack = new is ancestor; forcePushed = neither (requires force=true)."
+            },
+            "firehoseCid": {
+              "type": "string",
+              "description": "CID of the com.etzhayyim.repository.refUpdate record written to the owner DID's AT Repo."
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "UnauthorizedWriter" },
+        { "name": "RefNotFound" },
+        { "name": "RefOutOfDate", "description": "expectedCurrent does not match server state." },
+        { "name": "ImmutableRef", "description": "Ref kind=tag cannot be updated." },
+        { "name": "ForceRequired", "description": "newCommit is not a descendant of previousCommit; caller must set force=true with a reason." },
+        { "name": "ReasonRequired", "description": "force=true or rollback without reason." }
+      ]
+    }
+  }
+}

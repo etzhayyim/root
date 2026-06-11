@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etzhayyim.com/schemas/holochain-agent-runtime-plan/v1.json",
+  "title": "etzhayyim Holochain Agent Actor Runtime Plan",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema", "runtimeKind", "status", "agentDid", "conductor", "happ", "bindings", "verification", "registration"],
+  "properties": {
+    "schema": {
+      "const": "https://etzhayyim.com/schemas/holochain-agent-runtime-plan/v1.json"
+    },
+    "runtimeKind": { "const": "holochain" },
+    "status": { "const": "experimental" },
+    "agentDid": { "type": "string", "pattern": "^did:" },
+    "conductor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["image", "cluster", "namespace", "workload"],
+      "properties": {
+        "image": { "type": "string", "minLength": 1 },
+        "cluster": { "type": "string", "minLength": 1 },
+        "namespace": { "type": "string", "not": { "const": "default" } },
+        "workload": { "type": "string", "minLength": 1 }
+      }
+    },
+    "happ": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "happUri", "dnaHash", "roleName", "zomeName"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "happUri": { "type": "string", "pattern": "^(ipfs://|https://)" },
+        "happSha256": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "dnaHash": { "type": "string", "minLength": 1 },
+        "roleName": { "type": "string", "minLength": 1 },
+        "zomeName": { "type": "string", "minLength": 1 }
+      }
+    },
+    "bindings": { "type": "object", "additionalProperties": true },
+    "verification": { "type": "object", "additionalProperties": true },
+    "registration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifactId", "runtimeKind", "artifactUri", "containerRef"],
+      "properties": {
+        "artifactId": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+        "runtimeKind": { "const": "holochain" },
+        "artifactUri": { "type": "string", "pattern": "^(ipfs://|https://)" },
+        "containerRef": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

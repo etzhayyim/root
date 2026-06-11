@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mineralRoyalty.flagInvestorClaim",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Investor-state arbitration / windfall tax claim (bridges resourceBackedLoan.flagPledgeStress + sovereign-debt + universal-jurisdiction)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "regimeVid",
+            "claimKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "regimeVid": {
+              "type": "string",
+              "description": "bridges recordRegime"
+            },
+            "claimKind": {
+              "type": "string",
+              "enum": [
+                "icsid_arbitration",
+                "uncitral",
+                "stockholm_chamber",
+                "ecourts",
+                "local_admin",
+                "fair_equitable",
+                "expropriation_indirect",
+                "stabilization_clause_breach",
+                "most_favored_nation",
+                "umbrella_clause",
+                "national_treatment"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

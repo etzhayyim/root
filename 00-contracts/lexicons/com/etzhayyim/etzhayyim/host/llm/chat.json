@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.llm.chat",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Single-turn LLM chat (legacy agentChat). Prefer llm.converse for structured I/O.",
+      "x-hostImportsMethod": "agentChat",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "userMessage": {
+              "type": "string"
+            },
+            "llmContextJson": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "userMessage",
+            "llmContextJson"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "response": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "response"
+          ]
+        }
+      }
+    }
+  }
+}

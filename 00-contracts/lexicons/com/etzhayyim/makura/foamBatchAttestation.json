@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.makura.foamBatchAttestation",
+  "description": "Foam batch attestation (L1+L2). Precursor + isocyanate + slabstock blowing + cure + QC. Per ADR-2605261115 L1a/L1b/L2 (G2 + G6 + G7 + G8).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "section": {"type": "string", "knownValues": ["precursors", "isocyanate", "final"]},
+          "batchId": {"type": "string"},
+          "polyol": {"type": "unknown"},
+          "catalyst": {"type": "unknown"},
+          "surfactant": {"type": "unknown"},
+          "blowingAgent": {"type": "unknown"},
+          "isocyanate": {
+            "type": "object",
+            "properties": {
+              "type": {"type": "string", "knownValues": ["MDI", "TDI"]},
+              "isomerSplit": {"type": "string"},
+              "ncoContentPct": {"type": "number"},
+              "councilAttestation": {"type": "string"}
+            }
+          },
+          "dispense": {"type": "unknown"},
+          "streams": {"type": "unknown"},
+          "blown": {"type": "unknown"},
+          "cure": {"type": "unknown"},
+          "qc": {
+            "type": "object",
+            "properties": {
+              "densityKgPerM3": {"type": "number"},
+              "cellStructurePpi": {"type": "integer"},
+              "ildN_25Pct": {"type": "number"},
+              "vocFormaldehydePpm": {"type": "number"},
+              "vocFormaldehydeLimitPpm": {"type": "number", "const": 0.05},
+              "vocTotalMgPerM3": {"type": "number"},
+              "vocTotalLimitMgPerM3": {"type": "number", "const": 0.5},
+              "ipfsPhotoCid": {"type": "string"},
+              "accept": {"type": "boolean"}
+            }
+          },
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["section", "batchId", "attestingRobots", "recordedAt"]
+      }
+    }
+  }
+}

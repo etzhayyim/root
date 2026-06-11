@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bpmn.validateXml",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Validate BPMN 2.0 XML (XSD + Schematron). Phase 1: cheap well-formedness; Phase 2: true XSD.",
+      "input": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "required": ["xml"], "properties": { "xml": { "type": "string" } } }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "valid": { "type": "boolean" },
+            "errors": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  }
+}

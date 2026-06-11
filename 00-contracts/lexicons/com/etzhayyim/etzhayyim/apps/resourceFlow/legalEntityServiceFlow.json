@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.resourceFlow.legalEntityServiceFlow",
+  "description": "Private-sector service flow (customers served / room-nights / transactions / tickets) emitted by legal-entity DIDs. ADR-0028. PII tier 1 — aggregate counts only, no individual customer DID. ADR-0018 k-anonymity: cohort_size >= 5.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "sourceDid",
+          "fiscalPeriod",
+          "serviceClass",
+          "count",
+          "unit",
+          "industryCode",
+          "sourceUrl",
+          "sourceLicense"
+        ],
+        "properties": {
+          "sourceDid": {
+            "type": "string",
+            "description": "Legal-entity facade DID providing the service. Canonical actor vector key is sourceRootDid (ADR-0074)."
+          },
+          "sourceRootDid": {
+            "type": "string",
+            "description": "ADR-0074 canonical ERC725 root for sourceDid."
+          },
+          "counterpartyDid": {
+            "type": "string",
+            "description": "Legal-entity facade DID of customer (B2B). Individual customer DIDs forbidden — use cohortId."
+          },
+          "counterpartyRootDid": {
+            "type": "string",
+            "description": "ADR-0074 canonical ERC725 root for counterpartyDid."
+          },
+          "fiscalPeriod": {
+            "type": "string",
+            "description": "ISO 8601 period"
+          },
+          "serviceClass": {
+            "type": "string",
+            "description": "Domain-specific class (e.g. room_night, flight_segment, ticket, transaction, support_case)"
+          },
+          "count": {
+            "type": "integer",
+            "description": "Aggregate count of service events"
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit for count (e.g. room_nights, pax, orders, sessions)"
+          },
+          "revenue": {
+            "type": "number",
+            "description": "Optional monetary total associated with this service flow. Use legalEntityCurrencyFlow for canonical revenue."
+          },
+          "revenueCurrency": {
+            "type": "string",
+            "description": "ISO 4217 when revenue is set"
+          },
+          "cohortId": {
+            "type": "string",
+            "description": "Customer cohort actor DID (ADR-0027)."
+          },
+          "cohortSize": {
+            "type": "integer",
+            "minimum": 5,
+            "description": "k-anonymity bucket size when cohortId is set (ADR-0018). MUST be >= 5."
+          },
+          "industryCode": {
+            "type": "string",
+            "description": "ISIC rev4 code"
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "sourceLicense": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 1024
+          }
+        }
+      }
+    }
+  }
+}

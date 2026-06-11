@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bim.importIfc",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Import an IFC STEP / IFC XML / IFC ZIP into a project. Heavy parsing (entities, geometry, psets) runs asynchronously in the CF Container job service; tessellation caches are written to B2 (Backblaze B2 S3-compatible) under `bim/meshes/{sha256}`. Returns a jobId; subscribe to com.etzhayyim.apps.bim.importJobEvent commits for progress.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["projectId", "blobKey", "format"],
+          "properties": {
+            "projectId": {
+              "type": "string",
+              "description": "target BIM project rkey"
+            },
+            "blobKey": {
+              "type": "string",
+              "description": "SHA-256 hex of the uploaded IFC blob in B2 (Backblaze B2 S3-compatible) (`bim/blobs/{sha256}`)"
+            },
+            "format": {
+              "type": "string",
+              "enum": ["ifcStep", "ifcXml", "ifcZip"]
+            },
+            "schemaVersion": {
+              "type": "string",
+              "enum": ["IFC2X3", "IFC4", "IFC4X3"],
+              "default": "IFC4"
+            },
+            "tessellationTolerance": {
+              "type": "number",
+              "default": 10.0,
+              "description": "sag tolerance in millimetres for mesh generation"
+            },
+            "mergeCoincidentVertices": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["projectId", "revisionId", "jobId", "status"],
+          "properties": {
+            "projectId": { "type": "string" },
+            "revisionId": { "type": "string" },
+            "jobId": { "type": "string" },
+            "status": {
+              "type": "string",
+              "enum": ["queued", "parsing", "tessellating", "ready", "failed"]
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "ProjectNotFound" },
+        { "name": "BlobNotFound" },
+        { "name": "UnsupportedSchema" },
+        { "name": "QuotaExceeded" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b1a807a0b1ce",
+  "entityId": "ent-b1a807a0b1ce",
+  "canonicalName": "anglo-caribbean co., ltd.",
+  "aliases": [
+    "anglo-caribbean co., ltd."
+  ]
+}

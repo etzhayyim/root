@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  L2 XRPC-triggered: generate LLM arbitrage proposal for a specific supply/demand gap.
+  Input: supplyActorDid, demandActorDid, opportunityKind, contextHint
+  Writes to vertex_ossekai_arbitrage + vertex_open_sales_lead.
+  NSID: com.etzhayyim.apps.openOssekai.proposeArbitrageBrief
+-->
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_ossekai_propose_arbitrage_brief" targetNamespace="https://etzhayyim.ai/bpmn/open-ossekai" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_ossekai_propose_arbitrage_brief" name="proposeArbitrageBrief" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.openOssekai.proposeArbitrageBrief", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_LLM"/>
+
+    <bpmn:serviceTask id="Task_LLM" name="LLM arbitrage proposal">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;You are a business intelligence analyst identifying supply/demand mismatches. Given two actors and an opportunity type, propose a concrete arbitrage action. Respond ONLY with JSON: {gap_description, recommended_action, estimated_value (0-100 numeric representing relative value), confidence_score (0.0-1.0)}&quot;" target="systemPrompt"/>
+          <zeebe:input source="=&quot;Supply actor: &quot; + (if supplyActorDid != null then supplyActorDid else &quot;(unknown)&quot;) + &quot;\nDemand actor: &quot; + (if demandActorDid != null then demandActorDid else &quot;(unknown)&quot;) + &quot;\nOpportunity type: &quot; + opportunityKind + &quot;\nContext: &quot; + (if contextHint != null then contextHint else &quot;No additional context&quot;)" target="userPrompt"/>
+          <zeebe:output source="=gap_description" target="gapDescription"/>
+          <zeebe:output source="=recommended_action" target="recommendedAction"/>
+          <zeebe:output source="=estimated_value" target="estimatedValue"/>
+          <zeebe:output source="=confidence_score" target="arbConfidence"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_LLM" targetRef="Task_SaveArb"/>
+
+    <bpmn:serviceTask id="Task_SaveArb" name="save arbitrage opportunity">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_ossekai_arbitrage&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:open-ossekcom.etzhayyim.ai/com.etzhayyim.apps.openOssekai.arbitrage/&quot; + string(now()), arb_id: &quot;arb-&quot; + string(now()), opportunity_kind: opportunityKind, supply_actor_did: if supplyActorDid != null then supplyActorDid else null, demand_actor_did: if demandActorDid != null then demandActorDid else null, gap_description: gapDescription, estimated_value: estimatedValue, confidence_score: arbConfidence, recommended_action: recommendedAction, status: &quot;open&quot;, created_at: string(now()), sensitivity_ord: 0, actor_id: &quot;sys.bpmn.open-ossekai&quot;}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming>
+      <bpmn:outgoing>Flow_Lead</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Lead" sourceRef="Task_SaveArb" targetRef="Task_SaveLead"/>
+
+    <bpmn:serviceTask id="Task_SaveLead" name="upsert sales lead from arbitrage">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_sales_lead&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:open-ossekcom.etzhayyim.ai/com.etzhayyim.apps.openSales.lead/ossekai-arb-&quot; + string(now()), lead_id: &quot;ossekai-arb-&quot; + string(now()), full_name: if demandActorDid != null then demandActorDid else opportunityKind, source: &quot;ossekai.arbitrage&quot;, lead_score: arbConfidence * 70.0, status: &quot;new&quot;, notes: gapDescription, created_at: string(now()), sensitivity_ord: 1, actor_id: &quot;sys.bpmn.open-ossekai&quot;}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Lead</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_SaveLead" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit proposeArbitrageBrief">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-ossekcom.etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;open.ossekai.proposeArbitrageBrief&quot;" target="action"/>
+          <zeebe:input source="={opportunityKind: opportunityKind, confidence: arbConfidence}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

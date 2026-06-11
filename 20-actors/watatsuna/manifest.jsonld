@@ -1,0 +1,91 @@
+{
+  "@context": {
+    "@vocab": "https://etzhayyim.com/ns/actor#",
+    "id": "@id",
+    "type": "@type"
+  },
+  "id": "actor:watatsuna",
+  "type": "Actor",
+  "name": "watatsuna",
+  "glyph": "綿津綱",
+  "displayNameJa": "綿津綱 (わたつな)",
+  "displayNameEn": "Watatsuna — World Submarine-Cable Network Knowledge Graph",
+  "purpose": "World submarine-cable network knowledge graph — datafies cable SYSTEMS, LANDING STATIONS, SEGMENTS and FAULT bulletins into the kotoba Datom log; surfaces chokepoint / single-point-of-failure concentration routed to redundancy + faster repair. A resilience map, never a target-list.",
+  "purposeJa": "世界の海底ケーブル網の知識グラフ。ケーブル系統・陸揚局・区間・障害公報を kotoba Datom 化し、チョークポイント/単一障害点への集中を可視化して冗長化・復旧高速化へ routing。標的リストではなく resilience 地図。",
+  "status": "R0-design-only",
+  "tier": "B",
+  "adr": "2606012600",
+  "dependsOnAdr": ["2606011000", "2606011500", "2606011800", "2605262130", "2605312345", "2605241500", "2605252200"],
+  "schema": ["00-contracts/schemas/submarine-cable-ontology.kotoba.edn"],
+  "substrate": {
+    "state": "kotoba Datom log (ADR-2605312345) — IPFS block backend, MST ingress, Base L2 anchor",
+    "largeAssets": "DataLad → IPFS (80-data/submarine-cable) — NO git-lfs",
+    "inference": "Murakumo-only (ADR-2605215000)"
+  },
+  "pairedActor": {
+    "id": "actor:watatsumi",
+    "glyph": "綿津見",
+    "relation": "同根の兄弟 — watatsumi 綿津見 is the operational/敷設 (laying·repair·monitoring robotics) side; watatsuna 綿津綱 is the observation/knowledge-graph side. watatsuna informs WHERE the network is fragile; watatsumi's cable-laying fleet (ADR-2606012600 §robotics) acts ONLY to lay/repair/monitor — never to cut (watatsumi N8)."
+  },
+  "integrates": ["actor:tsumugi", "actor:danjo", "actor:kanae", "actor:tadori", "actor:himotoki"],
+  "cells": [
+    {
+      "id": "cell:watatsuna.ingest",
+      "method": "methods/ingest.py",
+      "input": "data/ingest/*.json (submarinecablemap/TeleGeography-shaped public dataset)",
+      "output": ["data/ingest/telegeography-bridge.kotoba.edn", "data/cable-graph.merged.kotoba.edn"],
+      "pipeline": "public dataset → normalize to :cable/:station/:cable.link → dedup-merge with seed (seed wins)",
+      "gate": "G7 — live --live fetch requires WATATSUNA_OPERATOR_GATE (Council); offline/sample mode default, tagged :representative (G5)"
+    },
+    {
+      "id": "cell:watatsuna.analyze",
+      "method": "methods/analyze.py",
+      "input": "data/cable-graph.merged.kotoba.edn (or data/seed-cable-graph.kotoba.edn)",
+      "output": ["out/intel-report.md", "out/cable-criticality.kotoba.edn"],
+      "pipeline": "classify → cable⇄station incidence → station degree/capacity → chokepoint-load → cable-diversity → redundancy-gap (aggregate-first)"
+    },
+    {
+      "id": "cell:watatsuna.plan",
+      "method": "methods/plan.py",
+      "input": "data/cable-graph.merged.kotoba.edn (or seed)",
+      "output": ["out/resilience-plan.md", "out/resilience-plan.kotoba.edn"],
+      "pipeline": "resilience → watatsumi mission plan: lay-diverse-route (redundancy gaps) · pre-stage-repair (high chokepoint-load) · monitor (brittle cables). G2/N8 — redundancy+repair+monitor ONLY, no interdiction output by construction.",
+      "consumedBy": "actor:watatsumi cable-laying fleet (data/cable-laying-fleet.kotoba.edn)"
+    },
+    {
+      "id": "cell:watatsuna.viz",
+      "method": "viz/build_viz_data.py",
+      "input": "data/cable-graph.merged.kotoba.edn (or seed)",
+      "output": ["viz/cable-resilience.json", "viz/cable-resilience.htm", "viz/cable-globe.htm"],
+      "pipeline": "analyze → payload → self-contained canvas 2D map + 3D orthographic globe (G2: redundancy surface, not target-list). kami-engine WASM globe integration (shared w/ kanae/shibuya) deferred; cable-resilience.json is the contract."
+    }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.cable.registerCableSystem",
+    "com.etzhayyim.cable.registerLandingStation",
+    "com.etzhayyim.cable.registerSegment",
+    "com.etzhayyim.cable.flagCableFault"
+  ],
+  "supersedesLexicons": [
+    "com.etzhayyim.apps.telecom.registerSubmarineCableSystem",
+    "com.etzhayyim.apps.telecom.recordSubmarineCableRepair",
+    "com.etzhayyim.apps.telecomInfra.registerCable",
+    "com.etzhayyim.apps.telecomInfra.flagCableFault"
+  ],
+  "display": {
+    "did": "did:web:etzhayyim.com:actor:watatsuna",
+    "didDoc": "https://etzhayyim.com/actor/watatsuna/did.json",
+    "registry": "50-infra/etzhayyim-did-web/src/registry/infra-actors.ts (INFRA_ACTORS.watatsuna)"
+  },
+  "gates": {
+    "G1": "public infrastructure only — cable systems/owners/landings/capacity are public record; classified routes, precise armoring depth, live repair-vessel position beyond public AIS = OUT OF SCOPE",
+    "G2": "resilience-not-interdiction — chokepoint ranking routed to redundancy + repair; NEVER a target-list (watatsumi N8 + Charter Rider §2(d))",
+    "G3": "aggregate-first + claimed-first output",
+    "G4": "no intent adjudication — fault :kind mirrors only the public bulletin's own classification; sabotage is a state matter, never asserted by watatsuna",
+    "G5": "sourcing honesty (:authoritative | :representative | :synthesized) on every node/edge; no fabricated coverage",
+    "G6": "Murakumo-only narration (ADR-2605215000)",
+    "G7": "outward-gated — live planet-scale ingest (TeleGeography feed / cable-ship AIS) = Council + operator",
+    "G8": "no git-lfs; large geo assets DataLad → IPFS (80-data/submarine-cable)",
+    "G9": "no PII — infrastructure graph only; any incidental personal data → encrypted envelope, excluded by default"
+  }
+}

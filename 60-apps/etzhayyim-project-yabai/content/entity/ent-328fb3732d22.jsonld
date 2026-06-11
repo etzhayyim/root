@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-328fb3732d22",
+  "entityId": "ent-328fb3732d22",
+  "canonicalName": "crymsa - argentina, s.a.",
+  "aliases": [
+    "crymsa - argentina, s.a."
+  ]
+}

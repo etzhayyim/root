@@ -1,0 +1,11 @@
+{
+  "name": "kotodama-y8b41k0x",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@etzhayyim/kotodama-host-sdk": "workspace:*",
+    "@etzhayyim/graph-schema": "workspace:*",
+    "kysely": "^0.28.17"
+  }
+}

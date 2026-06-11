@@ -1,0 +1,932 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "vault XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://vault.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.vault.addMember": {
+      "post": {
+        "summary": "Add a member to a vault by providing a vaultKey wrapped to their device key. Caller must be admin/owner. Recipient pubkey is fetched via com.etzhayyim.signal.getPrekeyBundle.",
+        "operationId": "com.etzhayyim.vault.addMember",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "vaultId": {
+                    "type": "string"
+                  },
+                  "memberDid": {
+                    "type": "string"
+                  },
+                  "wrappedVaultKey": {
+                    "type": "string",
+                    "description": "AES-key-wrap(vaultKey, sharedSecret) where sharedSecret = X3DH(callerIdentityKey, recipientPrekeyBundle)"
+                  },
+                  "memberDeviceKeyId": {
+                    "type": "string",
+                    "description": "Identifier for the recipient device key (X3DH bundle hash)"
+                  },
+                  "role": {
+                    "type": "string",
+                    "description": "owner | admin | reader (default: reader)"
+                  }
+                },
+                "required": [
+                  "vaultId",
+                  "memberDid",
+                  "wrappedVaultKey",
+                  "memberDeviceKeyId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "memberId": {
+                      "type": "string"
+                    },
+                    "addedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "memberId",
+                    "addedAt"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.vault.createVault": {
+      "post": {
+        "summary": "com.etzhayyim.vault.createVault",
+        "operationId": "com.etzhayyim.vault.createVault",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "wrappedVaultKey": {
+                    "type": "string",
+                    "description": "AES-key-wrap(vaultKey, callerMemberDeviceKey), base64url"
+                  },
+                  "memberDeviceKeyId": {
+                    "type": "string",
+                    "description": "Identifier for the device key used to wrap (passkey credentialId or X3DH bundle hash)"
+                  }
+                },
+                "required": [
+                  "name",
+                  "wrappedVaultKey",
+                  "memberDeviceKeyId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "vaultId": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "vaultId",
+                    "createdAt"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.vault.deleteItem": {
+      "post": {
+        "summary": "com.etzhayyim.vault.deleteItem",
+        "operationId": "com.etzhayyim.vault.deleteItem",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "vaultId": {
+                    "type": "string"
+                  },
+                  "itemId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "vaultId",
+                  "itemId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deleted": {
+                      "type": "boolean"
+                    },
+                    "deletedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "deleted",
+                    "deletedAt"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.vault.getItem": {
+      "get": {
+        "summary": "com.etzhayyim.vault.getItem",
+        "operationId": "com.etzhayyim.vault.getItem",
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "itemId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "itemName",
+            "in": "query",
+            "required": false,
+            "description": "Lookup by name within vault. Mutually exclusive with itemId.",
+            "schema": {
+              "type": "string",
+              "description": "Lookup by name within vault. Mutually exclusive with itemId."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "itemId": {
+                      "type": "string"
+                    },
+                    "itemName": {
+                      "type": "string"
+                    },
+                    "wrappedItemKey": {
+                      "type": "string"
+                    },
+                    "wrappedVaultKey": {
+                      "type": "string",
+                      "description": "Caller's wrappedVaultKey (so client can unwrap with memberDeviceKey in single round-trip)"
+                    },
+                    "ciphertext": {
+                      "type": "string"
+                    },
+                    "iv": {
+                      "type": "string"
+                    },
+                    "mac": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "labels": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "itemId",
+                    "itemName",
+                    "wrappedItemKey",
+                    "wrappedVaultKey",
+                    "ciphertext",
+                    "iv"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.vault.injectWorkerSecret": {
+      "post": {
+        "summary": "Server-side: read item plaintext via vault key (caller provides unwrapped vaultKey one-shot, server wraps Cloudflare API call) and PUT to a Cloudflare Worker secret. Admin-only. Caller MUST be vault admin AND have wrangler-equivalent CF permissions for target Worker.",
+        "operationId": "com.etzhayyim.vault.injectWorkerSecret",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "vaultId": {
+                    "type": "string"
+                  },
+                  "itemId": {
+                    "type": "string"
+                  },
+                  "workerName": {
+                    "type": "string"
+                  },
+                  "secretName": {
+                    "type": "string"
+                  },
+                  "ephemeralVaultKey": {
+                    "type": "string",
+                    "description": "AES-256 vaultKey raw (base64url). One-shot: server zeroizes after CF API call. Required because server cannot decrypt items otherwise (zero-knowledge violation if persisted)."
+                  }
+                },
+                "required": [
+                  "vaultId",
+                  "itemId",
+                  "workerName",
+                  "secretName",
+                  "ephemeralVaultKey"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "injected": {
+                      "type": "boolean"
+                    },
+                    "injectedAt": {
+                      "type": "string"
+                    },
+                    "cfResponseStatus": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "injected",
+                    "injectedAt",
+                    "cfResponseStatus"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.vault.listAccessEvents": {
+      "get": {
+        "summary": "com.etzhayyim.vault.listAccessEvents",
+        "operationId": "com.etzhayyim.vault.listAccessEvents",
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "itemId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "description": "ISO 8601 timestamp",
+            "schema": {
+              "type": "string",
+              "description": "ISO 8601 timestamp"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "events": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "eventId": {
+                            "type": "string"
+                          },
+                          "did": {
+                            "type": "string"
+                          },
+                          "action": {
+                            "type": "string",
+                            "description": "createVault | putItem | getItem | deleteItem | addMember | removeMember | rotateVaultKey | injectWorkerSecret"
+                          },
+                          "vaultId": {
+                            "type": "string"
+                          },
+                          "itemId": {
+                            "type": "string"
+                          },
+                          "ts": {
+                            "type": "string"
+                          },
+                          "lxm": {
+                            "type": "string",
+                            "description": "NSID the caller's Service Auth JWT was scoped to (audit trail)"
+                          },
+                          "ipHash": {
+                            "type": "string",
+                            "description": "SHA-256 of caller IP (privacy-preserving)"
+                          }
+                        },
+                        "required": [
+                          "eventId",
+                          "did",
+                          "action",
+                          "vaultId",
+                          "ts"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "events",
+                    "total",
+                    "limit",
+                    "offset"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.vault.listItems": {
+      "get": {
+        "summary": "com.etzhayyim.vault.listItems",
+        "operationId": "com.etzhayyim.vault.listItems",
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "labelFilter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "itemId": {
+                            "type": "string"
+                          },
+                          "itemName": {
+                            "type": "string"
+                          },
+                          "contentType": {
+                            "type": "string"
+                          },
+                          "labels": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "size": {
+                            "type": "integer"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "itemId",
+                          "itemName",
+                          "createdAt"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "total",
+                    "limit",
+                    "offset"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.vault.listVaults": {
+      "get": {
+        "summary": "com.etzhayyim.vault.listVaults",
+        "operationId": "com.etzhayyim.vault.listVaults",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "vaults": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "vaultId": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "wrappedVaultKey": {
+                            "type": "string"
+                          },
+                          "memberDeviceKeyId": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "string",
+                            "description": "owner | admin | reader"
+                          },
+                          "memberCount": {
+                            "type": "integer"
+                          },
+                          "itemCount": {
+                            "type": "integer"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "vaultId",
+                          "name",
+                          "wrappedVaultKey",
+                          "role"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "vaults",
+                    "total",
+                    "limit",
+                    "offset"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.vault.putItem": {
+      "post": {
+        "summary": "com.etzhayyim.vault.putItem",
+        "operationId": "com.etzhayyim.vault.putItem",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "vaultId": {
+                    "type": "string"
+                  },
+                  "itemName": {
+                    "type": "string",
+                    "description": "Plaintext label for indexing (e.g. CACHE_PURGE_API_KEY). Not the secret itself."
+                  },
+                  "wrappedItemKey": {
+                    "type": "string",
+                    "description": "AES-key-wrap(itemKey, vaultKey), base64url"
+                  },
+                  "ciphertext": {
+                    "type": "string",
+                    "description": "AES-256-GCM encrypted secret payload, base64url. Hard cap 900KB (server rejects larger with ItemTooLarge)."
+                  },
+                  "contentType": {
+                    "type": "string",
+                    "description": "MIME type of plaintext (text/plain, application/json, application/x-pem-file, etc.)"
+                  },
+                  "labels": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "iv": {
+                    "type": "string",
+                    "description": "AES-GCM IV (12 bytes), base64url"
+                  },
+                  "mac": {
+                    "type": "string",
+                    "description": "AES-GCM auth tag (16 bytes), base64url. Included in ciphertext for AES-GCM; separate for client validation."
+                  }
+                },
+                "required": [
+                  "vaultId",
+                  "itemName",
+                  "wrappedItemKey",
+                  "ciphertext",
+                  "iv"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "itemId": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "itemId",
+                    "createdAt",
+                    "size"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.vault.removeMember": {
+      "post": {
+        "summary": "Remove a member's wrappedVaultKey. Caller must rotate vault key separately (rotateVaultKey) to invalidate any keys the removed member may have cached.",
+        "operationId": "com.etzhayyim.vault.removeMember",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "vaultId": {
+                    "type": "string"
+                  },
+                  "memberDid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "vaultId",
+                  "memberDid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "removed": {
+                      "type": "boolean"
+                    },
+                    "removedAt": {
+                      "type": "string"
+                    },
+                    "rotationRecommended": {
+                      "type": "boolean",
+                      "description": "True when removed member had access to non-trivial item count; client should call rotateVaultKey"
+                    }
+                  },
+                  "required": [
+                    "removed",
+                    "removedAt",
+                    "rotationRecommended"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.vault.rotateVaultKey": {
+      "post": {
+        "summary": "Re-encrypt all items with a new vaultKey. Client computes per-item rewrapped keys and per-member rewrapped vaultKeys, then submits in a single atomic call.",
+        "operationId": "com.etzhayyim.vault.rotateVaultKey",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "vaultId": {
+                    "type": "string"
+                  },
+                  "newWrappedVaultKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "rewrappedItemKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "required": [
+                  "vaultId",
+                  "newWrappedVaultKeys",
+                  "rewrappedItemKeys"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rotated": {
+                      "type": "boolean"
+                    },
+                    "rotatedAt": {
+                      "type": "string"
+                    },
+                    "memberCount": {
+                      "type": "integer"
+                    },
+                    "itemCount": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "rotated",
+                    "rotatedAt",
+                    "memberCount",
+                    "itemCount"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

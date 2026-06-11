@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.advanceTaxRuling.recordApa",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Advance Pricing Agreement / advance tax ruling (bridges global-tax + tax-transparency + merger-review)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "apaId",
+            "jurisdictionsInvolved",
+            "apaKind",
+            "subjectTransaction",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "apaId": {
+              "type": "string"
+            },
+            "jurisdictionsInvolved": {
+              "type": "string",
+              "description": "comma ISO3"
+            },
+            "taxpayerLei": {
+              "type": "string"
+            },
+            "apaKind": {
+              "type": "string",
+              "enum": [
+                "unilateral",
+                "bilateral",
+                "multilateral",
+                "rollback"
+              ]
+            },
+            "subjectTransaction": {
+              "type": "string",
+              "enum": [
+                "tangibles",
+                "services",
+                "intangibles",
+                "financial",
+                "cost_sharing",
+                "profit_split",
+                "digital"
+              ]
+            },
+            "coveredYears": {
+              "type": "integer"
+            },
+            "effectiveFrom": {
+              "type": "string"
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

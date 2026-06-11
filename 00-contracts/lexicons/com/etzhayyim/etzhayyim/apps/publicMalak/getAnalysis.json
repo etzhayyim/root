@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.publicMalak.getAnalysis",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch one public-malak intel analysis row by vertexId, or latest by creativeVertexId + analysisKind.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "vertexId": { "type": "string" },
+          "analysisVertexId": { "type": "string" },
+          "creativeVertexId": { "type": "string" },
+          "analysisKind": { "type": "string", "knownValues": ["competitive", "adversarial", "claim", "sentiment", "targeting"] },
+          "modelId": { "type": "string" }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["analysis"],
+          "properties": {
+            "analysis": { "type": "ref", "ref": "com.etzhayyim.apps.publicMalak.listAnalyses#analysisView" }
+          }
+        }
+      }
+    }
+  }
+}

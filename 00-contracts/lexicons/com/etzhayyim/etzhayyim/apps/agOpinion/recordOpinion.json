@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.agOpinion.recordOpinion",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CJEU Advocate General opinion (bridges prejudicialReference.flagWithdrawal + grand-chamber-ruling + judicial-review-gdpr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "opinionId",
+            "agName",
+            "caseNumber",
+            "reasoningKind",
+            "deliveredAt"
+          ],
+          "properties": {
+            "opinionId": {
+              "type": "string"
+            },
+            "agName": {
+              "type": "string"
+            },
+            "caseNumber": {
+              "type": "string"
+            },
+            "reasoningKind": {
+              "type": "string",
+              "enum": [
+                "textual",
+                "teleological",
+                "systemic",
+                "comparative",
+                "doctrinal",
+                "principles_of_law",
+                "fundamental_rights",
+                "proportionality",
+                "subsidiarity",
+                "institutional_balance",
+                "direct_effect",
+                "retroactivity"
+              ]
+            },
+            "withdrawalVid": {
+              "type": "string",
+              "description": "bridges prejudicialReference.flagWithdrawal"
+            },
+            "deliveredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

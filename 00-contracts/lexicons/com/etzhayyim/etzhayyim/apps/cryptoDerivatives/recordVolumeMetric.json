@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cryptoDerivatives.recordVolumeMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Daily volume / OI / funding rate (bridges mica-crypto + blockchain-mev + antitrust-dma)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "metricId",
+            "venueVid",
+            "periodDay",
+            "recordedAt"
+          ],
+          "properties": {
+            "metricId": {
+              "type": "string"
+            },
+            "venueVid": {
+              "type": "string",
+              "description": "bridges registerVenue"
+            },
+            "periodDay": {
+              "type": "string"
+            },
+            "notionalVolumeUsd": {
+              "type": "number"
+            },
+            "openInterestUsd": {
+              "type": "number"
+            },
+            "fundingRatePct": {
+              "type": "number"
+            },
+            "uniqueTradersCount": {
+              "type": "integer"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "activityTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "moderate",
+                "high",
+                "mega"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.antarcticTreaty.recordActivity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Antarctic Treaty System activity (ATCM / CCAMLR / CEP — bridges fisheries-iuu + biodiversity-gbf + cultural-heritage + bbnj-highseas)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "activityId",
+            "stateIso3",
+            "activityType",
+            "seasonYear",
+            "startedAt"
+          ],
+          "properties": {
+            "activityId": {
+              "type": "string"
+            },
+            "stateIso3": {
+              "type": "string"
+            },
+            "activityType": {
+              "type": "string",
+              "enum": [
+                "scientific",
+                "tourism",
+                "fishing",
+                "logistic",
+                "station_construction",
+                "environmental_monitoring"
+              ]
+            },
+            "areaCode": {
+              "type": "string",
+              "description": "e.g. Ross Sea MPA / ASPA-NN / CCAMLR 48.3"
+            },
+            "seasonYear": {
+              "type": "integer"
+            },
+            "personnelCount": {
+              "type": "integer"
+            },
+            "vesselImo": {
+              "type": "string"
+            },
+            "startedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

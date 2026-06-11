@@ -1,0 +1,187 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mitate.silenMitateReview",
+  "description": "Council Lv6+ ≥ 3 multisig attestation for mitate baseline / per-cell deploy / bias audit / cross-actor signal aggregation / etc. Mirrors silen-pharma-review (com.etzhayyim.pharma.silenPharmaReview) and silen-force-review for diagnostic + treatment routing scope. Per ADR-2605260100 §Decision 3 G3 + G9 + G10 (bias audit quarterly).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "scope",
+          "scopeUri",
+          "riskClass",
+          "designIntentNarrative",
+          "councilAttestors",
+          "verdict",
+          "attestedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "scope": {
+            "type": "string",
+            "knownValues": [
+              "charter-baseline",
+              "wave-1-training-data-consent-baseline",
+              "wave-1-r1-advisory-deploy",
+              "wave-1-r2-pilot-deploy",
+              "wave-1-r3-community-deploy",
+              "condition-1-bayesian-prior-baseline",
+              "condition-1-triage-llm-prompt-template-baseline",
+              "condition-1-ige-panel-antigen-list-baseline",
+              "condition-1-treatment-ladder-baseline",
+              "condition-2-exclusion-logic-baseline",
+              "condition-2-trigger-diary-2week-baseline",
+              "condition-2-treatment-ladder-baseline",
+              "condition-3-12wk-gate-baseline",
+              "condition-3-endoscopy-image-classifier-baseline",
+              "condition-3-ct-routing-encryption-baseline",
+              "condition-3-subtype-classification-baseline",
+              "condition-3-ess-planning-baseline",
+              "condition-4-laterality-baseline",
+              "condition-4-rhinomanometry-protocol-baseline",
+              "condition-4-deviation-classification-baseline",
+              "condition-4-septoplasty-planning-baseline",
+              "condition-5-medication-audit-baseline",
+              "condition-5-withdrawal-protocol-baseline",
+              "condition-1-2-eosinophil-microscopy-baseline",
+              "condition-3-4-endoscopy-image-classifier-baseline",
+              "g3-disclaimer-text-baseline",
+              "g5-emergency-keyword-baseline",
+              "g5-false-negative-adversarial-testing-baseline",
+              "g6-escalation-protocol-baseline",
+              "g11-intake-form-text-review",
+              "g11-reminder-opt-in-protocol",
+              "g11-notification-channel-baseline",
+              "inn-only-content-lint-baseline",
+              "bias-audit-quarterly",
+              "bias-audit-corrective-action",
+              "patient-consent-receipt-protocol",
+              "encrypted-envelope-recipient-registry",
+              "licensed-md-registry",
+              "ent-specialist-registry",
+              "allergist-registry",
+              "ent-surgeons-registry",
+              "anesthesiologist-registry",
+              "external-lab-did-registry",
+              "external-imaging-facility-did-registry",
+              "er-routing-protocol",
+              "yakushi-cross-actor-signal-aggregation-baseline",
+              "ae-dedupe-rule-baseline",
+              "yakushi-cross-actor-dispense-routing-baseline",
+              "kotoba-datomic-projection-baseline",
+              "slit-cohort-protocol-baseline",
+              "qol-followup-questionnaire-baseline",
+              "lund-mackay-scoring-protocol",
+              "deviation-classification-baseline",
+              "hanami-robot-mech-design-attestation",
+              "hanami-robot-safety-validation",
+              "hanami-robot-phase-a-bench-validation",
+              "hanami-robot-phase-b-phantom-cadaveric-validation",
+              "hanami-robot-phase-c-clinical-pilot-baseline",
+              "hanami-cross-corp-manufacture-attestation",
+              "hanami-network-isolation-test-baseline",
+              "hanami-manufacturing-partner-did-registry",
+              "ae-feed-throttle-baseline",
+              "label-warning-update-naphazoline-mitate-cosign",
+              "mimi-class-equipment-qualification",
+              "rhinomanometer-equipment-qualification",
+              "image-classifier-distill-baseline",
+              "llm-prompt-template-triage-baseline",
+              "llm-second-pass-prompt-template",
+              "dicom-encryption-envelope-baseline",
+              "cost-transparency-protocol",
+              "wave-1-launch-pmda",
+              "wave-1-launch-fda",
+              "wave-1-launch-ema"
+            ]
+          },
+          "scopeUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "Git commit SHA URL, lot-id, AT URI, IPFS CID, or registry CID being reviewed."
+          },
+          "riskClass": {
+            "type": "string",
+            "knownValues": [
+              "HIGH-2c-patient-data-resale-risk",
+              "HIGH-2e-medical-knowledge-gating",
+              "HIGH-2f-multi-gen-pediatric-pregnancy",
+              "HIGH-2h-wellbecoming-engagement-design",
+              "HIGH-g5-false-negative-emergency",
+              "HIGH-g10-bias-disparity",
+              "MEDIUM-2c-aggregated-feed",
+              "MEDIUM-2e-jurisdictional-knowledge",
+              "MEDIUM-2f-irreversible-surgical",
+              "MEDIUM-2h-cost-transparency",
+              "LOW"
+            ]
+          },
+          "designIntentNarrative": {
+            "type": "string",
+            "maxLength": 8000,
+            "description": "Human-authored narrative explaining intended use, expected misuse vectors, and mitigations. Required for all HIGH risk classes."
+          },
+          "councilAttestors": {
+            "type": "array",
+            "minLength": 3,
+            "maxLength": 7,
+            "items": {
+              "type": "string",
+              "format": "did"
+            },
+            "description": "DIDs of Council Lv6+ members who attested. Must be ≥ 3 per master charter §Decision 3 G9."
+          },
+          "licensedMdCoSignDids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "did"
+            },
+            "description": "Required when scope ∈ {condition-{1..5}-treatment-ladder-baseline, g3-disclaimer-text-baseline, licensed-md-registry, ent-specialist-registry, ess-planning, septoplasty-planning, slit-cohort-protocol-baseline}."
+          },
+          "specialistCoSignDids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "did"
+            },
+            "description": "Required when scope is sub-specialty (ENT specialist for endoscopy / ess; allergist for SLIT; anesthesiologist for surgical; emergency medicine specialist for G5 baseline)."
+          },
+          "verdict": {
+            "type": "string",
+            "knownValues": [
+              "approve",
+              "approve-with-conditions",
+              "deny",
+              "defer-30day-objection",
+              "defer-60day-objection"
+            ]
+          },
+          "verdictConditions": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "objectionPeriodEndsAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "supersedesUri": {
+            "type": "string",
+            "format": "at-uri"
+          },
+          "attestedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

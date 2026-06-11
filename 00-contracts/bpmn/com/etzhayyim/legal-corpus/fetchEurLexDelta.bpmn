@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_fetch_eur_lex_delta" targetNamespace="https://etzhayyim.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="legal_corpus_fetch_eur_lex_delta" name="fetchEurLexDelta" isExecutable="true">
+    <bpmn:startEvent id="Start_Timer" name="every 24h">
+      <bpmn:outgoing>Flow_F</bpmn:outgoing>
+      <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT24H</bpmn:timeCycle></bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual"><bpmn:outgoing>Flow_FM</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_F" sourceRef="Start_Timer" targetRef="Task_Fetch"/>
+    <bpmn:sequenceFlow id="Flow_FM" sourceRef="Start_Manual" targetRef="Task_Fetch"/>
+    <bpmn:serviceTask id="Task_Fetch" name="SPARQL: recent EN directives+regs">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.http.fetch" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;POST&quot;" target="method"/>
+          <zeebe:input source="=&quot;https://publications.europa.eu/webapi/rdf/sparql&quot;" target="url"/>
+          <zeebe:input source="={&quot;Content-Type&quot;: &quot;application/sparql-query&quot;, &quot;Accept&quot;: &quot;application/sparql-results+json&quot;, &quot;User-Agent&quot;: &quot;etzhayyim-legal-corpus/1.0&quot;}" target="headers"/>
+          <zeebe:input source="=&quot;PREFIX cdm: &lt;http://publications.europa.eu/ontology/cdm#&gt; SELECT DISTINCT ?work ?title ?date WHERE { ?work cdm:work_has_resource-type ?rtype ; cdm:work_date_document ?date . ?expr cdm:expression_belongs_to_work ?work ; cdm:expression_uses_language &lt;http://publications.europa.eu/resource/authority/language/ENG&gt; ; cdm:expression_title ?title . VALUES ?rtype { &lt;http://publications.europa.eu/resource/authority/resource-type/DIR&gt; &lt;http://publications.europa.eu/resource/authority/resource-type/REG&gt; &lt;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&gt; } FILTER(str(?date) &gt;= str(sinceDate)) } ORDER BY DESC(?date) LIMIT 50&quot;" target="body"/>
+          <zeebe:output source="=response.results.bindings" target="items"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F</bpmn:incoming>
+      <bpmn:incoming>Flow_FM</bpmn:incoming>
+      <bpmn:outgoing>Flow_L</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_L" sourceRef="Task_Fetch" targetRef="Task_Loop"/>
+    <bpmn:callActivity id="Task_Loop" name="ingest each document" calledElement="legal_corpus_ingest_document">
+      <bpmn:extensionElements><zeebe:calledElement processId="legal_corpus_ingest_document"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;eur-lex&quot;" target="sourceId"/>
+          <zeebe:input source="=item.work.value" target="canonicalUri"/>
+          <zeebe:input source="=&quot;regulation&quot;" target="documentType"/>
+          <zeebe:input source="=&quot;EU&quot;" target="jurisdiction"/>
+          <zeebe:input source="=item.title.value" target="title"/>
+          <zeebe:input source="=&quot;eng&quot;" target="languageCode"/>
+          <zeebe:input source="=item.date.value" target="decidedAt"/>
+          <zeebe:input source="=now" target="fetchedAt"/>
+          <zeebe:input source="=3" target="sensitivityOrd"/>
+          <zeebe:input source="=null" target="court"/>
+          <zeebe:input source="=null" target="courtDid"/>
+          <zeebe:input source="=null" target="citation"/>
+          <zeebe:input source="=null" target="publishedAt"/>
+          <zeebe:input source="=null" target="bodyText"/>
+          <zeebe:input source="=null" target="bodyUri"/>
+          <zeebe:input source="=null" target="topicTags"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="true">
+        <bpmn:extensionElements><zeebe:loopCharacteristics inputCollection="=items" inputElement="item"/></bpmn:extensionElements>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Loop" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

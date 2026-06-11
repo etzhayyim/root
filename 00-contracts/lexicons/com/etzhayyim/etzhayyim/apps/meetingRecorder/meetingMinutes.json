@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.meetingRecorder.meetingMinutes",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Generated meeting minutes (議事録) for a recorder session: summary + decisions + action items + topics, derived from transcriptSegment records. Generated either by the deterministic extractive generator (hermetic) or by Murakumo LLM (G4 Murakumo-only, ADR-2605215000). The whole body is sealed in the kotoba E2E envelope (ADR-2605181100); recipients = onBehalfOfDid + explicitly granted DIDs. The substrate never sees plaintext.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["sessionId", "summary", "decisions", "actionItems", "topics", "generator", "sourceSegmentCount", "generatedAt"],
+        "properties": {
+          "sessionId": {"type": "string"},
+          "lang": {"type": "string", "description": "BCP-47 (e.g. ja, en-US)"},
+          "summary": {"type": "string", "maxLength": 20000},
+          "decisions": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Decisions / agreements reached in the meeting, one per entry."
+          },
+          "actionItems": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#actionItem"}
+          },
+          "topics": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Keyword topics extracted from the transcript."
+          },
+          "participantHashes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Distinct speakerHash values observed in the source segments (sha256, not reversible)."
+          },
+          "generator": {
+            "type": "string",
+            "enum": ["extractive", "murakumo"],
+            "description": "extractive = deterministic hermetic generator; murakumo = Murakumo LLM via LiteLLM loopback (operator-gated, G4 Murakumo-only)."
+          },
+          "model": {"type": "string", "description": "Set when generator=murakumo (e.g. gemma3:4b)."},
+          "sourceSegmentCount": {"type": "integer", "minimum": 0},
+          "generatedAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    },
+    "actionItem": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {"type": "string", "maxLength": 2000},
+        "ownerHash": {
+          "type": "string",
+          "description": "speakerHash of the participant the item is attributed to (sha256, not reversible)."
+        },
+        "dueDate": {"type": "string", "description": "ISO-8601 date (YYYY-MM-DD) when one was stated in the meeting."}
+      }
+    }
+  }
+}

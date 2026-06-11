@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-c4173d4cec98a82d",
+  "evidenceId": "evidence-c4173d4cec98a82d",
+  "entityId": "ent-4380afa2bb9d",
+  "category": "CriminalEvidence",
+  "source": "justice/usao-sdny/onecoin",
+  "sourceReliability": "A",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.92,
+  "severity": 5,
+  "probability": 0.02,
+  "jurisdiction": "US",
+  "summary": "Watchlist signal"
+}

@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kobo.ferment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit input data to the hakkou fermentation pipeline. The agent consumes raw input and produces structured knowledge (ethanol) + audit log (CO2). Write-only, irreversible.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "agentDid": { "type": "string", "description": "Agent performing fermentation" },
+            "inputKind": { "type": "string", "description": "Input type (text / record / stream)" },
+            "inputRef": { "type": "string", "description": "AT URI or external reference to input data" },
+            "outputKind": { "type": "string", "description": "Expected output type (summary / embedding / graph-fragment)" }
+          },
+          "required": ["agentDid", "inputKind", "inputRef"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "fermentVertexId": { "type": "string" },
+            "outputVertexId": { "type": "string" },
+            "ethanolHash": { "type": "string" },
+            "status": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": ["fermentVertexId", "status"]
+        }
+      }
+    }
+  }
+}

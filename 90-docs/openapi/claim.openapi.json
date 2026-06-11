@@ -1,0 +1,500 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "claim XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://claim.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.claim.challengeStakedAttestation": {
+      "post": {
+        "summary": "ADR-2604261717 Phase 1 — challenge a staked claim. Caller must already hold a passkey-bearer session AND have approved ClaimStakeEscrow to transfer `counterBond` GCC. Calls ClaimStakeEscrow.challenge(claimId, challengerDidHash, counterBond) which moves the claim into Challenged state and starts the arbiter resolution window.",
+        "operationId": "com.etzhayyim.claim.challengeStakedAttestation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "claimId": {
+                    "type": "string"
+                  },
+                  "counterBond": {
+                    "type": "string"
+                  },
+                  "rebuttal": {
+                    "type": "string",
+                    "maxLength": 4096
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "claimId",
+                  "counterBond",
+                  "rebuttal"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "claimId": {
+                      "type": "string"
+                    },
+                    "txHash": {
+                      "type": "string"
+                    },
+                    "challengerDidHash": {
+                      "type": "string"
+                    },
+                    "receiptStatus": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "claimId",
+                    "txHash",
+                    "challengerDidHash"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.claim.getStakedAttestation": {
+      "get": {
+        "summary": "ADR-2604261717 Phase 1 — read a staked claim's on-chain state. Issues an eth_call to ClaimStakeEscrow.claims(bytes32) and (optionally) ClaimStakeEscrow.challenges(bytes32) and reflects the canonical state without graph mediation. Public — no session required.",
+        "operationId": "com.etzhayyim.claim.getStakedAttestation",
+        "parameters": [
+          {
+            "name": "claimId",
+            "in": "query",
+            "required": true,
+            "description": "0x-prefixed 32-byte claimId",
+            "schema": {
+              "type": "string",
+              "description": "0x-prefixed 32-byte claimId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "claimId": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string",
+                      "description": "none | pending | challenged | upheld | slashed | refunded"
+                    },
+                    "didHash": {
+                      "type": "string"
+                    },
+                    "atRecordCid": {
+                      "type": "string"
+                    },
+                    "bond": {
+                      "type": "string"
+                    },
+                    "postedAt": {
+                      "type": "integer"
+                    },
+                    "challengePeriodSec": {
+                      "type": "integer"
+                    },
+                    "claimant": {
+                      "type": "string"
+                    },
+                    "challenger": {
+                      "type": "string"
+                    },
+                    "challengerDidHash": {
+                      "type": "string"
+                    },
+                    "counterBond": {
+                      "type": "string"
+                    },
+                    "challengePostedAt": {
+                      "type": "integer"
+                    },
+                    "chainId": {
+                      "type": "integer"
+                    },
+                    "escrowAddr": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "claimId",
+                    "state",
+                    "bond",
+                    "chainId",
+                    "escrowAddr"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.claim.postStakedAttestation": {
+      "post": {
+        "summary": "ADR-2604261717 Phase 1 — submit a staked claim. Caller must already hold a passkey-bearer session (ADR-0023 / ADR-0074 Phase 1) AND have approved ClaimStakeEscrow to transfer `bond` GCC. The handler builds a sealer-funded tx that calls ClaimStakeEscrow.postClaim(claimId, didHash, atRecordCid, bond, challengePeriodSec) and (TODO Phase 2) writes the AT Record + vertex_claim_stake row.",
+        "operationId": "com.etzhayyim.claim.postStakedAttestation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "claim": {
+                    "type": "string",
+                    "maxLength": 4096
+                  },
+                  "claimType": {
+                    "type": "string"
+                  },
+                  "bond": {
+                    "type": "string",
+                    "description": "GCC wei (uint256 decimal string). Caller must have called gcc.approve(escrow, bond) first"
+                  },
+                  "challengePeriodSec": {
+                    "type": "integer",
+                    "description": "default 604800 (7 days). hard cap 90 days",
+                    "minimum": 60,
+                    "maximum": 7776000
+                  },
+                  "arbiter": {
+                    "type": "string",
+                    "description": "default dmn:claim_dispute_v1"
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "atRecordCid": {
+                    "type": "string",
+                    "description": "0x-prefixed 32-byte CIDv1 sha256 of the canonical AT Record bytes (caller-computed). Phase 1: arbitrary 32-byte tag"
+                  }
+                },
+                "required": [
+                  "claim",
+                  "bond"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "claimId": {
+                      "type": "string"
+                    },
+                    "txHash": {
+                      "type": "string"
+                    },
+                    "didHash": {
+                      "type": "string"
+                    },
+                    "escrowAddr": {
+                      "type": "string"
+                    },
+                    "chainId": {
+                      "type": "integer"
+                    },
+                    "challengePeriodSec": {
+                      "type": "integer"
+                    },
+                    "receiptStatus": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "claimId",
+                    "txHash",
+                    "didHash",
+                    "escrowAddr",
+                    "chainId",
+                    "challengePeriodSec"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.claim.settleStakedAttestation": {
+      "post": {
+        "summary": "ADR-2604261717 Phase 1 — finalize a staked claim. Path A (no challenge filed within challengePeriod): anyone can call to refund the bond and close the claim. Path B (challenged): the configured arbiter signs the outcome via ECDSA over keccak256(claimId, claimWins, escrow, chainId) and the contract distributes per the 85/10/5 split. Path C (no-show, arbiter timed out): both sides refunded.",
+        "operationId": "com.etzhayyim.claim.settleStakedAttestation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "claimId": {
+                    "type": "string"
+                  },
+                  "claimWins": {
+                    "type": "boolean",
+                    "description": "Required when arbiterSig is supplied (Path B)"
+                  },
+                  "arbiterSig": {
+                    "type": "string",
+                    "description": "0x-prefixed 65-byte ECDSA signature from the configured arbiter address. Required for Path B."
+                  }
+                },
+                "required": [
+                  "claimId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "claimId": {
+                      "type": "string"
+                    },
+                    "txHash": {
+                      "type": "string"
+                    },
+                    "outcome": {
+                      "type": "string",
+                      "description": "unchallenged | upheld | slashed | refunded"
+                    },
+                    "receiptStatus": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "claimId",
+                    "txHash",
+                    "outcome"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_claim_challenge": {
+        "type": "object",
+        "properties": {
+          "targetClaimId": {
+            "type": "string",
+            "description": "0x-prefixed 32-byte claimId from the original com.etzhayyim.claim.stakedAttestation"
+          },
+          "counterBond": {
+            "type": "string",
+            "description": "GCC wei (uint256 decimal string). Per-actor minimum is enforced by the contract"
+          },
+          "rebuttal": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "targetClaimId",
+          "counterBond",
+          "rebuttal",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_claim_resolution": {
+        "type": "object",
+        "properties": {
+          "claimId": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string",
+            "description": "unchallenged | upheld | slashed | refunded"
+          },
+          "rationale": {
+            "type": "string",
+            "description": "DMN decision id, oracle signature payload, or jury vote summary"
+          },
+          "txHash": {
+            "type": "string",
+            "description": "EVM settlement transaction hash"
+          },
+          "claimantPayout": {
+            "type": "string",
+            "description": "GCC wei returned to the claimant (uint256 decimal string)"
+          },
+          "challengerPayout": {
+            "type": "string",
+            "description": "GCC wei paid to the challenger (uint256 decimal string)"
+          },
+          "treasuryAmount": {
+            "type": "string"
+          },
+          "rewardAmount": {
+            "type": "string"
+          },
+          "settledAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "claimId",
+          "outcome",
+          "txHash",
+          "settledAt"
+        ]
+      },
+      "ai_etzhayyim_claim_stakedAttestation": {
+        "type": "object",
+        "properties": {
+          "claim": {
+            "type": "string",
+            "description": "Plain-text claim asserted by the claimant",
+            "maxLength": 4096
+          },
+          "claimHash": {
+            "type": "string",
+            "description": "0x-prefixed 32-byte keccak256 of canonical claim bytes"
+          },
+          "claimType": {
+            "type": "string",
+            "description": "claimant-supplied tag, e.g. factual / medical / whistleblower / company-registration"
+          },
+          "claimId": {
+            "type": "string",
+            "description": "0x-prefixed 32-byte keccak256(claimHash || didHash || nonce). Joins AT Record to ClaimStakeEscrow.claims(bytes32)"
+          },
+          "bond": {
+            "type": "string",
+            "description": "GCC wei (uint256 decimal string)"
+          },
+          "chainId": {
+            "type": "integer",
+            "description": "EVM chainId where the bond is locked (260425 for etzhayyim private chain)"
+          },
+          "escrowAddr": {
+            "type": "string",
+            "description": "0x-prefixed ClaimStakeEscrow contract address"
+          },
+          "challengePeriodSec": {
+            "type": "integer",
+            "description": "Seconds during which counter-claims may be filed; default 604800 (7 days)"
+          },
+          "arbiter": {
+            "type": "string",
+            "description": "Resolution authority — dmn:<table_id> | oracle:<addr> | jury:<n>"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "settled": {
+            "type": "boolean"
+          },
+          "outcome": {
+            "type": "string",
+            "description": "unchallenged | upheld | slashed | refunded — set by com.etzhayyim.claim.resolution annotation"
+          }
+        },
+        "required": [
+          "claim",
+          "claimHash",
+          "claimId",
+          "bond",
+          "chainId",
+          "escrowAddr",
+          "challengePeriodSec",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

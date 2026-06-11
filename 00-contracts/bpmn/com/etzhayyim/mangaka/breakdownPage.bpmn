@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 2 / 8 — page → panels breakdown (koma-wari). ADR-2604231328 applied to mangaka.
+  in:  pageId, pageSummary, targetPanelCount (default 5), readingDirection (rtl default)
+  out: planJson (array of {panelNum, x, y, w, h, aspect, actionSummary, cameraAngle, emotion})
+  note: Writes kind=pageBreakdown. Caller fans out generatePanel per entry.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_mangaka_breakdown_page"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="mangaka_breakdown_page" name="mangaka breakdown page" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Plan"/>
+    <bpmn:serviceTask id="Task_Plan" name="plan panels (Qwen 7B)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are a professional manga editor doing koma-wari. Break the page beat into panels. Output ONE JSON object {panels:[{panelNum:int,x:float,y:float,w:float,h:float,aspect:&apos;tall|wide|square|splash&apos;,actionSummary:string,cameraAngle:&apos;eyelevel|low|high|birdseye|closeUp|extremeCloseUp|wide&apos;,emotion:string}]}. x/y/w/h are 0.0..1.0 page-relative. Reading order follows readingDirection (rtl: top-right → bottom-left). 3-8 panels typical. JSON only.&quot;" target="system"/>
+          <zeebe:input source="=&quot;Page summary: &quot; + string(pageSummary) + &quot;\nTarget panel count: &quot; + string(targetPanelCount) + &quot;\nReading direction: &quot; + (if readingDirection = null then &quot;rtl&quot; else string(readingDirection))" target="user"/>
+          <zeebe:input source="=1200" target="maxTokens"/>
+          <zeebe:input source="=0.2" target="temperature"/>
+          <zeebe:output source="=data" target="plan"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming><bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Plan" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="persist pageBreakdown plan">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_mangaka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:  &quot;at://did:web:mangaka.etzhayyim.com/com.etzhayyim.apps.mangaka.pageBreakdown/&quot; + string(pageId),
+              owner_did:  &quot;did:web:mangaka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:mangaka.etzhayyim.com&quot;,
+              collection: &quot;com.etzhayyim.apps.mangaka.pageBreakdown&quot;,
+              rkey:       string(pageId),
+              kind:       &quot;pageBreakdown&quot;,
+              page_id:    string(pageId),
+              stage:      &quot;breakdown&quot;,
+              description: string(plan),
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming><bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;breakdownPage&quot;" target="action"/>
+          <zeebe:input source="={pageId: string(pageId), inserted: inserted}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F3</bpmn:incoming><bpmn:outgoing>F4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>F4</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

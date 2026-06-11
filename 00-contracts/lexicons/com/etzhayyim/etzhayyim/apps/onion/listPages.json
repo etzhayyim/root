@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.onion.listPages",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List crawled .onion pages, optionally filtered by host.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "onionHost":    { "type": "string" },
+          "minRiskScore": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "category":     { "type": "string" },
+          "offset":       { "type": "integer", "default": 0 },
+          "limit":        { "type": "integer", "default": 50, "maximum": 100 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["pages", "total", "offset", "limit"],
+          "properties": {
+            "pages":  { "type": "array", "items": { "type": "unknown" } },
+            "total":  { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit":  { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

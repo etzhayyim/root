@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpMext.enforceResearchIntegrity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "文科省: 研究公正 (捏造・改ざん・盗用) 対応 / 不正調査",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "issuedAt",
+            "vertexId"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "relatedActorVid": {
+              "type": "string"
+            },
+            "issuedAt": {
+              "type": "string"
+            },
+            "vertexId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "vertexId"
+          ],
+          "properties": {
+            "vertexId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.give.infrastructureDonationAttestation",
+  "description": "Attestation of a FIAT IN-KIND donation: a real-world infrastructure cost (servers / cloud / domains / bandwidth / hardware) paid directly to a vendor, in fiat, FOR the mission, per ADR-2606111800 §A. No money flows to etzhayyim — the payer bears the fiat cost and the mission receives the resource — so this is identical in form to the in-kind COMPUTE donation (ADR-2606012100) and never touches etzhayyim's money layer or any fiat processor (ADR-2605172100 does not apply). NON-TITHEABLE (no USDC moves; 100% serves the mission). NO quid-pro-quo (earns the payer nothing — anti-class G4). IMPUTED-VALUED for transparency only via toritate valuation tables (ADR-2605262900): AGGREGATE, method-versioned, no per-donor leaderboard. Carries NO receipt/invoice PII — only the period, category, imputed USDC-equivalent value, and the payer DID. This is the record that makes the founder's (and any supporter's) ongoing fiat infrastructure spend a visible, accountable in-kind donation.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "payerDid",
+          "period",
+          "category",
+          "imputedValueMicros",
+          "createdAt"
+        ],
+        "properties": {
+          "payerDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the member/supporter who paid the infrastructure cost in fiat for the mission. The donor; bears the cost arm's-length, receives nothing in return (G4)."
+          },
+          "period": {
+            "type": "string",
+            "description": "Reporting period this cost covers, e.g. 2026-Q2 or 2026-06. Aggregate over the period; never per-line-item or per-invoice."
+          },
+          "category": {
+            "type": "string",
+            "description": "Kind of infrastructure cost paid for the mission.",
+            "enum": [
+              "compute",
+              "cloud-hosting",
+              "domain",
+              "bandwidth",
+              "storage",
+              "hardware",
+              "energy",
+              "other"
+            ]
+          },
+          "imputedValueMicros": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Imputed USDC-equivalent value of the fiat cost in USDC micros (6 decimals; 1 USDC = 1000000), computed via the published toritate valuation tables (method-versioned, auditable; ADR-2605262900). Transparency only — no USDC actually moves. Integer-with-implied-units per ADR-2605190900 (no float in Lexicons)."
+          },
+          "fiatCurrency": {
+            "type": "string",
+            "description": "OPTIONAL ISO-4217 code of the fiat actually paid (e.g. JPY, USD), for valuation transparency. The fiat amount itself is NOT published (it can carry vendor/account specifics); only the imputed USDC-equivalent is.",
+            "maxLength": 3,
+            "minLength": 3
+          },
+          "valuationMethodRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "OPTIONAL AT URI of the toritate valuation-table version used to impute imputedValueMicros (open-source, method-versioned). Lets a third party reproduce the imputed figure."
+          },
+          "titheable": {
+            "type": "boolean",
+            "description": "MUST be false. In-kind: no USDC moves, so there is nothing to split 90/10 (kisha precedent, ADR-2605192130 §5); 100% of the resource serves the mission directly.",
+            "const": false
+          },
+          "compensatedUsdMicros": {
+            "type": "integer",
+            "description": "MUST be 0. An uncompensated gift; etzhayyim pays the donor nothing (paying the donor would make this a commercial cost, not a donation).",
+            "const": 0
+          },
+          "grantsBenefit": {
+            "type": "boolean",
+            "description": "MUST be false. Donating infrastructure earns the donor no perk, tier, priority, or benefit (anti-class G4; ADR-2606012100).",
+            "const": false
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp of the attestation."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerSipEndpoint",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IMS P-CSCF — record a SIP REGISTER (UE attach to IMS). Binds an IMPU to a contact URI for the duration of the registration.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["subscriptionId", "impi", "impu", "contactUri", "pCscfFqdn", "expiresSeconds", "observedAt"],
+          "properties": {
+            "registrationId": { "type": "string" },
+            "subscriptionId": { "type": "string" },
+            "impi": { "type": "string" },
+            "impu": { "type": "string" },
+            "contactUri": { "type": "string" },
+            "pCscfFqdn": { "type": "string" },
+            "accessNetwork": { "type": "string", "enum": ["volte", "vonr", "wifi", "fixed", "vowifi"] },
+            "sessionId": { "type": "string" },
+            "expiresSeconds": { "type": "integer" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "registrationId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

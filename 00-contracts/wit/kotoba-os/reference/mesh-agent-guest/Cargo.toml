@@ -1,0 +1,19 @@
+# The SECOND L5 world as a real WASM Component (ADR-2606031600 §D2/§D5): a
+# non-control Holochain-style mesh agent. Same artifact KIND as plc-control-guest
+# (content-addressed wit-bindgen component) but a different world — proving "one
+# artifact kind serves control program AND agent". An agent gets ZERO device
+# authority: it imports only `datom` (its source chain = local Datom segment).
+[package]
+name = "mesh-agent-guest"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Reference kotoba:os mesh-agent WASM Component guest (datom-only, no device authority)"
+
+[workspace]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wit-bindgen = "0.51"

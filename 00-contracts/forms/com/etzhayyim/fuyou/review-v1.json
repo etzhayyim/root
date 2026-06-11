@@ -1,0 +1,55 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "fuyou-review-v1",
+  "version": 1,
+  "title": "扶養控除等申告書 — HR レビュー",
+  "regulatoryRef": { "law": "所得税法", "article": "§194" },
+  "tier": 3,
+  "encryptionScheme": "signal:v1",
+  "actorRole": "hr-officer",
+  "components": [
+    {
+      "key": "summary",
+      "type": "fieldset",
+      "label": "申告内容サマリ (read-only)",
+      "components": [
+        { "key": "employeeDid",      "label": "申告者 DID",   "type": "textfield", "readOnly": true },
+        { "key": "taxYear",          "label": "対象年",       "type": "number",    "readOnly": true },
+        { "key": "submittedAt",      "label": "提出日時",     "type": "textfield", "readOnly": true },
+        { "key": "dependentsCount",  "label": "扶養親族数 (16+)", "type": "number", "readOnly": true },
+        { "key": "minorCount",       "label": "16 歳未満数",  "type": "number",    "readOnly": true },
+        { "key": "spousePresent",    "label": "配偶者控除",   "type": "checkbox",  "readOnly": true },
+        { "key": "specialFlags",     "label": "特別控除フラグ", "type": "textfield", "readOnly": true,
+          "description": "障害者 / 寡婦 / ひとり親 / 勤労学生 のうち該当するものを表示" }
+      ]
+    },
+    {
+      "key": "checks",
+      "type": "fieldset",
+      "label": "確認チェック",
+      "components": [
+        { "key": "myNumberValid",       "label": "個人番号 12 桁を確認", "type": "checkbox", "required": true },
+        { "key": "incomeReasonable",    "label": "扶養親族の所得見積額が合理的範囲 (年 103 万以下)", "type": "checkbox", "required": true },
+        { "key": "noDuplicateClaim",    "label": "同一扶養親族を他の所得者が申告していない", "type": "checkbox", "required": true },
+        { "key": "categoryCorrect",     "label": "扶養区分 (一般/特定/老人/同居老親) が年齢と一致", "type": "checkbox", "required": true },
+        { "key": "consentObtained",     "label": "申告誓約欄に署名・同意あり", "type": "checkbox", "required": true }
+      ]
+    },
+    {
+      "key": "verdict",
+      "type": "fieldset",
+      "label": "判定",
+      "components": [
+        { "key": "decision",   "label": "判定", "type": "select", "required": true,
+          "options": [
+            { "value": "approve", "label": "承認" },
+            { "value": "reject",  "label": "差戻し" }
+          ]
+        },
+        { "key": "comment",    "label": "コメント (差戻し時は理由を記載)", "type": "textarea",
+          "validate": { "maxLength": 1000 } },
+        { "key": "reviewedAt", "label": "レビュー日時", "type": "datepicker", "required": true }
+      ]
+    }
+  ]
+}

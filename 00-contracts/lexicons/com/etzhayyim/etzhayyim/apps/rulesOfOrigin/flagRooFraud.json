@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.rulesOfOrigin.flagRooFraud",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Rules-of-origin fraud / origin washing (bridges transshipmentEvasion.flagMaterialFinding + enforcementAction + tradeRemedy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "certVid",
+            "fraudKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "certVid": {
+              "type": "string",
+              "description": "bridges recordOriginCertificate"
+            },
+            "fraudKind": {
+              "type": "string",
+              "enum": [
+                "forgery",
+                "false_declaration",
+                "undervaluation",
+                "regional_value_misstated",
+                "cost_allocation_fraud",
+                "ftz_gaming",
+                "third_country_re_export",
+                "mislabelled_origin",
+                "shell_producer",
+                "unrecorded_value_add"
+              ]
+            },
+            "dutyEvadedMusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

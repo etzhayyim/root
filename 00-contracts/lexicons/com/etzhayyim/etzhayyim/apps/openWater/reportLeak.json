@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openWater.reportLeak",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Report a leak on a water main. Computes severity and triggers a public notice post when severity is major or contamination risk is high. Starts BPMN process open_water_report_leak.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "utilityOrgId":       { "type": "string" },
+            "mainVertexId":       { "type": "string" },
+            "latitude":           { "type": "number" },
+            "longitude":          { "type": "number" },
+            "estimatedFlowLpm":   { "type": "number", "description": "estimated leak flow l/min" },
+            "contaminationRisk":  { "type": "string", "enum": ["none", "low", "high"] },
+            "reportedAt":         { "type": "string", "format": "datetime" }
+          },
+          "required": ["utilityOrgId", "mainVertexId", "estimatedFlowLpm", "contaminationRisk", "reportedAt"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":                  { "type": "boolean" },
+            "vertexId":            { "type": "string" },
+            "severity":            { "type": "string", "enum": ["minor", "moderate", "major"] },
+            "requirePublicNotice": { "type": "boolean" },
+            "instanceKey":         { "type": "integer" },
+            "error":               { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

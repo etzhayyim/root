@@ -1,0 +1,111 @@
+# caddy TLS proxy in front of geth-private.
+#
+# Cloudflare Workers fetch() can only target standard HTTP ports (80, 443,
+# 8080, 8443, etc.). geth-private exposes :8545 internally and is published
+# externally on NodePort 30545 — neither is in CF's allowed list. To route
+# CF Workers → CF edge → origin we need: (a) the Worker hits CF on :443,
+# (b) an Origin Rule rewrites destination port to a NodePort, (c) CF →
+# origin TLS handshake succeeds.
+#
+# This proxy gives us (c). Caddy generates a self-signed cert via
+# `tls internal` (no cert-manager round-trip needed) and reverse_proxies
+# plaintext to the in-cluster geth Service. CF zone SSL mode is "Full"
+# (not strict), so the self-signed cert is accepted.
+#
+# Companion CF state: Origin Rule on http.host == "geth-origin.etzhayyim.com"
+# rewrites port to 30443.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddy-geth-config
+  namespace: geth-private
+data:
+  Caddyfile: |
+    {
+      # Disable ACME — we never want caddy reaching out to Let's Encrypt
+      # since this listener is non-public and unreachable on :80.
+      auto_https off
+    }
+
+    # `tls internal` issues a cert for the listener hostname using caddy's
+    # local CA. Cloudflare's "Full" SSL mode (etzhayyim.com default) accepts any
+    # cert during the CF→origin handshake, so a self-signed local-CA cert
+    # is enough to satisfy the TLS leg. Caddy serves the same site for any
+    # SNI on port 8443 — the explicit hostname is only used to scope which
+    # name the cert is issued for.
+    # `tls internal` refuses public hostnames (`geth-origin.etzhayyim.com` is
+    # public-shaped). We sidestep that by mounting a pre-generated
+    # self-signed cert from the `caddy-geth-cert` Secret (10y validity).
+    # Cloudflare's "Full" SSL mode (etzhayyim.com default) accepts any cert
+    # during the CF→origin handshake, so a self-signed leaf is enough.
+    https://geth-origin.etzhayyim.com:8443 {
+      tls /tls/tls.crt /tls/tls.key
+      reverse_proxy http://geth-private.geth-private.svc.cluster.local:8545 {
+        # Strip any caller-supplied Worker auth header — it's enforced at
+        # the CF Worker layer, never forwarded to geth itself.
+        header_up -X-etzhayyim-Rpc-Auth
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy-geth-tls
+  namespace: geth-private
+  labels:
+    app.kubernetes.io/name: caddy-geth-tls
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: caddy-geth-tls
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: caddy-geth-tls
+    spec:
+      containers:
+        - name: caddy
+          image: caddy:2.8.4-alpine
+          args: ["caddy", "run", "--config", "/config/Caddyfile", "--adapter", "caddyfile"]
+          ports:
+            - { name: tls, containerPort: 8443 }
+          readinessProbe:
+            tcpSocket: { port: tls }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests: { cpu: 25m,  memory: 32Mi }
+            limits:   { cpu: 200m, memory: 128Mi }
+          volumeMounts:
+            - { name: config, mountPath: /config }
+            - { name: caddy-data, mountPath: /data }
+            - { name: tls, mountPath: /tls, readOnly: true }
+      volumes:
+        - name: config
+          configMap:
+            name: caddy-geth-config
+            items: [{ key: Caddyfile, path: Caddyfile }]
+        - name: caddy-data
+          emptyDir: {}
+        - name: tls
+          secret:
+            secretName: caddy-geth-cert
+            defaultMode: 0o400
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: caddy-geth-tls
+  namespace: geth-private
+  annotations:
+    # Vultr LB lives on port 443 publicly so CF Workers can reach it
+    # (Worker fetch() restricts the port set; 443 is universally allowed).
+    # CF Worker → CF edge (443) → Vultr LB (443) → caddy pod (8443) → geth.
+    service.beta.kubernetes.io/vultr-loadbalancer-protocol: "tcp"
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: caddy-geth-tls
+  ports:
+    - { name: tls, port: 443, targetPort: tls, protocol: TCP }

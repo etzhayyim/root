@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fdce64a9930a",
+  "entityId": "ent-fdce64a9930a",
+  "canonicalName": "albahr alaahmar energy fze",
+  "aliases": [
+    "albahr alaahmar energy fze"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kanayama.coilQualificationRecord",
+  "description": "Final coil qualification record (L5b). Cold rolling + temper + Migaki surface inspection. Per ADR-2605252400 L5b.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "lotId": {"type": "string"},
+          "inputHotBandCoilId": {"type": "string"},
+          "coldPasses": {"type": "array", "items": {"type": "unknown"}},
+          "finalGaugeMm": {"type": "number"},
+          "temper": {
+            "type": "string",
+            "knownValues": ["O", "H14", "H16", "H18", "H19", "H22", "H24", "H26", "T4", "T6"]
+          },
+          "migakiInspectionFindings": {"type": "array", "items": {"type": "unknown"}},
+          "coilId": {"type": "string"},
+          "coilMassKg": {"type": "number"},
+          "qualificationAccept": {"type": "boolean"},
+          "intendedProduct": {
+            "type": "string",
+            "knownValues": [
+              "can-body-stock-AA3104",
+              "can-end-stock-AA5182",
+              "foil-stock-AA1100",
+              "automotive-sheet-AA5052",
+              "construction-sheet-AA3003"
+            ]
+          },
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["lotId", "coilId", "finalGaugeMm", "temper", "qualificationAccept"]
+      }
+    }
+  }
+}

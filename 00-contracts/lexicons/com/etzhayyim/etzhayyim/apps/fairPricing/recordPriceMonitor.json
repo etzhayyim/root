@@ -1,0 +1,102 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fairPricing.recordPriceMonitor",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Competition authority price monitor (CMA / SAMR / CADE / ACCC — bridges antitrust-dma + agri-food-security + pharma-supply + icpen-consumer)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "monitorId",
+            "jurisdictionIso3",
+            "authority",
+            "sector",
+            "windowMonth",
+            "reportedAt"
+          ],
+          "properties": {
+            "monitorId": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "authority": {
+              "type": "string",
+              "enum": [
+                "cma",
+                "samr",
+                "cade",
+                "accc",
+                "ftc",
+                "dg_comp",
+                "jftc",
+                "kftc"
+              ]
+            },
+            "sector": {
+              "type": "string",
+              "enum": [
+                "grocery",
+                "fuel",
+                "electricity",
+                "pharma",
+                "telecoms",
+                "airlines",
+                "banking",
+                "digital_ads"
+              ]
+            },
+            "marginPctYoy": {
+              "type": "number"
+            },
+            "priceChangePctYoy": {
+              "type": "number"
+            },
+            "inputCostChangePctYoy": {
+              "type": "number"
+            },
+            "windowMonth": {
+              "type": "string"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "marginTier": {
+              "type": "string",
+              "enum": [
+                "benchmark",
+                "elevated",
+                "excess"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

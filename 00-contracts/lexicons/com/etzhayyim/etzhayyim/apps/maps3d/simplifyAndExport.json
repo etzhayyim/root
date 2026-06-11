@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps3d.simplifyAndExport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Open3D quadric-decimation + saturated vertex-color export to GLB. Reduces COLMAP raw mesh (50K-300K triangles) to ~5K triangles per tile so the kami-app-maps3d MeshTileAdapter can stream and upload to GPU without frame spikes. Per-vertex colors are saturated (factor 1.3, clamped) to bias the rendering toward Nintendo-style cel-shading rather than photoreal blur. Optionally segments the mesh by OSM building footprint so each building gets its own GLB + LanceDB spatial Building row (etzhayyim substrate per ADR-2605172000). PORT-adapted per ADR-2605214000 §2.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3", "rawMeshUri"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "rawMeshUri": { "type": "string" },
+            "targetTriangles": { "type": "integer", "description": "Quadric decimation target (default 5000)." },
+            "saturate": { "type": "number", "description": "Vertex color saturation factor 1.0..2.0 (default 1.3)." },
+            "segmentByFootprint": { "type": "boolean", "description": "When true, split into one GLB per OSM building. Default false (single tile GLB)." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3", "tileMeshUri", "buildings"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "tileMeshUri": { "type": "string", "description": "B2 URI of the simplified tile-level GLB." },
+            "buildings": {
+              "type": "array",
+              "description": "Per-building outputs when segmentByFootprint=true, else empty.",
+              "items": {
+                "type": "object",
+                "required": ["osmRef", "meshUri", "centroid"],
+                "properties": {
+                  "osmRef": { "type": "string", "description": "osm:way:{id} or osm:relation:{id}." },
+                  "meshUri": { "type": "string" },
+                  "centroid": { "type": "unknown", "description": "{ lat, lng }." },
+                  "heightM": { "type": "number" }
+                }
+              }
+            },
+            "triangleCount": { "type": "integer" },
+            "byteSize": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

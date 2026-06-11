@@ -1,0 +1,124 @@
+;; maps-spatial-ontology — kotoba EAVT vocabulary for the maps spatial substrate
+;; ADR-2606064500 · actor: maps (maps.etzhayyim.com) · kotoba-native successor to vertex_spatial
+;;
+;; PURPOSE
+;;   A content-addressed Datom (EAVT) vocabulary describing the planet's STATIC geographic
+;;   features — the kotoba-native successor to the legacy RisingWave `vertex_spatial` table.
+;;   A FEATURE is any placed thing the map renders: a Place, Road, Building, River, AdminArea,
+;;   Port, Airport, Station, Mountain, … (the 51 legacy node labels collapse onto :feature/*
+;;   with a :feature/label discriminator). Each feature carries its geometry (GeoJSON), a
+;;   centroid (lat/lon), and — the load-bearing part — its owning H3 cell at every queryable
+;;   resolution, so the read hot-path is an index lookup, not a table scan.
+;;
+;;   This ontology is the STATIC half of the maps substrate. The DYNAMIC half (live ship +
+;;   aircraft position fixes) already migrated to kotoba under watari 渡り
+;;   (moving-craft-ontology.kotoba.edn, ADR-2606041827). maps-spatial generalizes that same
+;;   kotoba-native rewrite to the WHOLE of vertex_spatial.
+;;
+;; SPATIAL INDEX (the design decision, ADR-2606064500 §4) — H3-cell-as-Datom + AVET:
+;;   The legacy getChunk hot-path did `SELECT * FROM vertex_spatial WHERE label IN (..) AND
+;;   lng BETWEEN .. AND lat BETWEEN ..` over a (label,lat,lng) BTREE. kotoba has no SQL and no
+;;   R-tree, but its AVET arrangement (predicate+object → subjects) IS a spatial index when the
+;;   object is an H3 cell. So every feature stores its owning H3 cell at each resolution the
+;;   client queries (:feature.cell/r2 r4 r6 r8 r10 r12 — the app's zoom→LOD ladder). getChunk
+;;   then resolves to: for each requested cell at res=lod, AVET-lookup subjects of
+;;   :feature.cell/r{lod} == cell. O(requested cells), never O(features). h3-js cellToParent
+;;   gives the owning cell at every res from the res-15 centroid at ingest time.
+;;
+;; SUBSTRATE (ADR-2605262130 + 2605312345): canonical state is the kotoba Datom log.
+;;   IPFS = block backend, MST = ingress/interop wire, Base L2 = trust anchor. NO RisingWave,
+;;   NO Hyperdrive, NO centralized SQL. Bulk geometry (planet-scale OSM, satellite COG) →
+;;   DataLad → IPFS under 80-data/maps (NO git-lfs; G8).
+;;
+;; SOURCING HONESTY (G5, mirrors watari/watatsuna/tsumugi ontologies):
+;;   :*/sourcing ∈ { :authoritative  ; a primary public source (OSM element, GTFS feed, GLEIF
+;;                                      LEI, Sentinel STAC item, national registry)
+;;                   :representative  ; publicly documented but a bounded illustrative sample,
+;;                                      NOT full coverage; coordinates/props may be rounded
+;;                   :synthesized }   ; derived/estimated by maps (e.g. a centroid, a procedural
+;;                                      terrain tile); MUST be flagged, never shown as observed
+;;   Every feature in the seed graph carries an explicit sourcing keyword. Absence of a feature
+;;   means "not yet ingested", NOT "not present in the world" — coverage is never fabricated.
+;;
+;; SCOPE GUARD (constitutional):
+;;   - PUBLIC / OPEN geographic data only (OSM ODbL, Natural Earth PD, GTFS, GLEIF, free STAC
+;;     satellite). NO proprietary basemap tiles, NO paid geocoders as canonical store.
+;;   - A feature is a PLACED THING, never a person. User-post geolocation records the POST's
+;;     place, never builds pattern-of-life on the poster (mirrors watari G4).
+;;   - Murakumo-only narration (ADR-2605215000); no commercial GPU path.
+
+{:schema/id        "maps-spatial-ontology"
+ :schema/version   "0.1.0"
+ :schema/adr       "2606064500"
+ :schema/supersedes ["vertex_spatial"            ;; the RisingWave table (51 node labels)
+                     "vertex_osm_element"
+                     "edge_osm_way_node"
+                     "vertex_legal_entity"
+                     "vertex_registry"
+                     "vertex_maps_gsplat_asset"
+                     "vertex_maps_trip"
+                     "vertex_maps_stop_time"]
+ :schema/note      "kotoba-native successor to the legacy maps RisingWave/Hyperdrive store (ADR-2605262130 violation). Static-feature counterpart to watari's moving-craft-ontology (ADR-2606041827): watari = live ship/aircraft fixes, maps-spatial = static placed features. The H3-cell index attrs (:feature.cell/rN) make the kotoba AVET arrangement the spatial index. See 00-contracts/lexicons/com/etzhayyim/maps/MIGRATION-NOTES.md."
+
+ :attributes
+ [;; ── :feature/* — a placed geographic FEATURE (the vertex_spatial successor) ──
+  {:db/ident :feature/id          :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id; legacy vertex_id (at://{did}/{collection}/{rkey}) is reused verbatim where it exists, else \"feature.{label}.{slug}\""}
+  {:db/ident :feature/label       :db/valueType :db.type/keyword :db/doc "the discriminator that was the SQL `label` column: :place :road :railway :building :river :coastline :admin-area :mountain :port :airport :station :bus-stop :legal-entity :registry … (51 legacy labels collapse here)"}
+  {:db/ident :feature/name        :db/valueType :db.type/string}
+  {:db/ident :feature/display-name :db/valueType :db.type/string}
+  {:db/ident :feature/category    :db/valueType :db.type/string  :db/doc "free-text sub-type (legacy `category` column)"}
+  {:db/ident :feature/status      :db/valueType :db.type/keyword :db/doc ":active | :superseded | :proposed — feature lifecycle (非終末論: superseded is appended, not deleted)"}
+  ;; geometry + centroid (centroid drives the H3 cell index below)
+  {:db/ident :feature/geometry    :db/valueType :db.type/string  :db/doc "GeoJSON geometry, JSON-encoded (Point|LineString|Polygon|Multi*). The legacy `props.geometry` / (lat,lng) Point."}
+  {:db/ident :feature/lat         :db/valueType :db.type/double  :db/doc "centroid latitude, WGS84 (legacy `lat`)"}
+  {:db/ident :feature/lon         :db/valueType :db.type/double  :db/doc "centroid longitude, WGS84 (legacy `lng`)"}
+  {:db/ident :feature/height-m    :db/valueType :db.type/double  :db/doc "extrusion height in metres (Building/Mountain/…); drives KAMI 3D add_extrude_layer"}
+  {:db/ident :feature/levels      :db/valueType :db.type/long    :db/doc "floor count; height fallback = levels × 3 m"}
+  {:db/ident :feature/props       :db/valueType :db.type/string  :db/doc "JSON bag of remaining typed-then-spilled fields (the legacy `props` text column) — read-through only, never a query key (query keys are first-class attrs)"}
+  ;; provenance
+  {:db/ident :feature/source      :db/valueType :db.type/keyword :db/doc ":osm | :gtfs-jp | :openflights | :ferry | :wikidata | :gleif | :sentinel | :user-post | :vision | …"}
+  {:db/ident :feature/source-did  :db/valueType :db.type/string  :db/doc "path-based source DID (did:web:maps.etzhayyim.com:registry:gleif, …) — provenance carried unchanged from the legacy multi-DID model"}
+  {:db/ident :feature/sourcing    :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :feature/name-token — the NAME SEARCH INDEX (token index, not a query key column) ──
+  ;;    AVET(:feature/name-token, <query-token>) = the kotoba-native successor to vertex_spatial
+  ;;    `name LIKE`. One tokenizer (methods/search.py name_tokens) stamps at write (ingest.py)
+  ;;    and probes at read (search.py): ASCII name-prefixes + CJK bigrams (mirrors kotoba's own
+  ;;    bm25/CJK-bigram web search). cardinality many.
+  {:db/ident :feature/name-token  :db/valueType :db.type/string  :db/index true :db/cardinality :db.cardinality/many :db/doc "search-index token (ASCII name-prefix or CJK bigram of :feature/name)"}
+
+  ;; ── :feature.cell/* — the H3 SPATIAL INDEX (one owning cell per queryable resolution) ──
+  ;;    AVET(:feature.cell/r{lod}, <cell>) → subjects = exactly the getChunk per-cell read.
+  ;;    Cells are h3-js cellToParent(centroidR15, res). getChunk's zoom→LOD ladder uses
+  ;;    res {2,4,6,8,10,12}; r12 (≈9 m edge) is the walkable-3D streaming resolution.
+  {:db/ident :feature.cell/r2     :db/valueType :db.type/string  :db/index true :db/doc "owning H3 cell at res 2 (continental, zoom <3)"}
+  {:db/ident :feature.cell/r4     :db/valueType :db.type/string  :db/index true :db/doc "res 4 (zoom 3-5)"}
+  {:db/ident :feature.cell/r6     :db/valueType :db.type/string  :db/index true :db/doc "res 6 (zoom 6-9)"}
+  {:db/ident :feature.cell/r8     :db/valueType :db.type/string  :db/index true :db/doc "res 8 (zoom 10-13)"}
+  {:db/ident :feature.cell/r10    :db/valueType :db.type/string  :db/index true :db/doc "res 10 (zoom 14-16)"}
+  {:db/ident :feature.cell/r12    :db/valueType :db.type/string  :db/index true :db/doc "res 12 ≈9 m (zoom 17+; the maps-3d walkable streaming cell)"}
+
+  ;; ── :feature.rel/* — first-class topology edges (the legacy edge_* tables) ──
+  ;;    e.g. OSM way→node membership, ownership chains, route→stop. Stored as ref datoms so
+  ;;    VAET (reverse refs) answers "what references X" without a join.
+  {:db/ident :feature.rel/id      :db/valueType :db.type/string  :db/unique :db.unique/identity}
+  {:db/ident :feature.rel/kind    :db/valueType :db.type/keyword :db/doc ":way-node | :owns-property | :operates | :segment-of | :registered-at | :resolves-to | …"}
+  {:db/ident :feature.rel/from    :db/valueType :db.type/ref     :db/doc "source :feature/id"}
+  {:db/ident :feature.rel/to      :db/valueType :db.type/ref     :db/doc "target :feature/id"}
+  {:db/ident :feature.rel/seq     :db/valueType :db.type/long    :db/doc "ordering (way-node sequence, stop_sequence)"}
+  {:db/ident :feature.rel/sourcing :db/valueType :db.type/keyword}
+
+  ;; ── :geo.alias/* — multi-scheme region identity (the legacy GeoAlias / 32-scheme model) ──
+  {:db/ident :geo.alias/id        :db/valueType :db.type/string  :db/unique :db.unique/identity}
+  {:db/ident :geo.alias/scheme    :db/valueType :db.type/keyword :db/doc ":iso3166-1 | :iso3166-2 | :jis-x0401 | :h3 | :s2 | :unlocode | :icao-airport | …"}
+  {:db/ident :geo.alias/code      :db/valueType :db.type/string  :db/index true}
+  {:db/ident :geo.alias/canonical :db/valueType :db.type/ref     :db/doc "the canonical AdminArea :feature/id this code resolves to"}
+  {:db/ident :geo.alias/sourcing  :db/valueType :db.type/keyword}]
+
+ ;; ───────────────────────────── DERIVED (analyze.py, never stored as raw fact) ────
+ ;; maps computes these and emits them flagged :derived; NOT re-ingested as authoritative.
+ :derived-attributes
+ [{:db/ident :coverage/feature-count    :db/doc "# features per label — what the substrate actually holds"}
+  {:db/ident :coverage/cell-count-r6    :db/doc "# distinct res-6 H3 cells touched — the honest Earth-coverage surface (≈36 k cells = whole planet)"}
+  {:db/ident :coverage/bbox             :db/doc "min/max lat/lon of all features — the geographic footprint actually covered"}
+  {:db/ident :coverage/anchor-density   :db/doc "feature count in the densest res-8 cell — the localized hot spot (e.g. Tokyo Station)"}]}

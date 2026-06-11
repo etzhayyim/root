@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_arctic_nsr_record_commercial_viability" targetNamespace="https://etzhayyim.ai/bpmn/open-arctic-nsr" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_arctic_nsr_record_commercial_viability" name="recordCommercialViability" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="save">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;vertex_open_arctic_nsr&quot;" target="table"/><zeebe:input source="={vertex_id: vertexId, viability_id: viabilityId, transit_vid: transitVid, alternate_route: alternateRoute, alternate_transit_vid: alternateTransitVid, nsr_distance_nm: nsrDistanceNm, alternate_distance_nm: alternateDistanceNm, nsr_cost_usd: nsrCostUsd, alternate_cost_usd: alternateCostUsd, savings_pct: savingsPct, assessed_at: assessedAt, viability_tier: if savingsPct != null and savingsPct &gt;= 30 then &quot;strongly_favored&quot; else if savingsPct != null and savingsPct &gt;= 10 then &quot;marginal&quot; else &quot;uneconomic&quot;, status: &quot;active&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-arctic-nsr&quot;}" target="values"/><zeebe:input source="=&quot;ignore&quot;" target="onConflict"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-arctic-nsr.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;open.arcticNsr.recordCommercialViability&quot;" target="action"/><zeebe:input source="={vertexId: vertexId}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

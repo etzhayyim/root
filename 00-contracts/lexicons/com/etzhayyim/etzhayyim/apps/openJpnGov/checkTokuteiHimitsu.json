@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openJpnGov.checkTokuteiHimitsu",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence (stub): 特定秘密保護法 照会. Starts BPMN process open_jpn_gov_check_tokutei_himitsu.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "documentVid": { "type": "string" },
+            "classification": { "type": "string" }
+          },
+          "required": ["vertexId", "documentVid", "classification"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

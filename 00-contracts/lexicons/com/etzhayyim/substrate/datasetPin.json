@@ -1,0 +1,106 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.substrate.datasetPin",
+  "description": "Pin receipt for a large reference / training / baien dataset pinned to IPFS by the religious-corp dataset-pinner. Per ADR-2605241500. Parallels com.etzhayyim.substrate.ipfsPin (which is reserved for MST CAR shards from mst-projector). Readers can resolve `cid` from any IPFS gateway to obtain the original UnixFS tree; the optional `sha256` is an archive-level hash (deterministic tar of staging tree) that lets a consumer verify content independent of the IPFS chunker. Charter Rider §2(a)..(h) scan result (ADR-2605192200) MUST be recorded — pins where `charterRiderScan.passed = false` are NOT allowed and the pinner refuses to emit them.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": [
+          "name",
+          "revision",
+          "kind",
+          "cid",
+          "sizeBytes",
+          "providers",
+          "pinnedAt",
+          "charterRiderScan"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Stable dataset name in canonical form, e.g. `HF:HuggingFaceTB/smollm-corpus` or `local:baien-graft-3d-260524`. Together with `revision` uniquely identifies a pin."
+          },
+          "revision": {
+            "type": "string",
+            "description": "Upstream revision pin. For HF datasets: the git revision SHA or tag. For HTTP sources: a content etag or capture timestamp. Free-form for `local-import`."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "training-corpus",
+              "reference",
+              "baien-graft-3d",
+              "baien-graft-image",
+              "lm-eval-bench",
+              "other"
+            ],
+            "description": "Taxonomic bucket for sharding + storage policy."
+          },
+          "cid": {
+            "type": "string",
+            "description": "IPFS UnixFS root CID (v1, base32) returned by Kubo `/api/v0/add` (or equivalent provider call)."
+          },
+          "sizeBytes": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Total byte size of the pinned tree (sum of leaf sizes, not including IPFS framing overhead)."
+          },
+          "sha256": {
+            "type": "string",
+            "description": "Archive-level sha256 of a deterministic tar of the staging tree. Optional but recommended for chunker-independent verification."
+          },
+          "providers": {
+            "type": "array",
+            "description": "Names of pin providers that confirmed the pin. Production target ≥ 2 distinct providers (replication-factor invariant inherited from ADR-2605171800 Stage 4). Single-provider pins are allowed during bootstrap, marked by `replicationMin: 1` in the manifest row.",
+            "items": {
+              "type": "string",
+              "enum": ["kubo", "pinata", "web3storage", "filecoin"]
+            },
+            "minLength": 1
+          },
+          "assignedNodes": {
+            "type": "array",
+            "description": "DIDs of nodes that MUST hold this CID per the sharding plan. Empty array means unassigned (any node may pin opportunistically).",
+            "items": { "type": "string" }
+          },
+          "source": {
+            "type": "object",
+            "description": "How the dataset was obtained upstream.",
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["hf-dataset", "hf-model", "http", "local-import"]
+              },
+              "url": { "type": "string" },
+              "revision": { "type": "string" }
+            }
+          },
+          "license": {
+            "type": "string",
+            "description": "SPDX identifier or free-text license string. MUST be compatible with the Charter Compliance Rider (ADR-2605192200); first-party redistribution implies Apache-2.0 + Rider on derivative artifacts."
+          },
+          "charterRiderScan": {
+            "type": "object",
+            "required": ["passed", "at"],
+            "description": "Result of kotodama.organism.sensors.charter_rider.scan() against a deterministic sample of the dataset. Required: pins with `passed = false` MUST NOT be emitted.",
+            "properties": {
+              "passed": { "type": "boolean" },
+              "at": { "type": "string", "format": "datetime" },
+              "sampledRows": { "type": "integer", "minimum": 0 },
+              "note": { "type": "string" }
+            }
+          },
+          "manifestRowRef": {
+            "type": "string",
+            "description": "Reference back to the row in `90-docs/baien/datasets.jsonl` that this pin record corresponds to. Either a 1-based line number (string-encoded) or a git blob CID anchor — implementation-defined for Phase 1."
+          },
+          "pinnedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

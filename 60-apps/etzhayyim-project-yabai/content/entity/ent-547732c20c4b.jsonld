@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-547732c20c4b",
+  "entityId": "ent-547732c20c4b",
+  "canonicalName": "habib soussou",
+  "aliases": [
+    "habib soussou"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sanae.weedingPassRecord",
+  "description": "Mechanical or non-herbicide weeding pass record for sanae. Preserves the regenerative/no-synthetic-herbicide gate.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["fieldDid", "method", "performedAt", "rPhase", "operatorDid"],
+        "properties": {
+          "fieldDid": {"type": "string", "format": "did"},
+          "method": {"type": "string", "knownValues": ["mechanical", "laser", "manual-audit", "simulation"]},
+          "areaSquareMeters": {"type": "integer", "minimum": 0},
+          "syntheticHerbicideUsed": {"type": "boolean", "const": false},
+          "performedAt": {"type": "string", "format": "datetime"},
+          "rPhase": {"type": "string", "knownValues": ["R0", "R1", "R2", "R3"]},
+          "operatorDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

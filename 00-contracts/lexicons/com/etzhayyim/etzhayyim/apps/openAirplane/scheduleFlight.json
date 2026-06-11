@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openAirplane.scheduleFlight",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Publish a single scheduled flight (origin → destination). Starts BPMN process open_airplane_schedule_flight.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "operatorOrgId":  { "type": "string" },
+            "aircraftVid":    { "type": "string" },
+            "originVid":      { "type": "string" },
+            "destinationVid": { "type": "string" },
+            "flightNumber":   { "type": "string" },
+            "scheduledOff":   { "type": "string", "format": "datetime" },
+            "scheduledIn":    { "type": "string", "format": "datetime" }
+          },
+          "required": ["operatorOrgId", "aircraftVid", "originVid", "destinationVid", "flightNumber", "scheduledOff", "scheduledIn"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "vertexId":    { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

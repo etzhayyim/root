@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ccpOversight.recordExposure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Central Counterparty (CCP) default fund / initial margin / PFMI (bridges nbfiStress.flagResolutionGap + bank-resolution + enforcement-action)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "exposureId",
+            "productClass",
+            "metricKind",
+            "asOfDate"
+          ],
+          "properties": {
+            "exposureId": {
+              "type": "string"
+            },
+            "ccpLei": {
+              "type": "string"
+            },
+            "productClass": {
+              "type": "string",
+              "enum": [
+                "interest_rate",
+                "equity",
+                "commodity",
+                "fx",
+                "crypto",
+                "credit_default",
+                "securitized",
+                "repo",
+                "trapizoid_crypto",
+                "ft_clearing"
+              ]
+            },
+            "metricKind": {
+              "type": "string",
+              "enum": [
+                "initial_margin",
+                "default_fund",
+                "skin_in_game",
+                "recovery_tools",
+                "pre_default_waterfall",
+                "post_default_waterfall",
+                "cover_two_standard",
+                "concentration_risk",
+                "wrong_way_risk",
+                "port_complexity"
+              ]
+            },
+            "resolutionGapVid": {
+              "type": "string",
+              "description": "bridges nbfiStress.flagResolutionGap"
+            },
+            "asOfDate": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

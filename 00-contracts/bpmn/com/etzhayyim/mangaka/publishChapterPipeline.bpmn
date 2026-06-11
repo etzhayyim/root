@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 8 / 8 — publish chapter + social announce. ADR-2604231328 applied to mangaka.
+  HITL: all composedPage rows for the chapter must be priority='approved'.
+  in:  chapterId, chapterTitle, chapterNum, workDid (optional), announcementText (optional)
+  out: masterVertexId, pageCount, postUri
+  note: NSID com.etzhayyim.apps.mangaka.publishChapterPipeline — distinct from the
+        Worker-native com.etzhayyim.apps.mangaka.publishChapter stub.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_mangaka_publish_chapter_pipeline"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="mangaka_publish_chapter_pipeline" name="mangaka publish chapter pipeline" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_LoadPages"/>
+    <bpmn:serviceTask id="Task_LoadPages" name="load approved composed pages">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_mangaka&quot;" target="table"/>
+          <zeebe:input source="=&quot;chapter_id = %s AND kind = %s AND priority = %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[chapterId, &quot;composedPage&quot;, &quot;approved&quot;]" target="whereParams"/>
+          <zeebe:input source="=&quot;vertex_id, page_id, image_cid&quot;" target="columns"/>
+          <zeebe:input source="=500" target="limit"/>
+          <zeebe:input source="=&quot;page_id ASC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows" target="pageRows"/>
+          <zeebe:output source="=rowCount" target="pageCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming><bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_LoadPages" targetRef="Task_InsertMaster"/>
+    <bpmn:serviceTask id="Task_InsertMaster" name="persist chapter master row">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_mangaka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:   &quot;at://did:web:mangaka.etzhayyim.com/com.etzhayyim.apps.mangaka.chapterMaster/&quot; + string(chapterId),
+              owner_did:   &quot;did:web:mangaka.etzhayyim.com&quot;,
+              repo:        &quot;did:web:mangaka.etzhayyim.com&quot;,
+              collection:  &quot;com.etzhayyim.apps.mangaka.chapterMaster&quot;,
+              rkey:        string(chapterId),
+              kind:        &quot;chapterMaster&quot;,
+              chapter_id:  string(chapterId),
+              stage:       &quot;publish&quot;,
+              method:      &quot;aiMaster&quot;,
+              priority:    &quot;published&quot;,
+              description: &quot;chapter master, &quot; + string(pageCount) + &quot; pages&quot;,
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="masterInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming><bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_InsertMaster" targetRef="Task_Announce"/>
+    <bpmn:serviceTask id="Task_Announce" name="social announce (chapter drop)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.atproto.repo.createRecord&quot;" target="type"/>
+          <zeebe:input source="={
+              repo:       if workDid = null then &quot;did:web:mangaka.etzhayyim.com&quot; else string(workDid),
+              collection: &quot;app.bsky.feed.post&quot;,
+              record: {
+                &quot;$type&quot;: &quot;app.bsky.feed.post&quot;,
+                text: if announcementText = null
+                      then (&quot;📖 新章『&quot; + string(chapterTitle) + &quot;』(第&quot; + string(chapterNum) + &quot;話, &quot; + string(pageCount) + &quot;P) 公開\n→ https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.chapter/&quot; + string(chapterId))
+                      else string(announcementText),
+                createdAt: today() + &quot;T00:00:00Z&quot;,
+                langs:     [&quot;ja&quot;]
+              }
+          }" target="payload"/>
+          <zeebe:output source="=body" target="announceBody"/>
+          <zeebe:output source="=status" target="announceStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F3</bpmn:incoming><bpmn:outgoing>F4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Announce" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;publishChapterPipeline&quot;" target="action"/>
+          <zeebe:input source="={chapterId: string(chapterId), pageCount: pageCount, announceStatus: announceStatus}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F4</bpmn:incoming><bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F5" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>F5</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

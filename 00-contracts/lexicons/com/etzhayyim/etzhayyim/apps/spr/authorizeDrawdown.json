@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.spr.authorizeDrawdown",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "SPR drawdown 認可",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "drawdownId",
+            "country",
+            "volumeMmbbl",
+            "effectiveFrom",
+            "authorizedAt"
+          ],
+          "properties": {
+            "drawdownId": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "volumeMmbbl": {
+              "type": "number"
+            },
+            "triggerEvent": {
+              "type": "string",
+              "description": "hormuz-closure / hurricane / refinery-outage / iea-coordinated"
+            },
+            "coordinatedWithIea": {
+              "type": "boolean"
+            },
+            "effectiveFrom": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "effectiveUntil": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "authorizedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "scopeTier": {
+              "type": "string",
+              "enum": [
+                "tactical",
+                "strategic",
+                "emergency"
+              ]
+            },
+            "requireMarketNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

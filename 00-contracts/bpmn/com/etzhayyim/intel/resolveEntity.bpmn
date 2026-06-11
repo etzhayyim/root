@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_intel_resolve_entity" targetNamespace="https://etzhayyim.ai/bpmn/intel" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="intel_resolve_entity" name="resolveEntity" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Start_Run</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Run" sourceRef="Start" targetRef="Task_CreateRun"/>
+    <bpmn:serviceTask id="Task_CreateRun" name="create inference run">
+      <bpmn:extensionElements><zeebe:taskDefinition type="intel.run.create"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="={query: query, entityKind: entityKind, hints: hints}" target="scope"/>
+          <zeebe:input source="=&quot;mcp_call&quot;" target="triggerKind"/>
+          <zeebe:input source="=true" target="dryRun"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Run</bpmn:incoming><bpmn:outgoing>Flow_Run_Candidates</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Run_Candidates" sourceRef="Task_CreateRun" targetRef="Task_Candidates"/>
+    <bpmn:serviceTask id="Task_Candidates" name="resolve candidates">
+      <bpmn:extensionElements><zeebe:taskDefinition type="intel.entity.resolve"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId" target="runId"/>
+          <zeebe:input source="=query" target="query"/>
+          <zeebe:input source="=entityKind" target="entityKind"/>
+          <zeebe:input source="=hints" target="hints"/>
+          <zeebe:input source="=maxCandidates" target="maxCandidates"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Run_Candidates</bpmn:incoming><bpmn:outgoing>Flow_Candidates_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Candidates_Audit" sourceRef="Task_Candidates" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:intel.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;intel.resolveEntity&quot;" target="action"/>
+          <zeebe:input source="={runId: runId, query: query, candidateCount: count(candidates)}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Candidates_Audit</bpmn:incoming><bpmn:outgoing>Flow_Audit_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_Audit_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

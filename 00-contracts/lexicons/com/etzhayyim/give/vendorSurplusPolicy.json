@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.give.vendorSurplusPolicy",
+  "description": "Council-attested policy governing how the commercial vendor entity (etzhayyim.com) commits its distributable surplus to donate to the non-profit religious-corp, per ADR-2605301036 §6 (Mission-Funding Earned-Revenue Arm). The vendor exists to FUND the mission, not to accumulate — this record pins the payout ratio + operating reserve so the surplus-commitment is on-chain and auditable. It governs ONLY the vendor→religious-corp donation flow (purpose ∈ {donation,grant}, titheable per ADR-2605192130); it NEVER authorizes cash to adherents (cashStipendUsdMicros≡0 stays invariant per ADR-2605261000 §5 N1 / ADR-2605301020). Because Payoff帰属・意思決定権 = etzhayyim only, the vendor has no private equity holder to enrich. All quantities are integer-with-implied-units per ADR-2605190900.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "policyVersion",
+          "vendorDid",
+          "effectiveFrom",
+          "payoutRatioBps",
+          "operatingReserveMonths",
+          "councilAttestation",
+          "attestationCid",
+          "createdAt"
+        ],
+        "properties": {
+          "policyVersion": {"type": "string", "description": "Monotonic policy version id, e.g. v1. A new policy supersedes the prior; both remain on-record for audit."},
+          "vendorDid": {"type": "string", "format": "did", "description": "DID of the commercial vendor entity (etzhayyim.com) this policy binds."},
+          "effectiveFrom": {"type": "string", "format": "datetime", "description": "ISO 8601 start of the policy's effective window."},
+          "effectiveTo": {"type": "string", "format": "datetime", "description": "Optional ISO 8601 end of the effective window; absent = open-ended until superseded."},
+          "payoutRatioBps": {"type": "integer", "minimum": 0, "maximum": 10000, "description": "Fraction of the vendor's distributable surplus committed to donation, basis points (×10000; 10000 = 100%). Council sets the value; the mission-funding intent (ADR-2605301036 §6) is a high ratio — the vendor accumulates only the operating reserve below."},
+          "operatingReserveMonths": {"type": "integer", "minimum": 0, "description": "Months of vendor operating cost retained before the payout applies (continuity reserve). The remainder is the distributable surplus the payout ratio acts on."},
+          "recipientDefault": {
+            "type": "string",
+            "description": "Default earmark for the donated surplus' 90% recipient leg (the 10% tithe always reaches the Public Fund). public-fund routes ~100% to the mission.",
+            "knownValues": ["public-fund", "liberation-ladder", "basic-high-income", "general-unrestricted"]
+          },
+          "councilAttestation": {"type": "array", "items": {"type": "string", "format": "did"}, "minItems": 3, "description": "Council Lv6+ ≥3 DIDs attesting this policy (ADR-2605301036 §6 + ADR-2605192300)."},
+          "attestationCid": {"type": "string", "format": "cid", "description": "CID of the full attestation payload / deliberation record."},
+          "createdAt": {"type": "string", "format": "datetime", "description": "ISO 8601 timestamp of the policy record."}
+        }
+      }
+    }
+  }
+}

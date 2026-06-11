@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  webya.etzhayyim.com — domainSslMonitor (autonomous timer R/PT30M).
+
+  Polls all vertex_webya_domain WHERE ssl_status != 'active'.
+  Calls CF API GET /zones/{zone}/custom_hostnames/{id} for each pending domain.
+  Updates ssl_status + ownership_verified on active/error response.
+
+  No XRPC binding — timer-start only (Zeebe deploys via F5 watcher).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_webya_domain_ssl_monitor"
+    targetNamespace="https://etzhayyim.ai/bpmn/webya"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="webya_domain_ssl_monitor" name="webya domain ssl monitor" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="R/PT30M">
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT30M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+      <bpmn:outgoing>Flow_ToCheck</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_CheckPending" name="check all pending SSL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="webya.domain.checkAllPending"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=pendingCount"  target="pendingCount"/>
+          <zeebe:output source="=activatedCount" target="activatedCount"/>
+          <zeebe:output source="=errorCount"    target="errorCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCheck</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToCheck" sourceRef="Start" targetRef="Task_CheckPending"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit.emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;webya.domainSslMonitor&quot;" target="actor"/>
+          <zeebe:input source="=&quot;ssl-monitor-tick&quot;"       target="subject"/>
+          <zeebe:input source="=pendingCount"                       target="pendingCount"/>
+          <zeebe:input source="=activatedCount"                     target="activatedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_CheckPending" targetRef="Task_Audit"/>
+
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+  </bpmn:process>
+</bpmn:definitions>

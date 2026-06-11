@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_jpn_invoice_record_corporate_tax_filing"
+    targetNamespace="https://etzhayyim.ai/bpmn/jpn-invoice"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="jpn_invoice_record_corporate_tax_filing" name="国税庁 法人税申告" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Classify"/>
+    <bpmn:serviceTask id="Task_Classify" name="分類">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok LIMIT 1&quot;" target="query"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=if taxableIncome &gt;= 1000000000 then &quot;large&quot;
+                                else if taxableIncome &gt;= 100000000 then &quot;medium&quot;
+                                else &quot;small&quot;" target="sizeTier"/>
+          <zeebe:output source="=taxableIncome &gt;= 1000000000" target="requireAudit"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_Classify" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="tax 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_jpn_invoice_corporate_tax&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, filer_corporate_number: filerCorporateNumber,
+              fiscal_year: fiscalYear, taxable_income: taxableIncome,
+              tax_payable: taxPayable, filing_type: filingType,
+              filed_at: filedAt, size_tier: sizeTier, require_audit: requireAudit,
+              status: &quot;accepted&quot;, created_at: string(now()),
+              owner_did: callerDid, sensitivity_ord: 2,
+              org_id: filerCorporateNumber, user_id: callerDid, actor_id: &quot;sys.bpmn.jpn-invoice&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Save" targetRef="Gate"/>
+    <bpmn:exclusiveGateway id="Gate" default="Flow_Log">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Major</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Log</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Major" sourceRef="Gate" targetRef="Task_AuditMajor">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=requireAudit = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Log" sourceRef="Gate" targetRef="Task_AuditLog"/>
+    <bpmn:serviceTask id="Task_AuditMajor" name="audit jpnInvoice.tax.auditRequired">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:jpn-invoice.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;jpnInvoice.tax.auditRequired&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, filerCorporateNumber: filerCorporateNumber, fiscalYear: fiscalYear, sizeTier: sizeTier, taxPayable: taxPayable}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Major</bpmn:incoming><bpmn:outgoing>Flow_EM</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EM" sourceRef="Task_AuditMajor" targetRef="End_M"/>
+    <bpmn:serviceTask id="Task_AuditLog" name="audit jpnInvoice.tax.accept">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:jpn-invoice.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;jpnInvoice.tax.accept&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, filerCorporateNumber: filerCorporateNumber, fiscalYear: fiscalYear, sizeTier: sizeTier, taxPayable: taxPayable}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Log</bpmn:incoming><bpmn:outgoing>Flow_EL</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EL" sourceRef="Task_AuditLog" targetRef="End_L"/>
+    <bpmn:endEvent id="End_L"><bpmn:incoming>Flow_EL</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_M"><bpmn:incoming>Flow_EM</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

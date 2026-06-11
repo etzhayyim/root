@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7d10c23e65b8",
+  "entityId": "ent-7d10c23e65b8",
+  "canonicalName": "noor energy (malaysia) ltd.",
+  "aliases": [
+    "noor energy (malaysia) ltd."
+  ]
+}

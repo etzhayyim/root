@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.referral",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Public metadata for a patient referral (紹介状). The referral letter body is held inside com.etzhayyim.encrypted.record envelope; this record only indexes the routing tuple (fromFacilityDid, toFacilityDid, specialty, urgency, status) so external facilities can discover pending inbox items without read-cap.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fromFacilityDid", "toFacilityDid", "specialty", "status", "createdAt"],
+        "properties": {
+          "patientDidHash": {"type": "string", "description": "salted hash of patient DID (NOT plaintext patient DID; correlation-resistant)"},
+          "fromFacilityDid": {"type": "string"},
+          "toFacilityDid": {"type": "string"},
+          "specialty": {"type": "string"},
+          "urgency": {"type": "string", "enum": ["routine", "urgent", "emergent"]},
+          "status": {"type": "string", "enum": ["draft", "sent", "acknowledged", "accepted", "declined", "completed", "cancelled"]},
+          "encryptedLetterCid": {"type": "string", "description": "CID of encrypted referral letter inside com.etzhayyim.encrypted.record"},
+          "createdAt": {"type": "string", "format": "datetime"},
+          "acknowledgedAt": {"type": "string", "format": "datetime"},
+          "completedAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    }
+  }
+}

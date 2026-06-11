@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mangaka.breakdownPage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stage 2/8 — Break a page beat into 3-8 panels (koma-wari). Qwen 7B outputs panel geometry + per-panel action summary. Writes one vertex_mangaka row (kind=pageBreakdown). Caller fans out generatePanel per entry.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["pageId", "pageSummary"],
+          "properties": {
+            "pageId": { "type": "string" },
+            "pageSummary": { "type": "string" },
+            "targetPanelCount": { "type": "integer", "default": 5, "minimum": 1, "maximum": 12 },
+            "readingDirection": { "type": "string", "enum": ["rtl", "ltr"], "default": "rtl" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "breakdownVertexId": { "type": "string", "format": "at-uri" },
+            "planJson": { "type": "string", "description": "Stringified JSON {panels:[{panelNum,x,y,w,h,aspect,actionSummary,cameraAngle,emotion}]}" }
+          }
+        }
+      }
+    }
+  }
+}

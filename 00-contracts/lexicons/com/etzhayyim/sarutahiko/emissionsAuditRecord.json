@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sarutahiko.emissionsAuditRecord",
+  "description": "Emissions audit record (G8 cross-cutting). Euro 7 + 日本ポスト新長期 + Bharat Stage VI compliance. R0-R1 tailpipe permitted (G7 transition); R2+ zero tailpipe. Per ADR-2605252500 G8.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "chassisId": {"type": "string"},
+          "euro7Findings": {"type": "unknown"},
+          "japanPostNLTFindings": {"type": "unknown"},
+          "bharatViFindings": {"type": "unknown"},
+          "overallAccept": {"type": "boolean"},
+          "regulatoryBasis": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "knownValues": [
+                "EU Regulation (EU) 2024/1257 — Euro 7",
+                "日本 ポスト新長期排出ガス規制",
+                "Bharat Stage VI"
+              ]
+            },
+            "minItems": 1
+          },
+          "phaseGate": {"type": "string"},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["chassisId", "overallAccept", "regulatoryBasis"]
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  projector.selfConsistency (Wang et al. 2022) — sample N parallel CoT
+  paths at temperature 0.7, extract each path's final answer, take the
+  majority vote. Implemented inside `projector.sc.parallel` using
+  LangGraph + asyncio.gather; BPMN keeps the OCEL boundary (one
+  `sc.path.sampled` × N + one `sc.vote.tallied`).
+
+  NSID:      com.etzhayyim.apps.projector.selfConsistency
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_projector_self_consistency"
+    targetNamespace="https://etzhayyim.ai/bpmn/projector"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="projector_self_consistency" name="projector selfConsistency" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.projector.selfConsistency", "version": 1, "resultTimeoutMs": 90000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="consistent">
+      <bpmn:outgoing>Flow_ToSample</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToSample" sourceRef="Start" targetRef="Task_ScParallel"/>
+
+    <bpmn:serviceTask id="Task_ScParallel" name="LangGraph SC (parallel sample → vote)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="projector.sc.parallel"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=convoId" target="convoId"/>
+          <zeebe:input source="=callerDid" target="callerDid"/>
+          <zeebe:input source="=argText" target="question"/>
+          <zeebe:input source="=5" target="pathCount"/>
+          <zeebe:input source="=0.7" target="temperature"/>
+          <zeebe:input source="=&quot;fast&quot;" target="tier"/>
+          <zeebe:output source="=reply" target="reply"/>
+          <zeebe:output source="=answer" target="answer"/>
+          <zeebe:output source="=paths" target="paths"/>
+          <zeebe:output source="=tally" target="tally"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSample</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_ScParallel" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="majority chosen">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

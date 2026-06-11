@@ -1,0 +1,130 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.train.rentalAttestation",
+  "description": "Pre-flight attestation for commercial GPU rental train run under CHARTER-RIDER §2(i)(2) carve-out (ADR-2605262200). MANDATORY emit before rental instance start. Records the (vendor, GPU spec, expected wall, expected USD cost, dataset CIDs, Charter Rider scan PASS, attesting DID) tuple to PDS at com.etzhayyim.train.rentalAttestation. Companion record com.etzhayyim.train.rentalCostLog emitted post-flight.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "trainAdrRef",
+          "vendor",
+          "gpuModel",
+          "gpuCount",
+          "expectedWallMinutes",
+          "expectedUsdCost",
+          "datasetCidsTrain",
+          "datasetCidsEval",
+          "modelTier",
+          "modelArtifactName",
+          "precisionMode",
+          "charterRiderScanPass",
+          "charterRiderScanRunCid",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 UTC timestamp of attestation emit (pre-flight)."
+          },
+          "trainAdrRef": {
+            "type": "string",
+            "description": "ADR id of train architecture authority, e.g., ADR-2605262300."
+          },
+          "vendor": {
+            "type": "string",
+            "knownValues": [
+              "runpod-community",
+              "runpod-secure",
+              "lambda-labs",
+              "coreweave",
+              "vast-ai"
+            ],
+            "description": "Commercial GPU rental vendor. Must clear Charter Rider §2(a)-(h) Non-Aligned Entity scan."
+          },
+          "gpuModel": {
+            "type": "string",
+            "knownValues": [
+              "nvidia-b200-sxm",
+              "nvidia-h100-sxm",
+              "nvidia-h200-sxm",
+              "nvidia-b300-sxm",
+              "nvidia-rubin-hgx",
+              "amd-mi300x",
+              "amd-mi325x"
+            ],
+            "description": "GPU model. B200 SXM is the moemoekyun R2+ primary per ADR-2605262300; H100 SXM is documented fallback."
+          },
+          "gpuCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8,
+            "description": "Number of GPUs in the rental session. >8 requires Council Lv6+ ≥4/7 per-incident approval (per §2(i)(2)(5))."
+          },
+          "expectedWallMinutes": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Estimated wall time IN MINUTES (integer). Single session ≤24h = ≤1440 per §2(i)(2)(5)."
+          },
+          "expectedUsdCostMillicents": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Estimated cost IN MILLICENTS (= USD × 100000, integer). Single session ≤$200 = ≤20000000 per ADR-2605262300 §6."
+          },
+          "datasetCidsTrain": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "IPFS CIDs of train corpus from 90-docs/baien/datasets.jsonl. Each CID must have been added via e7m-dataset add and scanned by Charter Rider §2(a)-(h)."
+          },
+          "datasetCidsEval": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "IPFS CIDs of eval corpora (langgraph-coding, HumanEval+, etc.)."
+          },
+          "modelTier": {
+            "type": "string",
+            "knownValues": ["baien-server", "baien-XL"],
+            "description": "ADR-2605242100 tier. ONLY baien-server-* and baien-XL-* are permitted per §2(i)(2)(6); other actor tiers REJECTED at pre-flight."
+          },
+          "modelArtifactName": {
+            "type": "string",
+            "description": "Output model identifier, e.g., baien-server-moemoekyun-r2-iter01. Must conform to ADR-2605242100 §Naming infix rules."
+          },
+          "precisionMode": {
+            "type": "string",
+            "knownValues": ["bf16", "fp8-mixed", "sparse-fp4"],
+            "description": "Train-time numerical precision. bf16 = R2 baseline; fp8-mixed = R3 (TransformerEngine MoE-only); sparse-fp4 = R4 (Blackwell-only, 2:4 structured sparsity)."
+          },
+          "charterRiderScanPass": {
+            "type": "boolean",
+            "description": "All train + eval datasets passed §2(a)-(h) scan via etzhayyim_organism.sensors.charter_rider.scan()."
+          },
+          "charterRiderScanRunCid": {
+            "type": "string",
+            "description": "IPFS CID of the scan report (per-dataset findings) for audit."
+          },
+          "attestingDid": {
+            "type": "string",
+            "description": "DID of person/Council seat attesting, e.g., did:web:jun.etzhayyim.com or did:web:mac-260317.etzhayyim.com."
+          },
+          "monthlyRentalCumulativeWallMinutes": {
+            "type": "integer",
+            "description": "Running cumulative wall IN MINUTES this calendar month across all rental sessions. Soft cap 6000 (= 100h) per ADR-2605262300 §6."
+          },
+          "monthlyRentalCumulativeUsdCostMillicents": {
+            "type": "integer",
+            "description": "Running cumulative cost IN MILLICENTS this calendar month. Soft cap 100000000 (= $1000) per ADR-2605262300 §6."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coworkGraph.sendBpmnGuidance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "etzhayyim BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-etzhayyim-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["teamId", "channelId"],
+          "properties": {
+            "teamId": {
+              "type": "string",
+              "description": "投稿先 Teams チーム ID (GUID)"
+            },
+            "channelId": {
+              "type": "string",
+              "description": "投稿先 Teams チャンネル ID (GUID)"
+            },
+            "processInstanceId": {
+              "type": "string",
+              "description": "BPMN プロセスインスタンス ID (kaisya.startProcess が生成)"
+            },
+            "projectName": {
+              "type": "string",
+              "description": "案件名 (メッセージタイトルに使用)"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {
+            "messageId":         { "type": "string" },
+            "webUrl":            { "type": "string" },
+            "processInstanceId": { "type": "string" },
+            "status":            { "type": "string" },
+            "note":              { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

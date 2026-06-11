@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kiyo.listPapers",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List papers with optional subject / authorType / date filters. Sorted by submittedAt DESC.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "subject":    { "type": "string",  "description": "Subject code filter (e.g. cs.AI)" },
+          "authorType": { "type": "string",  "description": "human | llm-assisted | llm" },
+          "since":      { "type": "string",  "description": "ISO 8601 lower bound" },
+          "limit":      { "type": "integer", "default": 50 },
+          "offset":     { "type": "integer", "default": 0 }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "papers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "paperId":    { "type": "string" },
+                  "title":      { "type": "string" },
+                  "subject":    { "type": "array", "items": { "type": "string" } },
+                  "authorType": { "type": "string" },
+                  "submittedAt":{ "type": "string" },
+                  "ipfsCid":    { "type": "string" }
+                }
+              }
+            },
+            "total":  { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit":  { "type": "integer" }
+          },
+          "required": ["papers", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — pre-compute satellite passes for popular observer cells.
+
+  Pipeline:
+    1. satellite.pass.precompute — for each observer H3 cell in
+       SATELLITE_OBSERVER_CELLS_JSON (defaults to 12 KAMI bay centroids
+       from sentinel pipeline), SGP4-propagate every TLE in the active
+       group across the next 24h, find AOS/LOS pairs above min elevation,
+       write to vertex_satellite_pass.
+
+  Cadence: R/PT1H. New TLEs every 6h, but observer-cell list can grow,
+  so 1h cycle keeps cache warm.
+
+  com.etzhayyim.apps.maps.precomputeSatellitePasses.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_precompute_satellite_passes"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_precompute_satellite_passes" name="maps precompute satellite passes" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.precomputeSatellitePasses", "version": 1, "resultTimeoutMs": 600000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 1 hour">
+      <bpmn:outgoing>Flow_ToPrecompute</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT1H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual">
+      <bpmn:outgoing>Flow_ToPrecompute_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToPrecompute" sourceRef="Start_Timer" targetRef="Task_Precompute"/>
+    <bpmn:sequenceFlow id="Flow_ToPrecompute_Manual" sourceRef="Start_Manual" targetRef="Task_Precompute"/>
+
+    <bpmn:serviceTask id="Task_Precompute" name="SGP4 propagate + persist passes">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="satellite.pass.precompute"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=null" target="observers"/>
+          <zeebe:input source="=24" target="window_h"/>
+          <zeebe:input source="=10" target="min_elevation_deg"/>
+          <zeebe:input source="=&quot;active&quot;" target="catalog_group"/>
+          <zeebe:output source="=runId" target="runId"/>
+          <zeebe:output source="=passesWritten" target="passesWritten"/>
+          <zeebe:output source="=observersCovered" target="observersCovered"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPrecompute</bpmn:incoming>
+      <bpmn:incoming>Flow_ToPrecompute_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Precompute" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit pass-precompute OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.precomputeSatellitePasses&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;passesWritten&quot;: passesWritten, &quot;observersCovered&quot;: observersCovered }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_psd3_open_finance_register_api" targetNamespace="https://etzhayyim.ai/bpmn/open-psd3-open-finance" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_psd3_open_finance_register_api" name="registerApi" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="save">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;vertex_open_psd3_open_finance&quot;" target="table"/><zeebe:input source="={vertex_id: vertexId, api_id: apiId, provider_lei: providerLei, regime: regime, api_kind: apiKind, auth_mechanism: authMechanism, uptime99_pct_ms: uptime99PctMs, registered_at: registeredAt, status: &quot;active&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-psd3-open-finance&quot;}" target="values"/><zeebe:input source="=&quot;ignore&quot;" target="onConflict"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-psd3-open-finance.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;open.psd3OpenFinance.registerApi&quot;" target="action"/><zeebe:input source="={vertexId: vertexId}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

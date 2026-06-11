@@ -1,0 +1,60 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.substrate.ipfsPin",
+  "description": "Pin receipt emitted by ipfs-pinner after one of mst-projector's shard CAR files has been pinned to ≥1 IPFS providers (Kubo / Pinata / Web3.Storage / Filecoin via Storacha). Per ADR-2605171800 Stage 4. Readers can resolve the pinned CAR by `carCid` from any IPFS gateway and reconstruct the projected MST shard. The original snapshot record (`com.etzhayyim.substrate.shardSnapshot`) carries the MST `rootCid` that this pin's CAR contains as its single root.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": [
+          "shardKey",
+          "rootCid",
+          "carCid",
+          "providers",
+          "pinnedAt"
+        ],
+        "properties": {
+          "shardKey": {
+            "type": "string",
+            "description": "Collection NSID this pin covers, copied from the originating shardSnapshot. e.g. `com.etzhayyim.apps.threads.post`."
+          },
+          "rootCid": {
+            "type": "string",
+            "description": "AT-Protocol MST root CID (v1, dag-cbor) of the shard at the time of CAR flush. Matches the `rootCid` field of the originating `com.etzhayyim.substrate.shardSnapshot` record."
+          },
+          "carCid": {
+            "type": "string",
+            "description": "IPFS CID (v1) of the CAR file itself, returned by the pin provider. Identical across providers for a given CAR (deterministic content addressing)."
+          },
+          "snapshotUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the originating `com.etzhayyim.substrate.shardSnapshot` record, when known. Optional in Phase 1 emissions where the pinner subscribes to local CAR files directly rather than via firehose."
+          },
+          "providers": {
+            "type": "array",
+            "description": "Names of pin providers that confirmed the pin. Constitutional minimum at production = 2 distinct providers (per README replication factor); single-provider emissions are allowed only when ETZ_PINNER_PROVIDERS = single name and the operator explicitly opted out of redundancy.",
+            "items": {
+              "type": "string",
+              "enum": ["kubo", "pinata", "web3storage", "filecoin"]
+            },
+            "minLength": 1
+          },
+          "byteSize": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Size of the CAR file in bytes."
+          },
+          "blockCount": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Number of dag-cbor blocks in the CAR (root + unstored MST blocks)."
+          },
+          "pinnedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

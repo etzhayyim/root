@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.manabi.learningSessionAttestation",
+  "description": "Per-session learning attestation. PRIVACY INVARIANT G6: under-18 sessions emit aggregate-only fields (sessionDuration, moduleId, completionFraction); per-learner detail fields rejected via learnerAgeBucket discriminator. 30-day rotating pseudonym DID for minors. Per ADR-2605261045.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sessionId": {"type": "string"},
+          "learnerDidOrPseudonym": {"type": "string", "description": "30-day rotating pseudonym for under-18 per ADR-2605181200"},
+          "learnerAgeBucket": {"type": "string", "knownValues": ["minor", "adult"], "description": "G6 discriminator: minor → aggregate-only fields"},
+          "curriculumAttestationCid": {"type": "string"},
+          "sessionDurationMinutes": {"type": "integer"},
+          "completionFraction": {"type": "number", "description": "0.0-1.0 module completion ratio"},
+          "encryptedDetailCid": {"type": "string", "description": "Adult-only: optional encrypted detail (per-question performance, etc); FORBIDDEN for minors via cell-level validation"},
+          "sessionStartTimestamp": {"type": "string"}
+        },
+        "required": ["sessionId", "learnerDidOrPseudonym", "learnerAgeBucket", "curriculumAttestationCid", "sessionDurationMinutes", "completionFraction", "sessionStartTimestamp"]
+      }
+    }
+  }
+}

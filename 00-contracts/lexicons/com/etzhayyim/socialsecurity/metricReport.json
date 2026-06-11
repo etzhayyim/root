@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.socialsecurity.metricReport",
+  "description": "Stage 4 (PUBLISH) aggregate Social-Security Metric (ADR-2605302358). Extends com.etzhayyim.liberation.metricReport with social-security framing. AGGREGATE-ONLY, no per-adherent rows (G12 anti-class, ADR-2605301020 §7). All quantities integer-with-implied-units (no float; ADR-2605190900).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["reportingQuarter", "stage", "adherentsAtStage", "cashStipendUsdMicros", "aggregateOnly"],
+        "properties": {
+          "reportingQuarter": { "type": "string", "description": "ISO quarter, e.g. 2027-Q1" },
+          "stage": { "type": "string", "knownValues": ["L0","L1","L2","L3","L4","L5","L6"] },
+          "adherentsAtStage": { "type": "integer", "minimum": 0, "description": "count of adherents at this stage (aggregate)" },
+          "newVowsThisQuarter": { "type": "integer", "minimum": 0, "description": "count of new Level-0 vows recorded this quarter (aggregate)" },
+          "cashStipendUsdMicros": { "type": "integer", "const": 0, "description": "INVARIANT N1: always 0" },
+          "aggregateOnly": { "type": "boolean", "const": true, "description": "INVARIANT G12: no per-adherent identity in this report; aggregation enforced structurally" },
+          "imputedIncomeMedianUsdMicrosYr": { "type": "integer", "minimum": 0 },
+          "highIncomeBenchmarkRatioPermille": { "type": "integer", "minimum": 0, "description": "vs OECD upper-decile basket, per-mille; →≥1000 at L6 (ADR-2605301020)" },
+          "exitRatePermille": { "type": "integer", "minimum": 0, "maximum": 1000, "description": "right-of-exit usage (§1.16.8); aggregate only" },
+          "valuationMethod": { "type": "string", "maxLength": 64, "description": "method version of imputed valuation (open, Council-attested)" }
+        }
+      }
+    }
+  }
+}

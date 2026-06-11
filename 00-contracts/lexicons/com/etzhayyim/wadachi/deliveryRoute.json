@@ -1,0 +1,110 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.wadachi.deliveryRoute",
+  "description": "Planned delivery route emitted by the wadachi route_planning Pregel cell. Captures origin, destination, intermediate waypoints, and the route_planning cell attestation CID (G6 trajectory-determinism — replayable from this record). Cited by trajectoryPlan and missionCompleteRecord. Per ADR-2605242000 (wadachi R0 charter) + constitutional gates G1 (open-source firmware), G5 (Charter Rider §2(a) no armed vehicles), G6 (deterministic planning @10Hz).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "routeId",
+          "vehicleDid",
+          "originCoords",
+          "destinationCoords",
+          "routePlanningCellAttestationCid",
+          "charterRiderComplianceAttested",
+          "firmwareOpenSourceCid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "routeId": {
+            "type": "string",
+            "description": "Stable identifier for the planned route; referenced by trajectoryPlan and missionCompleteRecord."
+          },
+          "vehicleDid": {
+            "type": "string",
+            "description": "DID of the wadachi-orchestrated vehicle assigned to this route."
+          },
+          "originCoords": {
+            "type": "ref",
+            "ref": "#geoCoords",
+            "description": "WGS-84 lat/lon of the route origin."
+          },
+          "destinationCoords": {
+            "type": "ref",
+            "ref": "#geoCoords",
+            "description": "WGS-84 lat/lon of the route destination."
+          },
+          "waypoints": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#geoCoords"
+            },
+            "maxLength": 1024,
+            "description": "Optional intermediate waypoints in route order."
+          },
+          "plannedDurationSeconds": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Planner estimate; actuals recorded in missionCompleteRecord."
+          },
+          "vehicleType": {
+            "type": "string",
+            "knownValues": [
+              "delivery-rover",
+              "shuttle",
+              "service-robot",
+              "agricultural-platform",
+              "industrial-platform"
+            ],
+            "description": "Vehicle class; constrained to non-armed civilian per Charter Rider §2(a)."
+          },
+          "routePlanningCellAttestationCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CID of the route_planning cell's deterministic trace (G6). Operator can re-run the planner against the same inputs and obtain the same output."
+          },
+          "charterRiderComplianceAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "Structural enforcement of G5: the planner must confirm none of §2(a)-(h) is violated by this route (no weapons cargo / no covert delivery / no fossil-extraction servicing / etc.)."
+          },
+          "firmwareOpenSourceCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "G1: IPFS CID of the vehicle firmware source manifest at the time the route was planned."
+          }
+        }
+      }
+    },
+    "geoCoords": {
+      "type": "object",
+      "required": ["latE7", "lonE7"],
+      "properties": {
+        "latE7": {
+          "type": "integer",
+          "minimum": -900000000,
+          "maximum": 900000000,
+          "description": "WGS-84 latitude × 10^7 (e.g. 35.6585°N → 356585000). Per ADR-2605190900 Lexicon convention (integer with implied units)."
+        },
+        "lonE7": {
+          "type": "integer",
+          "minimum": -1800000000,
+          "maximum": 1800000000,
+          "description": "WGS-84 longitude × 10^7."
+        },
+        "elevationMm": {
+          "type": "integer",
+          "description": "Optional WGS-84 ellipsoidal elevation in millimeters."
+        }
+      }
+    }
+  }
+}

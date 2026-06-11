@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.repository.createCommit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Insert a commit object. commitHash = sha256 over canonical-encoded {treeHash, parentHashes, authorDid, committerDid, message, timestamp}. Signature field is NOT included in the hash input so the same commit can be re-signed by key rotation without hash drift. Immutable once written.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["treeHash", "authorDid", "message", "signatureEs256"],
+          "properties": {
+            "treeHash": { "type": "string" },
+            "parentHashes": {
+              "type": "array",
+              "description": "0 parents = root commit; 1 = normal; 2+ = merge. Order significant.",
+              "items": { "type": "string" }
+            },
+            "authorDid": { "type": "string", "format": "did" },
+            "committerDid": {
+              "type": "string",
+              "format": "did",
+              "description": "Defaults to authorDid. Differs only for CI / bot commits pushed on behalf of a human author."
+            },
+            "message": { "type": "string", "maxLength": 8192 },
+            "timestamp": {
+              "type": "string",
+              "format": "datetime",
+              "description": "Author timestamp. Server stamps committer timestamp independently."
+            },
+            "signatureEs256": {
+              "type": "string",
+              "description": "Base64url ES256 signature over commitHash by authorDid signing key (ADR-0010). Required; bootstrap literal 'bootstrap' accepted only for the very first commit of a freshly created DID."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["commitHash", "committerTimestamp"],
+          "properties": {
+            "commitHash": { "type": "string" },
+            "committerTimestamp": { "type": "string", "format": "datetime" },
+            "deduplicated": { "type": "boolean" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "UnauthorizedWriter" },
+        { "name": "MissingParent", "description": "A parentHash does not resolve." },
+        { "name": "MissingTree", "description": "treeHash does not resolve." },
+        { "name": "InvalidSignature", "description": "ES256 signature does not verify against authorDid's signing key." }
+      ]
+    }
+  }
+}

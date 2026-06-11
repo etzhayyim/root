@@ -1,0 +1,54 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kotoba.economy.balanceSnapshot",
+  "description": "Per-DID mKOTO balance snapshot per ADR-2605282100 L3. Read-side projection of the canonical `balance/mkoto/<DID>` Quad maintained by kotoba-server. Caller-DID self-reads return the current balance; cross-DID reads require operator override or attestation chain match (ADR-2605231525). Non-negative invariant for external callers (ADR-2605282100 N5); SBT-bearer-internal callers may have negative balance up to a Council-set credit_line_mkoto at R2+.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "subjectDid",
+          "balanceMkoto",
+          "lastUpdatedSeq",
+          "observedAt"
+        ],
+        "properties": {
+          "v": { "type": "integer", "minimum": 1, "maximum": 1 },
+          "subjectDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID whose balance this snapshot reflects."
+          },
+          "balanceMkoto": {
+            "type": "integer",
+            "minimum": -9223372036854775808,
+            "maximum": 9223372036854775807,
+            "description": "mKOTO balance saturated to i64 (kotoba native). MUST be >= 0 for external callers (lacking SBT)."
+          },
+          "lastUpdatedSeq": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "kotoba-kse Journal seq of the latest balance-mutating event (debit / credit / stake-reclaim / royalty-credit). Caller can reconcile against this seq to detect stale snapshots."
+          },
+          "observedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO-8601 UTC instant the snapshot was computed by kotoba-server."
+          },
+          "tariffVersionInForce": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Tariff version active at snapshot time. Lets the caller display 'balance covers ~N calls at current rates' UI."
+          },
+          "sbtBearer": {
+            "type": "boolean",
+            "description": "True iff subjectDid holds a religious-corp Adherent SBT per ADR-2605172600. Determines whether negative-balance carve-out is permitted (R2+)."
+          }
+        }
+      }
+    }
+  }
+}

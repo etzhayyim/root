@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — Sentinel STAC ingest (Sentinel-1 GRD + Sentinel-2 L2A).
+
+  Pipeline (Phase 2):
+
+    1. maps.sentinel.stac.search    — LangChain wrapper around STAC
+                                       POST /search. Writes each scene
+                                       directly to vertex_satellite_scene
+                                       (WHERE NOT EXISTS idempotent).
+                                       Returns scenesFound/scenesIngested
+                                       + runId + byPlatform.
+    2. exclusive gateway            — short-circuit when 0 scenes found.
+    3. generic.audit.emit           — OCEL event with aggregate stats.
+
+  Note: Task_PersistScenes removed in Phase 2. The STAC search primitive
+  writes to vertex_satellite_scene internally. The fan-out generic.db.insert
+  step was Phase 1 and is no longer needed.
+
+  Cadence: R/PT24H. AOI list comes from env SENTINEL_AOIS_JSON (falls back
+  to 12 KAMI layer coordinator centroids). One BPMN instance per day.
+
+  ADR-2604271800. NSID: com.etzhayyim.apps.maps.sentinelIngest.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-sentinel-ingest-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_sentinel_ingest"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_sentinel_ingest" name="maps sentinel ingest" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.sentinelIngest", "version": 2, "resultTimeoutMs": 600000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 24 hours">
+      <bpmn:outgoing>Flow_ToSearch</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT24H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_ToSearch_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToSearch" sourceRef="Start_Timer" targetRef="Task_StacSearch"/>
+    <bpmn:sequenceFlow id="Flow_ToSearch_Manual" sourceRef="Start_Manual" targetRef="Task_StacSearch"/>
+
+    <!-- Step 1: STAC search + direct write to vertex_satellite_scene.
+         Phase 2: primitive handles DB writes internally via sync_cursor.
+         Returns scenesFound / scenesIngested counts for audit. -->
+    <bpmn:serviceTask id="Task_StacSearch" name="STAC search + persist (S-1 GRD + S-2 L2A)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="maps.sentinel.stac.search"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=null"  target="aois"/>
+          <zeebe:input source="=1"     target="time_range_days"/>
+          <zeebe:input source="=10"    target="max_scenes_per_aoi"/>
+          <zeebe:input source="=null"  target="platforms"/>
+          <zeebe:input source="=30"    target="max_cloud_cover"/>
+          <zeebe:output source="=runId"           target="runId"/>
+          <zeebe:output source="=rows"            target="sceneRows"/>
+          <zeebe:output source="=scenesFound"     target="scenesFound"/>
+          <zeebe:output source="=scenesIngested"  target="scenesIngested"/>
+          <zeebe:output source="=byPlatform"      target="byPlatform"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSearch</bpmn:incoming>
+      <bpmn:incoming>Flow_ToSearch_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_StacSearch" targetRef="Gateway_HasScenes"/>
+
+    <bpmn:exclusiveGateway id="Gateway_HasScenes" name="any scenes?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasScenes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoScenes</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_HasScenes" sourceRef="Gateway_HasScenes" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=scenesFound &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoScenes" sourceRef="Gateway_HasScenes" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=scenesFound &lt;= 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit sentinel.ingest OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.sentinel.ingest&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;scenesFound&quot;: scenesFound, &quot;scenesIngested&quot;: scenesIngested, &quot;byPlatform&quot;: byPlatform }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasScenes</bpmn:incoming>
+      <bpmn:incoming>Flow_NoScenes</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

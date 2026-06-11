@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.authenticate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Authenticate a request. Returns auth level, account DID, active DID, and token scopes. Used by PDS service binding to delegate authentication.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "authorization": { "type": "string", "description": "Bearer token or raw JWT" },
+            "xKotodamaVerified": { "type": "boolean", "description": "Internal service binding flag" },
+            "xetzhayyimOrgId": { "type": "string", "description": "Org ID for internal requests" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["level", "clearance", "tokenScopes"],
+          "properties": {
+            "level": { "type": "string", "description": "Auth level: public | session | internal" },
+            "did": { "type": "string", "description": "Authenticated active DID or null" },
+            "accountDid": { "type": "string", "description": "Root account = actor = org DID" },
+            "activeDid": { "type": "string", "description": "Current active sub-actor DID" },
+            "orgId": { "type": "string" },
+            "clearance": { "type": "string" },
+            "sub": { "type": "string" },
+            "tokenScopes": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — dissolve organism pattern (XRPC entry).
+
+  Symmetric across individual / collective organism (Karma.lean N4
+  organism_kind_symmetry). Sets dissolved_at; existing edges persist
+  unchanged in network (Karma.lean N2 edge_outlives_endpoint).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_dissolve_organism"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_dissolve_organism" name="karma dissolve organism" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.karma.dissolveOrganism", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartXrpc" name="xrpc">
+      <bpmn:outgoing>Flow_ToDissolve</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Dissolve" name="seal organism (deps remain)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.organism.dissolve"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=did" target="did"/>
+          <zeebe:input source="=dissolutionKind" target="dissolutionKind"/>
+          <zeebe:input source="=membershipDepsRootCid" target="membershipDepsRootCid"/>
+          <zeebe:output source="=santanaRootCid" target="santanaRootCid"/>
+          <zeebe:output source="=dissolvedAt" target="dissolvedAt"/>
+          <zeebe:output source="=edgesPersisting" target="edgesPersisting"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToDissolve</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToDissolve" sourceRef="StartXrpc" targetRef="Task_Dissolve"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.dissolveOrganism&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;did&quot;: did, &quot;dissolutionKind&quot;: dissolutionKind, &quot;edgesPersisting&quot;: edgesPersisting }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Dissolve" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="sealed">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.routeEmergencyCall",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IMS E-CSCF — record routing of an emergency call (911/112/119/110/118) to a PSAP. Caller location persisted (regulatory requirement) but treated Tier-3.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["callId", "emergencyService", "jurisdiction", "psapId", "eCscfNfId", "observedAt"],
+          "properties": {
+            "emergencyId": { "type": "string" },
+            "callId": { "type": "string" },
+            "subscriberId": { "type": "string" },
+            "emergencyService": { "type": "string", "enum": ["police", "fire", "ambulance", "coastguard", "general"] },
+            "jurisdiction": { "type": "string" },
+            "psapId": { "type": "string" },
+            "callerLocation": { "type": "string" },
+            "locationMethod": { "type": "string", "enum": ["network", "gps", "manual", "estimated"] },
+            "eCscfNfId": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "emergencyId": { "type": "string" }, "psapId": { "type": "string" },
+          "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

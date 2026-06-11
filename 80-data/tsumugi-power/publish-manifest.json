@@ -1,0 +1,60 @@
+{
+  "actor": "tsumugi",
+  "adr": "2606092000",
+  "published_at": "2026-06-11",
+  "title": "etzhayyim power-dynamics knowledge graph (tsumugi 紡ぎ)",
+  "publisher": "did:web:etzhayyim.com:actor:tsumugi",
+  "license": "Apache-2.0 + etzhayyim Charter Compliance Rider v3.1 (/CHARTER-RIDER.md)",
+  "vocabulary": "https://etzhayyim.com/ns/power#",
+  "entityNamespace": "https://etzhayyim.com/id/power/",
+  "contentHash_ntriples": "sha256:4aff1113c1b98877df85207c9e18ce7791806b3f9d542812b14705b4d812b76e",
+  "counts": {
+    "nodes": 619,
+    "edges": 631,
+    "localities": 29,
+    "triples": 5100
+  },
+  "provenance": {
+    "upstreamSources": [
+      "Wikidata (P749 parent organization, WDQS)",
+      "GLEIF Level-2 Relationship Records (api.gleif.org)",
+      "curated structural-public facts (:representative)"
+    ],
+    "etzhayyimDerived": [
+      "産官学報 cross-sector concentration (epw:concentration)",
+      "scale / sector / collective-kind enrichment",
+      "vertical integration across scales",
+      "旗 hata ideology/faction (separate dataset)"
+    ],
+    "note": "Per-edge citations are preserved in the canonical kotoba-EDN seed. Derived layers are etzhayyim's authored contribution (not in any upstream)."
+  },
+  "artifacts": {
+    "graph": {
+      "file": "power-graph.kotoba.edn.gz",
+      "bytes": 35644,
+      "raw_bytes": 347763,
+      "cid": "bafkreier4zyuw6dfma3t2kmawbzfupfdusdzabt44raki2m5dv7cuvfb4m",
+      "note": "gzip mtime=0; CID == `ipfs add --cid-version=1 --raw-leaves`"
+    },
+    "ntriples": {
+      "file": "power-graph.nt.gz",
+      "bytes": 38869,
+      "raw_bytes": 658784,
+      "cid": "bafkreicgiay7tdgcnekjs5cfvu7zznl2hjvuheja4fgfqqyio6t3zg4ipy",
+      "note": "gzip mtime=0; CID == `ipfs add --cid-version=1 --raw-leaves`"
+    },
+    "jsonld": {
+      "file": "power-graph.jsonld.gz",
+      "bytes": 20557,
+      "raw_bytes": 278286,
+      "cid": "bafkreiejgkjmemrdukcmjrwokvqkjc4qzarse74sn5g6l7csqjqjkkhppe",
+      "note": "gzip mtime=0; CID == `ipfs add --cid-version=1 --raw-leaves`"
+    }
+  },
+  "gateways": [
+    "https://ipfs.io/ipfs/",
+    "https://dweb.link/ipfs/",
+    "https://cloudflare-ipfs.com/ipfs/"
+  ],
+  "verify": "python3 20-actors/tsumugi/methods/publish_ipfs.py --verify  (re-content-address)"
+}

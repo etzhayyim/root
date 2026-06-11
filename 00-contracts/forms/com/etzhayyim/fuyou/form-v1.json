@@ -1,0 +1,163 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "fuyou-form-v1",
+  "version": 1,
+  "title": "給与所得者の扶養控除等（異動）申告書",
+  "regulatoryRef": { "law": "所得税法", "article": "§194", "ref": "所得税基本通達 196-1" },
+  "tier": 3,
+  "encryptionScheme": "signal:v1",
+  "components": [
+    {
+      "key": "applicant",
+      "type": "fieldset",
+      "label": "申告者情報",
+      "x-encryptedSection": "applicantPayload",
+      "components": [
+        { "key": "fullName",            "label": "氏名",         "type": "textfield",  "required": true },
+        { "key": "fullNameKana",        "label": "フリガナ",     "type": "textfield" },
+        { "key": "myNumber",            "label": "個人番号",     "type": "textfield",
+          "pattern": "^[0-9]{12}$",      "required": true,        "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "birthDate",           "label": "生年月日",     "type": "datepicker", "required": true },
+        { "key": "address",             "label": "住所",         "type": "textfield",  "required": true, "x-piiTier": 3 },
+        { "key": "householderName",     "label": "世帯主氏名",   "type": "textfield" },
+        { "key": "householderRelation", "label": "世帯主との続柄", "type": "select",
+          "options": [
+            { "value": "self", "label": "本人" },
+            { "value": "spouse", "label": "配偶者" },
+            { "value": "parent", "label": "父母" },
+            { "value": "child", "label": "子" },
+            { "value": "other", "label": "その他" }
+          ]
+        },
+        { "key": "maritalStatus",       "label": "配偶者の有無", "type": "select", "required": true,
+          "options": [
+            { "value": "married", "label": "有" },
+            { "value": "single",  "label": "無" }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "spouse",
+      "type": "fieldset",
+      "label": "源泉控除対象配偶者",
+      "x-encryptedSection": "spousePayload",
+      "conditional": "=applicant.maritalStatus = 'married'",
+      "components": [
+        { "key": "fullName",            "label": "氏名",     "type": "textfield" },
+        { "key": "fullNameKana",        "label": "フリガナ", "type": "textfield" },
+        { "key": "myNumber",            "label": "個人番号", "type": "textfield",
+          "pattern": "^[0-9]{12}$",      "x-piiTier": 3,     "x-encrypt": "signal:v1" },
+        { "key": "birthDate",           "label": "生年月日", "type": "datepicker" },
+        { "key": "estimatedIncomeJpy",  "label": "本年中の所得見積額 (円)", "type": "number" },
+        { "key": "cohabit",             "label": "同居/別居", "type": "select",
+          "options": [
+            { "value": "cohabit", "label": "同居" },
+            { "value": "separate", "label": "別居" }
+          ]
+        },
+        { "key": "isElderly", "label": "老人控除対象配偶者 (70 歳以上)", "type": "checkbox" },
+        { "key": "isDisabled", "label": "障害者", "type": "checkbox" },
+        { "key": "isSpecialDisabled", "label": "特別障害者", "type": "checkbox" },
+        { "key": "isCohabitDisabled", "label": "同居特別障害者", "type": "checkbox" }
+      ]
+    },
+    {
+      "key": "dependents",
+      "type": "datagrid",
+      "label": "控除対象扶養親族 (16 歳以上)",
+      "x-encryptedSection": "dependentsPayload",
+      "components": [
+        { "key": "fullName",      "label": "氏名",     "type": "textfield", "required": true },
+        { "key": "fullNameKana",  "label": "フリガナ", "type": "textfield" },
+        { "key": "myNumber",      "label": "個人番号", "type": "textfield",
+          "pattern": "^[0-9]{12}$", "required": true,  "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "relation",      "label": "続柄",     "type": "select", "required": true,
+          "options": [
+            { "value": "child",        "label": "子" },
+            { "value": "parent",       "label": "父母" },
+            { "value": "grandparent",  "label": "祖父母" },
+            { "value": "sibling",      "label": "兄弟姉妹" },
+            { "value": "other",        "label": "その他" }
+          ]
+        },
+        { "key": "birthDate",          "label": "生年月日",   "type": "datepicker", "required": true },
+        { "key": "estimatedIncomeJpy", "label": "本年中の所得見積額 (円)", "type": "number" },
+        { "key": "address",            "label": "住所",       "type": "textfield",  "x-piiTier": 3 },
+        { "key": "category",           "label": "控除区分",   "type": "select", "required": true,
+          "options": [
+            { "value": "general",        "label": "一般 (16-18, 23-69 歳, 38 万)" },
+            { "value": "specific",       "label": "特定扶養 (19-22 歳, 63 万)" },
+            { "value": "elderly",        "label": "老人扶養 (70 歳以上 別居, 48 万)" },
+            { "value": "elderlyCohabit", "label": "同居老親 (70 歳以上 同居, 58 万)" }
+          ]
+        },
+        { "key": "isDisabled",        "label": "障害者",         "type": "checkbox" },
+        { "key": "isSpecialDisabled", "label": "特別障害者",     "type": "checkbox" },
+        { "key": "isCohabitDisabled", "label": "同居特別障害者", "type": "checkbox" },
+        { "key": "isNonResident",     "label": "非居住者",       "type": "checkbox" },
+        { "key": "remittanceJpy",     "label": "本年中の送金額 (非居住者のみ)", "type": "number",
+          "conditional": "=isNonResident = true" }
+      ]
+    },
+    {
+      "key": "minorDependents",
+      "type": "datagrid",
+      "label": "16 歳未満の扶養親族 (住民税の扶養控除対象)",
+      "x-encryptedSection": "minorDependentsPayload",
+      "components": [
+        { "key": "fullName",     "label": "氏名",     "type": "textfield", "required": true },
+        { "key": "myNumber",     "label": "個人番号", "type": "textfield",
+          "pattern": "^[0-9]{12}$", "required": true,  "x-piiTier": 3, "x-encrypt": "signal:v1" },
+        { "key": "relation",     "label": "続柄",     "type": "select", "required": true,
+          "options": [
+            { "value": "child",  "label": "子" },
+            { "value": "other",  "label": "その他" }
+          ]
+        },
+        { "key": "birthDate",    "label": "生年月日", "type": "datepicker", "required": true },
+        { "key": "cohabit",      "label": "同居/別居", "type": "select",
+          "options": [
+            { "value": "cohabit",  "label": "同居" },
+            { "value": "separate", "label": "別居" }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "specialStatus",
+      "type": "fieldset",
+      "label": "申告者本人の特別控除",
+      "x-encryptedSection": "specialStatusPayload",
+      "components": [
+        { "key": "isDisabled",        "label": "障害者",       "type": "checkbox" },
+        { "key": "isSpecialDisabled", "label": "特別障害者",   "type": "checkbox" },
+        { "key": "isWidow",           "label": "寡婦",         "type": "checkbox" },
+        { "key": "isSingleParent",    "label": "ひとり親",     "type": "checkbox" },
+        { "key": "isWorkingStudent",  "label": "勤労学生",     "type": "checkbox" }
+      ]
+    },
+    {
+      "key": "otherIncomeEarner",
+      "type": "datagrid",
+      "label": "他の所得者が控除を受ける扶養親族等 (重複防止)",
+      "x-encryptedSection": "applicantPayload",
+      "components": [
+        { "key": "dependentName",   "label": "親族氏名",            "type": "textfield" },
+        { "key": "earnerName",      "label": "他の所得者の氏名",    "type": "textfield" },
+        { "key": "earnerRelation",  "label": "他の所得者との続柄",  "type": "textfield" },
+        { "key": "earnerAddress",   "label": "他の所得者の住所",    "type": "textfield",  "x-piiTier": 3 }
+      ]
+    },
+    {
+      "key": "declaration",
+      "type": "fieldset",
+      "label": "申告誓約",
+      "components": [
+        { "key": "consentTier3",  "type": "checkbox", "required": true,
+          "label": "個人番号を含む情報を雇用主が源泉徴収目的で 7 年間保管することに同意します (個人情報保護法 §17 / 所得税基本通達 196-1)" },
+        { "key": "signatureDate", "type": "datepicker", "required": true, "label": "署名日" }
+      ]
+    }
+  ]
+}

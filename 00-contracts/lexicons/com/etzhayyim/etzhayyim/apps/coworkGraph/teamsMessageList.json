@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coworkGraph.teamsMessageList",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Teams チャンネルのメッセージ一覧を取得する (read-only、app-only 権限)。Graph API /teams/{teamId}/channels/{channelId}/messages をラップ。ChannelMessage.Send は delegated 権限が必要なため本アクターでは送信不可。",
+      "parameters": {
+        "type": "params",
+        "required": ["teamId", "channelId"],
+        "properties": {
+          "teamId": {
+            "type": "string",
+            "description": "Teams チーム ID"
+          },
+          "channelId": {
+            "type": "string",
+            "description": "Teams チャンネル ID"
+          },
+          "top": {
+            "type": "integer",
+            "description": "取得件数 (最大 50)",
+            "default": 20
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": { "type": "unknown" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

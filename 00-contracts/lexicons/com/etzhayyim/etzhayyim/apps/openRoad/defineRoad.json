@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openRoad.defineRoad",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a road segment in the network. Starts BPMN open_road_define_road.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["authorityOrgId","roadCode","roadClass"],
+          "properties": {
+            "authorityOrgId": { "type": "string" },
+            "roadCode":       { "type": "string" },
+            "name":           { "type": "string" },
+            "roadClass":      { "type": "string", "enum": ["motorway","trunk","primary","secondary","tertiary","residential"] },
+            "lengthKm":       { "type": "number" },
+            "jurisdiction":   { "type": "string" },
+            "laneCount":      { "type": "integer" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

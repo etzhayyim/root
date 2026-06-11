@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ac2be35be7b0",
+  "entityId": "ent-ac2be35be7b0",
+  "canonicalName": "goodwill charitable organization, inc.",
+  "aliases": [
+    "goodwill charitable organization, inc."
+  ]
+}

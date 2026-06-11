@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  hf.modelScan — daily HuggingFace Hub model catalog scan.
+
+  Fires every 12h (models update more frequently than datasets).
+  Step 1: list enabled model filters → Step 2: scan HF Hub per filter
+       → Step 3: fetch full card for unenriched models → Step 4: resolve lineage.
+
+  NSID: com.etzhayyim.apps.hf.modelScan
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/hf-model-scan-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_hf_model_scan"
+    targetNamespace="https://etzhayyim.ai/bpmn/hf"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="hf_model_scan" name="HF Model Scan" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.hf.modelScan", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="every 12h">
+      <bpmn:outgoing>Flow_ToListFilters</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_12h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT12H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToListFilters" sourceRef="Start" targetRef="Task_ListFilters"/>
+
+    <bpmn:serviceTask id="Task_ListFilters" name="list model filters">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="hf.model.listFilters" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=filter_ids"   target="filterIds"/>
+          <zeebe:output source="=filter_count" target="filterCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToListFilters</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToScanAll</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToScanAll" sourceRef="Task_ListFilters" targetRef="Task_ScanAll"/>
+
+    <bpmn:serviceTask id="Task_ScanAll" name="scan HF Hub per model filter">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="hf.model.scanAll" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input  source="=filterIds"      target="filter_ids"/>
+          <zeebe:output source="=total_scanned"  target="totalScanned"/>
+          <zeebe:output source="=total_matched"  target="totalMatched"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToScanAll</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnrich</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnrich" sourceRef="Task_ScanAll" targetRef="Task_Enrich"/>
+
+    <bpmn:serviceTask id="Task_Enrich" name="fetch full card for unenriched models">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="hf.model.fetchDetailBatch" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input  source="=30"         target="batch_size"/>
+          <zeebe:output source="=enriched"   target="enriched"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToEnrich</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToLineage</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToLineage" sourceRef="Task_Enrich" targetRef="Task_Lineage"/>
+
+    <bpmn:serviceTask id="Task_Lineage" name="resolve base model + dataset links">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="hf.model.resolveLineage" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input  source="=50"           target="batch_size"/>
+          <zeebe:output source="=ds_resolved"  target="dsResolved"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToLineage</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Lineage" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

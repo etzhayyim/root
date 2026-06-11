@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bilateralInvestmentTreaty.recordEntry",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bilateral Investment Treaty entry / amendment / termination (bridges mineralRoyalty.flagInvestorClaim + sovereign-debt + universal-jurisdiction)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "entryId",
+            "partyAIso3",
+            "partyBIso3",
+            "entryKind",
+            "scopeKind",
+            "effectiveAt"
+          ],
+          "properties": {
+            "entryId": {
+              "type": "string"
+            },
+            "partyAIso3": {
+              "type": "string"
+            },
+            "partyBIso3": {
+              "type": "string"
+            },
+            "entryKind": {
+              "type": "string",
+              "enum": [
+                "new_treaty",
+                "amendment",
+                "ratification",
+                "provisional_application",
+                "unilateral_termination",
+                "mutual_termination",
+                "sunset_clause",
+                "substitution_modern",
+                "mit_eu_termination",
+                "carve_out",
+                "most_favored_nation"
+              ]
+            },
+            "scopeKind": {
+              "type": "string",
+              "enum": [
+                "full_market_access",
+                "investment_protection",
+                "investor_state_dispute",
+                "fair_equitable",
+                "most_favored_nation",
+                "national_treatment",
+                "expropriation_clause",
+                "substitution_2024",
+                "portfolio_only",
+                "green_screen_carve"
+              ]
+            },
+            "investorClaimVid": {
+              "type": "string",
+              "description": "bridges mineralRoyalty.flagInvestorClaim"
+            },
+            "effectiveAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

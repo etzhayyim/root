@@ -1,0 +1,103 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.animeka.composite",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a cut composite (撮影 / satsuei) — final per-cut output combining color-traced frames, background, camera move, and post FX. Produced by the compositor actor once colorTrace + background are both ready. Approval triggers soundCue slot generation.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["cutRef", "outputCid", "createdAt"],
+        "properties": {
+          "cutRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef"
+          },
+          "outputCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the composited cut (mp4 or image sequence)."
+          },
+          "outputFormat": {
+            "type": "string",
+            "enum": ["mp4", "mov", "pngSeq", "exrSeq"]
+          },
+          "fxStack": {
+            "type": "array",
+            "description": "Ordered FX stack applied (node editor graph serialized).",
+            "items": { "type": "ref", "ref": "#fxNode" }
+          },
+          "cameraMove": {
+            "type": "ref",
+            "ref": "#cameraKeys",
+            "description": "Keyframed camera motion data."
+          },
+          "sourceFrames": {
+            "type": "array",
+            "description": "Source colorTrace records (in frame order).",
+            "items": { "type": "ref", "ref": "com.atproto.repo.strongRef" }
+          },
+          "bgRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef"
+          },
+          "renderSeconds": {
+            "type": "number",
+            "description": "Render wall-clock seconds (for telemetry)."
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "review", "approved", "rejected"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    },
+    "fxNode": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["glow", "blur", "lensFlare", "cameraShake", "chromaticAberration", "vignette", "grain", "lut", "dof", "bokeh", "bloom", "motionBlur"]
+        },
+        "params": {
+          "type": "string",
+          "description": "JSON-encoded parameter blob (schema varies per kind)."
+        },
+        "startFrame": { "type": "integer" },
+        "endFrame": { "type": "integer" }
+      }
+    },
+    "cameraKeys": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["still", "pan", "tu", "tb", "follow", "handheld", "crane", "dolly"]
+        },
+        "keys": {
+          "type": "array",
+          "description": "Keyframed camera states (frame, x, y, scale, rot).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "frame": { "type": "integer" },
+              "x": { "type": "number" },
+              "y": { "type": "number" },
+              "scale": { "type": "number" },
+              "rotation": { "type": "number" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

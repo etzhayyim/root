@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "org.etzhayyim.authz.mirrorVendorRoot",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Phase P2 of ADR-2605212030 — mirror a vendor-issued ERC725 root (`did:erc725:etzhayyim:260425:*`) into an etzhayyim root on Base L2. Caller proves control of the existing vendor root by signing a continuity digest with their original vendor signing key. Council verifies the proof off-chain and submits EtzhayyimAuthz.mirrorVendorRoot. Returns the new etzhayyim DID + tx hash. This procedure is opt-in per actor; vendor roots stay valid for historical queries until vendor deprecation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["dwebHandle", "newActiveKey", "vendorRootDid", "vendorAddr", "vendorContinuityProof"],
+          "properties": {
+            "dwebHandle": {
+              "type": "string",
+              "description": "Public handle to bind to the new etzhayyim root."
+            },
+            "newActiveKey": {
+              "type": "string",
+              "description": "0x-prefixed 20-byte address that will own the new etzhayyim root. MAY be the same as the vendor key or different."
+            },
+            "vendorRootDid": {
+              "type": "string",
+              "description": "Full vendor DID being mirrored, e.g. `did:erc725:etzhayyim:260425:0xabc...`."
+            },
+            "vendorAddr": {
+              "type": "string",
+              "description": "0x-prefixed Ethereum address of the vendor signer (EOA or smart-wallet)."
+            },
+            "vendorContinuityProof": {
+              "type": "string",
+              "description": "0x-prefixed signature by vendorAddr over `keccak256(\"etzhayyim-vendor-continuity\" || vendorRootDid || dwebHandleHash || newActiveKey)`."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["rootId", "did", "dwebDid", "txHash", "vendorRootHash"],
+          "properties": {
+            "rootId": {"type": "string"},
+            "did": {"type": "string"},
+            "dwebDid": {"type": "string"},
+            "txHash": {"type": "string"},
+            "vendorRootHash": {
+              "type": "string",
+              "description": "0x-prefixed keccak256 of `vendorRootDid` — recorded on-chain in predecessorVendorRootHash."
+            }
+          }
+        }
+      },
+      "errors": [
+        {"name": "DwebHandleTaken", "description": "dwebHandle already bound to an active root."},
+        {"name": "VendorContinuityProofInvalid", "description": "vendorContinuityProof does not recover to vendorAddr."},
+        {"name": "VendorRootUnknown", "description": "vendorRootDid does not match any known vendor-issued root."},
+        {"name": "CouncilApprovalRequired", "description": "the Council multisig has not yet approved this mirror request."},
+        {"name": "ChainSubmissionFailed", "description": "the on-chain mirrorVendorRoot transaction reverted."}
+      ]
+    }
+  }
+}

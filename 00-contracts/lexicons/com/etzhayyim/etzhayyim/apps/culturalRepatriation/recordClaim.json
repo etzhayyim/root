@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.culturalRepatriation.recordClaim",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Cultural heritage repatriation claim (NAGPRA / UNESCO 1970 / UNIDROIT — bridges landRestitution.flagRestitutionObstacle + cultural-heritage + intangible-heritage)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "claimId",
+            "regimeKind",
+            "objectCategory",
+            "claimantCountryIso3",
+            "filedAt"
+          ],
+          "properties": {
+            "claimId": {
+              "type": "string"
+            },
+            "holdingInstitutionLei": {
+              "type": "string"
+            },
+            "regimeKind": {
+              "type": "string",
+              "enum": [
+                "nagpra",
+                "unesco_1970",
+                "unidroit_1995",
+                "washington_principles",
+                "benin_bronzes",
+                "fr_loi_2024",
+                "nl_pinto",
+                "bg_loi",
+                "terezin_declaration",
+                "vatican_sacred"
+              ]
+            },
+            "objectCategory": {
+              "type": "string",
+              "enum": [
+                "human_remains",
+                "funerary",
+                "sacred_object",
+                "patrimonial",
+                "artwork_colonial",
+                "religious_ritual",
+                "archaeological",
+                "manuscript",
+                "natural_history",
+                "multiple"
+              ]
+            },
+            "claimantCountryIso3": {
+              "type": "string"
+            },
+            "restitutionObstacleVid": {
+              "type": "string",
+              "description": "bridges landRestitution.flagRestitutionObstacle"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

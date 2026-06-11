@@ -1,0 +1,42 @@
+# Ingress: legal-corpus.etzhayyim.com → legal-corpus-mcp:8080
+#
+# Exposes the legal-corpus MCP JSON-RPC 2.0 server to external AI agents.
+# CF DNS proxied=true → CF edge terminates TLS, origin receives plain HTTP.
+# Application-level auth via MCP_AUTH_TOKEN (Authorization: Bearer <token>)
+# validated by mcp_server.py — no nginx auth-snippet needed.
+#
+# TLS secret must be a CF Origin Certificate:
+#   kubectl create secret tls legal-corpus-etzhayyim-ai-tls \
+#     --cert=origin.pem --key=origin-key.pem -n mitama-udf
+#
+# MCP endpoint: POST https://legal-corpus.etzhayyim.com/
+# Health check:  GET https://legal-corpus.etzhayyim.com/health
+#
+# ADR-0049, ADR-2605080600
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: legal-corpus-etzhayyim-ai
+  namespace: mitama-udf
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "90"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "90"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1m"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - legal-corpus.etzhayyim.com
+      secretName: legal-corpus-etzhayyim-ai-tls
+  rules:
+    - host: legal-corpus.etzhayyim.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: legal-corpus-mcp
+                port:
+                  number: 8080

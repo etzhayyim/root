@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — NCBI taxonomy subtree sync → vegetation render profile seed → biological taxa seed.
+
+  Pipeline:
+    1. science.taxon.syncNcbi   — Fetch subtree from NCBI efetch.fcgi for
+                                  a root taxid (rotates: Viridiplantae→Fungi→Animalia).
+                                  INSERT vertex_scientific_taxon rows.
+                                  Returns taxaInserted / domain_kind / rootTaxid.
+    2. exclusive gateway        — Skip when 0 new taxa.
+    3. science.taxon.seedVegetation — Upsert 7 canonical vegetation taxa +
+                                  vertex_kami_model_def (procedural render_kind) +
+                                  edge_taxon_model links from _VEGETATION_RENDER_PROFILES.
+                                  Returns vegetationSeeded.
+    4. science.taxon.seedBiologicalTaxa — Upsert canonical biological taxa (human, common
+                                  model organisms: mouse, rat, zebrafish, fruitfly, yeast,
+                                  E.coli, arabidopsis, C.elegans, etc.).
+                                  Returns biologicalTaxaSeeded.
+    5. generic.audit.emit       — OCEL event.
+
+  Cadence: R/PT12H. Rotates root taxid every run.
+  ADR-0056 (BPMN-as-actor). NSID: com.etzhayyim.apps.maps.scienceTaxonSync.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-taxon-sync-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_science_taxon_sync"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="science_taxon_sync" name="science taxon sync" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.scienceTaxonSync", "version": 1, "resultTimeoutMs": 43200000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="every 12 hours">
+      <bpmn:outgoing>Flow_ToSync</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT12H">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT12H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToSync" sourceRef="Start" targetRef="Task_SyncNcbi"/>
+
+    <!-- Step 1: Sync NCBI taxonomy subtree for rotating domain. -->
+    <bpmn:serviceTask id="Task_SyncNcbi" name="sync NCBI taxon subtree">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="science.taxon.syncNcbi"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=200"       target="max_nodes"/>
+          <zeebe:output source="=rootTaxid"       target="rootTaxid"/>
+          <zeebe:output source="=domain_kind"     target="domain_kind"/>
+          <zeebe:output source="=taxaInserted"    target="taxaInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSync</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_SyncNcbi" targetRef="Gateway_HasTaxa"/>
+
+    <bpmn:exclusiveGateway id="Gateway_HasTaxa" name="new taxa?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasTaxa</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoTaxa</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_HasTaxa" sourceRef="Gateway_HasTaxa" targetRef="Task_SeedVegetation">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=taxaInserted &gt;= 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoTaxa" sourceRef="Gateway_HasTaxa" targetRef="End_NoTaxa">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=taxaInserted &lt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:endEvent id="End_NoTaxa" name="sync error (skip)">
+      <bpmn:incoming>Flow_NoTaxa</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- Step 2: Seed 7 canonical vegetation render profiles. -->
+    <bpmn:serviceTask id="Task_SeedVegetation" name="seed vegetation render profiles (7)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="science.taxon.seedVegetation"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=vegetationSeeded"  target="vegetationSeeded"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasTaxa</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBioTaxa</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToBioTaxa" sourceRef="Task_SeedVegetation" targetRef="Task_SeedBiologicalTaxa"/>
+
+    <!-- Step 3: Seed canonical biological taxa (model organisms). -->
+    <bpmn:serviceTask id="Task_SeedBiologicalTaxa" name="seed biological taxa (model organisms)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="science.taxon.seedBiologicalTaxa"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=biologicalTaxaSeeded"  target="biologicalTaxaSeeded"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBioTaxa</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_SeedBiologicalTaxa" targetRef="Task_Audit"/>
+
+    <!-- Step 4: OCEL audit event. -->
+    <bpmn:serviceTask id="Task_Audit" name="emit science.taxon.sync OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.science.taxon.sync&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;rootTaxid&quot;: rootTaxid, &quot;domain_kind&quot;: domain_kind, &quot;taxaInserted&quot;: taxaInserted, &quot;vegetationSeeded&quot;: vegetationSeeded, &quot;biologicalTaxaSeeded&quot;: biologicalTaxaSeeded }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

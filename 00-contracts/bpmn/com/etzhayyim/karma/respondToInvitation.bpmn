@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — respond to witness invitation (XRPC entry).
+
+  Pipeline:
+    1. karma.witness.respondToInvitation
+       - verify invitee + status=pending + not expired
+       - if accept: persist vertex_karma_witness row + UPDATE invitation
+       - if decline: UPDATE invitation status only
+    2. generic.audit.emit
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_respond_to_invitation"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_respond_to_invitation" name="karma respond to invitation" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.karma.respondToInvitation", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartXrpc" name="xrpc">
+      <bpmn:outgoing>Flow_ToRespond</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Respond" name="verify + persist response">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.witness.respondToInvitation"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=invitationId" target="invitationId"/>
+          <zeebe:input source="=responderDid" target="responderDid"/>
+          <zeebe:input source="=response" target="response"/>
+          <zeebe:input source="=attestationKind" target="attestationKind"/>
+          <zeebe:input source="=signature" target="signature"/>
+          <zeebe:input source="=signatureAlg" target="signatureAlg"/>
+          <zeebe:input source="=rationaleCid" target="rationaleCid"/>
+          <zeebe:output source="=witnessId" target="witnessId"/>
+          <zeebe:output source="=respondedAt" target="respondedAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRespond</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToRespond" sourceRef="StartXrpc" targetRef="Task_Respond"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.respondToInvitation&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;invitationId&quot;: invitationId, &quot;responder&quot;: responderDid, &quot;response&quot;: response, &quot;witnessId&quot;: witnessId }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Respond" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="responded">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

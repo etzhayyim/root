@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-2472ae825203",
+  "entityId": "ent-2472ae825203",
+  "canonicalName": "alameda research llc",
+  "aliases": [
+    "alameda research llc"
+  ]
+}

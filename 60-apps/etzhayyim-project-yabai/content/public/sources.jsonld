@@ -1,0 +1,64 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "ItemList",
+  "@id": "https://yabai.etzhayyim.com/content/public/sources",
+  "name": "YABAI Crypto Risk Sources",
+  "itemListElement": [
+    {
+      "@type": "CreativeWork",
+      "identifier": "doj-safemoon",
+      "name": "U.S. DOJ: SafeMoon founder charged",
+      "url": "https://www.justice.gov/usao-edny/pr/founder-and-key-employees-safemoon-charged-multi-million-dollar-international-fraud",
+      "description": "EDNY announcement on the November 1, 2023 SafeMoon fraud case covering founder and key employees."
+    },
+    {
+      "@type": "CreativeWork",
+      "identifier": "sec-terraform",
+      "name": "U.S. SEC: Terraform and Do Kwon settlement",
+      "url": "https://www.sec.gov/newsroom/press-releases/2024-73",
+      "description": "SEC release dated June 13, 2024 on Terraform Labs and Do Kwon following the fraud verdict."
+    },
+    {
+      "@type": "CreativeWork",
+      "identifier": "doj-do-kwon",
+      "name": "U.S. DOJ: Do Kwon extradition",
+      "url": "https://www.justice.gov/opa/pr/do-hyeong-kwon-extradited-united-states-face-fraud-charges-related-collapse-terraform",
+      "description": "DOJ release dated December 31, 2024 on Do Kwon's extradition to the United States."
+    },
+    {
+      "@type": "CreativeWork",
+      "identifier": "doj-onecoin",
+      "name": "U.S. DOJ: OneCoin sentencing",
+      "url": "https://www.justice.gov/usao-sdny/pr/co-founder-onecoin-sentenced-20-years-prison-fraud-and-money-laundering-schemes",
+      "description": "SDNY release dated September 12, 2023 on Karl Greenwood's sentencing in the OneCoin fraud scheme."
+    },
+    {
+      "@type": "CreativeWork",
+      "identifier": "sec-bitconnect",
+      "name": "U.S. SEC: BitConnect action",
+      "url": "https://www.sec.gov/newsroom/press-releases/2021-172",
+      "description": "SEC release dated September 1, 2021 on the BitConnect unregistered offering and promoter actions."
+    },
+    {
+      "@type": "CreativeWork",
+      "identifier": "ofac-tornado",
+      "name": "U.S. Treasury OFAC: Tornado Cash sanctions",
+      "url": "https://ofac.treasury.gov/recent-actions/20220808",
+      "description": "OFAC action dated August 8, 2022 designating Tornado Cash for sanctions."
+    },
+    {
+      "@type": "CreativeWork",
+      "identifier": "ofac-semenov",
+      "name": "U.S. Treasury OFAC: Roman Semenov designation update",
+      "url": "https://ofac.treasury.gov/recent-actions/20250321",
+      "description": "OFAC action dated March 21, 2025 updating sanctions related to Roman Semenov and Tornado Cash."
+    },
+    {
+      "@type": "Dataset",
+      "identifier": "yabai-watchlist",
+      "name": "operator watchlist",
+      "url": "https://yabai.etzhayyim.com/content/source/watchlist.jsonld",
+      "description": "Operator-maintained crypto fraud watchlist normalized into YABAI entities, evidence, and risk scores."
+    }
+  ]
+}

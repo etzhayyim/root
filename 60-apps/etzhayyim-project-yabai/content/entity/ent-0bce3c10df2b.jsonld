@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0bce3c10df2b",
+  "entityId": "ent-0bce3c10df2b",
+  "canonicalName": "protogène ruvugayimikore",
+  "aliases": [
+    "protogène ruvugayimikore"
+  ]
+}

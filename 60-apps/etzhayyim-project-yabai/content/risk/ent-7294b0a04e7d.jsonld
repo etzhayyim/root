@@ -1,0 +1,11 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiRiskScore",
+  "@id": "https://yabai.etzhayyim.com/content/risk/ent-7294b0a04e7d",
+  "entityId": "ent-7294b0a04e7d",
+  "wellBecomingScore": 5.0,
+  "penaltyScore": 37.5,
+  "yabaiRiskScore": 98.0,
+  "infoRisk": 9.97,
+  "scoredAt": "2026-04-05T00:00:00Z"
+}

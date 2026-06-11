@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.anime.listSchedules",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List broadcast schedules with optional filters by title and day of week.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "title_id": { "type": "string" },
+          "day_of_week": { "type": "string" },
+          "limit": { "type": "integer" },
+          "offset": { "type": "integer" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "schedules": { "type": "array", "items": { "type": "object" } },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

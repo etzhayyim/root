@@ -1,0 +1,105 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.batteryPassport.registerPassport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "EU Battery Passport (Reg 2023/1542 — bridges ev-charging-ocpp + critical-minerals + slsa-supply-chain + forced-labor)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "passportId",
+            "batteryCategory",
+            "chemistry",
+            "registeredAt"
+          ],
+          "properties": {
+            "passportId": {
+              "type": "string"
+            },
+            "manufacturerLei": {
+              "type": "string"
+            },
+            "batteryCategory": {
+              "type": "string",
+              "enum": [
+                "ev",
+                "lmt",
+                "industrial",
+                "sli",
+                "stationary",
+                "portable"
+              ]
+            },
+            "chemistry": {
+              "type": "string",
+              "enum": [
+                "lfp",
+                "nmc",
+                "nca",
+                "lto",
+                "lmfp",
+                "sodium_ion",
+                "solid_state",
+                "lithium_metal"
+              ]
+            },
+            "capacityKwh": {
+              "type": "number"
+            },
+            "recycledCobaltPct": {
+              "type": "number"
+            },
+            "recycledLithiumPct": {
+              "type": "number"
+            },
+            "recycledNickelPct": {
+              "type": "number"
+            },
+            "cradleToGateKgCo2e": {
+              "type": "number"
+            },
+            "supplyChainDiligenceUri": {
+              "type": "string",
+              "description": "bridges open-forced-labor + critical-minerals"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "circularityTier": {
+              "type": "string",
+              "enum": [
+                "virgin_heavy",
+                "mid_recycled",
+                "high_recycled"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kazaori.emergencyDeclarationAttestation",
+  "description": "Council Lv6+ ≥4/7 declaration of state of emergency. G10 STRUCTURAL: councilAttestations minLength 4. G8 STRUCTURAL: initialDurationDays default 60; extension requires Council Lv7+ unanimity (councilExtensionAttestations minLength 7). Auto-lifting at expiration unless re-extended.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "declarationCategory",
+          "declaredScope",
+          "declaredStartUtc",
+          "initialDurationDays",
+          "autoLiftAtUtc",
+          "councilAttestations",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "declarationCategory": {
+            "type": "string",
+            "knownValues": [
+              "earthquake",
+              "typhoon-hurricane",
+              "flood",
+              "wildfire",
+              "pandemic-biological",
+              "power-outage-extended",
+              "water-shortage",
+              "food-shortage",
+              "building-damage-mass",
+              "civil-unrest-non-military",
+              "other"
+            ]
+          },
+          "declaredScope": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#declaredScopeEntry"},
+            "description": "Geographic / jurisdictional / community-site scope of declaration"
+          },
+          "declaredStartUtc": {"type": "string", "format": "datetime"},
+          "initialDurationDays": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 60,
+            "description": "G8 STRUCTURAL: ≤60 days default; extension requires Council Lv7+ unanimity"
+          },
+          "autoLiftAtUtc": {
+            "type": "string",
+            "format": "datetime",
+            "description": "G8 STRUCTURAL: auto-lifting timestamp; declaredStartUtc + initialDurationDays"
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 4,
+            "description": "G10 STRUCTURAL: ≥4 of 7 Council Lv6+ DIDs"
+          },
+          "civilianOnlyAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "G5 STRUCTURAL: const true; kazaori is civilian-only; force authorization is ADR-2605192315 separate"
+          },
+          "sphereStandardsBaselineCid": {
+            "type": "string",
+            "description": "G9 reference: Sphere Standards baseline compliance plan CID"
+          },
+          "extensionLog": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#extensionRecord"},
+            "description": "Each extension requires Council Lv7+ unanimity (≥7 attestations)"
+          },
+          "liftedAtUtc": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Actual lifting timestamp (≤ autoLiftAtUtc unless extended)"
+          },
+          "liftingReasonCid": {"type": "string"},
+          "postEmergencyReviewCid": {
+            "type": "string",
+            "description": "silenKazaoriReview CID (mandatory within 90 days of lifting)"
+          },
+          "attestingDid": {"type": "string"}
+        }
+      }
+    },
+    "declaredScopeEntry": {
+      "type": "object",
+      "required": ["scopeKind"],
+      "properties": {
+        "scopeKind": {
+          "type": "string",
+          "knownValues": ["community-site", "jurisdiction-iso3", "land-registry-region", "cross-jurisdictional"]
+        },
+        "communityCellSiteId": {"type": "string"},
+        "jurisdictionIso3": {"type": "string"},
+        "landRegistryRegionCid": {"type": "string"},
+        "estimatedAffectedPopulation": {"type": "integer", "minimum": 0}
+      }
+    },
+    "extensionRecord": {
+      "type": "object",
+      "required": ["extensionAtUtc", "newAutoLiftAtUtc", "councilUnanimityAttestations"],
+      "properties": {
+        "extensionAtUtc": {"type": "string", "format": "datetime"},
+        "newAutoLiftAtUtc": {"type": "string", "format": "datetime"},
+        "councilUnanimityAttestations": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minLength": 7,
+          "description": "G8 STRUCTURAL: extension requires ALL 7 Council seats Lv7+ unanimity"
+        },
+        "extensionReasonCid": {"type": "string"}
+      }
+    }
+  }
+}

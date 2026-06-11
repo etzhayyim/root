@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mofcomExportControl.flagPrcExport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave2 (stub): 中商务部 輸出管理. Starts BPMN process open_mofcom_export_control_flag_prc_export.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "commodityVid": { "type": "string" },
+            "mofcomCategory": { "type": "string" },
+            "originCountry": { "type": "string" }
+          },
+          "required": ["vertexId", "commodityVid", "mofcomCategory"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

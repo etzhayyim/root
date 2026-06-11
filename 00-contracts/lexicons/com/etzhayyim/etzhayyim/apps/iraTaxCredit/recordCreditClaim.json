@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.iraTaxCredit.recordCreditClaim",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IRA §45X / §45V / §45Q / §45Y / §48E tax credit claim (bridges evSupplyChain.flagFeocRisk + critical-minerals + hydrogen-economy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "claimId",
+            "section",
+            "claimedMusd",
+            "fiscalYear",
+            "filedAt"
+          ],
+          "properties": {
+            "claimId": {
+              "type": "string"
+            },
+            "claimantLei": {
+              "type": "string"
+            },
+            "section": {
+              "type": "string",
+              "enum": [
+                "45x_amp_credit",
+                "45v_hydrogen",
+                "45q_ccus",
+                "45y_clean_power",
+                "48e_clean_investment",
+                "45w_commercial_ev",
+                "30d_consumer_ev",
+                "48c_manufacturing"
+              ]
+            },
+            "techBucket": {
+              "type": "string",
+              "enum": [
+                "battery_cell",
+                "critical_mineral",
+                "solar_module",
+                "wind_turbine",
+                "fuel_cell",
+                "electrolyzer",
+                "nuclear_smr",
+                "ccus"
+              ]
+            },
+            "claimedMusd": {
+              "type": "number"
+            },
+            "fiscalYear": {
+              "type": "integer"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

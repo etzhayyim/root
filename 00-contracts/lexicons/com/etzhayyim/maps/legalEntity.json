@@ -1,0 +1,102 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.legalEntity",
+  "description": "Legal entity record — corporations / operators / property owners / government bodies / public utilities. Discriminated by `entityType`. Per maps CLAUDE.md §Graph Schema (`vertex_legal_entity`) + ADR-2605231400 kotoba-datomic L1 target. Per MIGRATION-TODO Phase 1 (Tier A).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{entityKey}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "entityKey",
+          "entityType",
+          "name",
+          "registeredAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "entityKey": {
+            "type": "string",
+            "description": "Stable rkey-safe key. Preferred: '{entityType-slug}-{lei|taxId|registrationNumber}'. Lowercase. No leading/trailing/double hyphens.",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "entityType": {
+            "type": "string",
+            "knownValues": [
+              "LegalEntity",
+              "Operator",
+              "PropertyOwner",
+              "Corporation",
+              "GovernmentBody",
+              "PublicUtility"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "displayName": {
+            "type": "string",
+            "maxLength": 512
+          },
+          "registrationNumber": {
+            "type": "string",
+            "description": "Issuer-specific registration number (e.g., NTA 法人番号 for JP, EIN for US, CRN for UK).",
+            "maxLength": 64
+          },
+          "jurisdiction": {
+            "type": "string",
+            "description": "Issuing authority (e.g., 'JP-NTA', '東京法務局', 'UK-CH', 'US-SEC').",
+            "maxLength": 64
+          },
+          "country": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "lei": {
+            "type": "string",
+            "description": "Global Legal Entity Identifier (ISO 17442). 20-char alphanumeric.",
+            "minLength": 20,
+            "maxLength": 20
+          },
+          "taxId": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "industryCode": {
+            "type": "string",
+            "description": "ISIC Rev.4 4-digit class code or analogous (NAICS/SIC).",
+            "maxLength": 16
+          },
+          "industryScheme": {
+            "type": "string",
+            "knownValues": ["isic-rev4", "naics", "sic", "jsic", "other"]
+          },
+          "sourceDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Source DID this record was derived from (e.g., did:web:maps.etzhayyim.com:registry:jp-nta)."
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "supersedesEntityKey": {
+            "type": "string",
+            "description": "Earlier entityKey this record replaces."
+          }
+        }
+      }
+    }
+  }
+}

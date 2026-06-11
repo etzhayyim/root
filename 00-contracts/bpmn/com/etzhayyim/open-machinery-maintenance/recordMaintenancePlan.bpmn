@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_machinery_maintenance_record_plan"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-machinery-maintenance"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="open_machinery_maintenance_record_plan" name="recordMaintenancePlan" isExecutable="true">
+    <bpmn:startEvent id="Start" name="plan received">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_AssessPlan"/>
+
+    <bpmn:serviceTask id="Task_AssessPlan" name="assess maintenance risk">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.rules.evaluate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;open-machinery-maintenance.plan.v1&quot;" target="ruleSet"/>
+          <zeebe:input source="={
+              vertexId:          vertexId,
+              assetId:           assetId,
+              facilityLei:       facilityLei,
+              machineClass:      machineClass,
+              criticality:       criticality,
+              maintenanceType:   maintenanceType,
+              plannedStart:      plannedStart,
+              plannedEnd:        plannedEnd,
+              safetyLockout:     safetyLockout,
+              sparePartsReady:   sparePartsReady
+          }" target="facts"/>
+          <zeebe:output source="=coalesce(planAccepted, safetyLockout = true and sparePartsReady = true)" target="planAccepted"/>
+          <zeebe:output source="=coalesce(riskTier, if criticality = &quot;high&quot; then &quot;controlled&quot; else &quot;standard&quot;)" target="riskTier"/>
+          <zeebe:output source="=findings" target="planFindings"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_Assessed</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Assessed" sourceRef="Task_AssessPlan" targetRef="Gate_Accepted"/>
+
+    <bpmn:exclusiveGateway id="Gate_Accepted" name="plan accepted?" default="Flow_Rejected">
+      <bpmn:incoming>Flow_Assessed</bpmn:incoming>
+      <bpmn:outgoing>Flow_Accepted</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Rejected</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Accepted" sourceRef="Gate_Accepted" targetRef="Task_Save">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=planAccepted = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Rejected" sourceRef="Gate_Accepted" targetRef="Task_AuditRejected"/>
+
+    <bpmn:serviceTask id="Task_Save" name="save maintenance plan">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_machinery_maintenance&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:         vertexId,
+              asset_id:          assetId,
+              facility_lei:      facilityLei,
+              machine_class:     machineClass,
+              criticality:       criticality,
+              maintenance_type:  maintenanceType,
+              planned_start:     plannedStart,
+              planned_end:       plannedEnd,
+              risk_tier:         riskTier,
+              safety_lockout:    safetyLockout,
+              spare_parts_ready: sparePartsReady,
+              plan_findings:     planFindings,
+              status:            &quot;planned&quot;,
+              created_at:        string(now()),
+              owner_did:         callerDid,
+              sensitivity_ord:   1,
+              org_id:            callerDid,
+              user_id:           callerDid,
+              actor_id:          &quot;sys.bpmn.open-machinery-maintenance&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Accepted</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Save" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit plan recorded">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-machinery-maintenance.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openMachineryMaintenance.plan.record&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, assetId: assetId, facilityLei: facilityLei, riskTier: riskTier}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditRejected" name="audit plan rejected">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-machinery-maintenance.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openMachineryMaintenance.plan.reject&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, assetId: assetId, findings: planFindings}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Rejected</bpmn:incoming>
+      <bpmn:outgoing>Flow_RejectedEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_RejectedEnd" sourceRef="Task_AuditRejected" targetRef="End_Rejected"/>
+
+    <bpmn:endEvent id="End" name="planned">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="End_Rejected" name="rejected">
+      <bpmn:incoming>Flow_RejectedEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

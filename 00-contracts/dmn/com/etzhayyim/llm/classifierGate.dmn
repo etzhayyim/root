@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+  id="Definitions_llm_classifier_gate"
+  name="llm_classifier_gate"
+  namespace="https://etzhayyim.ai/dmn/llm">
+  <decision id="llm_classifier_gate" name="llm_classifier_gate">
+    <decisionTable id="DecisionTable_llm_classifier_gate" hitPolicy="FIRST">
+      <input id="Input_llmOk">
+        <inputExpression id="InputExpression_llmOk" typeRef="boolean"><text>llmOk</text></inputExpression>
+      </input>
+      <input id="Input_llmLabel">
+        <inputExpression id="InputExpression_llmLabel" typeRef="string"><text>llmLabel</text></inputExpression>
+      </input>
+      <input id="Input_llmConfidence">
+        <inputExpression id="InputExpression_llmConfidence" typeRef="number"><text>llmConfidence</text></inputExpression>
+      </input>
+      <input id="Input_minConfidence">
+        <inputExpression id="InputExpression_minConfidence" typeRef="number"><text>minConfidence</text></inputExpression>
+      </input>
+      <input id="Input_llmRationaleHash">
+        <inputExpression id="InputExpression_llmRationaleHash" typeRef="string"><text>llmRationaleHash</text></inputExpression>
+      </input>
+      <output id="Output_gateAction" label="gateAction" typeRef="string" name="gateAction"/>
+      <output id="Output_allow" label="allow" typeRef="boolean" name="allow"/>
+      <output id="Output_requiresManualReview" label="requiresManualReview" typeRef="boolean" name="requiresManualReview"/>
+      <output id="Output_reason" label="reason" typeRef="string" name="reason"/>
+      <rule id="LlmGateRule_1">
+        <inputEntry id="LlmGateRule_1_ie1"><text>false</text></inputEntry>
+        <inputEntry id="LlmGateRule_1_ie2"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_1_ie3"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_1_ie4"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_1_ie5"><text>-</text></inputEntry>
+        <outputEntry id="LlmGateRule_1_oe1"><text>"manual-review"</text></outputEntry>
+        <outputEntry id="LlmGateRule_1_oe2"><text>false</text></outputEntry>
+        <outputEntry id="LlmGateRule_1_oe3"><text>true</text></outputEntry>
+        <outputEntry id="LlmGateRule_1_oe4"><text>"llm-failed"</text></outputEntry>
+      </rule>
+      <rule id="LlmGateRule_2">
+        <inputEntry id="LlmGateRule_2_ie1"><text>true</text></inputEntry>
+        <inputEntry id="LlmGateRule_2_ie2"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_2_ie3"><text>&lt; minConfidence</text></inputEntry>
+        <inputEntry id="LlmGateRule_2_ie4"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_2_ie5"><text>-</text></inputEntry>
+        <outputEntry id="LlmGateRule_2_oe1"><text>"manual-review"</text></outputEntry>
+        <outputEntry id="LlmGateRule_2_oe2"><text>false</text></outputEntry>
+        <outputEntry id="LlmGateRule_2_oe3"><text>true</text></outputEntry>
+        <outputEntry id="LlmGateRule_2_oe4"><text>"low-confidence"</text></outputEntry>
+      </rule>
+      <rule id="LlmGateRule_3">
+        <inputEntry id="LlmGateRule_3_ie1"><text>true</text></inputEntry>
+        <inputEntry id="LlmGateRule_3_ie2"><text>"deny"</text></inputEntry>
+        <inputEntry id="LlmGateRule_3_ie3"><text>&gt;= minConfidence</text></inputEntry>
+        <inputEntry id="LlmGateRule_3_ie4"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_3_ie5"><text>-</text></inputEntry>
+        <outputEntry id="LlmGateRule_3_oe1"><text>"deny"</text></outputEntry>
+        <outputEntry id="LlmGateRule_3_oe2"><text>false</text></outputEntry>
+        <outputEntry id="LlmGateRule_3_oe3"><text>false</text></outputEntry>
+        <outputEntry id="LlmGateRule_3_oe4"><text>"label-deny"</text></outputEntry>
+      </rule>
+      <rule id="LlmGateRule_4">
+        <inputEntry id="LlmGateRule_4_ie1"><text>true</text></inputEntry>
+        <inputEntry id="LlmGateRule_4_ie2"><text>"allow"</text></inputEntry>
+        <inputEntry id="LlmGateRule_4_ie3"><text>&gt;= minConfidence</text></inputEntry>
+        <inputEntry id="LlmGateRule_4_ie4"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_4_ie5"><text>-</text></inputEntry>
+        <outputEntry id="LlmGateRule_4_oe1"><text>"allow"</text></outputEntry>
+        <outputEntry id="LlmGateRule_4_oe2"><text>true</text></outputEntry>
+        <outputEntry id="LlmGateRule_4_oe3"><text>false</text></outputEntry>
+        <outputEntry id="LlmGateRule_4_oe4"><text>"label-allow"</text></outputEntry>
+      </rule>
+      <rule id="LlmGateRule_5">
+        <inputEntry id="LlmGateRule_5_ie1"><text>true</text></inputEntry>
+        <inputEntry id="LlmGateRule_5_ie2"><text>"review"</text></inputEntry>
+        <inputEntry id="LlmGateRule_5_ie3"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_5_ie4"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_5_ie5"><text>-</text></inputEntry>
+        <outputEntry id="LlmGateRule_5_oe1"><text>"manual-review"</text></outputEntry>
+        <outputEntry id="LlmGateRule_5_oe2"><text>false</text></outputEntry>
+        <outputEntry id="LlmGateRule_5_oe3"><text>true</text></outputEntry>
+        <outputEntry id="LlmGateRule_5_oe4"><text>"label-review"</text></outputEntry>
+      </rule>
+      <rule id="LlmGateRule_6">
+        <inputEntry id="LlmGateRule_6_ie1"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_6_ie2"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_6_ie3"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_6_ie4"><text>-</text></inputEntry>
+        <inputEntry id="LlmGateRule_6_ie5"><text>-</text></inputEntry>
+        <outputEntry id="LlmGateRule_6_oe1"><text>"manual-review"</text></outputEntry>
+        <outputEntry id="LlmGateRule_6_oe2"><text>false</text></outputEntry>
+        <outputEntry id="LlmGateRule_6_oe3"><text>true</text></outputEntry>
+        <outputEntry id="LlmGateRule_6_oe4"><text>"unknown-label"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — advances the maps coverage frontier every 2 minutes.
+
+  Pipeline (ADR-0056 generic primitives, no custom task type):
+
+    1. generic.db.select     — top gap from view_maps_coverage_gap_ranked
+    2. generic.http.fetch    — POST to dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.advanceCoverage
+                                (the XRPC handler runs createCollectionJob + bumps last_fetched_at)
+    3. generic.audit.emit    — OCEL 2.0 event for coverage.advance
+
+  Why timer-start (not subscribeRepos): coverage frontier advance is a scheduled
+  sweep, not a reaction to incoming AT commits. Keeping it in BPMN rather than
+  a heartbeat cron retires the cron alarm per ADR-0056 §"Timer-start BPMN".
+
+  NSID derivation (sync-bpmn-actors.py convention):
+    path = 00-contracts/bpmn/com/etzhayyim/maps/advanceCoverage.bpmn
+    NSID = com.etzhayyim.apps.maps.advanceCoverage
+    vertex_id = at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-advance-coverage-v1
+
+  Timer-start processes get no lexicon binding row — they fire on Zeebe's
+  schedule, not XRPC. The XRPC NSID `com.etzhayyim.apps.maps.advanceCoverage`
+  above is served by maps-ui Worker directly (see collection-commands.ts).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_maps_advance_coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="maps_advance_coverage" name="maps coverage advance" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.advanceCoverage", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 2 minutes">
+      <bpmn:outgoing>Flow_Timer</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT2M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT1M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Timer" sourceRef="Start_Timer" targetRef="Task_PickGap"/>
+    <bpmn:sequenceFlow id="Flow_Manual" sourceRef="Start_Manual" targetRef="Task_PickGap"/>
+
+    <!-- Step 1 — pick top-1 gap via ranked view (UDF-backed) -->
+    <bpmn:serviceTask id="Task_PickGap" name="pick top coverage gap">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;mv_maps_coverage_gap_ranked&quot;" target="table"/>
+          <zeebe:input source="=&quot;vertex_id, source_did, label, collected_count, world_total, gap_score, hours_since_fetch&quot;" target="columns"/>
+          <zeebe:input source="=1"                                         target="limit"/>
+          <zeebe:input source="=&quot;gap_score DESC&quot;"                target="orderBy"/>
+          <zeebe:input source="=&quot;gap_score &gt; 0.0&quot;"            target="where"/>
+          <zeebe:output source="=rows"     target="gapRows"/>
+          <zeebe:output source="=rowCount" target="gapCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Timer</bpmn:incoming>
+      <bpmn:incoming>Flow_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_PickGap" targetRef="Gateway_HasGap"/>
+
+    <!-- Bail early if nothing to do -->
+    <bpmn:exclusiveGateway id="Gateway_HasGap" name="gap found?">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasGap</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoGap</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_HasGap" sourceRef="Gateway_HasGap" targetRef="Task_Advance">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"
+                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">=gapCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoGap" sourceRef="Gateway_HasGap" targetRef="End">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"
+                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">=gapCount &lt;= 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Step 2 — call the maps Worker XRPC to actually advance -->
+    <bpmn:serviceTask id="Task_Advance" name="advanceCoverage XRPC">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.advanceCoverage&quot;" target="url"/>
+          <zeebe:input source="=&quot;POST&quot;"                           target="method"/>
+          <zeebe:input source="=&quot;application/json&quot;"               target="contentType"/>
+          <zeebe:input source="={ &quot;limit&quot;: 1, &quot;sourceDid&quot;: gapRows[0].source_did, &quot;label&quot;: gapRows[0].label }" target="body"/>
+          <zeebe:input source="=15000"                                     target="timeoutMs"/>
+          <zeebe:output source="=status"   target="advanceStatus"/>
+          <zeebe:output source="=bodyJson" target="advanceResult"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasGap</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Advance" targetRef="Task_Audit"/>
+
+    <!-- Step 3 — OCEL audit emit -->
+    <bpmn:serviceTask id="Task_Audit" name="emit coverage.advance OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.coverage.advance&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;sourceDid&quot;: gapRows[0].source_did, &quot;label&quot;: gapRows[0].label, &quot;gapScore&quot;: gapRows[0].gap_score, &quot;collected&quot;: gapRows[0].collected_count, &quot;worldTotal&quot;: gapRows[0].world_total, &quot;status&quot;: advanceStatus }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:incoming>Flow_NoGap</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

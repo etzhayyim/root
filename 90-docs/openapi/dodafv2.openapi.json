@@ -1,0 +1,463 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "dodafv2 XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://dodafv2.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.dodafv2.deployView": {
+      "post": {
+        "summary": "Deploy a DoDAF v2.02 architecture view for an actor DID. References to BPMN (OV-5b/OV-6c), DMN (OV-6a), and form schemas must be via their deployed IDs (bpmnProcessKey/dmnDecisionKey/formKey).",
+        "operationId": "com.etzhayyim.dodafv2.deployView",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "did": {
+                    "type": "string",
+                    "description": "Target actor DID",
+                    "format": "did"
+                  },
+                  "viewId": {
+                    "type": "string",
+                    "description": "Stable view key, e.g., 'open-banking.OV-1'"
+                  },
+                  "viewType": {
+                    "type": "string",
+                    "description": "DoDAF v2.02 view designator",
+                    "enum": [
+                      "AV-1",
+                      "AV-2",
+                      "CV-1",
+                      "CV-2",
+                      "CV-3",
+                      "CV-4",
+                      "CV-5",
+                      "CV-6",
+                      "CV-7",
+                      "DIV-1",
+                      "DIV-2",
+                      "DIV-3",
+                      "OV-1",
+                      "OV-2",
+                      "OV-3",
+                      "OV-4",
+                      "OV-5a",
+                      "OV-5b",
+                      "OV-6a",
+                      "OV-6b",
+                      "OV-6c",
+                      "PV-1",
+                      "PV-2",
+                      "PV-3",
+                      "SV-1",
+                      "SV-2",
+                      "SV-3",
+                      "SV-4",
+                      "SV-5a",
+                      "SV-5b",
+                      "SV-6",
+                      "SV-7",
+                      "SV-8",
+                      "SV-9",
+                      "SV-10a",
+                      "SV-10b",
+                      "SV-10c",
+                      "StdV-1",
+                      "StdV-2",
+                      "SvcV-1",
+                      "SvcV-2",
+                      "SvcV-3a",
+                      "SvcV-3b",
+                      "SvcV-4",
+                      "SvcV-5",
+                      "SvcV-6",
+                      "SvcV-7",
+                      "SvcV-8",
+                      "SvcV-9",
+                      "SvcV-10a",
+                      "SvcV-10b",
+                      "SvcV-10c"
+                    ]
+                  },
+                  "format": {
+                    "type": "string",
+                    "enum": [
+                      "json",
+                      "xml",
+                      "bpmn",
+                      "dmn",
+                      "markdown"
+                    ],
+                    "default": "json"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "object",
+                    "description": "View body (structure depends on viewType)"
+                  },
+                  "refs": {
+                    "type": "object",
+                    "description": "Cross-view references",
+                    "properties": {
+                      "bpmnProcessKeys": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "dmnDecisionKeys": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "formKeys": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "viewIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "version": {
+                    "type": "integer",
+                    "default": 1
+                  }
+                },
+                "required": [
+                  "did",
+                  "viewId",
+                  "viewType",
+                  "content"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deployed": {
+                      "type": "boolean"
+                    },
+                    "viewId": {
+                      "type": "string"
+                    },
+                    "viewType": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "deployed",
+                    "viewId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.dodafv2.getView": {
+      "get": {
+        "summary": "Get a deployed DoDAF v2 view by viewId (optionally scoped to DID).",
+        "operationId": "com.etzhayyim.dodafv2.getView",
+        "parameters": [
+          {
+            "name": "viewId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "did"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "description": "Omit for latest",
+            "schema": {
+              "type": "integer",
+              "description": "Omit for latest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "viewId": {
+                      "type": "string"
+                    },
+                    "did": {
+                      "type": "string",
+                      "format": "did"
+                    },
+                    "viewType": {
+                      "type": "string"
+                    },
+                    "format": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "refs": {
+                      "type": "object"
+                    },
+                    "version": {
+                      "type": "integer"
+                    },
+                    "deployedAt": {
+                      "type": "string",
+                      "format": "datetime"
+                    }
+                  },
+                  "required": [
+                    "viewId",
+                    "viewType",
+                    "content"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.dodafv2.listViews": {
+      "get": {
+        "summary": "List deployed DoDAF v2 views, optionally filtered by DID or viewpoint (AV/CV/DIV/OV/PV/SV/StdV/SvcV).",
+        "operationId": "com.etzhayyim.dodafv2.listViews",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "did"
+            }
+          },
+          {
+            "name": "viewpoint",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "AV",
+                "CV",
+                "DIV",
+                "OV",
+                "PV",
+                "SV",
+                "StdV",
+                "SvcV"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 50
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "views": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "viewId": {
+                            "type": "string"
+                          },
+                          "did": {
+                            "type": "string",
+                            "format": "did"
+                          },
+                          "viewType": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "integer"
+                          },
+                          "deployedAt": {
+                            "type": "string",
+                            "format": "datetime"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "views",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.dodafv2.validateViewset": {
+      "get": {
+        "summary": "Validate the DoDAF v2 viewset for a DID: checks AV-1 presence, OV↔SV traceability, CV-2 ↔ capability declarations, and BPMN/DMN/form ref integrity.",
+        "operationId": "com.etzhayyim.dodafv2.validateViewset",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "did"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "viewCount": {
+                      "type": "integer"
+                    },
+                    "missing": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "brokenRefs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "viewCount"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

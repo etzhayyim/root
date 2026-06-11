@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  mangaka pipeline chat — mid tier (Qwen 7B @ pod n911oglid03v5n:8001) by default.
+  Pass tier="deep" for Claude editor critique. Mirrors animeka_chat pattern.
+  in:  user, system?, tier? (default "classifier" → mid), chapterContext?
+  out: content, model, latencyMs
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_mangaka_pipeline_chat"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="mangaka_pipeline_chat" name="mangaka pipeline chat" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Chat"/>
+    <bpmn:serviceTask id="Task_Chat" name="chat">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.chat"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if tier = null then &quot;classifier&quot; else string(tier)" target="tier"/>
+          <zeebe:input source="=if system = null then &quot;You are a manga production assistant. Answer in the user's language; be concise.&quot; else string(system)" target="system"/>
+          <zeebe:input source="=if chapterContext = null then string(user) else (&quot;Chapter context: &quot; + string(chapterContext) + &quot;\n\nUser: &quot; + string(user))" target="user"/>
+          <zeebe:input source="=600" target="maxTokens"/>
+          <zeebe:input source="=0.4" target="temperature"/>
+          <zeebe:output source="=content" target="content"/>
+          <zeebe:output source="=model" target="model"/>
+          <zeebe:output source="=latencyMs" target="latencyMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming><bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Chat" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

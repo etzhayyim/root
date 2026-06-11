@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-cfdaa72b089b",
+  "entityId": "ent-cfdaa72b089b",
+  "canonicalName": "革マル派 (kakumaru-ha)",
+  "aliases": [
+    "革マル派 (kakumaru-ha)"
+  ]
+}

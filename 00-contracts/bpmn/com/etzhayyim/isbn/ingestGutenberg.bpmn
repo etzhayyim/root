@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  isbn.etzhayyim.com — Project Gutenberg daily delta (autonomous).
+
+  Timer-start: every 24h. GutenDex JSON API pagination + fulltext
+  download. limit=200 per run.
+
+  No XRPC entry. No CF Worker. Pure BPMN-as-actor + pyzeebe handler.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_isbn_ingest_gutenberg"
+    targetNamespace="https://etzhayyim.ai/bpmn/isbn"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="isbn_ingest_gutenberg" name="isbn ingest Project Gutenberg (daily)" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="every 24h">
+      <bpmn:outgoing>Flow_Ingest</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Ingest" name="ingest Gutenberg + fulltext">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="isbn.gutenberg.ingest"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=true" target="fulltext"/>
+          <zeebe:input source="=200" target="limit"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Ingest</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Ingest" sourceRef="StartTimer" targetRef="Task_Ingest"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;isbn.ingest.gutenberg&quot;" target="action"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Ingest" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

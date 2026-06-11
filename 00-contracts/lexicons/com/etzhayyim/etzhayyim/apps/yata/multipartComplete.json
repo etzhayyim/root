@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.multipartComplete",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Complete a multipart upload. Caller MUST submit the parts list with their etags in order. Returns the final blob etag + cid + sizeBytes.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uploadId", "parts"],
+          "properties": {
+            "uploadId": {"type": "string"},
+            "parts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["partNumber", "etag"],
+                "properties": {
+                  "partNumber": {"type": "integer"},
+                  "etag": {"type": "string"}
+                }
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "bucketName", "objectKey", "etag", "sizeBytes"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "bucketName": {"type": "string"},
+            "objectKey": {"type": "string"},
+            "blobId": {"type": "string"},
+            "etag": {"type": "string"},
+            "cid": {"type": "string"},
+            "sizeBytes": {"type": "integer"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

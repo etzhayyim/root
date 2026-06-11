@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_sanctions_screen_entity"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-sanctions"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_sanctions_screen_entity" name="制裁スクリーニング" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Decide"/>
+
+    <!--
+      decision:
+        block         : matchScore >= 0.9
+        manual-review : matchScore >= 0.5
+        pass          : < 0.5
+    -->
+    <bpmn:serviceTask id="Task_Decide" name="decision 判定">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok LIMIT 1&quot;" target="query"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=if matchScore &gt;= 0.9 then &quot;block&quot; else if matchScore &gt;= 0.5 then &quot;manual-review&quot; else &quot;pass&quot;" target="decision"/>
+          <zeebe:output source="=matchScore &gt;= 0.5" target="requireManualReview"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Save" sourceRef="Task_Decide" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="screening 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_sanctions_screening&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, caller_org_id: callerOrgId,
+              candidate_name: candidateName, candidate_country: candidateCountry,
+              candidate_lei: candidateLei,
+              best_match_name: bestMatchName, best_match_program: bestMatchProgram,
+              match_score: matchScore, decision: decision,
+              require_manual_review: requireManualReview,
+              screened_at: screenedAt, created_at: string(now()),
+              owner_did: callerDid, sensitivity_ord: 2,
+              org_id: callerOrgId, user_id: callerDid, actor_id: &quot;sys.bpmn.open-sanctions&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Save" targetRef="Gate"/>
+
+    <bpmn:exclusiveGateway id="Gate" default="Flow_Pass">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Block</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Manual</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Pass</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Block" sourceRef="Gate" targetRef="Task_AuditBlock">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=decision = "block"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Manual" sourceRef="Gate" targetRef="Task_AuditManual">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=decision = "manual-review"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Pass" sourceRef="Gate" targetRef="Task_AuditPass"/>
+
+    <bpmn:serviceTask id="Task_AuditBlock" name="audit screen.block">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-sanctions.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSanctions.screen.block&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, candidateName: candidateName, matchScore: matchScore, bestMatchProgram: bestMatchProgram}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Block</bpmn:incoming><bpmn:outgoing>Flow_EB</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EB" sourceRef="Task_AuditBlock" targetRef="End_B"/>
+
+    <bpmn:serviceTask id="Task_AuditManual" name="audit screen.manualReview">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-sanctions.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSanctions.screen.manualReview&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, candidateName: candidateName, matchScore: matchScore}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Manual</bpmn:incoming><bpmn:outgoing>Flow_EM</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EM" sourceRef="Task_AuditManual" targetRef="End_M"/>
+
+    <bpmn:serviceTask id="Task_AuditPass" name="audit screen.pass">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-sanctions.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openSanctions.screen.pass&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, candidateName: candidateName, matchScore: matchScore}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Pass</bpmn:incoming><bpmn:outgoing>Flow_EP</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EP" sourceRef="Task_AuditPass" targetRef="End_P"/>
+
+    <bpmn:endEvent id="End_P"><bpmn:incoming>Flow_EP</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_M"><bpmn:incoming>Flow_EM</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_B"><bpmn:incoming>Flow_EB</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

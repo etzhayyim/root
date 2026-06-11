@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_fetch_and_embed" targetNamespace="https://etzhayyim.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="legal_corpus_fetch_and_embed" name="fetchAndEmbed" isExecutable="true">
+    <bpmn:startEvent id="Start" name="start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_FetchBody"/>
+    <bpmn:serviceTask id="Task_FetchBody" name="fetch body text">
+      <bpmn:extensionElements><zeebe:taskDefinition type="legal.corpus.fetchBodyText" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=canonicalUri" target="canonicalUri"/>
+          <zeebe:input source="=sourceId" target="sourceId"/>
+          <zeebe:output source="=bodyText" target="bodyText"/>
+          <zeebe:output source="=chars" target="bodyChars"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_W</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_W" sourceRef="Task_FetchBody" targetRef="Task_WriteBody"/>
+    <bpmn:serviceTask id="Task_WriteBody" name="write body_text to DB">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;UPDATE vertex_legal_corpus_document SET body_text = $1 WHERE vertex_id = $2&quot;" target="sql"/>
+          <zeebe:input source="=[bodyText, vertexId]" target="params"/>
+          <zeebe:output source="=updated" target="bodyUpdated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_W</bpmn:incoming><bpmn:outgoing>Flow_E</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_E" sourceRef="Task_WriteBody" targetRef="Task_Embed"/>
+    <bpmn:serviceTask id="Task_Embed" name="embed text">
+      <bpmn:extensionElements><zeebe:taskDefinition type="legal.corpus.embedText" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=bodyText" target="text"/>
+          <zeebe:output source="=embedding" target="embedding"/>
+          <zeebe:output source="=dim" target="embeddingDim"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_E</bpmn:incoming><bpmn:outgoing>Flow_U</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_U" sourceRef="Task_Embed" targetRef="Task_UpdateEmbed"/>
+    <bpmn:serviceTask id="Task_UpdateEmbed" name="write embedding to DB">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;UPDATE vertex_legal_corpus_document SET embedding_vec = $1::vector(1024), embedding_dim = $2, embedding_model = 'BAAI/bge-m3', embedding_at = now() WHERE vertex_id = $3&quot;" target="sql"/>
+          <zeebe:input source="=[embedding, embeddingDim, vertexId]" target="params"/>
+          <zeebe:output source="=updated" target="embedUpdated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_U</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_UpdateEmbed" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

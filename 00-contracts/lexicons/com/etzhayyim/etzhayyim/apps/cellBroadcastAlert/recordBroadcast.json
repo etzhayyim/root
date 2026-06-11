@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cellBroadcastAlert.recordBroadcast",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Cell broadcast / WEA / EU-Alert / J-Alert / SMS-CB alert (bridges floodEarlyWarning.flagMissedWarning + disaster-response + refugee-unhcr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "broadcastId",
+            "regionName",
+            "regime",
+            "messageKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "broadcastId": {
+              "type": "string"
+            },
+            "regionName": {
+              "type": "string"
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "us_wea",
+                "eu_alert_reversal",
+                "j_alert_jp",
+                "cbc_korea",
+                "brazil_sac",
+                "mexico_scnr",
+                "india_nda",
+                "gb_bt_emergency",
+                "uk_cell_alert",
+                "mx_mexico_alerta",
+                "cb112"
+              ]
+            },
+            "messageKind": {
+              "type": "string",
+              "enum": [
+                "amber_alert",
+                "imminent_threat",
+                "national_emergency",
+                "test",
+                "opt_in_promo",
+                "extreme_weather",
+                "terrorist_attack",
+                "infrastructure_attack",
+                "civil_defense",
+                "radiation",
+                "public_health"
+              ]
+            },
+            "missedWarningVid": {
+              "type": "string",
+              "description": "bridges floodEarlyWarning.flagMissedWarning"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

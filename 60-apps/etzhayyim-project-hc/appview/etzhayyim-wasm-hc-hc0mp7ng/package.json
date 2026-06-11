@@ -1,0 +1,16 @@
+{
+  "name": "etzhayyim-wasm-hc-hc0mp7ng",
+  "version": "1.0.0",
+  "description": "TS-native runtime component",
+  "main": "src/app.ts",
+  "scripts": {
+    "test": "echo \"no tests\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@etzhayyim/kotodama-host-sdk": "workspace:*"
+  }
+}

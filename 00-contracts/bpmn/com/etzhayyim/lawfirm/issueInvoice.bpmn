@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_lawfirm_issue_invoice" targetNamespace="https://etzhayyim.ai/bpmn/lawfirm" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="lawfirm_issue_invoice" name="issueInvoice" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_AggregateTime"/>
+    <bpmn:serviceTask id="Task_AggregateTime" name="aggregate time entries">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT SUM(hours * hourly_rate) AS total, COUNT(*) AS entry_count, currency FROM vertex_lawfirm_time_entry WHERE matter_uri = $1 AND billed_at IS NULL AND occurred_at &gt;= $2 AND occurred_at &lt; $3 GROUP BY currency LIMIT 1&quot;" target="sql"/>
+          <zeebe:input source="=[matterUri, periodStart, periodEnd]" target="params"/>
+          <zeebe:output source="=rows[1]" target="agg"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_R</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_R" sourceRef="Task_AggregateTime" targetRef="Task_RenderInvoice"/>
+    <bpmn:serviceTask id="Task_RenderInvoice" name="render invoice json">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.llm.json" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;Render a legal invoice line summary for matter &quot; + matterUri + &quot; covering &quot; + periodStart + &quot; to &quot; + periodEnd + &quot;. Total &quot; + agg.total + &quot; &quot; + agg.currency + &quot;. Output JSON with fields: lineItems[], subTotal, tax, total.&quot;" target="prompt"/>
+          <zeebe:output source="=response" target="invoiceJson"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_R</bpmn:incoming><bpmn:outgoing>Flow_W</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_W" sourceRef="Task_RenderInvoice" targetRef="Task_WriteInvoice"/>
+    <bpmn:serviceTask id="Task_WriteInvoice" name="write invoice record">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_lawfirm_invoice&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: &quot;at://&quot; + firmDid + &quot;/com.etzhayyim.apps.lawfirm.invoice/&quot; + invoiceId, matter_uri: matterUri, period_start: periodStart, period_end: periodEnd, total: agg.total, currency: agg.currency, body_json: invoiceJson, status: &quot;issued&quot;, issued_at: now, owner_did: firmDid, sensitivity_ord: 2, created_at: now}" target="row"/>
+          <zeebe:output source="=vertex_id" target="invoiceVid"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_W</bpmn:incoming><bpmn:outgoing>Flow_M</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_M" sourceRef="Task_WriteInvoice" targetRef="Task_MarkBilled"/>
+    <bpmn:serviceTask id="Task_MarkBilled" name="mark time entries billed">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;UPDATE vertex_lawfirm_time_entry SET billed_at = $1, invoice_uri = $2 WHERE matter_uri = $3 AND billed_at IS NULL AND occurred_at &gt;= $4 AND occurred_at &lt; $5&quot;" target="sql"/>
+          <zeebe:input source="=[now, invoiceVid, matterUri, periodStart, periodEnd]" target="params"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_M</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_MarkBilled" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

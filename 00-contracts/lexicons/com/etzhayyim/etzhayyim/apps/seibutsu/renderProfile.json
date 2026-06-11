@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.seibutsu.renderProfile",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Resolve a taxon DID to a kami_vegetation::TaxonomicProfile-shaped object for engine ingestion.",
+      "parameters": {
+        "type": "params",
+        "required": ["did"],
+        "properties": {
+          "did": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["commonName", "division", "habit", "leafShape", "canopy", "heightRange", "leafCount", "leafSize", "colorBase", "colorTip"],
+          "properties": {
+            "commonName": { "type": "string" },
+            "division": { "type": "string" },
+            "habit": { "type": "string" },
+            "arrangement": { "type": "string" },
+            "leafShape": { "type": "string" },
+            "canopy": { "type": "string" },
+            "heightRange": { "type": "array", "items": { "type": "number" } },
+            "stemRadiusBase": { "type": "number" },
+            "stemRadiusTop": { "type": "number" },
+            "leafCount": { "type": "integer" },
+            "leafSize": { "type": "number" },
+            "colorBase": { "type": "array", "items": { "type": "number" } },
+            "colorTip": { "type": "array", "items": { "type": "number" } }
+          }
+        }
+      }
+    }
+  }
+}

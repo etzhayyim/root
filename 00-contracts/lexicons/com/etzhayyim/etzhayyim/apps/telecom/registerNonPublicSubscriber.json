@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerNonPublicSubscriber",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NPN — enroll an existing 5G subscriber profile (Phase 4) into an SNPN or PNI-NPN with optional CAG membership and device class scope.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["profileId", "sponsoredByEnterpriseOrgId", "validUntil", "observedAt"],
+          "properties": {
+            "enrollmentId": { "type": "string" },
+            "profileId": { "type": "string" },
+            "snpnId": { "type": "string" },
+            "pniId": { "type": "string" },
+            "cagIds": { "type": "array", "items": { "type": "string" } },
+            "allowedDeviceClass": { "type": "string", "enum": ["smartphone", "iot_sensor", "robot", "vehicle", "drone", "amr", "vr_headset", "mixed"] },
+            "deviceCount": { "type": "integer" },
+            "sponsoredByEnterpriseOrgId": { "type": "string" },
+            "validUntil": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "enrollmentId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

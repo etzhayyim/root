@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.training.runBaienMx",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Baien-MX (ADR 2605101000) — train per-modality 1.58-bit projectors + the shared cross-modal fusion block on RisingWave-native multimodal samples (v_training_multimodal_sample snapshot). All NEW blocks are BitNet QAT (1.58-bit). Trunk frozen for v0. Modalities are explicit: caller declares which non-text branches to activate; text is always present.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["datasetSnapshotId", "modalities"],
+          "properties": {
+            "runId": {"type": "string"},
+            "baseModel": {"type": "string", "description": "BitNet trunk HF id; defaults to microsoft/bitnet-b1.58-2B-4T-bf16."},
+            "baseModelRevision": {"type": "string"},
+            "datasetSnapshotId": {"type": "string", "description": "Pinned snapshot of v_training_multimodal_sample."},
+            "modalities": {
+              "type": "array",
+              "items": {"type": "string", "knownValues": ["triple", "vec768", "vec4096fp8", "3dblob"]},
+              "minLength": 1,
+              "description": "Non-text branches to train. Text is implicit and always active."
+            },
+            "fusionLayerIndex": {"type": "integer", "description": "Trunk layer at which to insert the fusion block. Default 15 = L/2 for the 30-layer 2B trunk."},
+            "trunkFrozen": {"type": "boolean", "description": "Freeze the BitNet trunk during training. Default true for v0."},
+            "loraOverFirst4Layers": {"type": "boolean", "description": "Optional v1: per-modality rank-≤16 LoRA over the trunk's first 4 layers. Default false."},
+            "hyperparams": {
+              "type": "object",
+              "properties": {
+                "epochs": {"type": "number"},
+                "learningRate": {"type": "number", "description": "Default LR shared by projectors that do not appear in perModalityLearningRates."},
+                "batchSize": {"type": "integer"},
+                "maxSeqLen": {"type": "integer"},
+                "saveStepInterval": {"type": "integer"},
+                "perModalityLearningRates": {
+                  "type": "string",
+                  "description": "JSON-encoded {modality: lr} override map. Stored as a string because AT Lexicon does not allow free-form object values."
+                }
+              }
+            },
+            "evalBenches": {"type": "array", "items": {"type": "string"}},
+            "gpuTarget": {"type": "string"},
+            "seed": {"type": "integer"},
+            "rationale": {"type": "string", "maxLength": 2000}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "runId"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "runId": {"type": "string"},
+            "runVertexId": {"type": "string"},
+            "datasetSnapshotId": {"type": "string"},
+            "modalities": {"type": "array", "items": {"type": "string"}},
+            "fusionCheckpointId": {"type": "string", "description": "vertex_id of the kind=baien-mx-fusion checkpoint."},
+            "projectorCheckpoints": {
+              "type": "string",
+              "description": "JSON-encoded {modality: checkpointVertexId} map, one row per trained projector (kind=baien-mx-projector-{modality})."
+            },
+            "evalSummary": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-77dc05da3e26",
+  "entityId": "ent-77dc05da3e26",
+  "canonicalName": "taranjeet kambo",
+  "aliases": [
+    "taranjeet kambo"
+  ]
+}

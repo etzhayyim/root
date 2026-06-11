@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.petPrivacy.flagAccuracyPrivacyTradeoff",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Accuracy-vs-privacy tradeoff / re-identification incident (bridges cyber-incident + ai-governance + data-adequacy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "tradeoffId",
+            "deploymentVid",
+            "reportedAt"
+          ],
+          "properties": {
+            "tradeoffId": {
+              "type": "string"
+            },
+            "deploymentVid": {
+              "type": "string",
+              "description": "bridges registerDeployment"
+            },
+            "accuracyDeltaPct": {
+              "type": "number"
+            },
+            "reidentificationRiskTier": {
+              "type": "string",
+              "enum": [
+                "negligible",
+                "low",
+                "medium",
+                "high",
+                "breached"
+              ]
+            },
+            "remedyRequired": {
+              "type": "string",
+              "enum": [
+                "tighten_epsilon",
+                "federated",
+                "aggregate",
+                "suppress",
+                "algorithmic_audit",
+                "k_anon_bump"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

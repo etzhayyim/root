@@ -1,0 +1,12 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gamePlayUploader.calculateReward",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Calculate reward amount for approved gameplay duration at the campaign rate.",
+      "parameters": { "type": "params", "required": ["durationSec"], "properties": { "durationSec": { "type": "integer" }, "rateJpyPerHour": { "type": "integer" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "required": ["rewardJpy"], "properties": { "rewardJpy": { "type": "integer" }, "rateJpyPerHour": { "type": "integer" }, "durationSec": { "type": "integer" } } } }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kyber.reportUsageToStripe",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Flush monthly usage for all paid tenants to Stripe Meter API. Idempotent: skips tenants already reported for the period. Scheduled monthly via BPMN contract timer (R/P1M). FUTURE: delegate to com.etzhayyim.apps.stripe.* when stripe actor is available (ADR-2605072300).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "periodMonth": { "type": "string", "description": "YYYY-MM; defaults to previous month" },
+            "dryRun":      { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "reported", "skipped"],
+          "properties": {
+            "ok":       { "type": "boolean" },
+            "reported": { "type": "integer", "description": "Number of meter events submitted" },
+            "skipped":  { "type": "integer", "description": "Already reported or free-tier tenants" },
+            "errors":   { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  }
+}

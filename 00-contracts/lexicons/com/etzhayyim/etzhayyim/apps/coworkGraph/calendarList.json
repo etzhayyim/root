@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coworkGraph.calendarList",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "指定期間のカレンダーイベントを取得する。Graph API /users/{userId}/calendarView をラップ。",
+      "parameters": {
+        "type": "params",
+        "required": ["userId", "startDateTime", "endDateTime"],
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "UPN (user@domain.com) または Graph API user ID"
+          },
+          "startDateTime": {
+            "type": "string",
+            "description": "開始日時 (ISO 8601 形式、例: 2026-04-20T00:00:00Z)"
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "終了日時 (ISO 8601 形式、例: 2026-04-27T00:00:00Z)"
+          },
+          "top": {
+            "type": "integer",
+            "description": "取得件数 (最大 100)",
+            "default": 50
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": { "type": "unknown" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-dc51bf520002",
+  "entityId": "ent-dc51bf520002",
+  "canonicalName": "松岡義明",
+  "aliases": [
+    "松岡義明",
+    "Matsuoka Yoshiaki",
+    "ymatsuoka@db3.so-net.ne.jp"
+  ],
+  "kyumeiKoji": {
+    "performedAt": "2026-04-05T00:00:00Z",
+    "model": "gemma4",
+    "domainSummary": "Matsuoka Yoshiaki uses a So-net ISP email (db3 regional node), suggesting non-institutional communication preference and operational privacy. Hostile relationship with Etzhayyim Co., Ltd.",
+    "emailDomain": "db3.so-net.ne.jp",
+    "emailProvider": "Sony Network Communications (So-net)",
+    "emailNode": "db3",
+    "knowledgeEdges": [
+      {"from": "matsuoka_yoshiaki", "relation": "USES_EMAIL_DOMAIN", "to": "db3.so-net.ne.jp"},
+      {"from": "matsuoka_yoshiaki", "relation": "HOSTILE_TO", "to": "etzhayyim_co_ltd"}
+    ]
+  }
+}

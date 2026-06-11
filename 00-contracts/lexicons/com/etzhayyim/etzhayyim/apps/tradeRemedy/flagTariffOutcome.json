@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.tradeRemedy.flagTariffOutcome",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Final tariff / injury determination / retroactive / revocation (bridges wtoTradeCbam.flagDisputeEscalation + ustr-section-301 + customs-declaration)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "investigationVid",
+            "outcomeKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "investigationVid": {
+              "type": "string",
+              "description": "bridges recordInvestigation"
+            },
+            "outcomeKind": {
+              "type": "string",
+              "enum": [
+                "final_ad_duty",
+                "final_cvd_duty",
+                "preliminary_injury",
+                "no_injury",
+                "revocation",
+                "critical_circumstances",
+                "negative_suspension",
+                "sunset_extended",
+                "scope_narrowed",
+                "scope_broadened",
+                "individual_rate"
+              ]
+            },
+            "dutyPctWeighted": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

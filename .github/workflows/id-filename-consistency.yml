@@ -1,0 +1,92 @@
+name: id-filename-consistency
+
+# Validate id↔filename consistency per 7th-axis registry enforcement
+# (ADR-2605271200 cycle 61; defense-in-depth wired cycle 69).
+# Tracker mode — baseline 53 known mismatches (mostly rename-pending
+# per CLAUDE.md root §"Do Not" etzhayyim/amanomibashira invariants).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '90-docs/**/*.md'
+      - '90-docs/_registry/docs.json'
+      - '70-tools/scripts/docs/validate-id-filename-consistency.py'
+      - '70-tools/scripts/docs/test_validate_id_filename_consistency.py'
+      - '.github/workflows/id-filename-consistency.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '90-docs/**/*.md'
+      - '90-docs/_registry/docs.json'
+      - '70-tools/scripts/docs/validate-id-filename-consistency.py'
+      - '70-tools/scripts/docs/test_validate_id_filename_consistency.py'
+      - '.github/workflows/id-filename-consistency.yml'
+  schedule:
+    # Nightly at 03:59 UTC = ~12:59 JST. Off-minute :59 closes the
+    # 6-min × 8 axes spread (deps-toml :17 → id-filename :59).
+    - cron: '59 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: id-filename-consistency
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run validator unit tests (cycle 61; 13/13 must pass)
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: |
+          python3 -m pytest \
+            70-tools/scripts/docs/test_validate_id_filename_consistency.py \
+            -v
+
+      - name: Validate id-filename consistency (tracker)
+        run: |
+          python3 70-tools/scripts/docs/validate-id-filename-consistency.py \
+            --json > /tmp/id-filename-audit.json
+          cat /tmp/id-filename-audit.json
+
+      - name: Step summary
+        if: always()
+        run: |
+          if [ -f /tmp/id-filename-audit.json ]; then
+            total=$(python3 -c "import json; print(json.load(open('/tmp/id-filename-audit.json'))['total'])")
+            {
+              echo "## id-filename-consistency"
+              echo ""
+              echo "- **Total mismatches**: ${total}"
+              echo ""
+              echo "Baseline as of cycle 62 (2026-05-27): 53 mismatches"
+              echo "  - Initial cycle 61 found 88; auto-fix + permissive matching → 57"
+              echo "  - Cycle 62 cleaned 4 (3 engineering + 1 off-by-45 typo) → 53"
+              echo "  - Remaining 53 are mostly rename-pending per CLAUDE.md §\"Do Not\""
+              echo "    (etzhayyimcojp → etzhayyim / amanomibashira → etzhayyim cutover invariants)"
+              echo ""
+              if [ "$total" -gt 53 ]; then
+                echo "⚠️ Total **above baseline (53)** — new id↔filename drift."
+              elif [ "$total" -lt 53 ]; then
+                echo "✅ Total **below baseline** — cleanup landed."
+              else
+                echo "✓ Total matches baseline (53)."
+              fi
+              echo ""
+              echo "**Mode**: NIGHTLY TRACKER. Promotion to PR-gate awaits rename-cutover wave (ADR-2605211845)."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

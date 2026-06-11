@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bluesky.searchPosts",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Keyword + semantic search over vertex_bluesky_post. 47条の5 snippet (≤200 char) + source bsky.app link back を返す。LLM 訓練用ダンプ用途は禁止。",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "q": { "type": "string", "description": "検索 query (keyword + semantic)" },
+          "lang": { "type": "string" },
+          "sinceDate": { "type": "string", "format": "date" },
+          "untilDate": { "type": "string", "format": "date" },
+          "limit": { "type": "integer", "default": 25, "maximum": 100 },
+          "cursor": { "type": "string" }
+        },
+        "required": ["q"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "results": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sourceUri": { "type": "string", "description": "at:// URI (原典)" },
+                  "bskyUrl": { "type": "string", "description": "bsky.app link back" },
+                  "handle": { "type": "string" },
+                  "snippet": { "type": "string", "description": "≤200 char 抜粋" },
+                  "createdAt": { "type": "string" },
+                  "score": { "type": "number", "description": "semantic similarity score (0..1)" }
+                },
+                "required": ["sourceUri", "bskyUrl", "snippet"]
+              }
+            },
+            "cursor": { "type": "string" }
+          },
+          "required": ["results"]
+        }
+      }
+    }
+  }
+}

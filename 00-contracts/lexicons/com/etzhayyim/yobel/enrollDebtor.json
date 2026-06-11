@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yobel.enrollDebtor",
+  "description": "Debtor enrollment in a yobel rite. The debtor's eligibility is gated by Council SBT Lv1+ membership AND the DMN eligibility-by-rite-type rule for the parent rite. Enrollment is per-creditor-per-debt: a debtor can enroll one row per active debt across multiple creditors who have themselves enrolled. Per CLAUDE.md `Eligibility` row + ADR-2605201800.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "debtorEnrollmentId",
+          "riteId",
+          "debtorDid",
+          "creditorEnrollmentId",
+          "debtId",
+          "councilSbtAttestationCid",
+          "dmnEligibilityAttestationCid",
+          "voluntaryAttestation"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "debtorEnrollmentId": {
+            "type": "string",
+            "description": "Stable identifier; usually `<creditorEnrollmentId>:<debtId>`."
+          },
+          "riteId": {
+            "type": "string",
+            "description": "Parent declareRite.riteId."
+          },
+          "debtorDid": {
+            "type": "string",
+            "description": "DID of the enrolling debtor."
+          },
+          "creditorEnrollmentId": {
+            "type": "string",
+            "description": "Parent enrollCreditor.enrollmentId. The (creditorEnrollmentId, debtId) pair MUST resolve to a row inside enrollCreditor.debts[]."
+          },
+          "debtId": {
+            "type": "string",
+            "description": "References enrollCreditor.debts[].debtId. The debt MUST exist in the creditor's enrollment portfolio."
+          },
+          "councilSbtAttestationCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CID of the on-chain Council SBT attestation proving debtor's Lv1+ membership at enrollment time."
+          },
+          "dmnEligibilityAttestationCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CID of the DMN eligibility-by-rite-type evaluation trace. dmn/eligibility-by-rite-type.md per ADR-2605201800."
+          },
+          "voluntaryAttestation": {
+            "type": "boolean",
+            "const": true,
+            "description": "Structural anti-coercion — the debtor MUST attest voluntary participation. Schema rejects involuntary enrollment (Charter Rider §2(a))."
+          },
+          "debtorHandleHashMatchesCreditor": {
+            "type": "boolean",
+            "description": "Cross-validation flag: TRUE if enrollCreditor.debts[].debtorHandleHash matches sha256(debtorDid). The audit_witness cell halts on FALSE values (creditor-debtor identity mismatch indicates a coordination bug or attempted false-enrollment)."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpMlit.flagInfraGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Infrastructure gap / aging / disaster vulnerability (bridges damSafety + transitDelay + railIncident)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordAction"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "aging_road",
+                "aging_bridge",
+                "aging_water",
+                "aging_sewer",
+                "port_capacity",
+                "rural_transport_collapse",
+                "tunnel_collapse",
+                "tsunami_protection",
+                "earthquake_retrofit",
+                "ev_charging_lag",
+                "airport_capacity",
+                "slot_constraint",
+                "linear_overrun",
+                "metro_outage",
+                "new_disaster_norm"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

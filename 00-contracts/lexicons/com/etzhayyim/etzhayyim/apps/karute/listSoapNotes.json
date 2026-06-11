@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.listSoapNotes",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List SOAP notes for a patient (public meta only).",
+      "parameters": {
+        "type": "params",
+        "required": ["patientDid"],
+        "properties": {
+          "patientDid": {"type": "string"},
+          "encounterDid": {"type": "string"},
+          "authorDid": {"type": "string"},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 50},
+          "offset": {"type": "integer", "minimum": 0, "default": 0}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rkey": {"type": "string"},
+                  "encryptedCid": {"type": "string"},
+                  "encounterDid": {"type": "string"},
+                  "authorDid": {"type": "string"},
+                  "occurredAt": {"type": "string", "format": "datetime"},
+                  "signed": {"type": "boolean"}
+                }
+              }
+            },
+            "offset": {"type": "integer"},
+            "limit": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

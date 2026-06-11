@@ -1,0 +1,65 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "datacenter-change-review-v1",
+  "version": 1,
+  "title": "データセンター変更審査",
+  "tier": 1,
+  "actorRole": "dc-change-manager",
+  "components": [
+    {
+      "key": "summary",
+      "type": "fieldset",
+      "label": "審査対象サマリ",
+      "components": [
+        { "key": "facilityId", "label": "施設 ID", "type": "textfield", "readOnly": true },
+        { "key": "requestId", "label": "要求 ID", "type": "textfield", "readOnly": true },
+        { "key": "operationKind", "label": "種別", "type": "textfield", "readOnly": true },
+        { "key": "riskClass", "label": "リスク区分", "type": "textfield", "readOnly": true },
+        { "key": "window", "label": "予定時間帯", "type": "textfield", "readOnly": true },
+        { "key": "customerImpact", "label": "顧客影響", "type": "textfield", "readOnly": true }
+      ]
+    },
+    {
+      "key": "checks",
+      "type": "fieldset",
+      "label": "確認チェック",
+      "components": [
+        { "key": "runbookAttached", "label": "runbook / 手順書を確認", "type": "checkbox", "required": true },
+        { "key": "rollbackDefined", "label": "rollback 手順を確認", "type": "checkbox", "required": true },
+        { "key": "staffingReady", "label": "実施体制・当番体制を確認", "type": "checkbox", "required": true },
+        { "key": "blastRadiusAccepted", "label": "影響範囲を承認", "type": "checkbox", "required": true },
+        { "key": "customerNoticeDone", "label": "必要な周知を完了", "type": "checkbox", "required": true }
+      ]
+    },
+    {
+      "key": "changeDecision",
+      "type": "fieldset",
+      "label": "審査結果",
+      "components": [
+        {
+          "key": "decision",
+          "label": "判定",
+          "type": "select",
+          "required": true,
+          "options": [
+            { "value": "approve", "label": "承認" },
+            { "value": "reject", "label": "却下" }
+          ]
+        },
+        {
+          "key": "comment",
+          "label": "コメント",
+          "type": "textarea",
+          "validate": { "maxLength": 1000 }
+        },
+        {
+          "key": "reviewedAt",
+          "label": "審査日時",
+          "type": "textfield",
+          "required": true,
+          "description": "ISO-8601 datetime"
+        }
+      ]
+    }
+  ]
+}

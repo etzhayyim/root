@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_saikin_horizontal_transfer" targetNamespace="https://etzhayyim.ai/bpmn/saikin" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="saikin_horizontal_transfer_cycle" name="horizontal-transfer-cycle" isExecutable="true">
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT20M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_ProbeEnvironment"/>
+    <bpmn:serviceTask id="Task_ProbeEnvironment" name="probe-environment">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="saikin.probe_environment"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=signalCount" target="signalCount"/>
+          <zeebe:output source="=signals" target="signals"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_GW" sourceRef="Task_ProbeEnvironment" targetRef="GW_HasSignals"/>
+    <bpmn:exclusiveGateway id="GW_HasSignals" name="signals found?">
+      <bpmn:incoming>Flow_GW</bpmn:incoming>
+      <bpmn:outgoing>Flow_NoSignals</bpmn:outgoing>
+      <bpmn:outgoing>Flow_HasSignals</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_NoSignals" sourceRef="GW_HasSignals" targetRef="End">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=signalCount = 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:sequenceFlow id="Flow_HasSignals" sourceRef="GW_HasSignals" targetRef="Task_TransferSignal">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=signalCount > 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_TransferSignal" name="transfer-signal">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="saikin.transfer_signal"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=signals" target="signals"/>
+          <zeebe:output source="=transferId" target="transferId"/>
+          <zeebe:output source="=status" target="transferStatus"/>
+          <zeebe:output source="=signalId" target="signalId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasSignals</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW2</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_GW2" sourceRef="Task_TransferSignal" targetRef="GW_ColonyOrLyse"/>
+    <bpmn:exclusiveGateway id="GW_ColonyOrLyse" name="transfer complete?">
+      <bpmn:incoming>Flow_GW2</bpmn:incoming>
+      <bpmn:outgoing>Flow_FormColony</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Lyse</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_FormColony" sourceRef="GW_ColonyOrLyse" targetRef="Task_FormColony">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=transferStatus = "transferred"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="Task_FormColony" name="form-colony">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="saikin.form_colony"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=signalId" target="signalId"/>
+          <zeebe:input source="=transferId" target="transferId"/>
+          <zeebe:output source="=colonyId" target="colonyId"/>
+          <zeebe:output source="=memberCount" target="memberCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_FormColony</bpmn:incoming>
+      <bpmn:outgoing>Flow_AfterColony</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_AfterColony" sourceRef="Task_FormColony" targetRef="Task_HandoffToKi"/>
+    <bpmn:serviceTask id="Task_HandoffToKi" name="handoff-to-ki">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="saikin.handoff_to_ki"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=colonyId" target="colonyId"/>
+          <zeebe:input source="=signalId" target="signalId"/>
+          <zeebe:output source="=kiAbsorbId" target="kiAbsorbId"/>
+          <zeebe:output source="=kiAbsorbVertexId" target="kiAbsorbVertexId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AfterColony</bpmn:incoming>
+      <bpmn:outgoing>Flow_AfterKi</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_Lyse" sourceRef="GW_ColonyOrLyse" targetRef="Task_Lyse">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=transferStatus = "completed"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="Task_Lyse" name="lyse">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="saikin.lyse"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=signalId" target="signalId"/>
+          <zeebe:input source="=&quot;fully-transferred&quot;" target="reason"/>
+          <zeebe:output source="=lysed" target="lysed"/>
+          <zeebe:output source="=releasedAt" target="releasedAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Lyse</bpmn:incoming>
+      <bpmn:outgoing>Flow_AfterLyse</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_AfterKi" sourceRef="Task_HandoffToKi" targetRef="GW_MergeToAudit"/>
+    <bpmn:sequenceFlow id="Flow_AfterLyse" sourceRef="Task_Lyse" targetRef="GW_MergeToAudit"/>
+
+    <bpmn:exclusiveGateway id="GW_MergeToAudit" name="merge">
+      <bpmn:incoming>Flow_AfterKi</bpmn:incoming>
+      <bpmn:incoming>Flow_AfterLyse</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="GW_MergeToAudit" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:saikin.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;saikin.horizontal_transfer&quot;" target="action"/>
+          <zeebe:input source="={transferId: transferId, colonyId: colonyId, signalId: signalId, kiAbsorbId: kiAbsorbId, lysed: lysed}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_NoSignals</bpmn:incoming>
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

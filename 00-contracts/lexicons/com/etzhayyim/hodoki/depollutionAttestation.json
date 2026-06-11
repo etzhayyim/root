@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hodoki.depollutionAttestation",
+  "description": "ELV depollution attestation (L1b). Fluids drained + F-gas captured + airbags neutralized + battery disconnected. Per ADR-2605261215 L1b (G6 + G7 + G10).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "fluids": {
+            "type": "object",
+            "properties": {
+              "fuel": {"type": "unknown"},
+              "engineOil": {"type": "unknown"},
+              "coolant": {"type": "unknown"},
+              "brakeFluid": {"type": "unknown"},
+              "washerFluid": {"type": "unknown"},
+              "transmissionFluid": {"type": "unknown"},
+              "totalLiters": {"type": "number"},
+              "nukuRobotDispense": {"type": "boolean"}
+            }
+          },
+          "fgasCapture": {
+            "type": "object",
+            "properties": {
+              "refrigerantType": {"type": "string", "knownValues": ["R1234yf", "R134a", "R290", "R744"]},
+              "preChargeGramsLabel": {"type": "integer"},
+              "recoveredGrams": {"type": "integer"},
+              "recoveryRatePct": {"type": "number"},
+              "g6Limit_min_pct": {"type": "number", "const": 95.0},
+              "g6Compliant": {"type": "boolean"},
+              "atmosphericVentingDetected": {"type": "boolean", "const": false},
+              "captureStationDid": {"type": "string"},
+              "leakRateGramsPerHr": {"type": "number"},
+              "recoveredContainerCid": {"type": "string"}
+            },
+            "required": ["refrigerantType", "recoveredGrams", "recoveryRatePct", "g6Compliant", "atmosphericVentingDetected"]
+          },
+          "airbags": {
+            "type": "object",
+            "properties": {
+              "airbagsLocated": {"type": "integer"},
+              "airbagsManualDeploymentMethod": {"type": "string"},
+              "airbagsDeployedSafely": {"type": "integer"},
+              "pyrotechnicResidueCollected": {"type": "boolean"},
+              "g7ThermalEventLog": {"type": "string"},
+              "g10SbtGatedOperator": {"type": "boolean", "const": true}
+            }
+          },
+          "batteryDisconnect": {
+            "type": "object",
+            "properties": {
+              "primaryBattery": {"type": "unknown"},
+              "auxBattery12V": {"type": "unknown"},
+              "primaryDisconnected": {"type": "boolean"},
+              "auxDisconnected": {"type": "boolean"},
+              "thermalEventLog": {"type": "string"},
+              "removedToBatteryHandlingCell": {"type": "boolean"}
+            }
+          },
+          "g6Compliant": {"type": "boolean", "const": true},
+          "g7Compliant": {"type": "boolean", "const": true},
+          "g8Compliant": {"type": "boolean", "const": true},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "fgasCapture", "g6Compliant", "g7Compliant", "g8Compliant", "attestingRobots"]
+      }
+    }
+  }
+}

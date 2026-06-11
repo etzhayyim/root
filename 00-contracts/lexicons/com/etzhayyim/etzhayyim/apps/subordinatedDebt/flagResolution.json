@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.subordinatedDebt.flagResolution",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Resolution write-down / AT1 haircut / junior-senior inversion (bridges receiverBankruptcy.flagCramDown + enforcementAction + stablecoin-reserves)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "instrumentVid",
+            "eventKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "instrumentVid": {
+              "type": "string",
+              "description": "bridges recordInstrument"
+            },
+            "eventKind": {
+              "type": "string",
+              "enum": [
+                "at1_writedown",
+                "cet1_touch",
+                "junior_senior_inversion",
+                "equity_superior_to_debt",
+                "mandatory_conversion",
+                "coupon_suspension",
+                "contingent_redemption",
+                "stopped_interest",
+                "priority_rulemaking",
+                "new_waterfall"
+              ]
+            },
+            "lossHaircut": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

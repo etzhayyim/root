@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPatent.validateSeiyakuBatchDraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Validate that an expired-patent open-seiyaku batch draft has the required startBatchRecord fields and minimum manufacturing context.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "batchDraftVid": { "type": "string" },
+            "batchPayload": { "type": "object" },
+            "manufacturerOrgId": { "type": "string" },
+            "plantOrgId": { "type": "string" },
+            "productCode": { "type": "string" },
+            "batchNumber": { "type": "string" },
+            "dosageForm": { "type": "string" },
+            "targetMarket": { "type": "string" },
+            "dryRun": { "type": "boolean" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "passed": { "type": "boolean" },
+            "status": { "type": "string" },
+            "findings": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

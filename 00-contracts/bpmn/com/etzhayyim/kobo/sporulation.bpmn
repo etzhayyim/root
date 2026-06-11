@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_kobo_sporulation" targetNamespace="https://etzhayyim.ai/bpmn/kobo" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="kobo_sporulation" name="sporulation" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Sporulate"/>
+    <bpmn:serviceTask id="Task_Sporulate" name="sporulate">
+      <bpmn:extensionElements><zeebe:taskDefinition type="kobo.sporulate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=sporeVertexId" target="sporeVertexId"/>
+          <zeebe:input source="=agentDid" target="agentDid"/>
+          <zeebe:input source="=agentVertexId" target="agentVertexId"/>
+          <zeebe:input source="=blobCbor" target="blobCbor"/>
+          <zeebe:input source="=revivalKeyHint" target="revivalKeyHint"/>
+          <zeebe:input source="=quorumN" target="quorumN"/>
+          <zeebe:input source="=callerDid" target="callerDid"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_C</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_C" sourceRef="Task_Sporulate" targetRef="Task_DistributeCustody"/>
+    <!-- Custody distribution is a cross-system dispatch — kept as generic.pds.dispatch -->
+    <bpmn:serviceTask id="Task_DistributeCustody" name="distribute-custody">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.houshi.storeSpore&quot;" target="nsid"/>
+          <zeebe:input source="={sporeVertexId: sporeVertexId, custodianDids: custodianDids}" target="body"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_C</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_DistributeCustody" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:kobo.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;kobo.sporulate&quot;" target="action"/>
+          <zeebe:input source="={agentDid: agentDid, sporeVertexId: sporeVertexId}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

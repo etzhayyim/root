@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_logistics_lastmile_dispatch_leg"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-logistics-lastmile"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="open_logistics_lastmile_dispatch_leg" name="dispatchLeg" isExecutable="true">
+    <bpmn:startEvent id="Start" name="dispatch requested">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_ValidateLeg"/>
+
+    <bpmn:serviceTask id="Task_ValidateLeg" name="validate route and SLA">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.rules.evaluate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;open-logistics-lastmile.dispatch.v1&quot;" target="ruleSet"/>
+          <zeebe:input source="={
+              vertexId:             vertexId,
+              legId:                legId,
+              carrierScheduleVid:   carrierScheduleVid,
+              customsClearanceVid:  customsClearanceVid,
+              mode:                 mode,
+              originPortVid:        originPortVid,
+              destAddress:          destAddress,
+              plannedArrival:       plannedArrival,
+              slaMinutes:           slaMinutes,
+              temperatureRequired:  coalesce(temperatureRequired, false),
+              hazardousGoods:       coalesce(hazardousGoods, false)
+          }" target="facts"/>
+          <zeebe:output source="=passed" target="dispatchValidationPassed"/>
+          <zeebe:output source="=findings" target="dispatchFindings"/>
+          <zeebe:output source="=coalesce(exceptionTier, &quot;normal&quot;)" target="exceptionTier"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_Validated</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Validated" sourceRef="Task_ValidateLeg" targetRef="Gate_ValidationPassed"/>
+
+    <bpmn:exclusiveGateway id="Gate_ValidationPassed" name="validation passed?" default="Flow_Invalid">
+      <bpmn:incoming>Flow_Validated</bpmn:incoming>
+      <bpmn:outgoing>Flow_Valid</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Invalid</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Valid" sourceRef="Gate_ValidationPassed" targetRef="Gate_CustomsReady">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=dispatchValidationPassed = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Invalid" sourceRef="Gate_ValidationPassed" targetRef="Task_AuditRejected"/>
+
+    <bpmn:exclusiveGateway id="Gate_CustomsReady" name="customs ready?" default="Flow_CustomsPending">
+      <bpmn:incoming>Flow_Valid</bpmn:incoming>
+      <bpmn:outgoing>Flow_CustomsReady</bpmn:outgoing>
+      <bpmn:outgoing>Flow_CustomsPending</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_CustomsReady" sourceRef="Gate_CustomsReady" targetRef="Gate_SpecialHandling">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=customsClearanceVid != null</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_CustomsPending" sourceRef="Gate_CustomsReady" targetRef="Task_AuditCustomsPending"/>
+
+    <bpmn:serviceTask id="Task_AuditCustomsPending" name="audit customs pending">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openLogistics_lastmile.dispatch.customsPending&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, legId: legId, findings: dispatchFindings}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_CustomsPending</bpmn:incoming>
+      <bpmn:outgoing>Flow_CustomsEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_CustomsEnd" sourceRef="Task_AuditCustomsPending" targetRef="End_Rejected"/>
+
+    <bpmn:exclusiveGateway id="Gate_SpecialHandling" name="special handling?" default="Flow_NoSpecialHandling">
+      <bpmn:incoming>Flow_CustomsReady</bpmn:incoming>
+      <bpmn:outgoing>Flow_SpecialHandling</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoSpecialHandling</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_SpecialHandling" sourceRef="Gate_SpecialHandling" targetRef="Task_SpecialHandlingCheck">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=temperatureRequired = true or hazardousGoods = true or exceptionTier = "controlled"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoSpecialHandling" sourceRef="Gate_SpecialHandling" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_SpecialHandlingCheck" name="check cold-chain / hazmat capacity">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.rules.evaluate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;open-logistics-lastmile.special-handling.v1&quot;" target="ruleSet"/>
+          <zeebe:input source="={
+              legId:                legId,
+              mode:                 mode,
+              carrierScheduleVid:   carrierScheduleVid,
+              temperatureRequired:  temperatureRequired,
+              hazardousGoods:       hazardousGoods,
+              plannedArrival:       plannedArrival
+          }" target="facts"/>
+          <zeebe:output source="=passed" target="specialHandlingCleared"/>
+          <zeebe:output source="=findings" target="specialHandlingFindings"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_SpecialHandling</bpmn:incoming>
+      <bpmn:outgoing>Flow_SpecialGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_SpecialGate" sourceRef="Task_SpecialHandlingCheck" targetRef="Gate_SpecialCleared"/>
+
+    <bpmn:exclusiveGateway id="Gate_SpecialCleared" name="special cleared?" default="Flow_SpecialRejected">
+      <bpmn:incoming>Flow_SpecialGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_SpecialCleared</bpmn:outgoing>
+      <bpmn:outgoing>Flow_SpecialRejected</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_SpecialCleared" sourceRef="Gate_SpecialCleared" targetRef="Task_Save">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=specialHandlingCleared = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_SpecialRejected" sourceRef="Gate_SpecialCleared" targetRef="Task_AuditRejected"/>
+
+    <bpmn:serviceTask id="Task_Save" name="save dispatch leg">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_logistics_lastmile&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:             vertexId,
+              leg_id:                legId,
+              carrier_schedule_vid:  carrierScheduleVid,
+              customs_clearance_vid: customsClearanceVid,
+              mode:                  mode,
+              origin_port_vid:       originPortVid,
+              dest_address:          destAddress,
+              planned_arrival:       plannedArrival,
+              sla_minutes:           slaMinutes,
+              exception_tier:        exceptionTier,
+              temperature_required:  coalesce(temperatureRequired, false),
+              hazardous_goods:       coalesce(hazardousGoods, false),
+              status:                &quot;active&quot;,
+              created_at:            string(now()),
+              owner_did:             callerDid,
+              sensitivity_ord:       1,
+              org_id:                callerDid,
+              user_id:               callerDid,
+              actor_id:              &quot;sys.bpmn.open-logistics-lastmile&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoSpecialHandling</bpmn:incoming>
+      <bpmn:incoming>Flow_SpecialCleared</bpmn:incoming>
+      <bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit dispatch">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openLogistics_lastmile.dispatch.leg&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:       vertexId,
+              legId:          legId,
+              mode:           mode,
+              plannedArrival: plannedArrival,
+              slaMinutes:     slaMinutes,
+              exceptionTier:  exceptionTier
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditRejected" name="audit dispatch rejected">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openLogistics_lastmile.dispatch.rejected&quot;" target="action"/>
+          <zeebe:input source="={
+              vertexId:                vertexId,
+              legId:                   legId,
+              dispatchFindings:        dispatchFindings,
+              specialHandlingFindings: specialHandlingFindings
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Invalid</bpmn:incoming>
+      <bpmn:incoming>Flow_SpecialRejected</bpmn:incoming>
+      <bpmn:outgoing>Flow_RejectedEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_RejectedEnd" sourceRef="Task_AuditRejected" targetRef="End_Rejected"/>
+
+    <bpmn:endEvent id="End" name="dispatched">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="End_Rejected" name="not dispatched">
+      <bpmn:incoming>Flow_CustomsEnd</bpmn:incoming>
+      <bpmn:incoming>Flow_RejectedEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

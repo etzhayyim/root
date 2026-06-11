@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.panamaDrought.recordLakeLevel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Gatun Lake 水位",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "measurementId",
+            "lake",
+            "levelFeetPld",
+            "measuredAt"
+          ],
+          "properties": {
+            "measurementId": {
+              "type": "string"
+            },
+            "lake": {
+              "type": "string",
+              "enum": [
+                "gatun",
+                "alhajuela",
+                "miraflores"
+              ]
+            },
+            "levelFeetPld": {
+              "type": "number",
+              "description": "feet PLD (Panama Lake Datum)"
+            },
+            "levelNormalFeet": {
+              "type": "number"
+            },
+            "measuredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "droughtTier": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "elevated",
+                "severe",
+                "critical"
+              ]
+            },
+            "requireRestrictionNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.euSummitConclusion.flagDilution",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Conclusion text dilution / footnote / member-state opt-out (bridges councilPresidency.flagPriorityShift + eu-trilogue + judicial-review-gdpr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "conclusionVid",
+            "dilutionKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "conclusionVid": {
+              "type": "string",
+              "description": "bridges recordConclusion"
+            },
+            "dilutionKind": {
+              "type": "string",
+              "enum": [
+                "last_minute_redraft",
+                "footnote",
+                "square_brackets_remain",
+                "language_softened",
+                "commitments_dropped",
+                "review_clause",
+                "funding_postponed",
+                "compromise_text",
+                "veto_threat",
+                "national_reservation",
+                "absentee_member"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+;; giemon kabitori (黴取り) — part ledger (台帳), Datomic-style EDN.
+;;
+;; SSoT for the per-part product/manufacturer/procurement metadata of the
+;; mold-removal probe simulated by `giemon_kabitori`. This file is the canonical
+;; "台帳"; `sbom_gen.py` generates a CycloneDX SBOM and a kotoba kg.ingest_batch
+;; body from it, and `ingest.sh` loads it into the kotoba EAVT store so it is
+;; queryable via the kotoba API (SPARQL / Datalog).
+;;
+;; :part/procurement  :cots       — buy off-the-shelf (has :part/manufacturer + :part/purl)
+;;                    :custom-fab — commission / fabricate (has :part/fab-process; no purl)
+;; :part/sourcing     :representative — an R0 design selection, NOT a procurement-verified
+;;                                      purchase decision. Treat manufacturer/MPN as
+;;                                      defensible examples to be confirmed before buying.
+;; :part/sim-feature  links the part to a render/collider feature_id in the sim
+;;                    (giemon_kabitori.urdf / kami-app-giemon), where applicable.
+
+{:bom/meta
+ {:bom/of          "giemon-kabitori"
+  :bom/revision    "v1"
+  :bom/title       "Giemon Kabitori mold-removal probe — R0 benchtop BOM"
+  :bom/currency    "JPY"
+  :bom/sourcing    :representative
+  :bom/note        "R0 design BOM. Manufacturer/MPN are representative selections, not a finalized purchase list. Safety: C-group (suction + H13 HEPA + biocide) is mandatory for spore containment; see BOM.md."}
+
+ :bom/parts
+ [;; ── A. mechanism / structure ──────────────────────────────────────────────
+  {:part/id "part:A1-shaft"   :part/name "Flexible probe shaft"        :part/group "A-mechanism"
+   :part/procurement :custom-fab :part/fab-process "coil-reinforced PU conduit / nitinol spine, φ8–12mm × 600mm"
+   :part/qty 1 :part/mass-g 90  :part/sim-feature "link_seg1" :part/sourcing :representative}
+  {:part/id "part:A2-tendon"  :part/name "Steering tendon cable"       :part/group "A-mechanism"
+   :part/procurement :cots :part/manufacturer "Asahi Intecc" :part/product "7x7 SUS304 wire φ0.45mm"
+   :part/mpn "SUS304-7x7-045" :part/purl "pkg:generic/asahi-intecc/sus304-7x7-045"
+   :part/qty 4 :part/mass-g 8 :part/sim-feature "j_yaw" :part/sourcing :representative}
+  {:part/id "part:A3-feed"    :part/name "Linear feed stage"           :part/group "A-mechanism"
+   :part/procurement :cots :part/manufacturer "OpenBuilds" :part/product "C-Beam Linear Actuator 250mm"
+   :part/mpn "CBEAM-250" :part/purl "pkg:generic/openbuilds/c-beam-250"
+   :part/qty 1 :part/mass-g 600 :part/sim-feature "j_feed" :part/sourcing :representative}
+  {:part/id "part:A4-flexshaft" :part/name "Brush drive flex shaft"    :part/group "A-mechanism"
+   :part/procurement :cots :part/manufacturer "Dremel (Bosch)" :part/product "Flex Shaft 225"
+   :part/mpn "225-01" :part/purl "pkg:generic/dremel/225-01"
+   :part/qty 1 :part/mass-g 120 :part/sim-feature "j_brush" :part/sourcing :representative}
+  {:part/id "part:A5-brush"   :part/name "Rotary brush head + suction shroud" :part/group "A-mechanism"
+   :part/procurement :custom-fab :part/fab-process "printed PETG shroud + nylon/abrasive disc φ20–30mm"
+   :part/qty 1 :part/mass-g 35 :part/sim-feature "link_brush" :part/sourcing :representative}
+  {:part/id "part:A6-carriage" :part/name "Carriage / handle body"     :part/group "A-mechanism"
+   :part/procurement :custom-fab :part/fab-process "printed PETG/ABS + aluminium spine"
+   :part/qty 1 :part/mass-g 280 :part/sim-feature "base_link" :part/sourcing :representative}
+
+  ;; ── B. actuation ──────────────────────────────────────────────────────────
+  {:part/id "part:B1-brushmotor" :part/name "Brush motor (BLDC)"       :part/group "B-actuation"
+   :part/procurement :cots :part/manufacturer "Maxon" :part/product "ECX SPEED 8M brushless"
+   :part/mpn "ECX-SPEED-8M" :part/purl "pkg:generic/maxon/ecx-speed-8m"
+   :part/qty 1 :part/mass-g 40 :part/sim-feature "j_brush" :part/sourcing :representative}
+  {:part/id "part:B2-steerservo" :part/name "Steering servo"          :part/group "B-actuation"
+   :part/procurement :cots :part/manufacturer "DSSERVO" :part/product "DS3225 25kg metal-gear"
+   :part/mpn "DS3225" :part/purl "pkg:generic/dsservo/ds3225"
+   :part/qty 2 :part/mass-g 60 :part/sim-feature "j_pitch" :part/sourcing :representative}
+  {:part/id "part:B3-segservo" :part/name "Segment micro-servo"        :part/group "B-actuation"
+   :part/procurement :cots :part/manufacturer "TowerPro" :part/product "MG90S metal-gear"
+   :part/mpn "MG90S" :part/purl "pkg:generic/towerpro/mg90s"
+   :part/qty 2 :part/mass-g 14 :part/sim-feature "j_seg1" :part/sourcing :representative}
+  {:part/id "part:B4-feedstep" :part/name "Feed stepper + driver"      :part/group "B-actuation"
+   :part/procurement :cots :part/manufacturer "Analog Devices (Trinamic)" :part/product "NEMA-17 + TMC2209"
+   :part/mpn "TMC2209" :part/purl "pkg:generic/trinamic/tmc2209"
+   :part/qty 1 :part/mass-g 280 :part/sim-feature "j_feed" :part/sourcing :representative}
+
+  ;; ── C. cleaning payload + extraction (spore containment — mandatory) ───────
+  {:part/id "part:C1-suction" :part/name "Suction source"             :part/group "C-extraction"
+   :part/procurement :cots :part/manufacturer "Makita" :part/product "Cordless dust extractor"
+   :part/mpn "VC003G" :part/purl "pkg:generic/makita/vc003g"
+   :part/qty 1 :part/mass-g 5000 :part/sourcing :representative
+   :part/note "Coaxial around the shaft; the real spore-control element."}
+  {:part/id "part:C2-hepa"    :part/name "HEPA H13 filter"            :part/group "C-extraction"
+   :part/procurement :cots :part/manufacturer "Camfil" :part/product "H13 cartridge (≥99.95% @0.3µm)"
+   :part/mpn "HEPA-H13" :part/purl "pkg:generic/camfil/hepa-h13"
+   :part/qty 1 :part/mass-g 200 :part/sourcing :representative
+   :part/note "Mandatory — captures aerosolised spores."}
+  {:part/id "part:C3-tank"    :part/name "Collection tank (sealed)"   :part/group "C-extraction"
+   :part/procurement :custom-fab :part/fab-process "sealed 1–3L wet/dry canister"
+   :part/qty 1 :part/mass-g 400 :part/sourcing :representative}
+  {:part/id "part:C4-biocidepump" :part/name "Biocide pump + mist nozzle" :part/group "C-extraction"
+   :part/procurement :cots :part/manufacturer "Takasago Electric" :part/product "RP-Q1 peristaltic micropump"
+   :part/mpn "RP-Q1" :part/purl "pkg:generic/takasago/rp-q1"
+   :part/qty 1 :part/mass-g 90 :part/sourcing :representative
+   :part/note "Use a registered antifungal per local approval — NOT improvised."}
+  {:part/id "part:C5-dripguard" :part/name "Drip / over-spray guard"  :part/group "C-extraction"
+   :part/procurement :custom-fab :part/fab-process "moulded silicone skirt"
+   :part/qty 1 :part/mass-g 30 :part/sourcing :representative}
+
+  ;; ── D. sensing + control ──────────────────────────────────────────────────
+  {:part/id "part:D1-camera" :part/name "Tip camera + LED ring"       :part/group "D-control"
+   :part/procurement :cots :part/manufacturer "Sony Semiconductor" :part/product "IMX477 module (φ5.5–8mm endoscope)"
+   :part/mpn "IMX477" :part/purl "pkg:generic/sony/imx477"
+   :part/qty 1 :part/mass-g 12 :part/sourcing :representative}
+  {:part/id "part:D2-imu"    :part/name "Tip IMU (6-axis)"            :part/group "D-control"
+   :part/procurement :cots :part/manufacturer "TDK InvenSense" :part/product "ICM-42688-P"
+   :part/mpn "ICM-42688-P" :part/purl "pkg:generic/tdk/icm-42688-p"
+   :part/qty 1 :part/mass-g 2 :part/sourcing :representative}
+  {:part/id "part:D3-isense" :part/name "Brush current sense"         :part/group "D-control"
+   :part/procurement :cots :part/manufacturer "Texas Instruments" :part/product "INA226 power monitor"
+   :part/mpn "INA226" :part/purl "pkg:generic/ti/ina226"
+   :part/qty 1 :part/mass-g 1 :part/sourcing :representative
+   :part/note "Contact-force proxy (mirrors the solver normal impulse)."}
+  {:part/id "part:D4-mcu"    :part/name "Controller MCU"              :part/group "D-control"
+   :part/procurement :cots :part/manufacturer "Raspberry Pi Ltd" :part/product "RP2040"
+   :part/mpn "RP2040" :part/purl "pkg:generic/raspberrypi/rp2040"
+   :part/qty 1 :part/mass-g 3 :part/sourcing :representative
+   :part/note "Runs the controller; mirrors the sim's tau[] feed→dip→scrub program."}
+  {:part/id "part:D5-power"  :part/name "Power supply (12V + buck rails)" :part/group "D-control"
+   :part/procurement :cots :part/manufacturer "Mean Well" :part/product "12V 5A + buck rails"
+   :part/mpn "LRS-100-12" :part/purl "pkg:generic/meanwell/lrs-100-12"
+   :part/qty 1 :part/mass-g 350 :part/sourcing :representative}]}

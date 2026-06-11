@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airFfp.processPurchase",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Process a partner purchase and accrue miles for a member.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["member_did", "purchase_type", "amount", "currency"],
+          "properties": {
+            "member_did": { "type": "string" },
+            "purchase_type": { "type": "string" },
+            "amount": { "type": "string" },
+            "currency": { "type": "string" },
+            "earn_rate": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

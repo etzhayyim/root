@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 12 / 12 — 編集+納品 / publish. ADR-2604231328.
+  HITL: episodeRef must be status=ready (final review done).
+  in:  episodeId, episodeTitle, episodeNum, workDid, thumbCid (optional)
+  out: masterVertexId, masterBlobCid, socialPostUri
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_animeka_publish_episode"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="animeka_publish_episode" name="animeka publish episode" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_LoadCuts"/>
+    <bpmn:serviceTask id="Task_LoadCuts" name="load approved cuts">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
+          <zeebe:input source="=&quot;episode_id = %s AND kind = %s AND priority = %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[episodeId, &quot;composite&quot;, &quot;approved&quot;]" target="whereParams"/>
+          <zeebe:input source="=&quot;vertex_id, cut_id, cut_num, duration_frames&quot;" target="columns"/>
+          <zeebe:input source="=500" target="limit"/>
+          <zeebe:input source="=&quot;cut_num ASC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows" target="compositeRows"/>
+          <zeebe:output source="=rowCount" target="compositeCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming><bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_LoadCuts" targetRef="Gateway_HasApprovedCuts"/>
+    <bpmn:exclusiveGateway id="Gateway_HasApprovedCuts" name="has approved cuts?">
+      <bpmn:incoming>F2</bpmn:incoming>
+      <bpmn:outgoing>F2a</bpmn:outgoing>
+      <bpmn:outgoing>FNoCuts</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="F2a" sourceRef="Gateway_HasApprovedCuts" targetRef="Task_Master">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=compositeCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="FNoCuts" sourceRef="Gateway_HasApprovedCuts" targetRef="Task_AuditNoCuts"/>
+    <bpmn:serviceTask id="Task_Master" name="final master (ffmpeg in ComfyUI)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.comfyui.call"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;/v1/videos/generations&quot;" target="route"/>
+          <zeebe:input source="={
+              mode: &quot;master&quot;,
+              episodeId: string(episodeId),
+              cuts: compositeRows,
+              include_sound: true,
+              container: &quot;mp4&quot;,
+              codec: &quot;h264&quot;,
+              bitrate: &quot;6M&quot;,
+              resolution: &quot;1920x1080&quot;,
+              fps: 24
+          }" target="body"/>
+          <zeebe:input source="=&quot;binary&quot;" target="outputFormat"/>
+          <zeebe:input source="=540" target="timeoutSec"/>
+          <zeebe:output source="=blobCid" target="masterCid"/>
+          <zeebe:output source="=latencyMs" target="renderMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2a</bpmn:incoming><bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Master" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="persist master">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:  &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.master/&quot; + string(episodeId),
+              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,
+              collection: &quot;com.etzhayyim.apps.animeka.master&quot;,
+              rkey:       string(episodeId),
+              kind:       &quot;master&quot;,
+              episode_id: string(episodeId),
+              episode_num: episodeNum,
+              stage:      &quot;delivery&quot;,
+              method:     &quot;aiMaster&quot;,
+              priority:   &quot;published&quot;,
+              description: &quot;episode master, &quot; + string(compositeCount) + &quot; cuts&quot;,
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F3</bpmn:incoming><bpmn:outgoing>F4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Insert" targetRef="Task_Announce"/>
+    <bpmn:serviceTask id="Task_Announce" name="social announce (PV drop)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.atproto.repo.createRecord&quot;" target="type"/>
+          <zeebe:input source="={
+              repo:       string(workDid),
+              collection: &quot;app.bsky.feed.post&quot;,
+              record: {
+                &quot;$type&quot;: &quot;app.bsky.feed.post&quot;,
+                text: &quot;🎬 #&quot; + string(episodeNum) + &quot; &quot; + string(episodeTitle) + &quot; 公開\nwatch → https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/com.etzhayyim.apps.animeka.episode/&quot; + string(episodeId),
+                createdAt: today() + &quot;T00:00:00Z&quot;
+              }
+          }" target="payload"/>
+          <zeebe:output source="=body" target="announceBody"/>
+          <zeebe:output source="=status" target="announceStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F4</bpmn:incoming><bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F5" sourceRef="Task_Announce" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;publishEpisode&quot;" target="action"/>
+          <zeebe:input source="={episodeId: string(episodeId), masterCid: string(masterCid), compositeCount: compositeCount}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F5</bpmn:incoming><bpmn:outgoing>F6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F6" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:serviceTask id="Task_AuditNoCuts" name="audit no approved cuts">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;publishEpisode.abort&quot;" target="action"/>
+          <zeebe:input source="={episodeId: string(episodeId), reason: &quot;no_approved_cuts&quot;, compositeCount: compositeCount}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>FNoCuts</bpmn:incoming><bpmn:outgoing>FNoCutsEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="FNoCutsEnd" sourceRef="Task_AuditNoCuts" targetRef="End"/>
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>F6</bpmn:incoming>
+      <bpmn:incoming>FNoCutsEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,14 @@
+{
+  "name": "etzhayyim-salesforce-crm",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "open-saas Salesforce-shaped CRM domain (leads / conversion / pipeline). Tests cover the deterministic domain functions incl. the PII-hash invariant.",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.8"
+  }
+}

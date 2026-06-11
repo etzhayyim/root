@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.meetingRecorder.listSessions",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List recorder sessions for a given onBehalfOfDid, optionally filtered by provider / status / time range.",
+      "parameters": {
+        "type": "params",
+        "required": ["onBehalfOfDid"],
+        "properties": {
+          "onBehalfOfDid": {"type": "string"},
+          "provider": {"type": "string", "enum": ["teams", "meet", "zoom"]},
+          "status": {"type": "string", "enum": ["joining", "joined", "left", "failed", "rejected"]},
+          "since": {"type": "string", "description": "ISO 8601"},
+          "until": {"type": "string", "description": "ISO 8601"},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 50},
+          "cursor": {"type": "string"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sessions"],
+          "properties": {
+            "sessions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sessionId": {"type": "string"},
+                  "sessionDid": {"type": "string"},
+                  "provider": {"type": "string"},
+                  "status": {"type": "string"},
+                  "startedAt": {"type": "string"},
+                  "endedAt": {"type": "string"},
+                  "durationMs": {"type": "integer"},
+                  "chunkCount": {"type": "integer"}
+                }
+              }
+            },
+            "cursor": {"type": "string"},
+            "limit": {"type": "integer"},
+            "offset": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

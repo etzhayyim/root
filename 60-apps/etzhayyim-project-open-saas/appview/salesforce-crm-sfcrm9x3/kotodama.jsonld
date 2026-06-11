@@ -1,0 +1,67 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:salesforce-opensaas.etzhayyim.com",
+  "name": "salesforce-crm-sfcrm9x3",
+  "nanoid": "sfcrm9x3",
+  "project": "open-saas",
+  "runtimeType": "worker-py",
+  "uiType": "appview",
+  "profile": {
+    "displayName": "Open SaaS Salesforce CRM (Cleanroom)",
+    "description": "Open-source Salesforce-equivalent CRM using py kotodama: Account, Contact, Lead, Opportunity, Case, Activity over REST v58.0.",
+    "agentType": "autonomous",
+    "isBot": true,
+    "operator": "etzhayyim.com",
+    "category": "saas-crm",
+    "capabilities": [
+      "crm-account",
+      "crm-contact",
+      "crm-lead",
+      "crm-opportunity",
+      "crm-case",
+      "crm-activity-derive",
+      "sfdc-rest-api-v58.0",
+      "sfdc-soql",
+      "sfdc-composite"
+    ]
+  },
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8000",
+      "routes": [
+        "/",
+        "/api/salesforce/...",
+        "/services/data/v58.0/...",
+        "/at/...",
+        "/healthz",
+        "/..."
+      ],
+      "spa": true,
+      "staticDir": "/wasm/static-ui"
+    },
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.graph.follow",
+        "com.etzhayyim.apps.opensaas.salesforce.account",
+        "com.etzhayyim.apps.opensaas.salesforce.contact",
+        "com.etzhayyim.apps.opensaas.salesforce.lead",
+        "com.etzhayyim.apps.opensaas.salesforce.opportunity",
+        "com.etzhayyim.apps.opensaas.salesforce.case"
+      ]
+    }
+  },
+  "routes": [
+    {
+      "host": "salesforce-opensaas.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "ui": {
+    "accent": "#1d4ed8",
+    "icon": "◎"
+  }
+}

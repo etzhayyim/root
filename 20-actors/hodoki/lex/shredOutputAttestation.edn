@@ -1,0 +1,19 @@
+{:lexicon 1
+ :id "com.etzhayyim.hodoki.shredOutputAttestation"
+ :defs
+ {:main
+  {:type "record"
+   :key  "tid"
+   :record
+   {:type       "object"
+    :required   ["tid" "vin" "ferroMassKg" "nonFerroMassKg" "copperMassKg" "asrMassKg" "materialRecoveryPct" "timestamp"]
+    :properties {:tid                 {:type "string" :description "Transaction ID"}
+                 :vin                 {:type "string" :description "Vehicle Identification Number"}
+                 :ferroMassKg         {:type "number" :description "Ferrous material mass (kg)"}
+                 :nonFerroMassKg      {:type "number" :description "Non-ferrous material mass (kg)"}
+                 :copperMassKg        {:type "number" :description "Copper material mass (kg)"}
+                 :asrMassKg           {:type "number" :description "Automotive Shredder Residue mass (kg)"}
+                 :materialRecoveryPct {:type "integer" :description "Recovery rate % (G13 ≥95%)"}
+                 :asrLandfillPct      {:type "integer" :description "ASR to landfill % (G13 <5%)"}
+                 :crossActorHandoffs  {:type "array" :items {:type "string"} :description "Actors receiving materials (kanayama, makura, silicon)"}
+                 :timestamp           {:type "string" :description "ISO-8601 shred time"}}}}}}

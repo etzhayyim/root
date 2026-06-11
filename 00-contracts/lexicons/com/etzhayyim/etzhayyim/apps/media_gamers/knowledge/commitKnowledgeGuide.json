@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.knowledge.commitKnowledgeGuide",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Thin edge write boundary for LangServer-generated Pokemon Legends: Z-A knowledge guide.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "graph": { "type": "object" },
+            "title": { "type": "string" },
+            "body": { "type": "string" },
+            "qualityScore": { "type": "number" },
+            "sourceQuery": { "type": "string" },
+            "generatedBy": { "type": "string" },
+            "postAsGameDid": { "type": "boolean" },
+            "publish": { "type": "boolean" }
+          },
+          "required": ["title", "body"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "registered": { "type": "integer" },
+            "guide": { "type": "object" },
+            "socialPost": { "type": "object" },
+            "graph": { "type": "object" },
+            "error": { "type": "string" }
+          },
+          "required": ["ok"]
+        }
+      }
+    }
+  }
+}

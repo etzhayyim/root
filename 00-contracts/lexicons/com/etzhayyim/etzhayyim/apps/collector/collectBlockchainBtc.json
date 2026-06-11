@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.collector.collectBlockchainBtc",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "object"
+            },
+            "label": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "address"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "address": {
+              "type": "object"
+            },
+            "chain": {
+              "type": "string"
+            },
+            "balanceSatoshi": {
+              "type": "string"
+            },
+            "balanceBtc": {
+              "type": "string"
+            },
+            "txCount": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

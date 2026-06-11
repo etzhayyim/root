@@ -1,0 +1,82 @@
+# Legacy substrate-boundary remediation inventory (ADR-2606071800)
+# Generated 2026-06-07. CODE files with ACTUAL RisingWave/Hyperdrive/Kysely usage
+# (gate-prohibition text in .edn/.md excluded). Target: read path -> kotoba-kqe; shrink-only.
+
+  28 60-apps/etzhayyim-project-yatabase
+  25 20-actors/magatama
+   4 60-apps/etzhayyim-project-yorishiro
+   2 60-apps/etzhayyim-project-shinkansen
+   2 60-apps/etzhayyim-project-os-messaging
+   2 60-apps/etzhayyim-project-open-jpn-gov
+   2 60-apps/etzhayyim-project-open-airplane
+   2 60-apps/etzhayyim-project-maps
+   2 60-apps/etzhayyim-project-kyber-qzzg06nh
+   2 60-apps/etzhayyim-project-insatsu
+   2 60-apps/etzhayyim-project-auth
+   1 60-apps/etzhayyim-project-yukkuri
+   1 60-apps/etzhayyim-project-yoro
+   1 60-apps/etzhayyim-project-xlsx
+   1 60-apps/etzhayyim-project-webya
+   1 60-apps/etzhayyim-project-watashi
+   1 60-apps/etzhayyim-project-voxelforge
+   1 60-apps/etzhayyim-project-tsukuru
+   1 60-apps/etzhayyim-project-toshi-kozan
+   1 60-apps/etzhayyim-project-threat-intelligence
+   1 60-apps/etzhayyim-project-tenso
+   1 60-apps/etzhayyim-project-society6
+   1 60-apps/etzhayyim-project-site
+   1 60-apps/etzhayyim-project-shinka
+   1 60-apps/etzhayyim-project-shigotoba
+   1 60-apps/etzhayyim-project-seibutsu
+   1 60-apps/etzhayyim-project-sanctions
+   1 60-apps/etzhayyim-project-saiban
+   1 60-apps/etzhayyim-project-repository
+   1 60-apps/etzhayyim-project-public-kafun-bokumetsu
+   1 60-apps/etzhayyim-project-pptx
+   1 60-apps/etzhayyim-project-playwright
+   1 60-apps/etzhayyim-project-open-water
+   1 60-apps/etzhayyim-project-open-swift
+   1 60-apps/etzhayyim-project-open-rail
+   1 60-apps/etzhayyim-project-open-power
+   1 60-apps/etzhayyim-project-open-ports
+   1 60-apps/etzhayyim-project-open-ossekai
+   1 60-apps/etzhayyim-project-open-network
+   1 60-apps/etzhayyim-project-open-kyber
+   1 60-apps/etzhayyim-project-open-gas
+   1 60-apps/etzhayyim-project-open-cofog
+   1 60-apps/etzhayyim-project-open-banking
+   1 60-apps/etzhayyim-project-ongakuka
+   1 60-apps/etzhayyim-project-okaimono
+   1 60-apps/etzhayyim-project-news
+   1 60-apps/etzhayyim-project-meeting-recorder
+   1 60-apps/etzhayyim-project-manimani
+   1 60-apps/etzhayyim-project-legal-corpus
+   1 60-apps/etzhayyim-project-kami
+   1 60-apps/etzhayyim-project-jp-fiscal
+   1 60-apps/etzhayyim-project-itonami
+   1 60-apps/etzhayyim-project-issn
+   1 60-apps/etzhayyim-project-ipaddress
+   1 60-apps/etzhayyim-project-intel
+   1 60-apps/etzhayyim-project-hc
+   1 60-apps/etzhayyim-project-hanrei
+   1 60-apps/etzhayyim-project-hakken
+   1 60-apps/etzhayyim-project-gov
+   1 60-apps/etzhayyim-project-fax
+   1 60-apps/etzhayyim-project-editor
+   1 60-apps/etzhayyim-project-crypto-asset-freeze
+   1 60-apps/etzhayyim-project-cpc
+   1 60-apps/etzhayyim-project-cowork
+   1 60-apps/etzhayyim-project-coverage
+   1 60-apps/etzhayyim-project-common-crawl
+   1 60-apps/etzhayyim-project-cloudflare-browser-render
+   1 60-apps/etzhayyim-project-cad
+   1 60-apps/etzhayyim-project-bunken
+   1 60-apps/etzhayyim-project-briefing
+   1 60-apps/etzhayyim-project-bpmn
+   1 60-apps/etzhayyim-project-bim
+   1 60-apps/etzhayyim-project-animeka
+   1 60-apps/ai-gftd-project-onion
+   1 20-actors/ipaddress
+
+# TOTAL code files: 137
+# TOTAL modules: 75

@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coworkGraph.sendTeamsMessage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Teams チャンネルにメッセージを投稿する (HTML/text)。app-only Graph API token で POST /teams/{teamId}/channels/{channelId}/messages。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["teamId", "channelId", "body"],
+          "properties": {
+            "teamId":      { "type": "string", "description": "Teams チーム ID (GUID)" },
+            "channelId":   { "type": "string", "description": "Teams チャンネル ID (GUID)" },
+            "subject":     { "type": "string", "description": "メッセージの件名 (任意)" },
+            "body":        { "type": "string", "description": "メッセージ本文 (HTML or text)" },
+            "contentType": { "type": "string", "description": "html または text (デフォルト: html)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["messageId", "status"],
+          "properties": {
+            "messageId": { "type": "string" },
+            "webUrl":    { "type": "string" },
+            "status":    { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

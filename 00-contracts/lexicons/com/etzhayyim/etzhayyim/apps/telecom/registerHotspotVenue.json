@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerHotspotVenue",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Hotspot 2.0 venue (BSS + OSU) registration. HESSID + SSID + advertised RCOI list per ANQP. ssid is broadcast public; no PII concern.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["venueName", "venueGroup", "venueType", "jurisdiction", "ssid", "advertisedRcoiIds", "observedAt"],
+          "properties": {
+            "venueId": { "type": "string" },
+            "venueName": { "type": "string" },
+            "venueGroup": { "type": "string", "enum": ["unspecified", "assembly", "business", "educational", "factory_industrial", "institutional", "mercantile", "residential", "storage", "utility", "vehicular", "outdoor"] },
+            "venueType": { "type": "string" },
+            "jurisdiction": { "type": "string" },
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" },
+            "hessid": { "type": "string" },
+            "ssid": { "type": "string" },
+            "advertisedRcoiIds": { "type": "array", "items": { "type": "string" } },
+            "osuKind": { "type": "string", "enum": ["soap_xml", "spp_oma_dm", "none"] },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "venueId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4e86530665f7",
+  "entityId": "ent-4e86530665f7",
+  "canonicalName": "alfred yekatom",
+  "aliases": [
+    "alfred yekatom"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.orbitalDebris.trackKesslerCascade",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave4 (stub): Kessler カスケード追跡. Starts BPMN process open_orbital_debris_track_kessler_cascade.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "eventVid": { "type": "string" },
+            "debrisCount": { "type": "integer" }
+          },
+          "required": ["vertexId", "eventVid"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

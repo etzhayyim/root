@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.encryptionDebate.recordPolicyMove",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Encryption policy / Going-Dark / CSAM-regulation move (bridges massMessagingPlatform.flagEnforcementGap + dpa-authority + cross-border-transfer)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "moveId",
+            "jurisdiction",
+            "moveKind",
+            "publishedAt"
+          ],
+          "properties": {
+            "moveId": {
+              "type": "string"
+            },
+            "jurisdiction": {
+              "type": "string"
+            },
+            "moveKind": {
+              "type": "string",
+              "enum": [
+                "csam_scanning_proposal",
+                "mandatory_backdoor",
+                "ghost_protocol",
+                "key_escrow_revival",
+                "encrypted_dns_block",
+                "metadata_retention",
+                "client_side_scanning_law",
+                "duty_to_report",
+                "investigatory_powers_act_amendment",
+                "online_safety_act_amend",
+                "france_ssi_law",
+                "jp_revisions"
+              ]
+            },
+            "enforcementGapVid": {
+              "type": "string",
+              "description": "bridges massMessagingPlatform.flagEnforcementGap"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

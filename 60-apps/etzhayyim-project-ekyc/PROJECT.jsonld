@@ -1,0 +1,98 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "SoftwareApplication",
+  "@id": "urn:etzhayyim:project:etzhayyim-project-ekyc",
+  "name": "etzhayyim-project-ekyc",
+  "description": "eKYC (electronic Know Your Customer) project — Clerk-integrated identity verification with MCP integration for APQC 12.4.5 KYC workflows",
+  "applicationCategory": "ekyc",
+  "operatingSystem": "Kubernetes",
+  "softwareRequirements": [
+    "legacy runtime",
+    "KEDA",
+    "Clerk",
+    "MCP"
+  ],
+  "author": {
+    "@type": "Organization",
+    "name": "Etzhayyim",
+    "url": "https://etzhayyim.com"
+  },
+  "codeRepository": "https://github.com/etzhayyim/etzhayyim-root",
+  "programmingLanguage": [
+    "Go",
+    "TypeScript"
+  ],
+  "component": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "ekyc-service",
+      "description": "gRPC eKYC service with Clerk auth integration and MCP connectivity",
+      "applicationCategory": "Backend",
+      "programmingLanguage": "Go",
+      "runtimePlatform": "App runtime (Tier 2, Scale-to-Zero)",
+      "path": "legacy-runtime/ekyc-service-ephj2jf6"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "ekyc-ui",
+      "description": "SvelteKit eKYC frontend with Clerk authentication",
+      "applicationCategory": "Frontend",
+      "programmingLanguage": "TypeScript",
+      "runtimePlatform": "nginx (Tier 3, Static)",
+      "path": "cdn/ekyc-ui-8k3mxn9p"
+    }
+  ],
+  "capability": {
+    "@type": "Capability",
+    "name": "eKYC Verification",
+    "description": "DoDAF CV-1: Electronic identity verification capability integrating Clerk authentication with KYC document validation and MCP-enabled workflow automation (APQC 12.4.5)",
+    "activity": [
+      "Identity document upload and validation",
+      "Face liveness detection",
+      "Clerk user authentication and org-scoped verification",
+      "MCP-enabled APQC workflow integration",
+      "Verification status tracking and reporting"
+    ],
+    "performer": [
+      "ekyc-service (gRPC MCP service)",
+      "ekyc-ui (Static UI)",
+      "APQC 12.4.5 KYC performer (MCP integration)"
+    ],
+    "measure": [
+      "Verification success rate",
+      "Processing time (target: <30s)",
+      "KEDA scale-to-zero efficiency",
+      "MCP workflow completion rate"
+    ]
+  },
+  "tasks": [
+    {
+      "status": "pending",
+      "task": "Create ekyc-service gRPC backend with Clerk JWT validation"
+    },
+    {
+      "status": "pending",
+      "task": "Implement proto/v1/ekyc.proto with MCP service pattern"
+    },
+    {
+      "status": "pending",
+      "task": "Implement document upload, face liveness, verification logic"
+    },
+    {
+      "status": "pending",
+      "task": "Create SvelteKit ekyc-ui with Clerk auth flow"
+    },
+    {
+      "status": "pending",
+      "task": "Integrate with APQC 12.4.5 KYC performer via MCP"
+    },
+    {
+      "status": "pending",
+      "task": "Create App runtime + KEDA configs"
+    },
+    {
+      "status": "pending",
+      "task": "Deploy and verify end-to-end eKYC flow"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_gov_plw_register_dids"
+    targetNamespace="https://etzhayyim.ai/bpmn/govPlw"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="gov_plw_register_dids" name="govPlw register DIDs" isExecutable="true">
+    <bpmn:startEvent id="Start" name="registration requested">
+      <bpmn:outgoing>Flow_Task</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Register"/>
+    <bpmn:serviceTask id="Task_Register" name="register DIDs">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govPlw.registerDIDs"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=registered" target="registered"/>
+          <zeebe:output source="=dids" target="dids"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Task</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Register" targetRef="End"/>
+    <bpmn:endEvent id="End" name="registered">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

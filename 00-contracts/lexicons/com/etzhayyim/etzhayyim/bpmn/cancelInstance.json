@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.bpmn.cancelInstance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DESTRUCTIVE. Cancel a running instance.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["instanceId"],
+          "properties": {
+            "instanceId": { "type": "string" },
+            "reason": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "instanceId": { "type": "string" },
+            "state": { "type": "string" },
+            "cancelledAt": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

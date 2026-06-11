@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.patent.patent",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A patent record (application/publication/grant). Primary key = {jurisdiction}-{appNumber}.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["jurisdiction", "appNumber", "title", "collectedAt"],
+        "properties": {
+          "jurisdiction": {"type": "string", "description": "ISO 3166-1 alpha-2 or regional (ep/wo)"},
+          "appNumber": {"type": "string", "description": "Application number as filed"},
+          "pubNumber": {"type": "string"},
+          "grantNumber": {"type": "string"},
+          "title": {"type": "string", "maxLength": 500},
+          "abstract": {"type": "string", "maxLength": 5000},
+          "ipcCodes": {"type": "array", "items": {"type": "string", "description": "IPC code, e.g., H04L9/32"}},
+          "cpcCodes": {"type": "array", "items": {"type": "string", "description": "CPC code (incl. Y02/Y04/Y10 sections)"}},
+          "applicantDids": {"type": "array", "items": {"type": "string", "format": "did"}},
+          "inventorDids": {"type": "array", "items": {"type": "string", "format": "did"}},
+          "filedAt": {"type": "string", "format": "datetime"},
+          "publishedAt": {"type": "string", "format": "datetime"},
+          "grantedAt": {"type": "string", "format": "datetime"},
+          "priorityClaims": {"type": "array", "items": {"type": "ref", "ref": "#priorityClaim"}},
+          "sourceUrl": {"type": "string", "format": "uri"},
+          "sourceDid": {"type": "string", "format": "did"},
+          "collectedAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    },
+    "priorityClaim": {
+      "type": "object",
+      "required": ["jurisdiction", "appNumber", "date"],
+      "properties": {
+        "jurisdiction": {"type": "string"},
+        "appNumber": {"type": "string"},
+        "date": {"type": "string", "format": "datetime"}
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yoro.activitySeen",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "seenAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "seenAt"
+        ]
+      }
+    }
+  }
+}

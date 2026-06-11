@@ -1,0 +1,18 @@
+name = "etzhayyim-dataset-pinner-did-web"
+main = "src/worker.ts"
+compatibility_date = "2026-05-23"
+
+# Route the spec-required did:web resolution path. The dataset-pinner
+# itself runs on operator workstations (per-machine Kubo + DataLad +
+# git-annex per ADR-2605241500); the Worker exists solely to publish
+# the DID Document for AT Protocol resolvers + Universal Resolver.
+[[routes]]
+pattern = "dataset-pinner.etzhayyim.com/.well-known/did.json"
+zone_name = "etzhayyim.com"
+
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+[placement]
+mode = "smart"

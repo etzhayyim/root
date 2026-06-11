@@ -1,0 +1,127 @@
+# Weekly chaindata export → B2 (DR / cold backup).
+#
+# Why: chaindata lives only on `data-geth-private-0` PVC. PVC loss with
+# only the sealer key + genesis.json in hand rebuilds an *empty* chain —
+# every block, every contract bytecode, every event log gone. The
+# 3-tier custody (.local-secrets/ + Keychain + Vault) protects the
+# *signer*, not the *history*. This CronJob closes that gap.
+#
+# How: kubectl exec into geth-private-0 to call `admin.exportChain()`
+# via the IPC console (no second `geth` process needed — using the live
+# DB lock holder is the only safe option). Output is RLP-encoded and
+# typically tiny (< 100 KB at current ~10K empty-block scale; will grow
+# linearly with deploy + agent activity).
+#
+# Restore: `geth import <file.rlp>` against a fresh datadir + sealer
+# key + genesis.json. Idempotent — replaying produces identical chain.
+#
+# B2 path: `s3://etzhayyim-nats/geth-private/backup/{YYYYMMDD-HHMM}.rlp.gz`
+#  (us-west-004, free egress via Bandwidth Ally).
+#
+# Schedule: Sunday 03:00 UTC = LAX Saturday 20:00 PT — low-activity
+# window. Concurrency forbidden (re-entrant kubectl exec into the same
+# pod can deadlock the IPC console).
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: geth-export
+  namespace: geth-private
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: geth-export
+  namespace: geth-private
+rules:
+  # Minimum needed to `kubectl exec` into the geth pod.
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs:     ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs:     ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: geth-export
+  namespace: geth-private
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind:     Role
+  name:     geth-export
+subjects:
+  - kind: ServiceAccount
+    name: geth-export
+    namespace: geth-private
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: geth-export
+  namespace: geth-private
+  labels:
+    app.kubernetes.io/name: geth-export
+    app.kubernetes.io/component: dr-backup
+spec:
+  schedule: "0 3 * * 0"               # Sunday 03:00 UTC
+  suspend: false
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 4       # 1 month of weekly success markers
+  failedJobsHistoryLimit: 8           # keep noise long enough to triage
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 1800     # 30min hard cap; current export is < 30s
+      template:
+        spec:
+          serviceAccountName: geth-export
+          restartPolicy: Never
+          containers:
+            - name: export
+              image: bitnami/kubectl:1.31  # has kubectl + curl + bash
+              imagePullPolicy: IfNotPresent
+              env:
+                - { name: B2_ENDPOINT, value: "https://s3.us-west-004.backblazeb2.com" }
+                - { name: B2_BUCKET,   value: "etzhayyim-nats" }
+                - { name: B2_PREFIX,   value: "geth-private/backup" }
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom: { secretKeyRef: { name: geth-export-b2, key: access_key_id } }
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom: { secretKeyRef: { name: geth-export-b2, key: secret_access_key } }
+                - { name: AWS_DEFAULT_REGION, value: "us-west-004" }
+              command: ["/bin/bash", "-c"]
+              args:
+                - |
+                  set -euo pipefail
+                  STAMP="$(date -u +%Y%m%d-%H%M)"
+                  POD="geth-private-0"
+                  REMOTE="/tmp/export-${STAMP}.rlp"
+
+                  # Sanity: pod is Ready (don't export against a starting/crashing geth)
+                  kubectl -n geth-private wait --for=condition=Ready pod/${POD} --timeout=60s
+
+                  # admin.exportChain emits RLP from inside the live geth process
+                  # — re-uses the existing DB handle so no PVC-lock conflict.
+                  kubectl -n geth-private exec ${POD} -c geth -- \
+                    geth attach /data/geth.ipc --exec "admin.exportChain(\"${REMOTE}\")"
+
+                  # Stream out → gzip → B2. Use `cat` rather than `cp` because
+                  # the export file is in the geth container's tmpfs and we
+                  # don't want to pull a copy into the kubectl pod.
+                  apk add --no-cache aws-cli >/dev/null 2>&1 || \
+                    (apt-get update -qq && apt-get install -yqq awscli)
+
+                  kubectl -n geth-private exec ${POD} -c geth -- cat ${REMOTE} | gzip -c | \
+                    aws --endpoint-url "${B2_ENDPOINT}" s3 cp - \
+                      "s3://${B2_BUCKET}/${B2_PREFIX}/${STAMP}.rlp.gz" \
+                      --no-progress
+
+                  # Tidy up the temp file inside geth pod
+                  kubectl -n geth-private exec ${POD} -c geth -- rm -f ${REMOTE} || true
+
+                  echo "ok: s3://${B2_BUCKET}/${B2_PREFIX}/${STAMP}.rlp.gz"
+              resources:
+                requests: { cpu: 50m,  memory: 96Mi }
+                limits:   { cpu: 500m, memory: 256Mi }

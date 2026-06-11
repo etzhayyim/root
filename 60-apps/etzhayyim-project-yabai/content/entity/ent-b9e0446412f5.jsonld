@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b9e0446412f5",
+  "entityId": "ent-b9e0446412f5",
+  "canonicalName": "servinaves, s.a.",
+  "aliases": [
+    "servinaves, s.a."
+  ]
+}

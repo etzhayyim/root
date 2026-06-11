@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mrnaVaccineHub.flagTechnologyTransferGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Tech transfer gap / IP barrier (bridges itpgrfa-seeds + pandemic-treaty + global-tax)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "gapId",
+            "hubVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "gapId": {
+              "type": "string"
+            },
+            "hubVid": {
+              "type": "string",
+              "description": "bridges registerHub"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "ip_barrier",
+                "know_how",
+                "facility",
+                "regulatory",
+                "workforce",
+                "raw_materials",
+                "cold_chain"
+              ]
+            },
+            "bilateralRelationship": {
+              "type": "string"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

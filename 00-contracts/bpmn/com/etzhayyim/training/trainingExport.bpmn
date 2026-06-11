@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  training.startExport — LLM training data export to B2 → HuggingFace Hub.
+
+  Manually triggered via:
+    POST /xrpc/com.etzhayyim.apps.training.startExport
+    { dataset_name, label, start_shard, max_shards }
+
+  Flow (text loop, then triple loop, then HF push):
+    Start → Export Text Shard → [text done?]
+              ↑_______NO_________↑            YES → Export Triple Shard → [triple done?]
+                                                        ↑______NO_________↑              YES → Audit → Push to HF → End
+
+  Process variables evolved across iterations:
+    text_shard    — current text shard index (starts at start_shard, default 0)
+    text_has_more — whether another text shard exists
+    triple_shard  — current triple shard index (starts at 0)
+    triple_has_more
+
+  max_shards caps total text shards per run (default 9999 = effectively unlimited).
+  Phase 1 label: wet_chunk (CommonCrawl markdown, ~19,700 shards of 50K rows each).
+
+  Phase D: training.push.huggingface runs once after all shards are exported.
+  Requires K8s Secret training-hf-creds (HF_TOKEN + HF_REPO_ID) in mitama-udf.
+-->
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_training_export"
+                  targetNamespace="https://etzhayyim.ai/bpmn/training"
+                  exporter="hand-written"
+                  exporterVersion="1.0">
+
+  <bpmn:process id="training_export" name="training startExport" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.training.startExport", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <!-- Manual start: operator or cron sends XRPC to dispatcher -->
+    <bpmn:startEvent id="Start" name="Export requested">
+      <bpmn:outgoing>Flow_to_InitText</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_to_InitText" sourceRef="Start" targetRef="Task_InitText"/>
+
+    <!--
+      Init: set text_shard to start_shard (default 0), text_has_more to true.
+      Uses db.select (SELECT 1) as a no-op carrier for FEEL variable init.
+    -->
+    <bpmn:serviceTask id="Task_InitText" name="Init text cursor">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT 1 AS ok&quot;"                        target="query"/>
+          <zeebe:input source="=if start_shard = null then 0 else start_shard"    target="text_shard"/>
+          <zeebe:input source="=if max_shards  = null then 9999 else max_shards"  target="cap_shards"/>
+          <zeebe:input source="=true"                                              target="text_has_more"/>
+          <zeebe:input source="=0"                                                 target="triple_shard"/>
+          <zeebe:input source="=true"                                              target="triple_has_more"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_to_InitText</bpmn:incoming>
+      <bpmn:outgoing>Flow_to_ExportText</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_to_ExportText" sourceRef="Task_InitText" targetRef="Task_ExportText"/>
+
+    <!-- Text shard export -->
+    <bpmn:serviceTask id="Task_ExportText" name="Export text shard">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="training.export.text"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if dataset_name = null then &quot;etzhayyim-corpus&quot; else dataset_name" target="dataset_name"/>
+          <zeebe:input source="=if label = null then &quot;wet_chunk&quot; else label"                 target="label"/>
+          <zeebe:input source="=text_shard"                                                             target="shard_index"/>
+          <zeebe:output source="=has_more"   target="text_has_more"/>
+          <zeebe:output source="=next_shard" target="text_shard"/>
+          <zeebe:output source="=row_count"  target="text_row_count"/>
+          <zeebe:output source="=status"     target="text_status"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_to_ExportText</bpmn:incoming>
+      <bpmn:incoming>Flow_TextLoop</bpmn:incoming>
+      <bpmn:outgoing>Flow_to_TextGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_to_TextGate" sourceRef="Task_ExportText" targetRef="Gate_TextDone"/>
+
+    <!-- text done gate -->
+    <bpmn:exclusiveGateway id="Gate_TextDone" name="text done?">
+      <bpmn:incoming>Flow_to_TextGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_TextLoop</bpmn:outgoing>
+      <bpmn:outgoing>Flow_TextDone</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_TextLoop" sourceRef="Gate_TextDone" targetRef="Task_ExportText">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+        =text_has_more = true and text_shard &lt; cap_shards
+      </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:sequenceFlow id="Flow_TextDone" sourceRef="Gate_TextDone" targetRef="Task_ExportTriple">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+        =text_has_more = false or text_shard >= cap_shards
+      </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Triple shard export -->
+    <bpmn:serviceTask id="Task_ExportTriple" name="Export triple shard">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="training.export.triple"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if dataset_name = null then &quot;etzhayyim-triples&quot; else dataset_name" target="dataset_name"/>
+          <zeebe:input source="=triple_shard"                                                             target="shard_index"/>
+          <zeebe:output source="=has_more"   target="triple_has_more"/>
+          <zeebe:output source="=next_shard" target="triple_shard"/>
+          <zeebe:output source="=row_count"  target="triple_row_count"/>
+          <zeebe:output source="=status"     target="triple_status"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_TextDone</bpmn:incoming>
+      <bpmn:incoming>Flow_TripleLoop</bpmn:incoming>
+      <bpmn:outgoing>Flow_to_TripleGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_to_TripleGate" sourceRef="Task_ExportTriple" targetRef="Gate_TripleDone"/>
+
+    <!-- triple done gate -->
+    <bpmn:exclusiveGateway id="Gate_TripleDone" name="triple done?">
+      <bpmn:incoming>Flow_to_TripleGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_TripleLoop</bpmn:outgoing>
+      <bpmn:outgoing>Flow_TripleDone</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_TripleLoop" sourceRef="Gate_TripleDone" targetRef="Task_ExportTriple">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+        =triple_has_more = true
+      </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:sequenceFlow id="Flow_TripleDone" sourceRef="Gate_TripleDone" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+        =triple_has_more = false
+      </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Audit -->
+    <bpmn:serviceTask id="Task_Audit" name="Audit export complete">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;"            target="actor"/>
+          <zeebe:input source="=&quot;training.export.complete&quot;"             target="action"/>
+          <zeebe:input source="={ textShards: text_shard, tripleShards: triple_shard }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_TripleDone</bpmn:incoming>
+      <bpmn:outgoing>Flow_to_PushHF</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_to_PushHF" sourceRef="Task_Audit" targetRef="Task_PushHF"/>
+
+    <!-- Push to HuggingFace Hub (Phase D).
+         HF_TOKEN + HF_REPO_ID injected from training-hf-creds K8s Secret (optional).
+         Task degrades gracefully when secret is absent (raises RuntimeError → Zeebe incident). -->
+    <bpmn:serviceTask id="Task_PushHF" name="Push to HuggingFace Hub">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="training.push.huggingface"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if dataset_name = null then &quot;etzhayyim-corpus&quot; else dataset_name" target="dataset_name"/>
+          <zeebe:input source="=if label = null then &quot;wet_chunk&quot; else label"                 target="label"/>
+          <zeebe:output source="=pushed_count" target="hf_pushed_count"/>
+          <zeebe:output source="=repo_id"      target="hf_repo_id"/>
+          <zeebe:output source="=status"       target="hf_status"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_to_PushHF</bpmn:incoming>
+      <bpmn:outgoing>Flow_to_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_to_End" sourceRef="Task_PushHF" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Export and push complete">
+      <bpmn:incoming>Flow_to_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

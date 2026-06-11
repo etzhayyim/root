@@ -1,0 +1,1 @@
+{"lexicon":1,"id":"com.etzhayyim.shionome.rotationFinding","description":"R0 placeholder lexicon for shionome aggregate rotation findings; no buy/sell instruction is represented.","defs":{"main":{"type":"record","key":"tid","record":{"type":"object","required":["createdAt"],"properties":{"createdAt":{"type":"string","format":"datetime"}}}}}}

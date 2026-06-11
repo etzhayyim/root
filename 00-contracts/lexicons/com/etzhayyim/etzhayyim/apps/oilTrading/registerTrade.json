@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oilTrading.registerTrade",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a physical oil trade (cargo / offtake / swap). Path-based DID: did:web:oil-trading.etzhayyim.com:trade:{tradeId}. Counterparty intelligence for benchmark exposure tracking.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tradeType", "grade", "volumeBbl", "tradedAt"],
+          "properties": {
+            "tradeType": { "type": "string", "enum": ["spot", "term-offtake", "swap", "futures-physical", "tender", "ship-to-ship"] },
+            "grade": { "type": "string", "description": "Brent / WTI / Dubai / DME Oman / Bonny Light / Urals / etc" },
+            "benchmark": { "type": "string", "enum": ["dated-brent", "wti-cushing", "dubai-platts", "ice-brent", "nymex-wti", "argus-sour"] },
+            "volumeBbl": { "type": "number" },
+            "priceUsdBbl": { "type": "number" },
+            "differentialUsdBbl": { "type": "number" },
+            "tradedAt": { "type": "string", "format": "datetime" },
+            "buyerDid": { "type": "string", "format": "did", "description": "legal-entity DID" },
+            "sellerDid": { "type": "string", "format": "did", "description": "legal-entity DID" },
+            "loadingPortDid": { "type": "string", "format": "did" },
+            "dischargePortDid": { "type": "string", "format": "did" }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "uri": { "type": "string", "format": "at-uri" } } } }
+    }
+  }
+}

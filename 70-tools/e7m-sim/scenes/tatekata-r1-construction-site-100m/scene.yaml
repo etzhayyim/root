@@ -1,0 +1,105 @@
+# tatekata R1 construction-site sim scene — ~100m×100m mixed-terrain.
+# ADR-2605262500 W4 cross-actor (≤2-story / ≤5000m² construction site).
+
+adr: ADR-2605262500
+phase: W4
+sim_consumer: tatekata-r1
+nv_compat_target: isaacsim.core.api.World
+
+world:
+  crs: "EPSG:4326"
+  bbox: [139.7510, 35.6850, 139.7520, 35.6860]
+  output_subdataset: "sim-scenes/tatekata/r1/construction-site-100m/261015/"
+
+  layers:
+    - kind: terrain
+      source_subdataset: "geo/srtm/n35e139"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      shader: "kami-pbrt:DirtRoad"
+      mesh:
+        triangulation: "regular_grid"
+        target_edge_m: 3.0
+
+    - kind: raster_overlay
+      source_subdataset: "geo/sentinel2/T54SUE/261001"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      band_mix: "RGB-B432"
+      uv_projection: "from_terrain_xy"
+
+    - kind: vector_roads
+      source_subdataset: "geo/overture/transportation/2604-release/jp"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      material: "kami-pbrt:DirtRoad"
+      ribbon:
+        default_lane_count: 1
+        default_lane_width_m: 5.0
+        z_offset_m: 0.03
+
+    - kind: vector_buildings
+      source_subdataset: "geo/overture/buildings/2604-release/jp"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      extrude:
+        height_attr: "height"
+        default_height_m: 6.0    # ≤2 story per ADR-2605250715
+        material: "kami-pbrt:Concrete_Grey"
+
+scene:
+  num_envs: 8
+  env_spacing: 200.0
+  gravity: [0.0, 0.0, -9.81]
+  dt: 0.01
+  decimation: 2
+
+robot:
+  urdf: ./tatekata-crane-r1.urdf
+  base_link: crane_base
+  spawn:
+    pos: [0.0, 0.0, 0.0]
+    rot: [1.0, 0.0, 0.0, 0.0]
+
+observation:
+  crane_state:
+    - boom_angle_rad
+    - load_mass_kg
+    - tip_position
+
+action:
+  joint_efforts:
+    - boom_pitch
+    - boom_telescope
+    - winch
+    - slew
+
+reward:
+  load_placed: 1.0
+  swing_damping: 0.5
+
+termination:
+  time_out:
+    max_episode_length_s: 120.0
+
+quality_gate:
+  reference_baseline: "isaac_sim_construction_100m_v1"
+  metrics:
+    psnr_min_db: 25.0
+    ssim_min: 0.85
+    chamfer_max_m: 0.05
+    iou_min_at_0p1m_voxel: 0.75
+  combined_target: 0.75
+
+charter:
+  max_tier: A
+  charter_rider_scan: required
+  pii_filter: not_applicable
+  replication_min: 2
+  physics_backend: kami-genesis
+  render_backend: kami-pbrt
+  inference_substrate: murakumo-only
+
+budget:
+  phase: R1
+  gpu_hr_eq_per_day_max: 1.0

@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.states.govOrg",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Government organization vertex (ministry / bureau / division / municipality). Upserted by path. Note: legacy 'gov' prefix; rename to .org planned in PR that also renames vertex_gov_org → vertex_states_org.",
+      "x-bootstrap": true,
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["path"],
+        "properties": {
+          "path": { "type": "string", "description": "Canonical path key, e.g. 'moj', 'moj:criminal', 'prefecture:tokyo'" },
+          "name": { "type": "string" },
+          "name_en": { "type": "string" },
+          "website": { "type": "string", "format": "uri" },
+          "contract": { "type": "string", "description": "Legal basis (設置法 / Act name)" },
+          "address": { "type": "string", "description": "Physical headquarters address" },
+          "phone": { "type": "string", "description": "General contact phone number" },
+          "email": { "type": "string", "description": "General contact email" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "domain_code": { "type": "string", "description": "ISO-3166 alpha-3 lower or org code" },
+          "org_tier": { "type": "string", "enum": ["country", "ministry", "agency", "bureau", "division", "prefecture", "city", "town", "village", "special_ward", "designated_city", "other"] },
+          "site_domain_slug": { "type": "string" },
+          "site_followed": { "type": "string", "enum": ["true", "false"] },
+          "did_registered": { "type": "string", "enum": ["true", "false"] },
+          "last_ingested_at": { "type": "string", "format": "datetime" },
+          "last_content_hash": { "type": "string" },
+          "last_kyumei_at": { "type": "string", "format": "datetime" },
+          "last_shinka_at": { "type": "string", "format": "datetime" },
+          "parent_path": { "type": "string" },
+          "parent_did": { "type": "string" },
+          "municipal_type": { "type": "string" },
+          "governance_linked": { "type": "string", "enum": ["true", "false"] },
+          "contract_did": { "type": "string" },
+          "bpmn_registered": { "type": "string", "enum": ["true", "false"] },
+          "updated_at": { "type": "string", "format": "datetime" },
+          "created_at": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

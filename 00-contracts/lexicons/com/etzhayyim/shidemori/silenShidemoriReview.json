@@ -1,0 +1,103 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.shidemori.silenShidemoriReview",
+  "description": "Quarterly Council review. Const-field structural enforcement across G3/G4/G5/G6/G7/G8/G9/G10/G11/G12. Verifies non-eschatological + cross-doctrinal Wellbecoming + NOT state-licensed mortuary + NO commercial memorial software + NO embalming chemicals + NO mortuary surveillance + free conscience burial-or-cremation + Land Trust waqf-equivalent + vocation-flow L5 + Murakumo-only.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "reviewPeriodStartUtc",
+          "reviewPeriodEndUtc",
+          "eschatologicalContentEventsCount",
+          "commercialMemorialSoftwarePenetrationPct",
+          "embalmingChemicalUsageEventsCount",
+          "mortuarySurveillanceEventsCount",
+          "stateLicensedMortuaryFirstPartyPct",
+          "mandatoryBurialEventsCount",
+          "cemeteryLandWaqfInalienabilityCompliantRatioPctIntegerHundredths",
+          "guardianVocationFlowCompliantRatioPctIntegerHundredths",
+          "singleDoctrinalAfterlifeMonopolyEventsCount",
+          "commercialMemorialAiUsageCount",
+          "councilAttestations"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "reviewPeriodStartUtc": {"type": "string", "format": "datetime"},
+          "reviewPeriodEndUtc": {"type": "string", "format": "datetime"},
+          "totalMemorialNftMints": {"type": "integer", "minimum": 0},
+          "totalCemeteryLandRegistrations": {"type": "integer", "minimum": 0},
+          "totalChinkonRemembranceCycles": {"type": "integer", "minimum": 0},
+          "totalInheritanceHandoffs": {"type": "integer", "minimum": 0},
+          "totalExternalMortuaryEngagements": {"type": "integer", "minimum": 0},
+          "guardianCount": {"type": "integer"},
+          "eschatologicalContentEventsCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G3 STRUCTURAL: const 0; Charter §1.15 non-eschatological invariant maintained"
+          },
+          "commercialMemorialSoftwarePenetrationPct": {
+            "type": "integer",
+            "const": 0,
+            "description": "G6 STRUCTURAL: const 0; no Frazer Consultants / Tribute Center / FuneralOne / ASD / SRS Computing / Wilbert / Aldor / Adobe Cemetery Mgmt / Cremation Society Cremation Mgmt"
+          },
+          "embalmingChemicalUsageEventsCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G7 STRUCTURAL: const 0; Charter Rider §2(d) toxic chemistry; green burial + cremation only"
+          },
+          "mortuarySurveillanceEventsCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G8 STRUCTURAL: const 0; Charter §2(c)"
+          },
+          "stateLicensedMortuaryFirstPartyPct": {
+            "type": "integer",
+            "const": 0,
+            "description": "G5 STRUCTURAL: const 0; shidemori is NOT state-licensed (external mortuary via Public Fund only)"
+          },
+          "mandatoryBurialEventsCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G9 STRUCTURAL: const 0; free conscience invariant; member directive opt-in"
+          },
+          "cemeteryLandWaqfInalienabilityCompliantRatioPctIntegerHundredths": {
+            "type": "integer",
+            "const": 10000,
+            "description": "G10 STRUCTURAL: const 10000 (100%); all cemetery sites attest waqf-inalienability"
+          },
+          "guardianVocationFlowCompliantRatioPctIntegerHundredths": {
+            "type": "integer",
+            "const": 10000,
+            "description": "G11 STRUCTURAL: const 10000; all guardians vocation-flow L5"
+          },
+          "singleDoctrinalAfterlifeMonopolyEventsCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G4 STRUCTURAL: const 0; cross-doctrinal Wellbecoming priority maintained"
+          },
+          "commercialMemorialAiUsageCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G12 STRUCTURAL: const 0; no commercial memorial AI; Murakumo-only inference"
+          },
+          "crossDoctrinalAccommodationDiversityCount": {
+            "type": "integer",
+            "description": "G4 audit signal: count of distinct doctrinal traditions accommodated this period"
+          },
+          "wellbecomingAttested": {"type": "boolean"},
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 3
+          },
+          "publishedAtMstUri": {"type": "string"},
+          "ipfsPinCid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

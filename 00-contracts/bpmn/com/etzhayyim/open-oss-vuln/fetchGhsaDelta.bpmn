@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_oss_vuln_fetch_ghsa_delta" targetNamespace="https://etzhayyim.ai/bpmn/open-oss-vuln" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_oss_vuln_fetch_ghsa_delta" name="fetchGhsaDelta" isExecutable="true">
+    <bpmn:startEvent id="Start" name="every 12h"><bpmn:outgoing>Flow_C</bpmn:outgoing>
+      <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT12H</bpmn:timeCycle></bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual"><bpmn:outgoing>Flow_CM</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_CM" sourceRef="Start_Manual" targetRef="Task_Cursor"/>
+    <bpmn:sequenceFlow id="Flow_C" sourceRef="Start" targetRef="Task_Cursor"/>
+    <bpmn:serviceTask id="Task_Cursor" name="load cursor">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT last_cursor FROM vertex_open_cyber_source WHERE source_id = 'ghsa' LIMIT 1&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=rows[1].last_cursor" target="cursor"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_C</bpmn:incoming><bpmn:incoming>Flow_CM</bpmn:incoming><bpmn:outgoing>Flow_F</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F" sourceRef="Task_Cursor" targetRef="Task_Fetch"/>
+    <bpmn:serviceTask id="Task_Fetch" name="ghsa reviewed advisories">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.http.fetch" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="=&quot;https://api.github.com/advisories?type=reviewed&amp;updated_after=&quot; + (if cursor != null then cursor else &quot;2024-01-01T00:00:00Z&quot;) + &quot;&amp;per_page=100&quot;" target="url"/>
+          <zeebe:input source="={&quot;Accept&quot;: &quot;application/vnd.github+json&quot;, &quot;X-GitHub-Api-Version&quot;: &quot;2022-11-28&quot;}" target="headers"/>
+          <zeebe:output source="=bodyJson" target="items"/>
+          <zeebe:output source="=string(now())" target="fetchedAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F</bpmn:incoming><bpmn:outgoing>Flow_L</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_L" sourceRef="Task_Fetch" targetRef="Task_Loop"/>
+    <bpmn:callActivity id="Task_Loop" name="register each advisory" calledElement="open_oss_vuln_register_advisory">
+      <bpmn:extensionElements><zeebe:calledElement processId="open_oss_vuln_register_advisory"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;at://did:web:open-oss-vuln.etzhayyim.com/com.etzhayyim.apps.ossVuln.registerAdvisory/&quot; + item.ghsa_id" target="vertexId"/>
+          <zeebe:input source="=item.ghsa_id" target="advisoryId"/>
+          <zeebe:input source="=&quot;ghsa&quot;" target="scheme"/>
+          <zeebe:input source="=if item.cvss != null then item.cvss.score else 0.0" target="cvss3Score"/>
+          <zeebe:input source="=0.0" target="cvss4Score"/>
+          <zeebe:input source="=if item.epss != null then item.epss.percentage else 0.0" target="epssPct"/>
+          <zeebe:input source="=if item.cwes != null then item.cwes[1].cwe_id else &quot;&quot;" target="cweId"/>
+          <zeebe:input source="=if item.vulnerabilities != null then item.vulnerabilities[1].package.ecosystem else &quot;unknown&quot;" target="affectedEcosystem"/>
+          <zeebe:input source="=if item.vulnerabilities != null then item.vulnerabilities[1].package.name else &quot;unknown&quot;" target="affectedPackage"/>
+          <zeebe:input source="=if item.vulnerabilities != null then item.vulnerabilities[1].vulnerable_version_range else &quot;&quot;" target="versionRanges"/>
+          <zeebe:input source="=false" target="kevTagged"/>
+          <zeebe:input source="=item.published_at" target="publishedAt"/>
+          <zeebe:input source="=&quot;did:web:open-oss-vuln.etzhayyim.com&quot;" target="callerDid"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="false"><bpmn:extensionElements><zeebe:loopCharacteristics inputCollection="=items" inputElement="item"/></bpmn:extensionElements></bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Loop" targetRef="Task_Advance"/>
+    <bpmn:serviceTask id="Task_Advance" name="advance cursor">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;UPDATE vertex_open_cyber_source SET last_cursor = $1, last_fetched_at = $2 WHERE source_id = 'ghsa'&quot;" target="sql"/>
+          <zeebe:input source="=[fetchedAt, fetchedAt]" target="params"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Advance" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

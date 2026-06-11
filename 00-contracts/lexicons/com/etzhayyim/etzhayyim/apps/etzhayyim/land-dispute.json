@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.land-dispute",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Land dispute — boundary, stewardship, succession, or external (state seizure / 3rd party claim). Council Lv6+ ≥3 deliberates. Per ADR-2605192245 §6.",
+      "record": {
+        "type": "object",
+        "required": ["landId", "disputeKind", "disputeNarrative", "submittedBy", "submittedAt"],
+        "properties": {
+          "landId": { "type": "integer", "minimum": 1 },
+          "disputeKind": {
+            "type": "string",
+            "enum": [
+              "internal-boundary",
+              "internal-stewardship-neglect",
+              "internal-succession",
+              "external-state-seizure",
+              "external-third-party-claim",
+              "external-inter-jurisdictional"
+            ]
+          },
+          "disputeNarrative": { "type": "string", "maxLength": 4000 },
+          "evidenceUris": {
+            "type": "array",
+            "maxLength": 50,
+            "items": { "type": "string" }
+          },
+          "submittedBy": {
+            "type": "string",
+            "description": "DID of the submitter. Can be steward, Adherent, or external party."
+          },
+          "submitterSignature": { "type": "string" },
+          "submittedAt": { "type": "string", "format": "datetime" },
+          "councilResolution": {
+            "type": "string",
+            "enum": ["pending", "active-preserved", "under-mediation", "rehab-reversal", "external-court-deferred"],
+            "default": "pending"
+          },
+          "councilSigners": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "councilResolvedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

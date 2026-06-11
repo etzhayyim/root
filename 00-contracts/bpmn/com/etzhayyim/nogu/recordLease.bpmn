@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  recordLease — XRPC com.etzhayyim.apps.nogu.recordLease で起動。
+  農機リースの開始または返却を記録。status=return の場合、
+  conditionOnReturn=damaged なら maintenance を自動起票。
+
+  Inputs:
+    itemId
+    action          (start | return)
+    lesseeDidOrMemberId
+    leaseStartDate  (start 時)
+    returnedAt      (return 時)
+    conditionOnReturn  (return 時)
+-->
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_nogu_record_lease"
+  targetNamespace="https://etzhayyim.ai/bpmn/nogu"
+  exporter="hand-written"
+  exporterVersion="1.0">
+  <bpmn:process id="nogu_record_lease" name="nogu Record Lease" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="lease event">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_WriteLeaseRecord"/>
+
+    <bpmn:serviceTask id="Task_WriteLeaseRecord" name="write lease record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_nogu_lease&quot;" target="table"/>
+          <zeebe:input source="={ item_id: itemId, lessee_did_or_member_id: lesseeDidOrMemberId, lease_start_date: leaseStartDate, returned_at: returnedAt, condition_on_return: conditionOnReturn, status: if(action = &quot;start&quot;, &quot;active&quot;, &quot;returned&quot;) }" target="row"/>
+          <zeebe:output source="=insertedId" target="leaseRecordId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_WriteLeaseRecord" targetRef="Task_UpdateItemStatus"/>
+
+    <bpmn:serviceTask id="Task_UpdateItemStatus" name="update item status">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_nogu_item&quot;" target="table"/>
+          <zeebe:input source="={ item_id: itemId, status: if(action = &quot;start&quot;, &quot;leased&quot;, &quot;active&quot;) }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_UpdateItemStatus" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit lease audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=if(action = &quot;start&quot;, &quot;leaseStarted&quot;, &quot;leaseReturned&quot;)" target="action"/>
+          <zeebe:input source="={ itemId: itemId, lesseeDidOrMemberId: lesseeDidOrMemberId, conditionOnReturn: conditionOnReturn }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_DamageGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_DamageGate" sourceRef="Task_Audit" targetRef="Gate_Damaged"/>
+
+    <bpmn:exclusiveGateway id="Gate_Damaged" name="damaged on return?" default="Flow_NoDamage">
+      <bpmn:incoming>Flow_DamageGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Damaged</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoDamage</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Damaged" sourceRef="Gate_Damaged" targetRef="Task_CreateMaintenance">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=action = "return" and (conditionOnReturn = "minor-damage" or conditionOnReturn = "major-damage")</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoDamage" sourceRef="Gate_Damaged" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_CreateMaintenance" name="auto-create maintenance record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_nogu_maintenance&quot;" target="table"/>
+          <zeebe:input source="={ item_id: itemId, maintenance_type: &quot;repair&quot;, performed_at: returnedAt, performer_did: &quot;did:web:nogu.etzhayyim.com&quot;, status: &quot;pending-parts&quot;, notes: &quot;Auto-created from lease return: conditionOnReturn=&quot; + conditionOnReturn }" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Damaged</bpmn:incoming>
+      <bpmn:outgoing>Flow_MaintAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_MaintAudit" sourceRef="Task_CreateMaintenance" targetRef="Task_AuditMaintenance"/>
+
+    <bpmn:serviceTask id="Task_AuditMaintenance" name="emit maintenance-required audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;maintenanceRequired&quot;" target="action"/>
+          <zeebe:input source="={ itemId: itemId, conditionOnReturn: conditionOnReturn }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_MaintAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_DmgEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_DmgEnd" sourceRef="Task_AuditMaintenance" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_NoDamage</bpmn:incoming>
+      <bpmn:incoming>Flow_DmgEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

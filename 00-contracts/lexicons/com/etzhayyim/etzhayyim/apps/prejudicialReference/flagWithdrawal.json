@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.prejudicialReference.flagWithdrawal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Withdrawal / inadmissibility / acte clair challenge (bridges grandChamberRuling.flagDoctrinalShift + judicial-review-gdpr + enforcement-action)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "referenceVid",
+            "issueKind",
+            "ruledAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "referenceVid": {
+              "type": "string",
+              "description": "bridges recordReference"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "national_court_withdrew",
+                "inadmissible",
+                "hypothetical",
+                "no_bearing",
+                "acte_clair",
+                "acte_eclaire",
+                "fraudulent",
+                "collusive",
+                "procedural_defect",
+                "broadening_accepted",
+                "nuance_reformulated"
+              ]
+            },
+            "ruledAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

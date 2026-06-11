@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 6 / 12 — 中割 (inbetween). ADR-2604231328.
+  in:  cutId, prevKeyframeUri, nextKeyframeUri, numFrames (target interp count),
+       videoBackend ('seedance2' default | 'wan5b' | 'animatediff' | 'svd')
+  out: inbetweenVertexId, blobCid (video bundling N intermediate frames)
+  note: Seedance 2 is the default as of 2026-04-23 — ByteDance's i2v gives
+        the best character-identity retention across interpolated frames for
+        anime-style keyframe pairs (vs WAN 5B which tends to drift on long
+        interpolations). Fallback chain: seedance2 → wan5b → animatediff.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_animeka_generate_inbetween"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="animeka_generate_inbetween" name="animeka generate inbetween" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Plan"/>
+    <bpmn:serviceTask id="Task_Plan" name="easing plan (Qwen 7B)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are a 2D animator. Output ONE JSON object {motion:&apos;linear|ease-in|ease-out|ease-in-out|anticipation|overshoot&apos;,secondaryAction:string,timingCurve:string}. JSON only.&quot;" target="system"/>
+          <zeebe:input source="=&quot;Key A: &quot; + string(prevKeyframeUri) + &quot;\nKey B: &quot; + string(nextKeyframeUri) + &quot;\nFrames to interpolate: &quot; + string(numFrames)" target="user"/>
+          <zeebe:input source="=300" target="maxTokens"/>
+          <zeebe:input source="=0.2" target="temperature"/>
+          <zeebe:output source="=data" target="easing"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming><bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Plan" targetRef="Task_Interp"/>
+    <bpmn:serviceTask id="Task_Interp" name="interpolate (WAN 5B i2v)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.comfyui.call"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;/v1/videos/generations&quot;" target="route"/>
+          <zeebe:input source="={
+              mode: &quot;image2video&quot;,
+              model: if videoBackend = null then &quot;seedance2&quot; else string(videoBackend),
+              start_frame_ref: string(prevKeyframeUri),
+              end_frame_ref:   string(nextKeyframeUri),
+              num_frames:      numFrames,
+              motion_profile:  easing.motion,
+              fps:             24
+          }" target="body"/>
+          <zeebe:input source="=&quot;binary&quot;" target="outputFormat"/>
+          <zeebe:input source="=420" target="timeoutSec"/>
+          <zeebe:output source="=blobCid" target="blobCid"/>
+          <zeebe:output source="=latencyMs" target="renderMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming><bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Interp" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="persist inbetween">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:      &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.inbetween/&quot; + string(cutId) + &quot;-ib-&quot; + string(numFrames),
+              owner_did:      &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:           &quot;did:web:animeka.etzhayyim.com&quot;,
+              collection:     &quot;com.etzhayyim.apps.animeka.inbetween&quot;,
+              rkey:           string(cutId) + &quot;-ib-&quot; + string(numFrames),
+              kind:           &quot;inbetween&quot;,
+              cut_id:         string(cutId),
+              duration_frames: numFrames,
+              stage:          &quot;inbetween&quot;,
+              method:         &quot;aiInterpolate&quot;,
+              priority:       &quot;review&quot;,
+              description:    string(easing.motion),
+              master_cid:    string(blobCid),
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F3</bpmn:incoming><bpmn:outgoing>F4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;generateInbetween&quot;" target="action"/>
+          <zeebe:input source="={cutId: string(cutId), frames: numFrames, blobCid: string(blobCid), renderMs: renderMs}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F4</bpmn:incoming><bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F5" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>F5</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

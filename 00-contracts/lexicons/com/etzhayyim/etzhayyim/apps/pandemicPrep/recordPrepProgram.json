@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pandemicPrep.recordPrepProgram",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pandemic preparedness program (WHO PPR / 100 Days Mission / CEPI — bridges one-health + fhir-health-data + vaccine-equity)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "programId",
+            "jurisdictionIso3",
+            "programKind",
+            "launchedAt"
+          ],
+          "properties": {
+            "programId": {
+              "type": "string"
+            },
+            "leadOrgLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "programKind": {
+              "type": "string",
+              "enum": [
+                "surveillance",
+                "vaccine_platform",
+                "therapeutic_stockpile",
+                "diagnostic_capacity",
+                "medical_countermeasure",
+                "genomic_readiness",
+                "clinical_trial_network"
+              ]
+            },
+            "pathogenFamily": {
+              "type": "string",
+              "enum": [
+                "coronavirus",
+                "influenza",
+                "filovirus",
+                "arenavirus",
+                "paramyxovirus",
+                "flavivirus",
+                "bunyavirus",
+                "disease_x"
+              ]
+            },
+            "fundingMusd": {
+              "type": "number"
+            },
+            "launchedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

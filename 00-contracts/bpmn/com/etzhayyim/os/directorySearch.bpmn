@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_os_directory_search" targetNamespace="https://etzhayyim.ai/bpmn/os" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="os_directory_search" name="directorySearch" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Start_Task</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Task" sourceRef="Start" targetRef="Task_directorySearch"/>
+    <bpmn:serviceTask id="Task_directorySearch" name="directorySearch">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.os.directorySearch" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Task_End" sourceRef="Task_directorySearch" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

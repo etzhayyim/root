@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  billing.etzhayyim.com — quota overage detector (autonomous, R/PT5M).
+
+  Pipeline:
+    1. billing.detect.overage     scan mv_billing_overage_alert × plan-limit
+                                  registry → emit alerts for orgs whose
+                                  utilization crossed 80% / 100% / 150%
+                                  threshold since last fire (cursor in
+                                  vertex_billing_alert_cursor table —
+                                  per-tenant ts_ms watermark).
+    2. generic.audit.emit         OCEL trail.
+
+  No XRPC entry. Pure timer-start. Polls every 5 minutes.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_billing_detect_overage"
+    targetNamespace="https://etzhayyim.ai/bpmn/billing"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="billing_detect_overage" name="billing detect overage (5min)" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="every 5 minutes">
+      <bpmn:outgoing>Flow_ToDetect</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT5M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Detect" name="scan overage alerts">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="billing.detect.overage"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=alertsEmitted" target="alertsEmitted"/>
+          <zeebe:output source="=orgsScanned" target="orgsScanned"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToDetect</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToDetect" sourceRef="StartTimer" targetRef="Task_Detect"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:billing.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.billing.detectOverage&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;alertsEmitted&quot;: alertsEmitted, &quot;orgsScanned&quot;: orgsScanned }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Detect" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

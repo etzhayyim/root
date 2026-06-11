@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sanae.harvestAttestation",
+  "description": "Harvest and in-field handling attestation for sanae. Records observed yield and witness metadata without commercial activation.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["fieldDid", "cropKind", "harvestedAt", "rPhase", "witnessRobotDids", "operatorDid"],
+        "properties": {
+          "fieldDid": {"type": "string", "format": "did"},
+          "cropKind": {"type": "string", "maxLength": 128},
+          "yieldKg": {"type": "integer", "minimum": 0},
+          "qualityNotes": {"type": "string", "maxLength": 1024},
+          "harvestedAt": {"type": "string", "format": "datetime"},
+          "rPhase": {"type": "string", "knownValues": ["R0", "R1", "R2", "R3"]},
+          "witnessRobotDids": {"type": "array", "items": {"type": "string", "format": "did"}, "minItems": 2},
+          "operatorDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

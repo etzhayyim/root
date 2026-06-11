@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.taxTransparency.recordAeoiExchange",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CRS / FATCA / CARF AEOI exchange (bridges global-tax + ofac-sanctions + mica-crypto)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "exchangeId",
+            "senderIso3",
+            "recipientIso3",
+            "standard",
+            "reportingYear",
+            "exchangedAt"
+          ],
+          "properties": {
+            "exchangeId": {
+              "type": "string"
+            },
+            "senderIso3": {
+              "type": "string"
+            },
+            "recipientIso3": {
+              "type": "string"
+            },
+            "standard": {
+              "type": "string",
+              "enum": [
+                "crs",
+                "fatca",
+                "carf",
+                "dac6",
+                "dac8",
+                "beps_13"
+              ]
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "accountsCount": {
+              "type": "integer"
+            },
+            "balancesTotalUsd": {
+              "type": "number"
+            },
+            "exchangedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

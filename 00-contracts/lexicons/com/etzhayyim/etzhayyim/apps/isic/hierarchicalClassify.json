@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.isic.hierarchicalClassify",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Hierarchical ISIC Rev. 4 classification: section (letter A-U) → division (2-digit) → group (3-digit) → class (4-digit). Haiku 4.5 routes each level; ties at top-k escalate to Sonnet 4.6.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["description"],
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            "stopAt": {
+              "type": "string",
+              "enum": ["section", "division", "group", "class"],
+              "default": "class",
+              "description": "Highest level of detail to resolve."
+            },
+            "modelHint": {
+              "type": "string",
+              "enum": ["haiku-4.5", "sonnet-4.6", "auto"],
+              "default": "auto"
+            },
+            "confidenceThreshold": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 0.7
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["path", "modelUsed", "elapsedMs"],
+          "properties": {
+            "path": {
+              "type": "object",
+              "description": "Hierarchical resolution; fields populated up to stopAt.",
+              "properties": {
+                "section": {
+                  "type": "object",
+                  "properties": {
+                    "code": {"type": "string"},
+                    "title": {"type": "string"},
+                    "confidence": {"type": "number"}
+                  }
+                },
+                "division": {
+                  "type": "object",
+                  "properties": {
+                    "code": {"type": "string"},
+                    "title": {"type": "string"},
+                    "confidence": {"type": "number"}
+                  }
+                },
+                "group": {
+                  "type": "object",
+                  "properties": {
+                    "code": {"type": "string"},
+                    "title": {"type": "string"},
+                    "confidence": {"type": "number"}
+                  }
+                },
+                "class": {
+                  "type": "object",
+                  "properties": {
+                    "code": {"type": "string"},
+                    "title": {"type": "string"},
+                    "confidence": {"type": "number"}
+                  }
+                }
+              }
+            },
+            "modelUsed": {"type": "string"},
+            "escalated": {"type": "boolean", "default": false},
+            "elapsedMs": {"type": "integer"}
+          }
+        }
+      },
+      "errors": [
+        {"name": "DescriptionEmpty"},
+        {"name": "AmbiguousAtSection"},
+        {"name": "ModelUnavailable"}
+      ]
+    }
+  }
+}

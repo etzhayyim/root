@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_newsletter_weekly_send" targetNamespace="https://etzhayyim.ai/bpmn/newsletter">
+  <bpmn:process id="newsletter_weekly_send" name="newsletter weeklySend" isExecutable="true">
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.newsletter.weeklySend", "version": 1, "schedule": "0 0 * * 2", "tz": "Asia/Tokyo", "adr": "2605072000-langgraph-agent-loop-pattern" }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+
+    <!-- Step 1: LangGraph curation loop -->
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="RunCurationAgent"/>
+    <bpmn:serviceTask id="RunCurationAgent" name="Run LangGraph curation agent">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="newsletter.run_curation_agent" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming>
+      <bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Step 2: Resend batch send -->
+    <bpmn:sequenceFlow id="F2" sourceRef="RunCurationAgent" targetRef="SendViaResend"/>
+    <bpmn:serviceTask id="SendViaResend" name="Batch send via Resend">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="newsletter.send_via_resend" retries="3"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming>
+      <bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Step 3: Optionally create ads.etzhayyim.com sponsor slot -->
+    <bpmn:sequenceFlow id="F3" sourceRef="SendViaResend" targetRef="AdGateway"/>
+    <bpmn:exclusiveGateway id="AdGateway" name="includeAdSlot?">
+      <bpmn:incoming>F3</bpmn:incoming>
+      <bpmn:outgoing>F4_yes</bpmn:outgoing>
+      <bpmn:outgoing>F4_no</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="F4_yes" sourceRef="AdGateway" targetRef="CreateSponsorSlot">
+      <bpmn:conditionExpression>=includeAdSlot = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="CreateSponsorSlot" name="Create ads.etzhayyim.com sponsor slot">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="newsletter.create_sponsor_slot" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F4_yes</bpmn:incoming>
+      <bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4_no" sourceRef="AdGateway" targetRef="End">
+      <bpmn:conditionExpression>=includeAdSlot != true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F5" sourceRef="CreateSponsorSlot" targetRef="End"/>
+
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>F4_no</bpmn:incoming>
+      <bpmn:incoming>F5</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

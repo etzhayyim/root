@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.market.quotePrice",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Quote spot price for a given listing + quantity (ADR 2605011300). Read-only; does not allocate inventory.",
+      "parameters": {
+        "type": "params",
+        "required": ["listingId", "quantity"],
+        "properties": {
+          "listingId": { "type": "string" },
+          "quantity": { "type": "number", "minimum": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "totalPrice": { "type": "number" },
+            "settlementCurrency": { "type": "string" },
+            "expiresAt": { "type": "string", "format": "datetime", "description": "Quote validity window (typically ≤ 60s)" },
+            "vacuumScore": { "type": "number" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

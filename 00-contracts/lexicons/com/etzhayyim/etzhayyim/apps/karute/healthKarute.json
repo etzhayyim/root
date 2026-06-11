@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.healthKarute",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Liveness + substrate readiness probe (PDS reachable, encryptedRead/encryptedWrite codepaths warm).",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {"type": "boolean"},
+            "version": {"type": "string"},
+            "substrateChecks": {
+              "type": "object",
+              "properties": {
+                "pdsReachable": {"type": "boolean"},
+                "ipfsReachable": {"type": "boolean"},
+                "signalSessionStore": {"type": "boolean"},
+                "graphIndex": {"type": "boolean"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

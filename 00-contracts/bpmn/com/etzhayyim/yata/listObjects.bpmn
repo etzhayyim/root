@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yata_list_objects"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="yata_list_objects" name="yata list objects" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.yata.listObjects", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="listObjects">
+      <bpmn:outgoing>Flow_ToList</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_List" name="SELECT vertex_yata_blob WHERE bucket_name + prefix">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yata.storage.list.objects"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=bucketName" target="bucketName"/>
+          <zeebe:input source="=prefix" target="prefix"/>
+          <zeebe:input source="=delimiter" target="delimiter"/>
+          <zeebe:input source="=limit" target="limit"/>
+          <zeebe:input source="=cursor" target="cursor"/>
+          <zeebe:output source="=bucketName" target="bucketName"/>
+          <zeebe:output source="=objects" target="objects"/>
+          <zeebe:output source="=commonPrefixes" target="commonPrefixes"/>
+          <zeebe:output source="=nextCursor" target="nextCursor"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToList</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToList" sourceRef="Start" targetRef="Task_List"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_List" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

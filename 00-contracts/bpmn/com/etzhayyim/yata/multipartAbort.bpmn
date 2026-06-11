@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yata_multipart_abort"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="yata_multipart_abort" name="yata multipart abort" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.yata.multipartAbort", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="multipartAbort">
+      <bpmn:outgoing>Flow_ToAbort</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Abort" name="provider AbortMultipartUpload + UPDATE row to status='aborted'">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yata.storage.multipart.abort"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=uploadId" target="uploadId"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=partsAborted" target="partsAborted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAbort</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAbort" sourceRef="Start" targetRef="Task_Abort"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Abort" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

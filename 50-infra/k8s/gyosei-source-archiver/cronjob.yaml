@@ -1,0 +1,98 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: __CRONJOB_NAME__
+  namespace: __NAMESPACE__
+  labels:
+    app.kubernetes.io/name: gyosei-source-archiver
+    app.kubernetes.io/part-of: jpn-state.etzhayyim.com
+spec:
+  schedule: "__SCHEDULE__"
+  timeZone: "Etc/UTC"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      activeDeadlineSeconds: 3600
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: gyosei-source-archiver
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: archiver
+              image: python:3.14-slim
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -euo pipefail
+                  apt-get update
+                  apt-get install -y --no-install-recommends chromium poppler-utils curl ca-certificates
+                  pip install --no-cache-dir boto3 Pillow psycopg2-binary
+                  python3 /app/capture_gyosei_sources_to_b2.py --manifest /app/source-manifest.json
+              env:
+                - name: CHROME_BIN
+                  value: /usr/bin/chromium
+                - name: etzhayyim_B2_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: gyosei-source-archiver-b2
+                      key: etzhayyim_B2_KEY_ID
+                - name: etzhayyim_B2_APP_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: gyosei-source-archiver-b2
+                      key: etzhayyim_B2_APP_KEY
+                - name: etzhayyim_B2_BUCKET
+                  valueFrom:
+                    secretKeyRef:
+                      name: gyosei-source-archiver-env
+                      key: etzhayyim_B2_BUCKET
+                      optional: true
+                - name: etzhayyim_B2_ENDPOINT
+                  valueFrom:
+                    secretKeyRef:
+                      name: gyosei-source-archiver-env
+                      key: etzhayyim_B2_ENDPOINT
+                      optional: true
+                - name: etzhayyim_B2_PREFIX
+                  valueFrom:
+                    secretKeyRef:
+                      name: gyosei-source-archiver-env
+                      key: etzhayyim_B2_PREFIX
+                      optional: true
+                - name: RW_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: mitama-udf-pool-rw
+                      key: RW_URL
+                      optional: true
+              resources:
+                requests:
+                  cpu: "500m"
+                  memory: "1Gi"
+                limits:
+                  cpu: "2"
+                  memory: "3Gi"
+              volumeMounts:
+                - name: archiver-script
+                  mountPath: /app/capture_gyosei_sources_to_b2.py
+                  subPath: capture_gyosei_sources_to_b2.py
+                  readOnly: true
+                - name: gyosei-manifest
+                  mountPath: /app/source-manifest.json
+                  subPath: source-manifest.json
+                  readOnly: true
+          volumes:
+            - name: archiver-script
+              configMap:
+                name: gyosei-source-archiver-script
+                defaultMode: 0555
+            - name: gyosei-manifest
+              configMap:
+                name: gyosei-source-archiver-manifest

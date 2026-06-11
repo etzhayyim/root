@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-126b9133c4c5",
+  "entityId": "ent-126b9133c4c5",
+  "canonicalName": "mehmet çakmaktepe",
+  "aliases": [
+    "mehmet çakmaktepe"
+  ]
+}

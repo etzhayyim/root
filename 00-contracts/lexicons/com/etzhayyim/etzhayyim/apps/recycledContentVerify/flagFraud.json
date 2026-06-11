@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.recycledContentVerify.flagFraud",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Recycled content fraud / mass balance misallocation (bridges eprPackaging.flagEcomodulationGap + enforcement-action + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "auditVid",
+            "fraudKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "auditVid": {
+              "type": "string",
+              "description": "bridges recordAudit"
+            },
+            "fraudKind": {
+              "type": "string",
+              "enum": [
+                "percentage_overstated",
+                "mass_balance_double_claim",
+                "chemical_recycling_gap",
+                "off_spec_blend",
+                "counterfeit_pellets",
+                "substitution_with_virgin",
+                "chain_of_custody_break",
+                "offset_abuse",
+                "certification_forged",
+                "unauthorized_logo"
+              ]
+            },
+            "affectedSkuCount": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

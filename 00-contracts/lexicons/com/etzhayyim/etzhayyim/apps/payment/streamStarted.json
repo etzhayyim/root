@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.payment.streamStarted",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Superfluid streaming payment opened on Base L2. Per ADR-2605172100.",
+      "record": {
+        "type": "object",
+        "required": ["to", "flowRateMicrosPerSecond", "tokenContract", "chainId", "superfluidStreamId", "purpose", "startedAt"],
+        "properties": {
+          "to": { "type": "string" },
+          "flowRateMicrosPerSecond": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "USDC base units / second. e.g. 3858 ≈ $10/month."
+          },
+          "tokenContract": { "type": "string" },
+          "chainId": { "type": "integer" },
+          "superfluidStreamId": { "type": "string", "description": "0x-prefixed stream key (= receiver address by Superfluid convention)." },
+          "purpose": {
+            "type": "string",
+            "enum": ["subscription", "grant", "salary", "split"]
+          },
+          "forUri": { "type": "string", "format": "at-uri" },
+          "memo": { "type": "string", "maxLength": 280 },
+          "startedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

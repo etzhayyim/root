@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.activity.awaitAll",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Join on a previously spawned parallel batch. Returns results array.",
+      "x-hostImportsMethod": "activityAwaitAll",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "batchId": {
+              "type": "string"
+            },
+            "timeoutMs": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "batchId",
+            "timeoutMs"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "resultsJson": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "resultsJson"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.provenanceResearch.recordDossier",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Museum provenance research dossier (bridges culturalRepatriation.flagDeaccessioning + cultural-heritage + intangible-heritage)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "dossierId",
+            "objectCategory",
+            "completedAt"
+          ],
+          "properties": {
+            "dossierId": {
+              "type": "string"
+            },
+            "holdingInstitutionLei": {
+              "type": "string"
+            },
+            "objectCategory": {
+              "type": "string",
+              "enum": [
+                "painting",
+                "sculpture",
+                "manuscript",
+                "artifact",
+                "textile",
+                "musical_instrument",
+                "ceremonial",
+                "indigenous_sacred",
+                "nazi_era",
+                "colonial_era",
+                "archaeological",
+                "ethnographic"
+              ]
+            },
+            "gapPeriod": {
+              "type": "string",
+              "enum": [
+                "pre_1800",
+                "1800_1900",
+                "1900_1933",
+                "nazi_era_1933_45",
+                "colonial_era",
+                "post_ww2",
+                "post_1970"
+              ]
+            },
+            "deaccessioningVid": {
+              "type": "string",
+              "description": "bridges culturalRepatriation.flagDeaccessioning"
+            },
+            "investigatorCount": {
+              "type": "integer"
+            },
+            "completedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

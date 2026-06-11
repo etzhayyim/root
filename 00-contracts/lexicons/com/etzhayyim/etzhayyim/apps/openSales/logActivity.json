@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSales.logActivity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Log a sales activity (call, email, meeting, demo, proposal) against an opportunity or contact. Starts BPMN open_sales_log_activity.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["activityId", "kind", "summary"],
+          "properties": {
+            "activityId": { "type": "string" },
+            "oppDid":     { "type": "string" },
+            "contactDid": { "type": "string" },
+            "kind":       { "type": "string", "knownValues": ["call", "email", "meeting", "demo", "proposal", "other"] },
+            "summary":    { "type": "string" },
+            "outcome":    { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId":    { "type": "string" },
+            "status":      { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

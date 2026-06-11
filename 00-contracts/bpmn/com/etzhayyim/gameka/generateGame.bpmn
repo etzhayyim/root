@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  gameka.generateGame — chain step from proposeGame. Loads a gameSpec row,
+  emits a kami-app-{slug} Rust source tree via the in-cluster codegen
+  task, and records a vertex_gameka_artifact row with build_status
+  reflecting how far the pipeline got.
+
+  P2 contract (this file):
+    Start (XRPC com.etzhayyim.apps.gameka.generateGame { specId })
+      → Task_LoadSpec       generic.db.select vertex_gameka_spec
+      → Task_RenderScaffold gameka.codegen.renderKamiApp (in-process Python)
+      → Task_BuildRkey      scriptTask FEEL ("art" + epoch ms)
+      → Task_BuildCreatedAt scriptTask FEEL (ISO now)
+      → Task_BuildVertexId  scriptTask FEEL (at:// uri)
+      → Task_PersistArtifact generic.db.insert vertex_gameka_artifact
+      → Task_Audit          generic.audit.emit gameka.artifact.built
+      → End
+
+  P3 chain (this file):
+    - Task_BuildWasm           gameka.build.wasmPack (Vultr pod
+                               `gameka-build-runner`: rust + wasm-pack +
+                               sccache + boto3, re-derives sources from
+                               specId, builds .wasm, uploads to B2, returns
+                               binary wasmCid + size + presigned wasmUrl)
+    - Task_BuildBuiltVertexId  scriptTask FEEL (vertex_id with -built suffix)
+                               so the sources_ready row stays as audit trail
+                               and the new row supersedes by created_at DESC
+    - Task_PersistBuiltArtifact generic.db.insert vertex_gameka_artifact
+    - Task_AuditBuilt          generic.audit.emit gameka.artifact.binaryBuilt
+
+  P4 follow-up (deferred):
+    - Task_DerivePlaytest      generic.pds.dispatch com.etzhayyim.apps.gameka.playtestGame
+
+  NSID: com.etzhayyim.apps.gameka.generateGame (XRPC procedure)
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gameka-generate-game-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_gameka_generate_game"
+    targetNamespace="https://etzhayyim.ai/bpmn/gameka"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="gameka_generate_game" name="gameka generateGame" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.gameka.generateGame", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="XRPC generateGame">
+      <bpmn:outgoing>Flow_ToLoadSpec</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToLoadSpec" sourceRef="Start" targetRef="Task_LoadSpec"/>
+
+    <!-- Step 1: load the spec row by spec_id. selects exactly the fields
+         the codegen task needs; everything else stays in the DB. -->
+    <bpmn:serviceTask id="Task_LoadSpec" name="load vertex_gameka_spec">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_gameka_spec&quot;" target="table"/>
+          <zeebe:input source="=&quot;spec_id, title, slug, genre, mechanic_json, scene_json, budget_usd, score&quot;" target="columns"/>
+          <zeebe:input source="=&quot;spec_id = %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[specId]" target="whereParams"/>
+          <zeebe:input source="=1" target="limit"/>
+          <zeebe:output source="=rows[1].title"          target="specTitle"/>
+          <zeebe:output source="=rows[1].slug"           target="specSlug"/>
+          <zeebe:output source="=rows[1].genre"          target="specGenre"/>
+          <zeebe:output source="=rows[1].mechanic_json"  target="specMechanicJson"/>
+          <zeebe:output source="=rows[1].scene_json"     target="specSceneJson"/>
+          <zeebe:output source="=rows[1].budget_usd"     target="specBudgetUsd"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToLoadSpec</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToRender</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToRender" sourceRef="Task_LoadSpec" targetRef="Task_RenderScaffold"/>
+
+    <!-- Step 2: render the kami-app-{slug} crate source tree.
+         In-cluster pyzeebe handler `gameka.codegen.renderKamiApp` returns
+         { sourcesJson (file tree as JSON), wasmCid (sha256 of canonical
+         tree, CIDv1-shape), wasmSize, entryFn }. The file tree itself is
+         not persisted to vertex_gameka_artifact in P2; the cid + size
+         are sufficient for the P3 wasm-pack runner to dedupe and pull
+         sources via gameka.codegen.renderKamiApp again given the same
+         specId (deterministic). -->
+    <bpmn:serviceTask id="Task_RenderScaffold" name="render kami-app source tree">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="gameka.codegen.renderKamiApp" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=specId"            target="specId"/>
+          <zeebe:input source="=specTitle"         target="title"/>
+          <zeebe:input source="=specSlug"          target="slug"/>
+          <zeebe:input source="=specGenre"         target="genre"/>
+          <zeebe:input source="=specMechanicJson"  target="mechanicJson"/>
+          <zeebe:input source="=specSceneJson"     target="sceneJson"/>
+          <zeebe:output source="=wasmCid"          target="wasmCid"/>
+          <zeebe:output source="=wasmSize"         target="wasmSize"/>
+          <zeebe:output source="=entryFn"          target="entryFn"/>
+          <zeebe:output source="=fileCount"        target="fileCount"/>
+          <zeebe:output source="=buildStatus"      target="buildStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRender</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToRkey</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToRkey" sourceRef="Task_RenderScaffold" targetRef="Task_BuildRkey"/>
+
+    <!-- Step 3a: rkey = "art" + epoch ms. -->
+    <bpmn:scriptTask id="Task_BuildRkey" name="rkey from now()">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=string join(["art", replace(string(now()), "[^0-9]", "", "s")], "")'
+            resultVariable="artRkey"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRkey</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToCreatedAt</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToCreatedAt" sourceRef="Task_BuildRkey" targetRef="Task_BuildCreatedAt"/>
+
+    <!-- Step 3b: createdAt ISO. -->
+    <bpmn:scriptTask id="Task_BuildCreatedAt" name="createdAt ISO">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=string(now())'
+            resultVariable="artCreatedAt"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCreatedAt</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToVid</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToVid" sourceRef="Task_BuildCreatedAt" targetRef="Task_BuildVertexId"/>
+
+    <!-- Step 3c: vertex_id = at://...buildArtifact/{rkey}-sources.
+         Event-sourced: this row records the sources_ready state. The
+         wasm-pack runner emits a second row with -built or -failed
+         suffix; readers SELECT ORDER BY created_at DESC LIMIT 1 to get
+         the latest state (RW PK is unique per row, no UPDATE needed). -->
+    <bpmn:scriptTask id="Task_BuildVertexId" name="at:// vertex_id (sources)">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=string join(["at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.buildArtifact/", artRkey, "-sources"], "")'
+            resultVariable="artVertexId"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToVid</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToInsert</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToInsert" sourceRef="Task_BuildVertexId" targetRef="Task_PersistArtifact"/>
+
+    <!-- Step 4: persist artifact row. wasm_url is left empty in P2 — the
+         P3 wasm-pack runner will UPDATE the row in place once the build
+         completes (build_status: sources_ready → building → built/failed). -->
+    <bpmn:serviceTask id="Task_PersistArtifact" name="insert vertex_gameka_artifact">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_gameka_artifact&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: artVertexId,
+              owner_did: &quot;did:web:gameka.etzhayyim.com&quot;,
+              rkey: artRkey,
+              repo: &quot;did:web:gameka.etzhayyim.com&quot;,
+              artifact_id: artRkey,
+              spec_id: specId,
+              wasm_cid: wasmCid,
+              wasm_size: wasmSize,
+              wasm_url: &quot;&quot;,
+              build_log_url: &quot;&quot;,
+              build_status: buildStatus,
+              created_at: artCreatedAt
+          }" target="values"/>
+          <zeebe:input source="=&quot;raise&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToInsert</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_PersistArtifact" targetRef="Task_Audit"/>
+
+    <!-- Step 5: audit the sources_ready state for trail clarity. -->
+    <bpmn:serviceTask id="Task_Audit" name="audit emit (sources_ready)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:gameka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;gameka.artifact.sourcesReady&quot;" target="action"/>
+          <zeebe:input source="={
+              specId: specId,
+              artifactId: artRkey,
+              wasmCid: wasmCid,
+              wasmSize: wasmSize,
+              fileCount: fileCount,
+              entryFn: entryFn,
+              buildStatus: buildStatus
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBuildWasm</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToBuildWasm" sourceRef="Task_Audit" targetRef="Task_BuildWasm"/>
+
+    <!-- Step 6: wasm-pack build via the dedicated runner pod
+         (50-infra/vultr/gameka-build-runner). The runner re-derives
+         sources from specId (deterministic, same gameka_codegen module
+         vendored into its image), runs wasm-pack on the kami-engine
+         workspace baked into the image, uploads pkg/*.wasm + pkg/*.js
+         to B2 (`etzhayyim-gameka/builds/{wasmCid}.wasm`), and returns the
+         binary cid + size + presigned URL. Failure paths return
+         buildStatus="failed" with empty wasmUrl + non-empty buildLogUrl;
+         the BPMN persists the failure as a regular -built/-failed row
+         so audit + retry telemetry stay in graph. 600s budget covers
+         cold cache (sccache miss = ~3-5min for kami-engine workspace). -->
+    <bpmn:serviceTask id="Task_BuildWasm" name="wasm-pack build">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="gameka.build.wasmPack" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=specId"           target="specId"/>
+          <zeebe:input source="=specTitle"        target="title"/>
+          <zeebe:input source="=specSlug"         target="slug"/>
+          <zeebe:input source="=specGenre"        target="genre"/>
+          <zeebe:input source="=specMechanicJson" target="mechanicJson"/>
+          <zeebe:input source="=specSceneJson"    target="sceneJson"/>
+          <zeebe:input source="=wasmCid"          target="sourcesCid"/>
+          <zeebe:output source="=wasmCid"         target="binaryWasmCid"/>
+          <zeebe:output source="=wasmSize"        target="binaryWasmSize"/>
+          <zeebe:output source="=wasmUrl"         target="binaryWasmUrl"/>
+          <zeebe:output source="=wasmJsUrl"       target="binaryWasmJsUrl"/>
+          <zeebe:output source="=buildLogUrl"     target="binaryBuildLogUrl"/>
+          <zeebe:output source="=buildStatus"     target="binaryBuildStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBuildWasm</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBuiltVid</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToBuiltVid" sourceRef="Task_BuildWasm" targetRef="Task_BuildBuiltVertexId"/>
+
+    <!-- Step 7a: vertex_id with -built or -failed suffix. -->
+    <bpmn:scriptTask id="Task_BuildBuiltVertexId" name="at:// vertex_id (built)">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=string join(["at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.buildArtifact/", artRkey, "-", binaryBuildStatus], "")'
+            resultVariable="artBuiltVertexId"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBuiltVid</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBuiltCreatedAt</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToBuiltCreatedAt" sourceRef="Task_BuildBuiltVertexId" targetRef="Task_BuildBuiltCreatedAt"/>
+
+    <!-- Step 7b: built-row createdAt (distinct from sources-row to keep
+         ORDER BY created_at DESC unambiguous). -->
+    <bpmn:scriptTask id="Task_BuildBuiltCreatedAt" name="built createdAt ISO">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=string(now())'
+            resultVariable="artBuiltCreatedAt"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBuiltCreatedAt</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBuiltInsert</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToBuiltInsert" sourceRef="Task_BuildBuiltCreatedAt" targetRef="Task_PersistBuiltArtifact"/>
+
+    <!-- Step 8: persist the built (or failed) row. artifact_id stays
+         constant so JOINs across the two rows work; vertex_id differs
+         by -sources / -built / -failed suffix. -->
+    <bpmn:serviceTask id="Task_PersistBuiltArtifact" name="insert vertex_gameka_artifact (built)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_gameka_artifact&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: artBuiltVertexId,
+              owner_did: &quot;did:web:gameka.etzhayyim.com&quot;,
+              rkey: artRkey,
+              repo: &quot;did:web:gameka.etzhayyim.com&quot;,
+              artifact_id: artRkey,
+              spec_id: specId,
+              wasm_cid: binaryWasmCid,
+              wasm_size: binaryWasmSize,
+              wasm_url: binaryWasmUrl,
+              js_url: if binaryWasmJsUrl = null then &quot;&quot; else binaryWasmJsUrl,
+              build_log_url: binaryBuildLogUrl,
+              build_status: binaryBuildStatus,
+              created_at: artBuiltCreatedAt
+          }" target="values"/>
+          <zeebe:input source="=&quot;raise&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBuiltInsert</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBuiltAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToBuiltAudit" sourceRef="Task_PersistBuiltArtifact" targetRef="Task_AuditBuilt"/>
+
+    <!-- Step 9: audit final state. -->
+    <bpmn:serviceTask id="Task_AuditBuilt" name="audit emit (binary)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:gameka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;gameka.artifact.binaryBuilt&quot;" target="action"/>
+          <zeebe:input source="={
+              specId: specId,
+              artifactId: artRkey,
+              sourcesCid: wasmCid,
+              binaryWasmCid: binaryWasmCid,
+              binaryWasmSize: binaryWasmSize,
+              binaryWasmUrl: binaryWasmUrl,
+              binaryBuildStatus: binaryBuildStatus
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBuiltAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBuildGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToBuildGate" sourceRef="Task_AuditBuilt" targetRef="Gateway_BuildOk"/>
+
+    <!-- Step 10: branch on build outcome. Successful builds derive the
+         playtest QA loop (closing the ideate→build→QA chain). Failed
+         builds end here — the failed row + log URL stay in graph for
+         debugging; tickStudio's next iteration picks a different brief. -->
+    <bpmn:exclusiveGateway id="Gateway_BuildOk" name="build ok?">
+      <bpmn:incoming>Flow_ToBuildGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_BuiltToPlaytest</bpmn:outgoing>
+      <bpmn:outgoing>Flow_FailedToEnd</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_BuiltToPlaytest" sourceRef="Gateway_BuildOk" targetRef="Task_DerivePlaytest">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=binaryBuildStatus = "built"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_FailedToEnd" sourceRef="Gateway_BuildOk" targetRef="End">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=binaryBuildStatus != "built"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Step 11: derive playtestGame. iteration is forwarded so the
+         QA loop knows which try this is (cap at MAX_ITERATION=3 inside
+         the visual critic). -->
+    <bpmn:serviceTask id="Task_DerivePlaytest" name="derive playtestGame">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.pds.dispatch" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.gameka.playtestGame&quot;" target="nsid"/>
+          <zeebe:input source="={
+              specId: specId,
+              iteration: if iteration = null then 0 else iteration
+          }" target="input"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_BuiltToPlaytest</bpmn:incoming>
+      <bpmn:outgoing>Flow_PlaytestToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_PlaytestToEnd" sourceRef="Task_DerivePlaytest" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_FailedToEnd</bpmn:incoming>
+      <bpmn:incoming>Flow_PlaytestToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

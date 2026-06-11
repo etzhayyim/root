@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.genderPayGap.recordJointAssessment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Joint pay assessment (EU PTD Art 10) / remediation plan",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "assessmentId",
+            "reportVid",
+            "unjustifiedGapFound",
+            "conductedAt"
+          ],
+          "properties": {
+            "assessmentId": {
+              "type": "string"
+            },
+            "reportVid": {
+              "type": "string",
+              "description": "bridges reportEmployerMetric"
+            },
+            "unjustifiedGapFound": {
+              "type": "boolean"
+            },
+            "remediationMeasures": {
+              "type": "string"
+            },
+            "timelineMonths": {
+              "type": "integer"
+            },
+            "conductedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

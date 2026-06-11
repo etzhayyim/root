@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bpmn.listProcesses",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List deployed processes.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "includeDeprecated": { "type": "boolean", "default": false }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "processes": { "type": "array", "items": { "type": "unknown" } },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

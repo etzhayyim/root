@@ -1,0 +1,36 @@
+[project]
+name = "roso-distill"
+version = "0.1.0"
+description = "Bonsai-pattern post-train 1-bit + distill recovery for the roso family (ADR-2605242000)"
+authors = [{ name = "etzhayyim" }]
+license = { text = "Apache-2.0 with Charter Rider v2.0" }
+requires-python = ">=3.10"
+dependencies = [
+  "transformers >= 4.55",
+  "torch >= 2.4",
+  "datasets >= 2.20",
+  "huggingface_hub >= 0.36",
+  "pydantic >= 2.0",
+  # bitsandbytes is used as a *placeholder* 1-bit / 4-bit quantizer until the
+  # full Bonsai per-layer end-to-end algorithm is ported from the whitepaper.
+  # Optional — install only on hosts where actual quantization runs.
+  # "bitsandbytes >= 0.43",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+recovery = [
+  # baien-distill exposes the SFT loop we reuse for "recovery"
+  "peft >= 0.13",
+  "trl >= 0.11",
+]
+
+[project.scripts]
+roso = "roso_distill.__main__:main"
+
+[build-system]
+requires = ["setuptools >= 68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

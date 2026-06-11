@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hodoki.batteryHandlingRecord",
+  "description": "ELV battery handling record (L2). Thermal baseline + SoH measurement + routing decision (≥70% → hikari second-life; <70% → cell-recycle Wave 2). Per ADR-2605261215 L2 (G7 + G13 cross-actor).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "thermalBaseline": {
+            "type": "object",
+            "properties": {
+              "ambientTempC": {"type": "integer"},
+              "cellTempCMax": {"type": "integer"},
+              "cellTempCMin": {"type": "integer"},
+              "deltaCellTempC": {"type": "integer"},
+              "thermalRunawayContainmentEnclosure": {"type": "boolean", "const": true},
+              "punctureRiskAssessed": {"type": "string", "knownValues": ["low", "medium", "high"]},
+              "shortCircuitRiskAssessed": {"type": "string", "knownValues": ["low", "medium", "high"]},
+              "g7CompliantBaseline": {"type": "boolean"}
+            }
+          },
+          "soh": {
+            "type": "object",
+            "properties": {
+              "chemistry": {"type": "string", "knownValues": ["Li-ion-NMC-622", "Li-ion-NMC-811", "Li-ion-NCA", "Li-ion-LFP", "lead-acid-AGM"]},
+              "nominalKwh": {"type": "number"},
+              "measuredKwh": {"type": "number"},
+              "sohPct": {"type": "number"},
+              "cycleCount": {"type": "integer"},
+              "impedanceMohm": {"type": "number"},
+              "moduleHealthMap": {"type": "string"},
+              "measurementMethod": {"type": "string"},
+              "ipfsTestCid": {"type": "string"}
+            }
+          },
+          "routing": {
+            "type": "object",
+            "properties": {
+              "sohPct": {"type": "number"},
+              "thresholdPct": {"type": "number", "const": 70.0},
+              "routingDecision": {"type": "string", "knownValues": ["second-life-hikari", "cell-recycle-wave2", "lead-acid-kanayama-wave3"]},
+              "destinationActor": {"type": "string", "knownValues": ["hikari", "wave2-pending", "kanayama"]},
+              "destinationDid": {"type": "string"},
+              "g13CircularFeedConfirmed": {"type": "boolean", "const": true}
+            },
+            "required": ["routingDecision", "destinationActor", "g13CircularFeedConfirmed"]
+          },
+          "g7Compliant": {"type": "boolean", "const": true},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "thermalBaseline", "soh", "routing", "g7Compliant", "attestingRobots"]
+      }
+    }
+  }
+}

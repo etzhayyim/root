@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.membrane.verdict",
+  "description": "kotoba-datomic §4 membrane verdict — a content-addressed witness that an L3 deterministic cell evaluated a record under the (L1 schema, L2 Rego, L3 cell) triple defined for its collection. Emitted by Pregel cells (e.g. FeedPostCell for app.bsky.feed.post) into the cell's own MST as a sidecar. Per ADR-2605231400 SPEC §4 + ADR-2605192200 §2 + ADR-2605192400. Approve/reject/escalate verdicts let downstream consumers (kotoba-datomic-projection, mst-projector, ipfs-pinner) decide whether to propagate the original record into the projection cache, anchor it, or quarantine it pending Council review.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["subject", "verdict", "reason", "verdictCid", "createdAt"],
+        "properties": {
+          "subject": {
+            "type": "ref",
+            "ref": "#subject",
+            "description": "AT URI + CID of the record being adjudicated."
+          },
+          "verdict": {
+            "type": "string",
+            "enum": ["approve", "reject", "escalate"],
+            "description": "Deterministic verdict. `escalate` means the cell could not decide alone and routes to CouncilDeliberationCell (Lv6+ ≥3) per ADR-2605192300."
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Machine-readable reason code. Examples: `ok`, `schema-violation`, `charter-or-semantic-violation`, `council-required`."
+          },
+          "evidence": {
+            "type": "array",
+            "description": "Per-finding evidence. Sorted by (category, evidence) for determinism — same input MUST produce byte-identical evidence array.",
+            "items": { "type": "ref", "ref": "#evidenceItem" }
+          },
+          "verdictCid": {
+            "type": "string",
+            "maxLength": 96,
+            "description": "Content-addressed verdict hash. `sha256-<hex>` of canonical JSON of (record_cid, kind, reason, sorted_evidence). Re-running the cell on the same input MUST yield the same verdictCid."
+          },
+          "regoModule": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "OPA package name of the L2 policy module consulted, e.g. `app.bsky.feed.post`. Optional; emitted when the verdict consumed an external Rego decision rather than the in-cell mirror."
+          },
+          "cellId": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Pregel cell name that produced the verdict, e.g. `FeedPostCell`. Matches a key in `50-infra/murakumo/fleet.toml [cells.*]`."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Verdict timestamp. Sourced from the dispatcher's ctx.now, never the cell's local clock — required for determinism (cell can be re-run from MST history)."
+          }
+        }
+      }
+    },
+    "subject": {
+      "type": "object",
+      "required": ["uri", "cid", "collection"],
+      "properties": {
+        "uri": { "type": "string", "format": "at-uri" },
+        "cid": { "type": "string" },
+        "collection": { "type": "string", "format": "nsid" }
+      }
+    },
+    "evidenceItem": {
+      "type": "object",
+      "required": ["category", "evidence"],
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "One of: `2a`..`2h` (Charter Rider category codes), `advertising`, `eschatology`, `gore`, `gore-educational`, `ja-prohibited`, `schema`, `length`, `missing-required`, `external` (delegated OPA decision)."
+        },
+        "evidence": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "Short evidence string. For Charter Rider hits: the matched lexical term. For schema: the field/constraint name. Truncated to 512 chars."
+        }
+      }
+    }
+  }
+}

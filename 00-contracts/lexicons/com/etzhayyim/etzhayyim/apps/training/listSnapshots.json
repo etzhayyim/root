@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.training.listSnapshots",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List training dataset snapshots ordered by row_count DESC (largest first). Optional filters by datasetName / status. Read-only over vertex_training_dataset_snapshot.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "datasetName": {"type": "string", "description": "Optional: filter to one dataset (e.g. etzhayyim-corpus)."},
+          "status": {"type": "string", "enum": ["frozen", "deprecated"], "description": "Optional status filter."},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 500, "default": 50}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "snapshots"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "snapshots": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "snapshotId": {"type": "string"},
+                  "vertexId": {"type": "string"},
+                  "datasetName": {"type": "string"},
+                  "label": {"type": "string"},
+                  "b2Prefix": {"type": "string"},
+                  "shardCount": {"type": "integer"},
+                  "rowCount": {"type": "integer"},
+                  "contentHash": {"type": "string"},
+                  "status": {"type": "string"},
+                  "createdAt": {"type": "string"}
+                }
+              }
+            },
+            "count": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

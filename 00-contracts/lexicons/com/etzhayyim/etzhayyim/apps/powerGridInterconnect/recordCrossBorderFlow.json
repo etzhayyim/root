@@ -1,0 +1,104 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.powerGridInterconnect.recordCrossBorderFlow",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Cross-border electricity flow (ENTSO-E / NERC / CAISO / MISO — bridges climate-carbon-market + datacenter-energy + space-weather)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flowId",
+            "interconnectName",
+            "exportIso3",
+            "importIso3",
+            "periodHour",
+            "flowMwh",
+            "recordedAt"
+          ],
+          "properties": {
+            "flowId": {
+              "type": "string"
+            },
+            "interconnectName": {
+              "type": "string"
+            },
+            "exportSystemOperatorLei": {
+              "type": "string"
+            },
+            "importSystemOperatorLei": {
+              "type": "string"
+            },
+            "exportIso3": {
+              "type": "string"
+            },
+            "importIso3": {
+              "type": "string"
+            },
+            "periodHour": {
+              "type": "string",
+              "description": "YYYY-MM-DDTHH"
+            },
+            "flowMwh": {
+              "type": "number"
+            },
+            "marginalGenFuel": {
+              "type": "string",
+              "enum": [
+                "coal",
+                "gas",
+                "nuclear",
+                "hydro",
+                "wind",
+                "solar",
+                "biomass",
+                "oil",
+                "geothermal"
+              ]
+            },
+            "congestionPct": {
+              "type": "number"
+            },
+            "priceEurMwh": {
+              "type": "number"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "congestionTier": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "stressed",
+                "saturated"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

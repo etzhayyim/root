@@ -1,0 +1,59 @@
+;; tsutae 伝え — actor manifest (Gen-3 kotoba-native)
+;; Handheld communication device (smartphone-class) — open SoC, repair-rightful,
+;; anti-surveillance, anti-addiction. Structural inversion of a surveillance phone.
+;; ADR-2605261300 (R0 scaffold). Methodology source: YouTube J4GoOScUO5k (Samsung
+;; factory documentary) — manufacturing METHOD adopted; IP-locking / closed firmware
+;; / surveillance hw / addictive UX / mass-production-at-any-cost REJECTED per
+;; Charter Rider §2(b)+§2(c)+§2(d)+§2(e).
+{:actor/id        "tsutae"
+ :actor/glyph     "伝え"
+ :actor/tier      :tier-b
+ :actor/domain    "tsutae.etzhayyim.com"
+ :actor/purpose   "Handheld communication device (≤200 g / ≤7-inch / ≤500 cm³) — religious-corp first-party assembly + firmware for reliable, private, non-coercive 信者 communication. Consumer-electronics tier of the vendor-independence chain (silicon Wave 1 SoC + igata Al chassis + kanayama EOL Al). USDC Base L2 + ERC-4337 + TitheRouter 10%, SBT↔SBT internal only. Murakumo-only, kotoba-EAVT-native. R0 scaffold."
+ :actor/status    :r0
+ :actor/adr       "2605261300"
+ :actor/related   ["silicon" "igata" "kanayama" "hikari" "kuni-umi" "watatsumi" "makura" "yakushi"]
+
+ :actor/charter-rider
+ {:rider/version "2.0"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "hardware-open-source"     :gate/rule "PCB Gerbers + chassis CAD (FreeCAD .fcstd) + schematic netlist public Apache 2.0 + Charter Rider."}
+  {:gate/id "G2"  :gate/name "firmware-open-source"     :gate/rule "bootloader (U-Boot/coreboot) + Linux mainline + GrapheneOS-class userspace; bootloader unlock = default. Locked bootloader rejected (§2(b) N2)."}
+  {:gate/id "G3"  :gate/name "repair-rightful"          :gate/rule "modular screw-fastened; adhesive ≤5 g/assembly; battery+display+camera+USB-C+speaker+SIM+cellular+mic replaceable; no parts-pairing; iFixit ≥9/10."}
+  {:gate/id "G4"  :gate/name "robot-witness-quorum"     :gate/rule "≥2 distinct robot DIDs (Mimi AOI + Otete handling) Ed25519-sign each deviceAttestation."}
+  {:gate/id "G5"  :gate/name "bilingual-repair-manual"  :gate/rule "JA+EN iFixit-class manual + SOPs + BoM disclosure + Charter Rider ship with every device."}
+  {:gate/id "G6"  :gate/name "anti-surveillance"        :gate/rule "§2(c): cellular module hw-removable; Wi-Fi-default boot; IMEI never broadcast while disconnected; microphone hardware kill switch mandatory; biometric open-firmware (no SEP/Knox)."}
+  {:gate/id "G7"  :gate/name "blob-ratio"               :gate/rule "firmware binary-blob ratio ≤5% by mass; each blob = vendor + reason + replacement-effort + Council waiver."}
+  {:gate/id "G8"  :gate/name "anti-addiction-ux"        :gate/rule "§2(d): calm-default OS; notification batching ≥15 min; no infinite-scroll OS primitive; no dopamine-loop API; no auto-play lock-screen; aggregate self-report only."}
+  {:gate/id "G9"  :gate/name "open-soc"                 :gate/rule "§2(b): open SoC mandatory — R1 third-party open RISC-V (StarFive JH7110 / SiFive Unmatched / Allwinner D1); R2+ iwakura; Snapdragon/Apple A/closed Helio/closed Exynos NEVER."}
+  {:gate/id "G10" :gate/name "battery-recyclable"       :gate/rule "Li-ion LFP-preferred; user-replaceable hand tools; take-back recovery ≥80% by mass by R3 (kanayama); no battery serial-locking."}
+  {:gate/id "G11" :gate/name "wellbecoming-telemetry"   :gate/rule "§1.13: screen-time aggregate self-report only; no per-user behavioral telemetry; OS provides focus/sabbath primitive."}
+  {:gate/id "G12" :gate/name "anti-mass-production"     :gate/rule "≤200 devices / 8-hr line R3; no Samsung-class scale (N8 ≥100k/yr post-R3 Council Lv6+)."}
+  {:gate/id "G13" :gate/name "murakumo-community"       :gate/rule "Murakumo mesh 30-day prior notice + 1 km community feedback (RF + supply-chain + EOL logistics)."}
+  {:gate/id "G14" :gate/name "per-device-did"           :gate/rule "Every device = open serial + DID did:web:etzhayyim.com:tsutae:device:<serial> + IPFS-pinned BoM + repair-history-ready (accepts repairEvent records)."}
+  {:gate/id "G15" :gate/name "no-server-key"            :gate/rule "member/operator signs; platform holds no key (ADR-2605231525)."}
+  {:gate/id "G16" :gate/name "murakumo-only"            :gate/rule "any LLM call in py/agent.py uses kotoba host binding llm.infer(model=\"gemma3:4b\") at 127.0.0.1:4000."}
+  {:gate/id "G17" :gate/name "kotoba-eavt-native"       :gate/rule "State is kotoba EAVT Datoms — no SQL/RisingWave/Cypher."}
+  {:gate/id "G18" :gate/name "payments-usdc-tithe"      :gate/rule "Payments USDC on Base L2 + ERC-4337 + TitheRouter 10%; SBT↔SBT internal carve-out only (N9)."}]
+
+ :actor/cells
+ [{:cell/id "pcb-smt"             :cell/kind :langgraph :cell/runtime :wasm :cell/node "naphtali"}
+  {:cell/id "chassis-assembly"    :cell/kind :langgraph :cell/runtime :wasm :cell/node "zebulun"}
+  {:cell/id "display-attachment"  :cell/kind :langgraph :cell/runtime :wasm :cell/node "joseph"}
+  {:cell/id "firmware-load"       :cell/kind :langgraph :cell/runtime :wasm :cell/node "joseph"}
+  {:cell/id "final-qc"            :cell/kind :langgraph :cell/runtime :wasm :cell/node "levi"}
+  {:cell/id "packaging"           :cell/kind :langgraph :cell/runtime :wasm :cell/node "simeon"}
+  {:cell/id "device-attestation"  :cell/kind :langgraph :cell/runtime :wasm :cell/node "levi"}
+  {:cell/id "recycling-intake"    :cell/kind :langgraph :cell/runtime :wasm :cell/node "dan"}
+  {:cell/id "device-order"        :cell/kind :datalog   :cell/runtime :kotoba}
+  {:cell/id "production-ledger"   :cell/kind :datalog   :cell/runtime :kotoba}]
+
+ :actor/lex
+ [{:lex/id "pcb-attestation"}
+  {:lex/id "chassis-attestation"}
+  {:lex/id "firmware-attestation"}
+  {:lex/id "device-attestation"}
+  {:lex/id "recycling-certificate"}
+  {:lex/id "silen-tsutae-review"}]}

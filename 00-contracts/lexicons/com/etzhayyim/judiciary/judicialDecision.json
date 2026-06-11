@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.judiciary.judicialDecision",
+  "description": "A FACTUAL record of a court's OWN published decision (case-history), ingested from pre-published public records into the etzhayyim global judiciary corpus. R0 skeleton per ADR-2605302345 §D4/§D5/§D6. CONSTITUTIONAL: (passive-ingestion, G3) pre-published public records only — no scraping behind auth, NO sealed / juvenile / in-camera decisions. (pseudonymization, D6) litigant and third-party PII is pseudonymized per the source-jurisdiction rule (France art.33 / GDPR / APPI) before projection; `pseudonymizationApplied` MUST be true. (G19 judge-analytics prohibition) the record may reference the presiding judge via judgeReference (noAnalytics) but MUST NOT carry any evaluation/score/prediction keyed on judge identity — judge profiling is criminal in France (loi 2019-222 art.33). This record reports what the court decided as a fact; it is NOT etzhayyim adjudicating (cf. danjo non-adjudication). Source-provenance ≥1 public CID.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "jurisdiction",
+          "courtId",
+          "decisionDate",
+          "citation",
+          "sourceRecordCids",
+          "passiveIngestion",
+          "pseudonymizationApplied",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "jurisdiction": {"type": "string", "maxLength": 16},
+          "courtId": {
+            "type": "string",
+            "description": "Reference to an com.etzhayyim.judiciary.court record."
+          },
+          "presidingJudgeRef": {
+            "type": "string",
+            "description": "Optional reference to an com.etzhayyim.judiciary.judgeReference (factual; noAnalytics). MUST NOT be used to score/predict the judge (G19)."
+          },
+          "decisionDate": {"type": "string", "format": "datetime"},
+          "citation": {
+            "type": "string",
+            "maxLength": 512,
+            "description": "Official public citation / docket as published."
+          },
+          "outcomeSummaryCid": {
+            "type": "string",
+            "description": "CID of the published decision text (pseudonymized). The court's ruling as a FACT, not etzhayyim's adjudication."
+          },
+          "sourceRecordCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 1,
+            "description": "≥1 pre-published public-record CID (passive-ingestion provenance, G3/G5)."
+          },
+          "passiveIngestion": {
+            "type": "boolean",
+            "const": true,
+            "description": "Pre-published public records only; no sealed/juvenile/in-camera (G3)."
+          },
+          "pseudonymizationApplied": {
+            "type": "boolean",
+            "const": true,
+            "description": "Litigant/third-party PII pseudonymized per source-jurisdiction rule before projection (D6)."
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

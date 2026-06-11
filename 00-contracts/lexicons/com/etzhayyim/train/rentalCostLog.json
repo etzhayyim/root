@@ -1,0 +1,117 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.train.rentalCostLog",
+  "description": "Post-flight cost + outcome log for commercial GPU rental train run. MANDATORY emit within 24h of rental termination per CHARTER-RIDER §2(i)(2)(3). Pairs with a preceding com.etzhayyim.train.rentalAttestation record. Records actual wall, actual cost, output checkpoint CID, IPFS pin verify CID, eval metrics, and commit decision.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "rentalAttestationUri",
+          "actualWallMinutes",
+          "actualUsdCost",
+          "outputCheckpointCid",
+          "ipfsPinVerifyCid",
+          "evalMetrics",
+          "commitDecision",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 UTC timestamp of cost log emit (post-flight)."
+          },
+          "rentalAttestationUri": {
+            "type": "string",
+            "description": "AT URI of preceding com.etzhayyim.train.rentalAttestation record, e.g., at://did:web:mac-260317.etzhayyim.com/com.etzhayyim.train.rentalAttestation/3kt6f5..."
+          },
+          "actualWallMinutes": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Actual wall time IN MINUTES (integer). Delta from expectedWallMinutes >50% triggers post-mortem note in this record."
+          },
+          "actualUsdCostMillicents": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Actual billed cost IN MILLICENTS (= USD × 100000, integer). Delta from expectedUsdCostMillicents >50% triggers post-mortem note."
+          },
+          "outputCheckpointCid": {
+            "type": "string",
+            "description": "IPFS CID of merged checkpoint (HF dir or .safetensors). Result of e7m-dataset add of the train output directory."
+          },
+          "ipfsPinVerifyCid": {
+            "type": "string",
+            "description": "Verification round-trip CID — output of e7m-dataset verify <subdataset>. Confirms bytes are retrievable from Kubo daemon on mac-260317 (per ADR-2605241500 §'add / publish-ipfs default to dry-run for the PDS step' — manual verify required)."
+          },
+          "evalMetrics": {
+            "type": "object",
+            "description": "Eval metrics computed on the merged checkpoint via fleet split-role (ADR-2605262100 §5). All scores stored as PERMILLE (parts per thousand, integer 0..1000); divide by 10 for percentage.",
+            "properties": {
+              "langgraphCodingPass1Permille": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000,
+                "description": "Primary eval — 70-tools/scripts/bench/langgraph-coding 50-prompt exec-graded pass@1, IN PERMILLE (0..1000; divide by 10 for %)."
+              },
+              "humanevalplusPass1Permille": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000,
+                "description": "Secondary eval — evalplus/humanevalplus 164-prompt pass@1 IN PERMILLE. Regression sanity (Δ ≥ 0 required)."
+              },
+              "mbppPlusPass1Permille": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000,
+                "description": "R2 deferred eval — MBPP+ 974-prompt pass@1 IN PERMILLE."
+              },
+              "deltaLanggraphCodingPermille": {
+                "type": "integer",
+                "description": "Δ vs pre-train baseline langgraph-coding pass@1 IN PERMILLE (can be negative; +30 = +3pp). Commit gate threshold = +30 per ADR-2605262100 §5.4."
+              },
+              "deltaHumanevalplusPermille": {
+                "type": "integer",
+                "description": "Δ vs pre-train baseline HumanEval+ pass@1 IN PERMILLE. Regression sanity: Δ ≥ 0 required."
+              }
+            }
+          },
+          "commitDecision": {
+            "type": "string",
+            "knownValues": [
+              "committed-to-registry",
+              "aborted-delta-insufficient",
+              "aborted-regression",
+              "aborted-engineering-failure",
+              "aborted-budget-overrun"
+            ],
+            "description": "commit_node gate decision. committed-to-registry → registry entry created. abort variants → discard checkpoint dir + escalate to next ADR."
+          },
+          "registryEntry": {
+            "type": "string",
+            "description": "If commitDecision = committed-to-registry: AT URI of moemoekyun-models.jsonl entry, e.g., at://did:web:mac-260317.etzhayyim.com/com.etzhayyim.modelRegistry.moemoekyun/3kt7g6..."
+          },
+          "councilRatificationRequired": {
+            "type": "boolean",
+            "description": "True if this checkpoint is candidate for R3+ public release (baien-server-moemoekyun-v{N}); triggers Council Lv6+ ratification ticket per ADR-2605261900 §7."
+          },
+          "councilRatificationTicketUri": {
+            "type": "string",
+            "description": "If councilRatificationRequired: AT URI of Council ratification ticket."
+          },
+          "postMortemNotes": {
+            "type": "string",
+            "description": "Free-text notes if actualWall or actualCost deviated >50% from expected, or engineering failure occurred. Required for delta-insufficient / regression / engineering-failure / budget-overrun commitDecisions."
+          },
+          "attestingDid": {
+            "type": "string",
+            "description": "DID of attestor (typically same as rentalAttestation.attestingDid; mismatch triggers Council review)."
+          }
+        }
+      }
+    }
+  }
+}

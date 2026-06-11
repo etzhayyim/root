@@ -1,0 +1,9 @@
+# Foundry build output
+out/
+out-safe/
+cache/
+
+# Dependency-fetched artifacts. Safe v1.4.1 prebuilt JSON is reproducible
+# from `npm ci` — checking it in would balloon the repo (~2 MB / artifact)
+# without adding determinism.
+node_modules/

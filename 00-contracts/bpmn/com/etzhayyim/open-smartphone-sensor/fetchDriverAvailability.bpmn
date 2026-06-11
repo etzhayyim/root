@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_fetchDriverAvailability" targetNamespace="https://etzhayyim.ai/bpmn/open-smartphone-sensor" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_smartphone_sensor_fetch_driver_availability" name="open.smartphoneSensor.fetchDriverAvailability" isExecutable="true">
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerDef">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P7D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Fetch"/>
+    <bpmn:serviceTask id="Task_Fetch" name="fetch driver data">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;https://cateee.net/lkddb/web-lkddb/&quot;" target="url"/>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:output source="=response" target="rawData"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_B</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_B" sourceRef="Task_Fetch" targetRef="Task_LLM"/>
+    <bpmn:serviceTask id="Task_LLM" name="classify drivers">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;Classify mainline Linux driver availability for mobile sensors from: &quot; + rawData" target="prompt"/>
+          <zeebe:input source="={type: &quot;object&quot;, properties: {drivers: {type: &quot;array&quot;, items: {type: &quot;object&quot;, properties: {sensorType: {type: &quot;string&quot;}, driverName: {type: &quot;string&quot;}, kernelVersion: {type: &quot;string&quot;}, mainlined: {type: &quot;boolean&quot;}}}}}}" target="schema"/>
+          <zeebe:output source="=result" target="parsed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_B</bpmn:incoming><bpmn:outgoing>Flow_C</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_C" sourceRef="Task_LLM" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-smartphone-sensor.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;open.smartphoneSensor.fetchDriverAvailability&quot;" target="action"/>
+          <zeebe:input source="={count: count(parsed.drivers)}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_C</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.misinformationObservatory.recordDsaTransparency",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "EU DSA Article 24 transparency report (VLOP / VLOSE)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "platformLei",
+            "platformCategory",
+            "reportingPeriod",
+            "publishedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "platformLei": {
+              "type": "string"
+            },
+            "platformCategory": {
+              "type": "string",
+              "enum": [
+                "vlop",
+                "vlose",
+                "regular"
+              ]
+            },
+            "contentActionsCount": {
+              "type": "integer"
+            },
+            "complaintsCount": {
+              "type": "integer"
+            },
+            "appealsUpheldPct": {
+              "type": "number"
+            },
+            "reportingPeriod": {
+              "type": "string",
+              "description": "YYYY-HN"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pressFinanceCoercion.flagStateMediaCoercion",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave5 (stub): 報道機関 国家強要. Starts BPMN process open_press_finance_coercion_flag_state_media_coercion.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "outletLei": { "type": "string" },
+            "country": { "type": "string" }
+          },
+          "required": ["vertexId", "outletLei"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

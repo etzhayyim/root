@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openCofog.recordExpenditure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record government expenditure tagged by a COFOG class (4-digit). FEEL auto-flags >=1B threshold as large-scale (requires public-notice). Starts BPMN open_cofog_record_expenditure.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["govOrgId","fiscalYear","cofogClassCode","amount","currency","reportedAt"],
+          "properties": {
+            "govOrgId":        { "type": "string" },
+            "fiscalYear":      { "type": "integer" },
+            "cofogClassCode":  { "type": "string", "description": "4-digit COFOG class, e.g. 0111" },
+            "amount":          { "type": "number" },
+            "currency":        { "type": "string" },
+            "narrative":       { "type": "string" },
+            "evidenceUrl":     { "type": "string" },
+            "confidence":      { "type": "number" },
+            "reportedAt":      { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "scale": { "type": "string", "enum": ["small","medium","large"] },
+            "requirePublicNotice": { "type": "boolean" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

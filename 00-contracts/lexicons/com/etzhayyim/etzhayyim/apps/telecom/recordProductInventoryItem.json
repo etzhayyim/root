@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordProductInventoryItem",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a product instance in the TMF637 Product Inventory Management API. Creates a vertex_telecom_tmf_product_inventory record.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["recordId", "productId", "accountId", "lifecycleStatus"],
+          "properties": {
+            "recordId": { "type": "string" },
+            "productId": { "type": "string" },
+            "accountId": { "type": "string" },
+            "offeringId": { "type": "string" },
+            "productOrderId": { "type": "string" },
+            "lifecycleStatus": { "type": "string", "enum": ["Created", "Pending Active", "Pending Terminate", "Active", "Suspended", "Terminated", "Aborted"] },
+            "startedAt": { "type": "string", "format": "datetime" },
+            "terminatedAt": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" },
+            "callerDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "recordId": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

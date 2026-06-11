@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cnMofa.engagePacificStates",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "中国外交部: 太平洋島嶼国 engagement (Solomon / Kiribati)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "issuedAt",
+            "vertexId"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "relatedActorVid": {
+              "type": "string"
+            },
+            "issuedAt": {
+              "type": "string"
+            },
+            "vertexId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "vertexId"
+          ],
+          "properties": {
+            "vertexId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

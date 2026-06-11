@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kazaori.evacuationCheckIn",
+  "description": "OPT-IN self-check-in evacuation attestation. G6 STRUCTURAL: opt-in only; member-signed; encryptedPayloadCid REQUIRED. G6 also DELIBERATELY excludes surveillance-derived fields (no aerialDroneObservationCid / no facialRecognitionMatchCid / no bluetoothBeaconTrackingCid). Families that do not check in are NOT pursued by kazaori (state emergency management has alternate authority for non-religious-corp residents).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "emergencyDeclarationCid",
+          "checkInPseudonymDid",
+          "safeSiteCid",
+          "encryptedPayloadCid",
+          "memberSignature",
+          "checkInMethod"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "emergencyDeclarationCid": {"type": "string"},
+          "checkInPseudonymDid": {
+            "type": "string",
+            "description": "30-day rotating pseudonym DID per ADR-2605181200 (same pattern as iyashi)"
+          },
+          "safeSiteCid": {
+            "type": "string",
+            "description": "Registered safe-site CID"
+          },
+          "encryptedPayloadCid": {
+            "type": "string",
+            "description": "ADR-2605181100 encrypted envelope CID containing party-size + vulnerable-population-flags + medical-conditions (cross-link to iyashi if relevant) + special-needs"
+          },
+          "memberSignature": {
+            "type": "string",
+            "description": "Member DID-bound signature; G6 REQUIRED: member-initiated only; no third-party check-in"
+          },
+          "checkInMethod": {
+            "type": "string",
+            "knownValues": [
+              "self-mobile-app",
+              "self-paper-form-attested",
+              "self-phone-call-attested",
+              "family-member-on-behalf-with-prior-consent",
+              "guardian-on-behalf-for-minor-or-incapacitated"
+            ],
+            "description": "G6 STRUCTURAL: surveillance-derived check-in (aerial-drone-detection, facial-recognition-match, bluetooth-beacon-tracking) DELIBERATELY excluded from enum"
+          },
+          "vulnerablePopulationFlag": {
+            "type": "boolean",
+            "description": "If true, hagukumi cross-actor coordination triggered for priority routing (children + elderly + chronic care recipients); detail is in encryptedPayloadCid"
+          },
+          "departedSafeSiteAtUtc": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When member self-attests departure from safe site (continues opt-in)"
+          },
+          "departureAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

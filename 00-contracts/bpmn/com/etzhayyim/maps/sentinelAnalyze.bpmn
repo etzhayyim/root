@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  XRPC-triggered BPMN — Sentinel scene analysis via RunPod Serverless GPU.
+
+  Pipeline (Phase 2):
+
+    1. generic.db.select             — load the satelliteScene record from
+                                        vertex_satellite_scene by vertex_id.
+    2. maps.sentinel.runpod.analyze  — LangChain chain: RunPod invoke
+                                        (sync polling) → confidence
+                                        calibration. Writes result directly
+                                        to vertex_satellite_analysis.
+    3. generic.audit.emit            — OCEL event.
+
+  Note: Task_PersistResult removed in Phase 2. The analyze primitive
+  writes to vertex_satellite_analysis internally via sync_cursor.
+
+  XRPC entry: POST /xrpc/com.etzhayyim.apps.maps.sentinelAnalyze.
+  Process timeout 10 min.
+
+  ADR-2604271800. NSID: com.etzhayyim.apps.maps.sentinelAnalyze.
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-sentinel-analyze-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_maps_sentinel_analyze"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="maps_sentinel_analyze" name="maps sentinel analyze" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.maps.sentinelAnalyze", "version": 2, "resultTimeoutMs": 600000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="xrpc in">
+      <bpmn:outgoing>Flow_ToLoad</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- Step 1: Load scene metadata from typed table for BPMN context. -->
+    <bpmn:serviceTask id="Task_LoadScene" name="load satelliteScene by vertex_id">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_satellite_scene&quot;" target="table"/>
+          <zeebe:input source="=&quot;vertex_id,scene_id,platform,date_time,cloud_cover,stac_self_url,value_json&quot;" target="columns"/>
+          <zeebe:input source="=1" target="limit"/>
+          <zeebe:input source="=&quot;vertex_id = &#39;&quot; + sceneUri + &quot;&#39;&quot;" target="whereExpr"/>
+          <zeebe:output source="=rows"     target="sceneRows"/>
+          <zeebe:output source="=rowCount" target="sceneFound"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToLoad</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToLoad" sourceRef="Start" targetRef="Task_LoadScene"/>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_LoadScene" targetRef="Gateway_SceneFound"/>
+
+    <bpmn:exclusiveGateway id="Gateway_SceneFound" name="scene exists?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Found</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NotFound</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Found" sourceRef="Gateway_SceneFound" targetRef="Task_RunpodAnalyze">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=sceneFound &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NotFound" sourceRef="Gateway_SceneFound" targetRef="EndNotFound">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=sceneFound &lt;= 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:endEvent id="EndNotFound" name="scene not found">
+      <bpmn:incoming>Flow_NotFound</bpmn:incoming>
+      <bpmn:errorEventDefinition errorRef="Error_SceneNotFound"/>
+    </bpmn:endEvent>
+
+    <!-- Step 2: RunPod analysis + direct write to vertex_satellite_analysis.
+         Phase 2: primitive handles DB write internally via sync_cursor.
+         Inputs use snake_case matching Python function parameter names. -->
+    <bpmn:serviceTask id="Task_RunpodAnalyze" name="RunPod analyze + persist">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="maps.sentinel.runpod.analyze"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=sceneUri"      target="scene_uri"/>
+          <zeebe:input source="=analysisType"  target="analysis_type"/>
+          <zeebe:input source="=baselineUri"   target="baseline_uri"/>
+          <zeebe:input source="=modelVersion"  target="model_version"/>
+          <zeebe:output source="=ok"           target="ok"/>
+          <zeebe:output source="=summary"      target="summary"/>
+          <zeebe:output source="=confidence"   target="confidence"/>
+          <zeebe:output source="=modelVersion" target="modelVersion"/>
+          <zeebe:output source="=analysisUri"  target="analysisUri"/>
+          <zeebe:output source="=analysisType" target="analysisType"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Found</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_RunpodAnalyze" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit sentinel.analyze OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.sentinel.analyze&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;sceneUri&quot;: sceneUri, &quot;analysisUri&quot;: analysisUri, &quot;analysisType&quot;: analysisType, &quot;confidence&quot;: confidence, &quot;ok&quot;: ok, &quot;modelVersion&quot;: modelVersion }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="analysis ready">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+
+  <bpmn:error id="Error_SceneNotFound" name="maps.sentinel.scene.notFound" errorCode="maps.sentinel.scene.notFound"/>
+</bpmn:definitions>

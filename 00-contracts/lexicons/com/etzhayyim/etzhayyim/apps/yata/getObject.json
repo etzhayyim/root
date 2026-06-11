@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.getObject",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Read an object's metadata + (optionally) inline bytes. For binary downloads on the hot path use the S3-compat REST `/s3/{bucket}/{key}` or Supabase-shape `/storage/v1/object/{bucket}/{key}` endpoints which stream the body directly from B2 / Vultr OS via SigV4. This XRPC is for control-plane reads (small payloads or metadata-only).",
+      "parameters": {
+        "type": "params",
+        "required": ["bucketName", "objectKey"],
+        "properties": {
+          "bucketName": {"type": "string"},
+          "objectKey": {"type": "string"},
+          "versionId": {"type": "string"},
+          "metadataOnly": {"type": "boolean", "default": false},
+          "ifNoneMatch": {"type": "string", "description": "ETag — return 304 if matched."}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["bucketName", "objectKey", "etag", "sizeBytes"],
+          "properties": {
+            "bucketName": {"type": "string"},
+            "objectKey": {"type": "string"},
+            "blobId": {"type": "string"},
+            "versionId": {"type": "string"},
+            "etag": {"type": "string"},
+            "cid": {"type": "string"},
+            "sizeBytes": {"type": "integer"},
+            "contentType": {"type": "string"},
+            "storageTier": {"type": "string"},
+            "storageProvider": {"type": "string"},
+            "encryption": {"type": "string"},
+            "data": {"type": "string", "description": "Base64-encoded body (omitted when metadataOnly=true or sizeBytes > 5MB)."},
+            "lastAccessedAt": {"type": "string", "format": "datetime"},
+            "createdAt": {"type": "string", "format": "datetime"}
+          }
+        }
+      }
+    }
+  }
+}

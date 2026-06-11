@@ -1,0 +1,12 @@
+{:cell/id "soil_regeneration_audit"
+ :cell/glyph "田螺"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/node "levi"
+ :cell/doc "Annual soil-carbon + microbial-diversity assay (tanishi). Net soil-carbon must be >=0 (G9). Cross-cut verification cell."
+ :cell/state-graph
+ {:nodes [:sample :assay :regeneration-reported] :entry :sample
+  :edges [[:sample :assay] [:assay :regeneration-reported] [:regeneration-reported :end]]}
+ :cell/llm {:provider :murakumo :endpoint "127.0.0.1:4000" :model "gemma3:4b" :charter-rider true}
+ :cell/gates ["G4" "G9"]
+ :cell/kotoba {:reads [:field/bed-state :soil/carbon-baseline] :writes [:soil/regeneration-report]}}

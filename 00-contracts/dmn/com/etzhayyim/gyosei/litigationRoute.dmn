@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+  id="Definitions_gyosei_litigation_route"
+  name="gyosei_litigation_route"
+  namespace="https://etzhayyim.ai/dmn/gyosei">
+  <decision id="gyosei_litigation_route" name="gyosei_litigation_route">
+    <decisionTable id="DecisionTable_gyosei_litigation_route" hitPolicy="FIRST">
+      <input id="Input_statutoryAppealPrecondition">
+        <inputExpression id="InputExpression_statutoryAppealPrecondition" typeRef="string"><text>statutoryAppealPrecondition</text></inputExpression>
+      </input>
+      <input id="Input_hasAppealDecision">
+        <inputExpression id="InputExpression_hasAppealDecision" typeRef="boolean"><text>hasAppealDecision</text></inputExpression>
+      </input>
+      <input id="Input_specialLitigationDeadlineDays">
+        <inputExpression id="InputExpression_specialLitigationDeadlineDays" typeRef="number"><text>specialLitigationDeadlineDays</text></inputExpression>
+      </input>
+      <input id="Input_dispositionCategory">
+        <inputExpression id="InputExpression_dispositionCategory" typeRef="string"><text>dispositionCategory</text></inputExpression>
+      </input>
+      <input id="Input_requestedClaimType">
+        <inputExpression id="InputExpression_requestedClaimType" typeRef="string"><text>requestedClaimType</text></inputExpression>
+      </input>
+      <input id="Input_daysSinceFinalNotice">
+        <inputExpression id="InputExpression_daysSinceFinalNotice" typeRef="number"><text>daysSinceFinalNotice</text></inputExpression>
+      </input>
+      <input id="Input_hasJustifiableReason">
+        <inputExpression id="InputExpression_hasJustifiableReason" typeRef="boolean"><text>hasJustifiableReason</text></inputExpression>
+      </input>
+      <output id="Output_route" label="route" typeRef="string" name="route"/>
+      <output id="Output_needsStayReview" label="needsStayReview" typeRef="boolean" name="needsStayReview"/>
+      <output id="Output_timebarRisk" label="timebarRisk" typeRef="string" name="timebarRisk"/>
+      <rule id="LitRule_0">
+        <inputEntry id="LitRule_0_ie0"><text>"required"</text></inputEntry>
+        <inputEntry id="LitRule_0_ie00"><text>false</text></inputEntry>
+        <inputEntry id="LitRule_0_ie01"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_0_ie1"><text>"disposition"</text></inputEntry>
+        <inputEntry id="LitRule_0_ie2"><text>"revocation"</text></inputEntry>
+        <inputEntry id="LitRule_0_ie3"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_0_ie4"><text>-</text></inputEntry>
+        <outputEntry id="LitRule_0_oe1"><text>"appeal-precondition-first"</text></outputEntry>
+        <outputEntry id="LitRule_0_oe2"><text>false</text></outputEntry>
+        <outputEntry id="LitRule_0_oe3"><text>"medium"</text></outputEntry>
+      </rule>
+      <rule id="LitRule_1">
+        <inputEntry id="LitRule_1_ie0"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_1_ie00"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_1_ie01"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_1_ie1"><text>"inaction"</text></inputEntry>
+        <inputEntry id="LitRule_1_ie2"><text>"inaction-illegality"</text></inputEntry>
+        <inputEntry id="LitRule_1_ie3"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_1_ie4"><text>-</text></inputEntry>
+        <outputEntry id="LitRule_1_oe1"><text>"inaction-illegality-suit"</text></outputEntry>
+        <outputEntry id="LitRule_1_oe2"><text>false</text></outputEntry>
+        <outputEntry id="LitRule_1_oe3"><text>"low"</text></outputEntry>
+      </rule>
+      <rule id="LitRule_2">
+        <inputEntry id="LitRule_2_ie0"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_2_ie00"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_2_ie01"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_2_ie1"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_2_ie2"><text>"injunction"</text></inputEntry>
+        <inputEntry id="LitRule_2_ie3"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_2_ie4"><text>-</text></inputEntry>
+        <outputEntry id="LitRule_2_oe1"><text>"injunction-suit"</text></outputEntry>
+        <outputEntry id="LitRule_2_oe2"><text>true</text></outputEntry>
+        <outputEntry id="LitRule_2_oe3"><text>"low"</text></outputEntry>
+      </rule>
+      <rule id="LitRule_3">
+        <inputEntry id="LitRule_3_ie0"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_3_ie00"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_3_ie01"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_3_ie1"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_3_ie2"><text>"mandamus"</text></inputEntry>
+        <inputEntry id="LitRule_3_ie3"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_3_ie4"><text>-</text></inputEntry>
+        <outputEntry id="LitRule_3_oe1"><text>"mandamus-suit"</text></outputEntry>
+        <outputEntry id="LitRule_3_oe2"><text>true</text></outputEntry>
+        <outputEntry id="LitRule_3_oe3"><text>"low"</text></outputEntry>
+      </rule>
+      <rule id="LitRule_4">
+        <inputEntry id="LitRule_4_ie0"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_4_ie00"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_4_ie01"><text>&gt; 0</text></inputEntry>
+        <inputEntry id="LitRule_4_ie1"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_4_ie2"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_4_ie3"><text>&gt; specialLitigationDeadlineDays</text></inputEntry>
+        <inputEntry id="LitRule_4_ie4"><text>false</text></inputEntry>
+        <outputEntry id="LitRule_4_oe1"><text>"manual-time-bar-check"</text></outputEntry>
+        <outputEntry id="LitRule_4_oe2"><text>false</text></outputEntry>
+        <outputEntry id="LitRule_4_oe3"><text>"high"</text></outputEntry>
+      </rule>
+      <rule id="LitRule_5">
+        <inputEntry id="LitRule_5_ie0"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_5_ie00"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_5_ie01"><text>&gt; 0</text></inputEntry>
+        <inputEntry id="LitRule_5_ie1"><text>"disposition"</text></inputEntry>
+        <inputEntry id="LitRule_5_ie2"><text>"revocation"</text></inputEntry>
+        <inputEntry id="LitRule_5_ie3"><text>&lt;= specialLitigationDeadlineDays</text></inputEntry>
+        <inputEntry id="LitRule_5_ie4"><text>-</text></inputEntry>
+        <outputEntry id="LitRule_5_oe1"><text>"revocation-suit"</text></outputEntry>
+        <outputEntry id="LitRule_5_oe2"><text>true</text></outputEntry>
+        <outputEntry id="LitRule_5_oe3"><text>"low"</text></outputEntry>
+      </rule>
+      <rule id="LitRule_6">
+        <inputEntry id="LitRule_6_ie0"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_6_ie00"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_6_ie01"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_6_ie1"><text>"disposition"</text></inputEntry>
+        <inputEntry id="LitRule_6_ie2"><text>"revocation"</text></inputEntry>
+        <inputEntry id="LitRule_6_ie3"><text>&lt;= 180</text></inputEntry>
+        <inputEntry id="LitRule_6_ie4"><text>-</text></inputEntry>
+        <outputEntry id="LitRule_6_oe1"><text>"revocation-suit"</text></outputEntry>
+        <outputEntry id="LitRule_6_oe2"><text>true</text></outputEntry>
+        <outputEntry id="LitRule_6_oe3"><text>"low"</text></outputEntry>
+      </rule>
+      <rule id="LitRule_7">
+        <inputEntry id="LitRule_7_ie0"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_7_ie00"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_7_ie01"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_7_ie1"><text>"disposition"</text></inputEntry>
+        <inputEntry id="LitRule_7_ie2"><text>"revocation"</text></inputEntry>
+        <inputEntry id="LitRule_7_ie3"><text>&gt; 180</text></inputEntry>
+        <inputEntry id="LitRule_7_ie4"><text>true</text></inputEntry>
+        <outputEntry id="LitRule_7_oe1"><text>"revocation-suit-with-justification"</text></outputEntry>
+        <outputEntry id="LitRule_7_oe2"><text>true</text></outputEntry>
+        <outputEntry id="LitRule_7_oe3"><text>"medium"</text></outputEntry>
+      </rule>
+      <rule id="LitRule_8">
+        <inputEntry id="LitRule_8_ie0"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_8_ie00"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_8_ie01"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_8_ie1"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_8_ie2"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_8_ie3"><text>-</text></inputEntry>
+        <inputEntry id="LitRule_8_ie4"><text>-</text></inputEntry>
+        <outputEntry id="LitRule_8_oe1"><text>"manual-legal-check"</text></outputEntry>
+        <outputEntry id="LitRule_8_oe2"><text>false</text></outputEntry>
+        <outputEntry id="LitRule_8_oe3"><text>"medium"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

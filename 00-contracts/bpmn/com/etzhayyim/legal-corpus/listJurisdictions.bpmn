@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_list_jurisdictions" targetNamespace="https://etzhayyim.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="legal_corpus_list_jurisdictions" name="listJurisdictions" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Select"/>
+    <bpmn:serviceTask id="Task_Select" name="select coverage mv">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT jurisdiction, source_id, document_count, last_fetched_at FROM mv_legal_corpus_jurisdiction_coverage WHERE ($1::varchar IS NULL OR source_id = $1) ORDER BY document_count DESC&quot;" target="sql"/>
+          <zeebe:input source="=[sourceId]" target="params"/>
+          <zeebe:output source="=rows" target="jurisdictions"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Select" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

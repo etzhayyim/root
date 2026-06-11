@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.projector.loadProjectChat",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "convoId"
+        ]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "convoId": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "required": [
+            "convoId",
+            "messages",
+            "members"
+          ]
+        }
+      }
+    }
+  }
+}

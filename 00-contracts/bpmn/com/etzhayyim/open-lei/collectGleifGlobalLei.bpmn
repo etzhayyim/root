@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Global GLEIF LEI data collection plan for Camunda Zeebe.
+
+  Source:
+    GLEIF Concatenated Files daily download:
+      - LEI-CDF v3.1 Level 1: who is who
+      - RR-CDF v2.1 Level 2: who owns whom
+      - Reporting Exceptions v2.1: why parent data is not reported
+
+  Inputs:
+    requestId
+    asOfDate
+    mode
+    datasets
+    shard
+    shardCount
+    limit
+    countries
+    keywords
+
+  Outputs:
+    openLeiGleifManifestPlan
+    openLeiGleifBulkCollect
+    openLeiGleifRecordNormalize
+    openLeiGleifEmsMatch
+    finalStatus
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_open_lei_collect_gleif_global_lei"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-lei"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="open_lei_collect_gleif_global_lei" name="Collect GLEIF global LEI data" isExecutable="true">
+    <bpmn:startEvent id="Start" name="GLEIF collection requested">
+      <bpmn:outgoing>Flow_Start_Manifest</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Manifest" sourceRef="Start" targetRef="Task_Manifest"/>
+
+    <bpmn:serviceTask id="Task_Manifest" name="Plan GLEIF dataset manifest">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="openLei.gleif.manifest.plan"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=asOfDate" target="asOfDate"/>
+          <zeebe:input source="=datasets" target="datasets"/>
+          <zeebe:input source="=mode" target="mode"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Manifest</bpmn:incoming>
+      <bpmn:outgoing>Flow_Manifest_Collect</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Manifest_Collect" sourceRef="Task_Manifest" targetRef="Task_Collect"/>
+
+    <bpmn:serviceTask id="Task_Collect" name="Collect GLEIF bulk shard">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="openLei.gleif.bulk.collect"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=datasetKind" target="datasetKind"/>
+          <zeebe:input source="=asOfDate" target="asOfDate"/>
+          <zeebe:input source="=shard" target="shard"/>
+          <zeebe:input source="=shardCount" target="shardCount"/>
+          <zeebe:input source="=limit" target="limit"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Manifest_Collect</bpmn:incoming>
+      <bpmn:outgoing>Flow_Collect_Normalize</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Collect_Normalize" sourceRef="Task_Collect" targetRef="Task_Normalize"/>
+
+    <bpmn:serviceTask id="Task_Normalize" name="Normalize LEI records">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="openLei.gleif.record.normalize"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=datasetKind" target="datasetKind"/>
+          <zeebe:input source="=records" target="records"/>
+          <zeebe:input source="=asOfDate" target="asOfDate"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Collect_Normalize</bpmn:incoming>
+      <bpmn:outgoing>Flow_Normalize_GW</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Normalize_GW" sourceRef="Task_Normalize" targetRef="GW_DatasetKind"/>
+
+    <!-- Branch: rr-cdf → ownership ingest; others → skip directly to EMS match -->
+    <bpmn:exclusiveGateway id="GW_DatasetKind" name="dataset kind?">
+      <bpmn:incoming>Flow_Normalize_GW</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW_OwnershipIngest</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW_SkipOwnership</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_GW_OwnershipIngest" sourceRef="GW_DatasetKind" targetRef="Task_OwnershipIngest">
+      <bpmn:conditionExpression>=datasetKind = "rr-cdf"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_GW_SkipOwnership" sourceRef="GW_DatasetKind" targetRef="GW_Merge">
+      <bpmn:conditionExpression>=datasetKind != "rr-cdf"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_OwnershipIngest" name="Ingest ownership graph (rr-cdf)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="openLei.gleif.ownership.ingest"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=openLeiGleifRecordNormalize" target="openLeiGleifRecordNormalize"/>
+          <zeebe:input source="=500" target="batchSize"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_GW_OwnershipIngest</bpmn:incoming>
+      <bpmn:outgoing>Flow_OwnershipIngest_Merge</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_OwnershipIngest_Merge" sourceRef="Task_OwnershipIngest" targetRef="GW_Merge"/>
+
+    <bpmn:exclusiveGateway id="GW_Merge" name="merge">
+      <bpmn:incoming>Flow_GW_SkipOwnership</bpmn:incoming>
+      <bpmn:incoming>Flow_OwnershipIngest_Merge</bpmn:incoming>
+      <bpmn:outgoing>Flow_Merge_EmsMatch</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Merge_EmsMatch" sourceRef="GW_Merge" targetRef="Task_EmsMatch"/>
+
+    <bpmn:serviceTask id="Task_EmsMatch" name="Match LEI entities to EMS candidates">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="openLei.gleif.ems.match"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=openLeiGleifRecordNormalize.entityRows" target="entityRows"/>
+          <zeebe:input source="=countries" target="countries"/>
+          <zeebe:input source="=keywords" target="keywords"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Merge_EmsMatch</bpmn:incoming>
+      <bpmn:outgoing>Flow_EmsMatch_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EmsMatch_Audit" sourceRef="Task_EmsMatch" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit GLEIF collection audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-lei.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openLei.gleif.collectGlobal&quot;" target="action"/>
+          <zeebe:input source="={ requestId: requestId, manifest: openLeiGleifManifestPlan, collection: openLeiGleifBulkCollect, normalize: openLeiGleifRecordNormalize, emsMatch: openLeiGleifEmsMatch }" target="payload"/>
+          <zeebe:output source="=&quot;collected&quot;" target="finalStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_EmsMatch_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="GLEIF collection planned">
+      <bpmn:incoming>Flow_Audit_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

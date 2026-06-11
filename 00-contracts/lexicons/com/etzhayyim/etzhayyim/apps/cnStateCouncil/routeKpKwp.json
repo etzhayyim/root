@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cnStateCouncil.routeKpKwp",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "朝鮮労働党 (KWP / 中央委員会総会 / Kim Jong Un)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "issuedAt",
+            "vertexId"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "relatedActorVid": {
+              "type": "string"
+            },
+            "issuedAt": {
+              "type": "string"
+            },
+            "vertexId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "vertexId"
+          ],
+          "properties": {
+            "vertexId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

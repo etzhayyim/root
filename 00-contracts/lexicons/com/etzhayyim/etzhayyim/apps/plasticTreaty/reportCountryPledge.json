@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.plasticTreaty.reportCountryPledge",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "UN INC-5 plastic treaty national pledge (targets + capacity)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "pledgeId",
+            "countryIso3",
+            "target",
+            "targetYear",
+            "submittedAt"
+          ],
+          "properties": {
+            "pledgeId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "target": {
+              "type": "string",
+              "enum": [
+                "production_cap",
+                "recycled_content",
+                "epr_scheme",
+                "single_use_ban",
+                "reusable_quota",
+                "chemical_of_concern"
+              ]
+            },
+            "baselineYear": {
+              "type": "integer"
+            },
+            "targetYear": {
+              "type": "integer"
+            },
+            "targetValue": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string"
+            },
+            "submittedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

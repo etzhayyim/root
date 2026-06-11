@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphonePatent.fetchSepLandscape",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Query the SEP landscape for smartphone standards (4G/5G/WiFi/BT)",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "standard": { "type": "string", "knownValues": ["4g-lte", "5g-nr", "wifi6", "wifi7", "bluetooth", "gnss", "other"] },
+          "holderDid": { "type": "string" },
+          "frandDeclared": { "type": "boolean" },
+          "poolId": { "type": "string" },
+          "limit": { "type": "integer", "default": 100, "maximum": 500 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["seps", "total"],
+          "properties": {
+            "seps": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["vertexId", "patentNo", "rat"],
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "patentNo": { "type": "string" },
+                  "holderDid": { "type": "string" },
+                  "rat": { "type": "string" },
+                  "frandDeclared": { "type": "boolean" },
+                  "expiryDate": { "type": "string" },
+                  "poolId": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

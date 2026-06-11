@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yamabiko.homologationRecord",
+  "description": "Homologation binder record (L5c terminal). EN 50126/50128/50129 (RAMS) / 日本鉄道事業法 / FRA Tier I-III. Aggregates upstream attestations + issues per-trainset DID (G13). KotobaDatomic anchor (G2). Per ADR-2605252600 L5c.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "trainsetId": {"type": "string"},
+          "serial": {"type": "string"},
+          "trainsetDid": {"type": "string", "format": "did"},
+          "upstreamRecords": {"type": "unknown"},
+          "authorityReview": {
+            "type": "object",
+            "properties": {
+              "ramsStandards": {"type": "array", "items": {"type": "string"}},
+              "jurisdiction": {"type": "string"},
+              "homologationRegime": {"type": "string", "knownValues": ["EN 50126/8/9 (EU)", "日本 鉄道事業法", "FRA Tier I-III (US)", "GB/T 7928 (CN)"]},
+              "authorityDid": {"type": "string", "format": "did"},
+              "decision": {"type": "string", "knownValues": ["ISSUE_TYPE_APPROVAL", "REQUEST_REVISION", "REJECT"]}
+            }
+          },
+          "kotoba-datomicAnchor": {
+            "type": "object",
+            "properties": {
+              "membraneNamespace": {"type": "string"},
+              "anchorTxHash": {"type": "string"},
+              "openTrainsetRegistry": {"type": "boolean", "const": true},
+              "g2Compliant": {"type": "boolean", "const": true}
+            }
+          },
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["trainsetId", "serial", "trainsetDid", "authorityReview", "kotoba-datomicAnchor"]
+      }
+    }
+  }
+}

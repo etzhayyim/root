@@ -1,0 +1,26 @@
+{
+  "@context": "https://etzhayyim.com/.well-known/etzhayyim-context.jsonld",
+  "id": "did:web:etzhayyim.com:wadachi",
+  "type": "etzhayyim:TierBActor",
+  "name": "wadachi (轍 — autonomous mobility Tier-B actor)",
+  "description": "Autonomous ground vehicle orchestration per ADR-2605242000. Route planning, motion control, obstacle avoidance, safety monitoring.",
+  "cells": [
+    {"name": "route_planning", "murakumoNode": "sora"},
+    {"name": "motion_control", "murakumoNode": "wadachi"},
+    {"name": "obstacle_avoidance", "murakumoNode": "wadachi"},
+    {"name": "safety_monitoring", "murakumoNode": "wadachi"},
+    {"name": "telemetry_log", "murakumoNode": "sora"}
+  ],
+  "lexicons": [
+    "com.etzhayyim.wadachi.deliveryRoute",
+    "com.etzhayyim.wadachi.trajectoryPlan",
+    "com.etzhayyim.wadachi.missionCompleteRecord"
+  ],
+  "constitutionalGates": [
+    {"gate": "G1", "requirement": "Firmware open-source (no proprietary vehicle control)"},
+    {"gate": "G2", "requirement": "GPS track + sensor logs IPFS-pinned"},
+    {"gate": "G3", "requirement": "Safety witness signature (≥1)"},
+    {"gate": "G5", "requirement": "Charter Rider compliance (no armed vehicles)"},
+    {"gate": "G6", "requirement": "Trajectory determinism (@10Hz)"}
+  ]
+}

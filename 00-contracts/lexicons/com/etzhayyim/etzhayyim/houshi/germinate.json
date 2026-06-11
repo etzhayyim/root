@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.houshi.germinate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Germinate (revive) a dormant spore into an active kobo agent. Requires quorum_n custodian confirmations. Sets germinated_at on vertex_houshi_spore and re-spawns vertex_kobo_agent from blob_cbor.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sporeVertexId": { "type": "string", "description": "Spore to germinate" },
+            "revivalKey": { "type": "string", "description": "Revival key matching revival_key_hint" },
+            "newAgentDid": { "type": "string", "description": "DID for the revived agent (may differ from original)" }
+          },
+          "required": ["sporeVertexId", "revivalKey", "newAgentDid"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "agentVertexId": { "type": "string" },
+            "agentDid": { "type": "string" },
+            "prionsRestored": { "type": "integer" },
+            "germinatedAt": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": ["agentVertexId", "agentDid"]
+        }
+      }
+    }
+  }
+}

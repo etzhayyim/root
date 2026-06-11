@@ -1,0 +1,120 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.soapNote",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "SOAP progress note (FHIR R5 Composition with section type=SOAP). Inner type of com.etzhayyim.encrypted.record envelope.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "patientDid", "encounterDid", "authorDid", "subjective", "objective", "assessment", "plan", "occurredAt"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "Composition"},
+          "compositionType": {"type": "string", "const": "SOAP"},
+          "patientDid": {"type": "string"},
+          "encounterDid": {"type": "string", "description": "AT URI of parent encounter"},
+          "authorDid": {"type": "string", "description": "did:web of authoring clinician"},
+          "coAuthorDids": {"type": "array", "items": {"type": "string"}},
+          "subjective": {
+            "type": "string",
+            "description": "S — 患者の主観的訴え (主訴・現病歴・既往歴・社会歴)",
+            "maxLength": 20000
+          },
+          "objective": {
+            "type": "ref",
+            "ref": "#objectiveBlock"
+          },
+          "assessment": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#assessmentItem"},
+            "description": "A — 鑑別を含む評価。Condition record refs と code をひも付け"
+          },
+          "plan": {
+            "type": "ref",
+            "ref": "#planBlock"
+          },
+          "signedAt": {"type": "string", "format": "datetime"},
+          "amendments": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#amendment"}
+          },
+          "occurredAt": {"type": "string", "format": "datetime"},
+          "createdAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    },
+    "objectiveBlock": {
+      "type": "object",
+      "description": "O — 客観的所見。バイタル・身体所見・検査結果",
+      "properties": {
+        "vitals": {
+          "type": "object",
+          "description": "Summary view; canonical timeseries lives in Observation records",
+          "properties": {
+            "bloodPressureSystolic": {"type": "integer"},
+            "bloodPressureDiastolic": {"type": "integer"},
+            "heartRate": {"type": "integer"},
+            "respiratoryRate": {"type": "integer"},
+            "temperatureCelsius10": {"type": "integer", "description": "Temp × 10 (e.g. 367 = 36.7°C). AT Lexicon has no float."},
+            "spo2Percent": {"type": "integer"},
+            "weightKg10": {"type": "integer", "description": "Weight × 10 (e.g. 654 = 65.4kg)"}
+          }
+        },
+        "physicalExam": {"type": "string", "maxLength": 10000},
+        "labReferences": {"type": "array", "items": {"type": "string"}, "description": "AT URIs of Observation records"},
+        "imagingReferences": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "assessmentItem": {
+      "type": "object",
+      "properties": {
+        "diagnosis": {"type": "string", "description": "Diagnosis label"},
+        "icd10": {"type": "string", "description": "ICD-10-CM or ICD-10-JP code"},
+        "snomedCt": {"type": "string"},
+        "probabilityPercent": {"type": "integer", "description": "0-100 (clinical estimate)"},
+        "differentialOf": {"type": "string", "description": "Refers to another assessmentItem index if differential"},
+        "rationale": {"type": "string", "maxLength": 5000}
+      }
+    },
+    "planBlock": {
+      "type": "object",
+      "description": "P — 治療計画。医薬品・検査・処置・指導・フォローアップ",
+      "properties": {
+        "medicationRequestRefs": {"type": "array", "items": {"type": "string"}, "description": "AT URIs of MedicationRequest records"},
+        "serviceRequestRefs": {"type": "array", "items": {"type": "string"}, "description": "AT URIs of ServiceRequest records (labs/imaging/procedures)"},
+        "patientEducation": {"type": "string", "maxLength": 10000},
+        "followUp": {
+          "type": "object",
+          "properties": {
+            "intervalDays": {"type": "integer"},
+            "modality": {"type": "string", "enum": ["in-person", "video", "phone", "home-visit", "asynchronous"]},
+            "department": {"type": "string"}
+          }
+        },
+        "referrals": {
+          "type": "array",
+          "items": {"type": "ref", "ref": "#referral"}
+        }
+      }
+    },
+    "amendment": {
+      "type": "object",
+      "properties": {
+        "amendedAt": {"type": "string", "format": "datetime"},
+        "amendedByDid": {"type": "string"},
+        "rationale": {"type": "string"},
+        "diff": {"type": "string"}
+      }
+    },
+    "referral": {
+      "type": "object",
+      "properties": {
+        "toFacilityDid": {"type": "string"},
+        "specialty": {"type": "string"},
+        "urgency": {"type": "string", "enum": ["routine", "urgent", "emergent"]},
+        "reason": {"type": "string"}
+      }
+    }
+  }
+}

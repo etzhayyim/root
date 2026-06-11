@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  malak.registerThreatActor — migrates cmdRegisterThreatActor.
+
+  Replaces sdk.pds.createRecord("com.etzhayyim.apps.malak.threatActor") with
+  Hyperdrive-direct INSERT into vertex_threat (ADR-0036).
+
+  Flow:
+    Start (name, actorId?, aliases?, nationality?, motivation?,
+           ttps?, confidence?, tlp?, description?)
+      → scriptTask: derive rkey + vertexId
+      → generic.db.insert (vertex_threat)
+      → generic.audit.emit
+      → End
+
+  NSID derivation (sync-bpmn-actors.py convention):
+    path = 00-contracts/bpmn/com/etzhayyim/malak/registerThreatActor.bpmn
+    NSID = com.etzhayyim.apps.malak.registerThreatActor
+    vid  = at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/malak-register-threat-actor-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_malak_register_threat_actor"
+    targetNamespace="https://etzhayyim.ai/bpmn/malak"
+    exporter="hand-written" exporterVersion="2.0">
+  <bpmn:process id="malak_register_threat_actor" name="malak registerThreatActor" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.malak.registerThreatActor", "version": 1, "resultTimeoutMs": 15000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_ToDerive</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToDerive" sourceRef="Start" targetRef="Task_Derive"/>
+
+    <!-- Step 1: derive rkey + vertexId.
+         actorId is optional — fall back to timestamp-based unique key. -->
+    <bpmn:scriptTask id="Task_Derive" name="derive rkey + vertexId">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=if actorId = null or string(actorId) = "" then { rkey: string join(["actor-", replace(string(now()), ":", "-")], ""), actorCode: string join(["actor-", replace(string(now()), ":", "-")], "") } else { rkey: string(actorId), actorCode: string(actorId) }'
+            resultVariable="derived"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToDerive</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToInsert</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToInsert" sourceRef="Task_Derive" targetRef="Task_Insert"/>
+
+    <!-- Step 2: INSERT into vertex_threat (Hyperdrive-direct, ADR-0036) -->
+    <bpmn:serviceTask id="Task_Insert" name="vertex_threat INSERT">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_threat&quot;" target="table"/>
+          <zeebe:input source='={
+              vertex_id:       string join(["at://did:web:malak.etzhayyim.com/com.etzhayyim.apps.malak.threatActor/", derived.rkey], ""),
+              rkey:            derived.rkey,
+              repo:            "did:web:malak.etzhayyim.com",
+              did:             "did:web:malak.etzhayyim.com",
+              code:            derived.actorCode,
+              label:           "ThreatActor",
+              name:            string(name),
+              display_name:    string(name),
+              description:     if description = null then "" else string(description),
+              category:        "actor",
+              severity:        if confidence = null then "medium" else (if confidence >= 0.8 then "high" else if confidence >= 0.5 then "medium" else "low"),
+              source:          "malak.bpmn.register",
+              sensitivity_ord: 100,
+              owner_did:       "did:web:malak.etzhayyim.com",
+              created_date:    substring(string(now()), 1, 10)
+          }' target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="threatInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToInsert</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+
+    <!-- Step 3: OCEL audit -->
+    <bpmn:serviceTask id="Task_Audit" name="audit: malak.actor.created">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:malak.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;malak.actor.created&quot;"   target="action"/>
+          <zeebe:input source="={ actorId: derived.actorCode, name: string(name), threatInserted: threatInserted }" target="payload"/>
+          <zeebe:output source="=emitted" target="auditEmitted"/>
+          <zeebe:output source="=rkey"    target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

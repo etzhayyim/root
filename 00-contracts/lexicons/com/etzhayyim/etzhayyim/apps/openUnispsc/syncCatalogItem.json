@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openUnispsc.syncCatalogItem",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Build a deterministic okaimono catalog-item upsert contract from a concrete UNSPSC commodity item.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["commodityCode"],
+          "properties": {
+            "commodityCode": { "type": "string", "description": "UNSPSC 8-digit" },
+            "commodityName": { "type": "string" },
+            "sourceRepo": { "type": "string", "description": "Upstream UNSPSC repo DID" },
+            "rkey": { "type": "string", "description": "Upstream com.etzhayyim.apps.unispsc.commodity rkey" },
+            "active": { "type": "boolean", "default": true }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "commodityCode": { "type": "string" },
+            "catalogCollection": { "type": "string" },
+            "catalogRkey": { "type": "string" },
+            "catalogItem": { "type": "object" },
+            "atprotoWritePlan": { "type": "object" },
+            "classificationEdge": { "type": "object" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

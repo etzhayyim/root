@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yata_multipart_part"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="yata_multipart_part" name="yata multipart part" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.yata.multipartPart", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="multipartPart">
+      <bpmn:outgoing>Flow_ToPart</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Part" name="UploadPart to provider + UPDATE vertex_yata_multipart.parts_received">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yata.storage.multipart.part"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=uploadId" target="uploadId"/>
+          <zeebe:input source="=partNumber" target="partNumber"/>
+          <zeebe:input source="=data" target="data"/>
+          <zeebe:output source="=partNumber" target="partNumber"/>
+          <zeebe:output source="=etag" target="etag"/>
+          <zeebe:output source="=sizeBytes" target="sizeBytes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPart</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPart" sourceRef="Start" targetRef="Task_Part"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Part" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

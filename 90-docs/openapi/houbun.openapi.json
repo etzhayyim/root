@@ -1,0 +1,560 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "houbun XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://houbun.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.houbun.ingestEurLex": {
+      "post": {
+        "summary": "Crawl EU legal acts from EUR-Lex via its public SPARQL endpoint (https://publications.europa.eu/webapi/rdf/sparql). Phase 2 MVP ingests regulation / directive / decision metadata by CELEX number. Full act text fetch lands in a later PR. Writes to vertex_houbun_statute. Attribution required (CC-BY-SA via ©European Union).",
+        "operationId": "com.etzhayyim.houbun.ingestEurLex",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "celex": {
+                    "type": "string",
+                    "description": "CELEX identifier (e.g. '32016R0679' for GDPR). Mutually exclusive with since."
+                  },
+                  "since": {
+                    "type": "string",
+                    "description": "ISO 8601 date — fetch acts registered after this cutoff."
+                  },
+                  "actType": {
+                    "type": "string",
+                    "description": "Limit to a single act type. Applies to since mode.",
+                    "x-knownValues": [
+                      "regulation",
+                      "directive",
+                      "decision"
+                    ]
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "description": "Max acts per call (default 50, max 500)."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "source": {
+                      "type": "string"
+                    },
+                    "statutesFetched": {
+                      "type": "integer"
+                    },
+                    "statutesInserted": {
+                      "type": "integer"
+                    },
+                    "errors": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.houbun.ingestStatuteJpn": {
+      "post": {
+        "summary": "Crawl one or more Japanese statutes from the e-Gov 法令 API v2 and write statute / article records to Hyperdrive. Idempotent: existing (jurisdiction, statuteId) is updated; existing (articleDid) rows are skipped.",
+        "operationId": "com.etzhayyim.houbun.ingestStatuteJpn",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lawId": {
+                    "type": "string",
+                    "description": "e-Gov lawId (e.g. '325AC0000000131' for 民法). Mutually exclusive with `since`."
+                  },
+                  "since": {
+                    "type": "string",
+                    "description": "ISO 8601 date — fetch all statutes updated after this cutoff."
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "description": "Max statutes to ingest in one call (default 10, max 200). Applies to `since` mode only."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "source": {
+                      "type": "string"
+                    },
+                    "statutesFetched": {
+                      "type": "integer"
+                    },
+                    "statutesInserted": {
+                      "type": "integer"
+                    },
+                    "articlesInserted": {
+                      "type": "integer"
+                    },
+                    "articlesSkipped": {
+                      "type": "integer"
+                    },
+                    "errors": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.houbun.ingestStatuteUsa": {
+      "post": {
+        "summary": "Crawl US federal statutory material (CFR / USC) from GovInfo bulkdata. Phase 2 MVP ingests CFR title-level metadata from the free JSON index (https://www.govinfo.gov/bulkdata/json/CFR); full title XML parse (part / section / paragraph) follows in a later PR. Writes to vertex_houbun_statute. Public domain.",
+        "operationId": "com.etzhayyim.houbun.ingestStatuteUsa",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "collection": {
+                    "type": "string",
+                    "description": "GovInfo collection slug. Default 'CFR'.",
+                    "x-knownValues": [
+                      "CFR",
+                      "USCODE"
+                    ]
+                  },
+                  "titleNumber": {
+                    "type": "integer",
+                    "description": "CFR title (1–50) or USC title (1–54). Omit to ingest the full title index."
+                  },
+                  "year": {
+                    "type": "integer",
+                    "description": "Edition year (e.g. 2024 for CFR, 2023 for USC)."
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "description": "Max statutes to ingest in one call (default 50, max 500)."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "source": {
+                      "type": "string"
+                    },
+                    "statutesFetched": {
+                      "type": "integer"
+                    },
+                    "statutesInserted": {
+                      "type": "integer"
+                    },
+                    "articlesInserted": {
+                      "type": "integer"
+                    },
+                    "articlesSkipped": {
+                      "type": "integer"
+                    },
+                    "errors": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.houbun.ingestTreatyUn": {
+      "post": {
+        "summary": "Crawl international treaties from the UN Treaty Collection (https://treaties.un.org/). Writes to vertex_houbun_treaty. Phase 2 contract surface is fixed; the parser lands in a later PR — currently a polite-crawl scaffold.",
+        "operationId": "com.etzhayyim.houbun.ingestTreatyUn",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "unRegNo": {
+                    "type": "string",
+                    "description": "UN Treaty Registration Number. Mutually exclusive with since."
+                  },
+                  "since": {
+                    "type": "string",
+                    "description": "ISO 8601 date — fetch treaties registered after this cutoff."
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "description": "Max treaties per call (default 50, max 500)."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "source": {
+                      "type": "string"
+                    },
+                    "treatiesFetched": {
+                      "type": "integer"
+                    },
+                    "treatiesInserted": {
+                      "type": "integer"
+                    },
+                    "errors": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_houbun_amendmentEvent": {
+        "type": "object",
+        "properties": {
+          "statuteRef": {
+            "type": "string",
+            "description": "AT URI of the affected statute record."
+          },
+          "articleRef": {
+            "type": "string",
+            "description": "AT URI of the new (post-amendment) article record. Omitted for whole-statute repeals."
+          },
+          "supersedesArticleDid": {
+            "type": "string",
+            "description": "Article DID being replaced. NULL for pure insertions."
+          },
+          "op": {
+            "type": "string",
+            "x-knownValues": [
+              "insert",
+              "modify",
+              "delete",
+              "repeal"
+            ]
+          },
+          "amendingStatuteRef": {
+            "type": "string",
+            "description": "AT URI of the statute that enacted this amendment, if available."
+          },
+          "effectiveDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "diffUri": {
+            "type": "string",
+            "description": "Optional pointer to a unified diff / HTML diff published by the source.",
+            "format": "uri"
+          },
+          "note": {
+            "type": "string"
+          },
+          "props": {
+            "type": "string",
+            "description": "Opaque JSON string for source-specific metadata."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "statuteRef",
+          "op",
+          "effectiveDate",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_houbun_article": {
+        "type": "object",
+        "properties": {
+          "statuteRef": {
+            "type": "string",
+            "description": "AT URI of the parent `com.etzhayyim.apps.houbun.statute` record."
+          },
+          "articleNo": {
+            "type": "string",
+            "description": "Article number as printed in the source (e.g. '第九条', '§1001', 'Art. 7')."
+          },
+          "section": {
+            "type": "string",
+            "description": "Optional sub-structure (paragraph / item / sub-section)."
+          },
+          "title": {
+            "type": "string",
+            "description": "Optional article heading if the source provides one."
+          },
+          "text": {
+            "type": "string",
+            "description": "Full article body in the authoritative language."
+          },
+          "language": {
+            "type": "string",
+            "description": "ISO 639-1 code of the body."
+          },
+          "articleDid": {
+            "type": "string",
+            "description": "did:web:houbun.etzhayyim.com:article:{blake3_prefix12}"
+          },
+          "blake3Hash": {
+            "type": "string",
+            "description": "12-char hex prefix of blake3(jurisdiction|statuteId|articleNo|amendedAt). Used as the DID suffix."
+          },
+          "amendedAt": {
+            "type": "string",
+            "description": "Effective date of the version captured in `text`. NULL for the original enactment.",
+            "format": "date"
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "props": {
+            "type": "string",
+            "description": "Opaque JSON string for source-specific metadata (e.g. e-Gov 条文番号 + 項 + 号)."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "statuteRef",
+          "articleNo",
+          "text",
+          "articleDid",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_houbun_statute": {
+        "type": "object",
+        "properties": {
+          "jurisdiction": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-3 or supra-national code (e.g. 'jpn', 'usa', 'eu', 'int')."
+          },
+          "statuteId": {
+            "type": "string",
+            "description": "Source-native statute identifier (e.g. e-Gov lawId, GovInfo packageId, CELEX number)."
+          },
+          "title": {
+            "type": "string"
+          },
+          "titleNative": {
+            "type": "string",
+            "description": "Title in the original language if different from `title`."
+          },
+          "statuteType": {
+            "type": "string",
+            "description": "Instrument class.",
+            "x-knownValues": [
+              "law",
+              "regulation",
+              "ordinance",
+              "rule",
+              "by-law",
+              "treaty-domestic"
+            ]
+          },
+          "enactedDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "repealedDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "source": {
+            "type": "string",
+            "x-knownValues": [
+              "e-gov",
+              "govinfo-cfr",
+              "govinfo-usc",
+              "eur-lex"
+            ]
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "license": {
+            "type": "string",
+            "description": "e.g. CC-BY-4.0 (e-Gov), public-domain (GovInfo)."
+          },
+          "language": {
+            "type": "string",
+            "description": "ISO 639-1 code of the authoritative text."
+          },
+          "articleCount": {
+            "type": "integer"
+          },
+          "props": {
+            "type": "string",
+            "description": "Opaque JSON string for source-specific metadata."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "jurisdiction",
+          "statuteId",
+          "title",
+          "source",
+          "sourceUrl",
+          "createdAt"
+        ]
+      },
+      "ai_etzhayyim_houbun_treaty": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "titleNative": {
+            "type": "string"
+          },
+          "parties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "signedDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "enteredIntoForceDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "unRegNo": {
+            "type": "string",
+            "description": "UN Treaty Registration Number."
+          },
+          "depositary": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "x-knownValues": [
+              "un-treaty",
+              "eur-lex",
+              "govinfo-usc"
+            ]
+          },
+          "sourceRecordId": {
+            "type": "string"
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "language": {
+            "type": "string"
+          },
+          "props": {
+            "type": "string",
+            "description": "Opaque JSON string."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "title",
+          "source",
+          "sourceRecordId",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

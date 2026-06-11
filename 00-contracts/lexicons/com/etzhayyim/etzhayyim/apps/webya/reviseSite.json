@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.webya.reviseSite",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "既存サイトを自然言語指示で改訂する。LangGraph revision subgraph で影響ページのみ再生成。revision_count をインクリメントし新 job_id を返す。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["siteId", "instruction"],
+          "properties": {
+            "siteId":      { "type": "string" },
+            "instruction": { "type": "string", "description": "修正内容の自然言語指示 (例: 料金ページをより親しみやすいトーンに変更してください)", "maxLength": 2000 },
+            "targetPages": { "type": "array", "items": { "type": "string" }, "description": "変更対象ページ slug 一覧 (省略時は全ページを LLM が判断)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "jobId"],
+          "properties": {
+            "ok":           { "type": "boolean" },
+            "jobId":        { "type": "string" },
+            "revisionCount":{ "type": "integer" },
+            "status":       { "type": "string" },
+            "error":        { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

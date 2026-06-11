@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-87b0ca08c9da",
+  "entityId": "ent-87b0ca08c9da",
+  "canonicalName": "felicien nsanzubukire",
+  "aliases": [
+    "felicien nsanzubukire"
+  ]
+}

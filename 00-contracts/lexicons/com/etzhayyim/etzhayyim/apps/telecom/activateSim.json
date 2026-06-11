@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.activateSim",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Activate a SIM (or eSIM profile) and bind it to a subscriber MSISDN/IMSI.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["iccid", "subscriberId"],
+          "properties": {
+            "iccid": { "type": "string" },
+            "msisdn": { "type": "string" },
+            "imsi": { "type": "string" },
+            "subscriberId": { "type": "string" },
+            "simType": { "type": "string", "enum": ["physical", "esim"] },
+            "asOf": { "type": "string", "format": "date" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "simId": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

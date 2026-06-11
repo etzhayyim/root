@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.antimicrobialStewardship.reportPrescriptionMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "AWaRe category prescription rate / DDD (bridges pharma-supply + atc)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "metricId",
+            "programVid",
+            "awareCategory",
+            "measuredYear"
+          ],
+          "properties": {
+            "metricId": {
+              "type": "string"
+            },
+            "programVid": {
+              "type": "string",
+              "description": "bridges recordFacilityProgram"
+            },
+            "atcCode": {
+              "type": "string",
+              "description": "bridges open-atc"
+            },
+            "awareCategory": {
+              "type": "string",
+              "enum": [
+                "access",
+                "watch",
+                "reserve",
+                "not_recommended"
+              ]
+            },
+            "ddd1000PatientDays": {
+              "type": "number"
+            },
+            "accessSharePct": {
+              "type": "number",
+              "description": "% of total abx use in Access category"
+            },
+            "measuredYear": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.publicStatement",
+  "description": "Public statement, press release, or filing-derived disclosure used as provenance for legal-entity relationship edges.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "statementId",
+          "statementType",
+          "title",
+          "publisher",
+          "publishedAt",
+          "sourceUrl",
+          "sourceLicense",
+          "createdAt"
+        ],
+        "properties": {
+          "statementId": { "type": "string" },
+          "statementType": { "type": "string" },
+          "title": { "type": "string" },
+          "publisher": { "type": "string" },
+          "publishedAt": { "type": "string", "format": "date" },
+          "language": { "type": "string" },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "sourceDomain": { "type": "string" },
+          "sourceLicense": { "type": "string" },
+          "summary": { "type": "string" },
+          "props": { "type": "string", "description": "Opaque JSON string for provenance metadata." },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  F5 expansion — `bot.echoPost` — single-task actor that validates the
+  `generic.pds.dispatch` primitive end-to-end. Given a text body, post
+  it as `app.bsky.feed.post` via the internal-trust dispatch path.
+
+  Flow:
+    Start (input: text, callerDid?)
+      → generic.pds.dispatch   (type = app.bsky.feed.post)
+      → End
+
+  Variables on the instance:
+    in:  text (required), callerDid (optional, defaults to bot DID)
+    out: dispatchStatus, dispatchBody
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_bot_echo_post"
+    targetNamespace="https://etzhayyim.ai/bpmn/bot"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="bot_echo_post" name="bot echo post" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="text submitted">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Post"/>
+
+    <bpmn:serviceTask id="Task_Post" name="pds.dispatch: echo">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="type"/>
+          <zeebe:input source="={ text: string(text) }" target="payload"/>
+          <zeebe:input source="=string(callerDid)" target="callerDid"/>
+          <zeebe:output source="=status"   target="dispatchStatus"/>
+          <zeebe:output source="=bodyJson" target="dispatchBody"/>
+          <zeebe:output source="=latencyMs" target="dispatchLatencyMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Post" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

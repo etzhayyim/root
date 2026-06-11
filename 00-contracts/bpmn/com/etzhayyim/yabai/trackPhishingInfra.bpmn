@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  yabai.trackPhishingInfra — per-domain phishing intel probe.
+
+  Replaces: 60-apps/etzhayyim-project-yabai/tools/track-phishing-infra/track-phishing-infra.mjs
+  The legacy script iterated every phishing_url entity and ran shell
+  whois + dig + openssl + curl per row. This BPMN does the same per call
+  (one domain per process instance) using only generic.* primitives.
+
+  Pipeline:
+    1. dns.resolve(A)      — resolve_a CSV via DoH UDF path (http.fetch)
+    2. tls.probe(domain)   — TLS cert + SAN + anomalies
+    3. http.fetch(crt.sh)  — CT log entries → derive first_seen/last_seen/issuer
+    4. http.fetch(rdap)    — domain rdap JSON → registrar, created, expires
+    5. http.fetch(iptoasn) — asn lookup (https://api.iptoasn.com/v1/as/ip)
+    6. scriptTask          — FEEL flatten into a single flat row
+    7. db.insert           — vertex_yabai_infra_track
+    8. audit.emit          — OCEL trail
+
+  Inputs:
+    entityId   string  required — source yabai entity_id (e.g. url-paypa1-secure-xyz)
+    domain     string  required — bare hostname (no scheme / path)
+
+  NSID: com.etzhayyim.apps.yabai.trackPhishingInfra
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yabai_track_phishing_infra"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="yabai_track_phishing_infra" name="yabai trackPhishingInfra" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.yabai.trackPhishingInfra", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_ToDns</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToDns" sourceRef="Start" targetRef="Task_DnsA"/>
+
+    <!-- Step 1: DNS A — call the DoH UDF via HTTP (Cloudflare DoH is
+         always reachable from the UDF pool net). Using http.fetch keeps
+         this primitive-only: no dedicated dns primitive needed. -->
+    <bpmn:serviceTask id="Task_DnsA" name="DoH A record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source='=string join(["https://cloudflare-dns.com/dns-query?name=", domain, "&amp;type=A"], "")' target="url"/>
+          <zeebe:input source='={"Accept": "application/dns-json"}' target="headers"/>
+          <zeebe:input source="=8" target="timeoutSec"/>
+          <zeebe:output source="=status"   target="dnsStatus"/>
+          <zeebe:output source="=bodyJson" target="dnsBody"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToDns</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToPickIp</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPickIp" sourceRef="Task_DnsA" targetRef="Task_PickIp"/>
+
+    <bpmn:scriptTask id="Task_PickIp" name="pick first A record">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=if dnsBody = null or dnsBody.Answer = null or count(dnsBody.Answer) = 0 then null else dnsBody.Answer[1].data'
+            resultVariable="firstIp"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPickIp</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToDnsJoin</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToDnsJoin" sourceRef="Task_PickIp" targetRef="Task_DnsJoin"/>
+
+    <bpmn:scriptTask id="Task_DnsJoin" name="comma-join A records">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=if dnsBody = null or dnsBody.Answer = null then "" else string join(for e in dnsBody.Answer return e.data, ",")'
+            resultVariable="dnsA"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToDnsJoin</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToTls</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToTls" sourceRef="Task_DnsJoin" targetRef="Task_Tls"/>
+
+    <!-- Step 2: TLS probe (handshake + cert decode + anomalies) -->
+    <bpmn:serviceTask id="Task_Tls" name="TLS probe">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.tls.probe"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=domain" target="host"/>
+          <zeebe:input source="=443"    target="port"/>
+          <zeebe:input source="=8"      target="timeoutSec"/>
+          <zeebe:output source="=ok"         target="tlsOk"/>
+          <zeebe:output source="=subjectCn"  target="tlsSubject"/>
+          <zeebe:output source="=issuerCn"   target="tlsIssuer"/>
+          <zeebe:output source="=san"        target="tlsSanList"/>
+          <zeebe:output source="=notBefore"  target="tlsNotBefore"/>
+          <zeebe:output source="=notAfter"   target="tlsNotAfter"/>
+          <zeebe:output source="=tlsVersion" target="tlsVersion"/>
+          <zeebe:output source="=cipher"     target="tlsCipher"/>
+          <zeebe:output source="=anomalies"  target="tlsAnomalies"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToTls</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToSanJoin</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSanJoin" sourceRef="Task_Tls" targetRef="Task_SanJoin"/>
+
+    <bpmn:scriptTask id="Task_SanJoin" name="comma-join SAN list">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=if tlsSanList = null then null else string join(tlsSanList, ",")'
+            resultVariable="tlsSan"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSanJoin</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToCt</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToCt" sourceRef="Task_SanJoin" targetRef="Task_Ct"/>
+
+    <!-- Step 3: Certificate Transparency log (crt.sh) -->
+    <bpmn:serviceTask id="Task_Ct" name="crt.sh CT log">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source='=string join(["https://crt.sh/?q=", domain, "&amp;output=json"], "")' target="url"/>
+          <zeebe:input source="=10" target="timeoutSec"/>
+          <zeebe:output source="=status"   target="ctStatus"/>
+          <zeebe:output source="=bodyJson" target="ctBody"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCt</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToCtSummary</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToCtSummary" sourceRef="Task_Ct" targetRef="Task_CtSummary"/>
+
+    <bpmn:scriptTask id="Task_CtSummary" name="CT summary">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=if ctStatus != 200 or ctBody = null or count(ctBody) = 0 then { issuer: null, sanCount: 0, firstSeen: null, lastSeen: null } else { issuer: ctBody[1].issuer_name, sanCount: count(ctBody), firstSeen: min(for e in ctBody return e.not_before), lastSeen: max(for e in ctBody return e.not_after) }'
+            resultVariable="ct"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCtSummary</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToRdap</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToRdap" sourceRef="Task_CtSummary" targetRef="Task_Rdap"/>
+
+    <!-- Step 4: RDAP domain lookup. rdap.org aggregates registries and
+         returns a stable JSON shape (events + entities). Body is stored
+         verbatim; downstream consumers parse `events[].eventAction` etc.
+         in SQL. Keeping the body as raw JSON avoids FEEL parser limits
+         around nested conditional + list comprehensions. -->
+    <bpmn:serviceTask id="Task_Rdap" name="rdap.org domain">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source='=string join(["https://rdap.org/domain/", domain], "")' target="url"/>
+          <zeebe:input source="=10" target="timeoutSec"/>
+          <zeebe:output source="=status"   target="rdapStatus"/>
+          <zeebe:output source="=bodyText" target="rdapBodyText"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRdap</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAsnGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAsnGate" sourceRef="Task_Rdap" targetRef="Gate_HasIp"/>
+
+    <!-- Skip ASN lookup entirely if DNS didn't resolve. -->
+    <bpmn:exclusiveGateway id="Gate_HasIp" name="IP resolved?">
+      <bpmn:incoming>Flow_ToAsnGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasIp</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoIp</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_HasIp" sourceRef="Gate_HasIp" targetRef="Task_Asn">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=firstIp != null</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoIp" sourceRef="Gate_HasIp" targetRef="Task_NoAsn">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=firstIp = null</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Step 5a: IP → ASN lookup (iptoasn.com, free). Returns
+         {as_number, as_country_code, as_description, ...}. -->
+    <bpmn:serviceTask id="Task_Asn" name="iptoasn lookup">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source='=string join(["https://api.iptoasn.com/v1/as/ip/", firstIp], "")' target="url"/>
+          <zeebe:input source="=8" target="timeoutSec"/>
+          <zeebe:output source="=status"   target="asnStatus"/>
+          <zeebe:output source="=bodyJson" target="asnBody"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasIp</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToInsert</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:scriptTask id="Task_NoAsn" name="null ASN">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='={ as_number: null, as_country_code: null, as_description: null }'
+            resultVariable="asnBody"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoIp</bpmn:incoming>
+      <bpmn:outgoing>Flow_NoIpToInsert</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToInsert" sourceRef="Task_Asn" targetRef="Task_Insert"/>
+    <bpmn:sequenceFlow id="Flow_NoIpToInsert" sourceRef="Task_NoAsn" targetRef="Task_Insert"/>
+
+    <!-- Step 6+7: INSERT vertex_yabai_infra_track. Columns mirror the
+         legacy script; null-safe coalesce inside FEEL. -->
+    <bpmn:serviceTask id="Task_Insert" name="vertex_yabai_infra_track INSERT">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_yabai_infra_track&quot;" target="table"/>
+          <zeebe:input source='=string join(["infra-", domain, "-", string(now())], "")' target="computedVertexId"/>
+          <!-- RW 2.x rejects NULL bindings against bigint columns as
+               "cannot cast varchar → bigint" at the prepared-statement
+               stage, because pyzeebe serialises FEEL number/null as
+               JSON and RW's planner treats unknown-typed params as
+               varchar. Drop the bigint columns (_seq, sensitivity_ord,
+               asn, ct_san_count) entirely — all have server-side
+               defaults so the INSERT stays valid. Surface the asn_org
+               / ct_issuer strings which are the actionable fields;
+               numeric ASN + sanCount can be backfilled later from the
+               audit trail (asnBody / ct payloads are emitted). -->
+          <zeebe:input source="={
+              vertex_id:       computedVertexId,
+              owner_did:       &quot;did:web:yabcom.etzhayyim.ai&quot;,
+              entity_id:       entityId,
+              domain:          domain,
+              probed_at:       string(now()),
+              probe_status:    if firstIp != null then &quot;resolved&quot; else &quot;unresolved&quot;,
+              dns_a:           dnsA,
+              resolved_ip:     firstIp,
+              asn_org:         if asnBody = null then null else asnBody.as_description,
+              asn_country:     if asnBody = null then null else asnBody.as_country_code,
+              whois_raw_excerpt: if rdapBodyText = null then null else substring(rdapBodyText, 1, 2000),
+              ct_issuer:       ct.issuer,
+              ct_first_seen:   ct.firstSeen,
+              ct_last_seen:    ct.lastSeen,
+              tls_subject:     tlsSubject,
+              tls_issuer:      tlsIssuer,
+              tls_san:         tlsSan,
+              tls_not_before:  tlsNotBefore,
+              tls_not_after:   tlsNotAfter,
+              tls_version:     tlsVersion,
+              tls_cipher:      if tlsCipher = null then null else tlsCipher.name,
+              created_at:      string(now())
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+          <zeebe:output source="=error"    target="insertError"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToInsert</bpmn:incoming>
+      <bpmn:incoming>Flow_NoIpToInsert</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+
+    <!-- Step 8: OCEL audit -->
+    <bpmn:serviceTask id="Task_Audit" name="audit yabai.infra.track">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yabcom.etzhayyim.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;yabai.infra.track&quot;" target="action"/>
+          <zeebe:input source="={
+              entityId:      entityId,
+              domain:        domain,
+              probeStatus:   if firstIp != null then &quot;resolved&quot; else &quot;unresolved&quot;,
+              resolvedIp:    firstIp,
+              tlsOk:         tlsOk,
+              tlsAnomalies:  tlsAnomalies,
+              ctSanCount:    ct.sanCount,
+              rdapStatus:    rdapStatus,
+              inserted:      inserted
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 6 / 8 — lettering (写植). ADR-2604231328 applied to mangaka.
+  Claude deep decides balloon kind + placement, outputs overlay JSON that
+  Stage 7 composePage renders.
+  in:  panelUri (toned Stage 5 output), dialogue, sfx, narration
+  out: letteringVertexId, overlayJson
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_mangaka_letter_panel"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="mangaka_letter_panel" name="mangaka letter panel" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Layout"/>
+    <bpmn:serviceTask id="Task_Layout" name="balloon layout (Claude deep)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;deep&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are a manga letterer. For the given panel, place speech balloons + sfx overlays. Output ONE JSON object {balloons:[{speaker:string,text:string,shape:&apos;round|spike|cloud|whisper|rect&apos;,tail:&apos;left|right|none&apos;,x:0.0..1.0,y:0.0..1.0,w:0.0..1.0,h:0.0..1.0,fontSize:int}], sfx:[{text:string,x:0.0..1.0,y:0.0..1.0,rotation:-45..45,style:&apos;bold|outline|filled&apos;}]}. Avoid covering faces. Reading order follows rtl. JSON only, Japanese text.&quot;" target="system"/>
+          <zeebe:input source="=&quot;Panel: &quot; + string(panelUri) + &quot;\nDialogue lines:\n&quot; + (if dialogue = null then &quot;(none)&quot; else string(dialogue)) + &quot;\nSFX: &quot; + (if sfx = null then &quot;(none)&quot; else string(sfx)) + &quot;\nNarration: &quot; + (if narration = null then &quot;(none)&quot; else string(narration))" target="user"/>
+          <zeebe:input source="=1200" target="maxTokens"/>
+          <zeebe:input source="=0.3" target="temperature"/>
+          <zeebe:output source="=data" target="overlay"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming><bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Layout" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="persist lettering overlay">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_mangaka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:  &quot;at://did:web:mangaka.etzhayyim.com/com.etzhayyim.apps.mangaka.lettering/&quot; + string(panelUri),
+              owner_did:  &quot;did:web:mangaka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:mangaka.etzhayyim.com&quot;,
+              collection: &quot;com.etzhayyim.apps.mangaka.lettering&quot;,
+              rkey:       string(panelUri),
+              kind:       &quot;lettering&quot;,
+              target_uri: string(panelUri),
+              stage:      &quot;letter&quot;,
+              method:     &quot;aiLetter&quot;,
+              priority:   &quot;review&quot;,
+              description: string(overlay),
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming><bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;letterPanel&quot;" target="action"/>
+          <zeebe:input source="={panelUri: string(panelUri), inserted: inserted}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F3</bpmn:incoming><bpmn:outgoing>F4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>F4</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

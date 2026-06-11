@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.geoengineeringRegistry.reportGovernanceGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Geoengineering governance gap (London Convention / CBD / UNEA moratoria)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "gapId",
+            "experimentVid",
+            "complianceStatus",
+            "flaggedAt"
+          ],
+          "properties": {
+            "gapId": {
+              "type": "string"
+            },
+            "experimentVid": {
+              "type": "string",
+              "description": "bridges registerExperiment"
+            },
+            "instrumentApplicable": {
+              "type": "string",
+              "enum": [
+                "london_convention",
+                "cbd_moratorium",
+                "unea",
+                "unfccc",
+                "none"
+              ]
+            },
+            "complianceStatus": {
+              "type": "string",
+              "enum": [
+                "compliant",
+                "ambiguous",
+                "non_compliant",
+                "jurisdiction_gap"
+              ]
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

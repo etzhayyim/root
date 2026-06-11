@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerEarthStation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NTN — register an earth station / satellite gateway. Bound to a peering NF (Phase 4) for traffic ingress.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["operatorOrgId", "displayName", "stationKind", "latitude", "longitude", "jurisdiction", "gatewayKind", "observedAt"],
+          "properties": {
+            "stationId": { "type": "string" },
+            "operatorOrgId": { "type": "string" },
+            "displayName": { "type": "string" },
+            "stationKind": { "type": "string", "enum": ["gateway", "tt_and_c", "feeder_link", "user_terminal_anchor", "ground_segment_as_a_service"] },
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" },
+            "altitudeMeters": { "type": "number" },
+            "jurisdiction": { "type": "string" },
+            "antennaCount": { "type": "integer" },
+            "gatewayKind": { "type": "string", "enum": ["ip_gateway", "n3iwf", "tngf", "trusted_wlan", "private_apn", "iot_ntn_gateway"] },
+            "peeringNfId": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "stationId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

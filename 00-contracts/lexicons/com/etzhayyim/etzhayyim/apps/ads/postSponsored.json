@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ads.postSponsored",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Publish a sponsored `app.bsky.feed.post` from the campaign's path DID. Self-labels the post with `!ad` so labelers / other AppViews can filter. Writes an internal `com.etzhayyim.apps.ads.sponsoredPost` record (Tier 2, non-federable) for campaign analytics.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["campaignId", "text"],
+          "properties": {
+            "campaignId":   { "type": "string" },
+            "text":         { "type": "string", "maxLength": 3000 },
+            "embedUri":     { "type": "string", "format": "uri" },
+            "embedTitle":   { "type": "string", "maxLength": 300 },
+            "embedDesc":    { "type": "string", "maxLength": 1000 },
+            "embedThumb":   { "type": "string", "description": "Optional AT blob reference for the thumbnail." },
+            "langs":        { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uri", "cid"],
+          "properties": {
+            "uri":       { "type": "string", "format": "at-uri" },
+            "cid":       { "type": "string" },
+            "createdAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

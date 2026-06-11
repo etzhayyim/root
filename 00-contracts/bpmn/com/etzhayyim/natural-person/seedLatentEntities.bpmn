@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  naturalPerson.seedLatentEntities — always-on frontier latent pointer seeding
+
+  Timer:
+    R/PT5M. Every five minutes, materialize missing RisingWave frontier
+    pointers for natural-person cohorts. This does not attempt to create the
+    all-human individual universe in RisingWave; it keeps the cohort/latent
+    frontier current for later policy review and actor fission.
+
+  NSID: com.etzhayyim.apps.naturalPerson.seedLatentEntities
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="naturalPersonSeedLatentEntities"
+    targetNamespace="http://bpmn.io/schema/bpmn"
+    exporter="Camunda Modeler"
+    exporterVersion="2.0">
+
+  <bpmn:process id="natural_person_seed_latent_entities_v1" name="naturalPerson.seedLatentEntities" isExecutable="true">
+
+    <bpmn:startEvent id="Start_Timer" name="R/PT5M timer">
+      <bpmn:outgoing>Flow_timer_to_plan</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerDef_5M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT5M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:startEvent id="Start_Manual" name="XRPC trigger">
+      <bpmn:outgoing>Flow_manual_to_plan</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_ReadPlan" name="Read missing latent entity plan">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT COUNT(*)::bigint AS planned_entities FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM vertex_latent_entity e WHERE e.vertex_id = 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:input source="=60000" target="resultTimeoutMs"/>
+          <zeebe:output source="=rows[1]" target="seedPlan"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_timer_to_plan</bpmn:incoming>
+      <bpmn:incoming>Flow_manual_to_plan</bpmn:incoming>
+      <bpmn:outgoing>Flow_plan_to_seed_entities</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_SeedEntities" name="Seed missing latent entities">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;INSERT INTO vertex_latent_entity (vertex_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, entity_kind, canonical_label, existence_probability, k_evidence_count, viewpoint_consensus, fission_eligible, status, primary_topic_vid, individual_did) SELECT 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash, 1, 300, 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', NOW(), 'natural_person_cohort', 'natural person cohort: ' || c.cohort_hash, 0.99, CASE WHEN c.intel_estimated_count &gt; 0 THEN 1 ELSE 0 END, 1, c.vital_status = 'alive', 'active', c.vertex_id, 'did:web:natural-person.etzhayyim.com:latent:' || c.cohort_hash FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM vertex_latent_entity e WHERE e.vertex_id = 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:input source="=300000" target="resultTimeoutMs"/>
+          <zeebe:output source="=updated" target="insertedEntities"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_plan_to_seed_entities</bpmn:incoming>
+      <bpmn:outgoing>Flow_entities_to_seed_cohort_links</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_SeedCohortLinks" name="Seed missing entity cohort links">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;INSERT INTO edge_entity_cohort_link (edge_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, src_vid, dst_vid, link_confidence) SELECT 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.entityCohortLink/natural-person-cohort-' || c.cohort_hash, 1, 300, 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', NOW(), 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash, c.vertex_id, 0.99 FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM edge_entity_cohort_link l WHERE l.edge_id = 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.entityCohortLink/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:input source="=300000" target="resultTimeoutMs"/>
+          <zeebe:output source="=updated" target="insertedCohortLinks"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_entities_to_seed_cohort_links</bpmn:incoming>
+      <bpmn:outgoing>Flow_cohort_links_to_seed_evidence</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_SeedEvidence" name="Seed missing entity evidence links">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;INSERT INTO edge_entity_evidence (edge_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, src_vid, dst_vid, evidence_weight) SELECT 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.entityEvidence/natural-person-cohort-' || c.cohort_hash, 1, 300, 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', NOW(), c.vertex_id, 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash, 1.0 FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM edge_entity_evidence ev WHERE ev.edge_id = 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.entityEvidence/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:input source="=300000" target="resultTimeoutMs"/>
+          <zeebe:output source="=updated" target="insertedEvidenceLinks"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_cohort_links_to_seed_evidence</bpmn:incoming>
+      <bpmn:outgoing>Flow_evidence_to_verify</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Verify" name="Verify latent frontier totals">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT COUNT(*)::bigint AS total_latent_entities FROM vertex_latent_entity WHERE entity_kind = 'natural_person_cohort'&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:input source="=60000" target="resultTimeoutMs"/>
+          <zeebe:output source="=rows[1]" target="seedVerify"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_evidence_to_verify</bpmn:incoming>
+      <bpmn:outgoing>Flow_verify_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Audit" name="OCEL audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:natural-person.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;naturalPerson.seedLatentEntities.complete&quot;" target="action"/>
+          <zeebe:input source="={
+              &quot;plannedEntities&quot;: seedPlan.planned_entities,
+              &quot;insertedEntities&quot;: insertedEntities,
+              &quot;insertedCohortLinks&quot;: insertedCohortLinks,
+              &quot;insertedEvidenceLinks&quot;: insertedEvidenceLinks,
+              &quot;totalLatentEntities&quot;: seedVerify.total_latent_entities
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_verify_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_timer_to_plan" sourceRef="Start_Timer" targetRef="Task_ReadPlan"/>
+    <bpmn:sequenceFlow id="Flow_manual_to_plan" sourceRef="Start_Manual" targetRef="Task_ReadPlan"/>
+    <bpmn:sequenceFlow id="Flow_plan_to_seed_entities" sourceRef="Task_ReadPlan" targetRef="Task_SeedEntities"/>
+    <bpmn:sequenceFlow id="Flow_entities_to_seed_cohort_links" sourceRef="Task_SeedEntities" targetRef="Task_SeedCohortLinks"/>
+    <bpmn:sequenceFlow id="Flow_cohort_links_to_seed_evidence" sourceRef="Task_SeedCohortLinks" targetRef="Task_SeedEvidence"/>
+    <bpmn:sequenceFlow id="Flow_evidence_to_verify" sourceRef="Task_SeedEvidence" targetRef="Task_Verify"/>
+    <bpmn:sequenceFlow id="Flow_verify_to_audit" sourceRef="Task_Verify" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End"/>
+
+  </bpmn:process>
+</bpmn:definitions>

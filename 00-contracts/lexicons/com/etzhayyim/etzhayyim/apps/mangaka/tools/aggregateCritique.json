@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.tools.aggregateCritique",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "P10.2b critique-side aggregator. Overlays the Hume image-feature `emotionAlignment` score onto each render's LLM axes (when target_mood + B2 are available), computes the aggregate mean per render, and selects the highest-scoring render. Tolerant to renders with full `critique.axes`, with only `score`, or with neither (falls back to `fallback_score`). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_aggregate_critique.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["renders"],
+          "properties": {
+            "renders": {
+              "type": "array",
+              "description": "Output of com.etzhayyim.apps.mangaka.tools.renderKeyframes (optionally already carrying a `critique.axes` from an upstream vision LLM).",
+              "items": { "type": "ref", "ref": "com.etzhayyim.apps.mangaka.tools.renderKeyframes#renderEntry" }
+            },
+            "targetMood": {
+              "type": "string",
+              "description": "Panel mood (`plan.mood`) used by Hume to score `emotionAlignment` against the rendered PNG's visual features. Hume overlay is skipped when this is null."
+            },
+            "fallbackScore": {
+              "type": "number",
+              "description": "Score assigned to renders without LLM axes. Default 0.6. Keeps the refinement-loop predicate stable when the vision LLM is unavailable."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["renders", "selected", "score"],
+          "properties": {
+            "renders": {
+              "type": "array",
+              "description": "Same shape as input, but with `score` set and (when axes were present or Hume fired) a `critique.{axes, notes, score, humeEvidence}` block.",
+              "items": { "type": "unknown" }
+            },
+            "selected": {
+              "type": "unknown",
+              "description": "The single render with the highest aggregate score."
+            },
+            "score": {
+              "type": "number",
+              "description": "Selected render's aggregate score, fed into the conditional refinement edge."
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

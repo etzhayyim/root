@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cableRepairFleet.registerRepairVessel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Cable ship / repair agreement (ACMA / MECMA / Yokohama Zone — bridges telecom-infra + carrier-fleet + biosecurity)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "vesselId",
+            "imo",
+            "agreement",
+            "registeredAt"
+          ],
+          "properties": {
+            "vesselId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "agreement": {
+              "type": "string",
+              "enum": [
+                "ACMA",
+                "MECMA",
+                "Yokohama",
+                "NAZ",
+                "NCS",
+                "EAR",
+                "SAR"
+              ]
+            },
+            "homeportUnlocode": {
+              "type": "string"
+            },
+            "cableCapabilities": {
+              "type": "string",
+              "description": "comma: submarine_splice,plough,rov,jet,trench,survey"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

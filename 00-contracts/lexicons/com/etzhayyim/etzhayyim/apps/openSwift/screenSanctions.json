@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSwift.screenSanctions",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence (stub): SWIFT 制裁スクリーニング. Starts BPMN process open_swift_screen_sanctions.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "bicCode": { "type": "string" },
+            "counterpartyName": { "type": "string" },
+            "amount": { "type": "number" },
+            "currency": { "type": "string" },
+            "sanctionList": { "type": "string" }
+          },
+          "required": ["vertexId", "bicCode", "counterpartyName"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

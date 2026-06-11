@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneSensor.listSensors",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List registered smartphone sensor modules",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "sensorType": { "type": "string" },
+          "openDriver": { "type": "boolean" },
+          "vendor": { "type": "string" },
+          "mainlineKernelStatus": { "type": "string" },
+          "limit": { "type": "integer", "default": 50, "maximum": 200 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sensors", "total"],
+          "properties": {
+            "sensors": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["vertexId", "sensorId", "sensorType", "vendor", "model"],
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "sensorId": { "type": "string" },
+                  "sensorType": { "type": "string" },
+                  "vendor": { "type": "string" },
+                  "model": { "type": "string" },
+                  "openDriver": { "type": "boolean" },
+                  "mainlineKernelStatus": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

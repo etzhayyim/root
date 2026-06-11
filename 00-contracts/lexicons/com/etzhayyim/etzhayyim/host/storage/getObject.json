@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.storage.getObject",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get an object from the storage satellite.",
+      "x-hostImportsMethod": "storageGetObject",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "bucket": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "bucket",
+          "key"
+        ]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "string",
+              "description": "base64-encoded bytes"
+            }
+          },
+          "required": [
+            "data"
+          ]
+        }
+      }
+    }
+  }
+}

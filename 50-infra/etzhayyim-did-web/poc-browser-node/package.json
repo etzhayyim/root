@@ -1,0 +1,12 @@
+{
+  "name": "etzhayyim-poc-browser-node",
+  "private": true,
+  "type": "module",
+  "description": "PoC: the browser kotoba node (kotoba-wasm) resolves the real etzhayyim actor set client-side — sovereign apex tier-2 (ADR-2606013600)",
+  "scripts": {
+    "build": "bash build-bundle.sh",
+    "verify:node": "node resolve-actors.node.mjs",
+    "verify:browser": "node browser.spec.mjs"
+  },
+  "devDependencies": { "playwright-core": "^1.49.0" }
+}

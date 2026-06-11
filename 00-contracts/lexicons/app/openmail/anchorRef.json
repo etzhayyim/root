@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "app.openmail.anchorRef",
+  "description": "Optional Base L2 anchor pointer for certified-mail equivalence. References an Anchored event from CheckpointAnchor.sol per ADR-2605171800. Per ADR-2605172200.",
+  "defs": {
+    "main": {
+      "type": "object",
+      "required": ["chain", "contract", "txHash", "mstRootCid", "anchoredAt"],
+      "properties": {
+        "chain": {
+          "type": "integer",
+          "description": "EIP-155 chain ID. 8453 = Base mainnet; 84532 = Base Sepolia."
+        },
+        "contract": {
+          "type": "string",
+          "description": "0x-prefixed CheckpointAnchor.sol contract address that emitted the Anchored event.",
+          "maxLength": 42
+        },
+        "txHash": {
+          "type": "string",
+          "description": "0x-prefixed 32-byte tx hash on the chain identified by `chain`.",
+          "maxLength": 66
+        },
+        "mstRootCid": {
+          "type": "string",
+          "description": "Multibase-encoded CIDv1 of the MST root that included this message at anchor time.",
+          "maxLength": 256
+        },
+        "anchoredAt": {
+          "type": "string",
+          "format": "datetime",
+          "description": "Block timestamp when the Anchored event was emitted."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "open-seiyaku-export-control-v1",
+  "version": 1,
+  "title": "製薬バッチ 輸出管理レビュー",
+  "tier": 1,
+  "components": [
+    {
+      "key": "exportControlDecision",
+      "type": "select",
+      "label": "判定",
+      "required": true,
+      "options": [
+        { "value": "clear", "label": "クリア" },
+        { "value": "block", "label": "保留 / ブロック" }
+      ]
+    },
+    {
+      "key": "screening",
+      "type": "fieldset",
+      "label": "確認項目",
+      "components": [
+        { "key": "sanctionsChecked", "label": "制裁対象確認済", "type": "checkbox", "required": true },
+        { "key": "dualUseChecked", "label": "デュアルユース該当性確認済", "type": "checkbox", "required": true },
+        { "key": "restrictedMarketChecked", "label": "仕向地 / 市場制限確認済", "type": "checkbox", "required": true },
+        { "key": "licenseNeeded", "label": "許認可が必要", "type": "checkbox" }
+      ]
+    },
+    {
+      "key": "exportControlNotes",
+      "type": "textarea",
+      "label": "輸出管理メモ"
+    }
+  ]
+}

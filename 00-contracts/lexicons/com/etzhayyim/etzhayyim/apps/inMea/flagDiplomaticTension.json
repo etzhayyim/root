@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.inMea.flagDiplomaticTension",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Diplomatic tension / diaspora / khalistan / china border (bridges transnationalRepression + universalJurisdiction + interpolRedabuse)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "tensionKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordDiplomatic"
+            },
+            "tensionKind": {
+              "type": "string",
+              "enum": [
+                "pakistan_friction",
+                "china_lac",
+                "khalistan_diaspora",
+                "sikh_targeting_canada",
+                "sikh_targeting_uk",
+                "sikh_targeting_us",
+                "bangladesh_friction",
+                "sri_lanka",
+                "maldives",
+                "myanmar_junta",
+                "nepal_china_pivot",
+                "bhutan_doklam",
+                "afghanistan_taliban",
+                "russia_oil_us_pressure"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

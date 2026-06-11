@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.seigyo.silenSeigyoReview",
+  "description": "Council Lv6+ baseline review for seigyo R-phase activation gates and the annual control-layer review (envelope-clamp log + interlock records + vendor-prohibition audit). Parallel to silenIgataReview / silenPharmaReview. Per ADR-2606111000 §7 + §8, ADR-2606111100 §2.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "reviewId": { "type": "string" },
+          "reviewType": {
+            "type": "string",
+            "knownValues": [
+              "r1-benchtop-loop-baseline",
+              "r2-production-cell-baseline",
+              "r3-multi-site-baseline",
+              "annual-control-layer-review",
+              "controls-engineer-sme-registration",
+              "envelope-widening-review",
+              "vendor-prohibition-audit"
+            ]
+          },
+          "councilAttestationCount": { "type": "integer", "description": "Lv6+ threshold per ADR-2605192300; bootstrap: PR review approval count per CLAUDE.md operational premise 2026-06-11" },
+          "councilSeats": { "type": "array", "items": { "type": "string" }, "minItems": 3 },
+          "approvedRPhase": { "type": "string", "knownValues": ["R1", "R2", "R3"] },
+          "approvedSites": { "type": "array", "items": { "type": "string" } },
+          "approvedControllers": { "type": "integer" },
+          "approvedIoPoints": { "type": "integer" },
+          "smeAttestations": {
+            "type": "object",
+            "properties": {
+              "controlsEngineerDid": { "type": "string" }
+            }
+          },
+          "envelopeClampSummary": { "type": "string", "description": "annual review: clamp events outside drills must be root-caused (ADR-2606111100 §5.4)" },
+          "interlockRecordUris": { "type": "array", "items": { "type": "string" } },
+          "verdict": { "type": "string", "knownValues": ["approved", "approved-with-conditions", "rejected"] },
+          "attestationUri": { "type": "string" },
+          "reviewedAt": { "type": "string" }
+        },
+        "required": ["reviewId", "reviewType", "councilAttestationCount", "verdict", "reviewedAt"]
+      }
+    }
+  }
+}

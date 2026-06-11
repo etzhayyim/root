@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.m365.fetchMailFolders",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch all mail folders (recursive childFolders) for a user. Returns flat id→displayName map.",
+      "x-hostImportsMethod": "m365FetchMailFolders",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "token": { "type": "string" },
+          "upn": { "type": "string", "description": "Target user principal name" }
+        },
+        "required": ["token", "upn"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "folders": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "displayName": { "type": "string" },
+                  "parentFolderId": { "type": "string" },
+                  "totalItemCount": { "type": "integer" }
+                }
+              }
+            }
+          },
+          "required": ["folders"]
+        }
+      }
+    }
+  }
+}

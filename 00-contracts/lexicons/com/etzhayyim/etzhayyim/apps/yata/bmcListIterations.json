@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.bmcListIterations",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List BMC iterations ordered by created_at DESC. Filter by hypothesis slug if provided.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "hypothesisSlug": {"type": "string"},
+          "offset":         {"type": "integer", "minimum": 0, "default": 0},
+          "limit":          {"type": "integer", "minimum": 1, "maximum": 200, "default": 50}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["iterations", "offset", "limit", "total"],
+          "properties": {
+            "iterations": {"type": "array", "items": {"type": "ref", "ref": "#iterationItem"}},
+            "offset":     {"type": "integer"},
+            "limit":      {"type": "integer"},
+            "total":      {"type": "integer"}
+          }
+        }
+      }
+    },
+    "iterationItem": {
+      "type": "object",
+      "required": ["vertexId", "hypothesisSlug", "iterationNo", "bmcVersionIn", "bmcVersionOut", "measuredValue", "measuredAt", "measurementSource", "passed", "createdAt"],
+      "properties": {
+        "vertexId":          {"type": "string"},
+        "hypothesisSlug":    {"type": "string"},
+        "iterationNo":       {"type": "integer"},
+        "bmcVersionIn":      {"type": "integer"},
+        "bmcVersionOut":     {"type": "integer"},
+        "measuredValue":     {"type": "string", "description": "decimal string"},
+        "measuredAt":        {"type": "string", "format": "datetime"},
+        "measurementSource": {"type": "string"},
+        "passed":            {"type": "boolean"},
+        "notes":             {"type": "string"},
+        "createdAt":         {"type": "string", "format": "datetime"}
+      }
+    }
+  }
+}

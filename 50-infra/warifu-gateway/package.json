@@ -1,0 +1,19 @@
+{
+  "name": "@etzhayyim/warifu-gateway",
+  "version": "0.0.0-r0-scaffold",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "description": "warifu 割符 compat gateway — Stripe-REST / ISO 8583 / NFC translation onto com.etzhayyim.card.* (ADR-2605302000). Zero fee; purpose-gated; no platform key.",
+  "scripts": {
+    "test": "node src/common/purpose.test.mjs && node src/common/gateway.test.mjs && node src/stripe-compat/stripe-compat.test.mjs && node src/iso8583/iso8583.test.mjs && node src/nfc/nfc.test.mjs && node src/server.test.mjs && node src/common/webhook.test.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  },
+  "peerDependencies": {
+    "@etzhayyim/sdk": "*"
+  },
+  "comment": "Substrate access is ONLY via @etzhayyim/sdk (peer). No @atproto/api / viem / IPFS direct imports. No private key held (ADR-2605231525)."
+}

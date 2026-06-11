@@ -1,0 +1,100 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.navyAdvisory.issueNavigationalWarning",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "UKMTO/5th Fleet warning 発出",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "warningId",
+            "authority",
+            "areaCode",
+            "threatType",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "warningId": {
+              "type": "string"
+            },
+            "authority": {
+              "type": "string",
+              "enum": [
+                "ukmto",
+                "us-5th-fleet",
+                "eu-navfor",
+                "jpn-msdf",
+                "nato"
+              ]
+            },
+            "areaCode": {
+              "type": "string",
+              "description": "e.g. HRMZ, BAB-EL-MANDEB, GOA"
+            },
+            "areaNarrative": {
+              "type": "string"
+            },
+            "threatType": {
+              "type": "string",
+              "enum": [
+                "drone-attack",
+                "missile",
+                "boarding",
+                "gps-spoofing",
+                "mine",
+                "exercise",
+                "blockade"
+              ]
+            },
+            "narrative": {
+              "type": "string"
+            },
+            "effectiveFrom": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "effectiveUntil": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "requireBroadcast": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

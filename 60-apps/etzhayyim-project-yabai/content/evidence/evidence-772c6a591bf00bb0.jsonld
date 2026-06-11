@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-772c6a591bf00bb0",
+  "evidenceId": "evidence-772c6a591bf00bb0",
+  "entityId": "ent-996677619476",
+  "category": "AMLPattern",
+  "source": "chainalysis/reactor",
+  "sourceReliability": "A",
+  "occurredAt": "2022-02-21T16:00:00Z",
+  "confidence": 0.98,
+  "severity": 5,
+  "probability": 0.001,
+  "jurisdiction": "EE",
+  "summary": "Chainalysis graph confirms fund flow from Rokes wallets to Pakistan dev-controlled addresses and high-risk exchange TradeOgre. Graph: https://reactor.chainalysis.com/graph/4554f96d90d771c39fa091c19b0344b3"
+}

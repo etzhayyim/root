@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_flight_offer_list_sources"
+    targetNamespace="https://etzhayyim.ai/bpmn/flight-offer"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="flight_offer_list_sources" name="listSources" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_List</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_List" sourceRef="Start" targetRef="Task_List"/>
+
+    <bpmn:serviceTask id="Task_List" name="select sources">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="flight.offer.listSources"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if status != null then status else &quot;&quot;" target="status"/>
+          <zeebe:input source="=if limit != null then limit else 100" target="limit"/>
+          <zeebe:output source="=items" target="items"/>
+          <zeebe:output source="=count" target="count"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_List</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_List" targetRef="End"/>
+
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

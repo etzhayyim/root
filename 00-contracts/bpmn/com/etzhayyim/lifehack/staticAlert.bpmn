@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  lifehack.etzhayyim.com — static-electricity alert (autonomous, R/PT6H).
+
+  Pipeline:
+    1. lifehack.env.checkHumidity     scan mv_lifehack_static_risk_now,
+                                        return riskCellCount + minHumidity
+    2. ExclusiveGateway               riskCellCount > 0?
+       Yes → lifehack.post.compose    LLM compose 静電気アラート (humidity<35%)
+              → generic.pds.dispatch  → audit
+       No  → audit-noop + EndNoop
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_lifehack_static_alert"
+    targetNamespace="https://etzhayyim.ai/bpmn/lifehack"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="lifehack_static_alert" name="lifehack static-electricity alert" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="every 6 hours">
+      <bpmn:outgoing>Flow_ToCheck</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT6H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Check" name="check humidity (mv_lifehack_static_risk_now)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lifehack.env.checkHumidity"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=35.0" target="thresholdPct"/>
+          <zeebe:output source="=riskCellCount" target="riskCellCount"/>
+          <zeebe:output source="=minHumidity" target="minHumidity"/>
+          <zeebe:output source="=avgHumidity" target="avgHumidity"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCheck</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToCheck" sourceRef="StartTimer" targetRef="Task_Check"/>
+
+    <bpmn:exclusiveGateway id="Gate_Risk" name="risk?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Alert</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoOp</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_Check" targetRef="Gate_Risk"/>
+
+    <bpmn:sequenceFlow id="Flow_Alert" sourceRef="Gate_Risk" targetRef="Task_Compose">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=riskCellCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoOp" sourceRef="Gate_Risk" targetRef="Task_AuditNoop">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=riskCellCount = 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_Compose" name="compose alert post (LLM)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lifehack.post.compose"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;dust-on-desk&quot;" target="topicId"/>
+          <zeebe:input source="=null" target="tipId"/>
+          <zeebe:input source="=&quot;static-alert&quot;" target="composeKind"/>
+          <zeebe:input source="=minHumidity" target="minHumidity"/>
+          <zeebe:input source="=280" target="maxChars"/>
+          <zeebe:output source="=postText" target="postText"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Alert</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToDispatch</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Dispatch" name="bsky feed post">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="type"/>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="did"/>
+          <zeebe:input source="=postText" target="text"/>
+          <zeebe:output source="=uri" target="bskyUri"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToDispatch</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToDispatch" sourceRef="Task_Compose" targetRef="Task_Dispatch"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit (alert)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.staticAlert&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;riskCellCount&quot;: riskCellCount, &quot;minHumidity&quot;: minHumidity, &quot;bskyUri&quot;: bskyUri }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Dispatch" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditNoop" name="audit emit (no risk)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.staticAlert.noop&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;avgHumidity&quot;: avgHumidity }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoOp</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEndNoop</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEndNoop" sourceRef="Task_AuditNoop" targetRef="EndNoop"/>
+
+    <bpmn:endEvent id="End" name="alerted">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndNoop" name="no risk">
+      <bpmn:incoming>Flow_ToEndNoop</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

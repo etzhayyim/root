@@ -1,0 +1,17 @@
+;; com.etzhayyim.sarutahiko.vehicleOrder — lexicon (EDN form)
+;; ADR-2605252500 · Gen-3 deepen
+{:lexicon 1
+ :id "com.etzhayyim.sarutahiko.vehicleOrder"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["orderId" "buyerDid" "state"]
+    :properties
+    {:orderId      {:type "string"}
+     :buyerDid     {:type "string" :description "member = purchasing principal, active Adherent SBT (G15)"}
+     :specs        {:type "string" :description "vehicle spec (Murakumo-parsed, G16)"}
+     :state        {:type "string" :description "draft|placed|in-production|qc|ready|shipped|cancelled"}
+     :settlementId {:type "string" :description "→ com.etzhayyim.sarutahiko.settlement (USDC, G18)"}}}}}}

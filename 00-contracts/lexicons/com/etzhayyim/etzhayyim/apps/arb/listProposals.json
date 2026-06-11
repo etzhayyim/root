@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.arb.listProposals",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List active arbitrage proposals from mv_arb_active_opps. Read-only, no execution.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "assetClass": { "type": "string", "enum": ["eq", "fut", "fx", "com", "re", "cr"] },
+          "minEdgeBps": { "type": "integer", "default": 20 },
+          "limit":      { "type": "integer", "default": 50, "minimum": 1, "maximum": 500 },
+          "offset":     { "type": "integer", "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "proposals": { "type": "array", "items": { "type": "object" } },
+            "total":     { "type": "integer" },
+            "offset":    { "type": "integer" },
+            "limit":     { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

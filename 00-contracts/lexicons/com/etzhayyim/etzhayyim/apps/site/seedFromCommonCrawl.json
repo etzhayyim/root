@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.site.seedFromCommonCrawl",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ccIndex": {
+              "type": "string"
+            },
+            "commoncrawl": {
+              "type": "string"
+            },
+            "domainFilter": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "number"
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "jobId": {
+              "type": "string"
+            },
+            "ccIndex": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

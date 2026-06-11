@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tsutae.silenTsutaeReview",
+  "description": "Council Lv6+ baseline review for tsutae R-phase activation. Parallel to yakushi silenPharmaReview + silicon silenForceReview + igata silenIgataReview. Per ADR-2605261300.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "reviewId": {"type": "string"},
+          "reviewType": {"type": "string", "knownValues": [
+            "r1-benchtop-poc-device-baseline",
+            "r1-starfive-jh7110-bsp-open-source-baseline",
+            "r2-pilot-iwakura-soc-integration-baseline",
+            "r2-pilot-oled-hitogata-class-a-baseline",
+            "r2-tedama-onboard-baseline",
+            "r2-tezukai-onboard-baseline",
+            "r3-community-scale-baseline",
+            "r3-igata-al-chassis-integration-baseline",
+            "r3-kanayama-eol-loop-closure-baseline",
+            "r3-radio-law-compliance-baseline",
+            "g2-bootloader-unlock-default-attestation",
+            "g6-cellular-removable-microphone-killswitch-attestation",
+            "g7-binary-blob-waiver-batch-attestation",
+            "g8-calm-default-os-attestation"
+          ]},
+          "councilAttestationCount": {"type": "integer", "description": "Lv6+ supermajority threshold per ADR-2605192300"},
+          "councilSeats": {"type": "array", "items": {"type": "string"}, "minItems": 3},
+          "smeAttestations": {
+            "type": "object",
+            "properties": {
+              "pcbEngineerDid": {"type": "string"},
+              "rfEngineerDid": {"type": "string"},
+              "osFirmwareEngineerDid": {"type": "string"},
+              "liionRecyclingOperatorDid": {"type": "string", "description": "R2+ G10 take-back chain"}
+            }
+          },
+          "approvedRPhase": {"type": "string", "knownValues": ["R1", "R2", "R3"]},
+          "approvedSoc": {"type": "string", "knownValues": [
+            "third-party-open-RISC-V-StarFive-JH7110",
+            "third-party-open-RISC-V-SiFive-Unmatched",
+            "third-party-open-RISC-V-Allwinner-D1",
+            "iwakura-SoC-silicon-Wave-1"
+          ]},
+          "approvedDisplay": {"type": "string", "knownValues": ["LCD-R1", "OLED-R2plus"]},
+          "approvedYearlyProductionCap": {"type": "integer", "description": "G12 invariant <100,000 R3 cap; R1 ≤10; R2 ≤100; R3 ≤10,000"},
+          "verdict": {"type": "string", "knownValues": ["approved", "approved-with-conditions", "rejected", "deferred"]},
+          "verdictNotesCid": {"type": "string"},
+          "supersededReviewCid": {"type": "string"},
+          "decidedAt": {"type": "string"}
+        },
+        "required": ["reviewId", "reviewType", "councilAttestationCount", "councilSeats", "verdict", "decidedAt"]
+      }
+    }
+  }
+}

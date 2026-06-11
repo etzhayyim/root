@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_ports_schedule_vessel_call"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-ports"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_ports_schedule_vessel_call" name="船舶寄港 登録" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="call 保存">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_ports_vessel_call&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id: vertexId, authority_org_id: authorityOrgId,
+              port_vid: portVid, vessel_vid: vesselVid, berth_label: berthLabel,
+              eta: eta, etd: etd, purpose: purpose, status: &quot;scheduled&quot;,
+              created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1,
+              org_id: authorityOrgId, user_id: callerDid, actor_id: &quot;sys.bpmn.open-ports&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_EP</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EP" sourceRef="Task_Save" targetRef="Task_EdgePort"/>
+
+    <bpmn:serviceTask id="Task_EdgePort" name="edge (port)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_ports_call_endpoint&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id: string(vertexId) + &quot;:port&quot;,
+              src_vid: vertexId, dst_vid: portVid, role: &quot;port&quot;,
+              created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1,
+              org_id: authorityOrgId, user_id: callerDid, actor_id: &quot;sys.bpmn.open-ports&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_EP</bpmn:incoming><bpmn:outgoing>Flow_EV</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EV" sourceRef="Task_EdgePort" targetRef="Task_EdgeVessel"/>
+
+    <bpmn:serviceTask id="Task_EdgeVessel" name="edge (vessel)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_open_ports_call_endpoint&quot;" target="table"/>
+          <zeebe:input source="={
+              edge_id: string(vertexId) + &quot;:vessel&quot;,
+              src_vid: vertexId, dst_vid: vesselVid, role: &quot;vessel&quot;,
+              created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1,
+              org_id: authorityOrgId, user_id: callerDid, actor_id: &quot;sys.bpmn.open-ports&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_EV</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_EdgeVessel" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit call.schedule">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-ports.etzhayyim.com:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openPorts.call.schedule&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, portVid: portVid, vesselVid: vesselVid, eta: eta, etd: etd}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

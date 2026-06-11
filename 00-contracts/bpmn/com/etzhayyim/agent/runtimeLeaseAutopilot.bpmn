@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  agent_runtime_lease_autopilot — ADR-2604301200 P3.
+
+  Timer-started persistent lifecycle loop for autonomous agents. Every 15
+  minutes, or on an operator manual start, it asks the worker to renew
+  near-expiring leases, hibernate leases that passed the grace window, and
+  reserve a runtime for active economy profiles that do not have one.
+
+  The runtime namespace is explicit and never defaults to the k8s default
+  namespace; the worker rejects `default` again before any insert/action.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_agent_runtime_lease_autopilot"
+    targetNamespace="https://etzhayyim.ai/bpmn/agent"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process
+      id="agent_runtime_lease_autopilot"
+      name="agent runtime lease autopilot"
+      isExecutable="true">
+    <bpmn:documentation>
+      {"adr":"2604301200","tier":"T2","trigger":"timer","interval":"R/PT15M"}
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 15 minutes">
+      <bpmn:outgoing>Flow_ToAutopilot</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_PT15M">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT15M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToAutopilot" sourceRef="Start_Timer" targetRef="Task_Autopilot"/>
+
+    <bpmn:startEvent id="Start_Manual" name="operator tick">
+      <bpmn:outgoing>Flow_Manual_ToAutopilot</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow
+        id="Flow_Manual_ToAutopilot"
+        sourceRef="Start_Manual"
+        targetRef="Task_Autopilot"/>
+
+    <bpmn:serviceTask id="Task_Autopilot" name="runtime lease autopilot">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="agent.runtime.autopilotTick" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=21600" target="renewWindowSec"/>
+          <zeebe:input source="=3600" target="hibernateGraceSec"/>
+          <zeebe:input source="=86400" target="defaultLeasePeriodSec"/>
+          <zeebe:input source="=true" target="startMissingProfiles"/>
+          <zeebe:input source="=true" target="autoRenew"/>
+          <zeebe:input source="=false" target="submitOnChain"/>
+          <zeebe:input source="=&quot;zeebe-langgraph&quot;" target="runtimeKind"/>
+          <zeebe:input source="=&quot;yoro-actors&quot;" target="runtimeNamespace"/>
+          <zeebe:input source="=50" target="limit"/>
+          <zeebe:output source="=renewed" target="runtimeLeaseAutopilotRenewed"/>
+          <zeebe:output source="=hibernated" target="runtimeLeaseAutopilotHibernated"/>
+          <zeebe:output source="=started" target="runtimeLeaseAutopilotStarted"/>
+          <zeebe:output source="=errors" target="runtimeLeaseAutopilotErrors"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAutopilot</bpmn:incoming>
+      <bpmn:incoming>Flow_Manual_ToAutopilot</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Autopilot" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit autopilot tick">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:agent.etzhayyim.com:runtime&quot;" target="actor"/>
+          <zeebe:input source="=&quot;agent.runtime.autopilot.tick&quot;" target="action"/>
+          <zeebe:input source="={
+            renewed: runtimeLeaseAutopilotRenewed,
+            hibernated: runtimeLeaseAutopilotHibernated,
+            started: runtimeLeaseAutopilotStarted,
+            errors: runtimeLeaseAutopilotErrors,
+            runtimeNamespace: &quot;yoro-actors&quot;
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="runtimeLeaseAutopilotAuditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="autopilot tick complete">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

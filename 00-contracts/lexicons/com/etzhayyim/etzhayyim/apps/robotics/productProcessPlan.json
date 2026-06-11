@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.product.process.plan",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Plan robotics product manufacturing processes from a normalized file catalog, including 3D print, CNC, PCB fabrication, assembly, QA, calibration, and commissioning.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["packageId", "fileCatalog"],
+          "properties": {
+            "requestId": { "type": "string" },
+            "packageId": { "type": "string" },
+            "assetKind": { "type": "string" },
+            "fileCatalog": { "type": "unknown" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "roboticsManufacturingProcessPlan": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.crew.getCrewMember",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a maritime crew member by DID. PII Tier 3 — full profile only via authorized conversation/service access; default returns Tier 1 fields only.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "required": ["did"], "properties": { "did": { "type": "string", "format": "did" }, "includePii": { "type": "boolean", "default": false, "description": "requires performer.consent.granted=true; returns PII Tier 3 fields when true" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "rank": { "type": "string" }, "flagState": { "type": "string" }, "currentVesselDid": { "type": "string", "format": "did" }, "currentEmployerDid": { "type": "string", "format": "did" }, "embarkedAt": { "type": "string", "format": "datetime" }, "contractEndsAt": { "type": "string", "format": "datetime" }, "mlcCompliance": { "type": "boolean" }, "fullName": { "type": "string", "description": "Tier 3 — only returned when includePii=true with consent" }, "nationality": { "type": "string", "description": "Tier 3" }, "cdcNumber": { "type": "string", "description": "Tier 3 — Continuous Discharge Certificate" }, "stcwCertificates": { "type": "array", "items": { "type": "string" }, "description": "Tier 3" } } } }
+    }
+  }
+}

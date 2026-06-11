@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.contracts.resolveOrganization",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Resolve a single organization from vertex_contracts_organization by DID, LEI, national_id, or name substring. Read path: Hyperdrive + Kysely typed.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "did": { "type": "string", "description": "did:web:social-contract.etzhayyim.com:entity:..." },
+          "lei": { "type": "string", "description": "GLEIF LEI (ISO 17442)" },
+          "nationalId": { "type": "string", "description": "Jurisdictional registry id (e.g. JP houjin-bangou)" },
+          "name": { "type": "string", "description": "Fuzzy name match (app-layer post-filter, not SQL CONTAINS — see LLM Coding Guardrails)" },
+          "country": { "type": "string", "description": "ISO 3166-1 alpha-3 filter" },
+          "limit": { "type": "integer", "description": "Max rows (default 20, max 100)" },
+          "offset": { "type": "integer", "description": "Pagination offset" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "organizations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "did": { "type": "string" },
+                  "vertexId": { "type": "string" },
+                  "legalEntityRef": { "type": "string" },
+                  "country": { "type": "string" },
+                  "lei": { "type": "string" },
+                  "nationalId": { "type": "string" },
+                  "name": { "type": "string" },
+                  "isic": { "type": "string" },
+                  "status": { "type": "string" },
+                  "source": { "type": "string" },
+                  "confidence": { "type": "number" },
+                  "lastVerified": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

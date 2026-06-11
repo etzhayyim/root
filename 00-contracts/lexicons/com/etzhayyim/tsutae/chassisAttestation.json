@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tsutae.chassisAttestation",
+  "description": "Chassis assembly attestation. igata Al + battery + speaker + camera + USB-C + cellular module with G3 repair-right + G6 cellular-removable + G10 battery-replaceable invariants. Per ADR-2605261300.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "chassisId": {"type": "string"},
+          "pcbAttestationCid": {"type": "string"},
+          "alChassisCid": {"type": "string", "description": "R1 = third-party Al extrusion; R3+ = igata.partAttestation CID"},
+          "batteryLotId": {"type": "string"},
+          "batteryChemistry": {"type": "string", "knownValues": ["LFP-LiFePO4-preferred", "NMC-acceptable", "NCA-restricted-R2plus-only"]},
+          "batteryCapacityMah": {"type": "integer"},
+          "batteryReplaceableHandToolsOnly": {"type": "boolean", "description": "G10: must be true (no parts pairing)"},
+          "displayPanelLotId": {"type": "string"},
+          "cameraModuleLotIds": {"type": "array", "items": {"type": "string"}},
+          "speakerModuleLotId": {"type": "string"},
+          "usbcConnectorLotId": {"type": "string"},
+          "cellularModuleLotId": {"type": "string", "description": "Physical screw-mount (G6 not soldered)"},
+          "microphoneArrayLotId": {"type": "string"},
+          "g6CellularRemovableVerified": {"type": "boolean", "description": "G6: hardware-removable physical screw-mount verified at test"},
+          "g6MicrophoneKillSwitchVerified": {"type": "boolean", "description": "G6: hardware kill switch installed and electrically tested"},
+          "g6BiometricOpenFirmwareVerified": {"type": "boolean", "description": "G6: fingerprint/face firmware open-source (no Apple SEP / Samsung Knox enclave)"},
+          "g3RepairScore": {"type": "integer", "description": "iFixit-class ≥9/10 invariant"},
+          "g3AdhesiveMassGramsTotal": {"type": "number", "description": "G3: ≤5g per assembly target 0g"},
+          "screwCount": {"type": "integer"},
+          "screwStandardSizes": {"type": "array", "items": {"type": "string"}, "description": "No proprietary screws (no pentalobe)"},
+          "witnessRobotDids": {"type": "array", "items": {"type": "string"}, "minItems": 2}
+        },
+        "required": ["chassisId", "pcbAttestationCid", "alChassisCid", "batteryLotId", "batteryChemistry", "batteryReplaceableHandToolsOnly", "displayPanelLotId", "cellularModuleLotId", "g6CellularRemovableVerified", "g6MicrophoneKillSwitchVerified", "g3RepairScore", "witnessRobotDids"]
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  otakiage.anchorCertificate — XRPC com.etzhayyim.apps.otakiage.anchorCertificate (Phase 2b1).
+
+  Queues a single certificate for ERC725 on-chain anchoring. Phase 2b1
+  marks anchor_status=queued in DB; the sidecar sweep BPMN
+  certificateAnchorSweep picks queued rows up. Phase 2b2 = real
+  on-chain submission via ethers/viem.
+
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-anchor-certificate-v1
+  NSID: com.etzhayyim.apps.otakiage.anchorCertificate
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_otakiage_anchor_certificate"
+    targetNamespace="https://etzhayyim.ai/bpmn/otakiage"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="otakiage_anchor_certificate" name="otakiage anchorCertificate" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.otakiage.anchorCertificate", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="anchorCertificate">
+      <bpmn:outgoing>Flow_ToQueue</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Queue" name="queue certificate for anchoring">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="otakiage.certificate.anchor"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=certificateUri" target="certificateUri"/>
+          <zeebe:input source="=chain" target="chain"/>
+          <zeebe:input source="=force" target="force"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=anchorStatus" target="anchorStatus"/>
+          <zeebe:output source="=chain" target="chain"/>
+          <zeebe:output source="=contentHash" target="contentHash"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToQueue</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToQueue" sourceRef="Start" targetRef="Task_Queue"/>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Queue" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:otakiage.etzhayyim.com:ritual&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.otakiage.anchorCertificate&quot;" target="nsid"/>
+          <zeebe:input source="={ certificateUri: certificateUri, anchorStatus: anchorStatus, chain: chain, contentHash: contentHash }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

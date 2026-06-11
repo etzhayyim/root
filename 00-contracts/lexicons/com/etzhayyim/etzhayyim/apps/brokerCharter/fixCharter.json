@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.brokerCharter.fixCharter",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Charter fixture (carrier-fleet+freight-rate+transit+lei bridge)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "charterId",
+            "imo",
+            "charterType",
+            "fixedAt"
+          ],
+          "properties": {
+            "charterId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "chartererLei": {
+              "type": "string"
+            },
+            "ownerLei": {
+              "type": "string"
+            },
+            "charterType": {
+              "type": "string",
+              "enum": [
+                "voyage",
+                "time",
+                "bareboat",
+                "coa"
+              ]
+            },
+            "rateUsdDay": {
+              "type": "number"
+            },
+            "rateUsdTeu": {
+              "type": "number"
+            },
+            "laycanFrom": {
+              "type": "string",
+              "format": "date"
+            },
+            "laycanTo": {
+              "type": "string",
+              "format": "date"
+            },
+            "rateVsIndexPct": {
+              "type": "number",
+              "description": "percent delta vs benchmark index"
+            },
+            "fixedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "marketTier": {
+              "type": "string",
+              "enum": [
+                "soft",
+                "balanced",
+                "firm",
+                "tight"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

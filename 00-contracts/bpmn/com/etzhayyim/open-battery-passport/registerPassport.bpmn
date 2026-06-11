@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_battery_passport_register_passport" targetNamespace="https://etzhayyim.ai/bpmn/open-battery-passport" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_battery_passport_register_passport" name="registerPassport" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="save">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;vertex_open_battery_passport&quot;" target="table"/><zeebe:input source="={vertex_id: vertexId, passport_id: passportId, manufacturer_lei: manufacturerLei, battery_category: batteryCategory, chemistry: chemistry, capacity_kwh: capacityKwh, recycled_cobalt_pct: recycledCobaltPct, recycled_lithium_pct: recycledLithiumPct, recycled_nickel_pct: recycledNickelPct, cradle_to_gate_kg_co2e: cradleToGateKgCo2e, supply_chain_diligence_uri: supplyChainDiligenceUri, registered_at: registeredAt, circularity_tier: if recycledCobaltPct != null and recycledCobaltPct &gt;= 20 then &quot;high_recycled&quot; else if recycledCobaltPct != null and recycledCobaltPct &gt;= 5 then &quot;mid_recycled&quot; else &quot;virgin_heavy&quot;, status: &quot;active&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-battery-passport&quot;}" target="values"/><zeebe:input source="=&quot;ignore&quot;" target="onConflict"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-battery-passport.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;open.batteryPassport.registerPassport&quot;" target="action"/><zeebe:input source="={vertexId: vertexId}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

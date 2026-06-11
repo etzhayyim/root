@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.listCelestialObjects",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List celestial objects (stars / galaxies / nebulae / clusters) by magnitude / kind / catalog. Sourced from HYG (Hipparcos+Yale+Gliese) + OpenNGC.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "kind": { "type": "string", "description": "Filter by object_kind (star / galaxy / open_cluster / globular_cluster / nebula etc.)" },
+          "catalogId": { "type": "string", "description": "hyg-v41 / openngc / ..." },
+          "magMax": { "type": "number", "description": "Maximum apparent V magnitude (lower = brighter)." },
+          "limit": { "type": "integer", "default": 5000, "minimum": 1, "maximum": 20000 }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["objects", "count", "asOfMs"],
+          "properties": {
+            "objects": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "objectId": { "type": "string" },
+                  "name": { "type": "string" },
+                  "kind": { "type": "string" },
+                  "catalogId": { "type": "string" },
+                  "raDeg": { "type": "number" },
+                  "decDeg": { "type": "number" },
+                  "distanceLy": { "type": "number" },
+                  "spectralClass": { "type": "string" },
+                  "renderPriority": { "type": "integer" }
+                }
+              }
+            },
+            "count": { "type": "integer" },
+            "asOfMs": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

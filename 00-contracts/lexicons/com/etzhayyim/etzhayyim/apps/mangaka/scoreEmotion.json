@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.scoreEmotion",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Score Hume image-head emotion for an ai-image (or batch all ai-images in a doc) and roll a max-saliency aggregate up to each panel that contains scored children. Writes the result to the node's `_emotion` field. Uses the distilled `visual_centroid_v1` student model when MANGAKA_HUME_STUDENT_MODEL is set, otherwise the stdlib `visual_heuristic_v1` fallback.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["docId"],
+          "properties": {
+            "docId": { "type": "string" },
+            "imageNid": { "type": "string", "description": "Optional. If set, only score this one ai-image; otherwise batch all ai-images in the doc and recompute every panel aggregate." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status":     { "type": "string", "description": "ok | error" },
+            "docId":      { "type": "string" },
+            "imageNid":   { "type": "string", "description": "Echo of the input imageNid (single mode)" },
+            "method":     { "type": "string", "description": "centroid | heuristic" },
+            "emotion":    { "type": "string", "description": "Single-mode emotion record JSON (primary/topEmotions/imageFeatures/algorithm/scoredAt)" },
+            "perImage":   { "type": "string", "description": "Batch-mode { nid: emotionRecord } map (JSON-encoded)" },
+            "panelEmotion": { "type": "string", "description": "Batch-mode { panelNid: emotionRecord } map (JSON-encoded) — max-saliency rollup across child ai-images" },
+            "latencyMs":  { "type": "integer" },
+            "error":      { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

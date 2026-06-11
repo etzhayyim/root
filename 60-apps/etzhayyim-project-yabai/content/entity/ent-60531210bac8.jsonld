@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-60531210bac8",
+  "entityId": "ent-60531210bac8",
+  "canonicalName": "golbon",
+  "aliases": [
+    "golbon"
+  ]
+}

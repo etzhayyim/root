@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kanae.visualizationManifest",
+  "description": "A kami-engine WASM scene descriptor for an aggregate-first fiscal-flow visualization, compiled by kanae_viz_compiler. R0 skeleton per ADR-2605302300 §3/§4. CONSTITUTIONAL: every manifest is AGGREGATE-FIRST (G10) — recipient classes / program totals / juris-to-juris columns by default; a named-party element is permitted ONLY via #namedElementRef citing the public source record that already names them, severity-gated + Council-reviewed. The render substrate is kami-engine WASM (G14), reproducible from public datoms: every manifest carries the `kotobaQuery` (kqe arrangement) that regenerates it (§2(e) anti-gatekeeping). NO third-party-BI render layer and NO ad/analytics SDK reference is permitted (G14 + G15). A visualization may imply nothing the linked flowNarrative does not factually state (G4).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "sourceCellDid",
+          "renderType",
+          "renderSubstrate",
+          "fundFlowEdgeCids",
+          "kotobaQuery",
+          "aggregateOnly",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "sourceCellDid": {"type": "string", "format": "did", "description": "DID of kanae_viz_compiler"},
+          "title": {"type": "string", "maxLength": 256, "description": "Aggregate, neutral title (no insinuation; G4)"},
+          "renderType": {
+            "type": "string",
+            "knownValues": [
+              "sankey-fund-flow",
+              "recipient-treemap",
+              "intergov-transfer-globe",
+              "appropriation-outlay-timeline"
+            ]
+          },
+          "renderSubstrate": {
+            "type": "string",
+            "const": "kami-engine-wasm",
+            "description": "MUST be 'kami-engine-wasm' (G14, ADR-2605261800). Any third-party BI (tableau / powerbi / looker / palantir-foundry) is unrepresentable."
+          },
+          "fundFlowEdgeCids": {
+            "type": "array",
+            "minLength": 1,
+            "items": {"type": "string"},
+            "description": "The fundFlowEdge record CIDs this scene renders"
+          },
+          "flowNarrativeCid": {
+            "type": "string",
+            "description": "The kanae.flowNarrative CID that factually describes this scene (the visualization may imply nothing the narrative does not state; G4)"
+          },
+          "kotobaQuery": {
+            "type": "string",
+            "description": "The kotoba-kqe arrangement (EAVT/AEVT/AVET/VAET) that reproduces this scene from public datoms. Reproducibility is the §2(e) anti-gatekeeping guarantee; anyone can regenerate the picture from the same public corpus."
+          },
+          "aggregateOnly": {
+            "type": "boolean",
+            "const": true,
+            "description": "MUST be true at R0/R1/R2. Aggregate-first (G10). Named elements are added only at R3 via #namedElementRef under Council review + 1 SBT = 1 vote."
+          },
+          "namedElements": {
+            "type": "array",
+            "description": "Empty at R0–R2. Each entry names a party ONLY where the source record already names them (G10), with councilReviewCid + oneSbtOneVoteChainCid both REQUIRED.",
+            "items": {"type": "ref", "ref": "#namedElementRef"}
+          },
+          "stateAlignedFlag": {
+            "type": "boolean",
+            "default": false,
+            "description": "Pass-through (G13); a CN-class flow MUST display the flag in the rendered scene"
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    },
+    "namedElementRef": {
+      "type": "object",
+      "description": "A named-party element in a visualization (R3 only). Both gate proofs are REQUIRED — an element cannot render a named party without them (G10 + G11).",
+      "required": ["label", "publiclyNamedBasis", "councilReviewCid", "oneSbtOneVoteChainCid"],
+      "properties": {
+        "label": {"type": "string", "maxLength": 512},
+        "lei": {"type": "string"},
+        "publiclyNamedBasis": {
+          "type": "string",
+          "description": "Source record CID that already names this party publicly (G10)"
+        },
+        "councilReviewCid": {"type": "string", "description": "Council review attestation CID (REQUIRED)"},
+        "oneSbtOneVoteChainCid": {"type": "string", "description": "1 SBT = 1 vote chain CID authorizing named publication (REQUIRED; G11)"}
+      }
+    }
+  }
+}

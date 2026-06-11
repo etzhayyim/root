@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kataribe.whistleblowerReport",
+  "description": "Encrypted whistleblower report for Charter Rider violation. G10 STRUCTURAL: encryptedPayloadCid REQUIRED (ADR-2605181100 envelope). G8 STRUCTURAL: surveillanceInvestigativeJournalismAttested const false. Cross-link to chigiri.ipLicenseClaim. Anonymous-attested option via pseudonymous DID per ADR-2605181200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "reporterPseudonymDid",
+          "violationCategory",
+          "encryptedPayloadCid",
+          "surveillanceInvestigativeJournalismAttested",
+          "chigiriIpLicenseClaimCrossEmitCid",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "reporterPseudonymDid": {
+            "type": "string",
+            "description": "30-day rotating pseudonym DID per ADR-2605181200; reporter privacy preserved"
+          },
+          "violationCategory": {
+            "type": "string",
+            "knownValues": [
+              "2a-weapons",
+              "2b-speculative-finance",
+              "2c-covert-ops-surveillance",
+              "2d-fossil-extraction",
+              "2e-anti-gatekeeping",
+              "2f-multi-generational-harm",
+              "2g-state-aligned-coercion",
+              "2h-wellbecoming-violation",
+              "internal-procedural-violation"
+            ]
+          },
+          "encryptedPayloadCid": {
+            "type": "string",
+            "description": "G10 REQUIRED: ADR-2605181100 encrypted envelope CID containing full report (PII; only Council Lv6+ + chigiri.disputeMediation board can decrypt)"
+          },
+          "surveillanceInvestigativeJournalismAttested": {
+            "type": "boolean",
+            "const": false,
+            "description": "G8 STRUCTURAL: const false; NOT sensationalized exposé-as-surveillance (Charter §2(c) covert-ops avoidance)"
+          },
+          "sensationalizedFramingAttested": {
+            "type": "boolean",
+            "const": false,
+            "description": "G4 STRUCTURAL: const false; no apocalyptic / clickbait framing in whistleblower domain either"
+          },
+          "chigiriIpLicenseClaimCrossEmitCid": {
+            "type": "string",
+            "description": "Cross-actor chigiri.ipLicenseClaim CID (created upon whistleblower report receipt)"
+          },
+          "councilReviewStatus": {
+            "type": "string",
+            "knownValues": ["pending-council-review", "under-mediation", "remedy-served", "cured", "escalated-external-counsel", "resolved", "withdrawn"]
+          },
+          "councilReviewCidChain": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Council review attestation chain (decryption + discernment by Council Lv6+ ≥3)"
+          },
+          "resolvedAt": {"type": "string", "format": "datetime"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
+          "attestingCellDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

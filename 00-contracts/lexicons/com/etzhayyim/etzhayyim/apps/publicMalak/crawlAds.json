@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.publicMalak.crawlAds",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Trigger a scraper run against a public ad library or transparency surface (Meta/Facebook/Instagram/WhatsApp, Google Ads Transparency, LinkedIn, TikTok, X, LINE, Telegram). Writes a vertex_ads_scraper_run row + downstream vertex_ads_creative + vertex_ads_snapshot rows as results are parsed.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "searchTerms": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "country": { "type": "string", "description": "ISO 3166-1 alpha-2 delivery country filter" },
+            "platform": { "type": "string", "knownValues": ["meta", "facebook", "instagram", "whatsapp", "whatsup", "google", "linkedin", "tiktok", "x", "line", "telegram"] },
+            "queryKind": { "type": "string", "knownValues": ["search", "advertiser", "page", "political"] },
+            "limit": { "type": "integer", "minimum": 1, "maximum": 500, "default": 50 }
+          },
+          "required": ["platform"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": { "type": "string" },
+            "scraperRunUri": { "type": "string", "description": "AT URI of the vertex_ads_scraper_run row" },
+            "searchTerms": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "country": { "type": "string" },
+            "platform": { "type": "string" },
+            "status": { "type": "string", "knownValues": ["queued", "running", "completed", "failed", "rate_limited"] },
+            "adsSeen": { "type": "integer" },
+            "adsNew": { "type": "integer" },
+            "adsUpdated": { "type": "integer" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

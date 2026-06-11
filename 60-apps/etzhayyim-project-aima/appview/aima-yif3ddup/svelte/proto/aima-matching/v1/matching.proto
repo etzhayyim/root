@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package aima.matching.v1;
+
+option go_package = "github.com/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp/performers/actors/aima-matching/gen/aima/matching/v1;matchingv1";
+
+service MatchingService {
+  // Analyzes user personality and lifestyle to create a psychographic profile
+  rpc CreateUserProfile(CreateUserProfileRequest) returns (CreateUserProfileResponse);
+  
+  // Finds compatible matches based on user profiles and "well-becoming" potential
+  rpc FindMatches(FindMatchesRequest) returns (FindMatchesResponse);
+  
+  // Gets detailed compatibility breakdown between two users, including growth trajectory
+  rpc GetCompatibility(GetCompatibilityRequest) returns (GetCompatibilityResponse);
+
+  // Tracks and updates well-becoming habits
+  rpc UpdateWellBecomingHabits(UpdateWellBecomingHabitsRequest) returns (UpdateWellBecomingHabitsResponse);
+
+  // Submits an anonymous review for a past match
+  rpc SubmitMatchReview(SubmitMatchReviewRequest) returns (SubmitMatchReviewResponse);
+}
+
+message CreateUserProfileRequest {
+  string user_id = 1;
+  string interaction_data = 2; // Data from AGI onboarding interview
+}
+
+message CreateUserProfileResponse {
+  UserProfile profile = 1;
+}
+
+message FindMatchesRequest {
+  string user_id = 1;
+  int32 limit = 2;
+}
+
+message FindMatchesResponse {
+  repeated MatchResult matches = 1;
+}
+
+message GetCompatibilityRequest {
+  string user_a_id = 1;
+  string user_b_id = 2;
+}
+
+message GetCompatibilityResponse {
+  float compatibility_score = 1;
+  string compatibility_reasoning = 2;
+  repeated string common_interests = 3;
+  WellBecomingPotential growth_potential = 4;
+}
+
+message UpdateWellBecomingHabitsRequest {
+  string user_id = 1;
+  repeated Habit update_habits = 2;
+}
+
+message UpdateWellBecomingHabitsResponse {
+  bool success = 1;
+  WellBecomingScore current_score = 2;
+}
+
+message UserProfile {
+  string user_id = 1;
+  repeated float personality_vector = 2;
+  string lifestyle_summary = 3;
+  string values_description = 4;
+  WellBecomingScore wb_score = 5;
+}
+
+message WellBecomingScore {
+  float overall_score = 1;
+  float communication_readiness = 2;
+  float appearance_effort = 3;
+  float mindset_flexibility = 4;
+}
+
+message WellBecomingPotential {
+  string growth_narrative = 1; // How they can flourish together
+  repeated string collaborative_habits = 2;
+}
+
+message Habit {
+  string habit_id = 1;
+  string name = 2;
+  bool completed = 3;
+  string category = 4; // e.g., "fashion", "speaking", "mindset"
+}
+
+message MatchResult {
+  string match_user_id = 1;
+  float score = 2;
+  string preview_reason = 3;
+  WellBecomingPotential growth_potential = 4;
+}
+
+message SubmitMatchReviewRequest {
+  string reviewer_id = 1;
+  string target_user_id = 2;
+  int32 rating = 3; // 1-5 stars
+}
+
+message SubmitMatchReviewResponse {
+  bool success = 1;
+}

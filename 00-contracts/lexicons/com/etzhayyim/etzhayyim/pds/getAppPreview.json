@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.pds.getAppPreview",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "nanoid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "nanoid"
+        ]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "app": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "app"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.toshiKozan.registerEwasteStream",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register an e-waste / urban mining material stream. Tracks 都市鉱山 — composition, recovery rate prediction, environmental impact. Sources: UN Global E-waste Monitor + national WEEE registries.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["streamType", "country"],
+          "properties": {
+            "streamType": { "type": "string", "enum": ["smartphone", "pc", "server", "battery-li-ion", "battery-lead", "pv-panel", "auto-pcb", "white-goods", "mixed-pcb", "rare-earth-magnet"] },
+            "country": { "type": "string" },
+            "tonnesPerYear": { "type": "number" },
+            "recoveryFacilityDid": { "type": "string", "format": "did" },
+            "targetMaterials": { "type": "array", "items": { "type": "string", "enum": ["au", "ag", "pt", "pd", "rh", "cu", "nd", "dy", "co", "li", "ni", "in"] } },
+            "yieldGramsPerTonne": { "type": "object", "additionalProperties": { "type": "number" } },
+            "co2eKgPerTonneRecovered": { "type": "number" }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "uri": { "type": "string", "format": "at-uri" } } } }
+    }
+  }
+}

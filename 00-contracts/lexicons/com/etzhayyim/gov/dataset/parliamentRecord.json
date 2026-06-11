@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.gov.dataset.parliamentRecord",
+  "description": "Per-legislature parliament record attestation (debate / committee / bill / vote / member-statement / petition / question). R0 skeleton per ADR-2605263900 §3 (GovParliamentSensor). Authored by `kotodama.organism.sensors.gov.gov_parliament_sensor` after passive-only fetch of an official parliamentary archive (Congress.gov / Hansard / OEIL / 国会会議録 / Bundestag / Assemblée). Speaker / member-statement pass-through per upstream publication rule across W1-W3 jurisdictions (parliament transcripts are public by design); GDPR right-to-be-forgotten DSARs route through chigiri.data_privacy to upstream publisher.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "jurisdictionIso3",
+          "legislature",
+          "recordKind",
+          "recordId",
+          "sessionDateUtc",
+          "payloadCid",
+          "sourceSensor",
+          "datasetPinAt",
+          "tier",
+          "license",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "jurisdictionIso3": {"type": "string", "maxLength": 3, "minLength": 3},
+          "legislature": {
+            "type": "string",
+            "knownValues": [
+              "us-congress", "uk-parliament", "jp-kokkai",
+              "eu-parliament", "de-bundestag", "fr-assemblee", "fr-senat"
+            ]
+          },
+          "recordKind": {
+            "type": "string",
+            "knownValues": [
+              "debate",
+              "committee",
+              "bill",
+              "vote",
+              "member-statement",
+              "petition",
+              "question"
+            ]
+          },
+          "recordId": {"type": "string"},
+          "bodyExcerpt": {"type": "string", "maxLength": 8192},
+          "speakerName": {
+            "type": "string",
+            "description": "Pass-through per upstream publication rule. Full body in payloadCid."
+          },
+          "speakerRole": {"type": "string"},
+          "sessionDateUtc": {"type": "string", "format": "datetime"},
+          "payloadCid": {"type": "string"},
+          "piiRedacted": {
+            "type": "boolean",
+            "default": false,
+            "description": "True iff per-jurisdiction redaction policy modified the view (e.g. DE/FR pseudonymization of petitioner names)."
+          },
+          "sourceSensor": {
+            "type": "string",
+            "knownValues": [
+              "us_congress_gov", "uk_hansard", "jp_kokkai_kaigiroku",
+              "eu_oeil", "de_bundestag", "fr_assemblee"
+            ]
+          },
+          "datasetPinAt": {"type": "string", "format": "at-uri"},
+          "tier": {"type": "string", "knownValues": ["A"]},
+          "license": {"type": "string"},
+          "stateAlignedFlag": {"type": "boolean", "default": false},
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

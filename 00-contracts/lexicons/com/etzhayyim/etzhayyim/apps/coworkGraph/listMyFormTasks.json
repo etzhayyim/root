@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coworkGraph.listMyFormTasks",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "assignee_did に割り当てられた BPMN フォームタスクを RisingWave vertex_human_task から取得する (read-only)。Claude Cowork がメンバーの pending タスクを確認するために使用する。",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "assigneeDid": {
+            "type": "string",
+            "description": "タスク担当者の DID (例: did:web:kaisya.etzhayyim.com:member:j-kawasaki)"
+          },
+          "projectRef": {
+            "type": "string",
+            "description": "案件 / プロセス参照 ID (任意)"
+          },
+          "status": {
+            "type": "string",
+            "description": "タスクステータス (デフォルト: pending)"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "取得件数 (最大 200)",
+            "default": 50
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tasks", "count"],
+          "properties": {
+            "tasks": {
+              "type": "array",
+              "items": { "type": "unknown" }
+            },
+            "count": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

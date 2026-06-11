@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hinagata.clause",
+  "description": "A reusable clause in the hinagata 雛形 commons (per ADR-2606111954) — a building block shared across templates (the cross-template backbone). A clause declares its drafting role and its DISCLOSED optionality (mandatory / recommended / optional), where `mandatory` means a cited statute requires the clause — a DISCLOSED structural fact sourced from the instrument, never a hinagata verdict (N3). Statute bindings are recorded separately in `com.etzhayyim.hinagata.statuteCitation`.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["clauseId", "label", "role", "optionality"],
+        "properties": {
+          "clauseId": {
+            "type": "string",
+            "description": "Stable hinagata id, e.g. `cl.confidentiality`.",
+            "maxLength": 128
+          },
+          "label": {
+            "type": "string",
+            "description": "Human label, e.g. \"Confidentiality / non-disclosure\".",
+            "maxLength": 256
+          },
+          "role": {
+            "type": "string",
+            "description": "Drafting role of the clause.",
+            "enum": ["definitions", "recitals", "payment", "term", "termination", "confidentiality", "ip-assignment", "ip-license", "warranty", "liability", "indemnity", "governing-law", "dispute", "privacy", "data-rights", "force-majeure", "no-interest", "cooling-off", "signature", "boilerplate"]
+          },
+          "optionality": {
+            "type": "string",
+            "description": "DISCLOSED — `mandatory` (a cited statute requires this clause), `recommended`, or `optional`. Sourced from the instrument, never a hinagata opinion (N3).",
+            "enum": ["mandatory", "recommended", "optional"]
+          },
+          "concept": {
+            "type": "string",
+            "description": "Controlled legal concept the clause instantiates, e.g. `data-protection`.",
+            "maxLength": 128
+          },
+          "bodyCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Optional IPFS CIDv1 of the clause's canonical text fragment (content-addressed, reusable)."
+          }
+        }
+      }
+    }
+  }
+}

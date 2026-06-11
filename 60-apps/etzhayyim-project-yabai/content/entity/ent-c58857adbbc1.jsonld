@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-c58857adbbc1",
+  "entityId": "ent-c58857adbbc1",
+  "canonicalName": "tchipa na bidon",
+  "aliases": [
+    "tchipa na bidon"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kyber.projector.getProcessGroup",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Compatibility query for a single APQC process group. Resolves one APQC L1 group and its BPMN-bound processes.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "groupId": { "type": "string", "description": "Alias of apqcCode" },
+          "apqcCode": { "type": "string" },
+          "did": { "type": "string" },
+          "period": { "type": "string", "description": "Optional YYYY-MM-DD/YYYY-MM-DD period for activity counts" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "groupId": { "type": "string" },
+            "did": { "type": "string" },
+            "apqcCode": { "type": "string" },
+            "code": { "type": "string" },
+            "slug": { "type": "string" },
+            "name": { "type": "string" },
+            "title": { "type": "string" },
+            "subProcesses": { "type": "integer" },
+            "processCount": { "type": "integer" },
+            "activityCount": { "type": "integer" },
+            "status": { "type": "string" },
+            "processes": {
+              "type": "array",
+              "items": { "type": "object" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

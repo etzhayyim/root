@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.opensaas.salesforce.lead",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Salesforce-equivalent Lead: an unqualified inbound interest not yet linked to an Account. Same PII rules as contact — raw email/phone are Tier 3 only; this record holds hashed indices. A Lead is converted to (Account, Contact, Opportunity) via com.etzhayyim.apps.opensaas.salesforce.convertLead.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["tenantDid", "source", "status", "emailHash", "createdAt"],
+        "properties": {
+          "tenantDid": { "type": "string" },
+          "ownerDid": { "type": "string" },
+          "companyLabel": { "type": "string", "maxLength": 255, "description": "claimed company name — free-form until qualified" },
+          "displayLabel": { "type": "string", "maxLength": 120, "description": "non-PII short label; full name stays in Tier 3" },
+          "title": { "type": "string", "maxLength": 120 },
+          "emailHash": { "type": "string" },
+          "phoneHash": { "type": "string" },
+          "source": { "type": "string", "enum": ["web-form", "inbound-call", "referral", "event", "partner", "outbound", "other"] },
+          "campaignId": { "type": "string" },
+          "status": { "type": "string", "enum": ["new", "contacted", "qualifying", "qualified", "unqualified", "converted"] },
+          "rating": { "type": "string", "enum": ["hot", "warm", "cold"] },
+          "scoreBand": { "type": "string", "enum": ["0-20", "21-40", "41-60", "61-80", "81-100"] },
+          "convertedAt": { "type": "string", "format": "datetime" },
+          "convertedAccountDid": { "type": "string" },
+          "convertedContactDid": { "type": "string" },
+          "convertedOpportunityDid": { "type": "string" },
+          "createdAt": { "type": "string", "format": "datetime" },
+          "lastActivityAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

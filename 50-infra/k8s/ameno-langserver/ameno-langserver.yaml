@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ameno-langserver
+  labels:
+    app.kubernetes.io/name: ameno-langserver
+    app.kubernetes.io/part-of: ameno-etzhayyim-com
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ameno-langserver
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ameno-langserver
+        app.kubernetes.io/part-of: ameno-etzhayyim-com
+    spec:
+      imagePullSecrets:
+        - name: ghcr-creds
+      containers:
+        - name: worker-api
+          image: ghcr.io/etzhayyim/kotodama:maps-worldmonitor-market-91d57ab127d-20260514082800-amd64
+          imagePullPolicy: IfNotPresent
+          command:
+            - python
+            - -m
+            - kotodama.worker_api
+          ports:
+            - name: http
+              containerPort: 8081
+          env:
+            - name: WORKER_API_COMPONENT
+              value: ameno-langserver
+            - name: WORKER_API_RUNTIME_KIND
+              value: k8s-langserver
+            - name: WORKER_API_PORT
+              value: "8081"
+            - name: RW_SYNC_POOL
+              value: "1"
+            - name: RW_DDL_GUARD
+              value: "1"
+            - name: RW_ALLOW_HEAVY_DDL
+              value: "0"
+            - name: RW_ALLOW_FLUSH
+              value: "0"
+            - name: RW_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mitama-udf-pool-rw
+                  key: RW_URL
+            # NATS subject prefix matches pds-firehose-bridge (PUBLISH_SUBJECT_PREFIX
+            # default "pds.repo.commit"). subscribe_briefs_sse appends per-collection
+            # suffix at runtime, e.g. pds.repo.commit.app_bsky_feed_post.
+            - name: NATS_URL
+              value: "nats://nats.nats.svc.cluster.local:4222"
+            - name: PUBLISH_SUBJECT_PREFIX
+              value: "pds.repo.commit"
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ameno-langserver
+  labels:
+    app.kubernetes.io/name: ameno-langserver
+    app.kubernetes.io/part-of: ameno-etzhayyim-com
+spec:
+  selector:
+    app.kubernetes.io/name: ameno-langserver
+  ports:
+    - name: http
+      port: 8081
+      targetPort: http

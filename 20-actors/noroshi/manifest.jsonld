@@ -1,0 +1,74 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:etzhayyim.com:noroshi",
+  "name": "noroshi",
+  "displayName": "烽 — Photonics-Electronics Convergence (光電融合) Communication Chip + ISAC + Photonic Packaging Robotics",
+  "displayNameJa": "烽 (のろし / 狼煙)",
+  "displayNameEn": "Noroshi",
+  "description": "The photonics-electronics convergence (光電融合) communication-chip actor: the silicon-photonic / co-packaged-optics (CPO) sibling of the electronic silicon/iwakura/fuigo line and the RF tsutae comms device. 烽 (狼煙, beacon-fire) is the original optical telecom — a watchtower SENSES a distant fire and RELAYS a coded message, one emission with two functions, which is exactly ISAC (Integrated Sensing And Communication). Three faces: (chip) design + link-budget of photonic-IC / CPO communication chips on open photonic-EDA; (isac) an OFDM-JCAS simulator doing communication capacity AND range-Doppler sensing from one waveform; (packaging) photonic assembly robotics (fibre↔grating active alignment, photonic wire-bonding) under a laser-safety interlock. CIVILIAN by construction: weaponisation is structurally unrepresentable (N1), ISAC senses objects not persons (N2), EPDA is clean-room open-source only (N5).",
+  "descriptionJa": "光電融合の通信チップ actor。電子系の silicon/iwakura/fuigo 系列と RF の tsutae 通信デバイスの、シリコンフォトニクス / 光電パッケージ実装 (CPO) 版の兄弟。烽 (狼煙) は古来の光通信そのもの — 望楼が遠方の火を *感知* し符号化した報を *伝達* する、1 つの放射で 2 機能、これがまさに ISAC (Integrated Sensing And Communication)。3 つの face: (chip) open な photonic-EDA 上での photonic-IC / CPO 通信チップ設計 + リンクバジェット; (isac) 1 波形から通信容量 *と* レンジ-ドップラ センシングの両方を行う OFDM-JCAS シミュレータ; (packaging) レーザ安全インターロック下での光実装ロボティクス (ファイバ↔グレーティング能動整列, photonic wire-bonding)。構造的に民生限定: 兵器化は表現不能 (N1)、ISAC は人ではなく物体を感知 (N2)、EPDA は clean-room open-source のみ (N5)。",
+  "adr": {
+    "master": "etzhayyim:adr:2606051600",
+    "r0": "etzhayyim:adr:2606051600"
+  },
+  "tier": "Tier-B",
+  "glyph": "烽",
+  "kind": "photonics-electronics convergence comms-chip + ISAC + packaging-robotics (design + simulation substrate)",
+  "siblings": [
+    "did:web:etzhayyim.com:silicon",
+    "did:web:etzhayyim.com:iwakura",
+    "did:web:etzhayyim.com:fuigo",
+    "did:web:etzhayyim.com:tsutae",
+    "did:web:etzhayyim.com:watatsuna",
+    "did:web:etzhayyim.com:tsukuru"
+  ],
+  "siblingNote": "silicon/iwakura/fuigo = the ELECTRONIC (digital ternary) silicon line; noroshi = the PHOTONIC (光電融合) sibling. tsutae = RF comms device; noroshi = optical comms chip. watatsuna = the submarine-cable medium; noroshi = the CPO transceiver chips at the cable's ends.",
+  "forceClasses": ["civilian-comms", "civilian-sensing", "fab-process-laser"],
+  "weaponizableForceClass": "structurally unrepresentable (N1, Mission Charter §1.12 force-separation)",
+  "cleanroomEpda": {
+    "rule": "open-source photonic + digital EDA + open standards ONLY; no proprietary EDA/PDK bundling (Cadence/Synopsys/Lumerical/Ansys), no NDA foundry PDK, no decompile/trademark/fork (sumitsubo G1 + iwakura open-EDA precedent)",
+    "openPhotonicEda": ["GDSFactory", "Meep / MPB (MIT)", "KLayout"],
+    "openDigitalEda": ["Verilator", "yosys", "OpenLane2 + open PDK (sky130-class)"],
+    "openStandards": ["GDSII / OASIS", "Touchstone S-parameters", "IEC 60825 laser classes", "Telcordia GR-468 qual"]
+  },
+  "faces": {
+    "chip": {
+      "purpose": "design + link-budget of silicon-photonic / co-packaged-optics communication chips",
+      "cells": ["device_design", "link_budget"],
+      "method": "methods/link_budget.py — optical/CPO power budget + energy-per-bit (CPO 3.96× lower energy/bit than pluggable on the reference designs)"
+    },
+    "isac": {
+      "purpose": "one OFDM-JCAS waveform doing communication AND range-Doppler sensing — the 烽火 metaphor (signal + sensed-at-distance)",
+      "cells": ["isac_waveform", "sense_estimate"],
+      "method": "methods/isac_sim.py — OFDM-radar reciprocal processing + the comms↔sensing power-split tradeoff; CIVILIAN objects only"
+    },
+    "packaging": {
+      "purpose": "photonic packaging robotics — fibre↔grating active alignment + photonic wire-bond, under a laser-safety interlock",
+      "cells": ["active_alignment", "reliability_qual"],
+      "method": "methods/active_alignment.py — Hooke-Jeeves active alignment + IEC 60825 / civilian-use interlock (the safety-critical coded core)"
+    }
+  },
+  "scope": {
+    "phase": "R0 scaffold (design + 3 verifiable method cores + active_alignment state-machine + :representative seed/fleet only)",
+    "inScope": [
+      "Photonic-IC / CPO communication-chip design + optical link budget on open photonic-EDA",
+      "OFDM-JCAS waveform design + civilian range-Doppler sensing + comms↔sensing power-split tradeoff",
+      "Photonic packaging robotics fibre↔grating active alignment + laser-safety interlock + member-signed jobs",
+      "Reliability-qualification planning (Telcordia GR-468 shape)"
+    ],
+    "deferredToR3PlusViaCouncil": [
+      "Live foundry tapeout / mask set (R3+, Council Lv6+ + operator, with CycloneDX SBOM — G8/G11)",
+      "Measured device characterisation in a lab (R3+, no chamber/instrument at R0 — N4)",
+      "Live packaging-robot actuation + live laser energising (R3+, Lv6+; Class-3B/4 near humans Lv7+ — G8/G5)",
+      "Live human-labour displacement only with the Displacement Dividend active (G2)"
+    ]
+  },
+  "gates": ["G1 cleanroom-epda", "G2 displacement-dividend-coupling", "G3 civilian-force-separation", "G4 sensing-not-surveillance", "G5 laser-safety-soft", "G6 murakumo-only", "G7 no-server-key", "G8 outward-gated", "G9 kotoba-eavt-audit", "G10 sourcing-honesty", "G11 sbom-provenance"],
+  "nonGoals": ["N1 no weaponisation", "N2 no person-surveillance", "N3 not a certified safety controller", "N4 no fabricated coverage", "N5 no proprietary EDA / NDA PDK", "N6 no commercial GPU / cloud-EDA", "N7 not a foundry / tapeout broker at R0", "N8 no cash for labour/demonstrations"],
+  "status": "R0 proposed",
+  "charterRider": { "version": "2.0", "applied": true }
+}

@@ -1,0 +1,62 @@
+;; asobi-ontology — the freed-time / play & cultural-expression (遊び) vocabulary for asobi 遊び
+;; ADR-2606073200 · sibling of biosphere-ontology (ADR-2606073000) and engi-organism
+;; (ADR-2606011000), specialised to PLAY / BODY / EXPRESSION — the telos of labor
+;; liberation (the freed time), mirror-only like kawaraban.
+;;
+;; PURPOSE: weave cultural works / events / venues / practices and the ENCLOSURES that
+;; gate them into the kotoba Datom log. The lens is PARTICIPATION-openness (who can take
+;; part) vs ENCLOSURE (paywall / attention-platform / lock), routed to OPENING.
+;;
+;; CONSTITUTIONAL INVERSION (G1, read first): asobi is a PARTICIPATION / ACCESS map, NEVER
+;; an engagement / attention / popularity ranking. It has NO retention metric, NO
+;; recommend-for-time-on-platform, NO per-work popularity score. Surfacing addictive /
+;; spectacle design is a Wellbecoming violation (Charter §1.13) and is unrepresentable.
+;;
+;; EDGE-PRIMARY (N1): cultural value lives ONLY on participation edges (:en/access-load).
+;; A node's participation-openness = the INTEGRAL of its incident opening 縁, computed on
+;; READ — never a stored per-work score. There is no :asobi/popularity-of-work.
+
+{:schema/id "asobi-ontology"
+ :schema/version "0.1.0"
+ :schema/adr "2606073200"
+
+ ;; ── nodes ──────────────────────────────────────────────────────────────────
+ :node/attrs
+ [{:attr :organism/id        :doc "stable id, e.g. play.work.beethoven-9 / play.event.olympics"}
+  {:attr :organism/kind       :doc ":work | :event | :venue | :practice | :commons | :enclosure"}
+  {:attr :organism/label      :doc "common/display label"}
+  {:attr :organism/sourcing   :doc ":authoritative (public record / license) | :representative (bounded seed)"}
+
+  ;; work facet (a cultural artifact — music/film/text/game/image)
+  {:attr :work/medium         :doc ":music | :film | :text | :game | :stage | :visual | :sport-form"}
+  {:attr :work/access         :doc ":public-domain | :open-license | :free-gratis | :ticketed | :paywalled | :proprietary (DISCLOSED, not adjudicated)"}
+
+  ;; practice facet (a sport / art-form / tradition one DOES)
+  {:attr :practice/domain     :doc ":sport | :music | :dance | :stage | :craft | :game | :letters"}
+  {:attr :practice/body?      :doc "true if a physical / embodied practice (sport, dance)"}
+
+  ;; venue facet (where play happens)
+  {:attr :venue/kind          :doc ":public-library | :public-park | :museum | :hall | :field | :makerspace | :online-commons | :enclosed-venue"}
+  {:attr :venue/open?         :doc "true if free / public-access"}
+
+  ;; enclosure facet (the 取-holder; gates participation)
+  {:attr :enclosure/kind      :doc ":paywall | :attention-platform | :ticketing-lock | :copyright-lock | :geo-block"}
+  {:attr :enclosure/links     :doc "optional org id in tsumugi power-graph (accountability cross-link); aggregate-first"}]
+
+ ;; ── edges (縁) ───────────────────────────────────────────────────────────────
+ :edge/attrs
+ [{:attr :en/from            :doc "source organism id"}
+  {:attr :en/to              :doc "target organism id"}
+  {:attr :en/kind            :doc ":open-access | :teaches | :participates | :hosts | :performs | :descends-from | :encloses"}
+  {:attr :en/access-load     :doc "0..1 — for OPENING 縁: how much participation it affords; for :encloses: how much it gates. karma lives HERE (N1)."}
+  {:attr :en/sourcing        :doc ":authoritative | :representative"}]
+
+ ;; ── derived (transient, computed on READ — NEVER stored; N1/G2) ──────────────
+ :derived/attrs
+ [{:attr :bond/participation-openness :doc "node integral of incident opening 縁 — the access surface to widen"}
+  {:attr :bond/enclosure-load         :doc "node integral of incident :encloses loads — routed to OPENING"}
+  {:attr :bond/is-transient           :doc "const true — derived readout, not a stored datom"}]
+
+ ;; ── disclosed access category → representative openness weight (NOT a verdict) ──
+ :access/weight
+ {:public-domain 1.0 :open-license 0.9 :free-gratis 0.7 :ticketed 0.4 :paywalled 0.2 :proprietary 0.1}}

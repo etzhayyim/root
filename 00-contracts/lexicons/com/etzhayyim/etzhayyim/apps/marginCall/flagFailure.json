@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.marginCall.flagFailure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Margin call failure / default / treasury sale fire (bridges ccpOversight.flagProcyclicality + bank-resolution + nbfi-stress)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "callVid",
+            "failureKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "callVid": {
+              "type": "string",
+              "description": "bridges recordMarginCall"
+            },
+            "failureKind": {
+              "type": "string",
+              "enum": [
+                "failure_to_meet",
+                "collateral_shortage",
+                "liquidity_gap",
+                "treasury_fire_sale",
+                "basel_iii_repo",
+                "dispute_blanket",
+                "trade_refusal",
+                "nbfi_default",
+                "loss_mutualization",
+                "compression_trade_failed",
+                "cds_triggered",
+                "bilateral_cleared"
+              ]
+            },
+            "lossMusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

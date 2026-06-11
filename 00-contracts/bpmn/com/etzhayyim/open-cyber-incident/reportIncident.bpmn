@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_cyber_incident_report" targetNamespace="https://etzhayyim.ai/bpmn/open-cyber-incident" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_cyber_incident_report" name="Cyber incident" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+    <bpmn:serviceTask id="Task_Save" name="report">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_cyber_incident_report&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: vertexId, incident_id: incidentId, victim_org_id: victimOrgId, sector: sector, attack_vector: attackVector, impact_type: impactType, affected_systems: affectedSystems, data_exposed: dataExposed, ransom_demanded_usd: ransomDemandedUsd, casualties: casualties, severity: if casualties &gt;= 1 or impactType = &quot;wiper&quot; or (ransomDemandedUsd != null and ransomDemandedUsd &gt;= 1000000) then &quot;critical&quot; else if list contains([&quot;data-breach&quot;,&quot;service-disruption&quot;,&quot;ransomware&quot;], impactType) or (ransomDemandedUsd != null and ransomDemandedUsd &gt;= 100000) then &quot;high&quot; else if impactType = &quot;espionage&quot; then &quot;medium&quot; else &quot;low&quot;, require_regulatory_notice: casualties &gt;= 1 or impactType = &quot;wiper&quot; or list contains([&quot;data-breach&quot;,&quot;service-disruption&quot;,&quot;ransomware&quot;], impactType), detected_at: detectedAt, reported_at: reportedAt, status: &quot;reported&quot;, created_at: string(now()), owner_did: callerDid, sensitivity_ord: 2, org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-cyber-incident&quot;}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-cyber-incident.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openCyberIncident.incident.report&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, incidentId: incidentId, impactType: impactType, casualties: casualties}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

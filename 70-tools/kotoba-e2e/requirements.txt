@@ -1,0 +1,7 @@
+# Deterministic layer (always needed):
+playwright>=1.49
+# Agentic layer (needed only for --agent / LLM judge):
+langgraph>=0.2.50
+browser-use>=0.1.40
+langchain-openai>=0.2.10   # OpenAI-COMPATIBLE client, pointed at Murakumo (NOT OpenAI)
+# After install:  playwright install chromium

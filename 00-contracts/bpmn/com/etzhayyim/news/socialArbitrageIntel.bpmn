@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  news.socialArbitrageIntel
+
+  Finds public-information arbitrage that can bridge inequality, loneliness, or
+  separation, then sends the prepared intel to news.etzhayyim.com publishing gates.
+
+  Input variables:
+    seedUrls, topic, region, publish
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_news_social_arbitrage_intel"
+    targetNamespace="https://etzhayyim.ai/bpmn/news"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="news_social_arbitrage_intel" name="news social arbitrage intel" isExecutable="true">
+    <bpmn:startEvent id="Start" name="public signals submitted">
+      <bpmn:outgoing>Flow_Discover</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Discover" sourceRef="Start" targetRef="Task_Discover"/>
+
+    <bpmn:serviceTask id="Task_Discover" name="discover public signals">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="news.socialArbitrage.discover"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=seedUrls" target="seedUrls"/>
+          <zeebe:input source="=string(topic)" target="topic"/>
+          <zeebe:input source="=string(region)" target="region"/>
+          <zeebe:output source="=candidates" target="candidates"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Discover</bpmn:incoming>
+      <bpmn:outgoing>Flow_Draft</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Draft" sourceRef="Task_Discover" targetRef="Task_Draft"/>
+
+    <bpmn:serviceTask id="Task_Draft" name="draft social arbitrage intel">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="news.socialArbitrage.draft"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=candidates" target="candidates"/>
+          <zeebe:input source="=string(topic)" target="topic"/>
+          <zeebe:input source="=string(region)" target="region"/>
+          <zeebe:output source="=draft" target="draft"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Draft</bpmn:incoming>
+      <bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Draft" targetRef="Gate_Useful"/>
+
+    <bpmn:exclusiveGateway id="Gate_Useful" name="useful and safe?" default="Flow_AuditOnly">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Analyze</bpmn:outgoing>
+      <bpmn:outgoing>Flow_AuditOnly</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Analyze" sourceRef="Gate_Useful" targetRef="Task_Analyze">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=draft.publish = true and publish = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_AuditOnly" sourceRef="Gate_Useful" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Analyze" name="persist intel report">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.news.analyzeIntel"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=draft" target="input"/>
+          <zeebe:output source="=result" target="intelReport"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Analyze</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditPublished</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditPublished" sourceRef="Task_Analyze" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit social arbitrage intel">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;news.socialArbitrageIntel&quot;" target="action"/>
+          <zeebe:input source="={ topic: string(topic), region: string(region), draft: draft, intelReport: intelReport }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditOnly</bpmn:incoming>
+      <bpmn:incoming>Flow_AuditPublished</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="social arbitrage intel ready">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

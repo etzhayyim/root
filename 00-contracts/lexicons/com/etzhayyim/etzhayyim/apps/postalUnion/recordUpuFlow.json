@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.postalUnion.recordUpuFlow",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "UPU cross-border postal flow (bridges logistics-lastmile + customs-clearance + tariff)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flowId",
+            "originIso3",
+            "destinationIso3",
+            "serviceClass",
+            "itemCount",
+            "periodMonth",
+            "reportedAt"
+          ],
+          "properties": {
+            "flowId": {
+              "type": "string"
+            },
+            "originIso3": {
+              "type": "string"
+            },
+            "destinationIso3": {
+              "type": "string"
+            },
+            "serviceClass": {
+              "type": "string",
+              "enum": [
+                "letter",
+                "parcel",
+                "ems",
+                "registered",
+                "printed_paper",
+                "m_bag"
+              ]
+            },
+            "itemCount": {
+              "type": "integer"
+            },
+            "weightKg": {
+              "type": "number"
+            },
+            "averageDeliveryDays": {
+              "type": "number"
+            },
+            "terminalDuesUsd": {
+              "type": "number"
+            },
+            "periodMonth": {
+              "type": "string"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

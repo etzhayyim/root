@@ -1,0 +1,11 @@
+{:lexicon 1
+ :id "com.etzhayyim.makura.silenComfortReview"
+ :defs
+ {:main
+  {:type "record"
+   :key  "tid"
+   :record
+   {:type       "object"
+    :required   ["tid" "councilAttestation"]
+    :properties {:tid                {:type "string" :description "Transaction ID"}
+                 :councilAttestation {:type "string" :description "Council 5-of-7 Safe attestation"}}}}}}

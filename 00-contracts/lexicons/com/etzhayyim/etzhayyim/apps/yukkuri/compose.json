@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yukkuri.compose",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Enqueue a yukkuri video generation job. Returns videoUri immediately; pipeline runs reactively (scriptwriter → voiceL/voiceR‖illustrator‖sfx‖composer‖character → editor → renderer → critic). Final published surface is a derived AppBskyFeedPost.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["topic"],
+          "properties": {
+            "title": { "type": "string", "maxLength": 200 },
+            "topic": { "type": "string", "description": "Topic or source text to commentate on" },
+            "outline": { "type": "string", "description": "Optional author-provided scene outline" },
+            "language": { "type": "string", "default": "ja" },
+            "targetSec": { "type": "integer", "minimum": 15, "maximum": 1800, "default": 180 },
+            "resolution": { "type": "string", "enum": ["720p", "1080p", "1440p"], "default": "1080p" },
+            "fps": { "type": "integer", "enum": [24, 30, 60], "default": 30 },
+            "voiceLeft": { "type": "string", "description": "kokoro-ts voice preset id for left character", "default": "af_heart" },
+            "voiceRight": { "type": "string", "description": "kokoro-ts voice preset id for right character", "default": "am_puck" },
+            "styleImage": { "type": "string", "description": "Image style preset or prompt tag" },
+            "bgmStyle": { "type": "string", "description": "BGM style prompt forwarded to ongakuka.compose" },
+            "characterSetUri": { "type": "string", "description": "at-uri of preferred character asset pack (L/R立ち絵)" },
+            "seed": { "type": "integer" },
+            "autoRender": { "type": "boolean", "default": true, "description": "If true, render mp4 automatically after assembly" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["videoUri", "projectId", "status"],
+          "properties": {
+            "videoUri": { "type": "string" },
+            "projectId": { "type": "string" },
+            "status": { "type": "string" },
+            "estimatedSec": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

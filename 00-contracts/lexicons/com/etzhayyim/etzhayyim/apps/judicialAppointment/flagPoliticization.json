@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.judicialAppointment.flagPoliticization",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Politicization / packing / minority block (bridges judgeRapporteur.flagBiasConcern + judicialInfluence + transnational-repression)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "nominationVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "nominationVid": {
+              "type": "string",
+              "description": "bridges recordNomination"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "court_packing",
+                "filibuster_change",
+                "blue_slip_skip",
+                "fast_track",
+                "ideological_screen",
+                "retirement_engineering",
+                "forced_recusal",
+                "precedent_signaling",
+                "family_relation",
+                "financial_disclosure_skip",
+                "prior_advocacy"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

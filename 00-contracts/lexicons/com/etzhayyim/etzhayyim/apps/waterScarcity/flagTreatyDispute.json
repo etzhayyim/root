@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.waterScarcity.flagTreatyDispute",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Transboundary water treaty dispute (Helsinki Rules / UN Watercourses Convention)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "disputeId",
+            "basinMetricVid",
+            "complainantIso3",
+            "respondentIso3",
+            "issue",
+            "filedAt"
+          ],
+          "properties": {
+            "disputeId": {
+              "type": "string"
+            },
+            "basinMetricVid": {
+              "type": "string",
+              "description": "bridges recordBasinMetric"
+            },
+            "complainantIso3": {
+              "type": "string"
+            },
+            "respondentIso3": {
+              "type": "string"
+            },
+            "issue": {
+              "type": "string",
+              "enum": [
+                "upstream_dam",
+                "diversion",
+                "pollution",
+                "reduced_flow",
+                "groundwater_depletion",
+                "navigation"
+              ]
+            },
+            "wtoDisputeVid": {
+              "type": "string",
+              "description": "bridges open-wto-dispute if applicable"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

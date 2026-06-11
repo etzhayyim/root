@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oecdDacTransparency.flagReportingGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Reporting gap / misclassification / vertical fund (bridges debtReschedulingContract.flagSecrecyClause + debt-transparency + just-transition)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "reportVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "reportVid": {
+              "type": "string",
+              "description": "bridges recordReport"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "in_donor_expenditure",
+                "refugee_costs_domestic",
+                "emerging_donor_gap",
+                "ppp_misclass",
+                "climate_branding_only",
+                "double_counting",
+                "vertical_fund",
+                "non_oda",
+                "tied_aid",
+                "guarantee_misuse",
+                "concessional_claim_weak"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

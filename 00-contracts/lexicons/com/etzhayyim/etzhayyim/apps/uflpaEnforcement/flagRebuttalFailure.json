@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.uflpaEnforcement.flagRebuttalFailure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Rebuttable presumption failure / supply chain opacity (bridges modernSlavery.flagInadequateDisclosure + supply-chain-finance + forced-labor)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "failureKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordWroDetention"
+            },
+            "failureKind": {
+              "type": "string",
+              "enum": [
+                "no_isotope_trace",
+                "third_country_laundering",
+                "falsified_origin",
+                "linked_entity_no_audit",
+                "prc_exception_case",
+                "compliance_audit_blocked",
+                "due_diligence_superficial",
+                "shell_subsidiary",
+                "repackaging",
+                "relabeling_operation"
+              ]
+            },
+            "detainedValueUsd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

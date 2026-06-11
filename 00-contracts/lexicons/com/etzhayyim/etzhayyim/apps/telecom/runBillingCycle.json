@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.runBillingCycle",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Aggregate CDRs for a subscriber over a period and emit an invoice. Designed to be invoked from a timer-start BPMN (R/P1M).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["subscriberId", "periodStart", "periodEnd"],
+          "properties": {
+            "cycleId": { "type": "string" },
+            "subscriberId": { "type": "string" },
+            "periodStart": { "type": "string", "format": "date" },
+            "periodEnd": { "type": "string", "format": "date" },
+            "currency": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "invoiceId": { "type": "string" },
+            "totalAmount": { "type": "number" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

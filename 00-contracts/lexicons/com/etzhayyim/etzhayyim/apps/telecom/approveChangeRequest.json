@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.approveChangeRequest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OSS CAB — approve / reject / defer an existing change request. Updates the change row status and inserts an approval audit row.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["changeId", "decision", "approverId", "approverRole", "observedAt"],
+          "properties": {
+            "approvalId": { "type": "string" },
+            "changeId": { "type": "string" },
+            "decision": { "type": "string", "enum": ["approved", "rejected", "deferred", "withdrawn"] },
+            "approverId": { "type": "string" },
+            "approverRole": { "type": "string", "enum": ["change_manager", "cab_chair", "service_owner", "security_officer", "regulatory"] },
+            "decisionReason": { "type": "string" },
+            "scheduledStart": { "type": "string", "format": "datetime" },
+            "scheduledEnd": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "approvalId": { "type": "string" },
+          "changeStatus": { "type": "string" },
+          "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerEdgeHost",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ETSI MEC — register a MEC host (edge compute node hosting EAS workloads). Phase 10 edge plane. Bound to a Phase 9 O-Cloud and ranNode for locality affinity.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["oCloudId", "vendor", "hostFqdn", "latitude", "longitude", "edgeZone", "plmnId", "observedAt"],
+          "properties": {
+            "hostId": { "type": "string" },
+            "oCloudId": { "type": "string" },
+            "vendor": { "type": "string" },
+            "hostFqdn": { "type": "string" },
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" },
+            "edgeZone": { "type": "string" },
+            "plmnId": { "type": "string" },
+            "supportedVims": { "type": "array", "items": { "type": "string" } },
+            "cpuCapacity": { "type": "integer" },
+            "memoryCapacityGib": { "type": "number" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "hostId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

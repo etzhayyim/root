@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  malak.draftAgencyReferral — draft-only agency referral package.
+
+  This process records a reviewable referral draft. It does not send email,
+  submit an INTERPOL notice, or call any external agency API.
+
+  NSID: com.etzhayyim.apps.malak.draftAgencyReferral
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_malak_draft_agency_referral"
+    targetNamespace="https://etzhayyim.ai/bpmn/malak"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="malak_draft_agency_referral" name="malak draftAgencyReferral" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.malak.draftAgencyReferral", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_ToDerive</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToDerive" sourceRef="Start" targetRef="Task_Derive"/>
+
+    <bpmn:serviceTask id="Task_Derive" name="validate referral draft">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="malak.validateAgencyReferralDraft"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=actorId" target="actorId"/>
+          <zeebe:input source="=caseId" target="caseId"/>
+          <zeebe:input source="=agency" target="agency"/>
+          <zeebe:input source="=legalBasis" target="legalBasis"/>
+          <zeebe:input source="=approvalRef" target="approvalRef"/>
+          <zeebe:input source="=summary" target="summary"/>
+          <zeebe:input source="=evidenceIds" target="evidenceIds"/>
+          <zeebe:input source="=attributionConfidence" target="attributionConfidence"/>
+          <zeebe:input source="=referralKind" target="referralKind"/>
+          <zeebe:input source="=tlp" target="tlp"/>
+          <zeebe:output source="=derived" target="derived"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToDerive</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToHash</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToHash" sourceRef="Task_Derive" targetRef="Task_Hash"/>
+
+    <bpmn:serviceTask id="Task_Hash" name="hash referral payload">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.hash.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="={ referralId: derived.referralId, caseId: string(caseId), actorId: string(actorId), agency: string(agency), referralKind: derived.normalizedKind, tlp: derived.normalizedTlp, attributionConfidence: derived.confidence, legalBasis: string(legalBasis), approvalRef: string(approvalRef), evidenceIds: derived.evidenceIds, summary: string(summary) }" target="value"/>
+          <zeebe:output source="=hash" target="payloadHash"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToHash</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToInsert</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToInsert" sourceRef="Task_Hash" targetRef="Task_Insert"/>
+
+    <bpmn:serviceTask id="Task_Insert" name="insert referral draft">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_malak_agency_referral_draft&quot;" target="table"/>
+          <zeebe:input source='={
+            vertex_id: string join(["at://did:web:malak.etzhayyim.com/com.etzhayyim.apps.malak.agencyReferralDraft/", derived.referralId], ""),
+            rkey: derived.referralId,
+            repo: "did:web:malak.etzhayyim.com",
+            referral_id: derived.referralId,
+            case_id: string(caseId),
+            actor_id: string(actorId),
+            agency: string(agency),
+            referral_kind: derived.normalizedKind,
+            tlp: derived.normalizedTlp,
+            attribution_confidence: derived.confidence,
+            legal_basis: string(legalBasis),
+            approval_ref: string(approvalRef),
+            evidence_ids_json: string(derived.evidenceIds),
+            summary: string(summary),
+            payload_hash: string(payloadHash),
+            draft_state: "draft",
+            created_at: string(now()),
+            updated_at: string(now()),
+            created_date: substring(string(now()), 1, 10),
+            sensitivity_ord: if derived.normalizedTlp = "red" then 120 else 100,
+            owner_did: "did:web:malak.etzhayyim.com",
+            org_id: "did:web:malak.etzhayyim.com",
+            user_id: if callerDid = null then "did:web:malak.etzhayyim.com" else string(callerDid)
+          }' target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="draftInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToInsert</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit referral draft">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;malak.agencyReferral.drafted&quot;" target="eventType"/>
+          <zeebe:input source="={ referralId: derived.referralId, caseId: string(caseId), actorId: string(actorId), agency: string(agency), payloadHash: payloadHash, inserted: draftInserted }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="draft recorded">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

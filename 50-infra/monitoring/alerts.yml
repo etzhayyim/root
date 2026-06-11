@@ -1,0 +1,47 @@
+groups:
+  - name: religious-corp-stack
+    rules:
+      - alert: CellRunnerDown
+        expr: up{job="cell-runner"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Cell-runner down on {{ $labels.instance }}"
+          description: "kotodama-cell-runner has been unreachable on {{ $labels.instance }} for >=2m"
+
+      - alert: MstProjectorDown
+        expr: up{job="mst-projector"} == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "mst-projector down (simeon)"
+          description: "mst-projector unreachable for >=5m. Server-side filtered queries will fall back to client-side and degrade."
+
+      - alert: EvoX2Unreachable
+        expr: up{job="evo-x2-litellm"} == 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "EVO-X2 LiteLLM unreachable"
+          description: "EVO-X2 gateway down >=5m. Cells will fall back to per-node Ollama (degraded quality)."
+
+      - alert: ShinkaTickStuck
+        expr: rate(shinka_heartbeat_fired[15m]) == 0
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Shinka heartbeat stuck"
+          description: "No heartbeat from shinka in >=30m (expected every 15m)"
+
+      - alert: MstProjectorIngestLag
+        expr: time() - mst_projector_last_indexed_seq_at > 600
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "mst-projector firehose ingest lag"
+          description: "mst-projector hasn't indexed a new record in >=10m (firehose may be stale)"

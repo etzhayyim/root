@@ -1,0 +1,49 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "gyosei-litigation-form-v1",
+  "version": 1,
+  "title": "行政事件訴訟ブリッジ",
+  "tier": 3,
+  "encryptionScheme": "signal:v1",
+  "components": [
+    {
+      "key": "litigation",
+      "type": "fieldset",
+      "label": "行訴情報",
+      "components": [
+        { "key": "caseId", "type": "textfield", "label": "対象 caseId", "required": true },
+        { "key": "specialRouteCode", "type": "select", "label": "個別法 route code", "options": [
+          { "value": "tax.national.general-disposition", "label": "tax.national.general-disposition" },
+          { "value": "social-insurance.health-pension.disposition", "label": "social-insurance.health-pension.disposition" },
+          { "value": "licensing.construction.permit-revocation", "label": "licensing.construction.permit-revocation" }
+        ]},
+        { "key": "statutoryAppealPrecondition", "type": "select", "label": "個別法上の不服申立前置 override", "options": [
+          { "value": "required", "label": "必要" },
+          { "value": "optional", "label": "任意" },
+          { "value": "excluded", "label": "審査請求ルートなし" },
+          { "value": "unknown", "label": "未確認" }
+        ]},
+        { "key": "hasAppealDecision", "type": "checkbox", "label": "裁決・審査結果が既にある" },
+        { "key": "specialLitigationDeadlineDays", "type": "number", "label": "個別法の出訴期間(日) override" },
+        { "key": "dispositionCategory", "type": "select", "label": "訴訟対象", "required": true, "options": [
+          { "value": "disposition", "label": "処分" },
+          { "value": "ruling-on-appeal", "label": "裁決" },
+          { "value": "inaction", "label": "不作為" }
+        ]},
+        { "key": "daysSinceFinalNotice", "type": "number", "label": "最終通知からの経過日数", "required": true },
+        { "key": "requestedClaimType", "type": "select", "label": "予定請求類型 override", "options": [
+          { "value": "revocation", "label": "取消訴訟" },
+          { "value": "inaction-illegality", "label": "不作為違法確認" },
+          { "value": "mandamus", "label": "義務付け訴訟" },
+          { "value": "injunction", "label": "差止訴訟" },
+          { "value": "declaratory", "label": "当事者訴訟 / 確認系" }
+        ]},
+        { "key": "hasJustifiableReason", "type": "checkbox", "label": "期間徒過に正当理由がある" },
+        { "key": "justifiableReasonSummary", "type": "textarea", "label": "正当理由の要約", "conditional": "=hasJustifiableReason = true" },
+        { "key": "wantsStay", "type": "checkbox", "label": "執行停止を検討する" },
+        { "key": "harmSummary", "type": "textarea", "label": "損害・違法主張の要旨", "required": true },
+        { "key": "attachedEvidenceSummary", "type": "textarea", "label": "証拠概要" }
+      ]
+    }
+  ]
+}

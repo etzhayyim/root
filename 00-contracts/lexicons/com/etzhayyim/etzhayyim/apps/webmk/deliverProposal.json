@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.webmk.deliverProposal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Re-deliver a completed proposal via Resend to a new or existing email address.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["proposalId"],
+          "properties": {
+            "proposalId":    { "type": "string" },
+            "deliveryEmail": { "type": "string", "maxLength": 256 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {
+            "status":      { "type": "string" },
+            "deliveredAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

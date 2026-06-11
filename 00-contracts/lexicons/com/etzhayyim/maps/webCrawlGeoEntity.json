@@ -1,0 +1,120 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.webCrawlGeoEntity",
+  "description": "Geo entity extracted from web crawl (WET/WAT records). Holds entity metadata + reference to the source crawl artifact (DataLad-pinned per ADR-2605241500 OR raw IPFS). Per maps CLAUDE.md §Web Crawl Geo Coverage + Phase 3 Tier B.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{entityId}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "entityId",
+          "name",
+          "entityType",
+          "domain",
+          "crawledAt",
+          "extractedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "entityId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "entityType": {
+            "type": "string",
+            "description": "Murakumo NER entity type.",
+            "knownValues": [
+              "place",
+              "organization",
+              "facility",
+              "event",
+              "geographic-feature",
+              "transport-node",
+              "other"
+            ]
+          },
+          "domain": {
+            "type": "string",
+            "description": "Source domain crawled (e.g., 'gsi.go.jp', 'wikidata.org').",
+            "maxLength": 256
+          },
+          "lngE7": {
+            "type": "integer",
+            "description": "Longitude in degrees × 1e7. Range -1800000000 to 1800000000.",
+            "minimum": -1800000000,
+            "maximum": 1800000000
+          },
+          "latE7": {
+            "type": "integer",
+            "description": "Latitude in degrees × 1e7. Range -900000000 to 900000000.",
+            "minimum": -900000000,
+            "maximum": 900000000
+          },
+          "linkedFeatureUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "If the entity was canonicalized to an existing com.etzhayyim.maps.feature record, link to it."
+          },
+          "nerConfidenceX10000": {
+            "type": "integer",
+            "description": "NER confidence × 10000 (0..10000 = 0.0000..1.0000).",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "wetPayloadKind": {
+            "type": "string",
+            "description": "Where the source WET/WAT record bytes live. `cross-actor` means the bytes are held by the site.etzhayyim.com actor and referenced via `wetRecordUri`.",
+            "knownValues": ["datalad-pin", "ipfs", "cross-actor", "inline"]
+          },
+          "datasetPinUri": {
+            "type": "string",
+            "format": "at-uri"
+          },
+          "wetRecordCid": {
+            "type": "string",
+            "description": "When wetPayloadKind=ipfs.",
+            "maxLength": 96
+          },
+          "wetRecordUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "When wetPayloadKind=cross-actor (site.etzhayyim.com record)."
+          },
+          "inlineSnippet": {
+            "type": "string",
+            "description": "When wetPayloadKind=inline (≤4KB). Contains the surrounding text the NER extracted the entity from — useful for audit + review.",
+            "maxLength": 4096
+          },
+          "crawledAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "extractedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "sourceDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "supersededByEntityId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

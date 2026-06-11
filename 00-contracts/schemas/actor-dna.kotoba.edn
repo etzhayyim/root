@@ -1,0 +1,52 @@
+;; actor-dna.kotoba.edn — the Actor DNA manifest schema (ADR-2606112000).
+;;
+;; ONE content-addressed unit binding an actor's CODE (WASM) + DATA (graph) + its
+;; integrity rules + lexicon — the kotoba analogue of a Holochain DNA hash / an
+;; Ethereum account (code+storage at one address). The manifest's raw CIDv1 is the
+;; actor's canonical identity; did.json points at `ipfs://<dna-cid>` and nothing else.
+;;
+;; Impl: 50-infra/actor-dna/{cid,dna,integrity,deploy}.py (pure stdlib, byte-identical
+;; to `ipfs add --cid-version=1 --raw-leaves` / kotoba-core KotobaCid).
+
+{:schema/name "kotoba-actor-dna"
+ :schema/spec "kotoba-actor-dna/v0"
+ :schema/adr  "2606112000"
+
+ ;; ── the DNA manifest (content-addressed to :dna/cid = cidv1_raw(canonical-edn)) ──
+ :dna/spec            {:type :string  :const "kotoba-actor-dna/v0"}
+ :dna/actor-did       {:type :did     :doc "the actor this DNA defines"}
+ :dna/wasm-cid        {:type :cid     :codec :raw      :doc "CODE — the WASM program (ipfs add -raw)"}
+ :dna/graph           {:type :string  :doc "DATA — the graph name this code governs"}
+ :dna/graph-cid       {:type :cid     :codec :dag-cbor :derived "graph_cid(:dna/graph)"
+                       :doc "DERIVED + ASSERTED: verify() recomputes and checks this binding"}
+ :dna/validation-cid  {:type :cid     :codec :raw      :doc "the integrity ruleset (integrity.py)"}
+ :dna/lexicon-cid     {:type :cid     :codec :raw      :doc "the schema the data conforms to"}
+ :dna/capability      {:type :string  :default "datom:transact"
+                       :doc "the CACAO capability the actor's writes require (ADR-2606111400)"}
+
+ ;; ── the integrity ruleset (content-addressed to :dna/validation-cid; integrity-zome analogue) ──
+ :integrity/spec           {:type :string :const "kotoba-integrity/v0"}
+ :integrity/graph          {:type :string :doc "datoms may target ONLY this graph"}
+ :integrity/append-only    {:type :bool   :doc "only :db/add — no retraction (非終末論)"}
+ :integrity/closed-attrs   {:type [:vec :keyword] :doc "only these attributes may appear"}
+ :integrity/required-attrs {:type [:map :keyword [:vec :keyword]]
+                            :doc "entity-namespace tag → attributes it must carry"}
+ :integrity/attr-types     {:type [:map :keyword :keyword]
+                            :doc "attribute → value type (keyword|string|int|float|bool|cid|did)"}
+ :integrity/deny-attrs     {:type [:vec :keyword]
+                            :doc "structurally forbidden attributes (e.g. ibuki never asserts :published)"}
+
+ ;; ── the deploy descriptor (content-addressed to :deploy/cid; atomicity-of-identity) ──
+ :deploy/spec        {:type :string :const "kotoba-actor-deploy/v0"}
+ :deploy/dna-cid     {:type :cid    :doc "the one DNA every step binds to"}
+ :deploy/pins        {:type [:vec :cid] :doc "content pinned before identity: {wasm,validation,lexicon,dna}"}
+ :deploy/order       {:doc "pin code → pin validation → pin lexicon → pin manifest → graph-genesis → did-link"}
+
+ ;; ── honest scope (ADR-2606112000) ──
+ :scope/enforced-tier   "client/actor (this repo): validate() rejects before kotoba_bridge.push"
+ :scope/followup-tier   "engine: the kotoba transact path invoking the DNA's validate before commit
+                         (40-engine/kotoba submodule) — so a PEER's writes are checked too. Gated."
+ :scope/achieved        ["code+data both content-addressed + re-verifiable"
+                         "ONE DNA CID fuses code+graph+rules+lexicon (was 4 linked CIDs)"
+                         "tamper-evident: any part change → new DNA CID → different actor"
+                         "client-tier code-defined data validation (integrity-zome analogue)"]}

@@ -1,0 +1,73 @@
+{
+  "schema": "https://etzhayyim.com/schemas/holochain-agent-runtime-plan/v1.json",
+  "runtimeKind": "holochain",
+  "status": "experimental",
+  "layer": "L3 virtual actor runtime experiment; L5 remains Kotoba/Datomic",
+  "agentDid": "did:web:kami-agent.etzhayyim.com",
+  "conductor": {
+    "image": "ghcr.io/etzhayyim/holochain-agent-runtime:experimental",
+    "cluster": "local-dev",
+    "namespace": "agent-runtime-holochain",
+    "workload": "holochain-agent-runtime"
+  },
+  "happ": {
+    "name": "etzhayyim-agent-actor-runtime",
+    "happUri": "ipfs://bafy-happ",
+    "dnaHash": "uhC0kagentactorruntime",
+    "roleName": "agent_actor_runtime",
+    "zomeName": "actor_runtime"
+  },
+  "bindings": {
+    "actorEventEntry": "ActorEvent { actor_did, command_id, lexicon_nsid, input_cid, output_cid, occurred_at }",
+    "commandFunction": "actor_runtime.commit_actor_event",
+    "signalFunction": "actor_runtime.latest_actor_head",
+    "sourceChain": "per-agent append-only command/outcome log",
+    "dht": "shared actor heads, capability grants, and validation receipts",
+    "risingWaveSink": "vertex_actor_event_holochain -\u003e existing actor/runtime projections"
+  },
+  "lifecycle": [
+    "install_app(happ)",
+    "enable_app(agent_did)",
+    "call_zome(commit_actor_event)",
+    "emit_signal(latest_actor_head)",
+    "project_to_kotoba(vertex_actor_event_holochain)"
+  ],
+  "verification": {
+    "mode": "offline-contract-smoke",
+    "hcAvailable": false,
+    "checkedAt": "2026-05-09T07:30:52Z",
+    "checks": [
+      {
+        "name": "runtime-kind-contract",
+        "ok": true,
+        "detail": "runtimeKind=holochain is admitted by the registration/public-runtime schemas"
+      },
+      {
+        "name": "cell-binding",
+        "ok": true,
+        "detail": "cell identity is modeled as DNA hash + agent DID"
+      },
+      {
+        "name": "zome-command-surface",
+        "ok": true,
+        "detail": "actor commands bind to role/zome function calls"
+      },
+      {
+        "name": "projection-boundary",
+        "ok": true,
+        "detail": "Holochain source chain/DHT are event transport; Kotoba/Datomic remains query projection SSoT"
+      }
+    ]
+  },
+  "registration": {
+    "artifactId": "0x29e818737bc99b0d8a2d58de1411058e8b9eaf8b95ae87b9ec4ae8a09f26f812",
+    "artifactUri": "ipfs://bafy-happ",
+    "containerRef": "ghcr.io/etzhayyim/holochain-agent-runtime:experimental",
+    "runtimeKind": "holochain"
+  },
+  "operationalGates": [
+    "Do not use as production default runtime until conductor packaging is reproducible in CI.",
+    "Do not store query SSoT in Holochain; project accepted events to Kotoba/Datomic.",
+    "Do not expose conductor admin API publicly; publish only MCP/XRPC facade endpoints."
+  ]
+}

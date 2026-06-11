@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kamiSabiotoshi.listItems",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List sabiotoshi game items with optional category/rarity/game filter.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "category": { "type": "string" },
+          "rarity": { "type": "string" },
+          "gameTitleDid": { "type": "string", "format": "did" },
+          "tradable": { "type": "boolean" },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "required": ["items", "total", "offset", "limit"], "properties": { "items": { "type": "array", "items": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "name": { "type": "string" }, "category": { "type": "string" }, "rarity": { "type": "string" }, "gameTitleDid": { "type": "string", "format": "did" } } } }, "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" } } } }
+    }
+  }
+}

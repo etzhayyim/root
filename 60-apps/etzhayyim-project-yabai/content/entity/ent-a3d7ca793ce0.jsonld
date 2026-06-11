@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a3d7ca793ce0",
+  "entityId": "ent-a3d7ca793ce0",
+  "canonicalName": "antey",
+  "aliases": [
+    "antey"
+  ]
+}

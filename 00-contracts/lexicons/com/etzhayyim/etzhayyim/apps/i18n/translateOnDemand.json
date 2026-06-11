@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.i18n.translateOnDemand",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated i18n lexicon for translateOnDemand (F-Plan F2 holdout migration 2026-04-13). Tighten schema when the handler is audited.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sourceText": {
+              "type": "string"
+            },
+            "targetLang": {
+              "type": "string"
+            },
+            "sourceLang": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sourceText": {
+              "type": "string"
+            },
+            "targetText": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "sourceLang": {
+              "type": "string"
+            },
+            "targetLang": {
+              "type": "string"
+            },
+            "sourceHash": {
+              "type": "string"
+            },
+            "creditJobId": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

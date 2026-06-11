@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Putaway: assign inbound stock to a warehouse bin.
+
+  Inputs:
+    requestId
+    skuCode
+    quantity
+    receivedAt
+    binCode (optional, will be assigned if absent)
+
+  Outputs:
+    putawayVertexId
+    assignedBinCode
+    auditRkey
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_warehouse_putaway"
+    targetNamespace="https://etzhayyim.ai/bpmn/warehouse"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="warehouse_putaway" name="Warehouse putaway" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Putaway requested">
+      <bpmn:outgoing>Flow_Start_Plan</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Plan" sourceRef="Start" targetRef="Task_PlanBin"/>
+
+    <bpmn:serviceTask id="Task_PlanBin" name="Plan bin assignment">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="warehouse.putaway.planBin"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=skuCode" target="skuCode"/>
+          <zeebe:input source="=quantity" target="quantity"/>
+          <zeebe:input source="=binCode" target="binCode"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Plan</bpmn:incoming>
+      <bpmn:outgoing>Flow_Plan_Persist</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Plan_Persist" sourceRef="Task_PlanBin" targetRef="Task_Persist"/>
+
+    <bpmn:serviceTask id="Task_Persist" name="Persist putaway vertex">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="warehouse.putaway.persist"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=skuCode" target="skuCode"/>
+          <zeebe:input source="=quantity" target="quantity"/>
+          <zeebe:input source="=assignedBinCode" target="assignedBinCode"/>
+          <zeebe:input source="=receivedAt" target="receivedAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Plan_Persist</bpmn:incoming>
+      <bpmn:outgoing>Flow_Persist_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Persist_Audit" sourceRef="Task_Persist" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit putaway audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:warehouse.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;warehouse.putaway.completed&quot;" target="action"/>
+          <zeebe:input source="={ requestId: requestId, putawayVertexId: putawayVertexId, bin: assignedBinCode }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Persist_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Putaway completed">
+      <bpmn:incoming>Flow_Audit_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

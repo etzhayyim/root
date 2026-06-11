@@ -1,0 +1,141 @@
+# anchor-cron — K8s CronJob for ADR-2605171800 Stage 5b.
+#
+# Runs every 15 minutes by default. Connects to the lg-uhl-right-neural
+# Pod's `checkpointer-socket` emptyDir to read pending anchors and write
+# back the receipts.
+#
+# Pre-requisites:
+#   1. The lg-uhl-right-neural Pod must be running and the
+#      `checkpointer-socket` emptyDir mounted from there must be
+#      reachable from this Job — in production that means we either:
+#        (a) run anchor-cron as a third container in the same Pod
+#            (preferred — guaranteed socket co-location), OR
+#        (b) replace the emptyDir socket with a hostPath + DaemonSet so
+#            cron jobs scheduled on the same node can connect.
+#      This CronJob uses (b) by default. To switch to (a), move the
+#      cron logic into a sidecar container of the lg-uhl-right-neural
+#      Deployment with a sleep-loop entrypoint.
+#   2. EtzhayyimAnchor contract address registered at
+#      deps.toml [platform.l2.anchor_contract] for the target chain.
+#   3. A funded signer key in a K8s Secret named `anchor-cron-signer`.
+#
+# Test-on-anvil (chainId 260425):
+#   kubectl create secret generic anchor-cron-signer \
+#     --from-literal=key=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+#   (default anvil acct[0] private key)
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: anchor-cron
+  namespace: mitama-udf
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: anchor-cron-uhl
+  namespace: mitama-udf
+  labels:
+    app.kubernetes.io/name: anchor-cron
+    app.kubernetes.io/component: l2-anchor-cron
+    app.kubernetes.io/part-of: uhl-right-neural.etzhayyim.com
+spec:
+  # 15-minute cadence. Anchor latency is dominated by the L2 confirmation
+  # wait, not by polling frequency, so a tighter schedule mostly burns gas
+  # if there's nothing pending.
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: anchor-cron
+        spec:
+          serviceAccountName: anchor-cron
+          restartPolicy: Never
+          imagePullSecrets:
+            - name: ghcr-pull
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
+            fsGroup: 65532
+            seccompProfile:
+              type: RuntimeDefault
+          # Co-locate on the same node as lg-uhl-right-neural so we can
+          # reach the checkpointer socket through a hostPath. The
+          # affinity rule lives below in spec.affinity.
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - lg-uhl-right-neural
+                  topologyKey: kubernetes.io/hostname
+          containers:
+            - name: anchor-cron
+              image: ghcr.io/etzhayyim/anchor-cron:main
+              imagePullPolicy: Always
+              env:
+                - name: ETZ_ANCHOR_SOCKET
+                  value: "/run/etzhayyim/checkpointer.sock"
+                - name: ETZ_ANCHOR_CELL_DIDS
+                  value: "did:web:uhl-right-neural.etzhayyim.com"
+                - name: ETZ_ANCHOR_CONTRACT
+                  # Update via kustomize overlay or `kubectl set env`
+                  # once EtzhayyimAnchor is deployed to the target chain.
+                  # Default points at the local-anvil address from
+                  # deps.toml; production overrides per environment.
+                  value: "0x5fbdb2315678afecb367f032d93f642f64180aa3"
+                - name: ETZ_ANCHOR_RPC_URL
+                  value: "https://sepolia.base.org"
+                - name: ETZ_ANCHOR_CONFIRMATIONS
+                  value: "3"
+                - name: ETZ_ANCHOR_BATCH_MAX
+                  value: "10"
+                - name: ETZ_ANCHOR_WARN_BALANCE_WEI
+                  # ~7 days of operation gas headroom on Base. Tune per
+                  # environment after observing actual per-tick gas
+                  # spend. 0 disables the check.
+                  # 0.01 ETH = 10000000000000000 wei.
+                  value: "10000000000000000"
+                - name: ETZ_ANCHOR_SIGNER_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: anchor-cron-signer
+                      key: key
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 128Mi
+                limits:
+                  cpu: "500m"
+                  memory: 512Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+              volumeMounts:
+                - name: checkpointer-socket
+                  mountPath: /run/etzhayyim
+                - name: tmp
+                  mountPath: /tmp
+          volumes:
+            - name: tmp
+              emptyDir:
+                sizeLimit: 64Mi
+            - name: checkpointer-socket
+              # PRODUCTION NOTE: see top-of-file comment. Switch to (a)
+              # by moving anchor-cron into the lg-uhl-right-neural Pod
+              # if your environment doesn't expose a node-local socket.
+              hostPath:
+                path: /var/run/etzhayyim/lg-uhl-right-neural
+                type: DirectoryOrCreate

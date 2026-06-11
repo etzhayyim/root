@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oshinobi.tipCreator",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "One-off tip to a creator, optionally attached to a post. Like subscribe, paymentToken is an opaque processor reference. message is stored signal:v1-encrypted (Tier 2, creator-readable only). Emits payout_ledger delta.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["creatorDid", "amountUsdCents", "paymentToken", "paymentProvider"],
+          "properties": {
+            "creatorDid":      { "type": "string", "format": "did" },
+            "postUri":         { "type": "string", "format": "at-uri", "description": "Optional — tip targeted at a specific post" },
+            "amountUsdCents":  { "type": "integer", "minimum": 100, "maximum": 50000000 },
+            "paymentProvider": { "type": "string", "enum": ["ccbill", "segpay", "rocketgate", "stub"] },
+            "paymentToken":    { "type": "string" },
+            "message":         { "type": "string", "maxLength": 500, "description": "Optional private note to creator (encrypted)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tipId", "uri", "status"],
+          "properties": {
+            "tipId":  { "type": "string" },
+            "uri":    { "type": "string", "format": "at-uri" },
+            "status": { "type": "string", "enum": ["captured", "pending", "declined"] }
+          }
+        }
+      },
+      "errors": [
+        { "name": "PaymentDeclined", "description": "processor declined paymentToken" },
+        { "name": "CreatorNotFound", "description": "creatorDid has no creator record" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.electricityMarket.recordMechanism",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Wholesale / retail electricity market mechanism (capacity market / FIT / CfD — bridges fossilStrandedAsset.flagJustTransitionGap + power-grid-interconnect + just-transition)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "mechanismId",
+            "countryIso3",
+            "mechanismKind",
+            "technologyKind",
+            "introducedAt"
+          ],
+          "properties": {
+            "mechanismId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "mechanismKind": {
+              "type": "string",
+              "enum": [
+                "capacity_market",
+                "feed_in_tariff",
+                "ppa_corporate",
+                "cfd_strike",
+                "auction_renewables",
+                "day_ahead",
+                "intraday",
+                "balancing",
+                "ancillary_freq",
+                "carbon_intensity_obligation",
+                "battery_aggregator",
+                "ders",
+                "virtual_pp",
+                "negative_pricing",
+                "capacity_remuneration",
+                "strategic_reserve"
+              ]
+            },
+            "technologyKind": {
+              "type": "string",
+              "enum": [
+                "solar_pv",
+                "onshore_wind",
+                "offshore_wind",
+                "gas_ccgt",
+                "coal_phase",
+                "nuclear_baseload",
+                "nuclear_smr",
+                "battery_storage",
+                "pumped_hydro",
+                "biomass",
+                "geothermal",
+                "hydrogen",
+                "grid_form_battery",
+                "demand_response"
+              ]
+            },
+            "strandedVid": {
+              "type": "string",
+              "description": "bridges fossilStrandedAsset.flagJustTransitionGap"
+            },
+            "introducedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

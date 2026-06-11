@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1c5c88ca4579",
+  "entityId": "ent-1c5c88ca4579",
+  "canonicalName": "オウム真理教 (aum shinrikyo)",
+  "aliases": [
+    "オウム真理教 (aum shinrikyo)"
+  ]
+}

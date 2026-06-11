@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_lawfirm_marketing_tick"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
+                  exporter="hand-written" exporterVersion="2.0">
+
+  <bpmn:process id="lawfirm_marketing_tick"
+                name="lawfirm Marketing Tick (R/PT24H)"
+                isExecutable="true">
+    <bpmn:documentation>{ "version": 1, "trigger": "timer", "cycle": "R/PT24H" }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="Daily 09:00 JST">
+      <bpmn:outgoing>Flow_start_to_kpi</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_kpi" sourceRef="Start_Timer" targetRef="Task_DailyKpi"/>
+
+    <bpmn:serviceTask id="Task_DailyKpi" name="Daily KPI Report (analytics agent)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.marketing.submit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;marketing.kpiReport&quot;" target="task_type"/>
+          <zeebe:input source="=&quot;advocate&quot;"            target="brand"/>
+          <zeebe:input source="=&quot;COO+CLO daily review&quot;" target="audience"/>
+          <zeebe:input source="=&quot;Daily revenue + outstanding + marketing pipeline snapshot&quot;" target="topic"/>
+          <zeebe:output source="=summary"    target="kpi_summary"/>
+          <zeebe:output source="=asset_uris" target="kpi_asset_uris"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_kpi</bpmn:incoming>
+      <bpmn:outgoing>Flow_kpi_to_blog</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_kpi_to_blog" sourceRef="Task_DailyKpi" targetRef="Task_BlogDraft"/>
+
+    <bpmn:serviceTask id="Task_BlogDraft" name="Blog Article Draft (content agent)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.marketing.submit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;marketing.blogDraft&quot;" target="task_type"/>
+          <zeebe:input source="=&quot;advocate&quot;"             target="brand"/>
+          <zeebe:input source="=&quot;NRI individual + Indian SMB&quot;" target="audience"/>
+          <zeebe:input source="=&quot;DPDP Act 2023 / FEMA / Japan-India cross-border (rotate)&quot;" target="topic"/>
+          <zeebe:output source="=summary"    target="blog_summary"/>
+          <zeebe:output source="=asset_uris" target="blog_asset_uris"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_kpi_to_blog</bpmn:incoming>
+      <bpmn:outgoing>Flow_blog_to_linkedin</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_blog_to_linkedin" sourceRef="Task_BlogDraft" targetRef="Task_LinkedinPost"/>
+
+    <bpmn:serviceTask id="Task_LinkedinPost" name="LinkedIn Post Draft (social agent)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.marketing.submit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;marketing.linkedinPost&quot;" target="task_type"/>
+          <zeebe:input source="=&quot;advocate&quot;"               target="brand"/>
+          <zeebe:input source="=&quot;Indian legal tech community&quot;" target="audience"/>
+          <zeebe:input source="=&quot;Daily insight tied to today's blog topic&quot;" target="topic"/>
+          <zeebe:output source="=summary"    target="linkedin_summary"/>
+          <zeebe:output source="=asset_uris" target="linkedin_asset_uris"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_blog_to_linkedin</bpmn:incoming>
+      <bpmn:outgoing>Flow_linkedin_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_linkedin_to_audit" sourceRef="Task_LinkedinPost" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit Audit (OCEL)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;lawfirm.marketing.dailyTick&quot;" target="event_type"/>
+          <zeebe:input source="={kpi: kpi_summary, blog: blog_summary, linkedin: linkedin_summary}" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_linkedin_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

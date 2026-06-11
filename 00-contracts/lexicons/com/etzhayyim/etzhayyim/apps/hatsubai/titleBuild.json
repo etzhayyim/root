@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hatsubai.titleBuild",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["titleDid", "buildCid", "sdkVersion", "buildStatus", "createdAt"],
+        "properties": {
+          "titleDid":            { "type": "string" },
+          "buildCid":            { "type": "string", "description": "Content-addressed CID of the master ROM / package bundle." },
+          "sdkVersion":          { "type": "string" },
+          "versionLabel":        { "type": "string", "description": "Human label, e.g. v1.0.0-rc3." },
+          "sizeBytes":           { "type": "integer" },
+          "signedAt":            { "type": "string", "format": "datetime" },
+          "manifestCid":         { "type": "string", "description": "CID of the build manifest (content list, hashes, signatures)." },
+          "isMasterCandidate":   { "type": "boolean" },
+          "buildStatus": {
+            "type": "string",
+            "knownValues": ["queued", "building", "ready", "submitted", "approved", "rejected", "withdrawn"]
+          },
+          "createdAt":           { "type": "string", "format": "datetime" },
+          "updatedAt":           { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  webya.etzhayyim.com — seoAudit (autonomous cron 0 0 0 ? * MON — 毎週月曜 00:00 UTC).
+
+  Audits all published sites for SEO health (meta description length,
+  JSON-LD completeness, title uniqueness). LLM generates improvement
+  suggestions; updated slots are written back to vertex_webya_page.
+
+  No XRPC binding — cron timer-start only.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_webya_seo_audit"
+    targetNamespace="https://etzhayyim.ai/bpmn/webya"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="webya_seo_audit" name="webya seo audit" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="cron 0 0 0 ? * MON">
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 0 ? * MON</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_AuditAll" name="seo.auditAllSites">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="webya.seo.auditAllSites"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=sitesAudited"   target="sitesAudited"/>
+          <zeebe:output source="=pagesUpdated"   target="pagesUpdated"/>
+          <zeebe:output source="=issuesFound"    target="issuesFound"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEmit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Start" targetRef="Task_AuditAll"/>
+
+    <bpmn:serviceTask id="Task_Emit" name="audit.emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;webya.seoAudit&quot;" target="actor"/>
+          <zeebe:input source="=&quot;weekly-seo-audit&quot;" target="subject"/>
+          <zeebe:input source="=sitesAudited"               target="sitesAudited"/>
+          <zeebe:input source="=pagesUpdated"               target="pagesUpdated"/>
+          <zeebe:input source="=issuesFound"                target="issuesFound"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToEmit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEmit" sourceRef="Task_AuditAll" targetRef="Task_Emit"/>
+
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Emit" targetRef="End"/>
+
+  </bpmn:process>
+</bpmn:definitions>

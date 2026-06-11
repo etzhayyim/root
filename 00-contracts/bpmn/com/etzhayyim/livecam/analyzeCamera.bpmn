@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_livecam_analyze_camera"
+    targetNamespace="https://etzhayyim.ai/bpmn/livecam"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="livecam_analyze_camera" name="livecam analyze camera" isExecutable="true">
+    <bpmn:startEvent id="Start" name="camera frame analysis requested">
+      <bpmn:outgoing>Flow_Analyze</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Analyze" sourceRef="Start" targetRef="Task_Analyze"/>
+    <bpmn:serviceTask id="Task_Analyze" name="analyze frame and commit records">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="livecam.vision.analyzeCamera"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=cameraSlug" target="cameraSlug"/>
+          <zeebe:input source="=imageUrl" target="imageUrl"/>
+          <zeebe:input source="=imageBase64" target="imageBase64"/>
+          <zeebe:input source="=zoneSlug" target="zoneSlug"/>
+          <zeebe:input source="=country" target="country"/>
+          <zeebe:input source="=region" target="region"/>
+          <zeebe:output source="=result" target="result"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Analyze</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Analyze" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit livecam vision analysis">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:livecam.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;livecam.analyzeCamera&quot;" target="action"/>
+          <zeebe:input source="={ cameraSlug: cameraSlug, zoneSlug: zoneSlug, result: result }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="camera analysis committed">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

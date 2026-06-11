@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ADR-0055 — itr1_purge.
+
+  05:00 daily timer + manual none-start. 7-year retention per
+  IT Act §44AA + DPDP §8(7).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_itr1_purge"
+    targetNamespace="https://etzhayyim.ai/bpmn/itr1"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="itr1_purge" name="ITR-1 7y retention purge" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="05:00 daily">
+      <bpmn:outgoing>Flow_T</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 5 * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_T" sourceRef="StartTimer" targetRef="Task_FindExpired"/>
+
+    <bpmn:startEvent id="StartManual" name="manual">
+      <bpmn:outgoing>Flow_M</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_M" sourceRef="StartManual" targetRef="Task_FindExpired"/>
+
+    <bpmn:serviceTask id="Task_FindExpired" name="Find expired returns">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_itr1_return&quot;" target="table"/>
+          <zeebe:input source="=&quot;status != %s AND created_at &lt; %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[&quot;purged&quot;, string(now() - duration(&quot;P2557D&quot;))]" target="whereParams"/>
+          <zeebe:input source="=&quot;vertex_id, taxpayer_pan_hash, assessment_year&quot;" target="columns"/>
+          <zeebe:input source="=200" target="limit"/>
+          <zeebe:input source="=&quot;created_at ASC&quot;" target="orderBy"/>
+          <zeebe:output source="=rows" target="expiredRows"/>
+          <zeebe:output source="=rowCount" target="purgedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_T</bpmn:incoming>
+      <bpmn:incoming>Flow_M</bpmn:incoming>
+      <bpmn:outgoing>Flow_F1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F1" sourceRef="Task_FindExpired" targetRef="Gate_HasRows"/>
+
+    <bpmn:exclusiveGateway id="Gate_HasRows" name="Has rows?" default="Flow_NoRows">
+      <bpmn:incoming>Flow_F1</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasRows</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoRows</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_HasRows" sourceRef="Gate_HasRows" targetRef="Task_PurgeBatch">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=purgedCount &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoRows" sourceRef="Gate_HasRows" targetRef="Task_AuditNoOp"/>
+
+    <bpmn:serviceTask id="Task_PurgeBatch" name="Hard delete Tier 3 + mark Tier 1 purged">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.purgeItr1Pii"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=expiredRows" target="rows"/>
+          <zeebe:output source="=deleted" target="deletedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasRows</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F2" sourceRef="Task_PurgeBatch" targetRef="Task_AuditPurged"/>
+
+    <bpmn:serviceTask id="Task_AuditPurged" name="audit: purged">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:ind.union.etzhayyim.com:cbdt:itr1&quot;" target="actor"/>
+          <zeebe:input source="=&quot;itr1.purge&quot;" target="action"/>
+          <zeebe:input source="={
+              purgedCount:  purgedCount,
+              deletedCount: deletedCount,
+              cutoff:       string(now() - duration(&quot;P2557D&quot;))
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F2</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_AuditPurged" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditNoOp" name="audit: noop">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:ind.union.etzhayyim.com:cbdt:itr1&quot;" target="actor"/>
+          <zeebe:input source="=&quot;itr1.purge.noop&quot;" target="action"/>
+          <zeebe:input source="={
+              purgedCount:  0,
+              cutoff:       string(now() - duration(&quot;P2557D&quot;))
+          }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoRows</bpmn:incoming>
+      <bpmn:outgoing>Flow_NoOpEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_NoOpEnd" sourceRef="Task_AuditNoOp" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+      <bpmn:incoming>Flow_NoOpEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.aidesk.exportToTsukuru",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Export a completed artifact to tsukuru supplierExchange. Only Apache 2.0 artifacts (license_tier=apache2) are permitted. Non-Commercial artifacts are rejected at the structural gate.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["artifactId"],
+          "properties": {
+            "artifactId": { "type": "string", "description": "vertex_aidesk_artifact vertex_id suffix (jobId or rkey)." },
+            "rfqNotes":   { "type": "string", "description": "Optional RFQ notes to pass to tsukuru normalizePackage." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status":            { "type": "string", "enum": ["submitted"] },
+            "tsukuruPackageId":  { "type": "string" },
+            "licenseTierVerified": { "type": "string", "enum": ["apache2"] }
+          }
+        }
+      }
+    }
+  }
+}

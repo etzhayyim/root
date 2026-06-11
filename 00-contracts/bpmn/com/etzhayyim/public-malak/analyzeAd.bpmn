@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_public_malak_analyze_ad"
+    targetNamespace="https://etzhayyim.ai/bpmn/public-malak"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="public_malak_analyze_ad" name="public malak analyze ad" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.publicMalak.analyzeAd", "version": 1, "resultTimeoutMs": 120000 }
+    </bpmn:documentation>
+    <bpmn:startEvent id="Start" name="analysis requested">
+      <bpmn:outgoing>Flow_Analyze</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Analyze" sourceRef="Start" targetRef="Task_Analyze"/>
+
+    <bpmn:serviceTask id="Task_Analyze" name="analyze public ad creative">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="publicMalak.ads.analyzeCreative"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=creativeVertexId" target="creativeVertexId"/>
+          <zeebe:input source="=if analysisKind = null then &quot;competitive&quot; else string(analysisKind)" target="analysisKind"/>
+          <zeebe:input source="=if modelId = null then &quot;&quot; else string(modelId)" target="modelId"/>
+          <zeebe:output source="=result" target="result"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Analyze</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Analyze" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit public ad analysis">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:public-malak.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;publicMalak.ads.analyze&quot;" target="action"/>
+          <zeebe:input source="=result" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="completed">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

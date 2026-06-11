@@ -1,0 +1,43 @@
+;; pruning-ontology.kotoba.edn — 剪定 (sentei) vocabulary (ADR-2606072000).
+;;
+;; Council as PRUNER (剪定者), not censor. The organism grows from root unstoppably; branches
+;; manifest on the append-only Datom log; sentei prunes the overgrown ones AFTER they manifest,
+;; to keep the organism beautiful (美しく保つ). The structural invariants are encoded HERE
+;; (schema), in the lexicon (const/enum), and in methods/prune.py (ValueError) — the 3-place
+;; unrepresentability pattern (nusa/tazuna/kamado/ake/fuchi).
+
+{:graph "sentei-v1"
+
+ ;; A branch = a manifested unit of organism growth (a published edge, a profile, a disclosure).
+ :branch
+ {:id          {:doc "stable branch id (the manifested datom/record id)"     :type :string}
+  :manifested  {:doc "G1: a branch is prunable ONLY once manifested. A prune of an unmanifested
+                      branch is unrepresentable — prior restraint cannot be expressed."
+                :type :boolean :db/required-true-to-prune true}
+  :grown-by    {:doc "DID of the actor whose autonomous growth produced this branch"  :type :string}
+  :grown-at    {:doc "ISO-8601 manifestation time"                            :type :string}}
+
+ ;; A prune APPENDS over a manifested branch (never deletes — 非終末論, G2).
+ :sentei.prune
+ {:branchId       {:doc "the manifested branch being pruned"                  :type :string}
+  :action         {:doc "D5 pruning vocabulary. delete / prior-restraint / halt-organism / verdict
+                         are ABSENT by construction (G1/G2/G3/G7)."
+                   :type :string
+                   :db/allowed [:quarantine :retract :rollback :revoke]}
+  :basis          {:doc "G7: the Charter basis for the cut (overgrowth / §2(a)-(h) / mirror-violation).
+                         Carries NO verdict/guilt value — 剪定 is care, not 制裁."
+                   :type :string}
+  :signerDid      {:doc "Council/member signer (G5)"                          :type :string}
+  :serverHeldKey  {:doc "G5: a prune is never server-signed"   :type :boolean :db/allowed [false]}
+  :councilLevel   {:doc "Transparent Force: Lv6+ ordinary, Lv7+ invariant-adjacent" :type :long}
+  :nonAdjudicating {:doc "G7: no guilt/verdict value"          :type :boolean :db/allowed [true]}
+  :reversible     {:doc "G6: every prune has the inverse regraft" :type :boolean :db/allowed [true]}
+  :at             {:doc "ISO-8601 prune time (the as-of dimension over the pruning history)" :type :string}}
+
+ ;; The inverse of a prune — un-prune / heal a mistaken cut (G6, append-only, ake-revert pattern).
+ :sentei.regraft
+ {:branchId   {:doc "branch restored to live"                                 :type :string}
+  :prunesId   {:doc "the prune datom this regraft heals"                      :type :string}
+  :basis      {:doc "restoration reason (no verdict)"                         :type :string}
+  :signerDid  {:doc "Council/member signer (G5)"                              :type :string}
+  :at         {:doc "ISO-8601 regraft time"                                   :type :string}}}

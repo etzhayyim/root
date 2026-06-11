@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.commodityFlowAggregate.rollupTradeWindow",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Rollup commodity-trade + physical-delivery + critical-minerals per window",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "rollupId",
+            "windowStart",
+            "windowEnd",
+            "tradeCount"
+          ],
+          "properties": {
+            "rollupId": {
+              "type": "string"
+            },
+            "windowStart": {
+              "type": "string"
+            },
+            "windowEnd": {
+              "type": "string"
+            },
+            "hsCode": {
+              "type": "string",
+              "description": "bridges open-hs"
+            },
+            "materialClassificationVid": {
+              "type": "string",
+              "description": "bridges open-critical-minerals"
+            },
+            "tradeCount": {
+              "type": "integer"
+            },
+            "physicalDeliveredBbl": {
+              "type": "number"
+            },
+            "totalValueUsd": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "volumeTier": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "large",
+                "mega"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

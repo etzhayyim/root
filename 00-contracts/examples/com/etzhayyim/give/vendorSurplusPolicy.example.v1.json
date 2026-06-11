@@ -1,0 +1,15 @@
+{
+  "policyVersion": "v1",
+  "vendorDid": "did:web:etzhayyim.com",
+  "effectiveFrom": "2027-01-01T00:00:00Z",
+  "payoutRatioBps": 9000,
+  "operatingReserveMonths": 12,
+  "recipientDefault": "public-fund",
+  "councilAttestation": [
+    "did:web:council.etzhayyim.com:seat:1",
+    "did:web:council.etzhayyim.com:seat:2",
+    "did:web:council.etzhayyim.com:seat:3"
+  ],
+  "attestationCid": "bafyreid2xqkiscaildcqabsyg3dfr6chu3fgpregxqqwhrlxw47cyvabcd",
+  "createdAt": "2027-01-01T00:00:00Z"
+}

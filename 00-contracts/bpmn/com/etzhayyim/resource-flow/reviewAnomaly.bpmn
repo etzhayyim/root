@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  resource-flow reviewAnomaly — ADR-0036/0056 BPMN worker review writer.
+
+  NSID: com.etzhayyim.apps.resourceFlow.reviewAnomaly
+  Task type: resource-flow.review.anomaly
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_resource_flow_review_anomaly"
+    targetNamespace="https://etzhayyim.ai/bpmn/resource-flow"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="resource_flow_review_anomaly" name="resource-flow reviewAnomaly" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.resourceFlow.reviewAnomaly", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="request">
+      <bpmn:outgoing>Flow_Start_Review</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Review" sourceRef="Start" targetRef="Task_Review"/>
+
+    <bpmn:serviceTask id="Task_Review" name="append anomaly review">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="resource-flow.review.anomaly"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=anomalyId" target="anomalyId"/>
+          <zeebe:input source="=action" target="action"/>
+          <zeebe:input source="=reason" target="reason"/>
+          <zeebe:input source="=reviewerDid" target="reviewerDid"/>
+          <zeebe:input source="=primaryDid" target="primaryDid"/>
+          <zeebe:input source="=orgId" target="orgId"/>
+          <zeebe:input source="=userId" target="userId"/>
+          <zeebe:output source="=reviewId" target="reviewId"/>
+          <zeebe:output source="=anomalyId" target="anomalyId"/>
+          <zeebe:output source="=action" target="action"/>
+          <zeebe:output source="=vertexId" target="vertexId"/>
+          <zeebe:output source="=error" target="error"/>
+          <zeebe:output source="=message" target="message"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Review</bpmn:incoming>
+      <bpmn:outgoing>Flow_Review_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Review_Audit" sourceRef="Task_Review" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:resource-flow.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;resource-flow.review.anomaly&quot;" target="action"/>
+          <zeebe:input source="={anomalyId: anomalyId, reviewId: reviewId, action: action, vertexId: vertexId, error: error}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Review_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

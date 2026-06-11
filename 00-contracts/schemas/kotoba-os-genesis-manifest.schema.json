@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etzhayyim.com/schemas/kotoba-os-genesis-manifest/v1.json",
+  "title": "kotoba-os Genesis Manifest (the node DNA)",
+  "description": "ADR-2606031600 §D1 boot model. The content-addressed manifest a kotoba-os node boots from: 'boot a CID, reconstruct its Datom state, join the neighbourhood'. Names the kernel image, the userland WASM Component-Model actor(s) + their content-addressed validation rules (the Holochain-style membrane), the capability-scoped device/world imports, the delegated identity (NO server-held key, C3/N5), the mesh neighbourhood, and the safety posture (soft-RT only N2, no live actuation N3 at R0; civilian-only N1).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "name", "edge", "kernel", "userland", "capabilities", "identity", "neighbourhood", "safety"],
+  "$defs": {
+    "cid": {
+      "description": "CIDv1, base32 multibase (blake3 per kotoba-core). Loose draft pattern — not full multibase validation.",
+      "type": "string",
+      "pattern": "^b[a-z2-7]{40,}$"
+    },
+    "witInterface": {
+      "description": "An interface from the kotoba:os WIT package (00-contracts/wit/kotoba-os/kotoba-os.wit). Capability-scoped: a node may import only what it lists here.",
+      "type": "string",
+      "enum": [
+        "io-digital", "io-analog", "io-gpio",
+        "fieldbus-modbus", "fieldbus-opcua", "fieldbus-ethercat", "fieldbus-canopen",
+        "datom"
+      ]
+    }
+  },
+  "properties": {
+    "schema": { "const": "https://etzhayyim.com/schemas/kotoba-os-genesis-manifest/v1.json" },
+    "name": { "type": "string", "minLength": 1 },
+    "edge": {
+      "description": "The L1 lower edge this manifest targets (ADR §five-layer model). L3-L5 are identical across edges; only L1/L2 differ.",
+      "enum": ["unikernel", "hosted", "browser"]
+    },
+    "kernel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["imageCid", "arch"],
+      "properties": {
+        "imageCid": { "$ref": "#/$defs/cid" },
+        "arch": { "enum": ["x86_64", "aarch64", "wasm32"] }
+      }
+    },
+    "userland": {
+      "description": "One or more content-addressed WASM Component-Model actors (L5). Each carries the CID of its validation-rule component (the membrane/DNA) and the kotoba:os world it implements.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["actorCid", "validationRuleCid", "world"],
+        "properties": {
+          "actorCid": { "$ref": "#/$defs/cid" },
+          "validationRuleCid": { "$ref": "#/$defs/cid" },
+          "world": { "enum": ["plc-control", "mesh-agent"] }
+        }
+      }
+    },
+    "capabilities": {
+      "description": "Granted device/world imports (no ambient authority). The host rejects any import not listed. Optional per-interface channel allowlists bound the addressable surface.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interfaces"],
+      "properties": {
+        "interfaces": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/witInterface" },
+          "uniqueItems": true
+        },
+        "channelAllowlist": {
+          "description": "Optional map of interface name -> list of permitted channel/node identifiers (numbers or opaque strings).",
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": ["integer", "string"] }
+          }
+        }
+      }
+    },
+    "identity": {
+      "description": "C3/N5: a kotoba-os node holds NO platform private key. Identity is a member/operator-delegated capability (CACAO chain / delegation). serverKey MUST be false.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["didCapability", "serverKey"],
+      "properties": {
+        "didCapability": {
+          "description": "A delegated capability reference (CACAO CID / delegation token id), NOT a private key.",
+          "type": "string",
+          "minLength": 1
+        },
+        "serverKey": { "const": false }
+      }
+    },
+    "neighbourhood": {
+      "description": "Holochain-style mesh join (ADR §D5). The node's local Datom-log segment is its source chain; peers validate via witness quorum.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["peers", "witnessQuorum"],
+      "properties": {
+        "peers": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "libp2p multiaddrs or peer DIDs of bootstrap neighbours."
+        },
+        "witnessQuorum": {
+          "description": "Minimum witnesses required to accept a published entry (deterministic witness-index rule, ADR-2605231902).",
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "safety": {
+      "description": "ADR non-goals encoded into the boot contract. R0..R4: soft-RT only (N2), no live actuation (N3). civilianOnly is an immutable true (N1: no weapons/fire-control, Charter Rider 2(a) / force-separation).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["realtimeClass", "liveActuation", "civilianOnly"],
+      "properties": {
+        "realtimeClass": {
+          "description": "soft = scan-cycle determinism only (R0..R4). hard = IEC 61508 SILx path, R5, Council Lv7+ gated.",
+          "enum": ["soft", "hard"]
+        },
+        "liveActuation": {
+          "description": "Physical actuation on hardware. MUST be false at R0..R4 (stage-only / simulation). true requires R5 Council Lv7+ + operator gate.",
+          "const": false
+        },
+        "civilianOnly": { "const": true }
+      }
+    }
+  }
+}

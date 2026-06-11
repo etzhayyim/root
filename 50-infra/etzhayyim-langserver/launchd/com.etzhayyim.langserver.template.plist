@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd template for one language server (LSP) on a Murakumo Mac mini.
+  Per ADR-2605192415 §7.1 (Tier 1 launchd 常駐) + this repo's
+  com.etzhayyim.kotodama-cell-runner.plist convention.
+
+  ONE plist per (host, language). Label is namespaced by language so multiple
+  langservers coexist on a single node:
+    com.etzhayyim.langserver.rust
+    com.etzhayyim.langserver.python
+    com.etzhayyim.langserver.typescript
+    com.etzhayyim.langserver.go
+    com.etzhayyim.langserver.lua
+    com.etzhayyim.langserver.ruby
+
+  install.sh (to be added in L6) substitutes these placeholders per host:
+    @@LANG@@           — language identifier (rust / python / typescript / go / lua / ruby)
+    @@USERNAME@@       — macOS user that owns the LaunchAgent (= tribe name)
+    @@REPO_PATH@@      — Absolute path to etzhayyim/root checkout on this mac
+    @@WORKSPACE@@      — Absolute path the LSP indexes
+                         (defaults to @@REPO_PATH@@; can be overridden per-language)
+    @@LOG_DIR@@        — Log directory (default /Users/@@USERNAME@@/.etzhayyim/log)
+    @@LISTEN_ADDR@@    — Listener address (filled by L4/L5; placeholder until then)
+                         L4 sets this to "unix:$XDG_RUNTIME_DIR/etzhayyim-langserver/@@LANG@@.sock"
+                         L5 may upgrade to "tcp:<mesh-ip>:<port>"
+    @@LSP_BIN_PATH@@   — Absolute path to LSP binary (L3 pins this per language)
+    @@LSP_ARGS@@       — Space-separated CLI args for the LSP binary
+                         (e.g., "--stdio" for tsserver, "" for rust-analyzer)
+
+  EnvironmentVariables surface:
+    ETZHAYYIM_LANG         — language identifier (mirrors @@LANG@@)
+    ETZHAYYIM_LANGSERVER_WORKSPACE — indexed workspace path
+    ETZHAYYIM_LOG_DIR      — log directory
+    ETZHAYYIM_LISTEN_ADDR  — address the wrapper binds to (set by L4/L5)
+    PATH                   — homebrew + system paths (matches kotodama plist)
+
+  Process lifecycle:
+    - RunAtLoad=true        — start on launchctl load (and at user login if installed
+                              as a LaunchAgent)
+    - KeepAlive.SuccessfulExit=false  — restart on non-zero exit
+    - KeepAlive.NetworkState=true     — restart when network comes back (mesh-aware)
+    - ThrottleInterval=15             — minimum 15s between restarts (anti-flap)
+    - ProcessType=Background          — macOS treats as background work
+                                        (lower QoS, no App Nap suppression)
+    - Nice=5                          — slightly de-prioritized vs interactive
+
+  Install / status / stop (after L6 install.sh lands):
+    ./install.sh --lang <LANG> [--workspace <DIR>]
+    launchctl list | grep com.etzhayyim.langserver
+    tail -f @@LOG_DIR@@/langserver.@@LANG@@.{stdout,stderr}.log
+    launchctl unload ~/Library/LaunchAgents/com.etzhayyim.langserver.@@LANG@@.plist
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.etzhayyim.langserver.@@LANG@@</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>@@REPO_PATH@@/50-infra/etzhayyim-langserver/launchd/run-langserver.sh</string>
+    <string>@@LANG@@</string>
+  </array>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>ETZHAYYIM_REPO</key>
+    <string>@@REPO_PATH@@</string>
+    <key>ETZHAYYIM_LANG</key>
+    <string>@@LANG@@</string>
+    <key>ETZHAYYIM_LANGSERVER_WORKSPACE</key>
+    <string>@@WORKSPACE@@</string>
+    <key>ETZHAYYIM_LOG_DIR</key>
+    <string>@@LOG_DIR@@</string>
+    <key>ETZHAYYIM_LISTEN_ADDR</key>
+    <string>@@LISTEN_ADDR@@</string>
+    <key>ETZHAYYIM_LSP_BIN_PATH</key>
+    <string>@@LSP_BIN_PATH@@</string>
+    <key>ETZHAYYIM_LSP_ARGS</key>
+    <string>@@LSP_ARGS@@</string>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+
+  <key>WorkingDirectory</key>
+  <string>@@WORKSPACE@@</string>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key>
+    <false/>
+    <key>NetworkState</key>
+    <true/>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>@@LOG_DIR@@/langserver.@@LANG@@.stdout.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>@@LOG_DIR@@/langserver.@@LANG@@.stderr.log</string>
+
+  <key>ThrottleInterval</key>
+  <integer>15</integer>
+
+  <key>ProcessType</key>
+  <string>Background</string>
+
+  <key>Nice</key>
+  <integer>5</integer>
+</dict>
+</plist>

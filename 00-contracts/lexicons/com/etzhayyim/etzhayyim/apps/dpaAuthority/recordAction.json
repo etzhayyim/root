@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.dpaAuthority.recordAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Data Protection Authority (DPA / CNIL / DPC / ICO) enforcement action (bridges schremsChallenge.flagRemedy + enforcementAction + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "dpa",
+            "actionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "dpa": {
+              "type": "string",
+              "enum": [
+                "cnil_fr",
+                "dpc_ie",
+                "ico_uk",
+                "bfdi_de",
+                "aepd_es",
+                "garante_it",
+                "edps",
+                "dsk_nl",
+                "dpa_gr",
+                "paad_hellenic",
+                "apd_dpa_nl",
+                "ppcc_jp",
+                "pdp_sg",
+                "nppa_kr",
+                "tst_pl",
+                "cnpd_lu"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "investigation",
+                "corrective",
+                "fine",
+                "ban_processing",
+                "representation_order",
+                "cross_border_coop",
+                "one_stop_shop",
+                "dual_lsa",
+                "public_reprimand",
+                "dpia_required"
+              ]
+            },
+            "subjectLei": {
+              "type": "string"
+            },
+            "remedyVid": {
+              "type": "string",
+              "description": "bridges schremsChallenge.flagRemedy"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

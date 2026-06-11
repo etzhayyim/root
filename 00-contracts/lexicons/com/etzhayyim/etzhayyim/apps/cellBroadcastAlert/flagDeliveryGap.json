@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cellBroadcastAlert.flagDeliveryGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Delivery gap / carrier outage / device compat (bridges floodEarlyWarning.flagMissedWarning + network-change + digital-divide)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "broadcastVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "broadcastVid": {
+              "type": "string",
+              "description": "bridges recordBroadcast"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "carrier_outage",
+                "device_incompat",
+                "language_locale_gap",
+                "false_alarm",
+                "opt_out_mass",
+                "roaming_failure",
+                "disabled_user",
+                "pre_4g_device",
+                "msisdn_unhoused",
+                "tv_radio_backup_fail"
+              ]
+            },
+            "affectedDevices": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

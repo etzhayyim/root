@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.barAssociationRecall.flagBaselineConcern",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Selective enforcement / political prosecution / due process gap (bridges judicialAppointment.flagPoliticization + civilLiability + ethicsDisclosure)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "recallVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "recallVid": {
+              "type": "string",
+              "description": "bridges recordRecall"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "selective_enforcement",
+                "political_prosecution",
+                "due_process_gap",
+                "slow_walking",
+                "minor_offense_only",
+                "appeal_blocked",
+                "reinstatement_denied",
+                "no_speedy_hearing",
+                "witness_tampering",
+                "panel_packing",
+                "whistleblower_retaliation"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

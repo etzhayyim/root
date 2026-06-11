@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openAdnetwork.createCampaign",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "広告 Campaign を作成し、入札戦略とターゲティングを設定する。Starts BPMN process open_adnetwork_create_campaign.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["campaignId", "advertiserDid", "name", "objective", "budgetDailyUsd", "bidStrategy"],
+          "properties": {
+            "campaignId":    { "type": "string", "description": "Campaign unique identifier" },
+            "advertiserDid": { "type": "string", "description": "DID of the advertiser" },
+            "name":          { "type": "string", "description": "Campaign display name" },
+            "objective": {
+              "type": "string",
+              "knownValues": ["awareness", "traffic", "conversion", "retargeting"],
+              "description": "Campaign objective"
+            },
+            "budgetDailyUsd": { "type": "number", "description": "Daily budget in USD" },
+            "bidStrategy": {
+              "type": "string",
+              "knownValues": ["cpm", "cpc", "cpa"],
+              "description": "Bid strategy"
+            },
+            "bidFloorUsd":    { "type": "number", "description": "Bid floor in USD" },
+            "targetingJson":  { "type": "string", "description": "Targeting parameters as JSON string" },
+            "startDate":      { "type": "string", "description": "Campaign start date (YYYY-MM-DD)" },
+            "endDate":        { "type": "string", "description": "Campaign end date (YYYY-MM-DD)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId": { "type": "string" },
+            "status":   { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

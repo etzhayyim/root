@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kousuu.project",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Project (プロジェクト) master for individual job costing (個別原価). customerDid optionally links to seikyu.customer for billable work. Budget is tracked in both hours and monetary cost; actuals roll up via mv_kousuu_project_burn.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["ownerDid", "projectCode", "projectName", "startDate", "status", "createdAt"],
+        "properties": {
+          "ownerDid":      { "type": "string", "format": "did" },
+          "customerDid":   { "type": "string", "format": "did" },
+          "projectCode":   { "type": "string" },
+          "projectName":   { "type": "string" },
+          "budgetHours":   { "type": "number" },
+          "budgetCostJpy": { "type": "number" },
+          "startDate":     { "type": "string", "format": "datetime" },
+          "endDate":       { "type": "string", "format": "datetime" },
+          "status":        { "type": "string", "enum": ["active","onHold","closed"] },
+          "createdAt":     { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

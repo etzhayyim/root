@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shinshi.backfillGovernanceEdges — idempotent governance edge backfill
+  for shinshi model DIDs (nsfw-18plus + age-verification-18plus policies).
+
+  Replaces: 60-apps/etzhayyim-project-shinshi/scripts/backfill-governance-edges.py
+  The legacy script iterated 247 models from 260304-models-manifest.json
+  and INSERTed 2 edges each. Ran on demand when new models joined.
+
+  Pipeline (generic primitives + FEEL):
+    1. generic.db.select    — existing {edge_id} rows (LIMIT 1000)
+    2. scriptTask           — FEEL: flatten models × policies into edgeRows
+    3. scriptTask           — FEEL: filter out rows whose edge_id already exists
+    4. generic.db.insert    — multi-instance (sequential) over filtered edges
+    5. generic.audit.emit   — summary
+
+  Input body:
+    { models: [{folder: "actor-folder-name"}, ...] }
+
+  NSID: com.etzhayyim.apps.shinshi.backfillGovernanceEdges
+
+  Idempotent: re-run with same models list is a no-op (diff yields empty list).
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shinshi_backfill_governance_edges"
+    targetNamespace="https://etzhayyim.ai/bpmn/shinshi"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="shinshi_backfill_governance_edges"
+                name="shinshi backfillGovernanceEdges"
+                isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.shinshi.backfillGovernanceEdges", "version": 1, "resultTimeoutMs": 120000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_ToSelectExisting</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToSelectExisting" sourceRef="Start" targetRef="Task_SelectExisting"/>
+
+    <!-- Step 1: list existing governance edges relevant to this backfill -->
+    <bpmn:serviceTask id="Task_SelectExisting" name="existing governance edges">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_governance&quot;" target="table"/>
+          <zeebe:input source="=&quot;edge_id&quot;" target="columns"/>
+          <zeebe:input source="=&quot;label IN (%s, %s)&quot;" target="whereExpr"/>
+          <zeebe:input source="=[&quot;GovernedBy&quot;, &quot;CompliesWith&quot;]" target="whereParams"/>
+          <zeebe:input source="=1000" target="limit"/>
+          <zeebe:output source="=rows" target="existingEdgeRows"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSelectExisting</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToExtractExisting</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToExtractExisting" sourceRef="Task_SelectExisting" targetRef="Task_ExtractExisting"/>
+
+    <!-- Step 2a: extract just the edge_id strings for fast membership checks. -->
+    <bpmn:scriptTask id="Task_ExtractExisting" name="extract existing edge_ids">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=for r in existingEdgeRows return r.edge_id'
+            resultVariable="existingEdgeIds"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToExtractExisting</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToBuildCandidates</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToBuildCandidates" sourceRef="Task_ExtractExisting" targetRef="Task_BuildCandidates"/>
+
+    <!-- Step 2b: build the flat candidate-edges list (models × 2 policies). -->
+    <bpmn:scriptTask id="Task_BuildCandidates" name="models × policies → candidates">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=flatten(for m in models return [
+                {
+                    edge_id: string join(["GovernedBy-did:web:sh1n5h1x.etzhayyim.com:", m.folder, "-nsfw-18plus"], ""),
+                    src_vid: string join(["did:web:sh1n5h1x.etzhayyim.com:", m.folder], ""),
+                    dst_vid: "nsfw-18plus",
+                    label:   "GovernedBy"
+                },
+                {
+                    edge_id: string join(["CompliesWith-did:web:sh1n5h1x.etzhayyim.com:", m.folder, "-age-verification-18plus"], ""),
+                    src_vid: string join(["did:web:sh1n5h1x.etzhayyim.com:", m.folder], ""),
+                    dst_vid: "age-verification-18plus",
+                    label:   "CompliesWith"
+                }
+            ])'
+            resultVariable="candidateEdges"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBuildCandidates</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToFilter</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToFilter" sourceRef="Task_BuildCandidates" targetRef="Task_Filter"/>
+
+    <!-- Step 2c: keep only edges whose edge_id is NOT already in existingEdgeIds. -->
+    <bpmn:scriptTask id="Task_Filter" name="diff vs existing">
+      <bpmn:extensionElements>
+        <zeebe:script
+            expression='=candidateEdges[not(list contains(existingEdgeIds, edge_id))]'
+            resultVariable="edgesToInsert"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFilter</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_Filter" targetRef="Gate_HasWork"/>
+
+    <!-- Short-circuit when nothing to do (idempotent re-run). -->
+    <bpmn:exclusiveGateway id="Gate_HasWork" name="any to insert?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_HasWork</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoWork</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_HasWork" sourceRef="Gate_HasWork" targetRef="Task_InsertEdges">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count(edgesToInsert) &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoWork" sourceRef="Gate_HasWork" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count(edgesToInsert) = 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Step 3: multi-instance INSERT. isSequential=true keeps the pressure
+         on RW low (each tick ~5-15ms × up to 494 rows = <10s total). -->
+    <bpmn:serviceTask id="Task_InsertEdges" name="insert edge_governance (multi-instance)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;edge_governance&quot;" target="table"/>
+          <zeebe:input source="=edgeRow" target="values"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasWork</bpmn:incoming>
+      <bpmn:outgoing>Flow_InsertsToAudit</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="true">
+        <bpmn:extensionElements>
+          <zeebe:loopCharacteristics
+            inputCollection="=edgesToInsert"
+            inputElement="edgeRow"
+            outputCollection="insertResults"
+            outputElement="=inserted"/>
+        </bpmn:extensionElements>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_InsertsToAudit" sourceRef="Task_InsertEdges" targetRef="Task_Audit"/>
+
+    <!-- Step 4: audit summary -->
+    <bpmn:serviceTask id="Task_Audit" name="audit shinshi.governance.backfill">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:shinshi.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;shinshi.governance.backfill&quot;" target="action"/>
+          <zeebe:input source="={
+              models:      count(models),
+              candidates:  count(candidateEdges),
+              existing:    count(existingEdgeIds),
+              toInsert:    count(edgesToInsert),
+              inserted:    if insertResults = null then 0 else sum(for v in insertResults return if v = null then 0 else v)
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_InsertsToAudit</bpmn:incoming>
+      <bpmn:incoming>Flow_NoWork</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

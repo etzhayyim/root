@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_resource_flow_register_emitter" targetNamespace="https://etzhayyim.ai/bpmn/resource-flow" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="resource_flow_register_emitter" name="registerEmitter" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Follow"/>
+    <bpmn:serviceTask id="Task_Follow" name="follow emitter DID">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;app.bsky.graph.follow&quot;" target="type"/>
+          <zeebe:input source="={did: emitterDid}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_R</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_R" sourceRef="Task_Follow" targetRef="Task_Register"/>
+    <bpmn:serviceTask id="Task_Register" name="record emitter registration">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <bpmn:documentation>Records the registration so the heartbeat job can detect emitters
+          that have stopped emitting (no commits in N days). vertex_profile
+          is the canonical actor table — we only insert here if the emitter
+          isn't already projected.</bpmn:documentation>
+          <zeebe:input source="=&quot;vertex_profile&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: &quot;at://&quot; + emitterDid + &quot;/app.bsky.actor.profile/self&quot;, sensitivity_ord: 1, owner_did: &quot;did:web:resource-flow.etzhayyim.com&quot;, did: emitterDid, repo: emitterDid, handle: emitterHandle, display_name: emitterDisplayName, description: emitterDescription, collection: &quot;app.bsky.actor.profile&quot;, rkey: &quot;self&quot;, created_at: createdAt}" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_R</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Register" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:resource-flow.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;resource-flow.emitter.register&quot;" target="action"/>
+          <zeebe:input source="={emitterDid: emitterDid, industryCode: industryCode}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

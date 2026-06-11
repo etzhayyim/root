@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-3732670bb7656c8f",
+  "evidenceId": "evidence-3732670bb7656c8f",
+  "entityId": "ent-7294b0a04e7d",
+  "category": "FraudSignal",
+  "source": "internal/rokes-incident-report-20220804",
+  "sourceReliability": "A",
+  "occurredAt": "2022-02-21T16:00:00Z",
+  "confidence": 0.95,
+  "severity": 5,
+  "probability": 0.001,
+  "jurisdiction": "EE",
+  "summary": "Rokes Exchange wallet/DB discrepancy: insider theft by Pakistan dev team. Unauthorized deposits (ETH misidentification), unauthorized withdrawals (small-amount evasion), logging bypass, trade logic manipulation. HEC token balance: ~188M across wallets. Estonia authorities notified but unresponsive."
+}

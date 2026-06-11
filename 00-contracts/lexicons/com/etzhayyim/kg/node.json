@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kg.node",
+  "description": "Knowledge graph node. Substrate-native KG layer per ADR-2605190900. A node is a typed, content-addressed entity (ADR, module, lexicon, L2 contract, DNS record, actor cell, capability, institution, etc.). Edges connecting nodes use com.etzhayyim.kg.edge.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["nodeId", "nodeType", "createdAt"],
+        "properties": {
+          "nodeId": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 1024,
+            "description": "Stable identifier for the node. Examples: at-uri (at://did:plc:.../com.etzhayyim.kg.node/<rkey>), did (did:web:etzhayyim.com), urn (urn:adr:2605190900), http(s) URL, or app-defined token (e.g. 'adr:2605190900', 'module:40-engine/kotoba/crates/kotoba-kotodama')."
+          },
+          "nodeType": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Type token or IRI. Conventional short tokens: 'adr', 'module', 'lexicon', 'l2-contract', 'dns-record', 'actor-cell', 'capability', 'institution', 'person', 'organization'. Full IRIs allowed for inter-graph alignment."
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Human-readable label. Free text."
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 2048,
+            "description": "Optional short prose description of the node."
+          },
+          "payload": {
+            "type": "blob",
+            "accept": ["application/cbor", "application/json", "application/ld+json"],
+            "maxSize": 1048576,
+            "description": "Optional structured payload. Prefer application/cbor (IPLD DAG-CBOR) for content-addressed linkage; application/json or application/ld+json acceptable for simpler cases. The blob CID is the natural content address of the payload."
+          },
+          "tags": {
+            "type": "array",
+            "maxLength": 32,
+            "items": {
+              "type": "string",
+              "maxLength": 64
+            },
+            "description": "Free-form tags for ad-hoc filtering."
+          },
+          "source": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Projection source. Examples: 'deps.toml', 'adr-frontmatter', 'lexicon-refs', 'module-manifest', 'manual'. The kg-projector sets this automatically; manually-authored nodes use 'manual'."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Record creation time. RFC 3339."
+          }
+        }
+      }
+    }
+  }
+}

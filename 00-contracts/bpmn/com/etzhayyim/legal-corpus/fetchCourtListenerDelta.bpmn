@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_fetch_courtlistener_delta" targetNamespace="https://etzhayyim.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="legal_corpus_fetch_courtlistener_delta" name="fetchCourtListenerDelta" isExecutable="true">
+    <bpmn:startEvent id="Start" name="every 24h">
+      <bpmn:outgoing>Flow_C</bpmn:outgoing>
+      <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT24H</bpmn:timeCycle></bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual"><bpmn:outgoing>Flow_CM</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_CM" sourceRef="Start_Manual" targetRef="Task_Cursor"/>
+    <bpmn:sequenceFlow id="Flow_C" sourceRef="Start" targetRef="Task_Cursor"/>
+    <bpmn:serviceTask id="Task_Cursor" name="load cursor">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT last_cursor, secret_ref FROM vertex_legal_corpus_source WHERE source_id = 'courtlistener' LIMIT 1&quot;" target="sql"/>
+          <zeebe:input source="=[]" target="params"/>
+          <zeebe:output source="=rows[1].last_cursor" target="cursor"/>
+          <zeebe:output source="=rows[1].secret_ref" target="secretRef"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_C</bpmn:incoming><bpmn:outgoing>Flow_F</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_F" sourceRef="Task_Cursor" targetRef="Task_Fetch"/>
+    <bpmn:serviceTask id="Task_Fetch" name="fetch opinions delta">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.http.fetch" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="=&quot;https://www.courtlistener.com/api/rest/v3/opinions/?date_modified__gt=&quot; + (if cursor != null then cursor else &quot;1970-01-01&quot;) + &quot;&amp;order_by=date_modified&amp;page_size=100&quot;" target="url"/>
+          <zeebe:input source="={Authorization: &quot;Token &quot; + secretRef}" target="headers"/>
+          <zeebe:output source="=bodyJson.results" target="items"/>
+          <zeebe:output source="=bodyJson.next" target="nextCursor"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F</bpmn:incoming><bpmn:outgoing>Flow_L</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_L" sourceRef="Task_Fetch" targetRef="Task_Loop"/>
+    <bpmn:callActivity id="Task_Loop" name="ingest each opinion" calledElement="legal_corpus_ingest_document">
+      <bpmn:extensionElements><zeebe:calledElement processId="legal_corpus_ingest_document"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;courtlistener&quot;" target="sourceId"/>
+          <zeebe:input source="=item.absolute_url" target="canonicalUri"/>
+          <zeebe:input source="=&quot;opinion&quot;" target="documentType"/>
+          <zeebe:input source="=&quot;USA&quot;" target="jurisdiction"/>
+          <zeebe:input source="=item.cluster.docket.court_id" target="court"/>
+          <zeebe:input source="=&quot;en&quot;" target="languageCode"/>
+          <zeebe:input source="=item.cluster.case_name" target="title"/>
+          <zeebe:input source="=item.cluster.citation_string" target="citation"/>
+          <zeebe:input source="=item.date_filed" target="decidedAt"/>
+          <zeebe:input source="=item.date_modified" target="publishedAt"/>
+          <zeebe:input source="=now" target="fetchedAt"/>
+          <zeebe:input source="=item.plain_text" target="bodyText"/>
+          <zeebe:input source="=1" target="sensitivityOrd"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="false">
+        <bpmn:extensionElements><zeebe:loopCharacteristics inputCollection="=items" inputElement="item"/></bpmn:extensionElements>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Loop" targetRef="Task_Advance"/>
+    <bpmn:serviceTask id="Task_Advance" name="advance cursor">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;UPDATE vertex_legal_corpus_source SET last_cursor = $1, last_fetched_at = $2 WHERE source_id = 'courtlistener'&quot;" target="sql"/>
+          <zeebe:input source="=[nextCursor, now]" target="params"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Advance" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

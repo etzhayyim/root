@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_flight_offer_get_cheapest"
+    targetNamespace="https://etzhayyim.ai/bpmn/flight-offer"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="flight_offer_get_cheapest" name="getCheapest" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Get</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Get" sourceRef="Start" targetRef="Task_Get"/>
+
+    <bpmn:serviceTask id="Task_Get" name="select cheapest from MV">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="flight.offer.getCheapest"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=originIata" target="originIata"/>
+          <zeebe:input source="=destinationIata" target="destinationIata"/>
+          <zeebe:input source="=outboundDate" target="outboundDate"/>
+          <zeebe:input source="=if currency != null and currency != &quot;&quot; then currency else &quot;USD&quot;" target="currency"/>
+          <zeebe:output source="=found" target="found"/>
+          <zeebe:output source="=cheapestTotalPrice" target="cheapestTotalPrice"/>
+          <zeebe:output source="=cheapestProvider" target="cheapestProvider"/>
+          <zeebe:output source="=cheapestBookingUrl" target="cheapestBookingUrl"/>
+          <zeebe:output source="=cheapestObservedAt" target="cheapestObservedAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Get</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Get" targetRef="End"/>
+
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

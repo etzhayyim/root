@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.micaLicense.flagPassportAbuse",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Passport abuse / letterbox / host-state concern (bridges stablecoinRun.flagReserveOpacity + dpa-authority + eu-dpp)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "authVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "authVid": {
+              "type": "string",
+              "description": "bridges recordAuthorization"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "letterbox",
+                "home_weak_supervision",
+                "host_pushback",
+                "esma_peer_review",
+                "withdrawal_threat",
+                "substance_gap",
+                "aml_weak",
+                "retail_distribution_unauth",
+                "misleading_communication",
+                "white_label_scheme"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

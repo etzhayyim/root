@@ -1,0 +1,36 @@
+{
+  "$schema": "https://etzhayyim.com/schemas/form/v1.json",
+  "key": "open-seiyaku-batch-review-v1",
+  "version": 1,
+  "title": "製薬バッチ QA レビュー",
+  "tier": 1,
+  "components": [
+    {
+      "key": "verdict",
+      "type": "select",
+      "label": "判定",
+      "required": true,
+      "options": [
+        { "value": "approve", "label": "出荷判定承認" },
+        { "value": "reject", "label": "差戻し / 不承認" }
+      ]
+    },
+    {
+      "key": "checklist",
+      "type": "fieldset",
+      "label": "確認項目",
+      "components": [
+        { "key": "bmrComplete", "label": "BMR 完備", "type": "checkbox", "required": true },
+        { "key": "materialsReleased", "label": "原料ロット released", "type": "checkbox", "required": true },
+        { "key": "qcCompleted", "label": "QC 完了", "type": "checkbox", "required": true },
+        { "key": "deviationClosed", "label": "逸脱 closed / justified", "type": "checkbox", "required": true },
+        { "key": "labelingApproved", "label": "表示承認済", "type": "checkbox", "required": true }
+      ]
+    },
+    {
+      "key": "comment",
+      "type": "textarea",
+      "label": "コメント"
+    }
+  ]
+}

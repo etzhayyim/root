@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kiyo.searchPapers",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Semantic search over papers using embedding cosine similarity (RisingWave SQL UDF kiyo_embed_query + list_cosine_similarity). Falls back to title ILIKE for unembedded papers.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "q":      { "type": "string",  "description": "Natural language query" },
+          "subject":{ "type": "string" },
+          "limit":  { "type": "integer", "default": 20 },
+          "offset": { "type": "integer", "default": 0 }
+        },
+        "required": ["q"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "papers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "paperId":   { "type": "string" },
+                  "title":     { "type": "string" },
+                  "abstract":  { "type": "string" },
+                  "score":     { "type": "number" },
+                  "ipfsCid":   { "type": "string" }
+                }
+              }
+            },
+            "total":  { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit":  { "type": "integer" }
+          },
+          "required": ["papers", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

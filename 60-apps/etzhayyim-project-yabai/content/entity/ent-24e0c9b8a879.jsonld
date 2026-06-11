@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-24e0c9b8a879",
+  "entityId": "ent-24e0c9b8a879",
+  "canonicalName": "camorra (casalesi clan)",
+  "aliases": [
+    "camorra (casalesi clan)"
+  ]
+}

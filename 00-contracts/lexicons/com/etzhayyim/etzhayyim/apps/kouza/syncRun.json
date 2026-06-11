@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kouza.syncRun",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Execution log for a read-only financial institution sync. Captures cursors, counts, failures, and adapter identity for auditability.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["ownerDid", "connectionDid", "startedAt", "status", "createdAt"],
+        "properties": {
+          "ownerDid": { "type": "string", "format": "did" },
+          "connectionDid": { "type": "string", "format": "did" },
+          "adapterKey": { "type": "string" },
+          "startedAt": { "type": "string", "format": "datetime" },
+          "finishedAt": { "type": "string", "format": "datetime" },
+          "accountsImported": { "type": "integer" },
+          "transactionsImported": { "type": "integer" },
+          "documentsImported": { "type": "integer" },
+          "cursorHashBefore": { "type": "string" },
+          "cursorHashAfter": { "type": "string" },
+          "status": { "type": "string", "enum": ["running", "succeeded", "partial", "failed"] },
+          "errorCode": { "type": "string" },
+          "errorMessage": { "type": "string" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

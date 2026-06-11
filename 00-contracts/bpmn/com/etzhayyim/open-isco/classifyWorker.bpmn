@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_isco_classify_worker"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-isco"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_isco_classify_worker" name="労働者 職業分類" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Derive"/>
+
+    <bpmn:serviceTask id="Task_Derive" name="openIsco classify worker">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="openIsco.classifyWorker"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Gate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Gate" sourceRef="Task_Derive" targetRef="Gate"/>
+
+    <bpmn:exclusiveGateway id="Gate" default="Flow_AutoAccept">
+      <bpmn:incoming>Flow_Gate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Review</bpmn:outgoing>
+      <bpmn:outgoing>Flow_AutoAccept</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Review" sourceRef="Gate" targetRef="Task_AuditReview">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=requireReview = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_AutoAccept" sourceRef="Gate" targetRef="Task_AuditAuto"/>
+
+    <bpmn:serviceTask id="Task_AuditReview" name="audit classify.reviewPending">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-isco.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openIsco.classify.reviewPending&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, iscoCode: iscoCode, workerDid: workerDid, confidence: confidence, codeLevel: codeLevel, classifiedAt: classifiedAt}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Review</bpmn:incoming><bpmn:outgoing>Flow_ER</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ER" sourceRef="Task_AuditReview" targetRef="End_R"/>
+
+    <bpmn:serviceTask id="Task_AuditAuto" name="audit classify.accept">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-isco.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openIsco.classify.accept&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, iscoCode: iscoCode, workerDid: workerDid, verification: verification, codeLevel: codeLevel, classifiedAt: classifiedAt}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AutoAccept</bpmn:incoming><bpmn:outgoing>Flow_EA</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EA" sourceRef="Task_AuditAuto" targetRef="End_A"/>
+
+    <bpmn:endEvent id="End_A"><bpmn:incoming>Flow_EA</bpmn:incoming></bpmn:endEvent>
+    <bpmn:endEvent id="End_R"><bpmn:incoming>Flow_ER</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

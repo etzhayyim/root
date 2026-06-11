@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.multipartPart",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Upload one part. partNumber must be 1..10000. Each part except the last must be at least 5 MiB. Returns the part's etag for `multipartComplete`. Counts as Class A request.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uploadId", "partNumber", "data"],
+          "properties": {
+            "uploadId": {"type": "string"},
+            "partNumber": {"type": "integer", "minimum": 1, "maximum": 10000},
+            "data": {"type": "string", "description": "Base64-encoded part bytes."}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["partNumber", "etag", "sizeBytes"],
+          "properties": {
+            "partNumber": {"type": "integer"},
+            "etag": {"type": "string"},
+            "sizeBytes": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

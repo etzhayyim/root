@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.provisionO2Cloud",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "O-RAN O2 — SMO requests O-Cloud (IMS infrastructure / DMS deployment) resource provisioning. interfaceKind distinguishes O2-IMS vs O2-DMS.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["smoId", "oCloudId", "interfaceKind", "resourceKind", "deploymentManager", "packageHash", "observedAt"],
+          "properties": {
+            "resourceId": { "type": "string" },
+            "smoId": { "type": "string" },
+            "oCloudId": { "type": "string" },
+            "interfaceKind": { "type": "string", "enum": ["o2-ims", "o2-dms"] },
+            "resourceKind": { "type": "string", "enum": ["compute_node", "storage_pool", "network_fabric", "deployment", "deployment_manager", "subscription"] },
+            "deploymentManager": { "type": "string", "enum": ["k8s", "openstack", "vmware", "bare_metal"] },
+            "packageRef": { "type": "string" },
+            "packageHash": { "type": "string" },
+            "requestedFlavor": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "resourceId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

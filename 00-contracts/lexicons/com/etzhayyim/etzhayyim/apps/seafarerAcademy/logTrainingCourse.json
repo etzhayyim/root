@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.seafarerAcademy.logTrainingCourse",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Seafarer training course completion",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "courseId",
+            "seafarerVid",
+            "courseCode",
+            "hoursCompleted",
+            "competencyLevel",
+            "completedAt"
+          ],
+          "properties": {
+            "courseId": {
+              "type": "string"
+            },
+            "seafarerVid": {
+              "type": "string",
+              "description": "bridges open-crew-welfare"
+            },
+            "courseCode": {
+              "type": "string"
+            },
+            "providerLei": {
+              "type": "string"
+            },
+            "hoursCompleted": {
+              "type": "integer"
+            },
+            "competencyLevel": {
+              "type": "string",
+              "enum": [
+                "management",
+                "operational",
+                "support"
+              ]
+            },
+            "completedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "outcomeTier": {
+              "type": "string",
+              "enum": [
+                "orientation",
+                "familiarization",
+                "certified"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

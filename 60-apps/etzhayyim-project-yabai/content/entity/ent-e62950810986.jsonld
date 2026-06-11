@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e62950810986",
+  "entityId": "ent-e62950810986",
+  "canonicalName": "manufacturing company ltd lema",
+  "aliases": [
+    "manufacturing company ltd lema"
+  ]
+}

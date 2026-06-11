@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_hakkou_ferment_pipeline" targetNamespace="https://etzhayyim.ai/bpmn/hakkou" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="hakkou_ferment_pipeline" name="ferment-pipeline" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_CreateRecord"/>
+    <bpmn:serviceTask id="Task_CreateRecord" name="create-ferment-record">
+      <bpmn:extensionElements><zeebe:taskDefinition type="hakkou.create_ferment_record"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=fermentVertexId" target="fermentVertexId"/>
+          <zeebe:input source="=agentDid" target="agentDid"/>
+          <zeebe:input source="=inputKind" target="inputKind"/>
+          <zeebe:input source="=inputRef" target="inputRef"/>
+          <zeebe:input source="=outputKind" target="outputKind"/>
+          <zeebe:input source="=callerDid" target="callerDid"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_L</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_L" sourceRef="Task_CreateRecord" targetRef="Task_LlmTransform"/>
+    <bpmn:serviceTask id="Task_LlmTransform" name="llm-transform">
+      <bpmn:extensionElements><zeebe:taskDefinition type="hakkou.llm_transform"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=inputKind" target="inputKind"/>
+          <zeebe:input source="=inputRef" target="inputRef"/>
+          <zeebe:input source="=outputKind" target="outputKind"/>
+          <zeebe:output source="=fermentOutput" target="fermentOutput"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_W</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_W" sourceRef="Task_LlmTransform" targetRef="Task_WriteOutput"/>
+    <!-- Output dispatch is dynamic (outputNsid varies by run) — kept as generic.pds.dispatch -->
+    <bpmn:serviceTask id="Task_WriteOutput" name="write-output">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=outputNsid" target="nsid"/>
+          <zeebe:input source="=fermentOutput" target="body"/>
+          <zeebe:output source="=vertexId" target="outputVertexId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_W</bpmn:incoming><bpmn:outgoing>Flow_Finalize</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Finalize" sourceRef="Task_WriteOutput" targetRef="Task_Finalize"/>
+    <bpmn:serviceTask id="Task_Finalize" name="finalize-ferment">
+      <bpmn:extensionElements><zeebe:taskDefinition type="hakkou.finalize_ferment"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=fermentVertexId" target="fermentVertexId"/>
+          <zeebe:input source="=outputVertexId" target="outputVertexId"/>
+          <zeebe:input source="=ethanolHash" target="ethanolHash"/>
+          <zeebe:input source="=co2AuditRef" target="co2AuditRef"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Finalize</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Finalize" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:hakkou.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;hakkou.ferment&quot;" target="action"/>
+          <zeebe:input source="={fermentVertexId: fermentVertexId, agentDid: agentDid, outputVertexId: outputVertexId, ethanolHash: ethanolHash}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

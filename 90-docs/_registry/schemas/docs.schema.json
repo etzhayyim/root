@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etzhayyim.com/docs/schemas/docs-registry.schema.json",
+  "title": "etzhayyim docs registry (docs.json)",
+  "description": "Schema for 90-docs/_registry/docs.json — the machine-readable sidecar index regenerated from .md front-matter by 70-tools/scripts/docs/regen-registry.py. Canonical source is the Markdown bodies; this schema describes the normalized JSON shape that downstream consumers + validate-adrs.py drift-check rely on. Refreshed cycle 50 (2026-05-27) to match real data: snake_case field names, 90-docs/ path prefix, 10 doc_type values, governance-evolving status values.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "updated_at", "entries"],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "updated_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "path", "title", "status", "doc_type", "topic", "authoritative"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^90-docs/.+\\.md$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Governance-evolving status field. Common values include: active / proposed / accepted / deprecated / superseded. ADR-specific values may appear (e.g. proposed-pending-council-ratification, implemented, draft, deferred). Schema is permissive on this field while data normalization is governance-bounded; future schema tightening requires Council Lv6+ ≥3."
+          },
+          "doc_type": {
+            "type": "string",
+            "enum": [
+              "explanation",
+              "reference",
+              "how-to",
+              "tutorial",
+              "adr",
+              "design",
+              "deployment-runbook",
+              "engineering-policy",
+              "governance-proposal",
+              "proof",
+              "snapshot"
+            ]
+          },
+          "topic": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authoritative": {
+            "type": "boolean"
+          },
+          "authoritative_for": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "related": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "supersedes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "superseded_by": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "amends": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "amended_by": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ADR depends_on chain — list of doc-id references. Cycle 64 surfaced this previously-unindexed frontmatter field."
+          },
+          "last_verified": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}Z?)?$",
+            "description": "ISO 8601 date or datetime. Accepts YYYY-MM-DD or full ISO 8601 with optional time + Z timezone. Free-form annotations after the date (e.g. 'YYYY-MM-DD (notes)') are flagged as errors — keep notes elsewhere in the front-matter."
+          }
+        }
+      }
+    }
+  }
+}

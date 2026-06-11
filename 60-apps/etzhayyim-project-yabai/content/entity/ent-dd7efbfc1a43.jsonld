@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-dd7efbfc1a43",
+  "entityId": "ent-dd7efbfc1a43",
+  "canonicalName": "almaz-antey",
+  "aliases": [
+    "almaz-antey"
+  ]
+}

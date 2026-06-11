@@ -1,0 +1,247 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "form XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://form.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.form.getForm": {
+      "get": {
+        "summary": "Get a Camunda form definition by form key. Returns form schema, components, and variable mappings.",
+        "operationId": "com.etzhayyim.form.getForm",
+        "parameters": [
+          {
+            "name": "formKey",
+            "in": "query",
+            "required": true,
+            "description": "Form key (maps to FormTask.form_key)",
+            "schema": {
+              "type": "string",
+              "description": "Form key (maps to FormTask.form_key)"
+            }
+          },
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "description": "Actor DID scope",
+            "schema": {
+              "type": "string",
+              "description": "Actor DID scope"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "formKey": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "formType": {
+                      "type": "string",
+                      "description": "camunda, embedded, external"
+                    },
+                    "schemaVersion": {
+                      "type": "integer"
+                    },
+                    "componentsJson": {
+                      "type": "string",
+                      "description": "Form components array (JSON)"
+                    },
+                    "variableMappingsJson": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "formKey",
+                    "status"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.form.listPending": {
+      "get": {
+        "summary": "List pending form tasks awaiting user submission.",
+        "operationId": "com.etzhayyim.form.listPending",
+        "parameters": [
+          {
+            "name": "did",
+            "in": "query",
+            "required": false,
+            "description": "Actor DID scope",
+            "schema": {
+              "type": "string",
+              "description": "Actor DID scope"
+            }
+          },
+          {
+            "name": "assigneeDid",
+            "in": "query",
+            "required": false,
+            "description": "Filter by assignee DID",
+            "schema": {
+              "type": "string",
+              "description": "Filter by assignee DID"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "taskId": {
+                            "type": "string"
+                          },
+                          "formKey": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "formType": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "tasks",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.form.submit": {
+      "post": {
+        "summary": "Submit form data for a pending FormTask. Updates the task status to 'submitted' and stores variable mappings.",
+        "operationId": "com.etzhayyim.form.submit",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "taskId": {
+                    "type": "string",
+                    "description": "FormTask DID (from form.collect pipeline step)"
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Form field values keyed by component key"
+                  }
+                },
+                "required": [
+                  "taskId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "submitted": {
+                      "type": "boolean"
+                    },
+                    "taskId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "submitted",
+                    "taskId"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

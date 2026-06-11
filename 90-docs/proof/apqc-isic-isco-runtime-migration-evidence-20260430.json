@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-04-30T00:00:00Z",
+  "scope": [
+    "etzhayyim-project-apqc",
+    "etzhayyim-project-open-isic",
+    "etzhayyim-project-open-isco"
+  ],
+  "runtimePattern": "pyzeebe-langgraph-udf",
+  "status": "implemented",
+  "projects": {
+    "etzhayyim-project-apqc": {
+      "runtimeTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/apqc.py",
+      "handlerTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/apqc.py",
+      "migrationLedger": "60-apps/etzhayyim-project-apqc/migration-plan.yaml",
+      "coverage": {
+        "apqcL1Actors": { "covered": 13, "total": 13 },
+        "apqcL2SubProcesses": { "covered": 183, "total": 183 },
+        "runtimeBpmnProcesses": { "covered": 3, "total": 3 },
+        "bpmnCatalogTasks": { "covered": 3, "total": 3 },
+        "pyzeebeTasks": { "covered": 3, "total": 3 },
+        "udfHelpers": { "covered": 2, "total": 2 },
+        "legacyComponentsRetired": { "covered": 295, "total": 295 }
+      },
+      "pyzeebeTasks": [
+        "apqc.materializeSubprocesses",
+        "apqc.emitEvent",
+        "apqc.coverageSnapshot"
+      ],
+      "udfHelpers": [
+        "com.etzhayyim.apqc.materializeSubprocessDid",
+        "com.etzhayyim.apqc.coverageSnapshot"
+      ],
+      "bpmnProcesses": [
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apqc/materializeSubprocesses.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apqc/emitEvent.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apqc/coverageSnapshot.bpmn"
+      ],
+      "seedMigration": "30-graph/graph-schema/migrations/20260430224000_seed_apqc_bpmn_actors.ts",
+      "deploymentEvidence": {
+        "checkedAt": "2026-04-30T05:12:28Z",
+        "workerName": "kotodama-kyb3proj",
+        "versionId": "bc9113f2-0322-43db-a9e8-0f67786b17e4",
+        "routes": [
+          "kyb3proj.etzhayyim.com/*",
+          "kyber-projector.etzhayyim.com/*"
+        ],
+        "health": {
+          "url": "https://kyber-projector.etzhayyim.com/health",
+          "status": "ok",
+          "app": "kyb3proj"
+        },
+        "didDocument": {
+          "url": "https://kyber-projector.etzhayyim.com/.well-known/did.json",
+          "id": "did:web:kyber-projector.etzhayyim.com",
+          "actorServiceEndpoint": "https://kyber-projector.etzhayyim.com"
+        },
+        "xrpc": {
+          "registerApqcActors": {
+            "ok": true,
+            "registered": 13,
+            "skipped": 0,
+            "kyberFollowed": true
+          },
+          "listApqcActors": {
+            "ok": true,
+            "total": 13,
+            "active": 13
+          },
+          "getApqcCoverage": {
+            "ok": true,
+            "registeredL1": 13,
+            "totalL1": 13,
+            "registeredSubProcesses": 183,
+            "totalSubProcesses": 183,
+            "boundBpmnTasks": 28,
+            "apqc9EventsToday": 1
+          },
+          "runBpmnTaskE2E": {
+            "ok": true,
+            "taskId": "bpmn-9-trial-balance",
+            "apqcCode": "9.0",
+            "caseId": "codex-live-direct-1777525876109",
+            "processInstanceId": "pi-1777525877381-1",
+            "ocelEventId": "ocel-1777525877381-2",
+            "apqcEventPersisted": true,
+            "listActivitiesTotal": 1,
+            "getActivity": {
+              "ok": true,
+              "eventType": "tb.computed",
+              "status": "completed"
+            }
+          },
+          "risingWaveFlushHandling": "APQC OCEL events are written directly to vertex_apqc_event through the deployed Worker Hyperdrive binding, then read back through listActivities/getActivity/getApqcCoverage. APQC actor coverage still bootstraps idempotently before read so status does not depend on graph consumer flush."
+        }
+      }
+    },
+    "etzhayyim-project-open-isic": {
+      "runtimeTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isic.py",
+      "handlerTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/open_isic.py",
+      "coverage": {
+        "taxonomyClasses": { "covered": 428, "total": 428 },
+        "bpmnProcesses": { "covered": 4, "total": 4 },
+        "pyzeebeTasks": { "covered": 4, "total": 4 },
+        "udfHelpers": { "covered": 2, "total": 2 },
+        "legacyStandaloneRuntime": { "status": "retired" },
+        "cloudflareWorker": { "status": "archived" }
+      },
+      "pyzeebeTasks": [
+        "openIsic.classifyEntity",
+        "openIsic.recordConcordance",
+        "openIsic.flagDualUseIndustry",
+        "openIsic.classifyArmsManufacturing"
+      ],
+      "udfHelpers": [
+        "com.etzhayyim.openIsic.verificationForConfidence",
+        "com.etzhayyim.openIsic.classificationVertexId"
+      ],
+      "bpmnProcesses": [
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isic/classifyEntity.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isic/recordConcordance.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isic/flagDualUseIndustry.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isic/classifyArmsManufacturing.bpmn"
+      ],
+      "runtimeEvidence": {
+        "checkedAt": "2026-04-30T05:18:18Z",
+        "rwWritePath": "kotodama.db_sync sync_cursor -> Kotoba/Datomic",
+        "conflictHandling": "SELECT-before-INSERT idempotency; ON CONFLICT removed for Kotoba/Datomic parser compatibility",
+        "classifyEntity": {
+          "ok": true,
+          "task": "openIsic.classifyEntity",
+          "entityDid": "did:web:example.com:entity:codex-isic-1777526214676",
+          "isicClassCode": "2520",
+          "vertexId": "at://did:web:open-isic.etzhayyim.com/com.etzhayyim.openIsic.classification/f63e0e0a1ed6fcc5c80226b6",
+          "edgeId": "at://did:web:open-isic.etzhayyim.com/com.etzhayyim.openIsic.classificationClass/ef2af0c0aba1d86d141c3506",
+          "verification": "authoritative",
+          "status": "confirmed",
+          "rwReadbackRows": {
+            "vertex_open_isic_classification": 1,
+            "edge_open_isic_classification_class": 1
+          }
+        },
+        "recordConcordance": {
+          "ok": true,
+          "task": "openIsic.recordConcordance",
+          "isicClassCode": "2520",
+          "otherTaxonomy": "NAICS",
+          "otherCode": "332992",
+          "relation": "exactMatch",
+          "vertexId": "at://did:web:open-isic.etzhayyim.com/com.etzhayyim.openIsic.concordance/a4e11e67086b2714a56b06cd",
+          "rwReadbackRows": {
+            "vertex_open_isic_concordance": 1
+          }
+        },
+        "dryRunTasks": {
+          "openIsic.flagDualUseIndustry": true,
+          "openIsic.classifyArmsManufacturing": true
+        }
+      }
+    },
+    "etzhayyim-project-open-isco": {
+      "runtimeTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isco.py",
+      "handlerTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/open_isco.py",
+      "coverage": {
+        "bpmnProcesses": { "covered": 2, "total": 2 },
+        "pyzeebeTasks": { "covered": 2, "total": 2 },
+        "udfHelpers": { "covered": 3, "total": 3 },
+        "legacyStandaloneRuntime": { "status": "retired" },
+        "legacyAppview": { "status": "archived" }
+      },
+      "pyzeebeTasks": [
+        "openIsco.classifyWorker",
+        "openIsco.recordConcordance"
+      ],
+      "udfHelpers": [
+        "com.etzhayyim.apps.openIsco.codeLevel",
+        "com.etzhayyim.apps.openIsco.verificationForConfidence",
+        "com.etzhayyim.apps.openIsco.classificationVertexId"
+      ],
+      "bpmnProcesses": [
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isco/classifyWorker.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isco/recordConcordance.bpmn"
+      ],
+      "runtimeEvidence": {
+        "checkedAt": "2026-04-30T05:18:18Z",
+        "rwWritePath": "kotodama.db_sync sync_cursor -> Kotoba/Datomic",
+        "conflictHandling": "SELECT-before-INSERT idempotency; ON CONFLICT removed for Kotoba/Datomic parser compatibility",
+        "classifyWorker": {
+          "ok": true,
+          "task": "openIsco.classifyWorker",
+          "workerDid": "did:web:example.com:worker:codex-isco-1777526214676",
+          "iscoCode": "2512",
+          "vertexId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.classification/d83d798409d6171438dfce53",
+          "edgeId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.classificationOccupation/7c55eeb29a235080f9319c43",
+          "codeLevel": "unit",
+          "verification": "authoritative",
+          "status": "confirmed",
+          "rwReadbackRows": {
+            "vertex_open_isco_classification": 1,
+            "edge_open_isco_classification_occ": 1
+          }
+        },
+        "recordConcordance": {
+          "ok": true,
+          "task": "openIsco.recordConcordance",
+          "iscoCode": "2512",
+          "otherTaxonomy": "SOC",
+          "otherCode": "15-1252",
+          "relation": "exactMatch",
+          "vertexId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.concordance/90b26f9aa9afd55678fbd02d",
+          "rwReadbackRows": {
+            "vertex_open_isco_concordance": 1
+          }
+        }
+      }
+    }
+  },
+  "verification": {
+    "pythonCompile": "python3 -m py_compile primitives/handlers/worker migration files",
+    "pytest": "cd 40-engine/kotoba/crates/kotoba-kotodama/py && pytest -q tests/test_open_isic_apqc_primitives.py",
+    "bpmn": "npm run lint:bpmn:manifest && npm run lint:bpmn:coverage && npm run lint:bpmn:worker-tasks",
+    "json": "PROJECT.jsonld, bpmn-coverage-manifest.json, retired-cf-workers.json parse successfully",
+    "legacySearch": "Scoped APQC/open-isic/open-isco search has no active wasm/WIT/wadm runtime references; open-isic CF Worker and open-isco legacy appview are archived under _archive/retired-cf-workers/adr-2604282300"
+  },
+  "knownExternalGaps": []
+}

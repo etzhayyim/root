@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-2a7acf2f976c",
+  "entityId": "ent-2a7acf2f976c",
+  "canonicalName": "corporativo fearfi, s.a. de c.v.",
+  "aliases": [
+    "corporativo fearfi, s.a. de c.v."
+  ]
+}

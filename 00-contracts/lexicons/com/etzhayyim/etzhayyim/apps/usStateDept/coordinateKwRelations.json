@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.usStateDept.coordinateKwRelations",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "US State: クウェート (MOFA KW) 二国間 (湾岸主要産油国)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "issuedAt",
+            "vertexId"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "relatedActorVid": {
+              "type": "string"
+            },
+            "issuedAt": {
+              "type": "string"
+            },
+            "vertexId": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "vertexId"
+          ],
+          "properties": {
+            "vertexId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

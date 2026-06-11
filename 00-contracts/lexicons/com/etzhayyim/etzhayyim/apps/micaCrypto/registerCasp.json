@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.micaCrypto.registerCasp",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MiCA CASP authorization / UK FSMA Part 5A / SG DPT / JP FSA CASP (bridges ofac-sanctions + blockchain-mev + antitrust-dma)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "registrationId",
+            "caspLei",
+            "regime",
+            "servicesAuthorized",
+            "authorizedAt"
+          ],
+          "properties": {
+            "registrationId": {
+              "type": "string"
+            },
+            "caspLei": {
+              "type": "string"
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "eu_mica",
+                "uk_fsma",
+                "sg_dpt",
+                "jp_fsa",
+                "us_msb",
+                "kr_kosa",
+                "ca_vcp"
+              ]
+            },
+            "servicesAuthorized": {
+              "type": "string",
+              "description": "comma: custody,operation,exchange,execution,placement,reception,advice,portfolio_mgmt"
+            },
+            "tokenCategories": {
+              "type": "string",
+              "description": "comma: emt,art,crypto_asset"
+            },
+            "amlLevel": {
+              "type": "string",
+              "enum": [
+                "enhanced",
+                "standard",
+                "sanctions_sensitive"
+              ]
+            },
+            "authorizedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

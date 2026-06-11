@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1a0eae6e6c9f",
+  "entityId": "ent-1a0eae6e6c9f",
+  "canonicalName": "ep-ice",
+  "aliases": [
+    "ep-ice"
+  ]
+}

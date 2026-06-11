@@ -1,0 +1,27 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: svelte-wasm-demo
+  annotations:
+    version: v0.0.1
+    description: "SvelteKit running on wasmCloud via QuickJS"
+spec:
+  components:
+    - name: svelte-server
+      type: component
+      properties:
+        image: file://./build/component.wasm
+      traits:
+        - type: spreadscaler
+          properties:
+            instances: 1
+        - type: link
+          properties:
+            target: http-server
+            namespace: wasmcloud:httpserver
+            values:
+              address: 0.0.0.0:8080
+    - name: http-server
+      type: capability
+      properties:
+        image: ghcr.io/wasmcloud/http-server:0.25.0

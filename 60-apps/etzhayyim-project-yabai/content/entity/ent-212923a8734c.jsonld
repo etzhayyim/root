@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-212923a8734c",
+  "entityId": "ent-212923a8734c",
+  "canonicalName": "innocent kaina",
+  "aliases": [
+    "innocent kaina"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.soeBalanceSheet.flagContingentRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Contingent liability / sovereign guarantee call risk (bridges debtTransparency.flagHiddenDebt + sovereign-debt + imf-article-iv)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "disclosureVid",
+            "riskKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "disclosureVid": {
+              "type": "string",
+              "description": "bridges recordDisclosure"
+            },
+            "riskKind": {
+              "type": "string",
+              "enum": [
+                "guarantee_call_imminent",
+                "cross_default_trigger",
+                "quasi_fiscal_operation",
+                "off_balance_vehicle",
+                "pension_underfunded",
+                "currency_mismatch",
+                "state_aid_rule",
+                "ppp_termination"
+              ]
+            },
+            "triggerAmountBusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

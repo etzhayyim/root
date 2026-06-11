@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_lawfirm_marketing_ad_hoc"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
+                  exporter="hand-written" exporterVersion="2.0">
+
+  <bpmn:process id="lawfirm_marketing_ad_hoc"
+                name="lawfirm Marketing Ad-Hoc (LangGraph)"
+                isExecutable="true">
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.lawfirm.marketingDispatch", "version": 1, "resultTimeoutMs": 180000 }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_XRPC" name="XRPC: marketing dispatch">
+      <bpmn:outgoing>Flow_start_to_submit</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_submit" sourceRef="Start_XRPC" targetRef="Task_MarketingSubmit"/>
+
+    <bpmn:serviceTask id="Task_MarketingSubmit" name="Submit to LangGraph (marketing)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.marketing.submit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=task_type"     target="task_type"/>
+          <zeebe:input source="=brand"         target="brand"/>
+          <zeebe:input source="=audience"      target="audience"/>
+          <zeebe:input source="=topic"         target="topic"/>
+          <zeebe:input source="=payload"       target="payload"/>
+          <zeebe:input source="=schedule_at"   target="schedule_at"/>
+          <zeebe:input source="=requester_did" target="requester_did"/>
+          <zeebe:output source="=asset_uris"       target="asset_uris"/>
+          <zeebe:output source="=compliance_check" target="compliance_check"/>
+          <zeebe:output source="=compliance_notes" target="compliance_notes"/>
+          <zeebe:output source="=summary"          target="summary"/>
+          <zeebe:output source="=ok"               target="ok"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_submit</bpmn:incoming>
+      <bpmn:outgoing>Flow_submit_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_submit_to_audit" sourceRef="Task_MarketingSubmit" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit Audit (OCEL)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;lawfirm.marketing.dispatched&quot;" target="event_type"/>
+          <zeebe:input source="={task_type: task_type, brand: brand, compliance_check: compliance_check, asset_uris: asset_uris, summary: summary, ok: ok}" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_submit_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

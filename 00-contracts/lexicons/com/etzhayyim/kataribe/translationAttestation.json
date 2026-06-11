@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kataribe.translationAttestation",
+  "description": "Per-translation attestation. G7+G12 STRUCTURAL: translationProvider const 'murakumo-only'; commercialAiTranslationToolUsed const false (DeepL Pro / Google Translate API / Grammarly / Anthropic-direct-translation PROHIBITED). G7 STRUCTURAL: communityNeedBasedAttested const true (NOT commercial-market-driven priority).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "sourcePublicationCid",
+          "sourceLanguageBcp47",
+          "targetLanguageBcp47",
+          "translationBodyCid",
+          "translationProvider",
+          "commercialAiTranslationToolUsed",
+          "communityNeedBasedAttested",
+          "translatorDid",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "sourcePublicationCid": {"type": "string"},
+          "sourceLanguageBcp47": {
+            "type": "string",
+            "description": "BCP-47 language tag of source"
+          },
+          "targetLanguageBcp47": {
+            "type": "string",
+            "description": "BCP-47 language tag of target"
+          },
+          "translationBodyCid": {"type": "string"},
+          "translationProvider": {
+            "type": "string",
+            "const": "murakumo-only",
+            "description": "G12 STRUCTURAL: const 'murakumo-only'; DeepL Pro / Google Translate API / Grammarly / Anthropic-direct-translation PROHIBITED"
+          },
+          "commercialAiTranslationToolUsed": {
+            "type": "boolean",
+            "const": false,
+            "description": "G12 STRUCTURAL: const false"
+          },
+          "muragumoModelUsed": {
+            "type": "string",
+            "knownValues": ["gemma4-e4b-base", "gemma4-e4b-coder-distill", "baien-server-distill"],
+            "description": "Specific Murakumo model used via judah LiteLLM"
+          },
+          "communityNeedBasedAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "G7 STRUCTURAL: const true; translation priority is community-need-based (NOT commercial-market-driven language priority)"
+          },
+          "communityNeedJustificationCid": {
+            "type": "string",
+            "description": "Optional: community-need justification document CID"
+          },
+          "translatorDid": {
+            "type": "string",
+            "description": "Translator DID; vocation-flow L5 verified via chigiri.stewardLaborAttestation cross-link"
+          },
+          "translatorLanguageCompetenceAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "≥2 prior community attestations of translator language competence"
+          },
+          "humanReviewedPostMurakumoOutput": {
+            "type": "boolean",
+            "description": "Whether human translator reviewed and edited Murakumo output (recommended for medical/care/dispute content)"
+          },
+          "qualityScoreHonest": {
+            "type": "string",
+            "knownValues": ["high-fidelity", "medium-fidelity-bounded-by-fleet-capacity", "draft-needs-human-review"],
+            "description": "Honest scoring per Murakumo fleet capacity bounding"
+          },
+          "kotobaDatomicAttestationCid": {"type": "string"},
+          "attestingCellDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

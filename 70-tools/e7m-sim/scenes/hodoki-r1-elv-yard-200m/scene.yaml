@@ -1,0 +1,98 @@
+# hodoki R1 ELV-yard sim scene — ~200m×200m vehicle-disassembly yard.
+# ADR-2605262500 W4 cross-actor (ELV ≤2.5t M1 per ADR-2605261215).
+
+adr: ADR-2605262500
+phase: W4
+sim_consumer: hodoki-r1
+nv_compat_target: isaacsim.core.api.World
+
+world:
+  crs: "EPSG:4326"
+  bbox: [139.8100, 35.6500, 139.8120, 35.6520]
+  output_subdataset: "sim-scenes/hodoki/r1/elv-yard-200m/261015/"
+
+  layers:
+    - kind: terrain
+      source_subdataset: "geo/srtm/n35e139"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      shader: "kami-pbrt:Concrete_Grey"
+      mesh:
+        triangulation: "regular_grid"
+        target_edge_m: 5.0
+
+    - kind: raster_overlay
+      source_subdataset: "geo/sentinel2/T54SUE/261001"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      band_mix: "RGB-B432"
+      uv_projection: "from_terrain_xy"
+
+    - kind: vector_roads
+      source_subdataset: "geo/overture/transportation/2604-release/jp"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      material: "kami-pbrt:Concrete_Grey"
+      ribbon:
+        default_lane_count: 1
+        default_lane_width_m: 8.0     # wide truck-access lane
+        z_offset_m: 0.02
+
+scene:
+  num_envs: 8
+  env_spacing: 250.0
+  gravity: [0.0, 0.0, -9.81]
+  dt: 0.01
+  decimation: 2
+
+robot:
+  urdf: ./hodoki-disassembly-arm-r1.urdf
+  base_link: arm_base
+  spawn:
+    pos: [0.0, 0.0, 0.0]
+    rot: [1.0, 0.0, 0.0, 0.0]
+
+observation:
+  arm_state:
+    - tcp_position
+    - tcp_orientation
+    - gripper_state
+    - ecu_data_wipe_complete    # G8 ADR-2605261215
+
+action:
+  joint_efforts:
+    - shoulder_pitch
+    - elbow_pitch
+    - wrist_roll
+    - gripper_open_close
+
+reward:
+  bolt_removed: 0.5
+  panel_separated: 1.0
+  ecu_wiped: 2.0                # G8 priority
+
+termination:
+  time_out:
+    max_episode_length_s: 240.0
+
+quality_gate:
+  reference_baseline: "isaac_sim_elv_yard_200m_v1"
+  metrics:
+    psnr_min_db: 25.0
+    ssim_min: 0.85
+    chamfer_max_m: 0.05
+    iou_min_at_0p1m_voxel: 0.75
+  combined_target: 0.75
+
+charter:
+  max_tier: A
+  charter_rider_scan: required
+  pii_filter: not_applicable
+  replication_min: 2
+  physics_backend: kami-genesis
+  render_backend: kami-pbrt
+  inference_substrate: murakumo-only
+
+budget:
+  phase: R1
+  gpu_hr_eq_per_day_max: 1.0

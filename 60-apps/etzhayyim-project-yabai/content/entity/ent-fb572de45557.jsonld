@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fb572de45557",
+  "entityId": "ent-fb572de45557",
+  "canonicalName": "prophane victor",
+  "aliases": [
+    "prophane victor"
+  ]
+}

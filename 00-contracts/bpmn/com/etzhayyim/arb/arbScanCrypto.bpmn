@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  arb.arbScanCrypto — crypto spread scan, R/PT15S.
+
+  scoutQuotes (CoinGecko) → detectSpread → top candidate → proposeTrade → audit.
+  Publication is intentionally NOT in this loop — arbPublishDigest fans out
+  the top-N every PT15M to keep the social feed under rate-limit.
+
+  EDUCATIONAL ONLY. No execution path.
+
+  NSID: com.etzhayyim.apps.arb.scanCrypto
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/arb-scan-cr-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_arb_scan_cr"
+    targetNamespace="https://etzhayyim.ai/bpmn/arb"
+    exporter="hand-written" exporterVersion="1.1">
+  <bpmn:process id="arb_scan_cr" name="arb scanCrypto" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.arb.scanCrypto", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="cycle R/PT15S">
+      <bpmn:outgoing>Flow_0</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_CR">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT15S</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0" sourceRef="Start" targetRef="Task_Scout"/>
+
+    <bpmn:serviceTask id="Task_Scout" name="scoutQuotes cr (CoinGecko)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;https://arb.etzhayyim.com/xrpc/com.etzhayyim.apps.arb.scoutQuotes&quot;" target="url"/>
+          <zeebe:input source="=&quot;POST&quot;" target="method"/>
+          <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
+          <zeebe:input source="={ &quot;assetClass&quot;: &quot;cr&quot; }" target="body"/>
+          <zeebe:input source="=30000" target="timeoutMs"/>
+          <zeebe:output source="=bodyJson.count" target="scoutCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Task_Scout" targetRef="Task_Detect"/>
+
+    <bpmn:serviceTask id="Task_Detect" name="detectSpread cr">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;https://arb.etzhayyim.com/xrpc/com.etzhayyim.apps.arb.detectSpread&quot;" target="url"/>
+          <zeebe:input source="=&quot;POST&quot;" target="method"/>
+          <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
+          <zeebe:input source="={ &quot;assetClass&quot;: &quot;cr&quot;, &quot;minSpreadBps&quot;: 5 }" target="body"/>
+          <zeebe:input source="=15000" target="timeoutMs"/>
+          <zeebe:output source="=bodyJson.candidates" target="candidates"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Detect" targetRef="Gateway_Has"/>
+
+    <bpmn:exclusiveGateway id="Gateway_Has" name="any?">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_Has</bpmn:outgoing>
+      <bpmn:outgoing>Flow_None</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Has" sourceRef="Gateway_Has" targetRef="Task_Propose">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count(candidates) &gt; 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_None" sourceRef="Gateway_Has" targetRef="End">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count(candidates) = 0</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_Propose" name="proposeTrade cr (fan-out top candidates)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;https://arb.etzhayyim.com/xrpc/com.etzhayyim.apps.arb.proposeTrade&quot;" target="url"/>
+          <zeebe:input source="=&quot;POST&quot;" target="method"/>
+          <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
+          <zeebe:input source="={ &quot;assetClass&quot;: &quot;cr&quot;, &quot;legA&quot;: cand.legA, &quot;legB&quot;: cand.legB, &quot;spreadBps&quot;: cand.spreadBps, &quot;edgeBps&quot;: cand.edgeBps, &quot;rationale&quot;: cand.rationale, &quot;executed&quot;: false }" target="body"/>
+          <zeebe:input source="=15000" target="timeoutMs"/>
+          <zeebe:output source="=bodyJson.proposalId" target="proposalId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Has</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="false">
+        <bpmn:extensionElements>
+          <zeebe:loopCharacteristics inputCollection="=candidates" inputElement="cand" outputCollection="proposalIds" outputElement="=proposalId"/>
+        </bpmn:extensionElements>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Propose" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="emit arb.scan.cr OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.arb.scanCrypto&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;scoutCount&quot;: scoutCount, &quot;candidateCount&quot;: count(candidates), &quot;proposalIds&quot;: proposalIds }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:incoming>Flow_None</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

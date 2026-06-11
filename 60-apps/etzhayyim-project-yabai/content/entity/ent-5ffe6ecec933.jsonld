@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5ffe6ecec933",
+  "entityId": "ent-5ffe6ecec933",
+  "canonicalName": "apama",
+  "aliases": [
+    "apama"
+  ]
+}

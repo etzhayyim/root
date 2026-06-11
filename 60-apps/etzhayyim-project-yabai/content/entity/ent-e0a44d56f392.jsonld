@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e0a44d56f392",
+  "entityId": "ent-e0a44d56f392",
+  "canonicalName": "рехвіашвілі іраклій",
+  "aliases": [
+    "рехвіашвілі іраклій"
+  ]
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  karma.etzhayyim.com — third-organism witness attestation (XRPC entry).
+
+  Witnesses are independent IPFS objects; multiple witnesses can be
+  added post-edge-creation without mutating the edge itself.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_karma_witness"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="karma_witness" name="karma witness" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.karma.witness", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="StartXrpc" name="xrpc">
+      <bpmn:outgoing>Flow_ToVerify</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Verify" name="verify witness signature + persist">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="karma.witness.persist"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=edgeId" target="edgeId"/>
+          <zeebe:input source="=attestationKind" target="attestationKind"/>
+          <zeebe:input source="=signature" target="signature"/>
+          <zeebe:input source="=signatureAlg" target="signatureAlg"/>
+          <zeebe:input source="=witnessOrganismCid" target="witnessOrganismCid"/>
+          <zeebe:input source="=tsMs" target="tsMs"/>
+          <zeebe:output source="=witnessId" target="witnessId"/>
+          <zeebe:output source="=ipfsCid" target="ipfsCid"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToVerify</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToVerify" sourceRef="StartXrpc" targetRef="Task_Verify"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.karma.witness&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;edgeId&quot;: edgeId, &quot;witnessId&quot;: witnessId, &quot;attestationKind&quot;: attestationKind }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Verify" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="witnessed">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

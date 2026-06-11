@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-2c18f7d49e11",
+  "entityId": "ent-2c18f7d49e11",
+  "canonicalName": "sultani makenga",
+  "aliases": [
+    "sultani makenga"
+  ]
+}

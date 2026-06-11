@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.criticalMinerals.flagExportControlRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Export control / chokepoint risk (bridges fusion-energy.flagTritiumSupply + ofac-sanctions + wassenaar)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "riskId",
+            "flowVid",
+            "controlRegime",
+            "reportedAt"
+          ],
+          "properties": {
+            "riskId": {
+              "type": "string"
+            },
+            "flowVid": {
+              "type": "string",
+              "description": "bridges registerMineralFlow"
+            },
+            "fusionFlagVid": {
+              "type": "string",
+              "description": "bridges fusion-energy.flagTritiumSupply"
+            },
+            "controlRegime": {
+              "type": "string",
+              "enum": [
+                "wassenaar",
+                "nsg",
+                "china_export_license",
+                "us_entity_list",
+                "eu_dual_use",
+                "japan_foreign_exchange",
+                "export_quota"
+              ]
+            },
+            "concentrationHhi": {
+              "type": "number",
+              "description": "supply-side HHI"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "chokepointTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "high",
+                "extreme"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,629 @@
+;; actor-profile-seed.kotoba.edn
+;;
+;; Seed Datoms for the `actors-v1` kotoba graph (schema: actor-profile.kotoba.edn).
+;; Canonical declaration of every registered actor's identity + profile, from
+;; which the publisher (50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs)
+;; materializes (a) the per-actor did:web DID Document and (b) the
+;; app.bsky.actor.getProfile view, then writes them to CF KV + (operator-gated)
+;; ingests Datoms into kotoba. Per ADR-2606013800.
+;;
+;; Authoring note: `:actor/service` and `:actor/vm` are expressed here as native
+;; EDN (vectors of string-keyed maps) for readability. The publisher serializes
+;; them to the stored Datom attributes `:actor/service-json` / `:actor/vm-json`
+;; (JSON strings) AND into the DID-doc `service[]` / `verificationMethod[]`.
+;;
+;; `:actor/vm` is "[]" for every actor at R0 — verificationMethod is a MIRROR of
+;; the on-chain ERC725 Root.activeKey, never minted server-side (ADR-2605231525);
+;; did:web trust root is TLS. It populates only when chain wiring lands.
+
+{:graph {:name "actors-v1" :visibility :public}
+
+ :seed
+ [;; ── substrate service DIDs (no glyph; performer-type :service) ──────────
+  {:actor/handle "pinner"
+   :actor/did "did:web:etzhayyim.com:actor:pinner"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "MST CAR pinner — pins shard CARs produced by mst-projector to IPFS."
+   :actor/primary-lexicon "com.etzhayyim.substrate.ipfsPin"
+   :actor/adr ["2605171800"]
+   :actor/created-at "2026-05-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:pinner#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "esign"
+   :actor/did "did:web:etzhayyim.com:actor:esign"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "Document-signing actor — issues, collects, completes com.etzhayyim.esign.* envelopes."
+   :actor/primary-lexicon "com.etzhayyim.esign"
+   :actor/adr ["2605231230"]
+   :actor/created-at "2026-05-23"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:esign#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "audit"
+   :actor/did "did:web:etzhayyim.com:actor:audit"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "Audit-event aggregator — substrate-wide com.etzhayyim.audit.event sink referenced by every actor manifest."
+   :actor/primary-lexicon "com.etzhayyim.audit.event"
+   :actor/adr ["2605231700" "2605231900"]
+   :actor/created-at "2026-05-23"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:audit#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "dataset-pinner"
+   :actor/did "did:web:etzhayyim.com:actor:dataset-pinner"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "Dataset pinner — mirrors DataLad/git-annex remote objects to IPFS and emits com.etzhayyim.substrate.datasetPin records."
+   :actor/primary-lexicon "com.etzhayyim.substrate.datasetPin"
+   :actor/adr ["2605241500" "2605241800"]
+   :actor/created-at "2026-05-24"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:dataset-pinner#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:dataset-pinner#xrpc-libp2p-primary" "type" "AtprotoXrpc" "serviceEndpoint" "/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc" "x-libp2p-protocol" "/x/etzhayyim/xrpc/1.0"}
+                   {"id" "did:web:etzhayyim.com:actor:dataset-pinner#xrpc-libp2p-bootstrap" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc" "x-libp2p-protocol" "/x/etzhayyim/xrpc/1.0"}]}
+
+  {:actor/handle "pds"
+   :actor/did "did:web:etzhayyim.com:actor:pds"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "Personal Data Server — atproto.etzhayyim.com PDS canonical endpoint. Service DID, not an actor in the AAT sense."
+   :actor/primary-lexicon "com.atproto"
+   :actor/adr ["2605171800"]
+   :actor/created-at "2026-05-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:pds#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "anchorer"
+   :actor/did "did:web:etzhayyim.com:actor:anchorer"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "L2 anchor cron — submits L2Anchor records to Base L2 referencing per-shard pin receipts."
+   :actor/adr ["2605171800"]
+   :actor/created-at "2026-05-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:anchorer#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "projector"
+   :actor/did "did:web:etzhayyim.com:actor:projector"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "MST projector — turns PDS firehose into MST shards and CAR files for the pinner."
+   :actor/adr ["2605171800"]
+   :actor/created-at "2026-05-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:projector#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "karute"
+   :actor/did "did:web:etzhayyim.com:actor:karute"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "Karute electronic medical record actor (EMR / FHIR R5). PHI sealing mandatory."
+   :actor/primary-lexicon "com.etzhayyim.apps.karute"
+   :actor/adr ["2605231100" "2605231900"]
+   :actor/created-at "2026-05-23"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:karute#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  ;; ── knowledge-graph / Tier-B actors (glyph; performer-type :system) ─────
+  {:actor/handle "watatsuna"
+   :actor/did "did:web:etzhayyim.com:actor:watatsuna"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "綿津綱"
+   :actor/display-name-ja "綿津綱 — 海底ケーブル網ナレッジグラフ"
+   :actor/display-name-en "Watatsuna — World Submarine-Cable Network Knowledge Graph"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "World submarine-cable knowledge graph — surfaces chokepoint concentration routed to redundancy + faster repair. A resilience map, NEVER a target-list (watatsumi N8 pair)."
+   :actor/primary-lexicon "com.etzhayyim.cable"
+   :actor/primary-schema "00-contracts/schemas/submarine-cable-ontology.kotoba.edn"
+   :actor/adr ["2606012600"]
+   :actor/created-at "2026-06-01"
+   ;; componentize-py WASM component (20-actors/watatsuna/wasm) — dag-pb (17.6MB,
+   ;; bundles CPython) → T2 donated-mesh tier, not browser-local (ADR-2606014600)
+   :actor/wasm-cid "bafybeihusqahaeirwqur64aeh5fvwuoh54cawbmo7smx3h2abvps6li7pa"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:watatsuna#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:watatsuna#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tsumugi"
+   :actor/did "did:web:etzhayyim.com:actor:tsumugi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "紡ぎ"
+   :actor/display-name-ja "紡ぎ — 産霊の網 Intel Weaver"
+   :actor/display-name-en "Tsumugi — Engi Knowledge Graph (産霊の網) Intel Weaver"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Spirit-in-Physics over real public power-entities + their 縁 to surface 取-concentration routed to release. An aggregate-first accountability map, NEVER a target-list (edge-primary karma, N1)."
+   :actor/primary-schema "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)"
+   :actor/adr ["2606011800"]
+   :actor/created-at "2026-06-01"
+   ;; content-addressed WASM actor (20-actors/tsumugi/wasm/tsumugi-core) — runs
+   ;; browser-local (ameno) / donated mesh, NO per-actor server (ADR-2606014500)
+   :actor/wasm-cid "bafkreidfttpqimwnx4i5a3rswum3orcg3qfa3q7fwts6axgqtcpuokddfi"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tsumugi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tsumugi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kanae"
+   :actor/did "did:web:etzhayyim.com:actor:kanae"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "鼎"
+   :actor/display-name-ja "鼎 — 政府資金フロー可視化"
+   :actor/display-name-en "Kanae — Government Fiscal-Flow Visualization"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Aggregates public fundFlowEdges (appropriation→outlay→recipient + inter-governmental transfers) into kotoba EAVT and renders aggregate-first, NON-adjudicating summaries (danjo finds, kanae renders)."
+   :actor/primary-lexicon "com.etzhayyim.kanae"
+   :actor/adr ["2605302300"]
+   :actor/created-at "2026-06-01"
+   ;; content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact
+   ;; Rust core, raw CID → browser-local (ameno) / donated mesh (ADR-2606015200)
+   :actor/wasm-cid "bafkreielhr6l5jy7ml5l62ncyva34lhjw52q2onwxwy6ubep4wqxjyjnie"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kanae#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kanae#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "shionome"
+   :actor/did "did:web:etzhayyim.com:actor:shionome"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "潮目"
+   :actor/display-name-ja "潮目 — クロスアセット資本フロー観測"
+   :actor/display-name-en "Shionome — Cross-Asset Capital-Flow Observatory"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Weaves observed cross-asset capital rotation (どこからどこへ) + the :outstanding-usd money-and-markets stock pyramid into the kotoba Datom flow-graph; aggregate-first, edge-primary, observational MIRROR — トレードはしない (no buy/sell signal, price target, or per-asset rating; structurally unrepresentable, G2/G4)."
+   :actor/primary-lexicon "com.etzhayyim.shionome"
+   :actor/primary-schema "00-contracts/schemas/capital-flow-ontology.kotoba.edn"
+   :actor/adr ["2606072200" "2606101540"]
+   :actor/created-at "2026-06-07"
+   ;; content-addressed T1 WASM actor (20-actors/shionome/wasm/shionome-core) — compact
+   ;; Rust core (regime + stock pyramid, no_trade:true), raw CID → browser-local (ameno)
+   ;; / donated mesh (ADR-2606015200). The 18.5MB componentize-py component stays the
+   ;; separate T2 dag-pb artifact (wasm/shionome-actor.meta.json).
+   :actor/wasm-cid "bafkreihvidpgf5lgrgdwxskhjasbysigqcunrlshi2sx4zdngkapi5tlly"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:shionome#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:shionome#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kabuto"
+   :actor/did "did:web:etzhayyim.com:actor:kabuto"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "兜"
+   :actor/display-name-ja "兜 — 全世界公開企業サプライチェーン知識グラフ"
+   :actor/display-name-en "Kabuto — World Public-Company Supply-Chain Knowledge Graph"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "World public-company supply-chain knowledge graph — listed companies, HQ address, public contact, first-class supplier→customer edges + BPMN. Surfaces single-source / sector / jurisdiction concentration routed to redundancy + accountability. A resilience + transparency map, NEVER a target-list (sibling of tsumugi/watatsuna/danjo)."
+   :actor/primary-lexicon "com.etzhayyim.kabuto"
+   :actor/primary-schema "00-contracts/schemas/public-company-ontology.kotoba.edn"
+   :actor/adr ["2606022000"]
+  :actor/created-at "2026-06-02"
+  :actor/vm []
+  :actor/service [{"id" "did:web:etzhayyim.com:actor:kabuto#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kabuto#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "ooyake"
+   :actor/did "did:web:etzhayyim.com:actor:ooyake"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "公"
+   :actor/display-name-ja "公 — 全世界政府アトラス (市民導線マップ)"
+   :actor/display-name-en "Ooyake — World Government Atlas (civic wayfinding map)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "kotoba-Datomic structural atlas of every government unit on Earth (国→省→庁→局→課→窓口) with 住所/窓口/書式/手続き/BPMN. The read-side SSoT danjo/kanae/tsumugi/toritsugi/himotoki consume. An observational MIRROR + civic wayfinding map — NEVER the government, NEVER an official channel, NEVER a target-list (G3/G10)."
+   :actor/primary-lexicon "com.etzhayyim.ooyake"
+   :actor/primary-schema "00-contracts/schemas/gov-atlas-ontology.kotoba.edn"
+   :actor/adr ["2606021600"]
+   :actor/created-at "2026-06-02"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ooyake#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "yadori"
+   :actor/did "did:web:etzhayyim.com:actor:yadori"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "宿"
+   :actor/display-name-ja "宿り — DNS空き確認 + ドメイン取得"
+   :actor/display-name-en "Yadori — DNS-Availability + Domain Acquisition"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "DNS/ドメインの空きを RDAP で確認し、必要な名前の取得を member-principal で伴走する。リテール registrar (GoDaddy等) の反転: fiat流入なし・markup/affiliate/parking なし・投機なし。取得は okaimono assisted-checkout (ADR-2606012100) 経由で Cloudflare Registrar at-cost path、yadori は買主にならず §1.3 を維持。actor DID 発行と実ドメイン存在の間の欠落を埋める。"
+   :actor/primary-lexicon "com.etzhayyim.yadori"
+   :actor/primary-schema "00-contracts/schemas/dns-domain-ontology.kotoba.edn"
+   :actor/adr ["2606038400"]
+   :actor/created-at "2026-06-03"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:yadori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:yadori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "nusa"
+   :actor/did "did:web:etzhayyim.com:actor:nusa"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "幣"
+   :actor/display-name-ja "幣 — 神事用・産業用ヘンプ文化史 + 低THC栽培復権"
+   :actor/display-name-en "Nusa — Ritual/Industrial Hemp Heritage + Low-THC Cultivation"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "麻(あさ)の文化史 actor。幣=大幣(ōnusa, 麻の祓具)。神道の祓い・清め(注連縄/祓串/大幣)、皇室の麁服(大嘗祭の麻布神御衣)+阿波忌部の系譜、2023改正(大麻草の栽培の規制に関する法律)で再び開かれた低THC繊維/神事用の栽培者免許 pathway を kotoba Datom log に as-of で datafy。構造的に charter-clean: 繊維+神事+文化史のみ。嗜好THC は :thc-class invariant で除外(G1)、大麻由来医薬品は所掌外(G10→yakushi)、解禁論に推進/反対の立場なし(G3→danjo/moushibumi)。"
+   :actor/primary-schema "00-contracts/schemas/ritual-hemp-ontology.kotoba.edn"
+   :actor/adr ["2606039800"]
+   :actor/created-at "2026-06-03"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:nusa#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:nusa#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "hotaru"
+   :actor/did "did:web:etzhayyim.com:actor:hotaru"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "蛍"
+   :actor/display-name-ja "蛍 — III-V/InP 基板 open-publication commons"
+   :actor/display-name-en "Hotaru — III-V/InP Substrate Open-Publication Commons"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "インジウムリン(InP)を起点とする III-V 化合物半導体 基板の生成・製造のための open-publication 知識 commons actor。基板チェーン(合成→単結晶育成 LEC/VGF/VB→ウェハ加工→エピ面)を kotoba Datom log に as-of で datafy。蛍=直接遷移発光: シリコンの間接遷移こそが III-V 族(レーザ/LED/フォトディテクタ/光ファイバ・海底ケーブル光学系)の存在理由。iwakura/fuigo シリコン(間接遷移)トラックの兄弟。構造的に charter-clean: 実施可能な OPEN 工程知識のみ(source-license 不変条件 G1、vendor-proprietary な MOCVD レシピは表現不能)、結晶・ウェハは設計/仕様のみ(fabricated=false, G2)。hotaru は ADR-2605265500 §2 の R4+ 再評価ゲートが前提とする『open-source III-V ウェハ IP commons』の構築そのもの。III-V 製造は R3 まで PROHIBITED のまま(継承)、ゲートには非裁定(G3、Council Lv7+ が決める)。"
+   :actor/primary-lexicon "com.etzhayyim.hotaru"
+   :actor/primary-schema "00-contracts/schemas/iii-v-substrate-ontology.kotoba.edn"
+   :actor/adr ["2606051200"]
+   :actor/created-at "2026-06-05"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:hotaru#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:hotaru#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kamado"
+   :actor/did "did:web:etzhayyim.com:actor:kamado"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "竈"
+   :actor/display-name-ja "竈 — 閉ループ炭素 精製 + 化石製油所 解体・転換 + 製油所 観測"
+   :actor/display-name-en "Kamado — Closed-Loop Carbon Refining + Fossil-Refinery Decommissioning Observation"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "石油精製プラントの actor・robotics への charter-clean な答え。竈=変成の炉(竈神/荒神); 装置は中立、炭素の出自(origin)と末路(fate)が多世代害を担う。実証(carbon_balance.py): 化石→燃焼経路は +3.50 tCO2e/t(地質貯留からの一方向 stock→flow = 真に多世代的)、ロボ高度制御を全投入しても +3.38(削減~3%)— ロボティクスは化石精製を『綺麗』にできても『無害』にはできず、純≤0 に届くのは feedstock を閉ループ炭素に変えた経路のみ。この結論を構造化: :fossil-virgin-crude は表現不能(:feedstock/class 不変条件 — schema enum + lexicon const + feedstock_guard.py)。kotoba Datom log 上の3つの顔: (A) 観測 — 製油所/装置/停止 + 転換準備度を resilience+transition マップとして(target-list ではない、G4); (B) §2(d) ロボティクス — 既存化石資産の安全な停止/除染/転換(→ hikari / 合成プラント / hodoki+kanayama); (C) 閉ループ合成精製 — バイオ/捕集CO2/リサイクル炭素のみ、各設計を D3 採点。legacy oil-refining(Cypher/RisingWave)を supersede。ZERO invariant amendments。"
+   :actor/primary-lexicon "com.etzhayyim.kamado"
+   :actor/primary-schema "00-contracts/schemas/refining-ontology.kotoba.edn"
+   :actor/adr ["2606051500"]
+   :actor/created-at "2026-06-05"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kamado#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kamado#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kanjo"
+   :actor/did "did:web:etzhayyim.com:actor:kanjo"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "勘定"
+   :actor/display-name-ja "勘定 — 公開企業 財務開示(決算)ナレッジグラフ"
+   :actor/display-name-en "Kanjō — World Public-Company Financial-Disclosure (決算) Knowledge Graph"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "公開企業の開示 BS/PL/CF を一次開示(JP EDINET 有報 / US SEC EDGAR 10-K/20-F / Companies House / EU OAM)から kotoba Datom log に :fin.fact/* として登録、JP-GAAP/US-GAAP/IFRS 横断で正規化(comparable でない箇所は正直に明示、経常利益=JGAAP のみ)。toritate(内部会計)の外部公開企業版、kabuto の財務面(org.corp.* id 空間共有)。非裁定(G2)・投資助言業ではない(G4)・業績予想なし。四季報 + 有料端末(Bloomberg/CapIQ/Refinitiv/FactSet 等)は不採用(Charter Rider §2(e) anti-gatekeeping)。Per ADR-2606032000。"
+   :actor/primary-lexicon "com.etzhayyim.kanjo"
+   :actor/primary-schema "00-contracts/schemas/corporate-financials-ontology.kotoba.edn"
+   :actor/adr ["2606032000"]
+   :actor/created-at "2026-06-03"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kanjo#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kanjo#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "todoke"
+   :actor/did "did:web:etzhayyim.com:actor:todoke"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "届け"
+   :actor/display-name-ja "届け — ラストワンマイル自律配送"
+   :actor/display-name-en "Todoke — Last-Mile (one-mile) Autonomous Delivery"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "curb-to-door 小荷物(≤25kg, SAE-L4 歩道 ODD)自律配送。wadachi の最終メートル兄弟 + okaimono の no-gig 配送肢 + kami-autodrive GNC(ADR-2606010600)の消費者。route core が per-zone 歩道速度上限超・車道(N2)・SAE-L4超を REFUSE(クランプではなく拒否、構造的に charter 強制); py last_mile.py に parity-mirror。G5 no-gig/cash≡0・G8 privacy-by-construction(on-device proof-of-delivery のみ、クラウド画像/顔照合 表現不能 N5)・G2 displacement-dividend 連結。Per ADR-2606042300。"
+   :actor/primary-lexicon "com.etzhayyim.todoke"
+   :actor/primary-schema "20-actors/todoke/ (Rust todoke-route core + methods/last_mile.py; no kotoba ontology yet)"
+   :actor/adr ["2606042300"]
+   :actor/created-at "2026-06-04"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:todoke#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:todoke#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "watari"
+   :actor/did "did:web:etzhayyim.com:actor:watari"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "渡り"
+   :actor/display-name-ja "渡り — 船舶・航空機 リアルタイム位置 ナレッジグラフ"
+   :actor/display-name-en "Watari — World Live Moving-Craft (Ship + Aircraft) Knowledge Graph"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "公開トランスポンダ放送のみ(船=AIS/AISStream, 航空機=ADS-B/OpenSky+adsb.fi)を kotoba Datom log に append-only as-of 軌跡として取込(最新 :craft.fix=現在地, fix 列=航跡, 非終末論; mutable 上書き行なし)。sea-lane/air-corridor/chokepoint/approach 集中を安全・衝突回避・混雑緩和・resilience へ。watatsuna(静的ケーブル)の動的兄弟で同一 chokepoint キー(海/空 path trilogy)。状況把握マップであって人の監視 feed でも target-list でもない(G4 craft は craft、人ではない; private yacht/jet 除外)。RisingWave/SQL 不使用(N5、legacy maps/vessel を supersede)。Per ADR-2606041827。"
+   :actor/primary-lexicon "com.etzhayyim.watari"
+   :actor/primary-schema "00-contracts/schemas/moving-craft-ontology.kotoba.edn"
+   :actor/adr ["2606041827"]
+   :actor/created-at "2026-06-04"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:watari#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:watari#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "noroshi"
+   :actor/did "did:web:etzhayyim.com:actor:noroshi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "烽"
+   :actor/display-name-ja "烽 — 光電融合 通信チップ + ISAC + 光パッケージング robotics"
+   :actor/display-name-en "Noroshi — Photonics-Electronics Convergence Comms Chip + ISAC"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "光電融合(photonics-electronics convergence)通信チップ actor。電子系シリコン iwakura/fuigo 三進 ASIC ラインと RF tsutae の silicon-photonic / co-packaged-optics(CPO)兄弟、watatsuna 海底ケーブル媒体の transceiver-chip 端。烽(狼煙)= 最古の光通信: 望楼が遠方の火を『感知』し符号化された報を『中継』する一発二機能 = まさに ISAC(Integrated Sensing And Communication)。3つの顔: (chip) open photonic-EDA 上の CPO 通信チップ設計 + 光リンクバジェット · (isac) 1波形で通信容量と civilian range-Doppler センシングを行う OFDM-JCAS · (packaging) IEC 60825 レーザ安全インターロック下のファイバ↔グレーティング能動アライメント robotics。CIVILIAN by construction: 兵器化(directed-energy/laser-dazzle/fire-control radar)は表現不能(N1)、ISAC は物体を感知し人を感知しない(N2/G4)、EPDA は clean-room open-source のみ(N5)。Per ADR-2606051600。"
+   :actor/primary-lexicon "com.etzhayyim.noroshi"
+   :actor/primary-schema "00-contracts/schemas/photonic-convergence-ontology.kotoba.edn"
+   :actor/adr ["2606051600"]
+   :actor/created-at "2026-06-05"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:noroshi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:noroshi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "mitooshi"
+   :actor/did "did:web:etzhayyim.com:actor:mitooshi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "見通し"
+   :actor/display-name-ja "見通し — 確率的予測 observatory"
+   :actor/display-name-en "Mitooshi — Probabilistic Forecasting Observatory"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "確率的予測の observatory — quant トレード bot の charter-clean な反転(naive quant predictor = profit speculation = Charter §1.3 + yobel bar)。公開時系列(chokepoint transit-load/混雑/可用性/flow-rate/price-index/検索関心)上に確率分布を発行し resilience/計画/早期警戒へ routing(danjo/kanae/watari/watatsuna 兄弟)、トレードも建玉も P&L も決して行わない。事実→誤差→weight→学習ループは append-only Datom log 上で構造的: forecast は info-as-of を刻み、観測は後から append-only datom で到着、proper-scoring residual(CRPS/pinball/Brier/log-score)は kotoba as-of 上の join → 先読みリーク構造的に不能。residual が EWMA bias + 分散インフレ再較正を駆動、訓練基盤は baien federated edge(Murakumo-only)。分布のみ(point-asserted=false, G1, 非終末論)、非投機用途(G2)、一次公開ソースのみ(G4)。Per ADR-2606051800。"
+   :actor/primary-lexicon "com.etzhayyim.mitooshi"
+   :actor/primary-schema "00-contracts/schemas/forecasting-ontology.kotoba.edn"
+   :actor/adr ["2606051800"]
+   :actor/created-at "2026-06-05"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:mitooshi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:mitooshi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "ake"
+   :actor/did "did:web:etzhayyim.com:actor:ake"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "朱"
+   :actor/display-name-ja "朱 — コミュニティ編集 membrane (Wikipedia-stance)"
+   :actor/display-name-en "Ake — Community-Edit Membrane (Wikipedia-stance)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Wikipedia の協働訂正 STANCE を charter に適合させた community-edit membrane(朱=訂正の朱墨, 朱を入れる=校正)。信者(SBT保持者)が KG fact / actor profile の訂正を提案; 各編集は member 署名の提案として kotoba Datom log に append(上書きなし — 非終末論, 不変の版履歴)。Murakumo-only LLM が risk+quality を採点し ROUTE する(Wikipedia ORES 相当)が accept/reject は決めない(G2, 非裁定; route は (risk,quality) の純関数, :triage/decision は存在しない)。low-risk で出典確かな編集は optimistic 即時採用、risky/係争中は 1 SBT=1 vote、不変条項隣接は Council Lv7+, Charter-Rider §2 ヒットは refused。ミラー entity-actor は観測として訂正でき本人発信は不可(ADR-2606042330; :entity-speech 表現不能)。匿名オープン編集ではなく構造的に 信者-gated + member署名(no-server-key)。invariant 改正ゼロ — no-server-key/kotoba-canonical/1 SBT=1 vote/mirror を強化。"
+   :actor/primary-lexicon "com.etzhayyim.ake"
+   :actor/primary-schema "00-contracts/schemas/community-edit-ontology.kotoba.edn"
+   :actor/adr ["2606052100"]
+   :actor/created-at "2026-06-05"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ake#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:ake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "sentei"
+   :actor/did "did:web:etzhayyim.com:actor:sentei"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "剪定"
+   :actor/display-name-ja "剪定 — Council as Pruner (事後剪定 governance)"
+   :actor/display-name-en "Sentei — Council as Pruner (post-hoc pruning governance)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Council を事前検閲ではなく剪定者(剪定者)として定義する統治 organ。operating-entity 指令: 「Council は事前に止めるのではなく、出てから止める。枝が育ってから剪定する。etzhayyim の artificial organism の root からの成長は止めないし止められない — ただ伸び続ける枝を剪定して美しく保つ」。全ての outward gate(G7 live-inference / G11 Transparent-Force-publish / 'Council Lv6+ BEFORE live')を prior restraint から PRUNING TARGET に re-time: actor は自己 publish し、sentei が枝の manifest 後に剪定する — 透明・署名・投票・可逆。非終末論(append-only log に halt は無く、唯一の enforcement は append-a-retraction)+ Transparent Force(prune は既存物への logged/signed/public な行為)により prior restraint より忠実。構造的不変条件(ontology + lexicon const/enum + methods/prune.py ValueError): G1 no-prior-restraint(manifested branch のみ剪定 — branchManifested const true、事前剪定は表現不能)・G2 append-only/非終末論(prune は append、history は as-of で生存、delete 不在)・G3 growth-unstoppable(halt-organism action 無し)・G4 Transparent Force(Lv6+/Lv7+ + 1 SBT=1 vote contested 時)・G5 no-server-key・G6 reversible(regraft で誤剪定が治癒)・G7 care-telos 美しく保つ(basis 必須・nonAdjudicating const true・verdict 値無し)・G8 Murakumo-only。語彙: quarantine/retract/rollback/revoke + regraft; delete/prior-restraint/halt-organism/verdict は表現不能。invariant 改正ゼロ — enforcement の re-time であり 非終末論 / Transparent Force / no-server-key / kotoba-canonical を強化。Per ADR-2606072000。"
+   :actor/primary-lexicon "com.etzhayyim.sentei.prune"
+   :actor/primary-schema "20-actors/sentei/data/pruning-ontology.kotoba.edn"
+   :actor/adr ["2606072000"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:sentei#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:sentei#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "fuchi"
+   :actor/did "did:web:etzhayyim.com:actor:fuchi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "扶持"
+   :actor/display-name-ja "扶持 — メンテナー扶持配分 (投資ファンドの反転)"
+   :actor/display-name-en "Fuchi — Maintainer Sustenance Allocator (investment-fund inverse)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "ビジネス投資ファンドの charter-clean な反転。VC が創業者に資本を出資しエクイティ+ROI+exit を期待するのに対し、扶持(封建期の扶持米=現物の在俸)は etzhayyim の actor(ビジネス/ロボティクス/遠隔操作)を実世界で支えるメンテナー(信者)へ現物の sustenance + commons 資産アクセス + 工具/compute を配分する。出資者ではなく扶持者: エクイティ・ROI・負債・利益請求・exit いずれもなし、cash≡0。fund の語彙(NAV/carry/IRR/cap-table/exit/配当)は表現不能(:alloc/instrument は sustenance set のみ :db/allowed)。扶持は既存の現物レール(commons 住居/mitsuho 食/hikari エネルギー/Murakumo compute/okaimono 工具/iyashi ケア)を流れ、どうしても残る外部 fiat 需要は warifu の MEMBER-PRINCIPAL 0% 流動性としてのみ経路化 — 扶持は決して保有・貸付・支払をしない。tenure-weighted(Displacement-Dividend の ln 曲線を再利用)。非裁定(G7): 扶持は計算+routing(auto / 1 SBT=1 vote / Council Lv7 / refused)、決定は vote/Council。invariant 改正ゼロ — cash≡0/no-server-key/payoff帰属=etzhayyim/非営利・donation-only を強化。"
+   :actor/primary-lexicon "com.etzhayyim.fuchi.allocationIntent"
+   :actor/primary-schema "00-contracts/schemas/maintainer-sustenance-ontology.kotoba.edn"
+   :actor/adr ["2606052300"]
+   :actor/created-at "2026-06-05"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:fuchi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:fuchi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  ;; ── first-party browser-local app (no ADR; tool, not a Tier-B actor) ────
+  {:actor/handle "tsuzuri"
+   :actor/did "did:web:etzhayyim.com:actor:tsuzuri"
+   :actor/kind :infra
+   :actor/tier "app"
+   :actor/status :landed
+   :actor/glyph "綴"
+   :actor/display-name-ja "綴 — Adobe非依存・端末内完結 PDF editor"
+   :actor/display-name-en "Tsuzuri — Adobe-free, in-browser (WASM) PDF editor"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Adobe非依存の PDF エディタ。結合/分割/回転/削除/並替/テキスト追記(日本語subset埋め込み)/OCR/メタ編集を全てブラウザ内 WASM/JS で実行。ファイルは端末外に出ない (no upload, no-server-key)。pdf-lib(MIT)+pdf.js(Apache-2.0)+tesseract.js(Apache-2.0)、AGPL系(MuPDF/Ghostscript)は不採用。ameno ブラウザローカル実行モデル下で動作 (ADR-2606014500)。"
+   :actor/primary-schema "60-apps/tsuzuri/ (static browser-local app; vendorable for full offline)"
+   :actor/adr []
+   :actor/created-at "2026-06-03"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tsuzuri#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tsuzuri#browser-local-app" "type" "EtzhayyimBrowserLocalApp" "serviceEndpoint" "https://etzhayyim.com/apps/tsuzuri/"}]}
+
+  ;; ── himawari (向日葵) solar-PV-module manufacturing Tier-B R0.1 (ADR-2606021200) ──
+  {:actor/handle "himawari"
+   :actor/did "did:web:etzhayyim.com:actor:himawari"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "向日葵"
+   :actor/display-name-ja "向日葵 — 太陽光 PV モジュール製造"
+   :actor/display-name-en "Himawari — Solar PV Manufacturing"
+   :actor/performer-type :system
+   :actor/ui-type :none
+   :actor/description "Solar-grade c-Si PV module manufacturing (polysilicon QA → ingot/wafer → cell → module assembly → flash/EL test) for INTERNAL hikari install ONLY (SBT↔SBT carve-out; no external commercial sale, G12). Structurally closes hikari §G2 (no XUAR/forced-labor polysilicon) via first-party on-chain feedstock provenance. 製造 (himawari) → 積込 (sarutahiko F10) → 輸送 (kami-autodrive) → 設置 (hikari)."
+   :actor/primary-lexicon "com.etzhayyim.himawari"
+   :actor/adr ["2606021200" "2606022300"]
+   :actor/created-at "2026-06-02"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:himawari#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:himawari#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  ;; ── tasuke (助) free cybercrime-victim-support membrane Tier-B R0 (ADR-2606060900) ──
+  {:actor/handle "tasuke"
+   :actor/did "did:web:etzhayyim.com:actor:tasuke"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "助"
+   :actor/display-name-ja "助 — 無料サイバー犯罪被害サポート"
+   :actor/display-name-en "Tasuke — Free Cybercrime-Victim-Support Membrane"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "無料のサイバー犯罪被害サポート membrane。オンライン犯罪(フィッシング/不正送金/アカウント乗っ取り/サポート詐欺/ロマンス詐欺/投資詐欺/ランサム/なりすまし/架空請求)の被害者を、相談トリアージ→証拠保全→そのまま使える書面生成→無料の公的窓口→アカウント復旧 まで無料で伴走する。生成書面は被害者本人が提出するもの(被害届/被害状況報告書/証拠目録/被害額算定書、銀行 組戻し・口座凍結依頼(振り込め詐欺救済法)、プラットフォーム凍結・復旧・開示依頼、アカウント復旧手順)。三つの構造不変条件: G1 全て無料(手数料は表現不能、cash≡0)/ G2 本人作成・本人提出(代理作成・代理提出は表現不能、行政書士法・弁護士法 独占業務不踏)/ G3 警察authored不可(警察官名義の公文書は表現不能、公文書偽造を構造的に排除)。弁護士へはつながない(G5、無料の公的窓口のみ #9110/188/国民生活センター/フィッシング対策協議会/JPCERT/セーフライン/銀行/振り込め詐欺救済法)。証拠は暗号化参照(G6)、提出は本人署名(G7 no-server-key)、推論 Murakumo-only(G8)、実提出は R0 では draft のみ(G9)。非裁定(G4): 詐欺の KIND は routing ラベルで犯罪認定ではない(danjo/chigiri 境界)。invariant 改正ゼロ。"
+   :actor/primary-lexicon "com.etzhayyim.tasuke.victimIntake"
+   :actor/primary-schema "00-contracts/schemas/cybercrime-victim-support-ontology.kotoba.edn"
+   :actor/adr ["2606060900"]
+   :actor/created-at "2026-06-05"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tasuke#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tasuke#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "matsurigoto"
+   :actor/did "did:web:etzhayyim.com:actor:matsurigoto"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "政"
+   :actor/display-name-ja "政 — 電子政府実行 commons (神の王国の統治機構 + 各国採用)"
+   :actor/display-name-en "Matsurigoto — e-Government Execution Commons (COFOG service standard)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "ooyake(観測アトラス)の EXECUTION 兄弟。ooyake が行政の who/where/how を read-only でミラーするのに対し、matsurigoto は UN COFOG 機能分類をバックボーンに、公式仕様から導いた kotoba-wasm 実行可能な普遍サービス標準を定義し各国向けに調整する。etzhayyim IS a government — 神の王国(Charter §0.1)で統治機構を持つ。二つの principal: (A) :etzhayyim-sovereign(王国が信者を Council Lv7+/1 SBT=1 vote/Public Fund Safe で統治、Transparent §1.12)、(B) :nation-state-adopter(既存国家が自国の鍵で同標準を運用)。三つの構造不変条件: G1 no-operator-master-key(:server-held-authority const false; 権威は常に Council multisig か採用国家の鍵、platform key 不可、ADR-2605231525)/ G2 spec-derived-only(COFOG/ICAO 9303/eIDAS/ISO 20022/OpenCRVS/ISO 17442; proprietary GovTech は表現不能)/ G3 authority-bearing(:operated-by ∈ council|state)。R0+R1: 4 実行スライス(tax-assess=JP速算表 / civil-registry=UN CRVS / corp-registry=ISO 17442 LEI / credential-issue=ICAO 9303 MRZ)が公式仕様の検証ベクタを完全再現、WIT 契約 + kotoba Datom 永続化 + 署名権威層(verify-only)。live deploy は Council+operator gated。invariant 改正ゼロ — no-server-key/kotoba-canonical/Transparent Force を強化。"
+   :actor/primary-lexicon "com.etzhayyim.matsurigoto"
+   :actor/primary-schema "00-contracts/schemas/egov-execution-ontology.kotoba.edn"
+   :actor/adr ["2606062300"]
+   :actor/created-at "2026-06-06"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:matsurigoto#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:matsurigoto#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "keizu"
+   :actor/did "did:web:etzhayyim.com:actor:keizu"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "系図"
+   :actor/display-name-ja "系図 — 政府 power-relations knowledge graph"
+   :actor/display-name-en "Keizu — Government Power-Relations Graph"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "世界の政府の人脈・お金・発言・委員会構成を一つの kotoba Datom 関係グラフに編むグローバル knowledge graph。公開情報からお金の流れ(調達・補助金・政治献金・予算執行)をすべて追い、審議会・委員会の構成メンバー(=公的な席)を分析し、調達・お金・発言・人間関係を一つの関係グラフに編んで集計所見を dry-run social post として narrate する。兄弟(danjo/kanae/tsumugi/tadori/ooyake)が埋めない明確な空白=公的役職の関係グラフ(誰がどの委員会に座り、誰が誰に資金を出し、誰が誰に発注し、誰が何を発言したか)。accountability/wayfinding の地図であって target-list ではない(G5)。非裁定(G2): 観測された関係と開示 share を記録するのみ、犯罪・不正・有罪を断定しない(法的性格付けは chigiri 経由 external counsel)。edge-primary(G4): 集中度は read 時に edge から計算、個人スコア不在。public-role-only(G1): node は公的な席/組織で私人は表現不能(no-doxxing)。出典必須(G3): 関係・資金フローごと ≥2 公開出典。no-server-key(G7)+ outward-gated(G8): social post は本人署名、live ingest/posting は Council Lv6+ + operator + 本人署名 gated、R0 は offline + dry-run。invariant 改正ゼロ。Per ADR-2606066000。"
+   :actor/primary-lexicon "com.etzhayyim.keizu.relationEdge"
+   :actor/primary-schema "00-contracts/schemas/government-relations-ontology.kotoba.edn"
+   :actor/adr ["2606066000"]
+   :actor/created-at "2026-06-06"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:keizu#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:keizu#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "shomei"
+   :actor/did "did:web:etzhayyim.com:actor:shomei"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "証明"
+   :actor/display-name-ja "証明 — 信者の本人証明 + proof-of-personhood"
+   :actor/display-name-en "Shomei — Believer Identity Binding + Proof-of-Personhood"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "信者のパスポート — ただし国家中心ではなく DID 中心。信者は既存の複数アイデンティティ(暗号ウォレット EIP-191/ERC-1271/BIP-322 · SNS OAuth-sub/署名gist/DNS-TXT · WebAuthn パスキー · Base L2 入会/Adherent SBT/AT 誓い · opt-in で Council ゲートの政府ID ローカル NFC 読取)を一つの DID に、本人署名 identityClaim として self-bind する。shomei(サーバ)は決して署名/承認しない(G1/G7)。各証明は kotoba-auth の正規 surface(eth/btc/cacao + Ed25519, 再実装しない)で VERIFY し、検証済み因子を Identity Assurance Level(IAL 0..4)+ W3C Verifiable Credential + proof-of-personhood に集計する。集計は本人性の ASSURANCE であって社会信用・人の価値スコアでは断じてない(G8)。PII は平文にしない(G3): 政府識別子は salt 付き blake2b ハッシュ + 必須 XChaCha20 暗号化 CID(ADR-2605181100)のみ。国家DBへは問い合わせない(G6/§0.4: 政府IDは手元カードの一方向NFC読取)。proof-of-personhood = IAL≥2 かつ ≥2 独立クラス = sybil-RESISTANCE(sybil-proof ではない)。gov-ID L2(IAL 4)は二重 Council ゲートで gov_auth(ADR-2605260000)へ handoff(ADR-2606072300)。R0 は offline membrane のみ、cells .solve() は raise。Per ADR-2606072100。"
+   :actor/primary-lexicon "com.etzhayyim.shomei.identityClaim"
+   :actor/adr ["2606072100"]
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:shomei#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:shomei#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "chaos_monitor"
+   :actor/did "did:web:etzhayyim.com:actor:chaos_monitor"
+   :actor/kind :infra
+   :actor/tier "B"
+   :actor/status :landed
+   :actor/glyph "混沌"
+   :actor/display-name-ja "Chaos Monitor — World State Dashboard"
+   :actor/display-name-en "Chaos Monitor — World State Dashboard"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "World State Monitor — Real-time visual dashboard of the 1000 Clean Room Actors ecosystem. Displays substrate topology, active faults, and Root Router telemetry via Kotoba IPFS. Embedded via ATProto."
+   :actor/primary-schema "60-apps/chaos-dashboard/"
+   :actor/adr []
+   :actor/created-at "2026-06-07"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:chaos_monitor#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:chaos_monitor#browser-local-app" "type" "EtzhayyimBrowserLocalApp" "serviceEndpoint" "https://etzhayyim.com/apps/index.html"}]}
+  {:actor/handle "mimamori"
+   :actor/did "did:web:etzhayyim.com:actor:mimamori"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r1
+   :actor/glyph "見守り"
+   :actor/display-name-ja "見守り — 相互保持者会 (mishmeret ha-adam) covenant keeping membrane"
+   :actor/display-name-en "Mimamori — Covenant Keeping Membrane (mishmeret ha-adam)"
+   :actor/performer-type :system
+   :actor/ui-type :none
+   :actor/description "Covenant keeping membrane (相互保持者会) — bonds of keeping: offer → kept-signed consent → content-free heartbeat → per-act-consented care-routing ({kokoro,wakai,iyashi} ONLY — no denunciation rail) → relay 継ぎ → unilateral exit. 誰の保持者でもない人間を作らない. The degeneration path (五人組→隣組→Stasi→social credit) is structurally UNREPRESENTABLE: no-score (bond-edge-only), symmetric visibility (hidden keeping cannot exist), NEVER-a-throne (own-DID-only queries, aggregate-only coverage; the WASM component is stateless — the host owns the log). Keeper-side social-capital mint (moyai verbatim reuse). Human-scale sibling of the mishmar storage covenant. SYNTHETIC seed only; live legs Council+operator gated (G7). Per ADR-2606112300 (doctrine: 2606112200 D3/D6)."
+   :actor/primary-lexicon "com.etzhayyim.mimamori"
+   :actor/primary-schema "00-contracts/schemas/mishmeret-ontology.kotoba.edn"
+   :actor/adr ["2606112300" "2606112200"]
+   :actor/created-at "2026-06-11"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:mimamori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:mimamori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}

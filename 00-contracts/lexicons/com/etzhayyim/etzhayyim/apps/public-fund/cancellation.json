@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.public-fund.cancellation",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Cancellation of a proposal or in-flight milestone grant. Council Lv6+ ≥3 required for proposals that have already executed; proposer self-cancels are also recorded here. Per ADR-2605192145 §2 (cancel function).",
+      "record": {
+        "type": "object",
+        "required": ["proposalUri", "cancellationKind", "reason", "cancelledAt"],
+        "properties": {
+          "proposalUri": { "type": "string", "format": "at-uri" },
+          "cancellationKind": {
+            "type": "string",
+            "enum": ["proposer-withdrew", "council-cancelled", "rider-violation-post-execution", "milestone-failure"]
+          },
+          "reason": { "type": "string", "maxLength": 4000 },
+          "councilSigners": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "councilSignatures": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "proposerSignature": { "type": "string" },
+          "remainingFundsReturnedTxHash": {
+            "type": "string",
+            "description": "Tx hash of unallocated/un-disbursed funds returned to Public Fund Safe."
+          },
+          "cancelledAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

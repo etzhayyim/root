@@ -1,0 +1,33 @@
+;; hagukumi 育み — meal_delivery cell (Gen-3 kotoba-native)
+;; ADR-2605261030 · R0 scaffold
+;; Care-coordinated meal delivery for childcare + eldercare. Sources from mitsuho
+;; (food actor). Aggregate-only public fields; individual dietary restrictions
+;; encrypted per ADR-2605181100.
+{:cell/id       "meal_delivery"
+ :cell/glyph    "食事"
+ :cell/kind     :langgraph
+ :cell/runtime  :wasm
+ :cell/doc      "Meal delivery coordination: care-schedule-check → dietary-attestation-lookup (encrypted) → mitsuho-order → delivery-schedule → mealtime-supervision-log → settled. Gates: G15 (encrypted dietary restrictions) + G1 (recipient consent for special diets)."
+
+ :cell/gates    ["G1" "G15"]
+
+ :cell/kotoba
+ {:reads  [:careSessionAttestation :consentRecord]
+  :writes [:careSessionAttestation]}
+
+ :cell/llm
+ {:provider     :murakumo
+  :endpoint     "127.0.0.1:4000"
+  :model        "gemma3:4b"
+  :charter-rider true
+  :doc          "Murakumo-only. Meal coordination (schedule alignment, dietary preference aggregation for mitsuho order, mealtime supervision notes) — no nutritional prescription (iyashi boundary)."}
+
+ :cell/state-graph
+ {:doc "LangGraph ReAct loop: schedule-check → dietary-lookup → mitsuho-order → delivery-schedule → supervision-log → settled."
+  :nodes ["schedule_check" "dietary_lookup" "mitsuho_order" "delivery_schedule" "supervision_log" "settled"]
+  :edges [["schedule_check" "dietary_lookup"]
+          ["dietary_lookup" "mitsuho_order"]
+          ["mitsuho_order" "delivery_schedule"]
+          ["delivery_schedule" "supervision_log"]
+          ["supervision_log" "settled"]]}
+ }

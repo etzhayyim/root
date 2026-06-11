@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.rotateAgentKey",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Rotate an agent's P-256 signing key. Generates new keypair and revokes the old key.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["did"],
+          "properties": {
+            "did": { "type": "string", "description": "Agent DID to rotate key for" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["did", "newKeyId", "newPublicKeyMultibase", "newPrivateKeyB64url", "oldKeyRevokedAt"],
+          "properties": {
+            "did": { "type": "string" },
+            "newKeyId": { "type": "string" },
+            "newPublicKeyMultibase": { "type": "string" },
+            "newPrivateKeyB64url": { "type": "string" },
+            "oldKeyRevokedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

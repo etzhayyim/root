@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.core.logAppend",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Append a log record to a named stream.",
+      "x-hostImportsMethod": "logAppend",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "stream": {
+              "type": "string"
+            },
+            "subject": {
+              "type": "string"
+            },
+            "payload": {
+              "type": "string",
+              "description": "base64-encoded bytes"
+            }
+          },
+          "required": [
+            "stream",
+            "subject",
+            "payload"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "offset": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "offset"
+          ]
+        }
+      }
+    }
+  }
+}

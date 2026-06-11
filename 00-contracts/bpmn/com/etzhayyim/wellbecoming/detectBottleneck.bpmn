@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  wellbecoming.detectBottleneck — ADR-2604291800.
+
+  Fires every 1h. Reads mv_wellbecoming_bottleneck_caller to detect which
+  U axis is the current bottleneck per caller, then upserts
+  vertex_actor_wellbecoming_profile with bottleneck_axis + at_risk flag.
+
+  NSID: com.etzhayyim.apps.wellbecoming.detectBottleneck
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_wellbecoming_detect_bottleneck"
+    targetNamespace="https://etzhayyim.ai/bpmn/wellbecoming"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="wellbecoming_detect_bottleneck" name="Well-Becoming Bottleneck Detect" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.wellbecoming.detectBottleneck", "version": 1, "resultTimeoutMs": 120000 }
+    </bpmn:documentation>
+
+    <!-- Timer: every 1h -->
+    <bpmn:startEvent id="Start" name="every 1h">
+      <bpmn:outgoing>Flow_ToDetect</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_1h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToDetect" sourceRef="Start" targetRef="Task_Detect"/>
+
+    <!-- Detect bottleneck axis per caller + upsert profile -->
+    <bpmn:serviceTask id="Task_Detect" name="detect bottleneck per caller">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="wellbecoming.bottleneck.detect"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=50" target="batch_size"/>
+          <zeebe:output source="=profiles_updated"   target="profilesUpdated"/>
+          <zeebe:output source="=at_risk_count"      target="atRiskCount"/>
+          <zeebe:output source="=bottleneck_summary" target="bottleneckSummary"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToDetect</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Detect" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

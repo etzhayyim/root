@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "WebSite",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b01070e33474",
+  "entityId": "ent-b01070e33474",
+  "canonicalName": "etzhayyim.com",
+  "aliases": [
+    "About Etzhayyim",
+    "Etzhayyim - Artificial Organism",
+    "etzhayyim.com"
+  ],
+  "websites": [
+    "https://etzhayyim.com",
+    "https://etzhayyim.com/about"
+  ]
+}

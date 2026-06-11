@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "ai.etzhayyim.yorishiro.argparse-multi.main_1",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Standalone decoder driver.",
+      "x-yorishiro-external": true,
+      "x-yorishiro-kami": "bin:argparse-multi",
+      "x-yorishiro-transport": "binary-cli",
+      "x-yorishiro-binary": {
+        "binary": "argparse-multi",
+        "argv": [
+          {
+            "kind": "positional",
+            "name": "input_path",
+            "position": 0,
+            "required": true,
+            "type": "string",
+            "description": "Path to decode."
+          },
+          {
+            "kind": "flag",
+            "name": "sample_rate",
+            "flag": "--sample-rate",
+            "type": "integer",
+            "default": 48000,
+            "description": "Hz."
+          }
+        ],
+        "stdout_capture": true,
+        "stderr_capture": true,
+        "exit_code_ok": [
+          0
+        ],
+        "timeout_seconds": 300
+      },
+      "x-charter-purpose": [
+        "grant"
+      ],
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "input_path"
+          ],
+          "properties": {
+            "input_path": {
+              "type": "string",
+              "description": "Path to decode."
+            },
+            "sample_rate": {
+              "type": "integer",
+              "description": "Hz.",
+              "default": 48000
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "exitCode"
+          ],
+          "properties": {
+            "exitCode": {
+              "type": "integer",
+              "description": "Exit code of the binary."
+            },
+            "stdout": {
+              "type": "string",
+              "description": "Captured stdout (UTF-8 best-effort)."
+            },
+            "stderr": {
+              "type": "string",
+              "description": "Captured stderr (UTF-8 best-effort)."
+            },
+            "error": {
+              "type": "string",
+              "description": "Set when the binary could not be launched at all."
+            }
+          }
+        }
+      }
+    }
+  }
+}

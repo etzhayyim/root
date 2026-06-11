@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.digitalPublicGoods.recordCountryImplementation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Country-level DPG / GovStack implementation (bridges sdg-reporting + digital-identity + universal-health-coverage)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "implementationId",
+            "certificationVid",
+            "countryIso3",
+            "sectors",
+            "deploymentPhase",
+            "recordedAt"
+          ],
+          "properties": {
+            "implementationId": {
+              "type": "string"
+            },
+            "certificationVid": {
+              "type": "string",
+              "description": "bridges certifyStandard"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "sectors": {
+              "type": "string",
+              "description": "comma: identity,payments,data_exchange,health,education,agriculture,justice"
+            },
+            "deploymentPhase": {
+              "type": "string",
+              "enum": [
+                "scoping",
+                "pilot",
+                "scaled",
+                "national",
+                "cross_border"
+              ]
+            },
+            "beneficiariesReached": {
+              "type": "integer"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "maturityTier": {
+              "type": "string",
+              "enum": [
+                "exploratory",
+                "scaling",
+                "systemic"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

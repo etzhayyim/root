@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_air_ffp_transfer_miles" targetNamespace="https://etzhayyim.ai/bpmn/air-ffp" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="air_ffp_transfer_miles" name="transferMiles" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Main"/>
+    <bpmn:serviceTask id="Task_Main" name="transfer miles">
+      <bpmn:extensionElements><zeebe:taskDefinition type="air.ffp.miles.transfer"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="={fromMemberId: fromMemberId, toMemberId: toMemberId, miles: miles, callerDid: callerDid}" target="payload"/>
+          <zeebe:output source="=vertexId" target="vertexId"/><zeebe:output source="=txnId" target="txnId"/><zeebe:output source="=status" target="status"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Main" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:air-ffp.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;air.ffp.miles.transfer&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, txnId: txnId, status: status}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

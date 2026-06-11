@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-02-15T00:00:00Z",
+  "projects": {
+    "etzhayyim-project-news": {
+      "requests": {
+        "value": null,
+        "window": "1d"
+      },
+      "gccCredit": {
+        "value": null,
+        "window": "1d"
+      },
+      "adsRevenueJPYDaily": {
+        "value": null,
+        "window": "1d"
+      },
+      "adsRevenueJPYMonthly": {
+        "value": null,
+        "window": "1mo"
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package aima.billing.v1;
+
+option go_package = "github.com/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp/performers/actors/aima-billing/gen/aima/billing/v1;billingv1";
+
+service BillingService {
+  // Initiates a checkout session for a subscription or one-time service
+  rpc CreateCheckoutSession(CreateCheckoutSessionRequest) returns (CreateCheckoutSessionResponse);
+  
+  // Gets current subscription status for a user
+  rpc GetSubscriptionStatus(GetSubscriptionStatusRequest) returns (GetSubscriptionStatusResponse);
+  
+  // Cancels or updates a subscription
+  rpc ManageSubscription(ManageSubscriptionRequest) returns (ManageSubscriptionResponse);
+
+  // Lists available plans and services
+  rpc ListPlans(ListPlansRequest) returns (ListPlansResponse);
+}
+
+message CreateCheckoutSessionRequest {
+  string user_id = 1;
+  string price_id = 2; // From billing.jsonld
+  string success_url = 3;
+  string cancel_url = 4;
+}
+
+message CreateCheckoutSessionResponse {
+  string checkout_url = 1;
+}
+
+message GetSubscriptionStatusRequest {
+  string user_id = 1;
+}
+
+message GetSubscriptionStatusResponse {
+  string status = 1; // e.g., "active", "trialing", "canceled"
+  string tier = 2;   // e.g., "Standard", "Premium"
+  int64 current_period_end = 3;
+}
+
+message ManageSubscriptionRequest {
+  string user_id = 1;
+  string action = 2; // e.g., "cancel", "upgrade", "downgrade"
+  string target_price_id = 3;
+}
+
+message ManageSubscriptionResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ListPlansRequest {}
+
+message ListPlansResponse {
+  repeated Plan plans = 1;
+}
+
+message Plan {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+  string currency = 4;
+  repeated string features = 5;
+  string stripe_price_id = 6;
+}

@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: land-donation-processing-cell
+  namespace: etzhayyim-cells
+  labels:
+    app.kubernetes.io/name: land-donation-processing-cell
+    app.kubernetes.io/component: religious-corp-cell
+    app.kubernetes.io/part-of: etzhayyim-religious-corp
+    etzhayyim.com/cell-name: LandDonationProcessingCell
+    etzhayyim.com/leader-node: judah
+  annotations:
+    etzhayyim.com/leader-node: judah
+    etzhayyim.com/leader-hostname: judahnomac-mini.local
+    etzhayyim.com/trigger: mst-listener
+    etzhayyim.com/healthz-port: '13004'
+    etzhayyim.com/listens-to: com.etzhayyim.apps.etzhayyim.land-donation
+    etzhayyim.com/adr: 2605192245,2605192330
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: land-donation-processing-cell
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: land-donation-processing-cell
+        app.kubernetes.io/component: religious-corp-cell
+        app.kubernetes.io/part-of: etzhayyim-religious-corp
+        etzhayyim.com/cell-name: LandDonationProcessingCell
+        etzhayyim.com/leader-node: judah
+    spec:
+      serviceAccountName: land-donation-processing-cell
+      nodeSelector:
+        kubernetes.io/hostname: judahnomac-mini.local
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        - name: cell
+          image: ghcr.io/etzhayyim/kotodama:main
+          imagePullPolicy: Always
+          command:
+            - python
+            - -m
+            - kotodama.cell_runner_main
+            - --node
+            - judah
+            - --cell-only
+            - LandDonationProcessingCell
+          env:
+            - name: ETZ_SUBSTRATE
+              value: kotoba-datomic
+            - name: ETZ_CHECKPOINTER_SOCKET
+              value: /run/etzhayyim/checkpointer.sock
+            - name: ETZ_CELL_NAME
+              value: LandDonationProcessingCell
+            - name: ETZHAYYIM_LOG_DIR
+              value: /tmp/etzhayyim/log
+            - name: ETZ_HEALTHZ_BIND
+              value: 0.0.0.0
+            - name: FLEET_TOML
+              value: /etc/etzhayyim/fleet.toml
+          ports:
+            - name: runner-healthz
+              containerPort: 13000
+              protocol: TCP
+            - name: cell-healthz
+              containerPort: 13004
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: runner-healthz
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: runner-healthz
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: fleet-config
+              mountPath: /etc/etzhayyim
+              readOnly: true
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 128Mi
+        - name: fleet-config
+          configMap:
+            name: fleet-config
+            items:
+              - key: fleet.toml
+                path: fleet.toml

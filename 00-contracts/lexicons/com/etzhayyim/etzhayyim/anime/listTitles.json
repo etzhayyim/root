@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.anime.listTitles",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List anime titles with optional genre and status filters.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "genre": { "type": "string" },
+          "status": { "type": "string" },
+          "limit": { "type": "integer" },
+          "offset": { "type": "integer" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "titles": { "type": "array", "items": { "type": "object" } },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

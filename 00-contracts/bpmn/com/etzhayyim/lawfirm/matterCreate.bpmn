@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_lawfirm_matter_create"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
+                  exporter="hand-written" exporterVersion="2.0">
+
+  <bpmn:process id="lawfirm_matter_create"
+                name="lawfirm Matter Create (advocate accepts intake)"
+                isExecutable="true">
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.lawfirm.matterCreate", "version": 1, "resultTimeoutMs": 60000 }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_XRPC" name="XRPC: matterCreate">
+      <bpmn:outgoing>Flow_start_to_create</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_create" sourceRef="Start_XRPC" targetRef="Task_CreateMatter"/>
+
+    <bpmn:serviceTask id="Task_CreateMatter" name="Create matter row + mark intake promoted">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.matter.create"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=tenant_id"           target="tenant_id"/>
+          <zeebe:input source="=intake_uri"          target="intake_uri"/>
+          <zeebe:input source="=client_did"          target="client_did"/>
+          <zeebe:input source="=client_name"         target="client_name"/>
+          <zeebe:input source="=lead_advocate_did"   target="lead_advocate_did"/>
+          <zeebe:input source="=co_counsel_dids"     target="co_counsel_dids"/>
+          <zeebe:input source="=matter_type"         target="matter_type"/>
+          <zeebe:input source="=jurisdiction"        target="jurisdiction"/>
+          <zeebe:input source="=subject"             target="subject"/>
+          <zeebe:input source="=fee_structure"       target="fee_structure"/>
+          <zeebe:input source="=fee_amount_minor"    target="fee_amount_minor"/>
+          <zeebe:input source="=currency"            target="currency"/>
+          <zeebe:input source="=skip_pwc_clearance"  target="skip_pwc_clearance"/>
+          <zeebe:input source="=requester_did"       target="requester_did"/>
+          <zeebe:output source="=matter_id"          target="matter_id"/>
+          <zeebe:output source="=matter_uri"         target="matter_uri"/>
+          <zeebe:output source="=status"             target="matter_status"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_create</bpmn:incoming>
+      <bpmn:outgoing>Flow_create_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_create_to_audit" sourceRef="Task_CreateMatter" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit Audit (OCEL)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;lawfirm.matter.created&quot;" target="event_type"/>
+          <zeebe:input source="={matter_id: matter_id, matter_uri: matter_uri, status: matter_status, tenant_id: tenant_id, lead_advocate_did: lead_advocate_did, matter_type: matter_type}" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_create_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

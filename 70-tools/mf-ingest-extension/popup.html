@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>MF CSV Ingest Helper</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      width: 340px;
+      padding: 14px;
+      margin: 0;
+      color: #222;
+    }
+    h3 { margin: 0 0 8px 0; font-size: 15px; }
+    p.hint { margin: 4px 0 10px 0; font-size: 11px; color: #666; line-height: 1.4; }
+    .group { margin: 10px 0 4px 0; font-size: 11px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
+    button.pick {
+      display: block;
+      width: 100%;
+      margin: 4px 0;
+      padding: 8px 10px;
+      font-size: 13px;
+      text-align: left;
+      cursor: pointer;
+      border: 1px solid #d0d0d0;
+      border-radius: 4px;
+      background: #fafafa;
+    }
+    button.pick:hover { background: #eef; border-color: #99c; }
+    button.pick .fname { display: block; font-size: 10px; color: #888; margin-top: 2px; font-family: ui-monospace, "SF Mono", monospace; }
+    #status {
+      margin-top: 10px;
+      padding: 8px 10px;
+      background: #f3f7ff;
+      border-left: 3px solid #3a7;
+      font-size: 12px;
+      min-height: 16px;
+    }
+    #status.empty { background: #f5f5f5; border-left-color: #aaa; color: #888; }
+    #clear {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #06c;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px 0;
+    }
+    #clear:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h3>MF CSV Ingest Helper</h3>
+  <p class="hint">
+    1. Pick a target below. 2. In the MoneyForward tab, trigger the CSV export (エクスポート → MF形式 / CSV出力). 3. The next download from moneyforward.com will land at <code>~/Downloads/mf-ingest/&lt;name&gt;</code>.
+  </p>
+
+  <div class="group">accounting.moneyforward.com</div>
+  <button class="pick" data-name="mf_journals.csv">仕訳帳 (MF形式)<span class="fname">mf_journals.csv</span></button>
+  <button class="pick" data-name="mf_accounts.csv">勘定科目マスタ<span class="fname">mf_accounts.csv</span></button>
+  <button class="pick" data-name="mf_bank_transactions.csv">銀行明細<span class="fname">mf_bank_transactions.csv</span></button>
+  <button class="pick" data-name="mf_fixed_assets.csv">固定資産<span class="fname">mf_fixed_assets.csv</span></button>
+
+  <div class="group">invoice.moneyforward.com</div>
+  <button class="pick" data-name="mf_invoices.csv">請求書一覧<span class="fname">mf_invoices.csv</span></button>
+  <button class="pick" data-name="mf_customers.csv">取引先 (得意先)<span class="fname">mf_customers.csv</span></button>
+
+  <div class="group">contract.moneyforward.com</div>
+  <button class="pick" data-name="mf_contracts.csv">契約一覧<span class="fname">mf_contracts.csv</span></button>
+
+  <div class="group">pc.moneyforward.com (個別原価)</div>
+  <button class="pick" data-name="mf_projects.csv">プロジェクト一覧<span class="fname">mf_projects.csv</span></button>
+  <button class="pick" data-name="mf_kousuu.csv">工数 (時間入力)<span class="fname">mf_kousuu.csv</span></button>
+
+  <div id="status" class="empty">No pending download — pick a target first.</div>
+  <button id="clear">Clear pending</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>

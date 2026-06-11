@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cbdc.recordInteropTrial",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "mBridge / Project Agora / Dunbar / Icebreaker cross-border CBDC trial (bridges mica-crypto + fatf-travel-rule + sovereign-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "trialId",
+            "projectVid",
+            "initiative",
+            "corridorsIso3",
+            "runAt"
+          ],
+          "properties": {
+            "trialId": {
+              "type": "string"
+            },
+            "projectVid": {
+              "type": "string",
+              "description": "bridges registerProject"
+            },
+            "initiative": {
+              "type": "string",
+              "enum": [
+                "mbridge",
+                "agora",
+                "dunbar",
+                "icebreaker",
+                "mariana",
+                "helvetia",
+                "jura",
+                "cedar",
+                "nexus"
+              ]
+            },
+            "corridorsIso3": {
+              "type": "string",
+              "description": "comma-separated"
+            },
+            "settlementTimeSec": {
+              "type": "number"
+            },
+            "costBpsReduction": {
+              "type": "number"
+            },
+            "runAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "integrationTier": {
+              "type": "string",
+              "enum": [
+                "standard",
+                "rapid",
+                "instant"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

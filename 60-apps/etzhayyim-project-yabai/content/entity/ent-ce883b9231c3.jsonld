@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ce883b9231c3",
+  "entityId": "ent-ce883b9231c3",
+  "canonicalName": "shandong independent energy trading dmcc",
+  "aliases": [
+    "shandong independent energy trading dmcc"
+  ]
+}

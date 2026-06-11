@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.judiciaryIndependence.recordIndex",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Judicial independence index (WJP Rule of Law / V-Dem / Freedom House — bridges press-freedom + religious-freedom + climate-litigation + election-integrity)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "recordId",
+            "countryIso3",
+            "indexProvider",
+            "cursorYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "recordId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "indexProvider": {
+              "type": "string",
+              "enum": [
+                "wjp_roli",
+                "v_dem",
+                "freedom_house",
+                "bertelsmann_bti",
+                "world_bank_ctrl_corruption"
+              ]
+            },
+            "dimensionScore": {
+              "type": "number"
+            },
+            "cursorYear": {
+              "type": "integer"
+            },
+            "rankGlobal": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "independenceTier": {
+              "type": "string",
+              "enum": [
+                "weak",
+                "moderate",
+                "strong"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7b7f728f789d",
+  "entityId": "ent-7b7f728f789d",
+  "canonicalName": "conrad",
+  "aliases": [
+    "conrad"
+  ]
+}

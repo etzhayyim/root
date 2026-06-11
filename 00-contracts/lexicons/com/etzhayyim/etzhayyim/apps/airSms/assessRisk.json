@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airSms.assessRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assess risk likelihood and severity for a safety report.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["report_vid", "likelihood", "severity"],
+          "properties": {
+            "report_vid": { "type": "string" },
+            "likelihood": { "type": "integer" },
+            "severity": { "type": "integer" },
+            "risk_owner_did": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

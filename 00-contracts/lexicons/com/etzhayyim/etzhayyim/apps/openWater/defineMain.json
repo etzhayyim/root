@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openWater.defineMain",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a water distribution main (pipe segment) between two nodes. Starts BPMN process open_water_define_main.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "utilityOrgId":  { "type": "string" },
+            "fromVertexId":  { "type": "string", "description": "upstream node DID (reservoir / junction)" },
+            "toVertexId":    { "type": "string", "description": "downstream node DID (junction / service-point)" },
+            "diameterMm":    { "type": "integer" },
+            "material":      { "type": "string", "description": "e.g. DCIP, PE100, PVC" },
+            "lengthM":       { "type": "number" },
+            "installedAt":   { "type": "string", "format": "datetime" },
+            "pressureZone":  { "type": "string" }
+          },
+          "required": ["utilityOrgId", "fromVertexId", "toVertexId", "diameterMm", "material", "lengthM"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "vertexId":    { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

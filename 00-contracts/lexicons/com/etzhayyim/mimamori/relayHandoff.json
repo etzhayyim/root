@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mimamori.relayHandoff",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "A keeper RELAY (継ぎ, G5): finite keepers in succession — no sleepless center, no permanent universal keeper (ADR-2606112200 D3 NEVER-a-throne; 詩篇121:4 realized as relay). The kept's standing covenant carries over only via a fresh offer + consent by the incoming keeper.",
+      "record": {
+        "type": "object",
+        "required": ["bondRef", "fromKeeperDid", "toKeeperDid", "cycle"],
+        "properties": {
+          "bondRef": {
+            "type": "string",
+            "description": "→ :mishmeret.relay/bond. The bond being handed off (state → handed-off)."
+          },
+          "fromKeeperDid": {
+            "type": "string",
+            "description": "→ :mishmeret.relay/from. The keeper who sleeps."
+          },
+          "toKeeperDid": {
+            "type": "string",
+            "description": "→ :mishmeret.relay/to. The keeper who watches next. G4 — visible to the kept like every bond party."
+          },
+          "cycle": {
+            "type": "integer",
+            "description": "→ :mishmeret.relay/cycle"
+          }
+        }
+      }
+    }
+  }
+}

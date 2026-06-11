@@ -1,0 +1,53 @@
+;; watatsumi 綿津見 — actor manifest (Gen-3 kotoba-native)
+;; Civilian submersible manufacturing ≤6500m depth cap
+;; ADR-2605252200 (R0 scaffold, 2026-05-25)
+{:actor/id        "watatsumi"
+ :actor/glyph     "綿"
+ :actor/tier      :tier-b
+ :actor/domain    "watatsumi.etzhayyim.com"
+ :actor/purpose   "Civilian deep-sea submersible manufacturing (R0 scaffold). Modular ring-section construction (L1 hull fabrication → L2 section assembly → L3 weld inspection → L4 system integration → L5a/L5b/L5c section joining / pressure test / sea trial) + terminal certification binder. Depth cap ≤6500m (G12); civilian-only, no military/nuclear/stealth (Charter Rider §2(a)). Murakumo-only inference, kotoba-EAVT-native state, USDC Base L2 settlement only."
+ :actor/status    :r0
+ :actor/adr       "2605252200"
+ :actor/related   ["2605252200" "2605242745"]
+
+ :actor/charter-rider
+ {:rider/version "2.0"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "open-source-design"           :gate/rule "Pressure hull CAD + FEA open-source (FreeCAD .fcstd / Open CASCADE / OpenSCAD only)"}
+  {:gate/id "G2"  :gate/name "class-certification-anchored"  :gate/rule "Every class certification stage (DNV/ABS/NK/BV equivalent) anchored on kotoba-datomic"}
+  {:gate/id "G3"  :gate/name "ipfs-pinned-ndt-media"         :gate/rule "Every weld pass + test step has IPFS-pinned photo + video"}
+  {:gate/id "G4"  :gate/name "witness-quorum-critical-welds" :gate/rule "Witness quorum ≥2 distinct robots (Sango + Tako, or Ama + Otete-marine) for critical welds"}
+  {:gate/id "G7"  :gate/name "autonomous-level-cap"          :gate/rule "Autonomous submerged operation ≤ maritime SAE J3016 Level 4 equivalent"}
+  {:gate/id "G8"  :gate/name "acoustic-protection"           :gate/rule "Active sonar ≤180 dB re 1µPa @1m (cetacean protection)"}
+  {:gate/id "G12" :gate/name "depth-cap-6500m"              :gate/rule "Max design depth 6500m / max crew 3 / max submerged 72h (civilian-only gates)"}
+  {:gate/id "G13" :gate/name "propulsion-clean-fuels"        :gate/rule "Propulsion = LFP / H₂ / NH₃ / methanol fuel-cell only (nuclear = N2)"}
+  {:gate/id "G14" :gate/name "marine-emissions-audit"        :gate/rule "MARPOL Annex I-VI + BWMC + biofouling compliance record continuous"}
+  {:gate/id "G15" :gate/name "murakumo-only"                :gate/rule "Inference is Murakumo-only (KotobaLLM 127.0.0.1:4000); external LLM prohibited"}
+  {:gate/id "G16" :gate/name "kotoba-eavt-native"            :gate/rule "State is kotoba EAVT Datoms (no SQL/RisingWave/Cypher)"}
+  {:gate/id "G17" :gate/name "tithe-non-fiat"                :gate/rule "Payments are USDC Base L2 + ERC-4337 + TitheRouter 10% (no Stripe/fiat)"}
+  {:gate/id "G18" :gate/name "no-server-key"                 :gate/rule "Platform holds no key (member/operator signs)"}
+  {:gate/id "G19" :gate/name "consent-bound"                 :gate/rule "Real outward actions gated (compute-only R0; settlement stops at 'intent')"}
+  {:gate/id "G20" :gate/name "pii-encrypted"                 :gate/rule "PII encrypted in com.etzhayyim.encrypted.* (ADR-2605181100)"}]
+
+ :actor/cells
+ [{:cell/id "hull_ring_fabrication"    :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "section_assembly"         :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "weld_inspection"          :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "system_integration"       :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "section_joining"          :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "pressure_test"            :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "sea_trial"                :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "marine_emissions_audit"   :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "class_certification_binder" :cell/kind :langgraph :cell/runtime :wasm}]
+
+ :actor/lex
+ [{:lex/id "pressureHullAttestation"}
+  {:lex/id "sectionAssemblyAttestation"}
+  {:lex/id "weldInspectionRecord"}
+  {:lex/id "systemIntegrationAttestation"}
+  {:lex/id "sectionJoiningAttestation"}
+  {:lex/id "pressureTestRecord"}
+  {:lex/id "seaTrialRecord"}
+  {:lex/id "silenSubmersibleReview"}]}

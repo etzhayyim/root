@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.blockchainMev.flagOfacMixing",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OFAC-sanctioned address interaction on-chain (bridges ofac-sanctions-sdn)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "txHash",
+            "chain",
+            "sanctionedAddress",
+            "detectedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "txHash": {
+              "type": "string"
+            },
+            "chain": {
+              "type": "string"
+            },
+            "sanctionedAddress": {
+              "type": "string"
+            },
+            "mixerProtocol": {
+              "type": "string",
+              "enum": [
+                "tornado",
+                "samourai",
+                "blender",
+                "chipmixer",
+                "mixer_generic"
+              ]
+            },
+            "amountUsd": {
+              "type": "number"
+            },
+            "ofacSdnVid": {
+              "type": "string",
+              "description": "bridges open-ofac-sanctions-sdn"
+            },
+            "detectedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

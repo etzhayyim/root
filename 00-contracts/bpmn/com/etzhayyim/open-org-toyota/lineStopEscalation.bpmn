@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_org_toyota_line_stop_escalation"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-org-toyota"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="open_org_toyota_line_stop_escalation" name="Toyota line stop escalation" isExecutable="true">
+    <bpmn:startEvent id="Start" name="line stop reported">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_ClassifyStop"/>
+
+    <bpmn:serviceTask id="Task_ClassifyStop" name="classify line stop">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.rules.evaluate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;open-org-toyota.line-stop.v1&quot;" target="ruleSet"/>
+          <zeebe:input source="={
+              vertexId:         vertexId,
+              organizationId:   organizationId,
+              plantId:          plantId,
+              lineId:           lineId,
+              modelCode:        modelCode,
+              stopStartedAt:    stopStartedAt,
+              estimatedMinutes: estimatedMinutes,
+              safetyConcern:    safetyConcern,
+              supplierIssue:    supplierIssue,
+              qualityGate:      qualityGate
+          }" target="facts"/>
+          <zeebe:output source="=severity" target="severity"/>
+          <zeebe:output source="=containmentRequired" target="containmentRequired"/>
+          <zeebe:output source="=findings" target="lineStopFindings"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_Classified</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Classified" sourceRef="Task_ClassifyStop" targetRef="Task_SaveEvent"/>
+
+    <bpmn:serviceTask id="Task_SaveEvent" name="save line stop event">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_org_toyota&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:         vertexId,
+              organization_id:   organizationId,
+              plant_id:          plantId,
+              line_id:           lineId,
+              model_code:        modelCode,
+              stop_started_at:   stopStartedAt,
+              estimated_minutes: estimatedMinutes,
+              safety_concern:    safetyConcern,
+              supplier_issue:    supplierIssue,
+              quality_gate:      qualityGate,
+              severity:          severity,
+              findings:          lineStopFindings,
+              status:            &quot;line_stop_open&quot;,
+              created_at:        string(now()),
+              owner_did:         callerDid,
+              sensitivity_ord:   1,
+              org_id:            callerDid,
+              user_id:           callerDid,
+              actor_id:          &quot;sys.bpmn.open-org-toyota&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Classified</bpmn:incoming>
+      <bpmn:outgoing>Flow_ContainmentGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ContainmentGate" sourceRef="Task_SaveEvent" targetRef="Gate_ContainmentRequired"/>
+
+    <bpmn:exclusiveGateway id="Gate_ContainmentRequired" name="containment required?" default="Flow_NoContainment">
+      <bpmn:incoming>Flow_ContainmentGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Containment</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoContainment</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Containment" sourceRef="Gate_ContainmentRequired" targetRef="Task_OpenContainment">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=containmentRequired = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoContainment" sourceRef="Gate_ContainmentRequired" targetRef="Task_AuditStop"/>
+
+    <bpmn:serviceTask id="Task_OpenContainment" name="open containment action">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_open_org_toyota&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:       containmentVertexId,
+              parent_vid:      vertexId,
+              plant_id:        plantId,
+              line_id:         lineId,
+              action_kind:     if safetyConcern = true then &quot;safety_containment&quot; else if supplierIssue = true then &quot;supplier_containment&quot; else &quot;quality_containment&quot;,
+              severity:        severity,
+              status:          &quot;containment_open&quot;,
+              created_at:      string(now()),
+              owner_did:       callerDid,
+              sensitivity_ord: 1,
+              org_id:          callerDid,
+              user_id:         callerDid,
+              actor_id:        &quot;sys.bpmn.open-org-toyota&quot;
+          }" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Containment</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditContainment</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditContainment" sourceRef="Task_OpenContainment" targetRef="Task_AuditContainment"/>
+
+    <bpmn:serviceTask id="Task_AuditContainment" name="audit containment">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-org-toyota.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openOrg.toyota.lineStop.containment&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, containmentVertexId: containmentVertexId, plantId: plantId, lineId: lineId, severity: severity}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditContainment</bpmn:incoming>
+      <bpmn:outgoing>Flow_EndContainment</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_EndContainment" sourceRef="Task_AuditContainment" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditStop" name="audit line stop">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-org-toyota.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openOrg.toyota.lineStop.record&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, plantId: plantId, lineId: lineId, severity: severity}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoContainment</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_AuditStop" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="recorded">
+      <bpmn:incoming>Flow_EndContainment</bpmn:incoming>
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  XRPC-triggered BPMN — Yukkuri video async pipeline.
+
+  Triggered by yukkuri CF Worker after it writes a video record with
+  status="script" (scenes_json already embedded by the CF Worker LLM call).
+
+  Pipeline:
+    1. yukkuri.scene.persist    — project scenes_json from vertex_repo_record
+                                   into vertex_yukkuri_scene + vertex_yukkuri_line rows.
+                                   Also writes vertex_yukkuri_video typed row.
+    2. yukkuri.voice.synthesize — Phase 0 stub (kokoro-ts not yet wired).
+                                   Marks lines as voice-ready, records generation event.
+    3. yukkuri.image.generate   — Phase 0 stub (murakumo SDXL not yet wired).
+                                   Marks scenes as image-ready, records generation event.
+    4. yukkuri.video.assemble   — Builds timeline JSON from scene/line/asset rows,
+                                   updates video status to "editready".
+    5. yukkuri.critic.review    — Duration / line-count / expression QA gate.
+                                   Sets status to "published" or "rejected".
+    6. generic.audit.emit       — OCEL event with pipeline stats.
+    7. yukkuri.social.post      — Emit app.bsky.feed.post to vertex_repo_record.
+                                   Visible on yoro.etzhayyim.com.
+
+  XRPC entry: POST /xrpc/com.etzhayyim.apps.yukkuri.composeVideo
+  Process timeout: 10 min.
+
+  ADR-0056 BPMN-as-actor.
+  NSID: com.etzhayyim.apps.yukkuri.composeVideo
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_yukkuri_compose"
+    targetNamespace="https://etzhayyim.ai/bpmn/yukkuri"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="yukkuri_compose" name="yukkuri compose" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.yukkuri.composeVideo", "version": 1, "resultTimeoutMs": 600000 }
+    </bpmn:documentation>
+
+    <!-- XRPC-triggered: receives videoUri + voice presets from CF Worker -->
+    <bpmn:startEvent id="Start" name="xrpc in">
+      <bpmn:outgoing>Flow_ToPersist</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- Step 1: Project PDS record → typed vertex tables.
+         Reads video record from vertex_repo_record, parses scenes_json,
+         writes vertex_yukkuri_video + vertex_yukkuri_scene + vertex_yukkuri_line. -->
+    <bpmn:serviceTask id="Task_PersistScenes" name="persist scenes + lines from PDS record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yukkuri.scene.persist"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=videoUri"   target="video_uri"/>
+          <zeebe:input source="=voiceLeft"  target="voice_left"/>
+          <zeebe:input source="=voiceRight" target="voice_right"/>
+          <zeebe:input source="=topic"      target="topic_hint"/>
+          <zeebe:input source="=language"   target="language_hint"/>
+          <zeebe:input source="=targetSec"  target="target_sec_hint"/>
+          <zeebe:output source="=sceneCount"  target="sceneCount"/>
+          <zeebe:output source="=lineCount"   target="lineCount"/>
+          <zeebe:output source="=ok"          target="persistOk"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPersist</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToVoice</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPersist" sourceRef="Start" targetRef="Task_PersistScenes"/>
+
+    <!-- Step 2: Voice synthesis (Phase 0: stub — kokoro-ts not yet wired).
+         Marks all lines as voice-ready and records a generation event. -->
+    <bpmn:serviceTask id="Task_SynthVoice" name="voice synthesis (Phase 0 stub)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yukkuri.voice.synthesize"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=videoUri"   target="video_uri"/>
+          <zeebe:input source="=voiceLeft"  target="voice_left"/>
+          <zeebe:input source="=voiceRight" target="voice_right"/>
+          <zeebe:output source="=linesProcessed" target="linesProcessed"/>
+          <zeebe:output source="=voiceOk"        target="voiceOk"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToVoice</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToImage</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToVoice" sourceRef="Task_PersistScenes" targetRef="Task_SynthVoice"/>
+
+    <!-- Step 3: Image generation (Phase 0: stub — murakumo SDXL not yet wired).
+         Marks all scenes as image-ready and records a generation event. -->
+    <bpmn:serviceTask id="Task_GenImages" name="background image generation (Phase 0 stub)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yukkuri.image.generate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=videoUri" target="video_uri"/>
+          <zeebe:output source="=scenesProcessed" target="scenesProcessed"/>
+          <zeebe:output source="=imageOk"         target="imageOk"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToImage</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAssemble</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToImage" sourceRef="Task_SynthVoice" targetRef="Task_GenImages"/>
+
+    <!-- Step 4: Assemble timeline from scene/line/asset rows.
+         Updates video status to "editready". -->
+    <bpmn:serviceTask id="Task_Assemble" name="assemble video timeline">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yukkuri.video.assemble"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=videoUri" target="video_uri"/>
+          <zeebe:output source="=status"     target="assembleStatus"/>
+          <zeebe:output source="=durationSec" target="durationSec"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAssemble</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToCritic</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAssemble" sourceRef="Task_GenImages" targetRef="Task_Assemble"/>
+
+    <!-- Step 5: Critic QA gate — checks duration, line count, basic expression filter.
+         Sets video status to "published" or "rejected". -->
+    <bpmn:serviceTask id="Task_Critic" name="critic QA review">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yukkuri.critic.review"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=videoUri" target="video_uri"/>
+          <zeebe:output source="=passed"       target="criticPassed"/>
+          <zeebe:output source="=status"       target="finalStatus"/>
+          <zeebe:output source="=rejectReason" target="rejectReason"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCritic</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToCritic" sourceRef="Task_Assemble" targetRef="Task_Critic"/>
+
+    <bpmn:exclusiveGateway id="Gateway_Passed" name="critic passed?">
+      <bpmn:incoming>Flow_ToGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Passed</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Rejected</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_ToGate" sourceRef="Task_Critic" targetRef="Gateway_Passed"/>
+    <bpmn:sequenceFlow id="Flow_Passed" sourceRef="Gateway_Passed" targetRef="Task_Audit">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=criticPassed = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Rejected" sourceRef="Gateway_Passed" targetRef="End_Rejected">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=criticPassed != true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Step 6: OCEL audit event with aggregate pipeline stats. -->
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;yukkuri.composeVideo.completed&quot;" target="eventType"/>
+          <zeebe:input source="=videoUri"        target="objectId"/>
+          <zeebe:input source="=&quot;video&quot;" target="objectType"/>
+          <zeebe:input source="={videoUri: videoUri, sceneCount: sceneCount, lineCount: lineCount, durationSec: durationSec, status: finalStatus}" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Passed</bpmn:incoming>
+      <bpmn:outgoing>Flow_AuditToSocial</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_AuditToSocial" sourceRef="Task_Audit" targetRef="Task_SocialPost"/>
+
+    <!-- Step 7: Social post — emit app.bsky.feed.post to vertex_repo_record.
+         Visible on yoro.etzhayyim.com once the record propagates through the MV. -->
+    <bpmn:serviceTask id="Task_SocialPost" name="social post (yukkuri.etzhayyim.com)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yukkuri.social.post"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=videoUri"    target="video_uri"/>
+          <zeebe:input source="=finalStatus" target="final_status"/>
+          <zeebe:input source="=sceneCount"  target="scene_count"/>
+          <zeebe:input source="=durationSec" target="duration_sec"/>
+          <zeebe:output source="=postUri"    target="postUri"/>
+          <zeebe:output source="=postText"   target="postText"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AuditToSocial</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_SocialPost" targetRef="End_Published"/>
+
+    <bpmn:endEvent id="End_Published" name="published">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:endEvent id="End_Rejected" name="rejected by critic">
+      <bpmn:incoming>Flow_Rejected</bpmn:incoming>
+      <bpmn:errorEventDefinition errorRef="Error_CriticReject"/>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+
+  <bpmn:error id="Error_CriticReject" name="CriticReject" errorCode="CRITIC_REJECT"/>
+
+</bpmn:definitions>

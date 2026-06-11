@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 1 / 8 — mangaka script generation. ADR-2604231328 applied to mangaka.
+  Flow:
+    Start → llm.chat (deep, draft) → llm.json (mid, extract pages[])
+          → db.insert vertex_mangaka (kind=script, pages_json)
+          → audit.emit → End
+  in:  chapterId, chapterTitle, synopsis, targetPageCount (default 18)
+  out: scriptVertexId, pagesJson
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_mangaka_generate_script"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="mangaka_generate_script" name="mangaka generate script" isExecutable="true">
+    <bpmn:startEvent id="Start" name="script requested">
+      <bpmn:outgoing>F1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Draft"/>
+    <bpmn:serviceTask id="Task_Draft" name="draft script (Claude deep)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.chat"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;deep&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are a professional Japanese manga editor. Given a chapter synopsis, draft a page-by-page beat sheet: each page gets a location, dominant emotion, key action, and one line of dialogue. Output plain Japanese text, one block per page.&quot;" target="system"/>
+          <zeebe:input source="=&quot;Chapter: &quot; + string(chapterTitle) + &quot;\nSynopsis: &quot; + string(synopsis) + &quot;\nTarget page count: &quot; + string(targetPageCount) + &quot;\nDraft the beat sheet now.&quot;" target="user"/>
+          <zeebe:input source="=3000" target="maxTokens"/>
+          <zeebe:input source="=0.6" target="temperature"/>
+          <zeebe:output source="=content" target="draftText"/>
+          <zeebe:output source="=model" target="draftModel"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming>
+      <bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Draft" targetRef="Task_Structure"/>
+    <bpmn:serviceTask id="Task_Structure" name="structure pages (Qwen 7B)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:input source="=&quot;Extract pages from the beat sheet. Output ONE JSON object {pages:[{pageNum:int,location:string,beat:string,dialogue:string,charactersAppearing:[string]}]}. JSON only. All string values MUST be in Japanese.&quot;" target="system"/>
+          <zeebe:input source="=string(draftText)" target="user"/>
+          <zeebe:input source="=2000" target="maxTokens"/>
+          <zeebe:input source="=0.1" target="temperature"/>
+          <zeebe:output source="=data" target="structured"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming>
+      <bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Structure" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="persist script row">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_mangaka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:      &quot;at://did:web:mangaka.etzhayyim.com/com.etzhayyim.apps.mangaka.script/&quot; + string(chapterId) + &quot;-v1&quot;,
+              owner_did:      &quot;did:web:mangaka.etzhayyim.com&quot;,
+              repo:           &quot;did:web:mangaka.etzhayyim.com&quot;,
+              did:            &quot;did:web:mangaka.etzhayyim.com:chapter:&quot; + string(chapterId),
+              collection:     &quot;com.etzhayyim.apps.mangaka.script&quot;,
+              rkey:           string(chapterId) + &quot;-v1&quot;,
+              kind:           &quot;script&quot;,
+              chapter_id:     string(chapterId),
+              title:          string(chapterTitle),
+              description:    string(draftText),
+              stage:          &quot;script&quot;,
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F3</bpmn:incoming>
+      <bpmn:outgoing>F4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;generateScript&quot;" target="action"/>
+          <zeebe:input source="={chapterId: string(chapterId), model: string(draftModel), inserted: inserted}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F4</bpmn:incoming>
+      <bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F5" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="done"><bpmn:incoming>F5</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

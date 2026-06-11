@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_comfyui_openai_image_edit"
+    targetNamespace="https://etzhayyim.ai/bpmn/comfyui"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="comfyui_openai_image_edit" name="comfyui OpenAI image edit" isExecutable="true">
+    <bpmn:startEvent id="Start" name="image edit requested">
+      <bpmn:outgoing>Flow_Edit</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Edit" sourceRef="Start" targetRef="Task_Edit"/>
+    <bpmn:serviceTask id="Task_Edit" name="edit image via ComfyUI">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="comfyui.openai.editImage"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=request" target="request"/>
+          <zeebe:output source="=result" target="result"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Edit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Edit" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit ComfyUI edit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:comfyui.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;comfyui.editImage&quot;" target="action"/>
+          <zeebe:input source="={ result: result }" target="payload"/>
+          <zeebe:output source="=rkey" target="auditRkey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="image edit completed">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

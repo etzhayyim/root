@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ADR 2604251024 — patent PDF → webp + OCR text → B2 with CID persistence.
+
+  Timer-start every 5 minutes. For the next 100 vertex_patent_blob rows
+  in status='pending' ordered by _seq, the patent-blob-converter pod
+  (Vultr LAX) performs:
+    1. HEAD + GET pdf_source_url
+    2. sha256(pdf) → B2 PUT patent-blobs/pdf/{sha256} (dedup)
+    3. poppler pdftocairo -png → cwebp -q 80 → CIDv1 → B2 PUT webp/{cid}
+    4. pdftotext → CIDv1 → B2 PUT text/{cid}
+    5. UPDATE vertex_patent_blob SET pdf_sha256, webp_cid, ocr_text_cid,
+       status='ocr_done'
+
+  All of (1)..(5) happen inside the patent.blob.convert primitive
+  (implemented by the pod's pyzeebe worker). The BPMN process exists so
+  the operation is observable in Zeebe / Operate and consumes the same
+  audit surface as the rest of ADR-0056 BPMN-as-actor work.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_patent_blob_convert"
+    targetNamespace="https://etzhayyim.ai/bpmn/patent"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="patent_blob_convert" name="patent PDF→webp B2 persistence" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="every 5 min">
+      <bpmn:outgoing>Flow_Pending</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0/5 * * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Pending" sourceRef="StartTimer" targetRef="Task_Pending"/>
+
+    <bpmn:serviceTask id="Task_Pending" name="pending blob rows">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_patent_blob&quot;" target="table"/>
+          <zeebe:input source="=&quot;vertex_id, patent_number, jurisdiction, pdf_source_url&quot;" target="columns"/>
+          <zeebe:input source="={status: &quot;pending&quot;}" target="where"/>
+          <zeebe:input source="=&quot;_seq ASC&quot;" target="orderBy"/>
+          <zeebe:input source="=100" target="limit"/>
+          <zeebe:input source="=&quot;pending&quot;" target="resultKey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Pending</bpmn:incoming>
+      <bpmn:outgoing>Flow_Convert</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Convert" sourceRef="Task_Pending" targetRef="Task_Convert"/>
+
+    <bpmn:serviceTask id="Task_Convert" name="convert PDF → webp + OCR (pod)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="patent.blob.convert" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=pending" target="rows"/>
+          <zeebe:input source="=&quot;patent-blobs&quot;" target="b2Bucket"/>
+          <zeebe:input source="=&quot;s3.us-west-004.backblazeb2.com&quot;" target="b2Endpoint"/>
+          <zeebe:input source="=&quot;pdf/&quot;" target="b2PdfPrefix"/>
+          <zeebe:input source="=&quot;webp/&quot;" target="b2WebpPrefix"/>
+          <zeebe:input source="=&quot;text/&quot;" target="b2TextPrefix"/>
+          <zeebe:input source="=80" target="webpQuality"/>
+          <zeebe:input source="=&quot;convert.result&quot;" target="resultKey"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Convert</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Convert" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:patent.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;patent.blob.convert&quot;" target="action"/>
+          <zeebe:input source="={
+              attempted: count(pending),
+              converted: convert.result.converted,
+              dedupHit:  convert.result.dedupHit,
+              failed:    convert.result.failed,
+              bytesPdf:  convert.result.bytesPdf,
+              bytesWebp: convert.result.bytesWebp
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

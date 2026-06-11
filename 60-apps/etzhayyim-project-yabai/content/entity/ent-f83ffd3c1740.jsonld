@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f83ffd3c1740",
+  "entityId": "ent-f83ffd3c1740",
+  "canonicalName": "jules mutebutsi",
+  "aliases": [
+    "jules mutebutsi"
+  ]
+}

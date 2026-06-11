@@ -1,0 +1,15 @@
+{:lexicon 1
+ :id "com.etzhayyim.tatekata.materialAttestation"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["batchId" "arrivalDate" "materialType" "certification"]
+    :properties {:batchId {:type "string" :description "Material batch ID"}
+                 :arrivalDate {:type "string" :description "ISO-8601 arrival date"}
+                 :materialType {:type "string" :description "Type (steel, concrete, lumber, etc.)"}
+                 :certification {:type "string" :description "Mill/source certification"}
+                 :weight {:type "string" :description "Batch weight"}
+                 :analysis {:type "string" :description "Chemical/structural analysis"}}}}}}

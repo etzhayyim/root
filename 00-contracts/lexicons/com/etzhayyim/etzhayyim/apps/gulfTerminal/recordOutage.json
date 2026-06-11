@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gulfTerminal.recordOutage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "端末 outage 記録",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "outageId",
+            "terminalCode",
+            "cause",
+            "severity",
+            "startedAt"
+          ],
+          "properties": {
+            "outageId": {
+              "type": "string"
+            },
+            "terminalCode": {
+              "type": "string"
+            },
+            "cause": {
+              "type": "string",
+              "enum": [
+                "drone-attack",
+                "weather",
+                "technical",
+                "maintenance",
+                "cyber",
+                "strike"
+              ]
+            },
+            "impactMbd": {
+              "type": "number"
+            },
+            "narrative": {
+              "type": "string"
+            },
+            "expectedDurationHours": {
+              "type": "number"
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ]
+            },
+            "startedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "requireMarketNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

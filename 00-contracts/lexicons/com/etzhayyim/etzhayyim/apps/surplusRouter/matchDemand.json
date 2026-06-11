@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.surplusRouter.matchDemand",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Demand-side claim against a registered surplus lot. Receiver must be an Adherent SBT holder or attested religious-corp downstream actor (e.g., kuni-umi site / urban-mining cell / open-robo project DID). Per ADR-2605211241. Transitions lot state registered -> matched. No commercial markup. SBT<->SBT internal-promo carve-out applies for visibility but not for monetization.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["lotDid", "receiverDid", "intendedUse", "claimedAt"],
+          "properties": {
+            "lotDid": {
+              "type": "string",
+              "format": "did",
+              "description": "DID of the surplus lot being claimed."
+            },
+            "receiverDid": {
+              "type": "string",
+              "format": "did",
+              "description": "DID of the receiver. Must be Adherent-SBT or attested religious-corp downstream actor."
+            },
+            "receiverKind": {
+              "type": "string",
+              "enum": [
+                "adherent-sbt",
+                "kuni-umi-site",
+                "urban-mining-cell",
+                "open-robo-project",
+                "open-isco-site",
+                "attested-municipal-shelter",
+                "attested-ngo"
+              ]
+            },
+            "intendedUse": {
+              "type": "string",
+              "enum": [
+                "direct-redistribute-end-user",
+                "refurbish-then-redistribute",
+                "agricultural-input",
+                "construction-material",
+                "education-training",
+                "research-rd",
+                "urban-mining-input"
+              ],
+              "description": "Wellbecoming constraint: dispose / commercial-resale are not allowed as intendedUse values."
+            },
+            "claimedQuantity": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Partial claim allowed if <= remaining quantity."
+            },
+            "claimReason": {
+              "type": "string",
+              "maxLength": 280,
+              "description": "PII-free, non-promotional reason."
+            },
+            "claimedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "matchUri": { "type": "string", "format": "at-uri" },
+            "lotState": { "type": "string", "enum": ["matched"] },
+            "remainingQuantity": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

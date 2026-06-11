@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="P_HUN_2" targetNamespace="http://etzhayyim.com/gov/HUN/social/2">
+  <bpmn:process id="Process_HUN_social_2" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Request received"/>
+    <bpmn:task id="T1" name="Validate"/>
+    <bpmn:task id="T2" name="Process"/>
+    <bpmn:task id="T3" name="Decide"/>
+    <bpmn:endEvent id="End" name="Complete"/>
+  </bpmn:process>
+</bpmn:definitions>

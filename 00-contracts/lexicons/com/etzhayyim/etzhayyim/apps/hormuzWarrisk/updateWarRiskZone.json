@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hormuzWarrisk.updateWarRiskZone",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Lloyd's JWC war risk ゾーン更新",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "zoneCode",
+            "listingAuthority",
+            "listed",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "zoneCode": {
+              "type": "string"
+            },
+            "zoneName": {
+              "type": "string"
+            },
+            "listingAuthority": {
+              "type": "string",
+              "enum": [
+                "lloyds-jwc",
+                "iacs",
+                "us-navy-advisory",
+                "eu-navfor"
+              ]
+            },
+            "listed": {
+              "type": "boolean"
+            },
+            "listingReason": {
+              "type": "string"
+            },
+            "effectiveFrom": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "effectiveUntil": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "unlisted",
+                "monitor",
+                "high-risk",
+                "listed"
+              ]
+            },
+            "requireInsurerNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

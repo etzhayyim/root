@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9a3163238d63",
+  "entityId": "ent-9a3163238d63",
+  "canonicalName": "rukan razuki abd-al-ghafur sulaiman",
+  "aliases": [
+    "rukan razuki abd-al-ghafur sulaiman"
+  ]
+}

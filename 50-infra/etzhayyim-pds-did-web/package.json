@@ -1,0 +1,17 @@
+{
+  "name": "etzhayyim-pds-did-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker serving did:web:pds.etzhayyim.com DID Document at /.well-known/did.json (path-specific; other pds.etzhayyim.com paths fall through to the CF tunnel → simeon PDS)",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "tail": "wrangler tail",
+    "types": "wrangler types"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260608.1",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.98.0"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.euStabilityMechanism.recordIntervention",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ESM / SRM banking resolution / treaty intervention (bridges euSummitConclusion.flagDilution + bank-resolution + sovereign-guarantee)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "interventionId",
+            "instrumentKind",
+            "memberStateIso3",
+            "activatedAt"
+          ],
+          "properties": {
+            "interventionId": {
+              "type": "string"
+            },
+            "instrumentKind": {
+              "type": "string",
+              "enum": [
+                "esm_loan",
+                "precautionary_facility",
+                "direct_recap",
+                "srm_resolution_fund",
+                "emergency_liquidity_assistance",
+                "bridge_finance",
+                "ela_eurosystem",
+                "tpi_transmission_protection",
+                "backstop",
+                "accc_anti_crisis",
+                "srm_capital_call"
+              ]
+            },
+            "memberStateIso3": {
+              "type": "string"
+            },
+            "dilutionVid": {
+              "type": "string",
+              "description": "bridges euSummitConclusion.flagDilution"
+            },
+            "activatedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

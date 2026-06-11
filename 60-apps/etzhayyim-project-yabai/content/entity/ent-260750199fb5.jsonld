@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-260750199fb5",
+  "entityId": "ent-260750199fb5",
+  "canonicalName": "tawu mechanical engineering and trading company",
+  "aliases": [
+    "tawu mechanical engineering and trading company"
+  ]
+}

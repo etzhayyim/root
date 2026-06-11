@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.listJobs",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List maps collection jobs, including stage metadata for street-chunk pipelines.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "limit": {
+            "type": "number"
+          },
+          "offset": {
+            "type": "number"
+          },
+          "sourceId": {
+            "type": "string"
+          },
+          "pipelineType": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "chunkSizeMeters": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "jobs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "jobId": { "type": "string" },
+                  "sourceId": { "type": "string" },
+                  "pipelineType": { "type": "string" },
+                  "status": { "type": "string" },
+                  "stage": { "type": "string" },
+                  "chunkKey": { "type": "string" },
+                  "chunkSizeMeters": { "type": "integer" },
+                  "sequenceId": { "type": "string" },
+                  "progressPct": { "type": "number" },
+                  "coverageRatio": { "type": "number" },
+                  "recommendedChunkClass": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "unavailable": { "type": "string" }
+          },
+          "required": ["jobs", "total", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.createAgentSession",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create an agent DID with P-256 keypair and AT Protocol session in one call. Used by etzhayyim deploy for automatic agent credential provisioning.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["appNanoid"],
+          "properties": {
+            "appNanoid": { "type": "string", "description": "Application nanoid identifier" },
+            "subPath": { "type": "string", "description": "Optional sub-path for path-based DID" },
+            "performerType": { "type": "string", "description": "DID performer type: service | system | person | organization", "default": "service" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["did", "didDocument", "privateKeyB64url", "sessionTokens", "keyId", "keyCustodyTier"],
+          "properties": {
+            "did": { "type": "string" },
+            "didDocument": { "type": "object" },
+            "didDocumentJsonld": { "type": "object" },
+            "privateKeyB64url": { "type": "string" },
+            "ownerHash": { "type": "string" },
+            "sessionTokens": { "type": "object" },
+            "keyId": { "type": "string" },
+            "keyCustodyTier": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

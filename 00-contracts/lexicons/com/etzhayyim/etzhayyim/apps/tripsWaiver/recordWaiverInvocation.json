@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.tripsWaiver.recordWaiverInvocation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "WTO TRIPS Art 31bis / Doha Declaration waiver invocation (bridges vaccineEquity.flagAccessGap + pharma-supply + ip-licensing)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "invocationId",
+            "invokingCountryIso3",
+            "productClass",
+            "mechanism",
+            "invokedAt"
+          ],
+          "properties": {
+            "invocationId": {
+              "type": "string"
+            },
+            "invokingCountryIso3": {
+              "type": "string"
+            },
+            "productClass": {
+              "type": "string",
+              "enum": [
+                "vaccine",
+                "therapeutic",
+                "diagnostic",
+                "ppe",
+                "medical_device",
+                "cancer_drug",
+                "antiviral",
+                "biosimilar"
+              ]
+            },
+            "mechanism": {
+              "type": "string",
+              "enum": [
+                "compulsory_license",
+                "government_use",
+                "parallel_import",
+                "art_31bis_export",
+                "emergency_exception",
+                "doha_flexibility"
+              ]
+            },
+            "originPatentJurisdiction": {
+              "type": "string"
+            },
+            "accessGapVid": {
+              "type": "string",
+              "description": "bridges vaccineEquity.flagAccessGap"
+            },
+            "invokedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

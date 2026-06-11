@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_lawfirm_search_precedent" targetNamespace="https://etzhayyim.ai/bpmn/lawfirm" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="lawfirm_search_precedent" name="searchPrecedent" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_R</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_R" sourceRef="Start" targetRef="Task_ResolveJurisdiction"/>
+    <bpmn:serviceTask id="Task_ResolveJurisdiction" name="resolve firm jurisdiction">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;SELECT primary_jurisdiction FROM vertex_lawfirm_profile WHERE firm_did = $1 LIMIT 1&quot;" target="sql"/>
+          <zeebe:input source="=[firmDid]" target="params"/>
+          <zeebe:output source="=if jurisdiction != null then jurisdiction else (if rows[1] != null then rows[1].primary_jurisdiction else null)" target="effectiveJurisdiction"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_R</bpmn:incoming><bpmn:outgoing>Flow_S</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Task_ResolveJurisdiction" targetRef="Task_Search"/>
+    <bpmn:callActivity id="Task_Search" name="delegate to legal-corpus searchDocument">
+      <bpmn:extensionElements><zeebe:calledElement processId="legal_corpus_search_document"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=queryText" target="queryText"/>
+          <zeebe:input source="=effectiveJurisdiction" target="jurisdiction"/>
+          <zeebe:input source="=documentType" target="documentType"/>
+          <zeebe:input source="=languageCode" target="languageCode"/>
+          <zeebe:input source="=decidedAfter" target="decidedAfter"/>
+          <zeebe:input source="=decidedBefore" target="decidedBefore"/>
+          <zeebe:input source="=if limit != null then limit else 10" target="limit"/>
+          <zeebe:output source="=hits" target="hits"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Search" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

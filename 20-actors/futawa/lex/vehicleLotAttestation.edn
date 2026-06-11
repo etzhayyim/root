@@ -1,0 +1,21 @@
+;; com.etzhayyim.futawa.vehicleLotAttestation — lexicon (EDN form)
+;; L5a final assembly + VIN + G12 parts catalog CID + G13 hodoki pre-registration
+{:lexicon 1
+ :id "com.etzhayyim.futawa.vehicleLotAttestation"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["vehicleLotAttestationId" "vin" "partsCatalogCid"]
+    :properties
+    {:vehicleLotAttestationId {:type "string"}
+     :vin                     {:type "string" :description "Vehicle Identification Number (17 chars)"}
+     :partsCatalogCid         {:type "string" :description "IPFS-pinned full parts catalog (G12 right-to-repair)"}
+     :cadCatalogCid           {:type "string" :description "IPFS-pinned CAD + firmware source + service manual"}
+     :diagnosticProtocolCid   {:type "string" :description "open diagnostic protocol specification"}
+     :hodokiPreregisterOk     {:type "boolean" :description "VIN pre-registered with hodoki actor (G13)"}
+     :recycledMassCertCid     {:type "string" :description "kanayama recycled-mass attestation (≥10% by mass)"}
+     :assemblyNodeId          {:type "string" :description "Murakumo cell node responsible (naphtali/joseph/zebulun/simeon/dan/levi/judah)"}
+     :timestamp               {:type "string" :description "ISO-8601 timestamp"}}}}}}

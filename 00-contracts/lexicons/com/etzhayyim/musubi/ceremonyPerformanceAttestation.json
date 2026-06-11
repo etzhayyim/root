@@ -1,0 +1,120 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.musubi.ceremonyPerformanceAttestation",
+  "description": "Per-ceremony performance record. G11 STRUCTURAL: chigiriCovenantAttestationCid REQUIRED for marriage/naming/funeral/vocation-vow/rededication (NOT seasonal_communal). G7 STRUCTURAL: bridePriceOrDowryAttested const false (anti-coercive ceremony economy). G8 STRUCTURAL: videoRecordingPerPartyConsent REQUIRED if video produced. G10 multi-gen cohortRatio enforced via $ref.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "ceremonyType",
+          "primaryPartyDids",
+          "partyConsentCids",
+          "officiantAttestationCid",
+          "witnessAttestationCids",
+          "ceremonyVenueLandRegistryCid",
+          "bridePriceOrDowryAttested",
+          "cohortRatio",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "ceremonyType": {
+            "type": "string",
+            "knownValues": [
+              "marriage",
+              "naming",
+              "funeral",
+              "vocation-vow",
+              "rededication",
+              "covenant-restoration",
+              "seasonal-communal"
+            ]
+          },
+          "primaryPartyDids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 1,
+            "description": "DID(s) of primary ceremony participants (1 for naming/funeral; ≥2 for marriage; varies otherwise)"
+          },
+          "partyConsentCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 1,
+            "description": "G5 REQUIRED: per-party consent record CIDs (chigiri.consentRecord)"
+          },
+          "officiantAttestationCid": {
+            "type": "string",
+            "description": "Cross-link to musubi.officiantAttestation CID; G3 + G12 structural enforcement happens at officiantAttestation level"
+          },
+          "witnessAttestationCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 1,
+            "description": "Cross-link to musubi.communityWitnessAttestation CIDs"
+          },
+          "ceremonyVenueLandRegistryCid": {
+            "type": "string",
+            "description": "Land Registry CID for ceremony location (typically donated land per ADR-2605192245 waqf-equivalent)"
+          },
+          "chigiriCovenantAttestationCid": {
+            "type": "string",
+            "description": "G11 REQUIRED for ceremonyType ∈ {marriage, naming, funeral, vocation-vow, rededication, covenant-restoration}; not applicable for seasonal-communal"
+          },
+          "chigiriInheritanceChainCid": {
+            "type": "string",
+            "description": "When ceremonyType=funeral, cross-link to chigiri.inheritanceChain CID"
+          },
+          "stewardLaborAttestationCid": {
+            "type": "string",
+            "description": "When ceremonyType=vocation-vow, cross-link to chigiri.stewardLaborAttestation (L5 vocation-flow)"
+          },
+          "bridePriceOrDowryAttested": {
+            "type": "boolean",
+            "const": false,
+            "description": "G7 STRUCTURAL: const false; bride price / dowry coercive economic structure PROHIBITED"
+          },
+          "giftsExchangedAttested": {
+            "type": "boolean",
+            "description": "True if non-coercive gifts exchanged (お祝い金 / お見舞い / 香典); not equivalent to bride price"
+          },
+          "videoRecordingProduced": {"type": "boolean"},
+          "videoRecordingPerPartyConsent": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "G8 REQUIRED if videoRecordingProduced=true: per-party consent attestation CIDs"
+          },
+          "cohortRatio": {
+            "type": "ref",
+            "ref": "#cohortRatioEntry",
+            "description": "G10 STRUCTURAL: multi-gen ratio per ceremony"
+          },
+          "publicFundVenueGrantCid": {
+            "type": "string",
+            "description": "Optional Public Fund grant CID for venue/supplies (toritate cross-actor)"
+          },
+          "wellbecomingAttested": {
+            "type": "boolean",
+            "description": "Charter §1.13 ceremony content review attested"
+          },
+          "charterRiderScanRunCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
+          "attestingCellDid": {"type": "string"}
+        }
+      }
+    },
+    "cohortRatioEntry": {
+      "type": "object",
+      "required": ["under18Count", "adultCount", "over65Count"],
+      "properties": {
+        "under18Count": {"type": "integer", "minimum": 0},
+        "adultCount": {"type": "integer", "minimum": 0},
+        "over65Count": {"type": "integer", "minimum": 0},
+        "totalParticipants": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

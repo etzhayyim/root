@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-2b35f22477757234",
+  "evidenceId": "evidence-2b35f22477757234",
+  "entityId": "ent-ee223e582d42",
+  "category": "SanctionHit",
+  "source": "mof/gaijin-shisan-toketsu/chongryon",
+  "sourceReliability": "A",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.92,
+  "severity": 4,
+  "probability": 0.01,
+  "jurisdiction": "JP",
+  "summary": "Watchlist signal"
+}

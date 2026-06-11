@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.liberation.stageAdvanceAttestation",
+  "description": "Per-stage advancement attestation (L_n → L_{n+1}). Council Lv6+ ≥3 multisig + per-stage activation gate checks per ADR-2605261000 §6. Each transition is its own ADR.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "fromStage": {"type": "string", "knownValues": ["L0", "L1", "L2", "L3", "L4", "L5"]},
+          "toStage": {"type": "string", "knownValues": ["L1", "L2", "L3", "L4", "L5", "L6"]},
+          "transitionAdrCid": {"type": "string", "description": "The ADR authorizing this specific stage transition"},
+          "activationGateChecks": {
+            "type": "object",
+            "properties": {
+              "actorMaturityChecks": {"type": "array", "items": {"type": "string"}, "description": "Per-actor R-phase confirmation refs"},
+              "publicFundReserveAchieved": {"type": "boolean"},
+              "previousStageMetricRatio": {"type": "number", "description": "Achievement ratio of previous stage ≥0.8 × 2 quarters"},
+              "councilSeatsFilled": {"type": "integer"},
+              "publicObjectionPeriodClosed": {"type": "string"}
+            },
+            "required": ["actorMaturityChecks", "publicFundReserveAchieved", "previousStageMetricRatio", "councilSeatsFilled", "publicObjectionPeriodClosed"]
+          },
+          "attestingCouncilMembers": {"type": "array", "items": {"type": "string"}, "minItems": 3},
+          "attestationTimestamp": {"type": "string"}
+        },
+        "required": ["fromStage", "toStage", "transitionAdrCid", "activationGateChecks", "attestingCouncilMembers", "attestationTimestamp"]
+      }
+    }
+  }
+}

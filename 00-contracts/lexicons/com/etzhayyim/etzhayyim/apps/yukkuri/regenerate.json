@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yukkuri.regenerate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Regenerate a scene / line / asset within a yukkuri video project without re-running the entire pipeline. Emits an com.etzhayyim.apps.yukkuri.generation record linked via REGENERATED_FROM.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["videoUri", "target"],
+          "properties": {
+            "videoUri": { "type": "string" },
+            "target": { "type": "string", "enum": ["script", "scene", "line", "voice", "image", "sfx", "bgm", "character", "editor", "render"] },
+            "sceneRkey": { "type": "string" },
+            "lineRkey": { "type": "string" },
+            "assetRkey": { "type": "string" },
+            "instructions": { "type": "string", "description": "Natural-language fix-up prompt" },
+            "seed": { "type": "integer" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["generationUri", "status"],
+          "properties": {
+            "generationUri": { "type": "string" },
+            "status": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kanayama.airEmissionsAuditRecord",
+  "description": "Continuous stack emissions audit record (G8 cross-cutting). PFC / SO₂ / NOx / particulate / dioxin / VOC + EN 12457 solid-waste leachate vs EU IED 2010/75/EU + 日本大気汚染防止法. Per ADR-2605252400 G8.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "lotId": {"type": "string"},
+          "pfcFindings": {
+            "type": "object",
+            "description": "Wave 1 recycling Al should produce zero PFC (Hall-Héroult only)",
+            "properties": {
+              "cf4_ppm": {"type": "number"},
+              "c2f6_ppm": {"type": "number"},
+              "gwp_co2eq_kg": {"type": "number"},
+              "accept": {"type": "boolean"}
+            }
+          },
+          "so2NoxFindings": {"type": "unknown"},
+          "particulateDioxinFindings": {"type": "unknown"},
+          "leachateFindings": {"type": "unknown"},
+          "overallAccept": {"type": "boolean"},
+          "regulatoryBasis": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "knownValues": [
+                "EU IED 2010/75/EU",
+                "日本 大気汚染防止法",
+                "EN 12457-2",
+                "EN 12457-4",
+                "JIS K 0058"
+              ]
+            },
+            "minItems": 1
+          },
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["lotId", "overallAccept", "regulatoryBasis"]
+      }
+    }
+  }
+}

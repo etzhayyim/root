@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.generateInbetween",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Invoke the inbetweener AI actor to interpolate in-between frames between two keyframes on the same cut + layerRole. Creates com.etzhayyim.apps.animeka.inbetween records with method='aiInterp' and status='review'.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["prevKeyUri", "nextKeyUri", "count"],
+          "properties": {
+            "prevKeyUri": { "type": "string", "format": "at-uri" },
+            "nextKeyUri": { "type": "string", "format": "at-uri" },
+            "count": { "type": "integer", "description": "Number of in-between frames to generate." },
+            "easing": {
+              "type": "string",
+              "enum": ["linear", "easeIn", "easeOut", "easeInOut", "anticipation"],
+              "description": "Temporal interpolation curve."
+            },
+            "videoBackend": {
+              "type": "string",
+              "enum": ["seedance2", "wan5b", "animatediff", "svd"],
+              "default": "seedance2",
+              "description": "Video generation backend on the RunPod GPU pod (ADR-2604231328). Default seedance2 — ByteDance Seedance 2 i2v retains character identity across long interpolations better than WAN 5B."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uris"],
+          "properties": {
+            "uris": { "type": "array", "items": { "type": "string", "format": "at-uri" } },
+            "count": { "type": "integer" },
+            "elapsedMs": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

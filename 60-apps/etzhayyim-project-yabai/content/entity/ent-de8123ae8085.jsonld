@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-de8123ae8085",
+  "entityId": "ent-de8123ae8085",
+  "canonicalName": "dieudonné ozia mazio",
+  "aliases": [
+    "dieudonné ozia mazio"
+  ]
+}

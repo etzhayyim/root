@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Timer-start BPMN — ingests Crossref REST API works into vertex_work daily.
+  Generic primitives only: generic.http.fetch + generic.db.bulkInsert + generic.audit.emit
+  No custom Python handler required (v2 rewrite, 2026-04-30).
+  Single-page fetch: 100 most-recent works sorted by indexed desc.
+  vertex_id dedup: RisingWave PK overwrite — safe to re-ingest same DOI.
+  NSID: com.etzhayyim.apps.copyright.ingestCrossref
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v2
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_copyright_crossref_ingest"
+    targetNamespace="https://etzhayyim.ai/bpmn/copyright"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="copyright_crossref_ingest" name="copyright crossref ingest" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.copyright.ingestCrossref", "version": 2, "resultTimeoutMs": 120000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start_Timer" name="every 1 day">
+      <bpmn:outgoing>Flow_Timer</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_P1D">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P1D</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual / on-demand">
+      <bpmn:outgoing>Flow_Manual</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Timer"  sourceRef="Start_Timer"  targetRef="Task_Fetch"/>
+    <bpmn:sequenceFlow id="Flow_Manual" sourceRef="Start_Manual" targetRef="Task_Fetch"/>
+
+    <!-- Step 1: fetch 100 most-recent Crossref works (polite pool, mailto param) -->
+    <bpmn:serviceTask id="Task_Fetch" name="fetch Crossref works">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;https://api.crossref.org/works?rows=100&amp;sort=indexed&amp;order=desc&amp;filter=from-pub-date%3A2020&amp;mailto=jun%40etzhayyim.group&quot;" target="url"/>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="={ &quot;User-Agent&quot;: &quot;etzhayyim-copyright/2.0 (mailto:jun@etzhayyim.group)&quot;, &quot;Accept&quot;: &quot;application/json&quot; }" target="headers"/>
+          <zeebe:input source="=60" target="timeoutSec"/>
+          <zeebe:output source="=bodyJson" target="crossrefBody"/>
+          <zeebe:output source="=status"   target="fetchStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Timer</bpmn:incoming>
+      <bpmn:incoming>Flow_Manual</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Fetch" targetRef="Task_Insert"/>
+
+    <!-- Step 2: FEEL-transform items and bulk-insert into vertex_work -->
+    <bpmn:serviceTask id="Task_Insert" name="bulk insert vertex_work">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.bulkInsert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_work&quot;" target="table"/>
+          <zeebe:input source="= if crossrefBody != null and crossrefBody.message != null and crossrefBody.message.items != null then for item in crossrefBody.message.items[item.DOI != null] return { &quot;vertex_id&quot;: &quot;at://did:web:copyright.etzhayyim.com:crossref/com.etzhayyim.apps.copyright.work/doi-&quot; + replace(item.DOI, &quot;/&quot;, &quot;-&quot;), &quot;owner_did&quot;: &quot;did:web:copyright.etzhayyim.com:crossref&quot;, &quot;rkey&quot;: &quot;doi-&quot; + replace(item.DOI, &quot;/&quot;, &quot;-&quot;), &quot;repo&quot;: &quot;did:web:copyright.etzhayyim.com:crossref&quot;, &quot;did&quot;: &quot;did:web:copyright.etzhayyim.com:crossref&quot;, &quot;status&quot;: &quot;active&quot;, &quot;kind&quot;: if item.type = &quot;dataset&quot; or item.type = &quot;component&quot; then &quot;dataset&quot; else &quot;literary&quot;, &quot;title&quot;: if item.title != null and count(item.title) &gt; 0 then item.title[1] else &quot;(no title)&quot;, &quot;doi&quot;: item.DOI, &quot;registry&quot;: &quot;crossref&quot;, &quot;berne_automatic&quot;: true, &quot;source_url&quot;: &quot;https://doi.org/&quot; + item.DOI, &quot;collected_at&quot;: string(now()), &quot;sensitivity_ord&quot;: 100 } else []" target="rows"/>
+          <zeebe:output source="=inserted" target="rowsInserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+
+    <!-- Step 3: OCEL audit event -->
+    <bpmn:serviceTask id="Task_Audit" name="emit crossref.ingest OCEL">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.copyright.crossref.ingest.completed&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;registry&quot;: &quot;crossref&quot;, &quot;rowsInserted&quot;: rowsInserted, &quot;fetchStatus&quot;: fetchStatus }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

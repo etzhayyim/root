@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ac62386379f6",
+  "entityId": "ent-ac62386379f6",
+  "canonicalName": "haroun gaye",
+  "aliases": [
+    "haroun gaye"
+  ]
+}

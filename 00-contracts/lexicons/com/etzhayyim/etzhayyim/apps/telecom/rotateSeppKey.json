@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.rotateSeppKey",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "5G SEPP — record an N32 cryptographic key rotation. Only key hashes persisted in graph; newKeyRef is a vault:// pointer.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["contextId", "keyKind", "newKeyHash", "rotationReason", "validUntil", "observedAt"],
+          "properties": {
+            "rotationId": { "type": "string" },
+            "contextId": { "type": "string" },
+            "keyKind": { "type": "string", "enum": ["tls_session", "prins_modification", "prins_signature", "jws_signing"] },
+            "oldKeyHash": { "type": "string" },
+            "newKeyHash": { "type": "string" },
+            "newKeyRef": { "type": "string" },
+            "rotationReason": { "type": "string", "enum": ["scheduled", "compromise_suspected", "policy_change", "operator_request", "expired"] },
+            "validUntil": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "rotationId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

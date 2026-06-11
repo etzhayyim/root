@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-37318fb522018ad8",
+  "evidenceId": "evidence-37318fb522018ad8",
+  "entityId": "ent-4a34427be4af",
+  "category": "SanctionHit",
+  "source": "ofac/sdn/inagawa-kai",
+  "sourceReliability": "A",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.98,
+  "severity": 5,
+  "probability": 0.002,
+  "jurisdiction": "US",
+  "summary": "Watchlist signal"
+}

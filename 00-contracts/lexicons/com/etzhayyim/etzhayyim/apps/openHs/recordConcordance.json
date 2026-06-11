@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openHs.recordConcordance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a cross-walk between an HS code and another taxonomy (UNSPSC / SITC / NACE / CPC). Starts BPMN open_hs_record_concordance.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["hsCode","otherTaxonomy","otherCode","relation"],
+          "properties": {
+            "hsCode":        { "type": "string" },
+            "otherTaxonomy": { "type": "string", "description": "UNSPSC / SITC / NACE / CPC" },
+            "otherCode":     { "type": "string" },
+            "relation":      { "type": "string", "enum": ["exactMatch","broader","narrower","relatedTo"] },
+            "confidence":    { "type": "number" },
+            "source":        { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

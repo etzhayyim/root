@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  sbom.etzhayyim.com — registerArtifact BPMN (Phase C).
+
+  Persist the artifact + components, then run vuln-match against
+  vertex_cve_entry (yabai feed), then audit-emit.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_sbom_register_artifact"
+    targetNamespace="https://etzhayyim.ai/bpmn/sbom"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="sbom_register_artifact" name="sbom registerArtifact" isExecutable="true">
+
+    <bpmn:startEvent id="StartManual" name="xrpc">
+      <bpmn:outgoing>Flow_Persist</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Persist" name="register SBOM artifact + components">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.sbom.registerArtifact"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Persist</bpmn:incoming>
+      <bpmn:outgoing>Flow_VulnMatch</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Persist" sourceRef="StartManual" targetRef="Task_Persist"/>
+
+    <bpmn:serviceTask id="Task_VulnMatch" name="run vuln-match (purl × CVE)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.sbom.runVulnMatch"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_VulnMatch</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_VulnMatch" sourceRef="Task_Persist" targetRef="Task_VulnMatch"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:sb0m001x.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;sbom.registerArtifact&quot;" target="action"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_VulnMatch" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

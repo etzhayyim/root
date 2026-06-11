@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-84a13551148f",
+  "entityId": "ent-84a13551148f",
+  "canonicalName": "myanmar yatai international holding group co., ltd.",
+  "aliases": [
+    "myanmar yatai international holding group co., ltd."
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.futawa.silenMobilityReview",
+  "description": "Council 5-of-7 Safe attestation for any new futawa scope expansion (new model variant, new displacement class, electric drivetrain class, paint artwork class, R-phase transitions, hodoki integration changes). Mirrors yakushi silenPharmaReview / watatsumi silenSubmersibleReview / makura silenComfortReview / hodoki silenDeconstructionReview / kanayama silenRecyclingReview.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "scope": {
+            "type": "string",
+            "knownValues": [
+              "r1-activation",
+              "r2-activation",
+              "r3-activation",
+              "wave-2-displacement-above-250cc",
+              "wave-2-electric-above-15kw",
+              "wave-2-bicycle-or-ebike",
+              "wave-2-trike-or-sidecar",
+              "wave-2-h2-fuel-cell",
+              "new-model-variant",
+              "new-paint-artwork-charter-edge-case",
+              "user-installed-gps-module-design",
+              "hodoki-integration-schema-update",
+              "kanayama-recycled-content-target-revision",
+              "lands-yard-amendment-request"
+            ]
+          },
+          "reviewSubject": {"type": "string"},
+          "councilSafeTxId": {"type": "string"},
+          "councilApproverDids": {"type": "array", "items": {"type": "string"}, "minItems": 5, "maxItems": 7},
+          "verdict": {"type": "string", "knownValues": ["approve", "approve-with-conditions", "defer", "reject"]},
+          "conditions": {"type": "array", "items": {"type": "string"}},
+          "publicCommentPeriodDays": {"type": "integer"},
+          "ipfsDeliberationCid": {"type": "string"},
+          "decidedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["scope", "reviewSubject", "councilSafeTxId", "verdict", "decidedAt"]
+      }
+    }
+  }
+}

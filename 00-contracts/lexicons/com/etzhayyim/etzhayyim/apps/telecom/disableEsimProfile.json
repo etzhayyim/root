@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.disableEsimProfile",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Disable an active eSIM profile on eUICC without deletion (GSMA SGP.22 §3.2). Records state transition to 'disabled'. EID/ICCID sha256: hashed.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["operationId", "eid", "iccid"],
+          "properties": {
+            "operationId": { "type": "string" },
+            "eid": { "type": "string", "description": "sha256: hashed EID" },
+            "iccid": { "type": "string", "description": "sha256: hashed ICCID" },
+            "reason": { "type": "string", "enum": ["suspended", "lostDevice", "fraudPrevention", "maintenanceMode", "userRequest"] },
+            "observedAt": { "type": "string", "format": "datetime" },
+            "callerDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "iccid": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

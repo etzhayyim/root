@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shinshi.seedScenesWithImagesReal — bulk seed 5 photorealistic SDXL cosplay
+  scenes per actress (waiREALCN_v150). Same flow as seedScenesWithImages
+  with style="photoreal".
+
+  NSID: com.etzhayyim.apps.shinshi.seedScenesWithImagesReal
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shinshi_seed_scenes_with_images_real"
+    targetNamespace="https://etzhayyim.ai/bpmn/shinshi"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="shinshi_seed_scenes_with_images_real"
+                name="shinshi seedScenesWithImagesReal"
+                isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.shinshi.seedScenesWithImagesReal", "version": 1, "resultTimeoutMs": 900000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_ToBulk</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToBulk" sourceRef="Start" targetRef="Task_Bulk"/>
+
+    <bpmn:serviceTask id="Task_Bulk" name="bulk seed 5 photoreal scenes per actress">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shinshi.scene.bulkSeed"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=slugs"           target="slugs"/>
+          <zeebe:input source="=appDid"          target="appDid"/>
+          <zeebe:input source="=sceneType"       target="sceneType"/>
+          <zeebe:input source="=sceneIndices"    target="sceneIndices"/>
+          <zeebe:input source="=skipIfExisting"  target="skipIfExisting"/>
+          <zeebe:input source="=ckpt"            target="ckpt"/>
+          <zeebe:input source="=&quot;photoreal&quot;" target="style"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToBulk</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Bulk" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

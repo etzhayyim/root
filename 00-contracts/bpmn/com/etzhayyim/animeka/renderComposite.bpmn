@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 10 / 12 — 撮影 / composite. ADR-2604231328.
+  in:  cutId, colorTraceUri, backgroundUri, cameraMove (still/pan/tu/tb/follow),
+       durationFrames, videoBackend ('seedance2' default | 'wan5b' | 'animatediff')
+  out: compositeVertexId, blobCid (video clip)
+  note: Seedance 2 handles camera moves (pan/TU/TB/dolly) more faithfully than
+        WAN 5B for the composite step; see ADR-2604231328 §3 note on video
+        backend catalog.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_animeka_render_composite"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="animeka_render_composite" name="animeka render composite" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_FxPlan"/>
+    <bpmn:serviceTask id="Task_FxPlan" name="FX stack (Qwen 7B)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are an anime camera operator (撮影監督). Output ONE JSON object {fxStack:[{kind:&apos;glow|blur|diffusion|chromatic|lensFlare|grain|vignette&apos;,intensity:0.0..1.0}],cameraCurve:string,rackFocus:bool}. JSON only.&quot;" target="system"/>
+          <zeebe:input source="=&quot;Camera move: &quot; + string(cameraMove) + &quot;\nDuration frames: &quot; + string(durationFrames)" target="user"/>
+          <zeebe:input source="=400" target="maxTokens"/>
+          <zeebe:input source="=0.2" target="temperature"/>
+          <zeebe:output source="=data" target="fx"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming><bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_FxPlan" targetRef="Task_Comp"/>
+    <bpmn:serviceTask id="Task_Comp" name="layered composite + camera move">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.comfyui.call"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;/v1/videos/generations&quot;" target="route"/>
+          <zeebe:input source="={
+              mode: &quot;composite&quot;,
+              model: if videoBackend = null then &quot;seedance2&quot; else string(videoBackend),
+              layers: [
+                { kind: &quot;background&quot;, uri: string(backgroundUri) },
+                { kind: &quot;character&quot;,  uri: string(colorTraceUri) }
+              ],
+              camera_move:   string(cameraMove),
+              fx_stack:      fx.fxStack,
+              num_frames:    durationFrames,
+              fps:           24
+          }" target="body"/>
+          <zeebe:input source="=&quot;binary&quot;" target="outputFormat"/>
+          <zeebe:input source="=420" target="timeoutSec"/>
+          <zeebe:output source="=blobCid" target="blobCid"/>
+          <zeebe:output source="=latencyMs" target="renderMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming><bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Comp" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="persist composite">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:  &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.composite/&quot; + string(cutId),
+              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,
+              collection: &quot;com.etzhayyim.apps.animeka.composite&quot;,
+              rkey:       string(cutId),
+              kind:       &quot;composite&quot;,
+              cut_id:     string(cutId),
+              duration_frames: durationFrames,
+              stage:      &quot;composite&quot;,
+              method:     &quot;aiComposite&quot;,
+              priority:   &quot;review&quot;,
+              camera_mode: string(cameraMove),
+              description: string(fx),
+              master_cid:    string(blobCid),
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F3</bpmn:incoming><bpmn:outgoing>F4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;renderComposite&quot;" target="action"/>
+          <zeebe:input source="={cutId: string(cutId), blobCid: string(blobCid), renderMs: renderMs}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F4</bpmn:incoming><bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F5" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>F5</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

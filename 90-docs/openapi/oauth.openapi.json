@@ -1,0 +1,39 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "oauth XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://oauth.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.oauth.getAuthorizationServer": {
+      "get": {
+        "summary": "Tranche F stub — DID-aware OAuth 2.1 / RFC 8414 authorization server discovery document. Wire-format fields are snake_case per ADR-2604231821. Full schema pending Phase 3.",
+        "operationId": "com.etzhayyim.oauth.getAuthorizationServer",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

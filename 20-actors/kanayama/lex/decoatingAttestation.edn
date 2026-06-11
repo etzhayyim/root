@@ -1,0 +1,23 @@
+;; com.etzhayyim.kanayama.decoatingAttestation — lexicon (EDN form)
+;; ADR-2605252400 · Phase 2 — L2 de-coating + shred + sort
+{:lexicon 1
+ :id "com.etzhayyim.kanayama.decoatingAttestation"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["attestationId" "intakeId" "coatingMassLoss"]
+    :properties
+    {:attestationId      {:type "string"}
+     :intakeId           {:type "string" :description "→ intakeRecord"}
+     :inputMass          {:type "number" :description "kg, de-coating input mass"}
+     :coatingMassLoss    {:type "number" :description "kg, burnt-off coating"}
+     :magneticSort       {:type "number" :description "kg, Fe fraction separated"}
+     :eddyCurrentSort    {:type "number" :description "kg, non-ferrous contaminant fraction"}
+     :outputMass         {:type "number" :description "kg, shredded Al ready for melt"}
+     :particleSize       {:type "string" :description "8-15mm shred distribution (visual/sieve)"}
+     :ipfsPhoto          {:type "string" :description "IPFS CID of batch photo (G3)"}
+     :ipfsVideo          {:type "string" :description "IPFS CID of process video (G3)"}
+     :timestamp          {:type "string" :format "datetime"}}}}}}

@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kouza.attachDocument",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Attach a vault-encrypted statement, certificate, report, or source import file to an external financial account.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ownerDid", "financialAccountDid", "documentKind", "vaultCid", "contentHash", "issuedAt"],
+          "properties": {
+            "ownerDid": { "type": "string", "format": "did" },
+            "financialAccountDid": { "type": "string", "format": "did" },
+            "documentKind": { "type": "string" },
+            "title": { "type": "string" },
+            "periodFrom": { "type": "string", "format": "datetime" },
+            "periodTo": { "type": "string", "format": "datetime" },
+            "issuedAt": { "type": "string", "format": "datetime" },
+            "vaultCid": { "type": "string" },
+            "contentHash": { "type": "string" },
+            "mimeType": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["documentDid"],
+          "properties": {
+            "documentDid": { "type": "string", "format": "did" }
+          }
+        }
+      }
+    }
+  }
+}

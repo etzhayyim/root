@@ -1,0 +1,53 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "milestones": "etzhayyim:milestones",
+      "blockers": "etzhayyim:blockers",
+      "dependsOn": {
+        "@id": "etzhayyim:dependsOn",
+        "@type": "@id"
+      }
+    }
+  ],
+  "@type": "CreativeWork",
+  "name": "ai etzhayyim open saas Scheduler",
+  "identifier": "etzhayyim-open-saas/scheduler",
+  "description": "Project schedule and blockers for the OSS SaaS baseline.",
+  "dateCreated": "2026-04-16T00:00:00+09:00",
+  "milestones": [
+    {
+      "@type": "DefinedTerm",
+      "identifier": "m1-open-saas-blueprint",
+      "name": "M1 Open SaaS Blueprint",
+      "description": "Project metadata, static console UI, and worker delivery."
+    },
+    {
+      "@type": "DefinedTerm",
+      "identifier": "m2-tenant-billing-domain",
+      "name": "M2 Tenant Billing Domain",
+      "description": "Persist tenant, plan, invoice, usage meter, and audit entities."
+    },
+    {
+      "@type": "DefinedTerm",
+      "identifier": "m2-5-salesforce-crm-blueprint",
+      "name": "M2.5 Salesforce CRM Blueprint",
+      "description": "Salesforce-equivalent CRM over AT/W Protocol: 6 Lexicons (account/contact/lead/opportunity/case/activity) + 3 XRPC methods (createLead/convertLead/listPipeline), activity auto-derived from opportunity and case commits, PII split between Tier 1 hashed indices and Tier 3 Preferences. Appview: salesforce-crm-sfcrm9x3."
+    },
+    {
+      "@type": "DefinedTerm",
+      "identifier": "m3-open-api-runtime",
+      "name": "M3 Open API Runtime",
+      "description": "Expose authenticated CRUD APIs and automation hooks."
+    }
+  ],
+  "blockers": [
+    {
+      "@type": "DefinedTerm",
+      "identifier": "b1-license-policy",
+      "name": "License Policy Decision",
+      "description": "Choose repository-level OSS licensing and contribution policy before production publication."
+    }
+  ]
+}

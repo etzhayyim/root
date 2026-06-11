@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  otakiage.reuseMatch - hourly reuse_open candidate scan + push notification
+
+  Flow:
+    1. otakiage.reuse.findCandidates (state=reuse_open, group by H3 + adjacent cells)
+    2. generic.audit.emit            (audit row)
+
+  Trigger: timer-start R/PT1H. Per-fire scope is bounded by primitive
+  internal cap (default 100 items / fire) to avoid runaway notifications.
+
+  No XRPC binding (timer-start only).
+
+  NSID (informational): com.etzhayyim.apps.otakiage.reuseMatch
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-reuse-match-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_otakiage_reuse_match"
+    targetNamespace="https://etzhayyim.ai/bpmn/otakiage"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="otakiage_reuse_match" name="otakiage reuseMatch" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.otakiage.reuseMatch", "version": 1, "resultTimeoutMs": 120000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="every 1h">
+      <bpmn:outgoing>Flow_ToFind</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_1h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToFind" sourceRef="Start" targetRef="Task_Find"/>
+
+    <bpmn:serviceTask id="Task_Find" name="find reuse_open candidates by H3 + adjacent">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="otakiage.reuse.findCandidates"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=100" target="maxItems"/>
+          <zeebe:output source="=candidateCount" target="candidateCount"/>
+          <zeebe:output source="=cellsScanned" target="cellsScanned"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFind</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Find" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:otakiage.etzhayyim.com:reuse&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.otakiage.reuseMatch&quot;" target="nsid"/>
+          <zeebe:input source="={ candidateCount: candidateCount, cellsScanned: cellsScanned }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

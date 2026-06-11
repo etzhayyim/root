@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Standalone manga page auto-layout.
+  Appview dispatches only; Python Zeebe generic LLM JSON primitive builds the
+  suggested panel geometry.
+  in:  pageId, panelCount?, style?
+  out: layoutData, model, latencyMs
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_mangaka_auto_layout_standalone"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="mangaka_auto_layout_standalone" name="mangaka standalone auto layout" isExecutable="true">
+    <bpmn:startEvent id="Start" name="layout requested">
+      <bpmn:outgoing>F1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Layout"/>
+    <bpmn:serviceTask id="Task_Layout" name="generate panel layout">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:input source="=&quot;Generate manga page panel layout JSON only. Page size is 2480x3508. Output ONE JSON object {panels:[{x:number,y:number,w:number,h:number,order:number}]}. Vary panel sizes for dynamic koma-wari while keeping panels within page bounds.&quot;" target="system"/>
+          <zeebe:input source="=&quot;pageId: &quot; + string(pageId) + &quot;\npanelCount: &quot; + string(if panelCount = null then 5 else panelCount) + &quot;\nstyle: &quot; + (if style = null then &quot;standard&quot; else string(style))" target="user"/>
+          <zeebe:input source="=700" target="maxTokens"/>
+          <zeebe:input source="=0.2" target="temperature"/>
+          <zeebe:output source="=data" target="layoutData"/>
+          <zeebe:output source="=model" target="model"/>
+          <zeebe:output source="=latencyMs" target="latencyMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming>
+      <bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Layout" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;autoLayout&quot;" target="action"/>
+          <zeebe:input source="={pageId: string(pageId), panelCount: (if panelCount = null then 5 else panelCount), style: (if style = null then &quot;standard&quot; else string(style)), model: string(model), latencyMs: latencyMs}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming>
+      <bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>F3</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

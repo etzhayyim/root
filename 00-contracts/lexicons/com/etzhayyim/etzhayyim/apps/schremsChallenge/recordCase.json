@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.schremsChallenge.recordCase",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "GDPR / Schrems-style / Max Schrems challenge (bridges crossBorderTransfer.flagScaleRisk + data-adequacy + federal-court-docket)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "caseId",
+            "forum",
+            "issue",
+            "filedAt"
+          ],
+          "properties": {
+            "caseId": {
+              "type": "string"
+            },
+            "respondentLei": {
+              "type": "string"
+            },
+            "forum": {
+              "type": "string",
+              "enum": [
+                "cjeu",
+                "edpb",
+                "dpa_ie",
+                "dpa_de",
+                "dpa_fr",
+                "dpa_es",
+                "dpa_at",
+                "dpa_nl",
+                "cjeu_advocate",
+                "national_high_court",
+                "ftc_enforcement",
+                "fcc_consent",
+                "commerce_dep"
+              ]
+            },
+            "issue": {
+              "type": "string",
+              "enum": [
+                "adequacy_decision",
+                "scc_bcr_validity",
+                "tia_quality",
+                "direct_transfers",
+                "subsequent_transfers",
+                "sub_processor",
+                "joint_controller",
+                "legitimate_interest",
+                "essential_equivalence"
+              ]
+            },
+            "scaleRiskVid": {
+              "type": "string",
+              "description": "bridges crossBorderTransfer.flagScaleRisk"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

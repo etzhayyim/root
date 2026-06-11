@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.contentengine.registerCohortProfile",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a cohort content profile (interests, reading level, preferred format). No PII — cohort-level only (ADR-0018).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cohortName"],
+          "properties": {
+            "cohortName": { "type": "string", "maxLength": 100 },
+            "interests": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Topic interests for this cohort"
+            },
+            "readingLevel": { "type": "string", "enum": ["beginner", "intermediate", "expert"], "default": "intermediate" },
+            "preferredFormats": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "blog_post|social_thread|email_body|report_summary"
+            },
+            "industryContext": { "type": "string", "maxLength": 200 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["profileId"],
+          "properties": {
+            "profileId": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

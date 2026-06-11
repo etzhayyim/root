@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  pds.resyncMitamaCronTriggers — schedule actor manifest cron pipelines.
+
+  PDS still owns actor manifest loading and inline pipeline execution. This
+  BPMN process moves the five-minute trigger resync lifecycle to Zeebe/PyZeebe
+  by invoking a HMAC-protected PDS internal maintenance endpoint.
+
+  NSID: com.etzhayyim.apps.pds.resyncMitamaCronTriggers
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_pds_resync_mitama_cron_triggers"
+    targetNamespace="https://etzhayyim.ai/bpmn/pds"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="pds_resync_mitama_cron_triggers" name="pds resyncMitamaCronTriggers" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.pds.resyncMitamaCronTriggers", "version": 1, "resultTimeoutMs": 90000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="every 5m">
+      <bpmn:outgoing>Flow_ToResync</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_5m">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT5M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToResync" sourceRef="Start" targetRef="Task_Resync"/>
+
+    <bpmn:serviceTask id="Task_Resync" name="resync actor cron triggers">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="pds.mitama.cronTriggers.resync"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=if pdsUrl = null then &quot;&quot; else string(pdsUrl)" target="pdsUrl"/>
+          <zeebe:input source="=false" target="flush"/>
+          <zeebe:output source="=ok" target="pdsMitamaCronResyncOk"/>
+          <zeebe:output source="=scheduled" target="pdsMitamaCronScheduled"/>
+          <zeebe:output source="=auditUri" target="pdsMitamaCronAuditUri"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToResync</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Resync" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

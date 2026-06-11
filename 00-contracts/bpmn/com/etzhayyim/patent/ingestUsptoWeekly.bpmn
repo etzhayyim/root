@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ADR 2604251024 — patent bulk ingest (USPTO PatentsView weekly TSV).
+
+  Timer-start (Sun 00:00 UTC). Pulls the PatentsView manifest + granted
+  patent TSV + citation TSV and bulk-inserts into vertex_open_patent_patent
+  and edge_open_patent_citation_pair. metadata only — PDF / webp are
+  handled by patent-blob-convert.bpmn when a blob row with status='pending'
+  is produced here for granted filings with filing_date >= 2010-01-01.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_patent_ingest_uspto_weekly"
+    targetNamespace="https://etzhayyim.ai/bpmn/patent"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="patent_ingest_uspto_weekly" name="patent ingest USPTO weekly" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="weekly">
+      <bpmn:outgoing>Flow_Patent</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 0 ? * SUN</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_IngestPatent" name="ingest g_patent.tsv">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="patent.usptoPatentsview.ingestPatent"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;https://s3.amazonaws.com/data.patentsview.org/download/g_patent.tsv.zip&quot;" target="tsvUrl"/>
+          <zeebe:input source="=2000" target="batchSize"/>
+          <zeebe:input source="=&quot;vertex_open_patent_patent&quot;" target="table"/>
+          <zeebe:input source="=&quot;2010-01-01&quot;" target="blobThresholdDate"/>
+          <zeebe:input source="=&quot;vertex_patent_blob&quot;" target="blobTable"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Patent</bpmn:incoming>
+      <bpmn:outgoing>Flow_Citation</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Patent" sourceRef="StartTimer" targetRef="Task_IngestPatent"/>
+    <bpmn:sequenceFlow id="Flow_Citation" sourceRef="Task_IngestPatent" targetRef="Task_IngestCitation"/>
+
+    <bpmn:serviceTask id="Task_IngestCitation" name="ingest g_us_patent_citation.tsv">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="patent.usptoPatentsview.ingestCitation"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;https://s3.amazonaws.com/data.patentsview.org/download/g_us_patent_citation.tsv.zip&quot;" target="tsvUrl"/>
+          <zeebe:input source="=2000" target="batchSize"/>
+          <zeebe:input source="=&quot;vertex_open_patent_citation&quot;" target="vertexTable"/>
+          <zeebe:input source="=&quot;edge_open_patent_citation_pair&quot;" target="edgeTable"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Citation</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_IngestCitation" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:patent.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;patent.ingest.uspto.weekly&quot;" target="action"/>
+          <zeebe:input source="={
+              patentRows:   ingest.result.rows,
+              citationRows: citation.result.rows,
+              blobQueued:   ingest.result.blobQueued
+          }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

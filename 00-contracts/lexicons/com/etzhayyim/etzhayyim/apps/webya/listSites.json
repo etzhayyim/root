@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.webya.listSites",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "サイト一覧を取得する。professionKind と status でフィルタ可能。",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "professionKind": { "type": "string" },
+          "status":         { "type": "string" },
+          "limit":          { "type": "integer", "default": 50 },
+          "offset":         { "type": "integer", "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "sites", "total"],
+          "properties": {
+            "ok":    { "type": "boolean" },
+            "sites": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "siteId":        { "type": "string" },
+                  "siteName":      { "type": "string" },
+                  "professionKind":{ "type": "string" },
+                  "status":        { "type": "string" },
+                  "subdomain":     { "type": "string" },
+                  "customDomain":  { "type": "string" },
+                  "publishedAt":   { "type": "string" }
+                }
+              }
+            },
+            "total":  { "type": "integer" },
+            "limit":  { "type": "integer" },
+            "offset": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

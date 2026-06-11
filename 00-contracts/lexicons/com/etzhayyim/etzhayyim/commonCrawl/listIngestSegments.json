@@ -1,0 +1,22 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.commonCrawl.listIngestSegments",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List Common Crawl ingest segments with optional crawl/format/domain filter.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "crawlId": { "type": "string" },
+          "format": { "type": "string", "enum": ["wat", "warc", "wet"] },
+          "filterDomain": { "type": "string" },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "required": ["segments", "total", "offset", "limit"], "properties": { "segments": { "type": "array", "items": { "type": "object", "properties": { "uri": { "type": "string", "format": "at-uri" }, "ingestId": { "type": "string" }, "crawlId": { "type": "string" }, "segmentId": { "type": "string" }, "format": { "type": "string" }, "estimatedRecords": { "type": "integer" } } } }, "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" } } } }
+    }
+  }
+}

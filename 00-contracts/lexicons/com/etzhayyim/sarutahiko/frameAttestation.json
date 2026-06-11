@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sarutahiko.frameAttestation",
+  "description": "Chassis frame fabrication attestation (L1). HSLA-590/780 ladder-frame robotic MIG/MAG welding, straightness <1 mm/m, ≥2 robot witness. Per ADR-2605252500 L1.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "chassisId": {"type": "string"},
+          "steelLot": {
+            "type": "object",
+            "properties": {
+              "grade": {"type": "string", "knownValues": ["HSLA-590", "HSLA-780", "HSLA-980"]},
+              "lotId": {"type": "string"},
+              "certCid": {"type": "string"},
+              "yieldStrengthMpa": {"type": "integer"},
+              "tensileStrengthMpa": {"type": "integer"}
+            }
+          },
+          "railPositions": {"type": "array", "items": {"type": "unknown"}},
+          "weldPasses": {"type": "array", "items": {"type": "unknown"}},
+          "straightnessMmPerM": {"type": "number"},
+          "specStraightnessLimitMmPerM": {"type": "number", "const": 1.0},
+          "accept": {"type": "boolean"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["chassisId", "steelLot", "straightnessMmPerM", "accept", "attestingRobots"]
+      }
+    }
+  }
+}

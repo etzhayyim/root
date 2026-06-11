@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shosha.etzhayyim.com — daily report (autonomous, cron 0 0 22 * * ? UTC = 07:00 JST).
+
+  Pipeline:
+    1. shosha.pnl.dailyRecompute       Mark-to-market refresh
+    2. shosha.dailyReport.compose      Compose summary text (P&L + at-risk + top exposures)
+    3. generic.pds.dispatch            Post `app.bsky.feed.post` from did:web:shosha.etzhayyim.com
+    4. generic.audit.emit              OCEL trail
+
+  Cron (Zeebe 8 quartz syntax) chosen over `R/PT24H` so it fires at a stable
+  human-friendly hour (07:00 JST = 22:00 UTC), independent of when the BPMN
+  was first deployed.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shosha_daily_report"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="shosha_daily_report" name="shosha daily report (07:00 JST)" isExecutable="true">
+
+    <bpmn:startEvent id="StartTimer" name="daily 07:00 JST">
+      <bpmn:outgoing>Flow_ToPnl</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0 22 * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Pnl" name="recompute daily P&amp;L">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.pnl.dailyRecompute"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=tradesUpdated" target="tradesUpdated"/>
+          <zeebe:output source="=totalUnrealized" target="totalUnrealized"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPnl</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToCompose</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPnl" sourceRef="StartTimer" targetRef="Task_Pnl"/>
+
+    <bpmn:serviceTask id="Task_Compose" name="compose daily report text">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.dailyReport.compose"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=summary" target="summary"/>
+          <zeebe:output source="=tradesCount" target="tradesCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCompose</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToPost</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToCompose" sourceRef="Task_Pnl" targetRef="Task_Compose"/>
+
+    <bpmn:serviceTask id="Task_Post" name="post daily report (social derive)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.pds.dispatch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="type"/>
+          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="repo"/>
+          <zeebe:input source="={ &quot;text&quot;: summary, &quot;createdAt&quot;: string(now()) }" target="record"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToPost</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToPost" sourceRef="Task_Compose" targetRef="Task_Post"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.dailyReport&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;tradesCount&quot;: tradesCount, &quot;totalUnrealized&quot;: totalUnrealized }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Post" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

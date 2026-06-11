@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6b26a00d8497",
+  "entityId": "ent-6b26a00d8497",
+  "canonicalName": "cobalt refinery co. inc.",
+  "aliases": [
+    "cobalt refinery co. inc."
+  ]
+}

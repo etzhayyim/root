@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "ai.etzhayyim.yorishiro.crossref.getWorkByDoi",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch a single work record by its DOI.",
+      "x-yorishiro-external": true,
+      "x-yorishiro-kami": "api.crossref.org",
+      "x-yorishiro-transport": "openapi-v3",
+      "x-yorishiro-http": {
+        "method": "GET",
+        "pathTemplate": "/works/{doi}",
+        "responseContentType": "application/json",
+        "pathParams": [
+          "doi"
+        ],
+        "queryParams": [],
+        "bodyParams": []
+      },
+      "x-charter-purpose": [
+        "grant"
+      ],
+      "parameters": {
+        "type": "params",
+        "required": [
+          "doi"
+        ],
+        "properties": {
+          "doi": {
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 256,
+            "description": "DOI string, e.g. `10.1038/nature12373`."
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "httpStatus"
+          ],
+          "properties": {
+            "httpStatus": {
+              "type": "integer"
+            },
+            "json": {
+              "type": "object",
+              "description": "{ status, message-type, message: { ... } }."
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

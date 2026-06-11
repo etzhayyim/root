@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.bulkRefreshGtfsJp",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Trigger the maps-bulk-ingest-gtfs-jp K8s pod to (re)ingest all curated GTFS-JP feeds (Tokyo Metro / Toei / JR West / Chuo Bus by default; full 47-pref index when GTFS_JP_FEED_INDEX_URL is configured) into vertex_spatial as Railway / BusRoute / Station / BusStop. Usually fired by the timer-start BPMN of the same name (R/PT24H).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "feedIndexUrl": { "type": "string", "description": "Optional one-shot override for GTFS_JP_FEED_INDEX_URL — JSON array of {feed_id,url,prefecture,agency}." },
+            "limitFeeds":   { "type": "integer", "description": "Optional one-shot cap on number of feeds processed (dev / smoke runs)." }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "accepted":  { "type": "boolean" },
+            "startedAt": { "type": "string" },
+            "podStatus": { "type": "integer", "description": "HTTP status returned by the dumper /trigger endpoint." }
+          },
+          "required": ["accepted"]
+        }
+      }
+    }
+  }
+}

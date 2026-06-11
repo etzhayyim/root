@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oilCoverage.getOrchestration",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get an oil coverage orchestration baseline by jurisdiction+segment.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "required": ["jurisdiction"], "properties": { "jurisdiction": { "type": "string" }, "segment": { "type": "string" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "uri": { "type": "string", "format": "at-uri" }, "jurisdiction": { "type": "string" }, "segment": { "type": "string" }, "baselineCount": { "type": "integer" }, "actorFreshness": { "type": "string" }, "lastIngestedAt": { "type": "string", "format": "datetime" }, "childActorCounts": { "type": "object", "description": "nodeCount per segment actor", "additionalProperties": { "type": "integer" } } } } }
+    }
+  }
+}

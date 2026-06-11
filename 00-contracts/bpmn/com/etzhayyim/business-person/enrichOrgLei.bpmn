@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  LEI + public-company enrichment pipeline.
+
+  NSID:       com.etzhayyim.apps.businessPerson.enrichOrgLei
+  Owner DID:  did:web:business-person.etzhayyim.com
+  Process ID: business_person_enrich_org_lei
+
+  Fires every 24 hours (R/PT24H).
+  For each org_name in vertex_business_person with no LEI yet:
+    1. Query GLEIF API to resolve org_name → LEI code
+    2. Fetch parent/ultimate-parent hierarchy from GLEIF
+    3. Write to vertex_lei_entity + edge_person_lei_entity
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_business_person_enrich_org_lei"
+    targetNamespace="https://etzhayyim.ai/bpmn/business-person"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="business_person_enrich_org_lei" name="business person enrich org LEI" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.businessPerson.enrichOrgLei", "version": 1, "resultTimeoutMs": 180000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="every 24 hours">
+      <bpmn:outgoing>Flow_ToSelectOrgs</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_24h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToSelectOrgs" sourceRef="Start" targetRef="Task_SelectOrgs"/>
+
+    <bpmn:serviceTask id="Task_SelectOrgs" name="select orgs needing LEI">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="businessPerson.selectOrgsNeedingLei" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=orgs" target="orgs"/>
+          <zeebe:output source="=orgsCount" target="orgsCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSelectOrgs</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToResolveLei</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToResolveLei" sourceRef="Task_SelectOrgs" targetRef="Task_ResolveLei"/>
+
+    <bpmn:serviceTask id="Task_ResolveLei" name="resolve org name to LEI via GLEIF">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="businessPerson.resolveLei" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=orgs" target="orgs"/>
+          <zeebe:output source="=resolved" target="resolved"/>
+          <zeebe:output source="=resolvedCount" target="resolvedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToResolveLei</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToFetchHierarchy</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToFetchHierarchy" sourceRef="Task_ResolveLei" targetRef="Task_FetchHierarchy"/>
+
+    <bpmn:serviceTask id="Task_FetchHierarchy" name="fetch parent / ultimate-parent LEI chain">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="businessPerson.fetchLeiHierarchy" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=resolved" target="resolved"/>
+          <zeebe:output source="=enriched" target="enriched"/>
+          <zeebe:output source="=enrichedCount" target="enrichedCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToFetchHierarchy</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToWrite</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToWrite" sourceRef="Task_FetchHierarchy" targetRef="Task_Write"/>
+
+    <bpmn:serviceTask id="Task_Write" name="write LEI entities and link persons">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="businessPerson.writeLeiEntities" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=enriched" target="enriched"/>
+          <zeebe:output source="=entitiesWritten" target="entitiesWritten"/>
+          <zeebe:output source="=edgesWritten" target="edgesWritten"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToWrite</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Write" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

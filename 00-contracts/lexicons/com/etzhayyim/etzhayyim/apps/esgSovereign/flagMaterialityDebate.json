@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.esgSovereign.flagMaterialityDebate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ESG materiality / inverse relationship / greenhushing (bridges sovereignRating.flagMethodologyConcern + esg-controversy + climate-value-chain)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "scoreVid",
+            "debateKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "scoreVid": {
+              "type": "string",
+              "description": "bridges recordEsgSovereignScore"
+            },
+            "debateKind": {
+              "type": "string",
+              "enum": [
+                "e_vs_growth",
+                "s_vs_gdp",
+                "g_vs_democracy",
+                "inverse_e_s",
+                "window_dressing",
+                "colonial_bias",
+                "lmic_penalized",
+                "climate_adaptation_gap",
+                "just_transition_scoring",
+                "litigation_on_score"
+              ]
+            },
+            "rangeBpsImpact": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shosha.etzhayyim.com — agentLoop (XRPC com.etzhayyim.apps.shosha.agentLoop).
+
+  Path F unified agent loop entry (ADR 260413). The pyzeebe handler
+  shosha.agent.chat:
+    1. fetches recent intel + market view + open exposure rows
+    2. composes a shosha system prompt
+    3. calls kotodama.llm.call_tier(tier, system, user)
+    4. returns content / model / latency / row counts
+
+  This is the canonical "ask shosha" XRPC for human + downstream agents.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shosha_agent_loop"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="shosha_agent_loop" name="shosha agent loop" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.shosha.agentLoop", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="agentLoop">
+      <bpmn:outgoing>Flow_ToChat</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Chat" name="shosha agent chat (LLM)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.agent.chat"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=prompt" target="prompt"/>
+          <zeebe:input source="=tier" target="tier"/>
+          <zeebe:input source="=commodityFocus" target="commodityFocus"/>
+          <zeebe:input source="=maxTokens" target="maxTokens"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=content" target="content"/>
+          <zeebe:output source="=model" target="model"/>
+          <zeebe:output source="=latencyMs" target="latencyMs"/>
+          <zeebe:output source="=intelRowsUsed" target="intelRowsUsed"/>
+          <zeebe:output source="=marketViewRowsUsed" target="marketViewRowsUsed"/>
+          <zeebe:output source="=exposureRowsUsed" target="exposureRowsUsed"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToChat</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToChat" sourceRef="Start" targetRef="Task_Chat"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.agentLoop&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;model&quot;: model, &quot;latencyMs&quot;: latencyMs, &quot;intelRowsUsed&quot;: intelRowsUsed, &quot;marketViewRowsUsed&quot;: marketViewRowsUsed, &quot;exposureRowsUsed&quot;: exposureRowsUsed }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Chat" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5e1dd54d9757",
+  "entityId": "ent-5e1dd54d9757",
+  "canonicalName": "al-masri, abu hafs",
+  "aliases": [
+    "al-masri, abu hafs"
+  ]
+}

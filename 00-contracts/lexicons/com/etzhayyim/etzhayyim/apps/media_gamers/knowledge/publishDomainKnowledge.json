@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.knowledge.publishDomainKnowledge",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register domain knowledge for any game_slug. Generic replacement for publishPokoaPokemonDomainKnowledge. Caller supplies optional confirmed_facts / guide_principles / progression_route arrays; graph vertices & edges are read from vertex_gm_* tables scoped to game_slug.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["game_slug"],
+          "properties": {
+            "game_slug": { "type": "string", "description": "Canonical game slug, e.g. pokemon-pokopia" },
+            "canonical_title": { "type": "string", "description": "Display title, e.g. 'Pokémon Pokopia'" },
+            "intent_queries": {
+              "type": "array",
+              "description": "Input queries that should resolve to this game_slug",
+              "items": { "type": "string" }
+            },
+            "intent_rationale": { "type": "string" },
+            "confirmed_facts": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#fact" }
+            },
+            "guide_principles": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#guidePrinciple" }
+            },
+            "early_game_checklist": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "progression_route": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#progressionPhase" }
+            },
+            "sources": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "socialPost": {
+              "type": "string",
+              "description": "Optional social post text to publish after saving domain knowledge"
+            },
+            "publish": {
+              "type": "boolean",
+              "description": "When true, publish a social post even if socialPost is omitted"
+            },
+            "lang": { "type": "string", "default": "en" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "game_slug": { "type": "string" },
+            "domain_knowledge_id": { "type": "string" },
+            "record": { "type": "string" },
+            "vertex_count": { "type": "integer" },
+            "edge_count": { "type": "integer" },
+            "social_post_uri": { "type": "string" }
+          }
+        }
+      }
+    },
+    "fact": {
+      "type": "object",
+      "required": ["statement"],
+      "properties": {
+        "kind": { "type": "string", "description": "release / release_date / setting / combat / progression / bonus / etc." },
+        "statement": { "type": "string" },
+        "confidence": { "type": "string", "description": "high / medium / low" }
+      }
+    },
+    "guidePrinciple": {
+      "type": "object",
+      "required": ["title", "detail"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "detail": { "type": "string" }
+      }
+    },
+    "progressionPhase": {
+      "type": "object",
+      "required": ["phase", "goal"],
+      "properties": {
+        "phase": { "type": "string", "description": "opening / midgame / rank-push / endgame / etc." },
+        "goal": { "type": "string" },
+        "actions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

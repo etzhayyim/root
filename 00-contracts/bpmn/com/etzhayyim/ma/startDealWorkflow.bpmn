@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Global M&A brokerage workflow.
+
+  NSID:       com.etzhayyim.apps.ma.startDealWorkflow
+  Owner DID:  did:web:ma.etzhayyim.com
+  Process ID: ma_start_deal_workflow
+
+  This is the first executable shell for etzhayyim-project-ma. It wires MA Core,
+  APQC, ISCO, and ISIC actors through stable Zeebe task types and emits a final
+  audit event for process-mining visibility.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_ma_start_deal_workflow"
+    targetNamespace="https://etzhayyim.ai/bpmn/ma"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="ma_start_deal_workflow" name="M&amp;A deal workflow" isExecutable="true">
+    <bpmn:startEvent id="Start" name="deal intake">
+      <bpmn:outgoing>Flow_Intake</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Intake" sourceRef="Start" targetRef="Task_Intake"/>
+
+    <bpmn:serviceTask id="Task_Intake" name="sales origination intake">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ma.salesOrigination.intake" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=side" target="side"/>
+          <zeebe:input source="=clientName" target="clientName"/>
+          <zeebe:input source="=sector" target="sector"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Intake</bpmn:incoming>
+      <bpmn:outgoing>Flow_Screen</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Screen" sourceRef="Task_Intake" targetRef="Task_Screen"/>
+
+    <bpmn:serviceTask id="Task_Screen" name="target screening">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ma.targetScreening.score" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Screen</bpmn:incoming>
+      <bpmn:outgoing>Flow_Valuation</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Valuation" sourceRef="Task_Screen" targetRef="Task_Valuation"/>
+
+    <bpmn:serviceTask id="Task_Valuation" name="valuation and structure">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ma.investmentAdviser.valuation" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Valuation</bpmn:incoming>
+      <bpmn:outgoing>Flow_Match</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Match" sourceRef="Task_Valuation" targetRef="Task_Match"/>
+
+    <bpmn:serviceTask id="Task_Match" name="buyer matching">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ma.buyerMatching.rank" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Match</bpmn:incoming>
+      <bpmn:outgoing>Flow_Negotiate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Negotiate" sourceRef="Task_Match" targetRef="Task_Negotiate"/>
+
+    <bpmn:serviceTask id="Task_Negotiate" name="broker negotiation">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ma.tradeBroker.negotiate" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Negotiate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Outreach</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Outreach" sourceRef="Task_Negotiate" targetRef="Task_Outreach"/>
+
+    <bpmn:serviceTask id="Task_Outreach" name="compose outreach draft">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ma.outreach.composeDraft" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;ma&quot;" target="mailboxLocal"/>
+          <zeebe:input source="=&quot;draft_only&quot;" target="outreachMode"/>
+          <zeebe:input source="=true" target="approvalRequired"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Outreach</bpmn:incoming>
+      <bpmn:outgoing>Flow_ApproveOutreach</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ApproveOutreach" sourceRef="Task_Outreach" targetRef="Task_ApproveOutreach"/>
+
+    <bpmn:userTask id="Task_ApproveOutreach" name="approve outreach draft">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:ma-outreach-approval-v1"/>
+        <zeebe:assignmentDefinition candidateGroups="ma-operators"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ApproveOutreach</bpmn:incoming>
+      <bpmn:outgoing>Flow_PrepareMailerSend</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_PrepareMailerSend" sourceRef="Task_ApproveOutreach" targetRef="Task_PrepareMailerSend"/>
+
+    <bpmn:serviceTask id="Task_PrepareMailerSend" name="prepare mailer send payload">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ma.outreach.prepareMailerSend" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_PrepareMailerSend</bpmn:incoming>
+      <bpmn:outgoing>Flow_SendApproved</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_SendApproved" sourceRef="Task_PrepareMailerSend" targetRef="Task_SendApproved"/>
+
+    <bpmn:serviceTask id="Task_SendApproved" name="stage approved mailer send">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ma.outreach.sendApproved" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=true" target="dryRun"/>
+          <zeebe:input source="=false" target="sendEnabled"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_SendApproved</bpmn:incoming>
+      <bpmn:outgoing>Flow_Close</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Close" sourceRef="Task_SendApproved" targetRef="Task_Close"/>
+
+    <bpmn:serviceTask id="Task_Close" name="closing and PMI handoff">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ma.integration.closeAndHandoff" retries="2"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Close</bpmn:incoming>
+      <bpmn:outgoing>Flow_Health</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Health" sourceRef="Task_Close" targetRef="Task_Health"/>
+
+    <bpmn:serviceTask id="Task_Health" name="rw health gate">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="rw.health.probe" retries="1"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=healthy" target="rwHealthy"/>
+          <zeebe:output source="=reason" target="rwHealthReason"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Health</bpmn:incoming>
+      <bpmn:outgoing>Flow_HealthGate</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_HealthGate" sourceRef="Task_Health" targetRef="Gateway_RwHealthy"/>
+
+    <bpmn:exclusiveGateway id="Gateway_RwHealthy" name="RisingWave healthy?" default="Flow_RwDegraded">
+      <bpmn:incoming>Flow_HealthGate</bpmn:incoming>
+      <bpmn:outgoing>Flow_WriteGraph</bpmn:outgoing>
+      <bpmn:outgoing>Flow_RwDegraded</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_WriteGraph" sourceRef="Gateway_RwHealthy" targetRef="Task_WriteGraph">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=rwHealthy = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_RwDegraded" sourceRef="Gateway_RwHealthy" targetRef="Task_AuditRwDegraded"/>
+
+    <bpmn:serviceTask id="Task_WriteGraph" name="write MA graph">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ma.writeGraph" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=false" target="dryRun"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_WriteGraph</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_WriteGraph" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_AuditRwDegraded" name="audit rw degraded">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:ma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;ma.startDealWorkflow.rwDegraded&quot;" target="action"/>
+          <zeebe:input source="={dealId: dealId, side: side, sector: sector, rwHealthy: rwHealthy, rwHealthReason: rwHealthReason, status: &quot;rw-degraded&quot;}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_RwDegraded</bpmn:incoming>
+      <bpmn:outgoing>Flow_DegradedEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_DegradedEnd" sourceRef="Task_AuditRwDegraded" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit MA workflow">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:ma.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;ma.startDealWorkflow.completed&quot;" target="action"/>
+          <zeebe:input source="={dealId: dealId, side: side, sector: sector, status: status, matchedBuyerCount: matchedBuyerCount, closingStage: closingStage}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="workflow completed">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+      <bpmn:incoming>Flow_DegradedEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.instantiateEdgeAppInstance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MEC orchestrator — instantiate an Edge Application Server (EAS) on a registered MEC host from an onboarded app package. Phase 10 (3GPP TS 23.558).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["appPackageId", "hostId", "easProviderId", "easFqdn", "observedAt"],
+          "properties": {
+            "easId": { "type": "string" },
+            "appPackageId": { "type": "string" },
+            "hostId": { "type": "string" },
+            "easProviderId": { "type": "string" },
+            "snssai": { "type": "string" },
+            "dnn": { "type": "string" },
+            "easFqdn": { "type": "string" },
+            "easIpv4": { "type": "string" },
+            "requestedFlavor": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "easId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

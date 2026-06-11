@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPatent.summarizeSeiyakuStartProgress",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Summarize progress for an expired-patent open-seiyaku start request using queued request and optional acknowledgement data.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["startRequestVid"],
+          "properties": {
+            "startRequestVid": { "type": "string" },
+            "startRequestStatus": { "type": "string" },
+            "ackVid": { "type": "string" },
+            "ackStatus": { "type": "string" },
+            "seiyakuInstanceKey": { "type": "integer" },
+            "seiyakuBatchVertexId": { "type": "string" },
+            "message": { "type": "string" },
+            "dryRun": { "type": "boolean" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "progressStatus": { "type": "string" },
+            "startRequestVid": { "type": "string" },
+            "ackVid": { "type": "string" },
+            "seiyakuInstanceKey": { "type": "integer" },
+            "seiyakuBatchVertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

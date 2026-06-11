@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.inHome.flagRightsConcern",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Rights concern / civil society squeeze / minority backlash (bridges minorityRights + transnationalRepression + pressFreedomIndex)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordHomeAffair"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "fcra_targeted_ngo",
+                "muslim_minority_violence",
+                "christian_minority_violence",
+                "dalit_atrocity",
+                "tribal_displacement",
+                "journalist_jailed",
+                "activist_uapa",
+                "pegasus_targeting",
+                "internet_shutdown_pattern",
+                "manipur_violence",
+                "khalistan_response_excessive",
+                "cbi_political_use"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "apqc XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://apqc.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.apqc.coverageSnapshot": {
+      "get": {
+        "summary": "Return APQC pyzeebe + LangGraph + UDF migration coverage.",
+        "operationId": "com.etzhayyim.apqc.coverageSnapshot",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "registeredL1": {
+                      "type": "integer"
+                    },
+                    "totalL1": {
+                      "type": "integer"
+                    },
+                    "registeredSubProcesses": {
+                      "type": "integer"
+                    },
+                    "totalSubProcesses": {
+                      "type": "integer"
+                    },
+                    "runtime": {
+                      "type": "string"
+                    },
+                    "standaloneWasm": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.apqc.emitEvent": {
+      "post": {
+        "summary": "Write an APQC OCEL event through the pyzeebe runtime.",
+        "operationId": "com.etzhayyim.apqc.emitEvent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "apqcCode": {
+                    "type": "string"
+                  },
+                  "taskId": {
+                    "type": "string"
+                  },
+                  "eventType": {
+                    "type": "string"
+                  },
+                  "caseId": {
+                    "type": "string"
+                  },
+                  "objects": {},
+                  "attributes": {},
+                  "actorDid": {
+                    "type": "string"
+                  },
+                  "callerDid": {
+                    "type": "string"
+                  },
+                  "dryRun": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "apqcCode",
+                  "eventType"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "vertexId": {
+                      "type": "string"
+                    },
+                    "ocelEventId": {
+                      "type": "string"
+                    },
+                    "apqcCode": {
+                      "type": "string"
+                    },
+                    "eventType": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.apqc.getProcess": {
+      "get": {
+        "summary": "Tranche F stub — fetch one APQC PCF process by ID. Full schema pending Phase 3 content copy.",
+        "operationId": "com.etzhayyim.apqc.getProcess",
+        "parameters": [
+          {
+            "name": "processId",
+            "in": "query",
+            "required": true,
+            "description": "APQC PCF process identifier (e.g. '1.0.0' for 'Develop Vision and Strategy')",
+            "schema": {
+              "type": "string",
+              "description": "APQC PCF process identifier (e.g. '1.0.0' for 'Develop Vision and Strategy')"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.apqc.materializeSubprocessDid": {
+      "get": {
+        "summary": "Return the deterministic APQC subprocess DID for SQL/UDF callers.",
+        "operationId": "com.etzhayyim.apqc.materializeSubprocessDid",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "apqcCode": {
+                      "type": "string"
+                    },
+                    "subprocessCode": {
+                      "type": "string"
+                    },
+                    "did": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.apqc.materializeSubprocesses": {
+      "post": {
+        "summary": "Materialize APQC subprocess DIDs for an APQC L1 code using the pyzeebe + LangGraph runtime.",
+        "operationId": "com.etzhayyim.apqc.materializeSubprocesses",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "apqcCode": {
+                    "type": "string"
+                  },
+                  "subprocessCode": {
+                    "type": "string"
+                  },
+                  "callerDid": {
+                    "type": "string"
+                  },
+                  "dryRun": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "apqcCode"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "apqcCode": {
+                      "type": "string"
+                    },
+                    "materialized": {
+                      "type": "integer"
+                    },
+                    "subprocesses": {
+                      "type": "array"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

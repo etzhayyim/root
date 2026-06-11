@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.card.settle",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Settle an authorized warifu hold on-chain (USDC, Base L2, T+0 final). Merchant fee always 0; gas sponsored by etzhayyim-paymaster from the Public Fund.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["authId"],
+          "properties": {
+            "authId": { "type": "string" },
+            "amountUsdc": { "type": "integer", "minimum": 1 },
+            "idempotencyKey": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["settled", "feeUsdc", "finality"],
+          "properties": {
+            "settled": { "type": "boolean" },
+            "settlementId": { "type": "string" },
+            "tx": { "type": "string" },
+            "feeUsdc": { "type": "integer", "const": 0 },
+            "finality": { "type": "string", "const": "T+0" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+app_identifier(ENV.fetch("IOS_APP_IDENTIFIER", "com.etzhayyim.aima"))
+package_name(ENV.fetch("ANDROID_PACKAGE_NAME", "com.etzhayyim.aima"))
+itunes_connect_id(ENV.fetch("IOS_APPLE_ID", "6760442304"))
+
+apple_id(ENV["APPLE_ID"]) if ENV["APPLE_ID"]
+itc_team_id(ENV["APP_STORE_CONNECT_TEAM_ID"]) if ENV["APP_STORE_CONNECT_TEAM_ID"]
+team_id(ENV["DEVELOPER_PORTAL_TEAM_ID"]) if ENV["DEVELOPER_PORTAL_TEAM_ID"]

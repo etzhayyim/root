@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  wellbecoming.beliefRestoringCapture — ADR-0098 E (γ restoring force).
+
+  Fires every 1h. Reads mv_attractor_stability_by_agent (q_i) and
+  vertex_belief_baseline (q_i^0) to compute per-agent restoring force:
+    restoring_delta_i = -γ * (q_i - q_i^0)
+
+  Baseline q_i^0 is captured on first observation (write-once).
+  Writes to vertex_belief_restoring for homeostasis monitoring.
+  mv_belief_restoring_summary tracks deviation_status
+  ('at_baseline'/'near_baseline'/'drifting') for D-feed gate.
+
+  NSID: com.etzhayyim.apps.wellbecoming.beliefRestoringCapture
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_wellbecoming_belief_restoring_capture"
+    targetNamespace="https://etzhayyim.ai/bpmn/wellbecoming"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="wellbecoming_belief_restoring_capture" name="Well-Becoming Belief Restoring Capture (γ homeostasis)" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.wellbecoming.beliefRestoringCapture", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <!-- Timer: every 1h -->
+    <bpmn:startEvent id="Start" name="every 1h">
+      <bpmn:outgoing>Flow_ToCapture</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_1h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToCapture" sourceRef="Start" targetRef="Task_Capture"/>
+
+    <!-- Compute restoring_delta_i = -γ * (q_i - q_i^0) per agent -->
+    <bpmn:serviceTask id="Task_Capture" name="capture γ restoring force">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="wellbecoming.restoring.capture"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=0.05" target="gamma_lr"/>
+          <zeebe:input source="=3"    target="min_scored_events"/>
+          <zeebe:output source="=agents_processed"    target="agentsProcessed"/>
+          <zeebe:output source="=rows_written"        target="rowsWritten"/>
+          <zeebe:output source="=max_abs_deviation"   target="maxAbsDeviation"/>
+          <zeebe:output source="=mean_abs_deviation"  target="meanAbsDeviation"/>
+          <zeebe:output source="=n_new_baselines"     target="nNewBaselines"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCapture</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Capture" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,45 @@
+{
+  "name": "kotodama-sh1nk4n0",
+  "main": "svelte/.svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2025-03-17",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_als"
+  ],
+  "assets": {
+    "directory": "./svelte/.svelte-kit/cloudflare/client",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  },
+  "vars": {
+    "APP_ACTOR_HANDLE": "shinkansen",
+    "APP_CAPABILITIES": "[\"reservation-management\",\"timetable-search\",\"fare-comparison\",\"operation-status\"]",
+    "APP_DESCRIPTION": "Shinkansen reservation intelligence — SmartEX, EX-IC, ekinet integration, real-time operation status",
+    "APP_DISPLAY_NAME": "新幹線予約",
+    "APP_EMBED_URL": "https://sh1nk4n0.etzhayyim.com/?embed=1",
+    "APP_FRAMEWORK": "sveltekit-edge-bff",
+    "APP_NANOID": "sh1nk4n0",
+    "APP_PERFORMER_TYPE": "service",
+    "APP_UI_TYPE": "appview",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
+  },
+  "rules": [
+    {
+      "type": "CompiledWasm",
+      "globs": [
+        "**/*.wasm"
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "sh1nk4n0.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
+    },
+    {
+      "pattern": "shinkansen.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
+    }
+  ]
+}

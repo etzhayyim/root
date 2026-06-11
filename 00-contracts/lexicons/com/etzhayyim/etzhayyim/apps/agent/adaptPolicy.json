@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.agent.adaptPolicy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Request bounded prior/preference adaptation under Mokuteki gates.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["agentDid", "preferenceKey", "proposal"],
+          "properties": {
+            "agentDid": { "type": "string" },
+            "preferenceKey": { "type": "string" },
+            "proposal": { "type": "unknown" },
+            "mokutekiGatePass": { "type": "boolean" },
+            "tripleWitnessPass": { "type": "boolean" },
+            "currentPreference": { "type": "object" },
+            "maxWeightDelta": { "type": "number" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "accepted": { "type": "boolean" },
+            "blockers": { "type": "array", "items": { "type": "string" } },
+            "policyProposal": { "type": "object" },
+            "preference": { "type": "object" },
+            "proposalHash": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

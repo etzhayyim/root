@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  wellbecoming.trustWeightUpdate — ADR-0098.
+
+  Fires every 1h. Reads mv_attractor_stability_by_agent to compute pairwise
+  belief distance D(q_i, q_j). Applies Bounded Confidence filter (bc_epsilon)
+  and writes W_ij weights to edge_trust_weight.
+
+  SBGE mapping:
+    W_ij = exp(-k * D(q_i, q_j))  if D < bc_epsilon  (information flows)
+           0                        if D >= bc_epsilon  (channel blocked)
+
+  NSID: com.etzhayyim.apps.wellbecoming.trustWeightUpdate
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-trust-weight-update-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_wellbecoming_trust_weight_update"
+    targetNamespace="https://etzhayyim.ai/bpmn/wellbecoming"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="wellbecoming_trust_weight_update" name="Well-Becoming Trust Weight Update" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.wellbecoming.trustWeightUpdate", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <!-- Timer: every 1h -->
+    <bpmn:startEvent id="Start" name="every 1h">
+      <bpmn:outgoing>Flow_ToUpdate</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_1h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToUpdate" sourceRef="Start" targetRef="Task_Update"/>
+
+    <!-- Compute W_ij + apply Bounded Confidence filter -->
+    <bpmn:serviceTask id="Task_Update" name="update W_ij trust weights">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="wellbecoming.trust.updateWeights"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=0.3"  target="bc_epsilon"/>
+          <zeebe:input source="=5.0"  target="weight_k"/>
+          <zeebe:input source="=3"    target="min_scored_events"/>
+          <zeebe:output source="=agents_found"    target="agentsFound"/>
+          <zeebe:output source="=pairs_evaluated" target="pairsEvaluated"/>
+          <zeebe:output source="=pairs_blocked"   target="pairsBlocked"/>
+          <zeebe:output source="=pairs_updated"   target="pairsUpdated"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToUpdate</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Update" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

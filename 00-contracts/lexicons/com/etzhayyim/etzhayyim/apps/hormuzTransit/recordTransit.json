@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hormuzTransit.recordTransit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ホルムス海峡通過 AIS 記録",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "imo",
+            "waypoint",
+            "direction",
+            "observedAt"
+          ],
+          "properties": {
+            "imo": {
+              "type": "string"
+            },
+            "mmsi": {
+              "type": "string"
+            },
+            "vesselName": {
+              "type": "string"
+            },
+            "flag": {
+              "type": "string",
+              "description": "ISO 3166 alpha-2"
+            },
+            "waypoint": {
+              "type": "string",
+              "enum": [
+                "east-entry",
+                "qoms-approach",
+                "tunb-narrows",
+                "west-entry"
+              ]
+            },
+            "direction": {
+              "type": "string",
+              "enum": [
+                "eastbound",
+                "westbound"
+              ]
+            },
+            "lat": {
+              "type": "number"
+            },
+            "lon": {
+              "type": "number"
+            },
+            "sogKnots": {
+              "type": "number"
+            },
+            "cargoType": {
+              "type": "string",
+              "enum": [
+                "crude",
+                "lng",
+                "refined",
+                "chemical",
+                "container",
+                "bulk",
+                "ballast"
+              ]
+            },
+            "laden": {
+              "type": "boolean"
+            },
+            "observedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

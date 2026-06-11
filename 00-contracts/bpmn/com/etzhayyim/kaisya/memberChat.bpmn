@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_kaisya_member_chat"
+                  targetNamespace="https://etzhayyim.ai/bpmn/kaisya"
+                  exporter="hand-written" exporterVersion="2.0">
+
+  <bpmn:process id="kaisya_member_chat"
+                name="kaisya Member Chat (Outlook + MCP + web)"
+                isExecutable="true">
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.kaisya.memberChat", "version": 1, "resultTimeoutMs": 120000 }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_XRPC" name="XRPC: memberChat">
+      <bpmn:outgoing>Flow_start_to_chat</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_chat" sourceRef="Start_XRPC" targetRef="Task_Chat"/>
+
+    <bpmn:serviceTask id="Task_Chat" name="Submit to LangGraph (member chat)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="kaisya.member.chat"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=user_upn"     target="user_upn"/>
+          <zeebe:input source="=user_message" target="user_message"/>
+          <zeebe:input source="=session_id"   target="session_id"/>
+          <zeebe:input source="=channel"      target="channel"/>
+          <zeebe:output source="=member_did"  target="member_did"/>
+          <zeebe:output source="=member_name" target="member_name"/>
+          <zeebe:output source="=route"       target="route"/>
+          <zeebe:output source="=reply_text"  target="reply_text"/>
+          <zeebe:output source="=requires_human_approval" target="requires_human_approval"/>
+          <zeebe:output source="=session_id"  target="out_session_id"/>
+          <zeebe:output source="=ok"          target="ok"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_chat</bpmn:incoming>
+      <bpmn:outgoing>Flow_chat_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_chat_to_audit" sourceRef="Task_Chat" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit Audit (OCEL)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:kaisya.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;kaisya.member.chat&quot;" target="event_type"/>
+          <zeebe:input source="={member_did: member_did, route: route, channel: channel, session_id: out_session_id, ok: ok}" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_chat_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

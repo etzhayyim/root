@@ -1,0 +1,23 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-96ad34f0402f",
+  "entityId": "ent-96ad34f0402f",
+  "canonicalName": "TradeOgre",
+  "aliases": [
+    "TradeOgre",
+    "Tradeogre.com",
+    "tradeogre.com"
+  ],
+  "kyumeiKoji": {
+    "performedAt": "2026-04-05T00:00:00Z",
+    "model": "gemma4",
+    "domainSummary": "High risk cryptocurrency exchange identified by Chainalysis. Destination of stolen funds from Rokes Exchange insider theft. ETH address 0x4648451b5F87FF8F0F7D622bD40574bb97E25980 with 124.67 ETH balance and 59,483 transfers.",
+    "ethAddress": "0x4648451b5F87FF8F0F7D622bD40574bb97E25980",
+    "chainalysisCategory": "high risk exchange",
+    "knowledgeEdges": [
+      {"from": "tradeogre", "relation": "RECEIVED_STOLEN_FUNDS_FROM", "to": "rokes_pakistan_dev"},
+      {"from": "tradeogre", "relation": "CATEGORIZED_AS", "to": "high_risk_exchange"}
+    ]
+  }
+}

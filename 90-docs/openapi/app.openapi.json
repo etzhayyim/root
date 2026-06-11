@@ -1,0 +1,1137 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "app XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://com.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.apps.kyber.initApqcProjector": {
+      "post": {
+        "summary": "Cross-project bootstrap: kyber ERP follows kyber-projector and writes an apqcBootstrap record. Projector's onCommit sees the follow + record and auto-registers the 13 APQC L1 DIDs plus the 3 APQC LangServer BPMN bindings (idempotent).",
+        "operationId": "com.etzhayyim.apps.kyber.initApqcProjector",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "projectorDid": {
+                    "type": "string",
+                    "description": "Override projector DID (default did:web:kyber-projector.etzhayyim.com)"
+                  },
+                  "projectorNanoid": {
+                    "type": "string",
+                    "description": "Override projector nanoid (default kyb3proj)"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "description": "all | l1-only"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "projectorDid": {
+                      "type": "string"
+                    },
+                    "followed": {
+                      "type": "boolean"
+                    },
+                    "bootstrapRkey": {
+                      "type": "string"
+                    },
+                    "scope": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "projectorDid",
+                    "followed"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.assignSkill": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.assignSkill",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "employeeId": {
+                    "type": "integer"
+                  },
+                  "skillId": {
+                    "type": "integer"
+                  },
+                  "certifiedBy": {
+                    "type": "string"
+                  },
+                  "certifiedAt": {
+                    "type": "string"
+                  },
+                  "proficiency": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "employeeId",
+                  "skillId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "assignmentId": {
+                      "type": "integer"
+                    },
+                    "employeeId": {
+                      "type": "integer"
+                    },
+                    "skillId": {
+                      "type": "integer"
+                    },
+                    "proficiency": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.completeTraining": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.completeTraining",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "enrollmentId": {
+                    "type": "integer"
+                  },
+                  "certificateId": {
+                    "type": "integer"
+                  },
+                  "feedback": {
+                    "type": "string"
+                  },
+                  "score": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "enrollmentId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "enrollmentId": {
+                      "type": "integer"
+                    },
+                    "passed": {
+                      "type": "string"
+                    },
+                    "score": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.coverageStats": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.coverageStats",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "activeEmployees": {
+                      "type": "number"
+                    },
+                    "positions": {
+                      "type": "number"
+                    },
+                    "skillDefinitions": {
+                      "type": "number"
+                    },
+                    "evaluations": {
+                      "type": "number"
+                    },
+                    "activeTrainings": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.createEvaluation": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.createEvaluation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "employeeId": {
+                    "type": "integer"
+                  },
+                  "evaluatorId": {
+                    "type": "integer"
+                  },
+                  "period": {
+                    "type": "string"
+                  },
+                  "strengths": {
+                    "type": "string"
+                  },
+                  "improvements": {
+                    "type": "string"
+                  },
+                  "comments": {
+                    "type": "string"
+                  },
+                  "performanceScore": {
+                    "type": "number"
+                  },
+                  "competencyScore": {
+                    "type": "number"
+                  },
+                  "leadershipScore": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "employeeId",
+                  "evaluatorId",
+                  "period"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "evaluatorId": {
+                      "type": "integer"
+                    },
+                    "evaluationId": {
+                      "type": "integer"
+                    },
+                    "employeeId": {
+                      "type": "integer"
+                    },
+                    "overallScore": {
+                      "type": "number"
+                    },
+                    "rating": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.createPosition": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.createPosition",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "department": {
+                    "type": "string"
+                  },
+                  "level": {
+                    "type": "integer"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "headcount": {
+                    "type": "number"
+                  },
+                  "salaryRangeMin": {
+                    "type": "number"
+                  },
+                  "salaryRangeMax": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "title",
+                  "department"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "positionId": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "department": {
+                      "type": "string"
+                    },
+                    "level": {
+                      "type": "integer"
+                    },
+                    "headcount": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.describe": {
+      "get": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.describe",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "did": {
+                      "type": "integer"
+                    },
+                    "nanoid": {
+                      "type": "integer"
+                    },
+                    "capabilities": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "protocols": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.enrollTraining": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.enrollTraining",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "employeeId": {
+                    "type": "integer"
+                  },
+                  "programName": {
+                    "type": "string"
+                  },
+                  "startDate": {
+                    "type": "string"
+                  },
+                  "provider": {
+                    "type": "string"
+                  },
+                  "durationDays": {
+                    "type": "number"
+                  },
+                  "cost": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "employeeId",
+                  "programName"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "enrollmentId": {
+                      "type": "integer"
+                    },
+                    "employeeId": {
+                      "type": "integer"
+                    },
+                    "programName": {
+                      "type": "string"
+                    },
+                    "startDate": {
+                      "type": "string"
+                    },
+                    "endDate": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.health": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.health",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "app": {
+                      "type": "string"
+                    },
+                    "nanoid": {
+                      "type": "integer"
+                    },
+                    "did": {
+                      "type": "integer"
+                    },
+                    "now": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.listEmployees": {
+      "get": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.listEmployees",
+        "parameters": [
+          {
+            "name": "department",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "employees": {
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.listEvaluations": {
+      "get": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.listEvaluations",
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "evaluations": {
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.listPositions": {
+      "get": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.listPositions",
+        "parameters": [
+          {
+            "name": "department",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "positions": {
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.registerEmployee": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.registerEmployee",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "type": "string"
+                  },
+                  "department": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "positionId": {
+                    "type": "integer"
+                  },
+                  "employmentType": {
+                    "type": "string"
+                  },
+                  "startDate": {
+                    "type": "string"
+                  },
+                  "managerId": {
+                    "type": "integer"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "salary": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "fullName",
+                  "department",
+                  "role"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "department": {
+                      "type": "string"
+                    },
+                    "employeeId": {
+                      "type": "integer"
+                    },
+                    "fullName": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "probationStatus": {
+                      "type": "string"
+                    },
+                    "probationEndDate": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.registerSkill": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.registerSkill",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "maxProficiency": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "skillId": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.skillGapAnalysis": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.skillGapAnalysis",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "positionId": {
+                    "type": "integer"
+                  },
+                  "employeeId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "positionId",
+                  "employeeId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "boolean"
+                    },
+                    "positionId": {
+                      "type": "integer"
+                    },
+                    "positionTitle": {
+                      "type": "string"
+                    },
+                    "employeeId": {
+                      "type": "integer"
+                    },
+                    "gaps": {
+                      "type": "string"
+                    },
+                    "readinessPercent": {
+                      "type": "string"
+                    },
+                    "totalGapPoints": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.app.kyber.hr.updateEmployeeStatus": {
+      "post": {
+        "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+        "operationId": "com.etzhayyim.app.kyber.hr.updateEmployeeStatus",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "employeeId": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "employeeId",
+                  "status"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "employeeId": {
+                      "type": "integer"
+                    },
+                    "previousStatus": {
+                      "type": "string"
+                    },
+                    "newStatus": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_apps_kyber_apqcBootstrap": {
+        "type": "object",
+        "properties": {
+          "projectorDid": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "requestedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "projectorDid",
+          "requestedAt"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-535d0fb933a6",
+  "entityId": "ent-535d0fb933a6",
+  "canonicalName": "international cobalt co. inc.",
+  "aliases": [
+    "international cobalt co. inc."
+  ]
+}

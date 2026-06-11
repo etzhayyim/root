@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.twinState",
+  "description": "Digital-twin state snapshot for a tracked asset (Building / BuildingFloor / PhysicalAsset / Sensor). Append-only TID-keyed time series; latest state derived by reading by `subjectUri` + sorting by `observedAt`. Distinct from `com.etzhayyim.maps.sensorReading` (high-frequency sensor stream — that lives in a kotoba-datomic-projection per OQ-M-5). Per maps CLAUDE.md §Digital Twin + ADR-2605231400.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "subjectUri",
+          "stateKind",
+          "observedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "subjectUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the feature whose state this records (Building / BuildingFloor / PhysicalAsset / Sensor)."
+          },
+          "stateKind": {
+            "type": "string",
+            "description": "Discriminator for what kind of state this is. `occupancy` and `health` are intentionally first-class because they're the two most common digital-twin axes.",
+            "knownValues": [
+              "occupancy",
+              "health",
+              "maintenance",
+              "availability",
+              "performance",
+              "custom"
+            ]
+          },
+          "valueNumericX10000": {
+            "type": "integer",
+            "description": "Single-scalar state observation × 10000 (e.g., occupancy headcount 142 → 1420000; health-score 0.85 → 8500). `unit` field declares the natural scale before the x10000 multiplier. Integer per AT Protocol Lexicon v1."
+          },
+          "valueText": {
+            "type": "string",
+            "description": "Categorical state observation (e.g., 'open' / 'closed' / 'maintenance-required').",
+            "maxLength": 256
+          },
+          "valueJson": {
+            "type": "string",
+            "description": "Free-form structured state as a JSON string for state shapes that don't fit numeric/text.",
+            "maxLength": 16384
+          },
+          "unit": {
+            "type": "string",
+            "description": "SI / domain unit when `valueNumeric` is set (e.g., 'count', 'celsius', 'pct').",
+            "maxLength": 32
+          },
+          "confidenceX10000": {
+            "type": "integer",
+            "description": "Observation confidence × 10000 (i.e. 0..10000 represents 0.0000..1.0000). Used by downstream consumers to weight readings.",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "observedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "observerDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the observer (operator / sensor / vision job that produced the state)."
+          },
+          "sourceDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "supersededByUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "If a later observation corrects this one (rare — typical pattern is append a new TID), point to the replacement."
+          }
+        }
+      }
+    }
+  }
+}

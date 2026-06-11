@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.animeka.work",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for an anime work (series). Carries the facet/embed source fields consumed by the derive rule `work-published-social` in kotodama.jsonld to auto-emit an app.bsky.feed.post. Each work gets a path-based DID `did:web:animeka.etzhayyim.com:work:{slug}` that becomes the social post author.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["title", "status", "createdAt"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Work display title (JP primary)."
+          },
+          "titleEN": {
+            "type": "string",
+            "description": "English title (optional)."
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-safe slug. Used to construct did:web:animeka.etzhayyim.com:work:{slug}."
+          },
+          "genre": {
+            "type": "string",
+            "description": "Primary genre (action / drama / slice-of-life / sci-fi etc.)."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["planning", "production", "airing", "completed", "archived"],
+            "description": "Production lifecycle."
+          },
+          "synopsis": {
+            "type": "string"
+          },
+          "episodeCount": {
+            "type": "integer",
+            "description": "Planned total episode count (informational; actual episodes are separate com.etzhayyim.apps.animeka.episode records)."
+          },
+          "fps": {
+            "type": "integer",
+            "description": "Default fps for this work (24 for full animation, 12 for limited). Can be overridden per-cut."
+          },
+          "resolution": {
+            "type": "string",
+            "description": "Master resolution (e.g. '1920x1080', '3840x2160')."
+          },
+          "coverCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the key visual image. Consumed by derive rule as embed.recordWithMedia.media.images[0].image."
+          },
+          "coverAlt": {
+            "type": "string"
+          },
+          "trailerUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "PV / trailer URL. Emitted as facet#link in the derived post."
+          },
+          "studioName": {
+            "type": "string",
+            "description": "Producing studio display name."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

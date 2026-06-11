@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b694167afa2b",
+  "entityId": "ent-b694167afa2b",
+  "canonicalName": "trober, s.a.",
+  "aliases": [
+    "trober, s.a."
+  ]
+}

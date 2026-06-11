@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.realEstate.searchListings",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Search global real-estate sale, rental, land-sale, auction, and lease listings.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "countryIso2": { "type": "string" },
+          "city": { "type": "string" },
+          "listingKind": { "type": "string", "enum": ["sale", "rent", "land_sale", "auction", "lease_assignment"] },
+          "offerStatus": { "type": "string", "enum": ["active", "pending", "closed", "withdrawn", "expired", "unknown"] },
+          "currency": { "type": "string" },
+          "minPrice": { "type": "number" },
+          "maxPrice": { "type": "number" },
+          "sourceId": { "type": "string" },
+          "canonicalPropertyKey": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200 },
+          "offset": { "type": "integer", "minimum": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": { "type": "array", "items": { "type": "object" } },
+            "count": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "offset": { "type": "integer" }
+          },
+          "required": ["items", "count", "limit", "offset"]
+        }
+      }
+    }
+  }
+}

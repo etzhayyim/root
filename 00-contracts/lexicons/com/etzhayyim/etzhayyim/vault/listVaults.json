@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.vault.listVaults",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "limit": { "type": "integer", "default": 50 },
+          "offset": { "type": "integer", "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vaults": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vaultId": { "type": "string" },
+                  "name": { "type": "string" },
+                  "description": { "type": "string" },
+                  "wrappedVaultKey": { "type": "string" },
+                  "memberDeviceKeyId": { "type": "string" },
+                  "role": {
+                    "type": "string",
+                    "description": "owner | admin | reader"
+                  },
+                  "memberCount": { "type": "integer" },
+                  "itemCount": { "type": "integer" },
+                  "createdAt": { "type": "string" }
+                },
+                "required": ["vaultId", "name", "wrappedVaultKey", "role"]
+              }
+            },
+            "total": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "offset": { "type": "integer" }
+          },
+          "required": ["vaults", "total", "limit", "offset"]
+        }
+      }
+    }
+  }
+}

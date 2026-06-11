@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kanayama.dcCastingAttestation",
+  "description": "DC (Direct Chill) slab casting attestation (L4). Typical 1m × 0.6m × 8m slab + homogenization 540-580°C × 12-24h. Per ADR-2605252400 L4.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "lotId": {"type": "string"},
+          "slabDimensionsMm": {
+            "type": "object",
+            "properties": {
+              "width": {"type": "integer"},
+              "thickness": {"type": "integer"},
+              "length": {"type": "integer"}
+            }
+          },
+          "castingTempC": {"type": "integer"},
+          "chillWaterFlowLpm": {"type": "integer"},
+          "homogenizationTempC": {"type": "integer", "minimum": 540, "maximum": 580},
+          "homogenizationHours": {"type": "integer", "minimum": 12, "maximum": 24},
+          "inspectionFindings": {"type": "array", "items": {"type": "unknown"}},
+          "slabMassKg": {"type": "number"},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["lotId", "slabDimensionsMm", "slabMassKg"]
+      }
+    }
+  }
+}

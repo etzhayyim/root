@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yorishiroNuro.recordClaim",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Provider → app callback. Persist a cashback claim receipt after the bank form submission completes.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "jobId": { "type": "string" },
+            "campaignCode": { "type": "string" },
+            "receiptNumber": { "type": "string" },
+            "screenshotBlobKey": { "type": "string" },
+            "amountJpy": { "type": "integer" },
+            "submittedAt": { "type": "string" }
+          },
+          "required": ["jobId", "campaignCode", "receiptNumber"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" },
+            "receiptId": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

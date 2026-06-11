@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openIsco.recordConcordance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a cross-walk between an ISCO-08 code and another occupation taxonomy (O*NET, ESCO, SOC, national). Starts BPMN open_isco_record_concordance.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["iscoCode","otherTaxonomy","otherCode","relation"],
+          "properties": {
+            "iscoCode":      { "type": "string" },
+            "otherTaxonomy": { "type": "string", "description": "ONET / ESCO / SOC / national" },
+            "otherCode":     { "type": "string" },
+            "relation":      { "type": "string", "enum": ["exactMatch","broader","narrower","relatedTo"] },
+            "confidence":    { "type": "number" },
+            "source":        { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

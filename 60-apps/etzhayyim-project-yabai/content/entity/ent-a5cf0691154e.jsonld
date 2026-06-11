@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a5cf0691154e",
+  "entityId": "ent-a5cf0691154e",
+  "canonicalName": "hengyang petrochemical logistics limited",
+  "aliases": [
+    "hengyang petrochemical logistics limited"
+  ]
+}

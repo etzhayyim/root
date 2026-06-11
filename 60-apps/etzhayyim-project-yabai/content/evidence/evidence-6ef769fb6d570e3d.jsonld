@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-6ef769fb6d570e3d",
+  "evidenceId": "evidence-6ef769fb6d570e3d",
+  "entityId": "ent-292a9a8c048f",
+  "category": "SanctionHit",
+  "source": "eu/sanctions",
+  "sourceReliability": "A",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.97,
+  "severity": 5,
+  "probability": 0.002,
+  "jurisdiction": "EU",
+  "summary": "Watchlist signal"
+}

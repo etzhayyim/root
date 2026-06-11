@@ -1,0 +1,774 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "cohort XRPC API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://cohort.etzhayyim.com"
+    }
+  ],
+  "paths": {
+    "/xrpc/com.etzhayyim.cohort.emitEvidence": {
+      "post": {
+        "summary": "com.etzhayyim.cohort.emitEvidence",
+        "operationId": "com.etzhayyim.cohort.emitEvidence",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cohortDid": {
+                    "type": "string"
+                  },
+                  "signalKind": {
+                    "type": "string"
+                  },
+                  "evidencePayload": {
+                    "type": "string"
+                  },
+                  "posterior": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "judgeAgreement": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "cohortDid",
+                  "signalKind",
+                  "evidencePayload"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "evidenceHash": {
+                      "type": "string"
+                    },
+                    "cohortDid": {
+                      "type": "string"
+                    },
+                    "observedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "evidenceHash",
+                    "cohortDid",
+                    "observedAt"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.cohort.fission": {
+      "post": {
+        "summary": "com.etzhayyim.cohort.fission",
+        "operationId": "com.etzhayyim.cohort.fission",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cohortDid": {
+                    "type": "string"
+                  },
+                  "posterior": {
+                    "type": "number",
+                    "minimum": 0.95,
+                    "maximum": 1
+                  },
+                  "judgeAgreement": {
+                    "type": "boolean"
+                  },
+                  "evidenceUris": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "cohortDid",
+                  "posterior",
+                  "judgeAgreement",
+                  "evidenceUris"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "individualDid": {
+                      "type": "string"
+                    },
+                    "individualHandle": {
+                      "type": "string"
+                    },
+                    "derivedFrom": {
+                      "type": "string"
+                    },
+                    "lineageArchiveUri": {
+                      "type": "string"
+                    },
+                    "fissionAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "individualDid",
+                    "individualHandle",
+                    "derivedFrom",
+                    "fissionAt"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.cohort.lineageStats": {
+      "get": {
+        "summary": "com.etzhayyim.cohort.lineageStats",
+        "operationId": "com.etzhayyim.cohort.lineageStats",
+        "parameters": [
+          {
+            "name": "pcfL1",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minChildren",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "cohortDid": {
+                            "type": "string"
+                          },
+                          "directChildren": {
+                            "type": "integer"
+                          },
+                          "lastFissionAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "cohortDid",
+                          "directChildren"
+                        ]
+                      }
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "rows",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.cohort.listCohorts": {
+      "get": {
+        "summary": "com.etzhayyim.cohort.listCohorts",
+        "operationId": "com.etzhayyim.cohort.listCohorts",
+        "parameters": [
+          {
+            "name": "kind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "cohort",
+                "fissioned"
+              ]
+            }
+          },
+          {
+            "name": "pcfL1",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fissionEnabled",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "cohortDid",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "derivedFrom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cohorts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "cohortDid": {
+                            "type": "string"
+                          },
+                          "handle": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "type": "string"
+                          },
+                          "segmentHash": {
+                            "type": "string"
+                          },
+                          "kAnonymity": {
+                            "type": "integer"
+                          },
+                          "fissionEnabled": {
+                            "type": "boolean"
+                          },
+                          "derivedFrom": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "genesisAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "cohortDid",
+                          "handle",
+                          "kind",
+                          "segmentHash",
+                          "kAnonymity",
+                          "fissionEnabled",
+                          "status",
+                          "genesisAt"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "cohorts",
+                    "total",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.cohort.listEvidence": {
+      "get": {
+        "summary": "com.etzhayyim.cohort.listEvidence",
+        "operationId": "com.etzhayyim.cohort.listEvidence",
+        "parameters": [
+          {
+            "name": "cohortDid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minPosterior",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          {
+            "name": "judgeAgreement",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "evidence": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "evidenceHash": {
+                            "type": "string"
+                          },
+                          "signalKind": {
+                            "type": "string"
+                          },
+                          "posterior": {
+                            "type": "number"
+                          },
+                          "judgeAgreement": {
+                            "type": "boolean"
+                          },
+                          "tier": {
+                            "type": "string"
+                          },
+                          "observedAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "evidenceHash",
+                          "signalKind",
+                          "tier",
+                          "observedAt"
+                        ]
+                      }
+                    },
+                    "cohortDid": {
+                      "type": "string"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "evidence",
+                    "cohortDid",
+                    "offset",
+                    "limit"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.cohort.repairEdge": {
+      "post": {
+        "summary": "com.etzhayyim.cohort.repairEdge",
+        "operationId": "com.etzhayyim.cohort.repairEdge",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "individualDid": {
+                    "type": "string"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000,
+                    "default": 100
+                  },
+                  "dryRun": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "repaired": {
+                      "type": "integer"
+                    },
+                    "skipped": {
+                      "type": "integer"
+                    },
+                    "errors": {
+                      "type": "integer"
+                    },
+                    "dryRun": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "repaired",
+                    "skipped",
+                    "errors",
+                    "dryRun"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/xrpc/com.etzhayyim.cohort.seed": {
+      "post": {
+        "summary": "com.etzhayyim.cohort.seed",
+        "operationId": "com.etzhayyim.cohort.seed",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "segmentJsonld": {
+                    "type": "string"
+                  },
+                  "kAnonymity": {
+                    "type": "integer",
+                    "minimum": 50
+                  },
+                  "fissionEnabled": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "policyRef": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "segmentJsonld",
+                  "kAnonymity"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "did": {
+                      "type": "string"
+                    },
+                    "handle": {
+                      "type": "string"
+                    },
+                    "signatureUri": {
+                      "type": "string"
+                    },
+                    "genesisAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "did",
+                    "handle",
+                    "signatureUri",
+                    "genesisAt"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ai_etzhayyim_cohort_evidence": {
+        "type": "object",
+        "properties": {
+          "cohortDid": {
+            "type": "string"
+          },
+          "evidenceHash": {
+            "type": "string"
+          },
+          "signalKind": {
+            "type": "string"
+          },
+          "syntheticConsentRef": {
+            "type": "string"
+          },
+          "posterior": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "judgeAgreement": {
+            "type": "boolean"
+          },
+          "tier": {
+            "type": "string"
+          },
+          "observedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cohortDid",
+          "evidenceHash",
+          "signalKind",
+          "tier",
+          "observedAt"
+        ]
+      },
+      "ai_etzhayyim_cohort_fissionLineage": {
+        "type": "object",
+        "properties": {
+          "individualDid": {
+            "type": "string"
+          },
+          "derivedFrom": {
+            "type": "string"
+          },
+          "posteriorAtFission": {
+            "type": "number",
+            "minimum": 0.95,
+            "maximum": 1
+          },
+          "judgeAgreement": {
+            "type": "boolean"
+          },
+          "evidenceUris": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fissionAt": {
+            "type": "string"
+          },
+          "parentSegmentHash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "individualDid",
+          "derivedFrom",
+          "posteriorAtFission",
+          "judgeAgreement",
+          "evidenceUris",
+          "fissionAt"
+        ]
+      },
+      "ai_etzhayyim_cohort_signature": {
+        "type": "object",
+        "properties": {
+          "segmentHash": {
+            "type": "string"
+          },
+          "demographicVector": {
+            "type": "string"
+          },
+          "kAnonymity": {
+            "type": "integer",
+            "minimum": 50
+          },
+          "policyRef": {
+            "type": "string"
+          },
+          "fissionEnabled": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "kReevaluatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "segmentHash",
+          "demographicVector",
+          "kAnonymity",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

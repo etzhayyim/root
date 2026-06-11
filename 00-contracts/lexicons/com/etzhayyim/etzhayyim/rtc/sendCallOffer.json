@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.rtc.sendCallOffer",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "convoId": {
+              "type": "string"
+            },
+            "targetDid": {
+              "type": "string"
+            },
+            "sdp": {
+              "type": "string"
+            },
+            "callId": {
+              "type": "string"
+            },
+            "mediaType": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "convoId",
+            "targetDid",
+            "sdp"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "signalType": {
+              "type": "string"
+            },
+            "convoId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ok",
+            "signalType",
+            "convoId"
+          ]
+        }
+      }
+    }
+  }
+}

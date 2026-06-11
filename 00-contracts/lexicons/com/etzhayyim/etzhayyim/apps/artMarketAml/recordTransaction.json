@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.artMarketAml.recordTransaction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Art market transaction (EU 6AMLD / US BFAA — bridges provenanceResearch.flagProvenanceGap + sanctions-entry + beneficial-ownership)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "transactionId",
+            "participantKind",
+            "settledAt"
+          ],
+          "properties": {
+            "transactionId": {
+              "type": "string"
+            },
+            "participantLei": {
+              "type": "string"
+            },
+            "participantKind": {
+              "type": "string",
+              "enum": [
+                "auction_house",
+                "dealer",
+                "gallery",
+                "freeport",
+                "private_sale",
+                "nft_platform",
+                "advisor",
+                "agent",
+                "shipper",
+                "conservator"
+              ]
+            },
+            "transactionValueEur": {
+              "type": "number"
+            },
+            "triggersKyc": {
+              "type": "boolean",
+              "description": "≥10k EUR threshold"
+            },
+            "provenanceGapVid": {
+              "type": "string",
+              "description": "bridges provenanceResearch.flagProvenanceGap"
+            },
+            "settledAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

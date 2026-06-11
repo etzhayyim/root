@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  projector.agentLoop — Camunda 8.9 agentic pattern: AI Agent connector +
+  ad-hoc sub-process. The single serviceTask `Task_AgentLoop` runs a
+  LangGraph ReAct StateGraph internally; the BPMN layer treats it as the
+  AI Agent container. Tools are loaded dynamically from project members
+  (MCP discovery) inside the LangGraph node — they are NOT modeled as
+  BPMN tasks because the tool set is per-project and changes at runtime.
+
+  CoT + Reflexion are folded into the agentLoop:
+    - Reflexion: Task_ReflexionLoad reads past episodes from RisingWave
+      and injects them into the system prompt (no LLM call here).
+    - CoT: the system prompt instructs the LLM to emit <reasoning>...</reasoning>;
+      the loop captures it into vars.reasoning.
+
+  NSID:      com.etzhayyim.apps.projector.agentLoop
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-agent-loop-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_projector_agent_loop"
+    targetNamespace="https://etzhayyim.ai/bpmn/projector"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="projector_agent_loop" name="projector agentLoop" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.projector.agentLoop", "version": 1, "resultTimeoutMs": 60000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="loop in">
+      <bpmn:outgoing>Flow_ToReflexion</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToReflexion" sourceRef="Start" targetRef="Task_ReflexionLoad"/>
+
+    <bpmn:serviceTask id="Task_ReflexionLoad" name="reflexion load (episodic memory)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="projector.reflexion.load"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=convoId" target="convoId"/>
+          <zeebe:input source="=callerDid" target="callerDid"/>
+          <zeebe:output source="=memories" target="reflexionMemory"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToReflexion</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToHistory</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToHistory" sourceRef="Task_ReflexionLoad" targetRef="Task_LoadHistory"/>
+
+    <bpmn:serviceTask id="Task_LoadHistory" name="load chat history">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_repo_record&quot;" target="table"/>
+          <zeebe:input source="=&quot;collection = %s AND repo = %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[&quot;com.etzhayyim.convo.message&quot;, callerDid]" target="whereParams"/>
+          <zeebe:input source="=&quot;value_json,created_at&quot;" target="columns"/>
+          <zeebe:input source="=&quot;ts_ms DESC&quot;" target="orderBy"/>
+          <zeebe:input source="=20" target="limit"/>
+          <zeebe:output source="=rows" target="historyRows"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToHistory</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToTools</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToTools" sourceRef="Task_LoadHistory" targetRef="Task_DiscoverTools"/>
+
+    <bpmn:serviceTask id="Task_DiscoverTools" name="discover member MCP tools">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="projector.tools.discover"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=convoId" target="convoId"/>
+          <zeebe:output source="=tools" target="memberTools"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToTools</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAgent</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAgent" sourceRef="Task_DiscoverTools" targetRef="Task_AgentLoop"/>
+
+    <bpmn:serviceTask id="Task_AgentLoop" name="LangGraph ReAct (CoT + tools)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="projector.agent.loop"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=convoId" target="convoId"/>
+          <zeebe:input source="=callerDid" target="callerDid"/>
+          <zeebe:input source="=text" target="userText"/>
+          <zeebe:input source="=reflexionMemory" target="reflexionMemory"/>
+          <zeebe:input source="=historyRows" target="historyRows"/>
+          <zeebe:input source="=memberTools" target="memberTools"/>
+          <zeebe:input source="=&quot;fast&quot;" target="tier"/>
+          <zeebe:input source="=8" target="maxIterations"/>
+          <zeebe:output source="=reply" target="reply"/>
+          <zeebe:output source="=reasoning" target="reasoning"/>
+          <zeebe:output source="=toolsCalled" target="toolsCalled"/>
+          <zeebe:output source="=iterations" target="iterations"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAgent</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+      <!-- Camunda agentic pattern #4: guardrail interrupt. The LangGraph
+           guardrail node returns {ok:false, reason} on policy violation
+           and the primitive raises an error matching Error_GuardrailDenied
+           below, which the boundary event catches. -->
+    </bpmn:serviceTask>
+
+    <bpmn:boundaryEvent id="BE_GuardrailDenied" name="guardrail denied" attachedToRef="Task_AgentLoop">
+      <bpmn:outgoing>Flow_GuardrailToEnd</bpmn:outgoing>
+      <bpmn:errorEventDefinition errorRef="Error_GuardrailDenied"/>
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_GuardrailToEnd" sourceRef="BE_GuardrailDenied" targetRef="EndDenied"/>
+    <bpmn:endEvent id="EndDenied" name="denied">
+      <bpmn:incoming>Flow_GuardrailToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_AgentLoop" targetRef="End"/>
+    <bpmn:endEvent id="End" name="reply ready">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+
+  <bpmn:error id="Error_GuardrailDenied" name="agent.guardrail.denied" errorCode="agent.guardrail.denied"/>
+</bpmn:definitions>

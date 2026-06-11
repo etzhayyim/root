@@ -1,0 +1,112 @@
+# Baien bitnet.cpp linux/amd64 correctness smoke (ADR 2605092350).
+#
+# One-shot Job that clones microsoft/BitNet, builds i2_s on a real
+# linux/amd64 worker (VKE Vultr), downloads the i2_s GGUF, and runs the
+# same greedy smoke prompt that gave incoherent output on Apple M1 Max.
+# A coherent answer here proves the bug is in the arm64 i2_s decode
+# path, not the model.
+#
+# Apply:
+#   kubectl apply -n baien -f 70-tools/scripts/training/baien-bitnet-cpp-vke-smoke.yaml
+# Watch:
+#   kubectl logs -n baien -f job/baien-bitnetcpp-amd64-smoke
+# Cleanup:
+#   kubectl delete -n baien job baien-bitnetcpp-amd64-smoke
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: baien-bitnetcpp-amd64-smoke
+  namespace: baien
+  labels:
+    app.kubernetes.io/name: baien-bitnetcpp-amd64-smoke
+    app.kubernetes.io/part-of: baien
+    adr: "2605092350"
+spec:
+  ttlSecondsAfterFinished: 86400
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: baien-bitnetcpp-amd64-smoke
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+      - name: smoke
+        # Ubuntu 22.04 ships clang 14, which is loose enough to accept the
+        # const-dropping casts in microsoft/BitNet src/ggml-bitnet-mad.cpp.
+        # Ubuntu 24.04's clang 18 hard-rejects them and the build fails at
+        # ~4% with `cannot initialize a variable of type 'int8_t *' with
+        # an rvalue of type 'const int8_t *'`.
+        image: ubuntu:22.04
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "4"
+            memory: "8Gi"
+          limits:
+            cpu: "8"
+            memory: "12Gi"
+        command: ["/bin/bash", "-eu", "-c"]
+        args:
+        - |
+          export DEBIAN_FRONTEND=noninteractive
+          echo "[smoke] uname:"; uname -a
+          echo "[smoke] cpu:"; grep -m1 'model name' /proc/cpuinfo
+          apt-get update -qq
+          apt-get install -y --no-install-recommends \
+            build-essential cmake clang git ca-certificates \
+            python3 python3-pip python3-venv >/dev/null
+          cd /tmp
+          git clone --depth 1 https://github.com/microsoft/BitNet.git
+          cd BitNet
+          git submodule update --init --depth 1 --recursive
+          python3 -m venv .venv
+          .venv/bin/pip install --quiet --upgrade pip
+          .venv/bin/pip install --quiet -r requirements.txt
+          source .venv/bin/activate
+          # Patch upstream microsoft/BitNet ggml-bitnet-mad.cpp const-drop
+          # bugs that fail on modern clang:
+          #   const int8_t * y = (int8_t *)vy;            // clang 14+ rejects
+          #   int8_t * y_col = y + col * by;              // line 811
+          # Solution: cast through `const_cast` at the (int8_t*)vy site so
+          # `y` is declared non-const from the start. Idempotent sed.
+          sed -i 's|const int8_t  \*    y = (int8_t \*)vy;|int8_t       *    y = const_cast<int8_t*>(reinterpret_cast<const int8_t*>(vy));|g' \
+              src/ggml-bitnet-mad.cpp
+          sed -i 's|const uint8_t \*    x = (uint8_t \*)vx;|uint8_t      *    x = const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(vx));|g' \
+              src/ggml-bitnet-mad.cpp
+          # Pull the prebuilt i2_s GGUF directly. setup_env.py's
+          # convert-hf-to-gguf-bitnet.py path fails on transformers 4.57+
+          # because BitNet's vendored conversion script targets an older
+          # tokenizer config. Skip it; we only need the GGUF + the
+          # codegen+build pieces below.
+          mkdir -p models/BitNet-b1.58-2B-4T
+          .venv/bin/pip install --quiet huggingface_hub
+          .venv/bin/python -c "from huggingface_hub import hf_hub_download; \
+              p = hf_hub_download(repo_id='microsoft/BitNet-b1.58-2B-4T-gguf', \
+                                  filename='ggml-model-i2_s.gguf', \
+                                  local_dir='models/BitNet-b1.58-2B-4T'); \
+              print('GGUF at', p)"
+          # Run codegen + cmake build via setup_env.py with --use-pretuned
+          # so it copies kernels and builds without trying to convert
+          # safetensors→GGUF.
+          (time python setup_env.py \
+              --hf-repo microsoft/BitNet-b1.58-2B-4T \
+              -md /tmp/BitNet/models/BitNet-b1.58-2B-4T \
+              -q i2_s) || true
+          echo "[smoke] === setup_env install logs ==="
+          ls -la logs/ 2>/dev/null || true
+          for f in logs/*.log; do
+            [ -f "$f" ] || continue
+            echo "--- $f ---"
+            cat "$f"
+          done
+          echo "[smoke] === run_inference ==="
+          # NOTE: run_inference.py does not accept -ngl; CPU is the only
+          # path inside this container anyway.
+          time python run_inference.py \
+              -m /tmp/BitNet/models/BitNet-b1.58-2B-4T/ggml-model-i2_s.gguf \
+              -p "The capital of France is" \
+              -n 32 -t 4 -temp 0.0 || true
+          echo "[smoke] === DONE ==="

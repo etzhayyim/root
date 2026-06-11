@@ -1,0 +1,79 @@
+From: abuse-liaison@etzhayyim.ai
+To: abuse@dynadot.com
+Reply-To: jun@etzhayyim.group
+Subject: [Abuse][Registrar] 51 phishing domains registered via Dynadot Inc
+Date: Sun, 19 Apr 2026 11:22:51 GMT
+Content-Type: text/plain; charset=utf-8
+
+Hello Dynadot Inc abuse team,
+
+We are reporting 51 domains registered through Dynadot Inc
+that resolve to active phishing / typosquat infrastructure.
+
+Domains:
+applestorls.com
+masdercard.com
+masetrscard.com
+maslercard.com
+maspercard.com
+masstarcard.com
+mastaercard.com
+mastcaerd.com
+mastcaort.com
+mastcarrd.com
+mastcrada.com
+mastcrade.com
+mastcrads.com
+mastecaerd.com
+mastecaort.com
+mastecards.com
+mastecored.com
+mastekard.com
+mastencard.com
+masteracard.com
+mastercand.com
+masterced.com
+mastercrads.com
+masterecrd.com
+masterkrad.com
+masterncard.com
+mastiercard.com
+mastircard.com
+mastirkard.com
+mastoercard.com
+mastorcards.com
+mastracrds.com
+mastrecarde.com
+mastrecardi.com
+mastrecart.com
+mastrecrads.com
+mastrescard.com
+mastrrkard.com
+masturcard.com
+masturkard.com
+msatecord.com
+msatecrad.com
+msatercards.com
+msatercrads.com
+msatercrds.com
+msatracrds.com
+msatrecards.com
+msatrecrad.com
+myapplesev.com
+myidapples.com
+smbcservice.com
+
+We identified the following domains as active phishing / typosquat
+infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
+Classification source: Etzhayyim Yabai intel pipeline (com.etzhayyim.apps.yabai,
+evidence category PhishingInfrastructure, confidence >=0.95). Probe
+method: DNS + WHOIS + Team Cymru ASN lookup + crt.sh CT log (2026-04-19).
+
+Request: please investigate and take appropriate action (suspend /
+null-route / revoke registration) in accordance with your AUP and
+applicable ICANN / local law obligations.
+
+We can provide additional evidence (original phishing SMS/email payload,
+victim reports, timeline) on request. Please reply to jun@etzhayyim.group.
+
+— Etzhayyim Security Intel, https://yabcom.etzhayyim.ai

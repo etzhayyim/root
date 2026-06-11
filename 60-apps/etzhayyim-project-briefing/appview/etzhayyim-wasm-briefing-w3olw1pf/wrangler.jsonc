@@ -1,0 +1,45 @@
+{
+  "name": "kotodama-w3olw1pf",
+  "main": "svelte/.svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2025-03-17",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_als"
+  ],
+  "assets": {
+    "directory": "./svelte/.svelte-kit/cloudflare/client",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "single-page-application"
+  },
+  "vars": {
+    "APP_ACTOR_HANDLE": "briefing",
+    "APP_CAPABILITIES": "[\"edge-webrtc\",\"edge-assets\",\"bpmn-dispatch\",\"webrtc-room\",\"spatial-audio\",\"screen-share\",\"knp-signaling\"]",
+    "APP_DESCRIPTION": "Briefing — Live briefing platform with KAMI WebRTC spatial audio, C2ISR situational awareness",
+    "APP_DISPLAY_NAME": "Briefing",
+    "APP_EMBED_URL": "https://w3olw1pf.etzhayyim.com/?embed=1",
+    "APP_FRAMEWORK": "sveltekit-edge-bff",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
+    "APP_NANOID": "w3olw1pf",
+    "APP_PERFORMER_TYPE": "service",
+    "APP_UI_TYPE": "appview"
+  },
+  "rules": [
+    {
+      "type": "CompiledWasm",
+      "globs": [
+        "**/*.wasm"
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "w3olw1pf.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
+    },
+    {
+      "pattern": "briefing.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
+    }
+  ]
+}

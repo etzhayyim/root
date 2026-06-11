@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Trailer gate-in: register an arriving trailer to the yard.
+
+  Inputs:
+    requestId
+    trailerPlate
+    carrierDid
+    appointmentId (optional)
+
+  Outputs:
+    trailerVertexId
+    yardSlotCode
+    auditRkey
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_yard_ops_check_in_trailer"
+    targetNamespace="https://etzhayyim.ai/bpmn/yard-ops"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="yard_ops_check_in_trailer" name="Yard trailer check-in" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Trailer arrival">
+      <bpmn:outgoing>Flow_Start_Slot</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Slot" sourceRef="Start" targetRef="Task_AllocateSlot"/>
+
+    <bpmn:serviceTask id="Task_AllocateSlot" name="Allocate yard slot">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yardOps.slot.allocate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=trailerPlate" target="trailerPlate"/>
+          <zeebe:input source="=carrierDid" target="carrierDid"/>
+          <zeebe:input source="=appointmentId" target="appointmentId"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Slot</bpmn:incoming>
+      <bpmn:outgoing>Flow_Slot_Persist</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Slot_Persist" sourceRef="Task_AllocateSlot" targetRef="Task_Persist"/>
+
+    <bpmn:serviceTask id="Task_Persist" name="Persist trailer vertex">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="yardOps.trailer.persist"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=trailerPlate" target="trailerPlate"/>
+          <zeebe:input source="=carrierDid" target="carrierDid"/>
+          <zeebe:input source="=yardSlotCode" target="yardSlotCode"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Slot_Persist</bpmn:incoming>
+      <bpmn:outgoing>Flow_Persist_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Persist_Audit" sourceRef="Task_Persist" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit trailer check-in audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yard-ops.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;yardOps.trailer.checkedIn&quot;" target="action"/>
+          <zeebe:input source="={ requestId: requestId, trailerVertexId: trailerVertexId, slot: yardSlotCode }" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Persist_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Audit_End" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Trailer checked in">
+      <bpmn:incoming>Flow_Audit_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

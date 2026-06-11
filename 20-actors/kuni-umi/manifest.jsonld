@@ -1,0 +1,112 @@
+{
+  "@context": ["https://etzhayyim.com/contexts/actor-manifest/v1.jsonld"],
+  "@id": "did:web:etzhayyim.com:kuniumi",
+  "@type": "Actor",
+  "name": "kuni-umi",
+  "displayName": "国生み (kuni-umi)",
+  "description": "Planetary-scale infrastructure robotics fleet actor — bridges UNSPSC actor catalog to physical deployment workflows (Survey → Plan → Construct → Commission → Audit → Decommission). Per ADR-2605201400.",
+  "version": "0.1.0",
+  "tier": "B",
+  "cells": [
+    {
+      "name": "SiteSurveyCell",
+      "phase": 1,
+      "leaderNode": "naphtali",
+      "module": "site_survey.cell",
+      "lexicon": "com.etzhayyim.kuniUmi.defineDeploymentSite",
+      "trigger": { "kind": "mst-listener" },
+      "healthzPort": 13017
+    },
+    {
+      "name": "DeploymentPlanningCell",
+      "phase": 2,
+      "leaderNode": "zebulun",
+      "module": "deployment_planning.cell",
+      "lexicon": "com.etzhayyim.kuniUmi.submitSiteSurvey",
+      "trigger": { "kind": "mst-listener" },
+      "healthzPort": 13018
+    },
+    {
+      "name": "ConstructionOrchestrationCell",
+      "phase": 3,
+      "leaderNode": "joseph",
+      "module": "construction_orchestration.cell",
+      "lexicon": "com.etzhayyim.kuniUmi.proposeDeploymentPlan",
+      "trigger": { "kind": "mst-listener" },
+      "healthzPort": 13019
+    },
+    {
+      "name": "CommissioningCell",
+      "phase": 4,
+      "leaderNode": "simeon",
+      "module": "commissioning.cell",
+      "lexicon": "com.etzhayyim.kuniUmi.recordConstructionProgress",
+      "trigger": { "kind": "mst-listener" },
+      "healthzPort": 13020
+    },
+    {
+      "name": "AuditWitnessCell",
+      "phase": 5,
+      "leaderNode": "levi",
+      "module": "audit_witness.cell",
+      "lexicon": "com.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
+      "trigger": { "kind": "mst-listener" },
+      "healthzPort": 13021
+    },
+    {
+      "name": "DecommissionCell",
+      "phase": 6,
+      "leaderNode": "dan",
+      "module": "decommission.cell",
+      "lexicon": "com.etzhayyim.kuniUmi.commissionDeployment",
+      "trigger": { "kind": "cron", "expr": "0 0 1 * *" },
+      "healthzPort": 13022
+    }
+  ],
+  "lexicons": [
+    "com.etzhayyim.kuniUmi.defineDeploymentSite",
+    "com.etzhayyim.kuniUmi.submitSiteSurvey",
+    "com.etzhayyim.kuniUmi.proposeDeploymentPlan",
+    "com.etzhayyim.kuniUmi.recordConstructionProgress",
+    "com.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
+    "com.etzhayyim.kuniUmi.commissionDeployment"
+  ],
+  "bpmn": "bpmn/kuni-umi-deployment-workflow.bpmn",
+  "dmn": [
+    "dmn/jurisdiction-eligibility.md",
+    "dmn/counterparty-classification.md",
+    "dmn/proportionality-check.md"
+  ],
+  "adrs": [
+    "2605201400",
+    "2605192100",
+    "2605192245",
+    "2605192230",
+    "2605192415",
+    "2605171300",
+    "2605171800"
+  ],
+  "dependencies": {
+    "runtime": "kotodama-cell-runner (launchd)",
+    "actors": [
+      "unispsc (ADR-2605171300)",
+      "open-robo",
+      "open-ot",
+      "open-denki",
+      "open-gas",
+      "open-water",
+      "open-network",
+      "open-power",
+      "open-rail",
+      "open-airplane",
+      "open-ports"
+    ],
+    "substrate": "AT MST + IPFS + Base L2 anchor via @etzhayyim/sdk"
+  },
+  "mission": {
+    "labor_liberation": true,
+    "robotics_universal": true
+  },
+  "charterRiderCompliant": true,
+  "lastUpdated": "2026-05-23"
+}

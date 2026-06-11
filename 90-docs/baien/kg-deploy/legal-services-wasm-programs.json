@@ -1,0 +1,25 @@
+{
+  "deployedAt": "2026-05-30",
+  "node": "did:key:ze2e169933f9bcc6cb218e083b3d2a80c5a5a2b92fbf3cb41b4d5283ce3f6939f",
+  "adr": "2605302355",
+  "host": "kotoba wasm32-wasip2 WasmExecutor; WIT world kotoba:kais@0.1.0",
+  "invoke": "POST /xrpc/com.etzhayyim.apps.kotoba.invoke.run (program_type=wasm-node) | MCP kotoba_wasm_run",
+  "programs": [
+    {
+      "name": "chigiri-legal-aid-guest",
+      "crate": "40-engine/legal-aid-wasm-guest",
+      "gates": ["G14", "G15", "G16"],
+      "sizeBytes": 151702,
+      "blockCid": "bafyreictmsolu2dto5wyr7pm2yosh67vx3z47o7vf7wqmqsmdlly7k2vmq",
+      "assertsPredicate": "com.etzhayyim.chigiri/legalAidMatter"
+    },
+    {
+      "name": "chigiri-legal-comms-guest",
+      "crate": "40-engine/legal-comms-wasm-guest",
+      "gates": ["G18"],
+      "sizeBytes": 152949,
+      "blockCid": "bafyreiadu2mwil2xz4bwcyjpxosttujve6lofteoab3paf43jre55xns4y",
+      "assertsPredicate": "com.etzhayyim.legal/outboundLegalAct"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ungpNap.flagImplementationGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "UNGP implementation gap / pillar 3 weakness (bridges workerGrievance.flagRemedyFailure + indigenous-rights + just-transition)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "gapId",
+            "napVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "gapId": {
+              "type": "string"
+            },
+            "napVid": {
+              "type": "string",
+              "description": "bridges recordNap"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "pillar_1_state_duty",
+                "pillar_2_corp_respect",
+                "pillar_3_remedy",
+                "no_enforcement",
+                "weak_penalty",
+                "judicial_access",
+                "non_state_judicial",
+                "operational_level"
+              ]
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "moderate",
+                "significant",
+                "severe"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airSms.submitSafetyReport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a safety report for an aviation event.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["reporter_did", "category", "description"],
+          "properties": {
+            "reporter_did": { "type": "string" },
+            "category": { "type": "string" },
+            "description": { "type": "string" },
+            "location": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.trustedFlagger.flagStateMandatedTakedown",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave5 (stub): 国家命令 takedown. Starts BPMN process open_trusted_flagger_flag_state_mandated_takedown.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "takedownId": { "type": "string" },
+            "platform": { "type": "string" },
+            "country": { "type": "string" }
+          },
+          "required": ["vertexId", "takedownId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

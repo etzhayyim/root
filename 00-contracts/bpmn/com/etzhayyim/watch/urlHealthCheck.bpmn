@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  F5 expansion — `watch.urlHealthCheck` — probe a URL, classify the HTTP
+  status, audit result. No LLM. Exercises http.fetch + XOR + audit.emit
+  and proves a "pure probe" actor can run in well under a second.
+
+  Flow:
+    Start (input: url)
+      → generic.http.fetch
+      → XOR (status in 2xx/3xx → healthy;  else → unhealthy)
+      → generic.audit.emit
+      → End
+
+  Variables on the instance:
+    in:     url (required)
+    middle: fetchStatus, fetchLatencyMs
+    out:    healthy (bool), auditEmitted, auditRkey
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_watch_url_health_check"
+    targetNamespace="https://etzhayyim.ai/bpmn/watch"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="watch_url_health_check" name="watch url health check" isExecutable="true">
+
+    <bpmn:startEvent id="Start" name="url submitted">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Fetch"/>
+
+    <bpmn:serviceTask id="Task_Fetch" name="fetch url">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.http.fetch"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=string(url)" target="url"/>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="=10"            target="timeoutSec"/>
+          <zeebe:output source="=status"    target="fetchStatus"/>
+          <zeebe:output source="=latencyMs" target="fetchLatencyMs"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Fetch" targetRef="Gate_Healthy"/>
+
+    <bpmn:exclusiveGateway id="Gate_Healthy" name="healthy?" default="Flow_Unhealthy">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_Healthy</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Unhealthy</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Healthy" sourceRef="Gate_Healthy" targetRef="Task_AuditHealthy">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=fetchStatus &gt;= 200 and fetchStatus &lt; 400</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Unhealthy" sourceRef="Gate_Healthy" targetRef="Task_AuditUnhealthy"/>
+
+    <bpmn:serviceTask id="Task_AuditHealthy" name="audit: healthy">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:watch.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;urlHealthCheck.healthy&quot;" target="action"/>
+          <zeebe:input source="={ url: string(url), status: fetchStatus, latencyMs: fetchLatencyMs }" target="payload"/>
+          <zeebe:output source="=emitted" target="auditEmitted"/>
+          <zeebe:output source="=rkey"    target="auditRkey"/>
+          <zeebe:output source="=true"    target="healthy"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Healthy</bpmn:incoming>
+      <bpmn:outgoing>Flow_3a</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3a" sourceRef="Task_AuditHealthy" targetRef="End"/>
+
+    <bpmn:serviceTask id="Task_AuditUnhealthy" name="audit: unhealthy">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:watch.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;urlHealthCheck.unhealthy&quot;" target="action"/>
+          <zeebe:input source="={ url: string(url), status: fetchStatus, latencyMs: fetchLatencyMs }" target="payload"/>
+          <zeebe:output source="=emitted" target="auditEmitted"/>
+          <zeebe:output source="=rkey"    target="auditRkey"/>
+          <zeebe:output source="=false"   target="healthy"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Unhealthy</bpmn:incoming>
+      <bpmn:outgoing>Flow_3b</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_3b" sourceRef="Task_AuditUnhealthy" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_3a</bpmn:incoming>
+      <bpmn:incoming>Flow_3b</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

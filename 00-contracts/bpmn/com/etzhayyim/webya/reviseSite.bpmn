@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  webya.etzhayyim.com — reviseSite workflow (XRPC com.etzhayyim.apps.webya.reviseSite).
+
+  routing_target = 'langgraph'
+  assistant_id   = 'webya_revise_site'
+
+  LangGraph graph: webya_site_revision
+    revision_analyzer → content_regenerator (affected pages only)
+    → quality_reviewer → html_renderer → republisher
+
+  Result: { ok, jobId, revisionCount, status }
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_webya_revise_site"
+    targetNamespace="https://etzhayyim.ai/bpmn/webya"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="webya_revise_site" name="webya revise site" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.webya.reviseSite", "version": 1, "resultTimeoutMs": 180000, "routing_target": "langgraph" }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="reviseSite XRPC">
+      <bpmn:outgoing>Flow_ToRevise</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Revise" name="LangGraph: webya_site_revision">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="webya.site.revise"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=siteId"      target="siteId"/>
+          <zeebe:input source="=instruction" target="instruction"/>
+          <zeebe:input source="=targetPages" target="targetPages"/>
+          <zeebe:output source="=ok"            target="ok"/>
+          <zeebe:output source="=jobId"         target="jobId"/>
+          <zeebe:output source="=revisionCount" target="revisionCount"/>
+          <zeebe:output source="=status"        target="status"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRevise</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToRevise" sourceRef="Start" targetRef="Task_Revise"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit.emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;webya.reviseSite&quot;" target="actor"/>
+          <zeebe:input source="=siteId"                       target="subject"/>
+          <zeebe:input source="=status"                       target="outcome"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Revise" targetRef="Task_Audit"/>
+
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+  </bpmn:process>
+</bpmn:definitions>

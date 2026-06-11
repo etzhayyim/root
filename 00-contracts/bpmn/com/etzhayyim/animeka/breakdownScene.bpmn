@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stage 2 / 12 — scene → cut breakdown. ADR-2604231328.
+  in:  sceneId, sceneSummary, fps (default 24)
+  out: planJson (array of {cutNum, durationFrames, cameraMode, cameraNote})
+  note: The planner row (kind=sceneBreakdown) is written to vertex_animeka;
+        animeka.etzhayyim.com Worker UI reads it + fanouts addCut per entry.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_animeka_breakdown_scene"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="animeka_breakdown_scene" name="animeka breakdown scene" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start" targetRef="Task_Select"/>
+    <bpmn:serviceTask id="Task_Select" name="load scene row">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
+          <zeebe:input source="=&quot;scene_id = %s AND kind = %s&quot;" target="whereExpr"/>
+          <zeebe:input source="=[sceneId, &quot;scene&quot;]" target="whereParams"/>
+          <zeebe:input source="=&quot;vertex_id, episode_id, description, fps&quot;" target="columns"/>
+          <zeebe:input source="=1" target="limit"/>
+          <zeebe:output source="=rows" target="sceneRows"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F1</bpmn:incoming><bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Select" targetRef="Task_Plan"/>
+    <bpmn:serviceTask id="Task_Plan" name="plan cuts (Qwen 7B)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.llm.json"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
+          <zeebe:input source="=&quot;You are a professional anime storyboard director. Break the scene into cuts. Output ONE JSON object {cuts:[{cutNum:int,durationFrames:int(12..120),cameraMode:&apos;still|pan|tu|tb|follow|handheld|crane|dolly&apos;,cameraNote:string,dialogueSummary:string}]}. 3-8 cuts typical. JSON only.&quot;" target="system"/>
+          <zeebe:input source="=&quot;Scene summary: &quot; + string(sceneSummary) + &quot;\nTarget fps: &quot; + string(fps)" target="user"/>
+          <zeebe:input source="=1200" target="maxTokens"/>
+          <zeebe:input source="=0.2" target="temperature"/>
+          <zeebe:output source="=data" target="plan"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F2</bpmn:incoming><bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Plan" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="persist sceneBreakdown plan">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
+          <zeebe:input source="={
+              vertex_id:  &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.sceneBreakdown/&quot; + string(sceneId),
+              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,
+              collection: &quot;com.etzhayyim.apps.animeka.sceneBreakdown&quot;,
+              rkey:       string(sceneId),
+              kind:       &quot;sceneBreakdown&quot;,
+              scene_id:   string(sceneId),
+              stage:      &quot;breakdown&quot;,
+              description: string(plan),
+              sensitivity_ord: 10}" target="values"/>
+          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
+          <zeebe:output source="=inserted" target="inserted"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F3</bpmn:incoming><bpmn:outgoing>F4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;breakdownScene&quot;" target="action"/>
+          <zeebe:input source="={sceneId: string(sceneId), inserted: inserted}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>F4</bpmn:incoming><bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="F5" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>F5</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

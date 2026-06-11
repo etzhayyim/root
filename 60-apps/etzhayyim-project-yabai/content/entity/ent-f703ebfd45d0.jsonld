@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f703ebfd45d0",
+  "entityId": "ent-f703ebfd45d0",
+  "canonicalName": "transportes refrigerados pandas trucking, sociedad anonima de capital variable",
+  "aliases": [
+    "transportes refrigerados pandas trucking, sociedad anonima de capital variable"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.telecom.coverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return robotics-facing coverage for telecom media such as RAN, NTN satellite, optical fiber, submarine cable, WLAN, Bluetooth, neutron communication, and libp2p tailmesh.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "media": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "roboticsTelecomCoverage": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

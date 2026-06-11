@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.amicusBrief.flagCitation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Court citation of amicus / influence flag (bridges scotusDocket.flagDoctrinalShift + academic-integrity + federal-court-docket)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "citationId",
+            "briefVid",
+            "citationKind",
+            "ruledAt"
+          ],
+          "properties": {
+            "citationId": {
+              "type": "string"
+            },
+            "briefVid": {
+              "type": "string",
+              "description": "bridges recordBriefFiling"
+            },
+            "citationKind": {
+              "type": "string",
+              "enum": [
+                "majority_cite",
+                "concurrence",
+                "dissent",
+                "footnote_only",
+                "framing_adoption",
+                "no_cite",
+                "adverse_distinguish",
+                "factual_reliance",
+                "judicial_notice",
+                "pattern_shift"
+              ]
+            },
+            "influenceTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "noted",
+                "persuasive",
+                "dispositive"
+              ]
+            },
+            "ruledAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

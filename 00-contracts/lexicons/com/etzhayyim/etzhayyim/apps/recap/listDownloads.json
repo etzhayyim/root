@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.recap.listDownloads",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List recent download records, optionally filtered by actorDid or platform.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "actorDid": { "type": "string" },
+          "platform": { "type": "string" },
+          "limit": { "type": "integer", "default": 50, "maximum": 100 },
+          "offset": { "type": "integer", "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "total", "offset", "limit"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#downloadRecord" }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    },
+    "downloadRecord": {
+      "type": "object",
+      "properties": {
+        "vertexId": { "type": "string" },
+        "platform": { "type": "string" },
+        "title": { "type": "string" },
+        "uploader": { "type": "string" },
+        "durationSec": { "type": "integer" },
+        "blobKey": { "type": "string" },
+        "blobSizeBytes": { "type": "integer" },
+        "status": { "type": "string" },
+        "scope": { "type": "string" },
+        "createdAt": { "type": "string" }
+      }
+    }
+  }
+}

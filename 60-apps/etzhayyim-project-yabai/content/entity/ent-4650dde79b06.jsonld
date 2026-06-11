@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4650dde79b06",
+  "entityId": "ent-4650dde79b06",
+  "canonicalName": "baudoin ngaruye wa myamuro",
+  "aliases": [
+    "baudoin ngaruye wa myamuro"
+  ]
+}

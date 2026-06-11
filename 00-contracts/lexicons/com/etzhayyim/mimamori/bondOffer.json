@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mimamori.bondOffer",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "A covenant-keeping OFFER (縁の申し出) from a keeper to a kept candidate. Refusable, expirable, cooldown-bound (G3 anti-pestering). NEVER creates an active bond by itself — consent (bondCovenant) is a separate, kept-signed record.",
+      "record": {
+        "type": "object",
+        "required": ["keeperDid", "keptDid", "cycle", "synthetic"],
+        "properties": {
+          "keeperDid": {
+            "type": "string",
+            "description": "→ :mishmeret.bond/keeper. The one who offers to keep."
+          },
+          "keptDid": {
+            "type": "string",
+            "description": "→ :mishmeret.bond/kept. The one offered the covenant. G4 INVARIANT — the offer is addressed to and visible to this party; there is no keeper-only hidden state."
+          },
+          "cycle": {
+            "type": "integer",
+            "description": "→ :mishmeret.bond/cycle. Deterministic cycle counter (no wall clock)."
+          },
+          "synthetic": {
+            "type": "boolean",
+            "description": "G7 INVARIANT — true at R0 (fictional DIDs only). Real-roster offers are Council + operator gated."
+          },
+          "ceremonyRef": {
+            "type": "string",
+            "description": "→ :mishmeret.bond/ceremony. Optional musubi 結 ceremony record (shomer vow, ADR-2606112300 §D5)."
+          }
+        }
+      }
+    }
+  }
+}

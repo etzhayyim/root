@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8d55c3858a77",
+  "entityId": "ent-8d55c3858a77",
+  "canonicalName": "avtex semiconductor limited",
+  "aliases": [
+    "avtex semiconductor limited"
+  ]
+}

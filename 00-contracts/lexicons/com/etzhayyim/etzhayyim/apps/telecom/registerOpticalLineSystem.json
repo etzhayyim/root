@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerOpticalLineSystem",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register an Optical Line System (OLS) per TIP MUST OLS specification — bundle of ROADMs / amplifiers / fiber spans under a domain controller.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["domainId", "vendor", "model", "mustSpecVersion", "totalSpectrumGhz", "channelGridGhz", "supportedModulations", "observedAt"],
+          "properties": {
+            "olsId": { "type": "string" },
+            "domainId": { "type": "string" },
+            "vendor": { "type": "string" },
+            "model": { "type": "string" },
+            "mustSpecVersion": { "type": "string" },
+            "transponderProfile": { "type": "string" },
+            "totalSpectrumGhz": { "type": "number" },
+            "channelGridGhz": { "type": "number" },
+            "supportedModulations": { "type": "array", "items": { "type": "string", "enum": ["bpsk", "qpsk", "8qam", "16qam", "32qam", "64qam", "pcs_64qam"] } },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "olsId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

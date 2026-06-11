@@ -1,0 +1,68 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.crawlerLocations",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List geocoded web-crawl results for map overlays.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "jobStatus": { "type": "string" },
+          "jobLimit": { "type": "integer" },
+          "resultsPerJob": { "type": "integer" },
+          "limit": { "type": "integer" },
+          "includeUnresolved": { "type": "boolean" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "resultId": { "type": "string" },
+                  "jobId": { "type": "string" },
+                  "title": { "type": "string" },
+                  "url": { "type": "string" },
+                  "host": { "type": "string" },
+                  "ip": { "type": "string" },
+                  "httpStatus": { "type": "integer" },
+                  "crawledAt": { "type": "string" },
+                  "latitude": { "type": "number" },
+                  "longitude": { "type": "number" },
+                  "country": { "type": "string" },
+                  "region": { "type": "string" },
+                  "city": { "type": "string" },
+                  "isp": { "type": "string" },
+                  "asn": { "type": "string" },
+                  "serverLocation": { "type": "string" },
+                  "hasLocation": { "type": "boolean" },
+                  "error": { "type": "string" }
+                }
+              }
+            },
+            "fetchedAt": { "type": "string" },
+            "jobCount": { "type": "integer" },
+            "resultCount": { "type": "integer" },
+            "queriedJobs": { "type": "integer" },
+            "queriedResults": { "type": "integer" },
+            "errors": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "requestedStatuses": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

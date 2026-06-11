@@ -1,0 +1,84 @@
+;; labor-exit-ontology — the resignation-concierge (退職代行) vocabulary for kadode 門出
+;; ADR-2606112238 · the labor-liberation sibling of the legal-concierge lineage (toritsugi 取次 /
+;; kurashimori 暮らし守 / tasuke 助) and of hinagata 雛形 (legal-template commons). Where chigiri 契
+;; runs the general legal-procedure substrate and hinagata holds the document templates, kadode
+;; is the WORKER-SIDE EXIT concierge: it helps a worker resign with dignity (門出 = setting out
+;; on a new path), grounded in actual labour law, and — within a strict non-lawyer boundary —
+;; RELAYS the worker's already-formed resignation as a 使者 (messenger), routing anything that
+;; needs NEGOTIATION to a labour union or a lawyer.
+;;
+;; PURPOSE: weave the resignation scenarios a worker can be in, the LABOUR-LAW grounds that
+;; support a unilateral exit, the documents that effect it, the employer RISK-patterns
+;; (引き止め / 損害賠償脅迫 / 有給拒否) and the legal grounds that COUNTER them, and the
+;; escalation ROUTES (self → messenger → union → lawyer) into the kotoba Datom log. The lens is
+;; "which route lawfully gets this worker out", routed to a DIGNIFIED EXIT, never to litigation
+;; promises.
+;;
+;; CONSTITUTIONAL INVERSION (G1, read first — the defining boundary): kadode is a 使者
+;; (messenger) + concierge, NEVER a 代理人 (agent) and NEVER the practice of law. It RELAYS a
+;; worker's ALREADY-FORMED, unilateral resignation declaration (民法627 is a unilateral right —
+;; the employer's consent is NOT required) and DRAFTS the worker's own documents. It does NOT,
+;; and structurally CANNOT, NEGOTIATE terms, conditions, severance, or settlements on the
+;; worker's behalf — that is 法律事務 reserved to lawyers (弁護士法72条, 非弁行為禁止) or to a
+;; labour union exercising 団体交渉権 (労働組合法6). Any scenario that needs negotiation is routed
+;; OUT to :route/union or :route/lawyer; kadode never crosses that line.
+;;
+;; WORKER-AUTHORED (G2): the resignation is the WORKER'S OWN legal act (their 民法627 right).
+;; kadode drafts + relays + informs; it never decides for the worker and never signs for them.
+;;
+;; NON-ADJUDICATING (N3 / G3): a statute citation, a ground, a risk-counter are DISCLOSED legal
+;; facts sourced from the instrument, never a kadode verdict. kadode never promises an outcome,
+;; never certifies that a claim will succeed, never opines "you will win".
+
+{:schema/id "labor-exit-ontology"
+ :schema/version "0.1.0"
+ :schema/adr "2606112238"
+
+ ;; ── nodes ──────────────────────────────────────────────────────────────────
+ :node/attrs
+ [{:attr :lx/id        :doc "stable id, e.g. sc.permanent-cant-face / g.minpo-627 / d.taishokutodoke / r.messenger / risk.songai-baisho"}
+  {:attr :lx/kind      :doc ":scenario | :ground | :document | :route | :risk"}
+  {:attr :lx/label     :doc "common/display label"}
+  {:attr :lx/sourcing  :doc ":authoritative (statute / official guidance) | :representative (illustrative)"}
+  {:attr :lx/links     :doc "optional cross-actor id — e.g. a hinagata template, a chigiri procedure, a kokoro support route"}
+
+  ;; scenario facet (the worker's situation)
+  {:attr :scenario/employment :doc ":no-fixed-term (無期) | :fixed-term (有期) | :fixed-term-1yr+ (有期1年経過) | :probation | :dispatch (派遣)"}
+  {:attr :scenario/needs-negotiation :doc "true when the worker's goal requires NEGOTIATION (未払い請求 / 退職条件 / 示談) — forces :route/union|:route/lawyer (G1). false = a pure unilateral exit a 使者 may relay."}
+
+  ;; ground facet (a real labour-law article)
+  {:attr :ground/citation  :doc "canonical citation, e.g. \"民法627条\" / \"労働基準法16条\" / \"弁護士法72条\""}
+  {:attr :ground/instrument :doc "the instrument, e.g. \"民法 (明治29年法律第89号)\""}
+  {:attr :ground/url       :doc "PUBLIC official source URL (e-Gov / 厚労省)"}
+
+  ;; document facet (the artefact kadode drafts for the worker)
+  {:attr :document/kind    :doc ":taishoku-todoke (退職届, unilateral) | :taishoku-gan (退職願, request) | :naiyo-shomei (内容証明) | :sokuji (即時退職通知) | :yukyu (有給取得届)"}
+  {:attr :document/binding :doc ":unilateral (一方的・承認不要) | :request (相手の承諾を要する) — disclosed legal character, never a verdict (N3)"}
+
+  ;; route facet (escalation ladder; the UPL boundary lives here)
+  {:attr :route/actor   :doc ":worker-self | :kadode-messenger | :labor-union | :lawyer — WHO acts"}
+  {:attr :route/can-negotiate :doc "true ONLY for :labor-union (団体交渉権) and :lawyer. :kadode-messenger and :worker-self are false — relay/self-act only (G1, 弁護士法72条)"}
+
+  ;; risk facet (an employer 引き止め / unlawful-response pattern)
+  {:attr :risk/pattern  :doc "short code, e.g. \"退職拒否\" / \"損害賠償脅迫\" / \"有給拒否\" / \"離職票不交付\" / \"強制労働\""}]
+
+ ;; ── edges (縁) ───────────────────────────────────────────────────────────────
+ :edge/attrs
+ [{:attr :en/from      :doc "source labor-exit-node id"}
+  {:attr :en/to        :doc "target labor-exit-node id"}
+  {:attr :en/kind      :doc ":supported-by (scenario→ground) | :requires-route (scenario→route) | :produces (route→document) | :rests-on (document→ground) | :counters (ground→risk, a ground that defeats an employer risk-pattern) | :triggers (risk→route, a risk that forces escalation) | :upl-bound (route→ground, the 弁護士法72 boundary a non-negotiating route is bound by)"}
+  {:attr :en/weight    :doc "0..1 — strength of the relation (ground strength / route fit). karma lives HERE (N1)."}
+  {:attr :en/force     :doc "DISCLOSED — :required (the ground is necessary) | :supporting | :counter — a disclosed legal relation, never a kadode verdict (N3)"}
+  {:attr :en/sourcing  :doc ":authoritative | :representative"}]
+
+ ;; ── derived (transient, computed on READ — NEVER stored; N1/G2) ──────────────
+ :derived/attrs
+ [{:attr :bond/route-fit      :doc "scenario integral of incident :requires-route weight — the recommended lawful route (escalates to union/lawyer whenever :needs-negotiation, G1)"}
+  {:attr :bond/ground-support :doc "scenario integral of incident :supported-by ground weight — how well-grounded the exit is in actual labour law"}
+  {:attr :bond/risk-coverage  :doc "risk integral of inbound :counters ground weight — how well an employer pattern is answered by a legal ground"}
+  {:attr :bond/is-transient   :doc "const true — derived readout, not a stored datom"}]
+
+ ;; ── route → UPL-capability (DISCLOSED boundary, not a verdict) ────────────────
+ ;; the single most important table: only union + lawyer may NEGOTIATE (G1 / 弁護士法72条).
+ :route/negotiation-capability
+ {:worker-self false :kadode-messenger false :labor-union true :lawyer true}}

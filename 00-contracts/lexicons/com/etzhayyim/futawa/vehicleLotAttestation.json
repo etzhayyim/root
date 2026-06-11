@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.futawa.vehicleLotAttestation",
+  "description": "Per-vehicle final-assembly attestation (L5a). CONSTITUTIONAL FIRSTS: G12 IPFS parts catalog + CAD + firmware source published at manufacture (forward-publishing companion to hodoki partsHarvestCatalog at EOL) + G13 VIN pre-registered with hodoki at production (build-side closure of hodoki take-back chain) + G14 30-year part-discontinuation-prohibited commitment. Per ADR-2605261330 L5a.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "vin": {"type": "string", "minLength": 17, "maxLength": 17},
+          "vehicleDid": {"type": "string"},
+          "subassembliesMated": {"type": "unknown"},
+          "fluidsFill": {"type": "unknown"},
+          "vinTag": {
+            "type": "object",
+            "properties": {
+              "vin": {"type": "string"},
+              "vehicleDid": {"type": "string"},
+              "frameStampLocation": {"type": "string"},
+              "engineStampLocation": {"type": "string"},
+              "tagLanguages": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+              "g4BilingualMet": {"type": "boolean", "const": true}
+            }
+          },
+          "partsCatalog": {
+            "type": "object",
+            "properties": {
+              "catalogCid": {"type": "string"},
+              "cadSourceCid": {"type": "string"},
+              "firmwareSourceCid": {"type": "string"},
+              "serviceManualCid": {"type": "string"},
+              "openDiagnosticProtocolCid": {"type": "string"},
+              "g12RightToRepairForwardPublishing": {"type": "boolean", "const": true},
+              "g12NoProprietaryLockIn": {"type": "boolean", "const": true},
+              "g12NoAntiDrm": {"type": "boolean", "const": true},
+              "g12NoWarrantyVoidOnUserRepair": {"type": "boolean", "const": true},
+              "g14PartDiscontinuationProhibitedYears": {"type": "integer", "const": 30},
+              "g14FirmwareUpdateCommitmentYears": {"type": "integer", "const": 30},
+              "languagesPresent": {"type": "array", "items": {"type": "string"}, "minItems": 2}
+            },
+            "required": ["catalogCid", "cadSourceCid", "firmwareSourceCid", "g12RightToRepairForwardPublishing", "g14PartDiscontinuationProhibitedYears"]
+          },
+          "hodokiPreReg": {
+            "type": "object",
+            "properties": {
+              "hodokiActorDid": {"type": "string", "const": "did:web:etzhayyim.com:hodoki"},
+              "vin": {"type": "string"},
+              "vehicleDid": {"type": "string"},
+              "preRegistrationCustodyChainCid": {"type": "string"},
+              "expectedEolPathway": {"type": "string", "const": "hodoki-elv-intake-with-data-wipe-and-parts-harvest"},
+              "g13CircularLoopConfirmed": {"type": "boolean", "const": true},
+              "futawaPartsCatalogCid": {"type": "string"},
+              "preRegisteredAt": {"type": "string", "format": "datetime"}
+            },
+            "required": ["hodokiActorDid", "vin", "g13CircularLoopConfirmed", "preRegistrationCustodyChainCid"]
+          },
+          "g12Compliant": {"type": "boolean", "const": true},
+          "g13PreRegisteredWithHodoki": {"type": "boolean", "const": true},
+          "g4BilingualMet": {"type": "boolean", "const": true},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "vin", "vehicleDid", "partsCatalog", "hodokiPreReg", "g12Compliant", "g13PreRegisteredWithHodoki", "attestingRobots"]
+      }
+    }
+  }
+}

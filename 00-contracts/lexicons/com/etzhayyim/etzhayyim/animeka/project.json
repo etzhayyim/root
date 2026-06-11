@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.animeka.project",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a production project index. One project corresponds to one episode (convoId = roomId per Project Actor Composition). Aggregates member DIDs, milestones, and R2 index pointers for the episode's working set.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["episodeRef", "convoId", "createdAt"],
+        "properties": {
+          "episodeRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef"
+          },
+          "convoId": {
+            "type": "string",
+            "description": "Project convo / room id. All knowledge-graph records scoped by this id."
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "memberDids": {
+            "type": "array",
+            "description": "Human + AI actor DIDs participating in this project.",
+            "items": { "type": "string" }
+          },
+          "milestones": {
+            "type": "array",
+            "items": { "type": "ref", "ref": "#milestone" }
+          },
+          "indexCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Optional R2 index blob CID for fast project tree load."
+          },
+          "archivedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    },
+    "milestone": {
+      "type": "object",
+      "required": ["name", "dueAt"],
+      "properties": {
+        "name": { "type": "string", "description": "Milestone label (storyboardLock / layoutLock / animLock / delivery ...)." },
+        "dueAt": { "type": "string", "format": "datetime" },
+        "achievedAt": { "type": "string", "format": "datetime" }
+      }
+    }
+  }
+}

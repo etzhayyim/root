@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.redseaTransit.assessHouthiRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Houthi リスク評価",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "assessmentId",
+            "imo",
+            "riskScore",
+            "assessedAt"
+          ],
+          "properties": {
+            "assessmentId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "flag": {
+              "type": "string"
+            },
+            "ownerLei": {
+              "type": "string"
+            },
+            "tiesToIsrael": {
+              "type": "boolean"
+            },
+            "tiesToUs": {
+              "type": "boolean"
+            },
+            "tiesToUk": {
+              "type": "boolean"
+            },
+            "riskScore": {
+              "type": "number"
+            },
+            "assessedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "riskTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "requireRerouteAdvisory": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

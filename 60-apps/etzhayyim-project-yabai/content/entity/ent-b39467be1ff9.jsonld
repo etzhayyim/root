@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b39467be1ff9",
+  "entityId": "ent-b39467be1ff9",
+  "canonicalName": "musa, rifa'i ahmad taha",
+  "aliases": [
+    "musa, rifa'i ahmad taha"
+  ]
+}

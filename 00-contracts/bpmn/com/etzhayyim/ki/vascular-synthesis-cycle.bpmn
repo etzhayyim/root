@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_ki_vascular_synthesis" targetNamespace="https://etzhayyim.ai/bpmn/ki" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="ki_vascular_synthesis_cycle" name="vascular-synthesis-cycle" isExecutable="true">
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_S</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Absorb"/>
+    <bpmn:serviceTask id="Task_Absorb" name="absorb">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ki.absorb"/>
+        <zeebe:ioMapping>
+          <zeebe:output source="=absorbId" target="absorbId"/>
+          <zeebe:output source="=status" target="absorbStatus"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_GW" sourceRef="Task_Absorb" targetRef="GW_HasAbsorb"/>
+    <bpmn:exclusiveGateway id="GW_HasAbsorb" name="inputs absorbed?">
+      <bpmn:incoming>Flow_GW</bpmn:incoming>
+      <bpmn:outgoing>Flow_NoAbsorb</bpmn:outgoing>
+      <bpmn:outgoing>Flow_HasAbsorb</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_NoAbsorb" sourceRef="GW_HasAbsorb" targetRef="End">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=absorbStatus = "empty"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:sequenceFlow id="Flow_HasAbsorb" sourceRef="GW_HasAbsorb" targetRef="Task_Synthesize">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=absorbStatus = "absorbed"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:serviceTask id="Task_Synthesize" name="synthesize">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ki.synthesize"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=absorbId" target="absorbId"/>
+          <zeebe:output source="=artifactId" target="artifactId"/>
+          <zeebe:output source="=synthesis" target="synthesis"/>
+          <zeebe:output source="=confidence" target="confidence"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_HasAbsorb</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW2</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_GW2" sourceRef="Task_Synthesize" targetRef="GW_Confidence"/>
+    <bpmn:exclusiveGateway id="GW_Confidence" name="confidence >= 0.7?">
+      <bpmn:incoming>Flow_GW2</bpmn:incoming>
+      <bpmn:outgoing>Flow_Bloom</bpmn:outgoing>
+      <bpmn:outgoing>Flow_SkipBloom</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_Bloom" sourceRef="GW_Confidence" targetRef="Task_Bloom">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=confidence >= 0.7</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="Task_Bloom" name="bloom">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ki.bloom"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=artifactId" target="artifactId"/>
+          <zeebe:output source="=bloomId" target="bloomId"/>
+          <zeebe:output source="=publishedAt" target="publishedAt"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Bloom</bpmn:incoming>
+      <bpmn:outgoing>Flow_AfterBloom</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_SkipBloom" sourceRef="GW_Confidence" targetRef="GW_MergeToRing">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=confidence &lt; 0.7</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_AfterBloom" sourceRef="Task_Bloom" targetRef="GW_MergeToRing"/>
+
+    <bpmn:exclusiveGateway id="GW_MergeToRing" name="merge">
+      <bpmn:incoming>Flow_AfterBloom</bpmn:incoming>
+      <bpmn:incoming>Flow_SkipBloom</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToRing</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:sequenceFlow id="Flow_ToRing" sourceRef="GW_MergeToRing" targetRef="Task_Ring"/>
+    <bpmn:serviceTask id="Task_Ring" name="ring">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ki.ring"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;PT60M&quot;" target="period"/>
+          <zeebe:output source="=ringId" target="ringId"/>
+          <zeebe:output source="=snapshotCount" target="snapshotCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToRing</bpmn:incoming>
+      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Ring" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:ki.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;ki.vascular_synthesis&quot;" target="action"/>
+          <zeebe:input source="={absorbId: absorbId, artifactId: artifactId, bloomId: bloomId, ringId: ringId, confidence: confidence, snapshotCount: snapshotCount}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_NoAbsorb</bpmn:incoming>
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

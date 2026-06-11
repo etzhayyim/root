@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.manga.updateChapterStatus",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Update chapter workflow status",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chapter_id", "status"],
+          "properties": {
+            "chapter_id": { "type": "string" },
+            "status": { "type": "string" },
+            "asset_manifest_uri": { "type": "string" },
+            "page_count": { "type": "integer" },
+            "user_id": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chapter_id", "status"],
+          "properties": {
+            "chapter_id": { "type": "string" },
+            "status": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphonePatent.recordLicensePool",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a patent pool (Avanci, Via Licensing, Sisvel, etc.) membership and license terms",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["poolId", "poolName", "administrator", "standardsCovered"],
+          "properties": {
+            "poolId": { "type": "string" },
+            "poolName": { "type": "string" },
+            "administrator": { "type": "string" },
+            "standardsCovered": { "type": "array", "items": { "type": "string" } },
+            "memberCount": { "type": "integer" },
+            "licenseFeeUsdPerUnit": { "type": "number" },
+            "frandCompliant": { "type": "boolean" },
+            "url": { "type": "string", "format": "uri" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": { "vertexId": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

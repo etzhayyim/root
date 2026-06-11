@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.passkeyVerifyRegister",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Verify WebAuthn registration attestation. Creates DID, stores passkey credential, and issues AT Protocol session.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["challenge", "clientDataJson", "attestationObject"],
+          "properties": {
+            "challenge": { "type": "string", "description": "Original challenge from passkeyBeginRegister" },
+            "clientDataJson": { "type": "string", "description": "Base64url-encoded clientDataJSON" },
+            "attestationObject": { "type": "string", "description": "Base64url-encoded attestationObject" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["credential", "did", "handle", "accessJwt", "refreshJwt"],
+          "properties": {
+            "credential": { "type": "object" },
+            "did": { "type": "string" },
+            "handle": { "type": "string" },
+            "accessJwt": { "type": "string" },
+            "refreshJwt": { "type": "string" },
+            "tier": { "type": "string" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "PasskeyRegistrationFailed" },
+        { "name": "ConfigError", "description": "AUTH_DB D1 binding is required" }
+      ]
+    }
+  }
+}

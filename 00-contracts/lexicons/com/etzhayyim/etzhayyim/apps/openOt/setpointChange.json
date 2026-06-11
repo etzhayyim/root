@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openOt.setpointChange",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Operator or agent setpoint write to a signal. Routed XRPC → bpmn-dispatcher → AgentGateway MCP → LangServer pod → Zenoh publish per ADR-2605111200. Requires setpoint:write capability on the writing principal and DMN interlock pass.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["signalDid", "valueMicroUnit", "unitCode", "requestedByDid", "reasonCode"],
+          "properties": {
+            "signalDid":      { "type": "string" },
+            "valueMicroUnit": { "type": "integer", "description": "Setpoint value in micro-units (1e-6); must lie within signal euRange" },
+            "unitCode":       { "type": "string", "description": "UCUM unit code (must equal the signal's unitCode)" },
+            "reasonCode":     { "type": "string", "enum": ["operatorManual", "agentEconomic", "agentSafety", "schedulerSetback", "drEvent", "testCommissioning"] },
+            "requestedByDid": { "type": "string" },
+            "justification":  { "type": "string" },
+            "expectedSuperStep": { "type": "integer", "description": "Optional super-step id at which the change should land (for scheduled setpoint cascades)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "changeDid":       { "type": "string" },
+            "appliedAt":       { "type": "string", "format": "datetime" },
+            "appliedSuperStep":{ "type": "integer" },
+            "error":           { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

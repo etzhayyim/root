@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerNetworkFunction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "5G Core SBA — register a Network Function instance with the NRF (Nnrf_NFManagement). Phase 4 control plane.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["nfType", "plmnId"],
+          "properties": {
+            "nfInstanceId": { "type": "string" },
+            "nfType": { "type": "string", "enum": ["AMF", "SMF", "UPF", "UDM", "UDR", "AUSF", "PCF", "NRF", "NSSF", "NEF", "NWDAF", "CHF", "BSF"] },
+            "plmnId": { "type": "string" },
+            "sNssaiList": { "type": "array", "items": { "type": "string" } },
+            "fqdn": { "type": "string" },
+            "ipv4Address": { "type": "string" },
+            "capacity": { "type": "integer" },
+            "priority": { "type": "integer" },
+            "heartbeatInterval": { "type": "integer" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "nfInstanceId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

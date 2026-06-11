@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.malaccaIncident.flagPiracyEscort",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave4 (stub): マラッカ 海賊・護衛. Starts BPMN process open_malacca_incident_flag_piracy_escort.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "incidentVid": { "type": "string" },
+            "vesselVid": { "type": "string" }
+          },
+          "required": ["vertexId", "incidentVid"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

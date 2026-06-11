@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPatent.screenExpiredDrugPatent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Screen an already-expired pharmaceutical patent for generic / biosimilar manufacturing eligibility.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["patentVertexId", "patentNumber", "jurisdiction", "expiryDate"],
+          "properties": {
+            "patentVertexId": { "type": "string" },
+            "patentNumber": { "type": "string" },
+            "jurisdiction": { "type": "string" },
+            "productId": { "type": "string" },
+            "atcCode": { "type": "string" },
+            "ndcCode": { "type": "string" },
+            "expiryDate": { "type": "string", "format": "date" },
+            "blockingExclusivityUntil": { "type": "string", "format": "date" },
+            "asOf": { "type": "string", "format": "date" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "eligible": { "type": "boolean" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

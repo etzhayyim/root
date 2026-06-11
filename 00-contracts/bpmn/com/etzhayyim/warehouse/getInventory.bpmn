@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Read aggregated inventory by SKU.
+
+  Inputs:
+    requestId
+    skuCode
+
+  Outputs:
+    onHandQty
+    bins
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    id="Definitions_warehouse_get_inventory"
+    targetNamespace="https://etzhayyim.ai/bpmn/warehouse"
+    exporter="hand-written"
+    exporterVersion="1.0">
+  <bpmn:process id="warehouse_get_inventory" name="Warehouse inventory query" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Inventory requested">
+      <bpmn:outgoing>Flow_Start_Read</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Read" sourceRef="Start" targetRef="Task_Read"/>
+
+    <bpmn:serviceTask id="Task_Read" name="Aggregate stock per bin">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="warehouse.inventory.read"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=skuCode" target="skuCode"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Read</bpmn:incoming>
+      <bpmn:outgoing>Flow_Read_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Read_End" sourceRef="Task_Read" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="Inventory returned">
+      <bpmn:incoming>Flow_Read_End</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openDenki.listFeeders",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List distribution feeders. Filterable by substationDid and status.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "substationDid": { "type": "string" },
+          "status":        { "type": "string", "enum": ["in-service","out-of-service","under-maintenance"] },
+          "limit":         { "type": "integer", "minimum": 1, "maximum": 500 },
+          "offset":        { "type": "integer", "minimum": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["feeders","total","offset","limit"],
+          "properties": {
+            "feeders": { "type": "array", "items": { "type": "object" } },
+            "total":   { "type": "integer" },
+            "offset":  { "type": "integer" },
+            "limit":   { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

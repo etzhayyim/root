@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  training.etzhayyim.com - runSft workflow (XRPC com.etzhayyim.apps.training.runSft).
+  ADR-2605070700.
+
+  Pipeline:
+    1. train.dataset.snapshot   freeze v_training_text label set into B2 + vertex_training_dataset_snapshot
+    2. train.sft.run            fine-tune base_model on snapshot, write step checkpoints to B2 + vertex_training_checkpoint
+    3. train.eval.run           run requested benches against final checkpoint (lm-eval-harness)
+    4. generic.audit.emit       OCEL trail
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_training_run_sft"
+    targetNamespace="https://etzhayyim.ai/bpmn/training"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="training_run_sft" name="training run sft" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.training.runSft", "version": 1, "resultTimeoutMs": 1800000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="runSft">
+      <bpmn:outgoing>Flow_ToSnapshot</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Snapshot" name="freeze dataset snapshot">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="train.dataset.snapshot"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=datasetName" target="datasetName"/>
+          <zeebe:input source="=datasetLabel" target="datasetLabel"/>
+          <zeebe:input source="=datasetRevision" target="datasetRevision"/>
+          <zeebe:output source="=snapshotId" target="datasetSnapshotId"/>
+          <zeebe:output source="=b2Prefix" target="datasetB2Prefix"/>
+          <zeebe:output source="=rowCount" target="datasetRowCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToSnapshot</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToTrain</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToSnapshot" sourceRef="Start" targetRef="Task_Snapshot"/>
+
+    <bpmn:serviceTask id="Task_Train" name="sft fine-tune on GPU">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="train.sft.run"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=runId" target="runId"/>
+          <zeebe:input source="=baseModel" target="baseModel"/>
+          <zeebe:input source="=baseModelRevision" target="baseModelRevision"/>
+          <zeebe:input source="=datasetSnapshotId" target="datasetSnapshotId"/>
+          <zeebe:input source="=hyperparams" target="hyperparams"/>
+          <zeebe:input source="=gpuTarget" target="gpuTarget"/>
+          <zeebe:input source="=seed" target="seed"/>
+          <zeebe:output source="=runId" target="runId"/>
+          <zeebe:output source="=runVertexId" target="runVertexId"/>
+          <zeebe:output source="=finalCheckpointId" target="finalCheckpointId"/>
+          <zeebe:output source="=finalCheckpointVertexId" target="finalCheckpointVertexId"/>
+          <zeebe:output source="=stepCount" target="stepCount"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToTrain</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEval</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToTrain" sourceRef="Task_Snapshot" targetRef="Task_Train"/>
+
+    <bpmn:serviceTask id="Task_Eval" name="eval final checkpoint">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="train.eval.run"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=finalCheckpointId" target="checkpointId"/>
+          <zeebe:input source="=evalBenches" target="benches"/>
+          <zeebe:input source="=gpuTarget" target="gpuTarget"/>
+          <zeebe:output source="=evalSummary" target="evalSummary"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToEval</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEval" sourceRef="Task_Train" targetRef="Task_Eval"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.training.runSft&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;datasetSnapshotId&quot;: datasetSnapshotId, &quot;finalCheckpointId&quot;: finalCheckpointId }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Eval" targetRef="Task_Audit"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+  </bpmn:process>
+</bpmn:definitions>

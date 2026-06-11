@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.crpdDisability.flagReservationWithdrawal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CRPD reservation / declaration / withdrawal (bridges indigenous-rights + mental-health-parity)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "countryIso3",
+            "actionKind",
+            "recordedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "reportVid": {
+              "type": "string",
+              "description": "bridges recordCountryReport"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "reservation",
+                "interpretive_declaration",
+                "withdrawal_of_reservation",
+                "optional_protocol_accession",
+                "denunciation"
+              ]
+            },
+            "articleAffected": {
+              "type": "string"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

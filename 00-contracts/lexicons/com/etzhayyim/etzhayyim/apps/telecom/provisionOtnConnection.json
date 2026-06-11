@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.provisionOtnConnection",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Provision an OTN connection (ITU-T G.709) carried inside a DWDM channel. clientServiceVid optionally references a Phase 1 service / Phase 4 PDU session / Phase 9 O-RAN xHaul / Phase 14 NTN feeder.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["channelId", "oduKind", "oduRate", "sourceRoadmId", "targetRoadmId", "clientServiceKind", "observedAt"],
+          "properties": {
+            "otnId": { "type": "string" },
+            "channelId": { "type": "string" },
+            "oduKind": { "type": "string", "enum": ["odu0", "odu1", "odu2", "odu2e", "odu3", "odu4", "oduflex", "ofec_otu4", "otuc1", "otuc2", "otuc4"] },
+            "oduRate": { "type": "string" },
+            "sourceRoadmId": { "type": "string" },
+            "targetRoadmId": { "type": "string" },
+            "clientServiceKind": { "type": "string", "enum": ["ranxhaul", "service", "pdu_session", "ntn_feeder", "interconnect", "wholesale_l1"] },
+            "clientServiceVid": { "type": "string" },
+            "protectionKind": { "type": "string", "enum": ["unprotected", "1plus1", "1plus1_optical", "snc_p", "subnetwork_connection_protection", "shared_mesh"] },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "otnId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

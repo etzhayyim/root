@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  wellbecoming.processMining — ADR-2604291800.
+
+  Fires every 6h. Scores recent unscored vertex_wellbecoming_event rows via
+  LLM (spirit / wellbecoming / feeling / buffer), detects floor violations,
+  and emits a process mining report to vertex_repo_record.
+
+  NSID: com.etzhayyim.apps.wellbecoming.processMining
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-process-mining-v1
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_wellbecoming_process_mining"
+    targetNamespace="https://etzhayyim.ai/bpmn/wellbecoming"
+    exporter="hand-written"
+    exporterVersion="2.0">
+
+  <bpmn:process id="wellbecoming_process_mining" name="Well-Becoming Process Mining" isExecutable="true">
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.wellbecoming.processMining", "version": 1, "resultTimeoutMs": 300000 }
+    </bpmn:documentation>
+
+    <!-- Timer: every 6h -->
+    <bpmn:startEvent id="Start" name="every 6h">
+      <bpmn:outgoing>Flow_ToAnalyze</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_6h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT6H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_ToAnalyze" sourceRef="Start" targetRef="Task_Analyze"/>
+
+    <!-- Score unscored events + emit report -->
+    <bpmn:serviceTask id="Task_Analyze" name="score events + emit report">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="wellbecoming.processMining.analyze"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=5" target="batch_size"/>
+          <zeebe:output source="=scored_count"        target="scoredCount"/>
+          <zeebe:output source="=floor_violations"    target="floorViolations"/>
+          <zeebe:output source="=avg_spirit"          target="avgSpirit"/>
+          <zeebe:output source="=avg_separation_delta" target="avgSeparationDelta"/>
+          <zeebe:output source="=report_uri"          target="reportUri"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAnalyze</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Analyze" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

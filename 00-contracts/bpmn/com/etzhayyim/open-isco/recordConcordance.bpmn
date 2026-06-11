@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_open_isco_record_concordance"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-isco"
+    exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="open_isco_record_concordance" name="ISCO concordance 記録" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
+
+    <bpmn:serviceTask id="Task_Save" name="openIsco record concordance">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="openIsco.recordConcordance"/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit concordance.record">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:open-isco.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;openIsco.concordance.record&quot;" target="action"/>
+          <zeebe:input source="={vertexId: vertexId, iscoCode: iscoCode, otherTaxonomy: otherTaxonomy, otherCode: otherCode, relation: relation}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+  xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+  xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+  id="Definitions_gyosei_hearing_required"
+  name="gyosei_hearing_required"
+  namespace="https://etzhayyim.ai/dmn/gyosei">
+  <decision id="gyosei_hearing_required" name="gyosei_hearing_required">
+    <decisionTable id="DecisionTable_gyosei_hearing_required" hitPolicy="FIRST">
+      <input id="Input_dispositionType">
+        <inputExpression id="InputExpression_dispositionType" typeRef="string"><text>dispositionType</text></inputExpression>
+      </input>
+      <input id="Input_financialImpactLevel">
+        <inputExpression id="InputExpression_financialImpactLevel" typeRef="string"><text>financialImpactLevel</text></inputExpression>
+      </input>
+      <input id="Input_isEmergency">
+        <inputExpression id="InputExpression_isEmergency" typeRef="boolean"><text>isEmergency</text></inputExpression>
+      </input>
+      <output id="Output_hearingRequired" label="hearingRequired" typeRef="boolean" name="hearingRequired"/>
+      <output id="Output_procedureKind" label="procedureKind" typeRef="string" name="procedureKind"/>
+      <rule id="Rule_1">
+        <inputEntry id="Rule_1_ie1"><text>"license-revocation"</text></inputEntry>
+        <inputEntry id="Rule_1_ie2"><text>-</text></inputEntry>
+        <inputEntry id="Rule_1_ie3"><text>false</text></inputEntry>
+        <outputEntry id="Rule_1_oe1"><text>true</text></outputEntry>
+        <outputEntry id="Rule_1_oe2"><text>"hearing"</text></outputEntry>
+      </rule>
+      <rule id="Rule_2">
+        <inputEntry id="Rule_2_ie1"><text>"surcharge"</text></inputEntry>
+        <inputEntry id="Rule_2_ie2"><text>"high"</text></inputEntry>
+        <inputEntry id="Rule_2_ie3"><text>false</text></inputEntry>
+        <outputEntry id="Rule_2_oe1"><text>true</text></outputEntry>
+        <outputEntry id="Rule_2_oe2"><text>"hearing"</text></outputEntry>
+      </rule>
+      <rule id="Rule_3">
+        <inputEntry id="Rule_3_ie1"><text>-</text></inputEntry>
+        <inputEntry id="Rule_3_ie2"><text>-</text></inputEntry>
+        <inputEntry id="Rule_3_ie3"><text>true</text></inputEntry>
+        <outputEntry id="Rule_3_oe1"><text>false</text></outputEntry>
+        <outputEntry id="Rule_3_oe2"><text>"expedited"</text></outputEntry>
+      </rule>
+      <rule id="Rule_4">
+        <inputEntry id="Rule_4_ie1"><text>-</text></inputEntry>
+        <inputEntry id="Rule_4_ie2"><text>-</text></inputEntry>
+        <inputEntry id="Rule_4_ie3"><text>-</text></inputEntry>
+        <outputEntry id="Rule_4_oe1"><text>false</text></outputEntry>
+        <outputEntry id="Rule_4_oe2"><text>"statement-opportunity"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

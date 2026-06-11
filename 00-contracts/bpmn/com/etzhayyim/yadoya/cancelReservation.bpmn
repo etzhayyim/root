@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_yadoya_cancel_reservation" targetNamespace="https://etzhayyim.ai/bpmn/yadoya" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="yadoya_cancel_reservation" name="cancelReservation" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Lookup"/>
+    <bpmn:serviceTask id="Task_Lookup" name="lookup reservation">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.select"/>
+        <zeebe:ioMapping>
+          <bpmn:documentation>Returns the row to be cancelled. Caller-side checks (owner, checkin
+          not passed, status != cancelled) are enforced by the yadoya Worker
+          before publishing the message; the BPMN actor only commits the
+          state transition.</bpmn:documentation>
+          <zeebe:input source="=&quot;SELECT vertex_id, status, guest_did, checkin FROM vertex_yadoya_reservation WHERE reservation_id = $1 LIMIT 1&quot;" target="sql"/>
+          <zeebe:input source="=[reservationId]" target="params"/>
+          <zeebe:output source="=rows" target="reservationRows"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_D</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_D" sourceRef="Task_Lookup" targetRef="Task_Delete"/>
+    <bpmn:serviceTask id="Task_Delete" name="delete current row">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.delete"/>
+        <zeebe:ioMapping>
+          <bpmn:documentation>RisingWave does not support OLTP UPDATE TX for this table; emulate
+          the status transition with delete-then-insert keyed on vertex_id.</bpmn:documentation>
+          <zeebe:input source="=&quot;vertex_yadoya_reservation&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: reservationRows[1].vertex_id}" target="where"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_D</bpmn:incoming><bpmn:outgoing>Flow_I</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_I" sourceRef="Task_Delete" targetRef="Task_Insert"/>
+    <bpmn:serviceTask id="Task_Insert" name="insert cancelled row">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;vertex_yadoya_reservation&quot;" target="table"/>
+          <zeebe:input source="={vertex_id: reservationRows[1].vertex_id, sensitivity_ord: 3, owner_did: &quot;did:web:yadoya.etzhayyim.com&quot;, reservation_id: reservationId, hotel_vid: hotelId, guest_did: guestDid, checkin: checkin, checkout: checkout, guests: guests, nights: nights, channel: channel, status: &quot;cancelled&quot;, cancelled_at: cancelledAt, cancel_reason: cancelReason, currency: currency, created_at: createdAt, org_id: orgId, user_id: userId, actor_id: &quot;did:web:yadoya.etzhayyim.com&quot;}" target="row"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_I</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Insert" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:yadoya.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;yadoya.reservation.cancel&quot;" target="action"/>
+          <zeebe:input source="={reservationId: reservationId, hotelId: hotelId, status: &quot;cancelled&quot;, reason: cancelReason}" target="payload"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

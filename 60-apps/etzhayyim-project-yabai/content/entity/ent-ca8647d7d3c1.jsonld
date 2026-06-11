@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ca8647d7d3c1",
+  "entityId": "ent-ca8647d7d3c1",
+  "canonicalName": "yv3033",
+  "aliases": [
+    "yv3033"
+  ]
+}

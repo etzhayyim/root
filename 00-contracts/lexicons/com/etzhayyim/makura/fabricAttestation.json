@@ -1,0 +1,60 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.makura.fabricAttestation",
+  "description": "Fabric source + dye safety + Charter Rider §2(a-h) print scan attestation. Per ADR-2605261115 L4a (G5 + G7 + N8).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "lotId": {"type": "string"},
+          "fabricRoll": {
+            "type": "object",
+            "properties": {
+              "vendorDid": {"type": "string"},
+              "lotId": {"type": "string"},
+              "blend": {"type": "array", "items": {"type": "unknown"}},
+              "weightGsm": {"type": "integer"},
+              "weaveType": {"type": "string"},
+              "certCid": {"type": "string"},
+              "originCountry": {"type": "string"}
+            },
+            "required": ["lotId", "blend", "certCid"]
+          },
+          "dyeReport": {
+            "type": "object",
+            "properties": {
+              "dyeClass": {"type": "string"},
+              "azoRestrictedAminesPresent": {"type": "boolean"},
+              "formaldehydeReleasePpm": {"type": "number"},
+              "formaldehydeLimitPpm": {"type": "number"},
+              "oekoTexClass": {"type": "string"}
+            }
+          },
+          "charterScan": {
+            "type": "object",
+            "properties": {
+              "artworkCid": {"type": "string"},
+              "scannerVersion": {"type": "string"},
+              "section2aWeapons": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2bSecrecy": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2cSurveillance": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2dInfrastructureAttack": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2eAntiGatekeeping": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2fHarm": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2gEnvironmental": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2hMedicalHarm": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "licensedIpDetected": {"type": "boolean"},
+              "eschatologyDetected": {"type": "boolean"},
+              "overallVerdict": {"type": "string", "knownValues": ["pass", "warn", "block"]}
+            }
+          },
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["lotId", "fabricRoll", "charterScan", "attestingRobots"]
+      }
+    }
+  }
+}

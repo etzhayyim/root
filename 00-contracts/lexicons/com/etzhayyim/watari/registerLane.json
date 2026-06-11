@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watari.registerLane",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a named sea-lane / air-corridor / chokepoint / approach (the density-aggregation unit) into the kotoba Datom log (:lane/*). The chokepoint keyword is shared with watatsuna :station/chokepoint (ADR-2606012600), so a vessel's LIVE transit load composes with watatsuna's STATIC submarine-cable load over the same keyword into one maritime resilience picture. watari G2 (resilience, not interdiction).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["laneId", "name", "kind", "sourcing"],
+          "properties": {
+            "laneId": { "type": "string", "description": ":lane/id, e.g. \"lane.malacca\" \"lane.approach.tokyo-bay\"" },
+            "name": { "type": "string" },
+            "kind": { "type": "string", "enum": ["strait", "canal", "sea-lane", "air-corridor", "approach"] },
+            "chokepoint": { "type": "string", "description": "named chokepoint keyword shared with watatsuna, e.g. \"malacca\"; omit for ordinary lanes" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "laneId": { "type": "string" },
+            "txCid": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

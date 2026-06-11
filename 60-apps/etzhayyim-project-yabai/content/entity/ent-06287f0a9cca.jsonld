@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-06287f0a9cca",
+  "entityId": "ent-06287f0a9cca",
+  "canonicalName": "qingdao premier technology co ltd",
+  "aliases": [
+    "qingdao premier technology co ltd"
+  ]
+}

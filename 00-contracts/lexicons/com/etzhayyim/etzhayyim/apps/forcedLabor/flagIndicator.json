@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.forcedLabor.flagIndicator",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ILO forced labor indicator / UFLPA entity listing (bridges crew-welfare + lei + sanctions + carrier-esg)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "iloIndicator",
+            "detectedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "entityLei": {
+              "type": "string",
+              "description": "bridges open-lei"
+            },
+            "crewWelfareVid": {
+              "type": "string",
+              "description": "bridges open-crew-welfare reportWelfareBreach"
+            },
+            "carrierEsgVid": {
+              "type": "string",
+              "description": "bridges open-carrier-esg"
+            },
+            "sanctionsVid": {
+              "type": "string",
+              "description": "bridges open-sanctions"
+            },
+            "iloIndicator": {
+              "type": "string",
+              "enum": [
+                "abuse_vulnerability",
+                "deception",
+                "restriction_movement",
+                "isolation",
+                "physical_sexual_violence",
+                "intimidation_threats",
+                "retention_identity_docs",
+                "withholding_wages",
+                "debt_bondage",
+                "abusive_working_conditions",
+                "excessive_overtime"
+              ]
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "uflpaListed": {
+              "type": "boolean"
+            },
+            "detectedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "weak",
+                "strong",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

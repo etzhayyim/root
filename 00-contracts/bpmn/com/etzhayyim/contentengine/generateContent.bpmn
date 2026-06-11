@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  id="contentengineGenerate"
+                  targetNamespace="com.etzhayyim.apps.contentengine">
+
+  <!--
+    generateContent.bpmn — Personalized Content Engine (ADR-2605072000)
+    Triggered by: com.etzhayyim.apps.contentengine.generateContent XRPC
+    Workers: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/contentengine_worker_main.py
+    No PII — cohort-level personalization only (ADR-0018).
+  -->
+
+  <bpmn:process id="contentengineGenerateProcess" isExecutable="true" name="Generate Personalized Content">
+
+    <bpmn:startEvent id="Start" name="Content Request">
+      <bpmn:outgoing>toResearch</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- LangGraph: profile → match sources → draft → quality gate → store -->
+    <bpmn:serviceTask id="RunContentAgent" name="Generate Content (LangGraph)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="contentengine.run_content_agent" retries="2" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="180" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toResearch</bpmn:incoming>
+      <bpmn:outgoing>toSponsorGateway</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:exclusiveGateway id="SponsorGateway" name="Include Sponsor Slot?">
+      <bpmn:incoming>toSponsorGateway</bpmn:incoming>
+      <bpmn:outgoing>toSponsor</bpmn:outgoing>
+      <bpmn:outgoing>toEnd</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:serviceTask id="CreateSponsorSlot" name="Create Sponsor Slot (ads.etzhayyim.com)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="contentengine.create_sponsor_slot" retries="2" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="30" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toSponsor</bpmn:incoming>
+      <bpmn:outgoing>toEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End" name="Content Ready">
+      <bpmn:incoming>toEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="toResearch" sourceRef="Start" targetRef="RunContentAgent" />
+    <bpmn:sequenceFlow id="toSponsorGateway" sourceRef="RunContentAgent" targetRef="SponsorGateway" />
+    <bpmn:sequenceFlow id="toSponsor" sourceRef="SponsorGateway" targetRef="CreateSponsorSlot">
+      <bpmn:conditionExpression>= includeSponsorSlot = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="toEnd" sourceRef="SponsorGateway" targetRef="End">
+      <bpmn:conditionExpression>= includeSponsorSlot = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+</bpmn:definitions>

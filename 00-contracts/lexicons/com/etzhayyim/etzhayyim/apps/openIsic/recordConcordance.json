@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openIsic.recordConcordance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a cross-walk between ISIC Rev.4 and another industry taxonomy (NACE Rev.2, SIC, NAICS, GICS). Starts BPMN open_isic_record_concordance.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["isicClassCode","otherTaxonomy","otherCode","relation"],
+          "properties": {
+            "isicClassCode": { "type": "string" },
+            "otherTaxonomy": { "type": "string", "description": "NACE / SIC / NAICS / GICS / JSIC" },
+            "otherCode":     { "type": "string" },
+            "relation":      { "type": "string", "enum": ["exactMatch","broader","narrower","relatedTo"] },
+            "confidence":    { "type": "number" },
+            "source":        { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

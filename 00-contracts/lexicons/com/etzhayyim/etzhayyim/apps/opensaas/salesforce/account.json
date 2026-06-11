@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.opensaas.salesforce.account",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Salesforce-equivalent Account: a customer company or household within a tenant. Tier 1 public record (federable). PII-sensitive fields (billing contact, revenue) MUST go into com.etzhayyim.apps.opensaas.salesforce.accountPrivate (Tier 3 Preferences) and NOT this record.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["tenantDid", "name", "type", "createdAt"],
+        "properties": {
+          "tenantDid": { "type": "string", "description": "owning tenant DID (did:web:<slug>.opensaas.etzhayyim.com)" },
+          "ownerDid": { "type": "string", "description": "seat DID owning this account" },
+          "name": { "type": "string", "maxLength": 255 },
+          "type": { "type": "string", "enum": ["prospect", "customer-direct", "customer-channel", "partner", "other"] },
+          "industry": { "type": "string", "description": "ISIC rev4 code or free-form" },
+          "website": { "type": "string", "format": "uri" },
+          "parentAccountDid": { "type": "string", "description": "for hierarchy (Salesforce Parent Account)" },
+          "annualRevenueJpyBand": { "type": "string", "enum": ["u100m", "u1b", "u10b", "u100b", "o100b"], "description": "coarse band only; exact revenue is Tier 3" },
+          "employeeCountBand": { "type": "string", "enum": ["1-10", "11-50", "51-200", "201-1000", "1001-5000", "5000+"] },
+          "region": { "type": "string", "description": "ISO-3166-1 alpha-3" },
+          "tags": { "type": "array", "items": { "type": "string" }, "maxLength": 32 },
+          "createdAt": { "type": "string", "format": "datetime" },
+          "lastActivityAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

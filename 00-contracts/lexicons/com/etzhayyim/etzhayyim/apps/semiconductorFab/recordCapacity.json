@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.semiconductorFab.recordCapacity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Semiconductor fab capacity (SEMI/TechInsights — bridges ai-supply-chain + critical-minerals + ustr-301)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "fabId",
+            "locationIso3",
+            "processNodeNm",
+            "waferSizeMm"
+          ],
+          "properties": {
+            "fabId": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "locationIso3": {
+              "type": "string"
+            },
+            "processNodeNm": {
+              "type": "integer",
+              "description": "3/4/5/7/10/14/22/28/65/180 nm"
+            },
+            "waferSizeMm": {
+              "type": "integer"
+            },
+            "monthlyCapacityWafers": {
+              "type": "integer"
+            },
+            "primaryProducts": {
+              "type": "string",
+              "enum": [
+                "logic",
+                "memory",
+                "analog",
+                "power",
+                "rf",
+                "foundry"
+              ]
+            },
+            "euvLithographyCount": {
+              "type": "integer"
+            },
+            "startupYear": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "nodeTier": {
+              "type": "string",
+              "enum": [
+                "legacy",
+                "mature",
+                "advanced",
+                "leading"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

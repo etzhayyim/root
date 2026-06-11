@@ -1,0 +1,23 @@
+# kotoba-os unikernel boot PoC (ADR-2606031600 L1/L2). no_std aarch64, boots on
+# QEMU virt, real PL011 MMIO UART, runs the kotoba-os scan model — AND runs a real
+# core-wasm module via the wasmi interpreter, all inside the unikernel. Standalone
+# ([workspace]). Production target = Hermit + kotoba-runtime (PORTING.md).
+[package]
+name = "kotoba-os-boot"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "no_std aarch64 kotoba-os unikernel PoC (QEMU virt, PL011 MMIO, native scan + wasmi-in-kernel)"
+
+[workspace]
+
+[[bin]]
+name = "kotoba-os-boot"
+path = "src/main.rs"
+
+[dependencies]
+wasmi = { version = "0.31", default-features = false }
+
+[profile.release]
+panic = "abort"
+opt-level = "s"

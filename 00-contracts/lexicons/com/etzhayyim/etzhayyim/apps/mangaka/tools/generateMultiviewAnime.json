@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.tools.generateMultiviewAnime",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "P16 step 3 of com.etzhayyim.apps.mangaka.composeCharacterVrm. Runs CharacterGen (PKU, SIGGRAPH 2024, MIT) on the VKE render pool to turn a single anime reference image + prompt pack into 4–6 view-consistent A-pose images. Self-hosted on `ghcr.io/etzhayyim/character-gen:0.1` (open-weight, no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_generate_multiview_anime.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["referenceImageB64", "prompts"],
+          "properties": {
+            "referenceImageB64": {
+              "type": "string",
+              "description": "Base64-encoded PNG of the character reference."
+            },
+            "prompts": {
+              "type": "unknown",
+              "description": "Prompt pack from build_prompt LLM: {pose_prompt, style_prompt, negative_prompt}."
+            },
+            "numViews": {
+              "type": "integer",
+              "minimum": 4,
+              "maximum": 6,
+              "description": "Number of synthesised views. Default 4."
+            },
+            "seed": { "type": "integer", "description": "Deterministic seed for reproducibility." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "multiviewImages": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Base64 PNG strings, front / back / left / right (and optional 3-quarter views)."
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

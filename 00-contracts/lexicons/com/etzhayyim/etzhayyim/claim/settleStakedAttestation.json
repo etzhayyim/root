@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.claim.settleStakedAttestation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-2604261717 Phase 1 — finalize a staked claim. Path A (no challenge filed within challengePeriod): anyone can call to refund the bond and close the claim. Path B (challenged): the configured arbiter signs the outcome via ECDSA over keccak256(claimId, claimWins, escrow, chainId) and the contract distributes per the 85/10/5 split. Path C (no-show, arbiter timed out): both sides refunded.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["claimId"],
+          "properties": {
+            "claimId":     { "type": "string" },
+            "claimWins":   { "type": "boolean", "description": "Required when arbiterSig is supplied (Path B)" },
+            "arbiterSig":  { "type": "string", "description": "0x-prefixed 65-byte ECDSA signature from the configured arbiter address. Required for Path B." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "claimId", "txHash", "outcome"],
+          "properties": {
+            "ok":      { "type": "boolean" },
+            "claimId": { "type": "string" },
+            "txHash":  { "type": "string" },
+            "outcome": { "type": "string", "description": "unchallenged | upheld | slashed | refunded" },
+            "receiptStatus": { "type": "string" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "AuthRequired" },
+        { "name": "ConfigError" },
+        { "name": "ClaimNotFound" },
+        { "name": "AlreadySettled" },
+        { "name": "ChallengeWindowOpen" },
+        { "name": "InvalidArbiterSignature" },
+        { "name": "TxRevert" },
+        { "name": "RpcError" }
+      ]
+    }
+  }
+}

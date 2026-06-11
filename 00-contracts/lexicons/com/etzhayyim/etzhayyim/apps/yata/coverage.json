@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.coverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Coverage snapshot — counts of tenant DBs / buckets / blobs / total bytes / pending embeddings. Used by RemoteTrigger soak monitor.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "asOf": {"type": "string", "format": "datetime"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["asOf", "tenantsActive", "bucketsTotal", "blobsTotal", "totalBytes", "pendingEmbeddings"],
+          "properties": {
+            "asOf": {"type": "string", "format": "datetime"},
+            "tenantsActive": {"type": "integer"},
+            "bucketsTotal": {"type": "integer"},
+            "blobsTotal": {"type": "integer"},
+            "totalBytes": {"type": "integer"},
+            "blobsByTier": {"type": "string", "description": "JSON {hot: bytes, warm: bytes, cold: bytes}"},
+            "pendingEmbeddings": {"type": "integer"},
+            "openMultipart": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

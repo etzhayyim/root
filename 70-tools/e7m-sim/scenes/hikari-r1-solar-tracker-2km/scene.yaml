@@ -1,0 +1,122 @@
+# hikari R1 solar-tracker + agrivoltaic + hizukue robot sim scene
+# Energy-themed sim demonstrating cross-actor coupling:
+#   - hikari R1 single-axis solar tracker farm (ADR-2605261100)
+#   - mitsuho R2 agrivoltaic crop under panels (ADR-2605261015)
+#   - hizukue (日柄) panel-tracking + dust-cleaning robot (ADR-2605261100 R2+ class)
+#
+# Sim platform: kami-engine R1 + nv-compat layer (ADR-2605261800).
+# Physics: kami-genesis articulated dynamics (Apache-2.0 Genesis 5-solver via Taichi→wgpu).
+# Rendering: kami-pbrt (constitutional Mitsuba 3-fallback OR Vulkan RT GPU-neutral).
+# World data: same Tier-A datasetPin pattern as wadachi-r1-shibuya-1km (ADR-2605262500 W1).
+
+adr: ADR-2605263500 + ADR-2605261100 + ADR-2605261800
+phase: R1
+sim_consumer: hikari-r1
+sibling_actors:
+  - mitsuho-r2  # agrivoltaic crop sim
+  - kuni-umi-robot-fleet  # Otete + Mimi + Giemon + Hizukue robot classes
+nv_compat_target: isaacsim.core.api.World  # ADR-2605261800 nv-compat facade
+energy_d_gate_verification:
+  - D1  # dependency — solar surplus drives all sim energy budgets
+  - D2  # multi-gen — panel EOL recyclability ≥90% per hikari G7
+  - D3  # closed-loop carbon — agrivoltaic crop sequesters offset embodied panel CO₂
+  - D4  # n/a (no fissile)
+  - D5  # open-hardware — Hizukue robot URDF + control firmware Apache-2.0
+
+# §3 SceneRecipe — terrain + panel array + crop + robot trajectory
+world:
+  crs: "EPSG:4326"
+  bbox: [140.40, 43.05, 140.42, 43.07]   # Hokkaido test parcel 2km×2km (high-latitude agrivoltaic test case)
+  output_subdataset: "sim-scenes/hikari/r1/solar-tracker-2km/261015/"
+
+  layers:
+    - kind: terrain
+      source_subdataset: "geo/srtm/n43e140"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      shader: "kami-pbrt:Soil_Loam"
+      mesh:
+        triangulation: "regular_grid"
+        target_edge_m: 5.0     # 30m SRTM upsampled to 5m mesh edge
+
+    - kind: raster_overlay
+      source_subdataset: "geo/sentinel2/n43e140-2026-04"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      tier: A
+      uv_mapping: "ground_plane_albedo"
+
+    - kind: object_3d_instances
+      instance_class: "single_axis_tracker_panel"
+      instance_count: 480   # ~100 kW peak at ~210 Wp/panel
+      placement_strategy: "grid_2d"
+      grid_origin_m: [10, 10]
+      grid_pitch_m: [4.0, 8.0]  # 4 m N-S, 8 m E-W (agrivoltaic-compatible spacing)
+      tracker_axis: "N-S"
+      tracker_range_deg: [-60, 60]
+      panel_height_m: 2.5  # bottom clearance for crop + Hizukue access
+      open_hardware_design_cid: "<TBD-R1-open-tracker-CAD-cid>"
+
+    - kind: object_3d_instances
+      instance_class: "agrivoltaic_crop_row"
+      instance_count: 60
+      crop_type: "buckwheat"  # high-latitude short-season; mitsuho G2 seed-sovereignty compatible
+      placement_strategy: "row_2d"
+      row_origin_m: [10, 14]
+      row_pitch_m: [4.0, null]  # one row between each E-W tracker pair
+      mitsuho_parcel_cid: "<TBD-R1-mitsuho-parcel-cid>"
+
+    - kind: articulated_robot
+      instance_class: "hizukue_tracker_servicer"
+      urdf_path: "robots/hizukue/v0.1.0/hizukue.urdf"
+      open_hardware_design_cid: "<TBD-R2-hizukue-CAD-cid>"
+      base_pose_m: [5, 5, 0]
+      degrees_of_freedom: 6  # 3 prismatic (X,Y,Z mobile base) + 3 revolute (arm)
+      sensors:
+        - kind: "rgb_camera"
+          mount: "end_effector"
+          fov_deg: 60
+        - kind: "rgbd_depth"
+          mount: "end_effector"
+        - kind: "force_torque"
+          mount: "wrist"
+      task: "panel_dust_audit_and_clean"
+
+# §4 Simulation parameters
+simulation:
+  duration_sim_seconds: 86400  # 24-hr diurnal cycle
+  timestep_sec: 0.01
+  physics_solver: "kami-genesis"  # Apache-2.0; ADR-2605261800 §G7 PhysX NEVER
+  rendering: "kami-pbrt"  # Embree CPU fallback; Vulkan RT GPU; ADR-2605261800 §G8 OptiX/RTX NEVER
+  sun_model:
+    latitude_deg: 43.06
+    longitude_deg: 140.41
+    date_utc: "2026-06-21T00:00:00Z"  # summer solstice
+    atmosphere: "kami-atmosphere:clear_sky"
+  energy_accounting:
+    panel_efficiency: 0.21
+    inverter_efficiency: 0.97
+    tracker_motor_consumption_W_per_panel: 0.5
+    hizukue_consumption_W: 80  # mobile base + 6-DoF arm + sensors
+    grid_tie: false  # islanded (per hikari G13 + ADR-2605215000)
+    storage_battery_kWh: 500  # LFP per hikari G3
+  agrivoltaic_yield_model:
+    par_transmittance_under_panel: 0.40
+    crop_yield_kg_per_ha_baseline: 1800  # buckwheat Hokkaido baseline
+    crop_yield_kg_per_ha_under_panel_pct: 65  # ~65% of open-field yield; cross-actor mitsuho consultation needed for R1 validation
+
+# §5 Scoring
+scoring:
+  primary_metric: "daily_energy_yield_kWh_per_panel"
+  expected_min: 0.8  # high-latitude June solstice
+  expected_max: 1.4
+  secondary_metrics:
+    - "hizukue_panel_clean_count_per_24h"
+    - "hizukue_battery_residual_pct_at_24h"
+    - "agrivoltaic_PAR_under_panel_avg_umol_m2_s"
+    - "tracker_motor_total_kWh_per_24h"
+  acceptance_gates:
+    - "Each panel reports yield in [expected_min, expected_max] range"
+    - "Hizukue completes ≥120 panel-audits per 24h (1 audit/panel × 480 panels target across 4 simulated days)"
+    - "Tracker motor consumption ≤2% of panel generation (G6 grid-impact reporting compliance)"
+    - "Crop yield under panel ≥50% of baseline (agrivoltaic viability gate)"
+    - "Energy D-gate: D1 dependency = 0 commercial-grid imports / D3 closed-loop = sun-only / D5 firmware = open"

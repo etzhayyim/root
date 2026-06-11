@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cnMofcom.flagRetaliationConcern",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Retaliation / counter-tariff / chokepoint signaling (bridges tradeRemedy + criticalMinerals + ustrSection301)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "retaliationKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordTradeAction"
+            },
+            "retaliationKind": {
+              "type": "string",
+              "enum": [
+                "counter_tariff",
+                "critical_mineral_chokepoint",
+                "rare_earth_squeeze",
+                "graphite_squeeze",
+                "fertilizer_export_quota",
+                "food_export_quota",
+                "cabotage_lockout",
+                "data_security_audit",
+                "national_security_review_block",
+                "unreliable_entity_target",
+                "blacklist_chinese_company"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

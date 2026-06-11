@@ -1,0 +1,4602 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Dataset",
+  "@id": "https://yabai.etzhayyim.com/content/source/watchlist",
+  "name": "YABAI Consolidated Sanctions Watchlist",
+  "description": "Aggregated from OFAC SDN (18,712 entries), UN Security Council (1,002 entries), EU Financial Sanctions, UK OFSI, OpenSanctions (78,351 entries), Japan MOF/METI, and law enforcement actions. Priority-filtered to highest-impact designations.",
+  "generatedAt": "2026-03-16T12:00:00Z",
+  "dataSources": [
+    {
+      "id": "ofac/sdn",
+      "name": "US Treasury OFAC SDN List",
+      "url": "https://www.treasury.gov/ofac/downloads/sdn.csv",
+      "totalEntries": 18712,
+      "format": "CSV"
+    },
+    {
+      "id": "un/consolidated",
+      "name": "UN Security Council Consolidated List",
+      "url": "https://scsanctions.un.org/resources/xml/en/consolidated.xml",
+      "totalEntries": 1002,
+      "format": "XML"
+    },
+    {
+      "id": "opensanctions",
+      "name": "OpenSanctions",
+      "url": "https://data.opensanctions.org/datasets/latest/sanctions/targets.simple.csv",
+      "totalEntries": 78351,
+      "format": "CSV"
+    },
+    {
+      "id": "mof",
+      "name": "Japan MOF (外為法)",
+      "url": "https://www.mof.go.jp/policy/international_policy/gaitame_kawase/gaitame/economic_sanctions/list.html",
+      "format": "PDF"
+    },
+    {
+      "id": "meti",
+      "name": "Japan METI Export Control",
+      "format": "PDF"
+    },
+    {
+      "id": "justice",
+      "name": "US DOJ / SEC / FinCEN Enforcement",
+      "format": "press_release"
+    },
+    {
+      "id": "uk/ofsi",
+      "name": "UK Sanctions List",
+      "url": "https://www.gov.uk/government/publications/the-uk-sanctions-list",
+      "format": "CSV"
+    },
+    {
+      "id": "eu/sanctions",
+      "name": "EU Financial Sanctions",
+      "url": "https://webgate.ec.europa.eu/europeaid/fsd/fsf",
+      "format": "XML"
+    }
+  ],
+  "totalSignals": 454,
+  "signals": [
+    {
+      "entityType": "Person",
+      "value": "ERIC BADEGE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "FRANK KAKOLELE BWAMBALE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "GASTON IYAMUREMYE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "INNOCENT KAINA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "JÉRÔME KAKWAVU BUKANDE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "GERMAIN KATANGA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "THOMAS LUBANGA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "SULTANI MAKENGA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "KHAWA PANGA MANDRO",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "CALLIXTE MBARUSHIMANA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "IRUTA DOUGLAS MPAMO",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "SYLVESTRE MUDACUMURA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "LEODOMIR MUGARAGU",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "LEOPOLD MUJYAMBERE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "JAMIL MUKULU",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "IGNACE MURWANASHYAKA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "STRATON MUSONI",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "JULES MUTEBUTSI",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "BAUDOIN NGARUYE WA MYAMURO",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "MATHIEU, CHUI NGUDJOLO",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "FLORIBERT NGABU NJABU",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "LAURENT NKUNDA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "FELICIEN NSANZUBUKIRE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "PACIFIQUE NTAWUNGUKA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "JAMES NYAKUNI",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "STANISLAS NZEYIMANA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "DIEUDONNÉ OZIA MAZIO",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "JEAN-MARIE LUGERERO RUNIGA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "NTABO NTABERI SHEKA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "BOSCO TAGANDA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "INNOCENT ZIMURINDA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "MUHINDO AKILI MUNDOS",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "GUIDON SHIMIRAY MWISSA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "LUCIEN NZAMBAMWITA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "GÉDÉON KYUNGU MUTANGA WA BAFUNKWA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "SEKA BALUKU",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "PROTOGÈNE RUVUGAYIMIKORE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "BERNARD MAHESHE BYAMUNGU",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "APOLLINAIRE HAKIZIMANA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "AHMAD MAHMOOD HASSAN",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "MICHEL RUKUNDA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "MOHAMED ALI NKALUBO",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "WILLIAM AMURI YAKUTUMBA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "WILLY NGOMA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "FRANÇOIS YANGOUVONDA BOZIZÉ",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "NOURREDINE ADAM",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "ALFRED YEKATOM",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "HABIB SOUSSOU",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "OUMAR YOUNOUS ABDOULAY",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "HAROUN GAYE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "EUGÈNE BARRET NGAÏKOSSET",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "JOSEPH KONY",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "ALI KONY",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "SALIM KONY",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "ABDOULAYE HISSENE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "MARTIN KOUMTAMADJI",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "BI SIDI SOULEMAN",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "ALI DARASSA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "IBRAIMA CAMARÁ",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "CRANHA DANFA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "IDRISSA DJALÓ",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "ANTÓNIO INJAI",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "TCHIPA NA BIDON",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "TCHAM NA MAN",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "ESTÊVÃO NA MENA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "DABA NAUALNA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "JÚLIO NHATE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "MAMADU TURE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "JIMMY CHERIZIER",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "JOHNSON ANDRE",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "RENEL DESTINA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "WILSON JOSEPH",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "VITELHOMME INNOCENT",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "PROPHANE VICTOR",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "LUCKSON ELAN",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "DIMITRI HERARD",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "KEMPES SANON",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "SADDAM HUSSEIN AL-TIKRITI",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "QUSAY SADDAM HUSSEIN",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "UDAY SADDAM HUSSEIN",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "ABID HAMID MAHMUD",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "ALI HASSAN AL-MAJID",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "IZZAT IBRAHIM AL-DURI",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "HANI ABD-AL-LATIF TILFAH",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "MUHAMMAD HAMZA ZUBAIDI",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "BARZAN ABD AL-GHAFUR SULAIMAN MAJID",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "MUZAHIM SA'B HASSAN",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "IBRAHIM AHMAD ABD AL-SATTAR MUHAMMED",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "SAIF-AL-DIN FULAYYIH HASSAN TAHA",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "RAFI ABD-AL-LATIF TILFAH",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "TAHIR JALIL HABBUSH",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "HAMID RAJA SHALAH",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "ABD-AL-TAWWAB MULLAH HUWAYSH",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "TAHA YASSIN RAMADAN",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "RUKAN RAZUKI ABD-AL-GHAFUR SULAIMAN",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "JAMAL MUSTAFA ABDALLAH SULTAN",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "MIZBAN KHADR HADI",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "TAHA MUHYI-AL-DIN MA'RUF",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "TARIQ AZIZ",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Person",
+      "value": "SULTAN HASHIM AHMAD",
+      "category": "SanctionHit",
+      "source": "un/consolidated",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "UN"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Myanmar Yatai International Holding Group Co., LTD.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Limited Liability Company Specialized Developer Alabuga South Park",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Digital Marketing Awards FZ LLC",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EKVIK LIMITED LIABILITY COMPANY",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Star Dragon Corporation Limited",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Scientific and Production Association of Measuring Equipment JSC",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "GOLDEN LUXURY JEWELLERY TRADING L.L.C",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ALBAHR ALAAHMAR ENERGY FZE",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Sun Science International Co., Limited",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LOLA LOLITA 1110, S. DE R.L. DE C.V.",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Nurkez",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "TAWU Mechanical Engineering and Trading Company",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Sepehr Energy Jahan Nama Pars (SEJ)",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LIMITED LIABILITY COMPANY LITHIUMION",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "PRINCE SEASHORE NO. 1 CO. LTD.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "AURORATOOLS LIMITED LIABILITY COMPANY",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Limited Liability Company Osnova Lab",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "South Wealth Resources Company",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "KIBER SERVIS, OOO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Bargawine Hong Kong Limited",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "BANK SADERAT PLC",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Liana",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "NPO COMPUTER",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EX-301",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "AUTO PARTS EAST FZCO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Benoil Shipping Inc",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "RHINE SHIPPING DMCC",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Fars News Agency",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "GAZPROMBANK LEASING ZAO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "TRANSPORTES REFRIGERADOS PANDAS TRUCKING, SOCIEDAD ANONIMA DE CAPITAL VARIABLE",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CONRAD",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CORPORATIVO FEARFI, S.A. DE C.V.",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Sazeh Morakab Co. Ltd",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "FU YUAN YU 8644",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Serene I",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "SZ DJI Technology Co., Ltd.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Kumgang Bank",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Dingtai Industrial Technology Co Limited",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Joint Stock Company Vologodsky Optiko Mekhanichesky Factory",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LIMITED LIABILITY COMPANY KHAVERIM",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Sinotech Industry Co., Ltd.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "MARJAN PETROCHEMICAL COMPANY",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LOANNA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Black Shield Company for General Trading LLC",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Filistin Vakfi",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Jui Pang Shipping Co Ltd",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Wanji",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EP-MOF",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LLC Interresurs",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "FU YUAN YU 7603",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Oceanic Orbit Incorporated",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "HENGYANG PETROCHEMICAL LOGISTICS LIMITED",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "AO Inforus",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "IGT Intergestions Trust Reg.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Elvegard Shipping Ltd",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "GEOTECH HOLDINGS LIMITED",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Finrost Limited",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ARTEMIS OFFSHORE",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "KOREA RUNGRADO SHIPPING CO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Limited Liability Company Rustmash",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Yard No. 9918781 Zvezda-Dsme",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Anti-Globalization Movement of Russia",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Manufacturing Company LTD Lema",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "SEPID SHIPPING COMPANY LIMITED",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Alihasan Charity",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "POLA MARINA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CONSULTORIAS PROFESIONALES ALMIDA, S.A. DE C.V.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "3d.ru",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Miramonte Investments Limited",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Shahid Shustari Industries",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Captain Dynasty Shipping L.L.C",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "APAMA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "desert pulse trading fze",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Car Care Center",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Limited Liability Company Taymyrskie Resursy",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "OOO REALEKSPORT",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "OMZ OAO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "RUSSIAN UNIVERSAL BANK",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CONSTRUCTORA GERLIFE, S.A. DE C.V.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Matriks Elektronika",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Korea United Development Bank",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "NOOR ENERGY (MALAYSIA) LTD.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ETCO INTERNATIONAL COMPANY, LIMITED",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "SHANDONG INDEPENDENT ENERGY TRADING DMCC",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "YV3033",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Joint Stock Company State Research Institute of Instrument Engineering",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LPG OM",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "QUALIFIED DEVELOPER KUTUZOVSKIY 16 LIMITED LIABILITY COMPANY",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EP-ICE",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Dimitra II",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "GOODWILL CHARITABLE ORGANIZATION, INC.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "GOLBON",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Tambov Plant (TZ) “October”",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ALAYNE INVESTMENTS LIMITED",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "GX Shipping FZE",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CEC LIMITED",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "SO TVERNEFTEPRODUKT OOO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "BANEH",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Oriental Treasure",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "PARS MCS",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Sunrise Greenland Sdn. Bhd.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "SVYATOY KNYAZ VLADIMIR",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EP-CFM",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "DISTRIBUIDORA MEDICA HOSPITALARIA, S.A. DE C.V.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "IRAN CHARAK",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Nagham al Hayat Ltd.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Samara Metallurgical Plant",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ELIZABET",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Liberty Shipping CO LTD",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "BELT ROAD CAPITAL MANAGEMENT CAMBODIA CO. LTD.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "FARMACIA Y MINI SUPER TRINIDAD",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ELEKTRORADIOAVTOMATIKA JSC",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "RT-Capital Limited Liability Company",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Sistemy Avtonomnoi Energii",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Limited Liability Company Alis",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Cruzita Novedades",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "City Pharm",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Limited Liability Company Sansara",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Antey",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "VAFA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "GAZPROM GEOLOGORAZVEDKA, OOO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "SINERJI ENDUSTRIYEL EKIPMAN VE INSAAT MALZEMELERI DIS TICARET LIMITED SIRKETI",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Harakat al-Nujaba",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Tarabar-Gorous Trust Transportation",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Blue Berri Shipping Inc.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "PARAGON DAWN",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "MSN 550",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LIMITED LIABILITY COMPANY RIVER PARK",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Qingdao Premier Technology Co Ltd",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Avtex Semiconductor Limited",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "HONG PANG TEXTILE COMPANY LIMITED",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "OOO STANDARD LINE",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "AEROCARIBBEAN AIRLINES",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ANGLO-CARIBBEAN CO., LTD.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "BANCO NACIONAL DE CUBA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "BOUTIQUE LA MAISON",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CASA DE CUBA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CECOEX, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CIMEX",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CIMEX IBERICA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CIMEX, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "COMERCIAL IBEROAMERICANA, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "COMERCIAL CIMEX, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "COMERCIAL DE RODAJES Y MAQUINARIA, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "COMERCIALIZACION DE PRODUCTOS VARIOS",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "COMPANIA DE IMPORTACION Y EXPORTACION IBERIA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CORPORACION CIMEX, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "COTEI",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CRYMSA - ARGENTINA, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CUBACANCUN CIGARS AND GIFT SHOPS",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CUBAEXPORT",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CUBAFRUTAS",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CUBAN CIGARS TRADE",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CUBANATUR",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CUBATABACO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "CUMEXINT, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "DELVEST HOLDING, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EDICIONES CUBANAS",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EDYJU, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EMPRESA CUBANA DE AVIACION",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EMPRESA CUBANA DE PESCADOS Y MARISCOS",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EMPRESA DE TURISMO NACIONAL Y INTERNACIONAL",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ETCO INTERNATIONAL COMMODITIES LTD.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "GALAX TRADING CO., LTD.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "HAVIN BANK LIMITED",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "HAVANATUR",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "INSTITUTO NACIONAL DE TURISMO DE CUBA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "INTERCONSULT",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "KAVE, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LA EMPRESA CUBANA DE FLETES",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LEVERAGE, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "NIREF",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "NORDSTRAND LTD.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "NORDSTRAND MARITIME AND TRADING COMPANY",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "PANAMERICAN IMPORT AND EXPORT COMMERCIAL CORPORATION",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "PESCABRAVA, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "PRELASA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "PRENSA LATINA CANADA LTD.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "PRENSA LATINA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "SERVINAVES, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "TROBER, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "TROPIC TOURS GMBH",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "VIAJES GUAMA, S.A.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "VINALES TOURS",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "COBALT REFINERY CO. INC.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LA COMPANIA GENERAL DE NIQUEL",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "INTERNATIONAL COBALT CO. INC.",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "MOA NICKEL SA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "MAR AZUL",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EBANO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "TIFON",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "BANK MARKAZI JOMHOURI ISLAMI IRAN",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "BANK MASKAN",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "BANK REFAH KARGARAN",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "BANK KESHAVARZI IRAN",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ABU SAYYAF GROUP",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ARMED ISLAMIC GROUP",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "AUM SHINRIKYO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "EUZKADI TA ASKATASUNA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "GAMA'A AL-ISLAMIYYA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Michael Kuajien",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Bahram Ali SHAYESTEH",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Messaoud Belhireche",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Nasser Al Sheikh Ali",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Angel Daniel BALESTRINI JARAMILLO",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Denis Igorevich Gusev",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Taranjeet Kambo",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ji Sang Jun",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Mohammad Mahdi Maghfoori",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Umar Siddique Kathio AZMARAI",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Maria Monserrat Avila Rocha",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Jahangir Yevgenyevich ALIYEV",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "German Alberto PEREZ OCAMPO",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Alexander Franz Josef Lins",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Antonio Romero Sanchez",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Gerardo Rivera Ibarra",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Yahia Abdul Aziz AL-ABADSAH",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Chunpeng Su",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Nidal Ahmed WAKED HATUM",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Alireza Shafie Nasab",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Oleg Yuryevich Nesterov",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ebrahim Shariatzadeh",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Luisa de Fatima Giovetty",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Esmail HAMIDI",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Miguel Antonio Jose PONENTE PARRA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Husayn TAJIDEEN",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Eduardo GONZALEZ QUIRARTE",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Laurin Katz",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Murad Fathi",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Muhammad Naeem Sheikh",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Yousef Ali Muraj",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Jose Maria NEGRETE LUNA",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Takashi Ikeda",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Maria Aleksandrovna Osetrova",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Zuhayr Haydar",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Muhammad Nasr al-Din al-Ghazlani",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ali Muhammad Abu Turab",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ricardo Jose Moron Hernandez",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Muhammad Yusuf Ahmad MANSUR",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Chong Chol RI",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Mustafa Habib Harb",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ezekial KANNIAPPAN, JR",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Viktor Georgiyevich Spiridonov",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Mae Toussaint Thomas",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ramiro Martin ROMERO WIRICHAGA",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Nihat Abdul Kadir ASAN",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Sayyid Salah Mahdi Hantush AL-MAKSUSI",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Sergei Yevgenevich Zubkov",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Xingbiao Shen",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ali Mohamad Daoun",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Yong Su Kim",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ja'far Al-Husayni",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Song Chol Ri",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Seyyed Ali Abtahi",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "ABBAS, Abu",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "AL RAHMAN, Shaykh Umar Abd",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "AL ZAWAHIRI, Dr. Ayman",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "AL-ZOMOR, Abboud Abdul Latif Hassan",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "AWDA, Abd Al Aziz",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "FADLALLAH, Shaykh Muhammad Husayn",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "HAWATMA, Nayif",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "ISLAMBOULI, Mohammad Shawqi",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "JABRIL, Ahmad",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "NAJI, Talal Muhammad Rashid",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "NASRALLAH, Hasan",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "TUFAYLI, Subhi",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "YASSIN, Sheik Ahmed Ismail",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "ABU MARZOOK, Mousa Mohammed",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "RODRIGUEZ OREJUELA, Gilberto Jose",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "RODRIGUEZ OREJUELA, Miguel Angel",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "ABDALLAH, Ramadan",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "BIN LADIN, Usama bin Muhammad bin Awad",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "AL-MASRI, Abu Hafs",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "MUSA, Rifa'i Ahmad Taha",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "OMAR, Mohammed",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "AMEZCUA CONTRERAS, Jose de Jesus",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "AMEZCUA CONTRERAS, Luis Ignacio",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "ARELLANO FELIX, Ramon Eduardo",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "CARO QUINTERO, Rafael",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "CARRILLO FUENTES, Vicente",
+      "category": "SanctionHit",
+      "source": "ofac/sdn",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Товариство з обмеженою відповідальністю \"Зелінський Групп\"",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Open Joint Stock Company “Elektrostal Chemical and Mechanical Plant named after N.D. Zelinsky”",
+      "category": "SanctionHit",
+      "source": "eu/sanctions",
+      "confidence": 0.97,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "EU"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Приватне підприємство \"Магістар-СГ\"",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Акціонерне товариство \"Електроагрегат\"",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "MICHAEL DAVID MUMMERT",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Чантурія Іраклі",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Товариство з обмеженою відповідальністю «Сичовський виробничо-технологічний комбінат»",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Старовойтов Станіслав Юрійович",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Khalid SBAA",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Товариство з обмеженою відповідальністю «ДЖ.Т.І. Росія»",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Лужбін Ігор Сергійович",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Федеральне казенне підприємство \"Національне випробувальне об'єднання \"Державні боєприпасні випробувальні полігони Росії\"",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Zviad TSEKVAVA",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Chen, Kan",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "DAVUT YALÇIN",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Баєва Катерина Миколаївна",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Голобородько Павло Миколайович",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Linkers Automation (Pvt) Ltd.",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Товариство з обмеженою відповідальністю \"МТС Авто\"",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "ELECTRA PRO LLC",
+      "category": "SanctionHit",
+      "source": "uk/ofsi",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UK"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Taiyuan Jinke Semiconductor Technology Co., Ltd.",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Сангаджи-Горяєв Джангар Баатрович",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Корсакова Тетяна Володимирівна",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Irina Anatolievna KOSTENKO",
+      "category": "SanctionHit",
+      "source": "eu/sanctions",
+      "confidence": 0.97,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "EU"
+    },
+    {
+      "entityType": "Person",
+      "value": "Рехвіашвілі Іраклій",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ісаєнко Вікторія Вікторівна",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ряховський Сергій Васильович",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Japanese Red Army",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Вебер Марія Юріївна",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Beijing Shuoke Zhongkexin Electronic Equipment Co., Ltd.",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "TAHSİN KURT",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ashiq Ahmed Nengroo",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "EŞREF KÜLLEBİ",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Акціонерне товариство \"Сибнафтомаш\"",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Аширов Станіслав Олегович",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "Сараєв Олег Володимирович",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "TARS GLOBAL GROUP FZE",
+      "category": "SanctionHit",
+      "source": "uk/ofsi",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UK"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Акціонерне товариство \"Торговельна компанія \"Мегаполіс\"",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Luoyang Institute of Science and Technology",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Кузнецов Ігор Олександрович",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Міжнародна компанія публічне акціонерне товариство «Об'єднана компанія «РУСАЛ»",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Person",
+      "value": "ABDURRAHMAN KARAKIŞ",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "MARSOLUT MANAGEMENT DMCC",
+      "category": "SanctionHit",
+      "source": "uk/ofsi",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UK"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Onsong County MSS Detention Centre",
+      "category": "SanctionHit",
+      "source": "eu/sanctions",
+      "confidence": 0.97,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "EU"
+    },
+    {
+      "entityType": "Person",
+      "value": "MEHMET ÇAKMAKTEPE",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Махмуд Алимжанович Рахимов",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Alexander Nikolic",
+      "category": "SanctionHit",
+      "source": "opensanctions",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Акціонерне товариство \"Федеральна вантажна компанія\"",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Товариство з обмеженою відповідальністю \"ТД Ідєалпрод\"",
+      "category": "SanctionHit",
+      "source": "ua/nsdc",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "UA"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Fuga Bluemarine",
+      "category": "SanctionHit",
+      "source": "eu/sanctions",
+      "confidence": 0.97,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "EU"
+    },
+    {
+      "entityType": "Organization",
+      "value": "山口組 (Yamaguchi-gumi)",
+      "category": "SanctionHit",
+      "source": "ofac/sdn/yamaguchi-gumi",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "住吉会 (Sumiyoshi-kai)",
+      "category": "SanctionHit",
+      "source": "ofac/sdn/sumiyoshi-kai",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "稲川会 (Inagawa-kai)",
+      "category": "SanctionHit",
+      "source": "ofac/sdn/inagawa-kai",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "司忍 (Tsukasa Shinobu)",
+      "category": "SanctionHit",
+      "source": "ofac/sdn/tsukasa-shinobu",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "オウム真理教 (Aum Shinrikyo)",
+      "category": "SanctionHit",
+      "source": "mof/terror-shisan-toketsu/aum",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.001,
+      "jurisdiction": "JP"
+    },
+    {
+      "entityType": "Organization",
+      "value": "日本赤軍 (Japanese Red Army)",
+      "category": "SanctionHit",
+      "source": "mof/terror-shisan-toketsu/jra",
+      "confidence": 0.96,
+      "severity": 5,
+      "probability": 0.005,
+      "jurisdiction": "JP"
+    },
+    {
+      "entityType": "Organization",
+      "value": "革マル派 (Kakumaru-ha)",
+      "category": "SanctionHit",
+      "source": "mof/terror-shisan-toketsu/kakumaru",
+      "confidence": 0.93,
+      "severity": 4,
+      "probability": 0.01,
+      "jurisdiction": "JP"
+    },
+    {
+      "entityType": "Organization",
+      "value": "朝鮮総聯 (Chongryon)",
+      "category": "SanctionHit",
+      "source": "mof/gaijin-shisan-toketsu/chongryon",
+      "confidence": 0.92,
+      "severity": 4,
+      "probability": 0.01,
+      "jurisdiction": "JP"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Almaz-Antey",
+      "category": "SanctionHit",
+      "source": "meti/russia-export-control/almaz-antey",
+      "confidence": 0.97,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "JP"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Kalashnikov Concern",
+      "category": "SanctionHit",
+      "source": "meti/russia-export-control/kalashnikov",
+      "confidence": 0.97,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "JP"
+    },
+    {
+      "entityType": "Person",
+      "value": "Sam Bankman-Fried",
+      "category": "CriminalEvidence",
+      "source": "justice/usao-sdny/sbf",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.005,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "FTX Trading Ltd.",
+      "category": "CriminalEvidence",
+      "source": "justice/usao-sdny/sbf",
+      "confidence": 0.99,
+      "severity": 5,
+      "probability": 0.005,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Alameda Research LLC",
+      "category": "FraudSignal",
+      "source": "justice/usao-sdny/sbf",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.005,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Do Hyeong Kwon",
+      "category": "CriminalEvidence",
+      "source": "justice/criminal-vns/do-kwon",
+      "confidence": 0.97,
+      "severity": 5,
+      "probability": 0.01,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Ruja Ignatova",
+      "category": "CriminalEvidence",
+      "source": "justice/usao-sdny/onecoin",
+      "confidence": 0.92,
+      "severity": 5,
+      "probability": 0.02,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Changpeng Zhao (CZ)",
+      "category": "AMLPattern",
+      "source": "justice/usao-wdwa/cz-binance",
+      "confidence": 0.96,
+      "severity": 4,
+      "probability": 0.01,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Binance Holdings Limited",
+      "category": "AMLPattern",
+      "source": "justice/usao-wdwa/cz-binance",
+      "confidence": 0.96,
+      "severity": 4,
+      "probability": 0.01,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Person",
+      "value": "Alex Mashinsky",
+      "category": "FraudSignal",
+      "source": "justice/usao-sdny/celsius",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.01,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Celsius Network LLC",
+      "category": "FraudSignal",
+      "source": "justice/usao-sdny/celsius",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.01,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "LockBit Ransomware Group",
+      "category": "CriminalEvidence",
+      "source": "justice/nca-europol/lockbit",
+      "confidence": 0.98,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Conti Ransomware Group",
+      "category": "CriminalEvidence",
+      "source": "ofac/sdn/conti-trickbot",
+      "confidence": 0.97,
+      "severity": 5,
+      "probability": 0.002,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "APT41 (Winnti / Barium)",
+      "category": "CriminalEvidence",
+      "source": "justice/fbi/apt41",
+      "confidence": 0.96,
+      "severity": 5,
+      "probability": 0.003,
+      "jurisdiction": "US"
+    },
+    {
+      "entityType": "Organization",
+      "value": "Camorra (Casalesi Clan)",
+      "category": "SanctionHit",
+      "source": "eu/organized-crime/camorra",
+      "confidence": 0.95,
+      "severity": 5,
+      "probability": 0.005,
+      "jurisdiction": "EU"
+    },
+    {
+      "entityType": "Organization",
+      "value": "'Ndrangheta",
+      "category": "SanctionHit",
+      "source": "eu/organized-crime/ndrangheta",
+      "confidence": 0.96,
+      "severity": 5,
+      "probability": 0.003,
+      "jurisdiction": "EU"
+    }
+  ]
+}

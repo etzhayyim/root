@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_lawfirm_pipeline_stage_transition"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
+                  exporter="hand-written" exporterVersion="2.0">
+
+  <bpmn:process id="lawfirm_pipeline_stage_transition"
+                name="lawfirm Pipeline Stage Transition"
+                isExecutable="true">
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.lawfirm.pipelineTransition", "version": 1, "resultTimeoutMs": 30000 }</bpmn:documentation>
+
+    <bpmn:startEvent id="Start_XRPC" name="XRPC: pipelineTransition">
+      <bpmn:outgoing>Flow_start_to_transition</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_transition" sourceRef="Start_XRPC" targetRef="Task_Transition"/>
+
+    <bpmn:serviceTask id="Task_Transition" name="Update lead stage + audit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="lawfirm.sales.pipelineTransition"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=lead_id"        target="lead_id"/>
+          <zeebe:input source="=to_stage"       target="to_stage"/>
+          <zeebe:input source="=reason"         target="reason"/>
+          <zeebe:input source="=decided_by_did" target="decided_by_did"/>
+          <zeebe:output source="=from_stage"  target="from_stage"/>
+          <zeebe:output source="=to_stage"    target="result_to_stage"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_transition</bpmn:incoming>
+      <bpmn:outgoing>Flow_transition_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_transition_to_audit" sourceRef="Task_Transition" targetRef="Task_Audit"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit Audit (OCEL)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;lawfirm.pipeline.transitioned&quot;" target="event_type"/>
+          <zeebe:input source="={lead_id: lead_id, from_stage: from_stage, to_stage: result_to_stage, decided_by_did: decided_by_did}" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_transition_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="Flow_audit_to_end" sourceRef="Task_Audit" targetRef="End_Done"/>
+
+    <bpmn:endEvent id="End_Done" name="Done">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+  </bpmn:process>
+</bpmn:definitions>

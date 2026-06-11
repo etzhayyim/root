@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.multipartAbort",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Abort an in-progress multipart upload. Schedules byte cleanup on B2 / Vultr OS. Idempotent.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uploadId"],
+          "properties": {
+            "uploadId": {"type": "string"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "partsAborted": {"type": "integer"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

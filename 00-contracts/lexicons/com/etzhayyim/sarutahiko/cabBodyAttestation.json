@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sarutahiko.cabBodyAttestation",
+  "description": "Cab body forming attestation (L3). Hot stamping + robotic spot welding + leak test. Steel sheet sourced from kanayama Wave 2 at R2+ (external commodity at R0/R1). Per ADR-2605252500 L3.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "chassisId": {"type": "string"},
+          "sheetLot": {"type": "unknown"},
+          "stampedPanels": {"type": "array", "items": {"type": "unknown"}},
+          "spotWelds": {"type": "unknown"},
+          "leakTestResult": {
+            "type": "object",
+            "properties": {
+              "method": {"type": "string", "knownValues": ["pressure-decay", "helium-leak", "ultrasonic"]},
+              "leakRatePaPerS": {"type": "number"},
+              "limitPaPerS": {"type": "number"},
+              "accept": {"type": "boolean"}
+            }
+          },
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["chassisId", "sheetLot", "leakTestResult"]
+      }
+    }
+  }
+}

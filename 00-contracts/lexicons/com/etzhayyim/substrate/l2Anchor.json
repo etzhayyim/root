@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.substrate.l2Anchor",
+  "description": "L2 anchor receipt emitted by anchor-cron after an MST root has been committed to EtzhayyimAnchor on Base L2. Per ADR-2605171800 Stage 5b. Closes the substrate pipeline: mst-projector (rootCid) → ipfs-pinner (carCid pinned) → anchor-cron (rootHash anchored on Base). The on-chain `Anchored` event carries the same rootHash + ipfsCid; this AT record cross-references that event back to the originating `ipfsPin` record so any third party can trace a shard's full custody chain without trusting a single operator.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": [
+          "shardKey",
+          "rootCid",
+          "rootHash",
+          "txHash",
+          "blockNumber",
+          "chainId",
+          "contract",
+          "anchorer",
+          "batchSize",
+          "anchoredAt"
+        ],
+        "properties": {
+          "shardKey": {
+            "type": "string",
+            "description": "Collection NSID this anchor covers, copied from the originating ipfsPin record. e.g. `com.etzhayyim.apps.threads.post`."
+          },
+          "rootCid": {
+            "type": "string",
+            "description": "AT-Protocol MST root CID (v1, dag-cbor). Matches `com.etzhayyim.substrate.shardSnapshot.rootCid` + `com.etzhayyim.substrate.ipfsPin.rootCid`."
+          },
+          "rootHash": {
+            "type": "string",
+            "description": "0x-prefixed bytes32 = sha256(rootCid as UTF-8 bytes). Primary key in EtzhayyimAnchor.anchors mapping."
+          },
+          "txHash": {
+            "type": "string",
+            "description": "0x-prefixed Base L2 transaction hash of the EtzhayyimAnchor.anchor() call. May be the zero-hash if anchor-cron observed the root was already on-chain from a prior tick and skipped the redundant tx (alreadyAnchored=true)."
+          },
+          "blockNumber": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "L2 block number at which the anchor landed (or the block of the prior anchor when alreadyAnchored=true)."
+          },
+          "logIndex": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Index of the Anchored event in the receipt logs. Defaults to 0 when alreadyAnchored=true (no new event)."
+          },
+          "chainId": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "EIP-155 chain id. Base mainnet = 8453, Base sepolia = 84532."
+          },
+          "contract": {
+            "type": "string",
+            "description": "0x-prefixed EtzhayyimAnchor contract address on the target chain."
+          },
+          "anchorer": {
+            "type": "string",
+            "description": "0x-prefixed EOA that signed the anchor tx (= msg.sender on-chain). Off-chain DID resolution is the reader's responsibility."
+          },
+          "batchSize": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Informational record count passed to EtzhayyimAnchor.anchor() (block.batchSize on-chain). For substrate-mode anchors this is the originating shardSnapshot.recordCount when known, else 1."
+          },
+          "alreadyAnchored": {
+            "type": "boolean",
+            "description": "True when anchor-cron detected the rootHash was already anchored on-chain from a prior tick and skipped the redundant tx. The receipt still gets recorded so readers see a complete trail."
+          },
+          "ipfsPinUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the originating `com.etzhayyim.substrate.ipfsPin` record. Required when the anchor was driven by substrate mode; absent when an external integrator submitted the anchor without an ipfsPin record on PDS."
+          },
+          "anchoredAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

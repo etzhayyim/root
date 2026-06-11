@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.digitalEuroBrics.flagSovereigntyConcern",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Monetary sovereignty / cybersecurity concern (bridges sovereign-debt + ofac-sanctions + antitrust-dma)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "concernId",
+            "corridorVid",
+            "concernKind",
+            "flaggedAt"
+          ],
+          "properties": {
+            "concernId": {
+              "type": "string"
+            },
+            "corridorVid": {
+              "type": "string",
+              "description": "bridges recordCorridor"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "monetary_sovereignty",
+                "sanctions_evasion",
+                "privacy",
+                "cyber",
+                "geopolitical_fragmentation",
+                "intermediation_risk"
+              ]
+            },
+            "regulatorsInvolved": {
+              "type": "string"
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

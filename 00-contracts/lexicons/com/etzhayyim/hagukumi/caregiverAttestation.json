@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hagukumi.caregiverAttestation",
+  "description": "Caregiver onboarding attestation. Training cert + background check + Council Lv6+ ≥3 vetting. G4 structural gate. Per ADR-2605261030.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "caregiverDid": {"type": "string"},
+          "specializations": {"type": "array", "items": {"type": "string", "knownValues": ["child-care", "elder-care", "chronic-continuity", "respite", "meal-delivery"]}},
+          "trainingCertCid": {"type": "string"},
+          "childProtectionCertCid": {"type": "string"},
+          "elderProtectionCertCid": {"type": "string"},
+          "backgroundCheckCid": {"type": "string"},
+          "councilVettingAttestations": {"type": "array", "items": {"type": "string"}, "minItems": 3, "description": "G4: ≥3 Council Lv6+ DIDs"},
+          "attestationTimestamp": {"type": "string"},
+          "revokedAt": {"type": "string"}
+        },
+        "required": ["caregiverDid", "specializations", "trainingCertCid", "councilVettingAttestations", "attestationTimestamp"]
+      }
+    }
+  }
+}

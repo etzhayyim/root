@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.digitalPublicInfra.recordDpiSystem",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Digital Public Infrastructure (MOSIP / Aadhaar / India Stack / EU Wallet / DIGIT — bridges birthRegistration.flagRegistrationGap + digital-identity + digital-public-goods)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "dpiId",
+            "countryIso3",
+            "systemKind",
+            "scope",
+            "launchedAt"
+          ],
+          "properties": {
+            "dpiId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "systemKind": {
+              "type": "string",
+              "enum": [
+                "mosip",
+                "aadhaar",
+                "india_stack_upi",
+                "eu_digital_wallet",
+                "modul_ua",
+                "digit_egov",
+                "code_dpi",
+                "brazil_lex",
+                "indonesia_osim",
+                "philippines_philid",
+                "sg_singpass",
+                "estonia_x_road"
+              ]
+            },
+            "scope": {
+              "type": "string",
+              "enum": [
+                "national_id",
+                "payments",
+                "data_exchange",
+                "consent_manager",
+                "health",
+                "tax",
+                "education",
+                "social_protection",
+                "property",
+                "elections",
+                "agriculture",
+                "msme",
+                "civil_registry"
+              ]
+            },
+            "registrationGapVid": {
+              "type": "string",
+              "description": "bridges birthRegistration.flagRegistrationGap"
+            },
+            "launchedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

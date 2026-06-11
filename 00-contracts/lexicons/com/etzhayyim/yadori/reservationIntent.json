@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yadori.reservationIntent",
+  "description": "Unsigned, member-principal domain reservation intent. G2: registrantPrincipal/payer const 'member' (yadori never the buyer; okaimono assisted-checkout). G5: serverHeldKey const false; signedBy member only (server signature refused). G7: outwardGated const true.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["fqdn", "registrar", "registrantPrincipal", "payer", "serverHeldKey", "signed", "createdAt"],
+        "properties": {
+          "fqdn": {"type": "string"},
+          "registrar": {"type": "string"},
+          "registrantPrincipal": {"type": "string", "const": "member"},
+          "payer": {"type": "string", "const": "member"},
+          "fundingSource": {"type": "string", "knownValues": ["member-okaimono"]},
+          "serverHeldKey": {"type": "boolean", "const": false},
+          "signed": {"type": "boolean"},
+          "signedBy": {"type": "string", "knownValues": ["member"]},
+          "outwardGated": {"type": "boolean", "const": true},
+          "createdAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    }
+  }
+}

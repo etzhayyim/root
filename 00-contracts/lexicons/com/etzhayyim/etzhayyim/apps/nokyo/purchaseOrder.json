@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.nokyo.purchaseOrder",
+  "description": "共同購買 (肥料 / 農薬 / 飼料 / 燃料 / 農機 / 資材) の組合員発注。daily roll-up で 全農 への一括発注に集約。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["orderId", "memberId", "itemCode", "quantity", "unit"],
+        "properties": {
+          "orderId": { "type": "string" },
+          "memberId": { "type": "string" },
+          "coopPath": { "type": "string" },
+          "itemCode": { "type": "string", "description": "全農商品コード" },
+          "itemName": { "type": "string" },
+          "category": { "type": "string", "enum": ["fertilizer", "pesticide", "feed", "fuel", "machinery", "material", "seed", "other"] },
+          "quantity": { "type": "number" },
+          "unit": { "type": "string", "description": "kg / L / 袋 / 台" },
+          "unitPriceJpy": { "type": "number" },
+          "requestedDeliveryDate": { "type": "string", "format": "date" },
+          "status": { "type": "string", "enum": ["open", "aggregated", "ordered", "delivered", "cancelled"] }
+        }
+      }
+    }
+  }
+}

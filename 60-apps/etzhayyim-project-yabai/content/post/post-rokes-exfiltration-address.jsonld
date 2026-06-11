@@ -1,0 +1,7 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "app.bsky.feed.post",
+  "did": "did:web:yabai.etzhayyim.com:entity:ent_d8eb667b2481",
+  "createdAt": "2026-04-05T00:00:00Z",
+  "text": "Risk Assessment: 0x5c50564cEEEb5B85CFeeC31572A748cC1185356c (ETH Address)\nRisk: 100.0 (DENY) | Penalty: 100.0 | Well-Becoming: 0.0\nEvidence: 1 item | Categories: AMLPattern\n\nPrimary exfiltration address for Rokes Exchange theft. Received repeated ETH (1-90 ETH/tx) and HEC token transfers (up to 19,701 HEC). Activity: 2019-08 to 2020-12. Controlled by Pakistan development team.\n\n#yabai #AMLPattern #ETH #Exfiltration"
+}

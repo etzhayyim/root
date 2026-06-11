@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.grandChamberRuling.flagDoctrinalShift",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Doctrinal shift / overruling / marketing (bridges judicialReviewGdpr.flagRulingImpact + scotus-docket + civil-liability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "rulingVid",
+            "shiftKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "rulingVid": {
+              "type": "string",
+              "description": "bridges recordRuling"
+            },
+            "shiftKind": {
+              "type": "string",
+              "enum": [
+                "overruled_precedent",
+                "narrowed",
+                "expanded",
+                "procedural_clarification",
+                "substantive_rule",
+                "constitutional_redefine",
+                "compatibility_declare",
+                "margin_of_appreciation",
+                "proportionality_test",
+                "horizontal_direct_effect",
+                "vertical_direct_effect"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

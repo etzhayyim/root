@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AIMA</string>
+    <string name="title_activity_main">AIMA</string>
+    <string name="package_name">com.etzhayyim.aima</string>
+    <string name="custom_url_scheme">com.etzhayyim.aima</string>
+</resources>

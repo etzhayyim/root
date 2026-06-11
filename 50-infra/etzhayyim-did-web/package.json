@@ -1,0 +1,23 @@
+{
+  "name": "etzhayyim-did-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker serving did:web:etzhayyim.com DID Document at /.well-known/did.json",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "tail": "wrangler tail",
+    "types": "wrangler types",
+    "test": "node --experimental-strip-types --test scripts/*.test.mjs",
+    "enable-kv": "bash scripts/enable-kv.sh"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260608.1",
+    "esbuild": "^0.28.0",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.98.0"
+  },
+  "dependencies": {
+    "@noble/post-quantum": "^0.5.2"
+  }
+}

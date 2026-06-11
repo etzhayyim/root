@@ -1,0 +1,24 @@
+# etzhayyim — GitHub "Sponsor" button configuration.
+#
+# CONSTITUTIONAL (ADR-2605172100 / 2605192115 / 2606012100): etzhayyim accepts value
+# ONLY as on-chain donation (USDC on Base L2 via TitheRouter, 90/10 tithe split) or as
+# in-kind compute donated to the Murakumo mesh. Fiat donation rails — GitHub Sponsors
+# (Stripe), Patreon, Open Collective, Ko-fi, Liberapay, Tidelift, etc. — route money
+# through prohibited fiat processors (Stripe/PayPal/Square …, deps.toml payment_prohibited)
+# and are therefore NOT used. We deliberately leave every platform key blank and use only
+# `custom:` URLs that point at our own on-chain donation surface.
+#
+# Donating earns the donor NOTHING (no perks, no tiers, no priority — anti-class G4,
+# ADR-2606012100). It is a pure gift to a non-profit religious corp that takes no
+# advertising and sells nothing.
+
+# github:           # (Stripe-backed) — intentionally unused
+# patreon:          # (fiat) — intentionally unused
+# open_collective:  # (fiat) — intentionally unused
+# ko_fi:            # (fiat) — intentionally unused
+# liberapay:        # (fiat) — intentionally unused
+# tidelift:         # (commercial) — intentionally unused
+
+custom:
+  - "https://etzhayyim.com/donate"
+  - "https://etzhayyim.com/.well-known/donation.json"

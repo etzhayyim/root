@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  webya.etzhayyim.com — createSite workflow (XRPC com.etzhayyim.apps.webya.createSite).
+
+  routing_target = 'langgraph'
+  assistant_id   = 'webya_create_site'
+
+  The bpmn-dispatcher intercepts this XRPC call and routes directly to
+  LangGraph Server (POST /runs) without deploying to Zeebe.
+  This BPMN is documentation only — it describes the LangGraph graph topology.
+
+  LangGraph graph: webya_site_generation
+    intake_analyzer → structure_planner → legal_disclosure_guard
+    → content_generator (loop × N pages)
+    → quality_reviewer → (revision loop ≤ 2)
+    → seo_optimizer → html_renderer → publisher
+
+  Result: { ok, siteId, jobId, subdomain, status }
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_webya_create_site"
+    targetNamespace="https://etzhayyim.ai/bpmn/webya"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="webya_create_site" name="webya create site" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.webya.createSite", "version": 1, "resultTimeoutMs": 300000, "routing_target": "langgraph" }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="createSite XRPC">
+      <bpmn:outgoing>Flow_ToGenerate</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Generate" name="LangGraph: webya_site_generation">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="webya.site.generate"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=clientName"         target="clientName"/>
+          <zeebe:input source="=professionKind"     target="professionKind"/>
+          <zeebe:input source="=representativeName" target="representativeName"/>
+          <zeebe:input source="=address"            target="address"/>
+          <zeebe:input source="=phone"              target="phone"/>
+          <zeebe:input source="=email"              target="email"/>
+          <zeebe:input source="=specialties"        target="specialties"/>
+          <zeebe:input source="=tone"               target="tone"/>
+          <zeebe:input source="=registrationNumber" target="registrationNumber"/>
+          <zeebe:input source="=associationName"    target="associationName"/>
+          <zeebe:input source="=customDomain"       target="customDomain"/>
+          <zeebe:output source="=ok"       target="ok"/>
+          <zeebe:output source="=siteId"   target="siteId"/>
+          <zeebe:output source="=jobId"    target="jobId"/>
+          <zeebe:output source="=subdomain" target="subdomain"/>
+          <zeebe:output source="=status"   target="status"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToGenerate</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToGenerate" sourceRef="Start"         targetRef="Task_Generate"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit.emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;webya.createSite&quot;" target="actor"/>
+          <zeebe:input source="=siteId"                       target="subject"/>
+          <zeebe:input source="=status"                       target="outcome"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Generate" targetRef="Task_Audit"/>
+
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+  </bpmn:process>
+</bpmn:definitions>

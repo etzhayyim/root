@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_fetch_bailii_delta" targetNamespace="https://etzhayyim.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="legal_corpus_fetch_bailii_delta" name="fetchBailiiDelta" isExecutable="true">
+    <bpmn:startEvent id="Start" name="every 24h"><bpmn:outgoing>Flow_F</bpmn:outgoing>
+      <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT24H</bpmn:timeCycle></bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Manual" name="manual"><bpmn:outgoing>Flow_FM</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_FM" sourceRef="Start_Manual" targetRef="Task_Fetch"/>
+    <bpmn:sequenceFlow id="Flow_F" sourceRef="Start" targetRef="Task_Fetch"/>
+    <bpmn:serviceTask id="Task_Fetch" name="atom feed">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.http.fetch" retries="3"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;GET&quot;" target="method"/>
+          <zeebe:input source="=&quot;https://www.bailii.org/atom.xml&quot;" target="url"/>
+          <zeebe:input source="=&quot;atom&quot;" target="parse"/>
+          <zeebe:input source="={&quot;Accept&quot;: &quot;application/atom+xml, application/xml;q=0.9, */*;q=0.8&quot;, &quot;Accept-Language&quot;: &quot;en-GB,en;q=0.9&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;}" target="headers"/>
+          <zeebe:output source="=entries" target="items"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_F</bpmn:incoming><bpmn:outgoing>Flow_L</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_L" sourceRef="Task_Fetch" targetRef="Task_Loop"/>
+    <bpmn:callActivity id="Task_Loop" name="ingest each entry" calledElement="legal_corpus_ingest_document">
+      <bpmn:extensionElements><zeebe:calledElement processId="legal_corpus_ingest_document"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;bailii&quot;" target="sourceId"/>
+          <zeebe:input source="=item.link" target="canonicalUri"/>
+          <zeebe:input source="=&quot;opinion&quot;" target="documentType"/>
+          <zeebe:input source="=if contains(item.link, &quot;/uk/&quot;) then &quot;GBR&quot; else (if contains(item.link, &quot;/ie/&quot;) then &quot;IRL&quot; else &quot;GBR&quot;)" target="jurisdiction"/>
+          <zeebe:input source="=&quot;en&quot;" target="languageCode"/>
+          <zeebe:input source="=item.title" target="title"/>
+          <zeebe:input source="=item.published" target="decidedAt"/>
+          <zeebe:input source="=now" target="fetchedAt"/>
+          <zeebe:input source="=1" target="sensitivityOrd"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="false"><bpmn:extensionElements><zeebe:loopCharacteristics inputCollection="=items" inputElement="item"/></bpmn:extensionElements></bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Loop" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

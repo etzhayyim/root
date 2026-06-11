@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shosha.etzhayyim.com — complyCheck workflow (XRPC com.etzhayyim.apps.shosha.complyCheck).
+
+  Standalone sanctions / comply check (also invoked inline by submitTrade).
+  Returns: complyOk + flags + rationale.
+-->
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="Definitions_shosha_comply_check"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
+    exporter="hand-written"
+    exporterVersion="2.0">
+  <bpmn:process id="shosha_comply_check" name="shosha comply check" isExecutable="true">
+
+    <bpmn:documentation>
+      { "nsid": "com.etzhayyim.apps.shosha.complyCheck", "version": 1, "resultTimeoutMs": 30000 }
+    </bpmn:documentation>
+
+    <bpmn:startEvent id="Start" name="complyCheck">
+      <bpmn:outgoing>Flow_ToCheck</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Check" name="sanctions / comply check">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="shosha.comply.sanctionsCheck"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="=counterparty" target="counterparty"/>
+          <zeebe:input source="=country" target="country"/>
+          <zeebe:input source="=commodity" target="commodity"/>
+          <zeebe:input source="=amountUsd" target="amountUsd"/>
+          <zeebe:output source="=ok" target="ok"/>
+          <zeebe:output source="=complyOk" target="complyOk"/>
+          <zeebe:output source="=flags" target="flags"/>
+          <zeebe:output source="=rationale" target="rationale"/>
+          <zeebe:output source="=checkedLists" target="checkedLists"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToCheck</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAudit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToCheck" sourceRef="Start" targetRef="Task_Check"/>
+
+    <bpmn:serviceTask id="Task_Audit" name="audit emit">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
+          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.complyCheck&quot;" target="eventType"/>
+          <zeebe:input source="={ &quot;counterparty&quot;: counterparty, &quot;complyOk&quot;: complyOk, &quot;flags&quot;: flags }" target="attributes"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAudit</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_ToAudit" sourceRef="Task_Check" targetRef="Task_Audit"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_Audit" targetRef="End"/>
+
+    <bpmn:endEvent id="End" name="done">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

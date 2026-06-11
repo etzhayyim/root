@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_telecom_audit_intercept_access" targetNamespace="https://etzhayyim.ai/bpmn/telecom" exporter="hand-written" exporterVersion="1.0">
+  <bpmn:process id="telecom_audit_intercept_access" name="auditInterceptAccess" isExecutable="true">
+    <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Audit_Access"/>
+    <bpmn:serviceTask id="Task_Audit_Access" name="audit intercept access">
+      <bpmn:extensionElements><zeebe:taskDefinition type="telecom.li.audit.access"/>
+        <zeebe:ioMapping>
+          <zeebe:input source="={auditId: auditId, warrantId: warrantId, targetId: targetId, accessKind: accessKind, accessor: accessor, accessorRole: accessorRole, justification: justification, recordKind: recordKind, recordVid: recordVid, observedAt: observedAt, callerDid: callerDid}" target="payload"/>
+          <zeebe:output source="=vertexId" target="vertexId"/><zeebe:output source="=auditId" target="auditId"/><zeebe:output source="=status" target="status"/>
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Audit_Access" targetRef="Task_Audit"/>
+    <bpmn:serviceTask id="Task_Audit" name="audit">
+      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:telecom.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;telecom.li.audit.access&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, auditId: auditId, status: status}" target="payload"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
+    <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>
