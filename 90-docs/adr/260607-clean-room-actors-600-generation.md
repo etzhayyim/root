@@ -584,3 +584,7 @@ carries (developer.dronedeploy.com SPA defeats fetching so far).
 |---|---|---|
 | arm_isa | **the hardest physical anchors in the corpus**: condition codes (17) are fixed by a 4-bit instruction-encoding field — it CANNOT grow; EL0-EL3 are architecture-constants ('there are four Exception levels', Arm's own doc). **New fetch path**: developer.arm.com is a JS SPA, but documentation-service.arm.com serves the SAME official content as base64-in-JSON — harness-decoded and verified; the gemini draft (Google-rendered fetch of the SPA pages) matched exactly | suffix(17) + level(4) |
 | firebase | Google's OFFICIAL machine-readable Discovery document (v1, revision-dated) — a new official-spec seam | direction(3)+state(4)+order(3)+arrayConfig(2)+nullValue(1); v1 grew in place (CompositeFilter +OR 2023, apiScope +MONGODB 2024, FieldFilter +NOT_IN) → those gapped per the airbyte in-place-evolution discipline |
+
+**Wave-8 addendum:** drone_deploy → honest defer #14 (gated-SaaS-docs class):
+developer.dronedeploy.com returns 403 without authentication; the gemini run
+recommended defer rather than fabricate — the gate holding as designed.
