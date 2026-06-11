@@ -111,53 +111,61 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/blocks", methods=["POST"])
-def create_block(request):
-    """Create a Block."""
+@app.route("/v1/useroperations", methods=["POST"])
+def create_user_operation(request):
+    """Create a UserOperation."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
+    err = _reject_unknown(data, ['sender', 'nonce', 'factory', 'factoryData', 'callData', 'callGasLimit', 'verificationGasLimit', 'preVerificationGas', 'maxFeePerGas', 'maxPriorityFeePerGas', 'paymaster', 'signature'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'hash'])
+    err = _require(data, ['sender', 'nonce'])
     if err:
         return err, 400
-    rec = {"id": new_id("biconomy_blo")}
-    rec["number"] = _as_int(data.get('number'))
-    rec["hash"] = data.get('hash')
-    rec["chain"] = data.get('chain')
-    rec["minedAt"] = data.get('minedAt')
+    rec = {"id": new_id("biconomy_use")}
+    rec["sender"] = data.get('sender')
+    rec["nonce"] = data.get('nonce')
+    rec["factory"] = data.get('factory')
+    rec["factoryData"] = data.get('factoryData')
+    rec["callData"] = data.get('callData')
+    rec["callGasLimit"] = data.get('callGasLimit')
+    rec["verificationGasLimit"] = data.get('verificationGasLimit')
+    rec["preVerificationGas"] = data.get('preVerificationGas')
+    rec["maxFeePerGas"] = data.get('maxFeePerGas')
+    rec["maxPriorityFeePerGas"] = data.get('maxPriorityFeePerGas')
+    rec["paymaster"] = data.get('paymaster')
+    rec["signature"] = data.get('signature')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Block", rec)
+    _persist("UserOperation", rec)
     return rec, 201
 
-@app.route("/v1/blocks", methods=["GET"])
-def list_blocks(request):
-    """List Blocks with filtering + cursor pagination."""
+@app.route("/v1/useroperations", methods=["GET"])
+def list_user_operations(request):
+    """List UserOperations with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Block")
-    rows = _apply_filters(rows, params, ['number', 'hash', 'chain', 'minedAt'])
+    rows = _query("UserOperation")
+    rows = _apply_filters(rows, params, ['sender', 'nonce', 'factory', 'factoryData', 'callData', 'callGasLimit', 'verificationGasLimit', 'preVerificationGas', 'maxFeePerGas', 'maxPriorityFeePerGas', 'paymaster', 'signature'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/blocks/<eid>", methods=["GET"])
-def get_block(request, eid):
-    """Retrieve a Block by id (supports ?expand=)."""
-    rows = _query("Block", eid)
+@app.route("/v1/useroperations/<eid>", methods=["GET"])
+def get_user_operation(request, eid):
+    """Retrieve a UserOperation by id (supports ?expand=)."""
+    rows = _query("UserOperation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/blocks/<eid>", methods=["POST", "PATCH"])
-def update_block(request, eid):
-    """Update a Block."""
-    rows = _query("Block", eid)
+@app.route("/v1/useroperations/<eid>", methods=["POST", "PATCH"])
+def update_user_operation(request, eid):
+    """Update a UserOperation."""
+    rows = _query("UserOperation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
+    err = _reject_unknown(data, ['sender', 'nonce', 'factory', 'factoryData', 'callData', 'callGasLimit', 'verificationGasLimit', 'preVerificationGas', 'maxFeePerGas', 'maxPriorityFeePerGas', 'paymaster', 'signature'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,66 +173,68 @@ def update_block(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Block", rec)
+    _persist("UserOperation", rec)
     return rec, 200
 
-@app.route("/v1/blocks/<eid>", methods=["DELETE"])
-def delete_block(request, eid):
-    """Delete a Block."""
-    rows = _query("Block", eid)
+@app.route("/v1/useroperations/<eid>", methods=["DELETE"])
+def delete_user_operation(request, eid):
+    """Delete a UserOperation."""
+    rows = _query("UserOperation", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"biconomy.Block", "id": eid})
+    db.retract({"entity": f"biconomy.UserOperation", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/transactions", methods=["POST"])
-def create_transaction(request):
-    """Create a Transaction."""
+@app.route("/v1/useroperationreceipts", methods=["POST"])
+def create_user_operation_receipt(request):
+    """Create a UserOperationReceipt."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    err = _reject_unknown(data, ['userOpHash', 'entryPoint', 'sender', 'nonce', 'paymaster', 'actualGasCost', 'success'])
     if err:
         return err, 400
-    err = _require(data, ['hash', 'fromAddr'])
+    err = _require(data, ['userOpHash', 'entryPoint'])
     if err:
         return err, 400
-    rec = {"id": new_id("biconomy_tra")}
-    rec["hash"] = data.get('hash')
-    rec["fromAddr"] = data.get('fromAddr')
-    rec["toAddr"] = data.get('toAddr')
-    rec["value"] = _as_float(data.get('value'))
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("biconomy_use")}
+    rec["userOpHash"] = data.get('userOpHash')
+    rec["entryPoint"] = data.get('entryPoint')
+    rec["sender"] = data.get('sender')
+    rec["nonce"] = data.get('nonce')
+    rec["paymaster"] = data.get('paymaster')
+    rec["actualGasCost"] = data.get('actualGasCost')
+    rec["success"] = _as_bool(data.get('success'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Transaction", rec)
+    _persist("UserOperationReceipt", rec)
     return rec, 201
 
-@app.route("/v1/transactions", methods=["GET"])
-def list_transactions(request):
-    """List Transactions with filtering + cursor pagination."""
+@app.route("/v1/useroperationreceipts", methods=["GET"])
+def list_user_operation_receipts(request):
+    """List UserOperationReceipts with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Transaction")
-    rows = _apply_filters(rows, params, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    rows = _query("UserOperationReceipt")
+    rows = _apply_filters(rows, params, ['userOpHash', 'entryPoint', 'sender', 'nonce', 'paymaster', 'actualGasCost', 'success'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/transactions/<eid>", methods=["GET"])
-def get_transaction(request, eid):
-    """Retrieve a Transaction by id (supports ?expand=)."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/useroperationreceipts/<eid>", methods=["GET"])
+def get_user_operation_receipt(request, eid):
+    """Retrieve a UserOperationReceipt by id (supports ?expand=)."""
+    rows = _query("UserOperationReceipt", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
-def update_transaction(request, eid):
-    """Update a Transaction."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/useroperationreceipts/<eid>", methods=["POST", "PATCH"])
+def update_user_operation_receipt(request, eid):
+    """Update a UserOperationReceipt."""
+    rows = _query("UserOperationReceipt", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    err = _reject_unknown(data, ['userOpHash', 'entryPoint', 'sender', 'nonce', 'paymaster', 'actualGasCost', 'success'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,285 +242,22 @@ def update_transaction(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Transaction", rec)
+    _persist("UserOperationReceipt", rec)
     return rec, 200
 
-@app.route("/v1/transactions/<eid>", methods=["DELETE"])
-def delete_transaction(request, eid):
-    """Delete a Transaction."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/useroperationreceipts/<eid>", methods=["DELETE"])
+def delete_user_operation_receipt(request, eid):
+    """Delete a UserOperationReceipt."""
+    rows = _query("UserOperationReceipt", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"biconomy.Transaction", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/contracts", methods=["POST"])
-def create_contract(request):
-    """Create a Contract."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['address', 'chain'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("biconomy_con")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["abiRef"] = data.get('abiRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Contract", rec)
-    return rec, 201
-
-@app.route("/v1/contracts", methods=["GET"])
-def list_contracts(request):
-    """List Contracts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Contract")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'abiRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contracts/<eid>", methods=["GET"])
-def get_contract(request, eid):
-    """Retrieve a Contract by id (supports ?expand=)."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/contracts/<eid>", methods=["POST", "PATCH"])
-def update_contract(request, eid):
-    """Update a Contract."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Contract", rec)
-    return rec, 200
-
-@app.route("/v1/contracts/<eid>", methods=["DELETE"])
-def delete_contract(request, eid):
-    """Delete a Contract."""
-    rows = _query("Contract", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"biconomy.Contract", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
-    if err:
-        return err, 400
-    err = _require(data, ['address', 'chain'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("biconomy_acc")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["balance"] = _as_float(data.get('balance'))
-    rec["nonce"] = _as_int(data.get('nonce'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
-    return rec, 201
-
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'balance', 'nonce'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Account", rec)
-    return rec, 200
-
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"biconomy.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("biconomy_eve")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["name"] = data.get('name')
-    rec["blockNumber"] = _as_int(data.get('blockNumber'))
-    rec["dataRef"] = data.get('dataRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
-    return rec, 201
-
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Event", rec)
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"biconomy.Event", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tokens", methods=["POST"])
-def create_token(request):
-    """Create a Token."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'symbol'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("biconomy_tok")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["symbol"] = data.get('symbol')
-    rec["decimals"] = _as_int(data.get('decimals'))
-    rec["standard"] = data.get('standard')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Token", rec)
-    return rec, 201
-
-@app.route("/v1/tokens", methods=["GET"])
-def list_tokens(request):
-    """List Tokens with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Token")
-    rows = _apply_filters(rows, params, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tokens/<eid>", methods=["GET"])
-def get_token(request, eid):
-    """Retrieve a Token by id (supports ?expand=)."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tokens/<eid>", methods=["POST", "PATCH"])
-def update_token(request, eid):
-    """Update a Token."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Token", rec)
-    return rec, 200
-
-@app.route("/v1/tokens/<eid>", methods=["DELETE"])
-def delete_token(request, eid):
-    """Delete a Token."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"biconomy.Token", "id": eid})
+    db.retract({"entity": f"biconomy.UserOperationReceipt", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "biconomy-compat", "tier": "L4",
-            "entities": ['Block', 'Transaction', 'Contract', 'Account', 'Event', 'Token']}, 200
+            "entities": ['UserOperation', 'UserOperationReceipt']}, 200
 
 
 if __name__ == "__main__":

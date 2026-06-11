@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ACTOR = os.path.dirname(HERE)
 MAIN = os.path.join(ACTOR, "src", "main.py")
 SCHEMA = os.path.join(ACTOR, "schema", "biconomy.kotoba")
-ENTITIES = ['Block', 'Transaction', 'Contract', 'Account', 'Event', 'Token']
-PLURALS = {'Block': 'blocks', 'Transaction': 'transactions', 'Contract': 'contracts', 'Account': 'accounts', 'Event': 'events', 'Token': 'tokens'}
+ENTITIES = ['UserOperation', 'UserOperationReceipt']
+PLURALS = {'UserOperation': 'useroperations', 'UserOperationReceipt': 'useroperationreceipts'}
 
 
 class BiconomyContract(unittest.TestCase):

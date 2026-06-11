@@ -1605,17 +1605,13 @@
       "handle": "biconomy-compat",
       "platform": "biconomy",
       "bytes": 2122,
-      "wasmCid": "bafkreigjpxhqwfzuc6a454xzfhpoil2xzm5vs4asis3ysjcvga64dgzxiq",
+      "wasmCid": "bafkreidaawsz4kvuegzlmpo76g3e3appwgluzbgibh4wuqiqyrk5646xkq",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Block",
-        "Transaction",
-        "Contract",
-        "Account",
-        "Event",
-        "Token"
+        "UserOperation",
+        "UserOperationReceipt"
       ]
     },
     {

@@ -830,3 +830,13 @@ feed contracts implement the exact AggregatorV3Interface and cannot change
 it (V3 stable since 2020). The carry resolved: the interface moved from
 the chainlink monorepo into the official chainlink-brownie-contracts
 packaging repo.
+
+### §16.26 /loop iteration 25 — wave 26: biconomy via ERC-4337 (222, 22.2%)
+
+biconomy → ledger **222** (778 L4 / 222 L5 = 22.2%), enforced-enum counts
+unchanged (the fifth fields-verified zero-enum L5), verify PASS 0/0,
+contract suite green. Harness-direct. The FINAL-status ERC-4337 EIP
+(eips.ethereum.org, static HTML) is the normative anchor; Biconomy's own
+docs declare its account-abstraction base. UserOperation v0.7 verified
+verbatim; actualGasUsed EXCLUDED from the receipt (not present in the spec
+text — a small fabrication-refusal at field level).

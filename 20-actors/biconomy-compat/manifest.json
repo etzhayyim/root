@@ -5,21 +5,25 @@
   "kind": "compat",
   "title": "biconomy clean-room actor",
   "description": "Clean-room, API-compatible web3 / blockchain RPC actor (biconomy); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreigjpxhqwfzuc6a454xzfhpoil2xzm5vs4asis3ysjcvga64dgzxiq",
+  "wasmCid": "bafkreidaawsz4kvuegzlmpo76g3e3appwgluzbgibh4wuqiqyrk5646xkq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreigjpxhqwfzuc6a454xzfhpoil2xzm5vs4asis3ysjcvga64dgzxiq",
+  "ipfs": "ipfs://bafkreidaawsz4kvuegzlmpo76g3e3appwgluzbgibh4wuqiqyrk5646xkq",
   "schema": "schema/biconomy.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://eips.ethereum.org/EIPS/eip-4337 (the official ERC-4337 specification) + https://docs.biconomy.io/ (Biconomy's own docs declaring its ERC-4337 account-abstraction base)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "UserOperation",
+      "UserOperationReceipt"
+    ],
+    "enums": {}
+  },
   "entities": [
-    "Block",
-    "Transaction",
-    "Contract",
-    "Account",
-    "Event",
-    "Token"
+    "UserOperation",
+    "UserOperationReceipt"
   ],
   "adr": [
     "260607",
@@ -31,157 +35,57 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 10,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/blocks",
-          "op": "create Block"
+          "path": "/v1/useroperations",
+          "op": "create UserOperation"
         },
         {
           "method": "GET",
-          "path": "/v1/blocks",
-          "op": "list Block"
+          "path": "/v1/useroperations",
+          "op": "list UserOperation"
         },
         {
           "method": "GET",
-          "path": "/v1/blocks/{id}",
-          "op": "get Block"
+          "path": "/v1/useroperations/{id}",
+          "op": "get UserOperation"
         },
         {
           "method": "PATCH",
-          "path": "/v1/blocks/{id}",
-          "op": "update Block"
+          "path": "/v1/useroperations/{id}",
+          "op": "update UserOperation"
         },
         {
           "method": "DELETE",
-          "path": "/v1/blocks/{id}",
-          "op": "delete Block"
+          "path": "/v1/useroperations/{id}",
+          "op": "delete UserOperation"
         },
         {
           "method": "POST",
-          "path": "/v1/transactions",
-          "op": "create Transaction"
+          "path": "/v1/useroperationreceipts",
+          "op": "create UserOperationReceipt"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions",
-          "op": "list Transaction"
+          "path": "/v1/useroperationreceipts",
+          "op": "list UserOperationReceipt"
         },
         {
           "method": "GET",
-          "path": "/v1/transactions/{id}",
-          "op": "get Transaction"
+          "path": "/v1/useroperationreceipts/{id}",
+          "op": "get UserOperationReceipt"
         },
         {
           "method": "PATCH",
-          "path": "/v1/transactions/{id}",
-          "op": "update Transaction"
+          "path": "/v1/useroperationreceipts/{id}",
+          "op": "update UserOperationReceipt"
         },
         {
           "method": "DELETE",
-          "path": "/v1/transactions/{id}",
-          "op": "delete Transaction"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/contracts",
-          "op": "create Contract"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/contracts",
-          "op": "list Contract"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/contracts/{id}",
-          "op": "get Contract"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/contracts/{id}",
-          "op": "update Contract"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/contracts/{id}",
-          "op": "delete Contract"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/accounts",
-          "op": "create Account"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/accounts",
-          "op": "list Account"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/accounts/{id}",
-          "op": "get Account"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/accounts/{id}",
-          "op": "update Account"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/accounts/{id}",
-          "op": "delete Account"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/events",
-          "op": "create Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events",
-          "op": "list Event"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/events/{id}",
-          "op": "get Event"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/events/{id}",
-          "op": "update Event"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/events/{id}",
-          "op": "delete Event"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/tokens",
-          "op": "create Token"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tokens",
-          "op": "list Token"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/tokens/{id}",
-          "op": "get Token"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/tokens/{id}",
-          "op": "update Token"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/tokens/{id}",
-          "op": "delete Token"
+          "path": "/v1/useroperationreceipts/{id}",
+          "op": "delete UserOperationReceipt"
         }
       ],
       "features": {
@@ -244,314 +148,68 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 10,
       "tools": [
         {
-          "name": "create_block",
-          "description": "Create a Block.",
+          "name": "create_user_operation",
+          "description": "Create a UserOperation.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "number": {
-                "type": "integer"
-              },
-              "hash": {
+              "sender": {
                 "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "minedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "number",
-              "hash"
-            ]
-          }
-        },
-        {
-          "name": "list_blocks",
-          "description": "List Blocks.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_block",
-          "description": "Get a Block by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_block",
-          "description": "Update a Block.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "number": {
-                "type": "integer"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "minedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_block",
-          "description": "Delete a Block.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_transaction",
-          "description": "Create a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "hash": {
-                "type": "string"
-              },
-              "fromAddr": {
-                "type": "string"
-              },
-              "toAddr": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "hash",
-              "fromAddr"
-            ]
-          }
-        },
-        {
-          "name": "list_transactions",
-          "description": "List Transactions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_transaction",
-          "description": "Get a Transaction by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_transaction",
-          "description": "Update a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "fromAddr": {
-                "type": "string"
-              },
-              "toAddr": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_transaction",
-          "description": "Delete a Transaction.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_contract",
-          "description": "Create a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "abiRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "address",
-              "chain"
-            ]
-          }
-        },
-        {
-          "name": "list_contracts",
-          "description": "List Contracts.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_contract",
-          "description": "Get a Contract by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_contract",
-          "description": "Update a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "abiRef": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_contract",
-          "description": "Delete a Contract.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_account",
-          "description": "Create a Account.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "address": {
-                "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
               },
               "nonce": {
-                "type": "integer"
+                "type": "string"
+              },
+              "factory": {
+                "type": "string"
+              },
+              "factoryData": {
+                "type": "string"
+              },
+              "callData": {
+                "type": "string"
+              },
+              "callGasLimit": {
+                "type": "string"
+              },
+              "verificationGasLimit": {
+                "type": "string"
+              },
+              "preVerificationGas": {
+                "type": "string"
+              },
+              "maxFeePerGas": {
+                "type": "string"
+              },
+              "maxPriorityFeePerGas": {
+                "type": "string"
+              },
+              "paymaster": {
+                "type": "string"
+              },
+              "signature": {
+                "type": "string"
               }
             },
             "required": [
-              "address",
-              "chain"
+              "sender",
+              "nonce"
             ]
           }
         },
         {
-          "name": "list_accounts",
-          "description": "List Accounts.",
+          "name": "list_user_operations",
+          "description": "List UserOperations.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_account",
-          "description": "Get a Account by id.",
+          "name": "get_user_operation",
+          "description": "Get a UserOperation by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,25 +223,49 @@
           }
         },
         {
-          "name": "update_account",
-          "description": "Update a Account.",
+          "name": "update_user_operation",
+          "description": "Update a UserOperation.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "address": {
+              "sender": {
                 "type": "string"
-              },
-              "chain": {
-                "type": "string"
-              },
-              "balance": {
-                "type": "number"
               },
               "nonce": {
-                "type": "integer"
+                "type": "string"
+              },
+              "factory": {
+                "type": "string"
+              },
+              "factoryData": {
+                "type": "string"
+              },
+              "callData": {
+                "type": "string"
+              },
+              "callGasLimit": {
+                "type": "string"
+              },
+              "verificationGasLimit": {
+                "type": "string"
+              },
+              "preVerificationGas": {
+                "type": "string"
+              },
+              "maxFeePerGas": {
+                "type": "string"
+              },
+              "maxPriorityFeePerGas": {
+                "type": "string"
+              },
+              "paymaster": {
+                "type": "string"
+              },
+              "signature": {
+                "type": "string"
               }
             },
             "required": [
@@ -592,8 +274,8 @@
           }
         },
         {
-          "name": "delete_account",
-          "description": "Delete a Account.",
+          "name": "delete_user_operation",
+          "description": "Delete a UserOperation.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -607,41 +289,50 @@
           }
         },
         {
-          "name": "create_event",
-          "description": "Create a Event.",
+          "name": "create_user_operation_receipt",
+          "description": "Create a UserOperationReceipt.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "contractAddr": {
+              "userOpHash": {
                 "type": "string"
               },
-              "name": {
+              "entryPoint": {
                 "type": "string"
               },
-              "blockNumber": {
-                "type": "integer"
-              },
-              "dataRef": {
+              "sender": {
                 "type": "string"
+              },
+              "nonce": {
+                "type": "string"
+              },
+              "paymaster": {
+                "type": "string"
+              },
+              "actualGasCost": {
+                "type": "string"
+              },
+              "success": {
+                "type": "boolean"
               }
             },
             "required": [
-              "contractAddr",
-              "name"
+              "userOpHash",
+              "entryPoint"
             ]
           }
         },
         {
-          "name": "list_events",
-          "description": "List Events.",
+          "name": "list_user_operation_receipts",
+          "description": "List UserOperationReceipts.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_event",
-          "description": "Get a Event by id.",
+          "name": "get_user_operation_receipt",
+          "description": "Get a UserOperationReceipt by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -655,25 +346,34 @@
           }
         },
         {
-          "name": "update_event",
-          "description": "Update a Event.",
+          "name": "update_user_operation_receipt",
+          "description": "Update a UserOperationReceipt.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "contractAddr": {
+              "userOpHash": {
                 "type": "string"
               },
-              "name": {
+              "entryPoint": {
                 "type": "string"
               },
-              "blockNumber": {
-                "type": "integer"
-              },
-              "dataRef": {
+              "sender": {
                 "type": "string"
+              },
+              "nonce": {
+                "type": "string"
+              },
+              "paymaster": {
+                "type": "string"
+              },
+              "actualGasCost": {
+                "type": "string"
+              },
+              "success": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -682,98 +382,8 @@
           }
         },
         {
-          "name": "delete_event",
-          "description": "Delete a Event.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_token",
-          "description": "Create a Token.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "contractAddr": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "decimals": {
-                "type": "integer"
-              },
-              "standard": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "contractAddr",
-              "symbol"
-            ]
-          }
-        },
-        {
-          "name": "list_tokens",
-          "description": "List Tokens.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_token",
-          "description": "Get a Token by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_token",
-          "description": "Update a Token.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "contractAddr": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "decimals": {
-                "type": "integer"
-              },
-              "standard": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_token",
-          "description": "Delete a Token.",
+          "name": "delete_user_operation_receipt",
+          "description": "Delete a UserOperationReceipt.",
           "inputSchema": {
             "type": "object",
             "properties": {

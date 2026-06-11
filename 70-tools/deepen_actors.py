@@ -2851,6 +2851,16 @@ PLATFORM_OVERRIDES["brightcove"] = {
     "AudioTrack": E(duration="integer", isDefault="boolean", language="string", variant="string"),
 }
 
+# Faithful Biconomy model via ERC-4337 conformance (the official EIP at
+# eips.ethereum.org — a FINAL-status standard; biconomy's own docs declare
+# its stack is built on ERC-4337 account abstraction). UserOperation v0.7
+# struct fields verified verbatim from the spec; actualGasUsed excluded
+# (not in the spec text). Hex/uint256 as strings.
+PLATFORM_OVERRIDES["biconomy"] = {
+    "UserOperation": E(sender="string", nonce="string", factory="string", factoryData="string", callData="string", callGasLimit="string", verificationGasLimit="string", preVerificationGas="string", maxFeePerGas="string", maxPriorityFeePerGas="string", paymaster="string", signature="string"),
+    "UserOperationReceipt": E(userOpHash="string", entryPoint="string", sender="string", nonce="string", paymaster="string", actualGasCost="string", success="boolean"),
+}
+
 # Faithful Chainlink data-feed model (the official AggregatorV3Interface
 # from smartcontractkit/chainlink-brownie-contracts — frozen since 2020 by
 # ON-CHAIN IMMUTABILITY: deployed feeds cannot change their interface, the

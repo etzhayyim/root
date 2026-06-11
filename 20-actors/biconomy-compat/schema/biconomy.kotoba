@@ -3,73 +3,35 @@
 
 namespace biconomy {
 
-    entity Block {
+    entity UserOperation {
         id: string @unique
-        number: integer
-        hash: string
-        chain: string
-        minedAt: datetime
+        sender: string
+        nonce: string
+        factory: string
+        factoryData: string
+        callData: string
+        callGasLimit: string
+        verificationGasLimit: string
+        preVerificationGas: string
+        maxFeePerGas: string
+        maxPriorityFeePerGas: string
+        paymaster: string
+        signature: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Transaction {
+    entity UserOperationReceipt {
         id: string @unique
-        hash: string
-        fromAddr: string
-        toAddr: string
-        value: float
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Contract {
-        id: string @unique
-        address: string
-        chain: string
-        abiRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Account {
-        id: string @unique
-        address: string
-        chain: string
-        balance: float
-        nonce: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Event {
-        id: string @unique
-        contractAddr: string
-        name: string
-        blockNumber: integer
-        dataRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Token {
-        id: string @unique
-        contractAddr: string
-        symbol: string
-        decimals: integer
-        standard: string
+        userOpHash: string
+        entryPoint: string
+        sender: string
+        nonce: string
+        paymaster: string
+        actualGasCost: string
+        success: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

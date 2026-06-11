@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 221,
+  "count": 222,
   "actors": [
     {
       "handle": "aave-compat",
@@ -4155,6 +4155,54 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (4/4) vs RFC 6811 + RFC 6482 + RFC 8210. Enforced enums: ValidationResult.validationState(3), RpkiToRouterPdu.pduType(10) = 2 enums."
+    },
+    {
+      "handle": "biconomy-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://eips.ethereum.org/EIPS/eip-4337 (the official ERC-4337 specification) + https://docs.biconomy.io/ (Biconomy's own docs declaring its ERC-4337 account-abstraction base)",
+      "remodeled": "Remodeled to the faithful ERC-4337 account-abstraction surface via standard conformance: Biconomy's OWN documentation states its stack builds on ERC-4337 ('While ERC-4337 introduced account abstraction, MEE enables...' — harness-fetched), and the official EIP (eips.ethereum.org, static HTML) is the normative spec. UserOperation v0.7 struct fields verified verbatim (sender/nonce/factory/factoryData/callData/callGasLimit/verificationGasLimit/preVerificationGas/maxFeePerGas/maxPriorityFeePerGas/paymaster/signature); UserOperationReceipt fields from the eth_getUserOperationReceipt section — actualGasUsed EXCLUDED (not present in the spec text; only actualGasCost is). Hex/uint256 as strings. No enums in the spec -> the fifth fields-verified L5. Harness-direct.",
+      "resources": [
+        {
+          "entity": "UserOperation",
+          "source": "https://eips.ethereum.org/EIPS/eip-4337 (the official ERC-4337 specification) + https://docs.biconomy.io/ (Biconomy's own docs declaring its ERC-4337 account-abstraction base)",
+          "verifiedFields": [
+            "sender",
+            "nonce",
+            "factory",
+            "factoryData",
+            "callData",
+            "callGasLimit",
+            "verificationGasLimit",
+            "preVerificationGas",
+            "maxFeePerGas",
+            "maxPriorityFeePerGas",
+            "paymaster",
+            "signature"
+          ],
+          "fieldStatus": "confirmed verbatim (v0.7 struct in the official EIP)",
+          "discoveredEnums": {},
+          "gaps": []
+        },
+        {
+          "entity": "UserOperationReceipt",
+          "source": "https://eips.ethereum.org/EIPS/eip-4337 (the official ERC-4337 specification) + https://docs.biconomy.io/ (Biconomy's own docs declaring its ERC-4337 account-abstraction base)",
+          "verifiedFields": [
+            "userOpHash",
+            "entryPoint",
+            "sender",
+            "nonce",
+            "paymaster",
+            "actualGasCost",
+            "success"
+          ],
+          "fieldStatus": "confirmed (eth_getUserOperationReceipt section); actualGasUsed excluded — not in the spec text",
+          "discoveredEnums": {},
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "CONFORMANCE-VERIFIED (2/2) onto the official ERC-4337 spec (vendor self-declaration + the FINAL-status EIP). Zero enums — the fifth fields-verified L5."
     },
     {
       "handle": "bigcommerce-compat",
