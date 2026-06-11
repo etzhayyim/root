@@ -15159,6 +15159,20 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606111640-portfolio-qa-deflake-coverage-ci-wave",
+      "type": "TechArticle",
+      "title": "ADR-2606111640: Portfolio QA wave — SDK quorum-test deflake, kotoba coverage baseline + CI",
+      "status": "accepted",
+      "topic": "portfolio-qa-deflake-coverage-ci-wave",
+      "authoritative": true,
+      "authoritativeFor": [
+        "sdk-test-determinism",
+        "kotoba-coverage-baseline"
+      ],
+      "related": "doc:adr-2605302355-kotoba-langgraph-llm-verified-durable-routing",
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-2606111700-public-sponsor-donation-solicitation-surfaces",
       "type": "TechArticle",
       "title": "ADR-2606111700: Public sponsor / donation solicitation surfaces — GitHub Sponsor button (custom-only) + DONATE.md + README + active /donate CTA",
