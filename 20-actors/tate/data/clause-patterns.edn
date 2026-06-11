@@ -287,4 +287,49 @@
   :clause/context :consumer :clause/risk :mid
   :clause/keywords ["renovação automática"]
   :clause/anchor "CDC art. 51 (消費者に過大な不利益) / art. 39 (práticas abusivas) — 事前同意なき更新は争いうる"
-  :clause/route :kaiyaku :clause/verify-current-law true}]
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :tw — 台灣 (G10) ─────────────────────────────────────────────────────────
+ {:clause/id "cl:tw-full-exemption" :clause/label "全部免責 (概不負責)"
+  :clause/jurisdiction :tw
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["概不負責"]
+  :clause/anchor "消費者保護法12條 (定型化契約條款 違反誠信原則は無効) / 民法247條之1"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:tw-auto-renewal" :clause/label "自動續約 (自動更新)"
+  :clause/jurisdiction :tw
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["自動續約"]
+  :clause/anchor "消保法11條之1 (審閲期間) / 定型化契約應記載及不得記載事項 — 業種別告示を確認"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :sg — Singapore (G10) ────────────────────────────────────────────────────
+ {:clause/id "cl:sg-liability-exclusion" :clause/label "包括免責 (reasonableness test)"
+  :clause/jurisdiction :sg
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["shall not be liable for any"]
+  :clause/anchor "Unfair Contract Terms Act 1977 (SG 採択 — reasonableness test) / CPFTA (unfair practices)"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:sg-auto-renewal" :clause/label "automatically renewed (自動更新)"
+  :clause/jurisdiction :sg
+  :clause/context :consumer :clause/risk :mid
+  :clause/keywords ["automatically renewed"]
+  :clause/anchor "CPFTA / CASE guidance (自動更新の事前開示) — 解約窓のカレンダー化"
+  :clause/route :kaiyaku :clause/verify-current-law true}
+
+ ;; ── :in — India (G10; 'binding arbitration' の第3の意味) ─────────────────────
+ {:clause/id "cl:in-liability-exclusion" :clause/label "包括免責 (unfair contract)"
+  :clause/jurisdiction :in
+  :clause/context :consumer :clause/risk :high
+  :clause/keywords ["shall not be liable for any loss"]
+  :clause/anchor "Consumer Protection Act 2019 s.2(46) (unfair contract) — Consumer Commission で争いうる"
+  :clause/route :referral :clause/verify-current-law true}
+
+ {:clause/id "cl:in-arbitration-no-ouster" :clause/label "仲裁条項 (消費者委員会の管轄は不排除)"
+  :clause/jurisdiction :in
+  :clause/context :consumer :clause/risk :info
+  :clause/keywords ["binding arbitration"]
+  :clause/anchor "CPA 2019 + 判例法 — 仲裁条項があっても消費者委員会の管轄は排除されない (:us FAA とも :ca 無効とも異なる第3の帰結)"
+  :clause/route :info :clause/verify-current-law true}]

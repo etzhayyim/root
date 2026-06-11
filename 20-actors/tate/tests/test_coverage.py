@@ -49,7 +49,7 @@ def test_coverage_ratio_honest():
     cov = coverage()
     assert cov["covered_count"] == len(load_jurisdictions())
     assert cov["un_member_states"] == 193
-    assert cov["coverage_ratio"] < 0.10, "coverage must be reported as the small number it is"
+    assert cov["coverage_ratio"] < 0.25, "coverage must be reported as the small number it is"
     assert len(cov["named_gaps"]) >= 4  # structural gaps alone guarantee this
 
 

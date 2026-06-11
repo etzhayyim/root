@@ -289,6 +289,51 @@
   :proc/refer-when ["€25,000 超 (advocaat 必須域)"]
   :proc/verify-current-law true}
 
+ ;; ── :tw ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:tw-payment-order" :proc/label "支付命令 (支払督促・台湾)"
+  :proc/jurisdiction :tw
+  :proc/trigger-keywords ["支付命令"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "異議 (不変期間)"
+    :dl/rule "支付命令の送達後20日の不変期間内に異議 (→ 通常/簡易訴訟へ)"
+    :dl/anchor "台湾民事訴訟法516條" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :yiyi :opt/kind :self-submit :opt/label "異議状を発令法院へ提出 (理由不要)"}
+   {:opt/id :pay-or-settle :opt/kind :self-decide :opt/label "請求に理由がある場合: 支払い/和解"}]
+  :proc/refer-when ["NT$500,000 超 (簡易訴訟の上限域)"]
+  :proc/verify-current-law true}
+
+ ;; ── :sg ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:sg-sct" :proc/label "Small Claims Tribunals claim (シンガポール)"
+  :proc/jurisdiction :sg
+  :proc/trigger-keywords ["small claims tribunal"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "応答/出頭 (consultation)"
+    :dl/rule "通知記載の consultation 期日・指示に従い応答 (SCT ≤ S$20,000; 弁護士代理は禁止 — 本人手続が原則)"
+    :dl/anchor "Small Claims Tribunals Act 1984" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :respond :opt/kind :self-submit :opt/label "SCT ポータルで応答・反論を提出 (本人)"}
+   {:opt/id :appear :opt/kind :self-decide :opt/label "consultation/hearing に出席"}]
+  :proc/refer-when ["S$20,000 超 (SCT 管轄外 → 通常裁判所)"]
+  :proc/verify-current-law true}
+
+ ;; ── :in ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:in-summons" :proc/label "Summons (民事訴訟・インド)"
+  :proc/jurisdiction :in
+  :proc/trigger-keywords ["written statement" "summons"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Written statement の提出"
+    :dl/rule "送達から30日以内 (裁判所の裁量で最大90日まで伸長可)"
+    :dl/anchor "CPC 1908 Order VIII Rule 1" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :written-statement :opt/kind :self-submit :opt/label "written statement (認否 + 抗弁) を提出"}
+   {:opt/id :appear :opt/kind :self-decide :opt/label "期日に出頭 (ex parte decree の回避)"}]
+  :proc/refer-when ["高額・複雑な請求は常に advocate 相談"]
+  :proc/verify-current-law true}
+
  ;; ── :br ──────────────────────────────────────────────────────────────────────
  {:proc/id "proc:br-citacao" :proc/label "Citação (訴状送達・ブラジル)"
   :proc/jurisdiction :br

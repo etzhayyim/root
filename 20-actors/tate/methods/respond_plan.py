@@ -42,7 +42,8 @@ COURT_KEYWORDS = ("支払督促", "少額訴訟", "訴状", "口頭弁論",
                   "order for payment", "Mahnbescheid", "Vollstreckungsbescheid",
                   "지급명령", "법원", "injonction de payer", "assignation",
                   "statement of claim", "plaintiff's claim", "decreto ingiuntivo",
-                  "proceso monitorio", "dagvaarding", "citação")
+                  "proceso monitorio", "dagvaarding", "citação",
+                  "支付命令", "small claims tribunal", "written statement")
 GENERIC_REFERRALS = ["local bar association / legal aid", "認定司法書士 (JPのみ・簡裁140万円以下)"]
 PROC_REFERRAL_ALWAYS = {"proc:sojou", "proc:us-summons"}  # 本訴/civil suit — G7
 
@@ -94,6 +95,11 @@ def classify(notice: dict, procs: list, jurisdictions: dict | None = None):
             return None, ":suspected-fake"
         return None, ":unknown"
     genuine = matched.get(":proc/genuine-channels", [])
+    # G6 hardening (wave 5): a DIGITAL channel (SMS/email) is NEVER genuine unless the
+    # procedure explicitly declares it — closes the hole where a mail-only procedure
+    # (e.g. 行政処分) arriving by SMS would have classified :genuine
+    if channel in (":sms", ":email") and channel not in genuine:
+        return matched, ":suspected-fake"
     formal_required = any(c != ":mail" for c in genuine)
     if formal_required and channel not in genuine:
         return matched, ":suspected-fake"  # G6 — real court papers use formal service only

@@ -102,6 +102,30 @@
   :juris/refer-over-amount 25000 :juris/refer-over-currency "EUR"
   :juris/sourcing :representative :juris/verify-current-law true}
 
+ {:juris/id :tw :juris/label "台灣"
+  :juris/upl-anchor "律師法 (無資格の法律事務取扱い禁止)"
+  :juris/service-note "支付命令・起訴状は法院の送達 — LINE/SMS の『法院』通知は偽 (165 へ)"
+  :juris/referrals ["法律扶助基金會 (Legal Aid Foundation)" "各地律師公會"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "165 反詐騙專線" "警政署 110"]
+  :juris/refer-over-amount 500000 :juris/refer-over-currency "TWD"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :sg :juris/label "Singapore"
+  :juris/upl-anchor "Legal Profession Act 1966 (unauthorised practice) — ただし SCT (≤S$20,000) は弁護士代理が逆に禁止 (本人手続)"
+  :juris/service-note "originating claim / SCT notice は court service (post 含む) — SMS/WhatsApp の『court』通知は偽"
+  :juris/referrals ["Legal Aid Bureau" "Law Society Pro Bono Services"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "ScamShield / 1799 anti-scam helpline" "Singapore Police Force"]
+  :juris/refer-over-amount 20000 :juris/refer-over-currency "SGD"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
+ {:juris/id :in :juris/label "भारत (India)"
+  :juris/upl-anchor "Advocates Act 1961 (right to practise — 無資格代理禁止)"
+  :juris/service-note "summons は court officer / registered post (CPC Order V) — WhatsApp/SMS の『court』通知は偽"
+  :juris/referrals ["District Legal Services Authority (NALSA 無料法律扶助)" "State Bar Council"]
+  :juris/fake-help ["tasuke 助 (サイバー犯罪被害支援)" "cybercrime.gov.in / 1930 helpline" "local police"]
+  :juris/refer-over-amount 500000 :juris/refer-over-currency "INR"
+  :juris/sourcing :representative :juris/verify-current-law true}
+
  {:juris/id :br :juris/label "Brasil"
   :juris/upl-anchor "Lei 8.906/1994 (Estatuto da OAB — advocacia privativa; Juizados ≤20 SM は本人可)"
   :juris/service-note "citação は oficial de justiça または correio (AR) — CPC arts. 246–248; SMS/WhatsApp の『processo』通知は偽"

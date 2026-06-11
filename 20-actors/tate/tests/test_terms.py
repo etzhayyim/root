@@ -132,6 +132,13 @@ def test_intl_expected_shapes_hit():
     assert ("doc:nl-voorwaarden", "cl:nl-stilzwijgende-verlenging") in hits
     assert ("doc:br-termos", "cl:br-exoneracao") in hits
     assert ("doc:br-termos", "cl:br-renovacao-automatica") in hits
+    # wave 5 (:tw :sg :in)
+    assert ("doc:tw-tos", "cl:tw-full-exemption") in hits
+    assert ("doc:tw-tos", "cl:tw-auto-renewal") in hits
+    assert ("doc:sg-tos", "cl:sg-liability-exclusion") in hits
+    assert ("doc:sg-tos", "cl:sg-auto-renewal") in hits
+    assert ("doc:in-tos", "cl:in-liability-exclusion") in hits
+    assert ("doc:in-tos", "cl:in-arbitration-no-ouster") in hits
 
 
 def test_jurisdiction_isolation():

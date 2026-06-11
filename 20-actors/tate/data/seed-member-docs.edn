@@ -212,6 +212,40 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 5 (:tw :sg :in) ─────────────────────────────────────────────────────
+ {:doc/id "doc:tw-tos" :doc/label "TW 服務條款 (synthetic)"
+  :doc/jurisdiction :tw
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "因使用本服務所生之任何損害，本公司概不負責。本服務期滿後自動續約一年。"}
+
+ {:doc/id "doc:sg-tos" :doc/label "SG subscription terms (synthetic)"
+  :doc/jurisdiction :sg
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "We shall not be liable for any loss arising from the service. Your plan is automatically renewed each year."}
+
+ {:doc/id "doc:in-tos" :doc/label "IN terms of service (synthetic)"
+  :doc/jurisdiction :in
+  :doc/context :consumer :doc/sourcing :synthetic
+  :doc/text "The company shall not be liable for any loss. All disputes shall be settled by binding arbitration."}
+
+ {:notice/id "ntc:tw-payment" :notice/label "支付命令 (法院送達)"
+  :notice/jurisdiction :tw
+  :notice/channel :formal-service :notice/claim-amount 80000 :notice/claim-currency "TWD"
+  :notice/sourcing :synthetic
+  :notice/text "支付命令。債務人得於法定期間內提出異議。"}
+
+ {:notice/id "ntc:sg-sct" :notice/label "SCT claim notice (post)"
+  :notice/jurisdiction :sg
+  :notice/channel :mail :notice/claim-amount 4000 :notice/claim-currency "SGD"
+  :notice/sourcing :synthetic
+  :notice/text "A claim has been filed against you at the Small Claims Tribunals. Attend the consultation on the stated date."}
+
+ {:notice/id "ntc:in-summons" :notice/label "IN summons (registered post)"
+  :notice/jurisdiction :in
+  :notice/channel :mail :notice/claim-amount 200000 :notice/claim-currency "INR"
+  :notice/sourcing :synthetic
+  :notice/text "Summons to defendant: you are required to file your written statement within the stated period."}
+
  ;; registry-seed completeness backfill: every procedure must be exercised (G10 maturity)
  {:notice/id "ntc:us-smallclaims" :notice/label "US small claims notice (certified mail)"
   :notice/jurisdiction :us

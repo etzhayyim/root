@@ -221,10 +221,10 @@ def test_wave3_au_ca_it_genuine():
     assert any(o["id"] == ":opposizione" for o in it["options"])
 
 
-def test_arbitration_inversion_us_vs_ca():
-    """Maturity: the SAME clause text ('binding arbitration') maps to opposite
-    disclosed positions — :us FAA enforceable vs :ca ON CPA void — proving G10
-    carries jurisdiction-specific MEANING, not just filtering."""
+def test_arbitration_inversion_us_vs_ca_vs_in():
+    """Maturity: the SAME clause text ('binding arbitration') maps to THREE distinct
+    disclosed positions — :us FAA enforceable · :ca ON CPA void · :in consumer-fora
+    jurisdiction not ousted — proving G10 carries jurisdiction-specific MEANING."""
     sys.path.insert(0, str(ACTOR_DIR / "methods"))
     from terms_scan import scan_doc, load_patterns  # noqa: E402
     patterns = load_patterns()
@@ -232,8 +232,42 @@ def test_arbitration_inversion_us_vs_ca():
             ":doc/text": "Any dispute shall be resolved by binding arbitration."}
     us = scan_doc({**base, ":doc/id": "d:us", ":doc/jurisdiction": ":us"}, patterns)
     ca = scan_doc({**base, ":doc/id": "d:ca", ":doc/jurisdiction": ":ca"}, patterns)
+    in_ = scan_doc({**base, ":doc/id": "d:in", ":doc/jurisdiction": ":in"}, patterns)
     assert any("ENFORCEABLE" in f["anchor"] or "原則" in f["anchor"] for f in us)
     assert any("無効" in f["anchor"] for f in ca)
+    assert any("排除されない" in f["anchor"] for f in in_)
+
+
+def test_wave5_tw_sg_in_genuine():
+    """Wave 5: TW 支付命令 (異議 20日不変期間, 台湾民訴516條) · SG SCT (本人手続,
+    弁護士代理禁止) · IN summons (written statement 30d, CPC O.VIII r.1)."""
+    ps, _ = _by_id()
+    tw = ps["ntc:tw-payment"]
+    assert tw["status"] == ":genuine" and tw["proc"] == "proc:tw-payment-order"
+    assert any("516條" in d["anchor"] for d in tw["deadlines"])
+    sg = ps["ntc:sg-sct"]
+    assert sg["status"] == ":genuine" and sg["proc"] == "proc:sg-sct"
+    assert any("弁護士代理は禁止" in d["rule"] for d in sg["deadlines"])
+    ind = ps["ntc:in-summons"]
+    assert ind["status"] == ":genuine" and ind["proc"] == "proc:in-summons"
+    assert any("Order VIII Rule 1" in d["anchor"] for d in ind["deadlines"])
+
+
+def test_digital_channel_never_genuine():
+    """G6 hardening (wave 5): for EVERY procedure in the registry, its own trigger
+    vocabulary arriving via SMS or email classifies :suspected-fake — including
+    mail-only procedures (行政処分 by SMS was previously a hole). Parametric: new
+    procedures are covered automatically."""
+    procs = load_procs()
+    for p in procs:
+        for ch in (":sms", ":email"):
+            if ch in p.get(":proc/genuine-channels", []):
+                continue  # explicitly declared digital channel would be a deliberate choice
+            n = {":notice/id": "ntc:synth", ":notice/jurisdiction": p[":proc/jurisdiction"],
+                 ":notice/channel": ch, ":notice/text": p[":proc/trigger-keywords"][0],
+                 ":notice/sourcing": ":synthetic"}
+            _, status = classify(n, procs)
+            assert status == ":suspected-fake", (p[":proc/id"], ch, status)
 
 
 def test_wave4_es_nl_br_genuine():
