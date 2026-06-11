@@ -8966,17 +8966,14 @@
       "handle": "m365-compat",
       "platform": "m365",
       "bytes": 2118,
-      "wasmCid": "bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu",
+      "wasmCid": "bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi",
       "rawSingleBlock": true,
       "valid": true,
       "tier": "browser-local",
       "entities": [
-        "Workspace",
-        "Document",
-        "Folder",
-        "Comment",
-        "Permission",
-        "User"
+        "Message",
+        "Event",
+        "Attendee"
       ]
     },
     {

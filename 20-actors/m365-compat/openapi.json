@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible office / productivity suite actor (m365); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:m365-compat",
-    "x-wasm-cid": "bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu",
+    "x-wasm-cid": "bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu",
+      "url": "ipfs://bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/workspaces": {
+    "/v1/messages": {
       "get": {
-        "summary": "List Workspaces",
+        "summary": "List Messages",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Workspace"
+                        "$ref": "#/components/schemas/Message"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Workspace",
+        "summary": "Create a Message",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WorkspaceCreate"
+                "$ref": "#/components/schemas/MessageCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Workspace"
+                  "$ref": "#/components/schemas/Message"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/workspaces/{id}": {
+    "/v1/messages/{id}": {
       "get": {
-        "summary": "Get a Workspace",
+        "summary": "Get a Message",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Workspace"
+                  "$ref": "#/components/schemas/Message"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Workspace",
+        "summary": "Update a Message",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WorkspaceCreate"
+                "$ref": "#/components/schemas/MessageCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Workspace"
+                  "$ref": "#/components/schemas/Message"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Workspace",
+        "summary": "Delete a Message",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/documents": {
+    "/v1/events": {
       "get": {
-        "summary": "List Documents",
+        "summary": "List Events",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Document"
+                        "$ref": "#/components/schemas/Event"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Document",
+        "summary": "Create a Event",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DocumentCreate"
+                "$ref": "#/components/schemas/EventCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/documents/{id}": {
+    "/v1/events/{id}": {
       "get": {
-        "summary": "Get a Document",
+        "summary": "Get a Event",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Document",
+        "summary": "Update a Event",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DocumentCreate"
+                "$ref": "#/components/schemas/EventCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Document"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Document",
+        "summary": "Delete a Event",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/folders": {
+    "/v1/attendees": {
       "get": {
-        "summary": "List Folders",
+        "summary": "List Attendees",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Folder"
+                        "$ref": "#/components/schemas/Attendee"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Folder",
+        "summary": "Create a Attendee",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderCreate"
+                "$ref": "#/components/schemas/AttendeeCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Folder"
+                  "$ref": "#/components/schemas/Attendee"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/folders/{id}": {
+    "/v1/attendees/{id}": {
       "get": {
-        "summary": "Get a Folder",
+        "summary": "Get a Attendee",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Folder"
+                  "$ref": "#/components/schemas/Attendee"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Folder",
+        "summary": "Update a Attendee",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderCreate"
+                "$ref": "#/components/schemas/AttendeeCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Folder"
+                  "$ref": "#/components/schemas/Attendee"
                 }
               }
             }
@@ -551,562 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Folder",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/comments": {
-      "get": {
-        "summary": "List Comments",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Comment"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Comment",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Comment"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/comments/{id}": {
-      "get": {
-        "summary": "Get a Comment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Comment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Comment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommentCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Comment"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Comment",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/permissions": {
-      "get": {
-        "summary": "List Permissions",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Permission"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Permission",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PermissionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Permission"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/permissions/{id}": {
-      "get": {
-        "summary": "Get a Permission",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Permission"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Permission",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PermissionCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Permission"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Permission",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/users": {
-      "get": {
-        "summary": "List Users",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/User"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a User",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/users/{id}": {
-      "get": {
-        "summary": "Get a User",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a User",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a User",
+        "summary": "Delete a Attendee",
         "parameters": [
           {
             "name": "id",
@@ -1140,19 +585,191 @@
   },
   "components": {
     "schemas": {
-      "Workspace": {
+      "Message": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "subject": {
             "type": "string"
           },
-          "ownerId": {
+          "bodyPreview": {
             "type": "string"
           },
-          "plan": {
+          "conversationId": {
+            "type": "string"
+          },
+          "hasAttachments": {
+            "type": "boolean"
+          },
+          "importance": {
+            "type": "string",
+            "enum": [
+              "low",
+              "normal",
+              "high"
+            ]
+          },
+          "isDraft": {
+            "type": "boolean"
+          },
+          "isRead": {
+            "type": "boolean"
+          },
+          "internetMessageId": {
+            "type": "string"
+          },
+          "parentFolderId": {
+            "type": "string"
+          },
+          "receivedDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sentDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "webLink": {
+            "type": "string"
+          },
+          "bodyContentType": {
+            "type": "string",
+            "enum": [
+              "text",
+              "html"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MessageCreate": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string"
+          },
+          "bodyPreview": {
+            "type": "string"
+          },
+          "conversationId": {
+            "type": "string"
+          },
+          "hasAttachments": {
+            "type": "boolean"
+          },
+          "importance": {
+            "type": "string",
+            "enum": [
+              "low",
+              "normal",
+              "high"
+            ]
+          },
+          "isDraft": {
+            "type": "boolean"
+          },
+          "isRead": {
+            "type": "boolean"
+          },
+          "internetMessageId": {
+            "type": "string"
+          },
+          "parentFolderId": {
+            "type": "string"
+          },
+          "receivedDateTime": {
+            "type": "string"
+          },
+          "sentDateTime": {
+            "type": "string"
+          },
+          "webLink": {
+            "type": "string"
+          },
+          "bodyContentType": {
+            "type": "string",
+            "enum": [
+              "text",
+              "html"
+            ]
+          }
+        },
+        "required": [
+          "subject",
+          "bodyPreview"
+        ]
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "bodyPreview": {
+            "type": "string"
+          },
+          "importance": {
+            "type": "string",
+            "enum": [
+              "low",
+              "normal",
+              "high"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean"
+          },
+          "isCancelled": {
+            "type": "boolean"
+          },
+          "isDraft": {
+            "type": "boolean"
+          },
+          "isOnlineMeeting": {
+            "type": "boolean"
+          },
+          "isOrganizer": {
+            "type": "boolean"
+          },
+          "hideAttendees": {
+            "type": "boolean"
+          },
+          "iCalUId": {
+            "type": "string"
+          },
+          "showAs": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "free",
+              "tentative",
+              "busy",
+              "oof",
+              "workingElsewhere"
+            ]
+          },
+          "sensitivity": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "personal",
+              "private",
+              "confidential"
+            ]
+          },
+          "onlineMeetingUrl": {
             "type": "string"
           },
           "createdAt": {
@@ -1165,211 +782,99 @@
           }
         }
       },
-      "WorkspaceCreate": {
+      "EventCreate": {
         "type": "object",
         "properties": {
-          "name": {
+          "subject": {
             "type": "string"
           },
-          "ownerId": {
+          "bodyPreview": {
             "type": "string"
           },
-          "plan": {
+          "importance": {
+            "type": "string",
+            "enum": [
+              "low",
+              "normal",
+              "high"
+            ]
+          },
+          "isAllDay": {
+            "type": "boolean"
+          },
+          "isCancelled": {
+            "type": "boolean"
+          },
+          "isDraft": {
+            "type": "boolean"
+          },
+          "isOnlineMeeting": {
+            "type": "boolean"
+          },
+          "isOrganizer": {
+            "type": "boolean"
+          },
+          "hideAttendees": {
+            "type": "boolean"
+          },
+          "iCalUId": {
+            "type": "string"
+          },
+          "showAs": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "free",
+              "tentative",
+              "busy",
+              "oof",
+              "workingElsewhere"
+            ]
+          },
+          "sensitivity": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "personal",
+              "private",
+              "confidential"
+            ]
+          },
+          "onlineMeetingUrl": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "plan"
+          "subject",
+          "bodyPreview"
         ]
       },
-      "Document": {
+      "Attendee": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "workspaceId": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "createdAt": {
+          "type": {
             "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DocumentCreate": {
-        "type": "object",
-        "properties": {
-          "workspaceId": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "contentRef": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "title"
-        ]
-      },
-      "Folder": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "workspaceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "parentId": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "FolderCreate": {
-        "type": "object",
-        "properties": {
-          "workspaceId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "parentId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
-      "Comment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "documentId": {
-            "type": "string"
-          },
-          "authorId": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CommentCreate": {
-        "type": "object",
-        "properties": {
-          "documentId": {
-            "type": "string"
-          },
-          "authorId": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "body"
-        ]
-      },
-      "Permission": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "resourceId": {
-            "type": "string"
-          },
-          "principalId": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PermissionCreate": {
-        "type": "object",
-        "properties": {
-          "resourceId": {
-            "type": "string"
-          },
-          "principalId": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "role"
-        ]
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "displayName": {
-            "type": "string"
+            "enum": [
+              "required",
+              "optional",
+              "resource"
+            ]
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "none",
+              "organizer",
+              "tentativelyAccepted",
+              "accepted",
+              "declined",
+              "notResponded"
+            ]
+          },
+          "emailAddress": {
             "type": "string"
           },
           "createdAt": {
@@ -1382,22 +887,35 @@
           }
         }
       },
-      "UserCreate": {
+      "AttendeeCreate": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string"
-          },
-          "displayName": {
-            "type": "string"
+          "type": {
+            "type": "string",
+            "enum": [
+              "required",
+              "optional",
+              "resource"
+            ]
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "none",
+              "organizer",
+              "tentativelyAccepted",
+              "accepted",
+              "declined",
+              "notResponded"
+            ]
+          },
+          "emailAddress": {
             "type": "string"
           }
         },
         "required": [
-          "email",
-          "displayName"
+          "type",
+          "status"
         ]
       }
     }

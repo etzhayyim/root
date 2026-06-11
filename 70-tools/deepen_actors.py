@@ -2826,6 +2826,18 @@ PLATFORM_OVERRIDES["edinet"] = {
     "Metadata": E(title="string", parameterDate="datetime", parameterType="string", resultsetCount="integer", processDateTime="datetime", status="string", message="string"),
 }
 
+# Faithful Microsoft 365 (Graph v1.0) model — the official $metadata CSDL
+# (graph.microsoft.com/v1.0/$metadata, 827 declared EnumTypes; v1.0 is the
+# compatibility-bound surface). Outlook-era-stable enums enforced:
+# importance(3)/bodyType(2)/sensitivity(4)/freeBusyStatus(6)/
+# attendeeType(3)/responseType(6). calendarColor gapped (maxColor sentinel
+# + theme growth).
+PLATFORM_OVERRIDES["m365"] = {
+    "Message": E(subject="string", bodyPreview="string", conversationId="string", hasAttachments="boolean", importance="string", isDraft="boolean", isRead="boolean", internetMessageId="string", parentFolderId="string", receivedDateTime="datetime", sentDateTime="datetime", webLink="string", bodyContentType="string"),
+    "Event": E(subject="string", bodyPreview="string", importance="string", isAllDay="boolean", isCancelled="boolean", isDraft="boolean", isOnlineMeeting="boolean", isOrganizer="boolean", hideAttendees="boolean", iCalUId="string", showAs="string", sensitivity="string", onlineMeetingUrl="string"),
+    "Attendee": E(type="string", status="string", emailAddress="string"),
+}
+
 # Faithful AWS EC2 model (the official AWS-published wire model: botocore
 # service-2.json, apiVersion 2016-11-15 — date-versioned and additive).
 # Lifecycle enums enforced (InstanceStateName 6 / VolumeState 6 / VpcState 2

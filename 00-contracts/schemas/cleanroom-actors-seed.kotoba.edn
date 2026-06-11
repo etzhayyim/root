@@ -6967,11 +6967,11 @@
    :actor/ui-type :iframe
    :actor/description "Clean-room, API-compatible office / productivity suite actor (m365); runs browser-local on IPFS + kotoba-WASM."
    :actor/primary-schema "m365.kotoba"
-   :actor/wasm-cid "bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu"
+   :actor/wasm-cid "bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi"
    :actor/adr ["260607" "2606014500" "2606013800"]
    :actor/created-at "2026-06-07"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:m365-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:m365-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:m365-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:m365-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu" "x-runtime" "kotoba-wasm"}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:m365-compat#api" "type" "EtzhayyimRestApi" "serviceEndpoint" "ipfs://bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:m365-compat#supplychain" "type" "EtzhayyimSbom" "serviceEndpoint" "ipfs://bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi" "x-runtime" "kotoba-wasm"} {"id" "did:web:etzhayyim.com:actor:m365-compat#socialpost" "type" "EtzhayyimSocialPost" "serviceEndpoint" "ipfs://bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi" "x-runtime" "kotoba-wasm" "x-gate" "G8"} {"id" "did:web:etzhayyim.com:actor:m365-compat#mcp" "type" "EtzhayyimMcpServer" "serviceEndpoint" "ipfs://bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi" "x-runtime" "kotoba-wasm"}]}
   {:actor/handle "macos_darwin-compat"
    :actor/did "did:web:etzhayyim.com:actor:macos_darwin-compat"
    :actor/kind :compat

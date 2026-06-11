@@ -6,7 +6,7 @@
   ],
   "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
   "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
-  "count": 212,
+  "count": 213,
   "actors": [
     {
       "handle": "aave-compat",
@@ -16036,6 +16036,122 @@
       ],
       "notApplicable": [],
       "note": "FULLY VERIFIED (5/5) vs Losant's own published client schemas. Enforced enums: deviceClass(7)+ownerType(2)+verificationType(5)+castBuffersAs(5)+createdByType(3)+lastUpdatedByType(3)+method(6)+access(4) = 8 enum fields."
+    },
+    {
+      "handle": "m365-compat",
+      "verifiedAt": "2026-06-12",
+      "tier": "L5",
+      "source": "https://graph.microsoft.com/v1.0/$metadata (the official Microsoft Graph v1.0 CSDL; 827 declared EnumTypes; 2.7MB, harness-fetched)",
+      "remodeled": "Remodeled to the faithful Microsoft 365 (Graph v1.0) mail/calendar surface verified against the OFFICIAL $metadata CSDL — the machine-readable contract of the compatibility-bound v1.0 API, declaring 827 EnumTypes. Outlook-era-stable enums enforced: importance(3: low/normal/high), bodyType(2: text/html), sensitivity(4), freeBusyStatus/showAs(6: unknown/free/tentative/busy/oof/workingElsewhere), attendeeType(3), responseType(6). calendarColor gapped (carries a maxColor sentinel and theme growth). Entity property surfaces machine-extracted from the EntityType/ComplexType declarations (message 26 props, event 37 props). Harness-direct.",
+      "resources": [
+        {
+          "entity": "Message",
+          "source": "https://graph.microsoft.com/v1.0/$metadata (the official Microsoft Graph v1.0 CSDL; 827 declared EnumTypes; 2.7MB, harness-fetched)",
+          "verifiedFields": [
+            "subject",
+            "bodyPreview",
+            "conversationId",
+            "hasAttachments",
+            "importance",
+            "isDraft",
+            "isRead",
+            "internetMessageId",
+            "parentFolderId",
+            "receivedDateTime",
+            "sentDateTime",
+            "webLink",
+            "bodyContentType"
+          ],
+          "fieldStatus": "confirmed (EntityType message; body.contentType flattened to bodyContentType per the ros2_nav precedent)",
+          "discoveredEnums": {
+            "importance": [
+              "low",
+              "normal",
+              "high"
+            ],
+            "bodyContentType": [
+              "text",
+              "html"
+            ]
+          },
+          "gaps": [
+            "inferenceClassification-not-modeled"
+          ]
+        },
+        {
+          "entity": "Event",
+          "source": "https://graph.microsoft.com/v1.0/$metadata (the official Microsoft Graph v1.0 CSDL; 827 declared EnumTypes; 2.7MB, harness-fetched)",
+          "verifiedFields": [
+            "subject",
+            "bodyPreview",
+            "importance",
+            "isAllDay",
+            "isCancelled",
+            "isDraft",
+            "isOnlineMeeting",
+            "isOrganizer",
+            "hideAttendees",
+            "iCalUId",
+            "showAs",
+            "sensitivity",
+            "onlineMeetingUrl"
+          ],
+          "fieldStatus": "confirmed (EntityType event, 37 properties)",
+          "discoveredEnums": {
+            "importance": [
+              "low",
+              "normal",
+              "high"
+            ],
+            "showAs": [
+              "unknown",
+              "free",
+              "tentative",
+              "busy",
+              "oof",
+              "workingElsewhere"
+            ],
+            "sensitivity": [
+              "normal",
+              "personal",
+              "private",
+              "confidential"
+            ]
+          },
+          "gaps": [
+            "onlineMeetingProvider-grew (teamsForBusiness additions)",
+            "calendarColor-maxColor-sentinel"
+          ]
+        },
+        {
+          "entity": "Attendee",
+          "source": "https://graph.microsoft.com/v1.0/$metadata (the official Microsoft Graph v1.0 CSDL; 827 declared EnumTypes; 2.7MB, harness-fetched)",
+          "verifiedFields": [
+            "type",
+            "status",
+            "emailAddress"
+          ],
+          "fieldStatus": "confirmed (ComplexType attendee + attendeeBase)",
+          "discoveredEnums": {
+            "type": [
+              "required",
+              "optional",
+              "resource"
+            ],
+            "status": [
+              "none",
+              "organizer",
+              "tentativelyAccepted",
+              "accepted",
+              "declined",
+              "notResponded"
+            ]
+          },
+          "gaps": []
+        }
+      ],
+      "notApplicable": [],
+      "note": "FULLY VERIFIED (3/3) vs the official Graph v1.0 CSDL. Enforced enums: importance(x2)+bodyContentType+showAs+sensitivity+attendeeType+responseType = 7 enum fields, all Outlook-era-stable. The Graph $metadata CSDL joins the official machine-readable seam (827 EnumTypes available for future depth)."
     },
     {
       "handle": "macos_darwin-compat",

@@ -111,404 +111,253 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/workspaces", methods=["POST"])
-def create_workspace(request):
-    """Create a Workspace."""
+@app.route("/v1/messages", methods=["POST"])
+def create_message(request):
+    """Create a Message."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['subject', 'bodyPreview', 'conversationId', 'hasAttachments', 'importance', 'isDraft', 'isRead', 'internetMessageId', 'parentFolderId', 'receivedDateTime', 'sentDateTime', 'webLink', 'bodyContentType'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'plan'])
+    err = _require(data, ['subject', 'bodyPreview'])
     if err:
         return err, 400
-    rec = {"id": new_id("m365_wor")}
-    rec["name"] = data.get('name')
-    rec["ownerId"] = data.get('ownerId')
-    rec["plan"] = data.get('plan')
+    if data.get('importance') and data['importance'] not in ['low', 'normal', 'high']:
+        return {"error": {"message": "invalid importance; allowed: " + ", ".join(['low', 'normal', 'high']), "type": "invalid_request_error"}}, 400
+    if data.get('bodyContentType') and data['bodyContentType'] not in ['text', 'html']:
+        return {"error": {"message": "invalid bodyContentType; allowed: " + ", ".join(['text', 'html']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("m365_mes")}
+    rec["subject"] = data.get('subject')
+    rec["bodyPreview"] = data.get('bodyPreview')
+    rec["conversationId"] = data.get('conversationId')
+    rec["hasAttachments"] = _as_bool(data.get('hasAttachments'))
+    rec["importance"] = data.get('importance')
+    rec["isDraft"] = _as_bool(data.get('isDraft'))
+    rec["isRead"] = _as_bool(data.get('isRead'))
+    rec["internetMessageId"] = data.get('internetMessageId')
+    rec["parentFolderId"] = data.get('parentFolderId')
+    rec["receivedDateTime"] = data.get('receivedDateTime')
+    rec["sentDateTime"] = data.get('sentDateTime')
+    rec["webLink"] = data.get('webLink')
+    rec["bodyContentType"] = data.get('bodyContentType')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Workspace", rec)
+    _persist("Message", rec)
     return rec, 201
 
-@app.route("/v1/workspaces", methods=["GET"])
-def list_workspaces(request):
-    """List Workspaces with filtering + cursor pagination."""
+@app.route("/v1/messages", methods=["GET"])
+def list_messages(request):
+    """List Messages with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Workspace")
-    rows = _apply_filters(rows, params, ['name', 'ownerId', 'plan'])
+    rows = _query("Message")
+    rows = _apply_filters(rows, params, ['subject', 'bodyPreview', 'conversationId', 'hasAttachments', 'importance', 'isDraft', 'isRead', 'internetMessageId', 'parentFolderId', 'receivedDateTime', 'sentDateTime', 'webLink', 'bodyContentType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["GET"])
-def get_workspace(request, eid):
-    """Retrieve a Workspace by id (supports ?expand=)."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/messages/<eid>", methods=["GET"])
+def get_message(request, eid):
+    """Retrieve a Message by id (supports ?expand=)."""
+    rows = _query("Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["POST", "PATCH"])
-def update_workspace(request, eid):
-    """Update a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/messages/<eid>", methods=["POST", "PATCH"])
+def update_message(request, eid):
+    """Update a Message."""
+    rows = _query("Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'ownerId', 'plan'])
+    err = _reject_unknown(data, ['subject', 'bodyPreview', 'conversationId', 'hasAttachments', 'importance', 'isDraft', 'isRead', 'internetMessageId', 'parentFolderId', 'receivedDateTime', 'sentDateTime', 'webLink', 'bodyContentType'])
     if err:
         return err, 400
+    if data.get('importance') and data['importance'] not in ['low', 'normal', 'high']:
+        return {"error": {"message": "invalid importance; allowed: " + ", ".join(['low', 'normal', 'high']), "type": "invalid_request_error"}}, 400
+    if data.get('bodyContentType') and data['bodyContentType'] not in ['text', 'html']:
+        return {"error": {"message": "invalid bodyContentType; allowed: " + ", ".join(['text', 'html']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Workspace", rec)
+    _persist("Message", rec)
     return rec, 200
 
-@app.route("/v1/workspaces/<eid>", methods=["DELETE"])
-def delete_workspace(request, eid):
-    """Delete a Workspace."""
-    rows = _query("Workspace", eid)
+@app.route("/v1/messages/<eid>", methods=["DELETE"])
+def delete_message(request, eid):
+    """Delete a Message."""
+    rows = _query("Message", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"m365.Workspace", "id": eid})
+    db.retract({"entity": f"m365.Message", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/documents", methods=["POST"])
-def create_document(request):
-    """Create a Document."""
+@app.route("/v1/events", methods=["POST"])
+def create_event(request):
+    """Create a Event."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    err = _reject_unknown(data, ['subject', 'bodyPreview', 'importance', 'isAllDay', 'isCancelled', 'isDraft', 'isOnlineMeeting', 'isOrganizer', 'hideAttendees', 'iCalUId', 'showAs', 'sensitivity', 'onlineMeetingUrl'])
     if err:
         return err, 400
-    err = _require(data, ['title'])
+    err = _require(data, ['subject', 'bodyPreview'])
     if err:
         return err, 400
-    rec = {"id": new_id("m365_doc")}
-    rec["workspaceId"] = data.get('workspaceId')
-    rec["title"] = data.get('title')
-    rec["contentRef"] = data.get('contentRef')
-    rec["ownerId"] = data.get('ownerId')
+    if data.get('importance') and data['importance'] not in ['low', 'normal', 'high']:
+        return {"error": {"message": "invalid importance; allowed: " + ", ".join(['low', 'normal', 'high']), "type": "invalid_request_error"}}, 400
+    if data.get('showAs') and data['showAs'] not in ['unknown', 'free', 'tentative', 'busy', 'oof', 'workingElsewhere']:
+        return {"error": {"message": "invalid showAs; allowed: " + ", ".join(['unknown', 'free', 'tentative', 'busy', 'oof', 'workingElsewhere']), "type": "invalid_request_error"}}, 400
+    if data.get('sensitivity') and data['sensitivity'] not in ['normal', 'personal', 'private', 'confidential']:
+        return {"error": {"message": "invalid sensitivity; allowed: " + ", ".join(['normal', 'personal', 'private', 'confidential']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("m365_eve")}
+    rec["subject"] = data.get('subject')
+    rec["bodyPreview"] = data.get('bodyPreview')
+    rec["importance"] = data.get('importance')
+    rec["isAllDay"] = _as_bool(data.get('isAllDay'))
+    rec["isCancelled"] = _as_bool(data.get('isCancelled'))
+    rec["isDraft"] = _as_bool(data.get('isDraft'))
+    rec["isOnlineMeeting"] = _as_bool(data.get('isOnlineMeeting'))
+    rec["isOrganizer"] = _as_bool(data.get('isOrganizer'))
+    rec["hideAttendees"] = _as_bool(data.get('hideAttendees'))
+    rec["iCalUId"] = data.get('iCalUId')
+    rec["showAs"] = data.get('showAs')
+    rec["sensitivity"] = data.get('sensitivity')
+    rec["onlineMeetingUrl"] = data.get('onlineMeetingUrl')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Document", rec)
+    _persist("Event", rec)
     return rec, 201
 
-@app.route("/v1/documents", methods=["GET"])
-def list_documents(request):
-    """List Documents with filtering + cursor pagination."""
+@app.route("/v1/events", methods=["GET"])
+def list_events(request):
+    """List Events with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Document")
-    rows = _apply_filters(rows, params, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    rows = _query("Event")
+    rows = _apply_filters(rows, params, ['subject', 'bodyPreview', 'importance', 'isAllDay', 'isCancelled', 'isDraft', 'isOnlineMeeting', 'isOrganizer', 'hideAttendees', 'iCalUId', 'showAs', 'sensitivity', 'onlineMeetingUrl'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/documents/<eid>", methods=["GET"])
-def get_document(request, eid):
-    """Retrieve a Document by id (supports ?expand=)."""
-    rows = _query("Document", eid)
+@app.route("/v1/events/<eid>", methods=["GET"])
+def get_event(request, eid):
+    """Retrieve a Event by id (supports ?expand=)."""
+    rows = _query("Event", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
     return rec, 200
 
-@app.route("/v1/documents/<eid>", methods=["POST", "PATCH"])
-def update_document(request, eid):
-    """Update a Document."""
-    rows = _query("Document", eid)
+@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
+def update_event(request, eid):
+    """Update a Event."""
+    rows = _query("Event", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'title', 'contentRef', 'ownerId'])
+    err = _reject_unknown(data, ['subject', 'bodyPreview', 'importance', 'isAllDay', 'isCancelled', 'isDraft', 'isOnlineMeeting', 'isOrganizer', 'hideAttendees', 'iCalUId', 'showAs', 'sensitivity', 'onlineMeetingUrl'])
     if err:
         return err, 400
+    if data.get('importance') and data['importance'] not in ['low', 'normal', 'high']:
+        return {"error": {"message": "invalid importance; allowed: " + ", ".join(['low', 'normal', 'high']), "type": "invalid_request_error"}}, 400
+    if data.get('showAs') and data['showAs'] not in ['unknown', 'free', 'tentative', 'busy', 'oof', 'workingElsewhere']:
+        return {"error": {"message": "invalid showAs; allowed: " + ", ".join(['unknown', 'free', 'tentative', 'busy', 'oof', 'workingElsewhere']), "type": "invalid_request_error"}}, 400
+    if data.get('sensitivity') and data['sensitivity'] not in ['normal', 'personal', 'private', 'confidential']:
+        return {"error": {"message": "invalid sensitivity; allowed: " + ", ".join(['normal', 'personal', 'private', 'confidential']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Document", rec)
+    _persist("Event", rec)
     return rec, 200
 
-@app.route("/v1/documents/<eid>", methods=["DELETE"])
-def delete_document(request, eid):
-    """Delete a Document."""
-    rows = _query("Document", eid)
+@app.route("/v1/events/<eid>", methods=["DELETE"])
+def delete_event(request, eid):
+    """Delete a Event."""
+    rows = _query("Event", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"m365.Document", "id": eid})
+    db.retract({"entity": f"m365.Event", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/folders", methods=["POST"])
-def create_folder(request):
-    """Create a Folder."""
+@app.route("/v1/attendees", methods=["POST"])
+def create_attendee(request):
+    """Create a Attendee."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
+    err = _reject_unknown(data, ['type', 'status', 'emailAddress'])
     if err:
         return err, 400
-    err = _require(data, ['name'])
+    err = _require(data, ['type', 'status'])
     if err:
         return err, 400
-    rec = {"id": new_id("m365_fol")}
-    rec["workspaceId"] = data.get('workspaceId')
-    rec["name"] = data.get('name')
-    rec["parentId"] = data.get('parentId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Folder", rec)
-    return rec, 201
-
-@app.route("/v1/folders", methods=["GET"])
-def list_folders(request):
-    """List Folders with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Folder")
-    rows = _apply_filters(rows, params, ['workspaceId', 'name', 'parentId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/folders/<eid>", methods=["GET"])
-def get_folder(request, eid):
-    """Retrieve a Folder by id (supports ?expand=)."""
-    rows = _query("Folder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'workspaceId': 'Workspace'})
-    return rec, 200
-
-@app.route("/v1/folders/<eid>", methods=["POST", "PATCH"])
-def update_folder(request, eid):
-    """Update a Folder."""
-    rows = _query("Folder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['workspaceId', 'name', 'parentId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Folder", rec)
-    return rec, 200
-
-@app.route("/v1/folders/<eid>", methods=["DELETE"])
-def delete_folder(request, eid):
-    """Delete a Folder."""
-    rows = _query("Folder", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"m365.Folder", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/comments", methods=["POST"])
-def create_comment(request):
-    """Create a Comment."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
-    if err:
-        return err, 400
-    err = _require(data, ['body'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("m365_com")}
-    rec["documentId"] = data.get('documentId')
-    rec["authorId"] = data.get('authorId')
-    rec["body"] = data.get('body')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Comment", rec)
-    return rec, 201
-
-@app.route("/v1/comments", methods=["GET"])
-def list_comments(request):
-    """List Comments with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Comment")
-    rows = _apply_filters(rows, params, ['documentId', 'authorId', 'body'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/comments/<eid>", methods=["GET"])
-def get_comment(request, eid):
-    """Retrieve a Comment by id (supports ?expand=)."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'documentId': 'Document'})
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["POST", "PATCH"])
-def update_comment(request, eid):
-    """Update a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['documentId', 'authorId', 'body'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Comment", rec)
-    return rec, 200
-
-@app.route("/v1/comments/<eid>", methods=["DELETE"])
-def delete_comment(request, eid):
-    """Delete a Comment."""
-    rows = _query("Comment", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"m365.Comment", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/permissions", methods=["POST"])
-def create_permission(request):
-    """Create a Permission."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    err = _require(data, ['role'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("m365_per")}
-    rec["resourceId"] = data.get('resourceId')
-    rec["principalId"] = data.get('principalId')
-    rec["role"] = data.get('role')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Permission", rec)
-    return rec, 201
-
-@app.route("/v1/permissions", methods=["GET"])
-def list_permissions(request):
-    """List Permissions with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Permission")
-    rows = _apply_filters(rows, params, ['resourceId', 'principalId', 'role'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/permissions/<eid>", methods=["GET"])
-def get_permission(request, eid):
-    """Retrieve a Permission by id (supports ?expand=)."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["POST", "PATCH"])
-def update_permission(request, eid):
-    """Update a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['resourceId', 'principalId', 'role'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Permission", rec)
-    return rec, 200
-
-@app.route("/v1/permissions/<eid>", methods=["DELETE"])
-def delete_permission(request, eid):
-    """Delete a Permission."""
-    rows = _query("Permission", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"m365.Permission", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/users", methods=["POST"])
-def create_user(request):
-    """Create a User."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['email', 'displayName'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("m365_use")}
-    rec["email"] = data.get('email')
-    rec["displayName"] = data.get('displayName')
+    if data.get('type') and data['type'] not in ['required', 'optional', 'resource']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['required', 'optional', 'resource']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['none', 'organizer', 'tentativelyAccepted', 'accepted', 'declined', 'notResponded']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['none', 'organizer', 'tentativelyAccepted', 'accepted', 'declined', 'notResponded']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("m365_att")}
+    rec["type"] = data.get('type')
     rec["status"] = data.get('status')
+    rec["emailAddress"] = data.get('emailAddress')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("User", rec)
+    _persist("Attendee", rec)
     return rec, 201
 
-@app.route("/v1/users", methods=["GET"])
-def list_users(request):
-    """List Users with filtering + cursor pagination."""
+@app.route("/v1/attendees", methods=["GET"])
+def list_attendees(request):
+    """List Attendees with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("User")
-    rows = _apply_filters(rows, params, ['email', 'displayName', 'status'])
+    rows = _query("Attendee")
+    rows = _apply_filters(rows, params, ['type', 'status', 'emailAddress'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/users/<eid>", methods=["GET"])
-def get_user(request, eid):
-    """Retrieve a User by id (supports ?expand=)."""
-    rows = _query("User", eid)
+@app.route("/v1/attendees/<eid>", methods=["GET"])
+def get_attendee(request, eid):
+    """Retrieve a Attendee by id (supports ?expand=)."""
+    rows = _query("Attendee", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["POST", "PATCH"])
-def update_user(request, eid):
-    """Update a User."""
-    rows = _query("User", eid)
+@app.route("/v1/attendees/<eid>", methods=["POST", "PATCH"])
+def update_attendee(request, eid):
+    """Update a Attendee."""
+    rows = _query("Attendee", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['email', 'displayName', 'status'])
+    err = _reject_unknown(data, ['type', 'status', 'emailAddress'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['required', 'optional', 'resource']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['required', 'optional', 'resource']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['none', 'organizer', 'tentativelyAccepted', 'accepted', 'declined', 'notResponded']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['none', 'organizer', 'tentativelyAccepted', 'accepted', 'declined', 'notResponded']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("User", rec)
+    _persist("Attendee", rec)
     return rec, 200
 
-@app.route("/v1/users/<eid>", methods=["DELETE"])
-def delete_user(request, eid):
-    """Delete a User."""
-    rows = _query("User", eid)
+@app.route("/v1/attendees/<eid>", methods=["DELETE"])
+def delete_attendee(request, eid):
+    """Delete a Attendee."""
+    rows = _query("Attendee", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"m365.User", "id": eid})
+    db.retract({"entity": f"m365.Attendee", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "m365-compat", "tier": "L4",
-            "entities": ['Workspace', 'Document', 'Folder', 'Comment', 'Permission', 'User']}, 200
+            "entities": ['Message', 'Event', 'Attendee']}, 200
 
 
 if __name__ == "__main__":

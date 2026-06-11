@@ -3,68 +3,51 @@
 
 namespace m365 {
 
-    entity Workspace {
+    entity Message {
         id: string @unique
-        name: string
-        ownerId: string
-        plan: string
+        subject: string
+        bodyPreview: string
+        conversationId: string
+        hasAttachments: boolean
+        importance: string
+        isDraft: boolean
+        isRead: boolean
+        internetMessageId: string
+        parentFolderId: string
+        receivedDateTime: datetime
+        sentDateTime: datetime
+        webLink: string
+        bodyContentType: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Document {
+    entity Event {
         id: string @unique
-        workspaceId: string
-        title: string
-        contentRef: string
-        ownerId: string
+        subject: string
+        bodyPreview: string
+        importance: string
+        isAllDay: boolean
+        isCancelled: boolean
+        isDraft: boolean
+        isOnlineMeeting: boolean
+        isOrganizer: boolean
+        hideAttendees: boolean
+        iCalUId: string
+        showAs: string
+        sensitivity: string
+        onlineMeetingUrl: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Folder {
+    entity Attendee {
         id: string @unique
-        workspaceId: string
-        name: string
-        parentId: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Comment {
-        id: string @unique
-        documentId: string
-        authorId: string
-        body: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Permission {
-        id: string @unique
-        resourceId: string
-        principalId: string
-        role: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity User {
-        id: string @unique
-        email: string
-        displayName: string
+        type: string
         status: string
+        emailAddress: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

@@ -734,3 +734,15 @@ honestly gapped as growing. hmrc carries (its endpoint schemas render in a
 JS viewer; the GOV.UK shell is server-rendered but the spec content is
 not); etax carries (仕様書 ships as ~118MB of CAB archives — needs a
 dedicated extraction wave).
+
+### §16.18 /loop iteration 17 — wave 18: Microsoft Graph CSDL (213, 21.3%)
+
+m365 → ledger **213** (787 L4 / 213 L5 = 21.3%), enforced 205 / **852 enum
+fields** (+7), verify PASS 0/0, contract suite green. Harness-direct.
+
+The official Graph v1.0 $metadata CSDL (2.7MB, 827 declared EnumTypes — the
+machine-readable contract of the compatibility-bound v1.0 surface) anchors
+seven Outlook-era-stable enums: importance(3) ×2 + bodyContentType(2) +
+showAs(6) + sensitivity(4) + attendeeType(3) + responseType(6).
+calendarColor (maxColor sentinel) and onlineMeetingProvider (grew) gapped.
+The CSDL seam leaves 800+ declared EnumTypes available for future depth.

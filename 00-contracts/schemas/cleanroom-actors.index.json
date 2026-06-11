@@ -10,8 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 788,
-    "L5": 212
+    "L4": 787,
+    "L5": 213
   },
   "actors": [
     {
@@ -9629,10 +9629,10 @@
     {
       "handle": "m365-compat",
       "did": "did:web:etzhayyim.com:actor:m365-compat",
-      "wasmCid": "bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu",
+      "wasmCid": "bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "m365 clean-room actor",
       "category": "office_productivity",
       "capabilities": [

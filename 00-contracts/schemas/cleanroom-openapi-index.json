@@ -6,10 +6,10 @@
     "2606014500"
   ],
   "count": 1000,
-  "totalEndpoints": 29150,
+  "totalEndpoints": 29135,
   "l4SpecsAvailable": 1000,
-  "l5VerifiedActors": 204,
-  "totalVerifiedEnumFields": 845,
+  "l5VerifiedActors": 205,
+  "totalVerifiedEnumFields": 852,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -10160,10 +10160,10 @@
     {
       "handle": "m365-compat",
       "did": "did:web:etzhayyim.com:actor:m365-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
-      "endpointCount": 30,
-      "ipfs": "ipfs://bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu",
+      "endpointCount": 15,
+      "ipfs": "ipfs://bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi",
       "health": "/healthz",
       "features": {
         "pagination": true,
@@ -10172,8 +10172,8 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "l5Verified": false,
-      "verifiedEnumFields": 0,
+      "l5Verified": true,
+      "verifiedEnumFields": 7,
       "openapi": "20-actors/m365-compat/openapi.json"
     },
     {

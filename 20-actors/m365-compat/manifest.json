@@ -5,21 +5,75 @@
   "kind": "compat",
   "title": "m365 clean-room actor",
   "description": "Clean-room, API-compatible office / productivity suite actor (m365); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu",
+  "wasmCid": "bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreignb3wkelvnfgsxku4xkcefxrt2tkawg5e6vc3zekwaq2tj7zosiu",
+  "ipfs": "ipfs://bafkreieom6z5fe7mwcg3ffqjojznc523qfah5wppwbnr3oklytww3fizgi",
   "schema": "schema/m365.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://graph.microsoft.com/v1.0/$metadata (the official Microsoft Graph v1.0 CSDL; 827 declared EnumTypes; 2.7MB, harness-fetched)",
+    "verifiedAt": "2026-06-12",
+    "resources": [
+      "Message",
+      "Event",
+      "Attendee"
+    ],
+    "enums": {
+      "Message": {
+        "importance": [
+          "low",
+          "normal",
+          "high"
+        ],
+        "bodyContentType": [
+          "text",
+          "html"
+        ]
+      },
+      "Event": {
+        "importance": [
+          "low",
+          "normal",
+          "high"
+        ],
+        "showAs": [
+          "unknown",
+          "free",
+          "tentative",
+          "busy",
+          "oof",
+          "workingElsewhere"
+        ],
+        "sensitivity": [
+          "normal",
+          "personal",
+          "private",
+          "confidential"
+        ]
+      },
+      "Attendee": {
+        "type": [
+          "required",
+          "optional",
+          "resource"
+        ],
+        "status": [
+          "none",
+          "organizer",
+          "tentativelyAccepted",
+          "accepted",
+          "declined",
+          "notResponded"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Workspace",
-    "Document",
-    "Folder",
-    "Comment",
-    "Permission",
-    "User"
+    "Message",
+    "Event",
+    "Attendee"
   ],
   "adr": [
     "260607",
@@ -31,157 +85,82 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 15,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/workspaces",
-          "op": "create Workspace"
+          "path": "/v1/messages",
+          "op": "create Message"
         },
         {
           "method": "GET",
-          "path": "/v1/workspaces",
-          "op": "list Workspace"
+          "path": "/v1/messages",
+          "op": "list Message"
         },
         {
           "method": "GET",
-          "path": "/v1/workspaces/{id}",
-          "op": "get Workspace"
+          "path": "/v1/messages/{id}",
+          "op": "get Message"
         },
         {
           "method": "PATCH",
-          "path": "/v1/workspaces/{id}",
-          "op": "update Workspace"
+          "path": "/v1/messages/{id}",
+          "op": "update Message"
         },
         {
           "method": "DELETE",
-          "path": "/v1/workspaces/{id}",
-          "op": "delete Workspace"
+          "path": "/v1/messages/{id}",
+          "op": "delete Message"
         },
         {
           "method": "POST",
-          "path": "/v1/documents",
-          "op": "create Document"
+          "path": "/v1/events",
+          "op": "create Event"
         },
         {
           "method": "GET",
-          "path": "/v1/documents",
-          "op": "list Document"
+          "path": "/v1/events",
+          "op": "list Event"
         },
         {
           "method": "GET",
-          "path": "/v1/documents/{id}",
-          "op": "get Document"
+          "path": "/v1/events/{id}",
+          "op": "get Event"
         },
         {
           "method": "PATCH",
-          "path": "/v1/documents/{id}",
-          "op": "update Document"
+          "path": "/v1/events/{id}",
+          "op": "update Event"
         },
         {
           "method": "DELETE",
-          "path": "/v1/documents/{id}",
-          "op": "delete Document"
+          "path": "/v1/events/{id}",
+          "op": "delete Event"
         },
         {
           "method": "POST",
-          "path": "/v1/folders",
-          "op": "create Folder"
+          "path": "/v1/attendees",
+          "op": "create Attendee"
         },
         {
           "method": "GET",
-          "path": "/v1/folders",
-          "op": "list Folder"
+          "path": "/v1/attendees",
+          "op": "list Attendee"
         },
         {
           "method": "GET",
-          "path": "/v1/folders/{id}",
-          "op": "get Folder"
+          "path": "/v1/attendees/{id}",
+          "op": "get Attendee"
         },
         {
           "method": "PATCH",
-          "path": "/v1/folders/{id}",
-          "op": "update Folder"
+          "path": "/v1/attendees/{id}",
+          "op": "update Attendee"
         },
         {
           "method": "DELETE",
-          "path": "/v1/folders/{id}",
-          "op": "delete Folder"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/comments",
-          "op": "create Comment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/comments",
-          "op": "list Comment"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/comments/{id}",
-          "op": "get Comment"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/comments/{id}",
-          "op": "update Comment"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/comments/{id}",
-          "op": "delete Comment"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/permissions",
-          "op": "create Permission"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/permissions",
-          "op": "list Permission"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/permissions/{id}",
-          "op": "get Permission"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/permissions/{id}",
-          "op": "update Permission"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/permissions/{id}",
-          "op": "delete Permission"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/users",
-          "op": "create User"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/users",
-          "op": "list User"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/users/{id}",
-          "op": "get User"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/users/{id}",
-          "op": "update User"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/users/{id}",
-          "op": "delete User"
+          "path": "/v1/attendees/{id}",
+          "op": "delete Attendee"
         }
       ],
       "features": {
@@ -244,41 +223,71 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 15,
       "tools": [
         {
-          "name": "create_workspace",
-          "description": "Create a Workspace.",
+          "name": "create_message",
+          "description": "Create a Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "name": {
+              "subject": {
                 "type": "string"
               },
-              "ownerId": {
+              "bodyPreview": {
                 "type": "string"
               },
-              "plan": {
+              "conversationId": {
+                "type": "string"
+              },
+              "hasAttachments": {
+                "type": "boolean"
+              },
+              "importance": {
+                "type": "string"
+              },
+              "isDraft": {
+                "type": "boolean"
+              },
+              "isRead": {
+                "type": "boolean"
+              },
+              "internetMessageId": {
+                "type": "string"
+              },
+              "parentFolderId": {
+                "type": "string"
+              },
+              "receivedDateTime": {
+                "type": "string"
+              },
+              "sentDateTime": {
+                "type": "string"
+              },
+              "webLink": {
+                "type": "string"
+              },
+              "bodyContentType": {
                 "type": "string"
               }
             },
             "required": [
-              "name",
-              "plan"
+              "subject",
+              "bodyPreview"
             ]
           }
         },
         {
-          "name": "list_workspaces",
-          "description": "List Workspaces.",
+          "name": "list_messages",
+          "description": "List Messages.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_workspace",
-          "description": "Get a Workspace by id.",
+          "name": "get_message",
+          "description": "Get a Message by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -292,21 +301,51 @@
           }
         },
         {
-          "name": "update_workspace",
-          "description": "Update a Workspace.",
+          "name": "update_message",
+          "description": "Update a Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "subject": {
                 "type": "string"
               },
-              "ownerId": {
+              "bodyPreview": {
                 "type": "string"
               },
-              "plan": {
+              "conversationId": {
+                "type": "string"
+              },
+              "hasAttachments": {
+                "type": "boolean"
+              },
+              "importance": {
+                "type": "string"
+              },
+              "isDraft": {
+                "type": "boolean"
+              },
+              "isRead": {
+                "type": "boolean"
+              },
+              "internetMessageId": {
+                "type": "string"
+              },
+              "parentFolderId": {
+                "type": "string"
+              },
+              "receivedDateTime": {
+                "type": "string"
+              },
+              "sentDateTime": {
+                "type": "string"
+              },
+              "webLink": {
+                "type": "string"
+              },
+              "bodyContentType": {
                 "type": "string"
               }
             },
@@ -316,8 +355,8 @@
           }
         },
         {
-          "name": "delete_workspace",
-          "description": "Delete a Workspace.",
+          "name": "delete_message",
+          "description": "Delete a Message.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -331,40 +370,68 @@
           }
         },
         {
-          "name": "create_document",
-          "description": "Create a Document.",
+          "name": "create_event",
+          "description": "Create a Event.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "workspaceId": {
+              "subject": {
                 "type": "string"
               },
-              "title": {
+              "bodyPreview": {
                 "type": "string"
               },
-              "contentRef": {
+              "importance": {
                 "type": "string"
               },
-              "ownerId": {
+              "isAllDay": {
+                "type": "boolean"
+              },
+              "isCancelled": {
+                "type": "boolean"
+              },
+              "isDraft": {
+                "type": "boolean"
+              },
+              "isOnlineMeeting": {
+                "type": "boolean"
+              },
+              "isOrganizer": {
+                "type": "boolean"
+              },
+              "hideAttendees": {
+                "type": "boolean"
+              },
+              "iCalUId": {
+                "type": "string"
+              },
+              "showAs": {
+                "type": "string"
+              },
+              "sensitivity": {
+                "type": "string"
+              },
+              "onlineMeetingUrl": {
                 "type": "string"
               }
             },
             "required": [
-              "title"
+              "subject",
+              "bodyPreview"
             ]
           }
         },
         {
-          "name": "list_documents",
-          "description": "List Documents.",
+          "name": "list_events",
+          "description": "List Events.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_document",
-          "description": "Get a Document by id.",
+          "name": "get_event",
+          "description": "Get a Event by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -378,24 +445,51 @@
           }
         },
         {
-          "name": "update_document",
-          "description": "Update a Document.",
+          "name": "update_event",
+          "description": "Update a Event.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "workspaceId": {
+              "subject": {
                 "type": "string"
               },
-              "title": {
+              "bodyPreview": {
                 "type": "string"
               },
-              "contentRef": {
+              "importance": {
                 "type": "string"
               },
-              "ownerId": {
+              "isAllDay": {
+                "type": "boolean"
+              },
+              "isCancelled": {
+                "type": "boolean"
+              },
+              "isDraft": {
+                "type": "boolean"
+              },
+              "isOnlineMeeting": {
+                "type": "boolean"
+              },
+              "isOrganizer": {
+                "type": "boolean"
+              },
+              "hideAttendees": {
+                "type": "boolean"
+              },
+              "iCalUId": {
+                "type": "string"
+              },
+              "showAs": {
+                "type": "string"
+              },
+              "sensitivity": {
+                "type": "string"
+              },
+              "onlineMeetingUrl": {
                 "type": "string"
               }
             },
@@ -405,52 +499,8 @@
           }
         },
         {
-          "name": "delete_document",
-          "description": "Delete a Document.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_folder",
-          "description": "Create a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "workspaceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "parentId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]
-          }
-        },
-        {
-          "name": "list_folders",
-          "description": "List Folders.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_folder",
-          "description": "Get a Folder by id.",
+          "name": "delete_event",
+          "description": "Delete a Event.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -464,243 +514,38 @@
           }
         },
         {
-          "name": "update_folder",
-          "description": "Update a Folder.",
+          "name": "create_attendee",
+          "description": "Create a Attendee.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
-              },
-              "workspaceId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "parentId": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_folder",
-          "description": "Delete a Folder.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_comment",
-          "description": "Create a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "body"
-            ]
-          }
-        },
-        {
-          "name": "list_comments",
-          "description": "List Comments.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_comment",
-          "description": "Get a Comment by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_comment",
-          "description": "Update a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "documentId": {
-                "type": "string"
-              },
-              "authorId": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_comment",
-          "description": "Delete a Comment.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_permission",
-          "description": "Create a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "role"
-            ]
-          }
-        },
-        {
-          "name": "list_permissions",
-          "description": "List Permissions.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_permission",
-          "description": "Get a Permission by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_permission",
-          "description": "Update a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "resourceId": {
-                "type": "string"
-              },
-              "principalId": {
-                "type": "string"
-              },
-              "role": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_permission",
-          "description": "Delete a Permission.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_user",
-          "description": "Create a User.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string"
-              },
-              "displayName": {
+              "type": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "emailAddress": {
+                "type": "string"
               }
             },
             "required": [
-              "email",
-              "displayName"
+              "type",
+              "status"
             ]
           }
         },
         {
-          "name": "list_users",
-          "description": "List Users.",
+          "name": "list_attendees",
+          "description": "List Attendees.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_user",
-          "description": "Get a User by id.",
+          "name": "get_attendee",
+          "description": "Get a Attendee by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -714,22 +559,22 @@
           }
         },
         {
-          "name": "update_user",
-          "description": "Update a User.",
+          "name": "update_attendee",
+          "description": "Update a Attendee.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "email": {
-                "type": "string"
-              },
-              "displayName": {
+              "type": {
                 "type": "string"
               },
               "status": {
                 "type": "string"
+              },
+              "emailAddress": {
+                "type": "string"
               }
             },
             "required": [
@@ -738,8 +583,8 @@
           }
         },
         {
-          "name": "delete_user",
-          "description": "Delete a User.",
+          "name": "delete_attendee",
+          "description": "Delete a Attendee.",
           "inputSchema": {
             "type": "object",
             "properties": {
