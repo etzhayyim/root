@@ -1,0 +1,71 @@
+{
+  "@context": {
+    "@vocab": "https://etzhayyim.com/ns/actor#",
+    "id": "@id",
+    "type": "@type"
+  },
+  "id": "actor:hakoniwa",
+  "type": "Actor",
+  "name": "hakoniwa",
+  "glyph": "箱庭",
+  "purpose": "Forward-simulation observatory — the charter-clean inversion of a swarm-intelligence prediction engine (the 666ghj/MiroFish shape). Runs a CONTAINED miniature world (箱庭) of FICTIONAL latent personas forward in discrete steps to surface a DISTRIBUTION over possible futures, routed to resilience & preparedness; never a point prediction, never a real-person model, never a steering/persuasion campaign.",
+  "status": "R0-design-and-engine",
+  "tier": "B",
+  "adr": "2606111500",
+  "dependsOnAdr": ["2606111400", "2606051800", "2606042330", "2606091200", "2605242600", "2605241900", "2605215000", "2605312345", "2605231525", "2605181100"],
+  "schema": ["00-contracts/schemas/hakoniwa-scenario-ontology.kotoba.edn"],
+  "substrate": {
+    "state": "kotoba Datom log (ADR-2605312345) — methods/datom_emit.py emits canonical EAVT (ground world + run config; distribution is transient)",
+    "engine": "methods/simulate.py — Friedkin-Johnsen opinion-dynamics kernel over the box; K-replica ensemble with DETERMINISTIC seeded anchor jitter (sha256, no Math.random, pywasm-portable)",
+    "output": "methods/distribution.py — ensemble → quantiles + histogram → mitooshi-shaped :forecast/kind :distribution record (point-asserted structurally false)",
+    "inference": "Murakumo-only (ADR-2605215000); the large-swarm LLM-persona step (when enabled) routes to the Murakumo fleet, the swarm rides baien-edge (ADR-2605242600/2605241900); R0 ships the deterministic kernel only",
+    "contentAddress": "out artifacts content-addressable to a kotoba IPFS CIDv1 (same parity discipline as rasen methods/cid.py); reused, not re-implemented, at deploy time",
+    "runtime": "kotoba pywasm actor (componentize-py) — pure-stdlib methods, no numpy; the deterministic kernel runs in-WASM, the LLM-persona variant runs operator/mesh-side"
+  },
+  "integrates": ["actor:mitooshi", "actor:sonae", "actor:kazaori", "actor:tsumugi", "actor:entity-as-actor"],
+  "lineage": "forecasting sibling that FEEDS mitooshi 見通し (ADR-2606051800): mitooshi had a leak-free proper-scoring backtest loop but no generative simulation engine; hakoniwa is the generative front-end that produces the distributions mitooshi scores. Persona discipline borrowed from sukashi (synthesized fictional entities) + tsumugi (latent influence nodes). Resilience consumer = sonae 備え / kazaori 風折.",
+  "cells": [
+    {
+      "id": "cell:hakoniwa.world",
+      "method": "methods/world.py",
+      "input": "data/seed-scenario.kotoba.edn",
+      "output": ["(in-memory world graph)"],
+      "pipeline": "load-edn → nodes (:persona/:entity/:signal/:outcome) + 縁 (:influences/:exposed-to/:holds-stance/:measures); assert_synthetic REFUSES any persona not marked :persona/synthetic true or carrying a PII-class field (G1)",
+      "doc": "the contained miniature world (箱庭); synthetic personas only, enforced at load"
+    },
+    {
+      "id": "cell:hakoniwa.simulate",
+      "method": "methods/simulate.py",
+      "input": "data/seed-scenario.kotoba.edn",
+      "output": ["(replica ensemble of population statistics)"],
+      "pipeline": "build topology (row-normalised :influences, susceptibility λ, anchors + signal pushes) → run K replicas of Friedkin-Johnsen forward dynamics with deterministic per-replica anchor jitter → collect the town-wide weighted-mean stance per replica",
+      "doc": "deterministic multi-agent forward simulation; the ensemble spread IS the distribution (G2)"
+    },
+    {
+      "id": "cell:hakoniwa.distribution",
+      "method": "methods/distribution.py",
+      "input": "data/seed-scenario.kotoba.edn",
+      "output": ["out/distribution-report.md", "out/forecast-record.kotoba.edn"],
+      "pipeline": "ensemble → quantiles (p10/p25/p50/p75/p90) + histogram + mean/stdev → mitooshi-shaped :forecast/kind :distribution record (:forecast/point-asserted false, :forecast/use :preparedness)",
+      "doc": "DISTRIBUTION-ONLY readout (G2) handed to mitooshi for leak-free proper-scoring; resilience-USE-only enum (G3)"
+    },
+    {
+      "id": "cell:hakoniwa.datom-emit",
+      "method": "methods/datom_emit.py",
+      "input": "data/seed-scenario.kotoba.edn",
+      "output": ["out/scenario-datoms.kotoba.edn"],
+      "pipeline": "ground EAVT datoms [e a v tx :add] for nodes/縁/run-config (every persona carries :persona/synthetic true) + derived distribution flagged :bond/is-transient; NO point datom (G2)",
+      "doc": "kotoba Datom-log projection — first-class canonical state (ADR-2605312345)"
+    }
+  ],
+  "gates": {
+    "G1": "FICTIONAL latent personas only, NEVER a real-person model — every :persona is :persona/synthetic true (a cohort archetype), with NO PII / no real-person profile / no re-identifiable trait; world.assert_synthetic refuses a graph that breaches this. Real already-PUBLIC entities (entity-as-actor org.* / a public topic) may appear as their existing public mirror, never a natural person. Simulating fictional agents is categorically distinct from surveilling real people (ADR-2606111400)",
+    "G2": "DISTRIBUTION-ONLY (inherits mitooshi ADR-2606051800 G1) — output is a distribution over outcomes (quantiles + histogram), never a point; :forecast/point-asserted is structurally false and no :forecast/point field exists. 非終末論 made structural",
+    "G3": "NON-STEERING (inherits mitooshi G2) — routed to resilience / preparedness / robustness; :forecast/use and :outcome/use are a resilience-only enum; trade / wager / position / target / manipulate / campaign are NOT members and are unrepresentable. hakoniwa never trades, never targets a person, never runs an influence campaign",
+    "G4": "TRANSPARENT & RECIPROCAL (相互監視; ADR-2606082400 + 2606111400) — the whole box (world graph, persona parameters, every step, the run config) is plaintext-public on kotoba; open-source + on-chain + 1 SBT = 1 vote. No covert/asymmetric modelling — there are no real people in the box",
+    "G5": "Murakumo-only inference (ADR-2605215000) for the LLM-persona variant; the swarm rides baien-edge (ADR-2605242600/2605241900)",
+    "G6": "sourcing honesty — personas :synthetic, real public facts :authoritative | :representative; coverage honesty preserved (a box is illustrative, never exhaustive of a real population)",
+    "G7": "leak-free as-of (inherits mitooshi G5) — the forecast record carries :forecast/as-of; no future information leaks into the persona priors; mitooshi scores it leak-free with proper scoring",
+    "G8": "outward-gated & no-server-key (ADR-2605231525) — R0 = engine + seed scenario + tests. Live large-swarm runs, ingest of real public entity structure, and ANY social emission of a distribution require Council + operator DID; no platform-held key signs a hakoniwa artifact"
+  }
+}

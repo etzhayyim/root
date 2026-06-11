@@ -15042,6 +15042,47 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606111400-charter-synthetic-persona-forward-simulation-carve-in",
+      "type": "TechArticle",
+      "title": "ADR-2606111400: Charter observation-doctrine consolidation — the synthetic-persona / forward-simulation carve-in (simulating fictional latent agents ≠ surveilling real people)",
+      "status": "accepted",
+      "topic": "charter-synthetic-persona-forward-simulation-carve-in",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the real-vs-synthetic subject axis of the observation doctrine",
+        "the synthetic-persona / forward-simulation carve-in (fictional latent agents are not surveillance)",
+        "the authorizing constitutional basis for agent-based forward-simulation actors (hakoniwa)"
+      ],
+      "related": [
+        "doc:2606051800",
+        "doc:2606042330",
+        "doc:2606071600",
+        "doc:2606061500",
+        "doc:2605312345"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
+      "id": "doc:adr-2606111500-hakoniwa-forward-simulation-observatory",
+      "type": "TechArticle",
+      "title": "ADR-2606111500: hakoniwa 箱庭 — forward-simulation observatory (synthetic-persona swarm; the charter-clean inversion of a MiroFish-class prediction engine)",
+      "status": "accepted",
+      "topic": "hakoniwa-forward-simulation-observatory",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hakoniwa actor scope (agent-based forward simulation over a synthetic-persona box → outcome distribution; design + deterministic engine)",
+        "the synthetic-persona invariant (:persona/synthetic true; no PII; real persons unrepresentable, enforced at load)",
+        "the distribution-only simulation-output invariant (:forecast/point-asserted structurally false; feeds mitooshi proper-scoring)"
+      ],
+      "related": [
+        "doc:2606071600",
+        "doc:2606061500",
+        "doc:2605263200",
+        "doc:2605262130"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
