@@ -10492,6 +10492,14 @@ status_note = "Closes the ibuki maturity arc after the ecosystem (ADR-2606101800
 path = "90-docs/adr/2606102000-session-close-ibuki-digest-live-run-robustness.md"
 adr = ["2606102000", "2606101800", "2606101200", "2606101500"]
 
+[[adrs]]
+id = "2606110955"
+title = "session close — open-PR backlog review + merge (8 PRs); cleanroom L5 ledger union to 163"
+status = "accepted"
+status_note = "Process record of the 2026-06-11 review-and-merge sweep of the open-PR backlog on etzhayyim/root (7 open at start + #1593 opened mid-sweep). Merged to main (squash): #1590 meeting-recorder getMinutes XRPC, #1589 yoro prod kotoba-sw verify script, #1593 ibuki revocable-CACAO-leash delegation (+16 tests), and after hand-resolving conflicts #1498 (deps.toml union of appended milestone/adr blocks), #1493 (supply-chain NOTICE rename/content), #1568 (CLAUDE.md table — kept the PR's infra-robotics row AND main's newer ibuki row, not a side-pick), #1548 (adr README index union, re-merged once after main moved). Merged to feat/hydrogen-electrolysis-cfe-session-close (the PR's own base, NOT main): #1535 cleanroom L5 — the conflict was a genuine SET-UNION not a side-pick (head added 13 specialized actors, base had independently added 8 others, 142 common → 163 L5; tierCounts reconciled L5 163 / L4 837; per-actor index tiers verified 0-drift vs the ledger). All 90-docs/_registry sidecars REGENERATED (not hand-edited) so the freshness hooks pass. Result: 0 open PRs, every merge with 0 failing CI checks. HONEST: the 163-L5 union lives on the hydrogen branch — main's cleanroom index is still at 34 L5; landing that branch to main (and re-resolving the ledger) is the tracked follow-up. No code added this session, only merge commits + this record; zero invariant amendments."
+path = "90-docs/adr/2606110955-session-close-pr-backlog-review-merge.md"
+adr = ["2606110955", "2606101845", "2606102000"]
+
 [[modules]]
 path = "20-actors/ibuki"
 kind = "organism-autonomy-substrate-plus-ecosystem"

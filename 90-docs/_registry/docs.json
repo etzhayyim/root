@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-10",
+  "updated_at": "2026-06-11",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -23644,6 +23644,29 @@
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606110955-session-close-pr-backlog-review-merge.md",
+      "id": "adr-2606110955",
+      "title": "ADR-2606110955: Session-Close — open-PR backlog review + merge (8 PRs); L5 ledger union to 163",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-pr-backlog-review-merge",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close summary of the 2026-06-11 PR-backlog review + merge sweep",
+        "record of the cleanroom L5 ledger union (PR"
+      ],
+      "related": [
+        "adr-2606101845-session-close-infra-robotics-r1-device-in-the-loop",
+        "adr-2606102000-session-close-ibuki-digest-live-run-robustness"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-11",
       "amends": [],
       "amended_by": []
     },
