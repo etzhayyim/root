@@ -3,7 +3,7 @@
 > Fair, openly-licensed legal-document templates (Apache-2.0 + etzhayyim Charter Rider). Each body is content-addressed — re-derive the CID with `ipfs add --cid-version=1 --raw-leaves` or `methods/cid.py` to verify. **NOT legal advice** (G1); each clause cites the public law it rests on, for traceability.
 
 
-**58 templates published.**
+**60 templates published.**
 
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
@@ -13,6 +13,7 @@
 | 業務委託契約書 | ja | JP | 4 | 26 | `bafkreiekqkig6bv4b…` |
 | Independent Consulting Services Agreement | en | INTL | 9 | 43 | `bafkreiaq4ceh7f5wa…` |
 | 特定商取引 契約書 (クーリングオフ条項付) | ja | JP | 3 | 23 | `bafkreid2csmybc627…` |
+| Assignment of Receivables (債権譲渡契約書) | en | JP | 4 | 20 | `bafkreidnx2vk3hn4n…` |
 | Distribution Agreement | en | EU | 6 | 31 | `bafkreihkt6qg2v3y7…` |
 | Charitable Donation & Grant Agreement | en | INTL | 2 | 17 | `bafkreiahuxtbzk5ta…` |
 | Data Processing Agreement (GDPR Art. 28) | en | EU | 5 | 30 | `bafkreig4mcz6fd7g4…` |
@@ -66,6 +67,7 @@
 | Security Agreement | en | US | 4 | 21 | `bafkreibsqjax2tdwk…` |
 | Service Level Agreement | en | INTL | 7 | 31 | `bafkreigndbq7fpebg…` |
 | Settlement & Release Agreement | en | INTL | 5 | 23 | `bafkreicjsuuprbe3f…` |
+| Trademark License Agreement | en | INTL | 5 | 22 | `bafkreidq64zqxxcev…` |
 
 ---
 _hinagata 雛形 · ADR-2606111954 · commons-not-counsel · G7 outward publish (IPFS pin / IPNS) is the operator add-on._

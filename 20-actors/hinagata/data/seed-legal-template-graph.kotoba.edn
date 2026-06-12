@@ -89,6 +89,8 @@
  {:lt/id "concept.joint-venture" :lt/kind :concept :lt/label "Joint venture (合弁)" :concept/code "joint-venture" :lt/sourcing :authoritative}
  {:lt/id "concept.subscription" :lt/kind :concept :lt/label "Subscription / recurring service" :concept/code "subscription" :lt/sourcing :authoritative}
  {:lt/id "concept.escrow" :lt/kind :concept :lt/label "Escrow / deposit (供託)" :concept/code "escrow" :lt/sourcing :authoritative}
+ {:lt/id "concept.trademark-license" :lt/kind :concept :lt/label "Trademark license (商標ライセンス)" :concept/code "trademark-license" :lt/sourcing :authoritative}
+ {:lt/id "concept.assignment-receivables" :lt/kind :concept :lt/label "Assignment of receivables (債権譲渡)" :concept/code "assignment-receivables" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── statutes (nodes) — REAL public instruments ──
  ;; international treaties / model laws
@@ -301,6 +303,12 @@
  {:lt/id "st.it-cc-2118" :lt/kind :statute :lt/label "Italy Codice Civile Art. 2118 — recesso dal contratto di lavoro (notice)" :statute/citation "Codice Civile, Art. 2118" :statute/instrument "Codice Civile (Italy)" :statute/jurisdiction "jx.it" :statute/url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262" :lt/sourcing :authoritative}
  {:lt/id "st.it-cad-21" :lt/kind :statute :lt/label "Italy Codice dell'Amministrazione Digitale Art. 21 — firma elettronica" :statute/citation "D.Lgs. 82/2005 (CAD), Art. 21" :statute/instrument "Codice dell'Amministrazione Digitale (Italy)" :statute/jurisdiction "jx.it" :statute/url "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82" :lt/sourcing :authoritative}
 
+ ;; ─── coverage wave 28 (/loop): trademark licensing + assignment of receivables (債権譲渡) ───
+ {:lt/id "st.jp-shohyo-2" :lt/kind :statute :lt/label "日本商標法 2条 — 商標の定義・使用" :statute/citation "商標法2条" :statute/instrument "商標法 (昭和34年法律第127号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/334AC0000000127" :lt/sourcing :authoritative}
+ {:lt/id "st.us-lanham-1051" :lt/kind :statute :lt/label "US Lanham Act — 15 U.S.C. §1051 (trademark registration)" :statute/citation "15 U.S.C. §1051" :statute/instrument "Lanham Act (US Trademark Act)" :statute/jurisdiction "jx.us" :statute/url "https://www.law.cornell.edu/uscode/text/15/1051" :lt/sourcing :authoritative}
+ {:lt/id "st.eu-eutmr-2017" :lt/kind :statute :lt/label "EU Trade Mark Regulation (EU) 2017/1001 Art. 25 — licensing" :statute/citation "Regulation (EU) 2017/1001, Art. 25" :statute/instrument "European Union Trade Mark Regulation (EU) 2017/1001" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/reg/2017/1001/oj" :lt/sourcing :authoritative}
+ {:lt/id "st.jp-civil-466" :lt/kind :statute :lt/label "日本民法 466条 — 債権の譲渡性 (assignability of claims)" :statute/citation "民法466条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
+
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
  {:lt/id "cl.confidentiality" :lt/kind :clause :lt/label "Confidentiality / non-disclosure" :clause/role :confidentiality :clause/optionality :recommended :lt/sourcing :representative}
@@ -344,6 +352,8 @@
  {:lt/id "cl.jv-governance" :lt/kind :clause :lt/label "JV governance, contribution, profit & exit" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.subscription-terms" :lt/kind :clause :lt/label "Recurring fee, auto-renewal & cancellation" :clause/role :payment :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.escrow-conditions" :lt/kind :clause :lt/label "Escrow agent & release conditions" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.trademark-license" :lt/kind :clause :lt/label "Trademark license grant, quality control & territory" :clause/role :ip-license :clause/optionality :mandatory :lt/sourcing :authoritative}
+ {:lt/id "cl.debt-assignment" :lt/kind :clause :lt/label "Assignment of receivables & notice to debtor" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.guaranty" :lt/kind :clause :lt/label "Guaranty / suretyship obligation (incl. cap)" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.franchise-grant" :lt/kind :clause :lt/label "Franchise grant, system & pre-contractual disclosure" :clause/role :ip-license :clause/optionality :mandatory :lt/sourcing :authoritative}
  {:lt/id "cl.distribution-appointment" :lt/kind :clause :lt/label "Distributor/agent appointment & territory" :clause/role :boilerplate :clause/optionality :mandatory :lt/sourcing :authoritative}
@@ -415,6 +425,8 @@
  {:lt/id "tmpl.nda-vi" :lt/kind :template :lt/label "Thỏa thuận bảo mật (Mutual NDA, VI)" :template/title "Thỏa thuận bảo mật song phương" :template/lang "vi" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.nda-th" :lt/kind :template :lt/label "ข้อตกลงการรักษาความลับ (Mutual NDA, TH)" :template/title "ข้อตกลงการรักษาความลับร่วมกัน" :template/lang "th" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.nda-id" :lt/kind :template :lt/label "Perjanjian Kerahasiaan (Mutual NDA, ID-Bahasa)" :template/title "Perjanjian Kerahasiaan Bersama" :template/lang "id" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.trademark-license" :lt/kind :template :lt/label "Trademark License Agreement" :template/title "Trademark License Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.debt-assignment" :lt/kind :template :lt/label "Assignment of Receivables Agreement" :template/title "Assignment of Receivables (債権譲渡契約書)" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.joint-venture" :lt/kind :template :lt/label "Joint Venture Agreement" :template/title "Joint Venture Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.saas-subscription" :lt/kind :template :lt/label "SaaS Subscription Agreement" :template/title "SaaS Subscription Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.escrow" :lt/kind :template :lt/label "Escrow Agreement" :template/title "Escrow Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
@@ -676,6 +688,17 @@
  {:en/from "tmpl.nda-id" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
  {:en/from "tmpl.nda-id" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
 
+ ;; coverage wave 28 — trademark / debt-assignment template composition
+ {:en/from "tmpl.trademark-license" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.trademark-license" :en/to "cl.trademark-license" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.trademark-license" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.trademark-license" :en/to "cl.termination" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.trademark-license" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.debt-assignment" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.debt-assignment" :en/to "cl.debt-assignment" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.debt-assignment" :en/to "cl.payment-terms" :en/kind :has-clause :en/binding-load 0.7 :en/sourcing :representative}
+ {:en/from "tmpl.debt-assignment" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
  ;; coverage wave 21 — JV / SaaS / escrow template composition
  {:en/from "tmpl.joint-venture" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.joint-venture" :en/to "cl.jv-governance" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
@@ -754,6 +777,12 @@
  {:en/from "cl.subscription-terms" :en/to "st.us-rosca" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
  {:en/from "cl.subscription-terms" :en/to "st.eu-crd-9" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  {:en/from "cl.escrow-conditions" :en/to "st.jp-civil-494" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ ;; coverage wave 28 — trademark / debt-assignment bindings
+ {:en/from "cl.trademark-license" :en/to "st.jp-shohyo-2" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.trademark-license" :en/to "st.us-lanham-1051" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.trademark-license" :en/to "st.eu-eutmr-2017" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.debt-assignment" :en/to "st.jp-civil-466" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.debt-assignment" :en/to "st.us-ucc-9-203" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  {:en/from "cl.data-subject-rights" :en/to "st.israel-privacy-1981" :en/kind :cites-statute :en/force :cited :en/binding-load 0.75 :en/sourcing :authoritative}
  {:en/from "cl.payment-terms" :en/to "st.kr-civil-390" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  ;; coverage wave 1 — bind the general-clause backbone (was 10 unbound clauses → only :definitions left, honestly structural)
@@ -908,6 +937,8 @@
  {:en/from "cl.jv-governance" :en/to "concept.joint-venture" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.subscription-terms" :en/to "concept.subscription" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.escrow-conditions" :en/to "concept.escrow" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.trademark-license" :en/to "concept.trademark-license" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "cl.debt-assignment" :en/to "concept.assignment-receivables" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  ;; coverage wave 2 — new clause→concept spine
  {:en/from "cl.heter-iska" :en/to "concept.interest-free-finance" :en/kind :instantiates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "cl.no-interest-qard" :en/to "concept.interest-free-finance" :en/kind :instantiates :en/binding-load 0.9 :en/sourcing :authoritative}
@@ -986,6 +1017,8 @@
  {:en/from "tmpl.nda-vi" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.nda-th" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.nda-id" :en/to "jx.id" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
+ {:en/from "tmpl.trademark-license" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.debt-assignment" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.joint-venture" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.saas-subscription" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.escrow" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
@@ -1160,6 +1193,11 @@
  {:en/from "st.it-cc-1325" :en/to "jx.it" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.it-cc-2118" :en/to "jx.it" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.it-cad-21" :en/to "jx.it" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 28 — applies-in
+ {:en/from "st.jp-shohyo-2" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.us-lanham-1051" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.eu-eutmr-2017" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.jp-civil-466" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.eu-scc-2021" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
