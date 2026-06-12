@@ -91,13 +91,21 @@
                       'kanjo.tests.test-kanjo 'kanjo.tests.test-invariants
                       'shionome.cells.regime-observer.test-state-machine
                       'mitooshi.methods.test-promote
-                      'ake.methods.test-ingest)
+                      'ake.methods.test-ingest
+                      'funadaiku.cells.sea-trial.test-cell
+                      'tedai.cells.intent-plan.test-state-machine
+                      'hotaru.cells.commons-readiness.test-state-machine
+                      'keizu.methods.test-edn)
              (let [r (clojure.test/run-tests 'rasen.tests.test-analyze
                                              'kanjo.tests.test-kanjo
                                              'kanjo.tests.test-invariants
                                              'shionome.cells.regime-observer.test-state-machine
                                              'mitooshi.methods.test-promote
-                                             'ake.methods.test-ingest)]
+                                             'ake.methods.test-ingest
+                                             'funadaiku.cells.sea-trial.test-cell
+                                             'tedai.cells.intent-plan.test-state-machine
+                                             'hotaru.cells.commons-readiness.test-state-machine
+                                             'keizu.methods.test-edn)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
