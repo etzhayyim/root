@@ -114,10 +114,12 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 │   ├── terms_scan.py              # 不利条項 scanner (non-adjudicating flags, G10 filter)
 │   ├── respond_plan.py            # response planner + fake-notice guard (G6/G10)
 │   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
+│   ├── site_gen.py                # crawlable static site (FAQPage JSON-LD + sitemap — Google 可視化)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 95 tests, pure stdlib
+├── tests/                         # 100 tests, pure stdlib
 │   ├── test_terms.py
 │   ├── test_respond.py
+│   ├── test_site.py
 │   └── test_coverage.py
 └── out/                           # GENERATED — do not hand-edit
     ├── clause-readout.md
@@ -136,7 +138,7 @@ python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
 python3 methods/coverage_report.py   # → out/coverage-report.md (21/193 + 10/50 states + tracks, named gaps)
 python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
 python3 tests/test_terms.py && python3 tests/test_respond.py \
-  && python3 tests/test_coverage.py  # 95 green
+  && python3 tests/test_coverage.py  # 100 green
 ```
 
 ## Do not
