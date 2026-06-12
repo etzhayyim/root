@@ -15618,6 +15618,41 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606122001-tanemaki-public-fund-grant-steward",
+      "type": "TechArticle",
+      "title": "ADR-2606122001: tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion): public DD + disclosed criteria, vote-decided",
+      "status": "proposed",
+      "topic": "tanemaki-public-fund-grant-steward",
+      "authoritative": true,
+      "authoritativeFor": [
+        "public-fund-grant-steward",
+        "fund-stewardship-ontology",
+        "public-fund-dd-criteria"
+      ],
+      "related": [
+        "doc:2606022000",
+        "doc:2606011800",
+        "doc:2606072000",
+        "doc:2606021600",
+        "doc:2606082100",
+        "doc:2606052300"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
+      "id": "doc:adr-2606122100-session-close-tanemaki-public-fund-steward",
+      "type": "TechArticle",
+      "title": "ADR-2606122100: Session close — Public-Fund 投資判断/DD survey → tanemaki 種蒔き grant-steward R0 design+implementation (PR",
+      "status": "active",
+      "topic": "session-close-tanemaki-public-fund-steward",
+      "authoritative": false,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-12 tanemaki public-fund-steward session"
+      ],
+      "related": "doc:adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass",
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-2606122300-session-close-tate-kaiyaku-45-wave-loop",
       "type": "TechArticle",
       "title": "ADR-2606122300: session close — tate 盾/kaiyaku 解約 45-wave coverage loop (publication layer 完成)",

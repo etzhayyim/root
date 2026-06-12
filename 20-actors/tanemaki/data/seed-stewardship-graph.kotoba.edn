@@ -1,0 +1,168 @@
+;; tanemaki 種蒔き — seed fund-stewardship graph (SYNTHETIC candidate orgs only — G6)
+;; ADR-2606122001 · vocabulary: fund-stewardship-ontology (00-contracts/schemas/fund-stewardship-ontology.kotoba.edn)
+;;
+;; SCOPE GUARD (constitutional, G1/G2/G6 — read first):
+;;   - tanemaki is a STEWARD, never a sovereign: it evaluates + drafts an ADVISORY proposal;
+;;     every grant is DECIDED by 1 SBT = 1 vote (GrantGovernor, ADR-2605192145). No route in
+;;     this graph can emit a funding decision.
+;;   - The Public Fund GIVES, never INVESTS: only :grant / :milestone-escrow / :in-kind
+;;     instruments exist here; equity/debt/ROI vocabulary is unrepresentable (G2).
+;;   - EVERY org below is FICTIONAL (:org/synthetic true) — a representative shape used to
+;;     exercise the screens, rubric and routes. Evaluating a REAL organization is a G7-gated
+;;     live leg fed from primary disclosure only (the kanjō pattern). Committing a scored real
+;;     org into a seed would be reputational adjudication (N3) and is prohibited.
+;;
+;; SOURCING: screens cite real charter/Rider anchors (:authoritative); orgs + their evidence
+;;   edges are :representative fixtures. Criterion weights are the PUBLIC rubric (Σ = 1.0).
+
+[;; ───────────────────────────── instruments (G2 allowlist members ONLY) ─────
+ {:fs/id "i.grant" :fs/kind :instrument :fs/label "Grant 単発交付 (返済・対価なし)" :instrument/kind :grant :fs/sourcing :authoritative}
+ {:fs/id "i.milestone-escrow" :fs/kind :instrument :fs/label "Milestone escrow 段階交付 (Council Lv6+ attestation で次トランシェ解錠, ADR-2605192145 §4)" :instrument/kind :milestone-escrow :fs/sourcing :authoritative}
+ {:fs/id "i.in-kind" :fs/kind :instrument :fs/label "In-kind 現物 (compute/tooling/access, cash≡0 — fuchi 扶持 rail)" :instrument/kind :in-kind :fs/sourcing :authoritative}
+
+ ;; ───────────────────────────── hard screens (適格性 — disclosed charter anchors) ──
+ {:fs/id "scr.s1-nonprofit-conformance" :fs/kind :screen :fs/label "S1 非営利整合 — 交付が私的配当・営利還元に流れない構造 (grant は公共財産出に使われる)" :screen/code "S1" :screen/basis "ADR-2605192100 §1.6 + ADR-2605192115 (非営利のみ / Donation 流入のみ)" :fs/sourcing :authoritative}
+ {:fs/id "scr.s2-rider-conformance" :fs/kind :screen :fs/label "S2 Charter Rider §2 非抵触 — proprietary 兵器 / monetized・asymmetric surveillance / addictive design / 第三者広告依存 / 商用GPU 等の prohibited categories に該当しない" :screen/code "S2" :screen/basis "CHARTER-RIDER v3.1 §2(a)-(k) (ADR-2606062100 + 2606082400)" :fs/sourcing :authoritative}
+ {:fs/id "scr.s3-open-output" :fs/kind :screen :fs/label "S3 open-by-default — 交付で生まれる成果が公開される (OSS / open-data / CC 系 open license)" :screen/code "S3" :screen/basis "ADR-2605192200 (Apache 2.0 + Rider 既定) — 公共資金は公共財へ" :fs/sourcing :authoritative}
+ {:fs/id "scr.s4-lawful-recipient" :fs/kind :screen :fs/label "S4 受領適法性 — 当該法域で grant を適法に受領できる地位 (登記/registry の DISCLOSED 状態; kosatsu designation landscape は開示事実として添付)" :screen/code "S4" :screen/basis "ADR-2606072000 (kosatsu — competing-claim は開示、判定は vote)" :fs/sourcing :authoritative}
+ {:fs/id "scr.s5-no-private-capture" :fs/kind :screen :fs/label "S5 私的捕獲なし — 交付が株主・所有者の私的 payoff に転化しない (株式会社の一般運転資金は抵触; 特定 open 成果物への milestone-escrow は通過しうる)" :screen/code "S5" :screen/basis "ADR-2605192100 Ownership rule + ADR-2606052300 G1 (no investment vehicle)" :fs/sourcing :authoritative}
+ {:fs/id "scr.s6-public-reporting" :fs/kind :screen :fs/label "S6 透明性床 — 資金使途の公開報告に合意 (on-chain or published; 永久記憶=相互監視 整合)" :screen/code "S6" :screen/basis "ADR-2605192100 §1.12 Transparent conditions + Tier-0 永久記憶" :fs/sourcing :authoritative}
+
+ ;; ───────────────────────────── weighted criteria (優先度 rubric — PUBLIC weights, Σ = 1.0) ──
+ {:fs/id "cr.mission-fit" :fs/kind :criterion :fs/label "C1 mission-axis fit — 労働解放/Wellbecoming/多世代/commons へどれだけ直接効くか" :criterion/code "C1" :criterion/weight 0.20 :criterion/axis :mission-fit :fs/sourcing :authoritative}
+ {:fs/id "cr.openness" :fs/kind :criterion :fs/label "C2 openness — license/データ/意思決定プロセスの公開度" :criterion/code "C2" :criterion/weight 0.15 :criterion/axis :openness :fs/sourcing :authoritative}
+ {:fs/id "cr.financial-stewardship" :fs/kind :criterion :fs/label "C3 financial stewardship — 開示財務の健全性: program 比率 / 準備金月数 / 資金源集中 HHI (単一資金源依存は脆弱)" :criterion/code "C3" :criterion/weight 0.15 :criterion/axis :financial-stewardship :fs/sourcing :authoritative}
+ {:fs/id "cr.governance" :fs/kind :criterion :fs/label "C4 governance integrity — 理事会独立性 / member governance / 議事録公開" :criterion/code "C4" :criterion/weight 0.10 :criterion/axis :governance :fs/sourcing :authoritative}
+ {:fs/id "cr.tori-release" :fs/kind :criterion :fs/label "C5 取-release — 交付が権力・市場集中を解放方向へ動かすか (集中を増築しないか)" :criterion/code "C5" :criterion/weight 0.15 :criterion/axis :tori-release :fs/sourcing :authoritative}
+ {:fs/id "cr.wellbecoming-evidence" :fs/kind :criterion :fs/label "C6 wellbecoming evidence — 受益 cohort の as-of 軌跡で示される効果 (vanity metric ではなく) + relief-gap 適合" :criterion/code "C6" :criterion/weight 0.10 :criterion/axis :wellbecoming :fs/sourcing :authoritative}
+ {:fs/id "cr.additionality" :fs/kind :criterion :fs/label "C7 additionality — この交付がなければ起きない仕事か (既存資金の置換・crowding-out でないか)" :criterion/code "C7" :criterion/weight 0.10 :criterion/axis :additionality :fs/sourcing :authoritative}
+ {:fs/id "cr.capacity" :fs/kind :criterion :fs/label "C8 capacity — 実行能力: track record / maintainer 健全性 / 供給網依存" :criterion/code "C8" :criterion/weight 0.05 :criterion/axis :capacity :fs/sourcing :authoritative}
+
+ ;; ───────────────────────────── evidence sources (always PUBLIC surfaces) ────
+ {:fs/id "src.kanjo" :fs/kind :source :fs/label "kanjō 勘定 — 一次開示の財務 (EDINET/EDGAR/CH/OAM)" :source/actor "actor:kanjo" :source/nature :primary-disclosure :fs/sourcing :authoritative}
+ {:fs/id "src.kabuto" :fs/kind :source :fs/label "kabuto 兜 — supply-chain 集中度 (HHI/betweenness)" :source/actor "actor:kabuto" :source/nature :kg-mirror :fs/sourcing :authoritative}
+ {:fs/id "src.tsumugi" :fs/kind :source :fs/label "tsumugi 紡ぎ — 取-concentration / 縁 graph" :source/actor "actor:tsumugi" :source/nature :kg-mirror :fs/sourcing :authoritative}
+ {:fs/id "src.kosatsu" :fs/kind :source :fs/label "kosatsu 高札 — designation の competing-claim landscape (開示事実)" :source/actor "actor:kosatsu" :source/nature :kg-mirror :fs/sourcing :authoritative}
+ {:fs/id "src.ooyake" :fs/kind :source :fs/label "ooyake 公 — 政府 atlas / registry の公的記録" :source/actor "actor:ooyake" :source/nature :public-record :fs/sourcing :authoritative}
+ {:fs/id "src.shiori" :fs/kind :source :fs/label "shiori 栞 — cohort 単位の detraction/relief-gap (aggregate-only)" :source/actor "actor:shiori" :source/nature :kg-mirror :fs/sourcing :authoritative}
+ {:fs/id "src.public-repo" :fs/kind :source :fs/label "公開 repo / 公開議事録 / 公開報告書 (org 自身の public declarations)" :source/actor "actor:kawaraban" :source/nature :public-record :fs/sourcing :authoritative}
+
+ ;; criterion → source (where each criterion's evidence lives — G5)
+ ;; (edges are below with the other 縁)
+
+ ;; ───────────────────────────── candidate orgs (ALL FICTIONAL — G6) ──────────
+ {:fs/id "org.osslib" :fs/kind :org :fs/label "(架空) 基盤OSSライブラリ財団 — 広く使われる infra OSS の maintainer 支援" :org/form :foundation :org/synthetic true :org/mission-axis :commons :fs/sourcing :representative}
+ {:fs/id "org.foodbank" :fs/kind :org :fs/label "(架空) 地域フードバンク協同組合 — 食料再分配 commons" :org/form :cooperative :org/synthetic true :org/mission-axis :sustenance :fs/sourcing :representative}
+ {:fs/id "org.robotics-oss" :fs/kind :org :fs/label "(架空) open robotics 研究所 — 労働解放 robotics の OSS 公開" :org/form :nonprofit :org/synthetic true :org/mission-axis :labor-liberation :fs/sourcing :representative}
+ {:fs/id "org.adfunded-media" :fs/kind :org :fs/label "(架空) 広告収益依存メディア — 第三者広告 + engagement 最適化が収益構造" :org/form :company :org/synthetic true :org/mission-axis :knowledge :fs/sourcing :representative}
+ {:fs/id "org.surveil-vendor" :fs/kind :org :fs/label "(架空) 監視分析ベンダー — monetized・asymmetric surveillance 製品" :org/form :company :org/synthetic true :org/mission-axis :knowledge :fs/sourcing :representative}
+ {:fs/id "org.equity-seeker" :fs/kind :org :fs/label "(架空) 出資希望スタートアップ — 一般運転資金を求める株主構造 (私的 payoff へ転化)" :org/form :company :org/synthetic true :org/mission-axis :commons :fs/sourcing :representative}
+ {:fs/id "org.newgroup" :fs/kind :org :fs/label "(架空) 新設相互扶助グループ — 公開記録がまだ薄い" :org/form :unincorporated :org/synthetic true :org/mission-axis :care :fs/sourcing :representative}
+ {:fs/id "org.opaque-finance" :fs/kind :org :fs/label "(架空) 財務非開示の福祉団体 — 活動は mission 整合だが開示が無い" :org/form :nonprofit :org/synthetic true :org/mission-axis :care :fs/sourcing :representative}
+
+ ;; ───────────────────────────── milestones (post-grant watch) ────────────────
+ {:fs/id "ms.osslib-1" :fs/kind :milestone :fs/label "公開: 対象ライブラリのセキュリティ監査報告 + 修正リリース" :milestone/evidence "published audit report + tagged release (public repo)" :fs/sourcing :representative}
+ {:fs/id "ms.osslib-2" :fs/kind :milestone :fs/label "公開: maintainer 増員と governance 文書の公開" :milestone/evidence "published GOVERNANCE.md + maintainer roster diff" :fs/sourcing :representative}
+
+ ;; ───────────────────────────── 縁 (edges) ──────────────────────────────────
+ ;; (A) :sourced-from — criterion → source (the rubric's evidence supply, G5)
+ {:en/from "cr.mission-fit" :en/to "src.public-repo" :en/kind :sourced-from :en/sourcing :authoritative}
+ {:en/from "cr.openness" :en/to "src.public-repo" :en/kind :sourced-from :en/sourcing :authoritative}
+ {:en/from "cr.financial-stewardship" :en/to "src.kanjo" :en/kind :sourced-from :en/sourcing :authoritative}
+ {:en/from "cr.governance" :en/to "src.ooyake" :en/kind :sourced-from :en/sourcing :authoritative}
+ {:en/from "cr.tori-release" :en/to "src.tsumugi" :en/kind :sourced-from :en/sourcing :authoritative}
+ {:en/from "cr.tori-release" :en/to "src.kabuto" :en/kind :sourced-from :en/sourcing :authoritative}
+ {:en/from "cr.wellbecoming-evidence" :en/to "src.shiori" :en/kind :sourced-from :en/sourcing :authoritative}
+ {:en/from "cr.additionality" :en/to "src.public-repo" :en/kind :sourced-from :en/sourcing :authoritative}
+ {:en/from "cr.capacity" :en/to "src.kabuto" :en/kind :sourced-from :en/sourcing :authoritative}
+
+ ;; (B) :screened — org → screen (hard eligibility; :finding is a DISCLOSED conformance fact)
+ ;; org.osslib — all 6 conform → eligible
+ {:en/from "org.osslib" :en/to "scr.s1-nonprofit-conformance" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "scr.s2-rider-conformance" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "scr.s3-open-output" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "scr.s4-lawful-recipient" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "scr.s5-no-private-capture" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "scr.s6-public-reporting" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ ;; org.foodbank — all 6 conform → eligible
+ {:en/from "org.foodbank" :en/to "scr.s1-nonprofit-conformance" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "scr.s2-rider-conformance" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "scr.s3-open-output" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "scr.s4-lawful-recipient" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "scr.s5-no-private-capture" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "scr.s6-public-reporting" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ ;; org.robotics-oss — all 6 conform → eligible
+ {:en/from "org.robotics-oss" :en/to "scr.s1-nonprofit-conformance" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "scr.s2-rider-conformance" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "scr.s3-open-output" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "scr.s4-lawful-recipient" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "scr.s5-no-private-capture" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "scr.s6-public-reporting" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ ;; org.adfunded-media — S2 conflicts (第三者広告依存) → structurally unproposable
+ {:en/from "org.adfunded-media" :en/to "scr.s2-rider-conformance" :en/kind :screened :en/finding :conflicts :en/sourcing :representative}
+ {:en/from "org.adfunded-media" :en/to "scr.s1-nonprofit-conformance" :en/kind :screened :en/finding :conflicts :en/sourcing :representative}
+ ;; org.surveil-vendor — S2 conflicts (monetized/asymmetric surveillance) → unproposable
+ {:en/from "org.surveil-vendor" :en/to "scr.s2-rider-conformance" :en/kind :screened :en/finding :conflicts :en/sourcing :representative}
+ {:en/from "org.surveil-vendor" :en/to "scr.s3-open-output" :en/kind :screened :en/finding :conflicts :en/sourcing :representative}
+ ;; org.equity-seeker — S5 conflicts (一般運転資金が株主 payoff へ) → unproposable
+ {:en/from "org.equity-seeker" :en/to "scr.s5-no-private-capture" :en/kind :screened :en/finding :conflicts :en/sourcing :representative}
+ {:en/from "org.equity-seeker" :en/to "scr.s1-nonprofit-conformance" :en/kind :screened :en/finding :conflicts :en/sourcing :representative}
+ ;; org.newgroup — screens mostly undetermined (記録が薄い) → insufficient evidence
+ {:en/from "org.newgroup" :en/to "scr.s1-nonprofit-conformance" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.newgroup" :en/to "scr.s2-rider-conformance" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.newgroup" :en/to "scr.s3-open-output" :en/kind :screened :en/finding :undetermined :en/sourcing :representative}
+ {:en/from "org.newgroup" :en/to "scr.s4-lawful-recipient" :en/kind :screened :en/finding :undetermined :en/sourcing :representative}
+ ;; org.opaque-finance — S6 undetermined (財務・報告の開示なし) → insufficient evidence
+ {:en/from "org.opaque-finance" :en/to "scr.s1-nonprofit-conformance" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.opaque-finance" :en/to "scr.s2-rider-conformance" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.opaque-finance" :en/to "scr.s3-open-output" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.opaque-finance" :en/to "scr.s4-lawful-recipient" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.opaque-finance" :en/to "scr.s5-no-private-capture" :en/kind :screened :en/finding :conforms :en/sourcing :representative}
+ {:en/from "org.opaque-finance" :en/to "scr.s6-public-reporting" :en/kind :screened :en/finding :undetermined :en/sourcing :representative}
+
+ ;; (C) :meets — org → criterion (evidence-weighted; every edge names its public source)
+ ;; org.osslib (coverage 8/8)
+ {:en/from "org.osslib" :en/to "cr.mission-fit" :en/kind :meets :en/weight 0.9 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "cr.openness" :en/kind :meets :en/weight 1.0 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "cr.financial-stewardship" :en/kind :meets :en/weight 0.8 :en/evidence "src.kanjo" :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "cr.governance" :en/kind :meets :en/weight 0.8 :en/evidence "src.ooyake" :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "cr.tori-release" :en/kind :meets :en/weight 0.7 :en/evidence "src.tsumugi" :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "cr.wellbecoming-evidence" :en/kind :meets :en/weight 0.6 :en/evidence "src.shiori" :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "cr.additionality" :en/kind :meets :en/weight 0.9 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "cr.capacity" :en/kind :meets :en/weight 0.7 :en/evidence "src.kabuto" :en/sourcing :representative}
+ ;; org.foodbank (coverage 7/8)
+ {:en/from "org.foodbank" :en/to "cr.mission-fit" :en/kind :meets :en/weight 0.8 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "cr.openness" :en/kind :meets :en/weight 0.6 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "cr.financial-stewardship" :en/kind :meets :en/weight 0.7 :en/evidence "src.kanjo" :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "cr.governance" :en/kind :meets :en/weight 0.9 :en/evidence "src.ooyake" :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "cr.wellbecoming-evidence" :en/kind :meets :en/weight 0.9 :en/evidence "src.shiori" :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "cr.additionality" :en/kind :meets :en/weight 0.7 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "cr.capacity" :en/kind :meets :en/weight 0.6 :en/evidence "src.kabuto" :en/sourcing :representative}
+ ;; org.robotics-oss (coverage 6/8)
+ {:en/from "org.robotics-oss" :en/to "cr.mission-fit" :en/kind :meets :en/weight 1.0 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "cr.openness" :en/kind :meets :en/weight 0.9 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "cr.financial-stewardship" :en/kind :meets :en/weight 0.6 :en/evidence "src.kanjo" :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "cr.tori-release" :en/kind :meets :en/weight 0.8 :en/evidence "src.tsumugi" :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "cr.additionality" :en/kind :meets :en/weight 0.8 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "cr.capacity" :en/kind :meets :en/weight 0.5 :en/evidence "src.kabuto" :en/sourcing :representative}
+ ;; org.newgroup (coverage 2/8 — thin record, below the floor)
+ {:en/from "org.newgroup" :en/to "cr.mission-fit" :en/kind :meets :en/weight 0.7 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.newgroup" :en/to "cr.wellbecoming-evidence" :en/kind :meets :en/weight 0.5 :en/evidence "src.shiori" :en/sourcing :representative}
+ ;; org.opaque-finance (coverage 3/8 — no disclosed financials, C3 missing by definition)
+ {:en/from "org.opaque-finance" :en/to "cr.mission-fit" :en/kind :meets :en/weight 0.8 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.opaque-finance" :en/to "cr.wellbecoming-evidence" :en/kind :meets :en/weight 0.7 :en/evidence "src.shiori" :en/sourcing :representative}
+ {:en/from "org.opaque-finance" :en/to "cr.additionality" :en/kind :meets :en/weight 0.6 :en/evidence "src.public-repo" :en/sourcing :representative}
+ ;; org.adfunded-media / org.surveil-vendor / org.equity-seeker — excluded by screens; criterion
+ ;; evidence intentionally sparse (screens fire BEFORE weighting; an excluded org's fit is moot)
+ {:en/from "org.adfunded-media" :en/to "cr.mission-fit" :en/kind :meets :en/weight 0.4 :en/evidence "src.public-repo" :en/sourcing :representative}
+ {:en/from "org.surveil-vendor" :en/to "cr.capacity" :en/kind :meets :en/weight 0.8 :en/evidence "src.kabuto" :en/sourcing :representative}
+ {:en/from "org.equity-seeker" :en/to "cr.mission-fit" :en/kind :meets :en/weight 0.6 :en/evidence "src.public-repo" :en/sourcing :representative}
+
+ ;; (D) :disburses-via — org → instrument (the proposed rail for eligible orgs)
+ {:en/from "org.osslib" :en/to "i.milestone-escrow" :en/kind :disburses-via :en/sourcing :representative}
+ {:en/from "org.foodbank" :en/to "i.grant" :en/kind :disburses-via :en/sourcing :representative}
+ {:en/from "org.robotics-oss" :en/to "i.in-kind" :en/kind :disburses-via :en/sourcing :representative}
+
+ ;; (E) :watched-by — org → milestone (post-grant attestation-gated watch)
+ {:en/from "org.osslib" :en/to "ms.osslib-1" :en/kind :watched-by :en/sourcing :representative}
+ {:en/from "org.osslib" :en/to "ms.osslib-2" :en/kind :watched-by :en/sourcing :representative}]

@@ -24630,6 +24630,66 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606122001-tanemaki-public-fund-grant-steward.md",
+      "id": "adr-2606122001-tanemaki-public-fund-grant-steward",
+      "title": "ADR-2606122001: tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion): public DD + disclosed criteria, vote-decided",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tanemaki-public-fund-grant-steward",
+      "authoritative": true,
+      "authoritative_for": [
+        "public-fund-grant-steward",
+        "fund-stewardship-ontology",
+        "public-fund-dd-criteria"
+      ],
+      "related": [
+        "2606022000",
+        "2606011800",
+        "2606072000",
+        "2606021600",
+        "2606082100",
+        "2606052300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192145",
+        "2605192130",
+        "2606052300",
+        "2605312345",
+        "2605231525",
+        "2605215000",
+        "2606062100",
+        "2606032000"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606122100-session-close-tanemaki-public-fund-steward.md",
+      "id": "adr-2606122100-session-close-tanemaki-public-fund-steward",
+      "title": "ADR-2606122100: Session close — Public-Fund 投資判断/DD survey → tanemaki 種蒔き grant-steward R0 design+implementation (PR",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-tanemaki-public-fund-steward",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-12 tanemaki public-fund-steward session"
+      ],
+      "related": [
+        "adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606122001-tanemaki-public-fund-grant-steward"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606122300-session-close-tate-kaiyaku-45-wave-loop.md",
       "id": "adr-2606122300-session-close-tate-kaiyaku-45-wave-loop",
       "title": "ADR-2606122300: session close — tate 盾/kaiyaku 解約 45-wave coverage loop (publication layer 完成)",

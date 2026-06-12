@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tanemaki.ddScorecard",
+  "description": "A PUBLIC, advisory due-diligence scorecard over a candidate grantee organization (per ADR-2606122001). tanemaki 種蒔き fuses DISCLOSED public evidence (kanjō financial disclosure / kabuto supply-chain / tsumugi 取-concentration / kosatsu designation landscape / ooyake registry / shiori relief-gap) into hard charter SCREENS (S1..S6, eligibility) and a weighted RUBRIC (C1..C8, weights public, Σ=1.0). The card is a 参考意見 displayed in the voting UI: it DECIDES NOTHING — every grant is decided by 1 SBT = 1 vote on the GrantGovernor (ADR-2605192145). Findings are disclosed conformance facts with named sources, never verdicts on an organization's worth (N3). R0 evaluates SYNTHETIC orgs only; a real-org scorecard is a G7-gated live leg from primary disclosure.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["orgId", "orgSynthetic", "screenFindings", "ddFit", "evidenceCoverage", "route", "advisory", "decidedBy", "scorecardCid", "createdAt"],
+        "properties": {
+          "orgId": {
+            "type": "string",
+            "description": "tanemaki stewardship org id (`org.*`). For a live (G7-gated) evaluation this carries the kabuto/ooyake-resolvable entity id.",
+            "maxLength": 256
+          },
+          "orgSynthetic": {
+            "type": "boolean",
+            "description": "true = a FICTIONAL representative org (the whole R0 seed, G6). A real org (false) requires the G7 operator/Council gate + primary-disclosure provenance."
+          },
+          "screenFindings": {
+            "type": "array",
+            "description": "Per-screen DISCLOSED conformance findings (S1 非営利整合 / S2 Rider §2 / S3 open-output / S4 受領適法性 / S5 私的捕獲なし / S6 透明性床).",
+            "items": { "type": "ref", "ref": "#screenFinding" }
+          },
+          "criterionScores": {
+            "type": "array",
+            "description": "Per-criterion evidence weights of the PUBLIC rubric (C1..C8). Computed on read from :meets edges — edge-primary, never a stored org score (N1).",
+            "items": { "type": "ref", "ref": "#criterionScore" }
+          },
+          "ddFit": {
+            "type": "string",
+            "description": "Σ criterionWeight × min(1, evidence) as a decimal string — the ADVISORY fit. Never a decision.",
+            "maxLength": 32
+          },
+          "evidenceCoverage": {
+            "type": "string",
+            "description": "Fraction of criteria with ≥1 evidence edge, as a decimal string. Below the disclosed floor ⇒ route insufficient-evidence (G5).",
+            "maxLength": 32
+          },
+          "route": {
+            "type": "string",
+            "description": "The steward's lane. There is NO funding route — funding is the members' vote (G1).",
+            "enum": ["excluded", "insufficient-evidence", "propose"]
+          },
+          "advisory": {
+            "type": "boolean",
+            "description": "MUST be true. The scorecard is a 参考意見; a false value is structurally invalid (G1)."
+          },
+          "decidedBy": {
+            "type": "string",
+            "description": "Who decides. Always the members — never tanemaki (G1).",
+            "enum": ["1-sbt-1-vote"]
+          },
+          "scorecardCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CIDv1 (raw/sha2-256) of the rendered public scorecard markdown. Re-derivable with `ipfs add --cid-version=1 --raw-leaves` — voters can verify the bytes (G4)."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp."
+          }
+        }
+      }
+    },
+    "screenFinding": {
+      "type": "object",
+      "required": ["screenCode", "basis", "finding"],
+      "properties": {
+        "screenCode": { "type": "string", "description": "S1..S6.", "maxLength": 8 },
+        "basis": { "type": "string", "description": "The DISCLOSED charter/Rider anchor (e.g. CHARTER-RIDER v3.1 §2).", "maxLength": 256 },
+        "finding": { "type": "string", "description": "A disclosed conformance fact, never a verdict (N3).", "enum": ["conforms", "conflicts", "undetermined", "unevaluated"] }
+      }
+    },
+    "criterionScore": {
+      "type": "object",
+      "required": ["criterionCode", "weight", "evidence", "sources"],
+      "properties": {
+        "criterionCode": { "type": "string", "description": "C1..C8.", "maxLength": 8 },
+        "weight": { "type": "string", "description": "The PUBLIC rubric weight (decimal string; all weights sum to 1.0 — G4).", "maxLength": 16 },
+        "evidence": { "type": "string", "description": "Evidence-backed satisfaction 0..1 (decimal string), integrated on read from :meets edges.", "maxLength": 16 },
+        "sources": { "type": "array", "description": "The named public sources the evidence came from (src.kanjo / src.kabuto / src.tsumugi / …). Every weight names its source (G5).", "items": { "type": "string", "maxLength": 64 } }
+      }
+    }
+  }
+}
