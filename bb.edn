@@ -32,12 +32,21 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:yobel
-  {:doc "yobel ヨベル Clojure test suite (langgraph-clj cells + orchestrator)"
+  {:doc "yobel ヨベル Clojure test suite (langgraph-clj cells + orchestrator E2E)"
    :task (do (require 'clojure.test
-                      'yobel.tests.test-cells
+                      'yobel.cells.rite-declaration.tests.test-cell
+                      'yobel.cells.creditor-enrollment.tests.test-cell
+                      'yobel.cells.debtor-enrollment.tests.test-cell
+                      'yobel.cells.release-settlement.tests.test-cell
+                      'yobel.cells.audit-witness.tests.test-cell
                       'yobel.tests.test-orchestrator)
-             (let [r (clojure.test/run-tests 'yobel.tests.test-cells
-                                             'yobel.tests.test-orchestrator)]
+             (let [r (clojure.test/run-tests
+                      'yobel.cells.rite-declaration.tests.test-cell
+                      'yobel.cells.creditor-enrollment.tests.test-cell
+                      'yobel.cells.debtor-enrollment.tests.test-cell
+                      'yobel.cells.release-settlement.tests.test-cell
+                      'yobel.cells.audit-witness.tests.test-cell
+                      'yobel.tests.test-orchestrator)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
