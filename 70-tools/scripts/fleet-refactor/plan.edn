@@ -13,7 +13,7 @@
          :evo-x2 {:host :dynamic         ; ⚠ 静的 IP 厳禁 — DHCP で腐る。discover.py --evo で毎回解決
                   :found-at "192.168.1.16" ; 2026-06-12 同定 (cuda Radeon 8060S 32GiB / Ubuntu)。.70/.22 は誤り (.22 は Mac だった)
                   :user "gad" :role :training-box
-                  :ssh :blocked-needs-ssh-copy-id ; host key 変化 + publickey 拒否 (OS 再インストール疑い)
+                  :ssh :connected ; 2026-06-12 鍵設置済 (pw は Keychain RDP 項目); 孤児鍵2つ除去; Ubuntu 24.04.2
                   :stack {:trainer :peft+trl      ; ADR-2605250400 §1.2
                           :unsloth :probed-fail-cuda-only}}} ; 90-docs/baien/probe_unsloth_rocm.json
 
@@ -67,8 +67,8 @@
             :demote "組立 lint エラー行→単位逆引き→スタブ降格→再組立"}
    :next [:escalate-todo-units-to-12b
           "bb load-file smoke を最終ゲートに追加 (warning 止まりの未解決 alias (str/trim-leading 等) を捕捉)"]}
-  {:stage 1 :name :cpt-clojure-corpus :status :blocked
-   :blockers [:evo-ssh]
+  {:stage 1 :name :cpt-clojure-corpus :status :env-setup
+   :env "EVO Ubuntu24.04 / gfx1151 / ROCm /opt/rocm / py3.12 / torch 未導入 → ROCm wheel 要"
    :design "公開 Clojure コーパス (EPL/MIT/Apache) 50-200M tokens の CPT-LoRA @ EVO ROCm — 構文知識をベースに足す (SFT では埋まらない)"}
   {:stage 2 :name :file-type-expert-loras :status :pending
    :design "file-type 別 LoRA expert 群 (langgraph-port / types-port / cells-port …) を決定的ルーティング; 教師 = 12b+検証ゲート産ペア (sft_to_distill.py 変換)"}
@@ -79,6 +79,5 @@
    :design "128-expert MoE の Clojure expert freeze-train (ADR-2605261900/2605262100) — substrate R1 到達後の本命移植先"}]
 
  :blockers
- [{:id :evo-ssh :owner :founder :action "! ssh-copy-id evo (publickey 拒否, OS 再インストール疑い)"}
-  {:id :live-gate-decision :owner :founder
+ [{:id :live-gate-decision :owner :founder
    :action "fuchi/abaki live_gate 空洞化の処置 (revert / 正規 ADR で R2 化 / abaki 素性調査)"}]}
