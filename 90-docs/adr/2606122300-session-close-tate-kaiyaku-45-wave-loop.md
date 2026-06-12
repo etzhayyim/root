@@ -15,8 +15,8 @@ authoritative_for:
 depends_on:
   - adr-2606122000
 related:
-  - adr-2606112200
-  - adr-2606112300
+  - adr-2606112201
+  - adr-2606112301
   - adr-2606112400
 supersedes: []
 superseded_by: []
@@ -81,4 +81,4 @@ case-actors — registry 成長で再生成を強制) · kaiyaku counts-sync ·
 
 # References
 
-ADR-2606112200/2606112300/2606112400/2606122000 · PR #1624
+ADR-2606112201/2606112301/2606112400/2606122000 · PR #1624

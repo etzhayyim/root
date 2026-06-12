@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """kaiyaku 解約 — edge-primary tie-burden analyzer over the member's 縁-ledger.
 
-ADR-2606112200. Reads a kotoba-EDN 縁-ledger (:svc/* + :member/* nodes, :en/* 縁) and
+ADR-2606112201. Reads a kotoba-EDN 縁-ledger (:svc/* + :member/* nodes, :en/* 縁) and
 surfaces — per TIE, never per member — where unused paid ties (sub-scriptions, dormant
 accounts, recurring card charges) accumulate burden, routed to RELEASE (縁切り = the
 member severing their OWN unused service ties), with a dependency cascade-guard.

@@ -1,7 +1,7 @@
 # kaiyaku 解約 — 縁切り (tie-severance) executor
 
 **DID**: `did:web:etzhayyim.com:actor:kaiyaku` (aka legacy `did:web:kaiyaku.etzhayyim.com`) ·
-**Tier**: B · **Status**: 🟡 R0 · **ADR**: 2606112200 · **depends**: 2606039200 (karakuri
+**Tier**: B · **Status**: 🟡 R0 · **ADR**: 2606112201 · **depends**: 2606039200 (karakuri
 ServiceOp tiers) · 2606072400 (organizer upstream) · 2605231525 (no-server-key) ·
 2605215000 (Murakumo-only) · 2605312345 (Datom = canonical state)
 
@@ -70,7 +70,7 @@ advice.
 | クーリングオフ / 返金 / 消費者庁 escalation (rights) | **kurashimori** |
 | Generic web-service ServiceOp adapters (T1/T2 engine, ToS stances) | **karakuri** (kaiyaku composes; never re-implements) |
 | 解約 / 退会 decision-ledger + severance plan + (gated) execution | **kaiyaku** (this actor) |
-| 不利条項の検出 + 法的手続きへの応答 (防御) | **tate 盾** (ADR-2606112300; its `:kaiyaku` routes feed this ledger via `kaiyaku-handoff.edn` → `handoff_ingest.py` — 自動更新窓の notice-days カレンダー化, wave 26 で往復配線) |
+| 不利条項の検出 + 法的手続きへの応答 (防御) | **tate 盾** (ADR-2606112301; its `:kaiyaku` routes feed this ledger via `kaiyaku-handoff.edn` → `handoff_ingest.py` — 自動更新窓の notice-days カレンダー化, wave 26 で往復配線) |
 | Harmful human relationships | **kokoro** (support; kaiyaku N1 refuses the domain) |
 
 ## Layout

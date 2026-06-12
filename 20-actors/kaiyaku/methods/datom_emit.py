@@ -45,7 +45,7 @@ def _fmt(v) -> str:
 
 def emit(nodes: dict, edges: list, res: dict, tx: int = 1) -> str:
     L = []
-    L.append(";; kaiyaku 解約 — GENERATED kotoba Datom log (ADR-2606112200). DO NOT hand-edit.")
+    L.append(";; kaiyaku 解約 — GENERATED kotoba Datom log (ADR-2606112201). DO NOT hand-edit.")
     L.append(";; Canonical EAVT state (ADR-2605312345). [e a v tx op].")
     L.append(";; GROUND op :add = durable. DERIVED :bond/is-transient = computed on read (G2).")
     L.append("")

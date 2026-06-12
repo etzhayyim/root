@@ -1,7 +1,7 @@
 # tate 盾 — citizen legal-defense concierge (worldwide)
 
 **DID**: `did:web:etzhayyim.com:actor:tate` · **Tier**: B · **Status**: 🟢 R2 (registry maturity) ·
-**ADR**: 2606112300 (R0 JP) + **2606112400 (R1 worldwide)** · **depends**: 2606112200
+**ADR**: 2606112301 (R0 JP) + **2606112400 (R1 worldwide)** · **depends**: 2606112201
 (kaiyaku) · 2605312500 (kurashimori) · 2605262700 (chigiri UPL prior art) · 2606060900
 (tasuke) · 2605231525 (no-server-key) · 2605215000 (Murakumo-only) · 2605312345
 (Datom = canonical state)

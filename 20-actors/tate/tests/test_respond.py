@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tate 盾 — response-planner tests (ADR-2606112300). Pure stdlib.
+"""tate 盾 — response-planner tests (ADR-2606112301). Pure stdlib.
 
 Verifies the defense gates empirically:
   - G6 架空請求 guard: court vocabulary on SMS → :suspected-fake; plan refuses any

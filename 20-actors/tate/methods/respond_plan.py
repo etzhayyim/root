@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """tate 盾 — legal-procedure response planner (個人としての対応支援; dry-run only at R0/R1).
 
-ADR-2606112300 + worldwide ADR-2606112400. Classifies a notice the member RECEIVED
+ADR-2606112301 + worldwide ADR-2606112400. Classifies a notice the member RECEIVED
 (支払督促 / 少額訴訟呼出 / 訴状 / 行政処分 / 内容証明 · US summons / small claims ·
 European order for payment / Small Claims · UK claim form · DE Mahnbescheid) against
 the jurisdiction-keyed procedure registry and builds a response plan: DISCLOSED

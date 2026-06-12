@@ -48,7 +48,7 @@ def emit(tx: int = 1) -> str:
     ps = plans(notices, procs)
 
     L = []
-    L.append(";; tate 盾 — GENERATED kotoba Datom log (ADR-2606112300). DO NOT hand-edit.")
+    L.append(";; tate 盾 — GENERATED kotoba Datom log (ADR-2606112301). DO NOT hand-edit.")
     L.append(";; Canonical EAVT state (ADR-2605312345). [e a v tx op].")
     L.append(";; GROUND op :add = durable. DERIVED :bond/is-transient = computed on read (G2).")
     L.append("")

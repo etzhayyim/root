@@ -6,7 +6,7 @@
  :actor/aka       ["did:web:kaiyaku.etzhayyim.com"] ; legacy ref in organizer CLAUDE.md pipeline
  :actor/purpose   "縁切り (tie-severance) EXECUTOR for the member's OWN service ties — the missing last leg of the organizer subscription-discovery pipeline (mailer → organizer → kaiyaku). Holds the member's 縁-ledger (subscriptions / dormant accounts / recurring card charges / SSO·payment dependencies) edge-primary in the kotoba Datom log, computes per-TIE burden routed to RELEASE (:keep/:review/:sever, organizer-disclosed thresholds, dependency cascade-guard), and turns an approved :sever into a severance plan through the safest adapter tier (karakuri ServiceOp pattern: T1 official-API cancel > T2 ToS-permitted browser-use > T3 self-submit 解約/退会 procedure). Own-account-only, ToS-honest (no detection-evasion), no-server-key, member-signed destructive ops, cost-of-severance honesty (notice/違約金 surfaced, never planned around). Human relationships are STRUCTURALLY out of scope — a tie target is always a service, never a person."
  :actor/status    :r0
- :actor/adr       "2606112200"
+ :actor/adr       "2606112201"
  :actor/related   ["2606039200"   ; karakuri ServiceOp tiers + ToS stances (execution substrate)
                    "2606072400"   ; organizer kotoba-native (subscription-discovery upstream)
                    "2605312500"   ; kurashimori (クーリングオフ/返金 — adjacent, NOT 解約)

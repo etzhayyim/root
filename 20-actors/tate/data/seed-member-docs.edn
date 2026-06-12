@@ -1,4 +1,4 @@
-;; tate 盾 — SYNTHETIC member documents seed (ADR-2606112300). G1: everything here is
+;; tate 盾 — SYNTHETIC member documents seed (ADR-2606112301). G1: everything here is
 ;; :synthetic — fictional contracts the demo member "signed" and fictional notices they
 ;; "received". No real company, court, or person. Clause sentences intentionally contain
 ;; the registry keyword shapes so the scanner is exercised end-to-end.

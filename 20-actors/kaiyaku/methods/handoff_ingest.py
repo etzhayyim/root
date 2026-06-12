@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""kaiyaku 解約 — tate 盾 handoff ingest (wave 26, ADR-2606112200/2606112300).
+"""kaiyaku 解約 — tate 盾 handoff ingest (wave 26, ADR-2606112201/2606112301).
 
 tate の不利条項スキャンが :kaiyaku ルートで検出した自動更新条項・解約窓
 (out/kaiyaku-handoff.edn) を読み、縁-ledger 側の **notice-window ワークリスト**に

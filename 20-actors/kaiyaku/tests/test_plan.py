@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""kaiyaku 解約 — severance-plan tests (ADR-2606112200). Pure stdlib.
+"""kaiyaku 解約 — severance-plan tests (ADR-2606112201). Pure stdlib.
 
 Verifies the executor gates empirically:
   - safest-first tier routing: api → T1, browser-permitted → T2, else T3

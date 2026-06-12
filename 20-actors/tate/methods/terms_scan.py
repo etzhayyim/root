@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """tate 盾 — disadvantageous-clause scanner over the member's OWN contracts / ToS.
 
-ADR-2606112300. Matches the member's contract texts (consumer ToS / credit-card member
+ADR-2606112301. Matches the member's contract texts (consumer ToS / credit-card member
 agreement / B2B 法人契約) against the coded clause-pattern registry and emits FLAGS:
 pattern + DISCLOSED statutory anchor + risk + route (kurashimori rights / kaiyaku
 severance / professional referral). 不利な契約をしていないか — surfaced, not adjudicated.
@@ -140,7 +140,7 @@ def make_kaiyaku_handoff(res: dict) -> str:
     """Machine-readable handoff to kaiyaku 解約 (wave 23): every :kaiyaku-routed flag
     (自動更新条項・解約窓) as EDN the 縁-ledger can ingest (notice-days カレンダー化).
     tate detects the clause; kaiyaku owns the severance — the actors COMPOSE."""
-    L = [";; tate 盾 → kaiyaku 解約 handoff — GENERATED (ADR-2606112300/2606112200). DO NOT hand-edit.",
+    L = [";; tate 盾 → kaiyaku 解約 handoff — GENERATED (ADR-2606112301/2606112201). DO NOT hand-edit.",
          ";; :kaiyaku-routed clause flags only — 自動更新/解約窓 candidates for the 縁-ledger.", ""]
     L.append("[")
     for f in res["flags"]:

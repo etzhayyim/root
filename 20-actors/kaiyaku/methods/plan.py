@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """kaiyaku 解約 — severance-plan builder (dry-run only at R0).
 
-ADR-2606112200. Turns a :sever / :review decision on a tie into a concrete severance
+ADR-2606112201. Turns a :sever / :review decision on a tie into a concrete severance
 plan routed through the safest adapter tier (the karakuri ServiceOp tiering,
 ADR-2606039200):
 

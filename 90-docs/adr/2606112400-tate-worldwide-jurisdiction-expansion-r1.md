@@ -13,9 +13,9 @@ priority_note: "generalizes the JP-only legal-defense registries to a jurisdicti
 authoritative_for:
   - tate-jurisdiction-registry
 depends_on:
-  - adr-2606112300 # tate R0 (JP-only)
+  - adr-2606112301 # tate R0 (JP-only)
 related:
-  - adr-2606112200 # kaiyaku
+  - adr-2606112201 # kaiyaku
   - adr-2606021600 # ooyake world government atlas (worldwide-mirror precedent)
   - adr-2606072000 # kosatsu (multi-asserter / jurisdiction-divergence precedent)
 supersedes: []
@@ -30,7 +30,7 @@ superseded_by: []
 
 # Context
 
-tate R0 (ADR-2606112300) shipped JP-only: 消費者契約法/民訴法-anchored registries, the
+tate R0 (ADR-2606112301) shipped JP-only: 消費者契約法/民訴法-anchored registries, the
 特別送達 fake-guard, and 法テラス referrals. The founder's next step: **「日本以外にも
 全て対応」**. "全て" cannot honestly mean encoding ~193 legal systems at once — the
 roster's own precedent (inochi G5, uchiwake crosscheck, ooyake) is **coverage honesty**:
@@ -115,7 +115,7 @@ US state-level decomposition, :kr :cn :tw :in :br :au :ca :sg, civil specialty t
 
 # References
 
-- `20-actors/tate/` · ADR-2606112300 (R0) · ooyake ADR-2606021600 · kosatsu
+- `20-actors/tate/` · ADR-2606112301 (R0) · ooyake ADR-2606021600 · kosatsu
   ADR-2606072000 · inochi ADR-2606073000 (coverage honesty)
 - Intl anchors referenced (all `:verify-current-law`): FAA; FTC Negative Option Rule
   16 CFR 425; Cal. Bus. & Prof. Code §17600+; FRCP 12(a); Directive 93/13/EEC;

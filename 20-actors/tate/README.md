@@ -9,7 +9,7 @@ legal *information*, never legal advice.
 - 🌐 公開ガイド (crawlable HTML + FAQ JSON-LD): `https://etzhayyim.com/tate/`
 - 📇 1 case = 1 actor (profile から checklist / case.json の DL と相談先):
   `https://etzhayyim.com/actor/tate/cases.json`
-- 📚 設計と不変条件: [`CLAUDE.md`](CLAUDE.md) · ADR-2606112300 (R0) /
+- 📚 設計と不変条件: [`CLAUDE.md`](CLAUDE.md) · ADR-2606112301 (R0) /
   2606112400 (worldwide) / 2606122000 (R2 status)
 - 🔗 縁切り executor: [`../kaiyaku/`](../kaiyaku/) (解約・退会の実行系 —
   tate が検出した自動更新条項を handoff で受け取る)

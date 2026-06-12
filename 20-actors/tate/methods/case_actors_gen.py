@@ -56,7 +56,7 @@ def did_doc(p: dict, root: str) -> dict:
              "serviceEndpoint": f"{root}/actor/{s}/template.md"},
             {"id": f"{did}#guide", "type": "EtzhayyimCaseGuide",
              "serviceEndpoint": f"{root}/tate/{p.get(':proc/jurisdiction', ':jp').lstrip(':')}.html"}],
-        "_meta": {"adr": ["2606112300", "2606112400", "2606122000"],
+        "_meta": {"adr": ["2606112301", "2606112400", "2606122000"],
                   "source": "tate procedure-registry", "kind": "case-mirror",
                   "parent": "did:web:etzhayyim.com:actor:tate",
                   "track": p.get(":proc/track", ":civil"),

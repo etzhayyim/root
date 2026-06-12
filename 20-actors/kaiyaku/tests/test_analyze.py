@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""kaiyaku 解約 — analyzer + Datom-emit tests (ADR-2606112200). Pure stdlib.
+"""kaiyaku 解約 — analyzer + Datom-emit tests (ADR-2606112201). Pure stdlib.
 
 Verifies the constitutional invariants empirically:
   - ledger loads (nodes + 縁), seed is non-trivial and synthetic/representative only

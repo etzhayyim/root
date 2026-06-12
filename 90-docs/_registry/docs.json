@@ -24044,70 +24044,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606112200-kaiyaku-tie-severance-executor-r0.md",
-      "id": "adr-2606112200-kaiyaku-tie-severance-executor-r0",
-      "title": "ADR-2606112200: kaiyaku 解約 — 縁切り (tie-severance) executor, Tier-B actor R0",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "kaiyaku-tie-severance-executor",
-      "authoritative": true,
-      "authoritative_for": [
-        "kaiyaku-actor-charter",
-        "enkiri-ledger-ontology"
-      ],
-      "related": [
-        "adr-2605312500",
-        "adr-2605312030",
-        "adr-2605302130",
-        "adr-2605263700",
-        "adr-2605181100"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2606039200",
-        "adr-2606072400",
-        "adr-2605231525",
-        "adr-2605215000",
-        "adr-2605312345"
-      ],
-      "last_verified": "2026-06-11",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2606112300-tate-citizen-legal-defense-concierge-r0.md",
-      "id": "adr-2606112300-tate-citizen-legal-defense-concierge-r0",
-      "title": "ADR-2606112300: tate 盾 — citizen legal-defense concierge (不利条項スキャン + 法的手続き応答支援), Tier-B actor R0",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "tate-citizen-legal-defense",
-      "authoritative": true,
-      "authoritative_for": [
-        "tate-actor-charter",
-        "clause-pattern-registry",
-        "procedure-response-registry"
-      ],
-      "related": [
-        "adr-2605312500",
-        "adr-2606060900",
-        "adr-2605312030",
-        "adr-2605181100"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2606112200",
-        "adr-2605262700",
-        "adr-2605231525",
-        "adr-2605215000",
-        "adr-2605312345"
-      ],
-      "last_verified": "2026-06-11",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2606112400-tate-worldwide-jurisdiction-expansion-r1.md",
       "id": "adr-2606112400-tate-worldwide-jurisdiction-expansion-r1",
       "title": "ADR-2606112400: tate 盾 R1 — worldwide jurisdiction expansion (日本以外にも対応)",
@@ -24119,14 +24055,14 @@
         "tate-jurisdiction-registry"
       ],
       "related": [
-        "adr-2606112200",
+        "adr-2606112201",
         "adr-2606021600",
         "adr-2606072000"
       ],
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2606112300"
+        "adr-2606112301"
       ],
       "last_verified": "2026-06-11",
       "amends": [],
@@ -24144,12 +24080,12 @@
         "tate-r2-status"
       ],
       "related": [
-        "adr-2606112200"
+        "adr-2606112201"
       ],
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2606112300",
+        "adr-2606112301",
         "adr-2606112400"
       ],
       "last_verified": "2026-06-12",
@@ -24168,8 +24104,8 @@
         "tate-kaiyaku-session-close"
       ],
       "related": [
-        "adr-2606112200",
-        "adr-2606112300",
+        "adr-2606112201",
+        "adr-2606112301",
         "adr-2606112400"
       ],
       "supersedes": [],

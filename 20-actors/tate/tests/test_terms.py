@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tate 盾 — clause-scanner + Datom-emit tests (ADR-2606112300). Pure stdlib.
+"""tate 盾 — clause-scanner + Datom-emit tests (ADR-2606112301). Pure stdlib.
 
 Verifies the constitutional invariants empirically:
   - registries + member docs load, all member-side data is :synthetic (G1)

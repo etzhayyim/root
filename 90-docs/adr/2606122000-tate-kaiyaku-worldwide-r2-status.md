@@ -13,10 +13,10 @@ priority_note: "status snapshot — declares tate R2 and fixes the invariant sys
 authoritative_for:
   - tate-r2-status
 depends_on:
-  - adr-2606112300
+  - adr-2606112301
   - adr-2606112400
 related:
-  - adr-2606112200
+  - adr-2606112201
 supersedes: []
 superseded_by: []
 ---
@@ -29,7 +29,7 @@ superseded_by: []
 
 # Context
 
-ADR-2606112300 (R0 JP) と ADR-2606112400 (R1 worldwide layer) の後、30分周期の
+ADR-2606112301 (R0 JP) と ADR-2606112400 (R1 worldwide layer) の後、30分周期の
 /loop が 33 iterations 走り、coverage と成熟度を毎 wave 交互に積んだ。本 ADR は
 その到達点を固定し、tate を **R2 (registry maturity)** と宣言する。
 
@@ -70,5 +70,5 @@ handoff_ingest (w26, round-trip test) · response-plans.json + clause-flags.json
 
 # References
 
-ADR-2606112200 (kaiyaku) · 2606112300 (tate R0) · 2606112400 (R1) · PR #1624
+ADR-2606112201 (kaiyaku) · 2606112301 (tate R0) · 2606112400 (R1) · PR #1624
 (wave-by-wave の全コミットログが詳細記録)
