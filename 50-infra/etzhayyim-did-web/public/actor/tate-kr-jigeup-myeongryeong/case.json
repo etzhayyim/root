@@ -1,0 +1,49 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:kr-jigeup-myeongryeong",
+  "label": "지급명령 (支払督促・韓国)",
+  "jurisdiction": ":kr",
+  "jurisdiction_label": "대한민국 (Korea)",
+  "track": ":civil",
+  "genuine_channels": [
+    ":formal-service"
+  ],
+  "service_note": "지급명령・소장は法院の送達 (민사소송법 송달規定) — SMS/メールの『法院』通知は偽",
+  "deadlines": [
+    {
+      "label": "이의신청 (異議申立て)",
+      "rule": "지급명령 송달일로부터 2주 이내 (異議で通常訴訟へ移行)",
+      "anchor": "민사소송법 470조",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":i-ui-sincheong",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "이의신청서를 発令法院へ提出 (→ 訴訟移行)"
+    },
+    {
+      "id": ":pay-or-settle",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "請求に理由がある場合: 支払い/分割の相談"
+    }
+  ],
+  "referrals": [
+    "청구액이 큰 경우 (소액사건 상한 3,000만원 초과)"
+  ],
+  "jurisdiction_referrals": [
+    "대한법률구조공단 (Korea Legal Aid, 132)",
+    "소비자상담센터 1372",
+    "地方弁護士会"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "경찰청 사이버범죄 신고 (ecrm.police.go.kr)",
+    "금융감독원 1332"
+  ],
+  "verify_current_law": true
+}

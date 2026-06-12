@@ -1,0 +1,63 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:jp-sashiosae",
+  "label": "債権差押命令 (給与・預金, 執行・日本)",
+  "jurisdiction": ":jp",
+  "jurisdiction_label": "日本",
+  "track": ":enforcement",
+  "genuine_channels": [
+    ":special-service"
+  ],
+  "service_note": "裁判所の書類は特別送達 (郵便職員手渡し・受領印)",
+  "deadlines": [
+    {
+      "label": "執行抗告",
+      "rule": "差押命令の送達から1週間以内に執行抗告が可能",
+      "anchor": "民事執行法10条2項",
+      "critical": false,
+      "verify_service_date": true
+    },
+    {
+      "label": "差押禁止の範囲 (生活保護)",
+      "rule": "給与は手取りの3/4が差押禁止 (33万円を超える部分は別) — 生活維持分は法律上守られている",
+      "anchor": "民事執行法152条",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":hani-henkou",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "生活が困難なら差押禁止債権の範囲変更を申立て (民執153条) — 法定の権利であり債務逃れではない"
+    },
+    {
+      "id": ":shikkou-koukoku",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "手続違背があれば執行抗告 (1週間以内)"
+    },
+    {
+      "id": ":seiri",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "債務全体の整理を検討 (任意整理/特定調停) — 財産隠しは違法 (N3): 権利行使と隠匿は別物"
+    }
+  ],
+  "referrals": [
+    "複数債権者からの差押え",
+    "債務整理 → 弁護士/司法書士/法テラス"
+  ],
+  "jurisdiction_referrals": [
+    "法テラス 0570-078374",
+    "地元弁護士会の法律相談",
+    "認定司法書士 (簡裁・140万円以下)"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "警察相談専用電話 #9110",
+    "消費者ホットライン 188"
+  ],
+  "verify_current_law": true
+}

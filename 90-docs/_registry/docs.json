@@ -24411,6 +24411,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606112400-tate-worldwide-jurisdiction-expansion-r1.md",
+      "id": "adr-2606112400-tate-worldwide-jurisdiction-expansion-r1",
+      "title": "ADR-2606112400: tate 盾 R1 — worldwide jurisdiction expansion (日本以外にも対応)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tate-worldwide-jurisdictions",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-jurisdiction-registry"
+      ],
+      "related": [
+        "adr-2606112201",
+        "adr-2606021600",
+        "adr-2606072000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606112301"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache.md",
       "id": "adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
       "title": "ADR-2606120750: Session close — search-actor audit → parquet-free CC ingest → kotoba read-path resident cache LIVE",
@@ -24528,6 +24553,55 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606122000-tate-kaiyaku-worldwide-r2-status.md",
+      "id": "adr-2606122000-tate-kaiyaku-worldwide-r2-status",
+      "title": "ADR-2606122000: tate 盾 R2 status — 34-wave coverage loop の到達点 (kaiyaku compose 含む)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "tate-r2-status",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-r2-status"
+      ],
+      "related": [
+        "adr-2606112201"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606112301",
+        "adr-2606112400"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606122300-session-close-tate-kaiyaku-45-wave-loop.md",
+      "id": "adr-2606122300-session-close-tate-kaiyaku-45-wave-loop",
+      "title": "ADR-2606122300: session close — tate 盾/kaiyaku 解約 45-wave coverage loop (publication layer 完成)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "tate-kaiyaku-session-close",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-kaiyaku-session-close"
+      ],
+      "related": [
+        "adr-2606112201",
+        "adr-2606112301",
+        "adr-2606112400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606122000"
+      ],
       "last_verified": "2026-06-12",
       "amends": [],
       "amended_by": []

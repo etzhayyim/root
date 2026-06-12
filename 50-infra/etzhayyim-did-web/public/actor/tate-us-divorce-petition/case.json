@@ -1,0 +1,51 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:us-divorce-petition",
+  "label": "Petition for dissolution (家事・米国)",
+  "jurisdiction": ":us",
+  "jurisdiction_label": "United States",
+  "track": ":family",
+  "genuine_channels": [
+    ":personal-service",
+    ":mail"
+  ],
+  "service_note": "service of process: personal service / certified mail / sheriff — 州規則による",
+  "deadlines": [
+    {
+      "label": "Response の提出",
+      "rule": "送達から30日以内が多い (州 family code・通知記載を確認) — 無応答は default となり財産分与・監護が一方的に決まり得る",
+      "anchor": "州 family code (例 Cal. Fam. Code §2020 系 / FL-120)",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":response",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "response form を期限内に提出 (default 回避が最優先)"
+    },
+    {
+      "id": ":mediation",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "mediation / collaborative の検討"
+    }
+  ],
+  "referrals": [
+    "family law facilitator / legal aid family unit",
+    "kokoro 心 (精神的サポート)"
+  ],
+  "jurisdiction_referrals": [
+    "state bar lawyer-referral service",
+    "Legal aid (lsc.gov)",
+    "state AG consumer protection"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "FTC reportfraud.ftc.gov",
+    "state AG consumer line"
+  ],
+  "verify_current_law": true
+}

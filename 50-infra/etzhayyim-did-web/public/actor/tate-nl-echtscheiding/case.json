@@ -1,0 +1,49 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:nl-echtscheiding",
+  "label": "Verzoekschrift echtscheiding (家事・オランダ)",
+  "jurisdiction": ":nl",
+  "jurisdiction_label": "Nederland",
+  "track": ":family",
+  "genuine_channels": [
+    ":formal-service"
+  ],
+  "service_note": "dagvaarding は gerechtsdeurwaarder による betekening (送達)",
+  "deadlines": [
+    {
+      "label": "Verweerschrift (advocaat 必須)",
+      "rule": "verweerschrift は原則6週間以内 — ただし家事は **advocaat による提出が必須** (本人不可の類型; gesubsidieerde rechtsbijstand で立てられる); 子がいれば ouderschapsplan が要件",
+      "anchor": "Rv 815-816 / Wet op de rechtsbijstand",
+      "critical": true,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":rechtsbijstand",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "gesubsidieerde rechtsbijstand (toevoeging) の申請は本人可 — 資力に応じ advocaat が付く"
+    },
+    {
+      "id": ":mediation",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "mediation 併用で共同 verzoek への転換も"
+    }
+  ],
+  "referrals": [
+    "即 advocaat (提出必須)",
+    "kokoro 心 (精神的サポート)"
+  ],
+  "jurisdiction_referrals": [
+    "Juridisch Loket (無料法律相談)",
+    "Raad voor Rechtsbijstand (法律扶助)"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Fraudehelpdesk 088-7867372",
+    "politie.nl"
+  ],
+  "verify_current_law": true
+}

@@ -103,6 +103,17 @@ def test_plans_cover_all_severables():
     assert all(s["verb"] == "export-own-data" for p in ps for s in p["steps"][-2:-1])
 
 
+def test_plans_json_export():
+    """Wave 40: severance plans の機械可読 JSON (tate と対称 — yoro UI 配線が
+    両 actor で完備)."""
+    import json
+    nodes, edges = load(SEED)
+    ps = plans(nodes, edges)
+    back = json.loads(json.dumps(ps, ensure_ascii=False))
+    assert len(back) == len(ps) >= 5
+    assert all(p["mode"] == "dry-run" and "steps" in p for p in back)
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for fn in fns:

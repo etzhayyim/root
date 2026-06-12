@@ -1,0 +1,56 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:uk-claim-form",
+  "label": "Claim Form (county court, England & Wales)",
+  "jurisdiction": ":uk",
+  "jurisdiction_label": "United Kingdom (England & Wales)",
+  "track": ":civil",
+  "genuine_channels": [
+    ":court-post",
+    ":formal-service"
+  ],
+  "service_note": "claim form / court documents は裁判所から郵送 (court post) — CPR Part 6",
+  "deadlines": [
+    {
+      "label": "Acknowledgment of service / Defence",
+      "rule": "particulars of claim 送達から14日以内に defence (acknowledgment を出せば28日)",
+      "anchor": "CPR Part 10 / 15.4",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":acknowledge",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "Acknowledgment of service (応答期間を28日に延長)"
+    },
+    {
+      "id": ":defence",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "Defence を提出 (認否 + 反論)"
+    },
+    {
+      "id": ":admit",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "請求に理由がある場合: admission + 分割提案"
+    }
+  ],
+  "referrals": [
+    "£10,000 超 (small claims track 外)",
+    "default judgment が既に出ている"
+  ],
+  "jurisdiction_referrals": [
+    "Citizens Advice",
+    "Law Society find-a-solicitor"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Action Fraud 0300 123 2040",
+    "Citizens Advice"
+  ],
+  "verify_current_law": true
+}

@@ -1,0 +1,54 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:uk-notice-of-enforcement",
+  "label": "Notice of enforcement (執行・英国)",
+  "jurisdiction": ":uk",
+  "jurisdiction_label": "United Kingdom (England & Wales)",
+  "track": ":enforcement",
+  "genuine_channels": [
+    ":mail"
+  ],
+  "service_note": "claim form / court documents は裁判所から郵送 (court post) — CPR Part 6",
+  "deadlines": [
+    {
+      "label": "7 clear days",
+      "rule": "enforcement agent は notice から7 clear days 経過後にのみ訪問できる — この間が支払交渉/controlled goods agreement の窓",
+      "anchor": "Tribunals, Courts and Enforcement Act 2007 Sch 12 / Taking Control of Goods Regs 2013",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":negotiate",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "7日以内に支払/分割を書面で交渉 (訪問費用の加算を防ぐ)"
+    },
+    {
+      "id": ":exempt-goods",
+      "kind": ":self-decide",
+      "protective": true,
+      "label": "生活必需品・仕事道具 (£1,350 まで) は exempt goods — 差押え不可; リスト化して主張"
+    },
+    {
+      "id": ":vulnerable",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "vulnerable (高齢・障害・病気) なら執行は追加保護の対象 — 申告"
+    }
+  ],
+  "referrals": [
+    "debt 全体の整理 → StepChange / National Debtline (無料)"
+  ],
+  "jurisdiction_referrals": [
+    "Citizens Advice",
+    "Law Society find-a-solicitor"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Action Fraud 0300 123 2040",
+    "Citizens Advice"
+  ],
+  "verify_current_law": true
+}
