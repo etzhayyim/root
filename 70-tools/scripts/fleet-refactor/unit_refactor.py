@@ -179,9 +179,13 @@ def bb_compile(code: str, ns: str) -> tuple[bool, str]:
     import shutil
     if not shutil.which("bb"):
         return True, "bb unavailable — compile smoke skipped"
-    fname = ns.rsplit(".", 1)[-1].replace("-", "_") + ".clj"
+    # bb は ns → クラスパス相対パス (a.b-c → a/b_c.clj) で探す。フル構造を作る。
+    rel = Path(*ns.split(".")).with_suffix(".clj")
+    rel = rel.with_name(rel.name.replace("-", "_"))
     with tempfile.TemporaryDirectory() as d:
-        (Path(d) / fname).write_text(code, encoding="utf-8")
+        target = Path(d) / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(code, encoding="utf-8")
         r = subprocess.run(["bb", "-cp", d, "-e", f"(require '{ns})"],
                            capture_output=True, text=True, timeout=90)
     return r.returncode == 0, (r.stdout + r.stderr).strip()
