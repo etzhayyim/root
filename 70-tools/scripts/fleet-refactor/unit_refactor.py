@@ -170,7 +170,7 @@ UNIT_LINT_CONFIG = ('{:linters {:unresolved-symbol {:level :warning} '
 def lint_text(code: str, config: str | None = None) -> tuple[bool, str]:
     # (ns scratch) と一致するよう scratch.clj 固定名で lint する
     # (ランダム temp 名だと namespace-name-mismatch で全滅する)
-    m = re.match(r"\(ns ([\w.\-]+)", code)
+    m = re.search(r"\(ns ([\w.\-]+)", code)  # 組立コードは ;; コメントで始まる — match では拾えない
     fname = ((m.group(1).rsplit(".", 1)[-1].replace("-", "_")) if m else "scratch") + ".clj"
     with tempfile.TemporaryDirectory() as d:
         path = Path(d) / fname
@@ -240,16 +240,26 @@ def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
     bad = [r for r in results if r["status"] != "ok"]
     rec.update(units=len(units), unit_ok=len(results) - len(bad),
                secs=round(time.time() - t0, 1))
-    if bad:
-        return {**rec, "status": "fail",
-                "reason": f"{len(bad)} units failed: "
-                          + "; ".join(f"{b['name']}({b.get('reason','')[:60]})" for b in bad[:3])}
+    # 失敗単位は明示的 TODO スタブとして部分組立する (全滅要求だと (rate)^N で
+    # ファイル成功 ≈ 0 になる)。スタブは throw + 原文コメントで「正直に」残す。
+    for r in results:
+        if r["status"] != "ok":
+            orig = "\n".join(";; " + l for l in r["code"].splitlines())
+            if r["kind"] == "consts":
+                stub = f"(def {kebab(r['name'])} nil) ;; TODO: port-failed const\n"
+            else:
+                stub = (f"(defn {kebab(r['name'])} [& _]\n"
+                        f"  (throw (ex-info \"TODO: port-failed\" "
+                        f"{{:from \"{r['name']}\"}})))\n")
+            r["clj"] = (f";; TODO: port-failed unit {r['name']} "
+                        f"({r.get('reason', '')[:80]})\n{orig}\n{stub}")
 
     ns = ns_from_path(src)
+    declares = [kebab(u["name"]) for u in units]  # 定数も declare して前方参照を塞ぐ
     header = (f";; ported from {src} (unit_refactor stage 0)\n"
               + (f";; {(doc.splitlines() or [''])[0]}\n" if doc else "")
               + f"(ns {ns}\n  (:require [clojure.string] [clojure.set] [clojure.edn]))\n\n"
-              + (f"(declare {' '.join(siblings)})\n\n" if siblings else ""))
+              + (f"(declare {' '.join(declares)})\n\n" if declares else ""))
     assembled = header + "\n".join(r["clj"] for r in results)
 
     ok, lint_out = lint_text(assembled)
@@ -259,7 +269,7 @@ def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
     out = src.parent / (ns.rsplit(".", 1)[-1].replace("-", "_") + ".clj")
     out.write_text(assembled, encoding="utf-8")
     with _sft_lock, SFT_LOG.open("a") as f:
-        for r in results:
+        for r in (r for r in results if r["status"] == "ok"):
             f.write(json.dumps(
                 {"messages": [
                     {"role": "system", "content": UNIT_SYSTEM},
@@ -270,7 +280,8 @@ def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
                  "meta": {"src": str(src), "unit": r["name"], "teacher": MODEL,
                           "verified": "clj-kondo-unit+file"}},
                 ensure_ascii=False) + "\n")
-    return {**rec, "status": "ok", "out": str(out)}
+    return {**rec, "status": "ok", "out": str(out),
+            "complete": len(bad) == 0}
 
 
 def main() -> int:
