@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-tw-payment-order/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-tw-payment-order#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-tw-payment-order/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-tw-payment-order#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/tw.html"

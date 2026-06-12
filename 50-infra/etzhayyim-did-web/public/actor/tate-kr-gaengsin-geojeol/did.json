@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-kr-gaengsin-geojeol/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-kr-gaengsin-geojeol#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-kr-gaengsin-geojeol/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-kr-gaengsin-geojeol#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/kr.html"

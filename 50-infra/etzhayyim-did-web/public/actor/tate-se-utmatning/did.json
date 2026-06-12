@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-se-utmatning/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-se-utmatning#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-se-utmatning/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-se-utmatning#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/se.html"

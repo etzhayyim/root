@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-it-separazione/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-it-separazione#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-it-separazione/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-it-separazione#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/it.html"

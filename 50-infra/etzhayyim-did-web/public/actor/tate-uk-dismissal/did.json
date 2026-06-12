@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-uk-dismissal/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-uk-dismissal#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-uk-dismissal/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-uk-dismissal#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/uk.html"

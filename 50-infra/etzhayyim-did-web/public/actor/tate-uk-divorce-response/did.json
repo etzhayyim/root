@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-uk-divorce-response/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-uk-divorce-response#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-uk-divorce-response/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-uk-divorce-response#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/uk.html"

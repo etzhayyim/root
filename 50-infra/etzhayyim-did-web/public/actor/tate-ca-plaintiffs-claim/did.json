@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-ca-plaintiffs-claim/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-ca-plaintiffs-claim#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-ca-plaintiffs-claim/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-ca-plaintiffs-claim#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/ca.html"

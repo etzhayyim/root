@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-fr-conge-bailleur/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-fr-conge-bailleur#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-fr-conge-bailleur/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-fr-conge-bailleur#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/fr.html"

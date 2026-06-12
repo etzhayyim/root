@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-es-despido/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-es-despido#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-es-despido/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-es-despido#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/es.html"

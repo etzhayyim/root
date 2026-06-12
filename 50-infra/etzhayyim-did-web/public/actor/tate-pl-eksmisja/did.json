@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-pl-eksmisja/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-pl-eksmisja#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-pl-eksmisja/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-pl-eksmisja#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/pl.html"

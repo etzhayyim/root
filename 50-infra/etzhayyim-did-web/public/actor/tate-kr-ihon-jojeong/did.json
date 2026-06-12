@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-kr-ihon-jojeong/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-kr-ihon-jojeong#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-kr-ihon-jojeong/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-kr-ihon-jojeong#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/kr.html"

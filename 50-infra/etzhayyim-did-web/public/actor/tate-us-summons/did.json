@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-us-summons/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-us-summons#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-us-summons/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-us-summons#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/us.html"

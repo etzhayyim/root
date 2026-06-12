@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-tw-qiangzhi/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-tw-qiangzhi#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-tw-qiangzhi/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-tw-qiangzhi#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/tw.html"

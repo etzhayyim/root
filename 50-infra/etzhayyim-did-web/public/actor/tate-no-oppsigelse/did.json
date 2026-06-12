@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-no-oppsigelse/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-no-oppsigelse#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-no-oppsigelse/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-no-oppsigelse#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/no.html"

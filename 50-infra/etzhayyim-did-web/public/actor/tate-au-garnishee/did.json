@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-au-garnishee/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-au-garnishee#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-au-garnishee/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-au-garnishee#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/au.html"

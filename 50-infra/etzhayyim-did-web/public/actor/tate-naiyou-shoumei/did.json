@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-naiyou-shoumei/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-naiyou-shoumei#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-naiyou-shoumei/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-naiyou-shoumei#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/jp.html"

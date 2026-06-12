@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-shiharai-tokusoku/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-shiharai-tokusoku#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-shiharai-tokusoku/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-shiharai-tokusoku#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/jp.html"

@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-tw-jiegu/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-tw-jiegu#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-tw-jiegu/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-tw-jiegu#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/tw.html"

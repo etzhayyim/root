@@ -26,7 +26,7 @@ def test_one_actor_per_procedure():
     assert len(_INDEX) == len(procs)
     for p in procs:
         d = _TMP / slug(p[":proc/id"])
-        for f in ("did.json", "profile.json", "case.json", "checklist.md"):
+        for f in ("did.json", "profile.json", "case.json", "checklist.md", "template.md"):
             assert (d / f).exists(), (d, f)
 
 
@@ -75,6 +75,26 @@ def test_deploy_copy_in_sync():
     fresh = {c["slug"] for c in _INDEX}
     assert deployed == fresh, (sorted(fresh - deployed)[:3], sorted(deployed - fresh)[:3])
     assert (deploy / "tate" / "cases.json").exists()
+
+
+def test_templates_fill_in_and_upl():
+    """Wave 43: 書面雛形 — self-submit のある全 case に記入式テンプレート (【 】
+    placeholder + 免責 + 提出前チェック); 公式様式がある手続きは様式優先の
+    ポインタ; 出頭型は正直にその旨."""
+    import sys as _s
+    from respond_plan import load_procs as _lp
+    procs = _lp()
+    for p in procs:
+        md = (_TMP / slug(p[":proc/id"]) / "template.md").read_text(encoding="utf-8")
+        assert "法的助言ではありません" in md, p[":proc/id"]
+        subs = [o for o in p.get(":proc/options", []) if o[":opt/kind"] == ":self-submit"]
+        if subs:
+            assert "【" in md and "提出前チェック" in md, p[":proc/id"]
+        else:
+            assert "定型の提出書面はありません" in md, p[":proc/id"]
+    # 公式様式ポインタの代表例: CA Form 31
+    ca = (_TMP / "tate-ca-bia-notice" / "template.md").read_text(encoding="utf-8")
+    assert "公式様式" in ca
 
 
 if __name__ == "__main__":

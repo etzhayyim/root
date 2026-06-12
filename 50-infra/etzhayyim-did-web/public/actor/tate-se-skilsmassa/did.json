@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-se-skilsmassa/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-se-skilsmassa#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-se-skilsmassa/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-se-skilsmassa#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/se.html"

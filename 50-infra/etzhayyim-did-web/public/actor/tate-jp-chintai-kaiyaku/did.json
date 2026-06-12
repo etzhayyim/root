@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-jp-chintai-kaiyaku/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-jp-chintai-kaiyaku#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-jp-chintai-kaiyaku/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-jp-chintai-kaiyaku#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/jp.html"

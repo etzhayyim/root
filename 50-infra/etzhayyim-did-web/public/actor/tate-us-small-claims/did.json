@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-us-small-claims/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-us-small-claims#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-us-small-claims/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-us-small-claims#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/us.html"

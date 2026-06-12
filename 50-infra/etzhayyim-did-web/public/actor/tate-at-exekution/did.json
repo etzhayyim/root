@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-at-exekution/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-at-exekution#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-at-exekution/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-at-exekution#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/at.html"

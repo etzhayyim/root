@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-au-termination-notice/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-au-termination-notice#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-au-termination-notice/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-au-termination-notice#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/au.html"

@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-de-mahnbescheid/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-de-mahnbescheid#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-de-mahnbescheid/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-de-mahnbescheid#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/de.html"

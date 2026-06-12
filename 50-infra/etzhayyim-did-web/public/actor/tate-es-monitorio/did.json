@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-es-monitorio/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-es-monitorio#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-es-monitorio/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-es-monitorio#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/es.html"

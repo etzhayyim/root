@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-at-zahlungsbefehl/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-at-zahlungsbefehl#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-at-zahlungsbefehl/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-at-zahlungsbefehl#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/at.html"

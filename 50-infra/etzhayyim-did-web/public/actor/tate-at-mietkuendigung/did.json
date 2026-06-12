@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-at-mietkuendigung/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-at-mietkuendigung#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-at-mietkuendigung/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-at-mietkuendigung#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/at.html"

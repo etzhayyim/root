@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-uk-s21-s8/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-uk-s21-s8#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-uk-s21-s8/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-uk-s21-s8#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/uk.html"

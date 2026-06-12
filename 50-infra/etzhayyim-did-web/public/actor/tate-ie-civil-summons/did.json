@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-ie-civil-summons/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-ie-civil-summons#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-ie-civil-summons/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-ie-civil-summons#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/ie.html"

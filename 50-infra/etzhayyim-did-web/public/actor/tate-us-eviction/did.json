@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-us-eviction/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-us-eviction#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-us-eviction/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-us-eviction#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/us.html"

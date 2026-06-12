@@ -52,6 +52,8 @@ def did_doc(p: dict, root: str) -> dict:
              "serviceEndpoint": f"{root}/actor/{s}/case.json"},
             {"id": f"{did}#checklist", "type": "EtzhayyimCaseChecklist",
              "serviceEndpoint": f"{root}/actor/{s}/checklist.md"},
+            {"id": f"{did}#template", "type": "EtzhayyimCaseTemplate",
+             "serviceEndpoint": f"{root}/actor/{s}/template.md"},
             {"id": f"{did}#guide", "type": "EtzhayyimCaseGuide",
              "serviceEndpoint": f"{root}/tate/{p.get(':proc/jurisdiction', ':jp').lstrip(':')}.html"}],
         "_meta": {"adr": ["2606112300", "2606112400", "2606122000"],
@@ -83,6 +85,7 @@ def profile(p: dict, juris: dict, root: str) -> dict:
             "downloads": {
                 "case_json": f"{root}/actor/{s}/case.json",
                 "checklist_md": f"{root}/actor/{s}/checklist.md",
+                "template_md": f"{root}/actor/{s}/template.md",
                 "jurisdiction_guide": f"{root}/tate/{p.get(':proc/jurisdiction', ':jp').lstrip(':')}.html"},
             "consultation": {
                 "free_referrals": j[":juris/referrals"],
@@ -136,6 +139,56 @@ def checklist_md(p: dict, juris: dict) -> str:
     return "\n".join(L) + "\n"
 
 
+OFFICIAL_FORM_HINTS = ("Form", "様式", "Formular", "formulaire", "FL-120", "용지",
+                       "用紙", "Official", "公式")
+
+
+def template_md(p: dict, juris: dict) -> str:
+    """記入式の構造雛形 (書面). member 本人が記入・確定・提出する前提 (UPL —
+    tasuke の被害届雛形と同型)。公式様式がある手続きはポインタを優先する。"""
+    j = juris[p.get(":proc/jurisdiction", ":jp")]
+    subs = [o for o in p.get(":proc/options", []) if o[":opt/kind"] == ":self-submit"]
+    L = [f"# {p[':proc/label']} — 提出書面の雛形 (記入式)", "",
+         f"> {DISCLAIMER}", "",
+         "> この雛形は member 本人が【 】を埋めて確定・提出するための構造テンプレートです。",
+         ""]
+    if not subs:
+        L.append("この手続きは出頭・相談・確認が中心で、定型の提出書面はありません。")
+        L.append("checklist.md の手順と相談先に従ってください。")
+        return "\n".join(L) + "\n"
+    official = [o for o in subs
+                if any(h.casefold() in o[":opt/label"].casefold() for h in OFFICIAL_FORM_HINTS)]
+    if official:
+        L.append("## まず公式様式を確認")
+        for o in official:
+            L.append(f"- {o[':opt/label']} — **公式様式が存在します。自由書式より様式を優先**してください。")
+        L.append("")
+    L.append("## 自由書式の構造 (様式がない/補助書面の場合)")
+    L.append("")
+    L.append("```")
+    L.append("【提出先】 " + (subs[0][":opt/label"].split(" (")[0]))
+    L.append(f"【件名】   {p[':proc/label']} に対する {subs[0][':opt/label'].split('を')[0].strip()}")
+    L.append("")
+    L.append("【自分の氏名・住所・連絡先】")
+    L.append("【相手方/事件の特定】 事件番号・通知の日付: 【受領した書面の番号と日付】")
+    L.append("")
+    L.append("1. 私は【通知を受領した日 — 期限の起算点】に標記の通知を受領しました。")
+    L.append(f"2. 私は次のとおり申し立てます: 【{subs[0][':opt/label']}】")
+    L.append("3. 理由: 【簡潔に。理由不要の手続き (異議のみで足りる類型) は省略可 —")
+    L.append("   checklist.md の期限ルール参照】")
+    L.append("4. 添付書類: 【受領通知の写し・証拠など】")
+    L.append("")
+    L.append("【日付】 【署名】")
+    L.append("```")
+    L.append("")
+    L.append("## 提出前チェック")
+    for d in p.get(":proc/deadline-rules", []):
+        mark = "⚠ " if d.get(":dl/critical") else "- "
+        L.append(f"{mark}{d[':dl/label']}: {d[':dl/rule']} ({d[':dl/anchor']})")
+    L.append(f"- 提出方法・控えの保管。不安があれば: {' / '.join(j[':juris/referrals'][:2])}")
+    return "\n".join(L) + "\n"
+
+
 def generate(actor_dir: pathlib.Path, root: str = ROOT_DEFAULT) -> list:
     procs = load_procs()
     juris = load_jurisdictions()
@@ -151,6 +204,7 @@ def generate(actor_dir: pathlib.Path, root: str = ROOT_DEFAULT) -> list:
         (d / "case.json").write_text(
             json.dumps(case_json(p, juris), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         (d / "checklist.md").write_text(checklist_md(p, juris), encoding="utf-8")
+        (d / "template.md").write_text(template_md(p, juris), encoding="utf-8")
         index.append({"slug": s, "did": f"did:web:etzhayyim.com:actor:{s}",
                       "label": p[":proc/label"],
                       "jurisdiction": p.get(":proc/jurisdiction", ":jp"),

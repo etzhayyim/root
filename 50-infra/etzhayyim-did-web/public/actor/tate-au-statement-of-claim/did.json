@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-au-statement-of-claim/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-au-statement-of-claim#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-au-statement-of-claim/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-au-statement-of-claim#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/au.html"

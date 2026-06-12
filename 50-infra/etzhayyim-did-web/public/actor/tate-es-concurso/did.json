@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-es-concurso/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-es-concurso#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-es-concurso/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-es-concurso#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/es.html"

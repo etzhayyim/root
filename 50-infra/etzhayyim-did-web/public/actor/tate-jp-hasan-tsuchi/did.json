@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-jp-hasan-tsuchi/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-jp-hasan-tsuchi#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-jp-hasan-tsuchi/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-jp-hasan-tsuchi#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/jp.html"

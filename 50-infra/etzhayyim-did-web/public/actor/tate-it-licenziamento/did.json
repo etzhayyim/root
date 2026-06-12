@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-it-licenziamento/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-it-licenziamento#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-it-licenziamento/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-it-licenziamento#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/it.html"

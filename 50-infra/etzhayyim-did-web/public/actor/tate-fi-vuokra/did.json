@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-fi-vuokra/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-fi-vuokra#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-fi-vuokra/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-fi-vuokra#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/fi.html"

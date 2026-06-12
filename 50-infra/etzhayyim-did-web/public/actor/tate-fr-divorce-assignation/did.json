@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-fr-divorce-assignation/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-fr-divorce-assignation#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-fr-divorce-assignation/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-fr-divorce-assignation#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/fr.html"

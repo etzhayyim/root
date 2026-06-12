@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-at-kuendigung/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-at-kuendigung#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-at-kuendigung/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-at-kuendigung#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/at.html"

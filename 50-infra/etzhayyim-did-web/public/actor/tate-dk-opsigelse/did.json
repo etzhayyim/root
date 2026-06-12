@@ -18,6 +18,11 @@
       "serviceEndpoint": "https://etzhayyim.com/actor/tate-dk-opsigelse/checklist.md"
     },
     {
+      "id": "did:web:etzhayyim.com:actor:tate-dk-opsigelse#template",
+      "type": "EtzhayyimCaseTemplate",
+      "serviceEndpoint": "https://etzhayyim.com/actor/tate-dk-opsigelse/template.md"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:tate-dk-opsigelse#guide",
       "type": "EtzhayyimCaseGuide",
       "serviceEndpoint": "https://etzhayyim.com/tate/dk.html"
