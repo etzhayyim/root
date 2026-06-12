@@ -115,8 +115,9 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 │   ├── respond_plan.py            # response planner + fake-notice guard (G6/G10)
 │   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
 │   ├── site_gen.py                # crawlable static site (FAQPage JSON-LD + sitemap — Google 可視化)
+│   ├── case_actors_gen.py         # 1 case = 1 keyless actor (profile + case.json/checklist DL + 相談先)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 107 tests, pure stdlib
+├── tests/                         # 114 tests, pure stdlib
 │   ├── test_terms.py
 │   ├── test_respond.py
 │   ├── test_site.py
@@ -138,7 +139,7 @@ python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
 python3 methods/coverage_report.py   # → out/coverage-report.md (21/193 + 10/50 states + tracks, named gaps)
 python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
 python3 tests/test_terms.py && python3 tests/test_respond.py \
-  && python3 tests/test_coverage.py  # 107 green
+  && python3 tests/test_coverage.py  # 114 green
 ```
 
 ## Do not

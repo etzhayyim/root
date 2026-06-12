@@ -1,0 +1,49 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:ca-bia-notice",
+  "label": "Notice of bankruptcy (債権者側・倒産・カナダ)",
+  "jurisdiction": ":ca",
+  "jurisdiction_label": "Canada",
+  "track": ":insolvency",
+  "genuine_channels": [
+    ":mail",
+    ":email"
+  ],
+  "service_note": "plaintiff's claim / statement of claim は personal service 等 (州規則, 例 ON Small Claims Rules)",
+  "deadlines": [
+    {
+      "label": "Form 31 proof of claim",
+      "rule": "LIT (trustee) からの通知後 Form 31 を提出 — first meeting 前なら投票可, dividend の前提; **倒産雇用主の元従業員は WEPP (賃金保護) を別途申請できる**",
+      "anchor": "BIA s.124 / Form 31; WEPP Act",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":form31",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "Form 31 を提出 (無料・本人可 — 前払金・deposit も債権: kaiyaku 縁-ledger と突合)"
+    },
+    {
+      "id": ":wepp",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "元従業員なら WEPP を Service Canada へ"
+    }
+  ],
+  "referrals": [
+    "担保 (PPSA) → 専門家"
+  ],
+  "jurisdiction_referrals": [
+    "provincial legal aid (例 Legal Aid Ontario)",
+    "law society referral service"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Canadian Anti-Fraud Centre 1-888-495-8501",
+    "local police (non-emergency)"
+  ],
+  "verify_current_law": true
+}

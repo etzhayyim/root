@@ -1,0 +1,34 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tate-es-divorcio",
+  "handle": "tate-es-divorcio.etzhayyim.com",
+  "displayName": "Demanda de divorcio (家事・スペイン) — case actor",
+  "description": "España の『Demanda de divorcio (家事・スペイン)』を受け取った人のための case actor。期限ルール・防御選択肢・無料相談先のデータ DL と相談導線。 一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "performerType": "system",
+  "uiType": "document",
+  "labels": [],
+  "viewer": {},
+  "_etzhayyim": {
+    "kind": "case-mirror",
+    "parent": "tate",
+    "track": ":family",
+    "jurisdiction": ":es",
+    "didDocument": "https://etzhayyim.com/actor/tate-es-divorcio/did.json",
+    "downloads": {
+      "case_json": "https://etzhayyim.com/actor/tate-es-divorcio/case.json",
+      "checklist_md": "https://etzhayyim.com/actor/tate-es-divorcio/checklist.md",
+      "jurisdiction_guide": "https://etzhayyim.com/tate/es.html"
+    },
+    "consultation": {
+      "free_referrals": [
+        "justicia gratuita (Ley 1/1996)",
+        "Colegio de Abogados (turno de oficio)"
+      ],
+      "fraud_help": [
+        "tasuke 助 (サイバー犯罪被害支援)",
+        "INCIBE 017 (ciberseguridad)",
+        "Policía Nacional 091"
+      ],
+      "yoro_convo": "PLANNED — yoro convo chat 経由の相談は operator/Council ゲートの R+ レグ (現状は上記の公的・無料窓口へ)"
+    }
+  }
+}

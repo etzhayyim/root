@@ -1,0 +1,50 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:fi-irtisanominen",
+  "label": "Irtisanominen (解雇・労働・フィンランド)",
+  "jurisdiction": ":fi",
+  "jurisdiction_label": "Suomi",
+  "track": ":labor",
+  "genuine_channels": [
+    ":mail",
+    ":personal-service"
+  ],
+  "service_note": "haaste は haastemies / postitse の tiedoksianto — SMS の『käräjäoikeus』通知は偽",
+  "deadlines": [
+    {
+      "label": "Kanneaika (出訴期間)",
+      "rule": "perusteeton irtisanominen の korvaus 請求は työsuhteen päättymisestä 2 vuotta 以内",
+      "anchor": "työsopimuslaki 13 luku 9§",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":liitto",
+      "kind": ":self-decide",
+      "protective": true,
+      "label": "liitto (組合) + työttömyyskassa へ即連絡 (給付と法的支援)"
+    },
+    {
+      "id": ":kanne",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "käräjäoikeus へ kanne (oikeusapu 併用可)"
+    }
+  ],
+  "referrals": [
+    "oikeusapu / liitto の弁護士",
+    "kokoro 心 (精神的サポート)"
+  ],
+  "jurisdiction_referrals": [
+    "oikeusapu (julkinen 法律扶助)",
+    "kuluttajaneuvonta (KKV 消費者助言)"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "poliisi (nettipetokset 通報)",
+    "kuluttajaneuvonta"
+  ],
+  "verify_current_law": true
+}

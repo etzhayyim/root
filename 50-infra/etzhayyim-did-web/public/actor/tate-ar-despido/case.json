@@ -1,0 +1,58 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:ar-despido",
+  "label": "Despido (解雇・労働・アルゼンチン)",
+  "jurisdiction": ":ar",
+  "jurisdiction_label": "Argentina",
+  "track": ":labor",
+  "genuine_channels": [
+    ":mail",
+    ":personal-service"
+  ],
+  "service_note": "traslado de la demanda は cédula de notificación (oficial notificador) — WhatsApp の『juzgado』通知は偽",
+  "deadlines": [
+    {
+      "label": "Telegrama laboral (実務の起点)",
+      "rule": "解雇態様を telegrama laboral (労働者は TT 無料) で intimación・確定するのが実務の起点 — 沈黙は不利に働き得る",
+      "anchor": "ley 23.789 (telegrama obrero gratuito)",
+      "critical": false,
+      "verify_service_date": true
+    },
+    {
+      "label": "Prescripción",
+      "rule": "労働債権の prescripción は2 años (indemnización art. 245 含む)",
+      "anchor": "LCT arts. 245・256",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":telegrama",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "telegrama laboral を送付 (無料 — 解雇の存在・態様を記録に固定)"
+    },
+    {
+      "id": ":seclo",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "SECLO (CABA) 等の conciliación 前置へ"
+    }
+  ],
+  "referrals": [
+    "patrocinio gratuito / sindicato",
+    "kokoro 心 (精神的サポート)"
+  ],
+  "jurisdiction_referrals": [
+    "patrocinio jurídico gratuito (大学・公的)",
+    "Defensa del Consumidor 0800-666-1518",
+    "Defensoría del Pueblo"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Defensa del Consumidor (ventanilla única federal)",
+    "Policía (delitos informáticos)"
+  ],
+  "verify_current_law": true
+}

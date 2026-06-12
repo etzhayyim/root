@@ -1,0 +1,50 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:se-betalningsforelaggande",
+  "label": "Betalningsföreläggande (支払督促・スウェーデン)",
+  "jurisdiction": ":se",
+  "jurisdiction_label": "Sverige",
+  "track": ":civil",
+  "genuine_channels": [
+    ":formal-service",
+    ":mail"
+  ],
+  "service_note": "betalningsföreläggande は Kronofogden からの delgivning (送達確認付き)",
+  "deadlines": [
+    {
+      "label": "Bestrida (異議)",
+      "rule": "föreläggande 記載の förklaringstid (回答期限 — 通常2週間程度) 内に書面で bestrida",
+      "anchor": "Lag (1990:746) om betalningsföreläggande och handräckning",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":bestrida",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "Kronofogden へ書面で bestrida (→ 申立人が裁判所移行を選択)"
+    },
+    {
+      "id": ":pay-or-settle",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "請求に理由がある場合: 支払い (記録に注意 — betalningsanmärkning)"
+    }
+  ],
+  "referrals": [
+    "異議後 tingsrätt へ移行した場合"
+  ],
+  "jurisdiction_referrals": [
+    "Hallå konsument / Konsumentverket",
+    "kommunal konsumentvägledning",
+    "rättshjälp (法律扶助)"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Polisen 114 14",
+    "Hallå konsument"
+  ],
+  "verify_current_law": true
+}

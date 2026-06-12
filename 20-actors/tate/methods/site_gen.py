@@ -89,6 +89,11 @@ def juris_page(jid: str, juris: dict, procs: list, patterns: list, base: str) ->
         for o in p.get(":proc/options", []):
             star = "🛡 " if o.get(":opt/protective") else ""
             B.append(f"<li>{star}{html.escape(o[':opt/label'])}</li>")
+        sl = "tate-" + p[":proc/id"].split(":", 1)[1]
+        root = base[:-5] if base.endswith("/tate") else base
+        B.append(f'<li>DL: <a href="{root}/actor/{sl}/checklist.md">チェックリスト</a> · '
+                 f'<a href="{root}/actor/{sl}/case.json">データ (JSON)</a> · '
+                 f'<a href="{root}/actor/{sl}/profile.json">case actor profile</a></li>')
         B.append(f"<li>相談先: {html.escape(' / '.join(p.get(':proc/refer-when', [])))}</li></ul>")
     if my_pats:
         B.append("<h2>契約の不利条項パターン (非裁定 — 可能性の指摘のみ)</h2><ul>")
