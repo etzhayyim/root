@@ -1,0 +1,343 @@
+#!/usr/bin/env python3
+"""verify_deps_edn_paths.py — book-keeping lint for deps.edn path entries.
+
+deps.edn port of verify_deps_toml_paths.py (ADR-2605262500 cycle 27 / cycle
+46 markers / cycle 59 duplicates; the toml→edn migration removed deps.toml
+and left that verifier dead — follow-up tracked in ADR-2606121143).
+
+Walks every map in the top-level `:adrs` and `:modules` vectors of
+`deps.edn`, checks that each `:path` value resolves to an existing file or
+directory under the repo root, and reports drift. Parsing reuses the
+tokenizer/parser of format-deps-edn.py (same directory), so a file this
+script can read is by definition valid EDN.
+
+Reservation markers (unchanged from the toml verifier):
+
+  :path "90-docs/adr/2605250730-tatekata-r1.md (reserved)"
+  :path "00-contracts/lexicons/com/etzhayyim/apps/unispsc (deferred-rename)"
+
+  (reserved)        — a future R-cycle will produce this path
+  (deferred-rename) — intentionally pre-cutover per CLAUDE.md rename rules
+
+A BARE missing path is drift (exit 1). A missing path WITH a marker is
+"accepted-reserved" (owner-asserted, not drift). A path that exists but
+still carries a marker is "stale-marker" (warning — drop the suffix).
+Duplicate :modules paths / :adrs ids are reported (warning) in unfiltered
+runs, mirroring the cycle-59 toml behaviour.
+
+Usage:
+  python3 70-tools/scripts/lint/verify_deps_edn_paths.py
+  python3 70-tools/scripts/lint/verify_deps_edn_paths.py --json
+  python3 70-tools/scripts/lint/verify_deps_edn_paths.py --filter 2606121143
+
+Exit codes:
+  0 — no drift (accepted-reserved / stale-marker / duplicate counts may be >0)
+  1 — at least one drift entry (bare missing path)
+  2 — usage / parse error
+"""
+
+from __future__ import annotations
+
+import argparse
+import importlib.util
+import json
+import re
+import sys
+from dataclasses import asdict, dataclass
+from pathlib import Path
+from typing import Optional
+
+_spec = importlib.util.spec_from_file_location(
+    "fde", Path(__file__).with_name("format-deps-edn.py")
+)
+fde = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(fde)
+
+_RESERVED_SUFFIX_RE = re.compile(r"\s+\((?P<marker>reserved|deferred-rename)\)\s*$")
+
+BASELINE_PATH = "70-tools/scripts/lint/deps-edn-paths-baseline.json"
+
+
+def submodule_roots(repo_root: Path) -> list[str]:
+    """Submodule paths from .gitmodules — content of these belongs to OTHER
+    repos and its presence depends on whether the checkout populated them,
+    so existence checks there are non-deterministic across machines/worktrees
+    (same failure mode as the substrate-remediation-audit submodule walk)."""
+    gm = repo_root / ".gitmodules"
+    if not gm.is_file():
+        return []
+    return [
+        line.split("=", 1)[1].strip()
+        for line in gm.read_text().splitlines()
+        if line.strip().startswith("path =")
+    ]
+
+
+def classify_external(raw: str) -> bool:
+    """URLs / home / absolute paths are not repo paths — unverifiable here."""
+    return raw.startswith(("http://", "https://", "~", "/"))
+
+_STR_ESCAPES = {'"': '"', "\\": "\\", "n": "\n", "t": "\t", "r": "\r"}
+
+
+def edn_str(token: str) -> str:
+    """Decode an EDN string token ('"…"') to its Python value."""
+    if not (token.startswith('"') and token.endswith('"')):
+        raise ValueError(f"not a string token: {token[:40]!r}")
+    body = token[1:-1]
+    out, i = [], 0
+    while i < len(body):
+        c = body[i]
+        if c == "\\" and i + 1 < len(body):
+            out.append(_STR_ESCAPES.get(body[i + 1], body[i + 1]))
+            i += 2
+        else:
+            out.append(c)
+            i += 1
+    return "".join(out)
+
+
+def _strip_reserved_marker(raw_path: str) -> tuple[str, Optional[str]]:
+    m = _RESERVED_SUFFIX_RE.search(raw_path)
+    if not m:
+        return raw_path, None
+    return raw_path[: m.start()], m.group("marker")
+
+
+def map_fields(node, wanted: tuple[str, ...]) -> dict[str, str]:
+    """Extract string-valued `wanted` keys from a parsed EDN map node."""
+    out: dict[str, str] = {}
+    kids = node.children
+    for k in range(0, len(kids) - 1, 2):
+        key = kids[k]
+        if isinstance(key, str) and key.lstrip(":") in wanted:
+            val = kids[k + 1]
+            if isinstance(val, str) and val.startswith('"'):
+                out[key.lstrip(":")] = edn_str(val)
+    return out
+
+
+@dataclass
+class PathCheck:
+    section: str
+    path: str
+    exists: bool
+    resolved: str
+    adr: Optional[str] = None
+    id: Optional[str] = None
+    reserved_marker: Optional[str] = None
+    unverifiable: Optional[str] = None  # "submodule" | "external" | None
+
+    @property
+    def is_drift(self) -> bool:
+        return not self.exists and self.reserved_marker is None and self.unverifiable is None
+
+    @property
+    def is_accepted_missing(self) -> bool:
+        return not self.exists and self.reserved_marker is not None
+
+    @property
+    def is_stale_marker(self) -> bool:
+        return self.exists and self.reserved_marker is not None
+
+
+def load_sections(deps_edn: Path) -> dict[str, list[dict[str, str]]]:
+    """Parse deps.edn → {'adrs': [fields…], 'modules': [fields…]}."""
+    root = fde.parse(fde.tokenize(deps_edn.read_text(encoding="utf-8")))
+    if not (isinstance(root, fde.Coll) and root.opener == "{"):
+        raise ValueError("deps.edn top-level form is not a map")
+    out: dict[str, list[dict[str, str]]] = {"adrs": [], "modules": []}
+    kids = root.children
+    for k in range(0, len(kids) - 1, 2):
+        key = kids[k]
+        if key not in (":adrs", ":modules"):
+            continue
+        vec = kids[k + 1]
+        if not (isinstance(vec, fde.Coll) and vec.opener == "["):
+            continue
+        for el in vec.children:
+            if isinstance(el, fde.Coll) and el.opener == "{":
+                fields = map_fields(el, ("path", "adr", "id", "title"))
+                if "path" in fields or "id" in fields:
+                    out[key.lstrip(":")].append(fields)
+    return out
+
+
+def check_paths(
+    deps_edn: Path, repo_root: Path, *, filter_token: Optional[str] = None
+) -> list[PathCheck]:
+    sections = load_sections(deps_edn)
+    subs = submodule_roots(repo_root)
+    results: list[PathCheck] = []
+    for section in ("adrs", "modules"):
+        for entry in sections[section]:
+            raw_path = entry.get("path", "")
+            if not raw_path:
+                continue
+            if filter_token is not None:
+                tag = entry.get("adr") or entry.get("id") or ""
+                if filter_token not in tag and filter_token not in raw_path:
+                    continue
+            clean, marker = _strip_reserved_marker(raw_path)
+            unverifiable = None
+            if classify_external(clean):
+                unverifiable = "external"
+            elif any(clean == s or clean.startswith(s + "/") for s in subs):
+                unverifiable = "submodule"
+            resolved = (repo_root / clean).resolve()
+            results.append(
+                PathCheck(
+                    section=section,
+                    path=raw_path,
+                    exists=resolved.exists(),
+                    resolved=str(resolved),
+                    adr=entry.get("adr") if section == "modules" else None,
+                    id=entry.get("id") if section == "adrs" else None,
+                    reserved_marker=marker,
+                    unverifiable=unverifiable,
+                )
+            )
+    return results
+
+
+def find_duplicates(deps_edn: Path) -> dict[str, list[tuple[str, str]]]:
+    sections = load_sections(deps_edn)
+    seen: dict[tuple[str, str], list[tuple[str, str]]] = {}
+    for entry in sections["modules"]:
+        path = entry.get("path", "")
+        if not path:
+            continue
+        clean, _ = _strip_reserved_marker(path)
+        seen.setdefault(("modules", clean), []).append((path, entry.get("adr", "")))
+    for entry in sections["adrs"]:
+        aid = entry.get("id", "")
+        if not aid:
+            continue
+        seen.setdefault(("adrs", aid), []).append((aid, entry.get("title", "")[:80]))
+    return {f"{k[0]}:{k[1]}": v for k, v in seen.items() if len(v) > 1}
+
+
+def main(argv: Optional[list[str]] = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Verify every deps.edn :adrs / :modules :path resolves."
+    )
+    parser.add_argument("--deps-edn", type=Path, default=None)
+    parser.add_argument("--repo-root", type=Path, default=None)
+    parser.add_argument(
+        "--filter",
+        dest="filter_token",
+        help="Only check entries whose adr/id/path contains this token.",
+    )
+    parser.add_argument("--json", action="store_true")
+    parser.add_argument(
+        "--write-baseline",
+        action="store_true",
+        help="Freeze CURRENT drift into the shrink-only baseline (review-gated; "
+        "never use to launder new debt — the audit mode is what the hook runs).",
+    )
+    parser.add_argument(
+        "--no-baseline",
+        action="store_true",
+        help="Report every drift entry, ignoring the frozen baseline.",
+    )
+    args = parser.parse_args(argv)
+
+    repo_root = args.repo_root
+    if repo_root is None:
+        here = Path(__file__).resolve()
+        for cand in [here.parent, *here.parents]:
+            if (cand / "deps.edn").is_file():
+                repo_root = cand
+                break
+        if repo_root is None:
+            print("verify_deps_edn_paths: cannot find repo root", file=sys.stderr)
+            return 2
+    deps_edn = args.deps_edn or repo_root / "deps.edn"
+    if not deps_edn.is_file():
+        print(f"verify_deps_edn_paths: deps.edn not found at {deps_edn}", file=sys.stderr)
+        return 2
+
+    try:
+        results = check_paths(deps_edn, repo_root, filter_token=args.filter_token)
+    except (ValueError, AssertionError) as exc:
+        print(f"verify_deps_edn_paths: edn parse error: {exc}", file=sys.stderr)
+        return 2
+
+    drift = [r for r in results if r.is_drift]
+
+    # Shrink-only baseline ratchet (ADR-2606071800 pattern): legacy drift is
+    # frozen; the gate FAILS only on NEW drift. Graduated entries (path now
+    # resolves or entry removed) are reported so the list only shrinks.
+    baseline_file = repo_root / BASELINE_PATH
+    if args.write_baseline:
+        baseline_file.write_text(
+            json.dumps(sorted({d.path for d in drift}), indent=1) + "\n"
+        )
+        print(f"baseline frozen: {len(drift)} drift path(s) → {BASELINE_PATH}")
+        return 0
+    baseline: set[str] = set()
+    if baseline_file.is_file() and not args.no_baseline and args.filter_token is None:
+        baseline = set(json.loads(baseline_file.read_text()))
+    new_drift = [d for d in drift if d.path not in baseline]
+    current_drift_paths = {d.path for d in drift}
+    graduated = sorted(baseline - current_drift_paths)
+    drift = new_drift
+    accepted_missing = [r for r in results if r.is_accepted_missing]
+    stale_markers = [r for r in results if r.is_stale_marker]
+    n_total = len(results)
+    n_ok = sum(1 for r in results if r.exists and r.reserved_marker is None)
+    duplicates = find_duplicates(deps_edn) if args.filter_token is None else {}
+
+    if args.json:
+        print(
+            json.dumps(
+                {
+                    "total": n_total,
+                    "ok": n_ok,
+                    "drift_count": len(drift),
+                    "drift": [asdict(d) for d in drift],
+                    "accepted_missing_count": len(accepted_missing),
+                    "accepted_missing": [asdict(a) for a in accepted_missing],
+                    "stale_marker_count": len(stale_markers),
+                    "stale_markers": [asdict(s) for s in stale_markers],
+                    "duplicate_count": len(duplicates),
+                    "duplicates": duplicates,
+                    "filter": args.filter_token,
+                },
+                indent=2,
+            )
+        )
+    else:
+        summary = [f"{n_ok}/{n_total} entries resolve"]
+        if accepted_missing:
+            summary.append(f"{len(accepted_missing)} accepted-reserved (owner-asserted)")
+        if stale_markers:
+            summary.append(f"{len(stale_markers)} stale marker(s) — drop the suffix")
+        if duplicates:
+            summary.append(f"{len(duplicates)} duplicate key(s)")
+        if drift:
+            summary.append(f"{len(drift)} drift")
+        print("deps.edn path audit: " + " / ".join(summary))
+        for label, items in (("ACCEPTED-RESERVED", accepted_missing), ("STALE-MARKER", stale_markers)):
+            if items:
+                print(f"{label} ({len(items)}):")
+                for r in items:
+                    print(f"  [{r.section}] {r.path}  ({r.adr or r.id or '—'})")
+        if duplicates:
+            print(f"DUPLICATES ({len(duplicates)}):")
+            for key, vals in duplicates.items():
+                print(f"  {key}: {len(vals)} entries")
+        if graduated:
+            print(f"GRADUATED ({len(graduated)}) — no longer drift, remove from {BASELINE_PATH}:")
+            for p in graduated:
+                print(f"  {p}")
+        if drift:
+            print(f"NEW DRIFT ({len(drift)}) — bare missing paths not on the frozen baseline:")
+            for r in drift:
+                print(f"  [{r.section}] {r.path}  ({r.adr or r.id or '—'})")
+
+    return 1 if drift else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

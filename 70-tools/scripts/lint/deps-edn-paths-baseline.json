@@ -1,0 +1,14 @@
+[
+ "00-contracts/lexicons/com/etzhayyim/sonae",
+ "20-actors/karute/actor.toml",
+ "20-actors/sonae",
+ "50-infra/vultr/kotoba-firewall-restrict.sh",
+ "70-tools/baien-moemoekyun-train/recipes/corp/corp-financial-disclosure-foundations-r1.toml",
+ "70-tools/baien-moemoekyun-train/recipes/corp/corp-ownership-graph-r1.toml",
+ "70-tools/baien-moemoekyun-train/recipes/gov/gov-civic-literacy-foundations-r1.toml",
+ "70-tools/baien-moemoekyun-train/recipes/gov/gov-statistics-foundations-r1.toml",
+ "70-tools/baien-moemoekyun-train/recipes/tier-a-geo-and-netreg-mixed.toml",
+ "90-docs/adr/2606032330-session-close-kotodama-kotoba-to-kotoba-datomic-edn.md",
+ "90-docs/adr/2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0.md",
+ "Formula/kotoba.rb"
+]

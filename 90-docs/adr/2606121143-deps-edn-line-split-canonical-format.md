@@ -85,8 +85,15 @@ deps.toml のまま) を置換。
 - deps.edn は valid EDN に復帰し、以後 invalid な状態は pre-commit で落ちる。
 - agent 運用ルール: **deps.edn への登録は `--append-adrs` を使う** (本 ADR の
   登録自体を同コマンドで実施 = dogfood)。
-- 残課題 (follow-up): 旧 `verify_deps_toml_paths.py` (orphan path 検査) の
-  deps.edn 移植; `:modules` 等 vector-of-maps 以外の大型値の分割は現状不要。
+- ~~残課題 (follow-up): 旧 `verify_deps_toml_paths.py` (orphan path 検査) の
+  deps.edn 移植~~ → **DONE 同日**: `verify_deps_edn_paths.py` (marker/duplicate
+  意味論を継承 + 新規: submodule-unverifiable / external 分類で checkout 非依存の
+  決定的判定 + shrink-only baseline ratchet `deps-edn-paths-baseline.json` =
+  既存 drift 12 件を凍結し NEW drift のみ FAIL)。`deps-edn-canonical` hook に
+  併設、旧 toml 版 script は削除。初回実測: 707/883 resolve / 19
+  accepted-reserved / 13 duplicate ADR id (既知の id race) / legacy drift 12
+  (sonae の ADR+actor+lexicon 不在を含む — 別途要調査)。`:modules` 等
+  vector-of-maps 以外の大型値の分割は現状不要。
 
 # Alternatives Considered
 

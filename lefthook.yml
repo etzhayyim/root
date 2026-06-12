@@ -389,6 +389,7 @@ pre-commit:
       glob: "deps.edn"
       run: |
         python3 70-tools/scripts/lint/format-deps-edn.py --check deps.edn
+        python3 70-tools/scripts/lint/verify_deps_edn_paths.py
       stage_fixed: false
 
 
