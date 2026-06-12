@@ -121,30 +121,37 @@ legal-corpus binding + IPFS pin/IPNS) · G8 no-server-key.
 - **Negative / deferred**: clause body-text fragments are not yet individually content-addressed
   (template-level only); the legal-corpus live binding is future work gated on ADR-2605262800 W1.
 
-## Coverage expansion — `/loop` waves 1–22 (2026-06-11 / 06-12, PR #1649)
+## Coverage expansion — `/loop` waves 1–31 (2026-06-11 / 06-12; PRs #1649, #1681, #1683 + continuation)
 
 The R1 seed (11 templates / 23 clauses / 18 statutes / 5 jurisdictions / 1 language / 23 tests,
-117 縁) was expanded over 22 self-paced `/loop` iterations into a mature, worldwide corpus while
-keeping every test green and the integrity validator clean. Final state:
+117 縁) was expanded over 31 self-paced `/loop` iterations into a mature, worldwide corpus while
+keeping every test green and the integrity validator clean throughout. Current state:
 
-- **Size**: 51 templates · 46 clauses · 132 statutes · 19 jurisdictions · 32 concepts ·
-  10 languages · 619 縁 · 33 tests green.
+- **Size**: 60 templates · 48 clauses · 166 statutes · 26 jurisdictions · 34 concepts ·
+  16 languages · 730 縁 · 39 tests green · `validate.py` 0 errors / 0 warnings.
 - **Worldwide grounding**: the eight most cross-cutting clauses (electronic signature,
   data-protection, sale-of-goods warranty, employment, tenancy, IP-licensing, consumer
   cooling-off, dispute-resolution) are each grounded in real public law across many
   jurisdictions; all six legal systems (civil / common / international / religious / customary /
-  mixed) are represented; 28/30→33/35→… ending at all clauses but two (`:definitions`,
-  `:service-levels`, both genuinely non-statutory) statute-bound.
-- **~30 contract families** incl. sale, NDA, DPA (+2021 SCC version), lease (JP/DE +
+  mixed) are represented; every clause but two (`:definitions`, `:service-levels`, both
+  genuinely non-statutory) is statute-bound.
+- **26 jurisdictions across every continent**: JP · US · EU · UK · DE · FR · IT · CH · ES ·
+  IN · CN · KR · SG · ID · AU · CA · BR · MX · NG · ZA · AE · IL + treaty (INTL) + religious
+  (Jewish / Islamic) + customary (lex mercatoria). All G7 economies covered.
+- **~32 contract families** incl. sale, NDA, DPA (+2021 SCC version), lease (JP/DE +
   jurisdiction-neutral), employment (ILO/DE/global), consulting, OSS/CC/copyleft licensing,
   zero-interest + heter-iska finance, donation, consumer-sale, partnership, power-of-attorney,
   settlement, guaranty, franchise, distribution, security-interest, insurance, construction,
-  services-SLA, joint-venture, SaaS-subscription, escrow.
-- **10 languages** (en/ja/fr/de/es/zh/pt/ko/hi/ar) with 23 `:translates` pairs.
-- **Maturity tooling added**: `validate.py` (integrity checker, 0 errors / 0 warnings),
-  `maturity.py` (generated `MATURITY.md` scorecard), and per-language + per-jurisdiction +
-  relational-depth (`:conflicts-with` / `:derived-from` / `:supersedes`) measurement in
-  `coverage_report.py`. **All ten ontology edge kinds are now exercised.**
+  services-SLA, joint-venture, SaaS-subscription, escrow, trademark-license, assignment of
+  receivables (債権譲渡).
+- **16 languages** (en/ja/fr/de/es/zh/pt/ko/hi/ar/it/ru/tr/vi/th/id) with 30 `:translates` pairs.
+- **Maturity tooling**: `validate.py` (integrity checker, type-checks all edge kinds),
+  `maturity.py` (generated `MATURITY.md` scorecard), per-language + per-jurisdiction +
+  relational-depth measurement in `coverage_report.py`, and `query.py` — a knowledge-graph query
+  interface (templates-in / statutes-for / translations / conflicts / jurisdictions-for) whose
+  `gaps` query makes the EDN generate its **own** coverage worklist (the inverse: which major
+  jurisdictions still lack grounding for a concept), which later waves target directly. **All
+  ten ontology edge kinds are exercised**; every node kind and edge kind in the ontology is used.
 
 Live legal-corpus binding (ADR-2605262800) + IPFS pin / IPNS publish remain G7-gated; clause
 body-text fragments and rendered full bodies (vs structural stubs) remain future work.
