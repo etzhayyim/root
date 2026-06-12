@@ -102,9 +102,9 @@
 
   ;; ── :indicator/* — unified IOC store (ip/domain/url/hash/email) ──
   {:db/ident :indicator/id        :db/valueType :db.type/string  :db/unique :db.unique/identity}
-  {:db/ident :indicator/type      :db/valueType :db.type/keyword :db/doc ":ip | :domain | :url | :hash | :email | :cert"}
+  {:db/ident :indicator/type      :db/valueType :db.type/keyword :db/doc ":ip | :domain | :url | :hash | :email | :cert | :sender-id | :phone (SMS smishing 観測, sms-smishing-jp-2026h1)"}
   {:db/ident :indicator/value     :db/valueType :db.type/string}
-  {:db/ident :indicator/category  :db/valueType :db.type/keyword :db/doc ":phishing | :c2 | :malware | :botnet | :scanner | :tor-exit | :brute-force | :benign | :unknown"}
+  {:db/ident :indicator/category  :db/valueType :db.type/keyword :db/doc ":phishing | :c2 | :malware | :botnet | :scanner | :tor-exit | :brute-force | :scam | :benign | :unknown"}
   {:db/ident :indicator/tlp       :db/valueType :db.type/keyword :db/doc ":clear | :green | :amber | :red (TLP 2.0)"}
   {:db/ident :indicator/confidence :db/valueType :db.type/long   :db/doc "0..1000 per-mille"}
   {:db/ident :indicator/status    :db/valueType :db.type/keyword :db/doc ":candidate | :confirmed | :retracted | :superseded"}
