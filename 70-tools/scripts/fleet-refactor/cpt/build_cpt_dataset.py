@@ -31,7 +31,8 @@ def main() -> int:
             doc = f";; file: {clj.name}\n{text}"
             f.write(json.dumps({"text": doc}, ensure_ascii=False) + "\n")
             n += 1
-    chars = sum(len(json.loads(l)["text"]) for l in out_path.read_text().splitlines())
+    chars = sum(len(json.loads(l)["text"])
+                for l in out_path.read_text(encoding="utf-8").splitlines())
     print(f"CPT dataset: {n} docs, ~{chars} chars → {out_path}")
     return 0
 

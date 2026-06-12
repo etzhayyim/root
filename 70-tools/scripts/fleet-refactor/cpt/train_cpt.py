@@ -75,11 +75,12 @@ def main() -> int:
     # 素の nn.Linear。テキスト loss の勾配は language_model にしか流れないので、ターゲットは
     # language_model の decoder linear に **スコープ** する (regex)。vision tower を狙うと
     # lora_B がゼロのまま (no-op) になる — 実際に踏んだ罠。
-    import re as _re
     has_lm = any("language_model" in n for n, _ in model.named_modules())
     proj = "q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj"
     if has_lm:
-        targets = _re.compile(rf".*language_model\.layers\.\d+\.(self_attn|mlp)\.({proj})$")
+        # PEFT の target_modules は str(=regex, fullmatch) か list[str]。re.Pattern を渡すと
+        # `key in target_modules` で TypeError。regex は str で渡す。
+        targets = rf".*language_model\.layers\.\d+\.(self_attn|mlp)\.({proj})"
     else:
         targets = proj.split("|")
     lora = LoraConfig(

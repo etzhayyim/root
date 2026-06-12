@@ -45,10 +45,9 @@ def main() -> int:
             if not m:
                 continue
             code = m.group(1).strip()
-            key = code[:200]
-            if key in seen or len(code) < 20:
+            if code in seen or len(code) < 20:  # 全文で dedup (prefix だと別実装が衝突)
                 continue
-            seen.add(key)
+            seen.add(code)
             src = r.get("meta", {}).get("src", "?")
             unit = r.get("meta", {}).get("unit", "?")
             docs.append(f";; unit: {unit} (from {src})\n{code}")
