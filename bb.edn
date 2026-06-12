@@ -84,9 +84,19 @@
              (let [r (clojure.test/run-tests 'ibuki.methods.test-integration)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:stubs
+  {:doc "stage-0 stub→real ports (rasen/kanjo analyzers replacing port-failed .clj)"
+   :task (do (require 'clojure.test
+                      'rasen.tests.test-analyze
+                      'kanjo.tests.test-kanjo 'kanjo.tests.test-invariants)
+             (let [r (clojure.test/run-tests 'rasen.tests.test-analyze
+                                             'kanjo.tests.test-kanjo
+                                             'kanjo.tests.test-invariants)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:stubs]}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test
