@@ -1,0 +1,50 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:au-divorce-response",
+  "label": "Divorce application (家事・豪州)",
+  "jurisdiction": ":au",
+  "jurisdiction_label": "Australia",
+  "track": ":family",
+  "genuine_channels": [
+    ":mail",
+    ":personal-service"
+  ],
+  "service_note": "statement of claim は personal service / 州規則による郵送 (例 NSW UCPR Part 10)",
+  "deadlines": [
+    {
+      "label": "Response to divorce",
+      "rule": "国内送達なら送達から28日以内 (海外42日) に response — no-fault (12か月 separation) のため離婚自体の争点は限定; 財産 (property) ・子 (parenting) は別手続",
+      "anchor": "Family Law Act 1975 s.48 / FCFCOA (Family Law) Rules 2021",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":response",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "Response to divorce をオンライン提出 (28日 — 異議は管轄・separation 期間等)"
+    },
+    {
+      "id": ":property-separate",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "property settlement は離婚確定から12か月以内の別申立て — 期限に注意"
+    }
+  ],
+  "referrals": [
+    "Legal Aid family law / community legal centre",
+    "kokoro 心 (精神的サポート)"
+  ],
+  "jurisdiction_referrals": [
+    "state Legal Aid (例 Legal Aid NSW)",
+    "community legal centres (CLCs)"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Scamwatch (ACCC)",
+    "ReportCyber (cyber.gov.au)"
+  ],
+  "verify_current_law": true
+}

@@ -1,0 +1,51 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:jp-hasan-tsuchi",
+  "label": "破産手続開始の通知 (債権者側・倒産・日本)",
+  "jurisdiction": ":jp",
+  "jurisdiction_label": "日本",
+  "track": ":insolvency",
+  "genuine_channels": [
+    ":mail",
+    ":special-service"
+  ],
+  "service_note": "裁判所の書類は特別送達 (郵便職員手渡し・受領印)",
+  "deadlines": [
+    {
+      "label": "債権届出",
+      "rule": "債権届出期間は開始決定で裁判所が定める (通知記載) — 期間内に届け出ないと配当から漏れ得る (一般調査期間後の届出は制限)",
+      "anchor": "破産法31条・111条",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":saiken-todoke",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "債権届出書を提出 — 前払金・預け金・未消化サブスク・ポイントも債権 (kaiyaku 縁-ledger と突合)"
+    },
+    {
+      "id": ":check-haitou",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "少額なら配当見込みと手間を比較して判断"
+    }
+  ],
+  "referrals": [
+    "高額債権",
+    "別除権・相殺が絡む場合"
+  ],
+  "jurisdiction_referrals": [
+    "法テラス 0570-078374",
+    "地元弁護士会の法律相談",
+    "認定司法書士 (簡裁・140万円以下)"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "警察相談専用電話 #9110",
+    "消費者ホットライン 188"
+  ],
+  "verify_current_law": true
+}

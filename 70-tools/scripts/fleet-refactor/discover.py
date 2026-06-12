@@ -78,11 +78,12 @@ def probe(ip: str) -> dict | None:
     os_kind = ("ubuntu" if "Ubuntu" in banner else
                "linux" if "Linux" in banner else
                "macos" if banner.startswith("SSH-2.0-OpenSSH_10") else "?")
-    # 役割判定: cuda/rocm = EVO (学習), mps = Mac fleet
-    if dtype in ("cuda", "rocm") or vram >= 24:
-        role = "evo"
-    elif dtype == "mps" or os_kind == "macos":
+    # 役割判定: mps/macOS は必ず Mac fleet (高 VRAM の Mac を EVO 誤判定しない — 本ツールの存在意義)。
+    # cuda/rocm が EVO。VRAM>=24 は GPU 種別不明時の補助シグナルにとどめる。
+    if dtype == "mps" or os_kind == "macos":
         role = "mac-fleet"
+    elif dtype in ("cuda", "rocm") or (dtype == "" and os_kind in ("ubuntu", "linux") and vram >= 24):
+        role = "evo"
     else:
         role = "unknown"
     return {"ip": ip, "role": role, "gpu": dtype or "?", "vram_gib": vram,

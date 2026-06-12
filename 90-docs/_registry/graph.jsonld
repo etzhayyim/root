@@ -15475,6 +15475,40 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606112400-tate-worldwide-jurisdiction-expansion-r1",
+      "type": "TechArticle",
+      "title": "ADR-2606112400: tate 盾 R1 — worldwide jurisdiction expansion (日本以外にも対応)",
+      "status": "proposed",
+      "topic": "tate-worldwide-jurisdictions",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tate-jurisdiction-registry"
+      ],
+      "related": [
+        "doc:adr-2606112201",
+        "doc:adr-2606021600",
+        "doc:adr-2606072000"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
+      "id": "doc:adr-2606120500-fleet-clojure-refactor-and-gemma4-cpt",
+      "type": "TechArticle",
+      "title": "ADR-2606120500: Murakumo-fleet 並列 Clojure 移行ハーネス + gemma4 CPT 特化パイプライン",
+      "status": "proposed",
+      "topic": "fleet-clojure-refactor-and-gemma4-cpt",
+      "authoritative": true,
+      "authoritativeFor": [
+        "70-tools/scripts/fleet-refactor",
+        "70-tools/clj/murakumo-langchain"
+      ],
+      "related": [
+        "doc:adr-2605231525",
+        "doc:adr-2606052300"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
       "type": "TechArticle",
       "title": "ADR-2606120750: Session close — search-actor audit → parquet-free CC ingest → kotoba read-path resident cache LIVE",
@@ -15541,6 +15575,19 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness",
+      "type": "TechArticle",
+      "title": "ADR-2606121350: yoro UI svelte→ClojureScript 段階移行ハーネス — wave 2+3 (hooks 修正 + 9 components/state + atproto interop + tests)",
+      "status": "accepted",
+      "topic": "yoro-cljs-migration",
+      "authoritative": false,
+      "authoritativeFor": [
+        "yoro UI cljs migration harness layout + porting conventions (60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/cljs/)"
+      ],
+      "related": "doc:adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass",
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "type": "TechArticle",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
@@ -15554,6 +15601,36 @@
       "related": [
         "doc:2606111640",
         "doc:2605241800"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
+      "id": "doc:adr-2606122000-tate-kaiyaku-worldwide-r2-status",
+      "type": "TechArticle",
+      "title": "ADR-2606122000: tate 盾 R2 status — 34-wave coverage loop の到達点 (kaiyaku compose 含む)",
+      "status": "active",
+      "topic": "tate-r2-status",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tate-r2-status"
+      ],
+      "related": "doc:adr-2606112201",
+      "lastVerified": "2026-06-12"
+    },
+    {
+      "id": "doc:adr-2606122300-session-close-tate-kaiyaku-45-wave-loop",
+      "type": "TechArticle",
+      "title": "ADR-2606122300: session close — tate 盾/kaiyaku 解約 45-wave coverage loop (publication layer 完成)",
+      "status": "active",
+      "topic": "tate-kaiyaku-session-close",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tate-kaiyaku-session-close"
+      ],
+      "related": [
+        "doc:adr-2606112201",
+        "doc:adr-2606112301",
+        "doc:adr-2606112400"
       ],
       "lastVerified": "2026-06-12"
     },

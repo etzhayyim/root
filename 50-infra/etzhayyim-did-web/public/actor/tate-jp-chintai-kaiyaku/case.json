@@ -1,0 +1,64 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:jp-chintai-kaiyaku",
+  "label": "賃貸借の解約申入れ/更新拒絶 (住居・日本)",
+  "jurisdiction": ":jp",
+  "jurisdiction_label": "日本",
+  "track": ":housing",
+  "genuine_channels": [
+    ":mail",
+    ":formal-service"
+  ],
+  "service_note": "裁判所の書類は特別送達 (郵便職員手渡し・受領印)",
+  "deadlines": [
+    {
+      "label": "賃貸人からの解約申入れの要件",
+      "rule": "6か月前の申入れ + 正当事由が必要 — 通知だけで退去義務は生じない",
+      "anchor": "借地借家法27条・28条",
+      "critical": false,
+      "verify_service_date": true
+    },
+    {
+      "label": "法定更新",
+      "rule": "期間満了後も使用を継続し賃貸人が遅滞なく異議を述べなければ法定更新",
+      "anchor": "借地借家法26条",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":check-seitou-jiyuu",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "正当事由・立退料提示の有無を確認 (28条は立退料を考慮要素とする)"
+    },
+    {
+      "id": ":keep-paying",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "賃料は払い続ける (受領拒否なら供託) — 債務不履行を作らない"
+    },
+    {
+      "id": ":no-self-help-protection",
+      "kind": ":self-decide",
+      "protective": true,
+      "label": "自力救済 (鍵交換・荷物搬出・追い出し) は違法 — 強制退去は裁判所の明渡判決+執行のみ; 受けたら警察・弁護士へ"
+    }
+  ],
+  "referrals": [
+    "明渡訴訟を起こされた場合",
+    "立退料交渉が高額"
+  ],
+  "jurisdiction_referrals": [
+    "法テラス 0570-078374",
+    "地元弁護士会の法律相談",
+    "認定司法書士 (簡裁・140万円以下)"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "警察相談専用電話 #9110",
+    "消費者ホットライン 188"
+  ],
+  "verify_current_law": true
+}

@@ -1,0 +1,49 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:be-citation",
+  "label": "Citation à comparaître (ベルギー)",
+  "jurisdiction": ":be",
+  "jurisdiction_label": "Belgique / België",
+  "track": ":civil",
+  "genuine_channels": [
+    ":formal-service"
+  ],
+  "service_note": "citation は huissier de justice による signification (délai de citation 最低8日)",
+  "deadlines": [
+    {
+      "label": "Comparution (出頭)",
+      "rule": "citation 記載の audience に出頭 (délai de citation は signification から最低8日) — 欠席は jugement par défaut",
+      "anchor": "Code judiciaire art. 707・802 系",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":comparution",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "audience に出頭 (juge de paix ≤€5,000 は本人可)"
+    },
+    {
+      "id": ":conclusions",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "conclusions (書面の言い分) を greffe へ"
+    }
+  ],
+  "referrals": [
+    "€5,000 超 → avocat (pro deo の資力要件を確認)"
+  ],
+  "jurisdiction_referrals": [
+    "bureau d'aide juridique (pro deo)",
+    "SPF Économie (consommateurs)",
+    "juge de paix greffe"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Police (meldpunt/point de contact)",
+    "SPF Économie"
+  ],
+  "verify_current_law": true
+}
