@@ -59,7 +59,3 @@
 	path = 80-data/spirit-in-physics
 	url = ./80-data/spirit-in-physics
 	ignore = dirty
-[submodule "40-engine/kami-engine"]
-	path = 40-engine/kami-engine
-	url = https://github.com/etzhayyim/kami-engine.git
-	branch = main

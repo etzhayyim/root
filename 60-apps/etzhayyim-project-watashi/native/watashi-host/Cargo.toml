@@ -26,11 +26,11 @@ url = "2"
 tungstenite = { version = "0.24", features = ["rustls-tls-native-roots"] }
 
 # KAMI Engine crates
-kami-bridge = { path = "../../../../40-engine/kami-engine/kami-bridge" }
-kami-knp = { path = "../../../../40-engine/kami-engine/kami-knp" }
-kami-input = { path = "../../../../40-engine/kami-engine/kami-input" }
-kami-ui-gpu = { path = "../../../../40-engine/kami-engine/kami-ui-gpu" }
-kami-text = { path = "../../../../40-engine/kami-engine/kami-text" }
+kami-bridge = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-knp = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-input = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-ui-gpu = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-text = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
 
 # Kotodama host
 kotodama-kami-host = { path = "../../../../40-engine/kotoba/crates/kotoba-kotodama/hosts/kotodama-kami-host" }

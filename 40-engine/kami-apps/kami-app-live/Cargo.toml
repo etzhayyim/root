@@ -18,11 +18,11 @@ crate-type = ["cdylib", "rlib"]
 # particle systems shared with isekai/quarry-walk.
 
 [dependencies]
-kami-app = { path = "../../kami-engine/kami-app" }
-kami-pipelines = { path = "../../kami-engine/kami-pipelines" }
-kami-terrain = { path = "../../kami-engine/kami-terrain" }
-kami-render = { path = "../../kami-engine/kami-render" }
-kami-live = { path = "../../kami-engine/kami-live" }
+kami-app = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-pipelines = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-terrain = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-render = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-live = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
 glam = { workspace = true }
 log = { workspace = true }
 serde = { workspace = true }

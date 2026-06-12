@@ -95,9 +95,9 @@ checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
 name = "bitflags"
-version = "2.11.1"
+version = "2.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c4512299f36f043ab09a583e57bceb5a5aab7a73db1805848e8fef3c9e8c78b3"
+checksum = "b4388bee8683e3d04af747c73422af53102d2bd24d9eadb6cbc100baef4b43f8"
 dependencies = [
  "serde_core",
 ]
@@ -353,9 +353,9 @@ dependencies = [
 
 [[package]]
 name = "glam"
-version = "0.33.0"
+version = "0.33.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8fb167719045debebe9f532320accc7b5c993c5a3b813f5696a11d5ca7bdc57b"
+checksum = "898f5a568a84989b6c0f8caa50a93074b97dbdc58fc6d9543157bb4562758933"
 dependencies = [
  "bytemuck",
  "serde_core",
@@ -427,7 +427,7 @@ version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fbcd2dba93594b227a1f57ee09b8b9da8892c34d55aa332e034a228d0fe6a171"
 dependencies = [
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
  "gpu-alloc-types",
 ]
 
@@ -437,7 +437,7 @@ version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "98ff03b468aa837d70984d55f5d3f846f6ec31fe34bbb97c4f85219caeee1ca4"
 dependencies = [
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
 ]
 
 [[package]]
@@ -458,7 +458,7 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b89c83349105e3732062a895becfc71a8f921bb71ecbbdd8ff99263e3b53a0ca"
 dependencies = [
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
  "gpu-descriptor-types",
  "hashbrown 0.15.5",
 ]
@@ -469,7 +469,7 @@ version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fdf242682df893b86f33a73828fb09ca4b2d3bb6cc95249707fc684d27484b91"
 dependencies = [
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
 ]
 
 [[package]]
@@ -585,19 +585,19 @@ dependencies = [
 
 [[package]]
 name = "js-sys"
-version = "0.3.99"
+version = "0.3.100"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "142bc4740e452c1e57ade0cbc129f139c9093e354346f0872ef985f4f5cf5f11"
+checksum = "f2025f20d7a4fa7785846e7b63d10a76d3f1cee98ee5cb79ea59703f95e42162"
 dependencies = [
  "cfg-if",
  "futures-util",
- "once_cell",
  "wasm-bindgen",
 ]
 
 [[package]]
 name = "kami-app"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "console_error_panic_hook",
  "glam",
@@ -716,6 +716,7 @@ dependencies = [
 [[package]]
 name = "kami-bim"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "glam",
  "kami-cad",
@@ -731,6 +732,7 @@ dependencies = [
 [[package]]
 name = "kami-cad"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "glam",
  "hecs",
@@ -748,6 +750,7 @@ dependencies = [
 [[package]]
 name = "kami-core"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "bytemuck",
  "glam",
@@ -759,6 +762,7 @@ dependencies = [
 [[package]]
 name = "kami-dec"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "bytemuck",
  "glam",
@@ -768,6 +772,7 @@ dependencies = [
 [[package]]
 name = "kami-eng-core"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "glam",
  "hecs",
@@ -780,6 +785,7 @@ dependencies = [
 [[package]]
 name = "kami-eng-render"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "bytemuck",
  "glam",
@@ -793,6 +799,7 @@ dependencies = [
 [[package]]
 name = "kami-gltf"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "kami-render",
  "serde",
@@ -802,6 +809,7 @@ dependencies = [
 [[package]]
 name = "kami-live"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "glam",
  "log",
@@ -812,6 +820,7 @@ dependencies = [
 [[package]]
 name = "kami-mesher"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "glam",
  "kami-render",
@@ -821,6 +830,7 @@ dependencies = [
 [[package]]
 name = "kami-pipelines"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "bytemuck",
  "glam",
@@ -837,8 +847,10 @@ dependencies = [
 [[package]]
 name = "kami-render"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "bytemuck",
+ "flate2",
  "glam",
  "kami-core",
  "log",
@@ -849,6 +861,7 @@ dependencies = [
 [[package]]
 name = "kami-sdf"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "glam",
  "kami-voxel",
@@ -859,6 +872,7 @@ dependencies = [
 [[package]]
 name = "kami-terrain"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "bytemuck",
  "glam",
@@ -868,6 +882,7 @@ dependencies = [
 [[package]]
 name = "kami-text"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "ab_glyph",
  "bytemuck",
@@ -882,6 +897,7 @@ dependencies = [
 [[package]]
 name = "kami-ui-gpu"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "bytemuck",
  "glam",
@@ -890,6 +906,7 @@ dependencies = [
 [[package]]
 name = "kami-vegetation"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "bytemuck",
  "glam",
@@ -901,6 +918,7 @@ dependencies = [
 [[package]]
 name = "kami-voxel"
 version = "0.1.0"
+source = "git+https://github.com/etzhayyim/kami-engine.git?rev=c1cff42cee8b9087bfad67931a916c5bfe087638#c1cff42cee8b9087bfad67931a916c5bfe087638"
 dependencies = [
  "glam",
  "serde",
@@ -969,9 +987,9 @@ dependencies = [
 
 [[package]]
 name = "log"
-version = "0.4.30"
+version = "0.4.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "616ec5685824bcc94416c6d4a7a446eea774a31efd7062c8480ba6fd06d7a6e5"
+checksum = "953f07c43838f8e6f9758cab68bf5bed85465e7587ebe0b823f1bcd81978ad3a"
 
 [[package]]
 name = "malloc_buf"
@@ -984,9 +1002,9 @@ dependencies = [
 
 [[package]]
 name = "memchr"
-version = "2.8.1"
+version = "2.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6b947ae49db0d222b1dbc6b113ce7248a3fc3a6ca21b696717bfc000ba4484d8"
+checksum = "88904434abc2901f197fe8cc55f0445e7ded921dba5911dad2e2b39b48e663c4"
 
 [[package]]
 name = "metal"
@@ -994,7 +1012,7 @@ version = "0.31.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f569fb946490b5743ad69813cb19629130ce9374034abe31614a36402d18f99e"
 dependencies = [
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
  "block",
  "core-graphics-types",
  "foreign-types",
@@ -1031,7 +1049,7 @@ checksum = "e380993072e52eef724eddfcde0ed013b0c023c3f0417336ed041aa9f076994e"
 dependencies = [
  "arrayvec",
  "bit-set",
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
  "cfg_aliases",
  "codespan-reporting",
  "hexf-parse",
@@ -1143,7 +1161,7 @@ version = "0.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "60769b8b31b2a9f263dae2776c37b1b28ae246943cf719eb6946a1db05128a61"
 dependencies = [
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
  "crc32fast",
  "fdeflate",
  "flate2",
@@ -1204,7 +1222,7 @@ version = "0.5.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed2bf2547551a7053d6fdfafda3f938979645c44812fbfcda098faae3f1a362d"
 dependencies = [
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
 ]
 
 [[package]]
@@ -1231,7 +1249,7 @@ version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c85d1ccd519e61834798eb52c4e886e8c2d7d698dd3d6ce0b1b47eb8557f1181"
 dependencies = [
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
  "bytemuck",
  "core_maths",
  "log",
@@ -1321,9 +1339,9 @@ dependencies = [
 
 [[package]]
 name = "smallvec"
-version = "1.15.1"
+version = "1.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03"
+checksum = "8ed6a63f02c8539c91a8685a86f4099661ba3da017932f6ebbea6de3f0fa7c90"
 
 [[package]]
 name = "spin"
@@ -1337,7 +1355,7 @@ version = "0.3.0+sdk-1.3.268.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "eda41003dc44290527a59b13432d4a0379379fa074b70174882adfbdfd917844"
 dependencies = [
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
 ]
 
 [[package]]
@@ -1481,9 +1499,9 @@ checksum = "383ad40bb927465ec0ce7720e033cb4ca06912855fc35db31b5755d0de75b1ee"
 
 [[package]]
 name = "unicode-segmentation"
-version = "1.13.2"
+version = "1.13.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9629274872b2bfaf8d66f5f15725007f635594914870f65218920345aa11aa8c"
+checksum = "c6f5d3c3b1bf09027a88a6bc961fc00497d651009560b5463668dc81b0fa87a8"
 
 [[package]]
 name = "unicode-width"
@@ -1511,9 +1529,9 @@ checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
 
 [[package]]
 name = "wasm-bindgen"
-version = "0.2.122"
+version = "0.2.123"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ed04576f974d2b2fba0f38c51dbc5518011e38c36bf1143164be765528fd409"
+checksum = "a254a4b10c19a76f09a27640e7ffbf9bc30bf67e16a3bf28aaefa4920fe81563"
 dependencies = [
  "cfg-if",
  "once_cell",
@@ -1524,9 +1542,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-futures"
-version = "0.4.72"
+version = "0.4.73"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9473dbd2991ae90b6291c3c32c30c6187ac49aa32f9905d1cce280ec1e110b0f"
+checksum = "54568702fabf5d4849ce2b90fadfa64168a097eaf4b351ce9df8b687a0086aaf"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
@@ -1534,9 +1552,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro"
-version = "0.2.122"
+version = "0.2.123"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "916151b09da36bd82f6615cbf3a419e2f0ba23a03c6160e8e92eb6bd4aa1dec6"
+checksum = "24a40fc75b0ec6f3746ceb10d36f53a93dcd68a93b11b6445983945d79eba0dc"
 dependencies = [
  "quote",
  "wasm-bindgen-macro-support",
@@ -1544,9 +1562,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro-support"
-version = "0.2.122"
+version = "0.2.123"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "299047362ccbfce148b67ab7e73349f77748e00c8296f9542adfad2ad82c5c5e"
+checksum = "908f34bd9b9ce3d4caf07b72dfab63d61504d156856c6bd3cd87fa350cf3985b"
 dependencies = [
  "bumpalo",
  "proc-macro2",
@@ -1557,18 +1575,18 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-shared"
-version = "0.2.122"
+version = "0.2.123"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a929b2c61f11ba3e9bc35b50c1f25cb38e0e892c0c231ae2b8cf78d5dad4437"
+checksum = "7acbf7616c27b194bbb550bf77ed0c2c3e5b7fd1260a93082b95fb7f47959b92"
 dependencies = [
  "unicode-ident",
 ]
 
 [[package]]
 name = "web-sys"
-version = "0.3.99"
+version = "0.3.100"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d621441cfc37b84979402712047321980c178f299193a3589d05b99e8763436"
+checksum = "6e0871acf327f283dc6da28a1696cdc64fb355ba9f935d052021fa77f35cce69"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
@@ -1581,7 +1599,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6b0b3436f0729f6cdf2e6e9201f3d39dc95813fad61d826c1ed07918b4539353"
 dependencies = [
  "arrayvec",
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
  "cfg_aliases",
  "document-features",
  "js-sys",
@@ -1608,7 +1626,7 @@ checksum = "7f0aa306497a238d169b9dc70659105b4a096859a34894544ca81719242e1499"
 dependencies = [
  "arrayvec",
  "bit-vec",
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
  "cfg_aliases",
  "document-features",
  "indexmap",
@@ -1635,7 +1653,7 @@ dependencies = [
  "arrayvec",
  "ash",
  "bit-set",
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
  "block",
  "bytemuck",
  "cfg_aliases",
@@ -1677,7 +1695,7 @@ version = "24.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "50ac044c0e76c03a0378e7786ac505d010a873665e2d51383dcff8dd227dc69c"
 dependencies = [
- "bitflags 2.11.1",
+ "bitflags 2.13.0",
  "js-sys",
  "log",
  "web-sys",
@@ -1843,18 +1861,18 @@ checksum = "3ae8337f8a065cfc972643663ea4279e04e7256de865aa66fe25cec5fb912d3f"
 
 [[package]]
 name = "zerocopy"
-version = "0.8.50"
+version = "0.8.52"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3b065d4f0e55f82fae73202e189638116a87c55ab6b8e6c2721e13dd9d854ad1"
+checksum = "ce1022995ff5ff5d841ad7d994facc23098cd40152f2c1d11cd607c6f530653f"
 dependencies = [
  "zerocopy-derive",
 ]
 
 [[package]]
 name = "zerocopy-derive"
-version = "0.8.50"
+version = "0.8.52"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0b631b19d36a892ab55420c92dbc83ccd79274f25be714855d3074aa71cab639"
+checksum = "1ae7f38b72ec2a254e2b87ef277cf2cd4fb97cbebf944faa6f33354da0867930"
 dependencies = [
  "proc-macro2",
  "quote",
