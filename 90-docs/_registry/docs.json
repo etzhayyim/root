@@ -24545,6 +24545,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606122100-session-close-tanemaki-public-fund-steward.md",
+      "id": "adr-2606122100-session-close-tanemaki-public-fund-steward",
+      "title": "ADR-2606122100: Session close — Public-Fund 投資判断/DD survey → tanemaki 種蒔き grant-steward R0 design+implementation (PR",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-tanemaki-public-fund-steward",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-12 tanemaki public-fund-steward session"
+      ],
+      "related": [
+        "adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606122000-tanemaki-public-fund-grant-steward"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

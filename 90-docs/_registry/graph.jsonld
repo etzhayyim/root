@@ -15563,6 +15563,19 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606122100-session-close-tanemaki-public-fund-steward",
+      "type": "TechArticle",
+      "title": "ADR-2606122100: Session close — Public-Fund 投資判断/DD survey → tanemaki 種蒔き grant-steward R0 design+implementation (PR",
+      "status": "active",
+      "topic": "session-close-tanemaki-public-fund-steward",
+      "authoritative": false,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-12 tanemaki public-fund-steward session"
+      ],
+      "related": "doc:adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass",
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
