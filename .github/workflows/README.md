@@ -2,14 +2,7 @@
 
 This directory contains GitHub Actions CI workflows for the etzhayyim monorepo.
 
-## tree-guard.yml
-
-Runs on **every PR and push to main with NO path filter** — deliberately, because path-triggered workflows all stay green on a tree wipe (nothing fires on paths that no longer exist). Born from the #1680 incident (a "one-line submodule pin bump" whose branch tree contained only `40-engine`; merging it deleted 77,504 files from main, restored by #1682) and the 2026-06-12 merge-history audit.
-
-**Jobs (single `tree-guard` job, 3 steps):**
-- `sentinel files exist` — load-bearing files/dirs (deps.edn, CLAUDE.md, CHARTER-RIDER.md, 90-docs/adr/README.md, the 8 layer dirs, …) must exist in the merged tree
-- `submodule pins exist upstream and never regress` — every `40-engine/{kotoba,kami-engine}` gitlink must be fetchable from its upstream remote (catches orphan pins like 98f9d2b3fd / 46e0bdaa6a that permanently break `git submodule update`); a PR that moves a pin must move it to a descendant of the base pin (catches #1403-style regressions / parallel-history swaps)
-- `mass-deletion alarm` — a PR deleting >3000 files fails unless its title contains `[mass-delete-ok]`
+> **tree-guard** (#1680-class tree wipes / orphan submodule pins / pin regressions) is a **local lefthook `pre-push` hook**, not a workflow — see `lefthook.yml` + `70-tools/scripts/lint/tree-guard.sh` (operator direction 2026-06-12: guard before the push leaves the machine; the server-side gate is the required-review ruleset on `main`). A short-lived `tree-guard.yml` workflow (#1684) was relocated there.
 
 ## ci.yml
 
