@@ -9,7 +9,8 @@
  :paths ["20-actors"
          "20-actors/kotodama/src"
          "50-infra/etzhayyim-moyai-credit/src"
-         "70-tools/src"]
+         "70-tools/src"
+         "70-tools"]
  :deps {com-junkawasaki/langchain-clj
         {:git/url "https://github.com/com-junkawasaki/langchain-clj"
          :git/sha "2b03859c3ee722b64f3eddd0b615a54019b17c81"}
@@ -99,7 +100,9 @@
                       'tatekata.cells.mep-installation.test-cell
                       'warifu.cells.test-refund
                       'kakaku.kotoba.test-ingest-mcp
-                      'watatsuna.methods.test-ingest)
+                      'watatsuna.methods.test-ingest
+                      'scripts.lint.test-verify-no-modal-labs-calls
+                      'scripts.bench.langgraph-coding.test-diff)
              (let [r (clojure.test/run-tests 'rasen.tests.test-analyze
                                              'kanjo.tests.test-kanjo
                                              'kanjo.tests.test-invariants
@@ -113,7 +116,9 @@
                                              'tatekata.cells.mep-installation.test-cell
                                              'warifu.cells.test-refund
                                              'kakaku.kotoba.test-ingest-mcp
-                                             'watatsuna.methods.test-ingest)]
+                                             'watatsuna.methods.test-ingest
+                                             'scripts.lint.test-verify-no-modal-labs-calls
+                      'scripts.bench.langgraph-coding.test-diff)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
