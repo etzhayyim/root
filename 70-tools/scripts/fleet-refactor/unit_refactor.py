@@ -172,6 +172,21 @@ UNIT_LINT_CONFIG = ('{:linters {:unresolved-symbol {:level :warning} '
 FILE_LINT_CONFIG = '{:linters {:namespace-name-mismatch {:level :off}}}'
 
 
+def bb_compile(code: str, ns: str) -> tuple[bool, str]:
+    """bb で実際にコンパイル/ロードして未解決シンボル/namespace を捕捉する。
+    clj-kondo が warning 止まりで見逃す幻覚 alias (str/trim-leading 等) を error 化。
+    bb 不在ならスキップ (True)。"""
+    import shutil
+    if not shutil.which("bb"):
+        return True, "bb unavailable — compile smoke skipped"
+    fname = ns.rsplit(".", 1)[-1].replace("-", "_") + ".clj"
+    with tempfile.TemporaryDirectory() as d:
+        (Path(d) / fname).write_text(code, encoding="utf-8")
+        r = subprocess.run(["bb", "-cp", d, "-e", f"(require '{ns})"],
+                           capture_output=True, text=True, timeout=90)
+    return r.returncode == 0, (r.stdout + r.stderr).strip()
+
+
 def lint_text(code: str, config: str | None = None) -> tuple[bool, str]:
     # (ns scratch) と一致するよう scratch.clj 固定名で lint する
     # (ランダム temp 名だと namespace-name-mismatch で全滅する)
@@ -281,7 +296,9 @@ def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
     declares = [kebab(u["name"]) for u in units]  # 定数も declare して前方参照を塞ぐ
     header = (f";; ported from {src} (unit_refactor stage 0)\n"
               + (f";; {(doc.splitlines() or [''])[0]}\n" if doc else "")
-              + f"(ns {ns}\n  (:require [clojure.string] [clojure.set] [clojure.edn]))\n\n"
+              + f"(ns {ns}\n  (:require [clojure.string :as str]\n"
+              + "            [clojure.set :as set]\n"
+              + "            [clojure.edn :as edn]))\n\n"
               + (f"(declare {' '.join(declares)})\n\n" if declares else ""))
     assembled, ranges = assemble(header, results)
     ok, lint_out = lint_text(assembled, FILE_LINT_CONFIG)
@@ -305,6 +322,32 @@ def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
             ok, lint_out = lint_text(assembled, FILE_LINT_CONFIG)
     if not ok:
         return {**rec, "status": "fail", "reason": f"assembled lint: {lint_out[:300]}"}
+
+    # bb コンパイル smoke: clj-kondo が warning 止まりで見逃す未解決シンボル/alias
+    # (str/trim-leading 等の幻覚) を error 化。失敗行→単位逆引きでスタブ降格して再試行。
+    for _ in range(4):  # 降格の収束を有限回で打ち切る
+        bok, bout = bb_compile(assembled, ns)
+        if bok:
+            break
+        _, ranges = assemble(header, results)
+        blines = [int(m.group(1)) for m in re.finditer(r":(\d+):\d+", bout)]
+        bumped = 0
+        for bl in blines:
+            for a, b, r in ranges:
+                if a <= bl <= b and r["status"] == "ok":
+                    r["status"] = "demoted"
+                    r["reason"] = "bb-compile error"
+                    stub_unit(r)
+                    bumped += 1
+                    break
+        if not bumped:  # 行が単位へ当たらない (ヘッダ等) — これ以上降格できない
+            return {**rec, "status": "fail", "reason": f"bb compile: {bout[:300]}"}
+        rec["demoted"] = rec.get("demoted", 0) + bumped
+        rec["unit_ok"] = sum(1 for r in results if r["status"] == "ok")
+        assembled, _ = assemble(header, results)
+        ok, _ = lint_text(assembled, FILE_LINT_CONFIG)  # 降格後 lint も再確認
+        if not ok:
+            return {**rec, "status": "fail", "reason": "post-bb-demote lint regressed"}
 
     out = src.parent / (ns.rsplit(".", 1)[-1].replace("-", "_") + ".clj")
     out.write_text(assembled, encoding="utf-8")
