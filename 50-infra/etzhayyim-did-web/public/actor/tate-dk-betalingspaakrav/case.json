@@ -1,0 +1,49 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:dk-betalingspaakrav",
+  "label": "Betalingspåkrav (支払督促・デンマーク)",
+  "jurisdiction": ":dk",
+  "jurisdiction_label": "Danmark",
+  "track": ":civil",
+  "genuine_channels": [
+    ":formal-service",
+    ":mail"
+  ],
+  "service_note": "betalingspåkrav は fogedretten から (forkyndelse) — SMS/e-mail の『retten』通知は偽",
+  "deadlines": [
+    {
+      "label": "Indsigelse (異議)",
+      "rule": "påkrav 記載の期限 (通常14日) 内に書面で indsigelse — 無応答は判決同等の効力 (påtegning)",
+      "anchor": "retsplejeloven kap. 44a (§477a 以下)",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":indsigelse",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "fogedretten へ indsigelse (→ 通常手続へ)"
+    },
+    {
+      "id": ":pay-or-settle",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "請求に理由がある場合: 支払い/分割"
+    }
+  ],
+  "referrals": [
+    "kr. 50,000 超 (småsager 上限外)"
+  ],
+  "jurisdiction_referrals": [
+    "retshjælp / advokatvagten (無料相談)",
+    "Forbrugerklagenævnet (Nævnenes Hus)"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "politi 114",
+    "Forbrug.dk"
+  ],
+  "verify_current_law": true
+}

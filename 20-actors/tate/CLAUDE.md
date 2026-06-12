@@ -1,9 +1,15 @@
-# tate 盾 — citizen legal-defense concierge
+# tate 盾 — citizen legal-defense concierge (worldwide)
 
-**DID**: `did:web:etzhayyim.com:actor:tate` · **Tier**: B · **Status**: 🟡 R0 ·
-**ADR**: 2606112301 · **depends**: 2606112201 (kaiyaku) · 2605312500 (kurashimori) ·
-2605262700 (chigiri UPL prior art) · 2606060900 (tasuke) · 2605231525 (no-server-key) ·
-2605215000 (Murakumo-only) · 2605312345 (Datom = canonical state)
+**DID**: `did:web:etzhayyim.com:actor:tate` · **Tier**: B · **Status**: 🟢 R2 (registry maturity) ·
+**ADR**: 2606112301 (R0 JP) + **2606112400 (R1 worldwide)** · **depends**: 2606112201
+(kaiyaku) · 2605312500 (kurashimori) · 2605262700 (chigiri UPL prior art) · 2606060900
+(tasuke) · 2605231525 (no-server-key) · 2605215000 (Murakumo-only) · 2605312345
+(Datom = canonical state)
+
+**Jurisdictions (R1)**: `:jp :us :eu :uk :de :kr :fr :au :ca :it :es :nl :br :tw :sg :in :cn :pl :se :at :pt :ie :ch :dk :fi :no :mx :be :ar :nz` — representative 30 of ~193, plus `us-states.edn` (**50/50 州完遂** — :us 通知に州が分かれば州規則を開示追記、州不明は honest degrade)
+(`coverage_report.py` measures + names the gap, G10; the worklist drops entries off
+automatically once covered). Uncovered jurisdictions degrade to
+`:unknown-jurisdiction` — tate **never guesses foreign law**.
 
 ## What this is
 
@@ -46,8 +52,31 @@ vocabulary on SMS / email / 普通郵便 → `:suspected-fake`: the plan's first
   when they were actually served.
 - **G5 context honesty.** Consumer anchors never fire on `:b2b` docs (disjoint by
   construction in `scan_doc`); B2B routes referral-forward instead.
-- **G7 referral-forward.** 本訴 / claim >¥600,000 (少額訴訟 ceiling, 民訴368条) /
-  執行段階 / 重大処分 always carry 法テラス 0570-078374 / 弁護士会 / 認定司法書士.
+- **G7 referral-forward.** 本訴 / claim > the jurisdiction's refer-over line
+  (¥600,000 · $10,000 · £10,000 · €5,000 — representative) / 執行段階 / 重大処分
+  always carry the jurisdiction's directory: 法テラス · state bar + legal aid ·
+  Citizens Advice · Verbraucherzentrale · ECC-Net.
+- **G10 jurisdiction-honesty (R1).** Anchors and procedures **never cross
+  jurisdictions** (structural filters in `scan_doc` / `classify` — a 消費者契約法
+  anchor cannot fire on a US doc; JP 支払督促 vocabulary under a `:us` notice does not
+  match the JP procedure). Per-jurisdiction UPL anchors (弁護士法72条 / state UPL /
+  Legal Services Act 2007 / RDG) live in `data/jurisdictions.edn`; the G3 gate itself
+  is global and structural. The G6 guard generalizes via `:proc/genuine-channels`
+  (特別送達 · personal service / certified mail · förmliche Zustellung · court post ·
+  formal service) with multilingual court-vocab trip-wires.
+
+## Universal invariants (parametric tests — 新規手続きに自動適用)
+
+| scope | invariant |
+|---|---|
+| 全手続き | options + anchored deadline rules + genuine-channels + refer-when 必在 (lint); verify-service-date 必在 (G4); UPL: representation unrepresentable, member self-submit (G3) |
+| 非 civil 全トラック | ≥1 `:opt/protective` (member を守る一手) 必在 |
+| :housing | `no-self-help-protection` 必在 — 退去は裁判所命令のみ |
+| :enforcement | 法定の差押え保護範囲 (3/4・25%・P-Konto・SBI・1/5 …) を必ず開示 |
+| :insolvency | kaiyaku 縁-ledger 突合 (前払金=債権) を必ず案内 |
+| :family | kokoro 心 (Wellbecoming サポート) routing 必在 |
+| :dl/critical | census (report) + 先頭ソート (plan) + ⚠ バナー (表示) の三層 |
+| fake-guard | 全 trigger 語彙が自動 trip-wire; SMS/email は宣言なき限り偽疑い |
 
 ## Non-goals
 
@@ -56,7 +85,7 @@ AGAINST others, no 取立 · N3 no evasion of lawful obligations (genuine debt/d
 surfaced honestly) · N4 never scores the counterparty (clauses are flagged, companies/
 persons are not — no blacklist, 反個人主義) · N5 kurashimori owns クーリングオフ/返金,
 toritsugi owns proactive 行政手続 — tate owns the defensive response surface ·
-N6 刑事 out of scope → immediate 弁護士 referral.
+N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**: 自分自身の雇用・居住関係を守る応答 (解雇への Kündigungsschutzklage / ACAS EC / 労働審判の検討) は『防御』であり N2 の攻撃的訴訟支援には当たらない — 第三者への請求の組成は引き続き非目標.
 
 ## Boundaries (who owns what)
 
@@ -76,19 +105,28 @@ N6 刑事 out of scope → immediate 弁護士 referral.
 ├── CLAUDE.md                      # this file
 ├── manifest.edn                   # actor manifest (5 cells, 9 gates, 6 non-goals)
 ├── data/
-│   ├── clause-patterns.edn        # coded clause-pattern registry (:representative)
-│   ├── procedure-registry.edn     # coded procedure registry (disclosed rules)
-│   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices (G1)
+│   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
+│   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (72 shapes, 30 juris)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (135 procs; :civil 36 + :labor 29 + :housing 20 + :enforcement 20 + :insolvency 14 + :family 16 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
+│   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
+│   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # pure-stdlib → kotoba pywasm-runnable
-│   ├── terms_scan.py              # 不利条項 scanner (non-adjudicating flags)
-│   ├── respond_plan.py            # response planner + 架空請求 guard
+│   ├── terms_scan.py              # 不利条項 scanner (non-adjudicating flags, G10 filter)
+│   ├── respond_plan.py            # response planner + fake-notice guard (G6/G10)
+│   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
+│   ├── site_gen.py                # crawlable static site (FAQPage JSON-LD + sitemap — Google 可視化)
+│   ├── case_actors_gen.py         # 1 case = 1 keyless actor (profile + case.json/checklist DL + 相談先)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 17 tests, pure stdlib
+├── tests/                         # 120 tests, pure stdlib
 │   ├── test_terms.py
-│   └── test_respond.py
+│   ├── test_respond.py
+│   ├── test_site.py
+│   └── test_coverage.py
 └── out/                           # GENERATED — do not hand-edit
     ├── clause-readout.md
+    ├── kaiyaku-handoff.edn          # :kaiyaku ルートの機械可読ハンドオフ (actors compose)
     ├── response-plans.md
+    ├── coverage-report.md
     └── tate-datoms.kotoba.edn
 ```
 
@@ -96,10 +134,12 @@ N6 刑事 out of scope → immediate 弁護士 referral.
 
 ```bash
 cd 20-actors/tate
-python3 methods/terms_scan.py      # → out/clause-readout.md
-python3 methods/respond_plan.py    # → out/response-plans.md (dry-run)
-python3 methods/datom_emit.py      # → out/tate-datoms.kotoba.edn (EAVT)
-python3 tests/test_terms.py && python3 tests/test_respond.py   # 17 green
+python3 methods/terms_scan.py        # → out/clause-readout.md
+python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
+python3 methods/coverage_report.py   # → out/coverage-report.md (21/193 + 10/50 states + tracks, named gaps)
+python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
+python3 tests/test_terms.py && python3 tests/test_respond.py \
+  && python3 tests/test_coverage.py  # 120 green
 ```
 
 ## Do not
@@ -116,3 +156,8 @@ python3 tests/test_terms.py && python3 tests/test_respond.py   # 17 green
   docs are consent-gated + encrypted (ADR-2605181100).
 - Statutory rules in the registries carry `:verify-current-law true` — when amending
   them, cite the current statute text, never memory.
+- Do not answer for an uncovered jurisdiction (no LLM-guessed foreign law — the most
+  dangerous failure mode this actor can have), and never let an anchor or procedure
+  cross jurisdictions — G10 (tests enforce: adversarial JP-keywords-on-US-doc fires
+  nothing; `:br` notice gets no deadlines/options). Adding a jurisdiction = one
+  `jurisdictions.edn` entry + patterns + procedures + tests; no code change.
