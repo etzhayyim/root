@@ -1,0 +1,45 @@
+{;; babashka project file — the Clojure-side runner for actor code ported off
+ ;; Python/TS onto the kotoba Datom-log + langgraph-clj/langchain-clj stack.
+ ;; (`deps.edn` at this root is the platform registry SSoT, NOT a tools.deps file.)
+ ;;
+ ;; Source roots:
+ ;;   20-actors                            — actor namespaces (mimamori.*, yobel.*, …)
+ ;;   20-actors/kotodama/src               — kotoba.datom (Datom-log commit-DAG binding)
+ ;;   50-infra/etzhayyim-moyai-credit/src  — moyai.ledger (reciprocity-credit primitive)
+ :paths ["20-actors"
+         "20-actors/kotodama/src"
+         "50-infra/etzhayyim-moyai-credit/src"]
+ :deps {com-junkawasaki/langchain-clj
+        {:git/url "https://github.com/com-junkawasaki/langchain-clj"
+         :git/sha "2b03859c3ee722b64f3eddd0b615a54019b17c81"}
+        com-junkawasaki/langgraph-clj
+        {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
+         :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}}
+ :tasks
+ {test:mimamori
+  {:doc "mimamori 見守り Clojure test suite (port of tests/test_*.py)"
+   :task (do (require 'clojure.test
+                      'mimamori.tests.test-bond
+                      'mimamori.tests.test-coverage
+                      'mimamori.tests.test-kotoba-autorun
+                      'mimamori.tests.test-shakai
+                      'mimamori.tests.test-cell)
+             (let [r (clojure.test/run-tests 'mimamori.tests.test-bond
+                                             'mimamori.tests.test-coverage
+                                             'mimamori.tests.test-kotoba-autorun
+                                             'mimamori.tests.test-shakai
+                                             'mimamori.tests.test-cell)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:yobel
+  {:doc "yobel ヨベル Clojure test suite (langgraph-clj cells + orchestrator)"
+   :task (do (require 'clojure.test
+                      'yobel.tests.test-cells
+                      'yobel.tests.test-orchestrator)
+             (let [r (clojure.test/run-tests 'yobel.tests.test-cells
+                                             'yobel.tests.test-orchestrator)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:clj
+  {:doc "all Clojure actor tests"
+   :depends [test:mimamori test:yobel]}}}
