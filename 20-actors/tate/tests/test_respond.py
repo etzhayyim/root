@@ -1050,6 +1050,23 @@ def test_wave37_au_ca_insolvency():
     assert any("WEPP" in d["rule"] for d in ca["deadlines"])
 
 
+def test_wave38_tw_se_nl_family():
+    """Wave 38: family 13 juris — :tw 調解前置 (家事事件法23條) · :se **betänketid
+    6-24か月の自動考慮期間** (ÄktB 5 kap) · :nl verweerschrift 6週間 + **advocaat
+    必須の正直開示** (toevoeging 本人申請 protective, critical); kokoro auto."""
+    ps, _ = _by_id()
+    tw = ps["ntc:tw-lihun"]
+    assert tw["status"] == ":genuine" and tw["proc"] == "proc:tw-lihun"
+    assert any("調解前置" in d["rule"] for d in tw["deadlines"])
+    se = ps["ntc:se-skilsmassa"]
+    assert se["status"] == ":genuine" and se["proc"] == "proc:se-skilsmassa"
+    assert any("betänketid" in d["rule"] for d in se["deadlines"])
+    nl = ps["ntc:nl-echtscheiding"]
+    assert nl["status"] == ":genuine" and nl["proc"] == "proc:nl-echtscheiding"
+    assert nl["deadlines"][0]["critical"] is True
+    assert any("toevoeging" in o["label"] for o in nl["options"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

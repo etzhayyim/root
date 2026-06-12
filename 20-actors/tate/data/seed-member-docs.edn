@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 38 (:tw/:se/:nl family) ─────────────────────────────────────────────
+ {:notice/id "ntc:tw-lihun" :notice/label "TW 家事調解通知 (離婚・家事)"
+  :notice/jurisdiction :tw
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "TWD"
+  :notice/sourcing :synthetic
+  :notice/text "家事調解期日通知書。相對人提起離婚事件，請於期日到場。"}
+
+ {:notice/id "ntc:se-skilsmassa" :notice/label "SE äktenskapsskillnad (家事)"
+  :notice/jurisdiction :se
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "SEK"
+  :notice/sourcing :synthetic
+  :notice/text "Ansökan om äktenskapsskillnad har inkommit till tingsrätten. Ni bereds tillfälle att inkomma med svaromål."}
+
+ {:notice/id "ntc:nl-echtscheiding" :notice/label "NL verzoekschrift echtscheiding (家事)"
+  :notice/jurisdiction :nl
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Betekening van het verzoekschrift tot echtscheiding van uw echtgenoot."}
+
  ;; ── wave 37 (:au/:ca insolvency) ─────────────────────────────────────────────
  {:notice/id "ntc:au-va" :notice/label "AU voluntary administration notice (倒産・email)"
   :notice/jurisdiction :au

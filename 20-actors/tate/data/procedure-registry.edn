@@ -964,6 +964,21 @@
   :proc/verify-current-law true}
 
  ;; ── :nl ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:nl-echtscheiding" :proc/label "Verzoekschrift echtscheiding (家事・オランダ)"
+  :proc/jurisdiction :nl :proc/track :family
+  :proc/trigger-keywords ["echtscheiding"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Verweerschrift (advocaat 必須)"
+    :dl/rule "verweerschrift は原則6週間以内 — ただし家事は **advocaat による提出が必須** (本人不可の類型; gesubsidieerde rechtsbijstand で立てられる); 子がいれば ouderschapsplan が要件"
+    :dl/anchor "Rv 815-816 / Wet op de rechtsbijstand" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :rechtsbijstand :opt/kind :self-submit :opt/protective true
+    :opt/label "gesubsidieerde rechtsbijstand (toevoeging) の申請は本人可 — 資力に応じ advocaat が付く"}
+   {:opt/id :mediation :opt/kind :self-decide :opt/label "mediation 併用で共同 verzoek への転換も"}]
+  :proc/refer-when ["即 advocaat (提出必須)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:nl-ontslag" :proc/label "Opzegging arbeidsovereenkomst (解雇・労働・オランダ)"
   :proc/jurisdiction :nl :proc/track :labor
   :proc/trigger-keywords ["arbeidsovereenkomst" "ontslag"]
@@ -1094,6 +1109,21 @@
   :proc/verify-current-law true}
 
  ;; ── :tw ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:tw-lihun" :proc/label "離婚調解/訴訟の通知 (家事・台湾)"
+  :proc/jurisdiction :tw :proc/track :family
+  :proc/trigger-keywords ["離婚" "家事調解"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "調解前置"
+    :dl/rule "離婚等の家事事件は**調解前置** — 通知記載の調解期日に出席 (無断欠席は調解に代わる裁定・過料があり得る); 合意するまで成立しない"
+    :dl/anchor "家事事件法 23條・32條" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :chuxi :opt/kind :self-decide :opt/protective true
+    :opt/label "調解期日に出席して言い分を述べる (程序監理人・社工の同席請求も可)"}
+   {:opt/id :dabian :opt/kind :self-submit :opt/label "答辯状・意見書を事前提出"}]
+  :proc/refer-when ["法律扶助基金會 (家事は扶助対象)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:tw-jiegu" :proc/label "資遣/解僱通知 (解雇・労働・台湾)"
   :proc/jurisdiction :tw :proc/track :labor
   :proc/trigger-keywords ["資遣" "解僱"]
@@ -1763,6 +1793,21 @@
   :proc/verify-current-law true}
 
  ;; ── :se ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:se-skilsmassa" :proc/label "Ansökan om äktenskapsskillnad (家事・スウェーデン)"
+  :proc/jurisdiction :se :proc/track :family
+  :proc/trigger-keywords ["äktenskapsskillnad"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Svaromål / betänketid"
+    :dl/rule "tingsrätt の通知期限内に svaromål — 16歳未満の子と同居 or 一方が争う場合は **betänketid (考慮期間) 6か月〜24か月** が自動で入る (即時離婚にならない)"
+    :dl/anchor "äktenskapsbalken 5 kap. 1-3§§" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :svaromal :opt/kind :self-submit :opt/protective true
+    :opt/label "svaromål を提出 (本人可 — bodelning 財産分割は別手続)"}
+   {:opt/id :familjeradgivning :opt/kind :self-decide :opt/label "kommun の familjerådgivning (低額)"}]
+  :proc/refer-when ["bodelning/子の vårdnad → jurist" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:se-uppsagning" :proc/label "Uppsägning (解雇・労働・スウェーデン)"
   :proc/jurisdiction :se :proc/track :labor
   :proc/trigger-keywords ["anställning"]

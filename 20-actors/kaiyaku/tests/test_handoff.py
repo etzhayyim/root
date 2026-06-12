@@ -44,6 +44,17 @@ def test_datoms_emitted():
     assert ":kaiyaku.handoff/action :calendar-notice-window" in text
 
 
+def test_kaiyaku_claude_md_counts_in_sync():
+    """Wave 38: kaiyaku 側も CLAUDE.md のテスト数を実数照合 (同期封殺5本目 —
+    両 actor で counts-sync 完備)."""
+    import re
+    md = (ACTOR_DIR / "CLAUDE.md").read_text(encoding="utf-8")
+    n_tests = sum(f.read_text(encoding="utf-8").count("\ndef test_")
+                  for f in (ACTOR_DIR / "tests").glob("test_*.py"))
+    m = re.search(r"# (\d+) tests, pure stdlib", md)
+    assert m and int(m.group(1)) == n_tests, f"kaiyaku CLAUDE.md test count drift (actual {n_tests})"
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for fn in fns:
