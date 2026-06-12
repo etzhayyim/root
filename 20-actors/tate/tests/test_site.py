@@ -60,6 +60,21 @@ def test_sitemap_lists_all_pages():
     assert (_TMP / "robots.txt").read_text(encoding="utf-8").startswith("User-agent: *")
 
 
+def test_deploy_copy_in_sync():
+    """Wave 36: worker static (50-infra/etzhayyim-did-web/public/tate) の deploy copy
+    は registry と同じページ集合でなければならない — registry が伸びたら
+    site_gen.py --out ...public/tate で再生成を強制する (counts-sync と同じ forcing
+    function; worker デプロイ自体は operator)."""
+    deploy = ACTOR_DIR.parent.parent / "50-infra" / "etzhayyim-did-web" / "public" / "tate"
+    assert deploy.exists(), "deploy copy missing — run site_gen --out .../public/tate"
+    deployed = {p.name for p in deploy.glob("*.html")}
+    fresh = {p for p in _PAGES if p.endswith(".html")}
+    assert deployed == fresh, (sorted(fresh - deployed), sorted(deployed - fresh))
+    sm = (deploy / "sitemap.xml").read_text(encoding="utf-8")
+    assert "https://etzhayyim.com/tate/index.html" in sm
+    assert not (deploy / "robots.txt").exists()  # robots はルート専用 — サブパスでは無効
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for fn in fns:

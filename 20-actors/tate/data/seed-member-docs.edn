@@ -212,6 +212,13 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 36 (:cn housing + site deploy copy) ─────────────────────────────────
+ {:notice/id "ntc:cn-tuizu" :notice/label "CN 解除租赁通知 (住居)"
+  :notice/jurisdiction :cn
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "CNY"
+  :notice/sourcing :synthetic
+  :notice/text "通知:出租人决定解除租赁合同,请于期限内腾退房屋。"}
+
  ;; ── wave 34 (:nl/:se/:tw enforcement) ────────────────────────────────────────
  {:notice/id "ntc:nl-beslag" :notice/label "NL loonbeslag (執行)"
   :notice/jurisdiction :nl

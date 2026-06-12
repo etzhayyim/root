@@ -1033,6 +1033,22 @@
   :proc/refer-when ["12333 (人社热线) / 法律援助 12348" "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:cn-tuizu" :proc/label "解除租赁/腾退通知 (住居・中国)"
+  :proc/jurisdiction :cn :proc/track :housing
+  :proc/trigger-keywords ["腾退" "解除租赁合同"]
+  :proc/genuine-channels [:mail :personal-service]
+  :proc/deadline-rules
+  [{:dl/label "任意解除の制限"
+    :dl/rule "租赁期内、出租人は法定/約定事由なく一方的に解除できない; **买卖不破租赁** — 房屋売却でも賃貸借は新所有者に承継される"
+    :dl/anchor "民法典 722-724条・725条" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :yiyue-check :opt/kind :self-decide :opt/protective true
+    :opt/label "解除事由の法定/約定該当性を確認 (該当なしなら継続履行・違約責任を主張可)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
+    :opt/label "断水断电・換鎖は違法 — 腾退は訴訟+執行のみ; 12348 へ"}]
+  :proc/refer-when ["住房租赁纠纷 → 人民调解/12348"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:cn-zhifuling" :proc/label "支付令 (支払督促・中国)"
   :proc/jurisdiction :cn
   :proc/trigger-keywords ["支付令"]

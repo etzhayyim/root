@@ -1027,6 +1027,15 @@ def test_wave34_nl_se_tw_enforcement():
     assert any("115-1" in d["anchor"] for d in tw["deadlines"])
 
 
+def test_wave36_cn_housing():
+    """Wave 36: :cn housing — 任意解除の制限 + **买卖不破租赁** (民法典725条);
+    断水断电/換鎖の no-self-help."""
+    ps, _ = _by_id()
+    cn = ps["ntc:cn-tuizu"]
+    assert cn["status"] == ":genuine" and cn["proc"] == "proc:cn-tuizu"
+    assert any("725" in d["anchor"] for d in cn["deadlines"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()
