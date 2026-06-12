@@ -33,8 +33,13 @@
   {:id :pilot-union       :model :cascade           :pass-rate "5/9"}
   {:id :batch100-pass1    :model "gemma4:e4b-it-qat" :pass-rate "1/100"
    :note "実分布はパイロットより遥かに硬い + ns-mismatch ハーネスバグ (pass1 は修正前に走行)"}
-  {:id :batch100-pass2    :model "gemma4:12b-it-qat" :pass-rate :in-progress
-   :note "55/99 時点 ok2/err8 — ゼロショット路線は実分布で不成立が確定的"}]
+  {:id :batch100-pass2    :model "gemma4:12b-it-qat" :pass-rate "3/99"
+   :note "timeout 18 含む; カスケード合計 4/100 — ゼロショット whole-file は実分布で不成立"}
+  {:id :stage0-unit-49    :model "gemma4:e4b-it-qat" :pass-rate "47/49 files lint-pass"
+   :unit-coverage "79/261 live (30%) + 幻覚 50 単位を組立時スタブ降格"
+   :coverage-dist {:complete 2 :>=50% 9 :<50% 36}
+   :sft-harvest 85 :secs-per-file 169
+   :note "成果物が『4%完成』→『96% lint 通過 + 30% 関数実装 + 機械可読 TODO スタブ』へ転換"}]
 
  :findings ;; ハマりどころ / 重要発見 (詳細は README.md)
  [{:id :openai-compat-drops-options
@@ -51,13 +56,16 @@
    :containment "SFT 隔離済 → pilot-results/sft-quarantine.jsonl"}]
 
  :ladder ;; 「Fable/Opus 品質」への段階 — 一つずつ試す (founder 指示 2026-06-12)
- [{:stage 0 :name :function-unit-decomposition :status :in-progress
+ [{:stage 0 :name :function-unit-decomposition :status :measured-effective
    :hypothesis "小入出力なら通る (pilot) / 実ファイルは通らない (batch) → top-level 単位に分割変換 + 決定的組立で合格率を数倍に戻す"
+   :verdict "仮説実証: 単位レベル 50% 通過 → demote-and-reassemble で 47/49 ファイル lint 通過 (live 30%)"
    :design {:python :ast-module :ts :deferred
-            :assembly "(ns …) + (declare all-fns) + 単位訳の連結 (順序保存)"
-            :unit-gate "clj-kondo (unresolved-symbol を warning に降格)"
-            :file-gate "clj-kondo full (通常レベル)"}
-   :measure "同一 batch100 で cascade と直接比較"}
+            :assembly "(ns …) + (declare 全単位) + 単位訳連結; 失敗/幻覚単位は throw スタブ + 原文コメント"
+            :unit-gate "clj-kondo (unresolved 系を warning 降格, scratch.clj 固定名)"
+            :file-gate "clj-kondo full (ns-mismatch のみ :off — 実出力パスは by construction 一致)"
+            :demote "組立 lint エラー行→単位逆引き→スタブ降格→再組立"}
+   :next [:escalate-todo-units-to-12b
+          "bb load-file smoke を最終ゲートに追加 (warning 止まりの未解決 alias (str/trim-leading 等) を捕捉)"]}
   {:stage 1 :name :cpt-clojure-corpus :status :blocked
    :blockers [:evo-ssh]
    :design "公開 Clojure コーパス (EPL/MIT/Apache) 50-200M tokens の CPT-LoRA @ EVO ROCm — 構文知識をベースに足す (SFT では埋まらない)"}
