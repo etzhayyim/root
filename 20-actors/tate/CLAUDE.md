@@ -1,6 +1,6 @@
 # tate 盾 — citizen legal-defense concierge (worldwide)
 
-**DID**: `did:web:etzhayyim.com:actor:tate` · **Tier**: B · **Status**: 🟡 R0+R1 ·
+**DID**: `did:web:etzhayyim.com:actor:tate` · **Tier**: B · **Status**: 🟢 R2 (registry maturity) ·
 **ADR**: 2606112300 (R0 JP) + **2606112400 (R1 worldwide)** · **depends**: 2606112200
 (kaiyaku) · 2605312500 (kurashimori) · 2605262700 (chigiri UPL prior art) · 2606060900
 (tasuke) · 2605231525 (no-server-key) · 2605215000 (Murakumo-only) · 2605312345
@@ -107,7 +107,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 ├── data/
 │   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
 │   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (72 shapes, 30 juris)
-│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (111 procs; :civil 36 + :labor 29 + :housing 16 + :enforcement 11 + :insolvency 9 + :family 10 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (114 procs; :civil 36 + :labor 29 + :housing 16 + :enforcement 14 + :insolvency 9 + :family 10 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
 │   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # pure-stdlib → kotoba pywasm-runnable
@@ -115,7 +115,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 │   ├── respond_plan.py            # response planner + fake-notice guard (G6/G10)
 │   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 94 tests, pure stdlib
+├── tests/                         # 95 tests, pure stdlib
 │   ├── test_terms.py
 │   ├── test_respond.py
 │   └── test_coverage.py
@@ -136,7 +136,7 @@ python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
 python3 methods/coverage_report.py   # → out/coverage-report.md (21/193 + 10/50 states + tracks, named gaps)
 python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
 python3 tests/test_terms.py && python3 tests/test_respond.py \
-  && python3 tests/test_coverage.py  # 94 green
+  && python3 tests/test_coverage.py  # 95 green
 ```
 
 ## Do not

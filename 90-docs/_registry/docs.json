@@ -24133,6 +24133,30 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606122000-tate-kaiyaku-worldwide-r2-status.md",
+      "id": "adr-2606122000-tate-kaiyaku-worldwide-r2-status",
+      "title": "ADR-2606122000: tate 盾 R2 status — 34-wave coverage loop の到達点 (kaiyaku compose 含む)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "tate-r2-status",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-r2-status"
+      ],
+      "related": [
+        "adr-2606112200"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606112300",
+        "adr-2606112400"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

@@ -1012,6 +1012,21 @@ def test_wave33_pl_at_ch_housing():
     assert p2[":proc/id"] == "proc:ch-mietkuendigung"
 
 
+def test_wave34_nl_se_tw_enforcement():
+    """Wave 34: 賃金保護13法体系 — :nl beslagvrije voet 自動計算 (是正請求可) ·
+    :se förbehållsbelopp 再計算請求 · :tw 1/3 限度 + 最低生活費 (声明異議)."""
+    ps, _ = _by_id()
+    nl = ps["ntc:nl-beslag"]
+    assert nl["status"] == ":genuine" and nl["proc"] == "proc:nl-beslag"
+    assert any("beslagvrije voet" in d["rule"] for d in nl["deadlines"])
+    se = ps["ntc:se-utmatning"]
+    assert se["status"] == ":genuine" and se["proc"] == "proc:se-utmatning"
+    assert any("förbehållsbelopp" in d["rule"] for d in se["deadlines"])
+    tw = ps["ntc:tw-qiangzhi"]
+    assert tw["status"] == ":genuine" and tw["proc"] == "proc:tw-qiangzhi"
+    assert any("115-1" in d["anchor"] for d in tw["deadlines"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

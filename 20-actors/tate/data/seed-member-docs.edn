@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 34 (:nl/:se/:tw enforcement) ────────────────────────────────────────
+ {:notice/id "ntc:nl-beslag" :notice/label "NL loonbeslag (執行)"
+  :notice/jurisdiction :nl
+  :notice/channel :formal-service :notice/claim-amount 2200 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Exploot van loonbeslag betekend aan uw werkgever."}
+
+ {:notice/id "ntc:se-utmatning" :notice/label "SE utmätning av lön (執行)"
+  :notice/jurisdiction :se
+  :notice/channel :mail :notice/claim-amount 14000 :notice/claim-currency "SEK"
+  :notice/sourcing :synthetic
+  :notice/text "Beslut om utmätning av lön från Kronofogden."}
+
+ {:notice/id "ntc:tw-qiangzhi" :notice/label "TW 扣押命令 (執行)"
+  :notice/jurisdiction :tw
+  :notice/channel :formal-service :notice/claim-amount 90000 :notice/claim-currency "TWD"
+  :notice/sourcing :synthetic
+  :notice/text "強制執行 扣押命令。就債務人對第三人之薪資債權予以扣押。"}
+
  ;; ── wave 33 (:pl/:at/:ch housing) ────────────────────────────────────────────
  {:notice/id "ntc:pl-eksmisja" :notice/label "PL pozew o opróżnienie lokalu (住居)"
   :notice/jurisdiction :pl

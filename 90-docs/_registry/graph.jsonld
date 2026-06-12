@@ -15320,6 +15320,19 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606122000-tate-kaiyaku-worldwide-r2-status",
+      "type": "TechArticle",
+      "title": "ADR-2606122000: tate 盾 R2 status — 34-wave coverage loop の到達点 (kaiyaku compose 含む)",
+      "status": "active",
+      "topic": "tate-r2-status",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tate-r2-status"
+      ],
+      "related": "doc:adr-2606112200",
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
