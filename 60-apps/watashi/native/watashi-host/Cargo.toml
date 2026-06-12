@@ -17,11 +17,11 @@ log = "0.4"
 env_logger = "0.11"
 
 # KAMI Engine crates
-kami-bridge = { path = "../../../../packages/engine/kami-engine/kami-bridge" }
-kami-knp = { path = "../../../../packages/engine/kami-engine/kami-knp" }
-kami-input = { path = "../../../../packages/engine/kami-engine/kami-input" }
-kami-ui-gpu = { path = "../../../../packages/engine/kami-engine/kami-ui-gpu" }
-kami-text = { path = "../../../../packages/engine/kami-engine/kami-text" }
+kami-bridge = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-knp = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-input = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-ui-gpu = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-text = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
 
 # Kotodama host
 kotodama-kami-host = { path = "../../../../packages/runtime/kotodama/kotodama-kami-host" }

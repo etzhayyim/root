@@ -8,11 +8,11 @@ license.workspace = true
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-kami-app        = { path = "../../kami-engine/kami-app" }
-kami-pipelines  = { path = "../../kami-engine/kami-pipelines" }
-kami-render     = { path = "../../kami-engine/kami-render" }
-kami-terrain    = { path = "../../kami-engine/kami-terrain" }
-kami-vegetation = { path = "../../kami-engine/kami-vegetation" }
+kami-app        = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-pipelines  = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-render     = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-terrain    = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
+kami-vegetation = { git = "https://github.com/etzhayyim/kami-engine.git", rev = "c1cff42cee8b9087bfad67931a916c5bfe087638" }
 glam           = { workspace = true }
 bytemuck       = { workspace = true }
 hecs           = { workspace = true }
