@@ -15541,6 +15541,19 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness",
+      "type": "TechArticle",
+      "title": "ADR-2606121350: yoro UI svelte→ClojureScript 段階移行ハーネス — wave 2+3 (hooks 修正 + 9 components/state + atproto interop + tests)",
+      "status": "accepted",
+      "topic": "yoro-cljs-migration",
+      "authoritative": false,
+      "authoritativeFor": [
+        "yoro UI cljs migration harness layout + porting conventions (60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/cljs/)"
+      ],
+      "related": "doc:adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass",
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "type": "TechArticle",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
