@@ -15470,6 +15470,21 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606121143-deps-edn-line-split-canonical-format",
+      "type": "TechArticle",
+      "title": "ADR-2606121143: deps.edn canonical line-split format + structural append — 1 行 EDN の merge-conflict/破損隠蔽の根治",
+      "status": "accepted",
+      "topic": "deps-edn-line-split-format",
+      "authoritative": true,
+      "authoritativeFor": [
+        "deps.edn canonical format",
+        "deps.edn append protocol (--append-adrs)",
+        "deps-edn-canonical lefthook gate"
+      ],
+      "related": "doc:adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "type": "TechArticle",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",

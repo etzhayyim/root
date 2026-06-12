@@ -375,28 +375,20 @@ pre-commit:
       stage_fixed: false
 
 
-    deps-toml-paths:
-      # When deps.toml is staged, run the book-keeping path verifier
-      # (70-tools/scripts/lint/verify_deps_toml_paths.py — ADR-2605262500
-      # cycle 27). Catches orphaned [[adrs]] + [[modules]] entries from
-      # renames / refactors before they hit history. ~0.05s overhead.
-      glob: "deps.toml"
+    deps-edn-canonical:
+      # When deps.edn is staged, require VALID EDN in the canonical line-split
+      # format (70-tools/scripts/lint/format-deps-edn.py --check). The check
+      # parses the whole file, so it doubles as a corruption gate: on
+      # 2026-06-12 deps.edn carried invalid EDN across several merges (two
+      # string-surgery appends landed entries INSIDE another entry's title
+      # string) and the previous one-line format hid it. Append entries via
+      #   python3 70-tools/scripts/lint/format-deps-edn.py --append-adrs '{…}'
+      # never by raw string insertion. (Replaces the dead deps-toml-paths
+      # hook — deps.toml was removed by the toml→edn migration; porting its
+      # path verifier to deps.edn is tracked as follow-up.) ~0.3s overhead.
+      glob: "deps.edn"
       run: |
-        python3 70-tools/scripts/lint/verify_deps_toml_paths.py \
-          --filter ADR-2605262500 \
-          > /tmp/deps-toml-audit.$$.txt 2>&1
-        rc=$?
-        if [ $rc -ne 0 ]; then
-          echo "✘ deps.toml path audit failed for ADR-2605262500 scope:"
-          cat /tmp/deps-toml-audit.$$.txt
-          rm -f /tmp/deps-toml-audit.$$.txt
-          echo ""
-          echo "  Either restore the missing file(s), or remove the orphan"
-          echo "  entries from deps.toml. Run unfiltered audit for full picture:"
-          echo "    python3 70-tools/scripts/lint/verify_deps_toml_paths.py"
-          exit 1
-        fi
-        rm -f /tmp/deps-toml-audit.$$.txt
+        python3 70-tools/scripts/lint/format-deps-edn.py --check deps.edn
       stage_fixed: false
 
 
