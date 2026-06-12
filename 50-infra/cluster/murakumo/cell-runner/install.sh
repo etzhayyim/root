@@ -82,12 +82,6 @@ if [[ -z "$REPO_PATH" ]]; then
   REPO_PATH="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
 fi
 
-if [[ ! -f "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py/pyproject.toml" ]]; then
-  echo "ERROR: kotodama project not found at $REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" >&2
-  echo "       pass --repo-path <PATH> if your checkout is elsewhere" >&2
-  exit 2
-fi
-
 UV_PATH="$(command -v uv 2>/dev/null || true)"
 if [[ -z "$UV_PATH" ]]; then
   echo "ERROR: 'uv' binary not found in PATH" >&2
@@ -115,12 +109,22 @@ echo "  plist src:  $PLIST_SRC"
 echo "  installed:  $INSTALLED_PLIST"
 echo "  log dir:    $LOG_DIR"
 
+step "syncing kotoba submodule"
+(cd "$REPO_PATH" && git submodule update --init --recursive 40-engine/kotoba)
+ok "kotoba submodule synced"
+
+if [[ ! -f "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py/pyproject.toml" ]]; then
+  echo "ERROR: kotodama project not found at $REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" >&2
+  echo "       pass --repo-path <PATH> if your checkout is elsewhere" >&2
+  exit 2
+fi
+
 step "ensuring kotodama venv is synced (uv sync)"
 (cd "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" && "$UV_PATH" sync --quiet)
 ok "kotodama venv ready"
 
 step "running --health for $NODE_NAME (config readback)"
-(cd "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" && "$UV_PATH" run kotodama-cell-runner --node "$NODE_NAME" --health)
+(cd "$REPO_PATH/40-engine/kotoba/crates/kotoba-kotodama/py" && ETZ_REPO="$REPO_PATH" "$UV_PATH" run kotoba-kotodama-cell-runner --node "$NODE_NAME" --health)
 ok "health probe ok"
 
 # --- Materialise plist -----------------------------------------------------
@@ -167,14 +171,21 @@ install -m 0644 "$TMP_PLIST" "$INSTALLED_PLIST"
 ok "plist installed"
 
 step "loading LaunchAgent"
-launchctl load "$INSTALLED_PLIST"
-ok "loaded"
+LAUNCHD_LOADED=0
+if launchctl load "$INSTALLED_PLIST"; then
+  LAUNCHD_LOADED=1
+  ok "loaded"
+else
+  echo "WARN: launchctl load failed in this session." >&2
+  echo "      The plist is installed; retry from an interactive macOS login session:" >&2
+  echo "      launchctl load $INSTALLED_PLIST" >&2
+fi
 
 # --- Verify -----------------------------------------------------------------
 
 sleep 2
 step "verifying service is running"
-if launchctl list "$SERVICE_LABEL" | grep -q PID; then
+if [[ "$LAUNCHD_LOADED" == "1" ]] && launchctl list "$SERVICE_LABEL" | grep -q PID; then
   ok "$SERVICE_LABEL is running"
 else
   echo "WARN: service not yet showing PID — check logs:" >&2

@@ -114,7 +114,10 @@ def bridge_pdns(records, sourcing: str = "representative"):
     return list(domains.values()), pdns
 
 
-_ID_KEYS = (":domain/id", ":pdns/id", ":iphist/id", ":tlscert/id", ":indicator/id", ":access/id")
+_ID_KEYS = (
+    ":domain/id", ":pdns/id", ":iphist/id", ":tlscert/id",
+    ":indicator/id", ":access/id", ":btobs/id",
+)
 
 
 def _key(rec):
@@ -186,7 +189,8 @@ def main(argv):
 
     b = classify(merged)
     print(f"= merged graph: {len(b['domains'])} domains · {len(b['pdns'])} passive-DNS · "
-          f"{len(b['certs'])} certs · {len(b['indicators'])} IOCs · {len(merged)} records")
+          f"{len(b['certs'])} certs · {len(b['indicators'])} IOCs · "
+          f"{len(b['btobs'])} BitTorrent obs · {len(merged)} records")
     print(f"✓ wrote {out_path.relative_to(ACTOR)}")
     print(f"→ next: python3 methods/analyze.py {out_path.relative_to(ACTOR)} --out out")
 
