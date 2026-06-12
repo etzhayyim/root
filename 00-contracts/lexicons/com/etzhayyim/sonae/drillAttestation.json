@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sonae.drillAttestation",
+  "description": "Record of a preparedness drill (tabletop or field exercise). Opt-in participants only. STRUCTURAL CROSS-GATE: a drillAttestation also satisfies kazaori's R1 activation gate (>=1 community-pilot tabletop drill) when satisfiesKazaoriR1DrillGate is true.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["createdAt", "drillKind", "conductedAtUtc", "communityCellSiteId", "participantsOptIn", "attestingDid"],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "drillKind": {"type": "string", "knownValues": ["tabletop", "field-exercise", "evacuation-walkthrough", "communication-relay-test", "stockpile-rotation-check"]},
+          "hazardScenario": {"type": "string", "knownValues": ["earthquake", "tsunami", "typhoon-hurricane", "flood", "wildfire", "volcanic", "multi-hazard", "other"]},
+          "conductedAtUtc": {"type": "string", "format": "datetime"},
+          "communityCellSiteId": {"type": "string"},
+          "participantsOptIn": {
+            "type": "boolean",
+            "const": true,
+            "description": "G6 STRUCTURAL: const true — participation opt-in; no individual records, aggregate count only"
+          },
+          "participantCount": {"type": "integer", "minimum": 0},
+          "preparednessPlanRef": {"type": "string", "description": "$ref preparednessPlan exercised"},
+          "findingsCid": {"type": "string", "description": "Drill after-action findings / gaps CID"},
+          "satisfiesKazaoriR1DrillGate": {
+            "type": "boolean",
+            "description": "If true, this drill record is offered as evidence toward kazaori ADR-2605263200 R1 activation gate (>=1 tabletop drill)"
+          },
+          "attestingDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

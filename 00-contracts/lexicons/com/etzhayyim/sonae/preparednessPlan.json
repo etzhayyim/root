@@ -1,0 +1,133 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sonae.preparednessPlan",
+  "description": "Per-site preparedness plan: stockpile pre-positioning targets, safe-site pre-designation, evacuation-route pre-mapping, and opt-in vulnerable-population pre-registry. Feeds kazaori's response phase. G6 STRUCTURAL: registries opt-in only. Cross-actor targets via $ref (mizuho/mitsuho/tatekata/hagukumi).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "communityCellSiteId",
+          "siteRiskProfileRef",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "communityCellSiteId": {
+            "type": "string"
+          },
+          "siteRiskProfileRef": {
+            "type": "string",
+            "description": "$ref to the siteRiskProfile this plan answers"
+          },
+          "waterStockpileTarget": {
+            "type": "ref",
+            "ref": "#stockpileTarget",
+            "description": "mizuho-paired pre-positioning target"
+          },
+          "foodStockpileTarget": {
+            "type": "ref",
+            "ref": "#stockpileTarget",
+            "description": "mitsuho-paired pre-positioning target"
+          },
+          "safeSitePreDesignations": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#safeSite"
+            },
+            "description": "Pre-designated safe sites (tatekata damage/structural pre-assessment $ref)"
+          },
+          "evacuationRouteCids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Pre-mapped route geometry CIDs (region-level; no individual tracking)"
+          },
+          "vulnerableRegistryOptIn": {
+            "type": "boolean",
+            "description": "G6 STRUCTURAL: opt-in pre-registry maintained via hagukumi; member-signed, encrypted per ADR-2605181100"
+          },
+          "sphereAlignmentNotes": {
+            "type": "string",
+            "description": "G9: how targets meet Sphere minimums"
+          },
+          "fundingRequestRef": {
+            "type": "string",
+            "description": "$ref toritate preparedness Public Fund request"
+          },
+          "lastDrillRef": {
+            "type": "string",
+            "description": "$ref most recent drillAttestation exercising this plan"
+          },
+          "attestingDid": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "stockpileTarget": {
+      "type": "object",
+      "required": [
+        "unit",
+        "targetQuantity",
+        "crossActor"
+      ],
+      "properties": {
+        "unit": {
+          "type": "string",
+          "description": "e.g. liters-potable-water, person-days-food"
+        },
+        "targetQuantity": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "WHOLE units of `unit` (integer per ADR-2605190900 Lexicon convention)"
+        },
+        "currentQuantity": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "WHOLE units of `unit` (integer per ADR-2605190900 Lexicon convention)"
+        },
+        "crossActor": {
+          "type": "string",
+          "knownValues": [
+            "mizuho",
+            "mitsuho"
+          ]
+        },
+        "basisPersonDays": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Sphere-derived person-days the target covers"
+        }
+      }
+    },
+    "safeSite": {
+      "type": "object",
+      "required": [
+        "siteId",
+        "tatekataAssessmentRef"
+      ],
+      "properties": {
+        "siteId": {
+          "type": "string"
+        },
+        "tatekataAssessmentRef": {
+          "type": "string",
+          "description": "$ref tatekata structural pre-assessment"
+        },
+        "capacityPersons": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

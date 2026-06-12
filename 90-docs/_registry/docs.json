@@ -23262,6 +23262,50 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0.md",
+      "id": "adr-2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0",
+      "title": "ADR-2606091200: sonae (備え) — non-profit religious-corp civilian pre-disaster foresight + preparedness + early-warning substrate Tier-B actor R0 charter",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "sonae-pre-disaster-foresight-r0",
+      "authoritative": true,
+      "authoritative_for": [
+        "sonae actor R0 charter",
+        "religious-corp civilian pre-disaster foresight + preparedness + early-warning substrate single SoT",
+        "`com.etzhayyim.sonae.*` Lexicon namespace boundary",
+        "civilian-only invariant (NOT military; force authorization separate per ADR-2605192315)",
+        "no-false-authority invariant (G8 — relay-only; MUST NOT originate official seismic/tsunami warnings)",
+        "no-unilateral-declaration invariant (G10 — emergency state owned by kazaori Council path)",
+        "phase-boundary invariant (N3 — sonae does NOT do response; kazaori does)",
+        "prohibition on commercial disaster-prediction software (One Concern / FloodFlash / Jupiter Intelligence / RMS / Tomorrow.io enterprise / Everbridge / OnSolve / AlertMedia)",
+        "prohibition on surveillance-based monitoring (open feeds + opt-in self-report only)",
+        "Sendai Framework + Sphere Standards reference (NOT membership)"
+      ],
+      "related": [
+        "adr-2605263200-kazaori-disaster-response-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605261015-mitsuho-food-agriculture-tier-b-actor-r0",
+        "adr-2605261030-hagukumi-care-tier-b-actor-r0",
+        "adr-2605261100-hikari-energy-tier-b-actor-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605263200-kazaori-disaster-response-tier-b-actor-r0"
+      ],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606091500-kotoba-evm-datomic-ipfs-l2.md",
       "id": "adr-2606091500-kotoba-evm-datomic-ipfs-l2",
       "title": "ADR-2606091500: kotoba-EVM — a Datomic+IPFS EVM-compatible L2 (geth-less); kotoba IS the chain",
