@@ -1,0 +1,96 @@
+;; fund-stewardship-ontology — the Public-Fund grant-stewardship (DD) vocabulary for tanemaki 種蒔き
+;; ADR-2606122000 · the outflow-side sibling of fuchi 扶持 (ADR-2606052300, maintainer sustenance)
+;; and the actor-ization of the PublicFundGrantCell evaluation lane (ADR-2605192145). Where the
+;; observatories (kanjō 勘定 / kabuto 兜 / tsumugi 紡ぎ / kosatsu 高札 / ooyake 公 / shiori 栞)
+;; DATAFY the world's organizations, tanemaki is the STEWARD that fuses their public evidence
+;; into a DISCLOSED, weighted DD scorecard over candidate grantee ORGANIZATIONS — and then hands
+;; the decision to the members. 種蒔き = the sower: seed scattered freely, no return expected.
+;;
+;; PURPOSE: weave candidate ORGS, the hard charter SCREENS they must conform to, the weighted
+;; CRITERIA they are evaluated on, the public SOURCES each criterion draws evidence from, the
+;; permitted disbursement INSTRUMENTS, and post-grant MILESTONES into the kotoba Datom log. The
+;; lens is "is Public Fund outflow to this org mission-conformant", routed to a PUBLIC, advisory
+;; scorecard — never to a private ranking, never to an investment.
+;;
+;; CONSTITUTIONAL INVERSION (G1, read first — the defining boundary): tanemaki is a STEWARD,
+;; NEVER a sovereign. A commercial fund manager decides allocations and owes its LPs a return;
+;; tanemaki EVALUATES + DRAFTS and owes the members the truth. It NEVER decides: every grant is
+;; decided by 1 SBT = 1 vote on the GrantGovernor (ADR-2605192145) behind a timelock; tanemaki's
+;; scorecard is a 参考意見 (advisory) displayed in the voting UI. The proposal record is
+;; structurally advisory (`advisory true` / `bindsFund false` / `decidedBy :sbt-vote`) and
+;; tanemaki holds no key and no vote weight (no-server-key, ADR-2605231525).
+;;
+;; NO INVESTMENT INSTRUMENT (G2): the Public Fund GIVES (grant / milestone-escrow / in-kind);
+;; it never INVESTS. :equity :debt :convertible :revenue-share :profit-claim :carry :exit are
+;; UNREPRESENTABLE — see :instrument/allowlist below (mirrors fuchi G1, ADR-2606052300).
+;;
+;; NON-ADJUDICATING (N3 / G3): a screen finding or a criterion evidence-weight is a DISCLOSED
+;; public fact with a named source, never a verdict on an organization's worth. The seed is
+;; SYNTHETIC (G6): R0 contains only fictional :representative orgs; evaluating a REAL org is a
+;; G7-gated live leg fed from primary disclosure only (the kanjō pattern, ADR-2606032000).
+
+{:schema/id "fund-stewardship-ontology"
+ :schema/version "0.1.0"
+ :schema/adr "2606122000"
+
+ ;; ── nodes ──────────────────────────────────────────────────────────────────
+ :node/attrs
+ [{:attr :fs/id        :doc "stable id, e.g. org.osslib / scr.rider-s2 / cr.mission-fit / src.kanjo / i.grant / ms.osslib-1"}
+  {:attr :fs/kind      :doc ":org | :screen | :criterion | :source | :instrument | :milestone"}
+  {:attr :fs/label     :doc "common/display label"}
+  {:attr :fs/sourcing  :doc ":authoritative (charter / contract / official) | :representative (illustrative)"}
+  {:attr :fs/links     :doc "optional cross-actor id — e.g. actor:kanjo (evidence), actor:fuchi (instrument pattern)"}
+
+  ;; org facet (a candidate grantee organization)
+  {:attr :org/form      :doc ":nonprofit | :cooperative | :foundation | :oss-project | :company | :unincorporated"}
+  {:attr :org/synthetic :doc "true = FICTIONAL representative org (G6 — the whole R0 seed). Evaluating a real org is a G7-gated live leg; a real org MUST carry :org/synthetic false + a primary-disclosure provenance."}
+  {:attr :org/mission-axis :doc "the etzhayyim mission axis the org's work serves, e.g. :labor-liberation | :commons | :care | :sustenance | :knowledge"}
+
+  ;; screen facet (hard charter eligibility gate — pass/fail BEFORE any weighting)
+  {:attr :screen/code  :doc "S1..S6 — the disclosed eligibility registry (Rider §2 + charter-derived)"}
+  {:attr :screen/basis :doc "the DISCLOSED charter/Rider anchor, e.g. \"Charter Rider §2(c)\" / \"ADR-2605192130 §7\""}
+
+  ;; criterion facet (weighted DD rubric — only meaningful AFTER all screens conform)
+  {:attr :criterion/code   :doc "C1..C8 — the disclosed weighted rubric"}
+  {:attr :criterion/weight :doc "0..1 — the PUBLIC weight of this criterion. Σ over all criteria MUST = 1.0 (rubric integrity, enforced by analyze.py)"}
+  {:attr :criterion/axis   :doc "what the criterion measures, e.g. :mission-fit | :openness | :financial-stewardship | :governance | :tori-release | :wellbecoming | :additionality | :capacity"}
+
+  ;; source facet (where criterion evidence comes from — always a PUBLIC surface)
+  {:attr :source/actor  :doc "the observatory actor feeding this criterion, e.g. \"actor:kanjo\" / \"actor:kabuto\" / \"actor:tsumugi\" / \"actor:kosatsu\" / \"actor:ooyake\" / \"actor:shiori\""}
+  {:attr :source/nature :doc ":primary-disclosure (EDINET/EDGAR/registry filings) | :public-record (procurement/minutes) | :kg-mirror (a non-adjudicating etzhayyim observatory)"}
+
+  ;; instrument facet (HOW the fund may disburse — the G2 allowlist lives below)
+  {:attr :instrument/kind :doc ":grant (single disbursement) | :milestone-escrow (attestation-gated tranches) | :in-kind (compute/tooling/access, cash≡0)"}
+
+  ;; milestone facet (post-grant watch; attestation unlocks the next tranche, ADR-2605192145 §4)
+  {:attr :milestone/evidence :doc "what the grantee must publish for Council Lv6+ attestation — always a PUBLIC artefact"}]
+
+ ;; ── edges (縁) ───────────────────────────────────────────────────────────────
+ :edge/attrs
+ [{:attr :en/from      :doc "source fund-stewardship-node id"}
+  {:attr :en/to        :doc "target fund-stewardship-node id"}
+  {:attr :en/kind      :doc ":screened (org→screen, hard eligibility) | :meets (org→criterion, evidence-weighted satisfaction) | :sourced-from (criterion→source, where its evidence lives) | :disburses-via (org→instrument, the proposed rail) | :watched-by (org→milestone, post-grant)"}
+  {:attr :en/finding   :doc "on :screened ONLY — :conforms | :conflicts | :undetermined. A DISCLOSED conformance fact vs the org's own public declarations, never a tanemaki verdict (N3). :conflicts ⇒ the org is structurally unproposable (G1); :undetermined ⇒ insufficient evidence."}
+  {:attr :en/weight    :doc "on :meets — 0..1 evidence-backed satisfaction of the criterion. DD-fit lives HERE (edge-primary, N1), integrated on read."}
+  {:attr :en/evidence  :doc "on :meets — the source id (src.*) the evidence came from. Every weight names its public source (G5)."}
+  {:attr :en/sourcing  :doc ":authoritative | :representative"}]
+
+ ;; ── derived (transient, computed on READ — NEVER stored; N1/G2) ──────────────
+ :derived/attrs
+ [{:attr :bond/screen-clear      :doc "org — true iff EVERY screen is evaluated and EVERY finding is :conforms. One :conflicts ⇒ structurally unproposable; one :undetermined/missing ⇒ not clear (evidence honesty, G5)."}
+  {:attr :bond/dd-fit            :doc "org — Σ over criteria of :criterion/weight × min(1, Σ incident :meets weight). The advisory fit score, computed on read, NEVER stored, NEVER a decision."}
+  {:attr :bond/evidence-coverage :doc "org — fraction of criteria with ≥1 :meets edge. Below the disclosed floor ⇒ :insufficient-evidence (don't propose on thin DD)."}
+  {:attr :bond/route             :doc ":excluded (a screen :conflicts) | :insufficient-evidence (coverage < floor OR a screen :undetermined/missing) | :propose (draft an ADVISORY grant proposal for the SBT vote). NEVER :fund — funding is not a route tanemaki can emit (G1)."}
+  {:attr :bond/is-transient      :doc "const true — derived readout, not a stored datom"}]
+
+ ;; ── instrument allowlist (G2 — the single most important table) ──────────────
+ ;; the Public Fund GIVES, it never INVESTS. Mirrors fuchi 扶持 G1 (ADR-2606052300):
+ ;; the investment-instrument vocabulary is structurally unrepresentable.
+ :instrument/allowlist
+ {:grant true :milestone-escrow true :in-kind true
+  :equity false :debt false :convertible false :revenue-share false
+  :profit-claim false :carry false :dividend false :exit false}
+
+ ;; ── decision authority (G1 — who decides; tanemaki is NOT in the set) ────────
+ :decision/authority
+ {:tanemaki false :sbt-vote true :council-attestation true}}

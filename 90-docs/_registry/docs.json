@@ -24508,6 +24508,43 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606122000-tanemaki-public-fund-grant-steward.md",
+      "id": "adr-2606122000-tanemaki-public-fund-grant-steward",
+      "title": "ADR-2606122000: tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion): public DD + disclosed criteria, vote-decided",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tanemaki-public-fund-grant-steward",
+      "authoritative": true,
+      "authoritative_for": [
+        "public-fund-grant-steward",
+        "fund-stewardship-ontology",
+        "public-fund-dd-criteria"
+      ],
+      "related": [
+        "2606022000",
+        "2606011800",
+        "2606072000",
+        "2606021600",
+        "2606082100",
+        "2606052300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192145",
+        "2605192130",
+        "2606052300",
+        "2605312345",
+        "2605231525",
+        "2605215000",
+        "2606062100",
+        "2606032000"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

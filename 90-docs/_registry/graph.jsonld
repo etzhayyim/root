@@ -15541,6 +15541,28 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606122000-tanemaki-public-fund-grant-steward",
+      "type": "TechArticle",
+      "title": "ADR-2606122000: tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion): public DD + disclosed criteria, vote-decided",
+      "status": "proposed",
+      "topic": "tanemaki-public-fund-grant-steward",
+      "authoritative": true,
+      "authoritativeFor": [
+        "public-fund-grant-steward",
+        "fund-stewardship-ontology",
+        "public-fund-dd-criteria"
+      ],
+      "related": [
+        "doc:2606022000",
+        "doc:2606011800",
+        "doc:2606072000",
+        "doc:2606021600",
+        "doc:2606082100",
+        "doc:2606052300"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
