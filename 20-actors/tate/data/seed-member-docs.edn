@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 40 (:no/:dk/:fi housing) ────────────────────────────────────────────
+ {:notice/id "ntc:no-leie" :notice/label "NO oppsigelse av leieforhold (住居)"
+  :notice/jurisdiction :no
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "NOK"
+  :notice/sourcing :synthetic
+  :notice/text "Oppsigelse av leieforhold med tre måneders frist."}
+
+ {:notice/id "ntc:dk-leje" :notice/label "DK opsigelse af lejemål (住居)"
+  :notice/jurisdiction :dk
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "DKK"
+  :notice/sourcing :synthetic
+  :notice/text "Opsigelse af dit lejemål. De kan gøre indsigelse inden 6 uger."}
+
+ {:notice/id "ntc:fi-vuokra" :notice/label "FI vuokrasopimuksen irtisanominen (住居)"
+  :notice/jurisdiction :fi
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Vuokrasopimuksen irtisanominen vuokranantajan toimesta perusteineen."}
+
  ;; ── wave 39 (:pl/:at/:pt enforcement) ────────────────────────────────────────
  {:notice/id "ntc:pl-zajecie" :notice/label "PL zajęcie wynagrodzenia (執行)"
   :notice/jurisdiction :pl

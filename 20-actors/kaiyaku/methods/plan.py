@@ -132,6 +132,9 @@ def main(argv):
     ps = plans(nodes, edges)
     out.mkdir(parents=True, exist_ok=True)
     (out / "severance-plans.md").write_text(report(ps), encoding="utf-8")
+    import json
+    (out / "severance-plans.json").write_text(
+        json.dumps(ps, ensure_ascii=False, indent=1), encoding="utf-8")  # yoro UI (wave 40)
     print(f"kaiyaku: {len(ps)} severance plans (dry-run) → {out / 'severance-plans.md'}")
     return 0
 

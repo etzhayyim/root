@@ -1082,6 +1082,27 @@ def test_wave39_pl_at_pt_enforcement():
     assert any("738" in d["anchor"] for d in pt["deadlines"])
 
 
+def test_wave40_nordic_housing():
+    """Wave 40: housing 20 juris — :no **protest 1か月で構造逆転** (husleieloven
+    §9-8, critical) · :dk **indsigelse 6 uger** + 教示記載義務 (lejeloven, critical) ·
+    :fi irtisanomissuoja (AHVL 56-57§§). 労住同語 (oppsigelse/opsigelse/
+    irtisanominen) は雇用/賃貸の特定語で分離."""
+    ps, procs = _by_id()
+    no = ps["ntc:no-leie"]
+    assert no["status"] == ":genuine" and no["proc"] == "proc:no-husleie"
+    assert no["deadlines"][0]["critical"] is True and "§9-8" in no["deadlines"][0]["anchor"]
+    dk = ps["ntc:dk-leje"]
+    assert dk["status"] == ":genuine" and dk["proc"] == "proc:dk-lejemaal"
+    assert "6 uger" in dk["deadlines"][0]["rule"]
+    fi = ps["ntc:fi-vuokra"]
+    assert fi["status"] == ":genuine" and fi["proc"] == "proc:fi-vuokra"
+    # disambiguation: 雇用通知は labor へ
+    base = {":notice/id": "ntc:x", ":notice/channel": ":mail", ":notice/sourcing": ":synthetic"}
+    p1, _ = classify({**base, ":notice/jurisdiction": ":no",
+                      ":notice/text": "Oppsigelse av ditt arbeidsforhold"}, procs)
+    assert p1[":proc/id"] == "proc:no-oppsigelse"
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

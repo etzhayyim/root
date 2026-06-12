@@ -1514,6 +1514,22 @@
   :proc/verify-current-law true}
 
  ;; ── :no ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:no-husleie" :proc/label "Oppsigelse av leieforhold (住居・ノルウェー)"
+  :proc/jurisdiction :no :proc/track :housing
+  :proc/trigger-keywords ["leieforhold" "leieavtale"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Protest (書面異議)"
+    :dl/rule "**1か月以内に書面で protest すると oppsigelse は失効し, 賃貸人が3か月以内に提訴しない限り無効** — 異議の負担が借家人に有利に逆転する構造"
+    :dl/anchor "husleieloven §9-8" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :protest :opt/kind :self-submit :opt/protective true
+    :opt/label "書面 protest を1か月以内に (理由不要 — まず構造を逆転させる)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
+    :opt/label "鍵交換等は違法 — utkastelse は namsmannen のみ"}]
+  :proc/refer-when ["Leieboerforeningen (借家人協会)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:no-oppsigelse" :proc/label "Oppsigelse (解雇・労働・ノルウェー)"
   :proc/jurisdiction :no :proc/track :labor
   :proc/trigger-keywords ["oppsigelse"]
@@ -1547,6 +1563,22 @@
   :proc/verify-current-law true}
 
  ;; ── :dk ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:dk-lejemaal" :proc/label "Opsigelse af lejemål (住居・デンマーク)"
+  :proc/jurisdiction :dk :proc/track :housing
+  :proc/trigger-keywords ["lejemål" "lejeaftale"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Indsigelse (異議)"
+    :dl/rule "**6 uger 以内に書面で indsigelse すると, 賃貸人が boligretten へ提訴しない限り opsigelse は効力を持たない** (通知に異議教示の記載義務 — 不備は無効)"
+    :dl/anchor "lejeloven §§ 176・182 系" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :indsigelse :opt/kind :self-submit :opt/protective true
+    :opt/label "書面 indsigelse を6 uger 以内に (教示記載の有無も点検)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
+    :opt/label "鍵交換等は違法 — udsættelse は fogedretten のみ"}]
+  :proc/refer-when ["LLO (Lejernes Landsorganisation)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:dk-opsigelse" :proc/label "Opsigelse (解雇・労働・デンマーク)"
   :proc/jurisdiction :dk :proc/track :labor
   :proc/trigger-keywords ["opsigelse af"]
@@ -1577,6 +1609,22 @@
   :proc/verify-current-law true}
 
  ;; ── :fi ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:fi-vuokra" :proc/label "Vuokrasopimuksen irtisanominen (住居・フィンランド)"
+  :proc/jurisdiction :fi :proc/track :housing
+  :proc/trigger-keywords ["vuokrasopimuksen"]
+  :proc/genuine-channels [:mail :formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Irtisanomissuoja (解約保護)"
+    :dl/rule "賃貸人の irtisanominen には正当事由が必要 — 借家人は käräjäoikeus に無効 (julistettava tehottomaksi) を求められる; 通知には事由記載が必須"
+    :dl/anchor "AHVL (laki asuinhuoneiston vuokrauksesta) 56-57§§" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :tehottomuus :opt/kind :self-submit :opt/protective true
+    :opt/label "正当事由を欠く場合は無効の kanne (oikeusapu 併用可)"}
+   {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
+    :opt/label "鍵交換等は違法 — häätö は ulosottomies のみ"}]
+  :proc/refer-when ["Vuokralaiset ry (借家人協会) / kuluttajaneuvonta"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:fi-irtisanominen" :proc/label "Irtisanominen (解雇・労働・フィンランド)"
   :proc/jurisdiction :fi :proc/track :labor
   :proc/trigger-keywords ["irtisanominen"]

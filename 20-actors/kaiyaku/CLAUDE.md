@@ -86,7 +86,7 @@ advice.
 │   ├── plan.py                        # T1/T2/T3 severance-plan builder (dry-run only)
 │   ├── handoff_ingest.py              # tate 盾 handoff → notice-window worklist (compose 往復)
 │   └── datom_emit.py                  # kotoba Datom-log (EAVT) emitter — canonical state
-├── tests/                             # 21 tests, pure stdlib
+├── tests/                             # 22 tests, pure stdlib
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   └── test_plan.py
@@ -105,7 +105,7 @@ python3 methods/plan.py               # → out/severance-plans.md (dry-run)
 python3 methods/datom_emit.py         # → out/enkiri-datoms.kotoba.edn (EAVT)
 python3 methods/handoff_ingest.py    # tate handoff → out/handoff-worklist.md
 python3 tests/test_analyze.py && python3 tests/test_plan.py \
-  && python3 tests/test_handoff.py   # 21 green
+  && python3 tests/test_handoff.py   # 22 green
 ```
 
 ## Do not
