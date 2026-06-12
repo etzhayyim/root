@@ -15485,6 +15485,23 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass",
+      "type": "TechArticle",
+      "title": "ADR-2606121225: Session close — worktree/branch cleanup sweep + open-PR review & merge wave + main ruleset admin-bypass governance",
+      "status": "active",
+      "topic": "session-close-cleanup-merge-governance",
+      "authoritative": false,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-12 worktree-cleanup + PR review/merge + ruleset-bypass session"
+      ],
+      "related": [
+        "doc:adr-2606110955-session-close-pr-backlog-merge-sweep",
+        "doc:adr-2606111824-session-close-review-merge-wave-adr-id-races",
+        "doc:adr-2606111830-yabai-kotoba-datomic-checkpointer-close"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "type": "TechArticle",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",

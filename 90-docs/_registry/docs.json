@@ -24416,6 +24416,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass.md",
+      "id": "adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass",
+      "title": "ADR-2606121225: Session close — worktree/branch cleanup sweep + open-PR review & merge wave + main ruleset admin-bypass governance",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-cleanup-merge-governance",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-12 worktree-cleanup + PR review/merge + ruleset-bypass session"
+      ],
+      "related": [
+        "adr-2606110955-session-close-pr-backlog-merge-sweep",
+        "adr-2606111824-session-close-review-merge-wave-adr-id-races",
+        "adr-2606111830-yabai-kotoba-datomic-checkpointer-close"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606121143-deps-edn-line-split-canonical-format"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606121620-coverage-maturity-loop-did-etzhayyim-design-system.md",
       "id": "adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
