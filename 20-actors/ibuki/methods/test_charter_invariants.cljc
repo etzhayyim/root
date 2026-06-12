@@ -10,9 +10,8 @@
     N7 no parallel substrate                      — kotoba Datom log only, no SQL/RW requires
     非終末論 append-only                           — :db/add only, no retract anywhere
 
-  Tests that exercise modules NOT yet ported to Clojure (member-submit, perception,
-  receipts, kotoba-bridge, kaizen-outcomes) remain Python-only in
-  `test_charter_invariants.py`; the source scans here cover the PORTED .cljc surface."
+  All 19 ibuki modules are ported to Clojure; the source scans here cover the whole
+  .cljc surface (the same set `test_charter_invariants.py` scans over the .py side)."
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
             [clojure.test :refer [deftest is]]
@@ -22,11 +21,16 @@
             [ibuki.methods.infer :as infer]
             [ibuki.methods.joucho :as joucho]
             [ibuki.methods.kaizen-feedback :as kaizen-feedback]
+            [ibuki.methods.kaizen-outcomes :as kaizen-outcomes]
+            [ibuki.methods.kotoba-bridge :as kotoba-bridge]
+            [ibuki.methods.member-submit :as member-submit]
+            [ibuki.methods.perception :as perception]
             [ibuki.methods.symbiosis :as symbiosis]))
 
 (def ^:private source-names
-  ["autorun" "datoms" "digest" "drainer" "ecosystem" "health" "heartbeat"
-   "infer" "joucho" "kaizen_feedback" "quorum" "symbiosis"])
+  ["autorun" "datoms" "delegation" "digest" "drainer" "ecosystem" "fleet"
+   "health" "heartbeat" "infer" "joucho" "kaizen_feedback" "kaizen_outcomes"
+   "kotoba_bridge" "member_submit" "perception" "quorum" "receipts" "symbiosis"])
 
 (defn- all-source
   "name → source text for every ported (non-test) .cljc in ibuki/methods."
@@ -133,6 +137,64 @@
     (is (str/includes? (str (thrown-msg #(kaizen-feedback/read-outcomes p)))
                        "closed vocab"))))
 
+;; ── G7 member-principal live posting (R2) ──────────────────────────────────
+
+(deftest g7-member-submission-is-member-principal-only
+  ;; The R2 live-posting runtime can act ONLY as the member: no env credentials →
+  ;; refusal; cron context → refusal even WITH credentials (a platform job may never
+  ;; hold a member key).
+  (binding [member-submit/*env* {}]
+    (is (str/includes? (str (thrown-msg #(member-submit/create-member-session)))
+                       "no member credentials")))
+  (binding [member-submit/*env* {member-submit/env-handle "m.example"
+                                 member-submit/env-app-password "pw"
+                                 member-submit/env-cron "1"}]
+    (is (str/includes? (str (thrown-msg #(member-submit/create-member-session)))
+                       "cron"))))
+
+;; ── live perception membrane (R2) ──────────────────────────────────────────
+
+(deftest perception-is-readonly-allowlisted
+  ;; The live membrane only LOOKS: read-only public AppView, allowlisted; anything
+  ;; else raises before I/O; the module reads no credential.
+  (is (= #{"public.api.bsky.app"} perception/allowed-xrpc-hosts))
+  (is (str/includes?
+       (str (thrown-msg #(perception/assert-allowed "https://api.example.com/xrpc/x")))
+       "allowlist"))
+  (let [src (get (all-source) "perception")]
+    (doseq [needle ["password" "accessJwt" "Authorization"]]
+      (is (not (str/includes? src needle))
+          (str "perception must stay credential-free: " needle)))))
+
+;; ── receipts: honest attribution, never a status upgrade (R2) ──────────────
+
+(deftest receipts-never-assert-published
+  (let [src (get (all-source) "receipts")]
+    (is (not (str/includes? src "\":published\"")))
+    (is (str/includes? src ":submitted-by-member"))))   ;; honest attribution, not a status upgrade
+
+;; ── kotoba bridge targets the fleet only (R3) ──────────────────────────────
+
+(deftest kotoba-bridge-targets-the-fleet-only
+  ;; The R3 transact bridge can only reach the kotoba fleet (loopback + EVO-X2 :8077);
+  ;; anything else raises before I/O, and the default mode is a no-I/O dry-run export
+  ;; (live mode requires IBUKI_KOTOBA_LIVE=1 / :live true).
+  (is (= #{"127.0.0.1:8077" "localhost:8077" "192.168.1.70:8077"}
+         kotoba-bridge/allowed-kotoba-hosts))
+  (is (str/includes?
+       (str (thrown-msg #(kotoba-bridge/assert-kotoba "http://203.0.113.7:8077/xrpc/x")))
+       "allowlist")))
+
+;; ── kaizen outcomes: operator-principal, read-only gh (R3) ─────────────────
+
+(deftest kaizen-outcomes-is-operator-principal-readonly
+  (binding [kaizen-outcomes/*env* {kaizen-outcomes/env-cron "1"}]
+    (is (str/includes? (str (thrown-msg #(kaizen-outcomes/collect "/nonexistent")))
+                       "cron")))
+  (let [src (get (all-source) "kaizen_outcomes")]
+    (is (str/includes? src "view"))          ;; read-only gh surface
+    (is (str/includes? src "--json"))))
+
 ;; ── 共生 member-principal draw ─────────────────────────────────────────────
 
 (deftest symbiosis-draw-is-member-principal-keyfree
@@ -181,11 +243,3 @@
     (is (some #(str/starts-with? ns-token %)
               ["clojure." "ibuki.methods." "kotoba." "cheshire." "babashka."])
         (str name " requires third-party namespace " ns-token))))
-
-;; NOTE — Python-only invariants (their modules are not yet ported to Clojure):
-;;   test_g7_member_submission_is_member_principal_only   (member_submit.py)
-;;   test_perception_is_readonly_allowlisted              (perception.py)
-;;   test_receipts_never_assert_published                 (receipts.py)
-;;   test_kotoba_bridge_targets_the_fleet_only            (kotoba_bridge.py)
-;;   test_kaizen_outcomes_is_operator_principal_readonly  (kaizen_outcomes.py)
-;; They remain covered by `test_charter_invariants.py`.
