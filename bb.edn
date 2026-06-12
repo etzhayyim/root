@@ -103,7 +103,10 @@
                       'watatsuna.methods.test-ingest
                       'scripts.lint.test-verify-no-modal-labs-calls
                       'scripts.bench.langgraph-coding.test-diff
-                      'inochi.tests.test-analyze 'inochi.tests.test-coverage)
+                      'inochi.tests.test-analyze 'inochi.tests.test-coverage
+                      'asobi.tests.test-analyze 'asobi.tests.test-coverage
+                      'hokorobi.tests.test-analyze 'hokorobi.tests.test-coverage
+                      'hoshimori.tests.test-analyze 'hoshimori.tests.test-coverage)
              (let [r (clojure.test/run-tests 'rasen.tests.test-analyze
                                              'kanjo.tests.test-kanjo
                                              'kanjo.tests.test-invariants
@@ -121,7 +124,13 @@
                                              'scripts.lint.test-verify-no-modal-labs-calls
                       'scripts.bench.langgraph-coding.test-diff
                                              'inochi.tests.test-analyze
-                                             'inochi.tests.test-coverage)]
+                                             'inochi.tests.test-coverage
+                                             'asobi.tests.test-analyze
+                                             'asobi.tests.test-coverage
+                                             'hokorobi.tests.test-analyze
+                                             'hokorobi.tests.test-coverage
+                                             'hoshimori.tests.test-analyze
+                                             'hoshimori.tests.test-coverage)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
