@@ -988,6 +988,30 @@ def test_wave32_es_it_br_family():
     assert any("cartório" in o["label"] for o in br["options"])
 
 
+def test_wave33_pl_at_ch_housing():
+    """Wave 33: housing 16 juris — :pl lokal socjalny + **okres ochronny 冬季執行
+    停止** (trêve hivernale の波蘭版) · :at **裁判所経由でしか解約できない** MRG §33
+    + Einwendungen 4 Wochen (critical) · :ch Schlichtungsbehörde 30日 無料 +
+    **Formular 不備=無効** (OR 266l, critical). Miet/Arbeit の同語は分離済み."""
+    ps, procs = _by_id()
+    pl = ps["ntc:pl-eksmisja"]
+    assert pl["status"] == ":genuine" and pl["proc"] == "proc:pl-eksmisja"
+    assert any("okres ochronny" in d["rule"] for d in pl["deadlines"])
+    at = ps["ntc:at-aufkuendigung"]
+    assert at["status"] == ":genuine" and at["proc"] == "proc:at-mietkuendigung"
+    assert at["deadlines"][0]["critical"] is True and "§33" in at["deadlines"][0]["anchor"]
+    ch = ps["ntc:ch-mietkuendigung"]
+    assert ch["status"] == ":genuine" and ch["proc"] == "proc:ch-mietkuendigung"
+    assert any("266l" in d["anchor"] for d in ch["deadlines"])
+    # :ch 同語分離: Arbeitsverhältnis → labor / Mietverhältnis → housing
+    base = {":notice/id": "ntc:x", ":notice/jurisdiction": ":ch",
+            ":notice/channel": ":mail", ":notice/sourcing": ":synthetic"}
+    p1, _ = classify({**base, ":notice/text": "Kündigung des Arbeitsverhältnisses"}, procs)
+    p2, _ = classify({**base, ":notice/text": "Kündigung des Mietverhältnisses"}, procs)
+    assert p1[":proc/id"] == "proc:ch-arbeitskuendigung"
+    assert p2[":proc/id"] == "proc:ch-mietkuendigung"
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

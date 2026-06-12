@@ -130,6 +130,15 @@ def test_claude_md_counts_in_sync():
     assert m and int(m.group(1)) == n_tests, f"CLAUDE.md test count drift (actual {n_tests})"
 
 
+def test_protective_census():
+    """Wave 33: member を守る一手の総数が report で計測される (≥60)."""
+    cov = coverage()
+    n = sum(1 for p in cov["_procs"] for o in p.get(":proc/options", [])
+            if o.get(":opt/protective") is True)
+    assert n >= 60
+    assert "protective options" in report(cov)
+
+
 def test_report_names_the_gap():
     text = report(coverage())
     assert "named gaps" in text.lower() or "Named gaps" in text

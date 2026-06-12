@@ -83,6 +83,7 @@ def coverage():
         "procedure_tracks": dict(sorted(tracks.items())),
         "track_matrix": {j: dict(sorted(ts.items())) for j, ts in sorted(matrix.items())},
         "civil_only_jurisdictions": civil_only,
+        "_procs": procs,
         "critical_deadlines": [
             {"proc": p[":proc/id"], "juris": p.get(":proc/jurisdiction", ":jp"),
              "label": dl[":dl/label"], "anchor": dl[":dl/anchor"]}
@@ -126,6 +127,9 @@ def report(cov: dict) -> str:
         for t in [":labor", ":housing", ":enforcement", ":insolvency", ":family"])
     L.append("")
     L.append(f"track depth (管轄横展開率): {depth}")
+    n_protective = sum(1 for p in cov.get("_procs", []) for o in p.get(":proc/options", [])
+                       if o.get(":opt/protective") is True)
+    L.append(f"protective options (member を守る一手): {n_protective}")
     L.append("")
     L.append("## Critical deadlines (徒過で権利が消える期限 — 全管轄一覧)")
     L.append("")

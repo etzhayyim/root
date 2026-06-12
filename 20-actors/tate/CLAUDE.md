@@ -65,6 +65,19 @@ vocabulary on SMS / email / 普通郵便 → `:suspected-fake`: the plan's first
   (特別送達 · personal service / certified mail · förmliche Zustellung · court post ·
   formal service) with multilingual court-vocab trip-wires.
 
+## Universal invariants (parametric tests — 新規手続きに自動適用)
+
+| scope | invariant |
+|---|---|
+| 全手続き | options + anchored deadline rules + genuine-channels + refer-when 必在 (lint); verify-service-date 必在 (G4); UPL: representation unrepresentable, member self-submit (G3) |
+| 非 civil 全トラック | ≥1 `:opt/protective` (member を守る一手) 必在 |
+| :housing | `no-self-help-protection` 必在 — 退去は裁判所命令のみ |
+| :enforcement | 法定の差押え保護範囲 (3/4・25%・P-Konto・SBI・1/5 …) を必ず開示 |
+| :insolvency | kaiyaku 縁-ledger 突合 (前払金=債権) を必ず案内 |
+| :family | kokoro 心 (Wellbecoming サポート) routing 必在 |
+| :dl/critical | census (report) + 先頭ソート (plan) + ⚠ バナー (表示) の三層 |
+| fake-guard | 全 trigger 語彙が自動 trip-wire; SMS/email は宣言なき限り偽疑い |
+
 ## Non-goals
 
 N1 not a law firm / no advice · **N2 defensive only** — never drafts claims/suits
@@ -94,7 +107,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 ├── data/
 │   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
 │   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (72 shapes, 30 juris)
-│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (108 procs; :civil 36 + :labor 29 + :housing 13 + :enforcement 11 + :insolvency 9 + :family 10 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (111 procs; :civil 36 + :labor 29 + :housing 16 + :enforcement 11 + :insolvency 9 + :family 10 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
 │   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # pure-stdlib → kotoba pywasm-runnable
@@ -102,7 +115,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 │   ├── respond_plan.py            # response planner + fake-notice guard (G6/G10)
 │   ├── coverage_report.py         # honest jurisdiction coverage + named gaps (G10)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 92 tests, pure stdlib
+├── tests/                         # 94 tests, pure stdlib
 │   ├── test_terms.py
 │   ├── test_respond.py
 │   └── test_coverage.py
@@ -123,7 +136,7 @@ python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
 python3 methods/coverage_report.py   # → out/coverage-report.md (21/193 + 10/50 states + tracks, named gaps)
 python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
 python3 tests/test_terms.py && python3 tests/test_respond.py \
-  && python3 tests/test_coverage.py  # 92 green
+  && python3 tests/test_coverage.py  # 94 green
 ```
 
 ## Do not

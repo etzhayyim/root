@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 33 (:pl/:at/:ch housing) ────────────────────────────────────────────
+ {:notice/id "ntc:pl-eksmisja" :notice/label "PL pozew o opróżnienie lokalu (住居)"
+  :notice/jurisdiction :pl
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "PLN"
+  :notice/sourcing :synthetic
+  :notice/text "Pozew o eksmisja i opróżnienie lokalu mieszkalnego."}
+
+ {:notice/id "ntc:at-aufkuendigung" :notice/label "AT gerichtliche Aufkündigung (住居)"
+  :notice/jurisdiction :at
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Gerichtliche Aufkündigung des Mietverhältnisses gemäß §30 MRG."}
+
+ {:notice/id "ntc:ch-mietkuendigung" :notice/label "CH Kündigung Mietverhältnis (住居・Formular)"
+  :notice/jurisdiction :ch
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "CHF"
+  :notice/sourcing :synthetic
+  :notice/text "Kündigung des Mietverhältnisses mit amtlichem Formular per nächsten Termin."}
+
  ;; ── wave 32 (:es/:it/:br family) ─────────────────────────────────────────────
  {:notice/id "ntc:es-divorcio" :notice/label "ES demanda de divorcio (家事)"
   :notice/jurisdiction :es
