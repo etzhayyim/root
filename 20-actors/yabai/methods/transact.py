@@ -31,7 +31,10 @@ from yabai_edn import load_edn, edn_val, edn_str  # noqa: E402
 ACTOR = pathlib.Path(__file__).resolve().parent.parent
 SCHEMA = ACTOR.parent.parent / "00-contracts" / "schemas" / "passive-dns-cti-ontology.kotoba.edn"
 NSID_TRANSACT = "com.etzhayyim.apps.kotoba.datomic.transact"
-ID_KEYS = (":domain/id", ":pdns/id", ":iphist/id", ":tlscert/id", ":indicator/id", ":access/id")
+ID_KEYS = (
+    ":domain/id", ":pdns/id", ":iphist/id", ":tlscert/id",
+    ":indicator/id", ":access/id", ":btobs/id",
+)
 
 
 def rows_to_datoms(rows):

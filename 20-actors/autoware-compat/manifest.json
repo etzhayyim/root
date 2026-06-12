@@ -5,21 +5,76 @@
   "kind": "compat",
   "title": "autoware clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (autoware); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreidwm5qryvjogz7432ymh724zujqcqvsxdrwpfygeslrfecvbf4jeq",
+  "wasmCid": "bafkreicutlbj3r5qltdahhj6bulquwsw663bh3qxck3max5wpreayv6hvq",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreidwm5qryvjogz7432ymh724zujqcqvsxdrwpfygeslrfecvbf4jeq",
+  "ipfs": "ipfs://bafkreicutlbj3r5qltdahhj6bulquwsw663bh3qxck3max5wpreayv6hvq",
   "schema": "schema/autoware.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/autowarefoundation/autoware_adapi_msgs (autoware_adapi_v1_msgs .msg files, main)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "OperationModeState",
+      "RouteState",
+      "LocalizationInitializationState",
+      "MotionState",
+      "Gear"
+    ],
+    "enums": {
+      "OperationModeState": {
+        "mode": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "RouteState": {
+        "state": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "LocalizationInitializationState": {
+        "state": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "MotionState": {
+        "state": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "Gear": {
+        "status": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    }
+  },
   "entities": [
-    "Vehicle",
-    "Signal",
-    "ChargeSession",
-    "Connector",
-    "Trip",
-    "Command"
+    "OperationModeState",
+    "RouteState",
+    "LocalizationInitializationState",
+    "MotionState",
+    "Gear"
   ],
   "adr": [
     "260607",
@@ -31,157 +86,132 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 25,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/vehicles",
-          "op": "create Vehicle"
+          "path": "/v1/operationmodestates",
+          "op": "create OperationModeState"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles",
-          "op": "list Vehicle"
+          "path": "/v1/operationmodestates",
+          "op": "list OperationModeState"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles/{id}",
-          "op": "get Vehicle"
+          "path": "/v1/operationmodestates/{id}",
+          "op": "get OperationModeState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/vehicles/{id}",
-          "op": "update Vehicle"
+          "path": "/v1/operationmodestates/{id}",
+          "op": "update OperationModeState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/vehicles/{id}",
-          "op": "delete Vehicle"
+          "path": "/v1/operationmodestates/{id}",
+          "op": "delete OperationModeState"
         },
         {
           "method": "POST",
-          "path": "/v1/signals",
-          "op": "create Signal"
+          "path": "/v1/routestates",
+          "op": "create RouteState"
         },
         {
           "method": "GET",
-          "path": "/v1/signals",
-          "op": "list Signal"
+          "path": "/v1/routestates",
+          "op": "list RouteState"
         },
         {
           "method": "GET",
-          "path": "/v1/signals/{id}",
-          "op": "get Signal"
+          "path": "/v1/routestates/{id}",
+          "op": "get RouteState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/signals/{id}",
-          "op": "update Signal"
+          "path": "/v1/routestates/{id}",
+          "op": "update RouteState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/signals/{id}",
-          "op": "delete Signal"
+          "path": "/v1/routestates/{id}",
+          "op": "delete RouteState"
         },
         {
           "method": "POST",
-          "path": "/v1/chargesessions",
-          "op": "create ChargeSession"
+          "path": "/v1/localizationinitializationstates",
+          "op": "create LocalizationInitializationState"
         },
         {
           "method": "GET",
-          "path": "/v1/chargesessions",
-          "op": "list ChargeSession"
+          "path": "/v1/localizationinitializationstates",
+          "op": "list LocalizationInitializationState"
         },
         {
           "method": "GET",
-          "path": "/v1/chargesessions/{id}",
-          "op": "get ChargeSession"
+          "path": "/v1/localizationinitializationstates/{id}",
+          "op": "get LocalizationInitializationState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/chargesessions/{id}",
-          "op": "update ChargeSession"
+          "path": "/v1/localizationinitializationstates/{id}",
+          "op": "update LocalizationInitializationState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/chargesessions/{id}",
-          "op": "delete ChargeSession"
+          "path": "/v1/localizationinitializationstates/{id}",
+          "op": "delete LocalizationInitializationState"
         },
         {
           "method": "POST",
-          "path": "/v1/connectors",
-          "op": "create Connector"
+          "path": "/v1/motionstates",
+          "op": "create MotionState"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors",
-          "op": "list Connector"
+          "path": "/v1/motionstates",
+          "op": "list MotionState"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors/{id}",
-          "op": "get Connector"
+          "path": "/v1/motionstates/{id}",
+          "op": "get MotionState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connectors/{id}",
-          "op": "update Connector"
+          "path": "/v1/motionstates/{id}",
+          "op": "update MotionState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connectors/{id}",
-          "op": "delete Connector"
+          "path": "/v1/motionstates/{id}",
+          "op": "delete MotionState"
         },
         {
           "method": "POST",
-          "path": "/v1/trips",
-          "op": "create Trip"
+          "path": "/v1/gears",
+          "op": "create Gear"
         },
         {
           "method": "GET",
-          "path": "/v1/trips",
-          "op": "list Trip"
+          "path": "/v1/gears",
+          "op": "list Gear"
         },
         {
           "method": "GET",
-          "path": "/v1/trips/{id}",
-          "op": "get Trip"
+          "path": "/v1/gears/{id}",
+          "op": "get Gear"
         },
         {
           "method": "PATCH",
-          "path": "/v1/trips/{id}",
-          "op": "update Trip"
+          "path": "/v1/gears/{id}",
+          "op": "update Gear"
         },
         {
           "method": "DELETE",
-          "path": "/v1/trips/{id}",
-          "op": "delete Trip"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/commands",
-          "op": "create Command"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/commands",
-          "op": "list Command"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/commands/{id}",
-          "op": "get Command"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/commands/{id}",
-          "op": "update Command"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/commands/{id}",
-          "op": "delete Command"
+          "path": "/v1/gears/{id}",
+          "op": "delete Gear"
         }
       ],
       "features": {
@@ -244,44 +274,56 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 25,
       "tools": [
         {
-          "name": "create_vehicle",
-          "description": "Create a Vehicle.",
+          "name": "create_operation_mode_state",
+          "description": "Create a OperationModeState.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vin": {
+              "stamp": {
                 "type": "string"
               },
-              "model": {
-                "type": "string"
+              "mode": {
+                "type": "integer"
               },
-              "state": {
-                "type": "string"
+              "isAutowareControlEnabled": {
+                "type": "boolean"
               },
-              "odometerKm": {
-                "type": "number"
+              "isInTransition": {
+                "type": "boolean"
+              },
+              "isStopModeAvailable": {
+                "type": "boolean"
+              },
+              "isAutonomousModeAvailable": {
+                "type": "boolean"
+              },
+              "isLocalModeAvailable": {
+                "type": "boolean"
+              },
+              "isRemoteModeAvailable": {
+                "type": "boolean"
               }
             },
             "required": [
-              "vin",
-              "model"
+              "stamp",
+              "mode"
             ]
           }
         },
         {
-          "name": "list_vehicles",
-          "description": "List Vehicles.",
+          "name": "list_operation_mode_states",
+          "description": "List OperationModeStates.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_vehicle",
-          "description": "Get a Vehicle by id.",
+          "name": "get_operation_mode_state",
+          "description": "Get a OperationModeState by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,83 +337,89 @@
           }
         },
         {
-          "name": "update_vehicle",
-          "description": "Update a Vehicle.",
+          "name": "update_operation_mode_state",
+          "description": "Update a OperationModeState.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vin": {
+              "stamp": {
                 "type": "string"
               },
-              "model": {
+              "mode": {
+                "type": "integer"
+              },
+              "isAutowareControlEnabled": {
+                "type": "boolean"
+              },
+              "isInTransition": {
+                "type": "boolean"
+              },
+              "isStopModeAvailable": {
+                "type": "boolean"
+              },
+              "isAutonomousModeAvailable": {
+                "type": "boolean"
+              },
+              "isLocalModeAvailable": {
+                "type": "boolean"
+              },
+              "isRemoteModeAvailable": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_operation_mode_state",
+          "description": "Delete a OperationModeState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_route_state",
+          "description": "Create a RouteState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "stamp": {
                 "type": "string"
               },
               "state": {
-                "type": "string"
-              },
-              "odometerKm": {
-                "type": "number"
+                "type": "integer"
               }
             },
             "required": [
-              "id"
+              "stamp",
+              "state"
             ]
           }
         },
         {
-          "name": "delete_vehicle",
-          "description": "Delete a Vehicle.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_signal",
-          "description": "Create a Signal.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "value"
-            ]
-          }
-        },
-        {
-          "name": "list_signals",
-          "description": "List Signals.",
+          "name": "list_route_states",
+          "description": "List RouteStates.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_signal",
-          "description": "Get a Signal by id.",
+          "name": "get_route_state",
+          "description": "Get a RouteState by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,25 +433,19 @@
           }
         },
         {
-          "name": "update_signal",
-          "description": "Update a Signal.",
+          "name": "update_route_state",
+          "description": "Update a RouteState.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
+              "stamp": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              },
-              "unit": {
-                "type": "string"
+              "state": {
+                "type": "integer"
               }
             },
             "required": [
@@ -412,8 +454,8 @@
           }
         },
         {
-          "name": "delete_signal",
-          "description": "Delete a Signal.",
+          "name": "delete_route_state",
+          "description": "Delete a RouteState.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,41 +469,187 @@
           }
         },
         {
-          "name": "create_charge_session",
-          "description": "Create a ChargeSession.",
+          "name": "create_localization_initialization_state",
+          "description": "Create a LocalizationInitializationState.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vehicleId": {
+              "stamp": {
                 "type": "string"
               },
-              "connectorId": {
+              "state": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "stamp",
+              "state"
+            ]
+          }
+        },
+        {
+          "name": "list_localization_initialization_states",
+          "description": "List LocalizationInitializationStates.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_localization_initialization_state",
+          "description": "Get a LocalizationInitializationState by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_localization_initialization_state",
+          "description": "Update a LocalizationInitializationState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
               },
-              "energyKwh": {
-                "type": "number"
+              "stamp": {
+                "type": "string"
               },
+              "state": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_localization_initialization_state",
+          "description": "Delete a LocalizationInitializationState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_motion_state",
+          "description": "Create a MotionState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "stamp": {
+                "type": "string"
+              },
+              "state": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "stamp",
+              "state"
+            ]
+          }
+        },
+        {
+          "name": "list_motion_states",
+          "description": "List MotionStates.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        {
+          "name": "get_motion_state",
+          "description": "Get a MotionState by id.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "update_motion_state",
+          "description": "Update a MotionState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "stamp": {
+                "type": "string"
+              },
+              "state": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_motion_state",
+          "description": "Delete a MotionState.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_gear",
+          "description": "Create a Gear.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
               "status": {
-                "type": "string"
+                "type": "integer"
               }
             },
             "required": [
-              "energyKwh",
               "status"
             ]
           }
         },
         {
-          "name": "list_charge_sessions",
-          "description": "List ChargeSessions.",
+          "name": "list_gears",
+          "description": "List Gears.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_charge_session",
-          "description": "Get a ChargeSession by id.",
+          "name": "get_gear",
+          "description": "Get a Gear by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,259 +663,16 @@
           }
         },
         {
-          "name": "update_charge_session",
-          "description": "Update a ChargeSession.",
+          "name": "update_gear",
+          "description": "Update a Gear.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
-              },
-              "vehicleId": {
-                "type": "string"
-              },
-              "connectorId": {
-                "type": "string"
-              },
-              "energyKwh": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_charge_session",
-          "description": "Delete a ChargeSession.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_connector",
-          "description": "Create a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "stationId": {
-                "type": "string"
-              },
-              "standard": {
-                "type": "string"
-              },
-              "powerKw": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "standard",
-              "powerKw"
-            ]
-          }
-        },
-        {
-          "name": "list_connectors",
-          "description": "List Connectors.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_connector",
-          "description": "Get a Connector by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_connector",
-          "description": "Update a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "stationId": {
-                "type": "string"
-              },
-              "standard": {
-                "type": "string"
-              },
-              "powerKw": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_connector",
-          "description": "Delete a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_trip",
-          "description": "Create a Trip.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "distanceKm": {
-                "type": "number"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "distanceKm",
-              "startedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_trips",
-          "description": "List Trips.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_trip",
-          "description": "Get a Trip by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_trip",
-          "description": "Update a Trip.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "vehicleId": {
-                "type": "string"
-              },
-              "distanceKm": {
-                "type": "number"
-              },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_trip",
-          "description": "Delete a Trip.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_command",
-          "description": "Create a Command.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
                 "type": "string"
               },
               "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_commands",
-          "description": "List Commands.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_command",
-          "description": "Get a Command by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+                "type": "integer"
               }
             },
             "required": [
@@ -736,32 +681,8 @@
           }
         },
         {
-          "name": "update_command",
-          "description": "Update a Command.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_command",
-          "description": "Delete a Command.",
+          "name": "delete_gear",
+          "description": "Delete a Gear.",
           "inputSchema": {
             "type": "object",
             "properties": {

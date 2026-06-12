@@ -48,10 +48,33 @@
             "description": "libsignal Curve25519 signature over signedPreKey, by signalIdentityKey.",
             "maxLength": 128
           },
+          "pqSuite": {
+            "type": "string",
+            "description": "Post-quantum hybrid suite identifier (ADR-2606111300).",
+            "knownValues": ["pqh-v1"],
+            "maxLength": 16
+          },
+          "pqX25519PublicKey": {
+            "type": "bytes",
+            "description": "pqh-v1: actor's X25519 KEM public key (32 bytes). Covered by the binding signature(s).",
+            "minLength": 32,
+            "maxLength": 32
+          },
+          "pqMlkemPublicKey": {
+            "type": "bytes",
+            "description": "pqh-v1: actor's ML-KEM-768 (FIPS 203) encapsulation key (1184 bytes). Covered by the binding signature(s).",
+            "minLength": 1184,
+            "maxLength": 1184
+          },
           "signature": {
             "type": "bytes",
-            "description": "Signature over CBOR({did, signalIdentityKey, signalRegistrationId, signedPreKey?, signedPreKeyId?, signedPreKeySignature?, createdAt}) by the DID document's signing key. Verifier MUST resolve the DID document fresh.",
+            "description": "Signature over CBOR({did, signalIdentityKey, signalRegistrationId, signedPreKey?, signedPreKeyId?, signedPreKeySignature?, pqSuite?, pqX25519PublicKey?, pqMlkemPublicKey?, createdAt}) by the DID document's signing key. Verifier MUST resolve the DID document fresh.",
             "maxLength": 256
+          },
+          "pqSignature": {
+            "type": "bytes",
+            "description": "pqh-v1: ML-DSA-65 (FIPS 204) signature over the SAME canonical CBOR bytes as `signature`. Verifiers that know the DID's ML-DSA verification key MUST require it (no downgrade-stripping). ~3309 bytes.",
+            "maxLength": 4096
           },
           "createdAt": {
             "type": "string",

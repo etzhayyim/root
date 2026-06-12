@@ -608,4 +608,22 @@
    :actor/created-at "2026-06-07"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:chaos_monitor#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:chaos_monitor#browser-local-app" "type" "EtzhayyimBrowserLocalApp" "serviceEndpoint" "https://etzhayyim.com/apps/index.html"}]}]}
+                   {"id" "did:web:etzhayyim.com:actor:chaos_monitor#browser-local-app" "type" "EtzhayyimBrowserLocalApp" "serviceEndpoint" "https://etzhayyim.com/apps/index.html"}]}
+  {:actor/handle "mimamori"
+   :actor/did "did:web:etzhayyim.com:actor:mimamori"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r1
+   :actor/glyph "見守り"
+   :actor/display-name-ja "見守り — 相互保持者会 (mishmeret ha-adam) covenant keeping membrane"
+   :actor/display-name-en "Mimamori — Covenant Keeping Membrane (mishmeret ha-adam)"
+   :actor/performer-type :system
+   :actor/ui-type :none
+   :actor/description "Covenant keeping membrane (相互保持者会) — bonds of keeping: offer → kept-signed consent → content-free heartbeat → per-act-consented care-routing ({kokoro,wakai,iyashi} ONLY — no denunciation rail) → relay 継ぎ → unilateral exit. 誰の保持者でもない人間を作らない. The degeneration path (五人組→隣組→Stasi→social credit) is structurally UNREPRESENTABLE: no-score (bond-edge-only), symmetric visibility (hidden keeping cannot exist), NEVER-a-throne (own-DID-only queries, aggregate-only coverage; the WASM component is stateless — the host owns the log). Keeper-side social-capital mint (moyai verbatim reuse). Human-scale sibling of the mishmar storage covenant. SYNTHETIC seed only; live legs Council+operator gated (G7). Per ADR-2606112300 (doctrine: 2606112200 D3/D6)."
+   :actor/primary-lexicon "com.etzhayyim.mimamori"
+   :actor/primary-schema "00-contracts/schemas/mishmeret-ontology.kotoba.edn"
+   :actor/adr ["2606112300" "2606112200"]
+   :actor/created-at "2026-06-11"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:mimamori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:mimamori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}

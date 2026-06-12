@@ -203,5 +203,16 @@
       "chigiriCrossActor": "/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md",
       "toritateCrossActor": "/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md"
     }
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "non-adjudicating": "AI renders no clinical verdict alone — human-in-loop ALWAYS (G8); the actor supports care, it does not adjudicate persons",
+      "no-score-of-soul": "clinical records never become a worth/risk score of the person; no patient ranking or behavioral scoring (G7 no behavioral modification)",
+      "map-not-target": "patient data never aggregates into a locator/target form — encrypted envelope mandatory (G2), no video (G3), per-encounter consent (G4)",
+      "append-only": "clinical attestation lineage; amendments append, records are never erased",
+      "never-a-throne": "no central plaintext patient registry — encrypted envelopes with member-held keys (G2); no all-patients observer view"
+    }
   }
 }

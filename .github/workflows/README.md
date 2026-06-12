@@ -2,6 +2,8 @@
 
 This directory contains GitHub Actions CI workflows for the etzhayyim monorepo.
 
+> **tree-guard** (#1680-class tree wipes / orphan submodule pins / pin regressions) is a **local lefthook `pre-push` hook**, not a workflow — see `lefthook.yml` + `70-tools/scripts/lint/tree-guard.sh` (operator direction 2026-06-12: guard before the push leaves the machine; the server-side gate is the required-review ruleset on `main`). A short-lived `tree-guard.yml` workflow (#1684) was relocated there.
+
 ## ci.yml
 
 Runs on every PR and push to main. Invokes the local lefthook pre-commit hook stack against the PR diff so contributors who skipped local hooks (`--no-verify`, lefthook not installed) still get caught.

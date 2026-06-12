@@ -230,5 +230,13 @@
     "gnc": "/90-docs/adr/2606010600-kami-autodrive-gnc-autonomy-layer.md",
     "factory_pattern": "/90-docs/adr/2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim.md",
     "charter_rider": "/CHARTER-RIDER.md"
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "append-only": "class-certification audit log on kotoba (G2) + every weld pass IPFS-pinned (G3) — evidence appends, nothing is erased",
+      "never-a-throne": "critical welds attested by a quorum of ≥2 DISTINCT robot witnesses, Ed25519 DID-bound (G4) — truth by quorum of finite witnesses, no single-attestor seat; all CAD/firmware open-source (G1)"
+    }
   }
 }

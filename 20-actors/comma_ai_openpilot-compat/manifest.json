@@ -5,21 +5,44 @@
   "kind": "compat",
   "title": "comma_ai_openpilot clean-room actor",
   "description": "Clean-room, API-compatible mobility / auto / EV actor (comma_ai_openpilot); runs browser-local on IPFS + kotoba-WASM.",
-  "wasmCid": "bafkreic43ujvpeg72g66h74e3acoftwpw6uqfi3lk5tvit2djdlhg3uwky",
+  "wasmCid": "bafkreieidxsxh7i77c4iz7q4qn63asmc2uiiigj6i7vmaenhqtufymdenm",
   "wasmProvenance": "built-rust-raw",
   "runtime": "kotoba-wasm",
   "exec": "browser-local|donated-mesh",
-  "ipfs": "ipfs://bafkreic43ujvpeg72g66h74e3acoftwpw6uqfi3lk5tvit2djdlhg3uwky",
+  "ipfs": "ipfs://bafkreieidxsxh7i77c4iz7q4qn63asmc2uiiigj6i7vmaenhqtufymdenm",
   "schema": "schema/comma_ai_openpilot.kotoba",
-  "tier": "L4",
-  "verified": null,
+  "tier": "L5",
+  "verified": {
+    "source": "https://github.com/commaai/opendbc (opendbc/car/car.capnp) + https://github.com/commaai/openpilot (cereal/log.capnp)",
+    "verifiedAt": "2026-06-11",
+    "resources": [
+      "Event",
+      "CarState",
+      "CarControl",
+      "CarParams"
+    ],
+    "enums": {
+      "CarState": {
+        "gearShifter": [
+          "unknown",
+          "park",
+          "drive",
+          "neutral",
+          "reverse",
+          "sport",
+          "low",
+          "brake",
+          "eco",
+          "manumatic"
+        ]
+      }
+    }
+  },
   "entities": [
-    "Vehicle",
-    "Signal",
-    "ChargeSession",
-    "Connector",
-    "Trip",
-    "Command"
+    "Event",
+    "CarState",
+    "CarControl",
+    "CarParams"
   ],
   "adr": [
     "260607",
@@ -31,157 +54,107 @@
     "api": {
       "type": "rest",
       "runtime": "kotoba-wasm",
-      "endpointCount": 30,
+      "endpointCount": 20,
       "routes": [
         {
           "method": "POST",
-          "path": "/v1/vehicles",
-          "op": "create Vehicle"
+          "path": "/v1/events",
+          "op": "create Event"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles",
-          "op": "list Vehicle"
+          "path": "/v1/events",
+          "op": "list Event"
         },
         {
           "method": "GET",
-          "path": "/v1/vehicles/{id}",
-          "op": "get Vehicle"
+          "path": "/v1/events/{id}",
+          "op": "get Event"
         },
         {
           "method": "PATCH",
-          "path": "/v1/vehicles/{id}",
-          "op": "update Vehicle"
+          "path": "/v1/events/{id}",
+          "op": "update Event"
         },
         {
           "method": "DELETE",
-          "path": "/v1/vehicles/{id}",
-          "op": "delete Vehicle"
+          "path": "/v1/events/{id}",
+          "op": "delete Event"
         },
         {
           "method": "POST",
-          "path": "/v1/signals",
-          "op": "create Signal"
+          "path": "/v1/carstates",
+          "op": "create CarState"
         },
         {
           "method": "GET",
-          "path": "/v1/signals",
-          "op": "list Signal"
+          "path": "/v1/carstates",
+          "op": "list CarState"
         },
         {
           "method": "GET",
-          "path": "/v1/signals/{id}",
-          "op": "get Signal"
+          "path": "/v1/carstates/{id}",
+          "op": "get CarState"
         },
         {
           "method": "PATCH",
-          "path": "/v1/signals/{id}",
-          "op": "update Signal"
+          "path": "/v1/carstates/{id}",
+          "op": "update CarState"
         },
         {
           "method": "DELETE",
-          "path": "/v1/signals/{id}",
-          "op": "delete Signal"
+          "path": "/v1/carstates/{id}",
+          "op": "delete CarState"
         },
         {
           "method": "POST",
-          "path": "/v1/chargesessions",
-          "op": "create ChargeSession"
+          "path": "/v1/carcontrols",
+          "op": "create CarControl"
         },
         {
           "method": "GET",
-          "path": "/v1/chargesessions",
-          "op": "list ChargeSession"
+          "path": "/v1/carcontrols",
+          "op": "list CarControl"
         },
         {
           "method": "GET",
-          "path": "/v1/chargesessions/{id}",
-          "op": "get ChargeSession"
+          "path": "/v1/carcontrols/{id}",
+          "op": "get CarControl"
         },
         {
           "method": "PATCH",
-          "path": "/v1/chargesessions/{id}",
-          "op": "update ChargeSession"
+          "path": "/v1/carcontrols/{id}",
+          "op": "update CarControl"
         },
         {
           "method": "DELETE",
-          "path": "/v1/chargesessions/{id}",
-          "op": "delete ChargeSession"
+          "path": "/v1/carcontrols/{id}",
+          "op": "delete CarControl"
         },
         {
           "method": "POST",
-          "path": "/v1/connectors",
-          "op": "create Connector"
+          "path": "/v1/carparamses",
+          "op": "create CarParams"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors",
-          "op": "list Connector"
+          "path": "/v1/carparamses",
+          "op": "list CarParams"
         },
         {
           "method": "GET",
-          "path": "/v1/connectors/{id}",
-          "op": "get Connector"
+          "path": "/v1/carparamses/{id}",
+          "op": "get CarParams"
         },
         {
           "method": "PATCH",
-          "path": "/v1/connectors/{id}",
-          "op": "update Connector"
+          "path": "/v1/carparamses/{id}",
+          "op": "update CarParams"
         },
         {
           "method": "DELETE",
-          "path": "/v1/connectors/{id}",
-          "op": "delete Connector"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/trips",
-          "op": "create Trip"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/trips",
-          "op": "list Trip"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/trips/{id}",
-          "op": "get Trip"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/trips/{id}",
-          "op": "update Trip"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/trips/{id}",
-          "op": "delete Trip"
-        },
-        {
-          "method": "POST",
-          "path": "/v1/commands",
-          "op": "create Command"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/commands",
-          "op": "list Command"
-        },
-        {
-          "method": "GET",
-          "path": "/v1/commands/{id}",
-          "op": "get Command"
-        },
-        {
-          "method": "PATCH",
-          "path": "/v1/commands/{id}",
-          "op": "update Command"
-        },
-        {
-          "method": "DELETE",
-          "path": "/v1/commands/{id}",
-          "op": "delete Command"
+          "path": "/v1/carparamses/{id}",
+          "op": "delete CarParams"
         }
       ],
       "features": {
@@ -244,44 +217,41 @@
       "type": "model-context-protocol",
       "runtime": "kotoba-wasm",
       "transport": "ipfs+kotoba-wasm",
-      "toolCount": 30,
+      "toolCount": 20,
       "tools": [
         {
-          "name": "create_vehicle",
-          "description": "Create a Vehicle.",
+          "name": "create_event",
+          "description": "Create a Event.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vin": {
-                "type": "string"
+              "logMonoTime": {
+                "type": "integer"
               },
-              "model": {
-                "type": "string"
+              "valid": {
+                "type": "boolean"
               },
-              "state": {
+              "logMessage": {
                 "type": "string"
-              },
-              "odometerKm": {
-                "type": "number"
               }
             },
             "required": [
-              "vin",
-              "model"
+              "logMonoTime",
+              "valid"
             ]
           }
         },
         {
-          "name": "list_vehicles",
-          "description": "List Vehicles.",
+          "name": "list_events",
+          "description": "List Events.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_vehicle",
-          "description": "Get a Vehicle by id.",
+          "name": "get_event",
+          "description": "Get a Event by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -295,25 +265,22 @@
           }
         },
         {
-          "name": "update_vehicle",
-          "description": "Update a Vehicle.",
+          "name": "update_event",
+          "description": "Update a Event.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vin": {
-                "type": "string"
+              "logMonoTime": {
+                "type": "integer"
               },
-              "model": {
-                "type": "string"
+              "valid": {
+                "type": "boolean"
               },
-              "state": {
+              "logMessage": {
                 "type": "string"
-              },
-              "odometerKm": {
-                "type": "number"
               }
             },
             "required": [
@@ -322,8 +289,8 @@
           }
         },
         {
-          "name": "delete_vehicle",
-          "description": "Delete a Vehicle.",
+          "name": "delete_event",
+          "description": "Delete a Event.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -337,41 +304,59 @@
           }
         },
         {
-          "name": "create_signal",
-          "description": "Create a Signal.",
+          "name": "create_car_state",
+          "description": "Create a CarState.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
+              "vEgo": {
                 "type": "number"
               },
-              "unit": {
+              "aEgo": {
+                "type": "number"
+              },
+              "standstill": {
+                "type": "boolean"
+              },
+              "gasPressed": {
+                "type": "boolean"
+              },
+              "brakePressed": {
+                "type": "boolean"
+              },
+              "steeringAngleDeg": {
+                "type": "number"
+              },
+              "steeringTorque": {
+                "type": "number"
+              },
+              "gearShifter": {
                 "type": "string"
+              },
+              "leftBlinker": {
+                "type": "boolean"
+              },
+              "rightBlinker": {
+                "type": "boolean"
               }
             },
             "required": [
-              "name",
-              "value"
+              "vEgo",
+              "aEgo"
             ]
           }
         },
         {
-          "name": "list_signals",
-          "description": "List Signals.",
+          "name": "list_car_states",
+          "description": "List CarStates.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_signal",
-          "description": "Get a Signal by id.",
+          "name": "get_car_state",
+          "description": "Get a CarState by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -385,25 +370,43 @@
           }
         },
         {
-          "name": "update_signal",
-          "description": "Update a Signal.",
+          "name": "update_car_state",
+          "description": "Update a CarState.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "value": {
+              "vEgo": {
                 "type": "number"
               },
-              "unit": {
+              "aEgo": {
+                "type": "number"
+              },
+              "standstill": {
+                "type": "boolean"
+              },
+              "gasPressed": {
+                "type": "boolean"
+              },
+              "brakePressed": {
+                "type": "boolean"
+              },
+              "steeringAngleDeg": {
+                "type": "number"
+              },
+              "steeringTorque": {
+                "type": "number"
+              },
+              "gearShifter": {
                 "type": "string"
+              },
+              "leftBlinker": {
+                "type": "boolean"
+              },
+              "rightBlinker": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -412,8 +415,8 @@
           }
         },
         {
-          "name": "delete_signal",
-          "description": "Delete a Signal.",
+          "name": "delete_car_state",
+          "description": "Delete a CarState.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -427,41 +430,44 @@
           }
         },
         {
-          "name": "create_charge_session",
-          "description": "Create a ChargeSession.",
+          "name": "create_car_control",
+          "description": "Create a CarControl.",
           "inputSchema": {
             "type": "object",
             "properties": {
-              "vehicleId": {
-                "type": "string"
+              "enabled": {
+                "type": "boolean"
               },
-              "connectorId": {
-                "type": "string"
+              "latActive": {
+                "type": "boolean"
               },
-              "energyKwh": {
-                "type": "number"
+              "longActive": {
+                "type": "boolean"
               },
-              "status": {
-                "type": "string"
+              "leftBlinker": {
+                "type": "boolean"
+              },
+              "rightBlinker": {
+                "type": "boolean"
               }
             },
             "required": [
-              "energyKwh",
-              "status"
+              "enabled",
+              "latActive"
             ]
           }
         },
         {
-          "name": "list_charge_sessions",
-          "description": "List ChargeSessions.",
+          "name": "list_car_controls",
+          "description": "List CarControls.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_charge_session",
-          "description": "Get a ChargeSession by id.",
+          "name": "get_car_control",
+          "description": "Get a CarControl by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -475,83 +481,92 @@
           }
         },
         {
-          "name": "update_charge_session",
-          "description": "Update a ChargeSession.",
+          "name": "update_car_control",
+          "description": "Update a CarControl.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "vehicleId": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "latActive": {
+                "type": "boolean"
+              },
+              "longActive": {
+                "type": "boolean"
+              },
+              "leftBlinker": {
+                "type": "boolean"
+              },
+              "rightBlinker": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "delete_car_control",
+          "description": "Delete a CarControl.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "create_car_params",
+          "description": "Create a CarParams.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "brand": {
                 "type": "string"
               },
-              "connectorId": {
+              "carFingerprint": {
                 "type": "string"
               },
-              "energyKwh": {
+              "minEnableSpeed": {
                 "type": "number"
               },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_charge_session",
-          "description": "Delete a ChargeSession.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_connector",
-          "description": "Create a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "stationId": {
-                "type": "string"
-              },
-              "standard": {
-                "type": "string"
-              },
-              "powerKw": {
+              "minSteerSpeed": {
                 "type": "number"
               },
-              "status": {
-                "type": "string"
+              "mass": {
+                "type": "number"
+              },
+              "wheelbase": {
+                "type": "number"
               }
             },
             "required": [
-              "standard",
-              "powerKw"
+              "brand",
+              "carFingerprint"
             ]
           }
         },
         {
-          "name": "list_connectors",
-          "description": "List Connectors.",
+          "name": "list_car_paramses",
+          "description": "List CarParamses.",
           "inputSchema": {
             "type": "object",
             "properties": {}
           }
         },
         {
-          "name": "get_connector",
-          "description": "Get a Connector by id.",
+          "name": "get_car_params",
+          "description": "Get a CarParams by id.",
           "inputSchema": {
             "type": "object",
             "properties": {
@@ -565,109 +580,31 @@
           }
         },
         {
-          "name": "update_connector",
-          "description": "Update a Connector.",
+          "name": "update_car_params",
+          "description": "Update a CarParams.",
           "inputSchema": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "string"
               },
-              "stationId": {
+              "brand": {
                 "type": "string"
               },
-              "standard": {
+              "carFingerprint": {
                 "type": "string"
               },
-              "powerKw": {
+              "minEnableSpeed": {
                 "type": "number"
               },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_connector",
-          "description": "Delete a Connector.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_trip",
-          "description": "Create a Trip.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "distanceKm": {
+              "minSteerSpeed": {
                 "type": "number"
               },
-              "startedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "distanceKm",
-              "startedAt"
-            ]
-          }
-        },
-        {
-          "name": "list_trips",
-          "description": "List Trips.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_trip",
-          "description": "Get a Trip by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_trip",
-          "description": "Update a Trip.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "vehicleId": {
-                "type": "string"
-              },
-              "distanceKm": {
+              "mass": {
                 "type": "number"
               },
-              "startedAt": {
-                "type": "string"
+              "wheelbase": {
+                "type": "number"
               }
             },
             "required": [
@@ -676,92 +613,8 @@
           }
         },
         {
-          "name": "delete_trip",
-          "description": "Delete a Trip.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "create_command",
-          "description": "Create a Command.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "status"
-            ]
-          }
-        },
-        {
-          "name": "list_commands",
-          "description": "List Commands.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {}
-          }
-        },
-        {
-          "name": "get_command",
-          "description": "Get a Command by id.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "update_command",
-          "description": "Update a Command.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "vehicleId": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id"
-            ]
-          }
-        },
-        {
-          "name": "delete_command",
-          "description": "Delete a Command.",
+          "name": "delete_car_params",
+          "description": "Delete a CarParams.",
           "inputSchema": {
             "type": "object",
             "properties": {

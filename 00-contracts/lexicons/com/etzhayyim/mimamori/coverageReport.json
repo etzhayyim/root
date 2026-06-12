@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mimamori.coverageReport",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "AGGREGATE-ONLY coverage of 誰の保持者でもない人間を作らない (G5 NEVER-a-throne): counts only, no per-person field exists in this schema. The unkept are reached by the offer-matching cell directly (one covenant offer at a time, G7-gated) — never via a list.",
+      "record": {
+        "type": "object",
+        "required": ["membersTotal", "withKeeper", "offersPending", "unkeptCount", "activeBonds", "relays", "cycle"],
+        "properties": {
+          "membersTotal": {
+            "type": "integer",
+            "description": "Roster size (aggregate)."
+          },
+          "withKeeper": {
+            "type": "integer",
+            "description": "Members with an active keeper (aggregate)."
+          },
+          "offersPending": {
+            "type": "integer",
+            "description": "Members with a standing, unanswered offer (aggregate)."
+          },
+          "unkeptCount": {
+            "type": "integer",
+            "description": "THE GAP — members with no keeper and no pending offer. G5 INVARIANT: a count, never a list; no DID field exists in this record."
+          },
+          "activeBonds": {
+            "type": "integer",
+            "description": "Active bonds (aggregate)."
+          },
+          "relays": {
+            "type": "integer",
+            "description": "Completed keeper relays 継ぎ (aggregate)."
+          },
+          "cycle": {
+            "type": "integer",
+            "description": "Report cycle (deterministic, no wall clock)."
+          }
+        }
+      }
+    }
+  }
+}

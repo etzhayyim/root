@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sonae.siteRiskProfile",
+  "description": "Standing per-community-site exposure + vulnerability profile, fused from cross-actor data. G3 STRUCTURAL: community-site scope only. G6 STRUCTURAL: NO individual-level fields — aggregate / opt-in-count only; no person tracking, no household risk-scoring.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["createdAt", "communityCellSiteId", "hazardExposures", "communityScaleAttested", "attestingDid"],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "communityCellSiteId": {"type": "string"},
+          "communityScaleAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "G3 STRUCTURAL: const true — community-site scope, not municipal/regional/national"
+          },
+          "hazardExposures": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#hazardExposure"},
+            "description": "Per-hazard exposure for this site (from open feed history + geophysical context)"
+          },
+          "buildingStockRef": {"type": "string", "description": "$ref to tatekata building-stock / structural-vulnerability assessment CID"},
+          "lifelineDependency": {
+            "type": "object",
+            "properties": {
+              "waterRef": {"type": "string", "description": "$ref mizuho lifeline dependency"},
+              "powerRef": {"type": "string", "description": "$ref hikari grid dependency"},
+              "commsRef": {"type": "string", "description": "$ref watatsuna comms-continuity dependency"}
+            }
+          },
+          "vulnerablePopulationOptInCount": {
+            "type": "object",
+            "description": "G6 STRUCTURAL: AGGREGATE opt-in counts only (hagukumi); NO individual records",
+            "properties": {
+              "childrenOptIn": {"type": "integer", "minimum": 0},
+              "elderlyOptIn": {"type": "integer", "minimum": 0},
+              "chronicCareOptIn": {"type": "integer", "minimum": 0}
+            }
+          },
+          "sphereGapNotes": {"type": "string", "description": "G9: preparedness gaps vs Sphere minimums (shelter/water/food/health/protection)"},
+          "lastReviewedUtc": {"type": "string", "format": "datetime"},
+          "attestingDid": {"type": "string"}
+        }
+      }
+    },
+    "hazardExposure": {
+      "type": "object",
+      "required": ["hazardKind", "exposureLevel"],
+      "properties": {
+        "hazardKind": {"type": "string", "knownValues": ["earthquake", "tsunami", "typhoon-hurricane", "flood", "wildfire", "volcanic", "landslide", "extreme-heat", "extreme-cold", "pandemic-biological", "other"]},
+        "exposureLevel": {"type": "string", "knownValues": ["low", "moderate", "high", "very-high"]},
+        "basisCid": {"type": "string", "description": "CID of open-feed / geophysical basis for this exposure rating"}
+      }
+    }
+  }
+}

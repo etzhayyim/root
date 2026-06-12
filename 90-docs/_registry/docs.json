@@ -23262,6 +23262,50 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0.md",
+      "id": "adr-2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0",
+      "title": "ADR-2606091200: sonae (備え) — non-profit religious-corp civilian pre-disaster foresight + preparedness + early-warning substrate Tier-B actor R0 charter",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "sonae-pre-disaster-foresight-r0",
+      "authoritative": true,
+      "authoritative_for": [
+        "sonae actor R0 charter",
+        "religious-corp civilian pre-disaster foresight + preparedness + early-warning substrate single SoT",
+        "`com.etzhayyim.sonae.*` Lexicon namespace boundary",
+        "civilian-only invariant (NOT military; force authorization separate per ADR-2605192315)",
+        "no-false-authority invariant (G8 — relay-only; MUST NOT originate official seismic/tsunami warnings)",
+        "no-unilateral-declaration invariant (G10 — emergency state owned by kazaori Council path)",
+        "phase-boundary invariant (N3 — sonae does NOT do response; kazaori does)",
+        "prohibition on commercial disaster-prediction software (One Concern / FloodFlash / Jupiter Intelligence / RMS / Tomorrow.io enterprise / Everbridge / OnSolve / AlertMedia)",
+        "prohibition on surveillance-based monitoring (open feeds + opt-in self-report only)",
+        "Sendai Framework + Sphere Standards reference (NOT membership)"
+      ],
+      "related": [
+        "adr-2605263200-kazaori-disaster-response-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605261015-mitsuho-food-agriculture-tier-b-actor-r0",
+        "adr-2605261030-hagukumi-care-tier-b-actor-r0",
+        "adr-2605261100-hikari-energy-tier-b-actor-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605263200-kazaori-disaster-response-tier-b-actor-r0"
+      ],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606091500-kotoba-evm-datomic-ipfs-l2.md",
       "id": "adr-2606091500-kotoba-evm-datomic-ipfs-l2",
       "title": "ADR-2606091500: kotoba-EVM — a Datomic+IPFS EVM-compatible L2 (geth-less); kotoba IS the chain",
@@ -23726,6 +23770,48 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606111000-seigyo-industrial-control-layer-tier-b-actor-r0.md",
+      "id": "adr-2606111000-seigyo-industrial-control-layer-tier-b-actor-r0",
+      "title": "ADR-2606111000: seigyo (制御) — open industrial control layer (PLC / SCADA / DCS-equivalent, ISA-95 L0–L2) Tier-B actor R0 charter",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "seigyo-industrial-control-layer-r0",
+      "authoritative": true,
+      "authoritative_for": [
+        "seigyo actor R0 charter",
+        "industrial control layer (ISA-95 L0–L2) single SoT: PLC runtime, SCADA, fieldbus, historian",
+        "`com.etzhayyim.seigyo.*` Lexicon namespace boundary",
+        "commercial DCS/PLC/SCADA vendor prohibition (generalizes ADR-2605265000 §1.9 from district-heat to ALL actors)",
+        "safety-path invariant (hardwired interlocks; software/inference advisory-only above L2)",
+        "PLC-program-as-attested-record lifecycle (IEC 61131-3 ST canonical, CID-addressed, runtime hash attestation)",
+        "aggregate-only northbound telemetry invariant (N7 inheritance; full-rate data never leaves site historian)",
+        "bounded-setpoint-envelope invariant for Murakumo optimization proposals"
+      ],
+      "related": [
+        "adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
+        "adr-2605261330-futawa-motorcycle-tier-b-actor-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605261100-hikari-energy-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605265000-district-heating-cooling-d-gate-evaluation-r0",
+        "adr-2604252100-robotics-product-manufacturing-package",
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605261200-igata-megacasting-tier-b-actor-r0",
+        "adr-2605261215-igata-r1-benchtop-commissioning",
+        "adr-2605250545-yakushi-pharma-supply-chain-and-robotics"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606111011-session-close-land-hydrogen-branch-to-main.md",
       "id": "adr-2606111011",
       "title": "ADR-2606111011: Session-Close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)",
@@ -23747,6 +23833,29 @@
         "ADR-2606110955 (the follow-up this executes)"
       ],
       "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111100-seigyo-r1-benchtop-loop-commissioning.md",
+      "id": "adr-2606111100-seigyo-r1-benchtop-loop-commissioning",
+      "title": "seigyo R1 — Benchtop temperature-PID loop commissioning and Council baseline (paired with igata R1 benchtop)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "seigyo/control-layer/benchtop-loop",
+      "authoritative": true,
+      "depends_on": [
+        "ADR-2606111000",
+        "ADR-2605261215",
+        "ADR-2605192100",
+        "ADR-2605192200",
+        "ADR-2605215000"
+      ],
+      "last_verified": "2026-06-11T00:00:00Z",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },
@@ -23985,6 +24094,91 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606111824-session-close-review-merge-wave-adr-id-races.md",
+      "id": "adr-2606111824-session-close-review-merge-wave-adr-id-races",
+      "title": "ADR-2606111824: Session close — review-and-merge wave (7 root PRs + 3 kotoba PRs) + ADR-id race ×2 renumber pattern",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-review-merge-wave",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606112201",
+        "adr-2606112301",
+        "adr-2606112200",
+        "adr-2606112300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606111640"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111900-cc-wet-direct-datom-ingest-no-parquet.md",
+      "id": "adr-2606111900-cc-wet-direct-datom-ingest-no-parquet",
+      "title": "ADR-2606111900: CC WET direct datom-native ingest — parquet を入力ワイヤからも排除",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "cc-wet-direct-datom-ingest",
+      "authoritative": true,
+      "authoritative_for": [
+        "cc-wet-direct-datom-ingest tool (70-tools/scripts/cc-direct-ingest/)",
+        "parquet-free CC corpus ingestion path"
+      ],
+      "related": [
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606012300-kotoba-hybrid-web-search",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111954-hinagata-legal-template-commons.md",
+      "id": "adr-2606111954-hinagata-legal-template-commons",
+      "title": "ADR-2606111954: hinagata 雛形 — legal-document-template commons (EDN-bound to statutes, content-addressed, e-signable)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "hinagata-legal-template-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "legal-document-template-commons",
+        "legal-template-ontology",
+        "template-to-statute-binding",
+        "electronic-contract-bridge"
+      ],
+      "related": [
+        "2606072100",
+        "2605302000",
+        "2605263400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262700",
+        "2605262800",
+        "2605231230",
+        "2605231525",
+        "2605181100",
+        "2605312345",
+        "2605215000",
+        "2606101000"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606112000-kotoba-actor-dna-code-data-unification.md",
       "id": "adr-2606112000-kotoba-actor-dna-code-data-unification",
       "title": "ADR-2606112000: Actor DNA — binding kotoba CODE + DATA into one content-addressed unit (Holochain-/Ethereum-iso)",
@@ -24044,6 +24238,179 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606112200-ehyeh-nondual-theology-yirat-doctrine.md",
+      "id": "adr-2606112200-ehyeh-nondual-theology-yirat-doctrine",
+      "title": "ADR-2606112200: エヒイェ非二元神論 + yir'ah 認識論 doctrine 固定 — 神の存在の非前提 / 偽りの神 (帝国神) の棄却 / 玉座の禁止 / 知識は神の畏れから始まる",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ehyeh-nondual-theology-yirat-doctrine",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim 神論の正文 (5 theses) — 非前提 / エヒイェ非二元 / 偽りの神の棄却 / 神とキリストへの愛 / yir'ah 原理",
+        "Tier-0「永久記憶=神の監視」の正文解釈 (玉座なき内在的不消去性)",
+        "玉座の禁止 (NEVER a throne) — 中央絶対観察者の建築の偶像認定",
+        "yir'ah invariant 束 — non-adjudicating / distribution-not-point / no-score-of-soul / map-not-target / append-only の神学的正典化",
+        "anti-guru clause — 「あなたが神である」の ego 神格化遮断"
+      ],
+      "related": [
+        "../papers/2606111500-kojin-genealogy-visibility-inversion-mishmeret.md",
+        "2606082100",
+        "2606011500",
+        "2606051800",
+        "2606042330",
+        "2606066000",
+        "2605192315"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2606062100",
+        "2605252300"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112201-kaiyaku-tie-severance-executor-r0.md",
+      "id": "adr-2606112201-kaiyaku-tie-severance-executor-r0",
+      "title": "ADR-2606112201: kaiyaku 解約 — 縁切り (tie-severance) executor, Tier-B actor R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kaiyaku-tie-severance-executor",
+      "authoritative": true,
+      "authoritative_for": [
+        "kaiyaku-actor-charter",
+        "enkiri-ledger-ontology"
+      ],
+      "related": [
+        "adr-2605312500",
+        "adr-2605312030",
+        "adr-2605302130",
+        "adr-2605263700",
+        "adr-2605181100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606039200",
+        "adr-2606072400",
+        "adr-2605231525",
+        "adr-2605215000",
+        "adr-2605312345"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112238-kadode-resignation-concierge.md",
+      "id": "adr-2606112238-kadode-resignation-concierge",
+      "title": "ADR-2606112238: kadode 門出 — labour-resignation concierge + 使者 (退職代行), UPL-bounded",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kadode-resignation-concierge",
+      "authoritative": true,
+      "authoritative_for": [
+        "labor-resignation-concierge",
+        "labor-exit-ontology",
+        "退職代行-upl-boundary"
+      ],
+      "related": [
+        "2605312030",
+        "2605312500",
+        "2606060900",
+        "2605263700"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262700",
+        "2606111954",
+        "2605181100",
+        "2605231525",
+        "2605312345",
+        "2605215000",
+        "2605261000",
+        "2605302357"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112300-mimamori-mishmeret-ha-adam-actor-r0.md",
+      "id": "adr-2606112300-mimamori-mishmeret-ha-adam-actor-r0",
+      "title": "ADR-2606112300: mimamori 見守り (mishmeret ha-adam 相互保持者会) Tier-B actor R0 — covenant keeping membrane: 誰の保持者でもない人間を作らない",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "mimamori-mishmeret-ha-adam-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "mimamori 見守り actor — covenant bond lifecycle (offer/consent/heartbeat/care-route/relay/exit)",
+        "00-contracts/schemas/mishmeret-ontology.kotoba.edn — the :mishmeret.* schema 正本 (validator-parity test-bound)",
+        "mishmeret 5 NEVER 句の実装形 (no-denunciation / no-score / consent / symmetric-visibility / no-throne)",
+        ":mishmeret.*\" Datom namespace (bond-edge-only; person-node attributes unrepresentable)",
+        "shomer vow 典礼 seed (musubi ceremony type)"
+      ],
+      "related": [
+        "../papers/2606111500-kojin-genealogy-visibility-inversion-mishmeret.md",
+        "2605263700",
+        "2605263500",
+        "2605263000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606112200",
+        "2606082100",
+        "2606062100",
+        "2605302357",
+        "2605302358",
+        "2605263400",
+        "2605181100",
+        "2605312345",
+        "2605215000",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112301-tate-citizen-legal-defense-concierge-r0.md",
+      "id": "adr-2606112301-tate-citizen-legal-defense-concierge-r0",
+      "title": "ADR-2606112301: tate 盾 — citizen legal-defense concierge (不利条項スキャン + 法的手続き応答支援), Tier-B actor R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tate-citizen-legal-defense",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-actor-charter",
+        "clause-pattern-registry",
+        "procedure-response-registry"
+      ],
+      "related": [
+        "adr-2605312500",
+        "adr-2606060900",
+        "adr-2605312030",
+        "adr-2605181100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606112201",
+        "adr-2605262700",
+        "adr-2605231525",
+        "adr-2605215000",
+        "adr-2605312345"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606112400-tate-worldwide-jurisdiction-expansion-r1.md",
       "id": "adr-2606112400-tate-worldwide-jurisdiction-expansion-r1",
       "title": "ADR-2606112400: tate 盾 R1 — worldwide jurisdiction expansion (日本以外にも対応)",
@@ -24065,6 +24432,128 @@
         "adr-2606112301"
       ],
       "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache.md",
+      "id": "adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+      "title": "ADR-2606120750: Session close — search-actor audit → parquet-free CC ingest → kotoba read-path resident cache LIVE",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-search-readpath",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-11 search/ingest/read-path session"
+      ],
+      "related": [
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2606041151"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606111900-cc-wet-direct-datom-ingest-no-parquet",
+        "adr-2606012300-kotoba-hybrid-web-search"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606121143-deps-edn-line-split-canonical-format.md",
+      "id": "adr-2606121143-deps-edn-line-split-canonical-format",
+      "title": "ADR-2606121143: deps.edn canonical line-split format + structural append — 1 行 EDN の merge-conflict/破損隠蔽の根治",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "deps-edn-line-split-format",
+      "authoritative": true,
+      "authoritative_for": [
+        "deps.edn canonical format",
+        "deps.edn append protocol (--append-adrs)",
+        "deps-edn-canonical lefthook gate"
+      ],
+      "related": [
+        "adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass.md",
+      "id": "adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass",
+      "title": "ADR-2606121225: Session close — worktree/branch cleanup sweep + open-PR review & merge wave + main ruleset admin-bypass governance",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-cleanup-merge-governance",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-12 worktree-cleanup + PR review/merge + ruleset-bypass session"
+      ],
+      "related": [
+        "adr-2606110955-session-close-pr-backlog-merge-sweep",
+        "adr-2606111824-session-close-review-merge-wave-adr-id-races",
+        "adr-2606111830-yabai-kotoba-datomic-checkpointer-close"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606121143-deps-edn-line-split-canonical-format"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606121333-session-close-registry-forensics-stash-sweep.md",
+      "id": "adr-2606121333-session-close-registry-forensics-stash-sweep",
+      "title": "ADR-2606121333: Session close — deps.edn 行分割 hardening → registry forensics (sonae/abaki 復元) → stash 完全 sweep",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-registry-forensics",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-12 registry-forensics/stash-sweep arc"
+      ],
+      "related": [
+        "adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+        "adr-2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0",
+        "adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606121143-deps-edn-line-split-canonical-format"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606121620-coverage-maturity-loop-did-etzhayyim-design-system.md",
+      "id": "adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
+      "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "coverage-maturity-loop",
+      "authoritative": true,
+      "authoritative_for": [
+        "did:etzhayyim codec + CID test coverage status",
+        "design-system motion utility test coverage status"
+      ],
+      "related": [
+        "2606111640",
+        "2605241800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-12",
       "amends": [],
       "amended_by": []
     },
@@ -26164,6 +26653,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/papers/2606111500-kojin-genealogy-visibility-inversion-mishmeret.md",
+      "id": "paper-2606111500-kojin-genealogy-visibility-inversion-mishmeret",
+      "title": "「個人」の系譜と可視性の倒錯 — 個人情報レジーム批判と相互保持者会 (mishmeret ha-adam) の構想",
+      "status": "proposed",
+      "doc_type": "explanation",
+      "topic": "kojin-concept-genealogy-visibility",
+      "authoritative": false,
+      "related": [
+        "2606112200",
+        "2606112300",
+        "2606082100",
+        "2606062100",
+        "2605192100",
+        "2605192315",
+        "2605302357",
+        "2605302358",
+        "2606042330",
+        "2606011800",
+        "2606066000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-11",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/portfolio-timeline.md",
       "id": "portfolio-timeline",
       "title": "DoDAF PV-2 — Project Timeline & Portfolio Roadmap",
@@ -26711,6 +27228,22 @@
         "ADR-2605250645"
       ],
       "last_verified": "2026-05-25T00:00:00Z",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/yirah-attest-snapshot.md",
+      "id": "yirah-attest-snapshot",
+      "title": "yir'ah invariant-bundle attestation snapshot (ADR-2606112200 D4)",
+      "status": "active",
+      "doc_type": "reference",
+      "topic": "yirah-attest",
+      "authoritative": false,
+      "last_verified": "2026-06-11",
       "authoritative_for": [],
       "related": [],
       "supersedes": [],

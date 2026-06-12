@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sonae.earlyWarningRelay",
+  "description": "Relay of an OFFICIAL warning issued by an authoritative agency, to opt-in community members. G8 STRUCTURAL (the defining gate): relayOnly const true AND authoritativeSource required — sonae MUST NOT originate authoritative warnings, only faithfully relay them with attribution. Fabricating an authoritative alert is forbidden at the schema level.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "relayOnly",
+          "authoritativeSource",
+          "officialWarningId",
+          "officialWarningIssuedUtc",
+          "warningKind",
+          "verbatimSummary",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "relayOnly": {
+            "type": "boolean",
+            "const": true,
+            "description": "G8 STRUCTURAL: const true — this record can ONLY relay an existing official warning; sonae never originates one"
+          },
+          "authoritativeSource": {
+            "type": "string",
+            "description": "G8 STRUCTURAL: issuing authoritative agency (the warning's true author)",
+            "knownValues": [
+              "phivolcs",
+              "jma",
+              "usgs",
+              "ptwc",
+              "noaa-nws",
+              "national-met-service-other",
+              "national-disaster-agency-other"
+            ]
+          },
+          "officialWarningId": {"type": "string", "description": "The agency's own warning/bulletin identifier (provenance; verifiable upstream)"},
+          "officialWarningUrl": {"type": "string", "description": "Public permalink to the agency bulletin"},
+          "officialWarningIssuedUtc": {"type": "string", "format": "datetime"},
+          "warningKind": {
+            "type": "string",
+            "knownValues": ["tsunami", "earthquake-aftershock", "typhoon-hurricane", "flood", "volcanic", "evacuation-advisory-official", "all-clear", "other"]
+          },
+          "severityVerbatim": {"type": "string", "description": "Severity exactly as stated by the agency (e.g. 'Tsunami Warning', '大津波警報'); NOT re-graded by sonae"},
+          "verbatimSummary": {"type": "string", "description": "Faithful summary of the official text; no editorializing, no severity inflation/deflation"},
+          "relayedToCommunitySiteIds": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Opt-in community sites the relay was pushed to (community-scale; G3)"
+          },
+          "relayChannelActor": {"type": "string", "const": "kawaraban", "description": "Relay channel cross-actor"},
+          "supersededByRelayUri": {"type": "string", "description": "If a later official update supersedes this relay"},
+          "attestingDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

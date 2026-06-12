@@ -111,253 +111,139 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/vehicles", methods=["POST"])
-def create_vehicle(request):
-    """Create a Vehicle."""
+@app.route("/v1/chassises", methods=["POST"])
+def create_chassis(request):
+    """Create a Chassis."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vin', 'model', 'state', 'odometerKm'])
+    err = _reject_unknown(data, ['engineStarted', 'speedMps', 'throttlePercentage', 'brakePercentage', 'steeringPercentage', 'parkingBrake', 'wiper', 'drivingMode', 'errorCode', 'gearLocation', 'frontBumperEvent'])
     if err:
         return err, 400
-    err = _require(data, ['vin', 'model'])
+    err = _require(data, ['engineStarted', 'speedMps'])
     if err:
         return err, 400
-    rec = {"id": new_id("apolloau_veh")}
-    rec["vin"] = data.get('vin')
-    rec["model"] = data.get('model')
-    rec["state"] = data.get('state')
-    rec["odometerKm"] = _as_float(data.get('odometerKm'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Vehicle", rec)
-    return rec, 201
-
-@app.route("/v1/vehicles", methods=["GET"])
-def list_vehicles(request):
-    """List Vehicles with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Vehicle")
-    rows = _apply_filters(rows, params, ['vin', 'model', 'state', 'odometerKm'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/vehicles/<eid>", methods=["GET"])
-def get_vehicle(request, eid):
-    """Retrieve a Vehicle by id (supports ?expand=)."""
-    rows = _query("Vehicle", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/vehicles/<eid>", methods=["POST", "PATCH"])
-def update_vehicle(request, eid):
-    """Update a Vehicle."""
-    rows = _query("Vehicle", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vin', 'model', 'state', 'odometerKm'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Vehicle", rec)
-    return rec, 200
-
-@app.route("/v1/vehicles/<eid>", methods=["DELETE"])
-def delete_vehicle(request, eid):
-    """Delete a Vehicle."""
-    rows = _query("Vehicle", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apollo_auto.Vehicle", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/signals", methods=["POST"])
-def create_signal(request):
-    """Create a Signal."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'value', 'unit'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'value'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("apolloau_sig")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Signal", rec)
-    return rec, 201
-
-@app.route("/v1/signals", methods=["GET"])
-def list_signals(request):
-    """List Signals with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Signal")
-    rows = _apply_filters(rows, params, ['vehicleId', 'name', 'value', 'unit'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/signals/<eid>", methods=["GET"])
-def get_signal(request, eid):
-    """Retrieve a Signal by id (supports ?expand=)."""
-    rows = _query("Signal", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
-    return rec, 200
-
-@app.route("/v1/signals/<eid>", methods=["POST", "PATCH"])
-def update_signal(request, eid):
-    """Update a Signal."""
-    rows = _query("Signal", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'value', 'unit'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Signal", rec)
-    return rec, 200
-
-@app.route("/v1/signals/<eid>", methods=["DELETE"])
-def delete_signal(request, eid):
-    """Delete a Signal."""
-    rows = _query("Signal", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apollo_auto.Signal", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/chargesessions", methods=["POST"])
-def create_charge_session(request):
-    """Create a ChargeSession."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['energyKwh', 'status'])
-    if err:
-        return err, 400
+    if data.get('drivingMode') and data['drivingMode'] not in ['COMPLETE_MANUAL', 'COMPLETE_AUTO_DRIVE', 'AUTO_STEER_ONLY', 'AUTO_SPEED_ONLY', 'EMERGENCY_MODE']:
+        return {"error": {"message": "invalid drivingMode; allowed: " + ", ".join(['COMPLETE_MANUAL', 'COMPLETE_AUTO_DRIVE', 'AUTO_STEER_ONLY', 'AUTO_SPEED_ONLY', 'EMERGENCY_MODE']), "type": "invalid_request_error"}}, 400
+    if data.get('frontBumperEvent') and data['frontBumperEvent'] not in ['BUMPER_INVALID', 'BUMPER_NORMAL', 'BUMPER_PRESSED']:
+        return {"error": {"message": "invalid frontBumperEvent; allowed: " + ", ".join(['BUMPER_INVALID', 'BUMPER_NORMAL', 'BUMPER_PRESSED']), "type": "invalid_request_error"}}, 400
     rec = {"id": new_id("apolloau_cha")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["connectorId"] = data.get('connectorId')
-    rec["energyKwh"] = _as_float(data.get('energyKwh'))
-    rec["status"] = data.get('status')
+    rec["engineStarted"] = _as_bool(data.get('engineStarted'))
+    rec["speedMps"] = _as_float(data.get('speedMps'))
+    rec["throttlePercentage"] = _as_float(data.get('throttlePercentage'))
+    rec["brakePercentage"] = _as_float(data.get('brakePercentage'))
+    rec["steeringPercentage"] = _as_float(data.get('steeringPercentage'))
+    rec["parkingBrake"] = _as_bool(data.get('parkingBrake'))
+    rec["wiper"] = _as_bool(data.get('wiper'))
+    rec["drivingMode"] = data.get('drivingMode')
+    rec["errorCode"] = data.get('errorCode')
+    rec["gearLocation"] = data.get('gearLocation')
+    rec["frontBumperEvent"] = data.get('frontBumperEvent')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ChargeSession", rec)
+    _persist("Chassis", rec)
     return rec, 201
 
-@app.route("/v1/chargesessions", methods=["GET"])
-def list_charge_sessions(request):
-    """List ChargeSessions with filtering + cursor pagination."""
+@app.route("/v1/chassises", methods=["GET"])
+def list_chassises(request):
+    """List Chassises with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ChargeSession")
-    rows = _apply_filters(rows, params, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    rows = _query("Chassis")
+    rows = _apply_filters(rows, params, ['engineStarted', 'speedMps', 'throttlePercentage', 'brakePercentage', 'steeringPercentage', 'parkingBrake', 'wiper', 'drivingMode', 'errorCode', 'gearLocation', 'frontBumperEvent'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["GET"])
-def get_charge_session(request, eid):
-    """Retrieve a ChargeSession by id (supports ?expand=)."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/chassises/<eid>", methods=["GET"])
+def get_chassis(request, eid):
+    """Retrieve a Chassis by id (supports ?expand=)."""
+    rows = _query("Chassis", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle', 'connectorId': 'Connector'})
     return rec, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["POST", "PATCH"])
-def update_charge_session(request, eid):
-    """Update a ChargeSession."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/chassises/<eid>", methods=["POST", "PATCH"])
+def update_chassis(request, eid):
+    """Update a Chassis."""
+    rows = _query("Chassis", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    err = _reject_unknown(data, ['engineStarted', 'speedMps', 'throttlePercentage', 'brakePercentage', 'steeringPercentage', 'parkingBrake', 'wiper', 'drivingMode', 'errorCode', 'gearLocation', 'frontBumperEvent'])
     if err:
         return err, 400
+    if data.get('drivingMode') and data['drivingMode'] not in ['COMPLETE_MANUAL', 'COMPLETE_AUTO_DRIVE', 'AUTO_STEER_ONLY', 'AUTO_SPEED_ONLY', 'EMERGENCY_MODE']:
+        return {"error": {"message": "invalid drivingMode; allowed: " + ", ".join(['COMPLETE_MANUAL', 'COMPLETE_AUTO_DRIVE', 'AUTO_STEER_ONLY', 'AUTO_SPEED_ONLY', 'EMERGENCY_MODE']), "type": "invalid_request_error"}}, 400
+    if data.get('frontBumperEvent') and data['frontBumperEvent'] not in ['BUMPER_INVALID', 'BUMPER_NORMAL', 'BUMPER_PRESSED']:
+        return {"error": {"message": "invalid frontBumperEvent; allowed: " + ", ".join(['BUMPER_INVALID', 'BUMPER_NORMAL', 'BUMPER_PRESSED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ChargeSession", rec)
+    _persist("Chassis", rec)
     return rec, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["DELETE"])
-def delete_charge_session(request, eid):
-    """Delete a ChargeSession."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/chassises/<eid>", methods=["DELETE"])
+def delete_chassis(request, eid):
+    """Delete a Chassis."""
+    rows = _query("Chassis", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apollo_auto.ChargeSession", "id": eid})
+    db.retract({"entity": f"apollo_auto.Chassis", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/connectors", methods=["POST"])
-def create_connector(request):
-    """Create a Connector."""
+@app.route("/v1/perceptionobstacles", methods=["POST"])
+def create_perception_obstacle(request):
+    """Create a PerceptionObstacle."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'standard', 'powerKw', 'status'])
+    err = _reject_unknown(data, ['theta', 'length', 'width', 'height', 'trackingTime', 'timestamp', 'confidence', 'type', 'subType'])
     if err:
         return err, 400
-    err = _require(data, ['standard', 'powerKw'])
+    err = _require(data, ['theta', 'length'])
     if err:
         return err, 400
-    rec = {"id": new_id("apolloau_con")}
-    rec["stationId"] = data.get('stationId')
-    rec["standard"] = data.get('standard')
-    rec["powerKw"] = _as_float(data.get('powerKw'))
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("apolloau_per")}
+    rec["theta"] = _as_float(data.get('theta'))
+    rec["length"] = _as_float(data.get('length'))
+    rec["width"] = _as_float(data.get('width'))
+    rec["height"] = _as_float(data.get('height'))
+    rec["trackingTime"] = _as_float(data.get('trackingTime'))
+    rec["timestamp"] = _as_float(data.get('timestamp'))
+    rec["confidence"] = _as_float(data.get('confidence'))
+    rec["type"] = data.get('type')
+    rec["subType"] = data.get('subType')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connector", rec)
+    _persist("PerceptionObstacle", rec)
     return rec, 201
 
-@app.route("/v1/connectors", methods=["GET"])
-def list_connectors(request):
-    """List Connectors with filtering + cursor pagination."""
+@app.route("/v1/perceptionobstacles", methods=["GET"])
+def list_perception_obstacles(request):
+    """List PerceptionObstacles with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connector")
-    rows = _apply_filters(rows, params, ['stationId', 'standard', 'powerKw', 'status'])
+    rows = _query("PerceptionObstacle")
+    rows = _apply_filters(rows, params, ['theta', 'length', 'width', 'height', 'trackingTime', 'timestamp', 'confidence', 'type', 'subType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connectors/<eid>", methods=["GET"])
-def get_connector(request, eid):
-    """Retrieve a Connector by id (supports ?expand=)."""
-    rows = _query("Connector", eid)
+@app.route("/v1/perceptionobstacles/<eid>", methods=["GET"])
+def get_perception_obstacle(request, eid):
+    """Retrieve a PerceptionObstacle by id (supports ?expand=)."""
+    rows = _query("PerceptionObstacle", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connectors/<eid>", methods=["POST", "PATCH"])
-def update_connector(request, eid):
-    """Update a Connector."""
-    rows = _query("Connector", eid)
+@app.route("/v1/perceptionobstacles/<eid>", methods=["POST", "PATCH"])
+def update_perception_obstacle(request, eid):
+    """Update a PerceptionObstacle."""
+    rows = _query("PerceptionObstacle", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'standard', 'powerKw', 'status'])
+    err = _reject_unknown(data, ['theta', 'length', 'width', 'height', 'trackingTime', 'timestamp', 'confidence', 'type', 'subType'])
     if err:
         return err, 400
     rec = rows[0]
@@ -365,154 +251,167 @@ def update_connector(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connector", rec)
+    _persist("PerceptionObstacle", rec)
     return rec, 200
 
-@app.route("/v1/connectors/<eid>", methods=["DELETE"])
-def delete_connector(request, eid):
-    """Delete a Connector."""
-    rows = _query("Connector", eid)
+@app.route("/v1/perceptionobstacles/<eid>", methods=["DELETE"])
+def delete_perception_obstacle(request, eid):
+    """Delete a PerceptionObstacle."""
+    rows = _query("PerceptionObstacle", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apollo_auto.Connector", "id": eid})
+    db.retract({"entity": f"apollo_auto.PerceptionObstacle", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/trips", methods=["POST"])
-def create_trip(request):
-    """Create a Trip."""
+@app.route("/v1/adctrajectories", methods=["POST"])
+def create_a_d_c_trajectory(request):
+    """Create a ADCTrajectory."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'distanceKm', 'startedAt'])
+    err = _reject_unknown(data, ['totalPathLength', 'totalPathTime', 'isReplan', 'replanReason', 'carInDeadEnd', 'isCollision', 'rightOfWayStatus', 'trajectoryType'])
     if err:
         return err, 400
-    err = _require(data, ['distanceKm', 'startedAt'])
+    err = _require(data, ['totalPathLength', 'totalPathTime'])
     if err:
         return err, 400
-    rec = {"id": new_id("apolloau_tri")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["distanceKm"] = _as_float(data.get('distanceKm'))
-    rec["startedAt"] = data.get('startedAt')
+    if data.get('rightOfWayStatus') and data['rightOfWayStatus'] not in ['UNPROTECTED', 'PROTECTED']:
+        return {"error": {"message": "invalid rightOfWayStatus; allowed: " + ", ".join(['UNPROTECTED', 'PROTECTED']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("apolloau_adc")}
+    rec["totalPathLength"] = _as_float(data.get('totalPathLength'))
+    rec["totalPathTime"] = _as_float(data.get('totalPathTime'))
+    rec["isReplan"] = _as_bool(data.get('isReplan'))
+    rec["replanReason"] = data.get('replanReason')
+    rec["carInDeadEnd"] = _as_bool(data.get('carInDeadEnd'))
+    rec["isCollision"] = _as_bool(data.get('isCollision'))
+    rec["rightOfWayStatus"] = data.get('rightOfWayStatus')
+    rec["trajectoryType"] = data.get('trajectoryType')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Trip", rec)
+    _persist("ADCTrajectory", rec)
     return rec, 201
 
-@app.route("/v1/trips", methods=["GET"])
-def list_trips(request):
-    """List Trips with filtering + cursor pagination."""
+@app.route("/v1/adctrajectories", methods=["GET"])
+def list_a_d_c_trajectories(request):
+    """List ADCTrajectories with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Trip")
-    rows = _apply_filters(rows, params, ['vehicleId', 'distanceKm', 'startedAt'])
+    rows = _query("ADCTrajectory")
+    rows = _apply_filters(rows, params, ['totalPathLength', 'totalPathTime', 'isReplan', 'replanReason', 'carInDeadEnd', 'isCollision', 'rightOfWayStatus', 'trajectoryType'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/trips/<eid>", methods=["GET"])
-def get_trip(request, eid):
-    """Retrieve a Trip by id (supports ?expand=)."""
-    rows = _query("Trip", eid)
+@app.route("/v1/adctrajectories/<eid>", methods=["GET"])
+def get_a_d_c_trajectory(request, eid):
+    """Retrieve a ADCTrajectory by id (supports ?expand=)."""
+    rows = _query("ADCTrajectory", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
     return rec, 200
 
-@app.route("/v1/trips/<eid>", methods=["POST", "PATCH"])
-def update_trip(request, eid):
-    """Update a Trip."""
-    rows = _query("Trip", eid)
+@app.route("/v1/adctrajectories/<eid>", methods=["POST", "PATCH"])
+def update_a_d_c_trajectory(request, eid):
+    """Update a ADCTrajectory."""
+    rows = _query("ADCTrajectory", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'distanceKm', 'startedAt'])
+    err = _reject_unknown(data, ['totalPathLength', 'totalPathTime', 'isReplan', 'replanReason', 'carInDeadEnd', 'isCollision', 'rightOfWayStatus', 'trajectoryType'])
     if err:
         return err, 400
+    if data.get('rightOfWayStatus') and data['rightOfWayStatus'] not in ['UNPROTECTED', 'PROTECTED']:
+        return {"error": {"message": "invalid rightOfWayStatus; allowed: " + ", ".join(['UNPROTECTED', 'PROTECTED']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Trip", rec)
+    _persist("ADCTrajectory", rec)
     return rec, 200
 
-@app.route("/v1/trips/<eid>", methods=["DELETE"])
-def delete_trip(request, eid):
-    """Delete a Trip."""
-    rows = _query("Trip", eid)
+@app.route("/v1/adctrajectories/<eid>", methods=["DELETE"])
+def delete_a_d_c_trajectory(request, eid):
+    """Delete a ADCTrajectory."""
+    rows = _query("ADCTrajectory", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apollo_auto.Trip", "id": eid})
+    db.retract({"entity": f"apollo_auto.ADCTrajectory", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/commands", methods=["POST"])
-def create_command(request):
-    """Create a Command."""
+@app.route("/v1/localizationstatuses", methods=["POST"])
+def create_localization_status(request):
+    """Create a LocalizationStatus."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'status'])
+    err = _reject_unknown(data, ['measurementTime', 'stateMessage', 'fusionStatus', 'gnssStatus', 'lidarStatus'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'status'])
+    err = _require(data, ['measurementTime', 'stateMessage'])
     if err:
         return err, 400
-    rec = {"id": new_id("apolloau_com")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["name"] = data.get('name')
-    rec["status"] = data.get('status')
+    if data.get('fusionStatus') and data['fusionStatus'] not in ['OK', 'WARNNING', 'ERROR', 'CRITICAL_ERROR', 'FATAL_ERROR']:
+        return {"error": {"message": "invalid fusionStatus; allowed: " + ", ".join(['OK', 'WARNNING', 'ERROR', 'CRITICAL_ERROR', 'FATAL_ERROR']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("apolloau_loc")}
+    rec["measurementTime"] = _as_float(data.get('measurementTime'))
+    rec["stateMessage"] = data.get('stateMessage')
+    rec["fusionStatus"] = data.get('fusionStatus')
+    rec["gnssStatus"] = data.get('gnssStatus')
+    rec["lidarStatus"] = data.get('lidarStatus')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Command", rec)
+    _persist("LocalizationStatus", rec)
     return rec, 201
 
-@app.route("/v1/commands", methods=["GET"])
-def list_commands(request):
-    """List Commands with filtering + cursor pagination."""
+@app.route("/v1/localizationstatuses", methods=["GET"])
+def list_localization_statuses(request):
+    """List LocalizationStatuses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Command")
-    rows = _apply_filters(rows, params, ['vehicleId', 'name', 'status'])
+    rows = _query("LocalizationStatus")
+    rows = _apply_filters(rows, params, ['measurementTime', 'stateMessage', 'fusionStatus', 'gnssStatus', 'lidarStatus'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/commands/<eid>", methods=["GET"])
-def get_command(request, eid):
-    """Retrieve a Command by id (supports ?expand=)."""
-    rows = _query("Command", eid)
+@app.route("/v1/localizationstatuses/<eid>", methods=["GET"])
+def get_localization_status(request, eid):
+    """Retrieve a LocalizationStatus by id (supports ?expand=)."""
+    rows = _query("LocalizationStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
     return rec, 200
 
-@app.route("/v1/commands/<eid>", methods=["POST", "PATCH"])
-def update_command(request, eid):
-    """Update a Command."""
-    rows = _query("Command", eid)
+@app.route("/v1/localizationstatuses/<eid>", methods=["POST", "PATCH"])
+def update_localization_status(request, eid):
+    """Update a LocalizationStatus."""
+    rows = _query("LocalizationStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'status'])
+    err = _reject_unknown(data, ['measurementTime', 'stateMessage', 'fusionStatus', 'gnssStatus', 'lidarStatus'])
     if err:
         return err, 400
+    if data.get('fusionStatus') and data['fusionStatus'] not in ['OK', 'WARNNING', 'ERROR', 'CRITICAL_ERROR', 'FATAL_ERROR']:
+        return {"error": {"message": "invalid fusionStatus; allowed: " + ", ".join(['OK', 'WARNNING', 'ERROR', 'CRITICAL_ERROR', 'FATAL_ERROR']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Command", rec)
+    _persist("LocalizationStatus", rec)
     return rec, 200
 
-@app.route("/v1/commands/<eid>", methods=["DELETE"])
-def delete_command(request, eid):
-    """Delete a Command."""
-    rows = _query("Command", eid)
+@app.route("/v1/localizationstatuses/<eid>", methods=["DELETE"])
+def delete_localization_status(request, eid):
+    """Delete a LocalizationStatus."""
+    rows = _query("LocalizationStatus", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"apollo_auto.Command", "id": eid})
+    db.retract({"entity": f"apollo_auto.LocalizationStatus", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "apollo_auto-compat", "tier": "L4",
-            "entities": ['Vehicle', 'Signal', 'ChargeSession', 'Connector', 'Trip', 'Command']}, 200
+            "entities": ['Chassis', 'PerceptionObstacle', 'ADCTrajectory', 'LocalizationStatus']}, 200
 
 
 if __name__ == "__main__":

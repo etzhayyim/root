@@ -3,72 +3,58 @@
 
 namespace huggingface {
 
-    entity Model {
+    entity ModelInfo {
         id: string @unique
-        name: string
-        family: string
-        contextWindow: integer
-        modality: string
+        author: string
+        downloads: integer
+        likes: integer
+        private: boolean
+        gated: string
+        pipelineTag: string
+        libraryName: string
+        sha: string
+        inference: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Completion {
+    entity DatasetInfo {
         id: string @unique
-        modelId: string
-        prompt: string
-        output: string
-        tokens: integer
+        author: string
+        downloads: integer
+        likes: integer
+        private: boolean
+        gated: string
+        sha: string
+        description: string
+        mainSize: integer
+        citation: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Embedding {
+    entity SpaceInfo {
         id: string @unique
-        modelId: string
-        input: string
-        dimensions: integer
-        vectorRef: string
+        author: string
+        sha: string
+        private: boolean
+        sdk: string
+        likes: integer
+        host: string
+        subdomain: string
+        gated: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity FineTune {
+    entity TransformersInfo {
         id: string @unique
-        baseModelId: string
-        datasetId: string
-        status: string
-        epochs: integer
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Dataset {
-        id: string @unique
-        name: string
-        rows: integer
-        contentRef: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity File {
-        id: string @unique
-        purpose: string
-        filename: string
-        sizeBytes: integer
-        contentRef: string
+        autoModel: string
+        customClass: string
+        pipelineTag: string
+        processor: string
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

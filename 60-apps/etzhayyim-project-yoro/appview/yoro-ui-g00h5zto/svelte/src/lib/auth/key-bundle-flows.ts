@@ -6,6 +6,7 @@ import type {
 	FetchAndUnlockKeyBundleResult,
 	KeyBundleClientConfig,
 	ZkEnvelopeV1,
+	ZkKdfInfo,
 } from './types.js';
 import { deriveWrappingKey, parseZkV1Envelope } from './zk.js';
 
@@ -58,35 +59,57 @@ function requireBinding(
 	}
 }
 
-function attachKdfMetadata(
-	envelope: ZkEnvelopeV1,
-	saltBase64Url: string,
-	iterations: number,
-): ZkEnvelopeV1 {
+export function attachKdfMetadata(envelope: ZkEnvelopeV1, kdf: ZkKdfInfo): ZkEnvelopeV1 {
 	return {
 		...envelope,
+		alg: {
+			...envelope.alg,
+			kdf: kdf.kdf,
+		},
 		aad: {
 			...envelope.aad,
-			kdfSaltB64url: saltBase64Url,
-			kdfIterations: iterations,
+			kdfName: kdf.kdf,
+			kdfSaltB64url: kdf.saltBase64Url,
+			...(kdf.kdf === 'pbkdf2-sha256'
+				? { kdfIterations: kdf.iterations }
+				: {
+						kdfMemoryKiB: kdf.argon2?.mKiB,
+						kdfTimeCost: kdf.argon2?.t,
+						kdfParallelism: kdf.argon2?.p,
+					}),
 		},
 	};
 }
 
-function getKdfMetadata(envelope: ZkEnvelopeV1): { saltBase64Url: string; iterations: number } {
+export function getKdfMetadata(envelope: ZkEnvelopeV1): ZkKdfInfo {
 	const salt = String(envelope.aad.kdfSaltB64url ?? '').trim();
+	if (!salt) {
+		throw new Error('missing kdfSaltB64url in envelope.aad');
+	}
+	// Pre-argon2id envelopes carry no kdfName — they were always PBKDF2
+	// (crypto-agility read-compat: current + previous suite).
+	const name = String(envelope.aad.kdfName ?? 'pbkdf2-sha256');
+	if (name === 'argon2id') {
+		const mKiB = Number(envelope.aad.kdfMemoryKiB);
+		const t = Number(envelope.aad.kdfTimeCost);
+		const p = Number(envelope.aad.kdfParallelism);
+		if (![mKiB, t, p].every((n) => Number.isFinite(n) && n >= 1)) {
+			throw new Error('invalid Argon2id cost parameters in envelope.aad');
+		}
+		return { kdf: 'argon2id', saltBase64Url: salt, argon2: { mKiB, t, p } };
+	}
+	if (name !== 'pbkdf2-sha256') {
+		throw new Error(`unsupported kdfName in envelope.aad: ${name}`);
+	}
 	const iterationsRaw = envelope.aad.kdfIterations;
 	const iterations =
 		typeof iterationsRaw === 'number'
 			? iterationsRaw
 			: Number.parseInt(String(iterationsRaw ?? ''), 10);
-	if (!salt) {
-		throw new Error('missing kdfSaltB64url in envelope.aad');
-	}
 	if (!Number.isFinite(iterations) || iterations < 150_000) {
 		throw new Error('invalid kdfIterations in envelope.aad');
 	}
-	return { saltBase64Url: salt, iterations };
+	return { kdf: 'pbkdf2-sha256', saltBase64Url: salt, iterations };
 }
 
 function encodeEnvelope(envelope: ZkEnvelopeV1): string {
@@ -110,9 +133,17 @@ export async function enrollKeyBundle(
 		accountPassword: input.accountPassword,
 		secretKey: input.secretKey,
 		saltBase64Url: input.saltBase64Url,
+		kdf: input.kdf,
 		iterations: input.iterations,
+		argon2: input.argon2,
 	});
-	const envelopeWithKdf = attachKdfMetadata(envelope, kdf.salt, kdf.iterations);
+	const kdfInfo: ZkKdfInfo = {
+		kdf: kdf.kdf,
+		saltBase64Url: kdf.saltBase64Url,
+		iterations: kdf.iterations,
+		argon2: kdf.argon2,
+	};
+	const envelopeWithKdf = attachKdfMetadata(envelope, kdfInfo);
 	const client = makeClient(input.clientConfig);
 	const bundle = await client.upsertBundle({
 		orgId,
@@ -122,13 +153,7 @@ export async function enrollKeyBundle(
 		envelopeJson: encodeEnvelope(envelopeWithKdf),
 	});
 
-	return {
-		bundle,
-		kdf: {
-			saltBase64Url: kdf.salt,
-			iterations: kdf.iterations,
-		},
-	};
+	return { bundle, kdf: kdfInfo };
 }
 
 export async function fetchAndUnlockKeyBundle(
@@ -147,15 +172,19 @@ export async function fetchAndUnlockKeyBundle(
 		accountPassword: input.accountPassword,
 		secretKey: input.secretKey,
 		saltBase64Url: meta.saltBase64Url,
+		kdf: meta.kdf,
 		iterations: meta.iterations,
+		argon2: meta.argon2,
 	});
 
 	return {
 		bundle,
 		envelope,
 		kdf: {
-			saltBase64Url: derived.salt,
+			kdf: derived.kdf,
+			saltBase64Url: derived.saltBase64Url,
 			iterations: derived.iterations,
+			argon2: derived.argon2,
 		},
 		wrappingKey: derived.key,
 	};
@@ -166,11 +195,19 @@ export function buildEmergencyKitText(input: {
 	orgId: string;
 	deviceId: string;
 	secretKey: string;
-	saltBase64Url: string;
-	iterations: number;
+	kdf: ZkKdfInfo;
 	issuedAt?: Date;
 }): string {
 	const issuedAt = (input.issuedAt ?? new Date()).toISOString();
+	const kdfLines =
+		input.kdf.kdf === 'argon2id'
+			? [
+					'KDF: Argon2id (RFC 9106)',
+					`KDF Memory (KiB): ${input.kdf.argon2?.mKiB}`,
+					`KDF Time Cost: ${input.kdf.argon2?.t}`,
+					`KDF Parallelism: ${input.kdf.argon2?.p}`,
+				]
+			: ['KDF: PBKDF2-SHA256', `KDF Iterations: ${input.kdf.iterations}`];
 	return [
 		'# etzhayyim Emergency Kit',
 		'',
@@ -180,8 +217,8 @@ export function buildEmergencyKitText(input: {
 		`Org ID: ${input.orgId}`,
 		`Device ID: ${input.deviceId}`,
 		`Secret Key: ${input.secretKey}`,
-		`KDF Salt (base64url): ${input.saltBase64Url}`,
-		`KDF Iterations: ${input.iterations}`,
+		`KDF Salt (base64url): ${input.kdf.saltBase64Url}`,
+		...kdfLines,
 		'',
 		'Without Account Password + Secret Key, encrypted data cannot be decrypted.',
 	].join('\n');

@@ -200,5 +200,15 @@
       "crossActorIyashi": "/90-docs/adr/2605263000-iyashi-clinical-care-provider-tier-b-actor-r0.md",
       "crossActorToritate": "/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md"
     }
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "never-a-throne": "NO clergy class (G3) — Reformed 万人祭司: the officiantClass enum excludes clergy/ordained/priest/bishop; no one holds the priestly seat between a covenant party and God",
+      "no-score-of-soul": "a covenant party is never priced or rated — bride-price / dowry coercion prohibited (G7); free conscience, no mandatory attendance (G4)",
+      "map-not-target": "no video recording without per-party consent (G8); ceremonies are covenant, not capture",
+      "append-only": "kotoba-datomic attestation lineage (G2) + mandatory chigiri.covenantAttestation emit (G11) — the covenant is remembered, never erased"
+    }
   }
 }

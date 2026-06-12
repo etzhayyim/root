@@ -111,53 +111,52 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/vehicles", methods=["POST"])
-def create_vehicle(request):
-    """Create a Vehicle."""
+@app.route("/v1/events", methods=["POST"])
+def create_event(request):
+    """Create a Event."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vin', 'model', 'state', 'odometerKm'])
+    err = _reject_unknown(data, ['logMonoTime', 'valid', 'logMessage'])
     if err:
         return err, 400
-    err = _require(data, ['vin', 'model'])
+    err = _require(data, ['logMonoTime', 'valid'])
     if err:
         return err, 400
-    rec = {"id": new_id("commaaio_veh")}
-    rec["vin"] = data.get('vin')
-    rec["model"] = data.get('model')
-    rec["state"] = data.get('state')
-    rec["odometerKm"] = _as_float(data.get('odometerKm'))
+    rec = {"id": new_id("commaaio_eve")}
+    rec["logMonoTime"] = _as_int(data.get('logMonoTime'))
+    rec["valid"] = _as_bool(data.get('valid'))
+    rec["logMessage"] = data.get('logMessage')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Vehicle", rec)
+    _persist("Event", rec)
     return rec, 201
 
-@app.route("/v1/vehicles", methods=["GET"])
-def list_vehicles(request):
-    """List Vehicles with filtering + cursor pagination."""
+@app.route("/v1/events", methods=["GET"])
+def list_events(request):
+    """List Events with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Vehicle")
-    rows = _apply_filters(rows, params, ['vin', 'model', 'state', 'odometerKm'])
+    rows = _query("Event")
+    rows = _apply_filters(rows, params, ['logMonoTime', 'valid', 'logMessage'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["GET"])
-def get_vehicle(request, eid):
-    """Retrieve a Vehicle by id (supports ?expand=)."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/events/<eid>", methods=["GET"])
+def get_event(request, eid):
+    """Retrieve a Event by id (supports ?expand=)."""
+    rows = _query("Event", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["POST", "PATCH"])
-def update_vehicle(request, eid):
-    """Update a Vehicle."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
+def update_event(request, eid):
+    """Update a Event."""
+    rows = _query("Event", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vin', 'model', 'state', 'odometerKm'])
+    err = _reject_unknown(data, ['logMonoTime', 'valid', 'logMessage'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,133 +164,142 @@ def update_vehicle(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Vehicle", rec)
+    _persist("Event", rec)
     return rec, 200
 
-@app.route("/v1/vehicles/<eid>", methods=["DELETE"])
-def delete_vehicle(request, eid):
-    """Delete a Vehicle."""
-    rows = _query("Vehicle", eid)
+@app.route("/v1/events/<eid>", methods=["DELETE"])
+def delete_event(request, eid):
+    """Delete a Event."""
+    rows = _query("Event", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai_openpilot.Vehicle", "id": eid})
+    db.retract({"entity": f"comma_ai_openpilot.Event", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/signals", methods=["POST"])
-def create_signal(request):
-    """Create a Signal."""
+@app.route("/v1/carstates", methods=["POST"])
+def create_car_state(request):
+    """Create a CarState."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['vEgo', 'aEgo', 'standstill', 'gasPressed', 'brakePressed', 'steeringAngleDeg', 'steeringTorque', 'gearShifter', 'leftBlinker', 'rightBlinker'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'value'])
+    err = _require(data, ['vEgo', 'aEgo'])
     if err:
         return err, 400
-    rec = {"id": new_id("commaaio_sig")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["name"] = data.get('name')
-    rec["value"] = _as_float(data.get('value'))
-    rec["unit"] = data.get('unit')
+    if data.get('gearShifter') and data['gearShifter'] not in ['unknown', 'park', 'drive', 'neutral', 'reverse', 'sport', 'low', 'brake', 'eco', 'manumatic']:
+        return {"error": {"message": "invalid gearShifter; allowed: " + ", ".join(['unknown', 'park', 'drive', 'neutral', 'reverse', 'sport', 'low', 'brake', 'eco', 'manumatic']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("commaaio_car")}
+    rec["vEgo"] = _as_float(data.get('vEgo'))
+    rec["aEgo"] = _as_float(data.get('aEgo'))
+    rec["standstill"] = _as_bool(data.get('standstill'))
+    rec["gasPressed"] = _as_bool(data.get('gasPressed'))
+    rec["brakePressed"] = _as_bool(data.get('brakePressed'))
+    rec["steeringAngleDeg"] = _as_float(data.get('steeringAngleDeg'))
+    rec["steeringTorque"] = _as_float(data.get('steeringTorque'))
+    rec["gearShifter"] = data.get('gearShifter')
+    rec["leftBlinker"] = _as_bool(data.get('leftBlinker'))
+    rec["rightBlinker"] = _as_bool(data.get('rightBlinker'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Signal", rec)
+    _persist("CarState", rec)
     return rec, 201
 
-@app.route("/v1/signals", methods=["GET"])
-def list_signals(request):
-    """List Signals with filtering + cursor pagination."""
+@app.route("/v1/carstates", methods=["GET"])
+def list_car_states(request):
+    """List CarStates with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Signal")
-    rows = _apply_filters(rows, params, ['vehicleId', 'name', 'value', 'unit'])
+    rows = _query("CarState")
+    rows = _apply_filters(rows, params, ['vEgo', 'aEgo', 'standstill', 'gasPressed', 'brakePressed', 'steeringAngleDeg', 'steeringTorque', 'gearShifter', 'leftBlinker', 'rightBlinker'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/signals/<eid>", methods=["GET"])
-def get_signal(request, eid):
-    """Retrieve a Signal by id (supports ?expand=)."""
-    rows = _query("Signal", eid)
+@app.route("/v1/carstates/<eid>", methods=["GET"])
+def get_car_state(request, eid):
+    """Retrieve a CarState by id (supports ?expand=)."""
+    rows = _query("CarState", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
     return rec, 200
 
-@app.route("/v1/signals/<eid>", methods=["POST", "PATCH"])
-def update_signal(request, eid):
-    """Update a Signal."""
-    rows = _query("Signal", eid)
+@app.route("/v1/carstates/<eid>", methods=["POST", "PATCH"])
+def update_car_state(request, eid):
+    """Update a CarState."""
+    rows = _query("CarState", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'value', 'unit'])
+    err = _reject_unknown(data, ['vEgo', 'aEgo', 'standstill', 'gasPressed', 'brakePressed', 'steeringAngleDeg', 'steeringTorque', 'gearShifter', 'leftBlinker', 'rightBlinker'])
     if err:
         return err, 400
+    if data.get('gearShifter') and data['gearShifter'] not in ['unknown', 'park', 'drive', 'neutral', 'reverse', 'sport', 'low', 'brake', 'eco', 'manumatic']:
+        return {"error": {"message": "invalid gearShifter; allowed: " + ", ".join(['unknown', 'park', 'drive', 'neutral', 'reverse', 'sport', 'low', 'brake', 'eco', 'manumatic']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Signal", rec)
+    _persist("CarState", rec)
     return rec, 200
 
-@app.route("/v1/signals/<eid>", methods=["DELETE"])
-def delete_signal(request, eid):
-    """Delete a Signal."""
-    rows = _query("Signal", eid)
+@app.route("/v1/carstates/<eid>", methods=["DELETE"])
+def delete_car_state(request, eid):
+    """Delete a CarState."""
+    rows = _query("CarState", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai_openpilot.Signal", "id": eid})
+    db.retract({"entity": f"comma_ai_openpilot.CarState", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/chargesessions", methods=["POST"])
-def create_charge_session(request):
-    """Create a ChargeSession."""
+@app.route("/v1/carcontrols", methods=["POST"])
+def create_car_control(request):
+    """Create a CarControl."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    err = _reject_unknown(data, ['enabled', 'latActive', 'longActive', 'leftBlinker', 'rightBlinker'])
     if err:
         return err, 400
-    err = _require(data, ['energyKwh', 'status'])
+    err = _require(data, ['enabled', 'latActive'])
     if err:
         return err, 400
-    rec = {"id": new_id("commaaio_cha")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["connectorId"] = data.get('connectorId')
-    rec["energyKwh"] = _as_float(data.get('energyKwh'))
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("commaaio_car")}
+    rec["enabled"] = _as_bool(data.get('enabled'))
+    rec["latActive"] = _as_bool(data.get('latActive'))
+    rec["longActive"] = _as_bool(data.get('longActive'))
+    rec["leftBlinker"] = _as_bool(data.get('leftBlinker'))
+    rec["rightBlinker"] = _as_bool(data.get('rightBlinker'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("ChargeSession", rec)
+    _persist("CarControl", rec)
     return rec, 201
 
-@app.route("/v1/chargesessions", methods=["GET"])
-def list_charge_sessions(request):
-    """List ChargeSessions with filtering + cursor pagination."""
+@app.route("/v1/carcontrols", methods=["GET"])
+def list_car_controls(request):
+    """List CarControls with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("ChargeSession")
-    rows = _apply_filters(rows, params, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    rows = _query("CarControl")
+    rows = _apply_filters(rows, params, ['enabled', 'latActive', 'longActive', 'leftBlinker', 'rightBlinker'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["GET"])
-def get_charge_session(request, eid):
-    """Retrieve a ChargeSession by id (supports ?expand=)."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/carcontrols/<eid>", methods=["GET"])
+def get_car_control(request, eid):
+    """Retrieve a CarControl by id (supports ?expand=)."""
+    rows = _query("CarControl", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle', 'connectorId': 'Connector'})
     return rec, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["POST", "PATCH"])
-def update_charge_session(request, eid):
-    """Update a ChargeSession."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/carcontrols/<eid>", methods=["POST", "PATCH"])
+def update_car_control(request, eid):
+    """Update a CarControl."""
+    rows = _query("CarControl", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'connectorId', 'energyKwh', 'status'])
+    err = _reject_unknown(data, ['enabled', 'latActive', 'longActive', 'leftBlinker', 'rightBlinker'])
     if err:
         return err, 400
     rec = rows[0]
@@ -299,65 +307,67 @@ def update_charge_session(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("ChargeSession", rec)
+    _persist("CarControl", rec)
     return rec, 200
 
-@app.route("/v1/chargesessions/<eid>", methods=["DELETE"])
-def delete_charge_session(request, eid):
-    """Delete a ChargeSession."""
-    rows = _query("ChargeSession", eid)
+@app.route("/v1/carcontrols/<eid>", methods=["DELETE"])
+def delete_car_control(request, eid):
+    """Delete a CarControl."""
+    rows = _query("CarControl", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai_openpilot.ChargeSession", "id": eid})
+    db.retract({"entity": f"comma_ai_openpilot.CarControl", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/connectors", methods=["POST"])
-def create_connector(request):
-    """Create a Connector."""
+@app.route("/v1/carparamses", methods=["POST"])
+def create_car_params(request):
+    """Create a CarParams."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'standard', 'powerKw', 'status'])
+    err = _reject_unknown(data, ['brand', 'carFingerprint', 'minEnableSpeed', 'minSteerSpeed', 'mass', 'wheelbase'])
     if err:
         return err, 400
-    err = _require(data, ['standard', 'powerKw'])
+    err = _require(data, ['brand', 'carFingerprint'])
     if err:
         return err, 400
-    rec = {"id": new_id("commaaio_con")}
-    rec["stationId"] = data.get('stationId')
-    rec["standard"] = data.get('standard')
-    rec["powerKw"] = _as_float(data.get('powerKw'))
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("commaaio_car")}
+    rec["brand"] = data.get('brand')
+    rec["carFingerprint"] = data.get('carFingerprint')
+    rec["minEnableSpeed"] = _as_float(data.get('minEnableSpeed'))
+    rec["minSteerSpeed"] = _as_float(data.get('minSteerSpeed'))
+    rec["mass"] = _as_float(data.get('mass'))
+    rec["wheelbase"] = _as_float(data.get('wheelbase'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Connector", rec)
+    _persist("CarParams", rec)
     return rec, 201
 
-@app.route("/v1/connectors", methods=["GET"])
-def list_connectors(request):
-    """List Connectors with filtering + cursor pagination."""
+@app.route("/v1/carparamses", methods=["GET"])
+def list_car_paramses(request):
+    """List CarParamses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Connector")
-    rows = _apply_filters(rows, params, ['stationId', 'standard', 'powerKw', 'status'])
+    rows = _query("CarParams")
+    rows = _apply_filters(rows, params, ['brand', 'carFingerprint', 'minEnableSpeed', 'minSteerSpeed', 'mass', 'wheelbase'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/connectors/<eid>", methods=["GET"])
-def get_connector(request, eid):
-    """Retrieve a Connector by id (supports ?expand=)."""
-    rows = _query("Connector", eid)
+@app.route("/v1/carparamses/<eid>", methods=["GET"])
+def get_car_params(request, eid):
+    """Retrieve a CarParams by id (supports ?expand=)."""
+    rows = _query("CarParams", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/connectors/<eid>", methods=["POST", "PATCH"])
-def update_connector(request, eid):
-    """Update a Connector."""
-    rows = _query("Connector", eid)
+@app.route("/v1/carparamses/<eid>", methods=["POST", "PATCH"])
+def update_car_params(request, eid):
+    """Update a CarParams."""
+    rows = _query("CarParams", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['stationId', 'standard', 'powerKw', 'status'])
+    err = _reject_unknown(data, ['brand', 'carFingerprint', 'minEnableSpeed', 'minSteerSpeed', 'mass', 'wheelbase'])
     if err:
         return err, 400
     rec = rows[0]
@@ -365,154 +375,22 @@ def update_connector(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Connector", rec)
+    _persist("CarParams", rec)
     return rec, 200
 
-@app.route("/v1/connectors/<eid>", methods=["DELETE"])
-def delete_connector(request, eid):
-    """Delete a Connector."""
-    rows = _query("Connector", eid)
+@app.route("/v1/carparamses/<eid>", methods=["DELETE"])
+def delete_car_params(request, eid):
+    """Delete a CarParams."""
+    rows = _query("CarParams", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai_openpilot.Connector", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/trips", methods=["POST"])
-def create_trip(request):
-    """Create a Trip."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'distanceKm', 'startedAt'])
-    if err:
-        return err, 400
-    err = _require(data, ['distanceKm', 'startedAt'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("commaaio_tri")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["distanceKm"] = _as_float(data.get('distanceKm'))
-    rec["startedAt"] = data.get('startedAt')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Trip", rec)
-    return rec, 201
-
-@app.route("/v1/trips", methods=["GET"])
-def list_trips(request):
-    """List Trips with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Trip")
-    rows = _apply_filters(rows, params, ['vehicleId', 'distanceKm', 'startedAt'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/trips/<eid>", methods=["GET"])
-def get_trip(request, eid):
-    """Retrieve a Trip by id (supports ?expand=)."""
-    rows = _query("Trip", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
-    return rec, 200
-
-@app.route("/v1/trips/<eid>", methods=["POST", "PATCH"])
-def update_trip(request, eid):
-    """Update a Trip."""
-    rows = _query("Trip", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'distanceKm', 'startedAt'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Trip", rec)
-    return rec, 200
-
-@app.route("/v1/trips/<eid>", methods=["DELETE"])
-def delete_trip(request, eid):
-    """Delete a Trip."""
-    rows = _query("Trip", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai_openpilot.Trip", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/commands", methods=["POST"])
-def create_command(request):
-    """Create a Command."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'status'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'status'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("commaaio_com")}
-    rec["vehicleId"] = data.get('vehicleId')
-    rec["name"] = data.get('name')
-    rec["status"] = data.get('status')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Command", rec)
-    return rec, 201
-
-@app.route("/v1/commands", methods=["GET"])
-def list_commands(request):
-    """List Commands with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Command")
-    rows = _apply_filters(rows, params, ['vehicleId', 'name', 'status'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/commands/<eid>", methods=["GET"])
-def get_command(request, eid):
-    """Retrieve a Command by id (supports ?expand=)."""
-    rows = _query("Command", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'vehicleId': 'Vehicle'})
-    return rec, 200
-
-@app.route("/v1/commands/<eid>", methods=["POST", "PATCH"])
-def update_command(request, eid):
-    """Update a Command."""
-    rows = _query("Command", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['vehicleId', 'name', 'status'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Command", rec)
-    return rec, 200
-
-@app.route("/v1/commands/<eid>", methods=["DELETE"])
-def delete_command(request, eid):
-    """Delete a Command."""
-    rows = _query("Command", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"comma_ai_openpilot.Command", "id": eid})
+    db.retract({"entity": f"comma_ai_openpilot.CarParams", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "comma_ai_openpilot-compat", "tier": "L4",
-            "entities": ['Vehicle', 'Signal', 'ChargeSession', 'Connector', 'Trip', 'Command']}, 200
+            "entities": ['Event', 'CarState', 'CarControl', 'CarParams']}, 200
 
 
 if __name__ == "__main__":

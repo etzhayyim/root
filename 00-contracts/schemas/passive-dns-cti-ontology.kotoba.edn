@@ -22,6 +22,11 @@
 ;;   collection is GATE-G7 operator-gated and offline-default in code. Proprietary
 ;;   feeds (SecurityTrails / DNSDB / Recorded Future) are accepted ONLY as
 ;;   :feature-flagged-input, never :system-of-record (mirrors tadori ingest discipline).
+;;   Tor exit-node lists MAY be ingested as public infrastructure indicators.
+;;   BitTorrent observations are case-bound only: victim-provided captures,
+;;   operator-staged evidence, or Council-authorized defensive mandates. yabai
+;;   must not run broad swarm surveillance or infer private-person identity from
+;;   torrent participation.
 ;;
 ;; SOURCING HONESTY (G5):
 ;;   :*/sourcing ∈ { :authoritative      ; from a primary public log (CT log, RDAP,
@@ -37,6 +42,8 @@
 ;;     to case-member DIDs, ADR-2605181100) — NEVER plaintext on the Datom log.
 ;;   - yabai does NOT de-anonymise etzhayyim adherents and does NOT run untargeted mass
 ;;     surveillance. Public infrastructure attribution only.
+;;   - Tor/torrent evidence supports defensive routing, abuse reporting, and
+;;     case evidence preservation. It is NOT an actor-identification oracle.
 ;;   - SCORING / ENFORCEMENT separation: yabai scores risk; only the Council authorizes
 ;;     enforcement. tadori produces case-anchored evidence; yabai is the risk organ.
 
@@ -105,6 +112,16 @@
   {:db/ident :indicator/last-seen-at  :db/valueType :db.type/string}
   {:db/ident :indicator/source    :db/valueType :db.type/string  :db/doc "feed/source id"}
   {:db/ident :indicator/sourcing  :db/valueType :db.type/keyword}
+
+  ;; ── :btobs/* — BitTorrent case-bound observation, not mass surveillance ──
+  {:db/ident :btobs/id            :db/valueType :db.type/string  :db/unique :db.unique/identity}
+  {:db/ident :btobs/infohash      :db/valueType :db.type/string  :db/doc "torrent infohash from case evidence or operator-staged defensive capture"}
+  {:db/ident :btobs/display-name  :db/valueType :db.type/string  :db/doc "optional torrent/display name when present in supplied evidence"}
+  {:db/ident :btobs/peer-ip       :db/valueType :db.type/ref     :db/doc ":ip/id for a public infrastructure peer observed in a case-bound capture"}
+  {:db/ident :btobs/observed-at   :db/valueType :db.type/string}
+  {:db/ident :btobs/evidence-cid  :db/valueType :db.type/string  :db/doc "CID of the preserved supplied/case-mandated evidence envelope"}
+  {:db/ident :btobs/case-mandate  :db/valueType :db.type/string  :db/doc "case or Council mandate id; required for non-victim-supplied capture"}
+  {:db/ident :btobs/sourcing      :db/valueType :db.type/keyword}
 
   ;; ── :access/* — intel ACCESS-AUDIT record (who queried the intel) — ALWAYS encrypted ──
   ;;    Replaces yabai IntelAccessLog/IntelSession/IntelDevice. PII-bearing by nature:
