@@ -212,6 +212,19 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 37 (:au/:ca insolvency) ─────────────────────────────────────────────
+ {:notice/id "ntc:au-va" :notice/label "AU voluntary administration notice (倒産・email)"
+  :notice/jurisdiction :au
+  :notice/channel :email :notice/claim-amount 350 :notice/claim-currency "AUD"
+  :notice/sourcing :synthetic
+  :notice/text "Notice to creditors: the company has entered voluntary administration. Lodge your proof of debt."}
+
+ {:notice/id "ntc:ca-bia" :notice/label "CA notice of bankruptcy (倒産)"
+  :notice/jurisdiction :ca
+  :notice/channel :mail :notice/claim-amount 220 :notice/claim-currency "CAD"
+  :notice/sourcing :synthetic
+  :notice/text "Notice of bankruptcy and first meeting of creditors. File your proof of claim (Form 31)."}
+
  ;; ── wave 36 (:cn housing + site deploy copy) ─────────────────────────────────
  {:notice/id "ntc:cn-tuizu" :notice/label "CN 解除租赁通知 (住居)"
   :notice/jurisdiction :cn

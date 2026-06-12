@@ -1036,6 +1036,20 @@ def test_wave36_cn_housing():
     assert any("725" in d["anchor"] for d in cn["deadlines"])
 
 
+def test_wave37_au_ca_insolvency():
+    """Wave 37: insolvency 11 juris — :au proof of debt + **FEG 雇用債権の国家保証**
+    (declared email genuine — administrator 実務) · :ca **Form 31** BIA s.124 +
+    **WEPP** (倒産雇用主の賃金保護); kaiyaku 突合 invariant auto."""
+    ps, _ = _by_id()
+    au = ps["ntc:au-va"]
+    assert au["status"] == ":genuine" and au["proc"] == "proc:au-insolvency-notice"
+    assert au["channel"] == ":email"
+    assert any("FEG" in d["rule"] for d in au["deadlines"])
+    ca = ps["ntc:ca-bia"]
+    assert ca["status"] == ":genuine" and ca["proc"] == "proc:ca-bia-notice"
+    assert any("WEPP" in d["rule"] for d in ca["deadlines"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()
