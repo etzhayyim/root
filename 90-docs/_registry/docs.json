@@ -24393,6 +24393,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606121143-deps-edn-line-split-canonical-format.md",
+      "id": "adr-2606121143-deps-edn-line-split-canonical-format",
+      "title": "ADR-2606121143: deps.edn canonical line-split format + structural append — 1 行 EDN の merge-conflict/破損隠蔽の根治",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "deps-edn-line-split-format",
+      "authoritative": true,
+      "authoritative_for": [
+        "deps.edn canonical format",
+        "deps.edn append protocol (--append-adrs)",
+        "deps-edn-canonical lefthook gate"
+      ],
+      "related": [
+        "adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606121620-coverage-maturity-loop-did-etzhayyim-design-system.md",
       "id": "adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
