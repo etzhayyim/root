@@ -59,6 +59,8 @@
                       'ibuki.methods.test-quorum 'ibuki.methods.test-symbiosis
                       'ibuki.methods.test-ecosystem 'ibuki.methods.test-health
                       'ibuki.methods.test-digest 'ibuki.methods.test-autorun
+                      'ibuki.methods.test-delegation 'ibuki.methods.test-member-submit
+                      'ibuki.methods.test-kaizen-outcomes 'ibuki.methods.test-kotoba-bridge
                       'ibuki.methods.test-charter-invariants)
              (let [r (clojure.test/run-tests
                       'ibuki.methods.test-datoms 'ibuki.methods.test-joucho
@@ -67,6 +69,8 @@
                       'ibuki.methods.test-quorum 'ibuki.methods.test-symbiosis
                       'ibuki.methods.test-ecosystem 'ibuki.methods.test-health
                       'ibuki.methods.test-digest 'ibuki.methods.test-autorun
+                      'ibuki.methods.test-delegation 'ibuki.methods.test-member-submit
+                      'ibuki.methods.test-kaizen-outcomes 'ibuki.methods.test-kotoba-bridge
                       'ibuki.methods.test-charter-invariants)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
