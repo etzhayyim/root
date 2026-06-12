@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 45 (:ch/:be/:fi enforcement) ────────────────────────────────────────
+ {:notice/id "ntc:ch-lohn" :notice/label "CH Pfändungsankündigung (執行)"
+  :notice/jurisdiction :ch
+  :notice/channel :formal-service :notice/claim-amount 4100 :notice/claim-currency "CHF"
+  :notice/sourcing :synthetic
+  :notice/text "Pfändungsankündigung des Betreibungsamtes; Lohnpfändung wird vollzogen."}
+
+ {:notice/id "ntc:be-saisie" :notice/label "BE saisie sur salaire (執行)"
+  :notice/jurisdiction :be
+  :notice/channel :mail :notice/claim-amount 2700 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Notification de saisie sur salaire à votre employeur."}
+
+ {:notice/id "ntc:fi-ulosmittaus" :notice/label "FI palkan ulosmittaus (執行)"
+  :notice/jurisdiction :fi
+  :notice/channel :mail :notice/claim-amount 1500 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Ilmoitus palkan ulosmittaus -toimenpiteestä työnantajallesi."}
+
  ;; ── wave 44 (:pl/:at/:ch family) ─────────────────────────────────────────────
  {:notice/id "ntc:pl-rozwod" :notice/label "PL pozew o rozwód (家事)"
   :notice/jurisdiction :pl

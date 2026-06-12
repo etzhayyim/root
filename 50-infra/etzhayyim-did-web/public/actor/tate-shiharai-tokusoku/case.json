@@ -22,7 +22,7 @@
     {
       "id": ":tokusoku-igi",
       "kind": ":self-submit",
-      "protective": false,
+      "protective": true,
       "label": "督促異議申立書を発した簡易裁判所へ提出 (→ 通常訴訟へ移行)"
     },
     {

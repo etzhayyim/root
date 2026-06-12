@@ -22,7 +22,7 @@
     :dl/rule "支払督促の送達を受けた日から2週間以内 (経過後も仮執行宣言送達から2週間は申立て可)"
     :dl/anchor "民事訴訟法391条・393条" :dl/critical true :dl/verify-service-date true}]
   :proc/options
-  [{:opt/id :tokusoku-igi :opt/kind :self-submit
+  [{:opt/id :tokusoku-igi :opt/kind :self-submit :opt/protective true
     :opt/label "督促異議申立書を発した簡易裁判所へ提出 (→ 通常訴訟へ移行)"}
    {:opt/id :pay-or-settle :opt/kind :self-decide
     :opt/label "請求に理由がある場合: 支払い/分割の相談 (書面で)"}]
@@ -1454,6 +1454,21 @@
   :proc/refer-when ["tribunal du travail 段階 → avocat (pro deo)" "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:be-saisie" :proc/label "Saisie sur salaire (賃金差押え・執行・ベルギー)"
+  :proc/jurisdiction :be :proc/track :enforcement
+  :proc/trigger-keywords ["saisie sur salaire" "saisie-arrêt"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Quotités saisissables (生計保護)"
+    :dl/rule "差押えは**所得階層別の quotités** (毎年indexé) の範囲のみ — 下限帯は全額保護; **enfant à charge 1人ごとに保護額が増える** (申告制 — 様式で申告しないと反映されない)"
+    :dl/anchor "Code judiciaire art. 1409・1409bis" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :enfant-declare :opt/kind :self-submit :opt/protective true
+    :opt/label "enfant à charge を様式で申告 (保護増額は自動でない — 必ず申告)"}
+   {:opt/id :contredit :opt/kind :self-submit :opt/label "juge des saisies へ contredit"}]
+  :proc/refer-when ["médiation de dettes (CPAS/無料)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:be-citation" :proc/label "Citation à comparaître (ベルギー)"
   :proc/jurisdiction :be
   :proc/trigger-keywords ["citation à comparaître"]
@@ -1685,6 +1700,21 @@
   :proc/refer-when ["oikeusapu / liitto の弁護士" "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:fi-ulosmittaus" :proc/label "Palkan ulosmittaus (賃金差押え・執行・フィンランド)"
+  :proc/jurisdiction :fi :proc/track :enforcement
+  :proc/trigger-keywords ["ulosmittaus"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Suojaosuus (保護部分)"
+    :dl/rule "**suojaosuus (日額×扶養人数の保護部分) は必ず残り**, 原則として手取りの1/3まで — vapaakuukaudet (差押え休止月) も請求できる"
+    :dl/anchor "ulosottokaari 4 luku 48§・52-53§§" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :suojaosuus-check :opt/kind :self-decide :opt/protective true
+    :opt/label "suojaosuus の計算を確認 (扶養の申告; oikaisu は ulosottomies へ)"}
+   {:opt/id :vapaakuukaudet :opt/kind :self-submit :opt/label "vapaakuukaudet (休止月) を申請"}]
+  :proc/refer-when ["talous- ja velkaneuvonta (無料の公的債務相談)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:fi-haastehakemus" :proc/label "Haastehakemus (簡易訴状・フィンランド)"
   :proc/jurisdiction :fi
   :proc/trigger-keywords ["haastehakemus"]
@@ -1776,6 +1806,21 @@
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
     :opt/label "鍵交換等は違法 — Ausweisung は裁判所経由のみ"}]
   :proc/refer-when ["Mieterverband (借家人協会)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:ch-lohnpfaendung" :proc/label "Lohnpfändung (賃金差押え・執行・スイス)"
+  :proc/jurisdiction :ch :proc/track :enforcement
+  :proc/trigger-keywords ["Lohnpfändung" "Pfändungsankündigung"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Betreibungsrechtliches Existenzminimum"
+    :dl/rule "賃金は**Existenzminimum を超える部分のみ**差押え可 (SchKG 93) — Betreibungsamt が世帯事情で算定; 事情変更 (家賃・扶養・医療) は再計算 (Revision) を請求できる"
+    :dl/anchor "SchKG Art. 93" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :revision :opt/kind :self-submit :opt/protective true
+    :opt/label "Existenzminimum の再計算を Betreibungsamt へ請求 (家賃・保険料等の領収書添付)"}
+   {:opt/id :beschwerde :opt/kind :self-submit :opt/label "算定への Beschwerde (10日, Aufsichtsbehörde)"}]
+  :proc/refer-when ["Schuldenberatung (無料・各州)"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:ch-zahlungsbefehl" :proc/label "Zahlungsbefehl / Betreibung (スイス)"

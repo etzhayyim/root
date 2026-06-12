@@ -1134,6 +1134,31 @@ def test_wave44_pl_at_ch_family():
     assert any("2年の別居" in d["rule"] for d in ch["deadlines"])
 
 
+def test_wave45_ch_be_fi_enforcement():
+    """Wave 45: 賃金保護19法体系 — :ch SchKG 93 Existenzminimum (Revision 請求) ·
+    :be quotités + **enfant à charge は申告制** (申告しないと増額されない罠) ·
+    :fi suojaosuus + **vapaakuukaudet (差押え休止月)**."""
+    ps, _ = _by_id()
+    ch = ps["ntc:ch-lohn"]
+    assert ch["status"] == ":genuine" and ch["proc"] == "proc:ch-lohnpfaendung"
+    assert any("Art. 93" in d["anchor"] for d in ch["deadlines"])
+    be = ps["ntc:be-saisie"]
+    assert be["status"] == ":genuine" and be["proc"] == "proc:be-saisie"
+    assert any("申告しないと反映されない" in d["rule"] for d in be["deadlines"])
+    fi = ps["ntc:fi-ulosmittaus"]
+    assert fi["status"] == ":genuine" and fi["proc"] == "proc:fi-ulosmittaus"
+    assert any("suojaosuus" in d["rule"] for d in fi["deadlines"])
+
+
+def test_critical_implies_protective():
+    """Wave 45 maturity: 失権期限 (:dl/critical) のある手続きには必ず 🛡 protective
+    選択肢がある — 賭け金が最も高い場面で『守る一手』の欠落を構造的に禁止."""
+    _, procs = _by_id()
+    for p in procs:
+        if any(d.get(":dl/critical") for d in p.get(":proc/deadline-rules", [])):
+            assert any(o.get(":opt/protective") for o in p[":proc/options"]), p[":proc/id"]
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

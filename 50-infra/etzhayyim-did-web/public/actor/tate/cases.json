@@ -1,6 +1,6 @@
 {
  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
- "count": 132,
+ "count": 135,
  "cases": [
   {
    "slug": "tate-shiharai-tokusoku",
@@ -626,6 +626,13 @@
    "track": ":labor"
   },
   {
+   "slug": "tate-be-saisie",
+   "did": "did:web:etzhayyim.com:actor:tate-be-saisie",
+   "label": "Saisie sur salaire (賃金差押え・執行・ベルギー)",
+   "jurisdiction": ":be",
+   "track": ":enforcement"
+  },
+  {
    "slug": "tate-be-citation",
    "did": "did:web:etzhayyim.com:actor:tate-be-citation",
    "label": "Citation à comparaître (ベルギー)",
@@ -731,6 +738,13 @@
    "track": ":labor"
   },
   {
+   "slug": "tate-fi-ulosmittaus",
+   "did": "did:web:etzhayyim.com:actor:tate-fi-ulosmittaus",
+   "label": "Palkan ulosmittaus (賃金差押え・執行・フィンランド)",
+   "jurisdiction": ":fi",
+   "track": ":enforcement"
+  },
+  {
    "slug": "tate-fi-haastehakemus",
    "did": "did:web:etzhayyim.com:actor:tate-fi-haastehakemus",
    "label": "Haastehakemus (簡易訴状・フィンランド)",
@@ -771,6 +785,13 @@
    "label": "Kündigung des Mietverhältnisses (住居・スイス)",
    "jurisdiction": ":ch",
    "track": ":housing"
+  },
+  {
+   "slug": "tate-ch-lohnpfaendung",
+   "did": "did:web:etzhayyim.com:actor:tate-ch-lohnpfaendung",
+   "label": "Lohnpfändung (賃金差押え・執行・スイス)",
+   "jurisdiction": ":ch",
+   "track": ":enforcement"
   },
   {
    "slug": "tate-ch-zahlungsbefehl",
