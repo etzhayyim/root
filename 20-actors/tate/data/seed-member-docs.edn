@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 32 (:es/:it/:br family) ─────────────────────────────────────────────
+ {:notice/id "ntc:es-divorcio" :notice/label "ES demanda de divorcio (家事)"
+  :notice/jurisdiction :es
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Traslado de la demanda de divorcio presentada por su cónyuge."}
+
+ {:notice/id "ntc:it-separazione" :notice/label "IT ricorso per separazione (家事)"
+  :notice/jurisdiction :it
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Notifica del ricorso per separazione giudiziale dei coniugi con decreto di fissazione udienza."}
+
+ {:notice/id "ntc:br-divorcio" :notice/label "BR citação divórcio (家事)"
+  :notice/jurisdiction :br
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "BRL"
+  :notice/sourcing :synthetic
+  :notice/text "Citação em ação de divórcio litigioso proposta pelo cônjuge."}
+
  ;; ── wave 31 (:es/:it/:nl insolvency) ─────────────────────────────────────────
  {:notice/id "ntc:es-concurso" :notice/label "ES concurso de acreedores (債権者宛)"
   :notice/jurisdiction :es

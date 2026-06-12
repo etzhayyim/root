@@ -970,6 +970,24 @@ def test_insolvency_kaiyaku_crosscheck_invariant():
                 p[":proc/id"]
 
 
+def test_wave32_es_it_br_family():
+    """Wave 32: family 10 juris — :es contestación 20 días + **abogado/procurador
+    必須の正直開示** (justicia gratuita 本人申請 protective) · :it Cartabia 統一手続
+    costituzione 30日前 · :br contestação 15 du + **cartório 低負担ルート** の開示;
+    kokoro invariant auto-extends."""
+    ps, _ = _by_id()
+    es = ps["ntc:es-divorcio"]
+    assert es["status"] == ":genuine" and es["proc"] == "proc:es-divorcio"
+    assert es["deadlines"][0]["critical"] is True
+    assert any("justicia gratuita" in o["label"] for o in es["options"])
+    it = ps["ntc:it-separazione"]
+    assert it["status"] == ":genuine" and it["proc"] == "proc:it-separazione"
+    assert any("473-bis" in d["anchor"] for d in it["deadlines"])
+    br = ps["ntc:br-divorcio"]
+    assert br["status"] == ":genuine" and br["proc"] == "proc:br-divorcio"
+    assert any("cartório" in o["label"] for o in br["options"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

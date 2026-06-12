@@ -773,6 +773,21 @@
   :proc/refer-when ["patrocinio a spese dello Stato / sindacato inquilini (SUNIA 等)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:it-separazione" :proc/label "Ricorso per separazione/divorzio (家事・イタリア)"
+  :proc/jurisdiction :it :proc/track :family
+  :proc/trigger-keywords ["ricorso per separazione" "ricorso per scioglimento"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Costituzione (応訴)"
+    :dl/rule "riforma Cartabia の統一家事手続: costituzione (comparsa di costituzione) は udienza の30日前まで; prima udienza への本人出頭が原則"
+    :dl/anchor "c.p.c. art. 473-bis.12 以下" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :costituzione :opt/kind :self-decide :opt/protective true
+    :opt/label "期限内の costituzione (avvocato 経由 — patrocinio a spese dello Stato 可) で言い分を確保"}
+   {:opt/id :negoziazione :opt/kind :self-decide :opt/label "negoziazione assistita (裁判外合意) への転換も検討"}]
+  :proc/refer-when ["avvocato (家事は技術的代理が実務上必須)" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:it-insinuazione" :proc/label "Insinuazione al passivo (債権者側・倒産・イタリア)"
   :proc/jurisdiction :it :proc/track :insolvency
   :proc/trigger-keywords ["insinuazione al passivo" "liquidazione giudiziale"]
@@ -856,6 +871,21 @@
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
     :opt/label "鍵交換・追い出しは違法 — lanzamiento は裁判所手続のみ; 社会的弱者は servicios sociales の保護手続"}]
   :proc/refer-when ["即 justicia gratuita (desahucio は指定で手続停止の運用あり)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:es-divorcio" :proc/label "Demanda de divorcio (家事・スペイン)"
+  :proc/jurisdiction :es :proc/track :family
+  :proc/trigger-keywords ["demanda de divorcio"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Contestación"
+    :dl/rule "contestación は20 días hábiles — ただし divorcio contencioso は abogado + procurador が必須 (本人では応答できない類型; justicia gratuita で両方を立てられる)"
+    :dl/anchor "LEC arts. 753・770" :dl/critical true :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :justicia-gratuita :opt/kind :self-submit :opt/protective true
+    :opt/label "justicia gratuita の申請は本人可 — 申請で手続が実務上止まり, abogado/procurador が付く"}
+   {:opt/id :convenio :opt/kind :self-decide :opt/label "mutuo acuerdo (convenio regulador) への転換も検討"}]
+  :proc/refer-when ["即 abogado (代理必須)" "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:es-concurso" :proc/label "Concurso de acreedores (債権者側・倒産・スペイン)"
@@ -1668,6 +1698,21 @@
    {:opt/id :seguro-desemprego :opt/kind :self-submit :opt/label "seguro-desemprego を申請 (dispensa sem justa causa)"}]
   :proc/refer-when ["justa causa に争い → advogado trabalhista / sindicato"
                     "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:br-divorcio" :proc/label "Citação em ação de divórcio (家事・ブラジル)"
+  :proc/jurisdiction :br :proc/track :family
+  :proc/trigger-keywords ["divórcio"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Contestação / audiência"
+    :dl/rule "contestação は15 dias úteis (audiência de mediação が先行する場合はその後起算); 争いがなければ divórcio extrajudicial (cartório — 双方に advogado, 未成年子なしなら即日) の低負担ルートも"
+    :dl/anchor "CPC 2015 arts. 335・695 / Lei 11.441/2007" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :contestacao :opt/kind :self-submit :opt/protective true
+    :opt/label "contestação を期限内に (Defensoria Pública で無償代理可)"}
+   {:opt/id :extrajudicial :opt/kind :self-decide :opt/label "合意できるなら cartório ルート (時間・費用とも最小)"}]
+  :proc/refer-when ["Defensoria Pública / advogado de família" "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:br-despejo" :proc/label "Ação de despejo (立退き・住居・ブラジル)"

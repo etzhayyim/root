@@ -186,6 +186,9 @@ def main(argv):
     out.mkdir(parents=True, exist_ok=True)
     (out / "clause-readout.md").write_text(report(res), encoding="utf-8")
     (out / "kaiyaku-handoff.edn").write_text(make_kaiyaku_handoff(res), encoding="utf-8")
+    import json
+    (out / "clause-flags.json").write_text(
+        json.dumps(res["flags"], ensure_ascii=False, indent=1), encoding="utf-8")  # yoro UI (wave 32)
     n_k = sum(1 for f in res["flags"] if f["route"] == ":kaiyaku")
     print(f"tate: {len(res['flags'])} clause flags over {res['docs_scanned']} docs "
           f"({n_k} → kaiyaku handoff) → {out / 'clause-readout.md'}")

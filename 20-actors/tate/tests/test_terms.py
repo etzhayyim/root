@@ -221,6 +221,14 @@ def test_kaiyaku_handoff_artifact():
         assert h[":handoff/anchor"]
 
 
+def test_flags_json_export():
+    """Wave 32: clause-flags.json round-trips (yoro UI 配線3本目)."""
+    import json
+    _, res = _res()
+    back = json.loads(json.dumps(res["flags"], ensure_ascii=False))
+    assert len(back) == len(res["flags"]) and all("anchor" in f for f in back)
+
+
 def test_datoms_ground_and_transient():
     text = datom_emit.emit(tx=3)
     assert ":clause/anchor" in text and ":doc/context" in text
