@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 42 (Nordic insolvency) ──────────────────────────────────────────────
+ {:notice/id "ntc:se-konkurs" :notice/label "SE konkursbeslut (債権者宛)"
+  :notice/jurisdiction :se
+  :notice/channel :mail :notice/claim-amount 3200 :notice/claim-currency "SEK"
+  :notice/sourcing :synthetic
+  :notice/text "Bolaget har försatts i konkurs. Ni kan anmäla er fordran till konkursförvaltaren."}
+
+ {:notice/id "ntc:dk-konkurs" :notice/label "DK konkursdekret (債権者宛)"
+  :notice/jurisdiction :dk
+  :notice/channel :mail :notice/claim-amount 1900 :notice/claim-currency "DKK"
+  :notice/sourcing :synthetic
+  :notice/text "Selskabet er taget under konkurs. Anmeld Deres krav til kurator inden fristen."}
+
+ {:notice/id "ntc:no-konkurs" :notice/label "NO konkursåpning (債権者宛・email)"
+  :notice/jurisdiction :no
+  :notice/channel :email :notice/claim-amount 2600 :notice/claim-currency "NOK"
+  :notice/sourcing :synthetic
+  :notice/text "Det er åpnet konkurs i selskapet. Meld din fordring til bostyrer innen fristen."}
+
  ;; ── wave 40 (:no/:dk/:fi housing) ────────────────────────────────────────────
  {:notice/id "ntc:no-leie" :notice/label "NO oppsigelse av leieforhold (住居)"
   :notice/jurisdiction :no

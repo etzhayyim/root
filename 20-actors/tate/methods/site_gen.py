@@ -128,7 +128,10 @@ def index_page(juris: dict, cov: dict, base: str) -> str:
             pass
         B.append(f'<li><a href="{base}/{jid.lstrip(":")}.html">'
                  f"{html.escape(juris[jid][':juris/label'])}</a></li>")
-    B.append("</ul><h2>⚠ 徒過で権利が消える期限 (critical census)</h2><ul>")
+    root = base[:-5] if base.endswith("/tate") else base
+    B.append(f'</ul><p>全 case の actor 索引: <a href="{root}/actor/tate/cases.json">cases.json</a> '
+             f"(1手続き=1 case actor — profile から checklist/データ DL と相談先へ)</p>")
+    B.append("<h2>⚠ 徒過で権利が消える期限 (critical census)</h2><ul>")
     for cd in cov["critical_deadlines"]:
         B.append(f"<li class=\"crit\">[{cd['juris']}] {html.escape(cd['label'])} "
                  f"({html.escape(cd['anchor'])})</li>")

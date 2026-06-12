@@ -1548,6 +1548,21 @@
   :proc/refer-when ["fri rettshjelp (労働事件は対象になり得る)" "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:no-konkurs" :proc/label "Konkurs hos motpart (債権者側・倒産・ノルウェー)"
+  :proc/jurisdiction :no :proc/track :insolvency
+  :proc/trigger-keywords ["konkurs"]
+  :proc/genuine-channels [:mail :email] ; bostyrer は Altinn/email 通知が一般的
+  :proc/deadline-rules
+  [{:dl/label "Fordringsanmeldelse"
+    :dl/rule "債権は bostyrer へ anmeld — Brønnøysund 公告記載の frist 内に (遅延届出も審査され得るが配当リスク)"
+    :dl/anchor "konkursloven §109 以下" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :anmeld-no :opt/kind :self-submit :opt/protective true
+    :opt/label "bostyrer へ fordring を anmeld (forskudd・gavekort も債権: kaiyaku 縁-ledger と突合)"}
+   {:opt/id :lg-no :opt/kind :self-submit :opt/label "元従業員なら **lønnsgaranti** (NAV の賃金保証) へ"}]
+  :proc/refer-when ["pant/担保 → advokat"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:no-forliksklage" :proc/label "Innkalling til forliksrådet (強制調停・ノルウェー)"
   :proc/jurisdiction :no
   :proc/trigger-keywords ["forliksrådet" "forliksklage"]
@@ -1592,6 +1607,21 @@
     :opt/label "即 fagforening (組合) へ — DK は協約ルートが標準; a-kasse 登録も同時に"}
    {:opt/id :godtgorelse :opt/kind :self-decide :opt/label "godtgørelse の根拠 (勤続・理由) を整理"}]
   :proc/refer-when ["非組合員 → advokat / retshjælp" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:dk-konkurs" :proc/label "Konkurs hos modpart (債権者側・倒産・デンマーク)"
+  :proc/jurisdiction :dk :proc/track :insolvency
+  :proc/trigger-keywords ["konkurs"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Anmeldelse af krav"
+    :dl/rule "債権は kurator へ anmeld — Statstidende の proklama/公告に記載の frist 内に (遅延は審査・配当から漏れ得る)"
+    :dl/anchor "konkursloven §128 系" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :anmeld :opt/kind :self-submit :opt/protective true
+    :opt/label "kurator へ krav を anmeld (forudbetaling・gavekort も債権: kaiyaku 縁-ledger と突合)"}
+   {:opt/id :lg-dk :opt/kind :self-submit :opt/label "元従業員なら **Lønmodtagernes Garantifond** (賃金保証基金) へ"}]
+  :proc/refer-when ["pant/担保 → advokat"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:dk-betalingspaakrav" :proc/label "Betalingspåkrav (支払督促・デンマーク)"
@@ -1949,6 +1979,21 @@
    {:opt/id :no-self-help-protection :opt/kind :self-decide :opt/protective true
     :opt/label "鍵交換等は違法 — avhysning は判決/beslut + Kronofogden のみ"}]
   :proc/refer-when ["avhysning 段階 → 即 hyresnämnden/jurist"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:se-konkurs" :proc/label "Konkurs hos motpart (債権者側・倒産・スウェーデン)"
+  :proc/jurisdiction :se :proc/track :insolvency
+  :proc/trigger-keywords ["konkurs"]
+  :proc/genuine-channels [:mail]
+  :proc/deadline-rules
+  [{:dl/label "Anmälan / bevakning"
+    :dl/rule "債権は konkursförvaltare へ anmäl — bevakningsförfarande (届出手続) は裁判所が命じた場合のみで, その場合は公告の frist 内に bevaka (徒過は配当外リスク)"
+    :dl/anchor "konkurslagen 9 kap." :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :anmala :opt/kind :self-submit :opt/protective true
+    :opt/label "förvaltare へ債権を anmäl (förskott・presentkort も債権: kaiyaku 縁-ledger と突合)"}
+   {:opt/id :lonegaranti :opt/kind :self-submit :opt/label "元従業員なら **lönegaranti** (国の賃金保証) を länsstyrelsen 経由で"}]
+  :proc/refer-when ["担保 (panträtt) → jurist"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:se-betalningsforelaggande" :proc/label "Betalningsföreläggande (支払督促・スウェーデン)"

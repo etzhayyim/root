@@ -107,7 +107,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 ├── data/
 │   ├── jurisdictions.edn          # jurisdiction registry: UPL anchor + directories (R1)
 │   ├── clause-patterns.edn        # jurisdiction-keyed clause registry (72 shapes, 30 juris)
-│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (126 procs; :civil 36 + :labor 29 + :housing 20 + :enforcement 17 + :insolvency 11 + :family 13 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
+│   ├── procedure-registry.edn     # jurisdiction-keyed procedure registry (129 procs; :civil 36 + :labor 29 + :housing 20 + :enforcement 17 + :insolvency 14 + :family 13 — track×juris matrix; fake-guard 語彙 registry 自動導出; :dl/critical 期限先頭表示; **非civil全手続きに protective 選択肢必在**)
 │   ├── us-states.edn              # :us 州サブ管轄 (small-claims 上限 + answer 期限 + ARL)
 │   └── seed-member-docs.edn       # SYNTHETIC member contracts + notices, intl (G1)
 ├── methods/                       # pure-stdlib → kotoba pywasm-runnable
@@ -117,7 +117,7 @@ N6 刑事 out of scope → immediate 弁護士 referral. **N2 補足 (wave 8)**:
 │   ├── site_gen.py                # crawlable static site (FAQPage JSON-LD + sitemap — Google 可視化)
 │   ├── case_actors_gen.py         # 1 case = 1 keyless actor (profile + case.json/checklist DL + 相談先)
 │   └── datom_emit.py              # kotoba Datom-log (EAVT) emitter
-├── tests/                         # 114 tests, pure stdlib
+├── tests/                         # 115 tests, pure stdlib
 │   ├── test_terms.py
 │   ├── test_respond.py
 │   ├── test_site.py
@@ -139,7 +139,7 @@ python3 methods/respond_plan.py      # → out/response-plans.md (dry-run)
 python3 methods/coverage_report.py   # → out/coverage-report.md (21/193 + 10/50 states + tracks, named gaps)
 python3 methods/datom_emit.py        # → out/tate-datoms.kotoba.edn (EAVT)
 python3 tests/test_terms.py && python3 tests/test_respond.py \
-  && python3 tests/test_coverage.py  # 114 green
+  && python3 tests/test_coverage.py  # 115 green
 ```
 
 ## Do not

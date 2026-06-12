@@ -1103,6 +1103,22 @@ def test_wave40_nordic_housing():
     assert p1[":proc/id"] == "proc:no-oppsigelse"
 
 
+def test_wave42_nordic_insolvency():
+    """Wave 42: insolvency 14 juris — 北欧3国の債権届出 + **賃金保証制度3種**
+    (lönegaranti / Lønmodtagernes Garantifond / NAV lønnsgaranti) を開示;
+    kaiyaku 突合 invariant auto."""
+    ps, _ = _by_id()
+    se = ps["ntc:se-konkurs"]
+    assert se["status"] == ":genuine" and se["proc"] == "proc:se-konkurs"
+    assert any("lönegaranti" in o["label"] for o in se["options"])
+    dk = ps["ntc:dk-konkurs"]
+    assert dk["status"] == ":genuine" and dk["proc"] == "proc:dk-konkurs"
+    assert any("Garantifond" in o["label"] for o in dk["options"])
+    no = ps["ntc:no-konkurs"]
+    assert no["status"] == ":genuine" and no["proc"] == "proc:no-konkurs"
+    assert no["channel"] == ":email"  # bostyrer の declared digital
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()
