@@ -109,7 +109,8 @@
                       'hoshimori.tests.test-analyze 'hoshimori.tests.test-coverage
                       'tsugite.tests.test-analyze 'tsugite.tests.test-coverage
                       'shiori.tests.test-analyze 'shiori.tests.test-coverage
-                      'danjo.methods.test-analyze 'kabuto.methods.test-analyze)
+                      'danjo.methods.test-analyze 'kabuto.methods.test-analyze
+                      'keizu.methods.test-weave 'kosatsu.methods.test-weave)
              (let [r (clojure.test/run-tests 'rasen.tests.test-analyze
                                              'kanjo.tests.test-kanjo
                                              'kanjo.tests.test-invariants
@@ -139,7 +140,9 @@
                                              'shiori.tests.test-analyze
                                              'shiori.tests.test-coverage
                                              'danjo.methods.test-analyze
-                                             'kabuto.methods.test-analyze)]
+                                             'kabuto.methods.test-analyze
+                                             'keizu.methods.test-weave
+                                             'kosatsu.methods.test-weave)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
