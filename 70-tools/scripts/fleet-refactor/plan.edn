@@ -1,0 +1,75 @@
+{:project :fleet-refactor-clj
+ :goal "Python/TS 全量 (~8,371 files) → kotoba-Datomic-native Clojure 移植を Murakumo fleet の gemma4 で並列実行する"
+ :adr {:inference "2605215000"          ; Murakumo-only inference (fleet Ollama 直叩きは認可経路)
+       :distill "2605250400"            ; gemma-coder-distill: peft+trl direct (Unsloth probe FAIL)
+       :train-rental-carveout "2605262200"} ; 未批准 — EVO で不足時の脱出弁 (Council Lv7+ = founder 1/1)
+
+ :fleet {:nodes 10                      ; jacob = control plane (このマシン), 残り 10 が worker
+         :ollama-version "0.30.7"
+         :models ["gemma4:e4b"          ; 8.0B Q4_K_M (PTQ)
+                  "gemma4:e4b-it-qat"    ; 7.5B Q4_0 QAT — 全ノード配布済 2026-06-11
+                  "gemma4:12b-it-qat"]   ; 11.9B Q4_0 QAT — 全ノード配布済 2026-06-11
+         :concurrency {:e4b 2 :twelve-b 1}   ; 12b は 2 並列で M4 16GB が timeout
+         :evo-x2 {:host "192.168.1.22"  ; fleet.edn の .70 は stale (DHCP 未予約)
+                  :user "gad" :role :training-box
+                  :ssh :blocked-needs-ssh-copy-id ; host key 変化 + publickey 拒否 (OS 再インストール疑い)
+                  :stack {:trainer :peft+trl      ; ADR-2605250400 §1.2
+                          :unsloth :probed-fail-cuda-only}}} ; 90-docs/baien/probe_unsloth_rocm.json
+
+ :integration ;; langchain-clj / langgraph-clj — 移植先イディオム + fleet 推論クライアント
+ {:libs {:langchain-clj {:sha "ae475c9ba57b065657b3e5f2bae4583b6fb6b80b" :tag "v0.1.0"}
+         :langgraph-clj {:sha "133740f3df2f4aa57e9e98b32f70e2483c025a7e" :tag "v0.2.0"}}
+  :adapter "70-tools/clj/murakumo-langchain/"   ; Ollama native ChatModel + fleet round-robin + bb host
+  :verified [:lcel-chain :stategraph-checkpointer :react-agent-tool-calling]
+  :notes ["gemma4 は Ollama native tool-calling 対応"
+          "e4b は tool 結果後の最終応答が空になることがある — tool ループは 12b"]}
+
+ :measurements ;; 同一条件比較。pilot = 厳選 9 files / batch = 無作為 100 files (実分布)
+ [{:id :pilot-e4b-naive   :model "gemma4:e4b (Q4_K_M)"   :pass-rate "1/9"  :note "ctx4096 バグ込み"}
+  {:id :pilot-e4b-v2      :model "gemma4:e4b (Q4_K_M)"   :pass-rate "2/9"  :note "prompt v2, ctx バグ込み"}
+  {:id :pilot-12b-broken  :model "gemma4:12b-it-qat" :pass-rate "1/9"  :note "OpenAI 互換 ep が num_ctx 無視 + think で ctx 枯渇"}
+  {:id :pilot-e4b-qat     :model "gemma4:e4b-it-qat" :pass-rate "3/9"  :secs-per-file [21 110]}
+  {:id :pilot-12b-qat     :model "gemma4:12b-it-qat" :pass-rate "4/9"  :secs-per-file [99 550]}
+  {:id :pilot-union       :model :cascade           :pass-rate "5/9"}
+  {:id :batch100-pass1    :model "gemma4:e4b-it-qat" :pass-rate "1/100"
+   :note "実分布はパイロットより遥かに硬い + ns-mismatch ハーネスバグ (pass1 は修正前に走行)"}
+  {:id :batch100-pass2    :model "gemma4:12b-it-qat" :pass-rate :in-progress
+   :note "55/99 時点 ok2/err8 — ゼロショット路線は実分布で不成立が確定的"}]
+
+ :findings ;; ハマりどころ / 重要発見 (詳細は README.md)
+ [{:id :openai-compat-drops-options
+   :fact "Ollama OpenAI 互換 ep は options/num_ctx を黙って無視 → ctx 4096 のまま出力切断 → 「閉じ括弧不足」に見える"}
+  {:id :gemma4-qat-is-reasoning
+   :fact "gemma4 QAT 系は reasoning モデル — think:false 必須 (native /api/chat のみ)"}
+  {:id :lint-pass-not-semantic
+   :fact "e4b の lint 合格コードに意味的不良が混在 (幻覚 API / vector への contains?) — SFT 教師は 12b 産+挙動検証に限定すべき"}
+  {:id :brew-services-over-ssh
+   :fact "brew services restart は ssh から launchctl gui domain に届かず exit 125 — pkill + nohup OLLAMA_HOST=0.0.0.0 が確実"}
+  {:id :security/live-gate-hollowed
+   :severity :critical :status :awaiting-founder-decision
+   :fact "fuchi/abaki の live_gate.py が refuse-by-default → 無条件通過に置換され bulk workspace commit (2129fd64ca, batch15) で main 混入。no-server-key (ADR-2605231525) 直接違反。abaki は roster 未登録 actor"
+   :containment "SFT 隔離済 → pilot-results/sft-quarantine.jsonl"}]
+
+ :ladder ;; 「Fable/Opus 品質」への段階 — 一つずつ試す (founder 指示 2026-06-12)
+ [{:stage 0 :name :function-unit-decomposition :status :in-progress
+   :hypothesis "小入出力なら通る (pilot) / 実ファイルは通らない (batch) → top-level 単位に分割変換 + 決定的組立で合格率を数倍に戻す"
+   :design {:python :ast-module :ts :deferred
+            :assembly "(ns …) + (declare all-fns) + 単位訳の連結 (順序保存)"
+            :unit-gate "clj-kondo (unresolved-symbol を warning に降格)"
+            :file-gate "clj-kondo full (通常レベル)"}
+   :measure "同一 batch100 で cascade と直接比較"}
+  {:stage 1 :name :cpt-clojure-corpus :status :blocked
+   :blockers [:evo-ssh]
+   :design "公開 Clojure コーパス (EPL/MIT/Apache) 50-200M tokens の CPT-LoRA @ EVO ROCm — 構文知識をベースに足す (SFT では埋まらない)"}
+  {:stage 2 :name :file-type-expert-loras :status :pending
+   :design "file-type 別 LoRA expert 群 (langgraph-port / types-port / cells-port …) を決定的ルーティング; 教師 = 12b+検証ゲート産ペア (sft_to_distill.py 変換)"}
+  {:stage 3 :name :student-12b :status :option
+   :design "e4b で天井なら 12b を学生に (EVO 96GB unified + grad checkpointing で可、遅い)"}
+  {:stage 4 :name :baien-moemoekyun-clojure-expert :status :long-term
+   :blockers [:baien-r1-not-trained]
+   :design "128-expert MoE の Clojure expert freeze-train (ADR-2605261900/2605262100) — substrate R1 到達後の本命移植先"}]
+
+ :blockers
+ [{:id :evo-ssh :owner :founder :action "! ssh-copy-id evo (publickey 拒否, OS 再インストール疑い)"}
+  {:id :live-gate-decision :owner :founder
+   :action "fuchi/abaki live_gate 空洞化の処置 (revert / 正規 ADR で R2 化 / abaki 素性調査)"}]}
