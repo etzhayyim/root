@@ -44,6 +44,21 @@ def test_statute_binding_surfaced_honestly():
         "statute-binding integrity not reported"
 
 
+def test_language_coverage_reported_and_multilingual():
+    """A worldwide commons must be multilingual, and the report must measure it."""
+    nodes, edges = load(SEED)
+    md = coverage_report.report(nodes, edges)
+    assert "Language coverage" in md, "language coverage not reported"
+    langs = {n.get(":template/lang") for n in nodes.values() if n.get(":lt/kind") == ":template"}
+    langs.discard(None)
+    assert len(langs) >= 3, f"expected a multilingual corpus, got languages {langs}"
+    # every non-English translation must be linked to an original by a :translates 縁
+    translated = {e[":en/from"] for e in edges if e.get(":en/kind") == ":translates"}
+    for e in edges:
+        if e.get(":en/kind") == ":translates":
+            assert e[":en/to"] in nodes and e[":en/from"] in nodes, "dangling :translates 縁"
+
+
 def test_coverage_is_not_overclaimed():
     """Coverage fractions vs world denominators must be tiny (honest ~0-by-design)."""
     nodes, edges = load(SEED)

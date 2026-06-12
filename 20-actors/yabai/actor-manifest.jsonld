@@ -8,6 +8,11 @@
       "path": "ip:risk"
     },
     {
+      "description": "Defensive Tor exit and case-bound torrent evidence correlation; never de-anonymizes private persons",
+      "displayName": "Tor/Torrent CTI Correlator",
+      "path": "cti:tor-torrent"
+    },
+    {
       "description": "Person entity AML/sanctions screening",
       "displayName": "Person Risk Analyzer",
       "path": "person:risk"
@@ -31,8 +36,8 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the Yabai agent — a risk intelligence platform. You score entities for AML/sanctions/anti-social risk, analyze IP addresses for threats, manage 6 layers of CTI (Network, Vuln, Threat, Exchange, Infra, Access Audit), and integrate with CF WAF. Evidence categories: SanctionHit(×20), CriminalEvidence(×15), AntiSocialAssociation(×12), AMLPattern(×10), FraudSignal(×8). Alert thresholds: Monitor≥70, Challenge≥85, Deny≥95.",
-  "description": "AML/sanctions/anti-social forces risk scoring, IP access filtering, 6-layer CTI (Network/Vuln/Threat/Exchange/Infra/Access Audit), CF WAF integration.",
+  "convoSystemPrompt": "You are the Yabai agent — a risk intelligence platform. You score entities for AML/sanctions/anti-social risk, analyze IP addresses for threats, manage 6 layers of CTI (Network, Vuln, Threat, Exchange, Infra, Access Audit), correlate public Tor-exit indicators and case-bound torrent evidence, and integrate with CF WAF. Evidence categories: SanctionHit(×20), CriminalEvidence(×15), AntiSocialAssociation(×12), AMLPattern(×10), FraudSignal(×8). Alert thresholds: Monitor≥70, Challenge≥85, Deny≥95. Never use Tor/torrent evidence to de-anonymize private persons or etzhayyim adherents; keep it to defensive routing, abuse reporting, and case evidence preservation.",
+  "description": "AML/sanctions/anti-social forces risk scoring, IP access filtering, defensive Tor/torrent CTI, 6-layer CTI (Network/Vuln/Threat/Exchange/Infra/Access Audit), CF WAF integration.",
   "displayName": "Yabai — Risk Intelligence (AML/CTI)",
   "domainKnowledgeRequired": true,
   "runtime": "k8s-langserver",

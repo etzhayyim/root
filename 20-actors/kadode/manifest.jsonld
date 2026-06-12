@@ -1,0 +1,81 @@
+{
+  "@context": {
+    "@vocab": "https://etzhayyim.com/ns/actor#",
+    "id": "@id",
+    "type": "@type"
+  },
+  "id": "actor:kadode",
+  "type": "Actor",
+  "name": "kadode",
+  "glyph": "門出",
+  "purpose": "Labour-resignation concierge + 使者 (messenger) — helps a worker resign with dignity (門出 = setting out on a new path), grounded in actual Japanese labour law, and RELAYS the worker's already-formed unilateral resignation (民法627 — a unilateral right; employer consent not required) as a 使者. It does NOT negotiate (弁護士法72条 非弁行為禁止); any matter needing negotiation (未払い賃金 / 退職条件 / 示談 / 損害賠償) is routed to a labour union (団体交渉) or a lawyer. Free, worker-authored, worker-submitted. The labour-liberation worker-exit sibling of the concierge lineage (toritsugi / kurashimori / tasuke).",
+  "status": "R0-resignation-concierge",
+  "tier": "B",
+  "adr": "2606112238",
+  "dependsOnAdr": ["2605262700", "2606111954", "2605181100", "2605231525", "2605312345", "2605215000", "2605261000", "2605302357"],
+  "schema": ["00-contracts/schemas/labor-exit-ontology.kotoba.edn"],
+  "lexicons": ["com.etzhayyim.kadode.resignationRelay", "com.etzhayyim.kadode.escalation"],
+  "substrate": {
+    "state": "kotoba Datom log (ADR-2605312345) — methods/datom_emit.py emits canonical EAVT (scenario↔ground↔route↔risk graph as durable state)",
+    "generate": "methods/generate.py — renders the worker's OWN resignation documents (退職届/退職願/即時退職通知/内容証明/有給取得届), content-addressed (CIDv1+SHA-256); UPL-guarded (no negotiation/demand language, G1)",
+    "relay": "methods/generate.py build_relay — builds an UNSENT 使者 relay for non-negotiating scenarios; REFUSES negotiation-needing ones and escalates to union/lawyer (G1, action-layer)",
+    "pii": "worker/employer PII via himotoki XChaCha20-Poly1305 envelope (ADR-2605181100); never plaintext on MST",
+    "inference": "Murakumo-only (ADR-2605215000)",
+    "runtime": "kotoba pywasm actor (componentize-py) — pure-stdlib methods, no numpy"
+  },
+  "integrates": ["actor:chigiri", "actor:hinagata", "actor:kokoro", "actor:tasuke", "actor:kurashimori", "actor:himotoki"],
+  "lineage": "labour-liberation worker-EXIT concierge — the worker-side sibling of the legal-concierge lineage (toritsugi 取次 procedure / kurashimori 暮らし守 consumer / tasuke 助 victim-support), reusing their UPL-bounded default-self-submit pattern; cross-links hinagata 雛形 for the document layer. Charter §mission 労働の構造的解放 + Wellbecoming (a worker trapped in a 退職拒否 / ブラック企業 situation set free with dignity).",
+  "cells": [
+    {
+      "id": "cell:kadode.analyze",
+      "method": "methods/analyze.py",
+      "input": "data/seed-resignation-graph.kotoba.edn",
+      "output": ["out/route-report.md"],
+      "pipeline": "load-edn → per-scenario UPL-bounded route recommendation (negotiation ⇒ union/lawyer, never 使者/self) + edge-primary ground-support + employer-risk coverage",
+      "doc": "edge-primary lawful-route map; dignified-exit-routed, never a litigation promise"
+    },
+    {
+      "id": "cell:kadode.datom-emit",
+      "method": "methods/datom_emit.py",
+      "input": "data/seed-resignation-graph.kotoba.edn",
+      "output": ["out/resignation-datoms.kotoba.edn"],
+      "pipeline": "ground EAVT datoms [e a v tx :add] (incl. :requires-route + :upl-bound 弁護士法72条 boundary edges) + derived readouts flagged :bond/is-transient (N1/G2)",
+      "doc": "kotoba Datom-log projection — first-class canonical state (ADR-2605312345)"
+    },
+    {
+      "id": "cell:kadode.coverage",
+      "method": "methods/coverage_report.py",
+      "input": "data/seed-resignation-graph.kotoba.edn",
+      "output": ["out/coverage-report.md"],
+      "pipeline": "employment-type + route-ladder spread + integrity (every scenario routes; the UPL invariant holds; every employer-risk has a countering ground) → gap map",
+      "doc": "honest coverage (bounded by design); proves the UPL invariant holds (G1/G5)"
+    },
+    {
+      "id": "cell:kadode.generate",
+      "method": "methods/generate.py",
+      "input": "worker fields (worker/employer/date/employment-type)",
+      "output": ["out/<kind>.md (退職届/退職願/即時退職通知/内容証明/有給取得届)"],
+      "pipeline": "render the worker's OWN document (一身上の都合; never a demand) → content-address (CIDv1+SHA-256) → build UNSENT 使者 relay OR refuse + escalate (negotiation ⇒ union/lawyer)",
+      "doc": "worker-authored documents; UPL-guarded (G1); member self-submits by default, relay is G7-gated"
+    }
+  ],
+  "wasm": {
+    "status": "build-ready",
+    "world": "etzhayyim:kadode/kadode-actor@0.1.0",
+    "wit": "wasm/wit/world.wit",
+    "entry": "wasm/app.py",
+    "exports": ["analyze", "datoms", "coverage", "generate", "relay"],
+    "build": "wasm/build.sh (componentize-py → CID → DID-doc EtzhayyimWasmComponent service)",
+    "note": "export bodies runnable in dev + CI-covered (tests/test_wasm.py); G1 + no-server-key hold in WASM (relay builds an UNSENT record + refuses negotiation-needing scenarios; embeds bounded PUBLIC seed)"
+  },
+  "gates": {
+    "G1": "使者 not 代理人 (messenger, not agent) — kadode RELAYS a worker's already-formed unilateral resignation + DRAFTS their own documents; it NEVER negotiates terms / severance / settlements (弁護士法72条, 非弁行為禁止). Negotiation-needing matters are routed to a labour union (団体交渉, 労働組合法6) or a lawyer. Enforced in code: recommend_route + build_relay refuse + escalate; test-covered",
+    "G2": "worker-authored + worker-decided — the resignation is the worker's own legal act (民法627 right); kadode drafts/relays/informs, never decides or signs for them; missing fields render as explicit blanks, never invented",
+    "G3": "non-adjudicating (N3) — statute citations / grounds / risk-counters are DISCLOSED legal facts sourced from the instrument, never kadode verdicts; never promises an outcome or certifies enforceability",
+    "G4": "free — no fee, no paid counsel (like tasuke); the worker submits their own documents",
+    "G5": "sourcing honesty — every ground :authoritative with a public official URL; coverage of all employment situations bounded by design; the UPL invariant is measured, not assumed",
+    "G6": "Murakumo-only narration (ADR-2605215000)",
+    "G7": "outward-gated — actually SENDING the resignation (email/内容証明/郵送) requires the worker's consent + operator/Council step; R0 = analyze + generate + UNSENT relay only",
+    "G8": "no-server-key (ADR-2605231525) + PII discipline — kadode holds no key and sends nothing here; worker/employer PII via himotoki envelope (ADR-2605181100), never plaintext on MST"
+  }
+}

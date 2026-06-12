@@ -97,6 +97,62 @@ def report(nodes: dict, edges: list) -> str:
     _bucket("Legal-system coverage (law is plural)", SYSTEMS, sys_c)
     _bucket("Clause-role coverage", CLAUSE_ROLES, role_c)
 
+    # language coverage — a worldwide commons must offer templates in more than one language
+    lang_c = Counter(t.get(":template/lang") for t in tmpls)
+    translated = {e.get(":en/from") for e in edges if e.get(":en/kind") == ":translates"}
+    L.append("\n## Language coverage (a worldwide commons is multilingual)\n")
+    L.append("| language | templates | status |")
+    L.append("|---|---:|:--|")
+    for lang, c in sorted(lang_c.items(), key=lambda kv: -kv[1]):
+        status = "ok" if c >= THIN else "⚠ thin"
+        L.append(f"| {lang or '—'} | {c} | {status} |")
+    L.append(f"\n_{len(lang_c)} languages · {len(translated)}/{len(tmpls)} templates linked to "
+             f"another by a `:translates` 縁._")
+
+    # per-jurisdiction statute depth — which jurisdictions are well-grounded vs thin
+    def _jx_name(n):
+        code = n.get(":jurisdiction/code")
+        # disambiguate the several INTL-coded jurisdictions (treaty / religious / customary)
+        return code if code and code != "INTL" else n[":lt/id"].replace("jx.", "")
+    jx_label = {n[":lt/id"]: _jx_name(n) for n in jurisdictions}
+    jx_stat = Counter(n.get(":statute/jurisdiction") for n in statutes)
+    L.append("\n## Per-jurisdiction statute depth (breadth honesty)\n")
+    L.append("| jurisdiction | statutes | status |")
+    L.append("|---|---:|:--|")
+    for jid in sorted(jx_stat, key=lambda j: -jx_stat[j]):
+        c = jx_stat[jid]
+        status = "ok" if c >= 3 else ("⚠ thin" if c >= 1 else "— **MISSING**")
+        L.append(f"| {jx_label.get(jid, jid)} | {c} | {status} |")
+    ungrounded = [jx_label.get(j[":lt/id"], j[":lt/id"]) for j in jurisdictions
+                  if jx_stat.get(j[":lt/id"], 0) == 0]
+    if ungrounded:
+        L.append(f"\n_jurisdictions with no statute yet: {', '.join(ungrounded)}._")
+
+    # clause conflicts + template lineage — relational depth (drafting aids)
+    conflicts = [(e[":en/from"], e[":en/to"]) for e in edges if e.get(":en/kind") == ":conflicts-with"]
+    derived = [(e[":en/from"], e[":en/to"]) for e in edges if e.get(":en/kind") == ":derived-from"]
+    if conflicts or derived:
+        L.append("\n## Relational depth — clause conflicts & template lineage\n")
+        if conflicts:
+            L.append("_Mutually-exclusive clauses a drafter must not combine (`:conflicts-with`):_\n")
+            for a, b in conflicts:
+                la = nodes.get(a, {}).get(":lt/label", a)
+                lb = nodes.get(b, {}).get(":lt/label", b)
+                L.append(f"- {la} ⟷ {lb}")
+        if derived:
+            L.append("\n_Template provenance (`:derived-from`):_\n")
+            for a, b in derived:
+                la = nodes.get(a, {}).get(":lt/label", a)
+                lb = nodes.get(b, {}).get(":lt/label", b)
+                L.append(f"- {la} ← {lb}")
+        supersedes = [(e[":en/from"], e[":en/to"]) for e in edges if e.get(":en/kind") == ":supersedes"]
+        if supersedes:
+            L.append("\n_Version supersession (`:supersedes`):_\n")
+            for a, b in supersedes:
+                la = nodes.get(a, {}).get(":lt/label", a)
+                lb = nodes.get(b, {}).get(":lt/label", b)
+                L.append(f"- {la} ⇒ supersedes ⇒ {lb}")
+
     L.append("\n## Statute-binding integrity — clauses NOT yet anchored to any public statute\n")
     L.append("_Every clause SHOULD eventually cite the law it rests on (gap #2 of the design). "
              "Unbound clauses are the next-wave binding worklist, not a defect — they are "

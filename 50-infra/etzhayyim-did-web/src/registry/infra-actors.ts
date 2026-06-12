@@ -469,6 +469,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606072000"],
   },
+  mimamori: {
+    description:
+      "見守り — covenant keeping membrane (相互保持者会 / mishmeret ha-adam). Bonds of keeping: offer → kept-signed consent → content-free heartbeat → per-act-consented care-routing ({kokoro,wakai,iyashi} ONLY — no denunciation rail, G1) → relay 継ぎ → unilateral penalty-free exit. 誰の保持者でもない人間を作らない — the structural answer to the isolated-attacker side of the 2026-04 motivating case. The degeneration path (五人組→隣組→Stasi→social credit) is structurally UNREPRESENTABLE: no-score (bond-edge-only, G2), symmetric visibility (hidden keeping cannot exist, G4), NEVER-a-throne (own-DID-only queries, aggregate-only coverage, stateless WASM heartbeat — the host owns the log; G5 = ADR-2606112200 D3). Keeper-side social-capital mint (moyai ledger verbatim reuse, ADR-2606082100 Part A). Human-scale sibling of the mishmar storage covenant. SYNTHETIC seed only; live legs Council+operator gated (G7). Per ADR-2606112300.",
+    glyph: "見守り",
+    displayName: "Mimamori — Covenant Keeping Membrane (mishmeret ha-adam)",
+    primaryLexicon: "com.etzhayyim.mimamori",
+    primarySchema: "00-contracts/schemas/mishmeret-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:mimamori#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:mimamori#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606112300", "2606112200"],
+  },
   ooyake: {
     description:
       "公 — World Government Atlas. kotoba-Datomic structural atlas of every government unit on Earth (supranational → country → 都道府県 → 市区町村 → 省 → 庁 → 局 → 課 → 窓口) with 住所 / 窓口 / 書式 / 手続き / BPMN. The read-side SSoT danjo / kanae / tsumugi / toritsugi / himotoki consume for the who/where/how of public administration. An OBSERVATIONAL MIRROR + civic wayfinding map — the per-unit atlas DID (did:web:etzhayyim.com:gov:<iso3>:...) mirrors a real public body, NEVER claims to BE the government, is NEVER an official channel, and is NEVER a target-list (G3/G10). Read-only: catalogs, never files (→ toritsugi) and never audits (→ danjo). Per ADR-2606021600.",

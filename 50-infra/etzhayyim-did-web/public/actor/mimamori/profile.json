@@ -1,0 +1,31 @@
+{
+  "did": "did:web:etzhayyim.com:actor:mimamori",
+  "handle": "mimamori.etzhayyim.com",
+  "displayName": "Mimamori — Covenant Keeping Membrane (mishmeret ha-adam)",
+  "description": "Covenant keeping membrane (相互保持者会) — bonds of keeping: offer → kept-signed consent → content-free heartbeat → per-act-consented care-routing ({kokoro,wakai,iyashi} ONLY — no denunciation rail) → relay 継ぎ → unilateral exit. 誰の保持者でもない人間を作らない. The degeneration path (五人組→隣組→Stasi→social credit) is structurally UNREPRESENTABLE: no-score (bond-edge-only), symmetric visibility (hidden keeping cannot exist), NEVER-a-throne (own-DID-only queries, aggregate-only coverage; the WASM component is stateless — the host owns the log). Keeper-side social-capital mint (moyai verbatim reuse). Human-scale sibling of the mishmar storage covenant. SYNTHETIC seed only; live legs Council+operator gated (G7). Per ADR-2606112300 (doctrine: 2606112200 D3/D6).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-11T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "none",
+  "glyph": "見守り",
+  "displayNameJa": "見守り — 相互保持者会 (mishmeret ha-adam) covenant keeping membrane",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r1",
+    "adr": [
+      "2606112300",
+      "2606112200"
+    ],
+    "primaryLexicon": "com.etzhayyim.mimamori",
+    "primarySchema": "00-contracts/schemas/mishmeret-ontology.kotoba.edn",
+    "didDocument": "https://etzhayyim.com/actor/mimamori/did.json",
+    "source": "kotoba"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sonae.hazardSignalRecord",
+  "description": "A single hazard signal ingested from an OPEN government feed. G4 STRUCTURAL: sourceFeed restricted to open-publication gov feeds. G6 STRUCTURAL: openDataOnlyAttested const true — geophysical/meteorological public data only, NO individual-level data. This is observation, NOT an authoritative warning (see earlyWarningRelay for relay of official warnings).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "hazardKind",
+          "sourceFeed",
+          "openDataOnlyAttested",
+          "observedAtUtc",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "hazardKind": {
+            "type": "string",
+            "knownValues": [
+              "earthquake",
+              "tsunami",
+              "typhoon-hurricane",
+              "flood",
+              "wildfire",
+              "volcanic",
+              "landslide",
+              "extreme-heat",
+              "extreme-cold",
+              "pandemic-biological",
+              "other"
+            ]
+          },
+          "sourceFeed": {
+            "type": "string",
+            "description": "G4 STRUCTURAL: open-publication government / inter-gov feed only",
+            "knownValues": [
+              "usgs",
+              "phivolcs",
+              "jma",
+              "ptwc",
+              "gdacs",
+              "copernicus-ems",
+              "wmo-gts",
+              "national-met-service-other"
+            ]
+          },
+          "openDataOnlyAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "G6 STRUCTURAL: const true — open public geophysical/met data only; no surveillance, no individual-level data"
+          },
+          "observedAtUtc": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "epicenterGeoCid": {
+            "type": "string",
+            "description": "CID of coarse epicenter / affected-region geometry (region-level, NOT individual location)"
+          },
+          "feedRecordRef": {
+            "type": "string",
+            "description": "Upstream feed event id / permalink (provenance)"
+          },
+          "murakumoCorrelationCid": {
+            "type": "string",
+            "description": "G7: Murakumo correlation output CID (open-feed fusion)"
+          },
+          "affectsCommunitySiteIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Community sites potentially in scope (community-scale; G3)"
+          },
+          "attestingDid": {
+            "type": "string"
+          },
+          "magnitudeE2": {
+            "type": "integer",
+            "description": "magnitude × 100 (integer implied units per ADR-2605190900; e.g. Mw 7.8 → 780); moment magnitude for quakes, feed-native scale otherwise"
+          },
+          "depthM": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "hypocenter depth in METERS (km × 1000, integer implied units per ADR-2605190900)"
+          }
+        }
+      }
+    }
+  }
+}

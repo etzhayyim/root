@@ -14793,6 +14793,28 @@
       "lastVerified": "2026-06-09"
     },
     {
+      "id": "doc:adr-2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606091200: sonae (備え) — non-profit religious-corp civilian pre-disaster foresight + preparedness + early-warning substrate Tier-B actor R0 charter",
+      "status": "proposed",
+      "topic": "sonae-pre-disaster-foresight-r0",
+      "authoritative": true,
+      "authoritativeFor": [
+        "sonae actor R0 charter",
+        "religious-corp civilian pre-disaster foresight + preparedness + early-warning substrate single SoT",
+        "`com.etzhayyim.sonae.*` Lexicon namespace boundary",
+        "civilian-only invariant (NOT military; force authorization separate per ADR-2605192315)",
+        "no-false-authority invariant (G8 — relay-only; MUST NOT originate official seismic/tsunami warnings)",
+        "no-unilateral-declaration invariant (G10 — emergency state owned by kazaori Council path)",
+        "phase-boundary invariant (N3 — sonae does NOT do response; kazaori does)",
+        "prohibition on commercial disaster-prediction software (One Concern / FloodFlash / Jupiter Intelligence / RMS / Tomorrow.io enterprise / Everbridge / OnSolve / AlertMedia)",
+        "prohibition on surveillance-based monitoring (open feeds + opt-in self-report only)",
+        "Sendai Framework + Sphere Standards reference (NOT membership)"
+      ],
+      "related": "doc:adr-2605263200-kazaori-disaster-response-tier-b-actor-r0",
+      "lastVerified": "2026-06-09"
+    },
+    {
       "id": "doc:adr-2606091500-kotoba-evm-datomic-ipfs-l2",
       "type": "TechArticle",
       "title": "ADR-2606091500: kotoba-EVM — a Datomic+IPFS EVM-compatible L2 (geth-less); kotoba IS the chain",
@@ -15309,7 +15331,7 @@
         "doc:2605302000",
         "doc:2605263400"
       ],
-      "lastVerified": "2026-06-11"
+      "lastVerified": "2026-06-12"
     },
     {
       "id": "doc:adr-2606112000-kotoba-actor-dna-code-data-unification",
@@ -15391,14 +15413,35 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606112238-kadode-resignation-concierge",
+      "type": "TechArticle",
+      "title": "ADR-2606112238: kadode 門出 — labour-resignation concierge + 使者 (退職代行), UPL-bounded",
+      "status": "active",
+      "topic": "kadode-resignation-concierge",
+      "authoritative": true,
+      "authoritativeFor": [
+        "labor-resignation-concierge",
+        "labor-exit-ontology",
+        "退職代行-upl-boundary"
+      ],
+      "related": [
+        "doc:2605312030",
+        "doc:2605312500",
+        "doc:2606060900",
+        "doc:2605263700"
+      ],
+      "lastVerified": "2026-06-11"
+    },
+    {
       "id": "doc:adr-2606112300-mimamori-mishmeret-ha-adam-actor-r0",
       "type": "TechArticle",
       "title": "ADR-2606112300: mimamori 見守り (mishmeret ha-adam 相互保持者会) Tier-B actor R0 — covenant keeping membrane: 誰の保持者でもない人間を作らない",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "mimamori-mishmeret-ha-adam-actor",
       "authoritative": true,
       "authoritativeFor": [
         "mimamori 見守り actor — covenant bond lifecycle (offer/consent/heartbeat/care-route/relay/exit)",
+        "00-contracts/schemas/mishmeret-ontology.kotoba.edn — the :mishmeret.* schema 正本 (validator-parity test-bound)",
         "mishmeret 5 NEVER 句の実装形 (no-denunciation / no-score / consent / symmetric-visibility / no-throne)",
         ":mishmeret.*\" Datom namespace (bond-edge-only; person-node attributes unrepresentable)",
         "shomer vow 典礼 seed (musubi ceremony type)"
@@ -15445,6 +15488,89 @@
       "related": [
         "doc:adr-2605231525",
         "doc:adr-2606052300"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
+      "id": "doc:adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+      "type": "TechArticle",
+      "title": "ADR-2606120750: Session close — search-actor audit → parquet-free CC ingest → kotoba read-path resident cache LIVE",
+      "status": "active",
+      "topic": "session-close-search-readpath",
+      "authoritative": false,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-11 search/ingest/read-path session"
+      ],
+      "related": [
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2606041151"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
+      "id": "doc:adr-2606121143-deps-edn-line-split-canonical-format",
+      "type": "TechArticle",
+      "title": "ADR-2606121143: deps.edn canonical line-split format + structural append — 1 行 EDN の merge-conflict/破損隠蔽の根治",
+      "status": "accepted",
+      "topic": "deps-edn-line-split-format",
+      "authoritative": true,
+      "authoritativeFor": [
+        "deps.edn canonical format",
+        "deps.edn append protocol (--append-adrs)",
+        "deps-edn-canonical lefthook gate"
+      ],
+      "related": "doc:adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+      "lastVerified": "2026-06-12"
+    },
+    {
+      "id": "doc:adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass",
+      "type": "TechArticle",
+      "title": "ADR-2606121225: Session close — worktree/branch cleanup sweep + open-PR review & merge wave + main ruleset admin-bypass governance",
+      "status": "active",
+      "topic": "session-close-cleanup-merge-governance",
+      "authoritative": false,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-12 worktree-cleanup + PR review/merge + ruleset-bypass session"
+      ],
+      "related": [
+        "doc:adr-2606110955-session-close-pr-backlog-merge-sweep",
+        "doc:adr-2606111824-session-close-review-merge-wave-adr-id-races",
+        "doc:adr-2606111830-yabai-kotoba-datomic-checkpointer-close"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
+      "id": "doc:adr-2606121333-session-close-registry-forensics-stash-sweep",
+      "type": "TechArticle",
+      "title": "ADR-2606121333: Session close — deps.edn 行分割 hardening → registry forensics (sonae/abaki 復元) → stash 完全 sweep",
+      "status": "active",
+      "topic": "session-close-registry-forensics",
+      "authoritative": false,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-12 registry-forensics/stash-sweep arc"
+      ],
+      "related": [
+        "doc:adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+        "doc:adr-2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0",
+        "doc:adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
+      "id": "doc:adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
+      "type": "TechArticle",
+      "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
+      "status": "accepted",
+      "topic": "coverage-maturity-loop",
+      "authoritative": true,
+      "authoritativeFor": [
+        "did:etzhayyim codec + CID test coverage status",
+        "design-system motion utility test coverage status"
+      ],
+      "related": [
+        "doc:2606111640",
+        "doc:2605241800"
       ],
       "lastVerified": "2026-06-12"
     },

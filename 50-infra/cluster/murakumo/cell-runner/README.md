@@ -2,12 +2,12 @@
 
 Per [ADR-2605192415](../../../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) §7.1 (Religious-Corp Daemon Architecture — Tier 1 launchd 常駐).
 
-Each Mac mini in the [etzhayyim Murakumo fleet](../../../murakumo/fleet.toml) runs `kotodama-cell-runner` as a **launchd LaunchAgent**. The runner reads `fleet.toml` to decide which religious-corp + kuni-umi cells to host on its node and supervises them as managed subprocesses.
+Each Mac mini in the [etzhayyim Murakumo fleet](../../../murakumo/fleet.toml) runs `kotoba-kotodama-cell-runner` as a **launchd LaunchAgent**. The runner reads `fleet.toml` to decide which religious-corp + kuni-umi cells to host on its node and supervises them as managed subprocesses.
 
 ## Status (2026-05-20)
 
 - ✅ launchd plist template + install / uninstall scripts (this directory)
-- ✅ `kotodama-cell-runner` CLI shipped (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py` + `[project.scripts]` entry in pyproject.toml)
+- ✅ `kotoba-kotodama-cell-runner` CLI shipped (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py` + `[project.scripts]` entry in pyproject.toml)
 - ✅ 5 / 15 religious-corp cells have `cell.py` (CharterAttestationRequest / LandDonationProcessing / EthicsContentClassifier / TitheRouting / CouncilDeliberation)
 - ⚠️ 10 / 15 religious-corp cells still scaffold-only (no `cell.py`)
 - ⚠️ 0 / 6 kuni-umi cells have `cell.py` ([ADR-2605201400](../../../../90-docs/adr/2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md) and S1–S5 are spec-only)
@@ -42,7 +42,7 @@ The installer:
 2. Resolves repo path (default = 4 levels up from the script)
 3. Resolves the `uv` binary
 4. Runs `uv sync` to ensure the kotodama venv is ready
-5. Runs `kotodama-cell-runner --node <NODE> --health` as a pre-flight check (config readback)
+5. Runs `kotoba-kotodama-cell-runner --node <NODE> --health` as a pre-flight check (config readback)
 6. Materialises the plist with placeholders substituted (no `@@…@@` survives)
 7. Writes `~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist`
 8. Issues `launchctl load`
@@ -79,8 +79,8 @@ launchctl load   ~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist
 | Status | `launchctl list \| grep kotodama-cell-runner` |
 | stdout | `tail -f ~/.etzhayyim/log/kotodama-cell-runner.stdout.log` |
 | stderr | `tail -f ~/.etzhayyim/log/kotodama-cell-runner.stderr.log` |
-| Manual run | `cd 40-engine/kotoba/crates/kotoba-kotodama/py && uv run kotodama-cell-runner --node <NODE>` |
-| Health probe (offline) | `cd 40-engine/kotoba/crates/kotoba-kotodama/py && uv run kotodama-cell-runner --node <NODE> --health` |
+| Manual run | `cd 40-engine/kotoba/crates/kotoba-kotodama/py && uv run kotoba-kotodama-cell-runner --node <NODE>` |
+| Health probe (offline) | `cd 40-engine/kotoba/crates/kotoba-kotodama/py && uv run kotoba-kotodama-cell-runner --node <NODE> --health` |
 | Reload | `launchctl unload ~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist && launchctl load ~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist` |
 | Uninstall | `./uninstall.sh` |
 

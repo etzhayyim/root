@@ -64,6 +64,7 @@ def load_edn(path: pathlib.Path):
 _BUCKETS = (
     (":domain/id", "domains"), (":pdns/id", "pdns"), (":iphist/id", "iphist"),
     (":tlscert/id", "certs"), (":indicator/id", "indicators"), (":access/id", "access"),
+    (":btobs/id", "btobs"),
 )
 _KEYED = {"domains"}
 

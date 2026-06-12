@@ -375,28 +375,21 @@ pre-commit:
       stage_fixed: false
 
 
-    deps-toml-paths:
-      # When deps.toml is staged, run the book-keeping path verifier
-      # (70-tools/scripts/lint/verify_deps_toml_paths.py — ADR-2605262500
-      # cycle 27). Catches orphaned [[adrs]] + [[modules]] entries from
-      # renames / refactors before they hit history. ~0.05s overhead.
-      glob: "deps.toml"
+    deps-edn-canonical:
+      # When deps.edn is staged, require VALID EDN in the canonical line-split
+      # format (70-tools/scripts/lint/format-deps-edn.py --check). The check
+      # parses the whole file, so it doubles as a corruption gate: on
+      # 2026-06-12 deps.edn carried invalid EDN across several merges (two
+      # string-surgery appends landed entries INSIDE another entry's title
+      # string) and the previous one-line format hid it. Append entries via
+      #   python3 70-tools/scripts/lint/format-deps-edn.py --append-adrs '{…}'
+      # never by raw string insertion. (Replaces the dead deps-toml-paths
+      # hook — deps.toml was removed by the toml→edn migration; porting its
+      # path verifier to deps.edn is tracked as follow-up.) ~0.3s overhead.
+      glob: "deps.edn"
       run: |
-        python3 70-tools/scripts/lint/verify_deps_toml_paths.py \
-          --filter ADR-2605262500 \
-          > /tmp/deps-toml-audit.$$.txt 2>&1
-        rc=$?
-        if [ $rc -ne 0 ]; then
-          echo "✘ deps.toml path audit failed for ADR-2605262500 scope:"
-          cat /tmp/deps-toml-audit.$$.txt
-          rm -f /tmp/deps-toml-audit.$$.txt
-          echo ""
-          echo "  Either restore the missing file(s), or remove the orphan"
-          echo "  entries from deps.toml. Run unfiltered audit for full picture:"
-          echo "    python3 70-tools/scripts/lint/verify_deps_toml_paths.py"
-          exit 1
-        fi
-        rm -f /tmp/deps-toml-audit.$$.txt
+        python3 70-tools/scripts/lint/format-deps-edn.py --check deps.edn
+        python3 70-tools/scripts/lint/verify_deps_edn_paths.py
       stage_fixed: false
 
 
@@ -618,6 +611,25 @@ pre-push:
   parallel: false  # SDK build must finish before cyber-drill build reads its dist/
 
   commands:
+    tree-guard:
+      # Structural guards BEFORE the push leaves the machine (operator
+      # direction 2026-06-12: local pre-push, not a GitHub Action — the
+      # server-side gate is the required-review ruleset on main).
+      # Born from #1680 (77,504-file tree wipe merged green: every CI
+      # workflow is path-triggered, so nothing fired on the deletions)
+      # + the 2026-06-12 merge-history audit (orphan kotoba pins
+      # 98f9d2b3fd / 46e0bdaa6a; #1403 pin regression).
+      #   1. sentinel files exist in the HEAD tree (deps.edn, CLAUDE.md,
+      #      CHARTER-RIDER.md, adr README, the 8 layer dirs, …)
+      #   2. engine-submodule pins exist upstream + move fast-forward
+      #      only (network checks fire only when a pin changed; offline
+      #      warns and passes)
+      #   3. >3000 files deleted vs origin/main requires explicit
+      #      [mass-delete-ok] in the HEAD commit message
+      # No glob: this must run on every push, especially ones that
+      # delete things — a glob can't see what is MISSING.
+      run: sh 70-tools/scripts/lint/tree-guard.sh
+
     substrate-remediation-audit:
       # ADR-2606071800 shrink-only ratchet for the legacy RisingWave/Hyperdrive/
       # Kysely read path. Full-tree scan (too heavy for per-commit; runs on push).

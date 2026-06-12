@@ -2,7 +2,7 @@
 """yabai — CTI / passive-DNS concentration + anomaly analyzer (ADR-2605301400 §T3).
 
 Reads a kotoba-EDN CTI graph (:domain/* :pdns/* :iphist/* :tlscert/* :indicator/*
-:access/*) and emits, AGGREGATE-FIRST:
+:access/* :btobs/*) and emits, AGGREGATE-FIRST:
 
   1. out/intel-report.md — defensive threat-intel signals: fast-flux candidate
      domains, hosting-provider concentration, IOC TLP/category load, IP-movement
@@ -32,6 +32,7 @@ FAST_FLUX_MIN_IPS = 3     # … with ≥ this many distinct A answers = fast-flu
 def analyze(b):
     domains, pdns, iphist = b["domains"], b["pdns"], b["iphist"]
     certs, indicators, access = b["certs"], b["indicators"], b["access"]
+    btobs = b["btobs"]
 
     # fast-flux candidates: low TTL + many distinct A/AAAA answers in one observation
     fast_flux = []
@@ -81,7 +82,7 @@ def analyze(b):
         cert_pivot=cert_pivot, access_total=access_total,
         access_encrypted=access_encrypted, plaintext_violations=plaintext_violations,
         n_domains=len(domains), n_pdns=len(pdns), n_iphist=len(iphist),
-        n_certs=len(certs), n_ioc=len(indicators),
+        n_certs=len(certs), n_ioc=len(indicators), n_btobs=len(btobs),
     )
 
 
@@ -97,6 +98,7 @@ def render_report(b, a):
     P("")
     P(f"- domains: **{a['n_domains']}**  ·  passive-DNS obs: **{a['n_pdns']}**  ·  "
       f"IP-history obs: **{a['n_iphist']}**  ·  TLS certs: **{a['n_certs']}**  ·  IOCs: **{a['n_ioc']}**")
+    P(f"- case-bound BitTorrent observations: **{a['n_btobs']}**")
     P("")
 
     # ── G6/G10 encryption self-audit (headline invariant) ──
@@ -107,6 +109,13 @@ def render_report(b, a):
       f"`com.etzhayyim.encrypted.*` envelope, never plaintext. **{status}** — "
       f"{a['access_encrypted']}/{a['access_total']} access records encrypted, "
       f"**{a['plaintext_violations']}** plaintext-PII violation(s).")
+    P("")
+
+    P("## Tor / BitTorrent collection boundary")
+    P("")
+    P("Tor exit indicators are public-infrastructure signals. BitTorrent observations are accepted "
+      "only when case-bound (`:btobs/case-mandate`) and evidence-backed (`:btobs/evidence-cid`). "
+      "They support defensive correlation and preservation, not private-person identification.")
     P("")
 
     P("## Fast-flux candidate domains — low TTL × many A answers")
@@ -205,6 +214,7 @@ def render_datoms(b, a):
         P(f' {{:cti/cert-pivot {edn_str(subj)} :cti/san-count {nsan} :cti/anomaly {anom} :cti/derived true}}')
     P(f' {{:cti/access-audit-total {a["access_total"]} :cti/access-encrypted {a["access_encrypted"]} '
       f':cti/plaintext-violations {a["plaintext_violations"]} :cti/derived true}}')
+    P(f' {{:cti/bittorrent-observations {a["n_btobs"]} :cti/derived true}}')
     P("]")
     return "\n".join(L) + "\n"
 
@@ -226,7 +236,7 @@ def main(argv):
     (outdir / "cti-signals.kotoba.edn").write_text(render_datoms(b, a), encoding="utf-8")
 
     print(f"yabai: {a['n_domains']} domains · {a['n_pdns']} passive-DNS · {a['n_certs']} certs · "
-          f"{a['n_ioc']} IOCs · fast-flux {len(a['fast_flux'])} · "
+          f"{a['n_ioc']} IOCs · {a['n_btobs']} BitTorrent obs · fast-flux {len(a['fast_flux'])} · "
           f"encryption {a['access_encrypted']}/{a['access_total']} (viol {a['plaintext_violations']})")
     print(f"wrote {outdir/'intel-report.md'} + {outdir/'cti-signals.kotoba.edn'}")
 

@@ -10,6 +10,11 @@
     {"child": "GEICO", "parent": "Berkshire Hathaway", "country": "United States"},
     {"child": "Louis Vuitton", "parent": "LVMH", "country": "France"},
     {"child": "Nespresso", "parent": "Nestlé", "country": "Switzerland"},
-    {"child": "Skoda Auto", "parent": "Volkswagen AG", "country": "Czech Republic"}
+    {"child": "Skoda Auto", "parent": "Volkswagen AG", "country": "Czech Republic"},
+    {"child": "YouTube", "parent": "Alphabet Inc.", "country": "United States", "childRef": "Q866"},
+    {"child": "WhatsApp", "parent": "Meta Platforms", "country": "United States", "childRef": "Q44"},
+    {"child": "Waymo", "parent": "Alphabet Inc.", "country": "United States", "childRef": "Q18912104"},
+    {"child": "Porsche", "parent": "Volkswagen AG", "country": "Germany", "childRef": "Q40993"},
+    {"child": "SEAT", "parent": "Volkswagen AG", "country": "Spain", "childRef": "Q46225"}
   ]
 }

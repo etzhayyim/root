@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sonae.sonaeReadinessReview",
+  "description": "Periodic Council review of sonae's pre-disaster posture: forecast-accuracy honesty, preparedness readiness vs targets, Sendai Framework alignment, and Sphere-minimum gap status. G9 STRUCTURAL. Mirrors kazaori's silenKazaoriReview but for the BEFORE phase (proactive, periodic, not post-event).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["createdAt", "reviewPeriodStartUtc", "reviewPeriodEndUtc", "sendaiAlignment", "councilAttestations", "attestingDid"],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "reviewPeriodStartUtc": {"type": "string", "format": "datetime"},
+          "reviewPeriodEndUtc": {"type": "string", "format": "datetime"},
+          "sendaiAlignment": {
+            "type": "object",
+            "description": "G9: self-assessment against Sendai Framework 4 priorities",
+            "properties": {
+              "p1UnderstandingRisk": {"type": "string", "knownValues": ["adequate", "partial", "gap"]},
+              "p2GovernanceRisk": {"type": "string", "knownValues": ["adequate", "partial", "gap"]},
+              "p3InvestingResilience": {"type": "string", "knownValues": ["adequate", "partial", "gap"]},
+              "p4PreparednessBuildBackBetter": {"type": "string", "knownValues": ["adequate", "partial", "gap"]}
+            }
+          },
+          "forecastAccuracyNotes": {"type": "string", "description": "Honest review of hazard_watch correlation accuracy incl. false positives/negatives (G7 Murakumo)"},
+          "preparednessCoverage": {
+            "type": "object",
+            "properties": {
+              "sitesWithCurrentPlan": {"type": "integer", "minimum": 0},
+              "sitesWithStockpileTargetMet": {"type": "integer", "minimum": 0},
+              "drillsConductedInPeriod": {"type": "integer", "minimum": 0}
+            }
+          },
+          "sphereGapSummaryCid": {"type": "string"},
+          "falseAuthorityIncidents": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "G8 audit: count of any relay that drifted toward originating/altering an official warning (target 0)"
+          },
+          "handoffsToKazaori": {"type": "integer", "minimum": 0, "description": "disasterImminenceSignal handoffs in period"},
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 3,
+            "description": "Council Lv6+ review attestations"
+          },
+          "attestingDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}
