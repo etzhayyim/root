@@ -80,8 +80,10 @@ founder 指示 (b): **Fable gold 30本で疎通 → fleet 増幅 → 本番 CPT*
 | CPT パイプライン疎通 (SmolLM + 本番 gemma4) | e2e OK (loss 下降) |
 | fleet 増幅 (140 files) | 139/140 bb 通過 / 139 検証済み unit |
 | **本番 CPT-LoRA 再実行 (修正版, 2026-06-12)** | **lora_B nonzero mass 23693.68 — adapter learned**; grad_norm 2.298 / train_loss 2.097 (最終 step 1.489) vs 旧走行 grad_norm 0 / loss 7.086 横ばい; 3 epoch / 1,417 s; 保存 `gad:~/cpt-clj/cpt-clj-lora-v2` (残課題 #1 完了) |
+| **CPT held-out A/B 測定 (残課題 #2, 2026-06-12)** | **base 20.4% (11/54) vs CPT 18.5% (10/54) = −1.9pp (ノイズ域、net −1 unit)**。held-out = 訓練外54ユニット (rasen/mitooshi/watatsuna/kakaku、gold 30 とも cpt-full とも非重複)、gad peft 直接生成 (決定論 greedy)、bb-実ロードゲート両アーム同一適用。フリップ 5 gained / 6 lost は全て小 const/単純関数 (`_SQRT2`/`ALLOWED_USE`/`CLINSIG_WEIGHT` 等) でフォーマットノイズ級。**結論: gold-only 3-epoch CPT は held-out 汎化に効かない** (`lora_B≠0`=「学習成立」は held-out coverage 改善を含意しない)。アダプタは適用済み (出力は変化) だがコーパス過小 (30 doc/164 chunk) でスタイル獲得止まり |
 
 成果物の質的転換: 「4% 完成」→「96% コンパイル可能スケルトン + 26% 関数実装 + 機械可読 TODO スタブ」。
+CPT の効果は held-out で **ゼロ (ノイズ域)** — レバーは「アダプタが学習したか」ではなく「コーパスが汎化に足る規模/多様性か」。次の打ち手は残課題 #3 (SFT 蒸留 = 139 検証済み fleet 増幅ユニット) + CPT コーパス拡大であり、gold-style CPT 単独ではない。Charter 機微・正しさ要求の移植は引き続き Claude エージェント (本セッションで 19-module ibuki + 14-actor stub 置換を緑テスト付きで完遂、クロス言語 CID/出力パリティ多数) が担う — フリートはバルク下書き + SFT ペア収穫に役割限定。
 
 ## 確定した知見 / 罠
 
@@ -112,7 +114,11 @@ founder 指示 (b): **Fable gold 30本で疎通 → fleet 増幅 → 本番 CPT*
 1. ~~**本番 CPT-LoRA 再実行** (修正版 train_cpt.py、3 epoch) → `lora_B` 非ゼロ確認。~~
    **DONE 2026-06-12** — 実測表参照 (lora_B nonzero 23693.68 / loss 7.086→2.097)。
    旧 gad 上スクリプトは no-op 版だったため repo 正本を再配置して実行。
-2. CPT 済アダプタを base に `unit_refactor` 再測定 → coverage 改善を計測。
+2. ~~CPT 済アダプタを base に `unit_refactor` 再測定 → coverage 改善を計測。~~
+   **DONE 2026-06-12 — 改善なし (実測表参照: base 20.4% vs CPT 18.5%, −1.9pp ノイズ域)。**
+   gold-only 3-epoch CPT は held-out 汎化に効かず。eval harness =
+   `70-tools/scripts/fleet-refactor/cpt/{eval_ab.py,score_ab.py}` +
+   `heldout-units.jsonl` (再現可能)。→ 残課題 #3 (SFT 蒸留) + コーパス拡大に redirect。
 3. **stage 2 (file-type 別 expert LoRA)** / **A (SFT 蒸留)**。
 4. founder 判断: fuchi/abaki `live_gate` 空洞化の処置 (revert / 正規 ADR で R2 化 / abaki 素性調査)。
 5. Unsloth は EVO ROCm で probe FAIL 済 (ADR-2605250400 §1.2) — peft+trl direct を継続。
