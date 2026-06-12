@@ -1,7 +1,7 @@
 ---
 id: adr-2606122400-meisai-member-card-statement-ingestion
 title: "ADR-2606122400: meisai 明細 — member card-statement (利用明細) ingestion Tier-B actor R0"
-status: proposed
+status: accepted
 doc_type: adr
 topic: meisai-member-card-statement-ingestion
 authoritative: true
@@ -28,7 +28,8 @@ superseded_by: []
 
 # ADR-2606122400: meisai 明細 — member card-statement ingestion (Tier-B actor R0)
 
-**Status**: proposed
+**Status**: accepted (founder direction 2026-06-12; Council attestation = PR review per the
+bootstrap operational premise, root CLAUDE.md 2026-06-11)
 **Date**: 2026-06-12
 **Deciders**: Jun Kawasaki
 
