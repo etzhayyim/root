@@ -36,11 +36,12 @@
    :note "実分布はパイロットより遥かに硬い + ns-mismatch ハーネスバグ (pass1 は修正前に走行)"}
   {:id :batch100-pass2    :model "gemma4:12b-it-qat" :pass-rate "3/99"
    :note "timeout 18 含む; カスケード合計 4/100 — ゼロショット whole-file は実分布で不成立"}
-  {:id :stage0-unit-49    :model "gemma4:e4b-it-qat" :pass-rate "47/49 files lint-pass"
-   :unit-coverage "79/261 live (30%) + 幻覚 50 単位を組立時スタブ降格"
-   :coverage-dist {:complete 2 :>=50% 9 :<50% 36}
-   :sft-harvest 85 :secs-per-file 169
-   :note "成果物が『4%完成』→『96% lint 通過 + 30% 関数実装 + 機械可読 TODO スタブ』へ転換"}]
+  {:id :stage0-unit-49-bbgate :model "gemma4:e4b-it-qat" :pass-rate "47/49 files compile-load"
+   :gate "clj-kondo + bb (require ns) — 実ロード保証 (幻覚 alias を error 化)"
+   :unit-coverage "68/261 live (26%) — bb で実コンパイル通過した本物の数字"
+   :coverage-dist {:full-100% 1 :partial-50-99% 9 :partial-1-49% 18 :all-stub-0% 19}
+   :sft-harvest 68 :secs-per-file 110
+   :note "成果物 = 96% コンパイル可能スケルトン + 26% 関数実装 + 機械可読 TODO スタブ。残り 74% が stage1+ の埋め対象"}]
 
  :findings ;; ハマりどころ / 重要発見 (詳細は README.md)
  [{:id :openai-compat-drops-options
