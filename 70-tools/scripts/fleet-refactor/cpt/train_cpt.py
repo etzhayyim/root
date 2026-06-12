@@ -64,17 +64,24 @@ def main() -> int:
             args.model, torch_dtype=torch.bfloat16).cuda()
         model = getattr(getattr(full, "model", full), "language_model", None) or full
         print(f"loaded text submodel: {type(model).__name__}")
-    model.gradient_checkpointing_enable()
+    # use_reentrant=False が必須: reentrant checkpointing は後付け LoRA への勾配を遮断し
+    # lora_B がゼロのまま (no-op) になる。enable_input_require_grads と併用する。
+    model.gradient_checkpointing_enable(
+        gradient_checkpointing_kwargs={"use_reentrant": False})
     model.enable_input_require_grads()
 
-    # CPT は全 linear に薄く LoRA を当てる (構文分布を広く動かす)。
-    # Gemma4 の proj は Gemma4ClippableLinear ラッパ — 実体 nn.Linear は内側 `.linear`。
-    # ラッパ名 (q_proj) を渡すと unsupported になるので、内側 `.linear` だけを狙う。
-    # 標準アーキ (ラッパ無し) では .linear が無いので、その時は proj 名へ自動フォールバック。
-    proj = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
-    has_clippable = any(type(m).__name__ == "Gemma4ClippableLinear"
-                        for m in model.modules())
-    targets = [p + ".linear" for p in proj] if has_clippable else proj
+    # CPT は decoder の全 linear に薄く LoRA を当てる。
+    # CRITICAL (Gemma4): vision_tower の proj は Gemma4ClippableLinear、language_model の proj は
+    # 素の nn.Linear。テキスト loss の勾配は language_model にしか流れないので、ターゲットは
+    # language_model の decoder linear に **スコープ** する (regex)。vision tower を狙うと
+    # lora_B がゼロのまま (no-op) になる — 実際に踏んだ罠。
+    import re as _re
+    has_lm = any("language_model" in n for n, _ in model.named_modules())
+    proj = "q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj"
+    if has_lm:
+        targets = _re.compile(rf".*language_model\.layers\.\d+\.(self_attn|mlp)\.({proj})$")
+    else:
+        targets = proj.split("|")
     lora = LoraConfig(
         r=args.lora_r, lora_alpha=args.lora_r * 2, lora_dropout=0.05,
         target_modules=targets,
@@ -100,6 +107,14 @@ def main() -> int:
         model=model, args=targs, train_dataset=ds,
         data_collator=DataCollatorForLanguageModeling(tok, mlm=False))
     trainer.train()
+
+    # no-op ガード: lora_B が全てゼロなら勾配が流れていない (silent no-op を二度と通さない)
+    nz_b = sum(float(p.detach().abs().sum()) for n, p in model.named_parameters()
+               if "lora_B" in n)
+    if nz_b == 0.0:
+        raise RuntimeError("lora_B all-zero — gradients never reached the adapter "
+                           "(no-op). Check gradient_checkpointing use_reentrant=False.")
+    print(f"lora_B nonzero mass: {nz_b:.4f} — adapter learned")
 
     if not args.smoke:
         model.save_pretrained(args.out)
