@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 44 (:pl/:at/:ch family) ─────────────────────────────────────────────
+ {:notice/id "ntc:pl-rozwod" :notice/label "PL pozew o rozwód (家事)"
+  :notice/jurisdiction :pl
+  :notice/channel :mail :notice/claim-amount 0 :notice/claim-currency "PLN"
+  :notice/sourcing :synthetic
+  :notice/text "Doręczenie pozew o rozwód wniesionego przez małżonka."}
+
+ {:notice/id "ntc:at-scheidung" :notice/label "AT Scheidungsklage (家事)"
+  :notice/jurisdiction :at
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Zustellung der Scheidungsklage Ihres Ehegatten."}
+
+ {:notice/id "ntc:ch-scheidung" :notice/label "CH Scheidungsklage (家事)"
+  :notice/jurisdiction :ch
+  :notice/channel :formal-service :notice/claim-amount 0 :notice/claim-currency "CHF"
+  :notice/sourcing :synthetic
+  :notice/text "Zustellung der Scheidungsklage; Frist zur Klageantwort gemäss Verfügung."}
+
  ;; ── wave 42 (Nordic insolvency) ──────────────────────────────────────────────
  {:notice/id "ntc:se-konkurs" :notice/label "SE konkursbeslut (債権者宛)"
   :notice/jurisdiction :se

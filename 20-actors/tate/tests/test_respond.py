@@ -1119,6 +1119,21 @@ def test_wave42_nordic_insolvency():
     assert no["channel"] == ":email"  # bostyrer の declared digital
 
 
+def test_wave44_pl_at_ch_family():
+    """Wave 44: family 16 juris — 低負担ルートの開示が軸: :at §55a einvernehmlich ·
+    :ch gemeinsames Begehren (一方的 Klage は **2年別居要件** ZGB 114) ·
+    :pl mediacja; kokoro auto."""
+    ps, _ = _by_id()
+    pl = ps["ntc:pl-rozwod"]
+    assert pl["status"] == ":genuine" and pl["proc"] == "proc:pl-rozwod"
+    at = ps["ntc:at-scheidung"]
+    assert at["status"] == ":genuine" and at["proc"] == "proc:at-scheidung"
+    assert any("§55a" in d["rule"] for d in at["deadlines"])
+    ch = ps["ntc:ch-scheidung"]
+    assert ch["status"] == ":genuine" and ch["proc"] == "proc:ch-scheidung"
+    assert any("2年の別居" in d["rule"] for d in ch["deadlines"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

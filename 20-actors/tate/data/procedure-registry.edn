@@ -1281,6 +1281,21 @@
   :proc/verify-current-law true}
 
  ;; ── :at ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:at-scheidung" :proc/label "Scheidungsklage (家事・オーストリア)"
+  :proc/jurisdiction :at :proc/track :family
+  :proc/trigger-keywords ["Scheidungsklage"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Klagebeantwortung / 期日"
+    :dl/rule "Bezirksgericht の指定に従い応答・出頭 — **einvernehmliche Scheidung (§55a EheG, 半年別居+合意) への転換が最も低負担**; 争訟型は Verschulden が財産・扶養に影響"
+    :dl/anchor "EheG §49・§55a / ZPO" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :einvernehmlich :opt/kind :self-decide :opt/protective true
+    :opt/label "合意できるなら §55a 転換 (両者で申立て — 弁護士なしも可)"}
+   {:opt/id :beantwortung :opt/kind :self-submit :opt/label "Klagebeantwortung (Verfahrenshilfe 可)"}]
+  :proc/refer-when ["Familienberatung (無料) / Rechtsanwalt" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:at-kuendigung" :proc/label "Kündigung (解雇・労働・オーストリア)"
   :proc/jurisdiction :at :proc/track :labor
   :proc/trigger-keywords ["Kündigung Ihres Dienstverhältnisses" "Dienstverhältnis"]
@@ -1715,6 +1730,21 @@
   :proc/verify-current-law true}
 
  ;; ── :ch ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:ch-scheidung" :proc/label "Scheidungsklage (家事・スイス)"
+  :proc/jurisdiction :ch :proc/track :family
+  :proc/trigger-keywords ["Scheidungsklage" "Scheidungsbegehren"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "応答 / 別居要件"
+    :dl/rule "一方的 Scheidungsklage は**2年の別居 (Getrenntleben) が要件** (ZGB 114) — 満たさない訴えには異議可; gemeinsames Begehren (共同申立て ZGB 111) なら要件不要で低負担"
+    :dl/anchor "ZGB 111・114" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :gemeinsam :opt/kind :self-decide :opt/protective true
+    :opt/label "合意できるなら gemeinsames Begehren へ転換 (本人可・最速)"}
+   {:opt/id :antwort :opt/kind :self-submit :opt/label "Klageantwort (unentgeltliche Rechtspflege 可)"}]
+  :proc/refer-when ["Paar-/Familienberatung" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:ch-arbeitskuendigung" :proc/label "Kündigung des Arbeitsverhältnisses (解雇・労働・スイス)"
   :proc/jurisdiction :ch :proc/track :labor
   :proc/trigger-keywords ["Kündigung des Arbeitsverhältnisses" "Arbeitsverhältnis"]
@@ -1880,6 +1910,21 @@
     :opt/label "kwota wolna が残っているか給与明細で確認 (誤りは komornik へ skarga)"}
    {:opt/id :skarga :opt/kind :self-submit :opt/label "komornik の行為への skarga (1週間)"}]
   :proc/refer-when ["upadłość konsumencka (消費者破産) の検討"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:pl-rozwod" :proc/label "Pozew o rozwód (家事・ポーランド)"
+  :proc/jurisdiction :pl :proc/track :family
+  :proc/trigger-keywords ["pozew o rozwód"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Odpowiedź na pozew"
+    :dl/rule "sąd okręgowy 指定の期限内に odpowiedź na pozew — 無応答でも審理は進む (rozwód は職権調査事項あり); mediacja への付託を求められる"
+    :dl/anchor "KPC art. 2051・436" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :odpowiedz :opt/kind :self-submit :opt/protective true
+    :opt/label "odpowiedź na pozew を期限内に (本人可 — 子・住居・winy の争点を整理)"}
+   {:opt/id :mediacja :opt/kind :self-decide :opt/label "mediacja の合意 (費用・期間とも最小)"}]
+  :proc/refer-when ["nieodpłatna pomoc prawna / adwokat" "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:pl-eksmisja" :proc/label "Eksmisja / opróżnienie lokalu (住居・ポーランド)"

@@ -1,6 +1,6 @@
 {
  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
- "count": 129,
+ "count": 132,
  "cases": [
   {
    "slug": "tate-shiharai-tokusoku",
@@ -549,6 +549,13 @@
    "track": ":family"
   },
   {
+   "slug": "tate-at-scheidung",
+   "did": "did:web:etzhayyim.com:actor:tate-at-scheidung",
+   "label": "Scheidungsklage (家事・オーストリア)",
+   "jurisdiction": ":at",
+   "track": ":family"
+  },
+  {
    "slug": "tate-at-kuendigung",
    "did": "did:web:etzhayyim.com:actor:tate-at-kuendigung",
    "label": "Kündigung (解雇・労働・オーストリア)",
@@ -745,6 +752,13 @@
    "track": ":civil"
   },
   {
+   "slug": "tate-ch-scheidung",
+   "did": "did:web:etzhayyim.com:actor:tate-ch-scheidung",
+   "label": "Scheidungsklage (家事・スイス)",
+   "jurisdiction": ":ch",
+   "track": ":family"
+  },
+  {
    "slug": "tate-ch-arbeitskuendigung",
    "did": "did:web:etzhayyim.com:actor:tate-ch-arbeitskuendigung",
    "label": "Kündigung des Arbeitsverhältnisses (解雇・労働・スイス)",
@@ -813,6 +827,13 @@
    "label": "Zajęcie wynagrodzenia (賃金差押え・執行・ポーランド)",
    "jurisdiction": ":pl",
    "track": ":enforcement"
+  },
+  {
+   "slug": "tate-pl-rozwod",
+   "did": "did:web:etzhayyim.com:actor:tate-pl-rozwod",
+   "label": "Pozew o rozwód (家事・ポーランド)",
+   "jurisdiction": ":pl",
+   "track": ":family"
   },
   {
    "slug": "tate-pl-eksmisja",

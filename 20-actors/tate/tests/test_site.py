@@ -24,7 +24,7 @@ _PAGES = generate(_TMP, base="https://example.test/tate")
 
 def test_one_page_per_jurisdiction():
     juris = load_jurisdictions()
-    assert len(_PAGES) == len(juris) + 1  # + index
+    assert len(_PAGES) == len(juris) + 1 + 5  # + index + 5 track pages
     for jid in juris:
         assert (_TMP / f"{jid.lstrip(':')}.html").exists(), jid
 
@@ -68,6 +68,13 @@ def test_native_keywords_in_titles():
     for page, kw in checks.items():
         head = (_TMP / page).read_text(encoding="utf-8").split("</head>")[0].casefold()
         assert kw.casefold() in head, (page, kw)
+
+
+def test_track_pages():
+    """Wave 44: 分野別ランディング — 管轄×期限の比較表 (labor は29管轄行)."""
+    tp = (_TMP / "track-labor.html").read_text(encoding="utf-8")
+    assert "解雇・労働" in tp and tp.count("<tr>") >= 29
+    assert "⚠" in tp and "🛡" in tp
 
 
 def test_deploy_copy_in_sync():

@@ -118,6 +118,37 @@ def juris_page(jid: str, juris: dict, procs: list, patterns: list, base: str) ->
                  f"{base}/{jid.lstrip(':')}.html", jsonld)
 
 
+TRACK_LABELS = {":labor": "解雇・労働", ":housing": "立退き・賃貸借", ":enforcement": "差押え・強制執行",
+                ":insolvency": "取引先の倒産 (債権者側)", ":family": "離婚・家事"}
+
+
+def track_page(track: str, juris: dict, procs: list, base: str) -> str:
+    label = TRACK_LABELS[track]
+    my = [p for p in procs if p.get(":proc/track") == track]
+    B = [f"<h1>{html.escape(label)} — 管轄×期限の比較表</h1>",
+         f"<p>{len(my)}管轄の応答期限と防御の一手を1ページで比較 (詳細・DL は各法域ページ/case actor へ)。</p>",
+         "<table><tr><th>管轄</th><th>手続き</th><th>主要期限 (⚠=失権)</th><th>守る一手 🛡</th></tr>"]
+    for p in my:
+        jid = p.get(":proc/jurisdiction", ":jp")
+        jl = juris[jid][":juris/label"]
+        dls = p.get(":proc/deadline-rules", [])
+        d0 = dls[0] if dls else None
+        crit = "⚠ " if (d0 and d0.get(":dl/critical")) else ""
+        rule = html.escape((d0[":dl/rule"][:80] + "…") if d0 and len(d0[":dl/rule"]) > 80
+                           else (d0[":dl/rule"] if d0 else "—"))
+        prot = next((o[":opt/label"] for o in p.get(":proc/options", [])
+                     if o.get(":opt/protective")), "—")
+        prot = html.escape(prot[:60] + ("…" if len(prot) > 60 else ""))
+        B.append(f'<tr><td><a href="{base}/{jid.lstrip(":")}.html">{html.escape(jl)}</a></td>'
+                 f"<td>{html.escape(p[':proc/label'])}</td>"
+                 f"<td>{crit}{rule}</td><td>🛡 {prot}</td></tr>")
+    B.append("</table>")
+    B.append(f'<p><a href="{base}/index.html">← 全法域一覧</a></p>')
+    return _page(f"{label} — 世界{len(my)}管轄の期限比較 | tate 盾",
+                 f"{label}: 各国の応答期限・失権期限・member を守る一手の比較表 (非裁定の法情報)",
+                 "\n".join(B), f"{base}/track-{track.lstrip(':')}.html")
+
+
 def index_page(juris: dict, cov: dict, base: str) -> str:
     B = ["<h1>tate 盾 — 世界の法的通知 応答ガイド (非裁定)</h1>",
          f"<p>{cov['covered_count']}法域 + 米国全{cov['us_states_total']}州を収載。"
@@ -153,6 +184,10 @@ def generate(outdir: pathlib.Path, base: str = BASE_DEFAULT) -> list:
     for jid, j in juris.items():
         name = f"{jid.lstrip(':')}.html"
         (outdir / name).write_text(juris_page(jid, j, procs, patterns, base), encoding="utf-8")
+        pages.append(name)
+    for tk in TRACK_LABELS:
+        name = f"track-{tk.lstrip(':')}.html"
+        (outdir / name).write_text(track_page(tk, juris, procs, base), encoding="utf-8")
         pages.append(name)
     (outdir / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
