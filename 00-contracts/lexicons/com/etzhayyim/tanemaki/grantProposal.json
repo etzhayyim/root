@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tanemaki.grantProposal",
+  "description": "An UNSENT, structurally-ADVISORY Public Fund grant proposal drafted by tanemaki 種蒔き (per ADR-2606122001) feeding the GrantGovernor propose() lane (ADR-2605192145). The record binds nothing: `advisory` MUST be true, `bindsFund` MUST be false, and the decision authority is ALWAYS 1 SBT = 1 vote behind the timelock — tanemaki holds no key and no vote weight (no-server-key, ADR-2605231525). The instrument set is GIVE-ONLY (grant / milestone-escrow / in-kind): equity, debt, convertible, revenue-share, carry and every investment-return shape are structurally unrepresentable (G2, mirrors fuchi ADR-2606052300 G1) — the Public Fund gives, it never invests. tanemaki REFUSES to draft a proposal for a screen-conflicting or under-evidenced org (G1/G5); created `drafted-unsent`, on-chain submission is a G7-gated member/operator step.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["orgId", "instrument", "amountUsdcMicros", "scorecardCid", "advisory", "bindsFund", "decidedBy", "status", "createdAt"],
+        "properties": {
+          "orgId": {
+            "type": "string",
+            "description": "The candidate org this proposal would fund (tanemaki `org.*` id; live legs carry the resolvable entity id).",
+            "maxLength": 256
+          },
+          "orgSynthetic": {
+            "type": "boolean",
+            "description": "true = a FICTIONAL seed org (G6). Submitting a proposal for a real org requires the G7 gate."
+          },
+          "instrument": {
+            "type": "string",
+            "description": "GIVE-ONLY disbursement rail (G2). Investment instruments do not exist in this vocabulary.",
+            "enum": ["grant", "milestone-escrow", "in-kind"]
+          },
+          "amountUsdcMicros": {
+            "type": "integer",
+            "description": "Proposed disbursement in USDC micro-units (0 for in-kind). Disbursed ONLY by the Public Fund Safe after the vote + timelock — never by tanemaki.",
+            "minimum": 0
+          },
+          "milestones": {
+            "type": "array",
+            "description": "For milestone-escrow: the attestation-gated milestone ids (`ms.*`). Each tranche unlocks on Council Lv6+ attestation of the published evidence (ADR-2605192145 §4).",
+            "items": { "type": "string", "maxLength": 128 }
+          },
+          "justification": {
+            "type": "string",
+            "description": "Free-text rationale. Scanned: investment-return language (equity/出資/配当/ROI/exit/…) is rejected at draft time (G2).",
+            "maxLength": 4096
+          },
+          "scorecardCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CIDv1 (raw/sha2-256) of the public DD scorecard the voters see — the advisory basis of the proposal, content-verifiable (G4)."
+          },
+          "ddFit": {
+            "type": "string",
+            "description": "The advisory rubric fit at draft time (decimal string).",
+            "maxLength": 32
+          },
+          "advisory": {
+            "type": "boolean",
+            "description": "MUST be true. tanemaki evaluates and drafts; it never decides (G1)."
+          },
+          "bindsFund": {
+            "type": "boolean",
+            "description": "MUST be false. Only the 1-SBT-1-vote outcome + timelock moves funds; this record binds nothing (G1, no-server-key)."
+          },
+          "decidedBy": {
+            "type": "string",
+            "description": "The sole decision authority (GrantGovernor, ADR-2605192145).",
+            "enum": ["1-sbt-1-vote"]
+          },
+          "status": {
+            "type": "string",
+            "description": "Lifecycle. Created `drafted-unsent`; `submitted` and beyond are G7-gated member/operator steps on the GrantGovernor.",
+            "enum": ["drafted-unsent", "submitted", "voting", "approved", "rejected", "withdrawn"]
+          },
+          "proposerDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the member/operator who will submit (the on-chain proposer — anyone may propose per ADR-2605192145). tanemaki itself never submits."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 timestamp."
+          }
+        }
+      }
+    }
+  }
+}
