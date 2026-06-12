@@ -15333,6 +15333,23 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606122300-session-close-tate-kaiyaku-45-wave-loop",
+      "type": "TechArticle",
+      "title": "ADR-2606122300: session close — tate 盾/kaiyaku 解約 45-wave coverage loop (publication layer 完成)",
+      "status": "active",
+      "topic": "tate-kaiyaku-session-close",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tate-kaiyaku-session-close"
+      ],
+      "related": [
+        "doc:adr-2606112200",
+        "doc:adr-2606112300",
+        "doc:adr-2606112400"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

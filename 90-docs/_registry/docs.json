@@ -24157,6 +24157,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606122300-session-close-tate-kaiyaku-45-wave-loop.md",
+      "id": "adr-2606122300-session-close-tate-kaiyaku-45-wave-loop",
+      "title": "ADR-2606122300: session close — tate 盾/kaiyaku 解約 45-wave coverage loop (publication layer 完成)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "tate-kaiyaku-session-close",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-kaiyaku-session-close"
+      ],
+      "related": [
+        "adr-2606112200",
+        "adr-2606112300",
+        "adr-2606112400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606122000"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
