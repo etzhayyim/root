@@ -109,18 +109,33 @@
 (defn load-graph
   "Return {:nodes nodes-by-id :edges edges} from a parsed list of EDN forms.
   (`load` is a clojure.core fn — named load-graph; the host edge reads the file.)
-  Insertion order of nodes is preserved (ordered map) to match Python dict order."
+  Node first-touch insertion order is tracked in the nodes map's ::node-order metadata
+  (a vector of ids) so `node-ids` can replay Python's `for nid in nodes` dict order even
+  past 8 keys (where array-map promotes to an unordered hash-map)."
   [forms]
   (reduce
    (fn [{:keys [nodes edges] :as acc} f]
      (cond
        (not (map? f)) acc
-       (contains? f ":organism/id") (assoc-in acc [:nodes (get f ":organism/id")] f)
+       (contains? f ":organism/id")
+       (let [id (get f ":organism/id")
+             had? (contains? nodes id)
+             nodes' (assoc nodes id f)]
+         (assoc acc :nodes
+                (if had?
+                  (with-meta nodes' (meta nodes))
+                  (vary-meta nodes' update ::node-order (fnil conj []) id))))
        (and (contains? f ":en/from") (contains? f ":en/to"))
        (update acc :edges conj f)
        :else acc))
-   {:nodes (array-map) :edges []}
+   {:nodes (with-meta (array-map) {::node-order []}) :edges []}
    forms))
+
+(defn node-ids
+  "Node ids in first-touch insertion order (Python `for nid in nodes` dict order).
+  Falls back to (keys nodes) if no ::node-order metadata is present."
+  [nodes]
+  (or (::node-order (meta nodes)) (keys nodes)))
 
 #?(:clj
    (defn load-file*

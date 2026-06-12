@@ -112,18 +112,34 @@
 (defn load-graph
   "Return {:nodes nodes-by-id :edges edges} from a parsed list of EDN forms.
   (`load` is a clojure.core fn — named load-graph; the host edge reads the file.)
-  Insertion order of nodes is preserved (ordered map) to match Python dict order."
+  Insertion order of nodes is preserved to match Python dict iteration order: the nodes map
+  carries ::node-order metadata = a vector of node ids in first-touch order (an array-map
+  only preserves order ≤8 keys, and there are >8 nodes, so the order is tracked explicitly —
+  see `node-ids`). Datom emit iterates nodes in this order to stay byte-identical to Python."
   [forms]
   (reduce
    (fn [{:keys [nodes edges] :as acc} f]
      (cond
        (not (map? f)) acc
-       (contains? f ":organism/id") (assoc-in acc [:nodes (get f ":organism/id")] f)
+       (contains? f ":organism/id")
+       (let [nid (get f ":organism/id")
+             had? (contains? nodes nid)
+             nodes' (assoc nodes nid f)]
+         (assoc acc :nodes
+                (if had?
+                  (with-meta nodes' (meta nodes))
+                  (vary-meta nodes' update ::node-order (fnil conj []) nid))))
        (and (contains? f ":en/from") (contains? f ":en/to"))
        (update acc :edges conj f)
        :else acc))
-   {:nodes (array-map) :edges []}
+   {:nodes (with-meta {} {::node-order []}) :edges []}
    forms))
+
+(defn node-ids
+  "Node ids of a loaded nodes map in first-touch insertion order (mirrors Python dict order).
+  Falls back to (keys nodes) if no ::node-order metadata is present."
+  [nodes]
+  (or (::node-order (meta nodes)) (keys nodes)))
 
 #?(:clj
    (defn load-file*
