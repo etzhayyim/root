@@ -16,9 +16,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreignucug2zlykpiz63ul36h3yqsp5attnkfm5qafphebpfeyclckxm",
-      "bodySha256": "0xcda0a86d657853d19f6e8bdf8fbc424fe82736a8acec00579c817949812c4abb",
-      "bytes": 2683,
+      "bodyCid": "bafkreie3q6g2awrmvqcrlbvk77rikkaagpgtuagfqthnguytq7s3vghmyy",
+      "bodySha256": "0x9b878da05a2cac051586aaffe285280033cd3a00c584ced3531387e5ba98ecc6",
+      "bytes": 2855,
       "clauseCount": 3,
       "statutes": [
         {
@@ -88,6 +88,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -147,9 +159,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreialirircc67veergogz2u2ygqywjemotcjd7vwze7hrmlt2q4teju",
-      "bodySha256": "0x0b4451110bdfa9091338d9d5358343164918e98923fd6d927cf162e7a872644d",
-      "bytes": 3828,
+      "bodyCid": "bafkreib6p43pgzpf6swxxla6lsgwnmoltu7rmwiq5xst2pjbyraex2osjy",
+      "bodySha256": "0x3e7f36f365e5f4ad7bac1e5c8d66b1cb9d3f165910ede53d3d21c4404be9d24e",
+      "bytes": 4000,
       "clauseCount": 7,
       "statutes": [
         {
@@ -303,6 +315,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -362,9 +386,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreiekqkig6bv4bkigydsh3z5chlzqwdggpbya64zluqvcrlmcningom",
-      "bodySha256": "0x8a82906f06bc0a906c0e47de7a23af30b0cc678700f732ba42a28ad826a1a673",
-      "bytes": 3170,
+      "bodyCid": "bafkreif3zad6mrjwgprpllesaju6xt4lj6r62gg2joiptehnf6cvgrh32q",
+      "bodySha256": "0xbbc807e6453633e2f5ac920269ebcf8b4fa3ed18da4b90f990ed2f855344fbd4",
+      "bytes": 3342,
       "clauseCount": 4,
       "statutes": [
         {
@@ -476,6 +500,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -535,9 +571,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiaq4ceh7f5waner4ozz54ntjpral3g6wcbskifai5xgic6rvcvdfy",
-      "bodySha256": "0x10e0887f97b603491e3b39ef1b34be205ecdeb0832520a0476e640bd1a8aa32e",
-      "bytes": 4855,
+      "bodyCid": "bafkreihntgpxonbming2pmlihmkvj526667jtn3ntklxsabfu3mcenxixa",
+      "bodySha256": "0xed999f77342c434da7b1683b1554f75ef7be99b76d9a97790025a6d82236e8b8",
+      "bytes": 5086,
       "clauseCount": 9,
       "statutes": [
         {
@@ -691,6 +727,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -769,6 +817,12 @@
           "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
         },
         {
+          "id": "st.ch-or-1",
+          "citation": "OR Art. 1",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -810,9 +864,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreid2csmybc627yjtdt5kmrfnlwvvgzhpdjig5ohhe2dqwwyofqcfha",
-      "bodySha256": "0x7a1499808bdafe1331cfaa644ad5dab5364ef1a506eb8e726870b5b0e2c04538",
-      "bytes": 3016,
+      "bodyCid": "bafkreict4kg3mrivuouo76mqk5xu5lcydutwzsvrf5xejmpxvudhz6sd5q",
+      "bodySha256": "0x53e28db64515a3a8eff990576f4eac581d276ccab12f6e44b1f7ad067cfa43ec",
+      "bytes": 3188,
       "clauseCount": 3,
       "statutes": [
         {
@@ -906,6 +960,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -965,9 +1031,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreidnx2vk3hn4neswyt7voidq7aeg5tiecdcsqj33jyrm7gilsen2fm",
-      "bodySha256": "0x6dbeaaad9dbc69256c4ff572070f8086ecd0410c528277b4e22cf990b911ba2b",
-      "bytes": 2752,
+      "bodyCid": "bafkreidgi6xzpb3blzvgwyxltihtpv4u7pt55wotuzsauhgxge5hr7dqoa",
+      "bodySha256": "0x6647af9787615e6a6b62eb9a0f37d794fbe7ded9d3a6640a1cd7313a78fc7070",
+      "bytes": 2924,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1043,6 +1109,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -1102,9 +1180,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreihkt6qg2v3y77ienvv6fqnsheedfsoenbsp7fjgyl5aktb6sqtaim",
-      "bodySha256": "0xea9fa06d5778ffd046d6be2c1b2390832c9c46864ff9526c2fa054c3e9426043",
-      "bytes": 3682,
+      "bodyCid": "bafkreiej37txu2z343tzlhpnxxsy4bcmqdn7b5bbwafmddz5pa2ddiag24",
+      "bodySha256": "0x89dfe77a6b3be6e7959dedbde58e044c80dbf0f421b00ac18f3d783431a006d7",
+      "bytes": 3913,
       "clauseCount": 6,
       "statutes": [
         {
@@ -1166,6 +1244,12 @@
           "citation": "Codice Civile, Art. 1325",
           "instrument": "Codice Civile (Italy)",
           "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
+          "id": "st.ch-or-1",
+          "citation": "OR Art. 1",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -1246,6 +1330,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -1305,9 +1401,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiahuxtbzk5tatg2mb4k4wgkjhrut3k7cnk6nqbhsjk7hizjanbhna",
-      "bodySha256": "0x07a5e61cabb304cda6078ae58ca49e349ed5f1355e6c0279255f3a3290342768",
-      "bytes": 2416,
+      "bodyCid": "bafkreihwnujuhurn5wk4xf4hz46y62ua5y5t4ng4tllihkc2kbjuqz5qsq",
+      "bodySha256": "0xf66d1343d22ded95cb9787cf3d8f6a80ee3b3e34dc9ad683a85a50534867b094",
+      "bytes": 2588,
       "clauseCount": 2,
       "statutes": [
         {
@@ -1363,6 +1459,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -1424,9 +1532,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreig4mcz6fd7g4zlwjnb3ttb7a2rajee3v5pufrey3p6r6ntlbokdzi",
-      "bodySha256": "0xdc60b3e28fe6e65764b43b9cc3f06a204909baf5f42c498dbfd1f366b0b943ca",
-      "bytes": 3631,
+      "bodyCid": "bafkreic6enly2japult55ibb3mfw4gdr5txghkks7otm4tb3nkjvvq3nva",
+      "bodySha256": "0x5e23578d240fa2e7dea021db0b6e1871ecee63a952fba6ce4c3b6a935ac36da8",
+      "bytes": 3877,
       "clauseCount": 5,
       "statutes": [
         {
@@ -1464,6 +1572,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.za-popia-23",
+          "citation": "POPIA, s.23",
+          "instrument": "Protection of Personal Information Act 2013 (South Africa)",
+          "url": "https://www.gov.za/documents/protection-personal-information-act"
         },
         {
           "id": "st.ng-ndpa-2023",
@@ -1560,6 +1674,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -1621,9 +1747,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreiep2rpsujcyf64pg6mjpkfupuyonhk274u5eh5pk7a3ivw4djrzoe",
-      "bodySha256": "0x8fd45f2a24582fb8f379897a8b47d30e69d5aff29d21faf57c1b456dc1a63971",
-      "bytes": 3587,
+      "bodyCid": "bafkreiej4uphbsnuioljucdwpkhdizib2wze23a363kalhgjzeq3gvjixa",
+      "bodySha256": "0x89e51e70c9b443969a08767a8e346501d5b24d6c1bf6d4059cc9c921b35528b8",
+      "bytes": 3833,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1661,6 +1787,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.za-popia-23",
+          "citation": "POPIA, s.23",
+          "instrument": "Protection of Personal Information Act 2013 (South Africa)",
+          "url": "https://www.gov.za/documents/protection-personal-information-act"
         },
         {
           "id": "st.ng-ndpa-2023",
@@ -1757,6 +1889,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -1818,9 +1962,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreihpmsnlausr7ngtoy5ml5sglh4zpyfjjptdvovwyxe7mmej555ztq",
-      "bodySha256": "0xef649ab05251fb4d3763ac5f64659f997e0a94be63abab6c5c9f63089ef7b99c",
-      "bytes": 3591,
+      "bodyCid": "bafkreiaas7hbna56zekrgfdqj5leggkziiuhxhotvc4pxhz3clvuseavsy",
+      "bodySha256": "0x0097ce1683bec9151314704f5643195942287b9dd3a8b8fb9f3b12eb49101596",
+      "bytes": 3837,
       "clauseCount": 4,
       "statutes": [
         {
@@ -1858,6 +2002,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.za-popia-23",
+          "citation": "POPIA, s.23",
+          "instrument": "Protection of Personal Information Act 2013 (South Africa)",
+          "url": "https://www.gov.za/documents/protection-personal-information-act"
         },
         {
           "id": "st.ng-ndpa-2023",
@@ -1956,6 +2106,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -2015,9 +2177,9 @@
       "jurisdictions": [
         "EU"
       ],
-      "bodyCid": "bafkreidqnhjbuaswzz6nkrjjwsmwb5owotiak7nqa5aapndtz67hvzn6fy",
-      "bodySha256": "0x7069d21a0256ce7cd54529b49960f5d674d0057db0074007b473cfbe7ae5be2e",
-      "bytes": 3824,
+      "bodyCid": "bafkreibsbi6fahh22su75cjlkyzkzkdo5xkartnd4qeirkvmgcpueqwony",
+      "bodySha256": "0x320a3c501cfad4a9fe892b5632aca86eedd408cda3e40888aaac309f4242ce6e",
+      "bytes": 4070,
       "clauseCount": 5,
       "statutes": [
         {
@@ -2055,6 +2217,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.za-popia-23",
+          "citation": "POPIA, s.23",
+          "instrument": "Protection of Personal Information Act 2013 (South Africa)",
+          "url": "https://www.gov.za/documents/protection-personal-information-act"
         },
         {
           "id": "st.ng-ndpa-2023",
@@ -2159,6 +2327,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -2218,9 +2398,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreibmdk7ukt2fnydkzkenc34e2kxvfuznkmwk2ve6atw6qdmpcghrgi",
-      "bodySha256": "0x2c1abf454f456e06aca88d16f84d2af52d32d532cad549e04ede80d8f118f132",
-      "bytes": 3026,
+      "bodyCid": "bafkreidr55rks2zl7uiudfvjm664h7w2yytymfnm3axguqtij6cqaynf4i",
+      "bodySha256": "0x71ef62a96b2bfd114196a967bdc3fedac6278615acd82e6a42684f850061a5e2",
+      "bytes": 3328,
       "clauseCount": 2,
       "statutes": [
         {
@@ -2252,6 +2432,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -2332,6 +2524,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -2391,9 +2595,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreierhbqhf7i2plodkj2cjherqvn5tpvkvsamduwqbh755adbzoqmz4",
-      "bodySha256": "0x91386072fd1a7adc35274249c91855bd9beaaac80c1d2d009ffde8061cba0ccf",
-      "bytes": 5251,
+      "bodyCid": "bafkreihgzm2vblklijhbxlab5vong6qsedsjd33x63mdy3fpc3aekjoj54",
+      "bodySha256": "0xe6cb3550ad4b424e1bac01ed5cd37a1220e491ef77f6d83c6caf16c04525c9ef",
+      "bytes": 5612,
       "clauseCount": 7,
       "statutes": [
         {
@@ -2425,6 +2629,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -2583,6 +2799,12 @@
           "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
         },
         {
+          "id": "st.ch-or-1",
+          "citation": "OR Art. 1",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -2661,6 +2883,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -2720,9 +2954,9 @@
       "jurisdictions": [
         "ES"
       ],
-      "bodyCid": "bafkreidehj55uepoi36gh3xu5lvevwzddn4xt7yqbbesp34lhlad3b3lxa",
-      "bodySha256": "0x643a7bda11ee46fc63eef4eaea4adb231b7979ff10084927ef8b3ac03d876bb8",
-      "bytes": 3261,
+      "bodyCid": "bafkreifvykdgwpfimvyf3drfzra54djzw5zm7igfdy46qer7lqj5lf4s4e",
+      "bodySha256": "0xb5c2866b3ca865705d8e25cc41de0d39b772cfa0c51e39e8123f5c13d59792e1",
+      "bytes": 3563,
       "clauseCount": 3,
       "statutes": [
         {
@@ -2754,6 +2988,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -2846,6 +3092,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -2905,9 +3163,9 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreigb2t3jcr6zhyeyvlwfyyzfoipoayknbamuaienqyvy7smetra2je",
-      "bodySha256": "0xc1d4f69147d93e098aaec5c6325721ee0614d081940208d862b8fc9849c41a49",
-      "bytes": 3814,
+      "bodyCid": "bafkreiee2kgnciz3brq6r7bfybcybuf6ebwc7qomzdn5vraqnqfh625hga",
+      "bodySha256": "0x84d28cd1233b0c61e8fc25c04580d0be206c2fc1ccc8dbdac4106c0a7f6ba730",
+      "bytes": 4116,
       "clauseCount": 3,
       "statutes": [
         {
@@ -2939,6 +3197,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -3085,6 +3355,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -3144,9 +3426,9 @@
       "jurisdictions": [
         "IN"
       ],
-      "bodyCid": "bafkreihdspngkpaz7rlysow4kipvn2ksqkuedm4nbdbntfqpwi75kafzvq",
-      "bodySha256": "0xe393da653c19fc57893adc521f56e95282a841b38d08c2d9960fb23fd500b9ac",
-      "bytes": 3050,
+      "bodyCid": "bafkreifsz24t3krdgp4sxt6ymrnnzwrvidul56ypldtzqh7aaouoen3zx4",
+      "bodySha256": "0xb2ceb93daa2333f92bcfd8645adcda3540e8befb0f58e7981fe003a8e23779bf",
+      "bytes": 3352,
       "clauseCount": 2,
       "statutes": [
         {
@@ -3178,6 +3460,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -3258,6 +3552,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -3317,9 +3623,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihmq3xfar7rr6azkay4l6hatjbx5jjt5ceeviuwlnp4epf47std6m",
-      "bodySha256": "0xec86ee5047f18f8195031c5f8e09a437ea533e8884aa2965b5fc23cbcfca63f3",
-      "bytes": 5145,
+      "bodyCid": "bafkreigxmbaulsqsa3gxnxhblt5mbi5zhtcc6zqf2f35ktjjkfevysevoa",
+      "bodySha256": "0xd7604145ca1206cd76dce15cfac0a3b93cc42f6605d177d54d2951495c489570",
+      "bytes": 5447,
       "clauseCount": 8,
       "statutes": [
         {
@@ -3449,6 +3755,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -3525,6 +3843,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -3634,9 +3964,9 @@
       "jurisdictions": [
         "IT"
       ],
-      "bodyCid": "bafkreifnhynvhfyfoa3udxx263wxyjxs4abcqp3h5jhpaer7pe5nupjjry",
-      "bodySha256": "0xad3e1b539705703741defaf6ed7c26f2e002283f67ea4ef0123f793ada3d298e",
-      "bytes": 3827,
+      "bodyCid": "bafkreibkvql7zg5bytjgdkwbtvzvdkhfeydil3zk7mp6vd6v6utqhskixm",
+      "bodySha256": "0x2aac17fc9ba1c4d261aac19d7351a8e5260685ef2afb1fea8fd5f52703c948bb",
+      "bytes": 4129,
       "clauseCount": 3,
       "statutes": [
         {
@@ -3668,6 +3998,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -3812,6 +4154,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -3873,9 +4227,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreifoqqeb6qs5ouhfsmxp3chpdnqdu6za43cqy45s4atmqhuwhj6yq4",
-      "bodySha256": "0xae84081f425d750e5932efd88ef1b603a7b20e6c50c73b2e026c81e963a7d887",
-      "bytes": 4040,
+      "bodyCid": "bafkreihgkbol2isfyukalnt46f5fscyri257ganowiva7qnwnq6pcfnn5u",
+      "bodySha256": "0xe6505cbd2245c51405b67cf17a590b1146bbf301aeb22a0fc1b66c3cf115aded",
+      "bytes": 4342,
       "clauseCount": 4,
       "statutes": [
         {
@@ -3907,6 +4261,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -4063,6 +4429,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -4124,9 +4502,9 @@
       "jurisdictions": [
         "KR"
       ],
-      "bodyCid": "bafkreihhhvhtkpjmace7ikzmwqvenxgxxf2layrbjjncczvw6ml6z3g4s4",
-      "bodySha256": "0xe73d4f353d2c0089f42b2cb42a46dcd7b974b062214a5a2166b6f317ececdc97",
-      "bytes": 3257,
+      "bodyCid": "bafkreif257blfmsuh4qi77jl6yhfg23h2fx7pgeflzpgdyvqzaxp5ag2nu",
+      "bodySha256": "0xbaefc2b2b2543f208ffd2bf60e536b67d16ff798855e5e61e2b0c82efe80da6d",
+      "bytes": 3559,
       "clauseCount": 3,
       "statutes": [
         {
@@ -4158,6 +4536,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -4250,6 +4640,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -4309,9 +4711,9 @@
       "jurisdictions": [
         "BR"
       ],
-      "bodyCid": "bafkreicfqajsrkl2ktj6vlotuexjtyqo4r5xvhza5twezu3hjcpprywxjy",
-      "bodySha256": "0x45801328a97a54d3eaadd3a12e99e20ee47b7a9f20ecec4cd367489ef8e2d74e",
-      "bytes": 3827,
+      "bodyCid": "bafkreidlvxkmwsw2y5giwlzqtw4mvcuh2iuw3c4acc4zmi7lcnmed2mjia",
+      "bodySha256": "0x6badd4cb4adac74c8b2f309db8ca8a87d2296d8b8010b99623eb135841e98940",
+      "bytes": 4129,
       "clauseCount": 3,
       "statutes": [
         {
@@ -4343,6 +4745,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -4489,6 +4903,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -4548,9 +4974,9 @@
       "jurisdictions": [
         "CN"
       ],
-      "bodyCid": "bafkreigfahogdo27uzhiuqdvpp7vyl5trx3gpvdp742f2gpo4bcdk5bab4",
-      "bodySha256": "0xc501dc61bb5fa64e8a40757bff5c2fb38df667d46fff345d19eee0443574200f",
-      "bytes": 3025,
+      "bodyCid": "bafkreibq4c573fsvedpnxyf64npofbwchad6phmzf5soton7y7fepmhuva",
+      "bodySha256": "0x30e0bbfd965520dedbe0bee35ee286c23807e79d992f64e9b9bfc7ca47b0f4a8",
+      "bytes": 3327,
       "clauseCount": 2,
       "statutes": [
         {
@@ -4582,6 +5008,18 @@
           "citation": "Federal Decree-Law 33/2021, Art. 8",
           "instrument": "UAE Labour Law (Federal Decree-Law No. 33 of 2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1538"
+        },
+        {
+          "id": "st.ch-or-319",
+          "citation": "OR Art. 319",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
+          "id": "st.za-bcea-29",
+          "citation": "BCEA, s.29",
+          "instrument": "Basic Conditions of Employment Act 1997 (South Africa)",
+          "url": "https://www.gov.za/documents/basic-conditions-employment-act"
         },
         {
           "id": "st.jp-rouki-15",
@@ -4662,6 +5100,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -4721,9 +5171,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibq3io5i2awguuzeme4vjs4vrtfrppbn2relu6hmh347zkrdzslri",
-      "bodySha256": "0x30da1dd46816352992309caa65cac6658bde16ea245d3c761f7cfe5511e64b8a",
-      "bytes": 2653,
+      "bodyCid": "bafkreicr7dgjvdysigdw2nu2gykdyfvaz5g6ag32h2eews25n4bnj3xr4u",
+      "bodySha256": "0x51f8cc9a8f1241876d369a36143c16a0cf4de01b7a3e884b4b5d6f02d4eef1e5",
+      "bytes": 2825,
       "clauseCount": 4,
       "statutes": [
         {
@@ -4793,6 +5243,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -4852,9 +5314,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiggoisj63eqsotdhav4s77ntrq4ombeaknhd7jzoq4rfnj5jigzxa",
-      "bodySha256": "0xc672249f6c9093a63382bc97fed9c61c73024029a71fd39743912b53d4a0d9b8",
-      "bytes": 3720,
+      "bodyCid": "bafkreidjeweyaim2c6ewwjrfzqmf4qpypzzo4yqhdhntkiz3jakicsn73m",
+      "bodySha256": "0x69258980219a17896b2625cc185e41f87e72ee620719db35233b48148149bfdb",
+      "bytes": 3892,
       "clauseCount": 7,
       "statutes": [
         {
@@ -4996,6 +5458,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -5055,9 +5529,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreidzyobfqjeux6wgrlgmt5nqoacsl57lnlngfogeaqw7rdo4g3xdoi",
-      "bodySha256": "0x79c382582494bfac68accc9f5b0700525f7eb6ada62b8c4042df88ddc36ee372",
-      "bytes": 3023,
+      "bodyCid": "bafkreiebgb6htg6gv5z2xkddcupsmjevd4zatyz6icorpsrzlgexte7k3e",
+      "bodySha256": "0x81307c799bc6af73aba863151f2624951f3209e33e409d17ca3959897993ead9",
+      "bytes": 3195,
       "clauseCount": 5,
       "statutes": [
         {
@@ -5151,6 +5625,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -5210,9 +5696,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreic6psaqeq52jfcwdejvspauuypsqxzbljl3qrqvouuwar6u7qggte",
-      "bodySha256": "0x5e7c810243ba494561913593c14a61f285f215a57b8461575296047d4fc0c699",
-      "bytes": 2731,
+      "bodyCid": "bafkreie6brin4yifa76ew36v3tkvmnfac356cdjtae4pbp7ocoth3lsqsy",
+      "bodySha256": "0x9e0c50de610507fc4b6fd5dcd55634a016fbe10d330138f0bfee13a67dae5096",
+      "bytes": 2903,
       "clauseCount": 3,
       "statutes": [
         {
@@ -5294,6 +5780,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -5353,9 +5851,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreifzwmokor23wjgdubfizmd76vj7rmhy3gqu52n4m5tomkhcvm62cq",
-      "bodySha256": "0xb9b31ca7475bb24c3a04a8cb07ff553f8b0f8d9a14ee9bc6766e628e2ab3da14",
-      "bytes": 3535,
+      "bodyCid": "bafkreiccqh2jyqwr6pegyxt7slrfxhj2nbllcqdjugimi2fvz5fyxcyteq",
+      "bodySha256": "0x4281f49c42d1f3c86c5e7f92e25b9d3a6856b14069a190c468b5cf4b8b8b1324",
+      "bytes": 3766,
       "clauseCount": 4,
       "statutes": [
         {
@@ -5405,6 +5903,12 @@
           "citation": "Codice Civile, Art. 1325",
           "instrument": "Codice Civile (Italy)",
           "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
+          "id": "st.ch-or-1",
+          "citation": "OR Art. 1",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -5485,6 +5989,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -5544,9 +6060,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreibhg2pikiquhub6yp4gnn47owdt2l24nxq5ztakdhsedtpsvgizki",
-      "bodySha256": "0x27369e8522143d03ec3f866b79f75873d2f5c6de1dccc0a19e441cdf2a991952",
-      "bytes": 3307,
+      "bodyCid": "bafkreigcinxovwiqwhejkvt2ypiykw2o7qfm34q26hs2iyvhx7tpq5la5m",
+      "bodySha256": "0xc2436eead910b1c895567ac3d1855b4efc0acdf21af1e5a462a7bfe6f87560eb",
+      "bytes": 3479,
       "clauseCount": 5,
       "statutes": [
         {
@@ -5658,6 +6174,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -5717,9 +6245,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreicdopmzdtue7azftfjyev3g3uzknsqzn3ubpbw5ah66nfklchebtu",
-      "bodySha256": "0x4373d991ce84f83259953825766dd32a6ca196ee81786dd01fde6954b11c819d",
-      "bytes": 3571,
+      "bodyCid": "bafkreid5pxsg7m6vtgxnwlohkjsgjri2uzcpf4cpulus37p6dcqlrjl42y",
+      "bodySha256": "0x7d7de46fb3d599aedb2dc7526464c51aa644f2f04fa2e92dfdfe18a0b8a57cd6",
+      "bytes": 3743,
       "clauseCount": 6,
       "statutes": [
         {
@@ -5855,6 +6383,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -5914,9 +6454,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreiey5l4eq3bwm2zfddz76eae7lh3nvpmh7cehiebbsq4qpnfhisk7y",
-      "bodySha256": "0x98eaf8486c3666b2518f3ff1004facfb6d5ec3fc443a0810ca1c83da53a24afe",
-      "bytes": 3399,
+      "bodyCid": "bafkreifukkmatrhwsh6gvfosp2n3qe2sjbx4bfz3gi5xt362eumtgwh2la",
+      "bodySha256": "0xb4529809c4f691fc6a95d27e9bb81352486fc0973b323b79efda25193358fa58",
+      "bytes": 3571,
       "clauseCount": 6,
       "statutes": [
         {
@@ -6040,6 +6580,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -6099,9 +6651,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreib5uj6zrlzldntk4keudbvq6qt2aluulptjf4vge5sv2bgbho3wwy",
-      "bodySha256": "0x3da27d98af2b1b66ae2894186b0f427a02e945be692f2a627655d04c13bb76b6",
-      "bytes": 2944,
+      "bodyCid": "bafkreifd3ugmlorxb4uwf5vaipmptqalmm3p5u2u5bv5zwdgoehvhuak6a",
+      "bodySha256": "0xa3dd0cc5ba370f2962f6a043d8f9c00b6336fed354e86bdcd866710f53d00af0",
+      "bytes": 3116,
       "clauseCount": 5,
       "statutes": [
         {
@@ -6189,6 +6741,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -6248,9 +6812,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreifu6tbsuifrqdey6ihgexdqsrx6kjgsmmktmdmcmoqb5b6hi2immm",
-      "bodySha256": "0xb4f4c32a20b180c98f20e625c70946fe524d26315360d8263a01e87c74690c63",
-      "bytes": 2838,
+      "bodyCid": "bafkreiervyys4npah5eiiydgp2gty2oeypz73cl642jdsf4conrh7wzdpm",
+      "bodySha256": "0x91ae312e35e03f488460667e8d3c69c4c3f3fd897ee69239178273627fdb237b",
+      "bytes": 3010,
       "clauseCount": 4,
       "statutes": [
         {
@@ -6332,6 +6896,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -6391,9 +6967,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreidzmuwws625lhm3ottbqil6rsih5kkj46tkypqqgszdak2iqfapoy",
-      "bodySha256": "0x79652d697b5d59d9b74e618217e8c907ea949e7a6ac3e1034b2302b488140f76",
-      "bytes": 3565,
+      "bodyCid": "bafkreiddi7eki7ifudihjgm5mjzfxxsjpk7o73udocj26sj4tjyu4tlbx4",
+      "bodySha256": "0x6347c8a47d05a0d074999d62725bde497abeefee837093af493c9a714e4d61bf",
+      "bytes": 3796,
       "clauseCount": 4,
       "statutes": [
         {
@@ -6467,6 +7043,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -6547,6 +7135,12 @@
           "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
         },
         {
+          "id": "st.ch-or-1",
+          "citation": "OR Art. 1",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -6588,9 +7182,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreig5qi77qteb7u7vs5mapx7toa3mknxakxi5tzqw2ozf7ogotgxk2q",
-      "bodySha256": "0xdd823ff84c81fd3f5975807dff37036c536e055d1d9e616d3b25fb8ce99aead4",
-      "bytes": 2725,
+      "bodyCid": "bafkreiepb2s6q6kwkeooyv4lm4p7xuxlpjdwz7a2hpeyelwmwmilkbc6ai",
+      "bodySha256": "0x8f0ea5e87956511cec578b671ffbd2eb7a476cfc1a3bc9822eccb310b5045e02",
+      "bytes": 2897,
       "clauseCount": 3,
       "statutes": [
         {
@@ -6666,6 +7260,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -6725,9 +7331,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreibxbey5ri7bendgna6maa3bqrsmeg4z3weizuiczc26qr3nv3pt3y",
-      "bodySha256": "0x370931d8a3e123466683cc003618464c21b99dd888cd102c8b5e8476daedf3de",
-      "bytes": 2579,
+      "bodyCid": "bafkreifpiei6znelxtyrulkhcdcgken5si5nlxmb22objtiquy3nafxaja",
+      "bodySha256": "0xaf4111ecb48bbcf11a2d4710c46511bd923ad5dd81d69c14cd10a636d016e048",
+      "bytes": 2751,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6795,6 +7401,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -6856,9 +7474,9 @@
       "jurisdictions": [
         "DE"
       ],
-      "bodyCid": "bafkreifousosslx6drfkymaa4ftjtrumw5rx4br6mxxlhbann2taqucu2e",
-      "bodySha256": "0xaea49d292efe1c4aac3000e16699c68cb7637e063e65eeb3840d6ea6085054d1",
-      "bytes": 2563,
+      "bodyCid": "bafkreicop2fjr67w7iw5bvhvksz4r7qymmhj4itottmiccanm435dnwctq",
+      "bodySha256": "0x4e7e8a98fbf6fa2dd0d4f554b3c8fe18630e9e226e9cd881080d6737d1b6c29c",
+      "bytes": 2735,
       "clauseCount": 2,
       "statutes": [
         {
@@ -6926,6 +7544,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -6987,9 +7617,9 @@
       "jurisdictions": [
         "ES"
       ],
-      "bodyCid": "bafkreiei6rgrqprfonhb5jggwhrxp2uwd6qiwc4l6wujxw7zham7sab44i",
-      "bodySha256": "0x88f44d183e25734e1ea4c6b1e377ea961fa08b0b8bf5a89bdbf93819f9003ce2",
-      "bytes": 2557,
+      "bodyCid": "bafkreihmxo5owa2nsy5d73v4tbqxp6dvzjlojsfbyyhji2p5x2s6swejnm",
+      "bodySha256": "0xecbbbaeb034d963a3feebc986177f875ca56e4c8a1c60e9469fdbea5e958896b",
+      "bytes": 2729,
       "clauseCount": 2,
       "statutes": [
         {
@@ -7057,6 +7687,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -7118,9 +7760,9 @@
       "jurisdictions": [
         "FR"
       ],
-      "bodyCid": "bafkreieuc4zbu2edx663hv6p2wlksroisxgottuuy6m5t2c5ln43pbewka",
-      "bodySha256": "0x9417321a6883bfbdb3d7cfd596a945c895cce9ce94c799d9e85d5b79b7849650",
-      "bytes": 2560,
+      "bodyCid": "bafkreicwce2r6rhyy2vf2azewcgzc3tjttafgknskupy3iahvd4loqk7tu",
+      "bodySha256": "0x5611351f44f8c6aa5d0324b08d916e699cc05329b2551f8da007a8f8b7415f9d",
+      "bytes": 2732,
       "clauseCount": 2,
       "statutes": [
         {
@@ -7188,6 +7830,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -7249,9 +7903,9 @@
       "jurisdictions": [
         "IN"
       ],
-      "bodyCid": "bafkreidx7uigkn466qozhorxk3qz3hys5ksxhtclgymtik7nf3dw3u532i",
-      "bodySha256": "0x77fd1065379ef41d93ba3756e19d9f12eaa573cc4b3619342bed2ec76dd3bbd2",
-      "bytes": 2595,
+      "bodyCid": "bafkreidyj6cgjucp3e7k6dtvshtbl7e2imqigx6enbzm4f5tdnutlafnua",
+      "bodySha256": "0x784f8464d04fd93eaf0e7591e615fc9a4320835fc46872ce17b31b693580ada0",
+      "bytes": 2767,
       "clauseCount": 2,
       "statutes": [
         {
@@ -7319,6 +7973,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -7380,9 +8046,9 @@
       "jurisdictions": [
         "ID"
       ],
-      "bodyCid": "bafkreiemiyxm76cqihl3k4g5jprc64poqxkactmhj2zcol2z5ydauddljm",
-      "bodySha256": "0x8c462ecff85041d7b570dd4be22f71ee85d4014d874eb2272f59ee060a0c6b4b",
-      "bytes": 2554,
+      "bodyCid": "bafkreicpnsj7yjjcubldur7djw4h6ionpgdb2mm2n5hqkm6etxvp4ieula",
+      "bodySha256": "0x4f6c93fc2522a0563a47e34db87f21cd79861d319a6f4f0533c49deafe209458",
+      "bytes": 2726,
       "clauseCount": 2,
       "statutes": [
         {
@@ -7450,6 +8116,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -7511,9 +8189,9 @@
       "jurisdictions": [
         "IT"
       ],
-      "bodyCid": "bafkreibjxraxkq7rz5zjdarz42mtmcostwbkp7azmbxgawk4fuxv4ak4ju",
-      "bodySha256": "0x29bc417543f1cf72918239e6993609d29d82a7fc19606e60595c2d2f5e015c4d",
-      "bytes": 2557,
+      "bodyCid": "bafkreicac4v74wmsk6o3acss77dch5lpuyvn3ojmuii76e2q7r2szqhkhq",
+      "bodySha256": "0x40172bfe5992579db00a52ffc623f56fa62addb92ca211ff1350fc752cc0ea3c",
+      "bytes": 2729,
       "clauseCount": 2,
       "statutes": [
         {
@@ -7581,6 +8259,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -7642,9 +8332,9 @@
       "jurisdictions": [
         "KR"
       ],
-      "bodyCid": "bafkreief5ahx2bpttjc7ucb7pwjvftugtb746zr4hje63dmv25xfsryojq",
-      "bodySha256": "0x85e80f7d05f39a45fa083f7d9352ce86987fcf663c3a49ed8d95d76e59470e4c",
-      "bytes": 2552,
+      "bodyCid": "bafkreihkhuzz7jhqtohgzprwdsihi7qk6zkf6j555dg2nhbesci5csas24",
+      "bodySha256": "0xea3d339fa4f09b8e6cbe361c90747e0af6545f27bde8cda69c249091d14812d7",
+      "bytes": 2724,
       "clauseCount": 2,
       "statutes": [
         {
@@ -7714,6 +8404,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -7773,9 +8475,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreifauwwhu625fee4svmwzcpxdefl3fdtidqprwxuowugsuq5gjypdy",
-      "bodySha256": "0xa0a5ac7a7b5d2909c95596c89f7190abd947340e0f8daf475a869521d3270f1e",
-      "bytes": 3349,
+      "bodyCid": "bafkreig4f44jpvxflv5rpe44ncx77gw7hj4q4pjmxrbwa7gmhmxyeusxva",
+      "bodySha256": "0xdc2f3897d6e55d7b17939c68afff9adf3a790e3d2cbc43607ccc3b2f825257a8",
+      "bytes": 3521,
       "clauseCount": 6,
       "statutes": [
         {
@@ -7881,6 +8583,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -7940,9 +8654,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreicc3p3lf437tvbjst2zfxhfhdux6scrcnd762yhroj7qibqt5cvtq",
-      "bodySha256": "0x42dbf6b2f37f9d42994f592dce538e97f48511347ff6b078b93f820309f4559c",
-      "bytes": 3104,
+      "bodyCid": "bafkreiar66qebwxwhiwuzhpqqr5k2kfevmacqyaqmc6ffkgtgculcnixka",
+      "bodySha256": "0x11f7a040daf63a2d4c9df0847aad28a4ab0028601060bc52a8d330a8b1351750",
+      "bytes": 3276,
       "clauseCount": 5,
       "statutes": [
         {
@@ -8036,6 +8750,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -8095,9 +8821,9 @@
       "jurisdictions": [
         "BR"
       ],
-      "bodyCid": "bafkreiaram6rnd7356mrb2oiv3jdcbocgkfrs2ka2lty72kqmgh56el244",
-      "bodySha256": "0x11033d168ffbef9910e9c8aed23105c2328b196940d2e78fe950618fdf117ae7",
-      "bytes": 2557,
+      "bodyCid": "bafkreihnzpy6ud7scs5sm2couupvx5mdbtgfjbsldopc23iodadhmfstae",
+      "bodySha256": "0xedcbf1ea0ff214bb26684ea51f5bf5830ccc54864b1b9e2d6d0e180676165301",
+      "bytes": 2729,
       "clauseCount": 2,
       "statutes": [
         {
@@ -8165,6 +8891,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -8226,9 +8964,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreieiizxwb3su2ca6tggokj2awlrchhuy5ga33jrcg4qrgnwm5422p4",
-      "bodySha256": "0x88466f60ee54d081e998ce52740b2e2239e98e981bda62237211336ccef35a7f",
-      "bytes": 2591,
+      "bodyCid": "bafkreihhal24vrfa3wajlwpyjouiwzosjcldddnr436uga4n6yduvqb55i",
+      "bodySha256": "0xe702f5cac4a0dd8095d9f84ba88b65d24896318db1e6fd43038df6074ac03dea",
+      "bytes": 2763,
       "clauseCount": 2,
       "statutes": [
         {
@@ -8296,6 +9034,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -8357,9 +9107,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicbiypfkbjy7rhsxfuyrf35w65vmbbj2gyqomq7bd5gmsfu34ehji",
-      "bodySha256": "0x41461e550538fc4f2b96988977db7bb560429d1b107321f08fa6648b4df0874a",
-      "bytes": 2611,
+      "bodyCid": "bafkreibagy3vbd6o4cwv6pwy5m7tablsqxdhrjpcesq4jwfzoi62mymm6m",
+      "bodySha256": "0x203637508fcee0ad5f3ed8eb3f30057285c678a5e224a1c4d8b9723da6618cf3",
+      "bytes": 2783,
       "clauseCount": 2,
       "statutes": [
         {
@@ -8427,6 +9177,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -8488,9 +9250,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidxd4yznswy4ygyuqar7pwsgi7qnqh47liuirgkwpz3ga5zqmelfy",
-      "bodySha256": "0x771f3196cad8e60d8a4011fbed2323f06c0fcfad14444cab3f3b303b98308b2e",
-      "bytes": 2560,
+      "bodyCid": "bafkreig3gx75d64otevs47nc7a2ys3iwf6dbzdwcp57mfo2jaqbkxz62si",
+      "bodySha256": "0xdb35ffd1fb8e992b2e7da2f835896d162f861c8ec27f7ec2bb490402abe7da92",
+      "bytes": 2732,
       "clauseCount": 2,
       "statutes": [
         {
@@ -8558,6 +9320,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -8619,9 +9393,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreiaje24ufwhv4oyusey54rlibnnur7d34khzjel22m5vcl4biy2adq",
-      "bodySha256": "0x0926b942d8f5e3b149131de45680b5b48fc7be28f94917ad33b512f81463401c",
-      "bytes": 2564,
+      "bodyCid": "bafkreidylmvg4g6tstomeaqhdv7nxvaiz34uxo7ejdavojl57q6ujyjoky",
+      "bodySha256": "0x785b2a6e1bd394dcc202071d7edbd408cef94bbbe448c157257dfc3d44e12e56",
+      "bytes": 2736,
       "clauseCount": 2,
       "statutes": [
         {
@@ -8689,6 +9463,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -8750,9 +9536,9 @@
       "jurisdictions": [
         "CN"
       ],
-      "bodyCid": "bafkreih2alolydm7xdjymfl7sp3fan24kj5yojxxcpmmrwier3t52lsjbq",
-      "bodySha256": "0xfa02dcbc0d9fb8d386157f93f650375c527b8726f713d8c8d9048ee7dd2e490c",
-      "bytes": 2542,
+      "bodyCid": "bafkreifl3tk2clas7f2vgncgvtmv3va3bxumia6qu6kr7rrod2gxre67pi",
+      "bodySha256": "0xabdcd5a12c12f975533446acd95dd41b0de8c403d0a7951fc62e1e8d7893df7a",
+      "bytes": 2714,
       "clauseCount": 2,
       "statutes": [
         {
@@ -8822,6 +9608,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -8881,9 +9679,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreie3mvlr5sqvqluz23emk4uay4dv2h6h3kfsbcsmenvxzwtsezbaau",
-      "bodySha256": "0x9b65571eca1582e99d6c8c57280c7075d1fc7da8b208a4c236b7cda722642005",
-      "bytes": 2674,
+      "bodyCid": "bafkreigadtas62tvcknonleuwrub7sqotwd4asp6lga2qdkam6ni6f67by",
+      "bodySha256": "0xc01cc12f6a75129ae6ac94b4681fca0e9d87c049fe5981a80d40679a8f17df0e",
+      "bytes": 2846,
       "clauseCount": 3,
       "statutes": [
         {
@@ -8945,6 +9743,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",
@@ -9018,9 +9828,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreigar3vbuigxlkutn7tmtgllp4nhsful6uroek2vjofsycjdyqxk4u",
-      "bodySha256": "0xc08eea1a20d75aa936fe6c9996b7f1a79168bf522e22b554b8b2c0923c42eae5",
-      "bytes": 3977,
+      "bodyCid": "bafkreigcuzwbusvuykz4jqw4y6ciahte4lsxxn64erewj2nbnqtlwofpsq",
+      "bodySha256": "0xc2a66c1a4ab4c2b3c4c2dcc784801e64e2e57bb7dc244964e9a16c26bb38af94",
+      "bytes": 4208,
       "clauseCount": 7,
       "statutes": [
         {
@@ -9070,6 +9880,12 @@
           "citation": "Codice Civile, Art. 1325",
           "instrument": "Codice Civile (Italy)",
           "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
+          "id": "st.ch-or-1",
+          "citation": "OR Art. 1",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -9174,6 +9990,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -9233,9 +10061,9 @@
       "jurisdictions": [
         "JP"
       ],
-      "bodyCid": "bafkreib5ddekfmiyyjulnfkppgg4rln4gbqiu6pcnxlw5abdtehdd5fcxa",
-      "bodySha256": "0x3d18c8a2b118c268b6954f798dc8adbc30608a79e26dd76e8023990e31f4a2b8",
-      "bytes": 2597,
+      "bodyCid": "bafkreibvopihtaskh2tnbhiqlceplk3tx4tnulb7yx437uvxhviokzfot4",
+      "bodySha256": "0x3573d079824a3ea6d09d105888f5ab73bf26da2c3fc5f9bfd2b73d50e564ae9f",
+      "bytes": 2769,
       "clauseCount": 4,
       "statutes": [
         {
@@ -9305,6 +10133,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -9364,9 +10204,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidicphozkz34orcjptn6yffzo6jyemo655qouafduelbdqgud5xoy",
-      "bodySha256": "0x6813ceecab3be3a224be6df60a5cbbc9c118ef77b0750051d08b08e06a0fb776",
-      "bytes": 3682,
+      "bodyCid": "bafkreicyx273la7kzpnwj6juu5i3lehpnjoi5mpecsop6trxqmvzjf5j6y",
+      "bodySha256": "0x58bebfb583eacbdb64f934a751b590ef6a5c8eb1e4149cff4e37832b9497a9f6",
+      "bytes": 3928,
       "clauseCount": 6,
       "statutes": [
         {
@@ -9398,6 +10238,12 @@
           "citation": "PIPEDA, Sch.1 cl.4.9",
           "instrument": "Personal Information Protection and Electronic Documents Act (Canada)",
           "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/"
+        },
+        {
+          "id": "st.za-popia-23",
+          "citation": "POPIA, s.23",
+          "instrument": "Protection of Personal Information Act 2013 (South Africa)",
+          "url": "https://www.gov.za/documents/protection-personal-information-act"
         },
         {
           "id": "st.ng-ndpa-2023",
@@ -9502,6 +10348,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -9561,9 +10419,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreihzsvfanem43gmjxpdsf62gpn6e46ehipfigwsj46hn3rdepujcpu",
-      "bodySha256": "0xf9954a06919cd9989bbc722fb467b7c4e788743ca835a49e78eddc4647d1227d",
-      "bytes": 5388,
+      "bodyCid": "bafkreifxad2ag4mgxbhfrmtomzgakp52ky3yktdjbar4gijoleypntbcee",
+      "bodySha256": "0xb700f4037186b84e58b26e664c053fba5637854c690823c3212e5930f6cc2221",
+      "bytes": 5619,
       "clauseCount": 10,
       "statutes": [
         {
@@ -9753,6 +10611,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -9843,6 +10713,12 @@
           "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
         },
         {
+          "id": "st.ch-or-1",
+          "citation": "OR Art. 1",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
+        },
+        {
           "id": "st.mx-ccf-1796",
           "citation": "Codigo Civil Federal, Art. 1796",
           "instrument": "Codigo Civil Federal (Mexico)",
@@ -9884,9 +10760,9 @@
       "jurisdictions": [
         "US"
       ],
-      "bodyCid": "bafkreibsqjax2tdwktazrotqcnrt7n22la2zxqaphkbwva732ry2ktgmkq",
-      "bodySha256": "0x3282417d4c7654c198ba7013633fb75a58359bc00f3a836a83fbd471a54ccc54",
-      "bytes": 2782,
+      "bodyCid": "bafkreihnvbyhm2k465pr4fvfjvpibray673vffg73c4pqhnh6eqiyzh3gm",
+      "bodySha256": "0xeda87076695cf75f1e16a54d5e80c418f7f75294dfd8b8f81da7f1208c64fb33",
+      "bytes": 2954,
       "clauseCount": 4,
       "statutes": [
         {
@@ -9968,6 +10844,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -10027,9 +10915,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreigndbq7fpebgqi4lkddq455kh2u5jxawtmrsnjzcfifyynlfbpqay",
-      "bodySha256": "0xcd1861f2bc813411c5a863873bd51f54ea6e0b4d919353911505c61ab285f006",
-      "bytes": 3754,
+      "bodyCid": "bafkreihamnwnlbm3itq3qsmnzfwrn4brzctxwi6bmtb2gckmbwpxbh7kb4",
+      "bodySha256": "0xe0636cd5859b44e1b8498dc96d16f031c8a77b23c164c3a3094c0d9f709fea0f",
+      "bytes": 3985,
       "clauseCount": 7,
       "statutes": [
         {
@@ -10085,6 +10973,12 @@
           "citation": "Codice Civile, Art. 1325",
           "instrument": "Codice Civile (Italy)",
           "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262"
+        },
+        {
+          "id": "st.ch-or-1",
+          "citation": "OR Art. 1",
+          "instrument": "Swiss Code of Obligations (Obligationenrecht)",
+          "url": "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en"
         },
         {
           "id": "st.mx-ccf-1796",
@@ -10171,6 +11065,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -10230,9 +11136,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreicjsuuprbe3f5c43x7hhrccne3n6czdlrjpx4yi3oqfzn4bmzhzey",
-      "bodySha256": "0x499528f8849b2f45cddfe73c4426936df0b235c52fbf308dba05cb781664f926",
-      "bytes": 3115,
+      "bodyCid": "bafkreic6vqf2vb6vpnshuf5fgsdboqjrgu5rdewap2b32syyoojdzgye3a",
+      "bodySha256": "0x5eac0baa87d57b647a17a53486174131353b1192c07e83bd4b1873923c9b04d8",
+      "bytes": 3287,
       "clauseCount": 5,
       "statutes": [
         {
@@ -10326,6 +11232,18 @@
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
         },
         {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+        },
+        {
           "id": "st.it-cad-21",
           "citation": "D.Lgs. 82/2005 (CAD), Art. 21",
           "instrument": "Codice dell'Amministrazione Digitale (Italy)",
@@ -10385,9 +11303,9 @@
       "jurisdictions": [
         "INTL"
       ],
-      "bodyCid": "bafkreidq64zqxxcevdte6b2qtucx3gnqmdbam6ppqb4qk3bk25wiwdwb2q",
-      "bodySha256": "0x70f7330bdc44a8e64f07509d057d99b060c20679ef8079056c2ad76c8b0ec1d4",
-      "bytes": 2944,
+      "bodyCid": "bafkreic7cmxb7titkywbbbwwp3hntbtuf4ufkgyn5zyelfpn5ntdj7k2ci",
+      "bodySha256": "0x5f132e1fcd13562c1086d67eced986742f28551b0dee704595edeb6634fd5a12",
+      "bytes": 3116,
       "clauseCount": 5,
       "statutes": [
         {
@@ -10473,6 +11391,18 @@
           "citation": "Federal Decree-Law 46/2021, Art. 17",
           "instrument": "Electronic Transactions and Trust Services Law (UAE Federal Decree-Law 46/2021)",
           "url": "https://uaelegislation.gov.ae/en/legislations/1530"
+        },
+        {
+          "id": "st.ch-zertes",
+          "citation": "ZertES Art. 14",
+          "instrument": "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland",
+          "url": "https://www.fedlex.admin.ch/eli/cc/2016/752/en"
+        },
+        {
+          "id": "st.za-ecta-13",
+          "citation": "ECTA 2002, s.13",
+          "instrument": "Electronic Communications and Transactions Act 2002 (South Africa)",
+          "url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
         },
         {
           "id": "st.it-cad-21",

@@ -49,6 +49,8 @@
  {:lt/id "jx.ca" :lt/kind :jurisdiction :lt/label "Canada" :jurisdiction/code "CA" :jurisdiction/system :mixed :lt/sourcing :authoritative}
  {:lt/id "jx.ae" :lt/kind :jurisdiction :lt/label "United Arab Emirates" :jurisdiction/code "AE" :jurisdiction/system :mixed :lt/sourcing :authoritative}
  {:lt/id "jx.it" :lt/kind :jurisdiction :lt/label "Italy" :jurisdiction/code "IT" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.ch" :lt/kind :jurisdiction :lt/label "Switzerland" :jurisdiction/code "CH" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
+ {:lt/id "jx.za" :lt/kind :jurisdiction :lt/label "South Africa" :jurisdiction/code "ZA" :jurisdiction/system :mixed :lt/sourcing :authoritative}
  ;; coverage wave 23 — major economies on more continents (Latin America / SE Asia / Africa)
  {:lt/id "jx.mx" :lt/kind :jurisdiction :lt/label "Mexico" :jurisdiction/code "MX" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
  {:lt/id "jx.id" :lt/kind :jurisdiction :lt/label "Indonesia" :jurisdiction/code "ID" :jurisdiction/system :civil-law :lt/sourcing :authoritative}
@@ -308,6 +310,14 @@
  {:lt/id "st.us-lanham-1051" :lt/kind :statute :lt/label "US Lanham Act — 15 U.S.C. §1051 (trademark registration)" :statute/citation "15 U.S.C. §1051" :statute/instrument "Lanham Act (US Trademark Act)" :statute/jurisdiction "jx.us" :statute/url "https://www.law.cornell.edu/uscode/text/15/1051" :lt/sourcing :authoritative}
  {:lt/id "st.eu-eutmr-2017" :lt/kind :statute :lt/label "EU Trade Mark Regulation (EU) 2017/1001 Art. 25 — licensing" :statute/citation "Regulation (EU) 2017/1001, Art. 25" :statute/instrument "European Union Trade Mark Regulation (EU) 2017/1001" :statute/jurisdiction "jx.eu" :statute/url "https://eur-lex.europa.eu/eli/reg/2017/1001/oj" :lt/sourcing :authoritative}
  {:lt/id "st.jp-civil-466" :lt/kind :statute :lt/label "日本民法 466条 — 債権の譲渡性 (assignability of claims)" :statute/citation "民法466条" :statute/instrument "民法 (明治29年法律第89号)" :statute/jurisdiction "jx.jp" :statute/url "https://laws.e-gov.go.jp/law/129AC0000000089" :lt/sourcing :authoritative}
+
+ ;; ─── coverage wave 29 (/loop): Switzerland + South Africa (deepens the mixed-system bucket) ───
+ {:lt/id "st.ch-or-1" :lt/kind :statute :lt/label "Swiss Code of Obligations Art. 1 — conclusion of contract" :statute/citation "OR Art. 1" :statute/instrument "Swiss Code of Obligations (Obligationenrecht)" :statute/jurisdiction "jx.ch" :statute/url "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en" :lt/sourcing :authoritative}
+ {:lt/id "st.ch-or-319" :lt/kind :statute :lt/label "Swiss Code of Obligations Art. 319 — individual employment contract" :statute/citation "OR Art. 319" :statute/instrument "Swiss Code of Obligations (Obligationenrecht)" :statute/jurisdiction "jx.ch" :statute/url "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/en" :lt/sourcing :authoritative}
+ {:lt/id "st.ch-zertes" :lt/kind :statute :lt/label "Switzerland ZertES — Federal Act on Electronic Signatures" :statute/citation "ZertES Art. 14" :statute/instrument "Bundesgesetz über die elektronische Signatur (ZertES), Switzerland" :statute/jurisdiction "jx.ch" :statute/url "https://www.fedlex.admin.ch/eli/cc/2016/752/en" :lt/sourcing :authoritative}
+ {:lt/id "st.za-ecta-13" :lt/kind :statute :lt/label "South Africa ECTA 2002 §13 — electronic signatures" :statute/citation "ECTA 2002, s.13" :statute/instrument "Electronic Communications and Transactions Act 2002 (South Africa)" :statute/jurisdiction "jx.za" :statute/url "https://www.gov.za/documents/electronic-communications-and-transactions-act" :lt/sourcing :authoritative}
+ {:lt/id "st.za-popia-23" :lt/kind :statute :lt/label "South Africa POPIA §23 — access to personal information" :statute/citation "POPIA, s.23" :statute/instrument "Protection of Personal Information Act 2013 (South Africa)" :statute/jurisdiction "jx.za" :statute/url "https://www.gov.za/documents/protection-personal-information-act" :lt/sourcing :authoritative}
+ {:lt/id "st.za-bcea-29" :lt/kind :statute :lt/label "South Africa Basic Conditions of Employment Act §29 — written particulars" :statute/citation "BCEA, s.29" :statute/instrument "Basic Conditions of Employment Act 1997 (South Africa)" :statute/jurisdiction "jx.za" :statute/url "https://www.gov.za/documents/basic-conditions-employment-act" :lt/sourcing :authoritative}
 
  ;; ───────────────────────────── clauses (nodes) — reusable building blocks ───
  {:lt/id "cl.definitions" :lt/kind :clause :lt/label "Definitions" :clause/role :definitions :clause/optionality :recommended :lt/sourcing :representative}
@@ -762,6 +772,13 @@
  {:en/from "cl.signature-esign" :en/to "st.ae-etl-2021" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.ae-civil-246" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
  {:en/from "cl.good-faith" :en/to "st.it-cc-1325" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ ;; coverage wave 29 — bind CH/ZA statutes
+ {:en/from "cl.good-faith" :en/to "st.ch-or-1" :en/kind :cites-statute :en/force :cited :en/binding-load 0.7 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "st.ch-or-319" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.employment-particulars" :en/to "st.za-bcea-29" :en/kind :mandated-by :en/force :mandated :en/binding-load 0.85 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.ch-zertes" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.signature-esign" :en/to "st.za-ecta-13" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "cl.data-subject-rights" :en/to "st.za-popia-23" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.employment-termination" :en/to "st.it-cc-2118" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  {:en/from "cl.signature-esign" :en/to "st.it-cad-21" :en/kind :cites-statute :en/force :cited :en/binding-load 0.8 :en/sourcing :authoritative}
  ;; coverage wave 23 — bind MX/ID/NG statutes
@@ -1198,6 +1215,13 @@
  {:en/from "st.us-lanham-1051" :en/to "jx.us" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.eu-eutmr-2017" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.jp-civil-466" :en/to "jx.jp" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ ;; coverage wave 29 — applies-in
+ {:en/from "st.ch-or-1" :en/to "jx.ch" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ch-or-319" :en/to "jx.ch" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.ch-zertes" :en/to "jx.ch" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.za-ecta-13" :en/to "jx.za" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.za-popia-23" :en/to "jx.za" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "st.za-bcea-29" :en/to "jx.za" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "st.eu-scc-2021" :en/to "jx.eu" :en/kind :applies-in :en/binding-load 1.0 :en/sourcing :authoritative}
 
  ;; (F) :translates — template → template (cross-language pair; same legal structure)
