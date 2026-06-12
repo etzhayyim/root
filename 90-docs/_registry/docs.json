@@ -24485,6 +24485,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606121333-session-close-registry-forensics-stash-sweep.md",
+      "id": "adr-2606121333-session-close-registry-forensics-stash-sweep",
+      "title": "ADR-2606121333: Session close — deps.edn 行分割 hardening → registry forensics (sonae/abaki 復元) → stash 完全 sweep",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-registry-forensics",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-12 registry-forensics/stash-sweep arc"
+      ],
+      "related": [
+        "adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+        "adr-2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0",
+        "adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606121143-deps-edn-line-split-canonical-format"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606121620-coverage-maturity-loop-did-etzhayyim-design-system.md",
       "id": "adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",

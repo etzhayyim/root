@@ -15524,6 +15524,23 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606121333-session-close-registry-forensics-stash-sweep",
+      "type": "TechArticle",
+      "title": "ADR-2606121333: Session close — deps.edn 行分割 hardening → registry forensics (sonae/abaki 復元) → stash 完全 sweep",
+      "status": "active",
+      "topic": "session-close-registry-forensics",
+      "authoritative": false,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-12 registry-forensics/stash-sweep arc"
+      ],
+      "related": [
+        "doc:adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+        "doc:adr-2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0",
+        "doc:adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "type": "TechArticle",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
