@@ -99,8 +99,17 @@ def juris_page(jid: str, juris: dict, procs: list, patterns: list, base: str) ->
     B.append(f"<p>無料相談: {html.escape(' / '.join(juris[':juris/referrals']))}</p>")
     B.append(f'<p><a href="{base}/index.html">← 全法域一覧</a></p>')
     jsonld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faq} if faq else None
-    desc = f"{label}: 法的通知 (支払督促・解雇・立退き・差押え等) への応答期限と無料相談先 — 非裁定の法情報"
-    return _page(f"{label} — 法的通知への応答ガイド | tate 盾", desc, "\n".join(B),
+    # SEO (wave 39): 現地語の手続き名を title/meta に — 現地ユーザーは現地語で検索する
+    native = []
+    for p in my_procs:
+        head = p[":proc/label"].split(" (")[0]
+        if head not in native:
+            native.append(head)
+    kw = "・".join(native[:4])
+    desc = (f"{label}: {kw} などへの応答期限・防御選択肢・無料相談先 — 非裁定の法情報"
+            if kw else f"{label}: 法的通知への応答期限と無料相談先 — 非裁定の法情報")
+    title = f"{label} — {kw} 応答ガイド | tate 盾" if kw else f"{label} — 法的通知への応答ガイド | tate 盾"
+    return _page(title, desc, "\n".join(B),
                  f"{base}/{jid.lstrip(':')}.html", jsonld)
 
 

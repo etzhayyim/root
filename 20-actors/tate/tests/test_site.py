@@ -60,6 +60,16 @@ def test_sitemap_lists_all_pages():
     assert (_TMP / "robots.txt").read_text(encoding="utf-8").startswith("User-agent: *")
 
 
+def test_native_keywords_in_titles():
+    """Wave 39 SEO: 現地語の手続き名が title/meta に入る — 現地ユーザーの検索語で
+    届く (Mahnbescheid / desahucio / 지급명령 / dagvaarding …)."""
+    checks = {"de.html": "Mahnbescheid", "es.html": "desahucio",
+              "kr.html": "지급명령", "nl.html": "dagvaarding", "fr.html": "licenciement"}
+    for page, kw in checks.items():
+        head = (_TMP / page).read_text(encoding="utf-8").split("</head>")[0].casefold()
+        assert kw.casefold() in head, (page, kw)
+
+
 def test_deploy_copy_in_sync():
     """Wave 36: worker static (50-infra/etzhayyim-did-web/public/tate) の deploy copy
     は registry と同じページ集合でなければならない — registry が伸びたら

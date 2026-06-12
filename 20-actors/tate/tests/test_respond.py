@@ -1067,6 +1067,21 @@ def test_wave38_tw_se_nl_family():
     assert any("toevoeging" in o["label"] for o in nl["options"])
 
 
+def test_wave39_pl_at_pt_enforcement():
+    """Wave 39: 賃金保護16法体系 — :pl kwota wolna=最低賃金 (KP 87) · :at
+    Existenzminimum (AK 無料再計算) · :pt 2/3 impenhorável + salário mínimo 下限."""
+    ps, _ = _by_id()
+    pl = ps["ntc:pl-zajecie"]
+    assert pl["status"] == ":genuine" and pl["proc"] == "proc:pl-egzekucja"
+    assert any("kwota wolna" in d["rule"] for d in pl["deadlines"])
+    at = ps["ntc:at-exekution"]
+    assert at["status"] == ":genuine" and at["proc"] == "proc:at-exekution"
+    assert any("Existenzminimum" in d["rule"] for d in at["deadlines"])
+    pt = ps["ntc:pt-penhora"]
+    assert pt["status"] == ":genuine" and pt["proc"] == "proc:pt-penhora"
+    assert any("738" in d["anchor"] for d in pt["deadlines"])
+
+
 def test_procedures_never_cross_jurisdictions():
     """G10: JP 支払督促 vocabulary under a :us notice must NOT match the JP procedure."""
     _, procs = _by_id()

@@ -212,6 +212,25 @@
   :notice/sourcing :synthetic
   :notice/text "Citação judicial. Prazo de 15 dias úteis para contestação."}
 
+ ;; ── wave 39 (:pl/:at/:pt enforcement) ────────────────────────────────────────
+ {:notice/id "ntc:pl-zajecie" :notice/label "PL zajęcie wynagrodzenia (執行)"
+  :notice/jurisdiction :pl
+  :notice/channel :mail :notice/claim-amount 5200 :notice/claim-currency "PLN"
+  :notice/sourcing :synthetic
+  :notice/text "Zawiadomienie o zajęcie wynagrodzenia przez komornika."}
+
+ {:notice/id "ntc:at-exekution" :notice/label "AT Gehaltsexekution (執行)"
+  :notice/jurisdiction :at
+  :notice/channel :formal-service :notice/claim-amount 2400 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Bewilligung der Gehaltsexekution; Drittschuldnererklärung an den Dienstgeber."}
+
+ {:notice/id "ntc:pt-penhora" :notice/label "PT penhora de vencimentos (執行)"
+  :notice/jurisdiction :pt
+  :notice/channel :mail :notice/claim-amount 1900 :notice/claim-currency "EUR"
+  :notice/sourcing :synthetic
+  :notice/text "Notificação de penhora de vencimentos ao empregador."}
+
  ;; ── wave 38 (:tw/:se/:nl family) ─────────────────────────────────────────────
  {:notice/id "ntc:tw-lihun" :notice/label "TW 家事調解通知 (離婚・家事)"
   :notice/jurisdiction :tw

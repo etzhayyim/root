@@ -1296,6 +1296,21 @@
   :proc/refer-when ["AMS (失業給付) 即登録" "kokoro 心 (精神的サポート)"]
   :proc/verify-current-law true}
 
+ {:proc/id "proc:at-exekution" :proc/label "Gehaltsexekution (賃金差押え・執行・オーストリア)"
+  :proc/jurisdiction :at :proc/track :enforcement
+  :proc/trigger-keywords ["Exekution" "Gehaltsexekution"]
+  :proc/genuine-channels [:formal-service]
+  :proc/deadline-rules
+  [{:dl/label "Existenzminimum (生計保護)"
+    :dl/rule "**unpfändbares Existenzminimum** (扶養で増額) は必ず手元に残る — 雇用主が表で自動計算; 誤りや事情変更は Exekutionsgericht へ"
+    :dl/anchor "EO §291a 以下 (Existenzminimum-Verordnung)" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :em-check :opt/kind :self-decide :opt/protective true
+    :opt/label "Existenzminimum 表との一致を確認 (AK が無料で再計算してくれる)"}
+   {:opt/id :erhoehung :opt/kind :self-submit :opt/label "扶養・疾病による増額を Exekutionsgericht へ申立て"}]
+  :proc/refer-when ["Schuldenberatung (公的・無料)"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:at-mietkuendigung" :proc/label "Gerichtliche Aufkündigung (住居・オーストリア)"
   :proc/jurisdiction :at :proc/track :housing
   :proc/trigger-keywords ["Aufkündigung" "Mietverhältnis"]
@@ -1328,6 +1343,21 @@
   :proc/verify-current-law true}
 
  ;; ── :pt ──────────────────────────────────────────────────────────────────────
+ {:proc/id "proc:pt-penhora" :proc/label "Penhora de vencimentos (賃金差押え・執行・ポルトガル)"
+  :proc/jurisdiction :pt :proc/track :enforcement
+  :proc/trigger-keywords ["penhora"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Impenhorabilidade 2/3 (生計保護)"
+    :dl/rule "**手取りの2/3は差押え不可** (差押えは1/3まで) + 下限として salário mínimo nacional 相当は必ず残る"
+    :dl/anchor "CPC art. 738" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :tercos-check :opt/kind :self-decide :opt/protective true
+    :opt/label "1/3 上限と salário mínimo 下限の遵守を確認 (超過は agente de execução へ)"}
+   {:opt/id :oposicao :opt/kind :self-submit :opt/label "oposição à penhora (10日)"}]
+  :proc/refer-when ["sobreendividamento → apoio judiciário / DECO"]
+  :proc/verify-current-law true}
+
  {:proc/id "proc:pt-despedimento" :proc/label "Comunicação de despedimento (解雇・労働・ポルトガル)"
   :proc/jurisdiction :pt :proc/track :labor
   :proc/trigger-keywords ["despedimento"]
@@ -1757,6 +1787,21 @@
     :opt/label "odwołanie を sąd pracy へ (21日 — 労働事件は手数料免除が広い)"}
    {:opt/id :pip :opt/kind :self-decide :opt/label "PIP (労働監督庁) への skarga も並行可"}]
   :proc/refer-when ["związek zawodowy / nieodpłatna pomoc prawna" "kokoro 心 (精神的サポート)"]
+  :proc/verify-current-law true}
+
+ {:proc/id "proc:pl-egzekucja" :proc/label "Zajęcie wynagrodzenia (賃金差押え・執行・ポーランド)"
+  :proc/jurisdiction :pl :proc/track :enforcement
+  :proc/trigger-keywords ["zajęcie wynagrodzenia" "egzekucja"]
+  :proc/genuine-channels [:formal-service :mail]
+  :proc/deadline-rules
+  [{:dl/label "Kwota wolna (生計保護)"
+    :dl/rule "差押えは賃金の50%まで (alimenty は3/5) + **最低賃金 (minimalne wynagrodzenie) 相当は kwota wolna として必ず残る**"
+    :dl/anchor "Kodeks pracy art. 87・87¹" :dl/verify-service-date true}]
+  :proc/options
+  [{:opt/id :kwota-check :opt/kind :self-decide :opt/protective true
+    :opt/label "kwota wolna が残っているか給与明細で確認 (誤りは komornik へ skarga)"}
+   {:opt/id :skarga :opt/kind :self-submit :opt/label "komornik の行為への skarga (1週間)"}]
+  :proc/refer-when ["upadłość konsumencka (消費者破産) の検討"]
   :proc/verify-current-law true}
 
  {:proc/id "proc:pl-eksmisja" :proc/label "Eksmisja / opróżnienie lokalu (住居・ポーランド)"
