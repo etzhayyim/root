@@ -179,9 +179,9 @@ def bb_compile(code: str, ns: str) -> tuple[bool, str]:
     import shutil
     if not shutil.which("bb"):
         return True, "bb unavailable — compile smoke skipped"
-    # bb は ns → クラスパス相対パス (a.b-c → a/b_c.clj) で探す。フル構造を作る。
-    rel = Path(*ns.split(".")).with_suffix(".clj")
-    rel = rel.with_name(rel.name.replace("-", "_"))
+    # bb は ns → クラスパス相対パス (a.b-c.d → a/b_c/d.clj) で探す。
+    # ハイフン→アンダースコアは全セグメントに適用 (中間ディレクトリ名も含む)。
+    rel = Path(*[seg.replace("-", "_") for seg in ns.split(".")]).with_suffix(".clj")
     with tempfile.TemporaryDirectory() as d:
         target = Path(d) / rel
         target.parent.mkdir(parents=True, exist_ok=True)
