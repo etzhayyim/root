@@ -24411,6 +24411,58 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606112400-tate-worldwide-jurisdiction-expansion-r1.md",
+      "id": "adr-2606112400-tate-worldwide-jurisdiction-expansion-r1",
+      "title": "ADR-2606112400: tate 盾 R1 — worldwide jurisdiction expansion (日本以外にも対応)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tate-worldwide-jurisdictions",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-jurisdiction-registry"
+      ],
+      "related": [
+        "adr-2606112201",
+        "adr-2606021600",
+        "adr-2606072000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606112301"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606120500-fleet-clojure-refactor-and-gemma4-cpt.md",
+      "id": "adr-2606120500-fleet-clojure-refactor-and-gemma4-cpt",
+      "title": "ADR-2606120500: Murakumo-fleet 並列 Clojure 移行ハーネス + gemma4 CPT 特化パイプライン",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "fleet-clojure-refactor-and-gemma4-cpt",
+      "authoritative": true,
+      "authoritative_for": [
+        "70-tools/scripts/fleet-refactor",
+        "70-tools/clj/murakumo-langchain"
+      ],
+      "related": [
+        "adr-2605231525",
+        "adr-2606052300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605250400-gemma-coder-distill-rocm",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache.md",
       "id": "adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
       "title": "ADR-2606120750: Session close — search-actor audit → parquet-free CC ingest → kotoba read-path resident cache LIVE",
@@ -24485,6 +24537,52 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606121333-session-close-registry-forensics-stash-sweep.md",
+      "id": "adr-2606121333-session-close-registry-forensics-stash-sweep",
+      "title": "ADR-2606121333: Session close — deps.edn 行分割 hardening → registry forensics (sonae/abaki 復元) → stash 完全 sweep",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-registry-forensics",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-12 registry-forensics/stash-sweep arc"
+      ],
+      "related": [
+        "adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+        "adr-2606091200-sonae-pre-disaster-foresight-tier-b-actor-r0",
+        "adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606121143-deps-edn-line-split-canonical-format"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606121350-yoro-ui-svelte-to-cljs-migration-harness.md",
+      "id": "adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness",
+      "title": "ADR-2606121350: yoro UI svelte→ClojureScript 段階移行ハーネス — wave 2+3 (hooks 修正 + 9 components/state + atproto interop + tests)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "yoro-cljs-migration",
+      "authoritative": false,
+      "authoritative_for": [
+        "yoro UI cljs migration harness layout + porting conventions (60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/cljs/)"
+      ],
+      "related": [
+        "adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606121620-coverage-maturity-loop-did-etzhayyim-design-system.md",
       "id": "adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
       "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
@@ -24508,9 +24606,33 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606122000-tanemaki-public-fund-grant-steward.md",
-      "id": "adr-2606122000-tanemaki-public-fund-grant-steward",
-      "title": "ADR-2606122000: tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion): public DD + disclosed criteria, vote-decided",
+      "path": "90-docs/adr/2606122000-tate-kaiyaku-worldwide-r2-status.md",
+      "id": "adr-2606122000-tate-kaiyaku-worldwide-r2-status",
+      "title": "ADR-2606122000: tate 盾 R2 status — 34-wave coverage loop の到達点 (kaiyaku compose 含む)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "tate-r2-status",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-r2-status"
+      ],
+      "related": [
+        "adr-2606112201"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606112301",
+        "adr-2606112400"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606122001-tanemaki-public-fund-grant-steward.md",
+      "id": "adr-2606122001-tanemaki-public-fund-grant-steward",
+      "title": "ADR-2606122001: tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion): public DD + disclosed criteria, vote-decided",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "tanemaki-public-fund-grant-steward",
@@ -24561,7 +24683,32 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2606122000-tanemaki-public-fund-grant-steward"
+        "adr-2606122001-tanemaki-public-fund-grant-steward"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606122300-session-close-tate-kaiyaku-45-wave-loop.md",
+      "id": "adr-2606122300-session-close-tate-kaiyaku-45-wave-loop",
+      "title": "ADR-2606122300: session close — tate 盾/kaiyaku 解約 45-wave coverage loop (publication layer 完成)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "tate-kaiyaku-session-close",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-kaiyaku-session-close"
+      ],
+      "related": [
+        "adr-2606112201",
+        "adr-2606112301",
+        "adr-2606112400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606122000"
       ],
       "last_verified": "2026-06-12",
       "amends": [],

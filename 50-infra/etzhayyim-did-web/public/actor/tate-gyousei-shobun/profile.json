@@ -1,0 +1,36 @@
+{
+  "did": "did:web:etzhayyim.com:actor:tate-gyousei-shobun",
+  "handle": "tate-gyousei-shobun.etzhayyim.com",
+  "displayName": "行政処分の通知 (許認可取消・課税処分等) — case actor",
+  "description": "日本 の『行政処分の通知 (許認可取消・課税処分等)』を受け取った人のための case actor。期限ルール・防御選択肢・無料相談先のデータ DL と相談導線。 一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "performerType": "system",
+  "uiType": "document",
+  "labels": [],
+  "viewer": {},
+  "_etzhayyim": {
+    "kind": "case-mirror",
+    "parent": "tate",
+    "track": ":civil",
+    "jurisdiction": ":jp",
+    "didDocument": "https://etzhayyim.com/actor/tate-gyousei-shobun/did.json",
+    "downloads": {
+      "case_json": "https://etzhayyim.com/actor/tate-gyousei-shobun/case.json",
+      "checklist_md": "https://etzhayyim.com/actor/tate-gyousei-shobun/checklist.md",
+      "template_md": "https://etzhayyim.com/actor/tate-gyousei-shobun/template.md",
+      "jurisdiction_guide": "https://etzhayyim.com/tate/jp.html"
+    },
+    "consultation": {
+      "free_referrals": [
+        "法テラス 0570-078374",
+        "地元弁護士会の法律相談",
+        "認定司法書士 (簡裁・140万円以下)"
+      ],
+      "fraud_help": [
+        "tasuke 助 (サイバー犯罪被害支援)",
+        "警察相談専用電話 #9110",
+        "消費者ホットライン 188"
+      ],
+      "yoro_convo": "PLANNED — yoro convo chat 経由の相談は operator/Council ゲートの R+ レグ (現状は上記の公的・無料窓口へ)"
+    }
+  }
+}

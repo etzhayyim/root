@@ -1,0 +1,51 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:ie-dismissal",
+  "label": "Notice of dismissal (解雇・労働・アイルランド)",
+  "jurisdiction": ":ie",
+  "jurisdiction_label": "Ireland",
+  "track": ":labor",
+  "genuine_channels": [
+    ":mail",
+    ":personal-service"
+  ],
+  "service_note": "civil summons / claim notice は court office から (small claims は Registrar 手続)",
+  "deadlines": [
+    {
+      "label": "WRC complaint",
+      "rule": "unfair dismissal complaint は WRC へ6か月以内 (reasonable cause で最大12か月) — 原則1年以上の継続雇用が適格要件",
+      "anchor": "Unfair Dismissals Act 1977 / Workplace Relations Act 2015 s.41",
+      "critical": true,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":wrc",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "WRC へオンライン complaint (無料・本人可)"
+    },
+    {
+      "id": ":minimum-notice",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "minimum notice / 未払賃金も同じ WRC で"
+    }
+  ],
+  "referrals": [
+    "FLAC / Citizens Information",
+    "kokoro 心 (精神的サポート)"
+  ],
+  "jurisdiction_referrals": [
+    "FLAC (Free Legal Advice Centres)",
+    "Citizens Information",
+    "Legal Aid Board"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "An Garda Síochána",
+    "CCPC (消費者保護)"
+  ],
+  "verify_current_law": true
+}

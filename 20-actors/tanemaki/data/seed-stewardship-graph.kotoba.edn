@@ -1,5 +1,5 @@
 ;; tanemaki 種蒔き — seed fund-stewardship graph (SYNTHETIC candidate orgs only — G6)
-;; ADR-2606122000 · vocabulary: fund-stewardship-ontology (00-contracts/schemas/fund-stewardship-ontology.kotoba.edn)
+;; ADR-2606122001 · vocabulary: fund-stewardship-ontology (00-contracts/schemas/fund-stewardship-ontology.kotoba.edn)
 ;;
 ;; SCOPE GUARD (constitutional, G1/G2/G6 — read first):
 ;;   - tanemaki is a STEWARD, never a sovereign: it evaluates + drafts an ADVISORY proposal;

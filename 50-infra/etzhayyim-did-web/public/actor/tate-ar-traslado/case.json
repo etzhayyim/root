@@ -1,0 +1,49 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:ar-traslado",
+  "label": "Traslado de la demanda (訴状送達・アルゼンチン)",
+  "jurisdiction": ":ar",
+  "jurisdiction_label": "Argentina",
+  "track": ":civil",
+  "genuine_channels": [
+    ":formal-service"
+  ],
+  "service_note": "traslado de la demanda は cédula de notificación (oficial notificador) — WhatsApp の『juzgado』通知は偽",
+  "deadlines": [
+    {
+      "label": "Contestación",
+      "rule": "通知から15日 (días hábiles・営業日, proceso ordinario CABA/federal) 以内に contestación — 管轄 (provincia) により異なる; 無応答は rebeldía",
+      "anchor": "CPCCN arts. 338・356",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":contestacion",
+      "kind": ":self-submit",
+      "protective": false,
+      "label": "contestación を提出 (patrocinio letrado 要件を確認)"
+    },
+    {
+      "id": ":pay-or-settle",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "請求に理由がある場合: 支払い/acuerdo"
+    }
+  ],
+  "referrals": [
+    "patrocinio jurídico gratuito (CABA 大学・公的の無料代理)"
+  ],
+  "jurisdiction_referrals": [
+    "patrocinio jurídico gratuito (大学・公的)",
+    "Defensa del Consumidor 0800-666-1518",
+    "Defensoría del Pueblo"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Defensa del Consumidor (ventanilla única federal)",
+    "Policía (delitos informáticos)"
+  ],
+  "verify_current_law": true
+}

@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.tanemaki.ddScorecard",
-  "description": "A PUBLIC, advisory due-diligence scorecard over a candidate grantee organization (per ADR-2606122000). tanemaki 種蒔き fuses DISCLOSED public evidence (kanjō financial disclosure / kabuto supply-chain / tsumugi 取-concentration / kosatsu designation landscape / ooyake registry / shiori relief-gap) into hard charter SCREENS (S1..S6, eligibility) and a weighted RUBRIC (C1..C8, weights public, Σ=1.0). The card is a 参考意見 displayed in the voting UI: it DECIDES NOTHING — every grant is decided by 1 SBT = 1 vote on the GrantGovernor (ADR-2605192145). Findings are disclosed conformance facts with named sources, never verdicts on an organization's worth (N3). R0 evaluates SYNTHETIC orgs only; a real-org scorecard is a G7-gated live leg from primary disclosure.",
+  "description": "A PUBLIC, advisory due-diligence scorecard over a candidate grantee organization (per ADR-2606122001). tanemaki 種蒔き fuses DISCLOSED public evidence (kanjō financial disclosure / kabuto supply-chain / tsumugi 取-concentration / kosatsu designation landscape / ooyake registry / shiori relief-gap) into hard charter SCREENS (S1..S6, eligibility) and a weighted RUBRIC (C1..C8, weights public, Σ=1.0). The card is a 参考意見 displayed in the voting UI: it DECIDES NOTHING — every grant is decided by 1 SBT = 1 vote on the GrantGovernor (ADR-2605192145). Findings are disclosed conformance facts with named sources, never verdicts on an organization's worth (N3). R0 evaluates SYNTHETIC orgs only; a real-org scorecard is a G7-gated live leg from primary disclosure.",
   "defs": {
     "main": {
       "type": "record",

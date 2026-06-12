@@ -40,7 +40,7 @@ def _fmt(v) -> str:
 
 def emit(nodes: dict, edges: list, res: dict, tx: int = 1) -> str:
     L = []
-    L.append(";; tanemaki 種蒔き — GENERATED kotoba Datom log (ADR-2606122000). DO NOT hand-edit.")
+    L.append(";; tanemaki 種蒔き — GENERATED kotoba Datom log (ADR-2606122001). DO NOT hand-edit.")
     L.append(";; Canonical EAVT state (ADR-2605312345). [e a v tx op].")
     L.append(";; GROUND op :add = durable (incl. the PUBLIC :screened DD trail + disclosed rubric weights).")
     L.append(";; DERIVED :bond/is-transient = computed on read (N1/G4) — no stored org score, no decision.")

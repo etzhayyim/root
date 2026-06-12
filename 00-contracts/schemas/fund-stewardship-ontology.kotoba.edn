@@ -1,5 +1,5 @@
 ;; fund-stewardship-ontology — the Public-Fund grant-stewardship (DD) vocabulary for tanemaki 種蒔き
-;; ADR-2606122000 · the outflow-side sibling of fuchi 扶持 (ADR-2606052300, maintainer sustenance)
+;; ADR-2606122001 · the outflow-side sibling of fuchi 扶持 (ADR-2606052300, maintainer sustenance)
 ;; and the actor-ization of the PublicFundGrantCell evaluation lane (ADR-2605192145). Where the
 ;; observatories (kanjō 勘定 / kabuto 兜 / tsumugi 紡ぎ / kosatsu 高札 / ooyake 公 / shiori 栞)
 ;; DATAFY the world's organizations, tanemaki is the STEWARD that fuses their public evidence
@@ -31,7 +31,7 @@
 
 {:schema/id "fund-stewardship-ontology"
  :schema/version "0.1.0"
- :schema/adr "2606122000"
+ :schema/adr "2606122001"
 
  ;; ── nodes ──────────────────────────────────────────────────────────────────
  :node/attrs

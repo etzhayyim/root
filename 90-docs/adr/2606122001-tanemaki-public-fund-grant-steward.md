@@ -1,6 +1,6 @@
 ---
-id: adr-2606122000-tanemaki-public-fund-grant-steward
-title: "ADR-2606122000: tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion): public DD + disclosed criteria, vote-decided"
+id: adr-2606122001-tanemaki-public-fund-grant-steward
+title: "ADR-2606122001: tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion): public DD + disclosed criteria, vote-decided"
 status: proposed
 doc_type: adr
 topic: tanemaki-public-fund-grant-steward
@@ -34,7 +34,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2606122000: tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion)
+# ADR-2606122001: tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion)
 
 **Status**: proposed
 **Date**: 2026-06-12

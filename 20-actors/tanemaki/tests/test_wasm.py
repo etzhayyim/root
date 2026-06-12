@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tanemaki 種蒔き — WASM component entry tests (ADR-2606122000). Pure stdlib, NETWORK-FREE."""
+"""tanemaki 種蒔き — WASM component entry tests (ADR-2606122001). Pure stdlib, NETWORK-FREE."""
 import sys, json, pathlib
 ACTOR_DIR = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ACTOR_DIR / "wasm"))

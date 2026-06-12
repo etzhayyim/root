@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tanemaki 種蒔き — analyzer + Datom-emit + steward-boundary tests (ADR-2606122000). Pure stdlib.
+"""tanemaki 種蒔き — analyzer + Datom-emit + steward-boundary tests (ADR-2606122001). Pure stdlib.
 
 Verifies the constitutional invariants empirically:
   - graph loads (nodes + 縁), no dangling 縁

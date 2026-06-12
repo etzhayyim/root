@@ -1,4 +1,4 @@
-// tanemaki 種蒔き — kotoba pywasm actor world (ADR-2606122000 / 2606014500 / 2606014600).
+// tanemaki 種蒔き — kotoba pywasm actor world (ADR-2606122001 / 2606014500 / 2606014600).
 // Pure-stdlib methods (analyze / datom_emit / propose / coverage_report) compile to a WASM
 // Component via componentize-py. No network, no filesystem at runtime: the bounded SYNTHETIC
 // seed is embedded read-only. G1 holds in WASM — tanemaki is a STEWARD, never a sovereign;

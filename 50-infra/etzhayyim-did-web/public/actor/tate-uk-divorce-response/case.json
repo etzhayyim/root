@@ -1,0 +1,49 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:uk-divorce-response",
+  "label": "Divorce application (家事・英国)",
+  "jurisdiction": ":uk",
+  "jurisdiction_label": "United Kingdom (England & Wales)",
+  "track": ":family",
+  "genuine_channels": [
+    ":mail"
+  ],
+  "service_note": "claim form / court documents は裁判所から郵送 (court post) — CPR Part 6",
+  "deadlines": [
+    {
+      "label": "Acknowledgement of service",
+      "rule": "application 送達から14日以内に acknowledgement of service — no-fault 制 (DDSA 2020) のため離婚自体を争える事由は管轄等に限定; 財産は financial remedy の別手続",
+      "anchor": "FPR 2010 Pt 7 / Divorce, Dissolution and Separation Act 2020",
+      "critical": false,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":acknowledge",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "acknowledgement of service をオンライン提出 (14日)"
+    },
+    {
+      "id": ":financial-separate",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "financial remedy / 年金分割は別途 — 合意前にアドバイスを"
+    }
+  ],
+  "referrals": [
+    "financial remedy / 子の arrangement → solicitor・mediation",
+    "kokoro 心 (精神的サポート)"
+  ],
+  "jurisdiction_referrals": [
+    "Citizens Advice",
+    "Law Society find-a-solicitor"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "Action Fraud 0300 123 2040",
+    "Citizens Advice"
+  ],
+  "verify_current_law": true
+}

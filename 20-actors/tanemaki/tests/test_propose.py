@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tanemaki 種蒔き — scorecard + advisory-proposal tests (ADR-2606122000). Pure stdlib.
+"""tanemaki 種蒔き — scorecard + advisory-proposal tests (ADR-2606122001). Pure stdlib.
 
 The action-layer expression of the gates:
   - G1: build_proposal REFUSES (raises) an :excluded or :insufficient-evidence org; the record

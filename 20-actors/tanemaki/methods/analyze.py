@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """tanemaki 種蒔き — edge-primary Public-Fund DD analyzer over the fund-stewardship graph.
 
-ADR-2606122000. Reads a kotoba-EDN stewardship graph (:fs/* nodes + :en/* 縁) and surfaces, per
+ADR-2606122001. Reads a kotoba-EDN stewardship graph (:fs/* nodes + :en/* 縁) and surfaces, per
 candidate ORG: the hard SCREEN findings (charter eligibility), the weighted CRITERION fit
 (the disclosed rubric, weights public + Σ=1.0), evidence coverage, and the ROUTE —
 :excluded | :insufficient-evidence | :propose — routed to a PUBLIC, ADVISORY scorecard,
@@ -218,7 +218,7 @@ def report_md(nodes: dict, edges: list, res: dict) -> str:
         L.append(f"| {label} | {scr} | {r['dd_fit']:.3f} | {r['evidence_coverage']:.0%} | "
                  f"{r['route'].lstrip(':')} |")
 
-    L.append("\n---\n_tanemaki 種蒔き · ADR-2606122000 · steward-not-sovereign · "
+    L.append("\n---\n_tanemaki 種蒔き · ADR-2606122001 · steward-not-sovereign · "
              "non-adjudicating · edge-primary · vote-decided (1 SBT = 1 vote). Submitting a "
              "proposal on-chain and evaluating real orgs are G7-gated._\n")
     return "\n".join(L)

@@ -11,7 +11,7 @@
   "purpose": "Public Fund grant-steward (fund-manager inversion) — the SOWER: fuses DISCLOSED public evidence from the observatory lineage (kanjō 勘定 financial disclosure / kabuto 兜 supply-chain / tsumugi 紡ぎ 取-concentration / kosatsu 高札 designation landscape / ooyake 公 registry / shiori 栞 relief-gap) into a PUBLIC due-diligence scorecard over candidate grantee organizations — hard charter SCREENS (S1..S6 eligibility, Rider §2 anchored) then a weighted RUBRIC (C1..C8, weights public, Σ=1.0) — and drafts an UNSENT, structurally-advisory grant proposal. It NEVER decides: every grant is decided by 1 SBT = 1 vote (GrantGovernor, ADR-2605192145) behind a timelock. The Public Fund GIVES, it never INVESTS (grant / milestone-escrow / in-kind only; equity/ROI unrepresentable — fuchi G1 pattern). 種蒔き = seed scattered freely, no return expected.",
   "status": "R0-grant-steward",
   "tier": "B",
-  "adr": "2606122000",
+  "adr": "2606122001",
   "dependsOnAdr": ["2605192145", "2605192130", "2606052300", "2605312345", "2605231525", "2605215000", "2606062100", "2606032000"],
   "schema": ["00-contracts/schemas/fund-stewardship-ontology.kotoba.edn"],
   "lexicons": ["com.etzhayyim.tanemaki.ddScorecard", "com.etzhayyim.tanemaki.grantProposal"],

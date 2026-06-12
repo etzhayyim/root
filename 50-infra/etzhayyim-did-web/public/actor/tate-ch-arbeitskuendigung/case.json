@@ -1,0 +1,51 @@
+{
+  "disclaimer": "一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。",
+  "case": "proc:ch-arbeitskuendigung",
+  "label": "Kündigung des Arbeitsverhältnisses (解雇・労働・スイス)",
+  "jurisdiction": ":ch",
+  "jurisdiction_label": "Schweiz",
+  "track": ":labor",
+  "genuine_channels": [
+    ":mail",
+    ":personal-service"
+  ],
+  "service_note": "Zahlungsbefehl は Betreibungsamt の送達 — 証拠不要で誰でも申立て可能な制度のため、身に覚えがなければ Rechtsvorschlag が唯一の防御",
+  "deadlines": [
+    {
+      "label": "Einsprache (missbräuchliche Kündigung)",
+      "rule": "missbräuchlich と争うなら Einsprache を **Kündigungsfrist の満了前まで** に書面で — その後雇用終了から180日以内に提訴 (徒過で失権)",
+      "anchor": "OR Art. 336b",
+      "critical": true,
+      "verify_service_date": true
+    }
+  ],
+  "options": [
+    {
+      "id": ":einsprache",
+      "kind": ":self-submit",
+      "protective": true,
+      "label": "書面 Einsprache を雇用主へ (Kündigungsfrist 内 — まず期限を止める)"
+    },
+    {
+      "id": ":arbeitsgericht",
+      "kind": ":self-decide",
+      "protective": false,
+      "label": "≤CHF 30,000 は簡易・無償手続 (ZPO 113/114) — 本人可"
+    }
+  ],
+  "referrals": [
+    "RAV (失業保険) へ即登録 — 遅延は給付減額",
+    "kokoro 心 (精神的サポート)"
+  ],
+  "jurisdiction_referrals": [
+    "unentgeltliche Rechtspflege (法律扶助)",
+    "Schlichtungsbehörde",
+    "kantonale Rechtsberatung"
+  ],
+  "fraud_help": [
+    "tasuke 助 (サイバー犯罪被害支援)",
+    "cybercrimepolice.ch",
+    "Polizei 117"
+  ],
+  "verify_current_law": true
+}

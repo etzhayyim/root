@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """tanemaki 種蒔き — public DD scorecard renderer + ADVISORY grant-proposal builder.
 
-ADR-2606122000. Two artefacts, both PUBLIC and both structurally decision-free:
+ADR-2606122001. Two artefacts, both PUBLIC and both structurally decision-free:
 
   render_scorecard(org)  — the 参考意見 card shown in the voting UI: screens, rubric,
     evidence sources, fit, route. Content-addressed (CIDv1+SHA-256) so anyone can verify the
@@ -90,7 +90,7 @@ def render_scorecard(org_id: str, nodes: dict, edges: list) -> str:
         L.append(f"| {nodes.get(c, {}).get(':fs/label', c)} | {w:.2f} | {ev:.2f} | {srcs} |")
     L.append(f"\n**DD fit**: {rec['dd_fit']:.3f} · **evidence coverage**: "
              f"{rec['evidence_coverage']:.0%} · **route**: `{rec['route']}`\n")
-    L.append("---\n_tanemaki 種蒔き · ADR-2606122000 · advisory-only · decided by "
+    L.append("---\n_tanemaki 種蒔き · ADR-2606122001 · advisory-only · decided by "
              "1 SBT = 1 vote._\n")
     return "\n".join(L)
 

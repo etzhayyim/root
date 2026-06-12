@@ -9,11 +9,11 @@ last_verified: 2026-06-12
 priority: 5.0
 axis: governance
 weight: 0.50
-priority_note: "Documentation-only session-close record for the 2026-06-12 tanemaki session: the founder's 投資先判断/DD actor survey answered (none exists; structurally cannot as an INVESTMENT; the outflow-judgment lane existed only as the un-actor-ized PublicFundGrantCell sketch), followed by the directed design+implementation of tanemaki 種蒔き (ADR-2606122000) — the fund-manager inversion — landed as PR #1697."
+priority_note: "Documentation-only session-close record for the 2026-06-12 tanemaki session: the founder's 投資先判断/DD actor survey answered (none exists; structurally cannot as an INVESTMENT; the outflow-judgment lane existed only as the un-actor-ized PublicFundGrantCell sketch), followed by the directed design+implementation of tanemaki 種蒔き (ADR-2606122001) — the fund-manager inversion — landed as PR #1697."
 authoritative_for:
   - session-close record for the 2026-06-12 tanemaki public-fund-steward session
 depends_on:
-  - adr-2606122000-tanemaki-public-fund-grant-steward
+  - adr-2606122001-tanemaki-public-fund-grant-steward
 related:
   - adr-2606121225-session-close-worktree-cleanup-pr-merge-ruleset-bypass
 supersedes: []
@@ -45,7 +45,7 @@ Founder の問い (2026-06-12): 「etzhayyim として企業や投資先の判�
      ooyake 公 / shiori 栞) は成熟済み — 全て non-adjudicating / public。
 2. **Direction** — 「public fund の fund manager を org として設計、既存の組織への資金使途を
    public に判断、評価基準なども含めて」。
-3. **Design + implementation** — **tanemaki 種蒔き** (ADR-2606122000, Tier-B actor R0,
+3. **Design + implementation** — **tanemaki 種蒔き** (ADR-2606122001, Tier-B actor R0,
    **PR #1697**): the charter-clean **fund-manager inversion** — hard screens S1..S6 (適格性,
    charter anchors disclosed, screens fire BEFORE weighting) → public rubric C1..C8 (weights
    Σ=1.0 enforced; evidence mapped to the observatory lineage) → route ∈ {excluded,
@@ -76,6 +76,6 @@ Founder の問い (2026-06-12): 「etzhayyim として企業や投資先の判�
 
 # References
 
-- ADR-2606122000 (tanemaki 種蒔き — the actor; PR #1697)
+- ADR-2606122001 (tanemaki 種蒔き — the actor; PR #1697)
 - ADR-2605192145 (Public Fund architecture) · ADR-2605192130 (10% tithe)
 - ADR-2606052300 (fuchi 扶持 — the inversion pattern) · ADR-2606032000 (kanjō — live-leg pattern)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tanemaki 種蒔き — DD-evidence COVERAGE report (ADR-2606122000).
+"""tanemaki 種蒔き — DD-evidence COVERAGE report (ADR-2606122001).
 
 Honest coverage of the stewardship graph: org / screen / criterion / source spread, plus the
 integrity checks that make the steward trustworthy —
@@ -92,7 +92,7 @@ def report(nodes: dict, edges: list) -> str:
     L.append("\n## Gap map — next-wave targets\n")
     L.append(("Missing org-form buckets: " + ", ".join(miss_form) + ".") if miss_form
              else "No fully-missing org-form buckets (thin buckets still listed above).")
-    L.append("\n---\n_tanemaki 種蒔き · ADR-2606122000 · coverage honesty (G5)._\n")
+    L.append("\n---\n_tanemaki 種蒔き · ADR-2606122001 · coverage honesty (G5)._\n")
     return "\n".join(L)
 
 

@@ -1,0 +1,21 @@
+# Eviction notice (notice to quit, 住居・米国) — 自己対応チェックリスト
+
+> 一般的な法情報であり個別の法的助言ではありません (非裁定/UPL)。期限の起算点 (送達日) は必ず自分で確認し, 重要な判断は記載の無料相談窓口・専門家へ。法令は改正されます — アンカーは現行条文で要確認。
+
+本物の書類の経路: service of process: personal service / certified mail / sheriff — 州規則による
+SMS/メールのみの『裁判所』通知は接触せず: tasuke 助 (サイバー犯罪被害支援) / FTC reportfraud.ftc.gov / state AG consumer line
+
+## 期限 (起算点=送達日を自分で確認)
+- **通知期間 (州法)**: 通知種別 (pay-or-quit / cure-or-quit / no-fault) と日数は州法による — 期限内の支払/是正で多くは解消 (例 CA 3-day pay-or-quit) (州 landlord-tenant law (例 Cal. CCP §1161) — 要改正確認)
+- **強制退去の発生時点**: 強制退去は unlawful detainer 訴訟 + 裁判所命令 + sheriff によってのみ — self-help eviction (鍵交換・電気停止) はほぼ全州で違法 (州法 (例 Cal. Civ. Code §789.3) — 要改正確認)
+
+## 選択肢 (member 本人が決めて提出する — 代理はしない)
+- 期限内に支払/是正して通知を解消 (領収記録を残す)
+- unlawful detainer が提起されたら answer を期限内に提出 (期限は極端に短い — 例 CA 10日)
+🛡 鍵交換・ユーティリティ停止等の self-help eviction は違法 — 受けたら police / legal aid へ
+
+## 相談先 (無料/公的)
+- unlawful detainer 係属 → 即 legal aid / tenant rights org
+- state bar lawyer-referral service
+- Legal aid (lsc.gov)
+- state AG consumer protection

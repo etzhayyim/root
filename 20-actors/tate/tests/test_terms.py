@@ -101,6 +101,134 @@ def test_risk_ordering():
         assert ranks == sorted(ranks), d[":doc/id"]
 
 
+def test_intl_expected_shapes_hit():
+    """Worldwide (ADR-2606112400): representative intl clause shapes fire."""
+    _, res = _res()
+    hits = {(f["doc"], f["clause"]) for f in res["flags"]}
+    assert ("doc:us-saas-tos", "cl:us-arbitration-class-waiver") in hits
+    assert ("doc:us-saas-tos", "cl:us-auto-renewal-negative-option") in hits
+    assert ("doc:us-saas-tos", "cl:us-early-termination-fee") in hits
+    assert ("doc:eu-sub-tos", "cl:eu-withdrawal-exclusion") in hits
+    assert ("doc:eu-sub-tos", "cl:eu-unilateral-change") in hits
+    assert ("doc:uk-gym-terms", "cl:uk-liability-exclusion") in hits
+    assert ("doc:de-agb", "cl:de-price-increase") in hits
+    assert ("doc:de-agb", "cl:de-lump-damages") in hits
+    # wave 2 (:kr :fr)
+    assert ("doc:kr-tos", "cl:kr-full-exemption") in hits
+    assert ("doc:kr-tos", "cl:kr-excessive-penalty") in hits
+    assert ("doc:fr-abonnement", "cl:fr-liability-exclusion") in hits
+    assert ("doc:fr-abonnement", "cl:fr-tacit-renewal") in hits
+    # wave 3 (:au :ca :it)
+    assert ("doc:au-tos", "cl:au-unfair-variation") in hits
+    assert ("doc:au-tos", "cl:au-guarantee-exclusion") in hits
+    assert ("doc:ca-tos", "cl:ca-arbitration-consumer") in hits
+    assert ("doc:ca-tos", "cl:ca-all-sales-final") in hits
+    assert ("doc:it-tos", "cl:it-clausola-vessatoria") in hits
+    assert ("doc:it-tos", "cl:it-tacito-rinnovo") in hits
+    # wave 4 (:es :nl :br)
+    assert ("doc:es-tos", "cl:es-clausula-abusiva") in hits
+    assert ("doc:es-tos", "cl:es-prorroga-automatica") in hits
+    assert ("doc:nl-voorwaarden", "cl:nl-exoneratie") in hits
+    assert ("doc:nl-voorwaarden", "cl:nl-stilzwijgende-verlenging") in hits
+    assert ("doc:br-termos", "cl:br-exoneracao") in hits
+    assert ("doc:br-termos", "cl:br-renovacao-automatica") in hits
+    # wave 5 (:tw :sg :in)
+    assert ("doc:tw-tos", "cl:tw-full-exemption") in hits
+    assert ("doc:tw-tos", "cl:tw-auto-renewal") in hits
+    assert ("doc:sg-tos", "cl:sg-liability-exclusion") in hits
+    assert ("doc:sg-tos", "cl:sg-auto-renewal") in hits
+    assert ("doc:in-tos", "cl:in-liability-exclusion") in hits
+    assert ("doc:in-tos", "cl:in-arbitration-no-ouster") in hits
+    # wave 6 (:cn — 簡体字, :tw 繁体字とは別パターン)
+    assert ("doc:cn-tos", "cl:cn-full-exemption") in hits
+    assert ("doc:cn-tos", "cl:cn-auto-renewal") in hits
+    # wave 7 (:pl :se)
+    assert ("doc:pl-regulamin", "cl:pl-niedozwolona") in hits
+    assert ("doc:pl-regulamin", "cl:pl-auto-renewal") in hits
+    assert ("doc:se-villkor", "cl:se-friskrivning") in hits
+    assert ("doc:se-villkor", "cl:se-auto-renewal") in hits
+    # wave 8 (:at :pt)
+    assert ("doc:at-agb", "cl:at-haftungsausschluss") in hits
+    assert ("doc:at-agb", "cl:at-auto-renewal") in hits
+    assert ("doc:pt-condicoes", "cl:pt-exclusao") in hits
+    assert ("doc:pt-condicoes", "cl:pt-renovacao") in hits
+    # wave 11 (:ie :ch)
+    assert ("doc:ie-terms", "cl:ie-liability") in hits
+    assert ("doc:ie-terms", "cl:ie-auto-renewal") in hits
+    assert ("doc:ch-agb", "cl:ch-haftungsausschluss") in hits
+    assert ("doc:ch-agb", "cl:ch-auto-renewal") in hits
+    # wave 12 (:dk :fi)
+    assert ("doc:dk-vilkaar", "cl:dk-ansvarsfraskrivelse") in hits
+    assert ("doc:dk-vilkaar", "cl:dk-auto-renewal") in hits
+    assert ("doc:fi-ehdot", "cl:fi-vastuunrajoitus") in hits
+    assert ("doc:fi-ehdot", "cl:fi-auto-renewal") in hits
+    # wave 13 (:no — 'fraskriver seg' は :dk 'fraskriver sig' と別言語・別エントリ)
+    assert ("doc:no-vilkar", "cl:no-ansvarsfraskrivelse") in hits
+    assert ("doc:no-vilkar", "cl:no-auto-renewal") in hits
+    # wave 14 (:mx)
+    assert ("doc:mx-terminos", "cl:mx-exoneracion") in hits
+    assert ("doc:mx-terminos", "cl:mx-renovacion") in hits
+    # wave 15 (:be — 'tacite reconduction' は :fr 'reconduction tacite' と語順別エントリ)
+    assert ("doc:be-conditions", "cl:be-exoneration") in hits
+    assert ("doc:be-conditions", "cl:be-tacite-reconduction") in hits
+    # wave 16 (:ar — botón de baja)
+    assert ("doc:ar-terminos", "cl:ar-exoneracion") in hits
+    assert ("doc:ar-terminos", "cl:ar-renovacion") in hits
+    # wave 20 (:nz)
+    assert ("doc:nz-terms", "cl:nz-cga-exclusion") in hits
+    assert ("doc:nz-terms", "cl:nz-auto-renewal") in hits
+
+
+def test_jurisdiction_isolation():
+    """G10: anchors never cross jurisdictions — JP statutes never fire on a US doc,
+    even when the keywords are present."""
+    docs, _ = load_docs()
+    patterns = load_patterns()
+    for d in docs:
+        for f in scan_doc(d, patterns):
+            p = next(p for p in patterns if p[":clause/id"] == f["clause"])
+            assert p.get(":clause/jurisdiction", ":jp") == d.get(":doc/jurisdiction", ":jp"), f
+    # adversarial: a US consumer doc containing JP keywords yields NO JP anchor
+    adv = {":doc/id": "doc:adv-us", ":doc/jurisdiction": ":us", ":doc/context": ":consumer",
+           ":doc/sourcing": ":synthetic",
+           ":doc/text": "当社は一切の責任を負いません。遅延損害金は年率19.9%。"}
+    for f in scan_doc(adv, patterns):
+        assert "消費者契約法" not in f["anchor"], f
+
+
+def test_case_insensitive_matching():
+    """Maturity (wave 3): sentence-initial capitals / ALL-CAPS must not hide a clause."""
+    patterns = load_patterns()
+    doc = {":doc/id": "doc:caps", ":doc/jurisdiction": ":au", ":doc/context": ":consumer",
+           ":doc/sourcing": ":synthetic", ":doc/text": "WE EXCLUDE ALL LIABILITY."}
+    assert any(f["clause"] == "cl:au-guarantee-exclusion" for f in scan_doc(doc, patterns))
+
+
+def test_kaiyaku_handoff_artifact():
+    """Wave 23: the tate → kaiyaku handoff contains EXACTLY the :kaiyaku-routed
+    flags (自動更新/解約窓) in ingestable EDN — the two actors compose on data."""
+    from terms_scan import make_kaiyaku_handoff, read_edn
+    _, res = _res()
+    text = make_kaiyaku_handoff(res)
+    parsed = read_edn(text)
+    expect = [f for f in res["flags"] if f["route"] == ":kaiyaku"]
+    assert len(parsed) == len(expect) and len(parsed) >= 10
+    clause_ids = {h[":handoff/clause"] for h in parsed}
+    for f in expect:
+        assert f["clause"] in clause_ids
+    for h in parsed:
+        assert h[":handoff/action"] == ":calendar-notice-window"
+        assert h[":handoff/anchor"]
+
+
+def test_flags_json_export():
+    """Wave 32: clause-flags.json round-trips (yoro UI 配線3本目)."""
+    import json
+    _, res = _res()
+    back = json.loads(json.dumps(res["flags"], ensure_ascii=False))
+    assert len(back) == len(res["flags"]) and all("anchor" in f for f in back)
+
+
 def test_datoms_ground_and_transient():
     text = datom_emit.emit(tx=3)
     assert ":clause/anchor" in text and ":doc/context" in text

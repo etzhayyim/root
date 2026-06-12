@@ -1,6 +1,6 @@
 # tanemaki 種蒔き — Public Fund grant-steward (fund-manager inversion)
 
-**ADR**: 2606122000 · **depends**: 2605192145 (Public Fund architecture / GrantGovernor +
+**ADR**: 2606122001 · **depends**: 2605192145 (Public Fund architecture / GrantGovernor +
 PublicFundGrantCell) · 2605192130 (10% tithe → Public Fund) · 2606052300 (fuchi 扶持 — the
 give-only instrument-allowlist pattern) · 2605312345 (Datom = canonical state) · 2605231525
 (no-server-key) · 2605215000 (Murakumo-only) · 2606062100 (3-Tier Charter) · 2606032000

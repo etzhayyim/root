@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# tanemaki 種蒔き — build the kotoba pywasm component + content-address it (ADR-2606122000).
+# tanemaki 種蒔き — build the kotoba pywasm component + content-address it (ADR-2606122001).
 # Operator/mesh-side. Requires componentize-py (NOT a runtime dep):
 #   pipx install componentize-py
 #

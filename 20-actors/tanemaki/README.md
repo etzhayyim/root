@@ -6,7 +6,7 @@ organizations — hard charter screens, then a weighted rubric with public weigh
 an **unsent, structurally-advisory** grant proposal. The sower (種蒔き) scatters seed freely
 and expects no return: the Public Fund **gives**, it never invests.
 
-- **ADR**: 2606122000 · **Status**: 🟡 R0
+- **ADR**: 2606122001 · **Status**: 🟡 R0
 - **Schema**: `00-contracts/schemas/fund-stewardship-ontology.kotoba.edn`
 - **Lexicons**: `com.etzhayyim.tanemaki.{ddScorecard,grantProposal}`
 

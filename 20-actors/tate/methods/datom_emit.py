@@ -17,11 +17,13 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from terms_scan import load_docs, load_patterns, scan, HERE  # noqa: E402
 from respond_plan import load_procs, plans  # noqa: E402
 
-DOC_ATTRS = [":doc/label", ":doc/context", ":doc/sourcing"]
-NOTICE_ATTRS = [":notice/label", ":notice/channel", ":notice/claim-jpy", ":notice/sourcing"]
-CLAUSE_ATTRS = [":clause/label", ":clause/context", ":clause/risk", ":clause/anchor",
-                ":clause/route", ":clause/verify-current-law"]
-PROC_ATTRS = [":proc/label", ":proc/genuine-channel", ":proc/verify-current-law"]
+DOC_ATTRS = [":doc/label", ":doc/jurisdiction", ":doc/context", ":doc/sourcing"]
+NOTICE_ATTRS = [":notice/label", ":notice/jurisdiction", ":notice/channel",
+                ":notice/claim-jpy", ":notice/claim-amount", ":notice/claim-currency",
+                ":notice/sourcing"]
+CLAUSE_ATTRS = [":clause/label", ":clause/jurisdiction", ":clause/context", ":clause/risk",
+                ":clause/anchor", ":clause/route", ":clause/verify-current-law"]
+PROC_ATTRS = [":proc/label", ":proc/jurisdiction", ":proc/verify-current-law"]
 
 
 def _fmt(v) -> str:

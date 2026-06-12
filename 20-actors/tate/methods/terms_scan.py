@@ -94,19 +94,25 @@ def load_docs(path: pathlib.Path | None = None):
 
 
 def scan_doc(doc: dict, patterns: list) -> list:
-    """Flags for one document. G5: pattern context must match the document context."""
+    """Flags for one document. G5: pattern context must match the document context.
+    G10: pattern jurisdiction must match the document jurisdiction (default :jp for
+    R0 back-compat) — a 消費者契約法 anchor can never fire on a US doc and vice versa."""
     flags = []
-    text = doc.get(":doc/text", "")
+    text = doc.get(":doc/text", "").casefold()  # case-insensitive — sentence-initial capitals must not hide a clause
     ctx = doc.get(":doc/context")
+    juris = doc.get(":doc/jurisdiction", ":jp")
     for p in patterns:
         if p[":clause/context"] != ctx:
             continue  # G5 — consumer anchors never cross into :b2b and vice versa
-        hit = next((k for k in p[":clause/keywords"] if k in text), None)
+        if p.get(":clause/jurisdiction", ":jp") != juris:
+            continue  # G10 — anchors never cross jurisdictions
+        hit = next((k for k in p[":clause/keywords"] if k.casefold() in text), None)
         if hit is None:
             continue
         flags.append({
             "doc": doc[":doc/id"],
             "doc_label": doc.get(":doc/label", doc[":doc/id"]),
+            "jurisdiction": juris,
             "clause": p[":clause/id"],
             "clause_label": p[":clause/label"],
             "matched": hit,
@@ -130,15 +136,39 @@ def scan(docs: list, patterns: list):
             "counts_by_route": dict(sorted(by_route.items()))}
 
 
+def make_kaiyaku_handoff(res: dict) -> str:
+    """Machine-readable handoff to kaiyaku 解約 (wave 23): every :kaiyaku-routed flag
+    (自動更新条項・解約窓) as EDN the 縁-ledger can ingest (notice-days カレンダー化).
+    tate detects the clause; kaiyaku owns the severance — the actors COMPOSE."""
+    L = [";; tate 盾 → kaiyaku 解約 handoff — GENERATED (ADR-2606112301/2606112201). DO NOT hand-edit.",
+         ";; :kaiyaku-routed clause flags only — 自動更新/解約窓 candidates for the 縁-ledger.", ""]
+    L.append("[")
+    for f in res["flags"]:
+        if f["route"] != ":kaiyaku":
+            continue
+        L.append(" {:handoff/doc %s" % _edn_str(f["doc"]))
+        L.append("  :handoff/jurisdiction %s" % f["jurisdiction"])
+        L.append("  :handoff/clause %s" % _edn_str(f["clause"]))
+        L.append("  :handoff/matched %s" % _edn_str(f["matched"]))
+        L.append("  :handoff/anchor %s" % _edn_str(f["anchor"]))
+        L.append("  :handoff/action :calendar-notice-window}")
+    L.append("]")
+    return "\n".join(L) + "\n"
+
+
+def _edn_str(s: str) -> str:
+    return '"' + str(s).replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+
 def report(res: dict) -> str:
     L = ["# tate 盾 — 不利条項 readout (non-adjudicating, G2)", ""]
     L.append(f"- docs scanned: {res['docs_scanned']} · flags: {len(res['flags'])} · "
              f"routes: {res['counts_by_route']}")
     L.append("")
-    L.append("| doc | clause | risk | 開示アンカー | route |")
-    L.append("|---|---|---|---|---|")
+    L.append("| doc | juris | clause | risk | 開示アンカー | route |")
+    L.append("|---|---|---|---|---|---|")
     for f in res["flags"]:
-        L.append(f"| {f['doc_label']} | {f['clause_label']} | {f['risk']} "
+        L.append(f"| {f['doc_label']} | {f['jurisdiction']} | {f['clause_label']} | {f['risk']} "
                  f"| {f['anchor']} | {f['route']} |")
     L.append("")
     L.append("各フラグは「該当する **可能性** のある条項パターン + 開示済み法令アンカー」です。"
@@ -155,8 +185,13 @@ def main(argv):
     res = scan(docs, load_patterns())
     out.mkdir(parents=True, exist_ok=True)
     (out / "clause-readout.md").write_text(report(res), encoding="utf-8")
+    (out / "kaiyaku-handoff.edn").write_text(make_kaiyaku_handoff(res), encoding="utf-8")
+    import json
+    (out / "clause-flags.json").write_text(
+        json.dumps(res["flags"], ensure_ascii=False, indent=1), encoding="utf-8")  # yoro UI (wave 32)
+    n_k = sum(1 for f in res["flags"] if f["route"] == ":kaiyaku")
     print(f"tate: {len(res['flags'])} clause flags over {res['docs_scanned']} docs "
-          f"→ {out / 'clause-readout.md'}")
+          f"({n_k} → kaiyaku handoff) → {out / 'clause-readout.md'}")
     return 0
 
 
