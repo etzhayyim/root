@@ -55,6 +55,14 @@
   {:cell/id "member_approve"  :cell/kind :langgraph :cell/runtime :wasm :cell/node "judah"}
   {:cell/id "cancel_execute"  :cell/kind :langgraph :cell/runtime :wasm :cell/node "zebulun"}]
 
+ :actor/impl-lanes ; one ADR, same gates, two runnable lanes
+ [{:lane/id :pywasm :lane/path "methods/" :lane/runtime :componentize-py}
+  {:lane/id :cljc :lane/path "clj/" :lane/runtime :langgraph-clj
+   :lane/note "Clojure LangGraph actor: ingest→analyze→plan→‖member-sig interrupt‖→rehearse; T2 dry-run rehearsal via browser-use-clj/computer-use-clj over INJECTED mock surfaces; murakumo-model loopback-only (G4)"
+   :lane/deps ["io.github.com-junkawasaki/langgraph-clj"
+               "io.github.com-junkawasaki/browser-use-clj"
+               "io.github.com-junkawasaki/computer-use-clj"]}]
+
  :actor/lex
  [{:lex/id "tieRecord"}        ; com.etzhayyim.apps.kaiyaku.tieRecord
   {:lex/id "enkiriReadout"}    ; com.etzhayyim.apps.kaiyaku.enkiriReadout (transient)
