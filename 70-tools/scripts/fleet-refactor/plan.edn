@@ -68,8 +68,13 @@
             :demote "組立 lint エラー行→単位逆引き→スタブ降格→再組立"}
    :next [:escalate-todo-units-to-12b
           "bb load-file smoke を最終ゲートに追加 (warning 止まりの未解決 alias (str/trim-leading 等) を捕捉)"]}
-  {:stage 1 :name :cpt-clojure-corpus :status :env-setup
-   :env "EVO Ubuntu24.04 / gfx1151 / ROCm /opt/rocm / py3.12 / torch 未導入 → ROCm wheel 要"
+  {:stage 1 :name :cpt-clojure-corpus :status :pipeline-verified
+   :approach "(b) founder 指示: Fable gold 30本で CPT パイプライン疎通 → 増幅 → 本番 CPT"
+   :base "google/gemma-4-E4B-it-qat-q4_0-unquantized (= fleet gemma4:e4b-it-qat の dequant QAT 同一重み; gated なし)"
+   :env "EVO 192.168.1.16 / Ubuntu24.04 / gfx1151 / ROCm7.13 / ComfyUI venv torch2.5.1+rocm6.2 + HSA_OVERRIDE=11.0.0; transformers5.9/peft0.19/trl1.6"
+   :smoke "本番ベースで e2e 成功: 7.95B params / LoRA 5.7M (0.07%) / loss 4.735→4.624 / ~17s/step。Gemma4ClippableLinear 内側 .linear を LoRA target に"
+   :scripts ["cpt/build_cpt_dataset.py" "cpt/train_cpt.py"]
+   :next ["増幅: gold 30本を seed に fleet(12b) で同種別ファイル量産 → CPT データ厚く" "本番 CPT-LoRA run"]
    :design "公開 Clojure コーパス (EPL/MIT/Apache) 50-200M tokens の CPT-LoRA @ EVO ROCm — 構文知識をベースに足す (SFT では埋まらない)"}
   {:stage 2 :name :file-type-expert-loras :status :pending
    :design "file-type 別 LoRA expert 群 (langgraph-port / types-port / cells-port …) を決定的ルーティング; 教師 = 12b+検証ゲート産ペア (sft_to_distill.py 変換)"}
