@@ -164,7 +164,12 @@ def chat(ip, messages):
 
 UNIT_LINT_CONFIG = ('{:linters {:unresolved-symbol {:level :warning} '
                     ':unresolved-namespace {:level :warning} '
-                    ':unresolved-var {:level :warning}}}')
+                    ':unresolved-var {:level :warning} '
+                    ':namespace-name-mismatch {:level :off}}}')
+
+# temp dir には ns の親ディレクトリが無いので mismatch 検査は構造上必ず誤検知する。
+# 実出力パスは ns から決定的に導出しているので by construction で一致する。
+FILE_LINT_CONFIG = '{:linters {:namespace-name-mismatch {:level :off}}}'
 
 
 def lint_text(code: str, config: str | None = None) -> tuple[bool, str]:
@@ -220,6 +225,32 @@ def translate_unit(pool: Pool, src: Path, doc: str, siblings: list[str],
         pool.release(node)
 
 
+def stub_unit(r: dict) -> None:
+    """単位を throw スタブ + 原文コメントへ置換 (port-failed / demoted 共通)。"""
+    orig = "\n".join(";; " + l for l in r["code"].splitlines())
+    if r["kind"] == "consts":
+        stub = f"(def {kebab(r['name'])} nil) ;; TODO: port-failed const\n"
+    else:
+        stub = (f"(defn {kebab(r['name'])} [& _]\n"
+                f"  (throw (ex-info \"TODO: port-failed\" "
+                f"{{:from \"{r['name']}\"}})))\n")
+    r["clj"] = (f";; TODO: port-failed unit {r['name']} "
+                f"({r.get('reason', '')[:80]})\n{orig}\n{stub}")
+
+
+def assemble(header: str, results: list[dict]) -> tuple[str, list[tuple[int, int, dict]]]:
+    """→ (text, [(start-line, end-line, unit-result) …]) — lint 行→単位の逆引き用。"""
+    parts, ranges = [header], []
+    line = header.count("\n") + 1
+    for r in results:
+        text = r["clj"].rstrip("\n") + "\n\n"
+        n = text.count("\n")
+        ranges.append((line, line + n - 1, r))
+        parts.append(text)
+        line += n
+    return "".join(parts), ranges
+
+
 # ───────────────────────── per-file orchestration ─────────────────────────
 
 def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
@@ -244,15 +275,7 @@ def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
     # ファイル成功 ≈ 0 になる)。スタブは throw + 原文コメントで「正直に」残す。
     for r in results:
         if r["status"] != "ok":
-            orig = "\n".join(";; " + l for l in r["code"].splitlines())
-            if r["kind"] == "consts":
-                stub = f"(def {kebab(r['name'])} nil) ;; TODO: port-failed const\n"
-            else:
-                stub = (f"(defn {kebab(r['name'])} [& _]\n"
-                        f"  (throw (ex-info \"TODO: port-failed\" "
-                        f"{{:from \"{r['name']}\"}})))\n")
-            r["clj"] = (f";; TODO: port-failed unit {r['name']} "
-                        f"({r.get('reason', '')[:80]})\n{orig}\n{stub}")
+            stub_unit(r)
 
     ns = ns_from_path(src)
     declares = [kebab(u["name"]) for u in units]  # 定数も declare して前方参照を塞ぐ
@@ -260,9 +283,26 @@ def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
               + (f";; {(doc.splitlines() or [''])[0]}\n" if doc else "")
               + f"(ns {ns}\n  (:require [clojure.string] [clojure.set] [clojure.edn]))\n\n"
               + (f"(declare {' '.join(declares)})\n\n" if declares else ""))
-    assembled = header + "\n".join(r["clj"] for r in results)
-
-    ok, lint_out = lint_text(assembled)
+    assembled, ranges = assemble(header, results)
+    ok, lint_out = lint_text(assembled, FILE_LINT_CONFIG)
+    if not ok:
+        # 組立 lint のエラー行 → 単位へ逆引きし、その単位を TODO スタブへ降格して再組立
+        bad_lines = [int(m.group(1)) for m in
+                     re.finditer(r"\.clj:(\d+):\d+: error", lint_out)]
+        demoted = 0
+        for bl in bad_lines:
+            for a, b, r in ranges:
+                if a <= bl <= b and r["status"] == "ok":
+                    r["status"] = "demoted"
+                    r["reason"] = "assembled-lint error"
+                    stub_unit(r)
+                    demoted += 1
+                    break
+        if demoted:
+            rec["demoted"] = demoted
+            rec["unit_ok"] = sum(1 for r in results if r["status"] == "ok")
+            assembled, _ = assemble(header, results)
+            ok, lint_out = lint_text(assembled, FILE_LINT_CONFIG)
     if not ok:
         return {**rec, "status": "fail", "reason": f"assembled lint: {lint_out[:300]}"}
 
