@@ -60,6 +60,21 @@ def test_jurisdictions_for_concept_data_protection_is_global():
     assert len(jx) >= 4, f"data-protection should be grounded across many jurisdictions, got {jx}"
 
 
+def test_coverage_gaps_is_the_inverse_worklist():
+    """gaps(concept) = MAJOR jurisdictions present in the graph that don't ground the concept."""
+    nodes, edges = _g()
+    have = set(query.jurisdictions_for_concept(nodes, edges, "concept.data-protection"))
+    gaps = query.coverage_gaps(nodes, edges, "concept.data-protection")
+    # a gap is never something already grounded, and is always a real major-jurisdiction node
+    for g in gaps:
+        assert g not in have
+        assert g in query.MAJOR_JURISDICTIONS and g in nodes
+    # electronic-signature is broadly grounded, so it should have few/zero gaps
+    esign_gaps = query.coverage_gaps(nodes, edges, "concept.electronic-signature")
+    assert len(esign_gaps) <= len(query.coverage_gaps(nodes, edges, "concept.escrow")), \
+        "broadly-grounded e-signature should have no more gaps than a niche concept"
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for fn in fns:

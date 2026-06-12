@@ -84,12 +84,29 @@ def jurisdictions_for_concept(nodes, edges, concept):
     return sorted(jx)
 
 
+# major national jurisdictions used as the gap-analysis denominator (exclude treaty/doctrinal ids)
+MAJOR_JURISDICTIONS = ["jx.jp", "jx.us", "jx.eu", "jx.uk", "jx.de", "jx.fr", "jx.in", "jx.cn",
+                       "jx.kr", "jx.br", "jx.au", "jx.ca", "jx.es", "jx.sg", "jx.mx", "jx.id",
+                       "jx.ng", "jx.ae", "jx.it", "jx.ch", "jx.za", "jx.israel"]
+
+
+def coverage_gaps(nodes, edges, concept):
+    """Major national jurisdictions that do NOT yet ground a concept — a self-documenting worklist.
+
+    Turns the EDN into its own coverage roadmap: the inverse of jurisdictions_for_concept over the
+    MAJOR_JURISDICTIONS denominator (treaty / religious / customary ids are not counted as gaps)."""
+    have = set(jurisdictions_for_concept(nodes, edges, concept))
+    present = [j for j in MAJOR_JURISDICTIONS if j in nodes]
+    return sorted(j for j in present if j not in have)
+
+
 _COMMANDS = {
     "templates-in": ("templates_in_jurisdiction", "templates governed by"),
     "statutes-for": ("statutes_grounding_template", "statutes grounding"),
     "translations": ("translations_of", "translations of"),
     "conflicts": ("conflicting_clauses", "clauses conflicting with"),
     "jurisdictions-for": ("jurisdictions_for_concept", "jurisdictions grounding"),
+    "gaps": ("coverage_gaps", "major jurisdictions still lacking grounding for"),
 }
 
 
