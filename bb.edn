@@ -112,7 +112,9 @@
                       'danjo.methods.test-analyze 'kabuto.methods.test-analyze
                       'keizu.methods.test-weave 'kosatsu.methods.test-weave
                       'inochi.methods.test-datom-emit 'asobi.methods.test-datom-emit
-                      'hokorobi.methods.test-datom-emit 'hoshimori.methods.test-datom-emit)
+                      'hokorobi.methods.test-datom-emit 'hoshimori.methods.test-datom-emit
+                      'tsugite.methods.test-datom-emit 'shiori.methods.test-datom-emit
+                      'rasen.tests.test-datom-emit)
              (let [r (clojure.test/run-tests 'rasen.tests.test-analyze
                                              'kanjo.tests.test-kanjo
                                              'kanjo.tests.test-invariants
@@ -148,7 +150,10 @@
                                              'inochi.methods.test-datom-emit
                                              'asobi.methods.test-datom-emit
                                              'hokorobi.methods.test-datom-emit
-                                             'hoshimori.methods.test-datom-emit)]
+                                             'hoshimori.methods.test-datom-emit
+                                             'tsugite.methods.test-datom-emit
+                                             'shiori.methods.test-datom-emit
+                                             'rasen.tests.test-datom-emit)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
