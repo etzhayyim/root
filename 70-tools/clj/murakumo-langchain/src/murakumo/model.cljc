@@ -33,7 +33,10 @@
                         (mapv (fn [{:keys [id name input]}]
                                 (cond-> {:function {:name name :arguments input}}
                                   id (assoc :id id)))
-                              tool-calls)))))
+                              tool-calls)))
+    ;; 未知 role はクラッシュさせず素通し (string role / 想定外 keyword)
+    {:role (if (keyword? role) (clojure.core/name role) (str role))
+     :content (str content)}))
 
 (defn tool->ollama
   "langchain tool map → Ollama native (OpenAI-shaped) tool wire format."
@@ -60,7 +63,9 @@
     (throw (ex-info "Ollama error" {:error err :response resp})))
   (let [calls (vec (map-indexed
                     (fn [i {:keys [id function]}]
-                      {:id (or id (str "call-" i))
+                      ;; id 欠落時は内容由来 (name+input+i) のハッシュ — 異ターンの同 index で
+                      ;; 衝突しない (WASM premise: 時計/乱数なし)。
+                      {:id (or id (str "call-" (hash [(:name function) (:arguments function) i])))
                        :name (:name function)
                        :input (:arguments function)})
                     (:tool_calls message)))]

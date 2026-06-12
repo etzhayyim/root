@@ -13,7 +13,7 @@
          :evo-x2 {:host :dynamic         ; ⚠ 静的 IP 厳禁 — DHCP で腐る。discover.py --evo で毎回解決
                   :found-at "192.168.1.16" ; 2026-06-12 同定 (cuda Radeon 8060S 32GiB / Ubuntu)。.70/.22 は誤り (.22 は Mac だった)
                   :user "gad" :role :training-box
-                  :ssh :blocked-needs-ssh-copy-id ; host key 変化 + publickey 拒否 (OS 再インストール疑い)
+                  :ssh :connected ; 2026-06-12 鍵設置済 (pw は Keychain RDP 項目); 孤児鍵2つ除去; Ubuntu 24.04.2
                   :stack {:trainer :peft+trl      ; ADR-2605250400 §1.2
                           :unsloth :probed-fail-cuda-only}}} ; 90-docs/baien/probe_unsloth_rocm.json
 
@@ -36,11 +36,12 @@
    :note "実分布はパイロットより遥かに硬い + ns-mismatch ハーネスバグ (pass1 は修正前に走行)"}
   {:id :batch100-pass2    :model "gemma4:12b-it-qat" :pass-rate "3/99"
    :note "timeout 18 含む; カスケード合計 4/100 — ゼロショット whole-file は実分布で不成立"}
-  {:id :stage0-unit-49    :model "gemma4:e4b-it-qat" :pass-rate "47/49 files lint-pass"
-   :unit-coverage "79/261 live (30%) + 幻覚 50 単位を組立時スタブ降格"
-   :coverage-dist {:complete 2 :>=50% 9 :<50% 36}
-   :sft-harvest 85 :secs-per-file 169
-   :note "成果物が『4%完成』→『96% lint 通過 + 30% 関数実装 + 機械可読 TODO スタブ』へ転換"}]
+  {:id :stage0-unit-49-bbgate :model "gemma4:e4b-it-qat" :pass-rate "47/49 files compile-load"
+   :gate "clj-kondo + bb (require ns) — 実ロード保証 (幻覚 alias を error 化)"
+   :unit-coverage "68/261 live (26%) — bb で実コンパイル通過した本物の数字"
+   :coverage-dist {:full-100% 1 :partial-50-99% 9 :partial-1-49% 18 :all-stub-0% 19}
+   :sft-harvest 68 :secs-per-file 110
+   :note "成果物 = 96% コンパイル可能スケルトン + 26% 関数実装 + 機械可読 TODO スタブ。残り 74% が stage1+ の埋め対象"}]
 
  :findings ;; ハマりどころ / 重要発見 (詳細は README.md)
  [{:id :openai-compat-drops-options
@@ -67,9 +68,21 @@
             :demote "組立 lint エラー行→単位逆引き→スタブ降格→再組立"}
    :next [:escalate-todo-units-to-12b
           "bb load-file smoke を最終ゲートに追加 (warning 止まりの未解決 alias (str/trim-leading 等) を捕捉)"]}
-  {:stage 1 :name :cpt-clojure-corpus :status :blocked
-   :blockers [:evo-ssh]
-   :design "公開 Clojure コーパス (EPL/MIT/Apache) 50-200M tokens の CPT-LoRA @ EVO ROCm — 構文知識をベースに足す (SFT では埋まらない)"}
+  {:stage 1 :name :cpt-clojure-corpus :status :data-ready-rerun-pending
+   :approach "(b) founder 指示: Fable gold 30本で CPT パイプライン疎通 → 増幅 → 本番 CPT"
+   :base "google/gemma-4-E4B-it-qat-q4_0-unquantized (= fleet gemma4:e4b-it-qat の dequant QAT 同一重み; gated なし; arch Gemma4ForConditionalGeneration)"
+   :env "EVO 192.168.1.16 / Ubuntu24.04 / gfx1151 / ROCm7.13 / ComfyUI venv torch2.5.1+rocm6.2 + HSA_OVERRIDE=11.0.0; transformers5.9/peft0.19/trl1.6"
+   :data "cpt/cpt-full.jsonl = gold 30本全文 + 増幅 134 検証済み unit = 164 docs / ~117K chars (build_cpt_full.py)"
+   :amplify "fleet(e4b) で 140 files を unit_refactor → 139/140 bb 通過 / 139 ok-unit 収穫 (gated, stub なし)"
+   :scripts ["cpt/build_cpt_dataset.py" "cpt/build_cpt_full.py" "cpt/train_cpt.py"]
+   :critical-bug-fixed
+   "本番 CPT 初回は SILENT NO-OP だった: Gemma4 は vision_tower の proj が Gemma4ClippableLinear /
+    language_model の proj は素の nn.Linear。has_clippable 判定が vision を見て .linear ターゲットに
+    切替 → LoRA が vision tower にだけ注入 → テキスト loss の勾配経路外 → lora_B 全ゼロで 3-epoch 走るも
+    何も学習せず。lora_B==0 アサートで検出。修正: LoRA を language_model.layers.N.(self_attn|mlp).(q|k|v|o|gate|up|down)_proj
+    に regex スコープ + use_reentrant=False + post-train no-op ガード。teacher = 12b 産 (e4b 産は意味的不良混入)"
+   :next ["本番 CPT-LoRA 再実行 (修正版 train_cpt.py、3 epoch) → lora_B 非ゼロ確認"
+          "CPT 済アダプタを base に unit_refactor 再測定 → coverage 改善を計測"]}
   {:stage 2 :name :file-type-expert-loras :status :pending
    :design "file-type 別 LoRA expert 群 (langgraph-port / types-port / cells-port …) を決定的ルーティング; 教師 = 12b+検証ゲート産ペア (sft_to_distill.py 変換)"}
   {:stage 3 :name :student-12b :status :option
@@ -79,6 +92,5 @@
    :design "128-expert MoE の Clojure expert freeze-train (ADR-2605261900/2605262100) — substrate R1 到達後の本命移植先"}]
 
  :blockers
- [{:id :evo-ssh :owner :founder :action "! ssh-copy-id evo (publickey 拒否, OS 再インストール疑い)"}
-  {:id :live-gate-decision :owner :founder
+ [{:id :live-gate-decision :owner :founder
    :action "fuchi/abaki live_gate 空洞化の処置 (revert / 正規 ADR で R2 化 / abaki 素性調査)"}]}

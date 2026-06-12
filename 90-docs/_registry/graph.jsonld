@@ -15492,6 +15492,23 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:adr-2606120500-fleet-clojure-refactor-and-gemma4-cpt",
+      "type": "TechArticle",
+      "title": "ADR-2606120500: Murakumo-fleet 並列 Clojure 移行ハーネス + gemma4 CPT 特化パイプライン",
+      "status": "proposed",
+      "topic": "fleet-clojure-refactor-and-gemma4-cpt",
+      "authoritative": true,
+      "authoritativeFor": [
+        "70-tools/scripts/fleet-refactor",
+        "70-tools/clj/murakumo-langchain"
+      ],
+      "related": [
+        "doc:adr-2605231525",
+        "doc:adr-2606052300"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
       "id": "doc:adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
       "type": "TechArticle",
       "title": "ADR-2606120750: Session close — search-actor audit → parquet-free CC ingest → kotoba read-path resident cache LIVE",
