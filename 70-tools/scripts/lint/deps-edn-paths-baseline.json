@@ -1,30 +1,4 @@
 {
- "drift": [
-  "20-actors/karute/actor.toml",
-  "40-engine/kami-engine",
-  "40-engine/kami-engine/kami-app-amenominaka",
-  "40-engine/kami-engine/kami-app-isekai/src/omniverse.rs",
-  "40-engine/kami-engine/kami-articulated",
-  "40-engine/kami-engine/kami-autodrive",
-  "40-engine/kami-engine/kami-engine-sdk/src/lib/components/IsekaiCanvas.svelte",
-  "40-engine/kami-engine/kami-genesis",
-  "40-engine/kami-engine/kami-pbrt",
-  "40-engine/kami-engine/kami-physics-solvers",
-  "40-engine/kami-engine/kami-replicator",
-  "40-engine/kami-engine/kami-rt",
-  "40-engine/kami-engine/kami-rtx-native",
-  "40-engine/kami-engine/kami-sensor-sim",
-  "40-engine/kami-engine/kami-shugyo",
-  "40-engine/kami-engine/kami-usd",
-  "40-engine/kami-engine/kami-usd-native",
-  "50-infra/vultr/kotoba-firewall-restrict.sh",
-  "70-tools/baien-moemoekyun-train/recipes/corp/corp-financial-disclosure-foundations-r1.toml",
-  "70-tools/baien-moemoekyun-train/recipes/corp/corp-ownership-graph-r1.toml",
-  "70-tools/baien-moemoekyun-train/recipes/gov/gov-civic-literacy-foundations-r1.toml",
-  "70-tools/baien-moemoekyun-train/recipes/gov/gov-statistics-foundations-r1.toml",
-  "70-tools/baien-moemoekyun-train/recipes/tier-a-geo-and-netreg-mixed.toml",
-  "90-docs/adr/2606032330-session-close-kotodama-kotoba-to-kotoba-datomic-edn.md",
-  "Formula/kotoba.rb"
- ],
+ "drift": [],
  "unregistered_adrs": []
 }
