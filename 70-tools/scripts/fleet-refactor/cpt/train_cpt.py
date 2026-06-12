@@ -9,7 +9,8 @@ EVO で動かす (ComfyUI venv, torch 2.5.1+rocm6.2):
       --model HuggingFaceTB/SmolLM2-135M \      # smoke 用 (疎通確認)
       --data cpt-gold.jsonl --out cpt-out --epochs 1 --smoke
 
-本番は --model を gemma4 の HF id へ (google/gemma-3n-E4B-it 等; HF token + license 要)。
+本番ベースは fleet の gemma4:e4b-it-qat と同一重み:
+  google/gemma-4-E4B-it-qat-q4_0-unquantized  (dequant QAT it = "4B_dequant_qat_it_hf"; gated なし)
 gfx1151 は HSA_OVERRIDE_GFX_VERSION=11.0.0 必須 (呼び出し側 env で設定)。
 """
 
@@ -52,15 +53,31 @@ def main() -> int:
 
     ds = ds.map(tokenize, batched=True, remove_columns=ds.column_names)
 
-    model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype=torch.bfloat16).cuda()
+    # Gemma4 は *ForConditionalGeneration (マルチモーダル)。テキスト CPT には
+    # CausalLM として読むか、失敗時は text submodel を取り出す。
+    try:
+        model = AutoModelForCausalLM.from_pretrained(
+            args.model, torch_dtype=torch.bfloat16).cuda()
+    except (ValueError, KeyError, TypeError):
+        from transformers import AutoModelForImageTextToText
+        full = AutoModelForImageTextToText.from_pretrained(
+            args.model, torch_dtype=torch.bfloat16).cuda()
+        model = getattr(getattr(full, "model", full), "language_model", None) or full
+        print(f"loaded text submodel: {type(model).__name__}")
     model.gradient_checkpointing_enable()
     model.enable_input_require_grads()
 
-    # CPT は全 linear に薄く LoRA を当てる (構文分布を広く動かす)
+    # CPT は全 linear に薄く LoRA を当てる (構文分布を広く動かす)。
+    # Gemma4 の proj は Gemma4ClippableLinear ラッパ — 実体 nn.Linear は内側 `.linear`。
+    # ラッパ名 (q_proj) を渡すと unsupported になるので、内側 `.linear` だけを狙う。
+    # 標準アーキ (ラッパ無し) では .linear が無いので、その時は proj 名へ自動フォールバック。
+    proj = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+    has_clippable = any(type(m).__name__ == "Gemma4ClippableLinear"
+                        for m in model.modules())
+    targets = [p + ".linear" for p in proj] if has_clippable else proj
     lora = LoraConfig(
         r=args.lora_r, lora_alpha=args.lora_r * 2, lora_dropout=0.05,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
-                        "gate_proj", "up_proj", "down_proj"],
+        target_modules=targets,
         task_type="CAUSAL_LM")
     model = get_peft_model(model, lora)
     model.print_trainable_parameters()
