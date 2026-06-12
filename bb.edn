@@ -95,7 +95,11 @@
                       'funadaiku.cells.sea-trial.test-cell
                       'tedai.cells.intent-plan.test-state-machine
                       'hotaru.cells.commons-readiness.test-state-machine
-                      'keizu.methods.test-edn)
+                      'keizu.methods.test-edn
+                      'tatekata.cells.mep-installation.test-cell
+                      'warifu.cells.test-refund
+                      'kakaku.kotoba.test-ingest-mcp
+                      'watatsuna.methods.test-ingest)
              (let [r (clojure.test/run-tests 'rasen.tests.test-analyze
                                              'kanjo.tests.test-kanjo
                                              'kanjo.tests.test-invariants
@@ -105,7 +109,11 @@
                                              'funadaiku.cells.sea-trial.test-cell
                                              'tedai.cells.intent-plan.test-state-machine
                                              'hotaru.cells.commons-readiness.test-state-machine
-                                             'keizu.methods.test-edn)]
+                                             'keizu.methods.test-edn
+                                             'tatekata.cells.mep-installation.test-cell
+                                             'warifu.cells.test-refund
+                                             'kakaku.kotoba.test-ingest-mcp
+                                             'watatsuna.methods.test-ingest)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
