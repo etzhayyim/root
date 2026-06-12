@@ -10,7 +10,8 @@
                   "gemma4:e4b-it-qat"    ; 7.5B Q4_0 QAT — 全ノード配布済 2026-06-11
                   "gemma4:12b-it-qat"]   ; 11.9B Q4_0 QAT — 全ノード配布済 2026-06-11
          :concurrency {:e4b 2 :twelve-b 1}   ; 12b は 2 並列で M4 16GB が timeout
-         :evo-x2 {:host "192.168.1.22"  ; fleet.edn の .70 は stale (DHCP 未予約)
+         :evo-x2 {:host :dynamic         ; ⚠ 静的 IP 厳禁 — DHCP で腐る。discover.py --evo で毎回解決
+                  :found-at "192.168.1.16" ; 2026-06-12 同定 (cuda Radeon 8060S 32GiB / Ubuntu)。.70/.22 は誤り (.22 は Mac だった)
                   :user "gad" :role :training-box
                   :ssh :blocked-needs-ssh-copy-id ; host key 変化 + publickey 拒否 (OS 再インストール疑い)
                   :stack {:trainer :peft+trl      ; ADR-2605250400 §1.2
