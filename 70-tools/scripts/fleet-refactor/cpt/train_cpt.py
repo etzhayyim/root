@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""train_cpt — CPT-LoRA 継続事前学習 (gfx1151 / ROCm)。
+r"""train_cpt — CPT-LoRA 継続事前学習 (gfx1151 / ROCm)。
 
 生テキスト jsonl ({"text": …}) で causal-LM の継続学習 LoRA を回す。SFT ではなく
 CPT: モデルに Clojure / kotoba-Datomic イディオムの「言語分布」を焼き込む段。
