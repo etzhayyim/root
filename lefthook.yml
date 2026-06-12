@@ -610,6 +610,25 @@ pre-push:
   parallel: false  # SDK build must finish before cyber-drill build reads its dist/
 
   commands:
+    tree-guard:
+      # Structural guards BEFORE the push leaves the machine (operator
+      # direction 2026-06-12: local pre-push, not a GitHub Action — the
+      # server-side gate is the required-review ruleset on main).
+      # Born from #1680 (77,504-file tree wipe merged green: every CI
+      # workflow is path-triggered, so nothing fired on the deletions)
+      # + the 2026-06-12 merge-history audit (orphan kotoba pins
+      # 98f9d2b3fd / 46e0bdaa6a; #1403 pin regression).
+      #   1. sentinel files exist in the HEAD tree (deps.edn, CLAUDE.md,
+      #      CHARTER-RIDER.md, adr README, the 8 layer dirs, …)
+      #   2. engine-submodule pins exist upstream + move fast-forward
+      #      only (network checks fire only when a pin changed; offline
+      #      warns and passes)
+      #   3. >3000 files deleted vs origin/main requires explicit
+      #      [mass-delete-ok] in the HEAD commit message
+      # No glob: this must run on every push, especially ones that
+      # delete things — a glob can't see what is MISSING.
+      run: sh 70-tools/scripts/lint/tree-guard.sh
+
     substrate-remediation-audit:
       # ADR-2606071800 shrink-only ratchet for the legacy RisingWave/Hyperdrive/
       # Kysely read path. Full-tree scan (too heavy for per-commit; runs on push).
