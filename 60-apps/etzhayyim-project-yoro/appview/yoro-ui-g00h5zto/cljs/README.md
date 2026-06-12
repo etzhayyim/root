@@ -32,6 +32,9 @@ pnpm smoke          # headless Chrome smoke (render / tabs / consent modal e2e)
 | `state/topology.cljs` | `$lib/session-topology.svelte.ts` | 空文字 topic を弾く fix 込み |
 | `state/inference_consent.cljs` | `components/inference-consent-state.svelte.ts` | promise ゲート |
 | `legal/content.cljs` | `$lib/legal/content.ts` | inferenceConsentDocument のみ |
+| `components/header_yoro_animation.cljs` | `components/HeaderYoroAnimation.svelte` | 8 パターン + blink/rotate interval |
+| `components/nondual_experience_guide.cljs` | `components/NondualExperienceGuide.svelte` | Charter §1.17 (geo gate fail-closed) |
+| `interop/atproto.cljs` | `$lib/atproto-agent` (client slice) | XRPC query/procedure + re-frame fx; get-session は local-only (401-noise ルール) |
 | `test/.../topology_test.cljs` | `session-topology.test.ts` | 9 tests / 19 assertions |
 
 ## 落とし穴 (svelte → reagent)

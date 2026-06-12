@@ -1,7 +1,9 @@
 (ns yoro-ui.state.history
-  (:require [re-frame.core :as rf]))
+  (:require [re-frame.core :as rf]
+            [yoro-ui.interop.atproto :as at]))
 
 (def dedup-window-ms (* 60 60 1000))
+(def collection "com.etzhayyim.apps.yoro.browsingHistory")
 
 (rf/reg-sub
   :history/entries
@@ -52,10 +54,18 @@
 
 (rf/reg-event-fx
   :history/write-to-pds
-  (fn [_ [_ collection record]]
-    ;; Fire-and-forget stub
-    ;; In a full port this invokes atProcedure via JS interop
-    {}))
+  (fn [_ [_ coll record]]
+    ;; Fire-and-forget createRecord. Signed-out → no XRPC (401-noise rule),
+    ;; entry stays local-only (parity with svelte history.svelte.ts).
+    (if (at/get-session)
+      {:atproto/procedure {:nsid "com.atproto.repo.createRecord"
+                           :body {:collection coll :record record}
+                           :on-failure [:history/pds-noop]}}
+      {})))
+
+(rf/reg-event-db
+  :history/pds-noop
+  (fn [db _] db))
 
 (rf/reg-event-fx
   :history/load
@@ -69,8 +79,39 @@
 (rf/reg-event-fx
   :history/load-from-pds
   (fn [_ _]
-    ;; Stub for async ATProto request
-    {:dispatch-later [{:ms 200 :dispatch [:history/set-entries []]}]}))
+    ;; Graph query (BrowsingHistory nodes, newest first) when signed in;
+    ;; signed-out → empty (local-only), no XRPC fired.
+    (if-let [did (:did (at/get-session))]
+      {:atproto/procedure
+       {:nsid "com.etzhayyim.kagami.graph.query"
+        :body {:statement (str "MATCH (h:BrowsingHistory) WHERE h.repo = $did "
+                               "RETURN h ORDER BY h.created_at DESC LIMIT 200")
+               :parameters {:did did}}
+        :on-success [:history/load-success]
+        :on-failure [:history/load-failure]}}
+      {:dispatch [:history/set-entries []]})))
+
+(rf/reg-event-fx
+  :history/load-success
+  (fn [_ [_ resp]]
+    (let [rows (or (:rows resp) (:results resp) [])
+          entries (mapv (fn [row]
+                          (let [h (or (:h row) row)]
+                            {:path (:path h)
+                             :title (:title h)
+                             :history_type (:history_type h)
+                             :avatar (:avatar h)
+                             :handle (:handle h)
+                             :visitedAt (:created_at h)
+                             :rkey (:rkey h)}))
+                        rows)]
+      {:dispatch [:history/set-entries entries]})))
+
+(rf/reg-event-fx
+  :history/load-failure
+  (fn [_ _]
+    ;; fail-open: degrade to local-only
+    {:dispatch [:history/set-entries []]}))
 
 (rf/reg-event-fx
   :history/remove-entry
@@ -86,8 +127,11 @@
 (rf/reg-event-fx
   :history/delete-from-pds
   (fn [_ [_ rkey]]
-    ;; Fire-and-forget stub
-    {}))
+    (if (at/get-session)
+      {:atproto/procedure {:nsid "com.atproto.repo.deleteRecord"
+                           :body {:collection collection :rkey rkey}
+                           :on-failure [:history/pds-noop]}}
+      {})))
 
 (rf/reg-event-fx
   :history/clear
@@ -102,5 +146,5 @@
 (rf/reg-event-fx
   :history/clear-pds-records
   (fn [_ [_ rkeys]]
-    ;; Loop deletion stub
-    {}))
+    {:fx (mapv (fn [rkey] [:dispatch [:history/delete-from-pds rkey]])
+               (filter some? rkeys))}))

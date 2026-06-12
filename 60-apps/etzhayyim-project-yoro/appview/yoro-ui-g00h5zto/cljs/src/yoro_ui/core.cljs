@@ -10,6 +10,8 @@
             [yoro-ui.components.streak-badge :refer [streak-badge]]
             [yoro-ui.components.brainrot-mascot :refer [brainrot-mascot]]
             [yoro-ui.components.kami-yoro-mascot :refer [kami-yoro-mascot]]
+            [yoro-ui.components.header-yoro-animation :refer [header-yoro-animation]]
+            [yoro-ui.components.nondual-experience-guide :refer [nondual-experience-guide]]
             [yoro-ui.components.inference-consent :refer [inference-consent]]
             [yoro-ui.components.no-cookie-banner :refer [no-cookie-banner]]))
 
@@ -30,6 +32,16 @@
  :app/set-tab
  (fn [db [_ tab]]
    (assoc-in db [:app :active-tab] tab)))
+
+(rf/reg-sub
+ :app/guide-visible?
+ (fn [db _]
+   (get-in db [:app :guide-visible?] false)))
+
+(rf/reg-event-db
+ :app/set-guide-visible
+ (fn [db [_ v]]
+   (assoc-in db [:app :guide-visible?] v)))
 
 ;; ---------------------------------------------------------------------------
 ;; views
@@ -73,6 +85,16 @@
    [:div {:class section-card}
     [:h3 {:class "font-bold mb-2"} "InferenceConsent — TOS 同意ゲート"]
     [consent-demo]]
+   [:div {:class section-card}
+    [:h3 {:class "font-bold mb-2"} "HeaderYoroAnimation — 8 patterns"]
+    [:div {:class "flex items-center gap-4"}
+     [:span {:class "text-[18px] font-black"} "YORO" [header-yoro-animation {:class "ml-1"}]]
+     [:p {:class "text-[12px] text-gv2-text-muted"}
+      "6-10s でパターンをローテーション。クリックで次のパターンへ。ヘッダー右上にも常駐。"]]]
+   [:div {:class section-card}
+    [:h3 {:class "font-bold mb-2"} "NondualExperienceGuide — Charter §1.17 ガイダンス"]
+    [:button {:class button-cls :on-click #(rf/dispatch [:app/set-guide-visible true])}
+     "ガイドを開く (geo gate は fail-closed)"]]
    [:div {:class section-card}
     [:h3 {:class "font-bold mb-3"} "BrainrotMascot — 6 characters"]
     [:div {:class "flex flex-wrap gap-4 items-end"}
@@ -210,7 +232,9 @@
   (let [active @(rf/subscribe [:app/active-tab])]
     [:div {:class "min-h-screen bg-gv2-bg-base text-gv2-text-primary p-4 pb-32"}
      [:div {:class "flex items-center justify-between mb-1 max-w-[860px] mx-auto"}
-      [:h1 {:class "text-2xl font-bold"} "Yoro ClojureScript Refactor"]
+      [:h1 {:class "text-2xl font-bold flex items-center gap-1"}
+       "Yoro ClojureScript Refactor"
+       [header-yoro-animation]]
       [streak-badge]]
      [:p {:class "mb-4 text-gv2-text-muted max-w-[860px] mx-auto"}
       "svelte → cljs (reagent + re-frame) 移行ハーネス"]
@@ -234,6 +258,8 @@
         :topology   [topology-view]
         [components-view])]
 
+     (when @(rf/subscribe [:app/guide-visible?])
+       [nondual-experience-guide {:on-continue #(rf/dispatch [:app/set-guide-visible false])}])
      [inference-consent]
      [no-cookie-banner]]))
 
