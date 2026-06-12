@@ -85,13 +85,19 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:stubs
-  {:doc "stage-0 stub→real ports (rasen/kanjo analyzers replacing port-failed .clj)"
+  {:doc "stage-0 stub→real ports (analyzers/cells replacing port-failed .clj)"
    :task (do (require 'clojure.test
                       'rasen.tests.test-analyze
-                      'kanjo.tests.test-kanjo 'kanjo.tests.test-invariants)
+                      'kanjo.tests.test-kanjo 'kanjo.tests.test-invariants
+                      'shionome.cells.regime-observer.test-state-machine
+                      'mitooshi.methods.test-promote
+                      'ake.methods.test-ingest)
              (let [r (clojure.test/run-tests 'rasen.tests.test-analyze
                                              'kanjo.tests.test-kanjo
-                                             'kanjo.tests.test-invariants)]
+                                             'kanjo.tests.test-invariants
+                                             'shionome.cells.regime-observer.test-state-machine
+                                             'mitooshi.methods.test-promote
+                                             'ake.methods.test-ingest)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
