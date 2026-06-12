@@ -90,11 +90,24 @@ advice.
 │   ├── test_analyze.py
 │   ├── test_handoff.py
 │   └── test_plan.py
+├── clj/                               # cljc port + Clojure LangGraph actor (see clj/README.md)
+│   ├── deps.edn                       # langgraph-clj + browser-use-clj + computer-use-clj (git deps)
+│   ├── src/kaiyaku/                   # ledger/analyze/plan/datoms (Python numeric parity)
+│   │                                  #   + executor.cljc (T2 rehearsal engines; murakumo-model G4)
+│   │                                  #   + agent.cljc (StateGraph: ingest→analyze→plan→‖member-sig‖→rehearse)
+│   └── test/kaiyaku/                  # 17 tests / 103 assertions
 └── out/                               # GENERATED — do not hand-edit
     ├── enkiri-readout.md
     ├── severance-plans.md
     └── enkiri-datoms.kotoba.edn
 ```
+
+Two deployment lanes, one ADR, same gates: `methods/` = kotoba **pywasm**
+(componentize-py) lane; `clj/` = **langgraph-clj / kotoba-clj** (portable
+`.cljc`, Clojure-on-WASM) lane. The clj actor adds the graph-form member-sig
+gate (langgraph interrupt before `:approve`) and T2 dry-run **rehearsal**
+through browser-use-clj / computer-use-clj over injected mock surfaces —
+live legs stay G6-gated in both lanes.
 
 ## Run
 
@@ -106,6 +119,8 @@ python3 methods/datom_emit.py         # → out/enkiri-datoms.kotoba.edn (EAVT)
 python3 methods/handoff_ingest.py    # tate handoff → out/handoff-worklist.md
 python3 tests/test_analyze.py && python3 tests/test_plan.py \
   && python3 tests/test_handoff.py   # 22 green
+
+cd clj && clojure -X:test             # clj lane: 17 tests / 103 assertions green
 ```
 
 ## Do not
