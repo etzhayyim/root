@@ -325,7 +325,10 @@ def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
 
     # bb コンパイル smoke: clj-kondo が warning 止まりで見逃す未解決シンボル/alias
     # (str/trim-leading 等の幻覚) を error 化。失敗行→単位逆引きでスタブ降格して再試行。
-    for _ in range(4):  # 降格の収束を有限回で打ち切る
+    # 全単位がスタブのファイルは自明にコンパイルできるので、降格を続ければ必ず収束する。
+    # 上限は単位数 (各反復で ≥1 単位を降格)。エラー行が単位にマップできない反復では
+    # 残り live 単位を全降格して停滞を防ぐ。
+    for _ in range(len(units) + 1):
         bok, bout = bb_compile(assembled, ns)
         if bok:
             break
@@ -340,14 +343,22 @@ def port_file(pool: Pool, ex: concurrent.futures.ThreadPoolExecutor,
                     stub_unit(r)
                     bumped += 1
                     break
-        if not bumped:  # 行が単位へ当たらない (ヘッダ等) — これ以上降格できない
-            return {**rec, "status": "fail", "reason": f"bb compile: {bout[:300]}"}
+        if not bumped:  # 行が単位に当たらない — 残り live を全降格 (収束保証)
+            for r in results:
+                if r["status"] == "ok":
+                    r["status"] = "demoted"
+                    r["reason"] = "bb-compile unmapped"
+                    stub_unit(r)
+                    bumped += 1
         rec["demoted"] = rec.get("demoted", 0) + bumped
         rec["unit_ok"] = sum(1 for r in results if r["status"] == "ok")
         assembled, _ = assemble(header, results)
-        ok, _ = lint_text(assembled, FILE_LINT_CONFIG)  # 降格後 lint も再確認
-        if not ok:
-            return {**rec, "status": "fail", "reason": "post-bb-demote lint regressed"}
+    bok, bout = bb_compile(assembled, ns)
+    if not bok:
+        return {**rec, "status": "fail", "reason": f"bb compile (unconverged): {bout[:200]}"}
+    ok, _ = lint_text(assembled, FILE_LINT_CONFIG)
+    if not ok:
+        return {**rec, "status": "fail", "reason": "post-bb-demote lint regressed"}
 
     out = src.parent / (ns.rsplit(".", 1)[-1].replace("-", "_") + ".clj")
     out.write_text(assembled, encoding="utf-8")
