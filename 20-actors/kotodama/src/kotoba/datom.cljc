@@ -58,6 +58,7 @@
     (string? v)     (str "\"" (json-escape v) "\"")
     (boolean? v)    (if v "true" "false")
     (integer? v)    (str v)
+    (number? v)     (str v)   ;; floats (e.g. :health/eco-maturity) — Python json.dumps repr parity
     (map? v)        (str "{" (str/join "," (map (fn [k] (str "\"" (json-escape k) "\":"
                                                               (canonical-json (get v k))))
                                                 (sort (keys v)))) "}")

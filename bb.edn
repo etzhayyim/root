@@ -50,9 +50,35 @@
                       'yobel.tests.test-orchestrator)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:ibuki
+  {:doc "ibuki 息吹 Clojure test suite (core loop; integration runs separately — see test:ibuki:integration)"
+   :task (do (require 'clojure.test
+                      'ibuki.methods.test-datoms 'ibuki.methods.test-joucho
+                      'ibuki.methods.test-heartbeat 'ibuki.methods.test-infer
+                      'ibuki.methods.test-kaizen-feedback 'ibuki.methods.test-drainer
+                      'ibuki.methods.test-quorum 'ibuki.methods.test-symbiosis
+                      'ibuki.methods.test-ecosystem 'ibuki.methods.test-health
+                      'ibuki.methods.test-digest 'ibuki.methods.test-autorun
+                      'ibuki.methods.test-charter-invariants)
+             (let [r (clojure.test/run-tests
+                      'ibuki.methods.test-datoms 'ibuki.methods.test-joucho
+                      'ibuki.methods.test-heartbeat 'ibuki.methods.test-infer
+                      'ibuki.methods.test-kaizen-feedback 'ibuki.methods.test-drainer
+                      'ibuki.methods.test-quorum 'ibuki.methods.test-symbiosis
+                      'ibuki.methods.test-ecosystem 'ibuki.methods.test-health
+                      'ibuki.methods.test-digest 'ibuki.methods.test-autorun
+                      'ibuki.methods.test-charter-invariants)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:ibuki:integration
+  {:doc "ibuki integration suite (nine 60-beat lives — ~10 min under SCI)"
+   :task (do (require 'clojure.test 'ibuki.methods.test-integration)
+             (let [r (clojure.test/run-tests 'ibuki.methods.test-integration)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:clj
-  {:doc "all Clojure actor tests"
-   :depends [test:mimamori test:yobel]}
+  {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
+   :depends [test:mimamori test:yobel test:tools test:ibuki]}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test
