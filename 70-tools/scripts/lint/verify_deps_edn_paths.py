@@ -217,6 +217,84 @@ def find_duplicates(deps_edn: Path) -> dict[str, list[tuple[str, str]]]:
     return {f"{k[0]}:{k[1]}": v for k, v in seen.items() if len(v) > 1}
 
 
+def find_unregistered_adrs(deps_edn: Path, repo_root: Path) -> list[str]:
+    """REVERSE audit (the abaki gap, ADR-2606121333 lesson 1): every
+    90-docs/adr/<10-digit-id>-*.md file on disk must be registered in the
+    :adrs vector (matched by :id or by :path). Returns unregistered paths.
+
+    Forward audit (registered → file exists) catches lost FILES (sonae);
+    this direction catches lost REGISTRATIONS (abaki: ADR + actor landed,
+    every registration of them missing)."""
+    sections = load_sections(deps_edn)
+    ids = {e.get("id", "") for e in sections["adrs"]}
+    paths = set()
+    for e in sections["adrs"]:
+        clean, _ = _strip_reserved_marker(e.get("path", ""))
+        paths.add(clean)
+    out = []
+    adr_dir = repo_root / "90-docs" / "adr"
+    for f in sorted(adr_dir.glob("*.md")):
+        name = f.name
+        if len(name) < 11 or not name[:10].isdigit() or name[10] != "-":
+            continue  # README / template / non-ADR docs
+        rel = f"90-docs/adr/{name}"
+        if name[:10] in ids or rel in paths:
+            continue
+        out.append(rel)
+    return out
+
+
+def _front_matter(p: Path) -> dict[str, str]:
+    """Minimal YAML front-matter reader: top-level 'key: value' scalars only."""
+    out: dict[str, str] = {}
+    lines = p.read_text(encoding="utf-8", errors="replace").splitlines()
+    if not lines or lines[0].strip() != "---":
+        return out
+    for line in lines[1:200]:
+        if line.strip() == "---":
+            break
+        if ":" in line and not line.startswith((" ", "\t", "-")):
+            k, _, v = line.partition(":")
+            v = v.strip()
+            if v.startswith('"') and v.endswith('"') and len(v) >= 2:
+                v = v[1:-1]
+            out[k.strip()] = v
+    return out
+
+
+def _edn_quote(s: str) -> str:
+    return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+def register_missing(deps_edn: Path, repo_root: Path) -> int:
+    """Backfill every unregistered ADR into :adrs from its front matter,
+    via the structural appender (parse-or-die — cannot corrupt the file)."""
+    import importlib.util as _il
+
+    unregistered = find_unregistered_adrs(deps_edn, repo_root)
+    if not unregistered:
+        print("no unregistered ADRs — registry complete")
+        return 0
+    entries = []
+    for rel in unregistered:
+        fm = _front_matter(repo_root / rel)
+        adr_id = rel.split("/")[-1][:10]
+        title = fm.get("title", "") or rel.split("/")[-1]
+        # strip the redundant "ADR-XXXXXXXXXX: " prefix most titles carry
+        for pref in (f"ADR-{adr_id}: ", f"ADR-{adr_id} "):
+            if title.startswith(pref):
+                title = title[len(pref):]
+        status = fm.get("status", "") or "unknown"
+        entries.append(
+            "{:id " + _edn_quote(adr_id) + " :title " + _edn_quote(title)
+            + " :status " + _edn_quote(status) + " :path " + _edn_quote(rel) + "}"
+        )
+    out = fde.append_adrs(deps_edn.read_text(encoding="utf-8"), " ".join(entries))
+    deps_edn.write_text(out, encoding="utf-8")
+    print(f"registered {len(entries)} ADR(s) into :adrs from front matter")
+    return 0
+
+
 def main(argv: Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser(
         description="Verify every deps.edn :adrs / :modules :path resolves."
@@ -229,6 +307,12 @@ def main(argv: Optional[list[str]] = None) -> int:
         help="Only check entries whose adr/id/path contains this token.",
     )
     parser.add_argument("--json", action="store_true")
+    parser.add_argument(
+        "--register-missing",
+        action="store_true",
+        help="Backfill every unregistered ADR into :adrs from its front "
+        "matter (structural append — cannot corrupt deps.edn).",
+    )
     parser.add_argument(
         "--write-baseline",
         action="store_true",
@@ -257,6 +341,9 @@ def main(argv: Optional[list[str]] = None) -> int:
         print(f"verify_deps_edn_paths: deps.edn not found at {deps_edn}", file=sys.stderr)
         return 2
 
+    if args.register_missing:
+        return register_missing(deps_edn, repo_root)
+
     try:
         results = check_paths(deps_edn, repo_root, filter_token=args.filter_token)
     except (ValueError, AssertionError) as exc:
@@ -269,18 +356,41 @@ def main(argv: Optional[list[str]] = None) -> int:
     # frozen; the gate FAILS only on NEW drift. Graduated entries (path now
     # resolves or entry removed) are reported so the list only shrinks.
     baseline_file = repo_root / BASELINE_PATH
+    unregistered = (
+        find_unregistered_adrs(deps_edn, repo_root)
+        if args.filter_token is None
+        else []
+    )
     if args.write_baseline:
         baseline_file.write_text(
-            json.dumps(sorted({d.path for d in drift}), indent=1) + "\n"
+            json.dumps(
+                {
+                    "drift": sorted({d.path for d in drift}),
+                    "unregistered_adrs": sorted(unregistered),
+                },
+                indent=1,
+            )
+            + "\n"
         )
-        print(f"baseline frozen: {len(drift)} drift path(s) → {BASELINE_PATH}")
+        print(
+            f"baseline frozen: {len(drift)} drift + {len(unregistered)} "
+            f"unregistered ADR(s) → {BASELINE_PATH}"
+        )
         return 0
     baseline: set[str] = set()
+    baseline_unreg: set[str] = set()
     if baseline_file.is_file() and not args.no_baseline and args.filter_token is None:
-        baseline = set(json.loads(baseline_file.read_text()))
+        raw = json.loads(baseline_file.read_text())
+        if isinstance(raw, list):  # v1 format: drift list only
+            baseline = set(raw)
+        else:
+            baseline = set(raw.get("drift", []))
+            baseline_unreg = set(raw.get("unregistered_adrs", []))
     new_drift = [d for d in drift if d.path not in baseline]
     current_drift_paths = {d.path for d in drift}
     graduated = sorted(baseline - current_drift_paths)
+    new_unregistered = [u for u in unregistered if u not in baseline_unreg]
+    graduated_unreg = sorted(baseline_unreg - set(unregistered))
     drift = new_drift
     accepted_missing = [r for r in results if r.is_accepted_missing]
     stale_markers = [r for r in results if r.is_stale_marker]
@@ -302,6 +412,8 @@ def main(argv: Optional[list[str]] = None) -> int:
                     "stale_markers": [asdict(s) for s in stale_markers],
                     "duplicate_count": len(duplicates),
                     "duplicates": duplicates,
+                    "unregistered_adr_count": len(new_unregistered),
+                    "unregistered_adrs": new_unregistered,
                     "filter": args.filter_token,
                 },
                 indent=2,
@@ -317,6 +429,8 @@ def main(argv: Optional[list[str]] = None) -> int:
             summary.append(f"{len(duplicates)} duplicate key(s)")
         if drift:
             summary.append(f"{len(drift)} drift")
+        if new_unregistered:
+            summary.append(f"{len(new_unregistered)} unregistered ADR(s)")
         print("deps.edn path audit: " + " / ".join(summary))
         for label, items in (("ACCEPTED-RESERVED", accepted_missing), ("STALE-MARKER", stale_markers)):
             if items:
@@ -331,12 +445,20 @@ def main(argv: Optional[list[str]] = None) -> int:
             print(f"GRADUATED ({len(graduated)}) — no longer drift, remove from {BASELINE_PATH}:")
             for p in graduated:
                 print(f"  {p}")
+        if graduated_unreg:
+            print(f"GRADUATED-UNREGISTERED ({len(graduated_unreg)}) — now registered, remove from {BASELINE_PATH}:")
+            for p in graduated_unreg:
+                print(f"  {p}")
         if drift:
             print(f"NEW DRIFT ({len(drift)}) — bare missing paths not on the frozen baseline:")
             for r in drift:
                 print(f"  [{r.section}] {r.path}  ({r.adr or r.id or '—'})")
+        if new_unregistered:
+            print(f"NEW UNREGISTERED ADR ({len(new_unregistered)}) — on disk but not in :adrs (register via format-deps-edn.py --append-adrs):")
+            for p in new_unregistered:
+                print(f"  {p}")
 
-    return 1 if drift else 0
+    return 1 if (drift or new_unregistered) else 0
 
 
 if __name__ == "__main__":

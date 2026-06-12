@@ -104,8 +104,14 @@ fleet-refactor-clj / kaiyaku-r0 / tanemaki は active session のため不可触
 
 # Open / next
 
-- verifier 逆方向検査 (ADR ファイル存在 × :adrs 未登録の検出)。
-- duplicate ADR id 13 件の reconciliation (既知の id race、機械可読化済み)。
+- ~~verifier 逆方向検査 (ADR ファイル存在 × :adrs 未登録の検出)~~ → **DONE 同日**:
+  `find_unregistered_adrs` + `--register-missing` (front matter から構造的
+  backfill)。初回実測 **389 件の未登録 ADR** — abaki 級の個別事故ではなく
+  registry が元々半分しかカバーしていなかった長期債務 — を全登録し
+  :adrs 886→1,275 entries、未登録 0。baseline v2 (drift + unregistered の
+  dict、v1 list 後方互換)。
+- duplicate ADR id reconciliation (既知の id race): backfill により隠れていた
+  重複も全可視化され **13→46 件** — 完全な worklist が機械可読になった。
 - `stash-archive/*` 5 本は 1 R-cycle 保持後に削除検討 (warifu ISO-8583 の
   owner 判断が出たら)。
 - baseline 残 9 drift (karute/vultr/moemoekyun recipes/2606032330/Formula) は

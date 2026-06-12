@@ -97,6 +97,73 @@ class DuplicatesTest(unittest.TestCase):
         self.assertIn("modules:m", dups)
 
 
+class ReverseAuditTest(unittest.TestCase):
+    def make(self, tmp, deps, adr_files):
+        root = make_repo(pathlib.Path(tmp), deps)
+        d = root / "90-docs/adr"
+        d.mkdir(parents=True)
+        for name, title in adr_files:
+            (d / name).write_text(
+                f'---\nid: adr-x\ntitle: "{title}"\nstatus: proposed\n---\n# x\n'
+            )
+        return root
+
+    def test_detects_unregistered_adr_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.make(
+                tmp,
+                '{:adrs [{:id "2606010001" :path "90-docs/adr/2606010001-a.md"} {:id "2606010003" :path "90-docs/adr/2606010003-c.md"}]}',
+                [("2606010001-a.md", "A"), ("2606010002-b.md", "B"), ("README.md", "idx")],
+            )
+            (root / "90-docs/adr/2606010003-c.md").write_text("x")  # registered, exists
+            un = vdep.find_unregistered_adrs(root / "deps.edn", root)
+        self.assertEqual(un, ["90-docs/adr/2606010002-b.md"])
+
+    def test_register_missing_backfills_from_front_matter(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.make(
+                tmp,
+                '{:adrs [{:id "2606010001" :path "90-docs/adr/2606010001-a.md"} {:id "2606010009" :path "90-docs/adr/2606010009-z.md"}]}',
+                [("2606010002-b.md", 'ADR-2606010002: B has \\"quotes\\" inside')],
+            )
+            rc = vdep.register_missing(root / "deps.edn", root)
+            self.assertEqual(rc, 0)
+            src = (root / "deps.edn").read_text()
+            self.assertIn('"2606010002"', src)
+            self.assertEqual(vdep.find_unregistered_adrs(root / "deps.edn", root), [])
+            # still parseable + canonical
+            self.assertEqual(vdep.fde.format_once(src), src)
+
+    def test_unregistered_gates_exit_1_without_baseline(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.make(
+                tmp,
+                '{:adrs [{:id "2606010001" :path "90-docs/adr/2606010001-a.md"} {:id "2606010009" :path "90-docs/adr/2606010009-z.md"}]}',
+                [("2606010001-a.md", "A"), ("2606010002-b.md", "B"), ("2606010009-z.md", "Z")],
+            )
+            rc = vdep.main(["--repo-root", str(root), "--deps-edn", str(root / "deps.edn"), "--no-baseline"])
+            self.assertEqual(rc, 1)
+            # baseline v2 freeze → passes
+            (root / "70-tools/scripts/lint").mkdir(parents=True)
+            vdep.main(["--repo-root", str(root), "--deps-edn", str(root / "deps.edn"), "--write-baseline"])
+            rc = vdep.main(["--repo-root", str(root), "--deps-edn", str(root / "deps.edn")])
+            self.assertEqual(rc, 0)
+
+    def test_v1_list_baseline_still_accepted(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.make(
+                tmp,
+                '{:adrs [{:id "2606010001" :path "90-docs/adr/gone.md"} {:id "2606010009" :path "90-docs/adr/2606010009-z.md"}]}',
+                [("2606010009-z.md", "Z")],
+            )
+            bl = root / "70-tools/scripts/lint"
+            bl.mkdir(parents=True)
+            import json as js
+            (bl / "deps-edn-paths-baseline.json").write_text(js.dumps(["90-docs/adr/gone.md"]))
+            rc = vdep.main(["--repo-root", str(root), "--deps-edn", str(root / "deps.edn")])
+            self.assertEqual(rc, 0)
+
+
 class BaselineRatchetTest(unittest.TestCase):
     def run_main(self, root, args):
         return vdep.main(["--repo-root", str(root), "--deps-edn", str(root / "deps.edn"), *args])
