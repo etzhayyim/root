@@ -8,7 +8,8 @@
  ;;   50-infra/etzhayyim-moyai-credit/src  — moyai.ledger (reciprocity-credit primitive)
  :paths ["20-actors"
          "20-actors/kotodama/src"
-         "50-infra/etzhayyim-moyai-credit/src"]
+         "50-infra/etzhayyim-moyai-credit/src"
+         "70-tools/src"]
  :deps {com-junkawasaki/langchain-clj
         {:git/url "https://github.com/com-junkawasaki/langchain-clj"
          :git/sha "2b03859c3ee722b64f3eddd0b615a54019b17c81"}
@@ -51,4 +52,15 @@
                  (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests"
-   :depends [test:mimamori test:yobel]}}}
+   :depends [test:mimamori test:yobel]}
+  test:tools
+  {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
+   :task (do (require 'clojure.test
+                      'etzhayyim.tools.test-maturation-agent)
+             (let [r (clojure.test/run-tests 'etzhayyim.tools.test-maturation-agent)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  maturation-agent
+  {:doc "LangGraph autonomous maturation agent — upgrade 20-actors *-compat L1→L3 (batch 5)"
+   :task (do (require 'etzhayyim.tools.maturation-agent)
+             ((requiring-resolve 'etzhayyim.tools.maturation-agent/-main)))}}}
