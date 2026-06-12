@@ -409,6 +409,12 @@
  ;; coverage wave 25 — Italian-language templates
  {:lt/id "tmpl.nda-it" :lt/kind :template :lt/label "Accordo di riservatezza (Mutual NDA, IT)" :template/title "Accordo di riservatezza reciproco" :template/lang "it" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.employment-it" :lt/kind :template :lt/label "Contratto di lavoro (Employment, IT)" :template/title "Contratto di lavoro subordinato" :template/lang "it" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :pro-weaker-party :lt/sourcing :representative}
+ ;; coverage wave 26 — 5 more languages via NDA (ru/tr/vi/th/id-bahasa) → 16 total
+ {:lt/id "tmpl.nda-ru" :lt/kind :template :lt/label "Соглашение о неразглашении (Mutual NDA, RU)" :template/title "Взаимное соглашение о неразглашении" :template/lang "ru" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.nda-tr" :lt/kind :template :lt/label "Gizlilik Sözleşmesi (Mutual NDA, TR)" :template/title "Karşılıklı Gizlilik Sözleşmesi" :template/lang "tr" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.nda-vi" :lt/kind :template :lt/label "Thỏa thuận bảo mật (Mutual NDA, VI)" :template/title "Thỏa thuận bảo mật song phương" :template/lang "vi" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.nda-th" :lt/kind :template :lt/label "ข้อตกลงการรักษาความลับ (Mutual NDA, TH)" :template/title "ข้อตกลงการรักษาความลับร่วมกัน" :template/lang "th" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
+ {:lt/id "tmpl.nda-id" :lt/kind :template :lt/label "Perjanjian Kerahasiaan (Mutual NDA, ID-Bahasa)" :template/title "Perjanjian Kerahasiaan Bersama" :template/lang "id" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.joint-venture" :lt/kind :template :lt/label "Joint Venture Agreement" :template/title "Joint Venture Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.saas-subscription" :lt/kind :template :lt/label "SaaS Subscription Agreement" :template/title "SaaS Subscription Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
  {:lt/id "tmpl.escrow" :lt/kind :template :lt/label "Escrow Agreement" :template/title "Escrow Agreement" :template/lang "en" :template/license "Apache-2.0" :template/version "1.0.0" :template/stance :balanced :lt/sourcing :representative}
@@ -657,6 +663,18 @@
  {:en/from "tmpl.employment-it" :en/to "cl.employment-particulars" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-it" :en/to "cl.employment-termination" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-it" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+
+ ;; coverage wave 26 — translation composition (confidentiality + signature)
+ {:en/from "tmpl.nda-ru" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-ru" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-tr" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-tr" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-vi" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-vi" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-th" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-th" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-id" :en/to "cl.confidentiality" :en/kind :has-clause :en/binding-load 1.0 :en/sourcing :representative}
+ {:en/from "tmpl.nda-id" :en/to "cl.signature-esign" :en/kind :has-clause :en/binding-load 0.9 :en/sourcing :authoritative}
 
  ;; coverage wave 21 — JV / SaaS / escrow template composition
  {:en/from "tmpl.joint-venture" :en/to "cl.definitions" :en/kind :has-clause :en/binding-load 0.5 :en/sourcing :representative}
@@ -963,6 +981,11 @@
  {:en/from "tmpl.employment-ar" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.nda-it" :en/to "jx.it" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.employment-it" :en/to "jx.it" :en/kind :governed-by :en/binding-load 0.8 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-ru" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.nda-tr" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.nda-vi" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.nda-th" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
+ {:en/from "tmpl.nda-id" :en/to "jx.id" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.joint-venture" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
  {:en/from "tmpl.saas-subscription" :en/to "jx.intl" :en/kind :governed-by :en/binding-load 0.5 :en/sourcing :representative}
  {:en/from "tmpl.escrow" :en/to "jx.jp" :en/kind :governed-by :en/binding-load 0.6 :en/sourcing :representative}
@@ -1153,6 +1176,11 @@
  {:en/from "tmpl.employment-ar" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-it" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-it" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-ru" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-tr" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-vi" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-th" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
+ {:en/from "tmpl.nda-id" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.employment-fr" :en/to "tmpl.employment-intl" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-de" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}
  {:en/from "tmpl.nda-es" :en/to "tmpl.nda-mutual" :en/kind :translates :en/binding-load 1.0 :en/sourcing :authoritative}

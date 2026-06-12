@@ -3,7 +3,7 @@
 > Fair, openly-licensed legal-document templates (Apache-2.0 + etzhayyim Charter Rider). Each body is content-addressed — re-derive the CID with `ipfs add --cid-version=1 --raw-leaves` or `methods/cid.py` to verify. **NOT legal advice** (G1); each clause cites the public law it rests on, for traceability.
 
 
-**53 templates published.**
+**58 templates published.**
 
 
 | template | lang | jurisdiction | clauses | statutes | bodyCid |
@@ -47,11 +47,16 @@
 | Acuerdo de confidencialidad mutuo | es | ES | 2 | 19 | `bafkreiei6rgrqprfo…` |
 | Accord de confidentialite reciproque | fr | FR | 2 | 19 | `bafkreieuc4zbu2edx…` |
 | पारस्परिक गोपनीयता समझौता | hi | IN | 2 | 19 | `bafkreidx7uigkn466…` |
+| Perjanjian Kerahasiaan Bersama | id | ID | 2 | 19 | `bafkreiemiyxm76cqi…` |
 | Accordo di riservatezza reciproco | it | IT | 2 | 19 | `bafkreibjxraxkq7rz…` |
 | 상호 비밀유지계약서 | ko | KR | 2 | 19 | `bafkreief5ahx2bptt…` |
 | Mutual Non-Disclosure Agreement | en | INTL | 6 | 25 | `bafkreifauwwhu625f…` |
 | 相互秘密保持契約書 | ja | JP | 5 | 23 | `bafkreicc3p3lf437t…` |
 | Acordo de confidencialidade mutuo | pt | BR | 2 | 19 | `bafkreiaram6rnd735…` |
+| Взаимное соглашение о неразглашении | ru | INTL | 2 | 19 | `bafkreieiizxwb3su2…` |
+| ข้อตกลงการรักษาความลับร่วมกัน | th | INTL | 2 | 19 | `bafkreicbiypfkbjy7…` |
+| Karşılıklı Gizlilik Sözleşmesi | tr | INTL | 2 | 19 | `bafkreidxd4yznswy4…` |
+| Thỏa thuận bảo mật song phương | vi | INTL | 2 | 19 | `bafkreiaje24ufwhv4…` |
 | 相互保密协议 | zh | CN | 2 | 19 | `bafkreih2alolydm7x…` |
 | Apache-2.0 Inbound Contribution Grant | en | INTL | 3 | 20 | `bafkreie3mvlr5sqvq…` |
 | General Partnership Agreement | en | INTL | 7 | 33 | `bafkreigar3vbuigxl…` |
