@@ -111,53 +111,60 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/blocks", methods=["POST"])
-def create_block(request):
-    """Create a Block."""
+@app.route("/v1/reservedatas", methods=["POST"])
+def create_reserve_data(request):
+    """Create a ReserveData."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
+    err = _reject_unknown(data, ['liquidityIndex', 'currentLiquidityRate', 'variableBorrowIndex', 'currentVariableBorrowRate', 'deficit', 'lastUpdateTimestamp', 'liquidationGracePeriodUntil', 'aTokenAddress', 'variableDebtTokenAddress', 'accruedToTreasury', 'virtualUnderlyingBalance'])
     if err:
         return err, 400
-    err = _require(data, ['number', 'hash'])
+    err = _require(data, ['liquidityIndex', 'currentLiquidityRate'])
     if err:
         return err, 400
-    rec = {"id": new_id("aave_blo")}
-    rec["number"] = _as_int(data.get('number'))
-    rec["hash"] = data.get('hash')
-    rec["chain"] = data.get('chain')
-    rec["minedAt"] = data.get('minedAt')
+    rec = {"id": new_id("aave_res")}
+    rec["liquidityIndex"] = _as_int(data.get('liquidityIndex'))
+    rec["currentLiquidityRate"] = _as_int(data.get('currentLiquidityRate'))
+    rec["variableBorrowIndex"] = _as_int(data.get('variableBorrowIndex'))
+    rec["currentVariableBorrowRate"] = _as_int(data.get('currentVariableBorrowRate'))
+    rec["deficit"] = _as_int(data.get('deficit'))
+    rec["lastUpdateTimestamp"] = _as_int(data.get('lastUpdateTimestamp'))
+    rec["liquidationGracePeriodUntil"] = _as_int(data.get('liquidationGracePeriodUntil'))
+    rec["aTokenAddress"] = data.get('aTokenAddress')
+    rec["variableDebtTokenAddress"] = data.get('variableDebtTokenAddress')
+    rec["accruedToTreasury"] = _as_int(data.get('accruedToTreasury'))
+    rec["virtualUnderlyingBalance"] = _as_int(data.get('virtualUnderlyingBalance'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Block", rec)
+    _persist("ReserveData", rec)
     return rec, 201
 
-@app.route("/v1/blocks", methods=["GET"])
-def list_blocks(request):
-    """List Blocks with filtering + cursor pagination."""
+@app.route("/v1/reservedatas", methods=["GET"])
+def list_reserve_datas(request):
+    """List ReserveDatas with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Block")
-    rows = _apply_filters(rows, params, ['number', 'hash', 'chain', 'minedAt'])
+    rows = _query("ReserveData")
+    rows = _apply_filters(rows, params, ['liquidityIndex', 'currentLiquidityRate', 'variableBorrowIndex', 'currentVariableBorrowRate', 'deficit', 'lastUpdateTimestamp', 'liquidationGracePeriodUntil', 'aTokenAddress', 'variableDebtTokenAddress', 'accruedToTreasury', 'virtualUnderlyingBalance'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/blocks/<eid>", methods=["GET"])
-def get_block(request, eid):
-    """Retrieve a Block by id (supports ?expand=)."""
-    rows = _query("Block", eid)
+@app.route("/v1/reservedatas/<eid>", methods=["GET"])
+def get_reserve_data(request, eid):
+    """Retrieve a ReserveData by id (supports ?expand=)."""
+    rows = _query("ReserveData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/blocks/<eid>", methods=["POST", "PATCH"])
-def update_block(request, eid):
-    """Update a Block."""
-    rows = _query("Block", eid)
+@app.route("/v1/reservedatas/<eid>", methods=["POST", "PATCH"])
+def update_reserve_data(request, eid):
+    """Update a ReserveData."""
+    rows = _query("ReserveData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['number', 'hash', 'chain', 'minedAt'])
+    err = _reject_unknown(data, ['liquidityIndex', 'currentLiquidityRate', 'variableBorrowIndex', 'currentVariableBorrowRate', 'deficit', 'lastUpdateTimestamp', 'liquidationGracePeriodUntil', 'aTokenAddress', 'variableDebtTokenAddress', 'accruedToTreasury', 'virtualUnderlyingBalance'])
     if err:
         return err, 400
     rec = rows[0]
@@ -165,66 +172,69 @@ def update_block(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Block", rec)
+    _persist("ReserveData", rec)
     return rec, 200
 
-@app.route("/v1/blocks/<eid>", methods=["DELETE"])
-def delete_block(request, eid):
-    """Delete a Block."""
-    rows = _query("Block", eid)
+@app.route("/v1/reservedatas/<eid>", methods=["DELETE"])
+def delete_reserve_data(request, eid):
+    """Delete a ReserveData."""
+    rows = _query("ReserveData", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aave.Block", "id": eid})
+    db.retract({"entity": f"aave.ReserveData", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/transactions", methods=["POST"])
-def create_transaction(request):
-    """Create a Transaction."""
+@app.route("/v1/emodecategories", methods=["POST"])
+def create_e_mode_category(request):
+    """Create a EModeCategory."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    err = _reject_unknown(data, ['ltv', 'liquidationThreshold', 'liquidationBonus', 'collateralBitmap', 'isolated', 'label', 'borrowableBitmap', 'ltvzeroBitmap'])
     if err:
         return err, 400
-    err = _require(data, ['hash', 'fromAddr'])
+    err = _require(data, ['ltv', 'liquidationThreshold'])
     if err:
         return err, 400
-    rec = {"id": new_id("aave_tra")}
-    rec["hash"] = data.get('hash')
-    rec["fromAddr"] = data.get('fromAddr')
-    rec["toAddr"] = data.get('toAddr')
-    rec["value"] = _as_float(data.get('value'))
-    rec["status"] = data.get('status')
+    rec = {"id": new_id("aave_emo")}
+    rec["ltv"] = _as_int(data.get('ltv'))
+    rec["liquidationThreshold"] = _as_int(data.get('liquidationThreshold'))
+    rec["liquidationBonus"] = _as_int(data.get('liquidationBonus'))
+    rec["collateralBitmap"] = _as_int(data.get('collateralBitmap'))
+    rec["isolated"] = _as_bool(data.get('isolated'))
+    rec["label"] = data.get('label')
+    rec["borrowableBitmap"] = _as_int(data.get('borrowableBitmap'))
+    rec["ltvzeroBitmap"] = _as_int(data.get('ltvzeroBitmap'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Transaction", rec)
+    _persist("EModeCategory", rec)
     return rec, 201
 
-@app.route("/v1/transactions", methods=["GET"])
-def list_transactions(request):
-    """List Transactions with filtering + cursor pagination."""
+@app.route("/v1/emodecategories", methods=["GET"])
+def list_e_mode_categories(request):
+    """List EModeCategories with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Transaction")
-    rows = _apply_filters(rows, params, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    rows = _query("EModeCategory")
+    rows = _apply_filters(rows, params, ['ltv', 'liquidationThreshold', 'liquidationBonus', 'collateralBitmap', 'isolated', 'label', 'borrowableBitmap', 'ltvzeroBitmap'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/transactions/<eid>", methods=["GET"])
-def get_transaction(request, eid):
-    """Retrieve a Transaction by id (supports ?expand=)."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/emodecategories/<eid>", methods=["GET"])
+def get_e_mode_category(request, eid):
+    """Retrieve a EModeCategory by id (supports ?expand=)."""
+    rows = _query("EModeCategory", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/transactions/<eid>", methods=["POST", "PATCH"])
-def update_transaction(request, eid):
-    """Update a Transaction."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/emodecategories/<eid>", methods=["POST", "PATCH"])
+def update_e_mode_category(request, eid):
+    """Update a EModeCategory."""
+    rows = _query("EModeCategory", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['hash', 'fromAddr', 'toAddr', 'value', 'status'])
+    err = _reject_unknown(data, ['ltv', 'liquidationThreshold', 'liquidationBonus', 'collateralBitmap', 'isolated', 'label', 'borrowableBitmap', 'ltvzeroBitmap'])
     if err:
         return err, 400
     rec = rows[0]
@@ -232,64 +242,62 @@ def update_transaction(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Transaction", rec)
+    _persist("EModeCategory", rec)
     return rec, 200
 
-@app.route("/v1/transactions/<eid>", methods=["DELETE"])
-def delete_transaction(request, eid):
-    """Delete a Transaction."""
-    rows = _query("Transaction", eid)
+@app.route("/v1/emodecategories/<eid>", methods=["DELETE"])
+def delete_e_mode_category(request, eid):
+    """Delete a EModeCategory."""
+    rows = _query("EModeCategory", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aave.Transaction", "id": eid})
+    db.retract({"entity": f"aave.EModeCategory", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/contracts", methods=["POST"])
-def create_contract(request):
-    """Create a Contract."""
+@app.route("/v1/userconfigurationmaps", methods=["POST"])
+def create_user_configuration_map(request):
+    """Create a UserConfigurationMap."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
+    err = _reject_unknown(data, ['data'])
     if err:
         return err, 400
-    err = _require(data, ['address', 'chain'])
+    err = _require(data, ['data'])
     if err:
         return err, 400
-    rec = {"id": new_id("aave_con")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["abiRef"] = data.get('abiRef')
+    rec = {"id": new_id("aave_use")}
+    rec["data"] = _as_int(data.get('data'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Contract", rec)
+    _persist("UserConfigurationMap", rec)
     return rec, 201
 
-@app.route("/v1/contracts", methods=["GET"])
-def list_contracts(request):
-    """List Contracts with filtering + cursor pagination."""
+@app.route("/v1/userconfigurationmaps", methods=["GET"])
+def list_user_configuration_maps(request):
+    """List UserConfigurationMaps with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Contract")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'abiRef'])
+    rows = _query("UserConfigurationMap")
+    rows = _apply_filters(rows, params, ['data'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/contracts/<eid>", methods=["GET"])
-def get_contract(request, eid):
-    """Retrieve a Contract by id (supports ?expand=)."""
-    rows = _query("Contract", eid)
+@app.route("/v1/userconfigurationmaps/<eid>", methods=["GET"])
+def get_user_configuration_map(request, eid):
+    """Retrieve a UserConfigurationMap by id (supports ?expand=)."""
+    rows = _query("UserConfigurationMap", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/contracts/<eid>", methods=["POST", "PATCH"])
-def update_contract(request, eid):
-    """Update a Contract."""
-    rows = _query("Contract", eid)
+@app.route("/v1/userconfigurationmaps/<eid>", methods=["POST", "PATCH"])
+def update_user_configuration_map(request, eid):
+    """Update a UserConfigurationMap."""
+    rows = _query("UserConfigurationMap", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'abiRef'])
+    err = _reject_unknown(data, ['data'])
     if err:
         return err, 400
     rec = rows[0]
@@ -297,220 +305,98 @@ def update_contract(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Contract", rec)
+    _persist("UserConfigurationMap", rec)
     return rec, 200
 
-@app.route("/v1/contracts/<eid>", methods=["DELETE"])
-def delete_contract(request, eid):
-    """Delete a Contract."""
-    rows = _query("Contract", eid)
+@app.route("/v1/userconfigurationmaps/<eid>", methods=["DELETE"])
+def delete_user_configuration_map(request, eid):
+    """Delete a UserConfigurationMap."""
+    rows = _query("UserConfigurationMap", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aave.Contract", "id": eid})
+    db.retract({"entity": f"aave.UserConfigurationMap", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
+@app.route("/v1/executeborrowparamses", methods=["POST"])
+def create_execute_borrow_params(request):
+    """Create a ExecuteBorrowParams."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
+    err = _reject_unknown(data, ['asset', 'user', 'onBehalfOf', 'interestRateStrategyAddress', 'amount', 'interestRateMode', 'referralCode', 'releaseUnderlying', 'oracle', 'userEModeCategory'])
     if err:
         return err, 400
-    err = _require(data, ['address', 'chain'])
+    err = _require(data, ['asset', 'user'])
     if err:
         return err, 400
-    rec = {"id": new_id("aave_acc")}
-    rec["address"] = data.get('address')
-    rec["chain"] = data.get('chain')
-    rec["balance"] = _as_float(data.get('balance'))
-    rec["nonce"] = _as_int(data.get('nonce'))
+    if data.get('interestRateMode') and data['interestRateMode'] not in ['NONE', '__DEPRECATED', 'VARIABLE']:
+        return {"error": {"message": "invalid interestRateMode; allowed: " + ", ".join(['NONE', '__DEPRECATED', 'VARIABLE']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("aave_exe")}
+    rec["asset"] = data.get('asset')
+    rec["user"] = data.get('user')
+    rec["onBehalfOf"] = data.get('onBehalfOf')
+    rec["interestRateStrategyAddress"] = data.get('interestRateStrategyAddress')
+    rec["amount"] = _as_int(data.get('amount'))
+    rec["interestRateMode"] = data.get('interestRateMode')
+    rec["referralCode"] = _as_int(data.get('referralCode'))
+    rec["releaseUnderlying"] = _as_bool(data.get('releaseUnderlying'))
+    rec["oracle"] = data.get('oracle')
+    rec["userEModeCategory"] = _as_int(data.get('userEModeCategory'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
+    _persist("ExecuteBorrowParams", rec)
     return rec, 201
 
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
+@app.route("/v1/executeborrowparamses", methods=["GET"])
+def list_execute_borrow_paramses(request):
+    """List ExecuteBorrowParamses with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['address', 'chain', 'balance', 'nonce'])
+    rows = _query("ExecuteBorrowParams")
+    rows = _apply_filters(rows, params, ['asset', 'user', 'onBehalfOf', 'interestRateStrategyAddress', 'amount', 'interestRateMode', 'referralCode', 'releaseUnderlying', 'oracle', 'userEModeCategory'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
+@app.route("/v1/executeborrowparamses/<eid>", methods=["GET"])
+def get_execute_borrow_params(request, eid):
+    """Retrieve a ExecuteBorrowParams by id (supports ?expand=)."""
+    rows = _query("ExecuteBorrowParams", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
+@app.route("/v1/executeborrowparamses/<eid>", methods=["POST", "PATCH"])
+def update_execute_borrow_params(request, eid):
+    """Update a ExecuteBorrowParams."""
+    rows = _query("ExecuteBorrowParams", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['address', 'chain', 'balance', 'nonce'])
+    err = _reject_unknown(data, ['asset', 'user', 'onBehalfOf', 'interestRateStrategyAddress', 'amount', 'interestRateMode', 'referralCode', 'releaseUnderlying', 'oracle', 'userEModeCategory'])
     if err:
         return err, 400
+    if data.get('interestRateMode') and data['interestRateMode'] not in ['NONE', '__DEPRECATED', 'VARIABLE']:
+        return {"error": {"message": "invalid interestRateMode; allowed: " + ", ".join(['NONE', '__DEPRECATED', 'VARIABLE']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Account", rec)
+    _persist("ExecuteBorrowParams", rec)
     return rec, 200
 
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
+@app.route("/v1/executeborrowparamses/<eid>", methods=["DELETE"])
+def delete_execute_borrow_params(request, eid):
+    """Delete a ExecuteBorrowParams."""
+    rows = _query("ExecuteBorrowParams", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aave.Account", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/events", methods=["POST"])
-def create_event(request):
-    """Create a Event."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'name'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aave_eve")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["name"] = data.get('name')
-    rec["blockNumber"] = _as_int(data.get('blockNumber'))
-    rec["dataRef"] = data.get('dataRef')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Event", rec)
-    return rec, 201
-
-@app.route("/v1/events", methods=["GET"])
-def list_events(request):
-    """List Events with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Event")
-    rows = _apply_filters(rows, params, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/events/<eid>", methods=["GET"])
-def get_event(request, eid):
-    """Retrieve a Event by id (supports ?expand=)."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["POST", "PATCH"])
-def update_event(request, eid):
-    """Update a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'name', 'blockNumber', 'dataRef'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Event", rec)
-    return rec, 200
-
-@app.route("/v1/events/<eid>", methods=["DELETE"])
-def delete_event(request, eid):
-    """Delete a Event."""
-    rows = _query("Event", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aave.Event", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/tokens", methods=["POST"])
-def create_token(request):
-    """Create a Token."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    if err:
-        return err, 400
-    err = _require(data, ['contractAddr', 'symbol'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("aave_tok")}
-    rec["contractAddr"] = data.get('contractAddr')
-    rec["symbol"] = data.get('symbol')
-    rec["decimals"] = _as_int(data.get('decimals'))
-    rec["standard"] = data.get('standard')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Token", rec)
-    return rec, 201
-
-@app.route("/v1/tokens", methods=["GET"])
-def list_tokens(request):
-    """List Tokens with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Token")
-    rows = _apply_filters(rows, params, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/tokens/<eid>", methods=["GET"])
-def get_token(request, eid):
-    """Retrieve a Token by id (supports ?expand=)."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/tokens/<eid>", methods=["POST", "PATCH"])
-def update_token(request, eid):
-    """Update a Token."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['contractAddr', 'symbol', 'decimals', 'standard'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Token", rec)
-    return rec, 200
-
-@app.route("/v1/tokens/<eid>", methods=["DELETE"])
-def delete_token(request, eid):
-    """Delete a Token."""
-    rows = _query("Token", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"aave.Token", "id": eid})
+    db.retract({"entity": f"aave.ExecuteBorrowParams", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "aave-compat", "tier": "L4",
-            "entities": ['Block', 'Transaction', 'Contract', 'Account', 'Event', 'Token']}, 200
+            "entities": ['ReserveData', 'EModeCategory', 'UserConfigurationMap', 'ExecuteBorrowParams']}, 200
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@
 		fetchAndUnlockKeyBundle,
 		generateSecretKey,
 	} from './key-bundle-flows.js';
-	import type { KeyBundleClientConfig } from './types.js';
+	import type { KeyBundleClientConfig, ZkKdfInfo } from './types.js';
 
 	interface Props {
 		orgId: string;
@@ -29,7 +29,7 @@
   },
   "deviceId": "${deviceId}",
   "alg": {
-    "kdf": "pbkdf2-sha256",
+    "kdf": "argon2id",
     "aead": "xchacha20poly1305",
     "wrap": "x25519-hkdf"
   },
@@ -52,7 +52,7 @@
 	let unlockSecretKey = $state('');
 	let status = $state('ready');
 	let lastSalt = $state('');
-	let lastIterations = $state(0);
+	let lastKdf = $state<ZkKdfInfo | null>(null);
 
 	$effect(() => {
 		if (!envelopeJson) envelopeJson = defaultEnvelopeJson;
@@ -71,8 +71,8 @@
 				clientConfig,
 			});
 			lastSalt = result.kdf.saltBase64Url;
-			lastIterations = result.kdf.iterations;
-			status = `enrolled: ${result.bundle.version} (${result.bundle.updatedAt})`;
+			lastKdf = result.kdf;
+			status = `enrolled: ${result.bundle.version} (${result.bundle.updatedAt}, kdf=${result.kdf.kdf})`;
 		} catch (error) {
 			status = `enroll failed: ${String(error)}`;
 		}
@@ -90,8 +90,8 @@
 				clientConfig,
 			});
 			lastSalt = result.kdf.saltBase64Url;
-			lastIterations = result.kdf.iterations;
-			status = `unlock ok: wrapped key bytes=${result.wrappingKey.length} updated=${result.bundle.updatedAt}`;
+			lastKdf = result.kdf;
+			status = `unlock ok: wrapped key bytes=${result.wrappingKey.length} updated=${result.bundle.updatedAt} kdf=${result.kdf.kdf}`;
 		} catch (error) {
 			status = `unlock failed: ${String(error)}`;
 		}
@@ -102,7 +102,7 @@
 	}
 
 	function onDownloadEmergencyKit() {
-		if (!lastSalt || lastIterations <= 0) {
+		if (!lastSalt || !lastKdf) {
 			status = 'emergency kit unavailable: enroll or unlock first';
 			return;
 		}
@@ -111,8 +111,7 @@
 			orgId,
 			deviceId,
 			secretKey,
-			saltBase64Url: lastSalt,
-			iterations: lastIterations,
+			kdf: lastKdf,
 		});
 		downloadEmergencyKit(`etzhayyim-emergency-kit-${userId}-${deviceId}.txt`, content);
 		status = 'emergency kit downloaded';
@@ -147,7 +146,7 @@
 			<button class="mt-2 min-h-11 rounded-xl bg-[linear-gradient(90deg,#70d6ff,#8ec5ff)] px-3 py-2.5 font-bold text-[#04111d] [touch-action:manipulation]" onclick={onUnlock}>Fetch + Unlock</button>
 			<button class="mt-2 min-h-11 rounded-xl border border-[#375376] bg-[#121d30] px-3 py-2.5 font-bold text-[#d7e6ff] [touch-action:manipulation]" onclick={onDownloadEmergencyKit}>Download Emergency Kit</button>
 			<p class="mt-2 text-[13px] opacity-85">salt: {lastSalt || '-'}</p>
-			<p class="mt-2 text-[13px] opacity-85">iterations: {lastIterations || '-'}</p>
+			<p class="mt-2 text-[13px] opacity-85">kdf: {lastKdf ? (lastKdf.kdf === 'argon2id' ? `argon2id m=${lastKdf.argon2?.mKiB}KiB t=${lastKdf.argon2?.t} p=${lastKdf.argon2?.p}` : `pbkdf2-sha256 iterations=${lastKdf.iterations}`) : '-'}</p>
 		</section>
 	</div>
 

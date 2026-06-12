@@ -73,6 +73,25 @@ Mapping: `00-contracts/lexicons/com/etzhayyim/watari/MIGRATION-NOTES.md`.
   approach congestion → freshness tail. Aggregate-first. Idempotent; rerun to regenerate `out/`.
 - `cell:watari.ingest` → `methods/ingest.py` (R0 stub) — AISStream/OpenSky public batch →
   normalize → dedup-merge. Live fetch G7-gated.
+- `cell:watari.autorun` → `methods/autorun.py` (+ `methods/kotoba.py`). The autonomous
+  Murakumo-fleet heartbeat — the same shape shionome/ipaddress/yabai/sukashi/watatsuna use. Each
+  cycle observes the OFFLINE merged graph → classify → analyze → **persists a content-addressed
+  transaction** (graph datoms + derived `:movement/*`) to the append-only **local** kotoba Datom
+  log (`methods/kotoba.py`), linking the previous tx's CID into a verifiable commit-DAG.
+  Deterministic / resume-safe; NO external I/O. **G2/G4 hold by construction**: only aggregate
+  `:movement/*` lane/chokepoint/approach density is representable — no per-craft follow feed and
+  no person/owner/passenger/crew attr (a craft is a craft, never a person). The chokepoint-transit
+  output composes with watatsuna's static cable-load over the SAME chokepoint keywords (静↔動).
+  Fleet cells `watari_craft_ingest` (cron 38) + `watari_situation_weave` (cron 43) +
+  `watari_situation_persist` (cron 48) on `simeon` (co-located with watatsuna — the 海/空 path
+  trilogy) — see `50-infra/murakumo/fleet.toml`. Live AIS/ADS-B ingest + the live-node push stay
+  Council + operator gated (G7). Invariants guarded by `methods/test_autorun.py` (commit-DAG
+  verify, tamper-detect, determinism, append-only, derived-flagging, **G4 no-person-tracking**,
+  no-external-I/O).
+
+  ```bash
+  python3 methods/autorun.py --cycles 3 --fresh   # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+  ```
 
 ## Lexicons (kotoba-native)
 

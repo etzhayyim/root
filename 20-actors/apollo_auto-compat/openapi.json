@@ -5,21 +5,21 @@
     "version": "1.0.0",
     "description": "Clean-room, API-compatible mobility / auto / EV actor (apollo_auto); runs browser-local on IPFS + kotoba-WASM.",
     "x-etzhayyim-did": "did:web:etzhayyim.com:actor:apollo_auto-compat",
-    "x-wasm-cid": "bafkreigm4wjzuk2kwynrgmkzjtkfw6fbzsor2nrkdywms4swhrlo3f7rby",
+    "x-wasm-cid": "bafkreia3el62gnhjnvgd5noavlq3suwroctxsuzvnugh4t4no7rzjzt24e",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
-      "url": "ipfs://bafkreigm4wjzuk2kwynrgmkzjtkfw6fbzsor2nrkdywms4swhrlo3f7rby",
+      "url": "ipfs://bafkreia3el62gnhjnvgd5noavlq3suwroctxsuzvnugh4t4no7rzjzt24e",
       "description": "browser-local kotoba-wasm component"
     }
   ],
   "paths": {
-    "/v1/vehicles": {
+    "/v1/chassises": {
       "get": {
-        "summary": "List Vehicles",
+        "summary": "List Chassises",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Vehicle"
+                        "$ref": "#/components/schemas/Chassis"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Vehicle",
+        "summary": "Create a Chassis",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreate"
+                "$ref": "#/components/schemas/ChassisCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/Chassis"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/vehicles/{id}": {
+    "/v1/chassises/{id}": {
       "get": {
-        "summary": "Get a Vehicle",
+        "summary": "Get a Chassis",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/Chassis"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Vehicle",
+        "summary": "Update a Chassis",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VehicleCreate"
+                "$ref": "#/components/schemas/ChassisCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Vehicle"
+                  "$ref": "#/components/schemas/Chassis"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Vehicle",
+        "summary": "Delete a Chassis",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/signals": {
+    "/v1/perceptionobstacles": {
       "get": {
-        "summary": "List Signals",
+        "summary": "List PerceptionObstacles",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Signal"
+                        "$ref": "#/components/schemas/PerceptionObstacle"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Signal",
+        "summary": "Create a PerceptionObstacle",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
+                "$ref": "#/components/schemas/PerceptionObstacleCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/PerceptionObstacle"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/signals/{id}": {
+    "/v1/perceptionobstacles/{id}": {
       "get": {
-        "summary": "Get a Signal",
+        "summary": "Get a PerceptionObstacle",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/PerceptionObstacle"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Signal",
+        "summary": "Update a PerceptionObstacle",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignalCreate"
+                "$ref": "#/components/schemas/PerceptionObstacleCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Signal"
+                  "$ref": "#/components/schemas/PerceptionObstacle"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Signal",
+        "summary": "Delete a PerceptionObstacle",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/chargesessions": {
+    "/v1/adctrajectories": {
       "get": {
-        "summary": "List ChargeSessions",
+        "summary": "List ADCTrajectories",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ChargeSession"
+                        "$ref": "#/components/schemas/ADCTrajectory"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a ChargeSession",
+        "summary": "Create a ADCTrajectory",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeSessionCreate"
+                "$ref": "#/components/schemas/ADCTrajectoryCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/ADCTrajectory"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/chargesessions/{id}": {
+    "/v1/adctrajectories/{id}": {
       "get": {
-        "summary": "Get a ChargeSession",
+        "summary": "Get a ADCTrajectory",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/ADCTrajectory"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a ChargeSession",
+        "summary": "Update a ADCTrajectory",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChargeSessionCreate"
+                "$ref": "#/components/schemas/ADCTrajectoryCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChargeSession"
+                  "$ref": "#/components/schemas/ADCTrajectory"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a ChargeSession",
+        "summary": "Delete a ADCTrajectory",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/connectors": {
+    "/v1/localizationstatuses": {
       "get": {
-        "summary": "List Connectors",
+        "summary": "List LocalizationStatuses",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Connector"
+                        "$ref": "#/components/schemas/LocalizationStatus"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Connector",
+        "summary": "Create a LocalizationStatus",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/LocalizationStatusCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/LocalizationStatus"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/connectors/{id}": {
+    "/v1/localizationstatuses/{id}": {
       "get": {
-        "summary": "Get a Connector",
+        "summary": "Get a LocalizationStatus",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/LocalizationStatus"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Connector",
+        "summary": "Update a LocalizationStatus",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectorCreate"
+                "$ref": "#/components/schemas/LocalizationStatusCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Connector"
+                  "$ref": "#/components/schemas/LocalizationStatus"
                 }
               }
             }
@@ -736,377 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Connector",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/trips": {
-      "get": {
-        "summary": "List Trips",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Trip"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Trip",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TripCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Trip"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/trips/{id}": {
-      "get": {
-        "summary": "Get a Trip",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Trip"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Trip",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TripCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Trip"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Trip",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "deleted"
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      }
-    },
-    "/v1/commands": {
-      "get": {
-        "summary": "List Commands",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20,
-              "maximum": 100
-            }
-          },
-          {
-            "name": "starting_after",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Command"
-                      }
-                    },
-                    "has_more": {
-                      "type": "boolean"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create a Command",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "invalid_request_error"
-          }
-        }
-      }
-    },
-    "/v1/commands/{id}": {
-      "get": {
-        "summary": "Get a Command",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expand",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a Command",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Command"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not_found"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete a Command",
+        "summary": "Delete a LocalizationStatus",
         "parameters": [
           {
             "name": "id",
@@ -1140,23 +770,56 @@
   },
   "components": {
     "schemas": {
-      "Vehicle": {
+      "Chassis": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vin": {
-            "type": "string"
+          "engineStarted": {
+            "type": "boolean"
           },
-          "model": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "odometerKm": {
+          "speedMps": {
             "type": "number"
+          },
+          "throttlePercentage": {
+            "type": "number"
+          },
+          "brakePercentage": {
+            "type": "number"
+          },
+          "steeringPercentage": {
+            "type": "number"
+          },
+          "parkingBrake": {
+            "type": "boolean"
+          },
+          "wiper": {
+            "type": "boolean"
+          },
+          "drivingMode": {
+            "type": "string",
+            "enum": [
+              "COMPLETE_MANUAL",
+              "COMPLETE_AUTO_DRIVE",
+              "AUTO_STEER_ONLY",
+              "AUTO_SPEED_ONLY",
+              "EMERGENCY_MODE"
+            ]
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "gearLocation": {
+            "type": "string"
+          },
+          "frontBumperEvent": {
+            "type": "string",
+            "enum": [
+              "BUMPER_INVALID",
+              "BUMPER_NORMAL",
+              "BUMPER_PRESSED"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1168,43 +831,91 @@
           }
         }
       },
-      "VehicleCreate": {
+      "ChassisCreate": {
         "type": "object",
         "properties": {
-          "vin": {
-            "type": "string"
+          "engineStarted": {
+            "type": "boolean"
           },
-          "model": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "odometerKm": {
+          "speedMps": {
             "type": "number"
+          },
+          "throttlePercentage": {
+            "type": "number"
+          },
+          "brakePercentage": {
+            "type": "number"
+          },
+          "steeringPercentage": {
+            "type": "number"
+          },
+          "parkingBrake": {
+            "type": "boolean"
+          },
+          "wiper": {
+            "type": "boolean"
+          },
+          "drivingMode": {
+            "type": "string",
+            "enum": [
+              "COMPLETE_MANUAL",
+              "COMPLETE_AUTO_DRIVE",
+              "AUTO_STEER_ONLY",
+              "AUTO_SPEED_ONLY",
+              "EMERGENCY_MODE"
+            ]
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "gearLocation": {
+            "type": "string"
+          },
+          "frontBumperEvent": {
+            "type": "string",
+            "enum": [
+              "BUMPER_INVALID",
+              "BUMPER_NORMAL",
+              "BUMPER_PRESSED"
+            ]
           }
         },
         "required": [
-          "vin",
-          "model"
+          "engineStarted",
+          "speedMps"
         ]
       },
-      "Signal": {
+      "PerceptionObstacle": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
+          "theta": {
             "type": "number"
           },
-          "unit": {
+          "length": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "trackingTime": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "number"
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string"
+          },
+          "subType": {
             "type": "string"
           },
           "createdAt": {
@@ -1217,43 +928,74 @@
           }
         }
       },
-      "SignalCreate": {
+      "PerceptionObstacleCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "value": {
+          "theta": {
             "type": "number"
           },
-          "unit": {
+          "length": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "trackingTime": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "number"
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string"
+          },
+          "subType": {
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "value"
+          "theta",
+          "length"
         ]
       },
-      "ChargeSession": {
+      "ADCTrajectory": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "vehicleId": {
-            "type": "string"
-          },
-          "connectorId": {
-            "type": "string"
-          },
-          "energyKwh": {
+          "totalPathLength": {
             "type": "number"
           },
-          "status": {
+          "totalPathTime": {
+            "type": "number"
+          },
+          "isReplan": {
+            "type": "boolean"
+          },
+          "replanReason": {
+            "type": "string"
+          },
+          "carInDeadEnd": {
+            "type": "boolean"
+          },
+          "isCollision": {
+            "type": "boolean"
+          },
+          "rightOfWayStatus": {
+            "type": "string",
+            "enum": [
+              "UNPROTECTED",
+              "PROTECTED"
+            ]
+          },
+          "trajectoryType": {
             "type": "string"
           },
           "createdAt": {
@@ -1266,43 +1008,69 @@
           }
         }
       },
-      "ChargeSessionCreate": {
+      "ADCTrajectoryCreate": {
         "type": "object",
         "properties": {
-          "vehicleId": {
-            "type": "string"
-          },
-          "connectorId": {
-            "type": "string"
-          },
-          "energyKwh": {
+          "totalPathLength": {
             "type": "number"
           },
-          "status": {
+          "totalPathTime": {
+            "type": "number"
+          },
+          "isReplan": {
+            "type": "boolean"
+          },
+          "replanReason": {
+            "type": "string"
+          },
+          "carInDeadEnd": {
+            "type": "boolean"
+          },
+          "isCollision": {
+            "type": "boolean"
+          },
+          "rightOfWayStatus": {
+            "type": "string",
+            "enum": [
+              "UNPROTECTED",
+              "PROTECTED"
+            ]
+          },
+          "trajectoryType": {
             "type": "string"
           }
         },
         "required": [
-          "energyKwh",
-          "status"
+          "totalPathLength",
+          "totalPathTime"
         ]
       },
-      "Connector": {
+      "LocalizationStatus": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "stationId": {
-            "type": "string"
-          },
-          "standard": {
-            "type": "string"
-          },
-          "powerKw": {
+          "measurementTime": {
             "type": "number"
           },
-          "status": {
+          "stateMessage": {
+            "type": "string"
+          },
+          "fusionStatus": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "WARNNING",
+              "ERROR",
+              "CRITICAL_ERROR",
+              "FATAL_ERROR"
+            ]
+          },
+          "gnssStatus": {
+            "type": "string"
+          },
+          "lidarStatus": {
             "type": "string"
           },
           "createdAt": {
@@ -1315,112 +1083,35 @@
           }
         }
       },
-      "ConnectorCreate": {
+      "LocalizationStatusCreate": {
         "type": "object",
         "properties": {
-          "stationId": {
-            "type": "string"
-          },
-          "standard": {
-            "type": "string"
-          },
-          "powerKw": {
+          "measurementTime": {
             "type": "number"
           },
-          "status": {
+          "stateMessage": {
+            "type": "string"
+          },
+          "fusionStatus": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "WARNNING",
+              "ERROR",
+              "CRITICAL_ERROR",
+              "FATAL_ERROR"
+            ]
+          },
+          "gnssStatus": {
+            "type": "string"
+          },
+          "lidarStatus": {
             "type": "string"
           }
         },
         "required": [
-          "standard",
-          "powerKw"
-        ]
-      },
-      "Trip": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "vehicleId": {
-            "type": "string"
-          },
-          "distanceKm": {
-            "type": "number"
-          },
-          "startedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "TripCreate": {
-        "type": "object",
-        "properties": {
-          "vehicleId": {
-            "type": "string"
-          },
-          "distanceKm": {
-            "type": "number"
-          },
-          "startedAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "distanceKm",
-          "startedAt"
-        ]
-      },
-      "Command": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CommandCreate": {
-        "type": "object",
-        "properties": {
-          "vehicleId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "status"
+          "measurementTime",
+          "stateMessage"
         ]
       }
     }

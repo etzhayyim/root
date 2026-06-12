@@ -4,10 +4,11 @@ Copyright (c) etzhayyim (天御柱 / 任意団体宗教法人)
 This product is licensed under the Apache License 2.0 (see LICENSE in
 the repository root).
 
-This product is ALSO subject to the etzhayyim Charter Compliance Rider
-v2.0, which adds §2(a)..(h) prohibited-use conditions on top of the
-Apache 2.0 grant. See CHARTER-RIDER.md (this directory's symlink to the
-repo-root canonical) and ADR-2605192200.
+This product is ALSO subject to the etzhayyim
+Charter Compliance Rider v3.1, which adds §2(a)..(k) prohibited-use
+conditions on top of the Apache 2.0 grant. See CHARTER-RIDER.md (this
+directory's symlink to the repo-root canonical) and
+ADR-2605192200 / 2606062100 / 2606082400.
 
 Per ADR-2605241500: this Worker publishes the DID Document for
 did:web:dataset-pinner.etzhayyim.com — the identity that signs

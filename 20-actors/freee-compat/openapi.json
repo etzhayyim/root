@@ -8,7 +8,7 @@
     "x-wasm-cid": "bafkreibw45cqxginpwzg2vqrbe3f65s4dpnayrljkpn725xhx7tyve7phe",
     "x-runtime": "kotoba-wasm",
     "x-exec": "browser-local|donated-mesh",
-    "x-tier": "L4"
+    "x-tier": "L5"
   },
   "servers": [
     {
@@ -17,9 +17,9 @@
     }
   ],
   "paths": {
-    "/v1/accounts": {
+    "/v1/deals": {
       "get": {
-        "summary": "List Accounts",
+        "summary": "List Deals",
         "parameters": [
           {
             "name": "limit",
@@ -59,7 +59,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Account"
+                        "$ref": "#/components/schemas/Deal"
                       }
                     },
                     "has_more": {
@@ -79,13 +79,13 @@
         }
       },
       "post": {
-        "summary": "Create a Account",
+        "summary": "Create a Deal",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
+                "$ref": "#/components/schemas/DealCreate"
               }
             }
           }
@@ -96,7 +96,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Account"
+                  "$ref": "#/components/schemas/Deal"
                 }
               }
             }
@@ -107,9 +107,9 @@
         }
       }
     },
-    "/v1/accounts/{id}": {
+    "/v1/deals/{id}": {
       "get": {
-        "summary": "Get a Account",
+        "summary": "Get a Deal",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Account"
+                  "$ref": "#/components/schemas/Deal"
                 }
               }
             }
@@ -144,7 +144,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Account",
+        "summary": "Update a Deal",
         "parameters": [
           {
             "name": "id",
@@ -159,7 +159,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AccountCreate"
+                "$ref": "#/components/schemas/DealCreate"
               }
             }
           }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Account"
+                  "$ref": "#/components/schemas/Deal"
                 }
               }
             }
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Account",
+        "summary": "Delete a Deal",
         "parameters": [
           {
             "name": "id",
@@ -202,9 +202,9 @@
         }
       }
     },
-    "/v1/contacts": {
+    "/v1/accountitems": {
       "get": {
-        "summary": "List Contacts",
+        "summary": "List AccountItems",
         "parameters": [
           {
             "name": "limit",
@@ -244,7 +244,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Contact"
+                        "$ref": "#/components/schemas/AccountItem"
                       }
                     },
                     "has_more": {
@@ -264,13 +264,13 @@
         }
       },
       "post": {
-        "summary": "Create a Contact",
+        "summary": "Create a AccountItem",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContactCreate"
+                "$ref": "#/components/schemas/AccountItemCreate"
               }
             }
           }
@@ -281,7 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contact"
+                  "$ref": "#/components/schemas/AccountItem"
                 }
               }
             }
@@ -292,9 +292,9 @@
         }
       }
     },
-    "/v1/contacts/{id}": {
+    "/v1/accountitems/{id}": {
       "get": {
-        "summary": "Get a Contact",
+        "summary": "Get a AccountItem",
         "parameters": [
           {
             "name": "id",
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contact"
+                  "$ref": "#/components/schemas/AccountItem"
                 }
               }
             }
@@ -329,7 +329,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Contact",
+        "summary": "Update a AccountItem",
         "parameters": [
           {
             "name": "id",
@@ -344,7 +344,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ContactCreate"
+                "$ref": "#/components/schemas/AccountItemCreate"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contact"
+                  "$ref": "#/components/schemas/AccountItem"
                 }
               }
             }
@@ -366,7 +366,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Contact",
+        "summary": "Delete a AccountItem",
         "parameters": [
           {
             "name": "id",
@@ -387,9 +387,9 @@
         }
       }
     },
-    "/v1/leads": {
+    "/v1/partners": {
       "get": {
-        "summary": "List Leads",
+        "summary": "List Partners",
         "parameters": [
           {
             "name": "limit",
@@ -429,7 +429,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Lead"
+                        "$ref": "#/components/schemas/Partner"
                       }
                     },
                     "has_more": {
@@ -449,13 +449,13 @@
         }
       },
       "post": {
-        "summary": "Create a Lead",
+        "summary": "Create a Partner",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LeadCreate"
+                "$ref": "#/components/schemas/PartnerCreate"
               }
             }
           }
@@ -466,7 +466,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Lead"
+                  "$ref": "#/components/schemas/Partner"
                 }
               }
             }
@@ -477,9 +477,9 @@
         }
       }
     },
-    "/v1/leads/{id}": {
+    "/v1/partners/{id}": {
       "get": {
-        "summary": "Get a Lead",
+        "summary": "Get a Partner",
         "parameters": [
           {
             "name": "id",
@@ -503,7 +503,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Lead"
+                  "$ref": "#/components/schemas/Partner"
                 }
               }
             }
@@ -514,7 +514,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Lead",
+        "summary": "Update a Partner",
         "parameters": [
           {
             "name": "id",
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LeadCreate"
+                "$ref": "#/components/schemas/PartnerCreate"
               }
             }
           }
@@ -540,7 +540,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Lead"
+                  "$ref": "#/components/schemas/Partner"
                 }
               }
             }
@@ -551,7 +551,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Lead",
+        "summary": "Delete a Partner",
         "parameters": [
           {
             "name": "id",
@@ -572,9 +572,9 @@
         }
       }
     },
-    "/v1/opportunities": {
+    "/v1/invoices": {
       "get": {
-        "summary": "List Opportunities",
+        "summary": "List Invoices",
         "parameters": [
           {
             "name": "limit",
@@ -614,7 +614,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Opportunity"
+                        "$ref": "#/components/schemas/Invoice"
                       }
                     },
                     "has_more": {
@@ -634,13 +634,13 @@
         }
       },
       "post": {
-        "summary": "Create a Opportunity",
+        "summary": "Create a Invoice",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OpportunityCreate"
+                "$ref": "#/components/schemas/InvoiceCreate"
               }
             }
           }
@@ -651,7 +651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Opportunity"
+                  "$ref": "#/components/schemas/Invoice"
                 }
               }
             }
@@ -662,9 +662,9 @@
         }
       }
     },
-    "/v1/opportunities/{id}": {
+    "/v1/invoices/{id}": {
       "get": {
-        "summary": "Get a Opportunity",
+        "summary": "Get a Invoice",
         "parameters": [
           {
             "name": "id",
@@ -688,7 +688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Opportunity"
+                  "$ref": "#/components/schemas/Invoice"
                 }
               }
             }
@@ -699,7 +699,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Opportunity",
+        "summary": "Update a Invoice",
         "parameters": [
           {
             "name": "id",
@@ -714,7 +714,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OpportunityCreate"
+                "$ref": "#/components/schemas/InvoiceCreate"
               }
             }
           }
@@ -725,7 +725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Opportunity"
+                  "$ref": "#/components/schemas/Invoice"
                 }
               }
             }
@@ -736,7 +736,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Opportunity",
+        "summary": "Delete a Invoice",
         "parameters": [
           {
             "name": "id",
@@ -757,9 +757,9 @@
         }
       }
     },
-    "/v1/activities": {
+    "/v1/companies": {
       "get": {
-        "summary": "List Activities",
+        "summary": "List Companies",
         "parameters": [
           {
             "name": "limit",
@@ -799,7 +799,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Activity"
+                        "$ref": "#/components/schemas/Company"
                       }
                     },
                     "has_more": {
@@ -819,13 +819,13 @@
         }
       },
       "post": {
-        "summary": "Create a Activity",
+        "summary": "Create a Company",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ActivityCreate"
+                "$ref": "#/components/schemas/CompanyCreate"
               }
             }
           }
@@ -836,7 +836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Activity"
+                  "$ref": "#/components/schemas/Company"
                 }
               }
             }
@@ -847,9 +847,9 @@
         }
       }
     },
-    "/v1/activities/{id}": {
+    "/v1/companies/{id}": {
       "get": {
-        "summary": "Get a Activity",
+        "summary": "Get a Company",
         "parameters": [
           {
             "name": "id",
@@ -873,7 +873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Activity"
+                  "$ref": "#/components/schemas/Company"
                 }
               }
             }
@@ -884,7 +884,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Activity",
+        "summary": "Update a Company",
         "parameters": [
           {
             "name": "id",
@@ -899,7 +899,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ActivityCreate"
+                "$ref": "#/components/schemas/CompanyCreate"
               }
             }
           }
@@ -910,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Activity"
+                  "$ref": "#/components/schemas/Company"
                 }
               }
             }
@@ -921,7 +921,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Activity",
+        "summary": "Delete a Company",
         "parameters": [
           {
             "name": "id",
@@ -942,9 +942,9 @@
         }
       }
     },
-    "/v1/pipelines": {
+    "/v1/walletables": {
       "get": {
-        "summary": "List Pipelines",
+        "summary": "List Walletables",
         "parameters": [
           {
             "name": "limit",
@@ -984,7 +984,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Pipeline"
+                        "$ref": "#/components/schemas/Walletable"
                       }
                     },
                     "has_more": {
@@ -1004,13 +1004,13 @@
         }
       },
       "post": {
-        "summary": "Create a Pipeline",
+        "summary": "Create a Walletable",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PipelineCreate"
+                "$ref": "#/components/schemas/WalletableCreate"
               }
             }
           }
@@ -1021,7 +1021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pipeline"
+                  "$ref": "#/components/schemas/Walletable"
                 }
               }
             }
@@ -1032,9 +1032,9 @@
         }
       }
     },
-    "/v1/pipelines/{id}": {
+    "/v1/walletables/{id}": {
       "get": {
-        "summary": "Get a Pipeline",
+        "summary": "Get a Walletable",
         "parameters": [
           {
             "name": "id",
@@ -1058,7 +1058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pipeline"
+                  "$ref": "#/components/schemas/Walletable"
                 }
               }
             }
@@ -1069,7 +1069,7 @@
         }
       },
       "patch": {
-        "summary": "Update a Pipeline",
+        "summary": "Update a Walletable",
         "parameters": [
           {
             "name": "id",
@@ -1084,7 +1084,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PipelineCreate"
+                "$ref": "#/components/schemas/WalletableCreate"
               }
             }
           }
@@ -1095,7 +1095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pipeline"
+                  "$ref": "#/components/schemas/Walletable"
                 }
               }
             }
@@ -1106,7 +1106,7 @@
         }
       },
       "delete": {
-        "summary": "Delete a Pipeline",
+        "summary": "Delete a Walletable",
         "parameters": [
           {
             "name": "id",
@@ -1140,135 +1140,134 @@
   },
   "components": {
     "schemas": {
-      "Account": {
+      "Deal": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "companyId": {
+            "type": "integer"
           },
-          "domain": {
-            "type": "string"
-          },
-          "industry": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "annualRevenue": {
-            "type": "number"
-          },
-          "createdAt": {
+          "issueDate": {
             "type": "string",
             "format": "date-time"
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "AccountCreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "domain": {
-            "type": "string"
-          },
-          "industry": {
-            "type": "string"
-          },
-          "ownerId": {
-            "type": "string"
-          },
-          "annualRevenue": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "domain"
-        ]
-      },
-      "Contact": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "accountId": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "phone": {
-            "type": "string"
-          },
-          "createdAt": {
+          "dueDate": {
             "type": "string",
             "format": "date-time"
           },
-          "updatedAt": {
+          "amount": {
+            "type": "integer"
+          },
+          "dueAmount": {
+            "type": "integer"
+          },
+          "type": {
             "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ContactCreate": {
-        "type": "object",
-        "properties": {
-          "accountId": {
+            "enum": [
+              "income",
+              "expense"
+            ]
+          },
+          "partnerId": {
+            "type": "integer"
+          },
+          "partnerCode": {
             "type": "string"
           },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "phone": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "firstName",
-          "lastName"
-        ]
-      },
-      "Lead": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "company": {
-            "type": "string"
-          },
-          "email": {
+          "refNumber": {
             "type": "string"
           },
           "status": {
+            "type": "string",
+            "enum": [
+              "unsettled",
+              "settled"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DealCreate": {
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "integer"
+          },
+          "issueDate": {
             "type": "string"
           },
-          "source": {
+          "dueDate": {
             "type": "string"
           },
-          "score": {
+          "amount": {
+            "type": "integer"
+          },
+          "dueAmount": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "income",
+              "expense"
+            ]
+          },
+          "partnerId": {
+            "type": "integer"
+          },
+          "partnerCode": {
+            "type": "string"
+          },
+          "refNumber": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "unsettled",
+              "settled"
+            ]
+          }
+        },
+        "required": [
+          "issueDate",
+          "dueDate"
+        ]
+      },
+      "AccountItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "companyId": {
+            "type": "integer"
+          },
+          "taxCode": {
+            "type": "integer"
+          },
+          "accountCategory": {
+            "type": "string"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "walletableId": {
+            "type": "integer"
+          },
+          "searchable": {
             "type": "integer"
           },
           "createdAt": {
@@ -1281,51 +1280,67 @@
           }
         }
       },
-      "LeadCreate": {
+      "AccountItemCreate": {
         "type": "object",
         "properties": {
-          "company": {
+          "name": {
             "type": "string"
           },
-          "email": {
+          "companyId": {
+            "type": "integer"
+          },
+          "taxCode": {
+            "type": "integer"
+          },
+          "accountCategory": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "available": {
+            "type": "boolean"
           },
-          "source": {
-            "type": "string"
+          "walletableId": {
+            "type": "integer"
           },
-          "score": {
+          "searchable": {
             "type": "integer"
           }
         },
         "required": [
-          "company",
-          "email"
+          "name",
+          "taxCode"
         ]
       },
-      "Opportunity": {
+      "Partner": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "accountId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "stage": {
+          "code": {
             "type": "string"
           },
-          "amount": {
-            "type": "number"
+          "companyId": {
+            "type": "integer"
           },
-          "closeDate": {
+          "available": {
+            "type": "boolean"
+          },
+          "orgCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "transferFeeHandlingSide": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "payer",
+              "payee"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1337,51 +1352,76 @@
           }
         }
       },
-      "OpportunityCreate": {
+      "PartnerCreate": {
         "type": "object",
         "properties": {
-          "accountId": {
-            "type": "string"
-          },
           "name": {
             "type": "string"
           },
-          "stage": {
+          "code": {
             "type": "string"
           },
-          "amount": {
-            "type": "number"
+          "companyId": {
+            "type": "integer"
           },
-          "closeDate": {
-            "type": "string"
+          "available": {
+            "type": "boolean"
+          },
+          "orgCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "transferFeeHandlingSide": {
+            "type": "string",
+            "enum": [
+              "payer",
+              "payee"
+            ]
           }
         },
         "required": [
           "name",
-          "stage"
+          "code"
         ]
       },
-      "Activity": {
+      "Invoice": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "subjectId": {
+          "invoiceNumber": {
             "type": "string"
           },
-          "type": {
-            "type": "string"
-          },
-          "subject": {
-            "type": "string"
-          },
-          "dueDate": {
+          "issueDate": {
             "type": "string",
             "format": "date-time"
           },
-          "done": {
-            "type": "boolean"
+          "totalAmount": {
+            "type": "integer"
+          },
+          "invoiceStatus": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "applying",
+              "remanded",
+              "rejected",
+              "approved",
+              "submitted",
+              "unsubmitted"
+            ]
+          },
+          "paymentType": {
+            "type": "string",
+            "enum": [
+              "",
+              "transfer",
+              "direct_debit"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1393,44 +1433,69 @@
           }
         }
       },
-      "ActivityCreate": {
+      "InvoiceCreate": {
         "type": "object",
         "properties": {
-          "subjectId": {
+          "invoiceNumber": {
             "type": "string"
           },
-          "type": {
+          "issueDate": {
             "type": "string"
           },
-          "subject": {
-            "type": "string"
+          "totalAmount": {
+            "type": "integer"
           },
-          "dueDate": {
-            "type": "string"
+          "invoiceStatus": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "applying",
+              "remanded",
+              "rejected",
+              "approved",
+              "submitted",
+              "unsubmitted"
+            ]
           },
-          "done": {
-            "type": "boolean"
+          "paymentType": {
+            "type": "string",
+            "enum": [
+              "",
+              "transfer",
+              "direct_debit"
+            ]
           }
         },
         "required": [
-          "type",
-          "subject"
+          "invoiceNumber",
+          "issueDate"
         ]
       },
-      "Pipeline": {
+      "Company": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "displayName": {
             "type": "string"
           },
-          "stageOrder": {
-            "type": "string"
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "simple_accounting",
+              "self_only",
+              "read_only",
+              "workflow"
+            ]
           },
-          "ownerId": {
-            "type": "string"
+          "orgCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -1442,22 +1507,108 @@
           }
         }
       },
-      "PipelineCreate": {
+      "CompanyCreate": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "simple_accounting",
+              "self_only",
+              "read_only",
+              "workflow"
+            ]
+          },
+          "orgCode": {
+            "type": "integer",
+            "enum": [
+              1,
+              2
+            ]
+          }
+        },
+        "required": [
+          "displayName",
+          "role"
+        ]
+      },
+      "Walletable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "bankId": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "bank_account",
+              "credit_card",
+              "wallet"
+            ]
+          },
+          "syncStatus": {
+            "type": "string",
+            "enum": [
+              "success",
+              "disabled",
+              "syncing",
+              "token_refresh_error",
+              "unsupported",
+              "other_error"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "WalletableCreate": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "stageOrder": {
-            "type": "string"
+          "bankId": {
+            "type": "integer"
           },
-          "ownerId": {
-            "type": "string"
+          "type": {
+            "type": "string",
+            "enum": [
+              "bank_account",
+              "credit_card",
+              "wallet"
+            ]
+          },
+          "syncStatus": {
+            "type": "string",
+            "enum": [
+              "success",
+              "disabled",
+              "syncing",
+              "token_refresh_error",
+              "unsupported",
+              "other_error"
+            ]
           }
         },
         "required": [
           "name",
-          "stageOrder"
+          "type"
         ]
       }
     }

@@ -3,9 +3,12 @@
 // Served at the origin ROOT (/kotoba-sw.js) so its scope is `/` and it can see
 // `/xrpc/*`. Registered from +layout.svelte. Module Service Worker.
 //
-// NETWORK-FIRST: `/xrpc/...searchActors` goes to the live server when online
-// (no staleness/shadowing). On network failure it is served from the in-browser
-// kotoba-wasm read engine — offline edge resilience, no server round-trip.
+// NETWORK-FIRST: `/xrpc/...searchActors` AND the feed/profile reads go to the
+// live server when online (no staleness/shadowing — the apex falls through to
+// the AppView, which has the LATEST posts). The in-browser kotoba-wasm read
+// engine contributes (a) member-signed local writes the server doesn't have
+// yet (first-page backfill) and (b) the whole response when offline or the
+// server errors — offline edge resilience, never a stale shadow.
 //
 // PERSISTENCE: the hydrated datoms are cached in IndexedDB, so a reload restores
 // the node WITHOUT re-fetching the seed (reseed-free). A background refresh
@@ -14,6 +17,7 @@
 // live same-origin `datomic.datoms` endpoint.
 
 import init, { KotobaNode } from "./kotoba/kotoba_wasm.js";
+import { mergeLiveFeed } from "./kotoba/feed-merge.js";
 
 const SEED_URL = "/kotoba/seed-datoms.json"; // JSON snapshot fallback (CORS-free)
 // IPFS-block path (ADR-2605312345 / 2606014600): the canonical source. The
@@ -28,12 +32,13 @@ const SEARCH_NSIDS = new Set([
   "com.etzhayyim.yoro.actor.searchActors",
 ]);
 
-// ── Browser-only feed/profile reads (ADR-2606013800 + 2605312345) ───────────
-// These NSIDs are assembled ENTIRELY in the browser from the in-page kotoba
-// Datom log (the same-origin seed), never from a server adapter. The apex
-// Worker rewrites app.bsky.feed.* → com.etzhayyim.yoro.feed.* and forwards to
-// the rw-free adapter, which does not implement them (404) — so without this
-// shim the home/author feed is empty. We intercept BOTH spellings.
+// ── Feed/profile reads (ADR-2606013800 + 2605312345) ────────────────────────
+// NETWORK-FIRST + local merge. The apex no longer aliases these NSIDs to the
+// rw-free adapter (the old 404 path); it falls through to the AppView, which
+// returns real, CURRENT data — so the live server is canonical when reachable.
+// The in-page kotoba Datom log (same-origin seed snapshot + member-signed
+// local writes, IndexedDB-persisted) backfills posts the server lacks and
+// serves the whole read when offline. We intercept BOTH spellings.
 const FEED_TIMELINE_NSIDS = new Set([
   "app.bsky.feed.getTimeline",
   "app.bsky.feed.getDiscoverFeed",
@@ -831,53 +836,126 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // ── Browser-only feed / profile reads (kotoba-wasm Datom log) ─────────────
-  // Assembled locally from the same-origin seed; on any miss/exception we fall
-  // through to the network (hybrid — never makes the broken alias path worse).
+  // ── Feed / profile reads — NETWORK-FIRST + local merge ────────────────────
+  // The live server (apex → AppView) is canonical when reachable, so the feed
+  // always shows the LATEST posts. The local kotoba Datom log contributes
+  // member-signed local writes the server lacks (first-page backfill) and the
+  // whole response when offline / on a server error — it never shadows a
+  // healthy live server with a stale snapshot.
   if (isFeedNsid(nsid)) {
     event.respondWith(
       (async () => {
+        // Live fetch first; the local node warms concurrently (kicked at SW start).
+        let live = null; // { resp, body } | null (network failure)
         try {
-          await ensureReady();
-          const limit = Math.max(1, Math.min(100, parseInt(url.searchParams.get("limit") || "50", 10) || 50));
-          const offset = Math.max(0, parseInt(url.searchParams.get("cursor") || "0", 10) || 0);
-
-          if (PROFILE_NSIDS.has(nsid)) {
-            const actor = url.searchParams.get("actor") || url.searchParams.get("handle") || "";
-            const prof = buildProfileView(seedDatoms, actor);
-            if (prof) return jsonResponse(prof, "local-wasm-profile");
-            return fetch(event.request);
-          }
-
-          if (FEED_THREAD_NSIDS.has(nsid)) {
-            const uri = url.searchParams.get("uri") || "";
-            const view = buildPostViews(seedDatoms).find((v) => v.uri === uri);
-            if (view) {
-              return jsonResponse(
-                { thread: { $type: "app.bsky.feed.defs#threadViewPost", post: view, replies: [] } },
-                "local-wasm-thread",
-              );
-            }
-            return fetch(event.request);
-          }
-
-          // getTimeline / getDiscoverFeed / getAuthorFeed
-          let views = buildPostViews(seedDatoms);
-          if (FEED_AUTHOR_NSIDS.has(nsid)) {
-            const actor = url.searchParams.get("actor") || "";
-            views = views.filter((v) => actorMatches(v, actor));
-          }
-          const page = views.slice(offset, offset + limit);
-          const feed = page.map((v) => ({ post: v }));
-          // Empty local set → defer to network (don't shadow a live server with []).
-          if (feed.length === 0) return fetch(event.request);
-          return jsonResponse(
-            { feed, cursor: offset + feed.length < views.length ? String(offset + feed.length) : "" },
-            FEED_AUTHOR_NSIDS.has(nsid) ? "local-wasm-authorfeed" : "local-wasm-feed",
-          );
+          const resp = await fetch(event.request);
+          const ct = resp.headers.get("content-type") || "";
+          const body = ct.includes("json") ? await resp.clone().json().catch(() => null) : null;
+          live = { resp, body };
         } catch {
-          return fetch(event.request); // hybrid fallback
+          live = null;
         }
+
+        // Local Datom log: bounded wait when live succeeded (merge is optional),
+        // full wait when live failed (local is the only source).
+        let localOk = false;
+        try {
+          if (live && live.body) {
+            await Promise.race([
+              ensureReady(),
+              new Promise((_, rej) => setTimeout(() => rej(new Error("kotoba boot timeout")), 1500)),
+            ]);
+          } else {
+            await ensureReady();
+          }
+          localOk = true;
+        } catch {
+          /* node not ready — live-only passthrough below */
+        }
+
+        if (PROFILE_NSIDS.has(nsid)) {
+          const actor = url.searchParams.get("actor") || url.searchParams.get("handle") || "";
+          let prof = null;
+          try {
+            prof = localOk ? buildProfileView(seedDatoms, actor) : null;
+          } catch {
+            prof = null;
+          }
+          if (live && live.body && live.body.did) {
+            if (!prof) return live.resp;
+            // Server profiles can be skeletal (incomplete:true, blank names) —
+            // fill ONLY the blanks from the local Datom log, keep live values.
+            const merged = { ...live.body };
+            let filled = false;
+            for (const k of ["displayName", "description", "avatar"]) {
+              if (!merged[k] && prof[k]) {
+                merged[k] = prof[k];
+                filled = true;
+              }
+            }
+            if (!merged.postsCount && prof.postsCount) {
+              merged.postsCount = prof.postsCount;
+              filled = true;
+            }
+            return filled ? jsonResponse(merged, "live+local-profile") : live.resp;
+          }
+          if (prof) return jsonResponse(prof, "local-wasm-profile");
+          return live ? live.resp : Response.error();
+        }
+
+        if (FEED_THREAD_NSIDS.has(nsid)) {
+          if (live && live.body && live.body.thread) return live.resp;
+          const uri = url.searchParams.get("uri") || "";
+          let view = null;
+          try {
+            view = localOk ? buildPostViews(seedDatoms).find((v) => v.uri === uri) : null;
+          } catch {
+            view = null;
+          }
+          if (view) {
+            return jsonResponse(
+              { thread: { $type: "app.bsky.feed.defs#threadViewPost", post: view, replies: [] } },
+              "local-wasm-thread",
+            );
+          }
+          return live ? live.resp : Response.error();
+        }
+
+        // getTimeline / getDiscoverFeed / getAuthorFeed
+        let views = [];
+        if (localOk) {
+          try {
+            views = buildPostViews(seedDatoms);
+            if (FEED_AUTHOR_NSIDS.has(nsid)) {
+              const actor = url.searchParams.get("actor") || "";
+              views = views.filter((v) => actorMatches(v, actor));
+            }
+          } catch {
+            views = [];
+          }
+        }
+
+        if (live && live.body && Array.isArray(live.body.feed)) {
+          const merged = mergeLiveFeed(live.body, views, {
+            hasCursor: !!url.searchParams.get("cursor"),
+          });
+          if (!merged) return live.resp; // no local contribution → untouched
+          return jsonResponse(
+            merged,
+            FEED_AUTHOR_NSIDS.has(nsid) ? "live+local-authorfeed" : "live+local-feed",
+          );
+        }
+
+        // Network failed / non-feed body → serve the local Datom log (offline).
+        const limit = Math.max(1, Math.min(100, parseInt(url.searchParams.get("limit") || "50", 10) || 50));
+        const offset = Math.max(0, parseInt(url.searchParams.get("cursor") || "0", 10) || 0);
+        const page = views.slice(offset, offset + limit);
+        const feed = page.map((v) => ({ post: v }));
+        if (feed.length === 0) return live ? live.resp : Response.error();
+        return jsonResponse(
+          { feed, cursor: offset + feed.length < views.length ? String(offset + feed.length) : "" },
+          FEED_AUTHOR_NSIDS.has(nsid) ? "local-wasm-authorfeed" : "local-wasm-feed",
+        );
       })(),
     );
     return;

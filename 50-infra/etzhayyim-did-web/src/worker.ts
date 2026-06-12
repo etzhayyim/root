@@ -118,6 +118,42 @@ const DONATION_POLICY = {
       status: "Base L2 testnet pending Council (CLAUDE.md §Live governance)",
     },
     {
+      // ADR-2606111800 §C — curated crypto-asset allowlist, held as-is (per-asset tithe).
+      medium: "crypto",
+      assets: ["ETH", "WETH", "USDC", "USDT", "DAI"],
+      heldAsIs: true,
+      rail: "on-chain donation to the same address (Base L2; or L1 where un-bridgeable)",
+      split: "90/10 tithe computed per-asset at receipt",
+      purposes: ["donation", "kisha", "grant"],
+      note: "Curated liquid-majors allowlist (Council Tier-2). No memecoins / no algorithmic stablecoins. TitheRouter per-asset support is a follow-up (until then: recorded + manually tithed).",
+      status: "pending the same Council ratification + testnet as cash",
+    },
+    {
+      // ADR-2606111800 §B — non-custodial fiat on-ramp settling immediately to USDC on-chain.
+      medium: "fiat",
+      kind: "non-custodial-onramp",
+      custodial: false,
+      retainsDonorPii: false,
+      settlesTo: "USDC on-chain (immediate)",
+      split: "arrives as an ordinary on-chain donation → 90/10 tithe",
+      purposes: ["donation"],
+      description:
+        "Give in fiat via a NON-CUSTODIAL on-ramp that settles immediately to USDC on-chain. etzhayyim holds no fiat balance, retains NO donor PII (any KYC is donor↔on-ramp only), and the processor can never freeze etzhayyim's treasury. CUSTODIAL fiat (Stripe/PayPal holding our balance, KYC-on-etzhayyim, PII retention) stays prohibited (ADR-2605172100 / 2606111800 §B).",
+      status: "permitted (ADR-2606111800 §B); on-ramp wiring follows the cash address going live",
+    },
+    {
+      // ADR-2606111800 §A — fiat IN-KIND: paying the mission's fiat bills directly (no inflow).
+      medium: "fiat-in-kind",
+      kind: "in-kind",
+      titheable: false,
+      compensated: false,
+      grantsBenefit: false,
+      description:
+        "Pay the mission's real-world fiat costs directly to the vendor (servers / cloud / domains / bandwidth / hardware), for the mission. No money flows to etzhayyim — like donating compute. Imputed-valued for transparency only (toritate, aggregate, no leaderboard); non-titheable; earns the donor nothing. This is how the founder already donates (JPY server costs).",
+      record: "com.etzhayyim.give.infrastructureDonationAttestation",
+      status: "recognized (ADR-2606111800 §A); no amendment needed — already charter-clean",
+    },
+    {
       medium: "compute",
       kind: "in-kind",
       titheable: false,
@@ -146,9 +182,27 @@ const DONATION_POLICY = {
       enrollment: "R0 design; live external mesh-enrollment gated on Council + operator (ADR-2606012100 §6 G9)",
     },
   ],
-  adr: ["2606012100", "2605192115", "2605192130", "2605215000", "2605301020", "2605241900"],
+  // Active solicitation (募集). Benefit-free by construction: a gift earns the donor
+  // nothing — no perk, tier, priority, governance weight, or recognition leaderboard
+  // (anti-class G4, ADR-2606012100). Soliciting support for etzhayyim's own religious
+  // activity is 案内, not advertising (ADR-2605192115 §1.2).
+  solicitation: {
+    open: true,
+    callToAction:
+      "etzhayyim runs only on donation. Give money (USDC on Base L2) or compute (join the Murakumo mesh). A gift earns you nothing — no perks, no tiers, no priority — and is never required.",
+    grantsBenefit: false, // G4 — no quid-pro-quo
+    tiers: "none", // no perk/sponsor tiers (would be a quid-pro-quo)
+    leaderboard: "none", // no per-donor ranking (no class formation)
+    sponsorButton:
+      "GitHub repo Sponsor button (.github/FUNDING.yml) points here — NOT to GitHub Sponsors / Patreon / Stripe (fiat processors prohibited, ADR-2605172100).",
+    addressStatus:
+      "On-chain donate address is published in THIS document (field media[0]) once live — single source of truth, no second place to drift. Currently pending Council ratification + Base L2 testnet.",
+  },
+  adr: ["2606012100", "2606111700", "2606111800", "2605192115", "2605192130", "2605172100", "2605215000", "2605301020", "2605241900"],
   references: {
     page: "https://etzhayyim.com/donate",
+    howToGive: "https://github.com/etzhayyim/root/blob/main/DONATE.md",
+    sponsorButton: "https://github.com/etzhayyim/root/blob/main/.github/FUNDING.yml",
     didDocument: "https://etzhayyim.com/.well-known/did.json",
     repo: "https://github.com/etzhayyim/root",
   },
@@ -181,13 +235,27 @@ a{color:inherit}
 </head>
 <body>
 <h1>etzhayyim is operated <em>only</em> on donation.</h1>
-<p class="sub">A 宗教法人 (unincorporated religious association). We take no advertising, sell nothing, and never pay any member cash. You can give <strong>money</strong> or <strong>compute</strong>.</p>
+<p class="sub">A 宗教法人 (unincorporated religious association). We take no advertising, sell nothing, and never pay any member cash. You can give <strong>money</strong> (USDC, other crypto, or fiat) or <strong>compute</strong> — or pay one of our bills.</p>
 
 <h2>Give money</h2>
 <div class="card">
 <span class="tag">USDC</span><span class="tag">Base L2</span>
 <p>Donations settle on-chain through <strong>TitheRouter</strong>: 90% to the recipient program, 10% auto-split to the Public Fund. No fiat processor, no fees skimmed by middlemen.</p>
 <p style="opacity:.7;margin:.25rem 0 0">Status: Base L2 testnet pending Council ratification — on-chain donate address published here when live.</p>
+</div>
+<div class="card">
+<span class="tag">ETH · stablecoins</span><span class="tag">held as-is</span>
+<p>We also accept a curated allowlist of liquid crypto — <strong>ETH / WETH / USDC / USDT / DAI</strong> — held in its native asset, tithed 90/10 per asset. No memecoins, no algorithmic stablecoins. (ADR-2606111800 §C.)</p>
+</div>
+<div class="card">
+<span class="tag">fiat</span><span class="tag">non-custodial</span>
+<p>Prefer your card or bank? Give in <strong>fiat through a non-custodial on-ramp</strong> that settles immediately to USDC on-chain. We hold no fiat balance, keep <em>none</em> of your personal data (any KYC is between you and the on-ramp), and no processor can ever freeze our funds. (ADR-2606111800 §B.)</p>
+</div>
+
+<h2>Pay one of our bills (fiat, in-kind)</h2>
+<div class="card">
+<span class="tag">fiat · in-kind</span><span class="tag">no inflow</span>
+<p>The most direct fiat gift: <strong>pay one of the mission's real-world costs</strong> — a server, cloud, domain, bandwidth, or hardware bill — straight to the vendor, for the mission. No money passes through etzhayyim at all (just like donating compute). It is imputed-valued for transparency only, earns you nothing, and is never tithed. This is how the founder already supports the work — paying server costs in yen. (ADR-2606111800 §A.)</p>
 </div>
 
 <h2>Give compute</h2>
@@ -210,9 +278,17 @@ a{color:inherit}
 
 <p style="opacity:.75">Compute you donate joins the Murakumo fleet as a first-party node — never a commercial cloud. It is valued (imputed, for transparency only) but no money ever moves to or from you, and donating more grants you no priority. Live enrollment for external nodes is being rolled out under Council oversight.</p>
 
+<h2>Sponsor on GitHub</h2>
+<div class="card">
+<span class="tag">github</span><span class="tag">on-chain only</span>
+<p>The <a href="https://github.com/etzhayyim/root">etzhayyim/root</a> repo carries a <strong>Sponsor</strong> button — it links straight back to this page. We deliberately do <em>not</em> use GitHub Sponsors, Patreon, or any fiat rail (those route through prohibited fiat processors). See <a href="https://github.com/etzhayyim/root/blob/main/DONATE.md">DONATE.md</a> for the full how-to.</p>
+</div>
+
+<p style="opacity:.85"><strong>A gift earns you nothing</strong> — no perks, no tiers, no priority, no recognition leaderboard. We say so plainly: you give because the mission (人類の構造的労働解放) is worth it, not for a benefit.</p>
+
 <footer>
-Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
-Design: ADR-2606012100 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.
+Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · How to give: <a href="https://github.com/etzhayyim/root/blob/main/DONATE.md">DONATE.md</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
+Design: ADR-2606012100 + ADR-2606111700 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.
 </footer>
 </body>
 </html>
@@ -398,6 +474,152 @@ Per ADR-2605241800 (single did-web Worker) + ADR-2605212030 + ADR-2606042330 (en
      from the content-addressed /kotoba blocks in the visitor's own browser. The
      page is fully functional without it. Not surveillance (ADR-2606064500). -->
 <script type="module" src="/kotoba/actors-enhance.js"></script>
+</body>
+</html>
+`;
+}
+
+// `/organism` — visualizes the artificial-organism self-evolution ecosystem:
+// the UNSPSC organism fleet + the Kaizen self-evolution loop (observe → propose
+// → PR → score → prune) including the meta self-reflection layer (Beta fitness
+// from PR outcomes → pruning). Self-contained, Charter-compliant (no external
+// resource, no cookie, no tracker; inline SVG + CSS only). ADR-2605240200
+// (Kaizen self-reflection) + 2605232345/2605240000 (organism) + 2605270930
+// (axes A–H) + the meta-fitness layer (rule fitness = PR-acceptance Beta mean).
+function buildOrganismHtml(): string {
+  const handles = Object.keys(INFRA_ACTORS);
+  const named = handles.filter((h) => INFRA_ACTORS[h].glyph).length;
+  const unispsc = UNISPSC_TOTAL_COUNT.toLocaleString("en-US");
+  const entity = ENTITY_TOTAL_COUNT.toLocaleString("en-US");
+
+  // Six stages of the self-evolution loop, rendered as a ring of nodes.
+  const stages = [
+    { k: "観測", e: "OBSERVE", d: "joucho 情緒 5-axis cadence + shard /healthz + queue tails" },
+    { k: "分析", e: "ANALYSE", d: "Kaizen rule registry (latency / LRU / error / leak …)" },
+    { k: "提案", e: "PROPOSE", d: "KaizenProposal → append-only NDJSON queue" },
+    { k: "実行", e: "ACTUATE", d: "pr-agent: patch → commit → push → PR / issue" },
+    { k: "採点", e: "SCORE", d: "rule fitness = Beta(α,β) mean of PR acceptance" },
+    { k: "剪定", e: "PRUNE", d: "MetaReflector disables low-fitness rules" },
+  ];
+  const cx = 260, cy = 230, r = 168;
+  const nodeSvg = stages
+    .map((s, i) => {
+      const a = (-90 + i * 60) * (Math.PI / 180);
+      const x = cx + r * Math.cos(a);
+      const y = cy + r * Math.sin(a);
+      return `<g transform="translate(${x.toFixed(1)},${y.toFixed(1)})">
+<circle r="34" class="node"/>
+<text class="nk" y="-3">${s.k}</text><text class="ne" y="13">${s.e}</text>
+</g>`;
+    })
+    .join("");
+  // arrows around the ring
+  const arcs = stages
+    .map((_, i) => {
+      const a0 = (-90 + i * 60) * (Math.PI / 180);
+      const a1 = (-90 + (i + 1) * 60) * (Math.PI / 180);
+      const x0 = cx + (r - 36) * Math.cos(a0 + 0.28), y0 = cy + (r - 36) * Math.sin(a0 + 0.28);
+      const x1 = cx + (r - 36) * Math.cos(a1 - 0.28), y1 = cy + (r - 36) * Math.sin(a1 - 0.28);
+      return `<path class="arc" d="M ${x0.toFixed(1)} ${y0.toFixed(1)} A ${r - 36} ${r - 36} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)}" marker-end="url(#ah)"/>`;
+    })
+    .join("");
+
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artificial Organism · etzhayyim 自己進化</title>
+<meta name="description" content="etzhayyim の人工オーガニズム自己進化ループ — 観測→提案→PR→採点→剪定 の可視化。">
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:60rem;padding:2.5rem 1.25rem;margin-inline:auto}
+h1{font-size:1.7rem;line-height:1.25;margin:0 0 .25rem}
+.sub{opacity:.72;margin:0 0 1.5rem}
+h2{font-size:1.15rem;margin:2.5rem 0 .6rem;border-bottom:1px solid currentColor;padding-bottom:.25rem}
+.stats{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 1.5rem}
+.stat{flex:1 1 8rem;border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:.6rem;padding:.7rem .9rem}
+.stat b{display:block;font-size:1.5rem;line-height:1.1}
+.stat span{font-size:.8rem;opacity:.7}
+.diagram{display:block;margin:0 auto;max-width:100%;height:auto}
+.node{fill:color-mix(in srgb,currentColor 8%,transparent);stroke:currentColor;stroke-width:1.4}
+.nk{font-size:15px;font-weight:700;text-anchor:middle;fill:currentColor}
+.ne{font-size:8.5px;letter-spacing:.08em;text-anchor:middle;fill:currentColor;opacity:.65}
+.arc{fill:none;stroke:currentColor;stroke-width:1.6;opacity:.5}
+.hub{fill:none;stroke:currentColor;stroke-width:1;opacity:.25;stroke-dasharray:3 4}
+.hubt{font-size:11px;text-anchor:middle;fill:currentColor;opacity:.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.7rem;margin:.8rem 0}
+.card{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:.6rem;padding:.85rem 1rem}
+.card h3{font-size:1rem;margin:0 0 .3rem}
+.card p{margin:.2rem 0;font-size:.9rem;opacity:.85}
+.axes{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0}
+.axis{border:1px solid currentColor;border-radius:1rem;padding:.1rem .7rem;font-size:.85rem;opacity:.85}
+table{border-collapse:collapse;width:100%;font-size:.86rem;margin:.5rem 0}
+td,th{border:1px solid color-mix(in srgb,currentColor 20%,transparent);padding:.35rem .55rem;text-align:left}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:color-mix(in srgb,currentColor 10%,transparent);padding:.1rem .35rem;border-radius:.3rem}
+.flow{font-size:.92rem;opacity:.9}
+.tag{display:inline-block;font-size:.72rem;opacity:.7;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem;margin:0 .3rem .15rem 0}
+footer{margin-top:2.5rem;font-size:.83rem;opacity:.7}
+a{color:inherit}
+</style>
+</head>
+<body>
+<h1>人工オーガニズム — 自己進化エコシステム</h1>
+<p class="sub">etzhayyim は ~${unispsc} 体の UNSPSC オーガニズムを、情緒(joucho)で駆動する心拍カデンスで動かし、生態系全体を <strong>自己反省ループ</strong>で進化させます。状態は kotoba Datom ログに、推論は Murakumo に。本ページは外部リソース・cookie・トラッカー無しの自己完結可視化です。</p>
+
+<div class="stats">
+<div class="stat"><b>${unispsc}</b><span>UNSPSC オーガニズム (個体)</span></div>
+<div class="stat"><b>${named}</b><span>Tier-B / KG アクター</span></div>
+<div class="stat"><b>${entity}</b><span>society-scale entity ミラー</span></div>
+<div class="stat"><b>5</b><span>joucho 情緒軸</span></div>
+</div>
+
+<h2>自己進化ループ (Kaizen self-evolution)</h2>
+<p class="flow">観測 → 分析 → 提案 → 実行(PR) → 採点 → 剪定 の閉ループ。<strong>採点・剪定</strong>がメタ自己反省層で、PR の受理/却下を学習信号にしてループ自身を評価・剪定します。</p>
+<svg class="diagram" viewBox="0 0 520 470" role="img" aria-label="self-evolution loop">
+<defs><marker id="ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="currentColor" opacity="0.6"/></marker></defs>
+<circle class="hub" cx="${cx}" cy="${cy}" r="${r}"/>
+<text class="hubt" x="${cx}" y="${cy - 6}">self-evolution</text>
+<text class="hubt" x="${cx}" y="${cy + 10}">loop</text>
+${arcs}
+${nodeSvg}
+</svg>
+
+<h2>情緒 (joucho) — 5 軸の心拍カデンス</h2>
+<p class="sub">固定タイマーではなく、5 軸の情緒 mood が各個体の行動(投稿/分析/関与/修復)とクールダウンを駆動。</p>
+<div class="axes">
+<span class="axis">joy 喜</span><span class="axis">calm 静</span><span class="axis">stress 緊 (≥70 で回復モード)</span><span class="axis">gratitude 謝</span><span class="axis">focus 集</span>
+</div>
+
+<h2>ライフサイクル (剪定の機構)</h2>
+<div class="grid">
+<div class="card"><h3>INACTIVE → ACTIVE</h3><p>birth で稼働開始 (cell 発火 = 誕生)。</p></div>
+<div class="card"><h3>CLONED</h3><p>負荷分散・複製。親 DID を継承。</p></div>
+<div class="card"><h3>RETIRED</h3><p>退役 (reason 付き)。</p></div>
+<div class="card"><h3>EXCOMMUNICATED</h3><p>Council 4/7 attestation + chigiri 手続きで破門。</p></div>
+</div>
+
+<h2>メタ自己反省 — 採点 &amp; 剪定</h2>
+<table>
+<tr><th>メタ能力</th><th>仕組み</th></tr>
+<tr><td>採点 (score)</td><td>各ルールの fitness = PR 受理の <code>Beta(α,β)</code> 事後平均 (merge=accept / close=reject)</td></tr>
+<tr><td>能動推論 (active inference)</td><td>PR 結果を観測 → Beta 信念更新 → policy(剪定) の閉ループ</td></tr>
+<tr><td>剪定 (prune)</td><td>fitness が閾値未満のルールを <code>MetaReflector</code> が無効化 → observer が emit 停止 + LRU warm-set eviction</td></tr>
+</table>
+
+<h2>フリート常駐 (Murakumo Mac mini fleet)</h2>
+<div class="grid">
+<div class="card"><h3><span class="tag">levi/naphtali</span> kaizen-observer</h3><p>10 分カデンスで観測→提案を NDJSON キューへ。</p></div>
+<div class="card"><h3><span class="tag">同居</span> kaizen-pr-agent</h3><p>キューを drain → PR/issue を開き、PR 結果を fitness 台帳へ。</p></div>
+<div class="card"><h3><span class="tag">joseph/issachar/dan</span> organism shards</h3><p>~${unispsc} 個体を心拍で tick (DaemonSet)。</p></div>
+</div>
+
+<footer>
+自己進化ループ実装: <code>40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/</code> (kaizen / fitness / lifecycle / joucho) · 常駐: <code>50-infra/k8s/unispsc-organism-fleet/</code><br>
+ADR-2605240200 (Kaizen self-reflection) + 2605232345 / 2605240000 (organism) + 2605270930 (axes A–H) · アクター一覧: <a href="/actors">/actors</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
+観測者 DID: <code>did:web:etzhayyim.com:actor:kaizen-observer</code> · 状態は kotoba Datom ログ (canonical) · 推論は Murakumo-only (ADR-2605215000)。
+</footer>
 </body>
 </html>
 `;
@@ -1160,6 +1382,32 @@ a{color:inherit}
           // local resolution is not surveillance.
           "content-security-policy":
             "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+
+    // `/organism` — artificial-organism self-evolution visualization. Inline SVG
+    // + CSS only (no script, no external resource, no cookie) per Charter Rider
+    // §2(c). Strict CSP: default-src 'none'; style-src 'unsafe-inline' (SVG +
+    // inline <style>); img-src 'self' data:.
+    if (url.pathname === "/organism" || url.pathname === "/organism/") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(buildOrganismHtml(), {
+        status: 200,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "x-content-type-options": "nosniff",
+          "content-security-policy":
+            "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
           "permissions-policy": PERMISSIONS_POLICY,
           "x-etzhayyim-no-cookie": "1",

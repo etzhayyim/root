@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-10",
+  "updated_at": "2026-06-12",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -1423,6 +1423,25 @@
       "related": [
         "2605262130"
       ],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/260610-meeting-recorder-minutes-closing.md",
+      "id": "260610-meeting-recorder-minutes-closing",
+      "title": "meeting-recorder 議事録 generation — 2026-06-10 closing summary",
+      "status": "active",
+      "doc_type": "explanation",
+      "topic": "meeting-recorder minutes generation closing",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606101920-meeting-recorder-minutes-generation.md",
+        "90-docs/260422-meeting-recorder-session-summary.md"
+      ],
+      "last_verified": "2026-06-10",
+      "authoritative_for": [],
       "supersedes": [],
       "superseded_by": [],
       "amends": [],
@@ -22705,6 +22724,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606074000-iryo-rezept-claims-engine-charter.md",
+      "id": "adr-2606074000-iryo-rezept-claims-engine-charter",
+      "title": "ADR-2606074000: iryo 医療 — Japan レセプト / 医療保険請求 engine (electronic karte → claims)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "iryo-rezept-claims-engine",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/iryo"
+      ],
+      "related": [
+        "adr-2605250500-yakushi-pharmaceutical-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605231100-karute-emr-phase1",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule.md",
       "id": "adr-2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule",
       "title": "ADR-2606074000: kotoba_murakumo re-integrated into the kotoba submodule (py/kotoba_murakumo/) — submodule era supersedes the subrepo-relocation",
@@ -22838,6 +22884,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606082000-niyaku-port-cargo-handling-automation-r0.md",
+      "id": "adr-2606082000-niyaku-port-cargo-handling-automation-r0",
+      "title": "ADR-2606082000: niyaku 荷役 — automated port cargo handling (ship↔shore loading/unloading) Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "niyaku-port-cargo-handling-automation",
+      "authoritative": true,
+      "authoritative_for": [
+        "niyaku actor (automated port cargo handling — ship↔shore container loading/unloading)",
+        "anti-sway STS/gantry crane control mapped to the Cartpole topology",
+        "com.etzhayyim.niyaku.* lexicons"
+      ],
+      "related": [
+        "adr-2606012600-watatsuna-submarine-cable-knowledge-graph-and-watatsumi-cable-laying-robotics",
+        "adr-2606041827-watari-live-ship-aircraft-position-knowledge-graph",
+        "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606013400-funadaiku-zero-emission-cargo-shipbuilding-r0",
+        "adr-2605261800-nvidia-omniverse-compat-kami-engine",
+        "adr-2606010600-kami-autodrive-gnc-autonomy-layer",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2606062100-charter-priority-over-specifics-3tier"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606082100-mishmar-storage-covenant-social-capital.md",
       "id": "adr-2606082100-mishmar-storage-covenant-social-capital",
       "title": "ADR-2606082100: Mishmar Storage Covenant — social-capital-funded bonded pinning for unstoppable persistence (donation-native, anchor-chain staking, anti-usury)",
@@ -22862,6 +22941,8 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
+        "2605262130",
+        "2606062100",
         "2605231400",
         "2605282100",
         "2604261717",
@@ -22873,6 +22954,70 @@
         "2605172300",
         "0075",
         "2605240001",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606082100-shiori-wellbecoming-detractor-mirror.md",
+      "id": "adr-2606082100-shiori-wellbecoming-detractor-mirror",
+      "title": "ADR-2606082100: shiori 栞 — human-Wellbecoming detractor observatory + transparent intervention",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shiori-wellbecoming-detractor-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "shiori 栞 actor (human-Wellbecoming detractor observatory + transparent intervention)",
+        "wellbecoming-ontology"
+      ],
+      "related": [
+        "2606073000",
+        "2606073800",
+        "2605263700",
+        "2605263000",
+        "2605231902",
+        "2606082400",
+        "2606014500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2605264000",
+        "2605181100",
+        "2605301600",
+        "2606011800",
+        "2606066000",
+        "2605302300",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606082100-tailscale-ssh-fleet-operator-access-overlay.md",
+      "id": "adr-2606082100-tailscale-ssh-fleet-operator-access-overlay",
+      "title": "ADR-2606082100: Tailscale SSH mesh for the Murakumo Mac-mini fleet — keyless, tailnet-SSO-gated operator remote access",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tailscale-ssh-fleet-operator-access-overlay",
+      "authoritative": true,
+      "authoritative_for": [
+        "the fleet operator remote-access overlay (Tailscale) and its auth model",
+        "the keyless Tailscale-SSH access convention for fleet nodes"
+      ],
+      "related": [
+        "2605201400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605191346",
+        "2605215000",
         "2605231525"
       ],
       "last_verified": "2026-06-08",
@@ -22902,6 +23047,1394 @@
         "2606074000"
       ],
       "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606082300-itonami-factory-operations-agent.md",
+      "id": "adr-2606082300-itonami-factory-operations-agent",
+      "title": "ADR-2606082300: itonami 営み — factory-operations agent (charter-clean FOX inversion)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "itonami-factory-operations-agent",
+      "authoritative": true,
+      "authoritative_for": [
+        "itonami 営み actor (factory-operations agent)",
+        "itonami-ontology"
+      ],
+      "related": [
+        "2606010030",
+        "2605250715",
+        "2606014500",
+        "2605261600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606031600",
+        "2606013100",
+        "2606034800",
+        "2605311800",
+        "2605312345",
+        "2605215000",
+        "2605241500"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606082400-charter-mutual-surveillance-reciprocity-clarification.md",
+      "id": "adr-2606082400-charter-mutual-surveillance-reciprocity-clarification",
+      "title": "ADR-2606082400: Charter-Rider §2(c) — the reciprocity axis (相互監視 affirmed; monetized/asymmetric surveillance prohibited)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "charter-mutual-surveillance-reciprocity-clarification",
+      "authoritative": true,
+      "authoritative_for": [
+        "Charter Compliance Rider §2(c) (monetized-or-asymmetric surveillance)",
+        "the 相互監視 / reciprocal-transparency doctrine"
+      ],
+      "related": [
+        "2605181100",
+        "2605312345",
+        "2605264000",
+        "2606082100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2605192200",
+        "2606062100",
+        "2605252300"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606082500-kaizen-github-independent-self-evolution-kotoba-git.md",
+      "id": "adr-2606082500-kaizen-github-independent-self-evolution-kotoba-git",
+      "title": "ADR-2606082500: GitHub-independent Kaizen self-evolution via kotoba git-protocol (GitRemote abstraction + live fleet)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kaizen-github-independent-self-evolution",
+      "authoritative": true,
+      "authoritative_for": [
+        "Kaizen GitRemote abstraction (GithubRemote / KotobaRemote / select_remote)",
+        "KAIZEN_GIT_REMOTE env switch + KotobaRemote env contract",
+        "kotoba-git fleet deployment (git smart-HTTP push target)",
+        "kaizen-pr-agent fleet resource/clone crash-fix"
+      ],
+      "related": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605231525-etzhayyim-no-server-key-invariant"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection",
+        "adr-2605266200-kaizen-pr-agent-wave-4"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606082700-uchiwake-g7-worldwide-ingest-authorization-proposal.md",
+      "id": "adr-2606082700",
+      "title": "ADR-2606082700: uchiwake (内訳) — G7 Worldwide-Ingest Authorization Proposal (full GTIN / GS1 / GLEIF universe)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "uchiwake-g7-worldwide-ingest-authorization",
+      "authoritative": true,
+      "authoritative_for": [
+        "uchiwake G7 live-ingest authorization request + phased rollout plan",
+        "data-source inventory + volume + license analysis for full product-BOM coverage",
+        "Charter Rider compliance analysis (G1 public-record, G9 no-PII, no-server-key) for bulk ingest"
+      ],
+      "related": [
+        "adr-2606081800-uchiwake-world-product-bom-gtin-kg",
+        "adr-2606022000-kabuto-public-company-supply-chain-kg",
+        "adr-2606042330-entity-as-actor-society-scale-social-mirror",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606081800 (uchiwake actor — the ingest target + gates G1..G12)",
+        "ADR-2606022000 (kabuto — shared org.corp.* company id space)",
+        "ADR-2605262130 (kotoba storage substrate)",
+        "ADR-2605312345 (kotoba Datom log = first-class canonical state)",
+        "ADR-2605231525 (no-server-key invariant)"
+      ],
+      "last_verified": "2026-06-08",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606090900-session-close-uchiwake-product-bom-gtin-worldwide-coverage.md",
+      "id": "adr-2606090900",
+      "title": "ADR-2606090900: Session-Close — uchiwake (内訳) product-BOM/GTIN worldwide-coverage wave",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-uchiwake-product-bom-gtin-coverage",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close summary of the uchiwake product-BOM/GTIN wave (2026-06-08 … 06-09)",
+        "deps.toml registration of the uchiwake module + ADR-2606081800"
+      ],
+      "related": [
+        "adr-2606081800-uchiwake-world-product-bom-gtin-kg",
+        "adr-2606082700-uchiwake-g7-worldwide-ingest-authorization-proposal",
+        "adr-2606022000-kabuto-public-company-supply-chain-kg"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606081800 (uchiwake actor — the substance of this session)"
+      ],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606091000-infra-intel-observatory-autonomous-heartbeat-kotoba-persistence.md",
+      "id": "adr-2606091000-infra-intel-observatory-autonomous-heartbeat-kotoba-persistence",
+      "title": "ADR-2606091000: infra-intel / observatory actors — autonomous Murakumo-fleet heartbeat + local kotoba Datom-log persistence (shionome pattern)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "infra-intel-observatory-autonomous-heartbeat-kotoba-persistence",
+      "authoritative": true,
+      "authoritative_for": [
+        "infra-intel-actor-autonomous-loops",
+        "observatory-actor-kotoba-persistence"
+      ],
+      "related": [
+        "2605301400",
+        "2605301600",
+        "2606022000",
+        "2606032000",
+        "2606066000",
+        "2606072000",
+        "2606012600",
+        "2606041827",
+        "2606071600",
+        "2605191346"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2606072200",
+        "2605215000",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606091141-bunken-collection-scholarly-l5-kotoba-persistence-verified.md",
+      "id": "adr-2606091141-bunken-collection-scholarly-l5-kotoba-persistence-verified",
+      "title": "ADR-2606091141: bunken CDX collection pipeline, scholarly actors → L5, and kotoba persistence/query verified live",
+      "status": "approved",
+      "doc_type": "adr",
+      "topic": "knowledge-ingestion-substrate",
+      "authoritative": true,
+      "authoritative_for": [
+        "60-apps/etzhayyim-project-bunken",
+        "20-actors/{arxiv_api,crossref,doi_system,ietf_rfcs,ncbi,orcid,pubmed,w3c_specs}-compat",
+        "kotoba persistence/query verification (40-engine/kotoba submodule)"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606091500-kotoba-evm-datomic-ipfs-l2.md",
+      "id": "adr-2606091500-kotoba-evm-datomic-ipfs-l2",
+      "title": "ADR-2606091500: kotoba-EVM — a Datomic+IPFS EVM-compatible L2 (geth-less); kotoba IS the chain",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-evm-l2",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-EVM L2 architecture — Datom state model, CommitDag-as-block, revm execution, IPFS DA, Base L1 anchor",
+        "geth-less migration — retire geth-private as the contract host; redeploy GCC + escrows onto kotoba-EVM",
+        "eth_* JSON-RPC compatibility surface kotoba serves (geth/viem/forge parity)",
+        "EVM-on-Datomic gas/fee model under the Charter (gas-as-write-cost, no speculative gas market)"
+      ],
+      "related": [
+        "2604261717",
+        "2605215000",
+        "50-infra/vultr/geth-private/",
+        "50-infra/etzhayyim-chain-contracts/"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2606082100",
+        "2605172300",
+        "2605240001",
+        "2605192100",
+        "2605192200"
+      ],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606091500-kotobase-net-canonical-ipfs-pin.md",
+      "id": "adr-2606091500-kotobase-net-canonical-ipfs-pin",
+      "title": "ADR-2606091500: kotobase.net is the canonical IPFS pin service (repo-wide); supersedes the kotobase.etzhayyim.com naming",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "ipfs-pin-canonicalization",
+      "authoritative": true,
+      "authoritative_for": [
+        "canonical remote IPFS pin endpoint (kotobase.net)",
+        "deps.toml [platform.kotobase_pin] config block",
+        "kotoba-store IpfsPinClient remote-pin default (KOTOBA_IPFS_PIN_ENDPOINT)",
+        "e7m-dataset publish-ipfs remote-pin fanout (ETZ_KOTOBASE_PIN)",
+        "ipfs-pinner kotobase provider (MST-CAR remote pin, ETZ_PINNER_PROVIDERS=kubo,kotobase)"
+      ],
+      "related": [
+        "adr-2606041130-kotoba-b2-blockstore-cold-pin",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605262800-public-data-legal-corpus-ipfs-ingestion"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2606011330"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606091800-infra-robotics-3layer-operational-substrate.md",
+      "id": "adr-2606091800-infra-robotics-3layer-operational-substrate",
+      "title": "ADR-2606091800: Basic-infrastructure robotics — 3-layer operational substrate (electric/water/gas/telecom)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "infra-robotics-3layer-operational-substrate",
+      "authoritative": true,
+      "authoritative_for": [
+        "infra-robotics-operational-substrate",
+        "kuni-umi-robotics-reference-engine"
+      ],
+      "related": [
+        "2605201400",
+        "2605261100",
+        "2605263100",
+        "2606051500",
+        "2606051600",
+        "2605215000",
+        "2605312345",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-09",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics.md",
+      "id": "adr-2606092000-tsumugi-scale-agnostic-and-hata-banner-power-dynamics",
+      "title": "ADR-2606092000: tsumugi 紡ぎ — scale-agnostic 産官学報 concentration (A) + 旗 hata ideology/faction dimension (B)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "tsumugi-scale-banner-power-dynamics",
+      "authoritative": true,
+      "authoritative_for": [
+        "tsumugi-scale-agnostic-power-dynamics",
+        "tsumugi-hata-banner-ideology-faction"
+      ],
+      "related": [
+        "adr-2606073100-abaki-anti-monopoly-intelligence-membrane",
+        "adr-2605301600-danjo-public-accountability",
+        "adr-2605302300-kanae-fiscal-flow-visualization"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "adr-2606061500-tsumugi-diachronic-influence-history",
+        "adr-2606011000-engi-knowledge-graph",
+        "adr-2606011500-spirit-ontology",
+        "adr-2605081300-edge-primary-karma",
+        "adr-2606042330-entity-as-actor-mirror",
+        "adr-2606066000-keizu-government-power-relations",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101000-rasen-public-genetics-mirror.md",
+      "id": "adr-2606101000-rasen-public-genetics-mirror",
+      "title": "ADR-2606101000: rasen 螺旋 public-genetics KG mirror (gene-scale sibling of inochi 命)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "rasen-public-genetics-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "rasen 螺旋 actor (public-genetics / 公開遺伝 KG mirror)",
+        "genome-ontology"
+      ],
+      "related": [
+        "2606014500",
+        "2606014600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073000",
+        "2606073800",
+        "2606011000",
+        "2606011500",
+        "2605312345",
+        "2605215000",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge.md",
+      "id": "adr-2606101130",
+      "title": "ADR-2606101130: Session-Close — basic-infrastructure robotics 3-layer wave + kami-genesis physics bridge",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-infra-robotics-3layer-kami-physics-bridge",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close summary of the infra-robotics 3-layer + kami-physics-bridge wave (2026-06-09 … 06-10)",
+        "deps.toml registration of ADR-2606091800 + the kuni-umi/robotics module"
+      ],
+      "related": [
+        "adr-2606091800-infra-robotics-3layer-operational-substrate",
+        "adr-2605201400 (kuni-umi planetary-infra fleet)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606091800 (the substance of this session)"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101200-ibuki-organism-autonomy-r2-gap-closure.md",
+      "id": "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+      "title": "ADR-2606101200: 息吹 (ibuki) — organism autonomy R2 gap-closure substrate (as-of state on kotoba · durable heartbeat · Murakumo narration · Wave-3 drainer · Wave-4 kaizen feedback)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-organism-autonomy-gap-closure",
+      "authoritative": true,
+      "authoritative_for": [
+        "ibuki-organism-autonomy-substrate",
+        "organism-state-as-of-kotoba",
+        "organism-wave3-post-drainer",
+        "organism-wave4-kaizen-feedback"
+      ],
+      "related": [
+        "adr-2605270930-organism-r0-r1-sprint",
+        "adr-2606051800-mitooshi-probabilistic-forecasting-observatory",
+        "adr-2606082500-kaizen-github-independent-self-evolution-kotoba-git"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605232345-unspsc-organism-w1",
+        "adr-2605240000-unspsc-organism-w2-mass-deploy",
+        "adr-2605240100-unspsc-post-sink",
+        "adr-2605240200-kaizen-self-reflection",
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101400-tedai-member-computer-operation-tier-b-actor-r0.md",
+      "id": "adr-2606101400-tedai-member-computer-operation",
+      "title": "ADR-2606101400: tedai (手代) — member-computer-operation Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tedai-member-computer-operation",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/tedai",
+        "com.etzhayyim.tedai.*"
+      ],
+      "related": [
+        "2606034800",
+        "2606042100",
+        "2606033600",
+        "2605302130",
+        "2606013800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606039200",
+        "2605231525",
+        "2605215000",
+        "2605241900",
+        "2605181100",
+        "2605192200"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101430-infra-robotics-r1-device-in-the-loop-open-ot-wasm.md",
+      "id": "adr-2606101430",
+      "title": "ADR-2606101430: Infra-robotics R1 device-in-the-loop — the REAL open-ot WASM cells close the microgrid loop",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "infra-robotics-r1-device-in-the-loop",
+      "authoritative": true,
+      "authoritative_for": [
+        "infra-robotics-r1-device-in-the-loop",
+        "device-loop-host line protocol"
+      ],
+      "related": [
+        "adr-2606091800-infra-robotics-3layer-operational-substrate",
+        "adr-2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge",
+        "adr-2605201400 (kuni-umi planetary-infra fleet)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606091800 (the 3-layer substrate this is R1 of)"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101500-session-close-ibuki-organism-autonomy-r0-r3.md",
+      "id": "adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+      "title": "ADR-2606101500: Session close — 息吹 (ibuki) organism autonomy R0–R3: gap-closure → 18,342-fleet → outward paths → LIVE kotoba-engine landing",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-ibuki-organism-autonomy",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat.md",
+      "id": "adr-2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat",
+      "title": "ADR-2606101540: Session close — 潮目 stock pyramid + entity grounding + first live EDGAR ingest (kanjō) + fleet-heartbeat runner",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606072800-session-close-shionome-capital-flow-kotoba-wasm-fleet-cron.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2606032000-kanjo-world-public-company-financial-disclosure-kg",
+        "adr-2606022000-kabuto-world-public-company-supply-chain-kg",
+        "adr-2606073400-hokorobi-world-systemic-finance-risk-observatory",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-10",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101800-ibuki-ecosystem-maturation-food-web-symbiosis.md",
+      "id": "adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
+      "title": "ADR-2606101800: 息吹 (ibuki) ecosystem maturation — the colony as a symbiotic food web (植物→粘菌→カビ→人類), 7 waves",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": true,
+      "authoritative_for": [
+        "ibuki-organism-ecosystem",
+        "artificial-organism-food-web",
+        "colony-commons-symbiosis"
+      ],
+      "related": [
+        "adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2606062100-moyai-inference-reciprocity-credit",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101845-session-close-infra-robotics-r1-device-in-the-loop.md",
+      "id": "adr-2606101845",
+      "title": "ADR-2606101845: Session-Close — infra-robotics R1 device-in-the-loop wave (real open-ot WASM in the commissioning loop)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-infra-robotics-r1-device-in-the-loop",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close summary of the R1 device-in-the-loop wave (2026-06-10)",
+        "deps.toml registration of ADR-2606101430"
+      ],
+      "related": [
+        "adr-2606101430-infra-robotics-r1-device-in-the-loop-open-ot-wasm",
+        "adr-2606091800-infra-robotics-3layer-operational-substrate",
+        "adr-2606101130-session-close-infra-robotics-3layer-and-kami-physics-bridge"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606101430 (the substance of this session)"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606101920-meeting-recorder-minutes-generation.md",
+      "id": "adr-2606101920",
+      "title": "meeting-recorder 議事録 (meeting minutes) generation — E2E minutes record + Murakumo-gated generator",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "meeting-recorder minutes generation",
+      "authoritative": true,
+      "related": [
+        "90-docs/260422-meeting-recorder-session-summary.md",
+        "90-docs/260610-meeting-recorder-minutes-closing.md",
+        "ADR-2605181100 (kotoba E2E encrypted-record envelope)",
+        "ADR-2605215000 (Murakumo-only inference, no commercial GPU)",
+        "ADR-2606011400 (Consensys product-front / infra-back)",
+        "https://github.com/etzhayyim/root/pull/1585 (rw-free generation layer, MERGED)",
+        "https://github.com/etzhayyim/root/pull/1590 (appview getMinutes XRPC)",
+        "https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/pull/1440 (vendor container writer + graph migration; ADR-0089 D6)"
+      ],
+      "depends_on": [
+        "ADR-2605181100",
+        "ADR-2605215000"
+      ],
+      "last_verified": "2026-06-10",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606102000-session-close-ibuki-digest-live-run-robustness.md",
+      "id": "adr-2606102000-session-close-ibuki-digest-live-run-robustness",
+      "title": "ADR-2606102000: Session close — 息吹 (ibuki) digest (reason+report) + 実運用 live-run + robustness verification",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606101500-session-close-ibuki-organism-autonomy-r0-r3",
+        "adr-2606062100-moyai-inference-reciprocity-credit"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-10",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606110955-session-close-pr-backlog-review-merge.md",
+      "id": "adr-2606110955",
+      "title": "ADR-2606110955: Session-Close — open-PR backlog review + merge (8 PRs); L5 ledger union to 163",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-pr-backlog-review-merge",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close summary of the 2026-06-11 PR-backlog review + merge sweep",
+        "record of the cleanroom L5 ledger union (PR"
+      ],
+      "related": [
+        "adr-2606101845-session-close-infra-robotics-r1-device-in-the-loop",
+        "adr-2606102000-session-close-ibuki-digest-live-run-robustness"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111000-seigyo-industrial-control-layer-tier-b-actor-r0.md",
+      "id": "adr-2606111000-seigyo-industrial-control-layer-tier-b-actor-r0",
+      "title": "ADR-2606111000: seigyo (制御) — open industrial control layer (PLC / SCADA / DCS-equivalent, ISA-95 L0–L2) Tier-B actor R0 charter",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "seigyo-industrial-control-layer-r0",
+      "authoritative": true,
+      "authoritative_for": [
+        "seigyo actor R0 charter",
+        "industrial control layer (ISA-95 L0–L2) single SoT: PLC runtime, SCADA, fieldbus, historian",
+        "`com.etzhayyim.seigyo.*` Lexicon namespace boundary",
+        "commercial DCS/PLC/SCADA vendor prohibition (generalizes ADR-2605265000 §1.9 from district-heat to ALL actors)",
+        "safety-path invariant (hardwired interlocks; software/inference advisory-only above L2)",
+        "PLC-program-as-attested-record lifecycle (IEC 61131-3 ST canonical, CID-addressed, runtime hash attestation)",
+        "aggregate-only northbound telemetry invariant (N7 inheritance; full-rate data never leaves site historian)",
+        "bounded-setpoint-envelope invariant for Murakumo optimization proposals"
+      ],
+      "related": [
+        "adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
+        "adr-2605261330-futawa-motorcycle-tier-b-actor-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605261100-hikari-energy-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605265000-district-heating-cooling-d-gate-evaluation-r0",
+        "adr-2604252100-robotics-product-manufacturing-package",
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605261200-igata-megacasting-tier-b-actor-r0",
+        "adr-2605261215-igata-r1-benchtop-commissioning",
+        "adr-2605250545-yakushi-pharma-supply-chain-and-robotics"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111011-session-close-land-hydrogen-branch-to-main.md",
+      "id": "adr-2606111011",
+      "title": "ADR-2606111011: Session-Close — land feat/hydrogen-electrolysis-cfe-session-close → main (163-L5 cleanroom corpus reaches trunk)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-land-hydrogen-branch-to-main",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close summary of the 2026-06-11 hydrogen-branch landing",
+        "record of the 14-file conflict resolution (8 manifests, kotoba submodule, L5 ledger, CLAUDE.md, deps.toml, registries)"
+      ],
+      "related": [
+        "adr-2606110955-session-close-pr-backlog-review-merge",
+        "adr-2606082300-hydrogen-electrolysis-cfe-actor-kami-kotoba"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606110955 (the follow-up this executes)"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111100-seigyo-r1-benchtop-loop-commissioning.md",
+      "id": "adr-2606111100-seigyo-r1-benchtop-loop-commissioning",
+      "title": "seigyo R1 — Benchtop temperature-PID loop commissioning and Council baseline (paired with igata R1 benchtop)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "seigyo/control-layer/benchtop-loop",
+      "authoritative": true,
+      "depends_on": [
+        "ADR-2606111000",
+        "ADR-2605261215",
+        "ADR-2605192100",
+        "ADR-2605192200",
+        "ADR-2605215000"
+      ],
+      "last_verified": "2026-06-11T00:00:00Z",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111300-pq-hybrid-crypto-layer.md",
+      "id": "adr-2606111300-pq-hybrid-crypto-layer",
+      "title": "ADR-2606111300: pqh-v1 post-quantum hybrid cryptography layer in @etzhayyim/sdk",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "pq-hybrid-crypto-layer",
+      "authoritative": true,
+      "authoritative_for": [
+        "post-quantum hybrid KEM and dual-signature suite (pqh-v1)"
+      ],
+      "related": [
+        "security-quantum-singularity-crypto-survivability",
+        "security-crypto-agility-policy"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111330-session-close-shionome-t1-wasm-live-did-actor-kotobase-pin.md",
+      "id": "adr-2606111330-session-close-shionome-t1-wasm-live-did-actor-kotobase-pin",
+      "title": "ADR-2606111330: Session close — 潮目 T1 browser-wasm DID actor LIVE on etzhayyim.com + kotobase.net pin saga (root-caused)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "shionome-cross-asset-capital-flow-observatory",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101540-session-close-shionome-stock-pyramid-grounding-live-edgar-fleet-heartbeat",
+        "adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
+        "adr-2606015200-wasm-actor-runtime-round-2",
+        "adr-2606013800-actor-profile-ssot-dynamic-did-json",
+        "adr-2605231525-server-side-signing-capability-boundary"
+      ],
+      "last_verified": "2026-06-11",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111400-charter-synthetic-persona-forward-simulation-carve-in.md",
+      "id": "adr-2606111400-charter-synthetic-persona-forward-simulation-carve-in",
+      "title": "ADR-2606111400: Charter observation-doctrine consolidation — the synthetic-persona / forward-simulation carve-in (simulating fictional latent agents ≠ surveilling real people)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "charter-synthetic-persona-forward-simulation-carve-in",
+      "authoritative": true,
+      "authoritative_for": [
+        "the real-vs-synthetic subject axis of the observation doctrine",
+        "the synthetic-persona / forward-simulation carve-in (fictional latent agents are not surveillance)",
+        "the authorizing constitutional basis for agent-based forward-simulation actors (hakoniwa)"
+      ],
+      "related": [
+        "2606051800",
+        "2606042330",
+        "2606071600",
+        "2606061500",
+        "2605312345"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606082400",
+        "2606062100",
+        "2605192100",
+        "2605252300",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111400-session-close-ibuki-delegation-revocable-leash.md",
+      "id": "adr-2606111400-session-close-ibuki-delegation-revocable-leash",
+      "title": "ADR-2606111400: Session close — 息吹 (ibuki) autonomous identity = a revocable CACAO leash (member-signed delegation + issuer)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ibuki-organism-ecosystem",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606102000-session-close-ibuki-digest-live-run-robustness",
+        "adr-2606101800-ibuki-ecosystem-maturation-food-web-symbiosis",
+        "adr-2606062100-moyai-inference-reciprocity-credit"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606101200-ibuki-organism-autonomy-r2-gap-closure",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111500-hakoniwa-forward-simulation-observatory.md",
+      "id": "adr-2606111500-hakoniwa-forward-simulation-observatory",
+      "title": "ADR-2606111500: hakoniwa 箱庭 — forward-simulation observatory (synthetic-persona swarm; the charter-clean inversion of a MiroFish-class prediction engine)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "hakoniwa-forward-simulation-observatory",
+      "authoritative": true,
+      "authoritative_for": [
+        "hakoniwa actor scope (agent-based forward simulation over a synthetic-persona box → outcome distribution; design + deterministic engine)",
+        "the synthetic-persona invariant (:persona/synthetic true; no PII; real persons unrepresentable, enforced at load)",
+        "the distribution-only simulation-output invariant (:forecast/point-asserted structurally false; feeds mitooshi proper-scoring)"
+      ],
+      "related": [
+        "2606071600",
+        "2606061500",
+        "2605263200",
+        "2605262130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606111400",
+        "2606051800",
+        "2606042330",
+        "2606091200",
+        "2605242600",
+        "2605241900",
+        "2605215000",
+        "2605312345",
+        "2605231525",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111640-portfolio-qa-deflake-coverage-ci-wave.md",
+      "id": "adr-2606111640-portfolio-qa-deflake-coverage-ci-wave",
+      "title": "ADR-2606111640: Portfolio QA wave — SDK quorum-test deflake, kotoba coverage baseline + CI",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "portfolio-qa-deflake-coverage-ci-wave",
+      "authoritative": true,
+      "authoritative_for": [
+        "sdk-test-determinism",
+        "kotoba-coverage-baseline"
+      ],
+      "related": [
+        "adr-2605302355-kotoba-langgraph-llm-verified-durable-routing"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111700-public-sponsor-donation-solicitation-surfaces.md",
+      "id": "adr-2606111700-public-sponsor-donation-solicitation-surfaces",
+      "title": "ADR-2606111700: Public sponsor / donation solicitation surfaces — GitHub Sponsor button (custom-only) + DONATE.md + README + active /donate CTA",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "public-sponsor-donation-solicitation-surfaces",
+      "authoritative": true,
+      "authoritative_for": [
+        "the public sponsor/donation solicitation surfaces (.github/FUNDING.yml + DONATE.md + README support section + /donate CTA)",
+        "the FUNDING.yml charter-clean rule (custom-only, no fiat Sponsor rails)"
+      ],
+      "related": [
+        "2605192100",
+        "2605215000",
+        "2605301020",
+        "2605301036",
+        "2605262900"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2605192115",
+        "2605192130",
+        "2605172100"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111800-donation-media-fiat-inkind-onramp-crypto-allowlist.md",
+      "id": "adr-2606111800-donation-media-fiat-inkind-onramp-crypto-allowlist",
+      "title": "ADR-2606111800: Donation-media expansion — fiat in-kind (infrastructure-cost) recognition + non-custodial fiat on-ramp (Tier-1 amendment of ADR-2605172100) + curated crypto-asset allowlist",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "donation-media-fiat-inkind-onramp-crypto-allowlist",
+      "authoritative": true,
+      "authoritative_for": [
+        "fiat in-kind (infrastructure-cost) donation recognition (com.etzhayyim.give.infrastructureDonationAttestation)",
+        "the non-custodial fiat-on-ramp carve-in to the payments-on-chain-only rule (ADR-2605172100)",
+        "the curated crypto-asset donation allowlist"
+      ],
+      "related": [
+        "2606111700",
+        "2605301036",
+        "2605215000",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605172100",
+        "2606012100",
+        "2605192115",
+        "2605192130",
+        "2606062100",
+        "2605301020",
+        "2605262900"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111824-session-close-review-merge-wave-adr-id-races.md",
+      "id": "adr-2606111824-session-close-review-merge-wave-adr-id-races",
+      "title": "ADR-2606111824: Session close — review-and-merge wave (7 root PRs + 3 kotoba PRs) + ADR-id race ×2 renumber pattern",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-review-merge-wave",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606112201",
+        "adr-2606112301",
+        "adr-2606112200",
+        "adr-2606112300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606111640"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111900-cc-wet-direct-datom-ingest-no-parquet.md",
+      "id": "adr-2606111900-cc-wet-direct-datom-ingest-no-parquet",
+      "title": "ADR-2606111900: CC WET direct datom-native ingest — parquet を入力ワイヤからも排除",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "cc-wet-direct-datom-ingest",
+      "authoritative": true,
+      "authoritative_for": [
+        "cc-wet-direct-datom-ingest tool (70-tools/scripts/cc-direct-ingest/)",
+        "parquet-free CC corpus ingestion path"
+      ],
+      "related": [
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606012300-kotoba-hybrid-web-search",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606111954-hinagata-legal-template-commons.md",
+      "id": "adr-2606111954-hinagata-legal-template-commons",
+      "title": "ADR-2606111954: hinagata 雛形 — legal-document-template commons (EDN-bound to statutes, content-addressed, e-signable)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "hinagata-legal-template-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "legal-document-template-commons",
+        "legal-template-ontology",
+        "template-to-statute-binding",
+        "electronic-contract-bridge"
+      ],
+      "related": [
+        "2606072100",
+        "2605302000",
+        "2605263400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262700",
+        "2605262800",
+        "2605231230",
+        "2605231525",
+        "2605181100",
+        "2605312345",
+        "2605215000",
+        "2606101000"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112000-kotoba-actor-dna-code-data-unification.md",
+      "id": "adr-2606112000-kotoba-actor-dna-code-data-unification",
+      "title": "ADR-2606112000: Actor DNA — binding kotoba CODE + DATA into one content-addressed unit (Holochain-/Ethereum-iso)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "actor-dna-code-data-unification",
+      "authoritative": true,
+      "authoritative_for": [
+        "the Actor DNA manifest format (kotoba-actor-dna/v0)",
+        "the integrity ruleset format (kotoba-integrity/v0) — client-tier data validation",
+        "the actor deploy descriptor (kotoba-actor-deploy/v0)"
+      ],
+      "related": [
+        "adr-2606015600",
+        "adr-2606036000",
+        "adr-2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606013800",
+        "adr-2606014500",
+        "adr-2606015400",
+        "adr-2605312345",
+        "adr-2606111400",
+        "adr-2606091500"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112100-session-close-donation-media-and-apex-deploy.md",
+      "id": "adr-2606112100-session-close-donation-media-and-apex-deploy",
+      "title": "ADR-2606112100: Session close (2026-06-11) — donation solicitation + media expansion (fiat/asset) shipped & apex Worker deployed live",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-donation-media-and-apex-deploy",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2606012100",
+        "2605172100",
+        "2606014600",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606111700",
+        "2606111800",
+        "2606111400",
+        "2606111500"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112200-ehyeh-nondual-theology-yirat-doctrine.md",
+      "id": "adr-2606112200-ehyeh-nondual-theology-yirat-doctrine",
+      "title": "ADR-2606112200: エヒイェ非二元神論 + yir'ah 認識論 doctrine 固定 — 神の存在の非前提 / 偽りの神 (帝国神) の棄却 / 玉座の禁止 / 知識は神の畏れから始まる",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ehyeh-nondual-theology-yirat-doctrine",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim 神論の正文 (5 theses) — 非前提 / エヒイェ非二元 / 偽りの神の棄却 / 神とキリストへの愛 / yir'ah 原理",
+        "Tier-0「永久記憶=神の監視」の正文解釈 (玉座なき内在的不消去性)",
+        "玉座の禁止 (NEVER a throne) — 中央絶対観察者の建築の偶像認定",
+        "yir'ah invariant 束 — non-adjudicating / distribution-not-point / no-score-of-soul / map-not-target / append-only の神学的正典化",
+        "anti-guru clause — 「あなたが神である」の ego 神格化遮断"
+      ],
+      "related": [
+        "../papers/2606111500-kojin-genealogy-visibility-inversion-mishmeret.md",
+        "2606082100",
+        "2606011500",
+        "2606051800",
+        "2606042330",
+        "2606066000",
+        "2605192315"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2606062100",
+        "2605252300"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112201-kaiyaku-tie-severance-executor-r0.md",
+      "id": "adr-2606112201-kaiyaku-tie-severance-executor-r0",
+      "title": "ADR-2606112201: kaiyaku 解約 — 縁切り (tie-severance) executor, Tier-B actor R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kaiyaku-tie-severance-executor",
+      "authoritative": true,
+      "authoritative_for": [
+        "kaiyaku-actor-charter",
+        "enkiri-ledger-ontology"
+      ],
+      "related": [
+        "adr-2605312500",
+        "adr-2605312030",
+        "adr-2605302130",
+        "adr-2605263700",
+        "adr-2605181100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606039200",
+        "adr-2606072400",
+        "adr-2605231525",
+        "adr-2605215000",
+        "adr-2605312345"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112238-kadode-resignation-concierge.md",
+      "id": "adr-2606112238-kadode-resignation-concierge",
+      "title": "ADR-2606112238: kadode 門出 — labour-resignation concierge + 使者 (退職代行), UPL-bounded",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kadode-resignation-concierge",
+      "authoritative": true,
+      "authoritative_for": [
+        "labor-resignation-concierge",
+        "labor-exit-ontology",
+        "退職代行-upl-boundary"
+      ],
+      "related": [
+        "2605312030",
+        "2605312500",
+        "2606060900",
+        "2605263700"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262700",
+        "2606111954",
+        "2605181100",
+        "2605231525",
+        "2605312345",
+        "2605215000",
+        "2605261000",
+        "2605302357"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112300-mimamori-mishmeret-ha-adam-actor-r0.md",
+      "id": "adr-2606112300-mimamori-mishmeret-ha-adam-actor-r0",
+      "title": "ADR-2606112300: mimamori 見守り (mishmeret ha-adam 相互保持者会) Tier-B actor R0 — covenant keeping membrane: 誰の保持者でもない人間を作らない",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "mimamori-mishmeret-ha-adam-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "mimamori 見守り actor — covenant bond lifecycle (offer/consent/heartbeat/care-route/relay/exit)",
+        "00-contracts/schemas/mishmeret-ontology.kotoba.edn — the :mishmeret.* schema 正本 (validator-parity test-bound)",
+        "mishmeret 5 NEVER 句の実装形 (no-denunciation / no-score / consent / symmetric-visibility / no-throne)",
+        ":mishmeret.*\" Datom namespace (bond-edge-only; person-node attributes unrepresentable)",
+        "shomer vow 典礼 seed (musubi ceremony type)"
+      ],
+      "related": [
+        "../papers/2606111500-kojin-genealogy-visibility-inversion-mishmeret.md",
+        "2605263700",
+        "2605263500",
+        "2605263000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606112200",
+        "2606082100",
+        "2606062100",
+        "2605302357",
+        "2605302358",
+        "2605263400",
+        "2605181100",
+        "2605312345",
+        "2605215000",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606112301-tate-citizen-legal-defense-concierge-r0.md",
+      "id": "adr-2606112301-tate-citizen-legal-defense-concierge-r0",
+      "title": "ADR-2606112301: tate 盾 — citizen legal-defense concierge (不利条項スキャン + 法的手続き応答支援), Tier-B actor R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tate-citizen-legal-defense",
+      "authoritative": true,
+      "authoritative_for": [
+        "tate-actor-charter",
+        "clause-pattern-registry",
+        "procedure-response-registry"
+      ],
+      "related": [
+        "adr-2605312500",
+        "adr-2606060900",
+        "adr-2605312030",
+        "adr-2605181100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606112201",
+        "adr-2605262700",
+        "adr-2605231525",
+        "adr-2605215000",
+        "adr-2605312345"
+      ],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache.md",
+      "id": "adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache",
+      "title": "ADR-2606120750: Session close — search-actor audit → parquet-free CC ingest → kotoba read-path resident cache LIVE",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-search-readpath",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-11 search/ingest/read-path session"
+      ],
+      "related": [
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2606041151"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606111900-cc-wet-direct-datom-ingest-no-parquet",
+        "adr-2606012300-kotoba-hybrid-web-search"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606121143-deps-edn-line-split-canonical-format.md",
+      "id": "adr-2606121143-deps-edn-line-split-canonical-format",
+      "title": "ADR-2606121143: deps.edn canonical line-split format + structural append — 1 行 EDN の merge-conflict/破損隠蔽の根治",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "deps-edn-line-split-format",
+      "authoritative": true,
+      "authoritative_for": [
+        "deps.edn canonical format",
+        "deps.edn append protocol (--append-adrs)",
+        "deps-edn-canonical lefthook gate"
+      ],
+      "related": [
+        "adr-2606120750-session-close-search-audit-parquet-free-ingest-readpath-cache"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606121620-coverage-maturity-loop-did-etzhayyim-design-system.md",
+      "id": "adr-2606121620-coverage-maturity-loop-did-etzhayyim-design-system",
+      "title": "ADR-2606121620: Coverage/maturity loop wave — did:etzhayyim codec+CID suite + design-system motion + genesis-test fix",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "coverage-maturity-loop",
+      "authoritative": true,
+      "authoritative_for": [
+        "did:etzhayyim codec + CID test coverage status",
+        "design-system motion utility test coverage status"
+      ],
+      "related": [
+        "2606111640",
+        "2605241800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-12",
       "amends": [],
       "amended_by": []
     },
@@ -24952,6 +26485,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/papers/2606111500-kojin-genealogy-visibility-inversion-mishmeret.md",
+      "id": "paper-2606111500-kojin-genealogy-visibility-inversion-mishmeret",
+      "title": "「個人」の系譜と可視性の倒錯 — 個人情報レジーム批判と相互保持者会 (mishmeret ha-adam) の構想",
+      "status": "proposed",
+      "doc_type": "explanation",
+      "topic": "kojin-concept-genealogy-visibility",
+      "authoritative": false,
+      "related": [
+        "2606112200",
+        "2606112300",
+        "2606082100",
+        "2606062100",
+        "2605192100",
+        "2605192315",
+        "2605302357",
+        "2605302358",
+        "2606042330",
+        "2606011800",
+        "2606066000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-11",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/portfolio-timeline.md",
       "id": "portfolio-timeline",
       "title": "DoDAF PV-2 — Project Timeline & Portfolio Roadmap",
@@ -25232,6 +26793,27 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/security/2606111200-quantum-singularity-crypto-survivability.md",
+      "id": "security-quantum-singularity-crypto-survivability",
+      "title": "暗号は無意味になるか — 量子計算機・シンギュラリティ下における etzhayyim 暗号基盤の生存性: 統計・数理分析",
+      "status": "active",
+      "doc_type": "explanation",
+      "topic": "post-quantum",
+      "authoritative": true,
+      "authoritative_for": [
+        "quantum threat model and post-quantum migration rationale"
+      ],
+      "related": [
+        "security-crypto-agility-policy",
+        "security-readme"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-11",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/security/README.md",
       "id": "security-readme",
       "title": "Security Architecture Documents",
@@ -25478,6 +27060,22 @@
         "ADR-2605250645"
       ],
       "last_verified": "2026-05-25T00:00:00Z",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/yirah-attest-snapshot.md",
+      "id": "yirah-attest-snapshot",
+      "title": "yir'ah invariant-bundle attestation snapshot (ADR-2606112200 D4)",
+      "status": "active",
+      "doc_type": "reference",
+      "topic": "yirah-attest",
+      "authoritative": false,
+      "last_verified": "2026-06-11",
       "authoritative_for": [],
       "related": [],
       "supersedes": [],

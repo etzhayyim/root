@@ -111,54 +111,138 @@ def _expand(rec, params, refs):
     return rec
 
 
-@app.route("/v1/accounts", methods=["POST"])
-def create_account(request):
-    """Create a Account."""
+@app.route("/v1/deals", methods=["POST"])
+def create_deal(request):
+    """Create a Deal."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'domain', 'industry', 'ownerId', 'annualRevenue'])
+    err = _reject_unknown(data, ['companyId', 'issueDate', 'dueDate', 'amount', 'dueAmount', 'type', 'partnerId', 'partnerCode', 'refNumber', 'status'])
     if err:
         return err, 400
-    err = _require(data, ['name', 'domain'])
+    err = _require(data, ['issueDate', 'dueDate'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['income', 'expense']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['income', 'expense']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['unsettled', 'settled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['unsettled', 'settled']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("freee_dea")}
+    rec["companyId"] = _as_int(data.get('companyId'))
+    rec["issueDate"] = data.get('issueDate')
+    rec["dueDate"] = data.get('dueDate')
+    rec["amount"] = _as_int(data.get('amount'))
+    rec["dueAmount"] = _as_int(data.get('dueAmount'))
+    rec["type"] = data.get('type')
+    rec["partnerId"] = _as_int(data.get('partnerId'))
+    rec["partnerCode"] = data.get('partnerCode')
+    rec["refNumber"] = data.get('refNumber')
+    rec["status"] = data.get('status')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Deal", rec)
+    return rec, 201
+
+@app.route("/v1/deals", methods=["GET"])
+def list_deals(request):
+    """List Deals with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Deal")
+    rows = _apply_filters(rows, params, ['companyId', 'issueDate', 'dueDate', 'amount', 'dueAmount', 'type', 'partnerId', 'partnerCode', 'refNumber', 'status'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/deals/<eid>", methods=["GET"])
+def get_deal(request, eid):
+    """Retrieve a Deal by id (supports ?expand=)."""
+    rows = _query("Deal", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'companyId': 'Company', 'partnerId': 'Partner'})
+    return rec, 200
+
+@app.route("/v1/deals/<eid>", methods=["POST", "PATCH"])
+def update_deal(request, eid):
+    """Update a Deal."""
+    rows = _query("Deal", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['companyId', 'issueDate', 'dueDate', 'amount', 'dueAmount', 'type', 'partnerId', 'partnerCode', 'refNumber', 'status'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['income', 'expense']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['income', 'expense']), "type": "invalid_request_error"}}, 400
+    if data.get('status') and data['status'] not in ['unsettled', 'settled']:
+        return {"error": {"message": "invalid status; allowed: " + ", ".join(['unsettled', 'settled']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Deal", rec)
+    return rec, 200
+
+@app.route("/v1/deals/<eid>", methods=["DELETE"])
+def delete_deal(request, eid):
+    """Delete a Deal."""
+    rows = _query("Deal", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"freee.Deal", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/accountitems", methods=["POST"])
+def create_account_item(request):
+    """Create a AccountItem."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'companyId', 'taxCode', 'accountCategory', 'available', 'walletableId', 'searchable'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'taxCode'])
     if err:
         return err, 400
     rec = {"id": new_id("freee_acc")}
     rec["name"] = data.get('name')
-    rec["domain"] = data.get('domain')
-    rec["industry"] = data.get('industry')
-    rec["ownerId"] = data.get('ownerId')
-    rec["annualRevenue"] = _as_float(data.get('annualRevenue'))
+    rec["companyId"] = _as_int(data.get('companyId'))
+    rec["taxCode"] = _as_int(data.get('taxCode'))
+    rec["accountCategory"] = data.get('accountCategory')
+    rec["available"] = _as_bool(data.get('available'))
+    rec["walletableId"] = _as_int(data.get('walletableId'))
+    rec["searchable"] = _as_int(data.get('searchable'))
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Account", rec)
+    _persist("AccountItem", rec)
     return rec, 201
 
-@app.route("/v1/accounts", methods=["GET"])
-def list_accounts(request):
-    """List Accounts with filtering + cursor pagination."""
+@app.route("/v1/accountitems", methods=["GET"])
+def list_account_items(request):
+    """List AccountItems with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Account")
-    rows = _apply_filters(rows, params, ['name', 'domain', 'industry', 'ownerId', 'annualRevenue'])
+    rows = _query("AccountItem")
+    rows = _apply_filters(rows, params, ['name', 'companyId', 'taxCode', 'accountCategory', 'available', 'walletableId', 'searchable'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/accounts/<eid>", methods=["GET"])
-def get_account(request, eid):
-    """Retrieve a Account by id (supports ?expand=)."""
-    rows = _query("Account", eid)
+@app.route("/v1/accountitems/<eid>", methods=["GET"])
+def get_account_item(request, eid):
+    """Retrieve a AccountItem by id (supports ?expand=)."""
+    rows = _query("AccountItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
+    rec = _expand(rec, request.query or {}, {'companyId': 'Company', 'walletableId': 'Walletable'})
     return rec, 200
 
-@app.route("/v1/accounts/<eid>", methods=["POST", "PATCH"])
-def update_account(request, eid):
-    """Update a Account."""
-    rows = _query("Account", eid)
+@app.route("/v1/accountitems/<eid>", methods=["POST", "PATCH"])
+def update_account_item(request, eid):
+    """Update a AccountItem."""
+    rows = _query("AccountItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'domain', 'industry', 'ownerId', 'annualRevenue'])
+    err = _reject_unknown(data, ['name', 'companyId', 'taxCode', 'accountCategory', 'available', 'walletableId', 'searchable'])
     if err:
         return err, 400
     rec = rows[0]
@@ -166,357 +250,321 @@ def update_account(request, eid):
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Account", rec)
+    _persist("AccountItem", rec)
     return rec, 200
 
-@app.route("/v1/accounts/<eid>", methods=["DELETE"])
-def delete_account(request, eid):
-    """Delete a Account."""
-    rows = _query("Account", eid)
+@app.route("/v1/accountitems/<eid>", methods=["DELETE"])
+def delete_account_item(request, eid):
+    """Delete a AccountItem."""
+    rows = _query("AccountItem", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"freee.Account", "id": eid})
+    db.retract({"entity": f"freee.AccountItem", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/contacts", methods=["POST"])
-def create_contact(request):
-    """Create a Contact."""
+@app.route("/v1/partners", methods=["POST"])
+def create_partner(request):
+    """Create a Partner."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'firstName', 'lastName', 'email', 'phone'])
+    err = _reject_unknown(data, ['name', 'code', 'companyId', 'available', 'orgCode', 'transferFeeHandlingSide'])
     if err:
         return err, 400
-    err = _require(data, ['firstName', 'lastName'])
+    err = _require(data, ['name', 'code'])
     if err:
         return err, 400
-    rec = {"id": new_id("freee_con")}
-    rec["accountId"] = data.get('accountId')
-    rec["firstName"] = data.get('firstName')
-    rec["lastName"] = data.get('lastName')
-    rec["email"] = data.get('email')
-    rec["phone"] = data.get('phone')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Contact", rec)
-    return rec, 201
-
-@app.route("/v1/contacts", methods=["GET"])
-def list_contacts(request):
-    """List Contacts with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Contact")
-    rows = _apply_filters(rows, params, ['accountId', 'firstName', 'lastName', 'email', 'phone'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/contacts/<eid>", methods=["GET"])
-def get_contact(request, eid):
-    """Retrieve a Contact by id (supports ?expand=)."""
-    rows = _query("Contact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
-    return rec, 200
-
-@app.route("/v1/contacts/<eid>", methods=["POST", "PATCH"])
-def update_contact(request, eid):
-    """Update a Contact."""
-    rows = _query("Contact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'firstName', 'lastName', 'email', 'phone'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Contact", rec)
-    return rec, 200
-
-@app.route("/v1/contacts/<eid>", methods=["DELETE"])
-def delete_contact(request, eid):
-    """Delete a Contact."""
-    rows = _query("Contact", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"freee.Contact", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/leads", methods=["POST"])
-def create_lead(request):
-    """Create a Lead."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['company', 'email', 'status', 'source', 'score'])
-    if err:
-        return err, 400
-    err = _require(data, ['company', 'email'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("freee_lea")}
-    rec["company"] = data.get('company')
-    rec["email"] = data.get('email')
-    rec["status"] = data.get('status')
-    rec["source"] = data.get('source')
-    rec["score"] = _as_int(data.get('score'))
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Lead", rec)
-    return rec, 201
-
-@app.route("/v1/leads", methods=["GET"])
-def list_leads(request):
-    """List Leads with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Lead")
-    rows = _apply_filters(rows, params, ['company', 'email', 'status', 'source', 'score'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/leads/<eid>", methods=["GET"])
-def get_lead(request, eid):
-    """Retrieve a Lead by id (supports ?expand=)."""
-    rows = _query("Lead", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/leads/<eid>", methods=["POST", "PATCH"])
-def update_lead(request, eid):
-    """Update a Lead."""
-    rows = _query("Lead", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['company', 'email', 'status', 'source', 'score'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Lead", rec)
-    return rec, 200
-
-@app.route("/v1/leads/<eid>", methods=["DELETE"])
-def delete_lead(request, eid):
-    """Delete a Lead."""
-    rows = _query("Lead", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"freee.Lead", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/opportunities", methods=["POST"])
-def create_opportunity(request):
-    """Create a Opportunity."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'name', 'stage', 'amount', 'closeDate'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'stage'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("freee_opp")}
-    rec["accountId"] = data.get('accountId')
+    if data.get('orgCode') and data['orgCode'] not in [1, 2]:
+        return {"error": {"message": "invalid orgCode; allowed: " + ", ".join([1, 2]), "type": "invalid_request_error"}}, 400
+    if data.get('transferFeeHandlingSide') and data['transferFeeHandlingSide'] not in ['payer', 'payee']:
+        return {"error": {"message": "invalid transferFeeHandlingSide; allowed: " + ", ".join(['payer', 'payee']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("freee_par")}
     rec["name"] = data.get('name')
-    rec["stage"] = data.get('stage')
-    rec["amount"] = _as_float(data.get('amount'))
-    rec["closeDate"] = data.get('closeDate')
+    rec["code"] = data.get('code')
+    rec["companyId"] = _as_int(data.get('companyId'))
+    rec["available"] = _as_bool(data.get('available'))
+    rec["orgCode"] = _as_int(data.get('orgCode'))
+    rec["transferFeeHandlingSide"] = data.get('transferFeeHandlingSide')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Opportunity", rec)
+    _persist("Partner", rec)
     return rec, 201
 
-@app.route("/v1/opportunities", methods=["GET"])
-def list_opportunities(request):
-    """List Opportunities with filtering + cursor pagination."""
+@app.route("/v1/partners", methods=["GET"])
+def list_partners(request):
+    """List Partners with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Opportunity")
-    rows = _apply_filters(rows, params, ['accountId', 'name', 'stage', 'amount', 'closeDate'])
+    rows = _query("Partner")
+    rows = _apply_filters(rows, params, ['name', 'code', 'companyId', 'available', 'orgCode', 'transferFeeHandlingSide'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/opportunities/<eid>", methods=["GET"])
-def get_opportunity(request, eid):
-    """Retrieve a Opportunity by id (supports ?expand=)."""
-    rows = _query("Opportunity", eid)
+@app.route("/v1/partners/<eid>", methods=["GET"])
+def get_partner(request, eid):
+    """Retrieve a Partner by id (supports ?expand=)."""
+    rows = _query("Partner", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
-    rec = _expand(rec, request.query or {}, {'accountId': 'Account'})
+    rec = _expand(rec, request.query or {}, {'companyId': 'Company'})
     return rec, 200
 
-@app.route("/v1/opportunities/<eid>", methods=["POST", "PATCH"])
-def update_opportunity(request, eid):
-    """Update a Opportunity."""
-    rows = _query("Opportunity", eid)
+@app.route("/v1/partners/<eid>", methods=["POST", "PATCH"])
+def update_partner(request, eid):
+    """Update a Partner."""
+    rows = _query("Partner", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['accountId', 'name', 'stage', 'amount', 'closeDate'])
+    err = _reject_unknown(data, ['name', 'code', 'companyId', 'available', 'orgCode', 'transferFeeHandlingSide'])
     if err:
         return err, 400
+    if data.get('orgCode') and data['orgCode'] not in [1, 2]:
+        return {"error": {"message": "invalid orgCode; allowed: " + ", ".join([1, 2]), "type": "invalid_request_error"}}, 400
+    if data.get('transferFeeHandlingSide') and data['transferFeeHandlingSide'] not in ['payer', 'payee']:
+        return {"error": {"message": "invalid transferFeeHandlingSide; allowed: " + ", ".join(['payer', 'payee']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Opportunity", rec)
+    _persist("Partner", rec)
     return rec, 200
 
-@app.route("/v1/opportunities/<eid>", methods=["DELETE"])
-def delete_opportunity(request, eid):
-    """Delete a Opportunity."""
-    rows = _query("Opportunity", eid)
+@app.route("/v1/partners/<eid>", methods=["DELETE"])
+def delete_partner(request, eid):
+    """Delete a Partner."""
+    rows = _query("Partner", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"freee.Opportunity", "id": eid})
+    db.retract({"entity": f"freee.Partner", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
-@app.route("/v1/activities", methods=["POST"])
-def create_activity(request):
-    """Create a Activity."""
+@app.route("/v1/invoices", methods=["POST"])
+def create_invoice(request):
+    """Create a Invoice."""
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subjectId', 'type', 'subject', 'dueDate', 'done'])
+    err = _reject_unknown(data, ['invoiceNumber', 'issueDate', 'totalAmount', 'invoiceStatus', 'paymentType'])
     if err:
         return err, 400
-    err = _require(data, ['type', 'subject'])
+    err = _require(data, ['invoiceNumber', 'issueDate'])
     if err:
         return err, 400
-    rec = {"id": new_id("freee_act")}
-    rec["subjectId"] = data.get('subjectId')
+    if data.get('invoiceStatus') and data['invoiceStatus'] not in ['draft', 'applying', 'remanded', 'rejected', 'approved', 'submitted', 'unsubmitted']:
+        return {"error": {"message": "invalid invoiceStatus; allowed: " + ", ".join(['draft', 'applying', 'remanded', 'rejected', 'approved', 'submitted', 'unsubmitted']), "type": "invalid_request_error"}}, 400
+    if data.get('paymentType') and data['paymentType'] not in ['', 'transfer', 'direct_debit']:
+        return {"error": {"message": "invalid paymentType; allowed: " + ", ".join(['', 'transfer', 'direct_debit']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("freee_inv")}
+    rec["invoiceNumber"] = data.get('invoiceNumber')
+    rec["issueDate"] = data.get('issueDate')
+    rec["totalAmount"] = _as_int(data.get('totalAmount'))
+    rec["invoiceStatus"] = data.get('invoiceStatus')
+    rec["paymentType"] = data.get('paymentType')
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Invoice", rec)
+    return rec, 201
+
+@app.route("/v1/invoices", methods=["GET"])
+def list_invoices(request):
+    """List Invoices with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Invoice")
+    rows = _apply_filters(rows, params, ['invoiceNumber', 'issueDate', 'totalAmount', 'invoiceStatus', 'paymentType'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/invoices/<eid>", methods=["GET"])
+def get_invoice(request, eid):
+    """Retrieve a Invoice by id (supports ?expand=)."""
+    rows = _query("Invoice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/invoices/<eid>", methods=["POST", "PATCH"])
+def update_invoice(request, eid):
+    """Update a Invoice."""
+    rows = _query("Invoice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['invoiceNumber', 'issueDate', 'totalAmount', 'invoiceStatus', 'paymentType'])
+    if err:
+        return err, 400
+    if data.get('invoiceStatus') and data['invoiceStatus'] not in ['draft', 'applying', 'remanded', 'rejected', 'approved', 'submitted', 'unsubmitted']:
+        return {"error": {"message": "invalid invoiceStatus; allowed: " + ", ".join(['draft', 'applying', 'remanded', 'rejected', 'approved', 'submitted', 'unsubmitted']), "type": "invalid_request_error"}}, 400
+    if data.get('paymentType') and data['paymentType'] not in ['', 'transfer', 'direct_debit']:
+        return {"error": {"message": "invalid paymentType; allowed: " + ", ".join(['', 'transfer', 'direct_debit']), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Invoice", rec)
+    return rec, 200
+
+@app.route("/v1/invoices/<eid>", methods=["DELETE"])
+def delete_invoice(request, eid):
+    """Delete a Invoice."""
+    rows = _query("Invoice", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"freee.Invoice", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/companies", methods=["POST"])
+def create_company(request):
+    """Create a Company."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['displayName', 'role', 'orgCode'])
+    if err:
+        return err, 400
+    err = _require(data, ['displayName', 'role'])
+    if err:
+        return err, 400
+    if data.get('role') and data['role'] not in ['admin', 'simple_accounting', 'self_only', 'read_only', 'workflow']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['admin', 'simple_accounting', 'self_only', 'read_only', 'workflow']), "type": "invalid_request_error"}}, 400
+    if data.get('orgCode') and data['orgCode'] not in [1, 2]:
+        return {"error": {"message": "invalid orgCode; allowed: " + ", ".join([1, 2]), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("freee_com")}
+    rec["displayName"] = data.get('displayName')
+    rec["role"] = data.get('role')
+    rec["orgCode"] = _as_int(data.get('orgCode'))
+    rec["createdAt"] = now()
+    rec["updatedAt"] = rec["createdAt"]
+    _persist("Company", rec)
+    return rec, 201
+
+@app.route("/v1/companies", methods=["GET"])
+def list_companies(request):
+    """List Companies with filtering + cursor pagination."""
+    params = request.query or {}
+    rows = _query("Company")
+    rows = _apply_filters(rows, params, ['displayName', 'role', 'orgCode'])
+    page, has_more = _paginate(rows, params)
+    return {"object": "list", "data": page, "has_more": has_more,
+            "count": len(page), "total": len(rows)}, 200
+
+@app.route("/v1/companies/<eid>", methods=["GET"])
+def get_company(request, eid):
+    """Retrieve a Company by id (supports ?expand=)."""
+    rows = _query("Company", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    rec = rows[0]
+    return rec, 200
+
+@app.route("/v1/companies/<eid>", methods=["POST", "PATCH"])
+def update_company(request, eid):
+    """Update a Company."""
+    rows = _query("Company", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['displayName', 'role', 'orgCode'])
+    if err:
+        return err, 400
+    if data.get('role') and data['role'] not in ['admin', 'simple_accounting', 'self_only', 'read_only', 'workflow']:
+        return {"error": {"message": "invalid role; allowed: " + ", ".join(['admin', 'simple_accounting', 'self_only', 'read_only', 'workflow']), "type": "invalid_request_error"}}, 400
+    if data.get('orgCode') and data['orgCode'] not in [1, 2]:
+        return {"error": {"message": "invalid orgCode; allowed: " + ", ".join([1, 2]), "type": "invalid_request_error"}}, 400
+    rec = rows[0]
+    for k, v in data.items():
+        if k not in ("id", "createdAt"):
+            rec[k] = v
+    rec["updatedAt"] = now()
+    _persist("Company", rec)
+    return rec, 200
+
+@app.route("/v1/companies/<eid>", methods=["DELETE"])
+def delete_company(request, eid):
+    """Delete a Company."""
+    rows = _query("Company", eid)
+    if not rows:
+        return {"error": {"message": "Not found", "type": "not_found"}}, 404
+    db.retract({"entity": f"freee.Company", "id": eid})
+    return {"id": eid, "deleted": True}, 200
+
+@app.route("/v1/walletables", methods=["POST"])
+def create_walletable(request):
+    """Create a Walletable."""
+    data = request.json or request.form or {}
+    err = _reject_unknown(data, ['name', 'bankId', 'type', 'syncStatus'])
+    if err:
+        return err, 400
+    err = _require(data, ['name', 'type'])
+    if err:
+        return err, 400
+    if data.get('type') and data['type'] not in ['bank_account', 'credit_card', 'wallet']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['bank_account', 'credit_card', 'wallet']), "type": "invalid_request_error"}}, 400
+    if data.get('syncStatus') and data['syncStatus'] not in ['success', 'disabled', 'syncing', 'token_refresh_error', 'unsupported', 'other_error']:
+        return {"error": {"message": "invalid syncStatus; allowed: " + ", ".join(['success', 'disabled', 'syncing', 'token_refresh_error', 'unsupported', 'other_error']), "type": "invalid_request_error"}}, 400
+    rec = {"id": new_id("freee_wal")}
+    rec["name"] = data.get('name')
+    rec["bankId"] = _as_int(data.get('bankId'))
     rec["type"] = data.get('type')
-    rec["subject"] = data.get('subject')
-    rec["dueDate"] = data.get('dueDate')
-    rec["done"] = _as_bool(data.get('done'))
+    rec["syncStatus"] = data.get('syncStatus')
     rec["createdAt"] = now()
     rec["updatedAt"] = rec["createdAt"]
-    _persist("Activity", rec)
+    _persist("Walletable", rec)
     return rec, 201
 
-@app.route("/v1/activities", methods=["GET"])
-def list_activities(request):
-    """List Activities with filtering + cursor pagination."""
+@app.route("/v1/walletables", methods=["GET"])
+def list_walletables(request):
+    """List Walletables with filtering + cursor pagination."""
     params = request.query or {}
-    rows = _query("Activity")
-    rows = _apply_filters(rows, params, ['subjectId', 'type', 'subject', 'dueDate', 'done'])
+    rows = _query("Walletable")
+    rows = _apply_filters(rows, params, ['name', 'bankId', 'type', 'syncStatus'])
     page, has_more = _paginate(rows, params)
     return {"object": "list", "data": page, "has_more": has_more,
             "count": len(page), "total": len(rows)}, 200
 
-@app.route("/v1/activities/<eid>", methods=["GET"])
-def get_activity(request, eid):
-    """Retrieve a Activity by id (supports ?expand=)."""
-    rows = _query("Activity", eid)
+@app.route("/v1/walletables/<eid>", methods=["GET"])
+def get_walletable(request, eid):
+    """Retrieve a Walletable by id (supports ?expand=)."""
+    rows = _query("Walletable", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     rec = rows[0]
     return rec, 200
 
-@app.route("/v1/activities/<eid>", methods=["POST", "PATCH"])
-def update_activity(request, eid):
-    """Update a Activity."""
-    rows = _query("Activity", eid)
+@app.route("/v1/walletables/<eid>", methods=["POST", "PATCH"])
+def update_walletable(request, eid):
+    """Update a Walletable."""
+    rows = _query("Walletable", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
     data = request.json or request.form or {}
-    err = _reject_unknown(data, ['subjectId', 'type', 'subject', 'dueDate', 'done'])
+    err = _reject_unknown(data, ['name', 'bankId', 'type', 'syncStatus'])
     if err:
         return err, 400
+    if data.get('type') and data['type'] not in ['bank_account', 'credit_card', 'wallet']:
+        return {"error": {"message": "invalid type; allowed: " + ", ".join(['bank_account', 'credit_card', 'wallet']), "type": "invalid_request_error"}}, 400
+    if data.get('syncStatus') and data['syncStatus'] not in ['success', 'disabled', 'syncing', 'token_refresh_error', 'unsupported', 'other_error']:
+        return {"error": {"message": "invalid syncStatus; allowed: " + ", ".join(['success', 'disabled', 'syncing', 'token_refresh_error', 'unsupported', 'other_error']), "type": "invalid_request_error"}}, 400
     rec = rows[0]
     for k, v in data.items():
         if k not in ("id", "createdAt"):
             rec[k] = v
     rec["updatedAt"] = now()
-    _persist("Activity", rec)
+    _persist("Walletable", rec)
     return rec, 200
 
-@app.route("/v1/activities/<eid>", methods=["DELETE"])
-def delete_activity(request, eid):
-    """Delete a Activity."""
-    rows = _query("Activity", eid)
+@app.route("/v1/walletables/<eid>", methods=["DELETE"])
+def delete_walletable(request, eid):
+    """Delete a Walletable."""
+    rows = _query("Walletable", eid)
     if not rows:
         return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"freee.Activity", "id": eid})
-    return {"id": eid, "deleted": True}, 200
-
-@app.route("/v1/pipelines", methods=["POST"])
-def create_pipeline(request):
-    """Create a Pipeline."""
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'stageOrder', 'ownerId'])
-    if err:
-        return err, 400
-    err = _require(data, ['name', 'stageOrder'])
-    if err:
-        return err, 400
-    rec = {"id": new_id("freee_pip")}
-    rec["name"] = data.get('name')
-    rec["stageOrder"] = data.get('stageOrder')
-    rec["ownerId"] = data.get('ownerId')
-    rec["createdAt"] = now()
-    rec["updatedAt"] = rec["createdAt"]
-    _persist("Pipeline", rec)
-    return rec, 201
-
-@app.route("/v1/pipelines", methods=["GET"])
-def list_pipelines(request):
-    """List Pipelines with filtering + cursor pagination."""
-    params = request.query or {}
-    rows = _query("Pipeline")
-    rows = _apply_filters(rows, params, ['name', 'stageOrder', 'ownerId'])
-    page, has_more = _paginate(rows, params)
-    return {"object": "list", "data": page, "has_more": has_more,
-            "count": len(page), "total": len(rows)}, 200
-
-@app.route("/v1/pipelines/<eid>", methods=["GET"])
-def get_pipeline(request, eid):
-    """Retrieve a Pipeline by id (supports ?expand=)."""
-    rows = _query("Pipeline", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    rec = rows[0]
-    return rec, 200
-
-@app.route("/v1/pipelines/<eid>", methods=["POST", "PATCH"])
-def update_pipeline(request, eid):
-    """Update a Pipeline."""
-    rows = _query("Pipeline", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    data = request.json or request.form or {}
-    err = _reject_unknown(data, ['name', 'stageOrder', 'ownerId'])
-    if err:
-        return err, 400
-    rec = rows[0]
-    for k, v in data.items():
-        if k not in ("id", "createdAt"):
-            rec[k] = v
-    rec["updatedAt"] = now()
-    _persist("Pipeline", rec)
-    return rec, 200
-
-@app.route("/v1/pipelines/<eid>", methods=["DELETE"])
-def delete_pipeline(request, eid):
-    """Delete a Pipeline."""
-    rows = _query("Pipeline", eid)
-    if not rows:
-        return {"error": {"message": "Not found", "type": "not_found"}}, 404
-    db.retract({"entity": f"freee.Pipeline", "id": eid})
+    db.retract({"entity": f"freee.Walletable", "id": eid})
     return {"id": eid, "deleted": True}, 200
 
 @app.route("/healthz", methods=["GET"])
 def healthz(request):
     return {"status": "ok", "actor": "freee-compat", "tier": "L4",
-            "entities": ['Account', 'Contact', 'Lead', 'Opportunity', 'Activity', 'Pipeline']}, 200
+            "entities": ['Deal', 'AccountItem', 'Partner', 'Invoice', 'Company', 'Walletable']}, 200
 
 
 if __name__ == "__main__":

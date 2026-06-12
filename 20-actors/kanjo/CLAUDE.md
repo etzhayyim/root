@@ -76,6 +76,25 @@ Canonical concepts: `:revenue :gross-profit :operating-income :ordinary-income(�
   merge with seed (`:authoritative` wins). Offline default; live fetch G7-gated.
 - `cell:kanjo.analyze` → `methods/analyze.py` (stdlib) — per-company ratios → YoY (as-of) →
   sector/currency aggregates → aggregate-first report. No FX cross-currency sums in R0.
+- `cell:kanjo.autorun` → `methods/autorun.py` (+ `methods/kotoba.py`). The autonomous
+  Murakumo-fleet heartbeat — the same shape shionome/ipaddress/yabai/sukashi/watatsuna/watari/
+  kabuto use. Each cycle observes the OFFLINE merged graph → split filings/facts → by-company-year
+  → derive ratios + YoY + sector/currency aggregates → **persists a content-addressed transaction**
+  (graph datoms + derived `:fin.metric` + `:fin.agg`) to the append-only **local** kotoba Datom log
+  (`methods/kotoba.py`), linking the previous tx's CID into a verifiable commit-DAG. Deterministic /
+  resume-safe (the derived path uses no PYTHONHASHSEED-randomized set iteration — verified stable
+  under `PYTHONHASHSEED=random`); NO external I/O. **G2/G4/G5 hold by construction**: only disclosed
+  facts + transparent ratios are representable — every derived metric/agg carries `:sourcing
+  :synthesized` and is never re-ingested as a disclosed fact; no rating/valuation/forecast/buy-sell
+  attr exists. Fleet cells `kanjo_filing_ingest` (cron 49) + `kanjo_metrics_weave` (cron 54) +
+  `kanjo_disclosure_persist` (cron 59) on `judah` — see `50-infra/murakumo/fleet.toml`. Live
+  EDGAR/EDINET ingest + the live-node push stay Council + operator gated (G7). Invariants guarded by
+  `methods/test_autorun.py` (commit-DAG verify, tamper-detect, determinism, append-only,
+  **G5 derived-:synthesized**, **G2/G4 no-advice/no-forecast**, no-external-I/O).
+
+  ```bash
+  python3 methods/autorun.py --cycles 3 --fresh   # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+  ```
 
 ## Lexicons (kotoba-native)
 

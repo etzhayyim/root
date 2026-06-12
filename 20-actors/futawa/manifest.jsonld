@@ -163,5 +163,14 @@
     "witness": "/90-docs/adr/2605191524-transparent-force-swarm-broadcast-witness-quorum.md",
     "dataset_substrate": "/90-docs/adr/2605241500-etzhayyim-dataset-cid-substrate.md",
     "charter_rider": "/CHARTER-RIDER.md"
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "map-not-target": "build-time anti-surveillance (G8): NO GPS / connected-app / telematics / V2X built-in — the vehicle is structurally incapable of tracking its rider; only an optional user-installed open-source module",
+      "append-only": "mass-balance ≥98% closure on kotoba-datomic (G2); attestation lineage appends",
+      "never-a-throne": "critical steps signed by witness quorum ≥2 distinct robots (G3); all CAD + firmware open-source (G1) — no central attestor, no closed observer"
+    }
   }
 }

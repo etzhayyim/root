@@ -60,6 +60,14 @@
     "./kotoba-datomic": {
       "import": "./dist/kotoba-datomic/index.js",
       "types": "./dist/kotoba-datomic/index.d.ts"
+    },
+    "./pq": {
+      "import": "./dist/pq.js",
+      "types": "./dist/pq.d.ts"
+    },
+    "./kdf": {
+      "import": "./dist/kdf.js",
+      "types": "./dist/kdf.d.ts"
     }
   },
   "bin": {
@@ -90,6 +98,7 @@
     "@noble/ciphers": "^1.0.0",
     "@noble/curves": "^1.6.0",
     "@noble/hashes": "^1.8.0",
+    "@noble/post-quantum": "^0.5.2",
     "multiformats": "^14.0.0",
     "viem": "^2.52.2"
   },

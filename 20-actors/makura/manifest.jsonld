@@ -212,5 +212,13 @@
     "witness": "/90-docs/adr/2605191524-transparent-force-swarm-broadcast-witness-quorum.md",
     "dataset_substrate": "/90-docs/adr/2605241500-etzhayyim-dataset-cid-substrate.md",
     "charter_rider": "/CHARTER-RIDER.md"
+  },
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "append-only": "every foam batch + pillow lot IPFS-pinned QC record (G2) — lot provenance appends and stays public",
+      "never-a-throne": "every lot signed by witness quorum ≥2 distinct robots (G3); all chemistry recipes + CAD + firmware open-source (G1) — no single-attestor seat, no closed recipe"
+    }
   }
 }

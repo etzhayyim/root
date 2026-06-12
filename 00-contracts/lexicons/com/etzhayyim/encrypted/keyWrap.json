@@ -53,6 +53,24 @@
             "description": "Identifier of the Signal session under which `ciphertext` was produced. Recipient SDK uses this to select the correct session for decrypt.",
             "maxLength": 128
           },
+          "pqSuite": {
+            "type": "string",
+            "description": "Post-quantum hybrid suite identifier (ADR-2606111300). When present, the wrap key derives from the pqh-v1 hybrid handshake below instead of a pre-established session.",
+            "knownValues": ["pqh-v1"],
+            "maxLength": 16
+          },
+          "pqX25519Ephemeral": {
+            "type": "bytes",
+            "description": "pqh-v1: sender's ephemeral X25519 public key (32 bytes).",
+            "minLength": 32,
+            "maxLength": 32
+          },
+          "pqMlkemCiphertext": {
+            "type": "bytes",
+            "description": "pqh-v1: ML-KEM-768 (FIPS 203) ciphertext against the recipient's published pqMlkemPublicKey (1088 bytes).",
+            "minLength": 1088,
+            "maxLength": 1088
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime"

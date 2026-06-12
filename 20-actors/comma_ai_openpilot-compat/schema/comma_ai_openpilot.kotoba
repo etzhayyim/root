@@ -3,71 +3,52 @@
 
 namespace comma_ai_openpilot {
 
-    entity Vehicle {
+    entity Event {
         id: string @unique
-        vin: string
-        model: string
-        state: string
-        odometerKm: float
+        logMonoTime: integer
+        valid: boolean
+        logMessage: string
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Signal {
+    entity CarState {
         id: string @unique
-        vehicleId: string
-        name: string
-        value: float
-        unit: string
+        vEgo: float
+        aEgo: float
+        standstill: boolean
+        gasPressed: boolean
+        brakePressed: boolean
+        steeringAngleDeg: float
+        steeringTorque: float
+        gearShifter: string
+        leftBlinker: boolean
+        rightBlinker: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity ChargeSession {
+    entity CarControl {
         id: string @unique
-        vehicleId: string
-        connectorId: string
-        energyKwh: float
-        status: string
+        enabled: boolean
+        latActive: boolean
+        longActive: boolean
+        leftBlinker: boolean
+        rightBlinker: boolean
         createdAt: datetime
         updatedAt: datetime
     }
 
-    entity Connector {
+    entity CarParams {
         id: string @unique
-        stationId: string
-        standard: string
-        powerKw: float
-        status: string
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Trip {
-        id: string @unique
-        vehicleId: string
-        distanceKm: float
-        startedAt: datetime
-        createdAt: datetime
-        updatedAt: datetime
-    }
-
-    entity Command {
-        id: string @unique
-        vehicleId: string
-        name: string
-        status: string
+        brand: string
+        carFingerprint: string
+        minEnableSpeed: float
+        minSteerSpeed: float
+        mass: float
+        wheelbase: float
         createdAt: datetime
         updatedAt: datetime
     }
 
 }
-
-    // Auto-injected Cognitive Schema
-    entity CognitiveRecord {
-        id: string @unique
-        originalPayload: string
-        aiStatus: string
-        aiInsights: json
-        computedAt: datetime
-    }

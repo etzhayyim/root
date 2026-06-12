@@ -97,5 +97,13 @@
     "NOT yield farming on pool capital",
     "NOT loan / NOT credit issuance",
     "NOT minting a new stablecoin / NOT minting a new token"
-  ]
+  ],
+  "yirah": {
+    "adr": "2606112200",
+    "note": "yir'ah invariant-bundle declarations (ADR-2606112200 D4) — adopted only where meaningful for this actor's scope; each declaration is grounded in the cited existing gates.",
+    "declared": {
+      "append-only": "kotoba attestation lineage MANDATORY on every deposit/claim (G2) — the pool's history appends, nothing erased",
+      "never-a-throne": "enforcement lives at the contract layer, not an operator's seat — Adherent-SBT gating as a Solidity onlyAdherent modifier (G3) and the mid-market ±0.5% Chainlink band enforced on-chain (G4); no discretionary rate-setter"
+    }
+  }
 }

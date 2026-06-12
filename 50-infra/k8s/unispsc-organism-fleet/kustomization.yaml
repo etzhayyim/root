@@ -23,6 +23,7 @@ resources:
   - shard-1
   - shard-2
   - kaizen-observer
+  - kaizen-pr-agent
 
 commonLabels:
   app.kubernetes.io/part-of: etzhayyim-religious-corp

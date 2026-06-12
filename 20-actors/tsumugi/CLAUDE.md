@@ -166,3 +166,185 @@ unanchored `LIMIT N` query returns arbitrary influence pairs that are disconnect
 curated backbone (components rise). To grow the *connected* graph, the live query should be
 **anchored** to existing seed figures (P737 neighbours of seed QIDs) or domain-filtered —
 a query refinement, not a wiring gap.
+
+---
+
+# Scale-agnostic 産官学報 (A) + 旗 hata ideology/faction (B) extension (ADR-2606092000)
+
+Two in-place extensions that answer *「地域・国・思想・組織ごとの意識的な power dynamics も
+すべて精微か。長崎では三菱の方・県庁の人・新聞のやつ…」*. The named-individual layer stays
+**out by construction** (G1 no-doxxing); these make the *seat/institution-level* local +
+ideological dynamics precise. No new actor — tsumugi/keizu extended in place.
+
+## (A) scale-agnostic 産官学報 concentration
+
+The same 取-concentration lens, run at **every scale** (`:global → :supranational → :national
+→ :regional → :local → :intra-org`) and over **every collective type** (法人 / 自治体 / 学会 /
+報道機関 / a department-level faction). The flagship is the LOCAL cross-sector cluster — e.g.
+長崎: 三菱重工長崎造船所 (産) ↔ 県庁＋産業振興審議会 seat (官) ↔ 長崎大学 (学) ↔ 長崎新聞 (報).
+"Concentration" = the **edge-primary integral of cross-sector co-location × sector-diversity**,
+routed to OPENING — a structural fact, never a verdict, never a target-list.
+
+### Five invariants (read `00-contracts/schemas/power-scale-ontology.kotoba.edn`)
+- **S1 edge-primary** — concentration on `:tie/grasping-load` only; no `:pwr/power-score` (raises).
+- **S2 person-excluded** — `:pwr/standing ∈ {:institutional :public-seat}`; `:private-person` unrepresentable.
+- **S3 aggregate-first** — per-locality/per-scale; brokers are seat/org ids, never a person.
+- **S4 sourcing honesty** — every `:tie` ≥2 public citations; under-sourced raises.
+- **S5 non-adjudicating** — verdict tokens (`:癒着 :談合 :capture …`) unrepresentable (raises).
+- **S6 map-not-target** — openness/resilience map routed to opening.
+
+```bash
+python3 20-actors/tsumugi/methods/analyze_scale.py        # → out/scale-report.md + scale-graph.kotoba.edn
+python3 20-actors/tsumugi/tests/test_scale.py             # 11 tests (one per gate + 長崎 flagship)
+```
+First run: `jp.nagasaki` is the top cluster (all 4 産官学報 sectors woven, concentration 12.08;
+三菱重工長崎造船所 the top cross-sector broker, span 3).
+
+## (B) 旗 hata — declared ideology / faction camps
+
+Projects the diachronic thought-streams (ADR-2606061500) **forward into the present** as 旗
+(banners): which ideological standard a public-power entity **openly flies**, today's camps,
+and the **bridges** (entities flying ≥2 banners = pluralism). The highest-risk extension —
+hence the strictest gates. It can say *"Party A self-declares banner B (per its own manifesto)"*
+and *"B descends from stream S"*; it **cannot** say *"entity Y is secretly extremist"* or rank
+anyone by conviction — by construction.
+
+### The thought-policing guard H1–H7 (read `00-contracts/schemas/banner-ontology.kotoba.edn`)
+- **H1 public-declared basis only** — `:flies/basis ∈ {:self-declared :public-stated :voting-record
+  :formal-membership}`; `:inferred/:suspected/:imputed` raise. No hidden/"real" ideology.
+- **H2 non-adjudicating** — threat tokens (`:extremist :過激 :危険思想 :terrorist`) unrepresentable;
+  no `:banner/threat-level`, no `:ent/loyalty`.
+- **H3 edge-primary** — alignment on `:flies/*` only; no `:ent/ideology-score` (raises).
+- **H4 person-excluded** — `:flies/who` institutional/public-seat/self only; not a belief registry.
+- **H5 mirror + symmetric** — etzhayyim discloses its OWN Charter banner (inbound-only), not from a feigned neutral.
+- **H6 plural + contested** — many-to-many; ≥2-banner entities are bridges, not anomalies.
+- **H7 sourcing** — every `:flies` ≥2 public citations (own manifesto/statement/vote).
+
+```bash
+python3 20-actors/tsumugi/methods/analyze_banner.py      # → out/banner-report.md + banner-graph.kotoba.edn
+python3 20-actors/tsumugi/tests/test_banner.py           # 11 tests (one per gate + camps/bridges/genealogy)
+```
+
+**R0 design-only.** `:representative` bounded seeds (学会X / 政党A·B·C are representative
+placeholders, NOT assertions about named orgs); committed banner seed aligns only self-declared
+public platforms + abstract streams (no corporate/newspaper/person ideology labels — that stays
+G7-gated). Live locality + entity↔banner ingest is G7 + Council + operator-gated. Murakumo-only
+narration (G6). New lexicons (future, gated): `com.etzhayyim.power.{scaleCluster,bannerCamp}`.
+
+## Granularity waves + Murakumo narration (/loop, ADR-2606092000)
+
+A recurring `/loop` (every 30 min) progressively details the intel across **全世界の
+組織・地域・コミュニティ・社内派閥・学閥** granularities and keeps it narratable on the
+Gemma-4 Murakumo fleet. Standing structure:
+
+- **Granularity axis** `:pwr/collective-kind ∈ {:org 組織/企業単位 :region 地域(県) :municipality
+  市区町村 :community コミュニティ :intra-org-faction 社内派閥 :academic-clique 学閥 :keiretsu 系列
+  :advisory-body 審議会}` + a `:pwr/scale` that now drops one step below 県:
+  `…:regional(都道府県) → :municipal(市区町村/基礎自治体) → :local → :intra-org`. Still
+  seat/institution-level (S2): a 学閥 is a cross-institution CLIQUE of public SEATS, a 社内派閥
+  a faction of SEATS under one org — **never a roster of persons**. `analyze_scale.py` emits a
+  per-collective-kind aggregate (粒度 section). Each `/loop` wave adds more `:representative`
+  instances: wave 1 社内派閥/学閥/community · wave 2 愛知/広島 (県) · wave 3 豊田市/長崎市
+  (市区町村) + トヨタ企業単位 (本社↔事業部↔労連). 豊田市 = flagship 企業城下町.
+- **Murakumo narration** (`cell:tsumugi.narrate`): `methods/narrate.py` (stdlib twin, urllib →
+  LiteLLM `127.0.0.1:4000`, **refuses non-fleet host**, operator-gated, dry-run default) +
+  `deploy/agent.py` (canonical in-WASM `kotoba_langgraph` → `KotobaLLM` → host
+  `MURAKUMO_DEFAULT_MODEL` gemma4; himawari pattern). G6 Murakumo-only · G7 `published=false`.
+  See `deploy/README.md`.
+
+```bash
+python3 20-actors/tsumugi/methods/narrate.py            # dry-run → out/narration.dryrun.md
+python3 20-actors/tsumugi/tests/test_narrate.py         # 9 tests (Murakumo-only + aggregate-safe)
+```
+
+## Coverage measurement + G7-gated live ingest — scale/旗 (ADR-2606092000)
+
+```bash
+# honest gap audit (per-scale/kind/sector/country + denominators, all ~0 real by design)
+python3 20-actors/tsumugi/methods/coverage_scale.py        # → out/coverage-report.md
+python3 20-actors/tsumugi/tests/test_coverage_scale.py     # 6 tests
+# OFFLINE structural-public org ingest (Wikidata-P749-shaped fixtures → :pwr + :tie :custodies)
+python3 20-actors/tsumugi/methods/ingest_scale.py
+#   → out/seed-plus-ingest-scale.kotoba.edn — run analyze_scale on THIS for the lift
+# LIVE Wikidata P749 fetch (stdlib urllib) — G7-gated, refused without the operator gate:
+TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
+  python3 20-actors/tsumugi/methods/ingest_scale.py --live --ring2 --limit 400   # Wikidata, SELF-EXPANDING
+TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
+  python3 20-actors/tsumugi/methods/ingest_scale.py --live --gleif --limit 150   # GLEIF L2 (second source)
+#   → writes out/ ONLY; the committed seed is NEVER auto-mutated (promotion = reviewed PR =
+#     the Council ratification act). --ring2 derives anchors from the seed's own citation QIDs
+#     (each promotion enriches the next ring); --gleif uses curated VERIFIED LEIs + a runtime
+#     legalName guard (GLEIF name-search is fuzzy; even exact names collide).
+python3 20-actors/tsumugi/tests/test_ingest_scale.py       # 24 tests (S2/S4/S5/G7 + anchored/ring2/gleif)
+```
+
+- **`coverage_scale.py`** measures the gap honestly: scales 7/7 · kinds 8/8 · sectors 6/6 ·
+  countries 8/195 (4.1%) — machinery fully exercised, real-world coverage ~0 BY DESIGN.
+- **`ingest_scale.py`** is the path that scales (A) coverage: STRUCTURAL-PUBLIC only (orgs +
+  parent-org `:custodies`), **S2 person-excluded** (live query constrained to org class), S4
+  ≥2 citations, S5 factual, **G7** offline-by-default / `--live` gated to operator + Council,
+  **seed never auto-mutated**. **Banner (旗) live ingest is deliberately NOT automated** —
+  auto-imputing ideology is the H1 failure mode; banners stay human-authored.
+
+## etzhayyim as a power-data PROVIDER + biological foraging (ADR-2606092000 wave 3)
+
+```bash
+# PUBLISH the woven graph as self-sovereign linked data (etzhayyim's OWN vocabulary)
+python3 20-actors/tsumugi/methods/publish.py        # → out/etzhayyim-power-graph.{nt,jsonld} + dataset-manifest.json
+python3 20-actors/tsumugi/tests/test_publish.py     # 14 tests
+# FORAGE — 粘菌/菌糸 growth plan (offline, from the seed): harvested vs frontier tips, starvation→fruit
+python3 20-actors/tsumugi/methods/ingest_scale.py --forage   # → out/forage-plan.json
+```
+
+- **Provider** (`publish.py`): the inversion of dependence — etzhayyim stops being only a
+  Wikidata/GLEIF *consumer* and becomes a *source*. Vocabulary `https://etzhayyim.com/ns/power#`,
+  entity IRIs `https://etzhayyim.com/id/power/<id>`; JSON-LD + N-Triples (SPARQL-loadable) + DCAT
+  manifest (license + `did:web:etzhayyim.com:actor:tsumugi` publisher + **content-hash = the
+  dataset's self-sovereign identity**). Publishes the layers no upstream has (産官学報
+  concentration, scale/sector/collective-kind, vertical integration) as etzhayyim-authored
+  (`epw:derivedBy`). S2 survives (only `epw:Org`/`:PublicSeat`/`:Locality`). = the 植物-producer
+  niche of ibuki's food web — the colony feeds humanity, not only itself.
+- **Foraging** (`--forage`): cadence by HUNGER not clock — harvested anchors vs frontier tips,
+  and substrate-starvation → fruit (switch source). The daily routine reads `out/forage-plan.json`.
+
+## kotoba-native routine — self-expansion on etzhayyim's OWN fleet, not Claude-cloud (ADR-2606092000)
+
+The recurring loop runs on the **Mac-mini fleet** (`70-tools/scripts/fleet-heartbeat/heartbeat.sh`
+beats `methods/autorun.py`), recording each cycle on the **local append-only kotoba Datom log** —
+**zero dependency on Anthropic's cron-routine cloud** (which is also network-blocked for WDQS/GLEIF,
+so it could only re-promote offline fixtures). Self-sovereign substrate, mirroring ibuki/shionome.
+
+```bash
+python3 20-actors/tsumugi/methods/autorun.py --cycles 1   # one offline beat → :tsumugi.cycle/* datoms
+ACTORS="tsumugi" 70-tools/scripts/fleet-heartbeat/heartbeat.sh   # via the fleet beat (tsumugi is in DEFAULT_ACTORS)
+```
+
+- **A beat is OFFLINE + deterministic + fail-open**: forage (粘菌/菌糸 growth plan) → publish
+  (植物-producer: regenerate the provider linked-data so etzhayyim keeps FEEDING others) → measure
+  (coverage + seed stats) → append a content-addressed `:tsumugi.cycle/*` tx (chain-verified;
+  same seed + same beat index → byte-identical head CID). Local log is `.gitignore`'d / regenerable.
+- **Live WDQS/GLEIF ingest stays operator-gated** (`TSUMUGI_OPERATOR_GATE`, run on the fleet where
+  network IS available) — the heartbeat beats only the offline metabolism, never live I/O (kanjo
+  EDGAR pattern). Scheduling = a fleet-node `cron`/`launchd` entry calling heartbeat.sh — on
+  etzhayyim's own machines, recorded on its own kotoba log.
+
+```bash
+python3 20-actors/tsumugi/tests/test_autorun.py   # 11 tests (content-addressed chain + determinism)
+```
+
+## Pinned to IPFS + resolves at etzhayyim.com (ADR-2606092000 wave 5)
+
+```bash
+python3 20-actors/tsumugi/methods/publish_ipfs.py            # pin: 80-data/tsumugi-power/ + apex descriptor
+python3 20-actors/tsumugi/methods/publish_ipfs.py --verify   # re-content-address vs the manifest
+python3 20-actors/tsumugi/tests/test_publish_ipfs.py         # 11 tests (incl. ipfs-add CID vector)
+```
+
+- **(A) PIN**: artifacts gzipped (mtime=0 → deterministic) + content-addressed to a kotoba IPFS
+  **CIDv1 (raw, sha2-256)** — byte-identical to `ipfs add --cid-version=1 --raw-leaves`, verifiable
+  with `rasen/methods/cid.py`, no daemon. Home: **`80-data/tsumugi-power/`** (graph/nt/jsonld `.gz`
+  + `publish-manifest.json` + `PUBLISH.md`). Committed → durable + pin-able by CID.
+- **(B) SERVE**: `https://etzhayyim.com/ns/power` (resolvable epw: vocabulary) +
+  `https://etzhayyim.com/dataset/tsumugi-power.json` (CIDs + gateway links) via the apex Worker
+  static dir (`50-infra/etzhayyim-did-web/public/`). Live on next `wrangler deploy`. The data lives
+  on IPFS (host-independent); etzhayyim.com only advertises it.

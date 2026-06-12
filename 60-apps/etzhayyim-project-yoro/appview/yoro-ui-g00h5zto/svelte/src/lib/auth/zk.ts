@@ -1,4 +1,9 @@
-import type { KeyDerivationParams, ZkEnvelopeV1 } from './types.js';
+import {
+	ARGON2ID_DEFAULT_PARAMS,
+	deriveKeyArgon2id,
+} from '@etzhayyim/sdk/kdf';
+
+import type { KeyDerivationParams, ZkEnvelopeV1, ZkKdfInfo } from './types.js';
 
 const DEFAULT_PBKDF2_ITERATIONS = 310_000;
 const WRAPPING_KEY_BYTES = 32;
@@ -38,16 +43,19 @@ export function parseZkV1Envelope(payload: unknown): ZkEnvelopeV1 {
 	return payload as ZkEnvelopeV1;
 }
 
+/**
+ * Derive the zk wrapping key. New writes default to Argon2id (memory-hard,
+ * RFC 9106 — via the @etzhayyim/sdk/kdf seam, per ADR-2606111300 residual
+ * #2); `kdf: 'pbkdf2-sha256'` keeps existing envelopes unlockable
+ * (crypto-agility read-compat — current + previous suite).
+ */
 export async function deriveWrappingKey(
 	params: KeyDerivationParams
-): Promise<{ key: Uint8Array; salt: string; iterations: number }> {
+): Promise<{ key: Uint8Array; salt: string } & ZkKdfInfo> {
 	const password = params.accountPassword.trim();
 	const secret = normalizeSecretKey(params.secretKey);
 	if (!password) throw new Error('accountPassword is required');
 	if (!secret) throw new Error('secretKey is required');
-
-	const iterations = params.iterations ?? DEFAULT_PBKDF2_ITERATIONS;
-	if (iterations < 150_000) throw new Error('iterations must be >= 150000');
 
 	const salt =
 		params.saltBase64Url ??
@@ -55,6 +63,27 @@ export async function deriveWrappingKey(
 	const saltBytes = Uint8Array.from(atob(normalizeBase64Url(salt)), (c) =>
 		c.charCodeAt(0)
 	);
+
+	const kdf = params.kdf ?? 'argon2id';
+
+	if (kdf === 'argon2id') {
+		const derived = deriveKeyArgon2id({
+			password: `${password}:${secret}`,
+			salt: saltBytes,
+			params: params.argon2 ?? ARGON2ID_DEFAULT_PARAMS,
+			dkLen: WRAPPING_KEY_BYTES,
+		});
+		return {
+			key: derived.key,
+			kdf,
+			salt,
+			saltBase64Url: salt,
+			argon2: derived.params,
+		};
+	}
+
+	const iterations = params.iterations ?? DEFAULT_PBKDF2_ITERATIONS;
+	if (iterations < 150_000) throw new Error('iterations must be >= 150000');
 
 	const keyMaterial = await crypto.subtle.importKey(
 		'raw',
@@ -64,7 +93,6 @@ export async function deriveWrappingKey(
 		['deriveBits']
 	);
 
-	// PBKDF2 is used as a portable baseline until Argon2id is available in all target runtimes.
 	const bits = await crypto.subtle.deriveBits(
 		{
 			name: 'PBKDF2',
@@ -78,7 +106,9 @@ export async function deriveWrappingKey(
 
 	return {
 		key: new Uint8Array(bits),
+		kdf,
 		salt,
+		saltBase64Url: salt,
 		iterations,
 	};
 }

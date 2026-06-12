@@ -65,11 +65,34 @@ export interface AuthConfig {
 	accountsBaseUrl?: string;
 }
 
+export type ZkKdfName = 'argon2id' | 'pbkdf2-sha256';
+
+export interface Argon2idCostParams {
+	mKiB: number;
+	t: number;
+	p: number;
+}
+
+/** KDF metadata persisted in envelope.aad and echoed in flow results. */
+export interface ZkKdfInfo {
+	kdf: ZkKdfName;
+	saltBase64Url: string;
+	/** PBKDF2 only (read-compat for pre-argon2id envelopes). */
+	iterations?: number;
+	/** Argon2id only. */
+	argon2?: Argon2idCostParams;
+}
+
 export interface KeyDerivationParams {
 	accountPassword: string;
 	secretKey: string;
 	saltBase64Url?: string;
+	/** KDF selection. New writes default to 'argon2id' (ADR-2606111300 residual #2). */
+	kdf?: ZkKdfName;
+	/** PBKDF2 only. */
 	iterations?: number;
+	/** Argon2id only. Defaults to the SDK OWASP-minimum profile. */
+	argon2?: Argon2idCostParams;
 }
 
 export interface ZkEnvelopeV1 {
@@ -129,15 +152,15 @@ export interface EnrollKeyBundleInput extends KeyBundleLookupInput {
 	envelopeJson: string;
 	clientConfig?: KeyBundleClientConfig;
 	saltBase64Url?: string;
+	/** KDF for the new enrollment. Default 'argon2id'; 'pbkdf2-sha256' is legacy-write escape hatch. */
+	kdf?: ZkKdfName;
 	iterations?: number;
+	argon2?: Argon2idCostParams;
 }
 
 export interface EnrollKeyBundleResult {
 	bundle: KeyBundleEnvelopeRecord;
-	kdf: {
-		saltBase64Url: string;
-		iterations: number;
-	};
+	kdf: ZkKdfInfo;
 }
 
 export interface FetchAndUnlockKeyBundleInput extends KeyBundleLookupInput {
@@ -149,10 +172,7 @@ export interface FetchAndUnlockKeyBundleInput extends KeyBundleLookupInput {
 export interface FetchAndUnlockKeyBundleResult {
 	bundle: KeyBundleEnvelopeRecord;
 	envelope: ZkEnvelopeV1;
-	kdf: {
-		saltBase64Url: string;
-		iterations: number;
-	};
+	kdf: ZkKdfInfo;
 	wrappingKey: Uint8Array;
 }
 

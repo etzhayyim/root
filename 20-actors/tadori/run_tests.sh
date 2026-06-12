@@ -8,6 +8,7 @@ cd "$(dirname "$0")"
 SUITES=(
   "kotoba/test_ingest_threat_intel.py"
   "kotoba/test_invariants.py"
+  "kotoba/test_autorun.py"
 )
 
 fail=0

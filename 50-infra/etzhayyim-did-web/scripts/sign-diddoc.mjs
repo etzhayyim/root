@@ -6,17 +6,24 @@
  * (src/diddoc-attest.ts).
  *
  *   node scripts/sign-diddoc.mjs --did did:web:etzhayyim.com:actor:kanae \
- *        --cid <didDocCid> [--key <64-hex-seed>] [--seq 1]
+ *        --cid <didDocCid> [--key <64-hex-seed>] [--seq 1] \
+ *        [--pq | --pq-key <64-hex-seed>]
  *
  * With --actor <h> instead of --cid, reads out/actor-records/<h>.diddoc.cid
  * (run publish-actor-records.mjs first). Without --key, generates a fresh
  * keypair and prints the seed (save it — it is the actor's identity).
+ *
+ * --pq / --pq-key adds the pqh-v1 companion proof (ADR-2606111300): an
+ * ML-DSA-65 (FIPS 204) signature over the same attestation bytes, keyed by a
+ * second 32-byte seed. Save the pq seed alongside the ed25519 seed.
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
+import { ml_dsa65 } from "@noble/post-quantum/ml-dsa.js";
 import {
   ed25519PubToDidKey,
+  mlDsa65PubToDidKey,
   base58btcEncode,
   attestationMessage,
 } from "../src/diddoc-attest.ts";
@@ -49,10 +56,19 @@ async function ed25519PubFromSeed(seed32) {
   return new Uint8Array(spki.slice(spki.length - 32));
 }
 
-/** Sign a payload → a complete attestation object. */
-export async function signDidDocAttestation(payload, priv, pubRaw) {
-  const sig = new Uint8Array(await crypto.subtle.sign({ name: "Ed25519" }, priv, attestationMessage(payload)));
-  return {
+/** Generate (or derive from a 32-byte seed) an ML-DSA-65 keypair. */
+export function mlDsa65Key(seed32) {
+  const seed = seed32 ?? crypto.getRandomValues(new Uint8Array(32));
+  const { publicKey, secretKey } = ml_dsa65.keygen(seed);
+  return { publicKey, secretKey, seed };
+}
+
+/** Sign a payload → a complete attestation object. Pass `pqKey` (from
+ *  mlDsa65Key) to add the pqh-v1 companion proof over the same bytes. */
+export async function signDidDocAttestation(payload, priv, pubRaw, pqKey) {
+  const msg = attestationMessage(payload);
+  const sig = new Uint8Array(await crypto.subtle.sign({ name: "Ed25519" }, priv, msg));
+  const att = {
     type: "EtzhayyimDidDocAttestation",
     ...payload,
     proof: {
@@ -61,6 +77,15 @@ export async function signDidDocAttestation(payload, priv, pubRaw) {
       proofValue: "z" + base58btcEncode(sig),
     },
   };
+  if (pqKey) {
+    const pqSig = ml_dsa65.sign(msg, pqKey.secretKey);
+    att.pqProof = {
+      type: "MlDsa65Signature2026",
+      verificationMethod: mlDsa65PubToDidKey(pqKey.publicKey),
+      proofValue: "z" + base58btcEncode(pqSig),
+    };
+  }
+  return att;
 }
 
 async function main() {
@@ -84,19 +109,27 @@ async function main() {
     key = await ed25519Key();
   }
 
+  const pqSeedHex = val("--pq-key");
+  const wantPq = pqSeedHex !== undefined || args.includes("--pq");
+  const pqKey = wantPq ? mlDsa65Key(pqSeedHex ? unhex(pqSeedHex) : undefined) : undefined;
+
   const payload = {
     did,
     didDocCid: cid,
     signedAt: val("--at") ?? "1970-01-01T00:00:00.000Z",
     sequence: Number(val("--seq") ?? 1),
   };
-  const att = await signDidDocAttestation(payload, key.priv, key.pubRaw);
+  const att = await signDidDocAttestation(payload, key.priv, key.pubRaw, pqKey);
   const outDir = resolve(__dirname, "../out/attestations");
   mkdirSync(outDir, { recursive: true });
   const file = join(outDir, `${did.split(":").pop()}.attestation.json`);
   writeFileSync(file, JSON.stringify(att, null, 2) + "\n");
   console.log(`did:key  = ${att.proof.verificationMethod}`);
   console.log(`seed     = ${hex(key.seed)}  (the actor's identity — keep it safe, server never sees it)`);
+  if (pqKey) {
+    console.log(`pq did:key = ${att.pqProof.verificationMethod}`);
+    console.log(`pq seed    = ${hex(pqKey.seed)}  (ML-DSA-65 identity — keep alongside the ed25519 seed)`);
+  }
   console.log(`written  → ${file}`);
 }
 
