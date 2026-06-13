@@ -202,7 +202,12 @@
                       'funadaiku.methods.test-voyage-energy
                       'hikari.methods.test-microgrid 'hikari.methods.test-panel-install
                       'mizuho.methods.test-water-supply 'mizuho.methods.test-chlorination
-                      'noroshi.methods.test-link-budget 'noroshi.methods.test-pic-layout)
+                      'noroshi.methods.test-link-budget 'noroshi.methods.test-pic-layout
+                      'kadode.methods.test-generate 'kadode.methods.test-cid
+                      'kaiyaku.tests.test-plan
+                      'hinagata.tests.test-cid 'hinagata.tests.test-query
+                      'hinagata.tests.test-validate 'hinagata.tests.test-esign
+                      'hinagata.tests.test-maturity)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
                                              'kadode.tests.test-coverage
@@ -269,7 +274,15 @@
                                              'mizuho.methods.test-water-supply
                                              'mizuho.methods.test-chlorination
                                              'noroshi.methods.test-link-budget
-                                             'noroshi.methods.test-pic-layout)]
+                                             'noroshi.methods.test-pic-layout
+                                             'kadode.methods.test-generate
+                                             'kadode.methods.test-cid
+                                             'kaiyaku.tests.test-plan
+                                             'hinagata.tests.test-cid
+                                             'hinagata.tests.test-query
+                                             'hinagata.tests.test-validate
+                                             'hinagata.tests.test-esign
+                                             'hinagata.tests.test-maturity)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
