@@ -6,9 +6,13 @@
             [yoro-ui.pages.home :refer [home-page]]
             [yoro-ui.pages.search :refer [search-page]]
             [yoro-ui.pages.convo :refer [convo-list-page]]
+            [yoro-ui.pages.notifications :refer [notifications-page]]
+            [yoro-ui.pages.convo-detail :refer [convo-detail-page]]
             [yoro-ui.pages.profile :refer [profile-page]]
             [yoro-ui.components.inference-consent :refer [inference-consent]]
-            [yoro-ui.components.no-cookie-banner :refer [no-cookie-banner]]))
+            [yoro-ui.components.no-cookie-banner :refer [no-cookie-banner]]
+            [yoro-ui.components.auth-modal :refer [auth-modal]]
+            [yoro-ui.components.post-composer :refer [post-composer]]))
 
 (defn- not-found-page [path]
   [:div {:class "flex flex-col items-center justify-center py-20 text-center px-6"}
@@ -16,19 +20,19 @@
    [:h2 {:class "text-[18px] font-bold text-gv2-text-primary mb-2"} "ページが見つかりません"]
    [:p {:class "text-[13px] text-gv2-text-muted font-mono"} (str "404 " path)]])
 
-(defn- notifications-page []
-  [:div {:class "flex flex-col items-center justify-center py-20 text-center px-6"}
-   [:div {:class "text-5xl mb-4"} "🔔"]
-   [:h2 {:class "text-[16px] font-bold text-gv2-text-primary mb-2"} "通知"]
-   [:p {:class "text-[13px] text-gv2-text-muted"} "準備中 — 近日公開予定"]])
+(rf/reg-event-fx
+ :nav/back
+ (fn [_ _]
+   {:fx [[:dispatch [:router/navigate-to "/"]]]}))
 
 (defn- page-content []
-  (let [route @(rf/subscribe [:router/route])
+  (let [route  @(rf/subscribe [:router/route])
         params @(rf/subscribe [:router/params])]
     (case route
       :home           [home-page]
       :search         [search-page]
       :convo-list     [convo-list-page]
+      :convo-detail   [convo-detail-page {:id (:convo-id params)}]
       :notifications  [notifications-page]
       :own-profile    [profile-page {:handle @(rf/subscribe [:auth/handle])}]
       :profile        [profile-page {:handle (:handle params)}]
@@ -44,5 +48,9 @@
     [page-content]]
 
    [tab-bar]
+
+   ;; Overlays
+   [auth-modal]
+   [post-composer]
    [inference-consent]
    [no-cookie-banner]])

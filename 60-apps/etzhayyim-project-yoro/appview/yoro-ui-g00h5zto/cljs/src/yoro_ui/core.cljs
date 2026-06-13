@@ -16,6 +16,8 @@
             [yoro-ui.state.convos]
             [yoro-ui.state.topology]
             [yoro-ui.state.inference-consent]
+            [yoro-ui.state.notifications]
+            [yoro-ui.state.datom]
             ;; Router
             [yoro-ui.router :as router]
             ;; App shell
@@ -31,6 +33,7 @@
      {}
      {:db {}
       :fx [[:dispatch [:auth/bootstrap]]
+           [:dispatch [:kotoba/init]]
            [:dispatch [:hitl/start]]]})))
 
 ;; ---------------------------------------------------------------------------
