@@ -1,0 +1,14 @@
+;; shirabe 調べ — research-session fixture (EDN, the repo data convention).
+;; Mirrors the real 2026-06-13 lookup (ぐるなび). Drives the .cljc tests + the dry run;
+;; the LIVE run (live.clj) gathers this evidence itself over the read-only public web.
+;; Per-result maps use keyword keys (:title/:url/:snippet) — the same shape the live web
+;; fetcher emits — so retrieve treats fixture and live evidence identically.
+{:question "青山の島田は今日やっている?"
+ :asof "2026-06-13"
+ :search {"*" [{:title "割烹しまだ（表参道・青山/割烹）"
+                :url "https://r.gnavi.co.jp/6zwa40m30000/"
+                :snippet "営業時間 月～土 11:30～13:45 18:00～23:30。定休日 日曜日、第2土曜日、第4土曜日。表参道・青山の割烹。"}
+               {:title "割烹しまだ 店舗情報・アクセス"
+                :url "https://r.gnavi.co.jp/6zwa40m30000/map/"
+                :snippet "東京都港区南青山。地下鉄 表参道駅から徒歩。カウンター中心の割烹。"}]}
+ :answer "青山の割烹しまだは、本日2026年6月13日（第2土曜日）は定休日の可能性が高いです [1]。営業時間は月〜土 11:30〜13:45 / 18:00〜23:30 ですが、定休日が日曜・第2土曜・第4土曜のため、6月の第2土曜にあたる今日は休みにあたります [1]。確実を期すなら店舗へ直接ご確認ください。"}
