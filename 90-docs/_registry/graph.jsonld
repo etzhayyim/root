@@ -15688,6 +15688,20 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606131300-clj-port-determinism-golden-file-first-class",
+      "type": "TechArticle",
+      "title": "ADR-2606131300: Clojure 移植の検証基準 — 決定性 + golden-file を一級、python3 byte-parity は in-development 便宜オラクル",
+      "status": "proposed",
+      "topic": "clj-port-determinism-golden-file-first-class",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/*/methods/*.cljc",
+        "bb.edn"
+      ],
+      "related": "doc:adr-2606101200",
+      "lastVerified": "2026-06-13"
+    },
+    {
       "id": "doc:adr-2606131350-yabai-sms-smishing-ioc-and-yoro-ondevice-organizer",
       "type": "TechArticle",
       "title": "ADR-2606131350: yabai JP SMS smishing IOC corpus + yoro on-device Gemma E4B SMS-organizer R0",

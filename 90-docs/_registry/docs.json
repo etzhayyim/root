@@ -24744,6 +24744,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606131300-clj-port-determinism-golden-file-first-class.md",
+      "id": "adr-2606131300-clj-port-determinism-golden-file-first-class",
+      "title": "ADR-2606131300: Clojure 移植の検証基準 — 決定性 + golden-file を一級、python3 byte-parity は in-development 便宜オラクル",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "clj-port-determinism-golden-file-first-class",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/*/methods/*.cljc",
+        "bb.edn"
+      ],
+      "related": [
+        "adr-2606101200"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2606120500-fleet-clojure-refactor-and-gemma4-cpt"
+      ],
+      "last_verified": "2026-06-13",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606131350-yabai-sms-smishing-ioc-and-yoro-ondevice-organizer.md",
       "id": "adr-2606131350-yabai-sms-smishing-ioc-and-yoro-ondevice-organizer",
       "title": "ADR-2606131350: yabai JP SMS smishing IOC corpus + yoro on-device Gemma E4B SMS-organizer R0",
