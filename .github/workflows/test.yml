@@ -97,16 +97,10 @@ jobs:
           - 70-tools/integration-tests
     steps:
       - uses: actions/checkout@v4
-      # mst-projector imports @etzhayyim/yorishiro-huggingface-inference-mcp/handle,
-      # a pnpm workspace package that lives INSIDE the 40-engine/kotoba submodule
-      # (pnpm-workspace.yaml glob "40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-*-mcp").
-      # Init just that submodule for just that scope — a blanket `submodules: true`
-      # would also clone the private spirit-in-physics repo and the local-only
-      # DataLad submodules (relative URLs), which fail on CI runners.
-      - name: Checkout kotoba submodule (mst-projector workspace deps)
-        if: matrix.scope == '20-actors/mst-projector'
-        run: git submodule update --init --depth 1 40-engine/kotoba
-          || git submodule update --init 40-engine/kotoba
+      # NOTE: the 40-engine/kotoba submodule was removed (ADR-2606131645). The
+      # yorishiro-*-mcp workspace packages it provided now live in the
+      # etzhayyim/kotoba repo; mst-projector deps that needed them must be
+      # re-pointed there as part of the Phase-4 cutover follow-up.
       - uses: actions/setup-node@v4
         with:
           node-version: "22"

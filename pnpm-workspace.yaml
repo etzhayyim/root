@@ -60,8 +60,8 @@ packages:
 
   # yorishiro generator + emitted MCP servers (ADR-2605211900)
   - "70-tools/etzhayyim-cli/yorishiro"
-  - "40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-*-mcp"
-  - "40-engine/kotoba/crates/kotoba-kotodama/mcp/open-seiyaku-mcp"
+  # kotoba-kotodama MCP globs removed with the 40-engine/kotoba submodule
+  # (ADR-2606131645); they live in the etzhayyim/kotoba repo now.
 
   # etzhayyim-organism-viz Svelte frontend (ADR-2605221411)
   - "60-apps/etzhayyim-organism-viz/web"
