@@ -41,7 +41,7 @@
  ;; ── decision — D1..D6 ─────────────────────────────────────────────────────
  :decision
  {:D1 "Actor COUNT stays 18,342; only hand-written FILES collapse. One functional organism framework + per-code data -> 18,342 living, individuated, functional actors. The 'functional/organic' comes from 4 sources: per-code data, a capability library generalized from the bespoke tier, Murakumo inference, and organism life (heartbeat/joucho)."
-  :D2 "Extract kotodama to its OWN repo (etzhayyim/kotodama); root references it as a dependency."
+  :D2 "Extract kotodama to its OWN repo (etzhayyim/kototama); root references it as a dependency."
   :D3 "kotoba Rust engine (17 crates) = EXTERNAL dependency, not an in-tree submodule; remove the submodule from root."
   :D4 "Split the kotodama runtime off the Step-8 gate; the murakumo runtime rename (220-file atomic) stays out of scope."
   :D5 :invariants ;; the invariants block below is D5
@@ -78,7 +78,7 @@
 
  ;; ── delivered — verification record (CLI/headless reproducible) ────────────
  :delivered
- {:repo "etzhayyim/kotodama (local: orgs/com-junkawasaki/kotodama)"
+ {:repo "etzhayyim/kototama (local: orgs/com-junkawasaki/kototama)"
   :framework "kotodama.unspsc.{taxonomy capability organism react life fleet}"
   :tests "11 tests / 78 assertions green (clojure -X:test)"
   :runtimes ["JVM" "SCI (babashka)" "Node (compiled cljs)" "headless Chromium (cljs browser bundle, Playwright)" "wasmtime (kotoba-clj real-wasm micro-kernel, 3955 bytes)"]
