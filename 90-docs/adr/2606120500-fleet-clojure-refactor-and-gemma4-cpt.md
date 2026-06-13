@@ -79,8 +79,13 @@ founder 指示 (b): **Fable gold 30本で疎通 → fleet 増幅 → 本番 CPT*
 | stage 0 関数単位分解 (bb 実ロードゲート) | **47/49 ファイル compile-load / live unit 26%** |
 | CPT パイプライン疎通 (SmolLM + 本番 gemma4) | e2e OK (loss 下降) |
 | fleet 増幅 (140 files) | 139/140 bb 通過 / 139 検証済み unit |
+| **本番 CPT-LoRA 再実行 (修正版, 2026-06-12)** | **lora_B nonzero mass 23693.68 — adapter learned**; grad_norm 2.298 / train_loss 2.097 (最終 step 1.489) vs 旧走行 grad_norm 0 / loss 7.086 横ばい; 3 epoch / 1,417 s; 保存 `gad:~/cpt-clj/cpt-clj-lora-v2` (残課題 #1 完了) |
+| **CPT held-out A/B 測定 (残課題 #2, 2026-06-12)** | **base 20.4% (11/54) vs CPT 18.5% (10/54) = −1.9pp (ノイズ域、net −1 unit)**。held-out = 訓練外54ユニット (rasen/mitooshi/watatsuna/kakaku、gold 30 とも cpt-full とも非重複)、gad peft 直接生成 (決定論 greedy)、bb-実ロードゲート両アーム同一適用。フリップ 5 gained / 6 lost は全て小 const/単純関数 (`_SQRT2`/`ALLOWED_USE`/`CLINSIG_WEIGHT` 等) でフォーマットノイズ級。**結論: gold-only 3-epoch CPT は held-out 汎化に効かない** (`lora_B≠0`=「学習成立」は held-out coverage 改善を含意しない)。アダプタは適用済み (出力は変化) だがコーパス過小 (30 doc/164 chunk) でスタイル獲得止まり |
+| **SFT held-out A/B 測定 (残課題 #3, 2026-06-12)** | **base 20.4% vs SFT 18.5% (10/54) = −1.9pp (CPT と同一、ノイズ域)**。SFT-LoRA = `sft-clj-lora-v1` (139 検証済み Python→Clojure チャットペア = fleet-12b 増幅収穫、`lora_B≠0` 28505 / train_loss 0.7529、seq_len 1280 + `expandable_segments` で 32GB iGPU OOM 回避)、リーク0確認 (held-out 54 と exact (file,unit) overlap なし)、SFT アームのみ再生成 (base_out 再利用)。フリップ 2 gained / 3 lost。**統合結論: e4b スケール + 小コーパス (≤139例) では CPT も SFT も held-out ~20% 天井を上げられない**。両者ともアダプタ学習成立だが、失敗する 80% (FFI / 複雑 stdlib / 多関数依存) に capability を足せず、易しいユニットの入れ替え (ノイズ) のみ。レバーは**ファインチューン手法ではなく base スケール (→12b) とコーパス規模 (→1000s)** |
+| **e4b vs 12b fleet A/B 測定 (base スケール lever 検証, 2026-06-12)** | **fleet Ollama 同一スタック (20-stream / 10ノード×2 / native `/api/chat` think:false): e4b-it-qat 16.7% (9/54) vs 12b-it-qat 24.1% (13/54) = +7.4pp (net +4, 5 gained / 1 lost)**。**base スケール (e4b→12b) は有意に効く** — fine-tune (CPT/SFT は ~0pp) が動かせなかった天井を base 規模が +7.4pp 押し上げる。これが「レバーは手法ではなく base 規模」の直接証拠。ただし **12b でも絶対 24%** (4ユニットに1つのみ実ポート、残り 3/4 は stub) — これがフリート単発コード生成の天井。(e4b の fleet 16.7% は gad/peft bf16-greedy の 20.4% よりやや低い = q4_0 量子化 + Ollama + temp 0.1 のスタック差; 12b>e4b 信号は同一スタック内で明瞭) |
 
 成果物の質的転換: 「4% 完成」→「96% コンパイル可能スケルトン + 26% 関数実装 + 機械可読 TODO スタブ」。
+CPT の効果は held-out で **ゼロ (ノイズ域)** — レバーは「アダプタが学習したか」ではなく「コーパスが汎化に足る規模/多様性か」。次の打ち手は残課題 #3 (SFT 蒸留 = 139 検証済み fleet 増幅ユニット) + CPT コーパス拡大であり、gold-style CPT 単独ではない。Charter 機微・正しさ要求の移植は引き続き Claude エージェント (本セッションで 19-module ibuki + 14-actor stub 置換を緑テスト付きで完遂、クロス言語 CID/出力パリティ多数) が担う — フリートはバルク下書き + SFT ペア収穫に役割限定。
 
 ## 確定した知見 / 罠
 
@@ -108,9 +113,22 @@ founder 指示 (b): **Fable gold 30本で疎通 → fleet 増幅 → 本番 CPT*
 
 ## 残課題 (次セッション)
 
-1. **本番 CPT-LoRA 再実行** (修正版 train_cpt.py、3 epoch) → `lora_B` 非ゼロ確認。
-2. CPT 済アダプタを base に `unit_refactor` 再測定 → coverage 改善を計測。
-3. **stage 2 (file-type 別 expert LoRA)** / **A (SFT 蒸留)**。
+1. ~~**本番 CPT-LoRA 再実行** (修正版 train_cpt.py、3 epoch) → `lora_B` 非ゼロ確認。~~
+   **DONE 2026-06-12** — 実測表参照 (lora_B nonzero 23693.68 / loss 7.086→2.097)。
+   旧 gad 上スクリプトは no-op 版だったため repo 正本を再配置して実行。
+2. ~~CPT 済アダプタを base に `unit_refactor` 再測定 → coverage 改善を計測。~~
+   **DONE 2026-06-12 — 改善なし (実測表参照: base 20.4% vs CPT 18.5%, −1.9pp ノイズ域)。**
+   gold-only 3-epoch CPT は held-out 汎化に効かず。eval harness =
+   `70-tools/scripts/fleet-refactor/cpt/{eval_ab.py,score_ab.py}` +
+   `heldout-units.jsonl` (再現可能)。→ 残課題 #3 (SFT 蒸留) + コーパス拡大に redirect。
+3. ~~**A (SFT 蒸留)**~~ **DONE 2026-06-12 — 改善なし** (実測表: base 20.4% vs SFT 18.5%,
+   CPT と同一のノイズ域)。139 検証済みペアの SFT も e4b の ~20% 天井を破れず。
+   小コーパス LoRA (CPT/SFT) は打ち止め。残る lever は **base→12b** (pilot-results の
+   `12b-qat-fixed.jsonl` 参照) + **コーパス 1000s 規模化** のみ。**stage 2 (file-type 別
+   expert LoRA)** は同じ天井に当たる公算が高く、優先度低。
+   → 実務上の確定方針: **正しさ要求の移植は Claude エージェント** (本セッション実証:
+   ibuki 19-module + 14-actor stub 置換、緑テスト + クロス言語 CID/出力パリティ多数、
+   PR #1706)、**フリートは 12b バルク下書き + SFT ペア収穫** に役割限定。
 4. founder 判断: fuchi/abaki `live_gate` 空洞化の処置 (revert / 正規 ADR で R2 化 / abaki 素性調査)。
 5. Unsloth は EVO ROCm で probe FAIL 済 (ADR-2605250400 §1.2) — peft+trl direct を継続。
 

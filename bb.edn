@@ -1,0 +1,177 @@
+{;; babashka project file — the Clojure-side runner for actor code ported off
+ ;; Python/TS onto the kotoba Datom-log + langgraph-clj/langchain-clj stack.
+ ;; (`deps.edn` at this root is the platform registry SSoT, NOT a tools.deps file.)
+ ;;
+ ;; Source roots:
+ ;;   20-actors                            — actor namespaces (mimamori.*, yobel.*, …)
+ ;;   20-actors/kotodama/src               — kotoba.datom (Datom-log commit-DAG binding)
+ ;;   50-infra/etzhayyim-moyai-credit/src  — moyai.ledger (reciprocity-credit primitive)
+ :paths ["20-actors"
+         "20-actors/kotodama/src"
+         "50-infra/etzhayyim-moyai-credit/src"
+         "70-tools/src"
+         "70-tools"]
+ :deps {com-junkawasaki/langchain-clj
+        {:git/url "https://github.com/com-junkawasaki/langchain-clj"
+         :git/sha "2b03859c3ee722b64f3eddd0b615a54019b17c81"}
+        com-junkawasaki/langgraph-clj
+        {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
+         :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}}
+ :tasks
+ {test:mimamori
+  {:doc "mimamori 見守り Clojure test suite (port of tests/test_*.py)"
+   :task (do (require 'clojure.test
+                      'mimamori.tests.test-bond
+                      'mimamori.tests.test-coverage
+                      'mimamori.tests.test-kotoba-autorun
+                      'mimamori.tests.test-shakai
+                      'mimamori.tests.test-cell)
+             (let [r (clojure.test/run-tests 'mimamori.tests.test-bond
+                                             'mimamori.tests.test-coverage
+                                             'mimamori.tests.test-kotoba-autorun
+                                             'mimamori.tests.test-shakai
+                                             'mimamori.tests.test-cell)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:yobel
+  {:doc "yobel ヨベル Clojure test suite (langgraph-clj cells + orchestrator E2E)"
+   :task (do (require 'clojure.test
+                      'yobel.cells.rite-declaration.tests.test-cell
+                      'yobel.cells.creditor-enrollment.tests.test-cell
+                      'yobel.cells.debtor-enrollment.tests.test-cell
+                      'yobel.cells.release-settlement.tests.test-cell
+                      'yobel.cells.audit-witness.tests.test-cell
+                      'yobel.tests.test-orchestrator)
+             (let [r (clojure.test/run-tests
+                      'yobel.cells.rite-declaration.tests.test-cell
+                      'yobel.cells.creditor-enrollment.tests.test-cell
+                      'yobel.cells.debtor-enrollment.tests.test-cell
+                      'yobel.cells.release-settlement.tests.test-cell
+                      'yobel.cells.audit-witness.tests.test-cell
+                      'yobel.tests.test-orchestrator)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:ibuki
+  {:doc "ibuki 息吹 Clojure test suite (core loop; integration runs separately — see test:ibuki:integration)"
+   :task (do (require 'clojure.test
+                      'ibuki.methods.test-datoms 'ibuki.methods.test-joucho
+                      'ibuki.methods.test-heartbeat 'ibuki.methods.test-infer
+                      'ibuki.methods.test-kaizen-feedback 'ibuki.methods.test-drainer
+                      'ibuki.methods.test-quorum 'ibuki.methods.test-symbiosis
+                      'ibuki.methods.test-ecosystem 'ibuki.methods.test-health
+                      'ibuki.methods.test-digest 'ibuki.methods.test-autorun
+                      'ibuki.methods.test-delegation 'ibuki.methods.test-member-submit
+                      'ibuki.methods.test-kaizen-outcomes 'ibuki.methods.test-kotoba-bridge
+                      'ibuki.methods.test-perception 'ibuki.methods.test-fleet
+                      'ibuki.methods.test-charter-invariants
+                      'ibuki.methods.test-sick-colony)
+             (let [r (clojure.test/run-tests
+                      'ibuki.methods.test-datoms 'ibuki.methods.test-joucho
+                      'ibuki.methods.test-heartbeat 'ibuki.methods.test-infer
+                      'ibuki.methods.test-kaizen-feedback 'ibuki.methods.test-drainer
+                      'ibuki.methods.test-quorum 'ibuki.methods.test-symbiosis
+                      'ibuki.methods.test-ecosystem 'ibuki.methods.test-health
+                      'ibuki.methods.test-digest 'ibuki.methods.test-autorun
+                      'ibuki.methods.test-delegation 'ibuki.methods.test-member-submit
+                      'ibuki.methods.test-kaizen-outcomes 'ibuki.methods.test-kotoba-bridge
+                      'ibuki.methods.test-perception 'ibuki.methods.test-fleet
+                      'ibuki.methods.test-charter-invariants
+                      'ibuki.methods.test-sick-colony)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:ibuki:integration
+  {:doc "ibuki integration suite (nine 60-beat lives — ~10 min under SCI)"
+   :task (do (require 'clojure.test 'ibuki.methods.test-integration)
+             (let [r (clojure.test/run-tests 'ibuki.methods.test-integration)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:stubs
+  {:doc "stage-0 stub→real ports (analyzers/cells replacing port-failed .clj)"
+   :task (do (require 'clojure.test
+                      'rasen.tests.test-analyze
+                      'kanjo.tests.test-kanjo 'kanjo.tests.test-invariants
+                      'shionome.cells.regime-observer.test-state-machine
+                      'mitooshi.methods.test-promote
+                      'ake.methods.test-ingest
+                      'funadaiku.cells.sea-trial.test-cell
+                      'tedai.cells.intent-plan.test-state-machine
+                      'hotaru.cells.commons-readiness.test-state-machine
+                      'keizu.methods.test-edn
+                      'tatekata.cells.mep-installation.test-cell
+                      'warifu.cells.test-refund
+                      'kakaku.kotoba.test-ingest-mcp
+                      'watatsuna.methods.test-ingest
+                      'scripts.lint.test-verify-no-modal-labs-calls
+                      'scripts.bench.langgraph-coding.test-diff
+                      'inochi.tests.test-analyze 'inochi.tests.test-coverage
+                      'asobi.tests.test-analyze 'asobi.tests.test-coverage
+                      'hokorobi.tests.test-analyze 'hokorobi.tests.test-coverage
+                      'hoshimori.tests.test-analyze 'hoshimori.tests.test-coverage
+                      'tsugite.tests.test-analyze 'tsugite.tests.test-coverage
+                      'shiori.tests.test-analyze 'shiori.tests.test-coverage
+                      'danjo.methods.test-analyze 'kabuto.methods.test-analyze
+                      'keizu.methods.test-weave 'kosatsu.methods.test-weave
+                      'inochi.methods.test-datom-emit 'asobi.methods.test-datom-emit
+                      'hokorobi.methods.test-datom-emit 'hoshimori.methods.test-datom-emit
+                      'tsugite.methods.test-datom-emit 'shiori.methods.test-datom-emit
+                      'rasen.tests.test-datom-emit
+                      'watari.methods.test-analyze
+                      'kosatsu.methods.test-analyze 'keizu.methods.test-analyze)
+             (let [r (clojure.test/run-tests 'rasen.tests.test-analyze
+                                             'kanjo.tests.test-kanjo
+                                             'kanjo.tests.test-invariants
+                                             'shionome.cells.regime-observer.test-state-machine
+                                             'mitooshi.methods.test-promote
+                                             'ake.methods.test-ingest
+                                             'funadaiku.cells.sea-trial.test-cell
+                                             'tedai.cells.intent-plan.test-state-machine
+                                             'hotaru.cells.commons-readiness.test-state-machine
+                                             'keizu.methods.test-edn
+                                             'tatekata.cells.mep-installation.test-cell
+                                             'warifu.cells.test-refund
+                                             'kakaku.kotoba.test-ingest-mcp
+                                             'watatsuna.methods.test-ingest
+                                             'scripts.lint.test-verify-no-modal-labs-calls
+                      'scripts.bench.langgraph-coding.test-diff
+                                             'inochi.tests.test-analyze
+                                             'inochi.tests.test-coverage
+                                             'asobi.tests.test-analyze
+                                             'asobi.tests.test-coverage
+                                             'hokorobi.tests.test-analyze
+                                             'hokorobi.tests.test-coverage
+                                             'hoshimori.tests.test-analyze
+                                             'hoshimori.tests.test-coverage
+                                             'tsugite.tests.test-analyze
+                                             'tsugite.tests.test-coverage
+                                             'shiori.tests.test-analyze
+                                             'shiori.tests.test-coverage
+                                             'danjo.methods.test-analyze
+                                             'kabuto.methods.test-analyze
+                                             'keizu.methods.test-weave
+                                             'kosatsu.methods.test-weave
+                                             'inochi.methods.test-datom-emit
+                                             'asobi.methods.test-datom-emit
+                                             'hokorobi.methods.test-datom-emit
+                                             'hoshimori.methods.test-datom-emit
+                                             'tsugite.methods.test-datom-emit
+                                             'shiori.methods.test-datom-emit
+                                             'rasen.tests.test-datom-emit
+                                             'watari.methods.test-analyze
+                                             'kosatsu.methods.test-analyze
+                                             'keizu.methods.test-analyze)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:clj
+  {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:stubs]}
+  test:tools
+  {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
+   :task (do (require 'clojure.test
+                      'etzhayyim.tools.test-maturation-agent)
+             (let [r (clojure.test/run-tests 'etzhayyim.tools.test-maturation-agent)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  maturation-agent
+  {:doc "LangGraph autonomous maturation agent — upgrade 20-actors *-compat L1→L3 (batch 5)"
+   :task (do (require 'etzhayyim.tools.maturation-agent)
+             ((requiring-resolve 'etzhayyim.tools.maturation-agent/-main)))}}}
