@@ -1,7 +1,9 @@
 (ns yoro-ui.state.feed
   "Feed state — Vibes timeline + discover feed loading via AT Protocol XRPC.
-   Candidate C topology: all XRPC to atproto.etzhayyim.com."
-  (:require [re-frame.core :as rf]))
+   Discover tab → public.api.bsky.app / app.bsky.feed.getFeed (What's Hot).
+   Following tab → atproto.etzhayyim.com / app.bsky.feed.getTimeline (auth required)."
+  (:require [re-frame.core :as rf]
+            [yoro-ui.interop.atproto :as at]))
 
 (def page-size 30)
 
@@ -105,17 +107,21 @@
  (fn [{:keys [db]} [_ cursor]]
    (let [signed-in? (get-in db [:auth :session :did])
          tab (get-in db [:feed :tab] :discover)
-         ;; following tab uses getTimeline for signed-in; discover always uses discover feed
-         nsid (if (and signed-in? (= tab :following))
-                "app.bsky.feed.getTimeline"
-                "com.etzhayyim.yoro.feed.getDiscoverFeed")
          params (cond-> {:limit page-size}
                   cursor (assoc :cursor cursor))]
-     {:atproto/query
-      {:nsid nsid
-       :params params
-       :on-success [:feed/fetch-success (nil? cursor)]
-       :on-failure [:feed/fetch-failure]}})))
+     (if (and signed-in? (= tab :following))
+       ;; フォロー中 tab: authenticated getTimeline against the PDS
+       {:atproto/query
+        {:nsid "app.bsky.feed.getTimeline"
+         :params params
+         :on-success [:feed/fetch-success (nil? cursor)]
+         :on-failure [:feed/fetch-failure]}}
+       ;; おすすめ tab: public AppView getFeed (What's Hot) — no auth needed
+       {:atproto/public-query
+        {:nsid "app.bsky.feed.getFeed"
+         :params (assoc params :feed at/whats-hot-feed)
+         :on-success [:feed/fetch-success (nil? cursor)]
+         :on-failure [:feed/fetch-failure]}}))))
 
 (rf/reg-event-fx
  :feed/fetch-success
