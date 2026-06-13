@@ -93,6 +93,226 @@
                (let [r (apply clojure.test/run-tests nss)]
                  (when (pos? (+ (:fail r) (:error r)))
                    (System/exit 1)))))}
+  ;; merged-from-pywasm-branch (kept for targeted runs; test:actors auto-discovers these too)
+  test:stubs
+  {:doc "stage-0 stub→real ports (analyzers/cells replacing port-failed .clj)"
+   :task (do (require 'clojure.test
+                      'rasen.tests.test-analyze
+                      'kanjo.tests.test-kanjo 'kanjo.tests.test-invariants
+                      'shionome.cells.regime-observer.test-state-machine
+                      'mitooshi.methods.test-promote
+                      'ake.methods.test-ingest
+                      'funadaiku.cells.sea-trial.test-cell
+                      'tedai.cells.intent-plan.test-state-machine
+                      'hotaru.cells.commons-readiness.test-state-machine
+                      'keizu.methods.test-edn
+                      'tatekata.cells.mep-installation.test-cell
+                      'warifu.cells.test-refund
+                      'kakaku.kotoba.test-ingest-mcp
+                      'watatsuna.methods.test-ingest
+                      'scripts.lint.test-verify-no-modal-labs-calls
+                      'scripts.bench.langgraph-coding.test-diff
+                      'inochi.tests.test-analyze 'inochi.tests.test-coverage
+                      'asobi.tests.test-analyze 'asobi.tests.test-coverage
+                      'hokorobi.tests.test-analyze 'hokorobi.tests.test-coverage
+                      'hoshimori.tests.test-analyze 'hoshimori.tests.test-coverage
+                      'tsugite.tests.test-analyze 'tsugite.tests.test-coverage
+                      'shiori.tests.test-analyze 'shiori.tests.test-coverage
+                      'danjo.methods.test-analyze 'kabuto.methods.test-analyze
+                      'keizu.methods.test-weave 'kosatsu.methods.test-weave
+                      'inochi.methods.test-datom-emit 'asobi.methods.test-datom-emit
+                      'hokorobi.methods.test-datom-emit 'hoshimori.methods.test-datom-emit
+                      'tsugite.methods.test-datom-emit 'shiori.methods.test-datom-emit
+                      'rasen.tests.test-datom-emit
+                      'watari.methods.test-analyze
+                      'kosatsu.methods.test-analyze 'keizu.methods.test-analyze)
+             (let [r (clojure.test/run-tests 'rasen.tests.test-analyze
+                                             'kanjo.tests.test-kanjo
+                                             'kanjo.tests.test-invariants
+                                             'shionome.cells.regime-observer.test-state-machine
+                                             'mitooshi.methods.test-promote
+                                             'ake.methods.test-ingest
+                                             'funadaiku.cells.sea-trial.test-cell
+                                             'tedai.cells.intent-plan.test-state-machine
+                                             'hotaru.cells.commons-readiness.test-state-machine
+                                             'keizu.methods.test-edn
+                                             'tatekata.cells.mep-installation.test-cell
+                                             'warifu.cells.test-refund
+                                             'kakaku.kotoba.test-ingest-mcp
+                                             'watatsuna.methods.test-ingest
+                                             'scripts.lint.test-verify-no-modal-labs-calls
+                      'scripts.bench.langgraph-coding.test-diff
+                                             'inochi.tests.test-analyze
+                                             'inochi.tests.test-coverage
+                                             'asobi.tests.test-analyze
+                                             'asobi.tests.test-coverage
+                                             'hokorobi.tests.test-analyze
+                                             'hokorobi.tests.test-coverage
+                                             'hoshimori.tests.test-analyze
+                                             'hoshimori.tests.test-coverage
+                                             'tsugite.tests.test-analyze
+                                             'tsugite.tests.test-coverage
+                                             'shiori.tests.test-analyze
+                                             'shiori.tests.test-coverage
+                                             'danjo.methods.test-analyze
+                                             'kabuto.methods.test-analyze
+                                             'keizu.methods.test-weave
+                                             'kosatsu.methods.test-weave
+                                             'inochi.methods.test-datom-emit
+                                             'asobi.methods.test-datom-emit
+                                             'hokorobi.methods.test-datom-emit
+                                             'hoshimori.methods.test-datom-emit
+                                             'tsugite.methods.test-datom-emit
+                                             'shiori.methods.test-datom-emit
+                                             'rasen.tests.test-datom-emit
+                                             'watari.methods.test-analyze
+                                             'kosatsu.methods.test-analyze
+                                             'keizu.methods.test-analyze)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:pywasm
+  {:doc "pywasm-ready actor analyzers ported post-merge (kaiyaku/kadode/tanemaki/watatsuna analyze)"
+   :task (do (require 'clojure.test
+                      'kaiyaku.tests.test-analyze
+                      'kadode.tests.test-analyze 'kadode.tests.test-coverage
+                      'tanemaki.tests.test-analyze 'tanemaki.tests.test-coverage
+                      'watatsuna.methods.test-analyze
+                      'hinagata.tests.test-analyze 'hinagata.tests.test-coverage
+                      'itonami.tests.test-analyze
+                      'shionome.methods.test-weave 'shionome.methods.test-analyze
+                      'kaiyaku.methods.test-datom-emit 'kadode.methods.test-datom-emit
+                      'tanemaki.methods.test-datom-emit 'itonami.methods.test-datom-emit
+                      'tsumugi.tests.test-banner
+                      'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
+                      'nusa.methods.test-analyze
+                      'ake.methods.test-analyze 'ake.methods.test-triage
+                      'ake.methods.test-contributor
+                      'kawaraban.methods.test-route 'kawaraban.methods.test-analyze
+                      'tasuke.methods.test-triage 'tasuke.methods.test-analyze
+                      'shomei.methods.test-blake2b 'shomei.methods.test-analyze
+                      'fuchi.methods.test-analyze 'fuchi.methods.test-allocate
+                      'fuchi.methods.test-route 'fuchi.methods.test-vote
+                      'fuchi.methods.test-couple 'fuchi.methods.test-book
+                      'fuchi.methods.test-provision
+                      'kasa.tests.test-kasa 'kasa.tests.test-invariants
+                      'uchiwake.tests.test-uchiwake 'sukashi.tests.test-sukashi
+                      'suji.methods.test-load 'suji.methods.test-muscle-strain
+                      'suji.methods.test-datoms 'suji.methods.test-charter-invariants
+                      'suji.methods.test-bridge-consistency
+                      'kamado.methods.test-kamado
+                      'abaki.methods.test-live 'abaki.methods.test-analyze
+                      'rasen.tests.test-coverage 'hinagata.methods.test-datom-emit
+                      'hakoniwa.tests.test-simulate 'hakoniwa.tests.test-distribution
+                      'tate.tests.test-terms 'tate.tests.test-respond
+                      'tate.tests.test-coverage
+                      'itonami.methods.test-optimize 'itonami.methods.test-plan
+                      'itonami.methods.test-inspect 'itonami.methods.test-trend
+                      'keizu.methods.test-registry 'keizu.methods.test-export
+                      'funadaiku.methods.test-voyage-energy
+                      'hikari.methods.test-microgrid 'hikari.methods.test-panel-install
+                      'mizuho.methods.test-water-supply 'mizuho.methods.test-chlorination
+                      'noroshi.methods.test-link-budget 'noroshi.methods.test-pic-layout
+                      'kadode.methods.test-generate 'kadode.methods.test-cid
+                      'kaiyaku.tests.test-plan
+                      'hinagata.tests.test-cid 'hinagata.tests.test-query
+                      'hinagata.tests.test-validate 'hinagata.tests.test-esign
+                      'hinagata.tests.test-maturity)
+             (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
+                                             'kadode.tests.test-analyze
+                                             'kadode.tests.test-coverage
+                                             'tanemaki.tests.test-analyze
+                                             'tanemaki.tests.test-coverage
+                                             'watatsuna.methods.test-analyze
+                                             'hinagata.tests.test-analyze
+                                             'hinagata.tests.test-coverage
+                                             'itonami.tests.test-analyze
+                                             'shionome.methods.test-weave
+                                             'shionome.methods.test-analyze
+                                             'kaiyaku.methods.test-datom-emit
+                                             'kadode.methods.test-datom-emit
+                                             'tanemaki.methods.test-datom-emit
+                                             'itonami.methods.test-datom-emit
+                                             'tsumugi.tests.test-banner
+                                             'hotaru.methods.test-analyze
+                                             'mitooshi.methods.test-analyze
+                                             'nusa.methods.test-analyze
+                                             'ake.methods.test-analyze
+                                             'ake.methods.test-triage
+                                             'ake.methods.test-contributor
+                                             'kawaraban.methods.test-route
+                                             'kawaraban.methods.test-analyze
+                                             'tasuke.methods.test-triage
+                                             'tasuke.methods.test-analyze
+                                             'shomei.methods.test-blake2b
+                                             'shomei.methods.test-analyze
+                                             'fuchi.methods.test-analyze
+                                             'fuchi.methods.test-allocate
+                                             'fuchi.methods.test-route
+                                             'fuchi.methods.test-vote
+                                             'fuchi.methods.test-couple
+                                             'fuchi.methods.test-book
+                                             'fuchi.methods.test-provision
+                                             'kasa.tests.test-kasa
+                                             'kasa.tests.test-invariants
+                                             'uchiwake.tests.test-uchiwake
+                                             'sukashi.tests.test-sukashi
+                                             'suji.methods.test-load
+                                             'suji.methods.test-muscle-strain
+                                             'suji.methods.test-datoms
+                                             'suji.methods.test-charter-invariants
+                                             'suji.methods.test-bridge-consistency
+                                             'kamado.methods.test-kamado
+                                             'abaki.methods.test-live
+                                             'abaki.methods.test-analyze
+                                             'rasen.tests.test-coverage
+                                             'hinagata.methods.test-datom-emit
+                                             'hakoniwa.tests.test-simulate
+                                             'hakoniwa.tests.test-distribution
+                                             'tate.tests.test-terms
+                                             'tate.tests.test-respond
+                                             'tate.tests.test-coverage
+                                             'itonami.methods.test-optimize
+                                             'itonami.methods.test-plan
+                                             'itonami.methods.test-inspect
+                                             'itonami.methods.test-trend
+                                             'keizu.methods.test-registry
+                                             'keizu.methods.test-export
+                                             'funadaiku.methods.test-voyage-energy
+                                             'hikari.methods.test-microgrid
+                                             'hikari.methods.test-panel-install
+                                             'mizuho.methods.test-water-supply
+                                             'mizuho.methods.test-chlorination
+                                             'noroshi.methods.test-link-budget
+                                             'noroshi.methods.test-pic-layout
+                                             'kadode.methods.test-generate
+                                             'kadode.methods.test-cid
+                                             'kaiyaku.tests.test-plan
+                                             'hinagata.tests.test-cid
+                                             'hinagata.tests.test-query
+                                             'hinagata.tests.test-validate
+                                             'hinagata.tests.test-esign
+                                             'hinagata.tests.test-maturity)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:maps
+  {:doc "maps — kotoba-native Clojure method tests (analyze/ingest/chunk/search/reverse/transit/verify/datom-emit; ADR-2606064500)"
+   :task (do (require 'clojure.test
+                      'maps.tests.test-analyze
+                      'maps.tests.test-ingest
+                      'maps.tests.test-chunk
+                      'maps.tests.test-search
+                      'maps.tests.test-reverse
+                      'maps.tests.test-transit
+                      'maps.tests.test-verify)
+             (let [r (clojure.test/run-tests 'maps.tests.test-analyze
+                                             'maps.tests.test-ingest
+                                             'maps.tests.test-chunk
+                                             'maps.tests.test-search
+                                             'maps.tests.test-reverse
+                                             'maps.tests.test-transit
+                                             'maps.tests.test-verify)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
    :depends [test:mimamori test:yobel test:tools test:ibuki test:actors]}
