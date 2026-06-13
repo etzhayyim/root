@@ -21,9 +21,9 @@
 (rf/reg-event-fx
  :auth/sign-in-ok
  (fn [{:keys [db]} [_ session]]
-   (let [key "atproto-session"]
+   (let [key "yoro-cacao-session"]
      (try
-       (.setItem js/localStorage key (pr-str session))
+       (.setItem js/localStorage key (js/JSON.stringify (clj->js session)))
        (catch js/Error _ nil))
      {:db (-> db
               (assoc-in [:auth-modal :loading?] false)
