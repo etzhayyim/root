@@ -173,7 +173,9 @@
                       'shionome.methods.test-weave 'shionome.methods.test-analyze
                       'kaiyaku.methods.test-datom-emit 'kadode.methods.test-datom-emit
                       'tanemaki.methods.test-datom-emit 'itonami.methods.test-datom-emit
-                      'tsumugi.tests.test-banner)
+                      'tsumugi.tests.test-banner
+                      'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
+                      'nusa.methods.test-analyze)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
                                              'kadode.tests.test-coverage
@@ -189,7 +191,10 @@
                                              'kadode.methods.test-datom-emit
                                              'tanemaki.methods.test-datom-emit
                                              'itonami.methods.test-datom-emit
-                                             'tsumugi.tests.test-banner)]
+                                             'tsumugi.tests.test-banner
+                                             'hotaru.methods.test-analyze
+                                             'mitooshi.methods.test-analyze
+                                             'nusa.methods.test-analyze)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
