@@ -280,7 +280,9 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        are used solely as API-compatibility identifiers (cf. Google LLC v. Oracle
        America, Inc., 593 U.S. ___ (2021)), confined to the delimited compatibility
        facade namespaces (`20-actors/etzhayyim-sdk/src/nv-compat/` and
-       `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/nv_compat/`). Canonical implementations
+       `crates/kotoba-kotodama/py/src/kotodama/nv_compat/` in the external
+       `etzhayyim/kotoba` repo — the in-tree submodule was removed per ADR-2606131645).
+       Canonical implementations
        carry distinct (Japanese) names.
 
 8. SEVERABILITY
