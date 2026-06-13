@@ -24829,6 +24829,83 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606131645-kotodama-extraction-functional-unispsc-clj.md",
+      "id": "adr-2606131645-kotodama-extraction-functional-unispsc-clj",
+      "title": "ADR-2606131645: kotodama 抽出 + 18,343 UNSPSC actor の機能化 Clojure 移行 + kotoba submodule 撤去",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotodama-extraction-functional-unispsc-clj",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotodama package location (root-side, extracted repo — not inside the kotoba submodule)",
+        "UNSPSC actor implementation language + runtime (Clojure / langgraph-clj / kotoba Datom)",
+        "kotoba engine consumption by root (external dependency, not in-tree submodule)"
+      ],
+      "related": [
+        "2605240000",
+        "2605232345",
+        "2606101200"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605214000",
+        "2605215000",
+        "2605171300",
+        "2606011500"
+      ],
+      "last_verified": "2026-06-13",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606131800-session-close-python-to-clojure-tier-b-refactor-arc.md",
+      "id": "adr-2606131800-session-close-python-to-clojure-tier-b-refactor-arc",
+      "title": "ADR-2606131800: Session close — Python→Clojure Tier-B byte-identical refactor arc (PRs",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-python-to-clojure-tier-b-refactor-arc",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606120500-fleet-clojure-refactor-and-gemma4-cpt",
+        "adr-2606131300-clj-port-determinism-golden-file-first-class",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-13",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606131950-yoro-cljs-auth-modal-dev-login.md",
+      "id": "adr-2606131950-yoro-cljs-auth-modal-dev-login",
+      "title": "ADR-2606131950: yoro ClojureScript auth-modal dev-login form — wave 4 (passkey rpId 回避 + paren fix)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "yoro-cljs-migration",
+      "authoritative": false,
+      "authoritative_for": [
+        "yoro UI cljs auth-modal dev-login design + :http/post-json re-frame fx pattern"
+      ],
+      "related": [
+        "adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness"
+      ],
+      "last_verified": "2026-06-13",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
