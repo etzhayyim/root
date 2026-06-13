@@ -60,6 +60,8 @@ packages:
 
   # yorishiro generator + emitted MCP servers (ADR-2605211900)
   - "70-tools/etzhayyim-cli/yorishiro"
+  # kotoba-kotodama MCP packages come from the etzhayyim/kotoba repo, cloned into
+  # 40-engine/kotoba at CI/dev time (the submodule was removed, ADR-2606131645).
   - "40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-*-mcp"
   - "40-engine/kotoba/crates/kotoba-kotodama/mcp/open-seiyaku-mcp"
 

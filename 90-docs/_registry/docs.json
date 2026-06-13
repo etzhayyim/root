@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-12",
+  "updated_at": "2026-06-13",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -24711,6 +24711,120 @@
         "adr-2606122000"
       ],
       "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606122400-meisai-member-card-statement-ingestion.md",
+      "id": "adr-2606122400-meisai-member-card-statement-ingestion",
+      "title": "ADR-2606122400: meisai 明細 — member card-statement (利用明細) ingestion Tier-B actor R0",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "meisai-member-card-statement-ingestion",
+      "authoritative": true,
+      "authoritative_for": [
+        "member-card-statement-ingestion",
+        "meisai-datom-shape"
+      ],
+      "related": [
+        "2606112201",
+        "2605262900",
+        "2605302000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2605215000",
+        "2606039200"
+      ],
+      "last_verified": "2026-06-12",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606131300-clj-port-determinism-golden-file-first-class.md",
+      "id": "adr-2606131300-clj-port-determinism-golden-file-first-class",
+      "title": "ADR-2606131300: Clojure 移植の検証基準 — 決定性 + golden-file を一級、python3 byte-parity は in-development 便宜オラクル",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "clj-port-determinism-golden-file-first-class",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/*/methods/*.cljc",
+        "bb.edn"
+      ],
+      "related": [
+        "adr-2606101200"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2606120500-fleet-clojure-refactor-and-gemma4-cpt"
+      ],
+      "last_verified": "2026-06-13",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606131350-yabai-sms-smishing-ioc-and-yoro-ondevice-organizer.md",
+      "id": "adr-2606131350-yabai-sms-smishing-ioc-and-yoro-ondevice-organizer",
+      "title": "ADR-2606131350: yabai JP SMS smishing IOC corpus + yoro on-device Gemma E4B SMS-organizer R0",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "yabai-sms-smishing-ioc-and-yoro-ondevice-organizer",
+      "authoritative": true,
+      "authoritative_for": [
+        "yabai SMS smishing IOC corpus (defensive CTI)",
+        "yoro on-device SMS-organizer design (Gemma E4B QAT, default-SMS-role)"
+      ],
+      "related": [
+        "adr-2605301400-tadori-onchain-tx-tracing",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605215000-etzhayyim-inference-murakumo-only",
+        "adr-2604291630-yoro-guest-projector-browser-local-gemma-e2b",
+        "adr-2605140740-yoro-gemma-e4b-social-post-translation"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-13",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606131600-shirabe-live-research-concierge-agent.md",
+      "id": "adr-2606131600-shirabe-live-research-concierge-agent",
+      "title": "ADR-2606131600: shirabe 調べ — live research-concierge agent (kotoba-clj + gemma4) Tier-B actor R1",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shirabe-live-research-concierge-agent",
+      "authoritative": true,
+      "authoritative_for": [
+        "shirabe-research-session",
+        "live-research-concierge-pattern"
+      ],
+      "related": [
+        "2606061900",
+        "2606072802",
+        "2606064500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605215000",
+        "2605262130",
+        "2605312345",
+        "2606012300",
+        "2606039200",
+        "2606061000",
+        "2606122400",
+        "2606131300"
+      ],
+      "last_verified": "2026-06-13",
       "amends": [],
       "amended_by": []
     },

@@ -34,10 +34,6 @@
 	path = 90-docs/baien/datasets
 	url = ./90-docs/baien/datasets
 	ignore = dirty
-[submodule "40-engine/kotoba"]
-	path = 40-engine/kotoba
-	url = https://github.com/etzhayyim/kotoba.git
-	branch = main
 [submodule "60-apps/spirit-in-physics"]
 	# Spirit-in-Physics measurement instrument + research SSoT (ADR-2606011500).
 	# Private upstream (com-junkawasaki/spirit-in-physics), same author. Vendored

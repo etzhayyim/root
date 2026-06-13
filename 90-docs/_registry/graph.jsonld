@@ -15670,6 +15670,76 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606122400-meisai-member-card-statement-ingestion",
+      "type": "TechArticle",
+      "title": "ADR-2606122400: meisai 明細 — member card-statement (利用明細) ingestion Tier-B actor R0",
+      "status": "accepted",
+      "topic": "meisai-member-card-statement-ingestion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "member-card-statement-ingestion",
+        "meisai-datom-shape"
+      ],
+      "related": [
+        "doc:2606112201",
+        "doc:2605262900",
+        "doc:2605302000"
+      ],
+      "lastVerified": "2026-06-12"
+    },
+    {
+      "id": "doc:adr-2606131300-clj-port-determinism-golden-file-first-class",
+      "type": "TechArticle",
+      "title": "ADR-2606131300: Clojure 移植の検証基準 — 決定性 + golden-file を一級、python3 byte-parity は in-development 便宜オラクル",
+      "status": "proposed",
+      "topic": "clj-port-determinism-golden-file-first-class",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/*/methods/*.cljc",
+        "bb.edn"
+      ],
+      "related": "doc:adr-2606101200",
+      "lastVerified": "2026-06-13"
+    },
+    {
+      "id": "doc:adr-2606131350-yabai-sms-smishing-ioc-and-yoro-ondevice-organizer",
+      "type": "TechArticle",
+      "title": "ADR-2606131350: yabai JP SMS smishing IOC corpus + yoro on-device Gemma E4B SMS-organizer R0",
+      "status": "accepted",
+      "topic": "yabai-sms-smishing-ioc-and-yoro-ondevice-organizer",
+      "authoritative": true,
+      "authoritativeFor": [
+        "yabai SMS smishing IOC corpus (defensive CTI)",
+        "yoro on-device SMS-organizer design (Gemma E4B QAT, default-SMS-role)"
+      ],
+      "related": [
+        "doc:adr-2605301400-tadori-onchain-tx-tracing",
+        "doc:adr-2605241900-baien-edge-target-invariant",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only",
+        "doc:adr-2604291630-yoro-guest-projector-browser-local-gemma-e2b",
+        "doc:adr-2605140740-yoro-gemma-e4b-social-post-translation"
+      ],
+      "lastVerified": "2026-06-13"
+    },
+    {
+      "id": "doc:adr-2606131600-shirabe-live-research-concierge-agent",
+      "type": "TechArticle",
+      "title": "ADR-2606131600: shirabe 調べ — live research-concierge agent (kotoba-clj + gemma4) Tier-B actor R1",
+      "status": "accepted",
+      "topic": "shirabe-live-research-concierge-agent",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shirabe-research-session",
+        "live-research-concierge-pattern"
+      ],
+      "related": [
+        "doc:2606061900",
+        "doc:2606072802",
+        "doc:2606064500"
+      ],
+      "lastVerified": "2026-06-13"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

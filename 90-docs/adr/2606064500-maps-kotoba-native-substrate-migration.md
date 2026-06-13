@@ -257,3 +257,38 @@ venv)**. The substrate is still **R0/R1-offline**: no live `KOTOBA_ENDPOINT` for
 these Python references; mapping the still-unmapped aux tables (gsplat registries, GTFS-RT);
 and **R3** (delete the `HYPERDRIVE` binding + the `vertex_*` migrations). Runbook:
 `20-actors/maps/methods/README.md`. On live R1 completion, promote this ADR `proposed → accepted`.
+
+# Session close (2026-06-13) — R1 Clojure port + R2 RisingWave prune
+
+**R1 (Clojure method port) LANDED.**
+
+All 9 Python method files ported to Clojure `.cljc` under `20-actors/maps/methods/`:
+
+| Method | File |
+|---|---|
+| `analyze` | `methods/analyze.cljc` |
+| `ingest` | `methods/ingest.cljc` |
+| `chunk` | `methods/chunk.cljc` |
+| `search` | `methods/search.cljc` |
+| `reverse` | `methods/reverse.cljc` |
+| `transit` | `methods/transit.cljc` |
+| `verify` | `methods/verify.cljc` |
+| `datom_emit` | `methods/datom_emit.cljc` |
+| `coverage_report` | `methods/coverage_report.cljc` |
+
+In-memory `KotobaLocal` test harness (`tests/kotoba_local.cljc`) enables fully offline,
+network-free testing via a `query-fn` abstraction matching the HTTP-backed production path.
+**52 Clojure tests green** (`bb test:maps`). Babashka JSON via `cheshire.core` (no
+`clojure.data.json`). Transient-double-persistent! bug fixed in `search.cljc`.
+
+**R2 (RisingWave read hot-path prune) LANDED.**
+
+`cmdGetChunk` in `60-apps/.../src/app.ts` now routes **exclusively through kotoba** —
+the `if (!servedByKotoba)` RisingWave fallback block is removed. `servedBy` always returns
+`"kotoba"`. `kotobaEndpoint` import removed (unused after prune). The TS `write()` path
+(`vertex-spatial-projection.ts`) is preserved until R3 since it is still the write-path for
+the 172-command long tail that migrates in R3.
+
+**Remaining:** operator-gated live R1 cut-over (wire `KOTOBA_ENDPOINT`); R3 (delete
+`HYPERDRIVE` binding + `vertex_*` migrations + `vertex-spatial-projection.ts`). On live R1
+completion, promote ADR `proposed → accepted`.
