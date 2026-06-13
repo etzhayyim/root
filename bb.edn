@@ -184,7 +184,9 @@
                       'fuchi.methods.test-analyze 'fuchi.methods.test-allocate
                       'fuchi.methods.test-route 'fuchi.methods.test-vote
                       'fuchi.methods.test-couple 'fuchi.methods.test-book
-                      'fuchi.methods.test-provision)
+                      'fuchi.methods.test-provision
+                      'kasa.tests.test-kasa 'kasa.tests.test-invariants
+                      'uchiwake.tests.test-uchiwake 'sukashi.tests.test-sukashi)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
                                              'kadode.tests.test-coverage
@@ -219,7 +221,11 @@
                                              'fuchi.methods.test-vote
                                              'fuchi.methods.test-couple
                                              'fuchi.methods.test-book
-                                             'fuchi.methods.test-provision)]
+                                             'fuchi.methods.test-provision
+                                             'kasa.tests.test-kasa
+                                             'kasa.tests.test-invariants
+                                             'uchiwake.tests.test-uchiwake
+                                             'sukashi.tests.test-sukashi)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
