@@ -73,9 +73,10 @@ jobs:
         # unclonable in CI) and abort, so we target kami-engine explicitly.
         run: git submodule update --init --recursive --depth=1 40-engine/kami-engine
 
-      # NOTE: the 40-engine/kotoba submodule was removed (ADR-2606131645). The
-      # yorishiro-*-mcp workspace packages now live in the etzhayyim/kotoba repo;
-      # mst-projector workspace deps must be re-pointed there (Phase-4 follow-up).
+      - name: Clone etzhayyim/kotoba (pnpm workspace deps)
+        # yorishiro-*-mcp workspace packages now live in the etzhayyim/kotoba repo
+        # (submodule removed, ADR-2606131645); clone into the pnpm-workspace path.
+        run: git clone --depth=1 https://github.com/etzhayyim/kotoba.git 40-engine/kotoba
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

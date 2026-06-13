@@ -97,10 +97,12 @@ jobs:
           - 70-tools/integration-tests
     steps:
       - uses: actions/checkout@v4
-      # NOTE: the 40-engine/kotoba submodule was removed (ADR-2606131645). The
-      # yorishiro-*-mcp workspace packages it provided now live in the
-      # etzhayyim/kotoba repo; mst-projector deps that needed them must be
-      # re-pointed there as part of the Phase-4 cutover follow-up.
+      # mst-projector imports @etzhayyim/yorishiro-huggingface-inference-mcp via
+      # workspace:*, which now lives in the etzhayyim/kotoba repo (submodule
+      # removed, ADR-2606131645). Clone it into the pnpm-workspace path.
+      - name: Clone etzhayyim/kotoba (mst-projector workspace deps)
+        if: matrix.scope == '20-actors/mst-projector'
+        run: git clone --depth 1 https://github.com/etzhayyim/kotoba.git 40-engine/kotoba
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
