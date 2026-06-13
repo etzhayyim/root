@@ -1,6 +1,7 @@
 (ns yoro-ui.components.streak-badge
   "Port of svelte/src/lib/components/StreakBadge.svelte"
-  (:require [reagent.core :as r]))
+  (:require [reagent.core :as r]
+            [yoro-ui.interop.sound :as snd]))
 
 (def storage-key "yoro_streak")
 
@@ -46,7 +47,7 @@
     (reset! streak-state init-data)
     (when (and (pos? (:count init-data)) (zero? (mod (:count init-data) 7)))
       (reset! just-leveled-up true)
-      ;; TODO: playLevelUp() sound interop
+      (snd/play-level-up!)
       (js/setTimeout #(reset! just-leveled-up false) 2000))
     (save-streak! init-data))
   (fn [{:keys [class]}]

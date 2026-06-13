@@ -16,6 +16,14 @@
 
 (def default-service "https://atproto.etzhayyim.com")
 
+;; Public Bluesky AppView — used for unauthenticated discover/public queries
+;; (atproto.etzhayyim.com is a PDS that requires auth for most reads)
+(def public-appview "https://public.api.bsky.app")
+
+;; "What's Hot" feed generator on Bluesky — used as discover feed
+;; until com.etzhayyim.yoro.feed.getDiscoverFeed is deployed to yoro.etzhayyim.com
+(def whats-hot-feed "at://did:plc:z72i7hdynmk6r22z27h6tvur/app.bsky.feed.generator/whats-hot")
+
 (defonce service (atom default-service))
 (defonce session (atom nil))          ; {:accessJwt ... :did ...}
 (defonce token-provider (atom nil))   ; (fn [] js/Promise<string|nil>)
@@ -73,6 +81,33 @@
   ([nsid] (at-query nsid {}))
   ([nsid params] (xrpc-fetch "GET" nsid {:params params})))
 
+(defn at-public-query
+  "XRPC query against the public Bluesky AppView — no auth, no token resolution.
+   Used for unauthenticated discover-feed reads until yoro.etzhayyim.com deploys."
+  ([nsid params]
+   (let [qs (when (seq params)
+               (str "?" (->> params
+                             (map (fn [[k v]]
+                                    (str (js/encodeURIComponent (name k)) "="
+                                         (js/encodeURIComponent (str v)))))
+                             (interpose "&")
+                             (apply str))))
+         url (str public-appview "/xrpc/" nsid qs)]
+     (-> (js/fetch url (clj->js {:method "GET"
+                                  :headers {"Content-Type" "application/json"}}))
+         (.then (fn [res]
+                  (if (.-ok res)
+                    (-> (.json res) (.then #(js->clj % :keywordize-keys true)))
+                    (js/Promise.reject
+                     (ex-info "xrpc error" {:status (.-status res) :nsid nsid})))))))))
+
+(defn discover-feed-query
+  "Fetch the discover feed: uses public AppView getFeed with What's Hot generator.
+   Returns same {feed cursor} shape as com.etzhayyim.yoro.feed.getDiscoverFeed."
+  [params]
+  (at-public-query "app.bsky.feed.getFeed"
+                   (assoc params :feed whats-hot-feed)))
+
 (defn at-procedure
   "XRPC procedure (POST). Returns js/Promise of keywordized response."
   ([nsid] (at-procedure nsid {}))
@@ -88,9 +123,16 @@
 (defn- run-fx [call-fn {:keys [nsid params body on-success on-failure]}]
   (-> (call-fn nsid (or params body {}))
       (.then (fn [resp]
-               (when on-success (rf/dispatch (conj on-success resp)))))
+               (when on-success
+                 (if (fn? on-success)
+                   (on-success resp)
+                   (rf/dispatch (conj on-success resp))))))
       (.catch (fn [e]
-                (when on-failure (rf/dispatch (conj on-failure (str e))))))))
+                (when on-failure
+                  (if (fn? on-failure)
+                    (on-failure e)
+                    (rf/dispatch (conj on-failure (str e)))))))))
 
 (rf/reg-fx :atproto/query (fn [opts] (run-fx at-query opts)))
 (rf/reg-fx :atproto/procedure (fn [opts] (run-fx at-procedure opts)))
+(rf/reg-fx :atproto/public-query (fn [opts] (run-fx at-public-query opts)))

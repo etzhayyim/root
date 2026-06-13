@@ -67,7 +67,11 @@
          ;; Header
          [:div {:class "px-4 py-3 border-b border-gv2-border flex items-center justify-between sticky top-0 z-10 bg-gv2-bg-base"}
           [:h2 {:class "text-[17px] font-bold text-gv2-text-primary"} "メッセージ"]
-          [:button {:class "text-[#1CB0F6] font-semibold text-[14px]"} "新規作成"]]
+          [:button {:class    "text-[#1CB0F6] font-semibold text-[14px]"
+                    :on-click #(if signed-in?
+                                 (router/navigate! "/search")
+                                 (rf/dispatch [:auth-modal/open]))}
+           "新規作成"]]
 
          (cond
            (not signed-in?)
