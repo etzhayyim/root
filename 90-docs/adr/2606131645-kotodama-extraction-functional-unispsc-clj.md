@@ -89,7 +89,7 @@ DID = `did:web:etzhayyim.com:actor:c<code>`、HTTP 応答 `{ok,code,shard,thread
 ## D2. kotodama を独立 repo に抽出、root は依存参照
 
 kotodama (Pregel framework + cells + UNSPSC organism framework + taxonomy data + bespoke clj) を
-独立 repo `etzhayyim/kotodama` に抽出する。root はこれを依存として参照する
+独立 repo `etzhayyim/kototama` に抽出する。root はこれを依存として参照する
 (clj は `deps.edn` coord、Rust/TS host SDK は path/published 依存)。ローカル dev は sibling checkout を用いる。
 
 ## D3. kotoba Rust エンジンは外部依存、root から submodule 撤去
