@@ -1,5 +1,7 @@
 {:source-paths
- ["src" "test"]
+ ["src" "test"
+  ;; kotoba datom codec — portable .cljc (ADR-2605312345)
+  "../../../../../20-actors/kotodama/src"]
 
  :dev-http
  {8700 {:root "public"
