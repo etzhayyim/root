@@ -79,8 +79,7 @@
 ;; Component
 
 (defn splash-screen []
-  (let [done?      @(rf/subscribe [:splash/done?])
-        canvas-ref (atom nil)
+  (let [canvas-ref (atom nil)
         orbs-ref   (atom [])
         raf-ref    (atom nil)
         last-t-ref (atom 0)
@@ -89,13 +88,11 @@
                              (catch js/Error _ false)))
         fading?    (r/atom false)]
 
-    (when done? nil)
-
     (r/create-class
      {:display-name "splash-screen"
 
       :component-did-mount
-      (fn [this]
+      (fn [_]
         ;; Dismiss after 2.5 s
         (js/setTimeout
          (fn []
@@ -106,11 +103,9 @@
               (rf/dispatch [:splash/dismiss]))
             400))
          2100)
-        ;; Start canvas animation
+        ;; Start canvas animation — canvas-ref set by :ref callback before componentDidMount
         (when-not skip?
-          (let [node (r/dom-node this)
-                cvs  (.querySelector node "canvas")]
-            (reset! canvas-ref cvs)
+          (when-let [cvs @canvas-ref]
             (let [w (.-innerWidth js/window)
                   h (.-innerHeight js/window)]
               (set! (.-width  cvs) w)
@@ -129,24 +124,25 @@
           [:div {:class (str "fixed inset-0 z-[100] flex flex-col items-center justify-center"
                              " bg-[#0a0a0a] transition-opacity duration-400"
                              (if @fading? " opacity-0 pointer-events-none" " opacity-100"))}
-           ;; Canvas layer
+           ;; Canvas layer — :ref sets canvas-ref before componentDidMount fires
            (when-not skip?
-             [:canvas {:class "absolute inset-0 w-full h-full pointer-events-none"}])
+             [:canvas {:class "absolute inset-0 w-full h-full pointer-events-none"
+                       :ref   #(reset! canvas-ref %)}])
 
            ;; Content
            [:div {:class "relative z-10 flex flex-col items-center"}
             ;; yoro logo
             [:img {:src   "/yoro-final.svg"
                    :alt   "yoro"
-                   :class "w-28 h-28 drop-shadow-[0_0_24px_rgba(88,204,2,0.6)]"
+                   :class "w-20 h-20 drop-shadow-[0_0_24px_rgba(88,204,2,0.6)]"
                    :style {:animation "splash-yoro-float 2s ease-in-out infinite"}}]
 
             ;; App name
-            [:h1 {:class "mt-5 text-[28px] font-black text-white tracking-wide"}
+            [:h1 {:class "mt-4 text-[24px] font-black text-white tracking-wide"}
              "yoro"]
 
             ;; Tagline
-            [:p {:class "text-[13px] text-white/50 mt-1 font-medium"}
+            [:p {:class "text-[12px] text-white/50 mt-1 font-medium"}
              "powered by etzhayyim"]
 
             ;; Dots
