@@ -34,19 +34,24 @@
 
     :reagent-render
     (fn []
-      (let [posts @(rf/subscribe [:feed/posts])
+      (let [posts    @(rf/subscribe [:feed/posts])
             loading? @(rf/subscribe [:feed/loading?])
-            error @(rf/subscribe [:feed/error])
-            end? @(rf/subscribe [:feed/end?])]
+            error    @(rf/subscribe [:feed/error])
+            end?     @(rf/subscribe [:feed/end?])
+            tab      @(rf/subscribe [:feed/tab])]
         [:div {:class "flex flex-col"}
 
          ;; Feed header tabs (Discover / Following)
          [:div {:class "flex border-b border-gv2-border sticky top-0 z-10 bg-gv2-bg-base"}
-          [:button {:class "flex-1 py-3 text-[14px] font-bold text-[#1CB0F6] border-b-2 border-[#1CB0F6]"}
-           "おすすめ"]
-          [:button {:class "flex-1 py-3 text-[14px] font-semibold text-gv2-text-muted hover:text-gv2-text-primary"
-                    :on-click #(rf/dispatch [:feed/load])}
-           "フォロー中"]]
+          (for [[key label] [[:discover "おすすめ"] [:following "フォロー中"]]]
+            ^{:key (name key)}
+            [:button {:class (str "flex-1 py-3 text-[14px] "
+                                  (if (= key tab)
+                                    "font-bold text-[#1CB0F6] border-b-2 border-[#1CB0F6]"
+                                    "font-semibold text-gv2-text-muted hover:text-gv2-text-primary"))
+                      :on-click #(when (not= key tab)
+                                   (rf/dispatch [:feed/switch-tab key]))}
+             label])]
 
          ;; Posts
          (cond

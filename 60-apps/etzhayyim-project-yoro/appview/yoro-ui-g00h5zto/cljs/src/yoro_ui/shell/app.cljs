@@ -9,6 +9,9 @@
             [yoro-ui.pages.notifications :refer [notifications-page]]
             [yoro-ui.pages.convo-detail :refer [convo-detail-page]]
             [yoro-ui.pages.profile :refer [profile-page]]
+            [yoro-ui.pages.feeds :refer [feeds-page]]
+            [yoro-ui.pages.history :refer [history-page]]
+            [yoro-ui.pages.credits :refer [credits-page]]
             [yoro-ui.components.inference-consent :refer [inference-consent]]
             [yoro-ui.components.no-cookie-banner :refer [no-cookie-banner]]
             [yoro-ui.components.auth-modal :refer [auth-modal]]
@@ -36,6 +39,10 @@
       :notifications  [notifications-page]
       :own-profile    [profile-page {:handle @(rf/subscribe [:auth/handle])}]
       :profile        [profile-page {:handle (:handle params)}]
+      :feeds          [feeds-page]
+      :history        [history-page]
+      :credits        [credits-page]
+      :post-thread    [home-page]  ; TODO: thread detail page
       :not-found      [not-found-page (:path params)]
       [home-page])))  ; default → home
 

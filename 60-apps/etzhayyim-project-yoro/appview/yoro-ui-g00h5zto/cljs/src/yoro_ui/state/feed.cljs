@@ -14,6 +14,9 @@
 (rf/reg-sub :feed/cursor (fn [db _] (get-in db [:feed :cursor])))
 (rf/reg-sub :feed/end? (fn [db _] (get-in db [:feed :end?] false)))
 
+;; Active tab: :discover (default) or :following
+(rf/reg-sub :feed/tab (fn [db _] (get-in db [:feed :tab] :discover)))
+
 ;; Liked/reposted sets for optimistic UI
 (rf/reg-sub :feed/liked-uris (fn [db _] (get-in db [:feed :liked-uris] #{})))
 (rf/reg-sub :feed/reposted-uris (fn [db _] (get-in db [:feed :reposted-uris] #{})))
@@ -86,11 +89,24 @@
     :dispatch [:feed/fetch-timeline nil]}))
 
 (rf/reg-event-fx
+ :feed/switch-tab
+ (fn [{:keys [db]} [_ tab]]
+   {:db (-> db
+            (assoc-in [:feed :tab] tab)
+            (assoc-in [:feed :posts] [])
+            (assoc-in [:feed :cursor] nil)
+            (assoc-in [:feed :end?] false)
+            (assoc-in [:feed :loading?] true)
+            (assoc-in [:feed :error] nil))
+    :dispatch [:feed/fetch-timeline nil]}))
+
+(rf/reg-event-fx
  :feed/fetch-timeline
  (fn [{:keys [db]} [_ cursor]]
    (let [signed-in? (get-in db [:auth :session :did])
-         ;; Use discover feed for signed-out users, timeline for signed-in
-         nsid (if signed-in?
+         tab (get-in db [:feed :tab] :discover)
+         ;; following tab uses getTimeline for signed-in; discover always uses discover feed
+         nsid (if (and signed-in? (= tab :following))
                 "app.bsky.feed.getTimeline"
                 "com.etzhayyim.yoro.feed.getDiscoverFeed")
          params (cond-> {:limit page-size}
