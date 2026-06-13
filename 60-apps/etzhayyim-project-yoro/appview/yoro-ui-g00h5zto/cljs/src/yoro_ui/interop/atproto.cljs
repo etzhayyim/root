@@ -123,9 +123,15 @@
 (defn- run-fx [call-fn {:keys [nsid params body on-success on-failure]}]
   (-> (call-fn nsid (or params body {}))
       (.then (fn [resp]
-               (when on-success (rf/dispatch (conj on-success resp)))))
+               (when on-success
+                 (if (fn? on-success)
+                   (on-success resp)
+                   (rf/dispatch (conj on-success resp))))))
       (.catch (fn [e]
-                (when on-failure (rf/dispatch (conj on-failure (str e))))))))
+                (when on-failure
+                  (if (fn? on-failure)
+                    (on-failure e)
+                    (rf/dispatch (conj on-failure (str e)))))))))
 
 (rf/reg-fx :atproto/query (fn [opts] (run-fx at-query opts)))
 (rf/reg-fx :atproto/procedure (fn [opts] (run-fx at-procedure opts)))

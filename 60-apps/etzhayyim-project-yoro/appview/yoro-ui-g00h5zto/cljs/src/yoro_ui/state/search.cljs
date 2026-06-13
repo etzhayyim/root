@@ -50,8 +50,8 @@
 (rf/reg-event-fx
  :search/fetch-actors
  (fn [_ [_ q cursor]]
-   {:atproto/query
-    {:nsid "com.etzhayyim.yoro.actor.searchActors"
+   {:atproto/public-query
+    {:nsid "app.bsky.actor.searchActors"
      :params (cond-> {:q q :limit page-size}
                cursor (assoc :cursor cursor))
      :on-success [:search/actors-success (nil? cursor)]
@@ -72,9 +72,9 @@
 (rf/reg-event-fx
  :search/fetch-posts
  (fn [_ [_ q]]
-   {:atproto/query
+   {:atproto/public-query
     {:nsid "app.bsky.feed.searchPosts"
-     :params {:q q :limit 25}
+     :params {:q q :limit 25 :sort "latest"}
      :on-success [:search/posts-success]
      :on-failure [:search/failure]}}))
 

@@ -12,6 +12,7 @@
             [yoro-ui.pages.feeds :refer [feeds-page]]
             [yoro-ui.pages.history :refer [history-page]]
             [yoro-ui.pages.credits :refer [credits-page]]
+            [yoro-ui.pages.post-thread :refer [post-thread-page]]
             [yoro-ui.components.inference-consent :refer [inference-consent]]
             [yoro-ui.components.no-cookie-banner :refer [no-cookie-banner]]
             [yoro-ui.components.auth-modal :refer [auth-modal]]
@@ -42,7 +43,7 @@
       :feeds          [feeds-page]
       :history        [history-page]
       :credits        [credits-page]
-      :post-thread    [home-page]  ; TODO: thread detail page
+      :post-thread    [post-thread-page {:handle (:handle params) :rkey (:rkey params)}]
       :not-found      [not-found-page (:path params)]
       [home-page])))  ; default → home
 
