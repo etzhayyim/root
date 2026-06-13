@@ -169,7 +169,10 @@
                       'tanemaki.tests.test-analyze 'tanemaki.tests.test-coverage
                       'watatsuna.methods.test-analyze
                       'hinagata.tests.test-analyze 'hinagata.tests.test-coverage
-                      'itonami.tests.test-analyze)
+                      'itonami.tests.test-analyze
+                      'shionome.methods.test-weave 'shionome.methods.test-analyze
+                      'kaiyaku.methods.test-datom-emit 'kadode.methods.test-datom-emit
+                      'tanemaki.methods.test-datom-emit 'itonami.methods.test-datom-emit)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
                                              'kadode.tests.test-coverage
@@ -178,7 +181,13 @@
                                              'watatsuna.methods.test-analyze
                                              'hinagata.tests.test-analyze
                                              'hinagata.tests.test-coverage
-                                             'itonami.tests.test-analyze)]
+                                             'itonami.tests.test-analyze
+                                             'shionome.methods.test-weave
+                                             'shionome.methods.test-analyze
+                                             'kaiyaku.methods.test-datom-emit
+                                             'kadode.methods.test-datom-emit
+                                             'tanemaki.methods.test-datom-emit
+                                             'itonami.methods.test-datom-emit)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
