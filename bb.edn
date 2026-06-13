@@ -195,7 +195,11 @@
                       'rasen.tests.test-coverage 'hinagata.methods.test-datom-emit
                       'hakoniwa.tests.test-simulate 'hakoniwa.tests.test-distribution
                       'tate.tests.test-terms 'tate.tests.test-respond
-                      'tate.tests.test-coverage)
+                      'tate.tests.test-coverage
+                      'itonami.methods.test-optimize 'itonami.methods.test-plan
+                      'itonami.methods.test-inspect 'itonami.methods.test-trend
+                      'keizu.methods.test-registry 'keizu.methods.test-export
+                      'funadaiku.methods.test-voyage-energy)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
                                              'kadode.tests.test-coverage
@@ -249,7 +253,14 @@
                                              'hakoniwa.tests.test-distribution
                                              'tate.tests.test-terms
                                              'tate.tests.test-respond
-                                             'tate.tests.test-coverage)]
+                                             'tate.tests.test-coverage
+                                             'itonami.methods.test-optimize
+                                             'itonami.methods.test-plan
+                                             'itonami.methods.test-inspect
+                                             'itonami.methods.test-trend
+                                             'keizu.methods.test-registry
+                                             'keizu.methods.test-export
+                                             'funadaiku.methods.test-voyage-energy)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
