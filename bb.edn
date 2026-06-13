@@ -191,7 +191,11 @@
                       'suji.methods.test-datoms 'suji.methods.test-charter-invariants
                       'suji.methods.test-bridge-consistency
                       'kamado.methods.test-kamado
-                      'abaki.methods.test-live 'abaki.methods.test-analyze)
+                      'abaki.methods.test-live 'abaki.methods.test-analyze
+                      'rasen.tests.test-coverage 'hinagata.methods.test-datom-emit
+                      'hakoniwa.tests.test-simulate 'hakoniwa.tests.test-distribution
+                      'tate.tests.test-terms 'tate.tests.test-respond
+                      'tate.tests.test-coverage)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
                                              'kadode.tests.test-coverage
@@ -238,7 +242,14 @@
                                              'suji.methods.test-bridge-consistency
                                              'kamado.methods.test-kamado
                                              'abaki.methods.test-live
-                                             'abaki.methods.test-analyze)]
+                                             'abaki.methods.test-analyze
+                                             'rasen.tests.test-coverage
+                                             'hinagata.methods.test-datom-emit
+                                             'hakoniwa.tests.test-simulate
+                                             'hakoniwa.tests.test-distribution
+                                             'tate.tests.test-terms
+                                             'tate.tests.test-respond
+                                             'tate.tests.test-coverage)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
