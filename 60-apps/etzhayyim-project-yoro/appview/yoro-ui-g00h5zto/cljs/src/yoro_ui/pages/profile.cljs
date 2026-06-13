@@ -17,7 +17,7 @@
     (let [cached (get @profile-cache handle-or-did)]
       (if cached
         (reset! state-atom {:profile cached :loading? false :posts [] :posts-loading? true})
-        (-> (at/at-query "app.bsky.actor.getProfile" {:actor handle-or-did})
+        (-> (at/at-public-query "app.bsky.actor.getProfile" {:actor handle-or-did})
             (.then (fn [resp]
                      (swap! profile-cache assoc handle-or-did resp)
                      (swap! state-atom assoc :profile resp :loading? false)))
@@ -27,8 +27,8 @@
 (defn- load-author-feed! [did state-atom]
   (when did
     (swap! state-atom assoc :posts-loading? true)
-    (-> (at/at-query "app.bsky.feed.getAuthorFeed"
-                     {:actor did :limit 20 :filter "posts_no_replies"})
+    (-> (at/at-public-query "app.bsky.feed.getAuthorFeed"
+                            {:actor did :limit 20 :filter "posts_no_replies"})
         (.then (fn [resp]
                  (let [items (or (:feed resp) [])
                        posts (mapv (fn [item]

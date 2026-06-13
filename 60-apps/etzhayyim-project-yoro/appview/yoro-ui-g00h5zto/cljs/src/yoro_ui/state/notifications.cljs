@@ -24,12 +24,15 @@
 (rf/reg-event-fx
  :notifs/fetch
  (fn [{:keys [db]} _]
-   {:db (-> db (assoc-in [:notifs :loading?] true)
-               (assoc-in [:notifs :items] []))
-    :atproto/query {:nsid "app.bsky.notification.listNotifications"
-                    :params {:limit 50}
-                    :on-success [:notifs/loaded]
-                    :on-failure [:notifs/load-failed]}}))
+   ;; Guard: only fire XRPC when signed in (session probe rule)
+   (if-not (get-in db [:auth :session :did])
+     {:db (assoc-in db [:notifs :loading?] false)}
+     {:db (-> db (assoc-in [:notifs :loading?] true)
+                 (assoc-in [:notifs :items] []))
+      :atproto/query {:nsid "app.bsky.notification.listNotifications"
+                      :params {:limit 50}
+                      :on-success [:notifs/loaded]
+                      :on-failure [:notifs/load-failed]}})))
 
 (rf/reg-event-fx
  :notifs/load-more
@@ -44,10 +47,11 @@
 
 (rf/reg-event-fx
  :notifs/fetch-unread
- (fn [_ _]
-   {:atproto/query {:nsid "app.bsky.notification.getUnreadCount"
-                    :on-success (fn [res] (rf/dispatch [:notifs/unread-count (or (:count res) 0)]))
-                    :on-failure nil}}))
+ (fn [{:keys [db]} _]
+   (when (get-in db [:auth :session :did])
+     {:atproto/query {:nsid "app.bsky.notification.getUnreadCount"
+                      :on-success (fn [res] (rf/dispatch [:notifs/unread-count (or (:count res) 0)]))
+                      :on-failure nil}})))
 
 (rf/reg-event-fx
  :notifs/mark-read
