@@ -175,7 +175,11 @@
                       'tanemaki.methods.test-datom-emit 'itonami.methods.test-datom-emit
                       'tsumugi.tests.test-banner
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
-                      'nusa.methods.test-analyze)
+                      'nusa.methods.test-analyze
+                      'ake.methods.test-analyze 'ake.methods.test-triage
+                      'ake.methods.test-contributor
+                      'kawaraban.methods.test-route 'kawaraban.methods.test-analyze
+                      'tasuke.methods.test-triage 'tasuke.methods.test-analyze)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
                                              'kadode.tests.test-coverage
@@ -194,7 +198,14 @@
                                              'tsumugi.tests.test-banner
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
-                                             'nusa.methods.test-analyze)]
+                                             'nusa.methods.test-analyze
+                                             'ake.methods.test-analyze
+                                             'ake.methods.test-triage
+                                             'ake.methods.test-contributor
+                                             'kawaraban.methods.test-route
+                                             'kawaraban.methods.test-analyze
+                                             'tasuke.methods.test-triage
+                                             'tasuke.methods.test-analyze)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
