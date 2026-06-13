@@ -161,9 +161,40 @@
                                              'keizu.methods.test-analyze)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:pywasm
+  {:doc "pywasm-ready actor analyzers ported post-merge (kaiyaku/kadode/tanemaki/watatsuna analyze)"
+   :task (do (require 'clojure.test
+                      'kaiyaku.tests.test-analyze
+                      'kadode.tests.test-analyze 'kadode.tests.test-coverage
+                      'tanemaki.tests.test-analyze 'tanemaki.tests.test-coverage
+                      'watatsuna.methods.test-analyze
+                      'hinagata.tests.test-analyze 'hinagata.tests.test-coverage
+                      'itonami.tests.test-analyze
+                      'shionome.methods.test-weave 'shionome.methods.test-analyze
+                      'kaiyaku.methods.test-datom-emit 'kadode.methods.test-datom-emit
+                      'tanemaki.methods.test-datom-emit 'itonami.methods.test-datom-emit
+                      'tsumugi.tests.test-banner)
+             (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
+                                             'kadode.tests.test-analyze
+                                             'kadode.tests.test-coverage
+                                             'tanemaki.tests.test-analyze
+                                             'tanemaki.tests.test-coverage
+                                             'watatsuna.methods.test-analyze
+                                             'hinagata.tests.test-analyze
+                                             'hinagata.tests.test-coverage
+                                             'itonami.tests.test-analyze
+                                             'shionome.methods.test-weave
+                                             'shionome.methods.test-analyze
+                                             'kaiyaku.methods.test-datom-emit
+                                             'kadode.methods.test-datom-emit
+                                             'tanemaki.methods.test-datom-emit
+                                             'itonami.methods.test-datom-emit
+                                             'tsumugi.tests.test-banner)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:stubs]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:stubs test:pywasm]}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test
