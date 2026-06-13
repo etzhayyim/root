@@ -136,6 +136,21 @@ reports cited sources and says `INSUFFICIENT` rather than fabricate.
 - The remaining legs are the usual operator/Council-gated ones (no-server-key): the
   etzhayyim.com worker `/ask` route, the live `datomic.transact` to a running kotoba node, the
   componentize-py WASM build, and the LiteLLM-gateway path when the fleet is up.
+- **Re-verified on merged main (2026-06-13, commit `3faa3f9944`)**: 21 tests / 53 assertions
+  green; the live loop ran end-to-end again — real DuckDuckGo (HTTP 202) → real local gemma 4
+  E4B QAT (`@127.0.0.1:11434`, G2 fleet-validated) → content-addressed kotoba Datomic tx
+  (53 datoms, `verify-chain` ok). All gates held, and **G4 non-fabrication held** (the answer
+  cited only retrieved sources). **Honest finding — retrieval relevance, not a gate failure**:
+  the *bare* query『青山の島田は今日やっている?』is ambiguous — the restaurant is written しまだ
+  (hiragana) while entity extraction pulled 島田 (kanji), which DuckDuckGo that day matched to a
+  Shimada-city politician (青山まさとら), so the top sources were off-target and the (correctly
+  grounded) answer was about the wrong "島田" — unlike the original run above, whose results
+  surfaced the restaurant and concluded 定休日. DuckDuckGo's live ranking is non-deterministic,
+  which is exactly why the committed EDN fixture is the deterministic test oracle.
+  **Future work (analyze/retrieve): query disambiguation** — bind the category/locale (e.g.
+  南青山 割烹 しまだ) so an ambiguous bare entity resolves to the intended sense; the off-target
+  results are recorded in the fixture's `:live-reverify` as a regression target (not read by
+  the tests, which only read `:search "*"`).
 
 ## Alternatives Considered
 
