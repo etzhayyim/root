@@ -199,7 +199,10 @@
                       'itonami.methods.test-optimize 'itonami.methods.test-plan
                       'itonami.methods.test-inspect 'itonami.methods.test-trend
                       'keizu.methods.test-registry 'keizu.methods.test-export
-                      'funadaiku.methods.test-voyage-energy)
+                      'funadaiku.methods.test-voyage-energy
+                      'hikari.methods.test-microgrid 'hikari.methods.test-panel-install
+                      'mizuho.methods.test-water-supply 'mizuho.methods.test-chlorination
+                      'noroshi.methods.test-link-budget 'noroshi.methods.test-pic-layout)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
                                              'kadode.tests.test-coverage
@@ -260,7 +263,13 @@
                                              'itonami.methods.test-trend
                                              'keizu.methods.test-registry
                                              'keizu.methods.test-export
-                                             'funadaiku.methods.test-voyage-energy)]
+                                             'funadaiku.methods.test-voyage-energy
+                                             'hikari.methods.test-microgrid
+                                             'hikari.methods.test-panel-install
+                                             'mizuho.methods.test-water-supply
+                                             'mizuho.methods.test-chlorination
+                                             'noroshi.methods.test-link-budget
+                                             'noroshi.methods.test-pic-layout)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
