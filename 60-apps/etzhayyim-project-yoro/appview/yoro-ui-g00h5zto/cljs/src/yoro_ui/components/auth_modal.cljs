@@ -1,8 +1,11 @@
 (ns yoro-ui.components.auth-modal
-  "Sign-in modal — WebAuthn passkey ONLY (charter: kotoba datomic webauthn).
-   NO identifier/password fields. NO com.atproto.server.createSession.
+  "Sign-in modal — WebAuthn passkey primary (charter: kotoba datomic webauthn).
+   Dev-mode app-password login via com.atproto.server.createSession is also
+   available for localhost testing (passkey rpId mismatch workaround).
    Session stored in sessionStorage as 'etzhayyim-auth-session' (ADR-2606061800)."
   (:require [re-frame.core :as rf]
+            [reagent.core :as r]
+            [yoro-ui.interop.atproto :as at]
             [yoro-ui.interop.sound :as snd]))
 
 ;; ---------------------------------------------------------------------------
@@ -30,8 +33,8 @@
 
 (defn- serialize-cred
   "Serialize a PublicKeyCredential into a plain Clojure map for JSON transit."
-  [cred]
-  (let [resp (.-response cred)]
+  [^js cred]
+  (let [^js resp (.-response cred)]
     {:id   (.-id cred)
      :rawId (buf->b64u (.-rawId cred))
      :type  (.-type cred)
@@ -131,6 +134,70 @@
        (assoc-in [:auth-modal :loading?] false)
        (assoc-in [:auth-modal :error] (or msg "パスキー認証に失敗しました")))))
 
+;; ---------------------------------------------------------------------------
+;; Dev-mode app-password login (localhost workaround — passkey rpId fails on 127.0.0.1)
+
+(rf/reg-fx
+ :http/post-json
+ (fn [{:keys [url body on-success on-failure]}]
+   (-> (js/fetch url #js {:method  "POST"
+                           :headers #js {"Content-Type" "application/json"}
+                           :body    (js/JSON.stringify (clj->js body))})
+       (.then (fn [r]
+                (let [ok? (.-ok r)]
+                  (-> (.json r)
+                      (.then (fn [data]
+                               (let [d (js->clj data :keywordize-keys true)]
+                                 (if ok?
+                                   (rf/dispatch (conj on-success d))
+                                   (when on-failure
+                                     (rf/dispatch (conj on-failure
+                                                        (or (:error d) (:message d)
+                                                            (str "HTTP " (.-status r)))))))))))))
+       (.catch (fn [err]
+                 (when on-failure
+                   (rf/dispatch (conj on-failure (.-message err))))))))))
+
+(rf/reg-event-fx
+ :auth/dev-login
+ (fn [{:keys [db]} [_ identifier password pds-host]]
+   {:db (-> db
+            (assoc-in [:auth-modal :loading?] true)
+            (assoc-in [:auth-modal :error] nil))
+    :http/post-json
+    {:url        (str "https://" pds-host "/xrpc/com.atproto.server.createSession")
+     :body       {:identifier identifier :password password}
+     :on-success [:auth/dev-login-ok pds-host]
+     :on-failure [:auth/dev-login-fail]}}))
+
+(rf/reg-event-fx
+ :auth/dev-login-ok
+ (fn [{:keys [db]} [_ pds-host resp]]
+   (let [session {:did         (:did resp)
+                  :handle      (:handle resp)
+                  :accessJwt   (:accessJwt resp)
+                  :refreshJwt  (:refreshJwt resp)
+                  :displayName ""}]
+     ;; Point all subsequent XRPC calls at the PDS that issued this session
+     (at/set-service! (str "https://" pds-host))
+     (ss-set! SESSION_KEY session)
+     (when-let [did (:did session)] (ls-set! DID_KEY did))
+     (snd/play-success!)
+     {:db (-> db
+              (assoc-in [:auth-modal :loading?] false)
+              (assoc-in [:auth-modal :open?] false))
+      :fx [[:dispatch [:auth/set-session session]]]})))
+
+(rf/reg-event-db
+ :auth/dev-login-fail
+ (fn [db [_ msg]]
+   (snd/play-fail!)
+   (-> db
+       (assoc-in [:auth-modal :loading?] false)
+       (assoc-in [:auth-modal :error] (str "ログインに失敗しました: " (or msg "不明なエラー"))))))
+
+;; ---------------------------------------------------------------------------
+
 (rf/reg-event-db
  :auth-modal/open
  (fn [db _]
@@ -151,80 +218,107 @@
 ;; Component
 
 (defn auth-modal []
-  (fn []
-    (let [open?    @(rf/subscribe [:auth-modal/open?])
-          loading? @(rf/subscribe [:auth-modal/loading?])
-          error    @(rf/subscribe [:auth-modal/error])]
-      (when open?
-        [:div {:class    "fixed inset-0 z-50 flex items-center justify-center"
-               :on-click #(when (= (.-target %) (.-currentTarget %))
-                            (rf/dispatch [:auth-modal/close]))}
+  (let [dev-id  (r/atom "")
+        dev-pwd (r/atom "")
+        dev-pds (r/atom "bsky.social")]
+    (fn []
+      (let [open?    @(rf/subscribe [:auth-modal/open?])
+            loading? @(rf/subscribe [:auth-modal/loading?])
+            error    @(rf/subscribe [:auth-modal/error])]
+        (when open?
+          [:div {:class    "fixed inset-0 z-50 flex items-center justify-center"
+                 :on-click #(when (= (.-target %) (.-currentTarget %))
+                              (rf/dispatch [:auth-modal/close]))}
 
-         ;; Backdrop
-         [:div {:class "absolute inset-0 bg-black/60 backdrop-blur-sm"}]
+           ;; Backdrop
+           [:div {:class "absolute inset-0 bg-black/60 backdrop-blur-sm"}]
 
-         ;; Card
-         [:div {:class "relative z-10 w-[340px] bg-gv2-bg-card rounded-2xl shadow-2xl p-6 mx-4"}
+           ;; Card
+           [:div {:class "relative z-10 w-[340px] bg-gv2-bg-card rounded-2xl shadow-2xl p-6 mx-4"}
 
-          ;; Close
-          [:button {:class    "absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gv2-bg-base text-gv2-text-muted"
-                    :on-click #(rf/dispatch [:auth-modal/close])}
-           "✕"]
+            ;; Close
+            [:button {:class    "absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gv2-bg-base text-gv2-text-muted"
+                      :on-click #(rf/dispatch [:auth-modal/close])}
+             "✕"]
 
-          ;; Logo / title
-          [:div {:class "text-center mb-8"}
-           [:img {:src "/yoro-final.svg"
-                  :alt "yoro"
-                  :class "w-20 h-20 mx-auto mb-3 yoro-svg"}]
-           [:h2 {:class "text-[18px] font-bold text-gv2-text-primary"} "yoro へようこそ"]
-           [:p {:class "text-[12px] text-gv2-text-muted mt-1"}
-            "パスキーで安全にログイン"]]
+            ;; Logo / title
+            [:div {:class "text-center mb-8"}
+             [:img {:src "/yoro-final.svg"
+                    :alt "yoro"
+                    :class "w-20 h-20 mx-auto mb-3 yoro-svg"}]
+             [:h2 {:class "text-[18px] font-bold text-gv2-text-primary"} "yoro へようこそ"]
+             [:p {:class "text-[12px] text-gv2-text-muted mt-1"}
+              "パスキーで安全にログイン"]]
 
-          ;; Error banner
-          (when error
-            [:div {:class "mb-5 px-3 py-2 bg-red-500/10 border border-red-400/30 rounded-xl"}
-             [:p {:class "text-[12px] text-red-400"} error]])
+            ;; Error banner
+            (when error
+              [:div {:class "mb-5 px-3 py-2 bg-red-500/10 border border-red-400/30 rounded-xl"}
+               [:p {:class "text-[12px] text-red-400"} error]])
 
-          ;; Passkey button — THE ONLY auth path (charter: WebAuthn kotoba datomic)
-          [:button {:class    (str "w-full py-3 rounded-xl text-[15px] font-bold flex items-center justify-center gap-2 transition-opacity "
-                                   (if loading?
-                                     "bg-[#58CC02]/50 text-white cursor-not-allowed"
-                                     "bg-[#58CC02] text-white hover:bg-[#58CC02]/90 active:scale-[0.98]"))
-                    :disabled loading?
-                    :on-click #(when-not loading?
-                                 (snd/play-tap-soft!)
-                                 (rf/dispatch [:auth/start-passkey-sign-in]))}
-           (if loading?
-             [:<>
-              [:svg {:class "animate-spin w-4 h-4" :fill "none" :viewBox "0 0 24 24"}
-               [:circle {:class "opacity-25" :cx 12 :cy 12 :r 10 :stroke "currentColor" :stroke-width 4}]
-               [:path {:class "opacity-75" :fill "currentColor" :d "M4 12a8 8 0 018-8v8z"}]]
-              "認証中…"]
-             [:<>
-              ;; FIDO passkey icon
-              [:svg {:width 18 :height 18 :viewBox "0 0 24 24" :fill "none"
-                     :stroke "currentColor" :stroke-width 2 :stroke-linecap "round"}
-               [:circle {:cx 9 :cy 7 :r 4}]
-               [:path {:d "M3 21v-2a4 4 0 014-4h4"}]
-               [:line {:x1 19 :y1 11 :x2 19 :y2 17}]
-               [:circle {:cx 19 :cy 19 :r 2}]
-               [:path {:d "M15 13l2 2 4-4"}]]
-              "パスキーでログイン"])]
+            ;; Passkey button
+            [:button {:class    (str "w-full py-3 rounded-xl text-[15px] font-bold flex items-center justify-center gap-2 transition-opacity "
+                                     (if loading?
+                                       "bg-[#58CC02]/50 text-white cursor-not-allowed"
+                                       "bg-[#58CC02] text-white hover:bg-[#58CC02]/90 active:scale-[0.98]"))
+                      :disabled loading?
+                      :on-click #(when-not loading?
+                                   (snd/play-tap-soft!)
+                                   (rf/dispatch [:auth/start-passkey-sign-in]))}
+             (if loading?
+               [:<>
+                [:svg {:class "animate-spin w-4 h-4" :fill "none" :viewBox "0 0 24 24"}
+                 [:circle {:class "opacity-25" :cx 12 :cy 12 :r 10 :stroke "currentColor" :stroke-width 4}]
+                 [:path {:class "opacity-75" :fill "currentColor" :d "M4 12a8 8 0 018-8v8z"}]]
+                "認証中…"]
+               [:<>
+                [:svg {:width 18 :height 18 :viewBox "0 0 24 24" :fill "none"
+                       :stroke "currentColor" :stroke-width 2 :stroke-linecap "round"}
+                 [:circle {:cx 9 :cy 7 :r 4}]
+                 [:path {:d "M3 21v-2a4 4 0 014-4h4"}]
+                 [:line {:x1 19 :y1 11 :x2 19 :y2 17}]
+                 [:circle {:cx 19 :cy 19 :r 2}]
+                 [:path {:d "M15 13l2 2 4-4"}]]
+                "パスキーでログイン"])]
 
-          ;; What is a passkey?
-          [:p {:class "text-center text-[11px] text-gv2-text-muted mt-4 leading-relaxed"}
-           "パスキーは顔認証・指紋・PINで本人確認を行う安全な認証方式です。"]
+            ;; What is a passkey?
+            [:p {:class "text-center text-[11px] text-gv2-text-muted mt-4 leading-relaxed"}
+             "パスキーは顔認証・指紋・PINで本人確認を行う安全な認証方式です。"]
 
-          ;; Divider
-          [:div {:class "flex items-center gap-2 my-4"}
-           [:div {:class "flex-1 h-px bg-gv2-border"}]
-           [:span {:class "text-[10px] text-gv2-text-muted"} "または"]
-           [:div {:class "flex-1 h-px bg-gv2-border"}]]
+            ;; Divider
+            [:div {:class "flex items-center gap-2 my-4"}
+             [:div {:class "flex-1 h-px bg-gv2-border"}]
+             [:span {:class "text-[10px] text-gv2-text-muted"} "または"]
+             [:div {:class "flex-1 h-px bg-gv2-border"}]]
 
-          ;; Bluesky account creation link
-          [:p {:class "text-center text-[11px] text-gv2-text-muted"}
-           "アカウントをお持ちでない方は "
-           [:a {:href "https://bsky.app" :target "_blank" :rel "noopener noreferrer"
-                :class "text-[#1CB0F6] underline"}
-            "Bluesky"]
-           " で作成できます"]]]))))
+            ;; Dev-mode app-password login
+            [:div {:class "space-y-2"}
+             [:input {:class       "w-full px-3 py-2 bg-gv2-bg-base border border-gv2-border rounded-lg text-[13px] text-gv2-text-primary placeholder-gv2-text-muted focus:outline-none focus:border-[#1CB0F6]/50"
+                      :type        "text"
+                      :placeholder "ハンドル (@handle)"
+                      :value       @dev-id
+                      :disabled    loading?
+                      :on-change   #(reset! dev-id (.. % -target -value))}]
+             [:input {:class       "w-full px-3 py-2 bg-gv2-bg-base border border-gv2-border rounded-lg text-[13px] text-gv2-text-primary placeholder-gv2-text-muted focus:outline-none focus:border-[#1CB0F6]/50"
+                      :type        "password"
+                      :placeholder "アプリパスワード"
+                      :value       @dev-pwd
+                      :disabled    loading?
+                      :on-change   #(reset! dev-pwd (.. % -target -value))
+                      :on-key-down #(when (and (= (.-key %) "Enter")
+                                              (seq @dev-id) (seq @dev-pwd))
+                                      (rf/dispatch [:auth/dev-login @dev-id @dev-pwd @dev-pds]))}]
+             [:div {:class "flex gap-2 items-center"}
+              [:select {:class     "flex-1 px-2 py-1.5 bg-gv2-bg-base border border-gv2-border rounded-lg text-[11px] text-gv2-text-muted focus:outline-none"
+                        :value     @dev-pds
+                        :disabled  loading?
+                        :on-change #(reset! dev-pds (.. % -target -value))}
+               [:option {:value "bsky.social"} "bsky.social"]
+               [:option {:value "atproto.etzhayyim.com"} "atproto.etzhayyim.com"]]
+              [:button {:class    (str "flex-1 py-1.5 rounded-lg text-[13px] font-semibold transition-opacity "
+                                       (if (or loading? (empty? @dev-id) (empty? @dev-pwd))
+                                         "bg-gv2-border text-gv2-text-muted cursor-not-allowed opacity-50"
+                                         "bg-[#1CB0F6]/20 text-[#1CB0F6] hover:bg-[#1CB0F6]/30 active:scale-[0.98]"))
+                        :disabled (or loading? (empty? @dev-id) (empty? @dev-pwd))
+                        :on-click #(when-not (or loading? (empty? @dev-id) (empty? @dev-pwd))
+                                     (rf/dispatch [:auth/dev-login @dev-id @dev-pwd @dev-pds]))}
+               "ログイン"]]]]])))))

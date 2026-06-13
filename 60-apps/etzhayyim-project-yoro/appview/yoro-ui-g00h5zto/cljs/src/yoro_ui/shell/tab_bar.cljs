@@ -1,7 +1,8 @@
 (ns yoro-ui.shell.tab-bar
   "Bottom tab bar — SVG icons matching SuperAppTabBar design."
   (:require [re-frame.core :as rf]
-            [yoro-ui.router :as router]))
+            [yoro-ui.router :as router]
+            [yoro-ui.interop.sound :as snd]))
 
 ;; ---------------------------------------------------------------------------
 ;; SVG icons — filled when active, outline when inactive
@@ -93,7 +94,7 @@
                                     (if active?
                                       "text-[#1CB0F6]"
                                       "text-gv2-text-muted hover:text-gv2-text-primary"))
-                    :on-click  #(router/navigate! path)
+                    :on-click  #(do (snd/play-tap-soft!) (router/navigate! path))
                     :aria-label label
                     :aria-current (when active? "page")}
            [:div {:class "relative"}

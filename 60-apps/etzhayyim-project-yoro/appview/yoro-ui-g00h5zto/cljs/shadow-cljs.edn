@@ -1,3 +1,10 @@
+;; yoro-ui ClojureScript harness — shadow-cljs build config
+;; Svelte 5 (../svelte/) is production; this is a dev-time parallel implementation.
+;; Auth: WebAuthn passkey primary (rpId "etzhayyim.com", production) +
+;;       app-password dev-login form (localhost workaround, ADR-2606131950).
+;; dev: pnpm css && pnpm dev  (:dev-http 8700, push-state)
+;; test: pnpm test  (shadow-cljs :node-test)
+;; smoke: pnpm smoke  (playwright, system Chrome)
 {:source-paths
  ["src" "test"
   ;; kotoba datom codec — portable .cljc (ADR-2605312345)

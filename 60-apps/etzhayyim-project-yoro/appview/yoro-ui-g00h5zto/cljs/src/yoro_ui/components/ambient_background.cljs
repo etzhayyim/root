@@ -175,13 +175,13 @@
      {:display-name "ambient-background"
 
       :component-did-mount
-      (fn [this]
-        (let [node (r/dom-node this)]
-          (reset! canvas-ref node)
-          (when-not skip?
-            (resize!)
-            (.addEventListener js/window "resize" resize!)
-            (reset! raf-id (js/requestAnimationFrame loop!)))))
+      (fn [_]
+        ;; canvas-ref is already set by the :ref callback on the canvas element
+        ;; (React fires ref callbacks before componentDidMount)
+        (when-not skip?
+          (resize!)
+          (.addEventListener js/window "resize" resize!)
+          (reset! raf-id (js/requestAnimationFrame loop!))))
 
       :component-will-unmount
       (fn [_]
@@ -195,4 +195,5 @@
           [:div {:class "pointer-events-none absolute inset-0 w-full h-full"
                  :style {:background "radial-gradient(ellipse at 50% 40%, rgba(96,165,250,0.07) 0%, transparent 70%)"}}]
           [:canvas {:class "pointer-events-none absolute inset-0 w-full h-full"
-                    :style {:display "block"}}]))})))
+                    :style {:display "block"}
+                    :ref   #(reset! canvas-ref %)}]))})))
