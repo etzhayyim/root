@@ -35,7 +35,7 @@
             (assoc-in [:composer :posting?] false)
             (assoc-in [:composer :open?] false))
     ;; refresh home feed
-    :fx [[:dispatch [:feed/fetch]]]}))
+    :fx [[:dispatch [:feed/refresh]]]}))
 
 (rf/reg-event-db
  :composer/post-failed
