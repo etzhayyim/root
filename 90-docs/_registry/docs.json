@@ -24796,6 +24796,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606131600-shirabe-live-research-concierge-agent.md",
+      "id": "adr-2606131600-shirabe-live-research-concierge-agent",
+      "title": "ADR-2606131600: shirabe 調べ — live research-concierge agent (kotoba-clj + gemma4) Tier-B actor R1",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shirabe-live-research-concierge-agent",
+      "authoritative": true,
+      "authoritative_for": [
+        "shirabe-research-session",
+        "live-research-concierge-pattern"
+      ],
+      "related": [
+        "2606061900",
+        "2606072802",
+        "2606064500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605215000",
+        "2605262130",
+        "2605312345",
+        "2606012300",
+        "2606039200",
+        "2606061000",
+        "2606122400",
+        "2606131300"
+      ],
+      "last_verified": "2026-06-13",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
