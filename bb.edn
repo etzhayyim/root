@@ -186,7 +186,12 @@
                       'fuchi.methods.test-couple 'fuchi.methods.test-book
                       'fuchi.methods.test-provision
                       'kasa.tests.test-kasa 'kasa.tests.test-invariants
-                      'uchiwake.tests.test-uchiwake 'sukashi.tests.test-sukashi)
+                      'uchiwake.tests.test-uchiwake 'sukashi.tests.test-sukashi
+                      'suji.methods.test-load 'suji.methods.test-muscle-strain
+                      'suji.methods.test-datoms 'suji.methods.test-charter-invariants
+                      'suji.methods.test-bridge-consistency
+                      'kamado.methods.test-kamado
+                      'abaki.methods.test-live 'abaki.methods.test-analyze)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
                                              'kadode.tests.test-coverage
@@ -225,7 +230,15 @@
                                              'kasa.tests.test-kasa
                                              'kasa.tests.test-invariants
                                              'uchiwake.tests.test-uchiwake
-                                             'sukashi.tests.test-sukashi)]
+                                             'sukashi.tests.test-sukashi
+                                             'suji.methods.test-load
+                                             'suji.methods.test-muscle-strain
+                                             'suji.methods.test-datoms
+                                             'suji.methods.test-charter-invariants
+                                             'suji.methods.test-bridge-consistency
+                                             'kamado.methods.test-kamado
+                                             'abaki.methods.test-live
+                                             'abaki.methods.test-analyze)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
