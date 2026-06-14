@@ -147,15 +147,17 @@ language by D1.
   D2.2 the `.py` shim is **retained** because kanae's Python pipeline
   (`assemble_flows.py` / `test_pipeline.py` / `project_yoro.py`) still imports
   `danjo.methods.budget_ledger`; it will be removed when kanae is ported (Wave 2-adjacent).
-- **Second landed step (same wave).** `danjo/methods/analyze.py` → `analyze.clj` (+ `test_analyze.clj`):
-  the non-adjudicating discrepancy analyzer. `method_cid` is byte-identical (golden
-  `method:single-bidder-streak:955ade7944f2`); the full `render_edn` output is **byte-for-byte**
-  equal to the Python (golden-string test); G4 (no verdict field representable, structural
-  self-check) + G5 (≥2 source CIDs, raises) enforced in code (13/13 green). Note `method_cid`
-  uses Python's DEFAULT `ensure_ascii=True` (non-ASCII → `\uXXXX`), so it needs a *distinct*
-  canonical encoder from budget_ledger's `ensure_ascii=False` — both now live in the danjo clj
-  tree, a reminder that "canonical JSON" is encoder-specific and parity must be proven per call
-  site. The `.py` shim is retained (D2.2): `autorun.py` still imports `from analyze import …`.
+- **Second step — already done (correction).** `danjo/methods/analyze.py` was **already ported**
+  to `analyze.cljc` (ns `danjo.methods.analyze`, classpath-wired into `bb test:actors` via
+  `test_analyze.cljc`) before this wave. An earlier iteration mistakenly re-ported it to a
+  redundant `analyze.clj` (ns `root.danjo.methods.analyze`), which **shadowed** the canonical
+  `.cljc` on the classpath and broke `(require 'danjo.methods.test-analyze)`. The duplicate
+  `analyze.clj`/`test_analyze.clj` were **removed**; `autorun.clj` + `test_kotoba.clj` now
+  `load-file` the canonical `analyze.cljc`, and `kotoba.clj`'s `derived-datoms` reads the
+  observation map tolerant of the canonical **string** keys (`"sourceRecordCids"` …, matching
+  Python/`.cljc`) as well as keyword keys (`oget` helper). Lesson for Waves 2/3: **check for an
+  existing `.cljc` before porting** (uchiwake, asobi, hoshimori, inochi, … are already `.cljc`),
+  and never let a load-file `.clj` shadow a classpath-wired `.cljc` at the same path.
 - **Third landed step (same wave).** `danjo/methods/kotoba.py` → `kotoba.clj` (+ `test_kotoba.clj`):
   the local content-addressed commit-DAG log writer (`graph-datoms` / `derived-datoms` /
   `tx-cid` / `make-tx` / `append-tx` / `read-log` / `head-cid` / `verify-chain`). The
@@ -344,7 +346,7 @@ against its Python original with the discipline of D2 (charter gates enforced in
 
 | Actor | Methods clj-native | Tests |
 |---|---|---|
-| **danjo** | 4/4 (budget_ledger · analyze · kotoba · autorun) | 11 suites / 188 checks |
+| **danjo** | 4/4 (budget_ledger · kotoba · autorun new this wave; analyze pre-existing `.cljc`) | 10 run_tests_clj suites / 201 checks (+ analyze.cljc in `test:actors`) |
 | **matsurigoto** | 7/7 (tax-assess · corp · civil · credential · datoms · sign-capability · standard) | 86 tests / 352 assertions |
 | **fuchi** | 8/8 (allocate · vote · live_gate · route · book · provision · couple · analyze) | 36 tests / 176 assertions |
 

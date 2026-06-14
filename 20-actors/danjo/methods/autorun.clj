@@ -27,9 +27,9 @@
 (ns root.danjo.methods.autorun
   (:require [clojure.string :as str]))
 
-(load-file "analyze.clj")
+(load-file "analyze.cljc")   ; canonical danjo analyze (ns danjo.methods.analyze); .clj dup removed
 (load-file "kotoba.clj")
-(alias 'an 'root.danjo.methods.analyze)
+(alias 'an 'danjo.methods.analyze)
 (alias 'ko 'root.danjo.methods.kotoba)
 
 (def base-as-of 20260609)

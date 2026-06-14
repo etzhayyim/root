@@ -55,11 +55,16 @@
                (map (fn [[k v]] (add e (keyword (str "gov.procurement/" k)) v)))))))
     records)))
 
+(defn- oget
+  "Read an observation field tolerant of string (canonical analyze.cljc / Python) OR keyword keys."
+  ([o k] (oget o k nil))
+  ([o k d] (let [s (get o (name k))] (if (some? s) s (get o k d)))))
+
 (defn- obs-id
   "A stable, deterministic entity id for an observation (category + first source CID)."
   [o]
-  (let [cid0 (or (first (:sourceRecordCids o)) "?")]
-    (str "danjo-obs:" (or (:category o) "?") ":" cid0)))
+  (let [cid0 (or (first (oget o :sourceRecordCids)) "?")]
+    (str "danjo-obs:" (or (oget o :category) "?") ":" cid0)))
 
 (defn derived-datoms
   "Flatten danjo.discrepancyObservation records into append-only EAVT assertions, each carrying
@@ -70,12 +75,12 @@
              (mapcat
               (fn [o]
                 (let [e (obs-id o)]
-                  [(add e :danjo.obs/category (keyword (str/replace (str (:category o "?")) #"^:" "")))
+                  [(add e :danjo.obs/category (keyword (str/replace (str (oget o :category "?")) #"^:" "")))
                    (add e :danjo.obs/non-adjudicating true)
-                   (add e :danjo.obs/pattern (:observedPattern o ""))
-                   (add e :danjo.obs/source-record-cids (vec (:sourceRecordCids o [])))
-                   (add e :danjo.obs/method-note-cid (:methodNoteCid o ""))
-                   (add e :danjo.obs/known-false-positive-modes (vec (:knownFalsePositiveModes o [])))
+                   (add e :danjo.obs/pattern (oget o :observedPattern ""))
+                   (add e :danjo.obs/source-record-cids (vec (oget o :sourceRecordCids [])))
+                   (add e :danjo.obs/method-note-cid (oget o :methodNoteCid ""))
+                   (add e :danjo.obs/known-false-positive-modes (vec (oget o :knownFalsePositiveModes [])))
                    (add e :danjo.obs/sourcing :representative)]))
               observations))]
     (doseq [d out]
