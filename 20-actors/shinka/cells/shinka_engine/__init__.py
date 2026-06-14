@@ -46,6 +46,7 @@ from .speculative import (
     simulate_decode,
     DrafterFreshness,
 )
+from .datom_rag import DatomStore, GroundedContext, RetrievedFact, datom_cid
 
 __all__ = [
     # Loop A
@@ -93,4 +94,9 @@ __all__ = [
     "speculative_speedup",
     "simulate_decode",
     "DrafterFreshness",
+    # Research Track D — Datom-log RAG grounding
+    "DatomStore",
+    "GroundedContext",
+    "RetrievedFact",
+    "datom_cid",
 ]
