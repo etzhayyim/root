@@ -39,6 +39,7 @@ from .reward import (
     aggregate_reward,
     build_preference_pair,
 )
+from .matformer import Tier, MatFormerRouter, estimate_difficulty, route
 
 __all__ = [
     # Loop A
@@ -76,4 +77,9 @@ __all__ = [
     "PreferencePair",
     "aggregate_reward",
     "build_preference_pair",
+    # Research Track C — MatFormer elastic E2B/E4B routing
+    "Tier",
+    "MatFormerRouter",
+    "estimate_difficulty",
+    "route",
 ]
