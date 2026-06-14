@@ -232,6 +232,17 @@ language by D1.
   full matsurigoto clj suite **75 tests / 318 assertions green**). matsurigoto now **5/7**
   clj-native (the four verticals + the substrate membrane); remaining `sign_capability` /
   `standard` are capability/COFOG glue.
+- **Wave 1 — matsurigoto `sign-capability` (no-server-key layer).** `sign_capability.py` →
+  `sign_capability.clj` (+ `test_sign_capability.clj`): the verify-only sign/authority layer
+  (ADR-2605231525). matsurigoto holds NO key — `signer-held-private-key` false, `sign-server-side`
+  always RAISES; it only emits the canonical payload and ATTACHES an externally-produced signature
+  after checking the signer is legitimate for the principal (**A** = Council `did:web:etzhayyim.com:council:*`;
+  **B** = the adopting state's OWN non-etzhayyim did). `verify-proof` is structural (legitimate
+  signer + sha256 payload integrity over content minus proof/status); tamper after signing breaks
+  it. The payload digest is an INTERNAL integrity hash (not a cross-system content address), so no
+  byte-parity with Python is claimed (the one place in this wave where parity is behavioral, not
+  byte-exact). 6 tests / 16 assertions; full matsurigoto clj suite **81 tests / 334 assertions
+  green**. matsurigoto now **6/7** clj-native; only `standard` (COFOG service catalogue) remains.
 
 # Alternatives Considered
 
