@@ -24,6 +24,12 @@ from .maxwell_rsi import (
     CORPUS_M1_TARGET,
 )
 from .orchestrator import ShinkaOrchestrator, BeatRecord
+from .fleet_sampler import (
+    FleetSampler,
+    FLEET_WORKER_NODES,
+    pass_at_k,
+    BestOfNResult,
+)
 
 __all__ = [
     # Loop A
@@ -42,4 +48,9 @@ __all__ = [
     # Supervisor
     "ShinkaOrchestrator",
     "BeatRecord",
+    # Research Track A — fleet test-time compute
+    "FleetSampler",
+    "FLEET_WORKER_NODES",
+    "pass_at_k",
+    "BestOfNResult",
 ]
