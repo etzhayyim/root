@@ -24963,6 +24963,122 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606142000-kuramori-warehouse-intralogistics-agv-amr.md",
+      "id": "adr-2606142000-kuramori-warehouse-intralogistics-agv-amr",
+      "title": "ADR-2606142000: kuramori 倉守 — warehouse intralogistics robotics (AGV/AMR) + the Clojure-first GAP-actor wave",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kuramori-warehouse-intralogistics",
+      "authoritative": true,
+      "authoritative_for": [
+        "warehouse intralogistics robotics actor (AGV/AMR transport + slotting + putaway/picking)",
+        "the reference Clojure-first (babashka-runnable) actor idiom"
+      ],
+      "related": [
+        "ADR-2606042300 (todoke — last-mile sibling)",
+        "ADR-2606032100 (labor-liberation robotics wave — sanae/hataori/kiyome)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606082000 (niyaku — AGV/dispatch core reused)",
+        "ADR-2606073001 (robotics remote-work coverage/GAP survey — names kuramori as the warehouse GAP)",
+        "ADR-2606032130 (Displacement Dividend)",
+        "ADR-2606042100 (tazuna — teleop substrate)",
+        "ADR-2605215000 (Murakumo-only inference)",
+        "ADR-2605312345 (kotoba Datom = first-class canonical state)"
+      ],
+      "last_verified": "2026-06-14",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606142010-soma-forestry-logging-robotics.md",
+      "id": "adr-2606142010-soma-forestry-logging-robotics",
+      "title": "ADR-2606142010: soma 杣 — forestry / logging robotics (directional felling + bucking + extraction)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "soma-forestry-logging-robotics",
+      "authoritative": true,
+      "authoritative_for": [
+        "forestry / logging robotics actor (directional felling + cut-to-length bucking + slope/soil-limited extraction)"
+      ],
+      "related": [
+        "ADR-2606142000 (kuramori 倉守 — the Clojure-first reference actor soma mirrors)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606073001 (robotics remote-work survey — §4 reserves soma 杣 for 伐採)",
+        "ADR-2606032100 (labor-liberation OSS-robotics wave — sanae/hataori/kiyome pattern)",
+        "ADR-2606032130 (Displacement Dividend)",
+        "ADR-2606042100 (tazuna — teleop substrate)",
+        "ADR-2605215000 (Murakumo-only inference)",
+        "ADR-2605312345 (kotoba Datom = first-class canonical state)"
+      ],
+      "last_verified": "2026-06-14",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606142020-madomori-facade-window-cleaning-robotics.md",
+      "id": "adr-2606142020-madomori-facade-window-cleaning-robotics",
+      "title": "ADR-2606142020: madomori 窓守 — high-rise / façade window-cleaning robotics",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "madomori-facade-window-cleaning",
+      "authoritative": true,
+      "authoritative_for": [
+        "high-rise / façade window-cleaning robotics actor (coverage path + wind/sway envelope + adhesion)"
+      ],
+      "related": [
+        "ADR-2606142000 (kuramori — the reference Clojure-first actor idiom this mirrors)",
+        "ADR-2606034800 (manako — on-device browser-local vision; the G3 on-device-no-cloud pattern)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606073001 (robotics remote-work coverage/GAP survey — names façade window cleaning the highest unmet remote-value GAP)",
+        "ADR-2606032100 (labor-liberation OSS-robotics wave — sanae/hataori/kiyome sibling pattern)",
+        "ADR-2606032130 (Displacement Dividend)",
+        "ADR-2606042100 (tazuna — teleop substrate)",
+        "ADR-2605215000 (Murakumo-only inference)",
+        "ADR-2605312345 (kotoba Datom = first-class canonical state)"
+      ],
+      "last_verified": "2026-06-14",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606142030-kudamori-sewer-confined-space-cleaning-robotics.md",
+      "id": "adr-2606142030-kudamori-sewer-confined-space-cleaning-robotics",
+      "title": "ADR-2606142030: kudamori 管守 — sewer / confined-space in-pipe cleaning robotics",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kudamori-sewer-confined-space-cleaning",
+      "authoritative": true,
+      "authoritative_for": [
+        "sewer / confined-space in-pipe cleaning robotics actor (atmosphere gate + nav + jetting)"
+      ],
+      "related": [
+        "ADR-2606142000 (kuramori — Clojure-first reference actor / sibling)",
+        "ADR-2605263100 (mizuho 水穂 — water + sanitation; treatment counterpart, effluent handoff)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606073001 (robotics remote-work survey — §4 names confined-space death as a high-remote-value GAP)",
+        "ADR-2606032100 (labor-liberation OSS-robotics wave)",
+        "ADR-2606032130 (Displacement Dividend)",
+        "ADR-2606042100 (tazuna — teleop substrate)",
+        "ADR-2605215000 (Murakumo-only inference)",
+        "ADR-2605312345 (kotoba Datom = first-class canonical state)"
+      ],
+      "last_verified": "2026-06-14",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
