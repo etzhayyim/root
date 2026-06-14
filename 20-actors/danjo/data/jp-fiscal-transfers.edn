@@ -1,0 +1,40 @@
+;; jp-fiscal-transfers.edn — 国 → 地方 の財政移転 (地方交付税 法定率繰入). danjo revenue-ledger.
+;;
+;; 重要な honest 論点: 所得税・法人税などは「全体としては」一般会計の fungible 普通税 (per-yen 不可)
+;; だが、その一定割合 (法定率) は 地方交付税法6条 により **交付税及び譲与税配付金特別会計** へ繰入され、
+;; 地方団体へ交付される。法定率は法律で定まり、特会は閉じた会計境界なので、この「法定率分の流れ」は
+;; per-yen 追跡 可能 — 税全体の fungible 性とは別レイヤーの事実。transfers.clj はこの PORTION を
+;; 「税全体の分類を覆さずに」独立した traceable フローとして報告する (honest portion-based reasoning)。
+;;
+;; rate-bp = 法定率 (basis points; 3310 = 33.1%)。amount = floor(source-tax × rate-bp / 10000) で
+;; 1円精度。全数値 :representative (実構造に基づくが G7 ライブ検証前)。地方交付税法6条:
+;; 所得税・法人税 33.1% / 酒税 50% / 消費税 19.2% / 地方法人税 全額。
+
+{:source-sensor "jp_kofuzei" :jurisdiction "jpn" :currency-iso4217 "JPY"
+ :verification-status "representative" :fiscal-year 2024
+ :to-account :special/local-allocation
+ :to-account-ja "交付税及び譲与税配付金特別会計"
+ :administered-by :soumu
+ :statutory-basis "地方交付税法6条 (国税の法定率分を地方交付税原資として特会へ繰入)"
+ :primary-sources ["https://www.soumu.go.jp/main_sosiki/c-zaisei/kouhuzei.html"
+                   "https://www.mof.go.jp/policy/budget/budger_workflow/account/special/"]
+
+ ;; 法定率繰入 (国税 → 交付税特会). 各 :from-tax は jp-national-taxes.edn の id。
+ :allocations
+ [{:id :alloc-income-withholding :from-tax :income-withholding :rate-bp 3310
+   :statutory-basis "地方交付税法6条 (所得税の33.1%)"}
+  {:id :alloc-income-self :from-tax :income-self-assessed :rate-bp 3310
+   :statutory-basis "地方交付税法6条 (所得税の33.1%)"}
+  {:id :alloc-corporate :from-tax :corporate :rate-bp 3310
+   :statutory-basis "地方交付税法6条 (法人税の33.1%)"}
+  {:id :alloc-consumption :from-tax :consumption :rate-bp 1920
+   :statutory-basis "地方交付税法6条 (消費税の19.2%)"}
+  {:id :alloc-liquor :from-tax :liquor :rate-bp 5000
+   :statutory-basis "地方交付税法6条 (酒税の50%)"}]
+
+ ;; 交付税特会 → 地方団体 への交付 (aggregate; 法定率繰入の合計を原資に交付).
+ :distributions
+ [{:id :dist-prefecture :to :prefecture-agg :ja "地方交付税交付金 (都道府県分, 集約)"
+   :share-bp 5500 :cofog "01.8"}
+  {:id :dist-municipality :to :municipality-agg :ja "地方交付税交付金 (市町村分, 集約)"
+   :share-bp 4500 :cofog "01.8"}]}

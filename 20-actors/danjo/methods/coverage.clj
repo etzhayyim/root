@@ -13,11 +13,13 @@
 (load-file "discrepancy.clj")   ; loads revenue_ledger.clj too
 (load-file "ingest.clj")
 (load-file "org_actor.clj")     ; loads taxes.clj too
+(load-file "transfers.clj")
 (alias 'rl 'root.danjo.methods.revenue-ledger)
 (alias 'd  'root.danjo.methods.discrepancy)
 (alias 'in 'root.danjo.methods.ingest)
 (alias 't  'root.danjo.methods.taxes)
 (alias 'o  'root.danjo.methods.org-actor)
+(alias 'tr 'root.danjo.methods.transfers)
 
 (defn- oku [jpy] (format "%.1f兆" (/ (double jpy) 1.0e12)))  ; 兆円 for readability
 
@@ -131,6 +133,21 @@
                   (str "所管 " (str/join "," (map #(subs (str %) 1) (:accounts (:administers v)))))) " |"))))
      "\n")))
 
+(defn transfer-md
+  "国→地方 財政移転 (地方交付税 法定率繰入) — the per-yen-traceable inter-governmental flow."
+  [computed]
+  (let [r (tr/report computed)]
+    (str "\n## 国 → 地方 財政移転 (地方交付税 法定率繰入)\n\n"
+         "国税の法定率分 (地方交付税法6条) は **交付税特会** を経由して地方へ交付される — "
+         "法律で率が定まり特会は閉じた境界なので、この**法定率分は per-yen 追跡 可** "
+         "(税全体の fungible 性とは別レイヤー):\n\n"
+         "| 原資税 | 法定率 | 繰入額 |\n|---|---|---|\n"
+         (str/join "\n" (for [a (:allocations r)]
+                          (str "| " (subs (str (:from-tax a)) 1) " | " (format "%.1f%%" (/ (:rate-bp a) 100.0))
+                               " | " (oku (:amount-jpy a)) "円 |")))
+         "\n\n合計 **" (oku (:total-inflow-jpy r)) "円** → 地方交付税として交付 (residual " (:residual r) ", 1円照合)。\n"
+         "源泉所得税等は全体としては依然 fungible — 覆らない法定率分のみが traceable (portion-honesty)。\n")))
+
 (defn -main [& args]
   (let [model (in/with-budget (in/ingest (or (first args) "../data/gov-revenue-corpus.jp.edn"))
                               (in/ingest-budget "../data/gov-fiscal-seed.jp.json"))
@@ -138,9 +155,11 @@
         tax-reg (t/combine (t/load-taxes "../data/jp-national-taxes.edn")
                            (t/load-local-taxes "../data/jp-local-taxes.edn"))
         org-reg (o/load-orgs "../data/jp-fiscal-orgs.edn")
+        xfer    (tr/compute (tr/load-transfers "../data/jp-fiscal-transfers.edn")
+                            (t/load-taxes "../data/jp-national-taxes.edn"))
         out   (io/file "../data/REVENUE-COVERAGE.md")]
     (io/make-parents out)
-    (spit out (str (coverage-md rep) (national-md tax-reg org-reg)))
+    (spit out (str (coverage-md rep) (national-md tax-reg org-reg) (transfer-md xfer)))
     (println "wrote" (.getPath out))
     (println "  fiscal-years:" (:fiscal-years rep)
              "| national taxes:" (count (:taxes tax-reg))

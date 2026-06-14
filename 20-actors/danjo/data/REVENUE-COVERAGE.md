@@ -58,5 +58,21 @@ per-yen 追跡可能 (特別会計分) は **1.3%** のみ — 国税の大半�
 | 資源エネルギー庁 (経済産業省) | `did:web:etzhayyim.com:actor:jp-anre` | account-administrator | 所管 special/energy |
 | 財務省理財局 (国債整理基金特別会計) | `did:web:etzhayyim.com:actor:jp-mof-debt` | account-administrator | 所管 special/debt-consolidation |
 | 財務省主計局 (一般会計) | `did:web:etzhayyim.com:actor:jp-mof-budget` | account-administrator | 所管 general |
+| 総務省 (交付税及び譲与税配付金特別会計) | `did:web:etzhayyim.com:actor:jp-soumu` | account-administrator | 所管 special/local-allocation |
 | 都道府県 (集約) | `did:web:etzhayyim.com:actor:jp-prefecture-agg` | collector | 徴収 5税 (16.2兆円) |
 | 市町村 (集約) | `did:web:etzhayyim.com:actor:jp-municipality-agg` | collector | 徴収 7税 (25.2兆円) |
+
+## 国 → 地方 財政移転 (地方交付税 法定率繰入)
+
+国税の法定率分 (地方交付税法6条) は **交付税特会** を経由して地方へ交付される — 法律で率が定まり特会は閉じた境界なので、この**法定率分は per-yen 追跡 可** (税全体の fungible 性とは別レイヤー):
+
+| 原資税 | 法定率 | 繰入額 |
+|---|---|---|
+| income-withholding | 33.1% | 4.8兆円 |
+| income-self-assessed | 33.1% | 1.1兆円 |
+| corporate | 33.1% | 5.6兆円 |
+| consumption | 19.2% | 4.6兆円 |
+| liquor | 50.0% | 0.6兆円 |
+
+合計 **16.7兆円** → 地方交付税として交付 (residual 0, 1円照合)。
+源泉所得税等は全体としては依然 fungible — 覆らない法定率分のみが traceable (portion-honesty)。

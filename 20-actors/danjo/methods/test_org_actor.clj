@@ -17,7 +17,7 @@
                        (t/load-local-taxes "../data/jp-local-taxes.edn"))]
 
   ;; ── registry (国 + 地方) ──
-  (check "8 fiscal orgs (6 national + 2 local aggregate)" (= 8 (count (:orgs orgs))))
+  (check "9 fiscal orgs (7 national incl 総務省 + 2 local aggregate)" (= 9 (count (:orgs orgs))))
   (check "includes the 2 local aggregate orgs"
          (every? #(some (fn [o] (= % (:id o))) (:orgs orgs)) [:prefecture-agg :municipality-agg]))
   (check "every org has a did:web actor DID"
@@ -68,7 +68,7 @@
            (= (get ((ns-resolve in 'parse-json) (o/->json prof)) "did") (:did prof))))
   (let [dir (str (System/getProperty "java.io.tmpdir") "/danjo-actors-" (rand-int 1000000))
         paths (o/generate-profiles! orgs taxes dir)]
-    (check "generate-profiles! writes 8 profiles + index (9)" (= 9 (count paths)))
+    (check "generate-profiles! writes 9 profiles + index (10)" (= 10 (count paths)))
     (check "every profile file exists"  (every? #(.exists (io/file %)) paths))
     (doseq [p paths] (.delete (io/file p)))
     (.delete (io/file dir)))

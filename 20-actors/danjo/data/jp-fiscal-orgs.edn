@@ -63,6 +63,15 @@
    :note "一般会計の予算編成・所管。fungible のため特定税目→特定歳出の1円追跡は構造上不可。"
    :source-url "https://www.mof.go.jp/policy/budget/"}
 
+  {:id :soumu :handle "jp-soumu"
+   :ja "総務省 (交付税及び譲与税配付金特別会計)" :en "MIC (Local Allocation Tax Special Account)"
+   :did "did:web:etzhayyim.com:actor:jp-soumu"
+   :role :account-administrator
+   :administers [:special/local-allocation]
+   :parent "総務省 (Ministry of Internal Affairs and Communications)"
+   :note "交付税及び譲与税配付金特別会計を所管。国税の法定率分の繰入を原資に地方交付税を地方団体へ交付 (国→地方の per-yen 追跡可能な財政移転)。"
+   :source-url "https://www.soumu.go.jp/main_sosiki/c-zaisei/kouhuzei.html"}
+
   ;; ── 地方団体 (aggregate keyless mirror-actors; 国 + 地方 で税の全体像) ──────────────
   ;; coverage honesty: 47都道府県 / 1741市町村 を 2 つの aggregate actor で代表する
   ;; (ooyake G5 — 集約であることを明示。将来 個別団体への分解は拡張)。
