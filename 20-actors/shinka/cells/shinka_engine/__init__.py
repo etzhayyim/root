@@ -49,6 +49,7 @@ from .speculative import (
 from .datom_rag import DatomStore, GroundedContext, RetrievedFact, datom_cid
 from .distill_flywheel import DistillFlywheel, Generation, projected_rounds
 from .quantization import QuantOption, NodeSpec, select_quant, pareto_front, recommend
+from .adaptive import adaptive_best_of_n, AdaptiveResult, DEFAULT_BUDGETS
 
 __all__ = [
     # Loop A
@@ -111,4 +112,8 @@ __all__ = [
     "select_quant",
     "pareto_front",
     "recommend",
+    # Integration — difficulty-adaptive fleet compute (Track C × Track A)
+    "adaptive_best_of_n",
+    "AdaptiveResult",
+    "DEFAULT_BUDGETS",
 ]
