@@ -15,7 +15,12 @@
   (:require [clojure.edn :as edn]
             [kudamori.methods.atmosphere :as atm]
             [kudamori.methods.pipe-nav :as nav]
-            [kudamori.methods.jetting :as jet]))
+            [kudamori.methods.jetting :as jet]
+            [kudamori.methods.inspection :as insp]
+            [kudamori.methods.campaign :as camp]
+            [kudamori.methods.rootcut :as rc]
+            [kudamori.methods.relining :as rl]
+            [kudamori.methods.handoff :as ho]))
 
 (defn load-seed
   "Read the sewer-network EDN seed into a Clojure map."
@@ -53,6 +58,92 @@
          :navigation nav-plan
          :jetting clean}))))
 
+(defn run-day
+  "Full sewer-cleaning DAY pipeline — threads a realistic campaign day through EVERY
+   domain method module so they actually compose end-to-end (R1 integration), not just
+   coexist:
+     inspect(inspection) → prioritize+tour(campaign, fed by inspection/to-campaign-input)
+     → ★ atmosphere ENTRY GATE(atmosphere) → navigate(pipe_nav) → jet(jetting)
+     → root-cut(rootcut) → reline(relining) → effluent handoff(handoff).
+   Returns the base `run` report plus `:pipeline` (per-stage {:method :summary} vector),
+   `:methods` (the set of domain modules exercised), and `:day` (the per-stage artifacts).
+   Stages with no seed fixture are recorded `:skipped` rather than failing.
+
+   ★ G5 invariant: the atmosphere entry gate stays a REAL gate in the pipeline — every
+   confined-space entry re-checks atmosphere via atmosphere/assert-entry! (the campaign
+   batches the route, never the gas gate). The seed's :entry-air fixture is a verified-safe
+   reading so the happy path runs, but the gate call always fires; an unsafe reading would
+   RAISE and refuse entry, never proceed."
+  [seed]
+  (let [base       (run seed)
+        segments   (:segments seed)
+        job        (:job seed)
+        robot      (:robot seed)
+        stage      (fn [m summary] {:method m :summary summary})
+        ;; 1. INSPECT — grade the CCTV/sonde survey worst-first (inspection)
+        survey-in  (:inspection-survey seed)
+        graded     (when (seq survey-in) (insp/survey survey-in))
+        ;; the seam: survey → campaign input shape (inspection/to-campaign-input)
+        camp-in    (when graded (insp/to-campaign-input graded (:survey-meta seed {})))
+        ;; 2. PRIORITIZE + TOUR — campaign fed by the inspection survey (real composition)
+        campaign   (when (seq camp-in)
+                     (camp/plan-campaign camp-in (:campaign-opts seed {})))
+        ;; 3. ★ ATMOSPHERE ENTRY GATE — every confined-space entry re-checks (G5).
+        ;;    assert-entry! RAISES on an unsafe reading; the safe :entry-air fixture passes.
+        entry-air  (:entry-air seed)
+        entry-gate (when entry-air
+                     {:permitted? (atm/entry-permitted? entry-air)
+                      :hazards    (atm/hazards entry-air)
+                      :checked    (boolean (atm/assert-entry! entry-air))})
+        ;; 4. NAVIGATE — diameter-fit-checked route to the target segment (pipe_nav)
+        nav-plan   (when (and entry-gate (:permitted? entry-gate) job)
+                     (nav/plan-nav robot segments (:access job) (:target-segment job)))
+        ;; 5. JET — pressure-safe hydro-jet of the target (jetting)
+        tseg       (when (and nav-plan job) (seg-by-id segments (:target-segment job)))
+        clean      (when tseg
+                     (jet/clean-segment tseg (:jet robot) (:debris-frac job) 30))
+        ;; 6. ROOT-CUT — mechanical root cut at safe torque (rootcut, ★ G7)
+        rootcut    (when (:root-intrusion seed)
+                     (rc/plan-cut (:root-intrusion seed) {:id "cut-head-01"}))
+        ;; 7. RELINE — trenchless CIPP reline, honest-refusal on a collapse-grade host (relining)
+        reline     (when (:reline-defect seed)
+                     (rl/plan-reline (:reline-defect seed)))
+        ;; 8. EFFLUENT HANDOFF — cleaned segment → mizuho treatment intent (handoff, G9)
+        handoff    (when clean
+                     (ho/outbound-handoff
+                      [{:segment-id (:segment clean)
+                        :debris-m3  (:debris-removed-m3 clean)
+                        :effluent-l (get-in clean [:water :effluent-l])}]))
+        pipeline (cond-> []
+                   graded     (conj (stage "inspection" (str (count graded) " segments graded worst-first")))
+                   campaign   (conj (stage "campaign"   (str (count (:stops campaign)) " stops / "
+                                                             (format "%.1fm tour" (:travel-m campaign)))))
+                   entry-gate (conj (stage "atmosphere" (str "entry gate "
+                                                             (if (:permitted? entry-gate) "PASS" "REFUSED")
+                                                             " (re-checked, G5)")))
+                   nav-plan   (conj (stage "pipe_nav"   (str (:hops nav-plan) " hops to " (:target nav-plan))))
+                   clean      (conj (stage "jetting"    (format "%.3f m³ debris @ %.0f bar"
+                                                               (:debris-removed-m3 clean) (:pressure-bar clean))))
+                   rootcut    (conj (stage "rootcut"    (str (:passes-needed rootcut) " pass(es) @ "
+                                                             (format "%.0f N·m" (:required-torque-nm rootcut)))))
+                   reline     (conj (stage "relining"   (format "%.2fmm CIPP liner / %.0f min cure"
+                                                               (:liner-thickness-mm reline) (:cure-time-min reline))))
+                   handoff    (conj (stage "handoff"    (str (count handoff) " effluent handoff→mizuho"))))]
+    (assoc base
+           :pipeline pipeline
+           :methods  (set (map :method pipeline))
+           :day {:inspection graded :campaign campaign :atmosphere entry-gate
+                 :navigation nav-plan :jetting clean :rootcut rootcut
+                 :relining reline :handoff handoff})))
+
+(defn report-day-str
+  "Human-readable full-day pipeline report."
+  [res]
+  (str ";; kudamori 管守 — full sewer-cleaning DAY pipeline (R1 integration)\n"
+       "methods exercised: " (pr-str (sort (:methods res))) "\n"
+       (apply str (map (fn [s] (str "  • " (:method s) " — " (:summary s) "\n"))
+                       (:pipeline res)))))
+
 (defn report-str
   "Human-readable report (for out/ and Murakumo narration input, G6)."
   [res]
@@ -77,6 +168,8 @@
 
 (defn -main [& args]
   (let [path (or (first args) "20-actors/kudamori/data/network.edn")
-        res (run (load-seed path))]
+        seed (load-seed path)
+        res  (run-day seed)]
     (print (report-str res))
+    (print (report-day-str res))
     (flush)))

@@ -395,5 +395,36 @@
     (is (thrown? clojure.lang.ExceptionInfo
                  (rl/plan-reline {:pipe-diameter-mm 300 :defect-severity 4 :host-condition 5})))))
 
+;; ── run-day full-pipeline integration (R1: all 8 domain methods compose) ──────
+(def day-seed
+  (edn/read-string (slurp "20-actors/kudamori/data/network.edn")))
+
+(deftest run-day-exercises-all-domain-methods
+  (testing "run-day threads the day through ALL 8 domain methods end-to-end"
+    (let [res (az/run-day day-seed)
+          ms  (:methods res)]
+      ;; the set of exercised modules ⊇ the 8 domain methods
+      (is (every? ms #{"inspection" "campaign" "atmosphere" "pipe_nav"
+                       "jetting" "rootcut" "relining" "handoff"}))
+      (is (>= (count ms) 8))
+      ;; base `run` keys are preserved (datom_emit depends on them)
+      (is (contains? res :entry))
+      (is (contains? res :navigation))
+      (is (contains? res :jetting))
+      ;; new run-day keys present
+      (is (vector? (:pipeline res)))
+      (is (map? (:day res)))
+      ;; ★ G5 — the atmosphere entry gate stayed a REAL gate (re-checked, passed)
+      (is (true? (get-in res [:day :atmosphere :permitted?]))))))
+
+(deftest run-day-report-lists-pipeline
+  (testing "report-day-str lists the methods exercised and each pipeline method name"
+    (let [res (az/run-day day-seed)
+          rpt (az/report-day-str res)]
+      (is (re-find #"methods exercised" rpt))
+      (doseq [m ["inspection" "campaign" "atmosphere" "pipe_nav"
+                 "jetting" "rootcut" "relining" "handoff"]]
+        (is (re-find (re-pattern m) rpt))))))
+
 (let [{:keys [fail error]} (run-tests 'kudamori.methods.test-kudamori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

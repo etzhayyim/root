@@ -370,5 +370,31 @@
     (is (every? (fn [st] (some? (:method st)))
                 (filter :covered? cov/sub-tasks)))))
 
+;; ── run-day full pipeline (R1 integration: all 8 domain methods compose) ──────
+(deftest run-day-exercises-all-domain-methods
+  (testing "run-day threads the stand through every domain method end-to-end"
+    (let [res (az/run-day seed)
+          ms (:methods res)]
+      ;; ⊇ the 8 domain module names
+      (doseq [m ["fell_plan" "harvester" "delimb" "extraction"
+                 "loadout" "siteprep" "road" "handoff"]]
+        (is (contains? ms m) (str m " should be in :methods")))
+      (is (>= (count ms) 8))
+      ;; base `run` keys still present (datom_emit depends on them)
+      (is (contains? res :fells))
+      (is (contains? res :refused))
+      (is (contains? res :unsafe))
+      (is (contains? res :extraction))
+      (is (number? (:total-value res)))
+      (is (= (:n-trees res) (count (:trees seed)))))))
+
+(deftest run-day-report-lists-pipeline
+  (testing "report-day-str lists the methods exercised + names a couple of them"
+    (let [out (az/report-day-str (az/run-day seed))]
+      (is (re-find #"methods exercised" out))
+      (is (re-find #"fell_plan" out))
+      (is (re-find #"loadout" out))
+      (is (re-find #"road" out)))))
+
 (let [{:keys [fail error]} (run-tests 'soma.methods.test-soma)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

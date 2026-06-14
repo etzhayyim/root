@@ -4,6 +4,7 @@
 (ns madomori.methods.test-madomori
   (:require [clojure.test :refer [deftest is testing run-tests]]
             [clojure.edn :as edn]
+            [clojure.set]
             [madomori.methods.facade-path :as fp]
             [madomori.methods.wind-envelope :as we]
             [madomori.methods.adhesion :as ad]
@@ -352,6 +353,52 @@
     (let [b (wr/water-balance {:applied-l 8.0 :captured-l 6.0 :detergent-ml 64.0})
           ks (keys b)]
       (is (every? keyword? ks))
+      (is (not-any? (fn [k] (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera"
+                                     (name k)))
+                    ks)))))
+
+;; ── run-day full-pipeline (R1 integration) ────────────────────────────────────
+(def ^:private day-res
+  (delay (az/run-day (az/load-seed "20-actors/madomori/data/facade.edn"))))
+
+(deftest run-day-exercises-all-domain-methods
+  (testing "R1 — run-day composes EVERY domain method end-to-end"
+    (let [res @day-res
+          want #{"multi_face" "facade_path" "wind_envelope" "adhesion"
+                 "anchor" "water_recovery" "handoff"}]
+      ;; all 7 domain modules exercised
+      (is (clojure.set/subset? want (:methods res)))
+      (is (>= (count (:methods res)) 7))
+      ;; base `run` keys preserved (datom_emit depends on them)
+      (is (contains? res :coverage))
+      (is (contains? res :envelope))
+      (is (contains? res :adhesion))
+      (is (contains? res :go?))
+      ;; the day artifacts are present
+      (is (contains? res :day))
+      (is (contains? res :pipeline)))))
+
+(deftest run-day-report-lists-pipeline
+  (testing "R1 — report-day-str names the methods exercised + each stage"
+    (let [s (az/report-day-str @day-res)]
+      (is (re-find #"methods exercised" s))
+      (doseq [m ["multi_face" "facade_path" "wind_envelope" "adhesion"
+                 "anchor" "water_recovery" "handoff"]]
+        (is (re-find (re-pattern m) s) (str "report must mention " m))))))
+
+(defn- deep-keys
+  "Every map key (recursively) reachable in an arbitrary nested structure."
+  [x]
+  (cond
+    (map? x) (concat (keys x) (mapcat deep-keys (vals x)))
+    (sequential? x) (mapcat deep-keys x)
+    :else nil))
+
+(deftest run-day-has-no-imagery
+  (testing "★ G3 — no imagery/person/interior/biometric/camera key anywhere in :day"
+    (let [day (:day @day-res)
+          ks (filter keyword? (deep-keys day))]
+      (is (seq ks))   ; sanity: the day map actually has keys to scan
       (is (not-any? (fn [k] (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera"
                                      (name k)))
                     ks)))))
