@@ -146,11 +146,28 @@
            (:funded-by-tax o) (conj (add e :gov.outlay/funded-by-tax (:funded-by-tax o))))))
      (:outlays seed))))
 
+(defn appropriation-datoms
+  "Flatten 予算 appropriations → EAVT. E = appropriation:<program-code>:<fy>. These are the
+   budget side the appropriation↔outlay reconciliation (discrepancy.clj) groups against."
+  [seed]
+  (mapcat
+   (fn [a]
+     (check-sources! a "appropriation")
+     (let [e (str "appropriation:" (:program-code a) ":" (:fiscal-year a))]
+       [(add e :gov.appropriation/account (:account a))
+        (add e :gov.appropriation/program-code (:program-code a))
+        (add e :gov.appropriation/program-name (:program-name a))
+        (add e :gov.appropriation/fiscal-year (:fiscal-year a))
+        (add e :gov.appropriation/amount-jpy (:amount-jpy a))
+        (add e :gov.appropriation/source-record-cids (vec (:source-record-cids a)))
+        (add e :gov.appropriation/sourcing :representative)]))
+   (:appropriations seed)))
+
 (defn all-datoms
-  "Every revenue/account/transfer/outlay assertion, G4/G5/honesty-gated."
+  "Every account/revenue/transfer/appropriation/outlay assertion, G4/G5/honesty-gated."
   [seed]
   (let [out (concat (account-datoms seed) (revenue-datoms seed)
-                    (transfer-datoms seed) (outlay-datoms seed))]
+                    (transfer-datoms seed) (appropriation-datoms seed) (outlay-datoms seed))]
     ;; G4 structural self-check: no verdict token in any attribute we persist.
     (doseq [[_ a _] out]
       (let [an (str/lower-case (str a))]
@@ -289,10 +306,10 @@
    trace summaries. `:seed` (a pre-ingested model, e.g. from ingest.clj) takes precedence
    over `:seed-path`. tx-id auto-increments per DATA tx so the kotoba bridge cursor is
    monotonic. Offline; no external I/O."
-  [{:keys [seed seed-path log-path tx-id as-of]
-    :or {log-path log-default as-of 0}}]
+  [{:keys [seed seed-path log-path tx-id as-of extra-datoms]
+    :or {log-path log-default as-of 0 extra-datoms []}}]
   (let [seed   (or seed (load-seed seed-path))
-        datoms (all-datoms seed)
+        datoms (vec (concat (all-datoms seed) extra-datoms))
         existing (read-log log-path)
         tx-id  (or tx-id (inc (count (filter data-tx? existing))))
         prev   (head-cid log-path)

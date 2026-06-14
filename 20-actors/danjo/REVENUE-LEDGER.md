@@ -12,8 +12,10 @@ data/gov-revenue-corpus.jp.edn   ── ingest.clj ──▶  model  ── reve
                                                                                key, dry-run default)
 ```
 
-Files: `methods/{revenue_ledger,ingest,kotoba_bridge}.clj` + `data/gov-revenue-{seed,corpus}.jp.edn`
-+ `methods/test_{revenue_ledger,ingest,kotoba_bridge}.clj` (60 checks, green under `bb` and `clojure`).
+Files: `methods/{revenue_ledger,ingest,discrepancy,kotoba_bridge}.clj` +
+`data/gov-revenue-{seed,corpus}.jp.edn` (+ ingests danjo's existing `data/gov-fiscal-seed.jp.json`)
++ `methods/test_{revenue_ledger,ingest,discrepancy,kotoba_bridge}.clj`
+(88 checks, green under `bb` and `clojure`).
 
 Answers, **in Clojure on the kotoba EAVT Datom log**, the question:
 
@@ -74,10 +76,42 @@ IS the input**. The sibling of `budget_ledger.py`, for the revenue side, in Cloj
 - the **account-EARMARK framework is accounting LAW** (特別会計法 / 復興財源確保法), encoded as the
   `account-law` constant — NOT a fetched record. This is what keeps the traceability verdict honest.
 
+It also ingests danjo's **existing JSON budget corpus** directly — `ingest-budget` reads
+`data/gov-fiscal-seed.jp.json` (the `budget_ledger.py` `budgetRecord` shape) via a dep-free
+`parse-json` (Long-exact, 1円), projecting `appropriation`/`outlay` rows. `with-budget` merges that
+into a revenue model. So both the EDN revenue corpus and the JSON budget corpus feed one model.
+
 ```bash
 cd methods && bb -e '(load-file "ingest.clj") \
   ((resolve (symbol "root.danjo.methods.ingest" "-main")) "../data/gov-revenue-corpus.jp.edn")'
 ```
+
+## Discrepancy → non-adjudicating observations — `discrepancy.clj` (danjo's actual eye)
+
+`reconcile` groups appropriations vs outlays per (programCode, fiscalYear) and reports the
+**FACTUAL** relation O vs A — three categories, **no verdict token representable**:
+
+| category | when |
+|---|---|
+| `:appropriation-outlay-within` | O ≤ A (a fact; **emits NO observation**) |
+| `:outlay-exceeds-appropriation` | O > A |
+| `:outlay-without-appropriation-trace` | A = 0, O > 0 (also fires on partial corpus — a declared FP mode) |
+
+`observations` turns the two divergence categories into danjo **`discrepancyObservation`** maps,
+and `observation-datoms` emits `:danjo.obs/*` EAVT in the **same shape as `methods/kotoba.py`
+`derived_datoms`** — so the revenue ledger plugs straight into danjo's existing observation model:
+`:danjo.obs/{category, non-adjudicating(=true), pattern, source-record-cids, method-note-cid,
+known-false-positive-modes, sourcing}`.
+
+- **G4** — `observation-datoms` RAISES if a verdict token appears in any attr **or in a category
+  value** (a legal verdict is unrepresentable); every obs carries `:danjo.obs/non-adjudicating true`.
+- **G5** — every observation cites ≥2 record CIDs.
+- **G6** — the detector heuristic is published as an open, versioned, content-CID'd `method-note`.
+- danjo **finds, never judges**: O > A is a fact to surface (timing / partial-corpus are declared
+  false-positive modes), legal characterization goes to human counsel via chigiri.
+
+Observations persist + bridge through the same pipeline:
+`(run-cycle! {:seed model :extra-datoms (observation-datoms (observations model 2024))})`.
 
 ## kotoba-datomic 永続化 — two layers
 
@@ -107,7 +141,7 @@ cd methods && bb -e '(load-file "kotoba_bridge.clj") \
 ## Run
 
 ```bash
-# tests (bb: fast / clojure: JVM)              60 checks (ledger 25 + ingest 15 + bridge 20)
+# tests (bb: fast / clojure: JVM)   88 checks (ledger 25 + ingest 22 + discrepancy 21 + bridge 20)
 ./run_tests_clj.sh                  # or: CLJ_RUNNER=clojure ./run_tests_clj.sh
 
 # demo trace for both taxes

@@ -56,5 +56,24 @@
     (check "ingested model emits datoms"  (pos? (count ds)))
     (check "all :db/add"                   (every? #(= :db/add (first %)) ds))))
 
+;; ── JSON budget ingest (the existing danjo corpus, gov-fiscal-seed.jp.json) ──
+(check "parse-json round-trips a nested doc"
+       (= {"a" 1 "b" [true false nil] "c" {"d" "x"}}
+          (in/parse-json "{\"a\":1,\"b\":[true,false,null],\"c\":{\"d\":\"x\"}}")))
+(check "parse-json keeps big integers exact (1円)"
+       (= 5464300000000 (get (in/parse-json "{\"n\":5464300000000}") "n")))
+(let [b (in/ingest-budget "../data/gov-fiscal-seed.jp.json")]
+  (check "ingest-budget: 2 appropriations + 3 outlays"
+         (and (= 2 (count (:appropriations b))) (= 3 (count (:outlays b)))))
+  (check "budget records carry budgetRecord CIDs (G5 ≥2)"
+         (every? #(>= (count (:source-record-cids %)) 2) (:appropriations b)))
+  ;; with-budget merges the budget side into a revenue model + emits :gov.appropriation/* datoms
+  (let [merged (in/with-budget (in/ingest corpus-path) b)
+        ds (rl/all-datoms merged)]
+    (check "with-budget adds appropriations to the model" (= 2 (count (:appropriations merged))))
+    (check "appropriation-datoms emitted"
+           (some #(= :gov.appropriation/amount-jpy (nth % 2)) ds))
+    (check "merged model still G4-clean" (every? #(= :db/add (first %)) ds))))
+
 (println (format "── ingest: %d checks, %d failures ──" @checks @fails))
 (when (pos? @fails) (System/exit 1))

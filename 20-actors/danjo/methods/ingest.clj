@@ -34,10 +34,11 @@
     (apply str (map #(format "%02x" (bit-and % 0xff)) (.digest md (.getBytes s "UTF-8"))))))
 
 (defn- canonical
-  "Deterministic canonical string for a record: keys sorted, stable (same record → same CID)."
+  "Deterministic canonical string for a map: entries sorted by string key, stable (same map →
+   same CID). Works for keyword-keyed (EDN) and string-keyed (JSON) records alike."
   [m]
-  (str "{" (str/join "," (for [k (sort (map str (keys m)))]
-                           (str k " " (pr-str (get m (edn/read-string k)))))) "}"))
+  (str "{" (str/join "," (for [[k v] (sort-by (comp str key) m)]
+                           (str (pr-str k) " " (pr-str v)))) "}"))
 
 (defn record-cid
   "gov.dataset record CID: locator + sha256[:24] content digest (G5 provenance). Mirrors the
@@ -109,6 +110,120 @@
   "Convenience: load + project the JP revenue corpus into the model."
   ([] (ingest-corpus (load-corpus)))
   ([path] (ingest-corpus (load-corpus path))))
+
+;; ── budgetRecord JSON ingest (the EXISTING danjo corpus, gov-fiscal-seed.jp.json) ──
+;; danjo's appropriation/outlay corpus is JSON (budget_ledger.py shape). A dep-free JSON
+;; reader lets ingest.clj consume it directly — same passive-only (G3) discipline, no portal.
+
+(defn parse-json
+  "Minimal RFC-8259 JSON → clj data (string keys). Integers parse as Long (1円 precision;
+   amountLocal fits). Dep-free; runs under bb and clojure."
+  [^String s]
+  (let [n (count s) pos (atom 0)
+        peek- (fn [] (when (< @pos n) (.charAt s @pos)))
+        nxt   (fn [] (let [c (.charAt s @pos)] (swap! pos inc) c))
+        ws    (fn [] (while (and (< @pos n) (Character/isWhitespace (.charAt s @pos))) (swap! pos inc)))]
+    (letfn [(rd-str []
+              (nxt)                                   ; opening quote
+              (let [sb (StringBuilder.)]
+                (loop []
+                  (let [c (nxt)]
+                    (cond
+                      (= c \") (.toString sb)
+                      (= c \\) (let [e (nxt)]
+                                 (.append sb (case e \n \newline \t \tab \r \return \b \backspace \f \formfeed
+                                               \u (let [h (subs s @pos (+ @pos 4))] (swap! pos + 4) (char (Integer/parseInt h 16)))
+                                               e))
+                                 (recur))
+                      :else (do (.append sb c) (recur)))))))
+            (rd-num []
+              (let [start @pos]
+                (while (and (< @pos n) (let [c (.charAt s @pos)] (or (Character/isDigit c) (#{\- \+ \. \e \E} c))))
+                  (swap! pos inc))
+                (let [t (subs s start @pos)]
+                  (if (re-find #"[.eE]" t) (Double/parseDouble t) (Long/parseLong t)))))
+            (rd-arr []
+              (nxt) (ws)
+              (if (= (peek-) \]) (do (nxt) [])
+                  (loop [acc []]
+                    (let [v (rd-val)] (ws)
+                      (let [c (nxt)]
+                        (cond (= c \,) (do (ws) (recur (conj acc v)))
+                              (= c \]) (conj acc v)
+                              :else (throw (ex-info "json: bad array" {:pos @pos}))))))))
+            (rd-obj []
+              (nxt) (ws)
+              (if (= (peek-) \}) (do (nxt) {})
+                  (loop [acc {}]
+                    (ws)
+                    (let [k (rd-str)] (ws) (nxt)        ; colon
+                      (let [v (rd-val)] (ws)
+                        (let [c (nxt)]
+                          (cond (= c \,) (recur (assoc acc k v))
+                                (= c \}) (assoc acc k v)
+                                :else (throw (ex-info "json: bad object" {:pos @pos})))))))))
+            (rd-val []
+              (ws)
+              (let [c (peek-)]
+                (cond
+                  (= c \{) (rd-obj)
+                  (= c \[) (rd-arr)
+                  (= c \") (rd-str)
+                  (or (= c \-) (Character/isDigit c)) (rd-num)
+                  (= c \t) (do (dotimes [_ 4] (nxt)) true)
+                  (= c \f) (do (dotimes [_ 5] (nxt)) false)
+                  (= c \n) (do (dotimes [_ 4] (nxt)) nil)
+                  :else (throw (ex-info "json: unexpected char" {:pos @pos :c c})))))]
+      (let [v (rd-val)] (ws) v))))
+
+(defn budget-record-cid
+  "gov.dataset.budgetRecord CID for a JSON (string-keyed) record — matches budget_ledger.py's
+   record_cid string shape."
+  [rec]
+  (str "gov.dataset.budgetRecord:" (get rec "sourceSensor" "unknown") ":"
+       (get rec "fiscalYear" 0) ":" (get rec "recordId" "unknown") "#"
+       (subs (sha256-hex (canonical rec)) 0 24)))
+
+(defn ingest-budget-corpus
+  "Project a parsed budgetRecord JSON corpus (string keys, budget_ledger.py shape) → the
+   appropriation/outlay side of the model. Passive (G3); ≥2 source CIDs each (G5). These are
+   一般会計 (:general) lines — they feed the appropriation↔outlay reconciliation, NOT the
+   復興特会 per-yen trace (which filters on earmarked accounts)."
+  [corpus]
+  (let [recs   (get corpus "records")
+        ds-cid (str "gov.dataset.manifest:" (get corpus "sourceSensor" "unknown") "#"
+                    (subs (sha256-hex (canonical (dissoc corpus "records"))) 0 24))
+        cids   (fn [r] [(budget-record-cid r) ds-cid])
+        amt!   (fn [r] (let [a (get r "amountLocal")]
+                         (when-not (and (integer? a) (>= a 0))
+                           (throw (ex-info (str "amountLocal must be non-negative integer, got " (pr-str a))
+                                           {:record (get r "recordId")})))
+                         a))
+        norm   (fn [r] {:record-id (get r "recordId")
+                        :account (keyword (get r "account" "general"))
+                        :program-code (get r "programCode") :program-name (get r "programName")
+                        :recipient-class (get r "recipientName" "")
+                        :cofog (get r "cofog" "")
+                        :fiscal-year (long (get r "fiscalYear")) :amount-jpy (amt! r)
+                        :source-record-cids (cids r) :tier (get r "tier" "A")})]
+    {:dataset-cid ds-cid
+     :appropriations (vec (for [r recs :when (= "appropriation" (get r "recordKind"))] (norm r)))
+     :outlays        (vec (for [r recs :when (#{"outlay" "obligation" "subaward"} (get r "recordKind"))] (norm r)))}))
+
+(defn ingest-budget
+  "Read + project the JSON budget corpus (defaults to danjo's gov-fiscal-seed.jp.json)."
+  ([] (ingest-budget nil))
+  ([path]
+   (let [f (io/file (or path "20-actors/danjo/data/gov-fiscal-seed.jp.json"))
+         f (if (.exists f) f (io/file "../data/gov-fiscal-seed.jp.json"))]
+     (ingest-budget-corpus (parse-json (slurp f))))))
+
+(defn with-budget
+  "Merge a budget projection (its :appropriations + :outlays) into a revenue model."
+  [model budget]
+  (-> model
+      (update :appropriations (fnil into []) (:appropriations budget))
+      (update :outlays (fnil into []) (:outlays budget))))
 
 (defn -main [& args]
   (let [model (ingest (first args))]
