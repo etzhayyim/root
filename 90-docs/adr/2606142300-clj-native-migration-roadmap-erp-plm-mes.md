@@ -158,6 +158,17 @@ language by D1.
   Python/`.cljc`) as well as keyword keys (`oget` helper). Lesson for Waves 2/3: **check for an
   existing `.cljc` before porting** (uchiwake, asobi, hoshimori, inochi, … are already `.cljc`),
   and never let a load-file `.clj` shadow a classpath-wired `.cljc` at the same path.
+- **Tooling hardening — `bb test:actors` made robust.** Surfacing the above also exposed that the
+  test auto-discovery (`etzhayyim.tools.discovery`, ADR-2606131500) derives a test's ns from its
+  PATH and `require`s it, which **crashes** on `run_tests_clj.sh`-style suites that declare a
+  non-path ns (`root.danjo.methods.*`) and load deps via cwd-relative `(load-file …)` — danjo (and
+  #1742's danjo tests on `origin/main`) hit this. Fix: `actor-test-nss` now includes a file **only
+  if its DECLARED ns equals the path-derived ns** (new `declared-ns` reads the `(ns …)` form with
+  `:read-cond :allow`), cleanly skipping the externally-run suites while keeping every classpath-safe
+  `.cljc`/`.clj` test. `bb test:actors` goes from an immediate `FileNotFoundException` to green
+  (21 deftests / 73 assertions across 156 discovered nss, 0 failures); danjo's own
+  `run_tests_clj.sh` (10 suites / 201 checks) is unaffected. Covered by a new
+  `etzhayyim.tools.test-discovery` (2 tests / 9 assertions) wired into `bb test:tools`.
 - **Third landed step (same wave).** `danjo/methods/kotoba.py` → `kotoba.clj` (+ `test_kotoba.clj`):
   the local content-addressed commit-DAG log writer (`graph-datoms` / `derived-datoms` /
   `tx-cid` / `make-tx` / `append-tx` / `read-log` / `head-cid` / `verify-chain`). The

@@ -355,8 +355,10 @@
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test
-                      'etzhayyim.tools.test-maturation-agent)
-             (let [r (clojure.test/run-tests 'etzhayyim.tools.test-maturation-agent)]
+                      'etzhayyim.tools.test-maturation-agent
+                      'etzhayyim.tools.test-discovery)
+             (let [r (clojure.test/run-tests 'etzhayyim.tools.test-maturation-agent
+                                              'etzhayyim.tools.test-discovery)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   maturation-agent
