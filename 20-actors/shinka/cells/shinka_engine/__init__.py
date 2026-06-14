@@ -38,6 +38,7 @@ from .reward import (
     PreferencePair,
     aggregate_reward,
     build_preference_pair,
+    build_preference_corpus,
 )
 from .matformer import Tier, MatFormerRouter, estimate_difficulty, route
 from .speculative import (
@@ -87,6 +88,7 @@ __all__ = [
     "PreferencePair",
     "aggregate_reward",
     "build_preference_pair",
+    "build_preference_corpus",
     # Research Track C — MatFormer elastic E2B/E4B routing
     "Tier",
     "MatFormerRouter",

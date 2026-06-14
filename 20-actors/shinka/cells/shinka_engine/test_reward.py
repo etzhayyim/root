@@ -17,6 +17,7 @@ from reward import (  # noqa: E402
     RewardComponents,
     ScoredCandidate,
     aggregate_reward,
+    build_preference_corpus,
     build_preference_pair,
 )
 
@@ -93,6 +94,50 @@ def test_pair_both_vetoed() -> None:
     check("both vetoed → no pair", build_preference_pair(a, b) is None)
 
 
+def test_corpus_basic() -> None:
+    # one prompt-group: a clear winner + a clear loser + a near-tie
+    groups = {
+        "g1": [
+            ScoredCandidate("win", RewardComponents(charter_ok=True, pr_outcome="MERGED")),   # +0.5
+            ScoredCandidate("lose", RewardComponents(charter_ok=True, pr_outcome="CLOSED")),   # -0.5
+            ScoredCandidate("tie", RewardComponents(charter_ok=True, microbench_delta_pp=9.0)),  # +0.45
+        ]
+    }
+    corpus = build_preference_corpus(groups, margin=0.1)
+    chosen = {p.chosen for p in corpus}
+    rejected = {p.rejected for p in corpus}
+    check("chosen is the winner", chosen == {"win"})
+    check("loser pairs (margin cleared)", "lose" in rejected)
+    check("near-tie excluded (within margin)", "tie" not in rejected)
+
+
+def test_corpus_skips_singletons_and_vetoed_best() -> None:
+    groups = {
+        "single": [ScoredCandidate("a", RewardComponents(charter_ok=True))],
+        "all_vetoed": [
+            ScoredCandidate("x", RewardComponents(charter_ok=False)),
+            ScoredCandidate("y", RewardComponents(charter_ok=False)),
+        ],
+    }
+    check("no pairs from singletons or all-vetoed groups", build_preference_corpus(groups) == [])
+
+
+def test_corpus_multi_group() -> None:
+    groups = {
+        "g1": [
+            ScoredCandidate("g1win", RewardComponents(charter_ok=True, pr_outcome="MERGED")),
+            ScoredCandidate("g1lose", RewardComponents(charter_ok=True, pr_outcome="CLOSED")),
+        ],
+        "g2": [
+            ScoredCandidate("g2win", RewardComponents(charter_ok=True, microbench_delta_pp=10)),
+            ScoredCandidate("g2dirty", RewardComponents(charter_ok=False, pr_outcome="MERGED")),
+        ],
+    }
+    corpus = build_preference_corpus(groups)
+    check("two pairs (one per group)", len(corpus) == 2)
+    check("g2 chosen is the charter-clean one", any(p.chosen == "g2win" for p in corpus))
+
+
 def main() -> int:
     for fn in (
         test_charter_hard_veto,
@@ -102,6 +147,9 @@ def main() -> int:
         test_pair_too_close,
         test_pair_charter_vetoed_loser,
         test_pair_both_vetoed,
+        test_corpus_basic,
+        test_corpus_skips_singletons_and_vetoed_best,
+        test_corpus_multi_group,
     ):
         fn()
     print(f"reward: passed={_passed} failed={_failed}")

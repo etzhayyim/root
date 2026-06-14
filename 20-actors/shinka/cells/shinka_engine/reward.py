@@ -106,3 +106,32 @@ def build_preference_pair(
         reward_rejected=rl,
         margin=(rw - rl),  # may be +inf when the loser is charter-vetoed
     )
+
+
+def build_preference_corpus(
+    groups: dict[str, list[ScoredCandidate]],
+    margin: float = 0.1,
+) -> list[PreferencePair]:
+    """Turn per-prompt scored candidates into a Loop-B DPO preference corpus.
+
+    `groups` maps a prompt/task id → its candidate completions (e.g. the Loop-A
+    samples for one beat). For each group the highest-reward, charter-clean
+    candidate is the `chosen`, paired against every other candidate that clears
+    the margin (a charter-vetoed candidate always pairs). Groups whose best is
+    charter-vetoed, or with < 2 candidates, contribute nothing. The result feeds
+    Loop B's preference tuning (Track E), grounded in real outcomes.
+    """
+    pairs: list[PreferencePair] = []
+    for cands in groups.values():
+        if len(cands) < 2:
+            continue
+        best = max(cands, key=lambda c: aggregate_reward(c.rc))
+        if not best.rc.charter_ok:
+            continue  # no charter-clean chosen in this group
+        for other in cands:
+            if other is best:
+                continue
+            p = build_preference_pair(best, other, margin)
+            if p is not None:
+                pairs.append(p)
+    return pairs
