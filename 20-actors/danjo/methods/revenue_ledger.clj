@@ -241,6 +241,11 @@
     {:tx/id tx-id :tx/as-of as-of :tx/prev prev-cid
      :tx/cid (tx-cid datoms prev-cid) :tx/count (count datoms) :tx/datoms (vec datoms)}))
 
+(defn data-tx? [tx]
+  "A revenue/account/transfer/outlay tx (NOT a :bridge/* push-cursor checkpoint)."
+  (not-any? (fn [[_ _ a _]] (and (keyword? a) (= "bridge" (namespace a))))
+            (:tx/datoms tx)))
+
 (defn read-log [path]
   (let [f (io/file path)]
     (if-not (.exists f)
@@ -280,16 +285,21 @@
 
 ;; ── one heartbeat cycle (offline, deterministic, resume-safe) ────────────────────
 (defn run-cycle!
-  "Load seed → emit guarded datoms → append ONE tx chained on the log head → return
-   the head CID + trace summaries for both taxes. Offline; no external I/O."
-  [{:keys [seed-path log-path tx-id as-of]
-    :or {log-path log-default tx-id "revenue-cycle" as-of 0}}]
-  (let [seed   (load-seed seed-path)
+  "Emit guarded datoms → append ONE tx chained on the log head → return the head CID +
+   trace summaries. `:seed` (a pre-ingested model, e.g. from ingest.clj) takes precedence
+   over `:seed-path`. tx-id auto-increments per DATA tx so the kotoba bridge cursor is
+   monotonic. Offline; no external I/O."
+  [{:keys [seed seed-path log-path tx-id as-of]
+    :or {log-path log-default as-of 0}}]
+  (let [seed   (or seed (load-seed seed-path))
         datoms (all-datoms seed)
+        existing (read-log log-path)
+        tx-id  (or tx-id (inc (count (filter data-tx? existing))))
         prev   (head-cid log-path)
         tx     (make-tx datoms {:tx-id tx-id :as-of as-of :prev-cid prev})
         cid    (append-tx! tx log-path)]
     {:head-cid cid
+     :tx-id tx-id
      :datom-count (count datoms)
      :traces {:withholding-income    (trace seed :withholding-income 2024)
               :reconstruction-surtax (trace seed :reconstruction-surtax 2024)}}))
