@@ -314,19 +314,21 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:matsurigoto
-  {:doc "matsurigoto 政 — tax-collect 源泉徴収納付 Clojure module (計算/納付/手続き/連絡先/Datom; ADR-2606062300)"
+  {:doc "matsurigoto 政 — tax-collect 源泉徴収納付 + tax-assess 速算表 Clojure modules (計算/納付/手続き/連絡先/Datom; ADR-2606062300 + 2606142300)"
    :task (do (require 'clojure.test
                       'matsurigoto.tax-collect.test-withholding
                       'matsurigoto.tax-collect.test-payment
                       'matsurigoto.tax-collect.test-procedures
                       'matsurigoto.tax-collect.test-contacts
-                      'matsurigoto.tax-collect.test-datom-emit)
+                      'matsurigoto.tax-collect.test-datom-emit
+                      'matsurigoto.methods.modules.test-tax-assess)
              (let [r (clojure.test/run-tests
                       'matsurigoto.tax-collect.test-withholding
                       'matsurigoto.tax-collect.test-payment
                       'matsurigoto.tax-collect.test-procedures
                       'matsurigoto.tax-collect.test-contacts
-                      'matsurigoto.tax-collect.test-datom-emit)]
+                      'matsurigoto.tax-collect.test-datom-emit
+                      'matsurigoto.methods.modules.test-tax-assess)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj

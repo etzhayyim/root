@@ -183,6 +183,17 @@ language by D1.
   Python files are retained as D2.2 shims (kanae still imports `budget_ledger`; `autorun.py`
   is a fleet cron entry point) and retire when those consumers port. danjo is the **worked
   reference** for Wave 1; matsurigoto (finish assess/civil/corp) and fuchi follow.
+- **Wave 1 — matsurigoto begins.** `matsurigoto/methods/modules/tax_assess.py` → `tax_assess.clj`
+  (+ `test_tax_assess.clj`): the progressive marginal-bracket assessment engine + VAT + unsigned
+  receipt (G1). Reference liabilities are reproduced **exactly** against the published JP 速算表
+  (golden e.g. taxable 5,000,000 → 572,500 JPY; 9,000,000 → 1,434,000; eff-rate half-to-even
+  matches Python `round`); per-jurisdiction rate tables load natively via `clojure.edn` (7 tables
+  incl. USA/DEU/GBR/IND/KOR). G1 (signs nothing — `:proof nil`, `server-held-authority false`) +
+  the live-filing Council/operator gate (`solve` raises) enforced (7 tests / 37 assertions; full
+  matsurigoto clj suite 53 tests / 205 assertions green). Follows the cleaner `clojure.test` +
+  classpath pattern (ns `matsurigoto.*`, `bb test:matsurigoto`) the tax-collect module established
+  (#1743). Remaining matsurigoto modules to port: `civil_registry` / `corp_registry` /
+  `credential_issue` / `datoms` / `sign_capability` / `standard`.
 
 # Alternatives Considered
 
