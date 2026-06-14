@@ -1,7 +1,7 @@
 ---
 id: adr-2606151200-danjo-revenue-ledger-clj
 title: "ADR-2606151200: danjo revenue-ledger — clj tax-use tracer on the kotoba EAVT Datom log"
-status: proposed
+status: accepted
 doc_type: adr
 topic: danjo-revenue-ledger-clj
 authoritative: true
@@ -26,7 +26,7 @@ supersedes: []
 
 # ADR-2606151200: danjo revenue-ledger — clj tax-use tracer on the kotoba EAVT Datom log
 
-**Status**: proposed
+**Status**: accepted
 **Date**: 2026-06-15
 **Deciders**: Jun Kawasaki
 
@@ -108,6 +108,34 @@ stdlib; runs under `bb` and `clojure` (215 self-checks green).
 - **RisingWave/SQL store** — rejected by ADR-2605262130 (kotoba Datom log is canonical state).
 - **Per-org full Tier-B actors** — rejected for R0: entity-as-actor keyless mirrors (ADR-2606042330)
   are the right weight; full actors are unwarranted for observational mirrors.
+
+# Implementation record (R0 landed — session close)
+
+Built on branch `danjo-revenue-ledger-clj` (PR #1742), one self-paced `/loop` arc. **R0 landed**;
+live legs (G7 corpus verification / lexicon Council review / live kotoba transact) remain gated.
+
+What landed (`20-actors/danjo/`, pure Clojure + JVM stdlib, runs under `bb` and `clojure`):
+
+- **methods**: `revenue_ledger` (model + `trace` + EAVT + local commit-DAG log) · `ingest` (passive
+  EDN+JSON projection + `full-model`) · `taxes` (29-tax 国+地方 registry + honest 3-way classify) ·
+  `transfers` (国→地方 交付税 法定率繰入 + 地方譲与税, ≈19.3兆, per-yen) · `discrepancy`
+  (appropriation↔outlay → non-adjudicating `:danjo.obs/*`) · `org_actor` (9 keyless mirror-actors +
+  resolvable profiles) · `coverage` / `maturity` (10 honesty invariants) / `cofog_xcheck`
+  (vs matsurigoto's canonical COFOG) · `autorun` (deterministic offline heartbeat) · `kotoba_bridge`
+  (live `datomic.transact`, dry-run default, no-server-key).
+- **data**: 国 17 + 地方 12 税 · 一般会計 主要経費 12 (COFOG) · 国→地方 移転 · 9 組織 + profiles ·
+  FY2022–2024. All `:representative`.
+- **artifacts**: 3 lexicons (`com.etzhayyim.danjo.{taxClassification,fiscalOrg,reconciliationObservation}`)
+  + `manifest.jsonld` `revenueLedger` block + generated `REVENUE-{COVERAGE,MATURITY}.md` (freshness-guarded).
+- **tests**: 14 script suites = 253 checks green (bb + clojure), incl. a freshness guard and 16
+  adversarial attacks on the honesty guarantees. The script suites live under
+  `methods/revenue-ledger-suite/` (a hyphen-dir) so `bb test:actors` discovery correctly skips them
+  (they are owned by `run_tests_clj.sh`, like mimamori/yobel/ibuki own theirs); `test_analyze.cljc`
+  stays in `methods/` and is unaffected.
+
+The honest answer to the motivating question is now structural code, not prose: **復興特別所得税 is
+1円-traceable (residual 0); 源泉所得税 is not, and the tracer cannot be made to claim otherwise** —
+only ~1.3% of all tax (国+地方) is per-yen traceable, reported and never hidden.
 
 # References
 

@@ -3,6 +3,9 @@
 Navigational index for reviewers. Full design + the honest answer: `../REVENUE-LEDGER.md`.
 ADR: `90-docs/adr/2606151200-danjo-revenue-ledger-clj.md` (on danjo master 2605301600).
 Run all tests: `../run_tests_clj.sh` (bb) · `CLJ_RUNNER=clojure ../run_tests_clj.sh` (JVM). 253 checks.
+Script suites live in `methods/revenue-ledger-suite/` (a hyphen-dir) so the repo-wide `bb test:actors`
+auto-discovery skips them — they are owned by `run_tests_clj.sh`, exactly as mimamori/yobel/ibuki own
+theirs. `test_analyze.cljc` (danjo's clojure.test suite) stays in `methods/` and runs under `bb test:actors`.
 
 ## Pipeline (load order: each `load-file`s the ones below it)
 
