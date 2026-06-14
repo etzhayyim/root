@@ -281,6 +281,17 @@ language by D1.
   raises). 8 tests / 28 assertions (vote) — full fuchi clj suite **14 tests / 69 assertions green**.
   fuchi now **3/8** methods clj-native (allocate + vote + live_gate); remaining: `analyze` /
   `book` / `couple` / `provision` / `route`.
+- **Wave 1 — fuchi `route`.** `route.py` → `route.clj` (+ `test_route.clj`): in-kind rail
+  decomposition + the governance gate. `route-envelope` decomposes a sustenance envelope into
+  delivery rails over the EXISTING producing actors (housing→commons-land, food→mitsuho,
+  energy→hikari, compute→murakumo, tooling→okaimono, care→iyashi, liquidity→warifu as
+  MEMBER-PRINCIPAL qard-ḥasan) — a `:cash`/`:stipend` rail RAISES (cash≡0, 扶持 never pays);
+  `in-kind-coverage` (round 4) is the honesty metric (golden 0.9). `gov-route` is a PURE function
+  of (imputed total, invariant-touch, rider) → {refused/council-lv7/sbt-vote/auto} — a Charter-Rider
+  hit refuses, a constitutional-invariant touch goes Council Lv7+, above the ceiling goes 1 SBT=1
+  vote, else auto — 扶持 ROUTES, never DECIDES (非裁定, ake G2). Golden parity with route.py
+  (5 tests / 25 assertions — full fuchi clj suite **19 tests / 89 assertions green**). fuchi now
+  **4/8** methods clj-native; remaining: `analyze` / `book` / `couple` / `provision`.
 
 # Alternatives Considered
 
