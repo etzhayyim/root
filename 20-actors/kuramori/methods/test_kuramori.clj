@@ -6,7 +6,8 @@
             [kuramori.methods.agv-amr :as fleet]
             [kuramori.methods.slotting :as slot]
             [kuramori.methods.analyze :as az]
-            [kuramori.methods.datom-emit :as de]))
+            [kuramori.methods.datom-emit :as de]
+            [kuramori.methods.picking :as pick]))
 
 ;; ── agv_amr ──────────────────────────────────────────────────────────────────
 (deftest travel-time-monotonic
@@ -136,6 +137,57 @@
       (is (re-find #":derived\]" out))
       ;; well-formed EDN vector of datoms
       (is (vector? (clojure.edn/read-string out))))))
+
+;; ── picking (multi-order batch consolidation + congestion) ───────────────────
+(def orders
+  [{:id "o1" :picks ["s-g1" "s-g2" "s-r1"]}
+   {:id "o2" :picks ["s-g3" "s-b1"]}
+   {:id "o3" :picks ["s-h1"]}])
+
+(deftest consolidate-packs-into-waves
+  (testing "FFD packing respects wave capacity; every order placed exactly once"
+    (let [waves (pick/consolidate orders 4)
+          placed (mapcat :orders waves)]
+      (is (= #{"o1" "o2" "o3"} (set placed)))
+      (is (= 3 (count placed)))                       ; no order duplicated/dropped
+      (is (every? #(<= (count (:picks %)) 4) waves))  ; capacity respected
+      ;; total picks preserved across waves
+      (is (= 6 (reduce + (map #(count (:picks %)) waves)))))))
+
+(deftest batch-capacity-gate-raises
+  (testing "G9 — an order larger than the wave cap RAISES (atomic, never split)"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (pick/consolidate [{:id "big" :picks ["a" "b" "c" "d" "e"]}] 4)))
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (pick/assert-batch-capacity! [{:id "big" :picks ["a" "b" "c"]}] 2)))))
+
+(deftest tight-cap-one-order-per-wave
+  (testing "cap below the second-largest order forces separate waves"
+    (let [waves (pick/consolidate orders 3)]
+      ;; o1 has 3 picks = cap, so it fills its own wave; o2(2)+o3(1) can share
+      (is (>= (count waves) 2))
+      (is (every? #(<= (count (:picks %)) 3) waves)))))
+
+(deftest zone-occupancy-sweep
+  (testing "peak concurrent occupancy per zone; touching endpoints don't overlap"
+    (let [entries [{:zone "z-golden" :t-in 0 :t-out 5}
+                   {:zone "z-golden" :t-in 3 :t-out 8}   ; overlaps the first → peak 2
+                   {:zone "z-golden" :t-in 8 :t-out 9}   ; touches at 8 → not concurrent
+                   {:zone "z-bulk"   :t-in 0 :t-out 5}]]
+      (is (= 2 (get (pick/zone-occupancy entries) "z-golden")))
+      (is (= 1 (get (pick/zone-occupancy entries) "z-bulk"))))))
+
+(deftest congestion-detection
+  (testing "overflow when peak exceeds zone capacity; worst-first"
+    (let [entries [{:zone "aisle-1" :t-in 0 :t-out 5}
+                   {:zone "aisle-1" :t-in 1 :t-out 6}
+                   {:zone "aisle-1" :t-in 2 :t-out 7}    ; peak 3
+                   {:zone "aisle-2" :t-in 0 :t-out 5}]]
+      (is (pick/congested? entries 2))                  ; 3 > cap 2
+      (is (not (pick/congested? entries 3)))            ; 3 ≤ cap 3
+      (let [ovf (pick/congestion-overflows entries 2)]
+        (is (= "aisle-1" (:zone (first ovf))))
+        (is (= 1 (:over (first ovf))))))))
 
 (let [{:keys [fail error]} (run-tests 'kuramori.methods.test-kuramori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

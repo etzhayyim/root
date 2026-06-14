@@ -50,6 +50,7 @@ from Python). Methods are pure (no deps) → run under both `bb` and the kotoba 
 ├── methods/                        # pure Clojure → bb-runnable AND kotoba-pywasm-portable
 │   ├── agv_amr.clj                 # AGV/AMR motion + dispatch + battery (ports niyaku)
 │   ├── slotting.clj                # ABC slotting + putaway feasibility + pick-route
+│   ├── picking.clj                 # multi-order batch consolidation (G9) + congestion (R1)
 │   ├── analyze.clj                 # end-to-end R0 orchestrator
 │   ├── datom_emit.clj              # kotoba EAVT Datom-log emitter (canonical state)
 │   └── test_kuramori.clj           # 15 tests / 43 assertions (clojure.test)

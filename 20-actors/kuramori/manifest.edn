@@ -22,11 +22,13 @@
   {:gate/id "G5" :gate/name "shared-zone-safety"     :gate/rule "A robot in a human-shared zone is hard-capped at shared-zone speed; the cap is not tunable up by a planner (collaborative-safety envelope)"}
   {:gate/id "G6" :gate/name "murakumo-only"          :gate/rule "Inference/narration is Murakumo-only (LiteLLM 127.0.0.1:4000); external LLM prohibited (ADR-2605215000)"}
   {:gate/id "G7" :gate/name "hazmat-segregation"     :gate/rule "Putaway enforces weight-on-shelf, temperature class, and hazmat segregation; an infeasible putaway RAISES (never silently forced)"}
-  {:gate/id "G8" :gate/name "tazuna-operated"        :gate/rule "Remote operation/teleop is via tazuna 手綱 (ADR-2606042100); weaponizable use unrepresentable"}]
+  {:gate/id "G8" :gate/name "tazuna-operated"        :gate/rule "Remote operation/teleop is via tazuna 手綱 (ADR-2606042100); weaponizable use unrepresentable"}
+  {:gate/id "G9" :gate/name "atomic-order-capacity"  :gate/rule "Batch-pick consolidation never splits a customer order across carts; an order whose pick count exceeds a wave's capacity RAISES (no silent split), mirroring niyaku's no-rehandle discipline"}]
 
  :actor/methods
  [{:method/id "agv_amr"     :method/lang :clojure :method/pure true :method/desc "AGV/AMR motion+dispatch+battery: trapezoidal travel-time, one-way segment-conflict (AGV), shared-zone yield (AMR/G5), SoC opportunity-charge gate (G2), LPT makespan dispatch. Ports niyaku agv_transfer semantics."}
   {:method/id "slotting"    :method/lang :clojure :method/pure true :method/desc "ABC velocity classing + golden-zone slotting + putaway feasibility (weight/temp/hazmat, G7 raises) + nearest-neighbour pick-route"}
+  {:method/id "picking"     :method/lang :clojure :method/pure true :method/desc "Multi-order batch-picking consolidation (FFD wave packing under tote-cart capacity, G9 atomic-order raise) + concurrent zone-occupancy congestion detection + overflow stagger"}
   {:method/id "analyze"     :method/lang :clojure :method/pure true :method/desc "End-to-end R0 orchestrator: load seed → slot → pick-route → fleet dispatch → battery gate → report map"}
   {:method/id "datom_emit"  :method/lang :clojure :method/pure true :method/desc "kotoba EAVT Datom-log emitter (:wh.zone/* :wh.slot/* :wh.sku/* :wh.robot/* + :slotted-in 縁 GROUND; :bond/* DERIVED transient)"}]
 
