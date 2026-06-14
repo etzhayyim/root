@@ -48,5 +48,19 @@
          (= #{"general" "statutory-purpose" "special-account"} (set (get-in p ["earmarkKind" "knownValues"]))))
   (check "taxClassification sourcing const:representative" (= "representative" (get-in p ["sourcing" "const"]))))
 
+;; ── manifest.jsonld registers the revenue-ledger capability (discoverability) ──
+(let [mani (in/parse-json (slurp "../manifest.jsonld"))
+      rl   (get mani "revenueLedger")]
+  (check "manifest registers revenueLedger capability" (some? rl))
+  (check "manifest lists all 3 revenue-ledger lexicons"
+         (= #{"com.etzhayyim.danjo.taxClassification" "com.etzhayyim.danjo.fiscalOrg"
+              "com.etzhayyim.danjo.reconciliationObservation"}
+            (set (keys (get rl "lexicons")))))
+  (check "manifest registers 9 org mirror-actor DIDs" (= 9 (count (get rl "orgMirrorActors"))))
+  (check "manifest org DIDs are did:web actor mirrors"
+         (every? #(str/starts-with? % "did:web:etzhayyim.com:actor:jp-") (get rl "orgMirrorActors")))
+  (check "manifest honesty invariant states per-yen-iff-special + unrepresentable"
+         (str/includes? (get rl "honestyInvariant") "UNREPRESENTABLE")))
+
 (println (format "── lexicon: %d checks, %d failures ──" @checks @fails))
 (when (pos? @fails) (System/exit 1))
