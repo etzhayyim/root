@@ -32,15 +32,19 @@ Total program-years: 8 · within-budget: **2** · outlay-exceeds-appropriation: 
 
 _danjo finds, never judges (G4). Legal characterization → human counsel via chigiri._
 
-## 国全体の税金 (national-tax registry)
+## 税の全体像 (国 + 地方)
 
-**17 国税** / 合計 ≈ **70.1兆円** (representative). per-yen 追跡可能 (特別会計分) は **2.0%** のみ — 国税の大半は fungible(一般会計)で、特定の1円の使途は会計的に追跡できない、という誠実な事実。
+**29 税目** / 合計 ≈ **111.5兆円** (representative)。
+- 国税: **17税 / 70.1兆円**
+- 地方税: **12税 / 41.4兆円**
+
+per-yen 追跡可能 (特別会計分) は **1.3%** のみ — 国税の大半は fungible(一般会計)で、特定の1円の使途は会計的に追跡できない、という誠実な事実。
 
 | earmark | 税数 | 額 | 構成比 | per-yen 追跡 |
 |---|---|---|---|---|
-| 一般会計 (fungible) | 11 | 44.7兆円 | 64% | ❌ |
-| 目的税的 (法定充当・但し一般会計内) | 2 | 24.0兆円 | 34% | ❌ (法的充当方向のみ) |
-| 特別会計 (特定財源) | 4 | 1.4兆円 | 2% | ✅ |
+| 一般会計 (fungible) | 19 | 78.0兆円 | 70% | ❌ |
+| 目的税的 (法定充当・但し一般会計内) | 6 | 32.1兆円 | 29% | ❌ (法的充当方向のみ) |
+| 特別会計 (特定財源) | 4 | 1.4兆円 | 1% | ✅ |
 
 ## 組織別 keyless mirror-actor (entity-as-actor, ADR-2606042330)
 
@@ -54,3 +58,5 @@ _danjo finds, never judges (G4). Legal characterization → human counsel via ch
 | 資源エネルギー庁 (経済産業省) | `did:web:etzhayyim.com:actor:jp-anre` | account-administrator | 所管 special/energy |
 | 財務省理財局 (国債整理基金特別会計) | `did:web:etzhayyim.com:actor:jp-mof-debt` | account-administrator | 所管 special/debt-consolidation |
 | 財務省主計局 (一般会計) | `did:web:etzhayyim.com:actor:jp-mof-budget` | account-administrator | 所管 general |
+| 都道府県 (集約) | `did:web:etzhayyim.com:actor:jp-prefecture-agg` | collector | 徴収 5税 (16.2兆円) |
+| 市町村 (集約) | `did:web:etzhayyim.com:actor:jp-municipality-agg` | collector | 徴収 7税 (25.2兆円) |

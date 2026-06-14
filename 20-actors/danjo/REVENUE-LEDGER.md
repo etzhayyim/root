@@ -13,9 +13,9 @@ data/gov-revenue-corpus.jp.edn   ── ingest.clj ──▶  model  ── reve
 ```
 
 Files: `methods/{revenue_ledger,ingest,discrepancy,taxes,org_actor,coverage,kotoba_bridge}.clj` +
-`data/{gov-revenue-seed,gov-revenue-corpus,jp-national-taxes,jp-fiscal-orgs}.jp/.edn`
+`data/{gov-revenue-seed,gov-revenue-corpus,jp-national-taxes,jp-local-taxes,jp-fiscal-orgs}.edn`
 (+ ingests danjo's existing `data/gov-fiscal-seed.jp.json`) + matching `test_*.clj`
-(142 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 · 6 組織-actor**.
+(154 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 + 12 地方税 · 8 組織-actor**.
 
 Answers, **in Clojure on the kotoba EAVT Datom log**, the question:
 
@@ -138,10 +138,11 @@ cd methods && bb -e '(load-file "kotoba_bridge.clj") \
 # live push (operator-gated): DANJO_KOTOBA_LIVE=1 DANJO_KOTOBA_OPERATOR_DID=did:web:… …
 ```
 
-## 国全体の税金 — `taxes.clj` (`data/jp-national-taxes.edn`)
+## 税の全体像 国 + 地方 — `taxes.clj` (`jp-national-taxes.edn` + `jp-local-taxes.edn`)
 
-17 主要国税を `tax:jp:<id>` EAVT (`:gov.tax/*`) として射影し、使途追跡可能性を **honest 3-way**
-で分類:
+国税17 + 地方税12 = **29税目 ≈111兆円**(国70兆 + 地方41兆, representative)を `tax:jp:<id>` EAVT
+(`:gov.tax/*`) として射影。`load-local-taxes` + `combine` で国・地方を統合し、`summary` の `:by-level`
+が国/地方を分解。使途追跡可能性は **honest 3-way**(地方税にも同一適用):
 
 | earmark-kind | 例 | per-yen 追跡 |
 |---|---|---|
@@ -149,8 +150,9 @@ cd methods && bb -e '(load-file "kotoba_bridge.clj") \
 | `:statutory-purpose` (目的税的, 法定充当だが一般会計内) | 消費税→社会保障4経費・出国税 (34%) | ❌(法的充当方向のみ事実) |
 | `:special-account` (特別会計・特定財源) | 復興/電源開発/石油石炭/たばこ特別 (2%) | ✅ |
 
-→ **国税の per-yen 追跡可能分は約2%のみ**。揮発油税・自動車重量税は2009一般財源化済として `:general`
-(履歴を `:note` に明記)。`summary` が earmark 別の額・構成比・追跡可能シェアを honest に算出。
+→ **税全体の per-yen 追跡可能分は約1.3%のみ**(国税ベースでも約2%)。揮発油税・自動車重量税は2009
+一般財源化済として `:general`(履歴を `:note` に明記)。地方の目的税(都市計画税/入湯税/事業所税/
+地方消費税の社会保障分)も「法定充当だが地方一般会計内」で per-yen ❌ と honest に分類。
 
 ## 組織別 keyless mirror-actor — `org_actor.clj` (`data/jp-fiscal-orgs.edn`)
 
@@ -158,9 +160,11 @@ cd methods && bb -e '(load-file "kotoba_bridge.clj") \
 `:gov.org/*` に射影。`did:web:etzhayyim.com:actor:jp-<handle>`、**no-server-key**
 (`:gov.org/keyless true`、verificationMethod 空)、その組織を代理・代表しない観測ミラー。
 
-- 徴収機関: **国税庁** (`jp-nta`, 内国税15税 ≈69兆) / **税関** (`jp-customs`, 関税・とん税)
-- 会計所管: **復興庁**(復興特会)/ **資源エネルギー庁**(エネルギー特会)/ **財務省理財局**
+- 国・徴収: **国税庁** (`jp-nta`, 内国税15税 ≈69兆) / **税関** (`jp-customs`, 関税・とん税)
+- 国・会計所管: **復興庁**(復興特会)/ **資源エネルギー庁**(エネルギー特会)/ **財務省理財局**
   (国債整理基金特会)/ **財務省主計局**(一般会計 — fungible ゆえ per-yen 追跡可税 0、と正直に表示)
+- 地方・徴収(集約): **都道府県(集約)** (`jp-prefecture-agg`, 47団体) / **市町村(集約)**
+  (`jp-municipality-agg`, 1741団体) — 集約代表であることを `:aggregate true` で明示(ooyake G5)
 
 `org-view` が各組織の担当スライス(徴収する税 / 所管会計 / per-yen 可否 / 額)を返す。税・組織 datom は
 `run-cycle! :extra-datoms` で同じローカル log → kotoba bridge パイプラインに乗る。
@@ -190,8 +194,8 @@ cd methods && bb -e '(load-file "coverage.clj") \
 ## Run
 
 ```bash
-# tests (bb / clojure)  142 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 18
-#                                   + org-actor 21 + coverage 15 + bridge 20)
+# tests (bb / clojure)  154 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 26
+#                                   + org-actor 25 + coverage 15 + bridge 20)
 ./run_tests_clj.sh                  # or: CLJ_RUNNER=clojure ./run_tests_clj.sh
 
 # demo trace for both taxes

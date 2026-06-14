@@ -61,4 +61,21 @@
    :administers [:general]
    :parent "財務省 (Ministry of Finance)"
    :note "一般会計の予算編成・所管。fungible のため特定税目→特定歳出の1円追跡は構造上不可。"
-   :source-url "https://www.mof.go.jp/policy/budget/"}]}
+   :source-url "https://www.mof.go.jp/policy/budget/"}
+
+  ;; ── 地方団体 (aggregate keyless mirror-actors; 国 + 地方 で税の全体像) ──────────────
+  ;; coverage honesty: 47都道府県 / 1741市町村 を 2 つの aggregate actor で代表する
+  ;; (ooyake G5 — 集約であることを明示。将来 個別団体への分解は拡張)。
+  {:id :prefecture-agg :handle "jp-prefecture-agg"
+   :ja "都道府県 (集約)" :en "Prefectures (aggregate)"
+   :did "did:web:etzhayyim.com:actor:jp-prefecture-agg"
+   :role :collector :level :local :aggregate true :represents-count 47
+   :note "47都道府県の地方税徴収を集約代表する観測ミラー。法人住民税・事業税・地方消費税・自動車税・不動産取得税ほか。"
+   :source-url "https://www.soumu.go.jp/main_sosiki/jichi_zeisei/"}
+
+  {:id :municipality-agg :handle "jp-municipality-agg"
+   :ja "市町村 (集約)" :en "Municipalities (aggregate)"
+   :did "did:web:etzhayyim.com:actor:jp-municipality-agg"
+   :role :collector :level :local :aggregate true :represents-count 1741
+   :note "1741市町村の地方税徴収を集約代表する観測ミラー。個人住民税・固定資産税・都市計画税・軽自動車税ほか。"
+   :source-url "https://www.soumu.go.jp/main_sosiki/jichi_zeisei/"}]}

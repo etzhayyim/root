@@ -45,6 +45,25 @@
     (check "消費税 dominates statutorily-directed amount"
            (> (:statutorily-directed-amount s) 20000000000000)))
 
+  ;; ── 地方税 + 国+地方 combined (税の全体像) ──
+  (let [local (t/load-local-taxes "../data/jp-local-taxes.edn")
+        comb  (t/combine reg local)
+        cs    (t/summary comb)]
+    (check "≥10 local taxes covered" (>= (count (:taxes local)) 10))
+    (check "covers 固定資産税・個人住民税・地方消費税"
+           (every? #(some (fn [x] (= % (:id x))) (:taxes local))
+                   [:fixed-asset :resident-individual :local-consumption]))
+    (check "固定資産税 → :general (fungible)"
+           (= :general (:earmark-kind (t/classify (->> (:taxes local) (filter #(= :fixed-asset (:id %))) first)))))
+    (check "都市計画税 → :statutory-purpose (目的税)"
+           (= :statutory-purpose (:earmark-kind (t/classify (->> (:taxes local) (filter #(= :city-planning (:id %))) first)))))
+    (check "combined = 国17 + 地方12 = 29 taxes" (= 29 (:tax-count cs)))
+    (check "by-level split present (国 + 地方)"
+           (= #{:national :local} (set (keys (:by-level cs)))))
+    (check "combined total ≈ 国+地方 (>100兆)" (> (:total-jpy cs) 100000000000000))
+    (check "国 + 地方 amounts sum to combined total"
+           (= (:total-jpy cs) (reduce + 0 (map :amount-jpy (vals (:by-level cs)))))))
+
   ;; ── EAVT datoms ──
   (let [ds (t/tax-datoms reg)]
     (check "tax-datoms non-empty + all :db/add" (and (pos? (count ds)) (every? #(= :db/add (first %)) ds)))

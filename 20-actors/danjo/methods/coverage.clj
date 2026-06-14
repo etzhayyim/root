@@ -102,13 +102,17 @@
   [tax-reg org-reg]
   (let [s (t/summary tax-reg)
         by (:by-earmark-kind s)
+        lv (:by-level s)
+        lvl-line (fn [k label] (when-let [v (get lv k)]
+                                 (str "- " label ": **" (:count v) "税 / " (oku (:amount-jpy v)) "円**\n")))
         row (fn [k label] (let [v (get by k {:count 0 :amount-jpy 0})]
                             (str "| " label " | " (:count v) " | " (oku (:amount-jpy v)) "円 | "
                                  (if (zero? (:total-jpy s)) "—"
                                      (format "%.0f%%" (* 100.0 (/ (double (:amount-jpy v)) (:total-jpy s))))) " |")))]
     (str
-     "\n## 国全体の税金 (national-tax registry)\n\n"
-     "**" (:tax-count s) " 国税** / 合計 ≈ **" (oku (:total-jpy s)) "円** (representative). "
+     "\n## 税の全体像 (国 + 地方)\n\n"
+     "**" (:tax-count s) " 税目** / 合計 ≈ **" (oku (:total-jpy s)) "円** (representative)。\n"
+     (lvl-line :national "国税") (lvl-line :local "地方税") "\n"
      "per-yen 追跡可能 (特別会計分) は **" (format "%.1f%%" (* 100 (:per-yen-traceable-share s))) "** のみ — "
      "国税の大半は fungible(一般会計)で、特定の1円の使途は会計的に追跡できない、という誠実な事実。\n\n"
      "| earmark | 税数 | 額 | 構成比 | per-yen 追跡 |\n|---|---|---|---|---|\n"
@@ -131,7 +135,8 @@
   (let [model (in/with-budget (in/ingest (or (first args) "../data/gov-revenue-corpus.jp.edn"))
                               (in/ingest-budget "../data/gov-fiscal-seed.jp.json"))
         rep   (report model)
-        tax-reg (t/load-taxes "../data/jp-national-taxes.edn")
+        tax-reg (t/combine (t/load-taxes "../data/jp-national-taxes.edn")
+                           (t/load-local-taxes "../data/jp-local-taxes.edn"))
         org-reg (o/load-orgs "../data/jp-fiscal-orgs.edn")
         out   (io/file "../data/REVENUE-COVERAGE.md")]
     (io/make-parents out)

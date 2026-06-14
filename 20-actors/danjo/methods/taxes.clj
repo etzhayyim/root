@@ -26,20 +26,38 @@
    :special-account   {:traceable? true  :per-yen? true  :reason :earmarked-special-account
                        :note "特別会計へ繰入される特定財源。閉じた会計境界内で繰入額→歳出を1円単位で照合できる。"}})
 
+(defn- read-edn [path fallback]
+  (let [f (io/file (or path fallback))
+        f (if (.exists f) f (io/file (str "../data/" (.getName (io/file fallback)))))]
+    (edn/read-string (slurp f))))
+
 (defn load-taxes
+  "National-tax registry (jp-national-taxes.edn)."
   ([] (load-taxes nil))
-  ([path]
-   (let [f (io/file (or path "20-actors/danjo/data/jp-national-taxes.edn"))
-         f (if (.exists f) f (io/file "../data/jp-national-taxes.edn"))]
-     (edn/read-string (slurp f)))))
+  ([path] (read-edn path "20-actors/danjo/data/jp-national-taxes.edn")))
+
+(defn load-local-taxes
+  "Local-tax registry (jp-local-taxes.edn)."
+  ([] (load-local-taxes nil))
+  ([path] (read-edn path "20-actors/danjo/data/jp-local-taxes.edn")))
+
+(defn combine
+  "Merge registries into one {:taxes …} — national + local for the 国+地方 whole-tax picture.
+   Each tax keeps its :level (defaulting :national for the national registry)."
+  [& registries]
+  {:fiscal-year (:fiscal-year (first registries))
+   :verification-status "representative"
+   :taxes (vec (mapcat (fn [r] (map #(update % :level (fn [l] (or l :national))) (:taxes r)))
+                       registries))})
 
 (defn classify
   "Structural traceability classification for one tax (registry-level, honest)."
   [tax]
   (merge (get traceability-class (:earmark-kind tax))
-         (select-keys tax [:id :ja :en :account :earmark-kind :special-account
+         (select-keys tax [:id :ja :en :level :account :earmark-kind :special-account
                            :statutory-purpose :statutory-basis :collected-by :administered-by
                            :fy2024-amount-jpy])
+         {:level (or (:level tax) :national)}
          (when (:note tax) {:registry-note (:note tax)})))
 
 (defn- add [e a v] [:db/add e a v])
@@ -88,7 +106,10 @@
      :per-yen-traceable-share    (if (zero? total) 0.0
                                      (double (/ (amt (:special-account by)) total)))
      :statutorily-directed-amount (amt (:statutory-purpose by))
-     :fungible-amount             (amt (:general by))}))
+     :fungible-amount             (amt (:general by))
+     :by-level
+     (into {} (for [[lvl v] (group-by :level txs)]
+                [lvl {:count (count v) :amount-jpy (amt v)}]))}))
 
 (defn -main [& args]
   (let [reg (load-taxes (first args))

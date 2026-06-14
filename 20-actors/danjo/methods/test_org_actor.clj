@@ -13,10 +13,13 @@
 (defn check [l p] (swap! checks inc) (if p (println "  ok  " l) (do (swap! fails inc) (println "  FAIL" l))))
 
 (let [orgs  (o/load-orgs "../data/jp-fiscal-orgs.edn")
-      taxes (t/load-taxes "../data/jp-national-taxes.edn")]
+      taxes (t/combine (t/load-taxes "../data/jp-national-taxes.edn")
+                       (t/load-local-taxes "../data/jp-local-taxes.edn"))]
 
-  ;; ── registry ──
-  (check "≥6 fiscal orgs"  (>= (count (:orgs orgs)) 6))
+  ;; ── registry (国 + 地方) ──
+  (check "8 fiscal orgs (6 national + 2 local aggregate)" (= 8 (count (:orgs orgs))))
+  (check "includes the 2 local aggregate orgs"
+         (every? #(some (fn [o] (= % (:id o))) (:orgs orgs)) [:prefecture-agg :municipality-agg]))
   (check "every org has a did:web actor DID"
          (every? #(str/starts-with? (:did %) "did:web:etzhayyim.com:actor:jp-") (:orgs orgs)))
 
@@ -45,6 +48,13 @@
     (check "財務省主計局 administers 一般会計, spends no per-yen-traceable tax (honest)"
            (and (= [:general] (:accounts (:administers mof))) (empty? (:spends-taxes (:administers mof))))))
 
+  ;; ── local aggregate orgs collect local taxes (国 + 地方) ──
+  (let [muni (o/org-view :municipality-agg orgs taxes)
+        pref (o/org-view :prefecture-agg orgs taxes)]
+    (check "市町村(集約) collects local taxes"   (pos? (:count (:collects muni))))
+    (check "市町村(集約) collects 固定資産税"      (some #{:fixed-asset} (map :id (:taxes (:collects muni)))))
+    (check "都道府県(集約) collects 地方消費税"    (some #{:local-consumption} (map :id (:taxes (:collects pref))))))
+
   ;; ── resolvable profile artifacts (entity-as-actor, keyless) ──
   (load-file "ingest.clj")
   (let [in (find-ns 'root.danjo.methods.ingest)
@@ -58,7 +68,7 @@
            (= (get ((ns-resolve in 'parse-json) (o/->json prof)) "did") (:did prof))))
   (let [dir (str (System/getProperty "java.io.tmpdir") "/danjo-actors-" (rand-int 1000000))
         paths (o/generate-profiles! orgs taxes dir)]
-    (check "generate-profiles! writes 6 profiles + index (7)" (= 7 (count paths)))
+    (check "generate-profiles! writes 8 profiles + index (9)" (= 9 (count paths)))
     (check "every profile file exists"  (every? #(.exists (io/file %)) paths))
     (doseq [p paths] (.delete (io/file p)))
     (.delete (io/file dir)))

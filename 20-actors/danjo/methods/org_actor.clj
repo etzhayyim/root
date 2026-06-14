@@ -136,8 +136,8 @@
       (conj (vec paths) (.getPath index)))))
 
 (defn -main [& args]
-  (let [orgs  (load-orgs (first args))
-        taxes (t/load-taxes nil)]
+  (let [orgs  (load-orgs (if (= "generate" (first args)) nil (first args)))
+        taxes (t/combine (t/load-taxes nil) (t/load-local-taxes nil))]
     (when (= "generate" (first args))
       (let [ps (generate-profiles! orgs taxes nil)]
         (println "wrote" (count ps) "profile artifacts:")
