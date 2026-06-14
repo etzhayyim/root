@@ -426,5 +426,28 @@
                  "jetting" "rootcut" "relining" "handoff"]]
         (is (re-find (re-pattern m) rpt))))))
 
+;; ── datom_emit-day (the canonical log captures the FULL run-day) ──────────────
+(deftest datom-emit-day-captures-full-day
+  (testing "emit-day projects the whole run-day (handoff 縁 + kudamori-specific day attrs), is a strict superset of emit, and parses as EDN"
+    (let [day-res (az/run-day seed)
+          base    (az/run seed)
+          out-day (de/emit-day seed day-res 1)
+          out     (de/emit seed base 1)]
+      ;; the cross-actor handoff 縁 (same shape as kuramori): provenance + edge id
+      (is (re-find #":handoff/from-actor" out-day))
+      (is (re-find #"en\.handoff\.kudamori\.mizuho\." out-day))
+      ;; at least one kudamori-specific run-day attr the base emit never carries
+      (is (re-find #":kuda\.inspect/grade" out-day))
+      ;; a DERIVED day metric
+      (is (re-find #":bond/inspection-segments" out-day))
+      ;; well-formed EDN vector (load-bearing: must parse)
+      (let [v-day (edn/read-string out-day)
+            v     (edn/read-string out)]
+        (is (vector? v-day))
+        (is (vector? v))
+        ;; strict superset of the base emit: every base datom is present + there are MORE
+        (is (> (count v-day) (count v)))
+        (is (every? (set v-day) v))))))
+
 (let [{:keys [fail error]} (run-tests 'kudamori.methods.test-kudamori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

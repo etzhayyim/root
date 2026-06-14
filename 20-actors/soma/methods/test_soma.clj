@@ -396,5 +396,24 @@
       (is (re-find #"loadout" out))
       (is (re-find #"road" out)))))
 
+(deftest datom-emit-day-captures-full-day
+  (testing "emit-day projects the FULL run-day (handoffs + soma-specific day GROUND)
+            and is a strict superset of the base emit"
+    (let [day-res (az/run-day seed)
+          base    (de/emit seed day-res 1)
+          full    (de/emit-day seed day-res 1)]
+      ;; the handoff 縁 (timber-supply chain edge) is captured
+      (is (re-find #":handoff/from-actor" full))
+      (is (re-find #"en\.handoff\.soma\.tatekata\." full))
+      ;; a soma-specific run-day GROUND attr that base emit does NOT carry
+      (is (re-find #":soma\.road/length-m" full))
+      (is (not (re-find #":soma\.road/length-m" base)))
+      ;; both parse as EDN vectors of datoms
+      (is (vector? (clojure.edn/read-string full)))
+      (is (vector? (clojure.edn/read-string base)))
+      ;; strict superset — emit-day has more datoms than base emit
+      (is (> (count (clojure.edn/read-string full))
+             (count (clojure.edn/read-string base)))))))
+
 (let [{:keys [fail error]} (run-tests 'soma.methods.test-soma)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

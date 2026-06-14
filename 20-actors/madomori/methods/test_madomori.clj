@@ -5,6 +5,7 @@
   (:require [clojure.test :refer [deftest is testing run-tests]]
             [clojure.edn :as edn]
             [clojure.set]
+            [clojure.string :as str]
             [madomori.methods.facade-path :as fp]
             [madomori.methods.wind-envelope :as we]
             [madomori.methods.adhesion :as ad]
@@ -402,6 +403,33 @@
       (is (not-any? (fn [k] (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera"
                                      (name k)))
                     ks)))))
+
+(deftest datom-emit-day-captures-full-day
+  (testing "emit-day captures the FULL run-day (handoff 縁 + madomori-specific day attrs)"
+    (let [res     @day-res
+          base    (de/emit seed (az/run seed) 1)
+          day-out (de/emit-day seed res 1)]
+      ;; handoff 縁 (defect→tatekata repair-order, same shape as kuramori)
+      (is (re-find #":handoff/from-actor" day-out))
+      (is (re-find #"en\.handoff\.madomori\.tatekata\." day-out))
+      ;; madomori-specific day attrs (faces sequenced + water recovery + anchor rig)
+      (is (re-find #":bond/faces-sequenced" day-out))
+      (is (re-find #":bond/water-recovery-fraction" day-out))
+      (is (re-find #":bond/anchor-rig-ok" day-out))
+      (is (re-find #":mado\.campaign/face-sequenced" day-out))
+      ;; well-formed EDN vector
+      (is (vector? (edn/read-string day-out)))
+      ;; the day log is a STRICT superset of the base log's datoms
+      (let [base-set (set (edn/read-string base))
+            day-set  (set (edn/read-string day-out))]
+        (is (clojure.set/subset? base-set day-set))
+        (is (> (count day-set) (count base-set))))
+      ;; ★ G3 — NO imagery/person/interior/biometric/camera key substring in the
+      ;; emitted DATA (parse to EDN to drop the generated header comments, then strip
+      ;; the single allowed on-device-imagery flag — imagery off-device is unrepresentable)
+      (let [data (pr-str (edn/read-string day-out))]
+        (is (nil? (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera"
+                           (str/replace data #":mado\.robot/imagery-on-device" ""))))))))
 
 (let [{:keys [fail error]} (run-tests 'madomori.methods.test-madomori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))
