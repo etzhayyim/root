@@ -165,17 +165,27 @@
                           (str "| " (:program-name a) " | " (:cofog a) " | " (oku (:amount-jpy a)) "円 |")))
          "\n")))
 
+(defn full-md
+  "The COMPLETE REVENUE-COVERAGE.md content — the single source used by both -main and the
+   freshness guard (so the committed file can never silently drift from the code)."
+  ([] (full-md (in/full-model)
+               (t/combine (t/load-taxes "../data/jp-national-taxes.edn")
+                          (t/load-local-taxes "../data/jp-local-taxes.edn"))
+               (o/load-orgs "../data/jp-fiscal-orgs.edn")
+               (tr/compute (tr/load-transfers "../data/jp-fiscal-transfers.edn")
+                           (t/load-taxes "../data/jp-national-taxes.edn"))))
+  ([model tax-reg org-reg xfer]
+   (str (coverage-md (report model)) (national-md tax-reg org-reg) (transfer-md xfer) (cofog-md model))))
+
 (defn -main [& args]
   (let [model (in/full-model)
         rep   (report model)
         tax-reg (t/combine (t/load-taxes "../data/jp-national-taxes.edn")
                            (t/load-local-taxes "../data/jp-local-taxes.edn"))
         org-reg (o/load-orgs "../data/jp-fiscal-orgs.edn")
-        xfer    (tr/compute (tr/load-transfers "../data/jp-fiscal-transfers.edn")
-                            (t/load-taxes "../data/jp-national-taxes.edn"))
         out   (io/file "../data/REVENUE-COVERAGE.md")]
     (io/make-parents out)
-    (spit out (str (coverage-md rep) (national-md tax-reg org-reg) (transfer-md xfer) (cofog-md model)))
+    (spit out (full-md))
     (println "wrote" (.getPath out))
     (println "  fiscal-years:" (:fiscal-years rep)
              "| national taxes:" (count (:taxes tax-reg))
