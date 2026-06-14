@@ -292,6 +292,17 @@ language by D1.
   vote, else auto — 扶持 ROUTES, never DECIDES (非裁定, ake G2). Golden parity with route.py
   (5 tests / 25 assertions — full fuchi clj suite **19 tests / 89 assertions green**). fuchi now
   **4/8** methods clj-native; remaining: `analyze` / `book` / `couple` / `provision`.
+- **Wave 1 — fuchi `book`.** `book.py` → `book.clj` (+ `test_book.clj`): the two cross-actor
+  projections of an accepted allocation. `book-toritate` projects each IN-KIND rail into a toritate
+  `ledgerEntry` using toritate's own category enum (housing/food/energy → subsistence-flow,
+  compute/tooling → vocation-flow, care → care-flow) — `:payroll`/`:salary`/`:wage` unrepresentable,
+  cash≡0, and the **MEMBER-PRINCIPAL liquidity rail is NOT booked as income** (it's the member's own
+  warifu 0% loan — honest accounting). `flow-graph` emits a kanae-renderable Sankey (Public Fund →
+  扶持 → provider → maintainer) where the funding leg covers only the in-kind value and the
+  liquidity legs are flagged in-kind false. Golden parity with book.py (2 ledger entries, 7 flow
+  edges, 18e9 funding leg). 4 tests / 21 assertions — full fuchi clj suite **23 tests / 112
+  assertions green**. fuchi now **5/8** methods clj-native; remaining: `analyze` / `couple` /
+  `provision`.
 
 # Alternatives Considered
 
