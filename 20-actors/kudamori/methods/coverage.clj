@@ -24,7 +24,7 @@
    {:id :effluent-handoff  :desc "effluent handoff to mizuho treatment"                      :covered? true  :method "handoff"}
    {:id :cctv-inspection   :desc "in-pipe condition inspection survey"                       :covered? false :method nil}
    {:id :root-cutting      :desc "root/obstruction cutting"                                  :covered? false :method nil}
-   {:id :network-campaign  :desc "network-wide multi-segment cleaning campaign planning"     :covered? false :method nil}
+   {:id :network-campaign  :desc "network-wide multi-segment cleaning campaign planning"     :covered? true  :method "campaign"}
    {:id :relining          :desc "trenchless relining / spot-repair"                         :covered? false :method nil}])
 
 (defn report

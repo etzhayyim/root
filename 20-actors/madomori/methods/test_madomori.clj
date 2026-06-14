@@ -10,6 +10,7 @@
             [madomori.methods.analyze :as az]
             [madomori.methods.datom-emit :as de]
             [madomori.methods.coverage :as cov]
+            [madomori.methods.multi-face :as mf]
             [madomori.methods.handoff :as ho]))
 
 ;; ── facade_path ──────────────────────────────────────────────────────────────
@@ -218,6 +219,59 @@
   (testing "every covered sub-task names a non-nil backing method"
     (is (every? (fn [s] (some? (:method s)))
                 (filter :covered? cov/sub-tasks)))))
+
+;; ── multi_face (multi-face campaign routing) ─────────────────────────────────
+(def mf-faces
+  [{:face-id :south :access-point [2 0]  :rows 12 :cols 8}
+   {:face-id :north :access-point [2 30] :rows 12 :cols 8}
+   {:face-id :east  :access-point [20 0] :rows 10 :cols 6}])
+
+(def mf-pane {:pane-h-m 1.4 :pane-w-m 1.0})
+
+(deftest face-sequence-visits-every-face-once
+  (testing "the sequence visits every face exactly once (no skip, no repeat)"
+    (let [{:keys [order reposition-distance]} (mf/face-sequence mf-faces [0 0])]
+      (is (= (count mf-faces) (count order)))
+      (is (= (set (map :face-id mf-faces)) (set order)))
+      (is (= (count order) (count (distinct order))))
+      (is (pos? reposition-distance)))))
+
+(deftest face-sequence-nearest-first
+  (testing "nearest-neighbour puts the closest access point first"
+    ;; from dock [0 0]: south [2 0] is nearest (d=2), then east [20 0], then north [2 30]
+    (let [{:keys [order]} (mf/face-sequence mf-faces [0 0])]
+      (is (= :south (first order)))
+      ;; explicit: a face whose access point is the closest to the origin leads
+      (let [closer [{:face-id :far  :access-point [99 99] :rows 2 :cols 2}
+                    {:face-id :near :access-point [1 0]   :rows 2 :cols 2}]]
+        (is (= :near (first (:order (mf/face-sequence closer [0 0])))))))))
+
+(deftest campaign-coverage-sums-per-face-lengths
+  (testing "campaign coverage total = Σ per-face path lengths (positive)"
+    (let [camp (mf/campaign-coverage mf-faces mf-pane [0 0])
+          sum-per-face (reduce + 0.0 (map :coverage-length-m (:per-face camp)))]
+      (is (pos? (:coverage-length-m camp)))
+      (is (= (:coverage-length-m camp) sum-per-face))
+      (is (every? #(pos? (:coverage-length-m %)) (:per-face camp)))
+      ;; total = coverage + reposition, and exceeds coverage alone (reposition > 0)
+      (is (= (:total-length-m camp)
+             (+ (:coverage-length-m camp) (:reposition-distance camp))))
+      (is (> (:total-length-m camp) (:coverage-length-m camp))))))
+
+(deftest multi-face-carries-no-imagery-or-person-data
+  (testing "★ G3 — no imagery/person/interior/biometric key in any returned map"
+    (let [camp (mf/campaign-coverage mf-faces mf-pane [0 0])
+          ks (fn collect [x]
+               (cond
+                 (map? x) (concat (mapcat (fn [[k v]] (cons k (collect v))) x))
+                 (sequential? x) (mapcat collect x)
+                 :else nil))
+          all-keys (->> (concat (ks camp) (ks (mf/face-sequence mf-faces [0 0])))
+                        (filter keyword?))]
+      (is (seq all-keys))
+      (is (not-any? (fn [k] (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera"
+                                     (name k)))
+                    all-keys)))))
 
 (let [{:keys [fail error]} (run-tests 'madomori.methods.test-madomori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

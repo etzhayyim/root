@@ -5,6 +5,7 @@
   (:require [clojure.test :refer [deftest is testing run-tests]]
             [soma.methods.fell-plan :as fp]
             [soma.methods.harvester :as hv]
+            [soma.methods.delimb :as dl]
             [soma.methods.extraction :as ex]
             [soma.methods.analyze :as az]
             [soma.methods.datom-emit :as de]
@@ -110,6 +111,45 @@
       (is (= 190.0 (:value s)))
       (is (= 2 (:n-logs s)))
       (is (= 2 (get-in s [:by-class :sawlog]))))))
+
+;; ── delimb: harvester-head delimbing pass ─────────────────────────────────────
+(deftest delimb-whorls-and-pass-time
+  (testing "whorl count ≈ length/spacing; pass time = length/feed-rate"
+    (let [head {:max-diameter-cm 60.0 :feed-rate-mps 5.0}
+          r (dl/delimb-pass {:stem-id "s" :length-m 24.0 :diameter-cm 42.0 :whorl-spacing-m 0.6} head)]
+      ;; 24 / 0.6 = 40 whorls
+      (is (= 40 (:branches-removed r)))
+      ;; 24 / 5 = 4.8 s pass
+      (is (< (Math/abs (- 4.8 (:pass-time-s r))) 1e-9)))))
+
+(deftest delimb-oversize-raises
+  (testing "G-style refusal — a stem wider than the head's max diameter RAISES"
+    (let [head {:max-diameter-cm 60.0 :feed-rate-mps 5.0}]
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (dl/delimb-pass {:stem-id "s-big" :length-m 20.0 :diameter-cm 72.0 :whorl-spacing-m 0.6} head))))))
+
+(deftest delimb-normal-stem-is-clean
+  (testing "a normal (in-spec) stem returns :clean? true"
+    (let [head {:max-diameter-cm 60.0 :feed-rate-mps 5.0}
+          r (dl/delimb-pass {:stem-id "s" :length-m 18.0 :diameter-cm 35.0 :whorl-spacing-m 0.5} head)]
+      (is (:clean? r))
+      (is (= "s" (:stem-id r)))
+      (is (pos? (:branches-removed r))))))
+
+(deftest delimb-process-stems-sums
+  (testing "process-stems sums pass time + branches over multiple stems"
+    (let [head {:max-diameter-cm 60.0 :feed-rate-mps 5.0}
+          stems [{:stem-id "s-1" :length-m 24.0 :diameter-cm 42.0 :whorl-spacing-m 0.6}
+                 {:stem-id "s-2" :length-m 18.0 :diameter-cm 35.0 :whorl-spacing-m 0.6}]
+          plan (dl/process-stems stems head)]
+      (is (= 2 (:n-stems plan)))
+      ;; 40 + 30 whorls = 70
+      (is (= 70 (:total-branches-removed plan)))
+      ;; 4.8 + 3.6 = 8.4 s
+      (is (< (Math/abs (- 8.4 (:total-pass-time-s plan))) 1e-9))
+      ;; an oversize stem in the seq propagates the RAISE (plan must be feasible)
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (dl/process-stems (conj stems {:stem-id "s-big" :length-m 20.0 :diameter-cm 72.0 :whorl-spacing-m 0.6}) head))))))
 
 ;; ── extraction: slope + ground-impact gates (G2) ──────────────────────────────
 (deftest slope-gate

@@ -24,7 +24,7 @@
    {:id :charging            :desc "battery opportunity-charge gate"             :covered? true  :method "agv_amr"}
    {:id :congestion-mgmt     :desc "zone-occupancy congestion detection"        :covered? true  :method "picking"}
    {:id :dispatch-outbound   :desc "outbound handoff to todoke"                  :covered? true  :method "handoff"}
-   {:id :replenishment       :desc "forward-pick replenishment from bulk"        :covered? false :method nil}
+   {:id :replenishment       :desc "forward-pick replenishment from bulk"        :covered? true  :method "replenish"}
    {:id :packing             :desc "carton/parcel packing"                       :covered? false :method nil}
    {:id :returns             :desc "returns / reverse-logistics processing"      :covered? false :method nil}
    {:id :cycle-count         :desc "in-aisle cycle-count / inventory audit"      :covered? false :method nil}])

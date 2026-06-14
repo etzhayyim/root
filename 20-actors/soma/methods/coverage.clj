@@ -31,7 +31,7 @@
     :covered? true  :method "handoff"}
    {:id :delimbing
     :desc "limbing/delimbing the felled stem"
-    :covered? false :method nil}
+    :covered? true  :method "delimb"}
    {:id :site-prep
     :desc "site preparation / replanting / regeneration"
     :covered? false :method nil}

@@ -10,6 +10,7 @@
             [kudamori.methods.analyze :as az]
             [kudamori.methods.datom-emit :as de]
             [kudamori.methods.coverage :as cov]
+            [kudamori.methods.campaign :as camp]
             [kudamori.methods.handoff :as ho]))
 
 ;; ── atmosphere (★ G5 — the headline confined-space entry gate) ────────────────
@@ -214,6 +215,58 @@
 (deftest coverage-covered-names-a-method
   (testing "every covered sub-task names a non-nil :method"
     (is (every? #(some? (:method %)) (filter :covered? cov/sub-tasks)))))
+
+;; ── campaign (network-wide multi-segment cleaning planning) ──────────────────
+(def network-segs
+  [{:segment-id "seg-1-2" :blockage-risk 0.85 :last-cleaned-days 400 :access [10.0 0.0]}
+   {:segment-id "seg-2-3" :blockage-risk 0.40 :last-cleaned-days 120 :access [10.0 12.0]}
+   {:segment-id "seg-3-4" :blockage-risk 0.92 :last-cleaned-days 30  :access [25.0 12.0]}
+   {:segment-id "seg-4-5" :blockage-risk 0.10 :last-cleaned-days 15  :access [25.0 0.0]}
+   {:segment-id "seg-5-6" :blockage-risk 0.55 :last-cleaned-days 300 :access [40.0 5.0]}])
+
+(deftest prioritize-ranks-higher-blockage-risk-first
+  (testing "prioritize ranks high-blockage-risk segments ahead of low-risk ones"
+    (let [ranked (camp/prioritize network-segs)]
+      (is (= (count network-segs) (count ranked)))
+      ;; scores are non-increasing high-first
+      (is (apply >= (map :priority ranked)))
+      ;; the lowest-risk, freshest segment lands last
+      (is (= "seg-4-5" (:segment-id (last ranked))))
+      ;; the highest-risk segment outranks the lowest-risk one
+      (let [by-id (into {} (map (juxt :segment-id :priority) ranked))]
+        (is (> (by-id "seg-3-4") (by-id "seg-4-5")))))))
+
+(deftest campaign-tour-visits-each-once-positive-travel
+  (testing "the tour visits each selected segment exactly once, travel is positive"
+    (let [selected (filter #(>= (:blockage-risk %) 0.5) network-segs)
+          {:keys [order travel-m]} (camp/campaign-tour selected)]
+      (is (= (set (map :segment-id selected)) (set order)))
+      (is (= (count selected) (count order)))   ; no duplicates / no drops
+      (is (= (count order) (count (distinct order))))
+      (is (pos? travel-m)))))
+
+(deftest every-stop-rechecks-atmosphere-gate
+  (testing "★ G5 — EVERY campaign stop carries :atmosphere-recheck-required true (no entry skips the gas gate)"
+    (let [plan (camp/plan-campaign network-segs {:risk-threshold 0.5})]
+      (is (seq (:stops plan)))
+      (is (every? #(true? (:atmosphere-recheck-required %)) (:stops plan)))
+      ;; and the per-entry gate is the real atmosphere assert (raises on unsafe air)
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (atm/assert-entry! {:o2-pct 18.6 :h2s-ppm 22.0 :ch4-lel 14.0 :co-ppm 12.0}))))))
+
+(deftest threshold-and-top-n-drop-low-priority
+  (testing "risk-threshold and top-N selection drop low-priority segments"
+    ;; risk threshold drops the 0.10 and 0.40 segments
+    (let [thr (camp/plan-campaign network-segs {:risk-threshold 0.5})
+          ids (set (map :segment-id (:stops thr)))]
+      (is (= 3 (count (:stops thr))))
+      (is (not (contains? ids "seg-4-5")))   ; 0.10 risk dropped
+      (is (not (contains? ids "seg-2-3"))))  ; 0.40 risk dropped
+    ;; top-N keeps only the N highest-priority
+    (let [topn (camp/plan-campaign network-segs {:top-n 2})]
+      (is (= 2 (count (:stops topn))))
+      ;; the two highest-priority survive (seg-1-2 risk .85/stale, seg-3-4 risk .92)
+      (is (= #{"seg-1-2" "seg-3-4"} (set (map :segment-id (:stops topn))))))))
 
 (let [{:keys [fail error]} (run-tests 'kudamori.methods.test-kudamori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

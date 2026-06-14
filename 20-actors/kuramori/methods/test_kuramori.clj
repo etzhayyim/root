@@ -10,6 +10,7 @@
             [kuramori.methods.datom-emit :as de]
             [kuramori.methods.picking :as pick]
             [kuramori.methods.handoff :as ho]
+            [kuramori.methods.replenish :as rep]
             [kuramori.methods.coverage :as cov]))
 
 ;; ── agv_amr ──────────────────────────────────────────────────────────────────
@@ -227,6 +228,47 @@
       (is (re-find #"en\.handoff\.niyaku\.kuramori\." out))
       (is (re-find #"en\.handoff\.kuramori\.todoke\." out))
       (is (vector? (clojure.edn/read-string out))))))
+
+;; ── replenish (forward-pick replenishment from bulk) ─────────────────────────
+(def fwd-slots
+  [{:slot-id "f-g1" :sku-id "sku-fast" :qty 4  :min 10 :max 40}   ; below min
+   {:slot-id "f-g2" :sku-id "sku-med"  :qty 18 :min 12 :max 36}   ; healthy
+   {:slot-id "f-r1" :sku-id "sku-cold" :qty 2  :min 8  :max 24}]) ; below min
+
+(def bulk-src
+  [{:bulk-id "blk-A" :sku-id "sku-fast" :qty 200}
+   {:bulk-id "blk-B" :sku-id "sku-cold" :qty 13}
+   {:bulk-id "blk-C" :sku-id "sku-med"  :qty 50}])
+
+(deftest needs-replenish-only-below-min
+  (testing "only slots whose qty < min are returned"
+    (let [needy (rep/needs-replenish fwd-slots)]
+      (is (= #{"f-g1" "f-r1"} (set (map :slot-id needy))))
+      (is (= 2 (count needy))))))
+
+(deftest replenish-plan-refills-toward-max-respecting-case-pack
+  (testing "refill = round-down(min(max-qty, available)) to case-pack quantum"
+    (let [plan (rep/replenish-plan fwd-slots bulk-src {:case-pack 6})
+          by-slot (into {} (map (juxt :slot-id identity) plan))]
+      ;; f-g1: want = 40-4 = 36, available 200 → min 36, /6 = 36
+      (is (= 36 (:qty (by-slot "f-g1"))))
+      (is (= "blk-A" (:from-bulk (by-slot "f-g1"))))
+      ;; f-r1: want = 24-2 = 22, available 13 → min 13, round down to case-pack 6 → 12
+      (is (= 12 (:qty (by-slot "f-r1"))))
+      (is (= "blk-B" (:from-bulk (by-slot "f-r1"))))
+      ;; healthy slot is never planned
+      (is (nil? (by-slot "f-g2"))))))
+
+(deftest replenish-plan-hard-stockout-raises
+  (testing "G — a SKU absent from all bulk RAISES (no phantom replenishment)"
+    (let [slots [{:slot-id "f-x1" :sku-id "sku-ghost" :qty 0 :min 5 :max 20}]]
+      (is (thrown? clojure.lang.ExceptionInfo (rep/replenish-plan slots bulk-src))))))
+
+(deftest replenish-plan-fully-stocked-is-empty
+  (testing "a face all at/above min yields an empty plan"
+    (let [stocked [{:slot-id "f-a" :sku-id "sku-fast" :qty 40 :min 10 :max 40}
+                   {:slot-id "f-b" :sku-id "sku-cold" :qty 12 :min 8  :max 24}]]
+      (is (empty? (rep/replenish-plan stocked bulk-src {:case-pack 6}))))))
 
 ;; ── coverage (HONEST occupation sub-task map; G5 sourcing-honesty) ───────────
 (deftest coverage-fraction-is-covered-over-total

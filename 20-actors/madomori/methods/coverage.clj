@@ -5,7 +5,7 @@
 ;; else is a GAP we MEASURE and NAME — we never inflate the coverage fraction.
 ;;
 ;; Existing methods that back coverage claims: facade_path, wind_envelope,
-;; adhesion, handoff. Methods NOT yet built (anchor-rigging, multi-face-routing,
+;; adhesion, handoff, multi_face. Methods NOT yet built (anchor-rigging,
 ;; water-recovery) are surfaced as honest gaps, not silently omitted.
 ;;
 ;; Pure Clojure, no deps → babashka-runnable AND kotoba-pywasm-portable.
@@ -22,7 +22,7 @@
    {:id :adhesion-safety    :desc "suction/adhesion factor-of-safety"                         :covered? true  :method "adhesion"}
    {:id :defect-inspection  :desc "façade defect detection → tatekata repair order"           :covered? true  :method "handoff"}
    {:id :anchor-rigging     :desc "rope/anchor rigging + descent setup"                       :covered? false :method nil}
-   {:id :multi-face-routing :desc "routing across multiple building faces/elevations"         :covered? false :method nil}
+   {:id :multi-face-routing :desc "routing across multiple building faces/elevations"         :covered? true  :method "multi_face"}
    {:id :water-recovery     :desc "runoff/detergent capture + water recovery"                 :covered? false :method nil}])
 
 (defn report
