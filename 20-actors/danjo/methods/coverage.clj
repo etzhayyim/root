@@ -145,7 +145,9 @@
          (str/join "\n" (for [a (:allocations r)]
                           (str "| " (subs (str (:from-tax a)) 1) " | " (format "%.1f%%" (/ (:rate-bp a) 100.0))
                                " | " (oku (:amount-jpy a)) "円 |")))
-         "\n\n合計 **" (oku (:total-inflow-jpy r)) "円** → 地方交付税として交付 (residual " (:residual r) ", 1円照合)。\n"
+         "\n\n交付税法定率繰入 **" (oku (:total-inflow-jpy r)) "円** (residual " (:residual r) ", 1円照合) "
+         "+ 地方譲与税 **" (oku (:grants-total-jpy r)) "円** (" (count (:grants r)) "税) "
+         "= 国→地方 合計 **" (oku (:intergovernmental-total-jpy r)) "円** (いずれも per-yen 追跡可)。\n"
          "源泉所得税等は全体としては依然 fungible — 覆らない法定率分のみが traceable (portion-honesty)。\n")))
 
 (defn -main [& args]

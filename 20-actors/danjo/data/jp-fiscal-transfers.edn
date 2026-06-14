@@ -37,4 +37,23 @@
  [{:id :dist-prefecture :to :prefecture-agg :ja "地方交付税交付金 (都道府県分, 集約)"
    :share-bp 5500 :cofog "01.8"}
   {:id :dist-municipality :to :municipality-agg :ja "地方交付税交付金 (市町村分, 集約)"
-   :share-bp 4500 :cofog "01.8"}]}
+   :share-bp 4500 :cofog "01.8"}]
+
+ ;; 地方譲与税 (国が徴収し法律で地方へ譲与する国税). 交付税の法定率繰入とは別レイヤー:
+ ;; 各譲与税は固有の国税で、法律が配分先・配分基準を定めるため per-yen 追跡 可 (explicit 額).
+ :grants
+ [{:id :grant-local-gasoline :ja "地方揮発油譲与税" :en "Local gasoline transfer tax"
+   :to :prefecture-agg :amount-jpy 250000000000
+   :statutory-basis "地方揮発油譲与税法 (地方揮発油税を都道府県・市町村へ全額譲与)"}
+  {:id :grant-vehicle-weight :ja "自動車重量譲与税" :en "Motor vehicle tonnage transfer tax"
+   :to :municipality-agg :amount-jpy 300000000000
+   :statutory-basis "自動車重量譲与税法 (自動車重量税の一定割合を市町村へ譲与)"}
+  {:id :grant-special-tonnage :ja "特別とん譲与税" :en "Special tonnage transfer tax"
+   :to :municipality-agg :amount-jpy 12000000000
+   :statutory-basis "特別とん譲与税法 (特別とん税を開港所在市町村へ全額譲与)"}
+  {:id :grant-forest-env :ja "森林環境譲与税" :en "Forest environment transfer tax"
+   :to :municipality-agg :amount-jpy 50000000000
+   :statutory-basis "森林環境税及び森林環境譲与税法 (私有林人工林面積・人口等で按分譲与)"}
+  {:id :grant-special-corporate :ja "特別法人事業譲与税" :en "Special corporate enterprise transfer tax"
+   :to :prefecture-agg :amount-jpy 2000000000000
+   :statutory-basis "特別法人事業税及び特別法人事業譲与税法 (人口で按分し都道府県へ譲与)"}]}

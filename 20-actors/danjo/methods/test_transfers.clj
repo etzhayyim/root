@@ -36,9 +36,20 @@
         w (root.danjo.methods.revenue-ledger/trace seed :withholding-income 2024)]
     (check "源泉所得税 overall STILL non-traceable (portion-honesty holds)" (false? (:traceable? w))))
 
+  ;; ── 地方譲与税 (国が徴収→法律で地方へ譲与, per-yen traceable) ──
+  (check "5 地方譲与税 grants"        (= 5 (count (:grants c))))
+  (check "every grant per-yen traceable" (every? :per-yen? (:grants c)))
+  (check "grants-total ≈ 2-3兆"      (< 2000000000000 (:grants-total-jpy r) 3500000000000))
+  (check "国→地方 合計 = 交付税 + 譲与税"
+         (= (:intergovernmental-total-jpy r) (+ (:total-inflow-jpy r) (:grants-total-jpy r))))
+  (check "特別法人事業譲与税 present (≈2兆, 最大の譲与税)"
+         (some #(= :grant-special-corporate (:id %)) (:grants r)))
+
   ;; ── EAVT datoms ──
   (let [ds (tr/transfer-datoms c)]
     (check "transfer datoms all :db/add" (every? #(= :db/add (first %)) ds))
+    (check "grants carry :gov.grant/per-yen? true"
+           (some #(and (= :gov.grant/per-yen? (nth % 2)) (true? (nth % 3))) ds))
     (check "交付税特会 declared earmarked"
            (some #(and (= :gov.account/earmark? (nth % 2)) (true? (nth % 3))) ds))
     (check "allocations carry :gov.transfer/rate-bp"

@@ -39,8 +39,10 @@
                      (:allocations transfer-reg))
         total (reduce + 0 (map :amount-jpy allocs))
         dists (mapv (fn [d] (assoc d :amount-jpy (quot (* total (:share-bp d)) 10000)))
-                    (:distributions transfer-reg))]
-    (assoc transfer-reg :allocations allocs :distributions dists :total-inflow total)))
+                    (:distributions transfer-reg))
+        grants (mapv #(assoc % :traceable? true :per-yen? true) (:grants transfer-reg))]
+    (assoc transfer-reg :allocations allocs :distributions dists :grants grants
+           :total-inflow total :grants-total (reduce + 0 (map :amount-jpy grants)))))
 
 (defn- add [e a v] [:db/add e a v])
 
@@ -76,7 +78,18 @@
             (add e :gov.alloc/cofog (:cofog d))
             (add e :gov.alloc/amount-jpy (:amount-jpy d))
             (add e :gov.alloc/sourcing :representative)]))
-       (:distributions computed))))))
+       (:distributions computed))
+      (mapcat
+       (fn [g]
+         (let [e (str "grant:" (name (:id g)))]
+           [(add e :gov.grant/from :general)
+            (add e :gov.grant/to (:to g))
+            (add e :gov.grant/ja (:ja g))
+            (add e :gov.grant/amount-jpy (:amount-jpy g))
+            (add e :gov.grant/statutory-basis (:statutory-basis g))
+            (add e :gov.grant/per-yen? true)
+            (add e :gov.grant/sourcing :representative)]))
+       (:grants computed))))))
 
 (defn report
   "国→地方 財政移転 summary: total 法定率繰入 (per-yen traceable), per-tax breakdown, and the
@@ -86,7 +99,10 @@
    :total-inflow-jpy (:total-inflow computed)
    :distributed-jpy (reduce + 0 (map :amount-jpy (:distributions computed)))
    :residual (- (:total-inflow computed) (reduce + 0 (map :amount-jpy (:distributions computed))))
+   :grants-total-jpy (:grants-total computed)
+   :intergovernmental-total-jpy (+ (:total-inflow computed) (or (:grants-total computed) 0))
    :per-yen-traceable? true
+   :grants (mapv (fn [g] {:id (:id g) :to (:to g) :amount-jpy (:amount-jpy g)}) (:grants computed))
    :allocations (mapv (fn [a] {:from-tax (:from-tax a) :rate-bp (:rate-bp a)
                                :amount-jpy (:amount-jpy a)}) (:allocations computed))
    :note (str "法定率分は 地方交付税法6条 で率が定まり 交付税特会 を経由するため per-yen 追跡 可。"

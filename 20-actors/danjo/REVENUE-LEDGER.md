@@ -15,7 +15,7 @@ data/gov-revenue-corpus.jp.edn   ── ingest.clj ──▶  model  ── reve
 Files: `methods/{revenue_ledger,ingest,discrepancy,taxes,transfers,org_actor,coverage,maturity,kotoba_bridge}.clj` +
 `data/{gov-revenue-seed,gov-revenue-corpus,jp-national-taxes,jp-local-taxes,jp-fiscal-transfers,jp-fiscal-orgs}.edn`
 (+ ingests danjo's existing `data/gov-fiscal-seed.jp.json`) + matching `test_*.clj`
-(197 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 + 12 地方税 · 9 組織-actor (+国→地方移転)**.
+(203 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 + 12 地方税 · 9 組織-actor (+国→地方移転)**.
 
 Answers, **in Clojure on the kotoba EAVT Datom log**, the question:
 
@@ -207,7 +207,7 @@ cd methods && bb -e '(load-file "coverage.clj") \
 ## Run
 
 ```bash
-# tests (bb / clojure)  197 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 26 + transfers 14
+# tests (bb / clojure)  203 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 26 + transfers 20
 #                                   + org-actor 25 + coverage 15 + lexicon 15 + maturity 14 + bridge 20)
 ./run_tests_clj.sh                  # or: CLJ_RUNNER=clojure ./run_tests_clj.sh
 
