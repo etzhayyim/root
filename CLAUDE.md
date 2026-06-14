@@ -142,7 +142,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | chigiri 契 | legal-procedure substrate (UPL prohibited, NOT law firm) | 🟡 R0 | 2605262700 | 05-26 |
 | toritate 執帳 | accounting + audit (100% on-chain) | 🟡 R0 | 2605262900 | 05-26 |
 | iyashi 癒 | clinical care provider (L4 Care triad) | 🟡 R0 | 2605263000 | 05-26 |
-| mizuho 水穂 | water + sanitation (community-scale; ≠ mitsuho 瑞穂) | 🟡 R0 | 2605263100 | 05-26 |
+| mizuho 水穂 | water + sanitation (community-scale; ≠ mitsuho 瑞穂). **+ clj-native port (06-14)**: `methods/substrate.clj` (PID anti-windup + deterministic closed-loop `simulate` + SafetyError, ported from kuni-umi/robotics) + `methods/chlorination.clj` residual-disinfection dosing loop — **byte-identical to `chlorination.py`** (final 0.5000 / max 0.6114 mg/L / settle 27.6 s), G6 anti-paternalism (fluoride refuses w/o per-member consent) + structural ≤4 mg/L MRDL clamp preserved; `test_chlorination.clj` 9 tests green | 🟡 R0 | 2605263100 | 05-26 |
 | kazaori 風折 | civilian disaster response (force-separation sibling) | 🟡 R0 | 2605263200 | 05-26 |
 | musubi 結 | covenant ceremony (TIGHT pair w/ chigiri) | 🟡 R0 | 2605263400 | 05-26 |
 | wakai 和会 | mutual aid (NOT insurance) | 🟡 R0 | 2605263500 | 05-26 |
