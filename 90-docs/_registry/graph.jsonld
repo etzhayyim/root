@@ -13592,7 +13592,7 @@
         "doc:2605231525",
         "doc:2605192200"
       ],
-      "lastVerified": "2026-06-06"
+      "lastVerified": "2026-06-13"
     },
     {
       "id": "doc:adr-2606061200-gov-legal-procedure-coverage-maturity-expansion",
@@ -15688,6 +15688,24 @@
       "lastVerified": "2026-06-12"
     },
     {
+      "id": "doc:adr-2606130900-maxwell-rsi-ecosystem",
+      "type": "TechArticle",
+      "title": "ADR-2606130900: Maxwell RSi エコシステム — Recursive Self-Improvement ループ",
+      "status": "proposed",
+      "topic": "maxwell-rsi-ecosystem",
+      "authoritative": true,
+      "authoritativeFor": [
+        "maxwell-rsi-loop",
+        "70-tools/scripts/rsi"
+      ],
+      "related": [
+        "doc:2605242400",
+        "doc:2605192200",
+        "doc:2605241900"
+      ],
+      "lastVerified": "2026-06-13"
+    },
+    {
       "id": "doc:adr-2606131300-clj-port-determinism-golden-file-first-class",
       "type": "TechArticle",
       "title": "ADR-2606131300: Clojure 移植の検証基準 — 決定性 + golden-file を一級、python3 byte-parity は in-development 便宜オラクル",
@@ -15737,6 +15755,48 @@
         "doc:2606072802",
         "doc:2606064500"
       ],
+      "lastVerified": "2026-06-13"
+    },
+    {
+      "id": "doc:adr-2606131645-kotodama-extraction-functional-unispsc-clj",
+      "type": "TechArticle",
+      "title": "ADR-2606131645: kotodama 抽出 + 18,343 UNSPSC actor の機能化 Clojure 移行 + kotoba submodule 撤去",
+      "status": "proposed",
+      "topic": "kotodama-extraction-functional-unispsc-clj",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotodama package location (root-side, extracted repo — not inside the kotoba submodule)",
+        "UNSPSC actor implementation language + runtime (Clojure / langgraph-clj / kotoba Datom)",
+        "kotoba engine consumption by root (external dependency, not in-tree submodule)"
+      ],
+      "related": [
+        "doc:2605240000",
+        "doc:2605232345",
+        "doc:2606101200"
+      ],
+      "lastVerified": "2026-06-13"
+    },
+    {
+      "id": "doc:adr-2606131800-session-close-python-to-clojure-tier-b-refactor-arc",
+      "type": "TechArticle",
+      "title": "ADR-2606131800: Session close — Python→Clojure Tier-B byte-identical refactor arc (PRs",
+      "status": "accepted",
+      "topic": "session-close-python-to-clojure-tier-b-refactor-arc",
+      "authoritative": false,
+      "related": "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+      "lastVerified": "2026-06-13"
+    },
+    {
+      "id": "doc:adr-2606131950-yoro-cljs-auth-modal-dev-login",
+      "type": "TechArticle",
+      "title": "ADR-2606131950: yoro ClojureScript auth-modal dev-login form — wave 4 (passkey rpId 回避 + paren fix)",
+      "status": "accepted",
+      "topic": "yoro-cljs-migration",
+      "authoritative": false,
+      "authoritativeFor": [
+        "yoro UI cljs auth-modal dev-login design + :http/post-json re-frame fx pattern"
+      ],
+      "related": "doc:adr-2606121350-yoro-ui-svelte-to-cljs-migration-harness",
       "lastVerified": "2026-06-13"
     },
     {
