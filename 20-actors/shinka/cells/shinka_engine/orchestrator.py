@@ -32,11 +32,13 @@ try:  # package-relative
     from .maxwell_rsi import RSiState, flywheel_ingest, run_rsi
     from .kotoba_sink import InMemorySink
     from .datom_rag import DatomStore
+    from .distill_flywheel import DistillFlywheel, Generation
 except Exception:  # pragma: no cover - standalone import path
     from cell import EvolutionState, ShinkaEvolutionCell, _datom
     from maxwell_rsi import RSiState, flywheel_ingest, run_rsi
     from kotoba_sink import InMemorySink
     from datom_rag import DatomStore
+    from distill_flywheel import DistillFlywheel, Generation
 
 
 @dataclass
@@ -99,6 +101,10 @@ class ShinkaOrchestrator:
         # a KotobaBridgeSink writes to the live engine (operator/leash-gated).
         self.sink = sink or InMemorySink()
         self.head_cid: str | None = None
+        # Track-F distillation flywheel: beats accumulate into a "generation"
+        # that is promoted only past the collapse / reward-hacking guards.
+        self._flywheel = DistillFlywheel()
+        self._gen_start_seq = 0
 
     # --- replay (ibuki crash-resume) --------------------------------------- #
     def replay(self, datoms: list[dict[str, Any]]) -> None:
@@ -208,3 +214,33 @@ class ShinkaOrchestrator:
             and member_cacao
             and not rec.pr_draft.get("auto_merge", False)
         )
+
+    # --- Track F: close a distillation generation -------------------------- #
+    def close_generation(self, held_out_quality: float, diversity: float) -> Generation:
+        """Close the beats since the last generation into one Track-F generation.
+
+        `rounds_needed` = beats accumulated this generation (the orchestration cost
+        proxy that distillation should shrink over generations). `held_out_quality`
+        and `diversity` come from the standing eval harness / Loop-B eval, NOT the
+        in-loop training signal — the flywheel guards halt a generation that
+        mode-collapses (low diversity) or reward-hacks (held-out regression).
+        Emits append-only generation datoms (I1).
+        """
+        rounds = self.beat_seq - self._gen_start_seq
+        gen = self._flywheel.advance(
+            rounds_needed=rounds, held_out_quality=held_out_quality, diversity=diversity
+        )
+        self._gen_start_seq = self.beat_seq
+        g_datoms = [
+            _datom(f"shinka:generation/{gen.gen}", ":gen/status", gen.status),
+            _datom(f"shinka:generation/{gen.gen}", ":gen/rounds", gen.rounds_needed),
+            _datom(f"shinka:generation/{gen.gen}", ":gen/held-out", round(held_out_quality, 3)),
+            _datom(f"shinka:generation/{gen.gen}", ":gen/diversity", round(diversity, 3)),
+            _datom(f"shinka:generation/{gen.gen}", ":gen/reason", gen.reason),
+        ]
+        self.head_cid = self.sink.transact(g_datoms, expected_parent=self.head_cid)
+        return gen
+
+    def is_converging(self) -> bool:
+        """Track F: rounds-to-quality non-increasing over promoted generations."""
+        return self._flywheel.is_converging()
