@@ -19,6 +19,23 @@
 (defn safety-error? [e]
   (and (instance? clojure.lang.ExceptionInfo e) (= :safety-error (:type (ex-data e)))))
 
+;; cross-domain forbidden-force anchors (N1, Mission Charter §1.12) — rejected even if a
+;; caller mistakenly lists one in its allowlist.
+(def forbidden-uses
+  #{"weapon" "directed-energy" "munition" "fire-control" "interdiction"
+    "covert-force" "surveillance-targeting"})
+
+(defn assert-civilian
+  "Closed-world civilian-use gate (N1). Raise (safety-error) unless `use` is explicitly in the
+  domain's `permitted` allowlist and not a forbidden-force anchor."
+  [use permitted]
+  (when (forbidden-uses use)
+    (safety-error (str "N1: use " (pr-str use) " is a forbidden-force use and can never be "
+                       "energised (Mission Charter §1.12 constitutional invariant)")))
+  (when-not (contains? (set permitted) use)
+    (safety-error (str "use " (pr-str use) " is not permitted; allowlist " (pr-str permitted))))
+  use)
+
 ;; ── PID (anti-windup: integral only advances when the output is NOT saturated) ──
 (defn make-pid [{:keys [kp ki kd out-min out-max] :or {kd 0.0}}]
   {:kp kp :ki ki :kd kd :out-min out-min :out-max out-max
