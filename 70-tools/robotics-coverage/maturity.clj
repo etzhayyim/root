@@ -57,6 +57,9 @@
            :raising-gates raising
            :deftests (count-re test-src #"\(deftest ")
            :has-datom-emit (boolean (some #(= "datom_emit" (:method/id %)) methods))
+           ;; does the emitter project the FULL run-day (complete canonical log) or just base run?
+           :datom-day (boolean (let [d (slurp* (str base "/methods/datom_emit.clj"))]
+                                 (and d (re-find #"emit-day|run-day" d))))
            :has-handoff (boolean (and methods-src (re-find #":handoff/" methods-src)))
            :has-coverage (.exists (io/file (str base "/methods/coverage.clj")))
            :pipeline-frac (when (and wired (pos? (count domain-methods)))
@@ -72,13 +75,14 @@
 (defn maturity-score
   "A simple 0..1 R0-maturity index per actor across 6 axes (each worth ~equal weight).
    Intentionally coarse — it tracks *direction* of improvement, not a precise grade."
-  [{:keys [methods gates raising-gates deftests has-datom-emit has-handoff has-coverage
-           pipeline-frac clojure]}]
+  [{:keys [methods gates raising-gates deftests has-datom-emit datom-day has-handoff
+           has-coverage pipeline-frac clojure]}]
   (let [axes [(min 1.0 (/ methods 5.0))        ; ≥5 methods = full
               (min 1.0 (/ gates 8.0))          ; ≥8 gates = full
               (min 1.0 (/ raising-gates 2.0))  ; ≥2 raising safety gates = full
               (min 1.0 (/ deftests 12.0))      ; ≥12 deftests = full
               (if has-datom-emit 1.0 0.0)
+              (if datom-day 1.0 0.0)           ; canonical log captures the FULL day (R1)
               (if has-handoff 1.0 0.0)         ; cross-actor chain edges (R1 integration)
               (if has-coverage 1.0 0.0)        ; honest occupation sub-task coverage map
               (or pipeline-frac 0.0)           ; fraction of methods composed in analyze (R1)
@@ -91,14 +95,15 @@
                  "`/loop coverage, 成熟度を向上して` baseline). Closes the GAPs of "
                  "ADR-2606073001 §3/§4. **All R0** — score tracks R0-completeness + the "
                  "direction toward R1; it is NOT an R1 claim.\n\n"
-                 "| Actor | Occupation | Status | methods | gates | raising | deftests | datom | handoff | occ-cov | pipeline | clj | score |\n"
-                 "|---|---|---|---|---|---|---|---|---|---|---|---|---|\n")
+                 "| Actor | Occupation | Status | methods | gates | raising | deftests | datom | day-log | handoff | occ-cov | pipeline | clj | score |\n"
+                 "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n")
         body (->> rows
                   (map (fn [r]
-                         (format "| %s %s | %s | %s | %d | %d | %d | %d | %s | %s | %s | %s | %s | %.2f |"
+                         (format "| %s %s | %s | %s | %d | %d | %d | %d | %s | %s | %s | %s | %s | %s | %.2f |"
                                  (:id r) (:glyph r) (:occupation r) (:status r)
                                  (:methods r) (:gates r) (:raising-gates r) (:deftests r)
                                  (if (:has-datom-emit r) "✓" "✗")
+                                 (if (:datom-day r) "✓" "✗")
                                  (if (:has-handoff r) "✓" "✗")
                                  (if (:occ-coverage r) (format "%.0f%%" (* 100.0 (:occ-coverage r))) "✗")
                                  (if (:pipeline-frac r) (format "%.0f%%" (* 100.0 (:pipeline-frac r))) "✗")

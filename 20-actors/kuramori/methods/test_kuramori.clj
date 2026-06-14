@@ -444,5 +444,26 @@
     (is (re-find #"packing" s))
     (is (re-find #"cyclecount" s))))
 
+(deftest datom-emit-day-captures-full-day
+  (testing "the canonical Datom log records the WHOLE day, not just slotting"
+    (let [day (az/run-day seed)
+          out (de/emit-day seed day 1)]
+      ;; base GROUND still present
+      (is (re-find #":wh\.sku/abc" out))
+      ;; day operations now in the canonical log
+      (is (re-find #":handoff/from-actor" out))           ; inbound + outbound handoffs
+      (is (re-find #"en\.handoff\.kuramori\.todoke" out))
+      (is (re-find #":wh\.replenish/qty" out))            ; replenishment moves
+      (is (re-find #":wh\.return/disposition :scrap" out)) ; returns disposition (by id)
+      (is (re-find #":bond/cyclecount-accuracy" out))     ; day metrics (DERIVED)
+      (is (re-find #":bond/pick-waves" out))
+      ;; returns entity is the item id, not a map literal
+      (is (re-find #"\"ret-3\" :wh\.return/disposition :scrap" out))
+      ;; still a well-formed EDN vector
+      (is (vector? (clojure.edn/read-string out)))
+      ;; emit-day is a superset of base emit
+      (is (> (count (clojure.edn/read-string out))
+             (count (clojure.edn/read-string (de/emit seed day 1))))))))
+
 (let [{:keys [fail error]} (run-tests 'kuramori.methods.test-kuramori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))
