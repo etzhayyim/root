@@ -171,6 +171,18 @@ language by D1.
   thin `autorun.py` orchestrator remains Python (imports `analyze`/`kotoba`; next step).
   *Cleanup noted*: budget_ledger / analyze / kotoba each carry a small canonical-JSON encoder
   (two `ensure_ascii=False`, one `=True`) — a shared `danjo` clj util is a future tidy.
+- **Fourth landed step — danjo pipeline complete.** `danjo/methods/autorun.py` → `autorun.clj`
+  (+ `test_autorun.clj`): the autonomous observe→detect→persist heartbeat over `analyze.clj` +
+  `kotoba.clj`. Per D1 this is thin orchestration, so the meaningful guarantees are behavioral
+  not byte-CID (the combined per-cycle tx mixes graph-datoms, whose order is canonicalized
+  differently from kotoba.py): **deterministic / resume-safe** (two fresh runs → identical
+  per-cycle CIDs), append-only (re-run extends the DAG, never rewrites), commit-DAG verifies,
+  and **G4** (no verdict attr in the persisted log) + **G5** (≥2 source CIDs) hold over the
+  actual persisted EDN (14/14). With this, **all four danjo core methods are clj-native**
+  (budget_ledger / analyze / kotoba / autorun) — 11 danjo clj suites / 188 checks green. The
+  Python files are retained as D2.2 shims (kanae still imports `budget_ledger`; `autorun.py`
+  is a fleet cron entry point) and retire when those consumers port. danjo is the **worked
+  reference** for Wave 1; matsurigoto (finish assess/civil/corp) and fuchi follow.
 
 # Alternatives Considered
 
