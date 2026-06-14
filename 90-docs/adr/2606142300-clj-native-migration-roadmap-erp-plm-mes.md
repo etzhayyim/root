@@ -194,6 +194,15 @@ language by D1.
   classpath pattern (ns `matsurigoto.*`, `bb test:matsurigoto`) the tax-collect module established
   (#1743). Remaining matsurigoto modules to port: `civil_registry` / `corp_registry` /
   `credential_issue` / `datoms` / `sign_capability` / `standard`.
+- **Wave 1 — matsurigoto `corp-registry`.** `corp_registry.py` → `corp_registry.clj`
+  (+ `test_corp_registry.clj`): 法人登記 — ISO 17442 LEI issuance with a real **ISO 7064
+  MOD 97-10** check-digit (BigInteger), append-only registry records, unsigned VC certificate.
+  LEI checksums are **byte-equivalent** with the Python (golden `EZHY0000000000000168`,
+  `549300ACME0000000169`; corruption rejected with prob 96/97); G1 (unsigned cert) + G5
+  (append-only amendment, never overwrite) + live-registration Council/operator gate enforced
+  (7 tests / 35 assertions; full matsurigoto clj suite **60 tests / 240 assertions green**).
+  matsurigoto now **2/7** reference modules clj-native (tax-assess + corp-registry); remaining:
+  `civil_registry` / `credential_issue` / `datoms` / `sign_capability` / `standard`.
 
 # Alternatives Considered
 
