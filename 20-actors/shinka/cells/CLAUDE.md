@@ -59,17 +59,19 @@ It is **NOT** a frontier-beating chase: the thesis is `frontier-class = small we
 
 ## Research tracks (ADR §Research Program)
 
-A fleet test-time compute ✅ (fleet_sampler + bench_harness) · B adaptive-drafter speculative (TLT) ⏳ · C MatFormer E2B/E4B ⏳ · D Datom-log RAG ⏳ · E verifier-grounded RL (+TLT rollout) ⏳ · F distillation flywheel ⏳ · G fleet quantization ⏳.
+A fleet test-time compute ✅ (fleet_sampler + bench_harness) · B adaptive-drafter speculative ✅ (speculative.py, TLT freshness) · C MatFormer E2B/E4B ✅ (matformer.py) · D Datom-log RAG ✅ (datom_rag.py) · E verifier-grounded reward ✅ (reward.py) · F distillation flywheel ✅ (distill_flywheel.py, collapse guards) · G fleet quantization ✅ (quantization.py). All 7 tracks have an S0 model + tests; S1 swaps the kernels/figures for live fleet measurements.
 
 ## Build & test
 
 ```bash
 cd 20-actors/shinka/cells
 for t in test_cell test_maxwell_rsi test_flywheel_e2e test_orchestrator \
-         test_fleet_sampler test_fleet_wiring test_kotoba_sink test_bench_harness; do
+         test_fleet_sampler test_fleet_wiring test_kotoba_sink test_bench_harness \
+         test_run_beat test_reward test_matformer test_speculative \
+         test_datom_rag test_distill_flywheel test_quantization; do
   python3 shinka_engine/$t.py
 done
-# pure-stdlib; no pytest/langgraph required (langgraph used if present, else sequential driver)
+# 15 suites; pure-stdlib; no pytest/langgraph required (langgraph used if present, else sequential)
 ```
 
 ## Related files

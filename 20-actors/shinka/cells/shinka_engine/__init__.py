@@ -48,6 +48,7 @@ from .speculative import (
 )
 from .datom_rag import DatomStore, GroundedContext, RetrievedFact, datom_cid
 from .distill_flywheel import DistillFlywheel, Generation, projected_rounds
+from .quantization import QuantOption, NodeSpec, select_quant, pareto_front, recommend
 
 __all__ = [
     # Loop A
@@ -104,4 +105,10 @@ __all__ = [
     "DistillFlywheel",
     "Generation",
     "projected_rounds",
+    # Research Track G — fleet quantization frontier
+    "QuantOption",
+    "NodeSpec",
+    "select_quant",
+    "pareto_front",
+    "recommend",
 ]
