@@ -31,6 +31,7 @@ from .fleet_sampler import (
     pass_at_k,
     BestOfNResult,
 )
+from .bench_harness import BenchHarness, BenchTask, BenchReport, KPoint
 
 __all__ = [
     # Loop A
@@ -57,4 +58,9 @@ __all__ = [
     "FLEET_WORKER_NODES",
     "pass_at_k",
     "BestOfNResult",
+    # Research Track A — standing eval harness
+    "BenchHarness",
+    "BenchTask",
+    "BenchReport",
+    "KPoint",
 ]
