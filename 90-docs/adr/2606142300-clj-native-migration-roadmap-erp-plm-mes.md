@@ -257,6 +257,18 @@ language by D1.
   strings for the enums (5 tests / 18 assertions). **matsurigoto clj suite now 86 tests / 352
   assertions green — matsurigoto is fully clj-native (7/7 modules).** Wave 1 actors: danjo ✅,
   matsurigoto ✅; **fuchi** (consolidate the Py(38)+clj(10) split) is the remaining Wave-1 actor.
+- **Wave 1 — fuchi begins (`allocate`).** `fuchi/methods/allocate.py` → `allocate.clj`
+  (+ `test_allocate.clj`, new `bb test:fuchi` task) — THE HEART of fuchi: tenure-weighted in-kind
+  sustenance allocation, the charter-clean inverse of an investment fund's cap-table. The
+  Displacement-Dividend curve `w = ln(1+min(tenure,40))×hazard` is byte-equivalent with the Python
+  (golden tw=7.427144133408616; shares 0.805643/0.194357; ranks/floors exact; `round`/`int(round)`
+  mirror half-to-even). The invariants are enforced **in code + tests**: **cash≡0** structurally on
+  every allocation (N1), instrument ∈ {in-kind-grant/sustenance/tooling/compute} — equity/debt/
+  carry/dividend/… **RAISE** (G1, Charter-Rider §2(b)), **G5** owns-payoff raises (work product is
+  commons), **G9** no-server-key. The covenant gate (vowed → tenure-weighted share; outreach →
+  minimal 0.25× floor, share 0) holds (6 tests / 41 assertions green). fuchi is the start of the
+  third Wave-1 actor; remaining fuchi methods: `analyze` / `book` / `couple` / `provision` /
+  `route` / `vote` / `live_gate`.
 
 # Alternatives Considered
 

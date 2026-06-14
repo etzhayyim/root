@@ -343,9 +343,15 @@
                       'matsurigoto.methods.test-standard)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:fuchi
+  {:doc "扶持 fuchi — maintainer sustenance allocation Clojure module (cash≡0 in-kind allocation; ADR-2606052300 + 2606142300)"
+   :task (do (require 'clojure.test 'fuchi.methods.test-allocate)
+             (let [r (clojure.test/run-tests 'fuchi.methods.test-allocate)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi]}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test
