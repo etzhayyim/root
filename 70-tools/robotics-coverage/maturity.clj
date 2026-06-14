@@ -99,7 +99,12 @@
     (str hdr body "\n\n"
          (format "**Wave**: %d actors · %d deftests · mean R0-maturity %.2f%s.\n"
                  (count rows) total-tests avg
-                 (if mean-occ (format " · mean occupation-coverage %.0f%% (honest; sub-tasks still GAP are the real R1 worklist)" (* 100.0 mean-occ)) ""))
+                 (if mean-occ
+                   (format " · mean occupation-coverage %.0f%%%s" (* 100.0 mean-occ)
+                           (if (>= mean-occ 1.0)
+                             " (all named occupation sub-tasks now backed by a method — R1 is depth/fidelity + cell-runtime, not coverage)"
+                             " (honest; sub-tasks still GAP are the real R1 worklist)"))
+                   ""))
          "\n## Next maturity moves (R0→R1)\n"
          "- cell-runtime `.solve()` wiring (methods are pure; cells are manifest scaffold)\n"
          "- cross-actor handoff edges in the Datom log (niyaku→kuramori→todoke; kudamori→mizuho)\n"

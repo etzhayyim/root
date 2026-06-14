@@ -12,6 +12,8 @@
             [kudamori.methods.coverage :as cov]
             [kudamori.methods.campaign :as camp]
             [kudamori.methods.inspection :as insp]
+            [kudamori.methods.rootcut :as rc]
+            [kudamori.methods.relining :as rl]
             [kudamori.methods.handoff :as ho]))
 
 ;; ── atmosphere (★ G5 — the headline confined-space entry gate) ────────────────
@@ -207,11 +209,13 @@
       (is (= coverage (/ (double covered) total))))))
 
 (deftest coverage-gaps-are-exactly-the-uncovered
-  (testing ":gaps is exactly the uncovered sub-tasks and is non-empty"
-    (let [{:keys [gaps]} (cov/report)]
-      (is (seq gaps))
+  (testing ":gaps is exactly the uncovered sub-tasks (now empty — 100% covered)"
+    (let [{:keys [gaps coverage]} (cov/report)]
       (is (= (set gaps) (set (remove :covered? cov/sub-tasks))))
-      (is (every? #(false? (:covered? %)) gaps)))))
+      (is (every? #(false? (:covered? %)) gaps))
+      ;; the last two GAPs (root-cutting/relining) are now closed → 100% coverage
+      (is (empty? gaps))
+      (is (= 1.0 coverage)))))
 
 (deftest coverage-covered-names-a-method
   (testing "every covered sub-task names a non-nil :method"
@@ -342,6 +346,54 @@
       (let [plan (camp/plan-campaign camp-in {:risk-threshold 0.5})]
         (is (seq (:stops plan)))
         (is (every? #(true? (:atmosphere-recheck-required %)) (:stops plan)))))))
+
+;; ── rootcut (★ G7 — no pipe over-torque; root/obstruction cutting) ────────────
+(deftest denser-roots-need-more-passes
+  (testing "passes-needed rises monotonically with root density"
+    (let [cutter {:id "cut-head-01"}
+          light  (rc/plan-cut {:root-density 0.2 :pipe-diameter-mm 300 :pipe-material :ductile-iron} cutter)
+          heavy  (rc/plan-cut {:root-density 0.8 :pipe-diameter-mm 300 :pipe-material :ductile-iron} cutter)]
+      (is (> (:passes-needed heavy) (:passes-needed light)))
+      (is (pos? (:passes-needed light)))
+      (is (= 0 (rc/passes-needed 0.0))))))           ; no roots → no passes
+
+(deftest cut-over-torque-raises
+  (testing "★ G7 — a small/weak pipe choked with dense roots over-torques and RAISES"
+    (let [cutter {:id "cut-head-01"}]
+      ;; dense roots in a wide bore on weak PVC: required torque blows past the limit
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (rc/plan-cut {:root-density 0.9 :pipe-diameter-mm 300 :pipe-material :pvc} cutter)))
+      ;; an unknown material has no torque limit → conservative raise
+      (is (thrown? clojure.lang.ExceptionInfo (rc/torque-limit-for :mystery))))))
+
+(deftest cut-within-torque-limit-plans
+  (testing "a modest cut inside the material's torque limit plans cleanly"
+    (let [cutter {:id "cut-head-01"}
+          plan   (rc/plan-cut {:root-density 0.3 :pipe-diameter-mm 150 :pipe-material :ductile-iron} cutter)]
+      (is (<= (:required-torque-nm plan) (:torque-limit-nm plan)))
+      (is (pos? (:passes-needed plan)))
+      (is (= :ductile-iron (:material plan))))))
+
+;; ── relining (trenchless CIPP / spot repair; honest-refusal on collapse-grade) ─
+(deftest liner-thickness-scales-with-diameter
+  (testing "liner thickness grows with host diameter"
+    (let [thin  (rl/plan-reline {:pipe-diameter-mm 150 :defect-severity 3 :host-condition 2})
+          thick (rl/plan-reline {:pipe-diameter-mm 600 :defect-severity 3 :host-condition 2})]
+      (is (> (:liner-thickness-mm thick) (:liner-thickness-mm thin)))
+      (is (= :cipp (:method thin))))))
+
+(deftest reline-cure-time-positive
+  (testing "cure time is positive and follows from liner thickness"
+    (let [plan (rl/plan-reline {:pipe-diameter-mm 300 :defect-severity 4 :host-condition 3})]
+      (is (pos? (:cure-time-min plan)))
+      (is (pos? (:liner-thickness-mm plan))))))
+
+(deftest collapse-grade-host-raises
+  (testing "★ a collapse-imminent (grade 5) host is NOT relinable → RAISES (needs replacement)"
+    (is (not (rl/relinable? 5)))
+    (is (rl/relinable? 4))
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (rl/plan-reline {:pipe-diameter-mm 300 :defect-severity 4 :host-condition 5})))))
 
 (let [{:keys [fail error]} (run-tests 'kudamori.methods.test-kudamori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

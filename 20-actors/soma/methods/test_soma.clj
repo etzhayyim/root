@@ -7,6 +7,8 @@
             [soma.methods.harvester :as hv]
             [soma.methods.delimb :as dl]
             [soma.methods.extraction :as ex]
+            [soma.methods.siteprep :as sp]
+            [soma.methods.road :as rd]
             [soma.methods.analyze :as az]
             [soma.methods.datom-emit :as de]
             [soma.methods.coverage :as cov]
@@ -182,6 +184,61 @@
         (is (:feasible ok))
         (is (= 1 (:n-segments ok)))))))
 
+;; ── siteprep: replant + regeneration (G2 regenerative-only) ──────────────────
+(deftest replant-seedling-count-and-prep-method
+  (testing "seedling count = area × density; site-prep method follows soil"
+    (let [plan (sp/replant-plan {:area-ha 12.0 :species :cryptomeria
+                                 :target-stems-per-ha 2500.0 :soil :wet})]
+      ;; 12 ha × 2500 stems/ha = 30,000 seedlings
+      (is (= 30000 (:seedling-count plan)))
+      (is (:regenerative plan))
+      ;; wet soil → mounding; firm/mineral → scarification
+      (is (= :mounding (:prep-method plan)))
+      (is (= :scarification (sp/prep-method :firm))))))
+
+(deftest replant-over-density-raises
+  (testing "G2 — a target density beyond max sustainable stocking RAISES (over-planting refused)"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (sp/replant-plan {:area-ha 12.0 :species :cryptomeria :target-stems-per-ha 5000.0})))
+    ;; just under the default max is fine
+    (is (= 3000 (:seedling-count (sp/replant-plan {:area-ha 1.0 :species :cryptomeria
+                                                   :target-stems-per-ha 3000.0}))))))
+
+(deftest replant-clear-cut-flag-raises
+  (testing "G2 — a :clear-cut? flag is unrepresentable → RAISES (selective + regenerative only)"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (sp/replant-plan {:area-ha 12.0 :species :cryptomeria
+                                   :target-stems-per-ha 2500.0 :clear-cut? true})))))
+
+;; ── road: skid-trail / forest-road planning (slope + water-protection) ───────
+(deftest plan-road-returns-feasible-route
+  (testing "routes landing → stand over feasible segments, sums length + crossings"
+    (let [segs [{:from "landing" :to "a" :grade-pct 8.0 :length-m 120.0}
+                {:from "a" :to "stand" :grade-pct 12.0 :length-m 80.0
+                 :stream-crossing? true :culvert? true}
+                {:from "landing" :to "stand" :grade-pct 6.0 :length-m 260.0}]
+          plan (rd/plan-road segs {:landing "landing" :stand "stand"})]
+      (is (:feasible plan))
+      ;; shortest feasible path is landing→a→stand (200 m) over the direct 260 m
+      (is (= ["landing" "a" "stand"] (:route plan)))
+      (is (< (Math/abs (- 200.0 (:total-length-m plan))) 1e-9))
+      (is (= 1 (:crossings plan))))))
+
+(deftest plan-road-over-grade-raises
+  (testing "a segment over the max road grade RAISES (slope safety)"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (rd/plan-road [{:from "x" :to "y" :grade-pct 25.0 :length-m 50.0}])))
+    ;; just within grade is fine (simple ordered-list mode)
+    (is (:feasible (rd/plan-road [{:from "x" :to "y" :grade-pct 18.0 :length-m 50.0}])))))
+
+(deftest plan-road-uncrossable-stream-raises
+  (testing "G2 — a stream crossing without a culvert RAISES (water-protection)"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (rd/plan-road [{:from "x" :to "y" :grade-pct 5.0 :length-m 40.0 :stream-crossing? true}])))
+    ;; the same crossing WITH a culvert is feasible
+    (is (:feasible (rd/plan-road [{:from "x" :to "y" :grade-pct 5.0 :length-m 40.0
+                                   :stream-crossing? true :culvert? true}])))))
+
 ;; ── analyze + datom_emit (end-to-end over the seed) ──────────────────────────
 (def seed (az/load-seed "20-actors/soma/data/stand.edn"))
 
@@ -294,12 +351,19 @@
       (is (< (Math/abs (- coverage (/ (double covered) total))) 1e-9)))))
 
 (deftest coverage-gaps-are-the-uncovered
-  (testing ":gaps is exactly the uncovered sub-tasks, and is non-empty (partial by design)"
+  (testing ":gaps is exactly the uncovered sub-tasks (now empty — full coverage)"
     (let [{:keys [gaps]} (cov/report)]
-      (is (seq gaps))
       (is (= (set (map :id gaps))
              (set (map :id (filter (complement :covered?) cov/sub-tasks)))))
       (is (every? (complement :covered?) gaps)))))
+
+(deftest coverage-is-complete
+  (testing "every forestry sub-task is now covered → 100% (9/9)"
+    (let [{:keys [total covered coverage gaps]} (cov/report)]
+      (is (= 9 total))
+      (is (= total covered))
+      (is (< (Math/abs (- 1.0 coverage)) 1e-9))
+      (is (empty? gaps)))))
 
 (deftest coverage-covered-name-a-method
   (testing "every covered sub-task names a non-nil :method"

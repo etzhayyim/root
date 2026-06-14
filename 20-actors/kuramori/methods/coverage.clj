@@ -15,7 +15,8 @@
 
 (def sub-tasks
   "The warehouse-intralogistics occupation decomposed into sub-tasks.
-   Methods that exist today: agv_amr, slotting, picking, handoff, replenish, packing."
+   Methods that exist today: agv_amr, slotting, picking, handoff, replenish,
+   packing, returns, cyclecount — all 12 sub-tasks now covered (100%)."
   [{:id :receiving-putaway   :desc "inbound putaway to a feasible slot"          :covered? true  :method "slotting"}
    {:id :slotting            :desc "ABC velocity-based slot assignment"          :covered? true  :method "slotting"}
    {:id :picking             :desc "order pick + pick-route"                     :covered? true  :method "slotting/picking"}
@@ -26,8 +27,8 @@
    {:id :dispatch-outbound   :desc "outbound handoff to todoke"                  :covered? true  :method "handoff"}
    {:id :replenishment       :desc "forward-pick replenishment from bulk"        :covered? true  :method "replenish"}
    {:id :packing             :desc "carton/parcel packing"                       :covered? true  :method "packing"}
-   {:id :returns             :desc "returns / reverse-logistics processing"      :covered? false :method nil}
-   {:id :cycle-count         :desc "in-aisle cycle-count / inventory audit"      :covered? false :method nil}])
+   {:id :returns             :desc "returns / reverse-logistics processing"      :covered? true  :method "returns"}
+   {:id :cycle-count         :desc "in-aisle cycle-count / inventory audit"      :covered? true  :method "cyclecount"}])
 
 (defn report
   "Honest coverage report over `sub-tasks`."
@@ -50,9 +51,11 @@
       [(str "kuramori 倉守 — occupation sub-task coverage (HONEST; gaps named, G5)")
        (format "coverage: %.1f%%  (%d/%d sub-tasks covered)"
                (* 100.0 coverage) covered total)
-       ""
-       (format "GAPS (%d uncovered — no method implements these yet):" (count gaps))]
-      (map #(str "  - " (name (:id %)) ": " (:desc %)) gaps)))))
+       ""]
+      (if (seq gaps)
+        (cons (format "GAPS (%d uncovered — no method implements these yet):" (count gaps))
+              (map #(str "  - " (name (:id %)) ": " (:desc %)) gaps))
+        ["NO GAPS — every warehouse sub-task is covered by an existing method."])))))
 
 (defn -main [& _args]
   (println (report-str)))

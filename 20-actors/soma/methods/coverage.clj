@@ -1,10 +1,11 @@
 ;; soma 杣 — occupation sub-task coverage map (HONEST; asobi/shiori pattern).
 ;;
 ;; An honest map of the forestry/logging (伐採) occupation's sub-tasks against
-;; what soma's methods actually implement. G5 sourcing-honesty: coverage is
-;; PARTIAL by design — we MEASURE it and NAME the gaps rather than overclaim.
-;; A sub-task is :covered? true ONLY if a real existing method implements it
-;; (existing methods: fell_plan, harvester, extraction, handoff).
+;; what soma's methods actually implement. G5 sourcing-honesty: we MEASURE
+;; coverage rather than overclaim — a sub-task is :covered? true ONLY if a real
+;; existing method implements it (fell_plan, harvester, delimb, extraction,
+;; siteprep, road, handoff, loadout). With siteprep + road landed the full
+;; felling→regeneration cycle is covered (9/9).
 ;;
 ;; Pure Clojure, no deps → babashka-runnable AND kotoba-pywasm-portable.
 ;; Per ADR-2606142010 (soma R0).
@@ -34,10 +35,10 @@
     :covered? true  :method "delimb"}
    {:id :site-prep
     :desc "site preparation / replanting / regeneration"
-    :covered? false :method nil}
+    :covered? true  :method "siteprep"}
    {:id :forest-road
     :desc "forest-road / skid-trail planning"
-    :covered? false :method nil}
+    :covered? true  :method "road"}
    {:id :load-out
     :desc "log load-out + haul transport"
     :covered? true  :method "loadout"}])
@@ -62,7 +63,8 @@
     (str/join
      "\n"
      (concat
-      [(str "soma 杣 — occupation sub-task coverage (HONEST, partial by design)")
+      [(str "soma 杣 — occupation sub-task coverage (HONEST; "
+            (if (seq gaps) "partial by design" "full — felling→regeneration cycle complete") ")")
        (str "  coverage: " pct "  (" covered "/" total " sub-tasks)")
        (str "  gaps (" (count gaps) " uncovered):")]
       (if (seq gaps)

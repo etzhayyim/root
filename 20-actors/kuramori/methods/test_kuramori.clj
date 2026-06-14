@@ -12,6 +12,8 @@
             [kuramori.methods.packing :as pk]
             [kuramori.methods.handoff :as ho]
             [kuramori.methods.replenish :as rep]
+            [kuramori.methods.returns :as ret]
+            [kuramori.methods.cyclecount :as cc]
             [kuramori.methods.coverage :as cov]))
 
 ;; ── agv_amr ──────────────────────────────────────────────────────────────────
@@ -327,6 +329,68 @@
                    {:slot-id "f-b" :sku-id "sku-cold" :qty 12 :min 8  :max 24}]]
       (is (empty? (rep/replenish-plan stocked bulk-src {:case-pack 6}))))))
 
+;; ── returns (reverse logistics: disposition by condition grade) ──────────────
+(deftest disposition-by-condition-grade
+  (testing "grade ≥4 → restock, 2-3 → refurbish, 1 → scrap"
+    (is (= :restock   (ret/disposition {:id "a" :sku-id "s" :condition-grade 5})))
+    (is (= :restock   (ret/disposition {:id "b" :sku-id "s" :condition-grade 4})))
+    (is (= :refurbish (ret/disposition {:id "c" :sku-id "s" :condition-grade 3})))
+    (is (= :refurbish (ret/disposition {:id "d" :sku-id "s" :condition-grade 2})))
+    (is (= :scrap     (ret/disposition {:id "e" :sku-id "s" :condition-grade 1})))))
+
+(deftest disposition-missing-grade-raises
+  (testing "no-blind-restock gate — an ungraded return RAISES (never silently restocked)"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (ret/disposition {:id "x" :sku-id "s"})))
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (ret/disposition {:id "x" :sku-id "s" :condition-grade nil})))))
+
+(deftest process-returns-buckets-correctly
+  (testing "items fold into restock/refurbish/scrap buckets + restock-plan units"
+    (let [items [{:id "r1" :sku-id "s" :condition-grade 5}    ; restock
+                 {:id "r2" :sku-id "s" :condition-grade 4}    ; restock
+                 {:id "r3" :sku-id "s" :condition-grade 3}    ; refurbish
+                 {:id "r4" :sku-id "s" :condition-grade 1}]   ; scrap
+          r (ret/process-returns items)]
+      (is (= #{"r1" "r2"} (set (map :id (:restock r)))))
+      (is (= ["r3"] (mapv :id (:refurbish r))))
+      (is (= ["r4"] (mapv :id (:scrap r))))
+      (is (= 2 (get-in r [:restock-plan :units])))            ; 2 units back to pick face
+      ;; every item placed exactly once across the three buckets
+      (is (= 4 (+ (count (:restock r)) (count (:refurbish r)) (count (:scrap r))))))))
+
+;; ── cyclecount (in-aisle inventory audit) ────────────────────────────────────
+(deftest count-frequency-A-over-B-over-C
+  (testing "A counted more often than B more often than C; unknown degrades to C"
+    (is (> (cc/count-frequency :A) (cc/count-frequency :B)))
+    (is (> (cc/count-frequency :B) (cc/count-frequency :C)))
+    (is (= (cc/count-frequency :C) (cc/count-frequency :Z)))   ; unknown → C cadence
+    (is (= 12 (cc/count-frequency :A {:A 12 :B 4 :C 1})))))
+
+(deftest reconcile-flags-only-mismatched-slots
+  (testing "only slots where counted ≠ expected appear, with signed delta"
+    (let [slots [{:slot-id "s1" :expected 40 :counted 40}      ; match
+                 {:slot-id "s2" :expected 18 :counted 16}      ; short -2
+                 {:slot-id "s3" :expected 8  :counted 9}]      ; over +1
+          {:keys [discrepancies]} (cc/reconcile slots)
+          by-slot (into {} (map (juxt :slot-id :delta) discrepancies))]
+      (is (= 2 (count discrepancies)))                         ; only the 2 mismatches
+      (is (nil? (get by-slot "s1")))                           ; matching slot not flagged
+      (is (= -2 (get by-slot "s2")))
+      (is (= 1  (get by-slot "s3"))))))
+
+(deftest reconcile-accuracy-is-matching-over-total-in-unit-interval
+  (testing "accuracy = matching/total, in [0,1]; all-match = 1.0, empty = 1.0"
+    (let [slots [{:slot-id "s1" :expected 40 :counted 40}      ; match
+                 {:slot-id "s2" :expected 18 :counted 16}      ; mismatch
+                 {:slot-id "s3" :expected 8  :counted 8}       ; match
+                 {:slot-id "s4" :expected 12 :counted 12}]     ; match
+          {:keys [accuracy]} (cc/reconcile slots)]
+      (is (= (/ 3.0 4) accuracy))                              ; 3 of 4 match
+      (is (and (>= accuracy 0.0) (<= accuracy 1.0)))
+      (is (= 1.0 (:accuracy (cc/reconcile [{:slot-id "a" :expected 1 :counted 1}]))))
+      (is (= 1.0 (:accuracy (cc/reconcile [])))))))            ; empty = perfect
+
 ;; ── coverage (HONEST occupation sub-task map; G5 sourcing-honesty) ───────────
 (deftest coverage-fraction-is-covered-over-total
   (testing "coverage fraction is in (0,1] and equals covered/total"
@@ -336,12 +400,19 @@
       (is (= coverage (/ (double covered) total))))))
 
 (deftest coverage-gaps-are-exactly-the-uncovered
-  (testing "G5 — :gaps are exactly the :covered? false sub-tasks, and non-empty (honest)"
+  (testing "G5 — :gaps are exactly the :covered? false sub-tasks (honest measurement)"
     (let [{:keys [gaps]} (cov/report)
           uncovered (remove :covered? cov/sub-tasks)]
-      (is (seq gaps))
       (is (= (set (map :id gaps)) (set (map :id uncovered))))
       (is (every? (complement :covered?) gaps)))))
+
+(deftest coverage-is-complete
+  (testing "all 12 warehouse sub-tasks are now covered (100%); no gaps remain"
+    (let [{:keys [total covered coverage gaps]} (cov/report)]
+      (is (= 12 total))
+      (is (= total covered))
+      (is (= 1.0 coverage))
+      (is (empty? gaps)))))
 
 (deftest covered-sub-tasks-name-a-method
   (testing "every :covered? true sub-task names a non-nil :method (and gaps name none)"

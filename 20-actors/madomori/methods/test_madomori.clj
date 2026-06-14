@@ -7,6 +7,7 @@
             [madomori.methods.facade-path :as fp]
             [madomori.methods.wind-envelope :as we]
             [madomori.methods.adhesion :as ad]
+            [madomori.methods.anchor :as anc]
             [madomori.methods.analyze :as az]
             [madomori.methods.datom-emit :as de]
             [madomori.methods.coverage :as cov]
@@ -95,6 +96,46 @@
     (is (thrown? clojure.lang.ExceptionInfo
                  (ad/adhesion-safe? {:suction-force-n 900.0 :surface :glass
                                      :mass-kg 60.0 :required-fos 2.5})))))
+
+;; ── anchor (★ G5 per-anchor descent-load verification) ───────────────────────
+(deftest rig-ok-with-two-well-rated-reachable-anchors
+  (testing "★ G5 — ≥2 independent reachable anchors each rated ≥ load×FoS → rig-ok?"
+    (let [anchors [{:anchor-id :a1 :rated-kn 12.0 :reachable? true}
+                   {:anchor-id :a2 :rated-kn 10.0 :reachable? true}]]
+      ;; working load 4 kN × FoS 2.0 = 8 kN required; both anchors clear it
+      (is (true? (anc/rig-ok? anchors 4.0 2.0)))
+      (is (true? (anc/rig-ok? anchors 4.0)))                 ; FoS defaults to 2.0
+      (is (= 2 (count (anc/assert-rig! anchors 4.0 2.0))))    ; returns the qualifying anchors
+      ;; a positive working load is required
+      (is (thrown? clojure.lang.ExceptionInfo (anc/rig-ok? anchors 0.0 2.0))))))
+
+(deftest under-rated-anchor-fails-and-raises
+  (testing "★ G5 — an anchor below load×FoS does not count → rig-ok? false + assert-rig! RAISES"
+    (let [anchors [{:anchor-id :b1 :rated-kn 6.0 :reachable? true}    ; < 4×2 = 8 kN
+                   {:anchor-id :b2 :rated-kn 12.0 :reachable? true}]]
+      (is (false? (anc/rig-ok? anchors 4.0 2.0)))             ; only 1 adequate anchor
+      (is (thrown? clojure.lang.ExceptionInfo (anc/assert-rig! anchors 4.0 2.0))))))
+
+(deftest single-reachable-anchor-fails-and-raises
+  (testing "★ G5 — ≥2 independent anchors required; an unreachable second leaves only 1 → RAISES"
+    (let [anchors [{:anchor-id :c1 :rated-kn 20.0 :reachable? true}
+                   {:anchor-id :c2 :rated-kn 20.0 :reachable? false}]] ; unreachable → not counted
+      (is (false? (anc/rig-ok? anchors 4.0 2.0)))             ; only 1 reachable, well-rated
+      (is (thrown? clojure.lang.ExceptionInfo (anc/assert-rig! anchors 4.0 2.0)))
+      ;; one well-rated reachable anchor is still a single point of failure → RAISES
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (anc/assert-rig! [{:anchor-id :c1 :rated-kn 20.0 :reachable? true}] 4.0 2.0))))))
+
+(deftest anchor-carries-no-imagery-or-person-data
+  (testing "★ G3 — the rigging assessment is purely structural; no imagery/person/interior key"
+    (let [anchors [{:anchor-id :a1 :rated-kn 12.0 :reachable? true}
+                   {:anchor-id :a2 :rated-kn 10.0 :reachable? true}]
+          a (anc/assess anchors 4.0 2.0)
+          ks (keys a)]
+      (is (every? keyword? ks))
+      (is (not-any? (fn [k] (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera"
+                                     (name k)))
+                    ks)))))
 
 ;; ── G3 privacy-by-construction (structural) ──────────────────────────────────
 (def seed (az/load-seed "20-actors/madomori/data/facade.edn"))
@@ -210,11 +251,18 @@
       (is (= coverage (/ (double covered) total))))))
 
 (deftest coverage-gaps-are-exactly-the-uncovered
-  (testing "★ G5 — :gaps is exactly the uncovered sub-tasks and is non-empty (partial by design)"
+  (testing "★ G5 — :gaps is exactly the uncovered sub-tasks (honest; full coverage → empty)"
     (let [gaps (:gaps (cov/report))]
-      (is (seq gaps))
       (is (= (set (filter (complement :covered?) cov/sub-tasks)) (set gaps)))
       (is (not-any? :covered? gaps)))))
+
+(deftest coverage-is-complete
+  (testing "all 8 occupation sub-tasks are now backed by a real method (100%)"
+    (let [{:keys [total covered coverage gaps]} (cov/report)]
+      (is (= 8 total))
+      (is (= total covered))
+      (is (= 1.0 coverage))
+      (is (empty? gaps)))))
 
 (deftest coverage-covered-names-a-method
   (testing "every covered sub-task names a non-nil backing method"

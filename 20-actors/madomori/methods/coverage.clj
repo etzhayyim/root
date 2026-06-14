@@ -5,8 +5,9 @@
 ;; else is a GAP we MEASURE and NAME — we never inflate the coverage fraction.
 ;;
 ;; Existing methods that back coverage claims: facade_path, wind_envelope,
-;; adhesion, handoff, multi_face, water_recovery. Methods NOT yet built
-;; (anchor-rigging) are surfaced as honest gaps, not silently omitted.
+;; adhesion, handoff, multi_face, water_recovery, anchor. Any sub-task NOT yet
+;; backed by a real method would be surfaced as an honest gap, not silently
+;; omitted; at present all 8 sub-tasks are covered.
 ;;
 ;; Pure Clojure, no deps → babashka-runnable AND kotoba-pywasm-portable.
 ;; Per ADR-2606142020 (madomori R0).
@@ -21,7 +22,7 @@
    {:id :wind-safety        :desc "wind work-stop + fall-arrest redundancy"                   :covered? true  :method "wind_envelope"}
    {:id :adhesion-safety    :desc "suction/adhesion factor-of-safety"                         :covered? true  :method "adhesion"}
    {:id :defect-inspection  :desc "façade defect detection → tatekata repair order"           :covered? true  :method "handoff"}
-   {:id :anchor-rigging     :desc "rope/anchor rigging + descent setup"                       :covered? false :method nil}
+   {:id :anchor-rigging     :desc "rope/anchor rigging + descent setup"                       :covered? true  :method "anchor"}
    {:id :multi-face-routing :desc "routing across multiple building faces/elevations"         :covered? true  :method "multi_face"}
    {:id :water-recovery     :desc "runoff/detergent capture + water recovery"                 :covered? true  :method "water_recovery"}])
 
