@@ -269,6 +269,18 @@ language by D1.
   minimal 0.25× floor, share 0) holds (6 tests / 41 assertions green). fuchi is the start of the
   third Wave-1 actor; remaining fuchi methods: `analyze` / `book` / `couple` / `provision` /
   `route` / `vote` / `live_gate`.
+- **Wave 1 — fuchi `vote` + `live_gate`.** `vote.py` → `vote.clj` + `live_gate.py` → `live_gate.clj`
+  (+ `test_vote.clj`): real **1 SBT = 1 vote** governance with a **48h timelock** + quorum.
+  Enforced in code + tests: a duplicate voter DID is rejected at cast time (1 SBT = 1 vote), a
+  ballot has weight 1 (no token-plutocracy), a `:server`/`:anon` voter is unrepresentable (G9),
+  ballots outside `[opened-at, opened-at+48h]` don't count, a tally is `pending` until the window
+  closes, a thin vote (< quorum) is `rejected` never auto-accepted, and `finalize`/`finalize-binding`
+  RAISE before the timelock (the autonomous R2 gate cannot short-circuit it). Golden parity with
+  vote.py (4-in-window → yes 2/no 1/abstain 1 → accepted; thin → rejected; binding council-level 7).
+  `live_gate` is the shared R2 autonomous gate (per-leg policy retained as metadata; unknown leg
+  raises). 8 tests / 28 assertions (vote) — full fuchi clj suite **14 tests / 69 assertions green**.
+  fuchi now **3/8** methods clj-native (allocate + vote + live_gate); remaining: `analyze` /
+  `book` / `couple` / `provision` / `route`.
 
 # Alternatives Considered
 

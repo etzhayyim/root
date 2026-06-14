@@ -344,9 +344,9 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:fuchi
-  {:doc "扶持 fuchi — maintainer sustenance allocation Clojure module (cash≡0 in-kind allocation; ADR-2606052300 + 2606142300)"
-   :task (do (require 'clojure.test 'fuchi.methods.test-allocate)
-             (let [r (clojure.test/run-tests 'fuchi.methods.test-allocate)]
+  {:doc "扶持 fuchi — sustenance allocation + 1 SBT=1 vote governance Clojure modules (ADR-2606052300 + 2606142300)"
+   :task (do (require 'clojure.test 'fuchi.methods.test-allocate 'fuchi.methods.test-vote)
+             (let [r (clojure.test/run-tests 'fuchi.methods.test-allocate 'fuchi.methods.test-vote)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
