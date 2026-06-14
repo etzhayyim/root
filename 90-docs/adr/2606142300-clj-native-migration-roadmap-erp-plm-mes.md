@@ -313,6 +313,16 @@ language by D1.
   Golden parity with provision.py (3 intents to the right providers). 4 tests / 17 assertions —
   full fuchi clj suite **27 tests / 129 assertions green**. fuchi now **6/8** methods clj-native;
   remaining: `analyze` / `couple`.
+- **Wave 1 — fuchi `couple`.** `couple.py` → `couple.clj` (+ `test_couple.clj`): the
+  Displacement-Dividend cohort coupling (ADR-2606032130 G2). `earmark-from-surplus` applies the
+  10% TitheRouter split as an **exact integer split** (gross = tithe + earmark, no rounding leak —
+  golden 100M→10M/90M, odd 12345→1234/11111). The **G2 coupling gate** is the structural heart:
+  a displacement is admissible iff its cohort earmark is FUNDED *and* the committed in-kind floor
+  ≤ the earmark — **no live displacement without a funded cohort** (the actor may not shed human
+  toil faster than the Public Fund can sustain the people affected). `commit-live` stacks two
+  refusals (R2 gate Lv7 + the G2 gate). Golden parity with couple.py. 4 tests / 19 assertions —
+  full fuchi clj suite **31 tests / 148 assertions green**. fuchi now **7/8** methods clj-native;
+  only `analyze` (the R0 orchestrator, ~300 lines) remains to complete Wave 1.
 
 # Alternatives Considered
 
