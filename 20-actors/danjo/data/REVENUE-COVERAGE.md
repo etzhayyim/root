@@ -31,3 +31,26 @@ Traceable tax-years: **2/4** (50%) · non-traceable (fungible 一般会計): **2
 Total program-years: 8 · within-budget: **2** · outlay-exceeds-appropriation: 0 · outlay-without-appropriation-trace: 6 (partial-corpus / timing — a declared false-positive mode, not a verdict)
 
 _danjo finds, never judges (G4). Legal characterization → human counsel via chigiri._
+
+## 国全体の税金 (national-tax registry)
+
+**17 国税** / 合計 ≈ **70.1兆円** (representative). per-yen 追跡可能 (特別会計分) は **2.0%** のみ — 国税の大半は fungible(一般会計)で、特定の1円の使途は会計的に追跡できない、という誠実な事実。
+
+| earmark | 税数 | 額 | 構成比 | per-yen 追跡 |
+|---|---|---|---|---|
+| 一般会計 (fungible) | 11 | 44.7兆円 | 64% | ❌ |
+| 目的税的 (法定充当・但し一般会計内) | 2 | 24.0兆円 | 34% | ❌ (法的充当方向のみ) |
+| 特別会計 (特定財源) | 4 | 1.4兆円 | 2% | ✅ |
+
+## 組織別 keyless mirror-actor (entity-as-actor, ADR-2606042330)
+
+実在の徴収・所管組織を `did:web:etzhayyim.com:actor:jp-<handle>` の鍵なしミラーとして射影。
+
+| 組織 | DID | role | 徴収/所管 |
+|---|---|---|---|
+| 国税庁 | `did:web:etzhayyim.com:actor:jp-nta` | collector | 徴収 15税 (69.1兆円) |
+| 税関 (財務省関税局) | `did:web:etzhayyim.com:actor:jp-customs` | collector | 徴収 2税 (1.0兆円) |
+| 復興庁 | `did:web:etzhayyim.com:actor:jp-fukko` | account-administrator | 所管 special/reconstruction |
+| 資源エネルギー庁 (経済産業省) | `did:web:etzhayyim.com:actor:jp-anre` | account-administrator | 所管 special/energy |
+| 財務省理財局 (国債整理基金特別会計) | `did:web:etzhayyim.com:actor:jp-mof-debt` | account-administrator | 所管 special/debt-consolidation |
+| 財務省主計局 (一般会計) | `did:web:etzhayyim.com:actor:jp-mof-budget` | account-administrator | 所管 general |

@@ -12,9 +12,14 @@
 
 (load-file "discrepancy.clj")   ; loads revenue_ledger.clj too
 (load-file "ingest.clj")
+(load-file "org_actor.clj")     ; loads taxes.clj too
 (alias 'rl 'root.danjo.methods.revenue-ledger)
 (alias 'd  'root.danjo.methods.discrepancy)
 (alias 'in 'root.danjo.methods.ingest)
+(alias 't  'root.danjo.methods.taxes)
+(alias 'o  'root.danjo.methods.org-actor)
+
+(defn- oku [jpy] (format "%.1f兆" (/ (double jpy) 1.0e12)))  ; 兆円 for readability
 
 (defn fiscal-years [model]
   (sort (distinct (concat (map :fiscal-year (:revenue-lines model))
@@ -92,14 +97,47 @@
             " (partial-corpus / timing — a declared false-positive mode, not a verdict)\n"))
      "\n_danjo finds, never judges (G4). Legal characterization → human counsel via chigiri._\n")))
 
+(defn national-md
+  "Scorecard section over the WHOLE national-tax registry + the per-org keyless mirror-actors."
+  [tax-reg org-reg]
+  (let [s (t/summary tax-reg)
+        by (:by-earmark-kind s)
+        row (fn [k label] (let [v (get by k {:count 0 :amount-jpy 0})]
+                            (str "| " label " | " (:count v) " | " (oku (:amount-jpy v)) "円 | "
+                                 (if (zero? (:total-jpy s)) "—"
+                                     (format "%.0f%%" (* 100.0 (/ (double (:amount-jpy v)) (:total-jpy s))))) " |")))]
+    (str
+     "\n## 国全体の税金 (national-tax registry)\n\n"
+     "**" (:tax-count s) " 国税** / 合計 ≈ **" (oku (:total-jpy s)) "円** (representative). "
+     "per-yen 追跡可能 (特別会計分) は **" (format "%.1f%%" (* 100 (:per-yen-traceable-share s))) "** のみ — "
+     "国税の大半は fungible(一般会計)で、特定の1円の使途は会計的に追跡できない、という誠実な事実。\n\n"
+     "| earmark | 税数 | 額 | 構成比 | per-yen 追跡 |\n|---|---|---|---|---|\n"
+     (row :general "一般会計 (fungible)") " ❌ |\n"
+     (row :statutory-purpose "目的税的 (法定充当・但し一般会計内)") " ❌ (法的充当方向のみ) |\n"
+     (row :special-account "特別会計 (特定財源)") " ✅ |\n\n"
+     "## 組織別 keyless mirror-actor (entity-as-actor, ADR-2606042330)\n\n"
+     "実在の徴収・所管組織を `did:web:etzhayyim.com:actor:jp-<handle>` の鍵なしミラーとして射影。\n\n"
+     "| 組織 | DID | role | 徴収/所管 |\n|---|---|---|---|\n"
+     (str/join "\n"
+       (for [org (:orgs org-reg)]
+         (let [v (o/org-view (:id org) org-reg tax-reg)]
+           (str "| " (:ja org) " | `" (:did org) "` | " (name (:role org)) " | "
+                (if (pos? (:count (:collects v)))
+                  (str "徴収 " (:count (:collects v)) "税 (" (oku (:amount-jpy (:collects v))) "円)")
+                  (str "所管 " (str/join "," (map #(subs (str %) 1) (:accounts (:administers v)))))) " |"))))
+     "\n")))
+
 (defn -main [& args]
   (let [model (in/with-budget (in/ingest (or (first args) "../data/gov-revenue-corpus.jp.edn"))
                               (in/ingest-budget "../data/gov-fiscal-seed.jp.json"))
         rep   (report model)
+        tax-reg (t/load-taxes "../data/jp-national-taxes.edn")
+        org-reg (o/load-orgs "../data/jp-fiscal-orgs.edn")
         out   (io/file "../data/REVENUE-COVERAGE.md")]
     (io/make-parents out)
-    (spit out (coverage-md rep))
+    (spit out (str (coverage-md rep) (national-md tax-reg org-reg)))
     (println "wrote" (.getPath out))
     (println "  fiscal-years:" (:fiscal-years rep)
-             "| traceable tax-years:" (:traceable-tax-years rep) "/" (count (:traces rep))
+             "| national taxes:" (count (:taxes tax-reg))
+             "| org-actors:" (count (:orgs org-reg))
              "| datoms:" (:datoms (:counts rep)))))

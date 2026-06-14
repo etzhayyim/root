@@ -12,10 +12,10 @@ data/gov-revenue-corpus.jp.edn   ── ingest.clj ──▶  model  ── reve
                                                                                key, dry-run default)
 ```
 
-Files: `methods/{revenue_ledger,ingest,discrepancy,coverage,kotoba_bridge}.clj` +
-`data/gov-revenue-{seed,corpus}.jp.edn` (+ ingests danjo's existing `data/gov-fiscal-seed.jp.json`)
-+ `methods/test_{revenue_ledger,ingest,discrepancy,coverage,kotoba_bridge}.clj`
-(103 checks, green under `bb` and `clojure`). Coverage: **FY2023 + FY2024**.
+Files: `methods/{revenue_ledger,ingest,discrepancy,taxes,org_actor,coverage,kotoba_bridge}.clj` +
+`data/{gov-revenue-seed,gov-revenue-corpus,jp-national-taxes,jp-fiscal-orgs}.jp/.edn`
+(+ ingests danjo's existing `data/gov-fiscal-seed.jp.json`) + matching `test_*.clj`
+(135 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 · 6 組織-actor**.
 
 Answers, **in Clojure on the kotoba EAVT Datom log**, the question:
 
@@ -138,6 +138,33 @@ cd methods && bb -e '(load-file "kotoba_bridge.clj") \
 # live push (operator-gated): DANJO_KOTOBA_LIVE=1 DANJO_KOTOBA_OPERATOR_DID=did:web:… …
 ```
 
+## 国全体の税金 — `taxes.clj` (`data/jp-national-taxes.edn`)
+
+17 主要国税を `tax:jp:<id>` EAVT (`:gov.tax/*`) として射影し、使途追跡可能性を **honest 3-way**
+で分類:
+
+| earmark-kind | 例 | per-yen 追跡 |
+|---|---|---|
+| `:general` (一般会計・fungible) | 所得税/法人税/相続税/酒税/関税… (64%) | ❌ |
+| `:statutory-purpose` (目的税的, 法定充当だが一般会計内) | 消費税→社会保障4経費・出国税 (34%) | ❌(法的充当方向のみ事実) |
+| `:special-account` (特別会計・特定財源) | 復興/電源開発/石油石炭/たばこ特別 (2%) | ✅ |
+
+→ **国税の per-yen 追跡可能分は約2%のみ**。揮発油税・自動車重量税は2009一般財源化済として `:general`
+(履歴を `:note` に明記)。`summary` が earmark 別の額・構成比・追跡可能シェアを honest に算出。
+
+## 組織別 keyless mirror-actor — `org_actor.clj` (`data/jp-fiscal-orgs.edn`)
+
+実在の徴収・所管組織を **1組織=1 keyless mirror-actor** (entity-as-actor, ADR-2606042330) として
+`:gov.org/*` に射影。`did:web:etzhayyim.com:actor:jp-<handle>`、**no-server-key**
+(`:gov.org/keyless true`、verificationMethod 空)、その組織を代理・代表しない観測ミラー。
+
+- 徴収機関: **国税庁** (`jp-nta`, 内国税15税 ≈69兆) / **税関** (`jp-customs`, 関税・とん税)
+- 会計所管: **復興庁**(復興特会)/ **資源エネルギー庁**(エネルギー特会)/ **財務省理財局**
+  (国債整理基金特会)/ **財務省主計局**(一般会計 — fungible ゆえ per-yen 追跡可税 0、と正直に表示)
+
+`org-view` が各組織の担当スライス(徴収する税 / 所管会計 / per-yen 可否 / 額)を返す。税・組織 datom は
+`run-cycle! :extra-datoms` で同じローカル log → kotoba bridge パイプラインに乗る。
+
 ## Coverage scorecard — `coverage.clj`
 
 `report` computes an HONEST coverage map (matsurigoto G5): fiscal-years, tax-kinds, per-(tax,fy)
@@ -154,7 +181,8 @@ cd methods && bb -e '(load-file "coverage.clj") \
 ## Run
 
 ```bash
-# tests (bb / clojure)  103 checks (ledger 25 + ingest 22 + discrepancy 21 + coverage 15 + bridge 20)
+# tests (bb / clojure)  135 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 18
+#                                   + org-actor 14 + coverage 15 + bridge 20)
 ./run_tests_clj.sh                  # or: CLJ_RUNNER=clojure ./run_tests_clj.sh
 
 # demo trace for both taxes
