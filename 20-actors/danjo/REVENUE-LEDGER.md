@@ -12,10 +12,10 @@ data/gov-revenue-corpus.jp.edn   ── ingest.clj ──▶  model  ── reve
                                                                                key, dry-run default)
 ```
 
-Files: `methods/{revenue_ledger,ingest,discrepancy,taxes,transfers,org_actor,coverage,kotoba_bridge}.clj` +
+Files: `methods/{revenue_ledger,ingest,discrepancy,taxes,transfers,org_actor,coverage,maturity,kotoba_bridge}.clj` +
 `data/{gov-revenue-seed,gov-revenue-corpus,jp-national-taxes,jp-local-taxes,jp-fiscal-transfers,jp-fiscal-orgs}.edn`
 (+ ingests danjo's existing `data/gov-fiscal-seed.jp.json`) + matching `test_*.clj`
-(168 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 + 12 地方税 · 9 組織-actor (+国→地方移転)**.
+(182 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 + 12 地方税 · 9 組織-actor (+国→地方移転)**.
 
 Answers, **in Clojure on the kotoba EAVT Datom log**, the question:
 
@@ -178,6 +178,19 @@ cd methods && bb -e '(load-file "org_actor.clj") \
   ((resolve (symbol "root.danjo.methods.org-actor" "-main")) "generate")'   # → data/actors/*.json
 ```
 
+## MATURITY scorecard — `maturity.clj` (executable honesty gates)
+
+`maturity.clj` runs the actor's **honesty invariants across the WHOLE dataset** (not just unit
+fixtures) and writes `data/REVENUE-MATURITY.md`. A regression turns a row ❌. 9 invariants, all
+passing: G4 (no verdict token in any datom), per-yen-iff-special, honesty-gate-raises,
+復興 residual 0, 源泉 stays non-traceable, 国→地方 transfer residual 0, orgs keyless, G5 ≥2 CIDs,
+:representative-only. Status R0; R1 triggers (G7 live corpus / lexicon / live kotoba) listed.
+
+```bash
+cd methods && bb -e '(load-file "maturity.clj") \
+  ((resolve (symbol "root.danjo.methods.maturity" "-main")))'   # → data/REVENUE-MATURITY.md
+```
+
 ## Coverage scorecard — `coverage.clj`
 
 `report` computes an HONEST coverage map (matsurigoto G5): fiscal-years, tax-kinds, per-(tax,fy)
@@ -194,8 +207,8 @@ cd methods && bb -e '(load-file "coverage.clj") \
 ## Run
 
 ```bash
-# tests (bb / clojure)  168 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 26 + transfers 14
-#                                   + org-actor 25 + coverage 15 + bridge 20)
+# tests (bb / clojure)  182 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 26 + transfers 14
+#                                   + org-actor 25 + coverage 15 + maturity 14 + bridge 20)
 ./run_tests_clj.sh                  # or: CLJ_RUNNER=clojure ./run_tests_clj.sh
 
 # demo trace for both taxes

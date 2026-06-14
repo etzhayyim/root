@@ -21,7 +21,7 @@
 (alias 'o  'root.danjo.methods.org-actor)
 (alias 'tr 'root.danjo.methods.transfers)
 
-(defn- oku [jpy] (format "%.1f兆" (/ (double jpy) 1.0e12)))  ; 兆円 for readability
+(defn oku [jpy] (format "%.1f兆" (/ (double jpy) 1.0e12)))  ; 兆円 for readability
 
 (defn fiscal-years [model]
   (sort (distinct (concat (map :fiscal-year (:revenue-lines model))
