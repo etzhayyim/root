@@ -22,8 +22,7 @@
         comb (t/combine nat loc)
         orgs (o/load-orgs "../data/jp-fiscal-orgs.edn")
         seed (rl/load-seed "../data/gov-revenue-seed.jp.edn")
-        model (in/with-budget (in/ingest "../data/gov-revenue-corpus.jp.edn")
-                              (in/ingest-budget "../data/gov-fiscal-seed.jp.json"))
+        model (in/full-model)
         xfer (tr/compute (tr/load-transfers "../data/jp-fiscal-transfers.edn") nat)]
     {:nat nat :loc loc :comb comb :orgs orgs :seed seed :model model :xfer xfer}))
 

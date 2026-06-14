@@ -75,5 +75,15 @@
            (some #(= :gov.appropriation/amount-jpy (nth % 2)) ds))
     (check "merged model still G4-clean" (every? #(= :db/add (first %)) ds))))
 
+;; ── 一般会計 主要経費別 予算 (COFOG expenditure structure) ──
+(let [gb (in/ingest-general-budget "../data/jp-general-budget.jp.edn")
+      fm (in/full-model)]
+  (check "ingest-general-budget yields ≥12 主要経費" (>= (count (:appropriations gb)) 12))
+  (check "主要経費 carry COFOG codes" (every? #(seq (str (:cofog %))) (:appropriations gb)))
+  (check "主要経費 carry ≥2 source CIDs (G5)" (every? #(>= (count (:source-record-cids %)) 2) (:appropriations gb)))
+  (check "社会保障関係費 present (largest expense)" (some #(= "社会保障関係費" (:program-name %)) (:appropriations gb)))
+  (check "full-model merges 主要経費 into :general appropriations"
+         (some #(= "JP-GEN-SOCIAL-SECURITY" (:program-code %)) (:appropriations fm))))
+
 (println (format "── ingest: %d checks, %d failures ──" @checks @fails))
 (when (pos? @fails) (System/exit 1))

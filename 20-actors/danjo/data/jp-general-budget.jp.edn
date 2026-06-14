@@ -1,0 +1,40 @@
+;; jp-general-budget.jp.edn — 一般会計 主要経費別 歳出予算 (COFOG-classified). danjo revenue-ledger.
+;;
+;; 歳入側 (税) に対する 歳出側 のカバレッジ: 一般会計が「どの機能 (COFOG) に いくら」配分されるかの
+;; 主要経費別内訳。matsurigoto の COFOG backbone と接続する。
+;;
+;; 重要な honest 論点: これは 一般会計 (fungible) の歳出構造であり、「どの税の1円がこの経費に」という
+;; 主張ではない (一般会計はノン・アフェクタシオン)。`:account :general` のため revenue_ledger の per-yen
+;; trace の対象外 — 歳出が「機能別にどう構成されるか」を示すのみ。appropriation (予算) として ingest され、
+;; 対応する outlay 記録が無い主要経費は reconcile で :appropriation-outlay-within (予算計上の事実)。
+;;
+;; 全数値 :representative (FY2024 当初予算の主要経費構造に基づくが G7 ライブ検証前)。NOT 権威ある予算書。
+
+{:source-sensor "jp_yosan" :jurisdiction "jpn" :currency-iso4217 "JPY"
+ :verification-status "representative" :fiscal-year 2024 :account :general
+ :primary-sources ["https://www.mof.go.jp/policy/budget/budger_workflow/budget/fy2024/"]
+ :records
+ [{:record-id "gen-jp-2024-social-security" :program-code "JP-GEN-SOCIAL-SECURITY"
+   :program-name "社会保障関係費" :cofog "10" :fiscal-year 2024 :amount-local 37700000000000}
+  {:record-id "gen-jp-2024-debt-service" :program-code "JP-GEN-DEBT-SERVICE"
+   :program-name "国債費" :cofog "01.7" :fiscal-year 2024 :amount-local 27000000000000}
+  {:record-id "gen-jp-2024-local-allocation" :program-code "JP-GEN-LOCAL-ALLOCATION"
+   :program-name "地方交付税交付金等" :cofog "01.8" :fiscal-year 2024 :amount-local 17800000000000}
+  {:record-id "gen-jp-2024-public-works" :program-code "JP-GEN-PUBLIC-WORKS"
+   :program-name "公共事業関係費" :cofog "04.5" :fiscal-year 2024 :amount-local 6100000000000}
+  {:record-id "gen-jp-2024-education-science" :program-code "JP-GEN-EDUCATION-SCIENCE"
+   :program-name "文教及び科学振興費" :cofog "09" :fiscal-year 2024 :amount-local 5500000000000}
+  {:record-id "gen-jp-2024-defense" :program-code "JP-GEN-DEFENSE"
+   :program-name "防衛関係費" :cofog "02" :fiscal-year 2024 :amount-local 7900000000000}
+  {:record-id "gen-jp-2024-economic-aid" :program-code "JP-GEN-ECONOMIC-AID"
+   :program-name "経済協力費" :cofog "01.2" :fiscal-year 2024 :amount-local 510000000000}
+  {:record-id "gen-jp-2024-sme" :program-code "JP-GEN-SME"
+   :program-name "中小企業対策費" :cofog "04.1" :fiscal-year 2024 :amount-local 170000000000}
+  {:record-id "gen-jp-2024-energy" :program-code "JP-GEN-ENERGY"
+   :program-name "エネルギー対策費" :cofog "04.3" :fiscal-year 2024 :amount-local 850000000000}
+  {:record-id "gen-jp-2024-food-stabilization" :program-code "JP-GEN-FOOD"
+   :program-name "食料安定供給関係費" :cofog "04.2" :fiscal-year 2024 :amount-local 1260000000000}
+  {:record-id "gen-jp-2024-misc" :program-code "JP-GEN-MISC"
+   :program-name "その他事項経費" :cofog "01.1" :fiscal-year 2024 :amount-local 9450000000000}
+  {:record-id "gen-jp-2024-reserve" :program-code "JP-GEN-RESERVE"
+   :program-name "予備費" :cofog "01.1" :fiscal-year 2024 :amount-local 1000000000000}]}

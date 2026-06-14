@@ -150,9 +150,23 @@
          "= 国→地方 合計 **" (oku (:intergovernmental-total-jpy r)) "円** (いずれも per-yen 追跡可)。\n"
          "源泉所得税等は全体としては依然 fungible — 覆らない法定率分のみが traceable (portion-honesty)。\n")))
 
+(defn cofog-md
+  "一般会計 主要経費 by COFOG function — the expenditure-structure view (where the general
+   account is budgeted by function). NOT a tax-provenance claim (一般会計 fungible)."
+  [model]
+  (let [gen (->> (:appropriations model) (filter #(= :general (:account %)))
+                 (sort-by :amount-jpy >))]
+    (str "\n## 一般会計 主要経費 (COFOG 機能別歳出構造)\n\n"
+         "一般会計がどの機能 (COFOG) にいくら配分されるか (≈ "
+         (oku (reduce + 0 (map :amount-jpy gen))) "円, representative)。"
+         "fungible のため特定税の充当ではなく歳出構造のみ:\n\n"
+         "| 主要経費 | COFOG | 額 |\n|---|---|---|\n"
+         (str/join "\n" (for [a gen]
+                          (str "| " (:program-name a) " | " (:cofog a) " | " (oku (:amount-jpy a)) "円 |")))
+         "\n")))
+
 (defn -main [& args]
-  (let [model (in/with-budget (in/ingest (or (first args) "../data/gov-revenue-corpus.jp.edn"))
-                              (in/ingest-budget "../data/gov-fiscal-seed.jp.json"))
+  (let [model (in/full-model)
         rep   (report model)
         tax-reg (t/combine (t/load-taxes "../data/jp-national-taxes.edn")
                            (t/load-local-taxes "../data/jp-local-taxes.edn"))
@@ -161,7 +175,7 @@
                             (t/load-taxes "../data/jp-national-taxes.edn"))
         out   (io/file "../data/REVENUE-COVERAGE.md")]
     (io/make-parents out)
-    (spit out (str (coverage-md rep) (national-md tax-reg org-reg) (transfer-md xfer)))
+    (spit out (str (coverage-md rep) (national-md tax-reg org-reg) (transfer-md xfer) (cofog-md model)))
     (println "wrote" (.getPath out))
     (println "  fiscal-years:" (:fiscal-years rep)
              "| national taxes:" (count (:taxes tax-reg))

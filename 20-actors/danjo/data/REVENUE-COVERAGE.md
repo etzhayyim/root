@@ -13,7 +13,7 @@ counted as non-traceable, not hidden (matsurigoto G5 / danjo G5). Verification s
 
 | revenue-lines | transfers | appropriations | outlays | EAVT datoms |
 |---|---|---|---|---|
-| 4 | 2 | 2 | 9 | 137 |
+| 4 | 2 | 14 | 9 | 221 |
 
 ## Per-yen traceability (the honest answer)
 
@@ -28,7 +28,7 @@ Traceable tax-years: **2/4** (50%) · non-traceable (fungible 一般会計): **2
 
 ## Appropriation↔outlay reconciliation
 
-Total program-years: 8 · within-budget: **2** · outlay-exceeds-appropriation: 0 · outlay-without-appropriation-trace: 6 (partial-corpus / timing — a declared false-positive mode, not a verdict)
+Total program-years: 20 · within-budget: **14** · outlay-exceeds-appropriation: 0 · outlay-without-appropriation-trace: 6 (partial-corpus / timing — a declared false-positive mode, not a verdict)
 
 _danjo finds, never judges (G4). Legal characterization → human counsel via chigiri._
 
@@ -76,3 +76,24 @@ per-yen 追跡可能 (特別会計分) は **1.3%** のみ — 国税の大半�
 
 交付税法定率繰入 **16.7兆円** (residual 0, 1円照合) + 地方譲与税 **2.6兆円** (5税) = 国→地方 合計 **19.3兆円** (いずれも per-yen 追跡可)。
 源泉所得税等は全体としては依然 fungible — 覆らない法定率分のみが traceable (portion-honesty)。
+
+## 一般会計 主要経費 (COFOG 機能別歳出構造)
+
+一般会計がどの機能 (COFOG) にいくら配分されるか (≈ 126.0兆円, representative)。fungible のため特定税の充当ではなく歳出構造のみ:
+
+| 主要経費 | COFOG | 額 |
+|---|---|---|
+| 社会保障関係費 | 10 | 37.7兆円 |
+| 国債費 | 01.7 | 27.0兆円 |
+| 地方交付税交付金等 | 01.8 | 17.8兆円 |
+| その他事項経費 | 01.1 | 9.5兆円 |
+| 防衛関係費 | 02 | 7.9兆円 |
+| 公共事業関係費 | 04.5 | 6.1兆円 |
+| 文教及び科学振興費 | 09 | 5.5兆円 |
+| 文教及び科学振興費 (Education & Science Promotion) |  | 5.5兆円 |
+| 文教及び科学振興費 (Education & Science Promotion) |  | 5.3兆円 |
+| 食料安定供給関係費 | 04.2 | 1.3兆円 |
+| 予備費 | 01.1 | 1.0兆円 |
+| エネルギー対策費 | 04.3 | 0.9兆円 |
+| 経済協力費 | 01.2 | 0.5兆円 |
+| 中小企業対策費 | 04.1 | 0.2兆円 |

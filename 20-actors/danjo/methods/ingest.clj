@@ -218,12 +218,43 @@
          f (if (.exists f) f (io/file "../data/gov-fiscal-seed.jp.json"))]
      (ingest-budget-corpus (parse-json (slurp f))))))
 
+(defn ingest-general-budget
+  "Project the 一般会計 主要経費別 予算 EDN → :appropriations (account :general, COFOG-classed).
+   These are the general-account budget STRUCTURE (where money is budgeted by function); per-yen
+   tax provenance is NOT claimed (一般会計 fungible). ≥2 source CIDs each (G5)."
+  ([] (ingest-general-budget nil))
+  ([path]
+   (let [doc (edn/read-string (slurp (let [f (io/file (or path "20-actors/danjo/data/jp-general-budget.jp.edn"))]
+                                       (if (.exists f) f (io/file "../data/jp-general-budget.jp.edn")))))
+         ds-cid (str "gov.dataset.manifest:" (:source-sensor doc) "#"
+                     (subs (sha256-hex (canonical (dissoc doc :records))) 0 24))]
+     {:dataset-cid ds-cid
+      :appropriations
+      (vec (for [r (:records doc)]
+             (let [a (:amount-local r)]
+               (when-not (and (integer? a) (>= a 0))
+                 (throw (ex-info "amount-local must be non-negative integer" {:record (:record-id r)})))
+               {:record-id (:record-id r) :account :general
+                :program-code (:program-code r) :program-name (:program-name r)
+                :cofog (:cofog r) :fiscal-year (:fiscal-year r) :amount-jpy a
+                :source-record-cids [(record-cid (assoc r :record-kind :appropriation
+                                                          :source-sensor (:source-sensor doc))) ds-cid]
+                :tier "A"})))})))
+
 (defn with-budget
   "Merge a budget projection (its :appropriations + :outlays) into a revenue model."
   [model budget]
   (-> model
       (update :appropriations (fnil into []) (:appropriations budget))
       (update :outlays (fnil into []) (:outlays budget))))
+
+(defn full-model
+  "The complete revenue model: revenue corpus + danjo JSON budget + 一般会計 主要経費別 予算.
+   The single source of truth coverage/maturity/autorun build on."
+  []
+  (-> (ingest)
+      (with-budget (ingest-budget))
+      (with-budget (ingest-general-budget))))
 
 (defn -main [& args]
   (let [model (ingest (first args))]
