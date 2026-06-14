@@ -170,17 +170,34 @@ def _stable_score(text: str) -> float:
 # --------------------------------------------------------------------------- #
 
 
-def node_propose(state: EvolutionState) -> EvolutionState:
-    """Generation: emit n candidate mutations grounded in retrieved context."""
+def node_propose(state: EvolutionState, sampler: Any | None = None) -> EvolutionState:
+    """Generation: emit n candidate mutations grounded in retrieved context.
+
+    When a `sampler` (FleetSampler, Research Track A) is supplied, each proposal
+    BODY is drawn via fleet best-of-N + Elo selection across the murakumo nodes
+    (test-time compute), not the deterministic template. `sampler=None` keeps the
+    offline kernel. Murakumo-only (I3) — the sampler resolves to fleet endpoints.
+    """
     kinds = ("cell-impl", "schema-upgrade", "corpus-pair", "code-fix")
     for i in range(state.n_propose):
         kind = kinds[i % len(kinds)]
         pid = f"p{i}"
+        if sampler is not None:
+            prompt = f"[{kind}] propose mutation {i} for task: {state.task}"
+            res = sampler.best_of_n(prompt, n=3)
+            body = res.winner.text if res.winner else prompt
+            rationale = (
+                f"fleet best-of-3 winner from {res.winner.node if res.winner else 'kernel'}; "
+                f"grounded in {len(state.context_refs)} Datom-log refs"
+            )
+        else:
+            body = f"[{kind}] candidate {i} for task: {state.task}"
+            rationale = f"grounded in {len(state.context_refs)} Datom-log refs; angle {i}"
         p = Proposal(
             pid=pid,
             kind=kind,
-            body=f"[{kind}] candidate {i} for task: {state.task}",
-            rationale=f"grounded in {len(state.context_refs)} Datom-log refs; angle {i}",
+            body=body,
+            rationale=rationale,
             source_refs=list(state.context_refs),
         )
         state.proposals.append(p)
@@ -354,17 +371,24 @@ class ShinkaEvolutionCell:
     """Supervisor-driven generate→debate→evolve→synthesize super-step graph.
 
     `.solve(state)` runs the full beat for one task. `infer` is an optional
-    Murakumo inference callable (resolved Murakumo-only by the host); when None,
-    the deterministic kernel drives every node (I3 fail-open).
+    Murakumo inference callable (resolved Murakumo-only by the host); `sampler`
+    is an optional FleetSampler (Research Track A) that backs `propose` with
+    fleet best-of-N test-time compute. When both are None the deterministic
+    kernel drives every node (I3 fail-open).
     """
 
-    def __init__(self, infer: Callable[[str], str] | None = None) -> None:
+    def __init__(
+        self,
+        infer: Callable[[str], str] | None = None,
+        sampler: Any | None = None,
+    ) -> None:
         self.infer = infer
+        self.sampler = sampler
         self.graph = self._build_graph()
 
     def _node_table(self) -> dict[str, Callable[[EvolutionState], EvolutionState]]:
         return {
-            "propose": node_propose,
+            "propose": lambda s: node_propose(s, self.sampler),
             "reflect": node_reflect,
             "cluster": node_cluster,
             "rank": lambda s: node_rank(s, self.infer),

@@ -76,8 +76,10 @@ class ShinkaOrchestrator:
         infer: Callable[[str], str] | None = None,
         corpus_count: int = 125,
         evo_x2_online: bool = False,
+        sampler: object | None = None,
     ) -> None:
         self.infer = infer
+        self.sampler = sampler
         self.beat_seq = 0
         self.corpus_count = corpus_count
         self.evo_x2_online = evo_x2_online
@@ -118,7 +120,7 @@ class ShinkaOrchestrator:
         rec.datoms.append(_datom(f"shinka:beat/{self.beat_seq}", ":beat/task", task))
 
         # perceive → decide: run Loop A (generate→debate→evolve→synthesize).
-        ev = ShinkaEvolutionCell(infer=self.infer).solve(
+        ev = ShinkaEvolutionCell(infer=self.infer, sampler=self.sampler).solve(
             EvolutionState(task=task, context_refs=context_refs or [], n_propose=4)
         )
         rec.winner = ev.merged.pid if ev.merged else None
