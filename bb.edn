@@ -326,7 +326,8 @@
                       'matsurigoto.methods.modules.test-civil-registry
                       'matsurigoto.methods.modules.test-credential-issue
                       'matsurigoto.methods.test-datoms
-                      'matsurigoto.methods.test-sign-capability)
+                      'matsurigoto.methods.test-sign-capability
+                      'matsurigoto.methods.test-standard)
              (let [r (clojure.test/run-tests
                       'matsurigoto.tax-collect.test-withholding
                       'matsurigoto.tax-collect.test-payment
@@ -338,7 +339,8 @@
                       'matsurigoto.methods.modules.test-civil-registry
                       'matsurigoto.methods.modules.test-credential-issue
                       'matsurigoto.methods.test-datoms
-                      'matsurigoto.methods.test-sign-capability)]
+                      'matsurigoto.methods.test-sign-capability
+                      'matsurigoto.methods.test-standard)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj

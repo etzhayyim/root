@@ -243,6 +243,20 @@ language by D1.
   byte-parity with Python is claimed (the one place in this wave where parity is behavioral, not
   byte-exact). 6 tests / 16 assertions; full matsurigoto clj suite **81 tests / 334 assertions
   green**. matsurigoto now **6/7** clj-native; only `standard` (COFOG service catalogue) remains.
+- **Wave 1 — matsurigoto `standard` → matsurigoto COMPLETE (7/7).** `standard.py` →
+  `standard.clj` (+ `test_standard.clj`): the COFOG e-gov service-standard loader / validator /
+  coverage reporter. clojure.edn reads the standard + per-country profiles natively (merge +
+  dedup by iso3). `validate` enforces the charter invariants structurally (G1 every service
+  `{:server-held-authority false}`, G2 non-empty `:spec-basis`, G3 every profile a legitimate
+  `:operated-by`/`:authority-mode` — polities Council/sovereign, adopters state/supplied) + COFOG
+  backbone (10 divisions) + known module/class references; `coverage` figures match standard.py
+  goldens exactly (0 errors, **3/10** divisions, **6/69** groups, **22** services, all 4 required
+  domains, 8 country adopters). A porting subtlety surfaced + tested: this EDN stores keyword-like
+  enum *values* as `":"`-prefixed STRINGS (matching the Python `_edn` representation) while
+  structural keys + the `:invariants` map use real keywords/booleans — the clj port matches
+  strings for the enums (5 tests / 18 assertions). **matsurigoto clj suite now 86 tests / 352
+  assertions green — matsurigoto is fully clj-native (7/7 modules).** Wave 1 actors: danjo ✅,
+  matsurigoto ✅; **fuchi** (consolidate the Py(38)+clj(10) split) is the remaining Wave-1 actor.
 
 # Alternatives Considered
 
