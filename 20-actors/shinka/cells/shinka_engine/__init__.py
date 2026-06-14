@@ -40,6 +40,12 @@ from .reward import (
     build_preference_pair,
 )
 from .matformer import Tier, MatFormerRouter, estimate_difficulty, route
+from .speculative import (
+    expected_tokens_per_step,
+    speculative_speedup,
+    simulate_decode,
+    DrafterFreshness,
+)
 
 __all__ = [
     # Loop A
@@ -82,4 +88,9 @@ __all__ = [
     "MatFormerRouter",
     "estimate_difficulty",
     "route",
+    # Research Track B — speculative decoding + TLT adaptive drafter
+    "expected_tokens_per_step",
+    "speculative_speedup",
+    "simulate_decode",
+    "DrafterFreshness",
 ]
