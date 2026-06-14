@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: shinka-self-evolution-engine
 authoritative: true
-last_verified: 2026-06-14
+last_verified: 2026-06-15
 priority: 7.5
 axis: ml
 weight: 0.75
@@ -205,9 +205,11 @@ the edge target" — ADR-2605241900 still holds for baien; Shinka's target is
 
 ## Staged rollout
 
-- **S0 (this ADR):** name + register `shinka` actor; scaffold the 7 cells as
-  `.solve()` stubs reusing himawari's StateGraph pattern; wire `propose`/`critic`
-  to existing `collect_corpus.py` / `gate_candidates.py`. No autonomy.
+- **S0 (this ADR — LANDED):** name + register `shinka` actor; the co-scientist
+  cells as `.solve()` reusing himawari's StateGraph pattern; `reflect` reuses the
+  Charter scanner (cf. `gate_candidates.py`). No autonomy. See *Implementation
+  status* below — the S0 scaffold grew into a full deterministic-kernel engine
+  (both loops + Supervisor + all 7 research-track models, 305 tests green).
 - **S1:** Loop A dry-run — proposals + Elo tournament on Maxwell-fallback
   (gemma) over a fixed task set; Meta-review emits PR drafts for human review.
   Land Research Track A (fleet best-of-N) + the standing eval harness.
@@ -217,6 +219,40 @@ the edge target" — ADR-2605241900 still holds for baien; Shinka's target is
   both pass.
 - **S3+:** Tracks B–G; CACAO-leashed semi-autonomous proposal cadence under
   Council attestation; ecosystem-style quorum (≥2/3) to promote a generation.
+
+## Implementation status (S0 — landed)
+
+The S0 engine is implemented as a pure-stdlib, LLM-free **deterministic kernel**
+with typed Murakumo/fleet hooks (fail-open), under `20-actors/shinka/cells/`
+(`shinka_engine/`, sibling of the social-evolution scheduler). **305 standalone
+tests green / 18 suites**; see `20-actors/shinka/cells/CLAUDE.md`.
+
+- **Loop A** (`cell.py`) — `ShinkaEvolutionCell`: the 6 co-scientist nodes
+  (propose/reflect/cluster/rank-Elo/recombine/synthesize) as one StateGraph
+  super-step; PR draft only, no auto-merge.
+- **Loop B** (`maxwell_rsi.py`) — Robin loop + `DeployGate` (≥250 steps OR ≥+5pp)
+  + `flywheel_ingest` (Loop-A winners → SFT corpus, dry-run); honestly `blocked`
+  while EVO-X2 is offline / corpus < floor.
+- **Supervisor** (`orchestrator.py`) — ibuki beat cycle driving both loops + the
+  flywheel; **Track-D RAG self-grounding** over its own append-only log;
+  **Track-F generations** (`close_generation`, collapse/reward-hacking guards).
+- **Append-only sink** (`kotoba_sink.py`) — content-addressed commit-DAG
+  (`InMemorySink` + `KotobaBridgeSink`, no-server-key, leash-gated).
+- **Research tracks** — all seven have an implemented, tested S0 model:
+  A `fleet_sampler.py` + `bench_harness.py` (pass@k vs k), B `speculative.py`
+  (spec-decode + TLT adaptive-drafter freshness), C `matformer.py` (E2B/E4B
+  routing) + `adaptive.py` (difficulty-adaptive budget), D `datom_rag.py`
+  (CID-anchored, anti-hallucination), E `reward.py` (charter-veto + microbench +
+  PR-merge, DPO pairs), F `distill_flywheel.py` (rounds-to-quality + guards),
+  G `quantization.py` (tok/s × quality Pareto).
+- **Entrypoint** (`run_beat.py`) — offline-safe beat runner (ibuki autorun
+  analogue); fleet deployment injects the Murakumo infer hook + FleetSampler +
+  KotobaBridgeSink (operator/leash-gated).
+
+The invariants (I1 append-only, I2 no-auto-merge, I3 Murakumo-only) are enforced
+in code and asserted by tests. **S1 swaps the deterministic kernels/figures for
+live fleet measurements** (real Murakumo infer + measured tok/s + e7m bench);
+nothing in S0 holds a key, writes the registry, or transacts to the live engine.
 
 ## Consequences
 
