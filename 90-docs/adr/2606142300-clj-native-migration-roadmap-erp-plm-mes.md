@@ -323,6 +323,36 @@ language by D1.
   refusals (R2 gate Lv7 + the G2 gate). Golden parity with couple.py. 4 tests / 19 assertions —
   full fuchi clj suite **31 tests / 148 assertions green**. fuchi now **7/8** methods clj-native;
   only `analyze` (the R0 orchestrator, ~300 lines) remains to complete Wave 1.
+- **Wave 1 — fuchi `analyze` → fuchi COMPLETE (8/8) → WAVE 1 COMPLETE.** `analyze.py run` →
+  `analyze.clj` (+ `test_analyze.clj`): the end-to-end allocation membrane that drives every other
+  fuchi method over the `:representative` seed (covenant → envelope → tenure-weighted allocation →
+  rail decomposition → governance gate → provisioning intents → toritate booking + kanae flow graph
+  → Displacement-Dividend coupling). The pipeline reproduces analyze.py `run()` **exactly**: 5
+  maintainers route as `abel→auto/accepted`, `seth→sbt-vote 5-1/48h✓/accepted` (real 1 SBT=1 vote
+  tally), `eve→council-lv7/pending`, `noah→auto/accepted` (outreach), `cain→refused/refused`; 14
+  provisioning intents / 13 ledger entries / 32 flow edges / 4 derived datoms; coupling
+  cohort-sanae-2026 admissible (funded) + cohort-hataori-2026 refused (unfunded); all 4 live legs
+  admissible (R2). cash≡0 holds across every projection. (analyze.py's `_report`/`main` Markdown
+  renderer is intentionally NOT ported — it reads live-gate condition keys the R2 autonomous gate no
+  longer emits, i.e. dead code against the current `live_gate`; a clean `scorecard` replaces it.) 5
+  tests / 28 assertions — full fuchi clj suite **36 tests / 176 assertions green**.
+
+## STATUS — Wave 1 (accounting / tax / allocation core) is COMPLETE
+
+All three Wave-1 actors are now fully clj-native, every port byte-/behaviour-parity-verified
+against its Python original with the discipline of D2 (charter gates enforced in code + tests):
+
+| Actor | Methods clj-native | Tests |
+|---|---|---|
+| **danjo** | 4/4 (budget_ledger · analyze · kotoba · autorun) | 11 suites / 188 checks |
+| **matsurigoto** | 7/7 (tax-assess · corp · civil · credential · datoms · sign-capability · standard) | 86 tests / 352 assertions |
+| **fuchi** | 8/8 (allocate · vote · live_gate · route · book · provision · couple · analyze) | 36 tests / 176 assertions |
+
+The Python files are retained as D2.2 shims where live downstream consumers still import them
+(kanae ← danjo budget_ledger; matsurigoto/fuchi cells + abaki policy reader) and retire when those
+consumers port. **Next: Wave 2** (PLM graph layer — uchiwake / kabuto / giemon-SBOM), then Wave 3
+(MES Pregel cells → langgraph-clj). The roadmap's worked references (danjo for load-file methods,
+matsurigoto/fuchi for the clojure.test + classpath pattern) are now established for those waves.
 
 # Alternatives Considered
 
