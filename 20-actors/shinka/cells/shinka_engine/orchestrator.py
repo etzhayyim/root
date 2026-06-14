@@ -31,10 +31,12 @@ try:  # package-relative
     from .cell import EvolutionState, ShinkaEvolutionCell, _datom
     from .maxwell_rsi import RSiState, flywheel_ingest, run_rsi
     from .kotoba_sink import InMemorySink
+    from .datom_rag import DatomStore
 except Exception:  # pragma: no cover - standalone import path
     from cell import EvolutionState, ShinkaEvolutionCell, _datom
     from maxwell_rsi import RSiState, flywheel_ingest, run_rsi
     from kotoba_sink import InMemorySink
+    from datom_rag import DatomStore
 
 
 @dataclass
@@ -54,6 +56,7 @@ class BeatRecord:
     pr_draft: dict[str, Any] | None = None
     datoms: list[dict[str, Any]] = field(default_factory=list)
     head_cid: str | None = None  # content-addressed commit-DAG head after checkpoint
+    grounded_refs: int = 0       # Track-D RAG: prior facts retrieved to ground this beat
 
 
 def _default_narrate(record: BeatRecord) -> str:
@@ -81,9 +84,13 @@ class ShinkaOrchestrator:
         evo_x2_online: bool = False,
         sampler: object | None = None,
         sink: Any | None = None,
+        seed_datoms: list[dict[str, Any]] | None = None,
     ) -> None:
         self.infer = infer
         self.sampler = sampler
+        # Optional external grounding corpus (e.g. actor-registry / lexicon datoms);
+        # unioned with the engine's own append-only log for Track-D self-grounding.
+        self._seed = list(seed_datoms or [])
         self.beat_seq = 0
         self.corpus_count = corpus_count
         self.evo_x2_online = evo_x2_online
@@ -132,9 +139,21 @@ class ShinkaOrchestrator:
         rec.datoms.append(_datom(f"shinka:beat/{self.beat_seq}", ":beat/seq", self.beat_seq))
         rec.datoms.append(_datom(f"shinka:beat/{self.beat_seq}", ":beat/task", task))
 
-        # perceive → decide: run Loop A (generate→debate→evolve→synthesize).
+        # perceive: ground the task in the engine's OWN append-only log + any seed
+        # corpus (Track D RAG, CID-anchored). Explicit context_refs override.
+        if context_refs is None:
+            grounded = DatomStore(self._seed + self.log).ground(task, k=5)
+            refs = grounded.refs
+        else:
+            refs = context_refs
+        rec.grounded_refs = len(refs)
+        rec.datoms.append(
+            _datom(f"shinka:beat/{self.beat_seq}", ":beat/grounded-refs", len(refs))
+        )
+
+        # decide: run Loop A (generate→debate→evolve→synthesize), grounded.
         ev = ShinkaEvolutionCell(infer=self.infer, sampler=self.sampler).solve(
-            EvolutionState(task=task, context_refs=context_refs or [], n_propose=4)
+            EvolutionState(task=task, context_refs=refs, n_propose=4)
         )
         rec.winner = ev.merged.pid if ev.merged else None
         rec.debates = len(ev.debates)
