@@ -20,3 +20,5 @@
 
 (def kabuto-seed   (str actors-root "/kabuto/data/seed-public-companies.kotoba.edn"))
 (def uchiwake-seed (str actors-root "/uchiwake/data/seed-products.kotoba.edn"))
+(def hokorobi-seed (str actors-root "/hokorobi/data/seed-finrisk-graph.kotoba.edn"))
+(def inochi-seed   (str actors-root "/inochi/data/seed-biosphere-graph.kotoba.edn"))
