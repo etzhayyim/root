@@ -31,7 +31,8 @@
   {:method/id "jetting"     :method/lang :clojure :method/pure true :method/desc "★ G7 hydro-jetting: jet-pressure-safe? vs pipe-material rating (raises on over-pressure) + debris-removal volume estimate + water-reuse balance (G2; effluent → mizuho)"}
   {:method/id "analyze"     :method/lang :clojure :method/pure true :method/desc "End-to-end R0 orchestrator: entry gate (purge if needed) → in-pipe nav → pressure-safe jetting → report map; downstream legs GATED when the atmosphere cannot be made safe"}
   {:method/id "datom_emit"  :method/lang :clojure :method/pure true :method/desc "kotoba EAVT Datom-log emitter (:kuda.node/* :kuda.pipe/* :kuda.robot/* + :cleans 縁 GROUND; :bond/* DERIVED transient)"}
-  {:method/id "handoff"     :method/lang :clojure :method/pure true :method/desc "★ G9 cross-actor chain 縁: outbound effluent handoff (cleaned segment → mizuho 水穂 wastewater TREATMENT) with assert-handoff! provenance gate (raises on orphan) + :handoff/* EAVT emit"}]
+  {:method/id "handoff"     :method/lang :clojure :method/pure true :method/desc "★ G9 cross-actor chain 縁: outbound effluent handoff (cleaned segment → mizuho 水穂 wastewater TREATMENT) with assert-handoff! provenance gate (raises on orphan) + :handoff/* EAVT emit"}
+  {:method/id "coverage"     :method/lang :clojure :method/pure true :method/desc "HONEST occupation sub-task coverage map (asobi/shiori coverage_report pattern, G5 sourcing-honesty): MEASURES which sewer/confined-space cleaning sub-tasks an existing method implements + NAMES the gaps (cctv-inspection/root-cutting/network-campaign/relining); partial by design"}]
 
  :actor/cells
  [{:cell/id "atmosphere_gate" :cell/kind :safety     :cell/runtime :wasm :cell/layer "L0" :cell/method "atmosphere"}

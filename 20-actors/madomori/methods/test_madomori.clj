@@ -9,6 +9,7 @@
             [madomori.methods.adhesion :as ad]
             [madomori.methods.analyze :as az]
             [madomori.methods.datom-emit :as de]
+            [madomori.methods.coverage :as cov]
             [madomori.methods.handoff :as ho]))
 
 ;; ── facade_path ──────────────────────────────────────────────────────────────
@@ -197,6 +198,26 @@
       ;; and the same holds through the emitted Datom log (structural defect only)
       (let [out (ho/emit [h] 1)]
         (is (nil? (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera" out)))))))
+
+;; ── coverage (HONEST occupation sub-task map; G5 sourcing-honesty) ───────────
+(deftest coverage-fraction-is-honest
+  (testing "coverage fraction in (0,1] and equals covered/total"
+    (let [{:keys [total covered coverage]} (cov/report)]
+      (is (pos? coverage))
+      (is (<= coverage 1.0))
+      (is (= coverage (/ (double covered) total))))))
+
+(deftest coverage-gaps-are-exactly-the-uncovered
+  (testing "★ G5 — :gaps is exactly the uncovered sub-tasks and is non-empty (partial by design)"
+    (let [gaps (:gaps (cov/report))]
+      (is (seq gaps))
+      (is (= (set (filter (complement :covered?) cov/sub-tasks)) (set gaps)))
+      (is (not-any? :covered? gaps)))))
+
+(deftest coverage-covered-names-a-method
+  (testing "every covered sub-task names a non-nil backing method"
+    (is (every? (fn [s] (some? (:method s)))
+                (filter :covered? cov/sub-tasks)))))
 
 (let [{:keys [fail error]} (run-tests 'madomori.methods.test-madomori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

@@ -3,12 +3,14 @@
 ;; Per ADR-2606142000 (kuramori R0).
 (ns kuramori.methods.test-kuramori
   (:require [clojure.test :refer [deftest is testing run-tests]]
+            [clojure.string :as str]
             [kuramori.methods.agv-amr :as fleet]
             [kuramori.methods.slotting :as slot]
             [kuramori.methods.analyze :as az]
             [kuramori.methods.datom-emit :as de]
             [kuramori.methods.picking :as pick]
-            [kuramori.methods.handoff :as ho]))
+            [kuramori.methods.handoff :as ho]
+            [kuramori.methods.coverage :as cov]))
 
 ;; ── agv_amr ──────────────────────────────────────────────────────────────────
 (deftest travel-time-monotonic
@@ -225,6 +227,31 @@
       (is (re-find #"en\.handoff\.niyaku\.kuramori\." out))
       (is (re-find #"en\.handoff\.kuramori\.todoke\." out))
       (is (vector? (clojure.edn/read-string out))))))
+
+;; ── coverage (HONEST occupation sub-task map; G5 sourcing-honesty) ───────────
+(deftest coverage-fraction-is-covered-over-total
+  (testing "coverage fraction is in (0,1] and equals covered/total"
+    (let [{:keys [total covered coverage]} (cov/report)]
+      (is (pos? coverage))
+      (is (<= coverage 1.0))
+      (is (= coverage (/ (double covered) total))))))
+
+(deftest coverage-gaps-are-exactly-the-uncovered
+  (testing "G5 — :gaps are exactly the :covered? false sub-tasks, and non-empty (honest)"
+    (let [{:keys [gaps]} (cov/report)
+          uncovered (remove :covered? cov/sub-tasks)]
+      (is (seq gaps))
+      (is (= (set (map :id gaps)) (set (map :id uncovered))))
+      (is (every? (complement :covered?) gaps)))))
+
+(deftest covered-sub-tasks-name-a-method
+  (testing "every :covered? true sub-task names a non-nil :method (and gaps name none)"
+    (doseq [st cov/sub-tasks]
+      (if (:covered? st)
+        (is (and (:method st) (not (str/blank? (:method st))))
+            (str (:id st) " is covered but names no method"))
+        (is (nil? (:method st))
+            (str (:id st) " is a gap but names a method"))))))
 
 (let [{:keys [fail error]} (run-tests 'kuramori.methods.test-kuramori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

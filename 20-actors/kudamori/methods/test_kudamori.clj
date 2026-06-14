@@ -9,6 +9,7 @@
             [kudamori.methods.jetting :as jet]
             [kudamori.methods.analyze :as az]
             [kudamori.methods.datom-emit :as de]
+            [kudamori.methods.coverage :as cov]
             [kudamori.methods.handoff :as ho]))
 
 ;; ── atmosphere (★ G5 — the headline confined-space entry gate) ────────────────
@@ -194,6 +195,25 @@
       (is (re-find #":handoff/to-actor" out))
       (is (re-find #"en\.handoff\.kudamori\.mizuho\." out))
       (is (vector? (edn/read-string out))))))
+
+;; ── coverage (HONEST occupation sub-task map — G5 sourcing-honesty) ──────────
+(deftest coverage-fraction-is-covered-over-total
+  (testing "coverage fraction is in (0,1] and equals covered/total"
+    (let [{:keys [total covered coverage]} (cov/report)]
+      (is (pos? coverage))
+      (is (<= coverage 1.0))
+      (is (= coverage (/ (double covered) total))))))
+
+(deftest coverage-gaps-are-exactly-the-uncovered
+  (testing ":gaps is exactly the uncovered sub-tasks and is non-empty"
+    (let [{:keys [gaps]} (cov/report)]
+      (is (seq gaps))
+      (is (= (set gaps) (set (remove :covered? cov/sub-tasks))))
+      (is (every? #(false? (:covered? %)) gaps)))))
+
+(deftest coverage-covered-names-a-method
+  (testing "every covered sub-task names a non-nil :method"
+    (is (every? #(some? (:method %)) (filter :covered? cov/sub-tasks)))))
 
 (let [{:keys [fail error]} (run-tests 'kudamori.methods.test-kudamori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

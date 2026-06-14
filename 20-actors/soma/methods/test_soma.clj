@@ -8,6 +8,7 @@
             [soma.methods.extraction :as ex]
             [soma.methods.analyze :as az]
             [soma.methods.datom-emit :as de]
+            [soma.methods.coverage :as cov]
             [soma.methods.handoff :as ho]))
 
 ;; ── fell_plan: geometry ───────────────────────────────────────────────────────
@@ -201,6 +202,28 @@
       (is (re-find #":handoff/to-actor" out))
       (is (re-find #"en\.handoff\.soma\.tatekata\." out))
       (is (vector? (clojure.edn/read-string out))))))
+
+;; ── coverage (HONEST occupation sub-task map; G5 sourcing-honesty) ───────────
+(deftest coverage-fraction-honest
+  (testing "coverage fraction is in (0,1] and equals covered/total"
+    (let [{:keys [total covered coverage]} (cov/report)]
+      (is (pos? total))
+      (is (< 0.0 coverage))
+      (is (<= coverage 1.0))
+      (is (< (Math/abs (- coverage (/ (double covered) total))) 1e-9)))))
+
+(deftest coverage-gaps-are-the-uncovered
+  (testing ":gaps is exactly the uncovered sub-tasks, and is non-empty (partial by design)"
+    (let [{:keys [gaps]} (cov/report)]
+      (is (seq gaps))
+      (is (= (set (map :id gaps))
+             (set (map :id (filter (complement :covered?) cov/sub-tasks)))))
+      (is (every? (complement :covered?) gaps)))))
+
+(deftest coverage-covered-name-a-method
+  (testing "every covered sub-task names a non-nil :method"
+    (is (every? (fn [st] (some? (:method st)))
+                (filter :covered? cov/sub-tasks)))))
 
 (let [{:keys [fail error]} (run-tests 'soma.methods.test-soma)]
   (System/exit (if (pos? (+ fail error)) 1 0)))
