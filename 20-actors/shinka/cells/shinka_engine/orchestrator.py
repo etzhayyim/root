@@ -30,9 +30,11 @@ from typing import Any, Callable
 try:  # package-relative
     from .cell import EvolutionState, ShinkaEvolutionCell, _datom
     from .maxwell_rsi import RSiState, flywheel_ingest, run_rsi
+    from .kotoba_sink import InMemorySink
 except Exception:  # pragma: no cover - standalone import path
     from cell import EvolutionState, ShinkaEvolutionCell, _datom
     from maxwell_rsi import RSiState, flywheel_ingest, run_rsi
+    from kotoba_sink import InMemorySink
 
 
 @dataclass
@@ -51,6 +53,7 @@ class BeatRecord:
     narration: str = ""
     pr_draft: dict[str, Any] | None = None
     datoms: list[dict[str, Any]] = field(default_factory=list)
+    head_cid: str | None = None  # content-addressed commit-DAG head after checkpoint
 
 
 def _default_narrate(record: BeatRecord) -> str:
@@ -77,6 +80,7 @@ class ShinkaOrchestrator:
         corpus_count: int = 125,
         evo_x2_online: bool = False,
         sampler: object | None = None,
+        sink: Any | None = None,
     ) -> None:
         self.infer = infer
         self.sampler = sampler
@@ -84,14 +88,16 @@ class ShinkaOrchestrator:
         self.corpus_count = corpus_count
         self.evo_x2_online = evo_x2_online
         self.seen_corpus_ids: set[str] = set()
-        self.log: list[dict[str, Any]] = []  # append-only datom log (in-memory stand-in)
+        # Append-only commit-DAG sink (I1). Default = in-memory tamper-evident DAG;
+        # a KotobaBridgeSink writes to the live engine (operator/leash-gated).
+        self.sink = sink or InMemorySink()
+        self.head_cid: str | None = None
 
     # --- replay (ibuki crash-resume) --------------------------------------- #
     def replay(self, datoms: list[dict[str, Any]]) -> None:
         """Restore state from a prior datom log — byte-identical, idempotent (I1)."""
         max_seq = 0
         for d in datoms:
-            self.log.append(d)
             if d.get("a") == ":beat/seq":
                 max_seq = max(max_seq, int(d["v"]))
             elif d.get("a") == ":corpus/staged-id":
@@ -99,6 +105,13 @@ class ShinkaOrchestrator:
             elif d.get("a") == ":corpus/count-after":
                 self.corpus_count = int(d["v"])
         self.beat_seq = max_seq
+        # Re-load the historical datoms into the sink and resume the commit-DAG.
+        self.head_cid = self.sink.load(list(datoms))
+
+    @property
+    def log(self) -> list[dict[str, Any]]:
+        """The append-only datom log (the sink's commit-DAG contents)."""
+        return self.sink.datoms
 
     def _narrate(self, record: BeatRecord) -> str:
         """I3: Murakumo narration, fail-open to a deterministic template."""
@@ -162,8 +175,10 @@ class ShinkaOrchestrator:
         # act: surface the PR draft (NEVER auto-merge, I2).
         rec.pr_draft = ev.pr_draft
 
-        # checkpoint: append this beat's datoms to the log.
-        self.log.extend(rec.datoms)
+        # checkpoint: transact this beat's datoms as one commit-DAG tx, chaining
+        # on the prior head (tamper-evident, crash-resume — ibuki property).
+        self.head_cid = self.sink.transact(rec.datoms, expected_parent=self.head_cid)
+        rec.head_cid = self.head_cid
         return rec
 
     @staticmethod

@@ -24,6 +24,7 @@ from .maxwell_rsi import (
     CORPUS_M1_TARGET,
 )
 from .orchestrator import ShinkaOrchestrator, BeatRecord
+from .kotoba_sink import InMemorySink, KotobaBridgeSink
 from .fleet_sampler import (
     FleetSampler,
     FLEET_WORKER_NODES,
@@ -48,6 +49,9 @@ __all__ = [
     # Supervisor
     "ShinkaOrchestrator",
     "BeatRecord",
+    # append-only sink (I1 commit-DAG)
+    "InMemorySink",
+    "KotobaBridgeSink",
     # Research Track A — fleet test-time compute
     "FleetSampler",
     "FLEET_WORKER_NODES",
