@@ -322,7 +322,8 @@
                       'matsurigoto.tax-collect.test-contacts
                       'matsurigoto.tax-collect.test-datom-emit
                       'matsurigoto.methods.modules.test-tax-assess
-                      'matsurigoto.methods.modules.test-corp-registry)
+                      'matsurigoto.methods.modules.test-corp-registry
+                      'matsurigoto.methods.modules.test-civil-registry)
              (let [r (clojure.test/run-tests
                       'matsurigoto.tax-collect.test-withholding
                       'matsurigoto.tax-collect.test-payment
@@ -330,7 +331,8 @@
                       'matsurigoto.tax-collect.test-contacts
                       'matsurigoto.tax-collect.test-datom-emit
                       'matsurigoto.methods.modules.test-tax-assess
-                      'matsurigoto.methods.modules.test-corp-registry)]
+                      'matsurigoto.methods.modules.test-corp-registry
+                      'matsurigoto.methods.modules.test-civil-registry)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj

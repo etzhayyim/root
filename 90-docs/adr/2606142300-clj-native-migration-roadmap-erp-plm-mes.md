@@ -203,6 +203,16 @@ language by D1.
   (7 tests / 35 assertions; full matsurigoto clj suite **60 tests / 240 assertions green**).
   matsurigoto now **2/7** reference modules clj-native (tax-assess + corp-registry); remaining:
   `civil_registry` / `credential_issue` / `datoms` / `sign_capability` / `standard`.
+- **Wave 1 — matsurigoto `civil-registry`.** `civil_registry.py` → `civil_registry.clj`
+  (+ `test_civil_registry.clj`): the CRVS engine (戸籍・住所管理) for birth/death/marriage/
+  residency — UN CRVS + OpenCRVS validation (birth needs child+≥1 parent+non-future; marriage
+  needs two distinct, monogamous partners; partners stored sorted), append-only records +
+  unsigned VC certificates, `current-address` = latest residency by occurred-at (非終末論).
+  G1 (unsigned) + G5 (append-only — prior address retained, never overwritten) + G6
+  (data-minimization — no `:cause` unless given) + live-registration gate enforced (6 tests /
+  28 assertions; full matsurigoto clj suite **66 tests / 268 assertions green**). matsurigoto
+  now **3/7** reference modules clj-native; remaining: `credential_issue` / `datoms` /
+  `sign_capability` / `standard`.
 
 # Alternatives Considered
 
