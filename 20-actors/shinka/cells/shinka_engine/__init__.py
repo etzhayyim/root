@@ -47,6 +47,7 @@ from .speculative import (
     DrafterFreshness,
 )
 from .datom_rag import DatomStore, GroundedContext, RetrievedFact, datom_cid
+from .distill_flywheel import DistillFlywheel, Generation, projected_rounds
 
 __all__ = [
     # Loop A
@@ -99,4 +100,8 @@ __all__ = [
     "GroundedContext",
     "RetrievedFact",
     "datom_cid",
+    # Research Track F — distillation flywheel + collapse/reward-hacking guards
+    "DistillFlywheel",
+    "Generation",
+    "projected_rounds",
 ]
