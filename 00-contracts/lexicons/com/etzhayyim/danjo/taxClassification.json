@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.danjo.taxClassification",
+  "description": "A national or local tax with its HONEST per-yen-traceability classification, emitted by the danjo revenue-ledger (ADR-2605301600). NON-adjudicating, factual registry record. `earmarkKind` ∈ {general, statutory-purpose, special-account} drives `perYen`: a tax is per-yen-traceable IFF earmarkKind = special-account (法定の特別会計繰入). `general` (一般会計, fungible) and `statutory-purpose` (目的税: 法定充当だが一般会計内, e.g. 消費税→社会保障) are both per-yen UNtraceable — the statutory direction is a disclosed FACT, never a claim that a specific yen was spent on it. `statutoryBasis` is mandatory (the law that fixes account/earmark). All figures `:representative` pending G7 live verification; aggregate-only (G10).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["createdAt", "taxId", "ja", "level", "earmarkKind", "perYen", "statutoryBasis", "fiscalYear", "amountJpy", "sourcing"],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "taxId": {"type": "string", "maxLength": 64, "description": "stable id, e.g. income-withholding / consumption / fixed-asset"},
+          "ja": {"type": "string", "maxLength": 128, "description": "日本語名称 (e.g. 源泉所得税)"},
+          "level": {"type": "string", "knownValues": ["national", "local"], "description": "国税 / 地方税"},
+          "earmarkKind": {
+            "type": "string",
+            "knownValues": ["general", "statutory-purpose", "special-account"],
+            "description": "FACTUAL earmark structure. NOT a verdict. general=fungible; statutory-purpose=目的税 (legally directed, still fungible in the general account); special-account=特定財源 (per-yen traceable)."
+          },
+          "perYen": {"type": "boolean", "description": "true IFF earmarkKind=special-account. Honest per-yen traceability flag."},
+          "specialAccount": {"type": "string", "maxLength": 64, "description": "the special account this tax flows to (only when earmarkKind=special-account)"},
+          "statutoryPurpose": {"type": "string", "maxLength": 64, "description": "the legally-directed purpose (only when earmarkKind=statutory-purpose), e.g. social-security"},
+          "collectedBy": {"type": "string", "maxLength": 64, "description": "org handle that collects this tax (→ com.etzhayyim.danjo.fiscalOrg)"},
+          "statutoryBasis": {"type": "string", "maxLength": 256, "description": "the law fixing account/earmark (e.g. 消費税法1条2項, 復興財源確保法)"},
+          "fiscalYear": {"type": "integer"},
+          "amountJpy": {"type": "integer", "description": "representative revenue, 1円 (yen) precision"},
+          "sourcing": {"type": "string", "const": "representative", "description": "MUST be representative — NOT an authoritative statement (G5 honesty)."}
+        }
+      }
+    }
+  }
+}

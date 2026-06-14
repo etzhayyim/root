@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.danjo.reconciliationObservation",
+  "description": "A FACTUAL, source-cited, NON-adjudicating appropriation↔outlay reconciliation observation emitted by the danjo revenue-ledger discrepancy detector (ADR-2605301600). Per (programCode, fiscalYear) it states the relation between Σ appropriations (A) and Σ outlays (O). CONSTITUTIONAL (mirrors discrepancyObservation G4): `nonAdjudicatingNotice` is required and MUST be true; the `category` enum carries NO crime/violation/guilt value — a legal verdict is UNREPRESENTABLE at the schema layer. O>A is a FACT to surface, NOT a finding of wrongdoing (timing / partial-corpus are declared false-positive modes). `sourceRecordCids` MUST contain ≥2 upstream record CIDs (G5); `methodNoteCid` is required (G6 open method). Legal characterization routes to human counsel via chigiri.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["createdAt", "programCode", "fiscalYear", "category", "appropriatedJpy", "outlaidJpy", "sourceRecordCids", "methodNoteCid", "nonAdjudicatingNotice"],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "programCode": {"type": "string", "maxLength": 64, "description": "e.g. JP-MEXT-EDUSCI / JP-FUKKO-FUKUSHIMA"},
+          "fiscalYear": {"type": "integer"},
+          "category": {
+            "type": "string",
+            "description": "FACTUAL reconciliation relation ONLY. No crime/violation/guilt value exists (G4).",
+            "knownValues": [
+              "appropriation-outlay-within",
+              "outlay-exceeds-appropriation",
+              "outlay-without-appropriation-trace"
+            ]
+          },
+          "appropriatedJpy": {"type": "integer", "description": "Σ appropriations (A), 1円 precision"},
+          "outlaidJpy": {"type": "integer", "description": "Σ outlays (O), 1円 precision"},
+          "deltaJpy": {"type": "integer", "description": "O − A (a factual difference, not a verdict)"},
+          "observedPattern": {"type": "string", "maxLength": 2000, "description": "Human-readable FACTUAL statement of the relation. MUST NOT contain legal-conclusion language."},
+          "sourceRecordCids": {"type": "array", "minLength": 2, "items": {"type": "string"}, "description": "≥2 upstream record CIDs grounding the observation (G5)"},
+          "methodNoteCid": {"type": "string", "description": "open, versioned detector heuristic CID (G6)"},
+          "knownFalsePositiveModes": {"type": "array", "items": {"type": "string"}, "description": "declared FP modes (timing / partial-corpus) — danjo finds, never judges"},
+          "nonAdjudicatingNotice": {"type": "boolean", "const": true, "description": "MUST be true. A factual reconciliation, NOT a legal verdict (G4)."},
+          "sourcing": {"type": "string", "const": "representative", "description": "MUST be representative (G5 honesty)."}
+        }
+      }
+    }
+  }
+}

@@ -86,3 +86,20 @@ its 8-test regression suite.
 - `/00-contracts/lexicons/com/etzhayyim/gov/dataset/README.md` — primary input corpus namespace
 - `/20-actors/danjo/` — manifest + README + CLAUDE.md
 - `/40-engine/kotoba/crates/kotoba-kotodama/cells/danjo_*/` — cell modules (R0 path-reserved)
+
+## Revenue-ledger lexicons (ADR-2605301600, 国全体の税金 + 組織)
+
+Added by the danjo revenue-ledger (`20-actors/danjo/methods/{taxes,org_actor,transfers,discrepancy}.clj`):
+
+- **`taxClassification`** — a national/local tax with its honest 3-way per-yen-traceability
+  (`earmarkKind` ∈ {general, statutory-purpose, special-account}; `perYen` true IFF special-account).
+  `sourcing` const `representative`.
+- **`fiscalOrg`** — a real fiscal org as a **keyless** observational mirror-actor (entity-as-actor,
+  ADR-2606042330): `keyless` const true + `verificationMethod` empty (no-server-key). Aggregate
+  local mirrors declare `aggregate`+`representsCount` (coverage honesty).
+- **`reconciliationObservation`** — appropriation↔outlay reconciliation, mirroring
+  `discrepancyObservation`'s G4 discipline: `nonAdjudicatingNotice` const true, `category` enum
+  carries NO verdict token, `sourceRecordCids` ≥2 (G5), `methodNoteCid` required (G6).
+
+Code↔lexicon parity is test-enforced (`methods/test_lexicon.clj`): every category the discrepancy
+detector can emit is representable in the `reconciliationObservation` enum.

@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.danjo.fiscalOrg",
+  "description": "A real government fiscal organization (徴収/会計所管) as a KEYLESS observational mirror-actor (entity-as-actor, ADR-2606042330), emitted by the danjo revenue-ledger. etzhayyim holds NO key and does NOT represent or act for the org: `keyless` MUST be true and `verificationMethod` MUST be empty (no-server-key, ADR-2605231525). The record links the org to the taxes it collects / accounts it administers — observational only, never a claim of agency or endorsement. Aggregate local-government mirrors declare `aggregate`+`representsCount` (coverage honesty: 47都道府県 / 1741市町村 collapsed into one mirror is explicit, not hidden).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["createdAt", "handle", "did", "displayName", "role", "keyless", "verificationMethod"],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "handle": {"type": "string", "maxLength": 64, "description": "e.g. jp-nta"},
+          "did": {"type": "string", "format": "did", "description": "did:web:etzhayyim.com:actor:jp-<handle>"},
+          "displayName": {"type": "string", "maxLength": 128, "description": "日本語名称 (e.g. 国税庁)"},
+          "role": {"type": "string", "knownValues": ["collector", "account-administrator", "both"]},
+          "keyless": {"type": "boolean", "const": true, "description": "MUST be true. The mirror holds no key (no-server-key)."},
+          "verificationMethod": {"type": "array", "maxLength": 0, "items": {"type": "string"}, "description": "MUST be empty — a mirror cannot sign. no-server-key (ADR-2605231525)."},
+          "level": {"type": "string", "knownValues": ["national", "local"]},
+          "aggregate": {"type": "boolean", "default": false, "description": "true if this mirror collapses many real units (coverage honesty)."},
+          "representsCount": {"type": "integer", "description": "number of real units collapsed (e.g. 47 / 1741) when aggregate."},
+          "collectsTaxes": {"type": "array", "items": {"type": "string"}, "description": "taxId list this org collects (→ taxClassification)"},
+          "administersAccounts": {"type": "array", "items": {"type": "string"}, "description": "account ids this org administers (e.g. special/reconstruction)"},
+          "note": {"type": "string", "maxLength": 512, "description": "MUST state observational-mirror / no-agency posture."}
+        }
+      }
+    }
+  }
+}
