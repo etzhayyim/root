@@ -303,6 +303,16 @@ language by D1.
   edges, 18e9 funding leg). 4 tests / 21 assertions — full fuchi clj suite **23 tests / 112
   assertions green**. fuchi now **5/8** methods clj-native; remaining: `analyze` / `couple` /
   `provision`.
+- **Wave 1 — fuchi `provision`.** `provision.py` → `provision.clj` (+ `test_provision.clj`): wires
+  in-kind rails to the REAL producing actors (mitsuho/hikari/okaimono/iyashi/commons-land/Murakumo;
+  liquidity→warifu MEMBER-PRINCIPAL) as DRY-RUN provisioning intents — `published` structurally
+  false (G10, live provisioning Council Lv6+/operator gated), cash≡0 (G2), no-server-key (G9), all
+  enforced in code. Honours the **abaki 暴 Anti-Monopoly routing policy**: a provider matched in
+  `abaki/out/routing-policy.json` raises a route-around (robust load — missing/parse-error → no
+  blocks). `dispatch-live` authorizes via the R2 gate without overriding the structural invariants.
+  Golden parity with provision.py (3 intents to the right providers). 4 tests / 17 assertions —
+  full fuchi clj suite **27 tests / 129 assertions green**. fuchi now **6/8** methods clj-native;
+  remaining: `analyze` / `couple`.
 
 # Alternatives Considered
 
