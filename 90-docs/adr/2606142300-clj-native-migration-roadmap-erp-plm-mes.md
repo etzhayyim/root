@@ -213,6 +213,14 @@ language by D1.
   28 assertions; full matsurigoto clj suite **66 tests / 268 assertions green**). matsurigoto
   now **3/7** reference modules clj-native; remaining: `credential_issue` / `datoms` /
   `sign_capability` / `standard`.
+- **Wave 1 — matsurigoto `credential-issue`.** `credential_issue.py` → `credential_issue.clj`
+  (+ `test_credential_issue.clj`): パスポート発行 — ICAO Doc 9303 **TD3 MRZ** builder with the
+  real **7-3-1 weighted check-digit**. The canonical ICAO worked example (`L898902C3`→`6`,
+  `740812`→`2`) and the full ERIKSSON specimen line 2 (`L898902C36UTO7408122F1204159ZE184226B<<<<<10`)
+  are **byte-identical** with the Python. G1 (SOD + proof unsigned — issuing state signs via
+  ICAO-PKD) + G6 (MRZ fields only) + live-issuance Council/operator gate enforced (5 tests /
+  25 assertions; full matsurigoto clj suite **71 tests / 293 assertions green**). matsurigoto
+  now **4/7** reference modules clj-native; remaining: `datoms` / `sign_capability` / `standard`.
 
 # Alternatives Considered
 
