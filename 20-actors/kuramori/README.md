@@ -26,6 +26,7 @@ bb --classpath 20-actors -m kuramori.methods.datom-emit                 # → ko
 | `agv_amr.clj`    | trapezoidal travel-time · AGV segment-conflict · AMR shared-zone yield (G5) · battery opportunity-charge gate (G2) · LPT makespan dispatch |
 | `slotting.clj`   | ABC velocity classing · golden-zone slot assignment · putaway feasibility (weight/temp/hazmat — raises, G7) · nearest-neighbour pick-route |
 | `picking.clj`    | multi-order batch consolidation (FFD wave packing under tote-cart capacity — atomic-order raise, G9) · concurrent zone-occupancy congestion detection · overflow stagger |
+| `handoff.clj`    | cross-actor chain edges in the Datom log — niyaku→kuramori inbound putaway + kuramori→todoke outbound delivery · provenance gate (orphan handoff raises, G10) · `:handoff/*` EAVT 縁 |
 | `analyze.clj`    | end-to-end: load seed → slot → pick-route → dispatch → battery gate → report |
 | `datom_emit.clj` | kotoba EAVT projection (`:wh.*` GROUND + `:bond/*` DERIVED transient) |
 

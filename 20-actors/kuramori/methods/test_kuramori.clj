@@ -7,7 +7,8 @@
             [kuramori.methods.slotting :as slot]
             [kuramori.methods.analyze :as az]
             [kuramori.methods.datom-emit :as de]
-            [kuramori.methods.picking :as pick]))
+            [kuramori.methods.picking :as pick]
+            [kuramori.methods.handoff :as ho]))
 
 ;; ── agv_amr ──────────────────────────────────────────────────────────────────
 (deftest travel-time-monotonic
@@ -188,6 +189,42 @@
       (let [ovf (pick/congestion-overflows entries 2)]
         (is (= "aisle-1" (:zone (first ovf))))
         (is (= 1 (:over (first ovf))))))))
+
+;; ── handoff (cross-actor chain edges: niyaku→kuramori→todoke) ────────────────
+(deftest inbound-from-niyaku
+  (testing "niyaku discharge → kuramori putaway intents, source-attributed"
+    (let [hs (ho/inbound-handoff [{:box-id "b1" :sku-id "sku-fast" :weight-kg 8 :temp :ambient}
+                                  {:box-id "b2" :sku-id "sku-cold" :weight-kg 9 :temp :reefer}])]
+      (is (= 2 (count hs)))
+      (is (every? #(= "niyaku" (:from-actor %)) hs))
+      (is (every? #(= "kuramori" (:to-actor %)) hs))
+      (is (= :inbound (:kind (first hs))))
+      (is (= "sku-fast" (get-in (first hs) [:payload :sku-id]))))))
+
+(deftest outbound-to-todoke
+  (testing "completed picked order → todoke last-mile delivery intent"
+    (let [h (ho/outbound-handoff {:id "ord-1" :picks ["s-g1" "s-r1" "s-b1"]})]
+      (is (= "kuramori" (:from-actor h)))
+      (is (= "todoke" (:to-actor h)))
+      (is (= :outbound (:kind h)))
+      (is (= 3 (get-in h [:payload :parcel-count]))))))
+
+(deftest handoff-provenance-gate
+  (testing "G10 — an orphan handoff (no source/destination) RAISES"
+    (is (thrown? clojure.lang.ExceptionInfo (ho/assert-handoff! {:id "x" :to-actor "todoke"})))
+    (is (thrown? clojure.lang.ExceptionInfo (ho/assert-handoff! {:id "x" :from-actor "kuramori"})))
+    (is (= "kuramori" (:from-actor (ho/assert-handoff! {:id "x" :from-actor "kuramori" :to-actor "todoke"}))))))
+
+(deftest handoff-emit-shape
+  (testing "emits well-formed EDN :handoff/* 縁 with actor provenance on every edge"
+    (let [hs (conj (ho/inbound-handoff [{:box-id "b1" :sku-id "s" :weight-kg 8 :temp :ambient}])
+                   (ho/outbound-handoff {:id "ord-1" :picks ["s-g1"]}))
+          out (ho/emit hs 1)]
+      (is (re-find #":handoff/from-actor" out))
+      (is (re-find #":handoff/to-actor" out))
+      (is (re-find #"en\.handoff\.niyaku\.kuramori\." out))
+      (is (re-find #"en\.handoff\.kuramori\.todoke\." out))
+      (is (vector? (clojure.edn/read-string out))))))
 
 (let [{:keys [fail error]} (run-tests 'kuramori.methods.test-kuramori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

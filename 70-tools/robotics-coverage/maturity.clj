@@ -32,6 +32,9 @@
         manifest (some-> (slurp* (str base "/manifest.edn")) edn/read-string)
         ;; test files: methods/test_<id>.clj
         test-src (slurp* (str base "/methods/test_" id ".clj"))
+        ;; integration: does any method emit cross-actor :handoff/* chain edges?
+        methods-src (apply str (map #(slurp* (str base "/methods/" % ".clj"))
+                                    ["handoff" "datom_emit"]))
         gates (:actor/gates manifest)
         methods (:actor/methods manifest)
         ;; a "raising" safety gate = its rule mentions raise/refuse/unrepresentable
@@ -46,17 +49,19 @@
            :raising-gates raising
            :deftests (count-re test-src #"\(deftest ")
            :has-datom-emit (boolean (some #(= "datom_emit" (:method/id %)) methods))
+           :has-handoff (boolean (and methods-src (re-find #":handoff/" methods-src)))
            :clojure (every? #(= :clojure (:method/lang %)) methods))))
 
 (defn maturity-score
   "A simple 0..1 R0-maturity index per actor across 6 axes (each worth ~equal weight).
    Intentionally coarse — it tracks *direction* of improvement, not a precise grade."
-  [{:keys [methods gates raising-gates deftests has-datom-emit clojure]}]
+  [{:keys [methods gates raising-gates deftests has-datom-emit has-handoff clojure]}]
   (let [axes [(min 1.0 (/ methods 5.0))        ; ≥5 methods = full
               (min 1.0 (/ gates 8.0))          ; ≥8 gates = full
               (min 1.0 (/ raising-gates 2.0))  ; ≥2 raising safety gates = full
               (min 1.0 (/ deftests 12.0))      ; ≥12 deftests = full
               (if has-datom-emit 1.0 0.0)
+              (if has-handoff 1.0 0.0)         ; cross-actor chain edges (R1 integration)
               (if clojure 1.0 0.0)]]
     (/ (reduce + axes) (count axes))))
 
@@ -66,14 +71,15 @@
                  "`/loop coverage, 成熟度を向上して` baseline). Closes the GAPs of "
                  "ADR-2606073001 §3/§4. **All R0** — score tracks R0-completeness + the "
                  "direction toward R1; it is NOT an R1 claim.\n\n"
-                 "| Actor | Occupation | Status | methods | gates | raising | deftests | datom | clj | score |\n"
-                 "|---|---|---|---|---|---|---|---|---|---|\n")
+                 "| Actor | Occupation | Status | methods | gates | raising | deftests | datom | handoff | clj | score |\n"
+                 "|---|---|---|---|---|---|---|---|---|---|---|\n")
         body (->> rows
                   (map (fn [r]
-                         (format "| %s %s | %s | %s | %d | %d | %d | %d | %s | %s | %.2f |"
+                         (format "| %s %s | %s | %s | %d | %d | %d | %d | %s | %s | %s | %.2f |"
                                  (:id r) (:glyph r) (:occupation r) (:status r)
                                  (:methods r) (:gates r) (:raising-gates r) (:deftests r)
                                  (if (:has-datom-emit r) "✓" "✗")
+                                 (if (:has-handoff r) "✓" "✗")
                                  (if (:clojure r) "✓" "✗")
                                  (maturity-score r))))
                   (str/join "\n"))
