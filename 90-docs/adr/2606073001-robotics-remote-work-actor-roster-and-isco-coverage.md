@@ -105,11 +105,20 @@ plant-automation is counted). Purpose-built labour-liberation actors: **3** (san
 | 工事・施工 (construction) | ✅ covered | tatekata 建方 (civil+MEP ≤2-story) |
 | 船舶 (ships / marine) | ✅ covered | funadaiku (build+voyage) + watatsumi (submersible) + watatsuna (cable) |
 | 運送 (freight / transport) | ✅ covered | sarutahiko + todoke + wadachi + ainori |
-| 積み下ろし (loading / unloading) | △ partial | sarutahiko **積込ロボット** integrated; standalone warehouse = roadmap `kuramori 倉守` |
-| 下水道清掃 (sewer cleaning) | △ partial | mizuho 水穂 does wastewater **treatment**, *not* in-pipe cleaning robotics — **robotics GAP** |
-| 伐採 (logging / forestry) | ❌ GAP (roadmapped) | `soma 杣` reserved in ADR-2606032100 roadmap (#9, "one of the deadliest jobs"); not authored |
-| 窓際・高所清掃 (high-rise / façade window cleaning) | ❌ GAP | kiyome is indoor/ground-level only; façade/fall-risk work is on no roadmap |
+| 積み下ろし (loading / unloading) | ✅ covered | sarutahiko **積込ロボット** + niyaku quay + **`kuramori 倉守` warehouse floor (AGV/AMR), authored ADR-2606142000** |
+| 下水道清掃 (sewer cleaning) | ✅ covered | mizuho 水穂 treatment + **`kudamori 管守` in-pipe/confined-space cleaning, authored ADR-2606142030** (closes the robotics GAP mizuho left) |
+| 伐採 (logging / forestry) | ✅ covered | **`soma 杣` directional-fell + bucking + extraction, authored ADR-2606142010** (was roadmap #9, "one of the deadliest jobs") |
+| 窓際・高所清掃 (high-rise / façade window cleaning) | ✅ covered | **`madomori 窓守` façade coverage + wind/fall-arrest + adhesion, authored ADR-2606142020** (was the highest unmet remote-value GAP) |
 | 採掘 (mining) | ⛔ excluded by construction | Mission Charter N1 (ISIC B extraction + weapons), ADR-2605192100 / 2606032100 |
+
+> **GAP-closure addendum (2026-06-14, ADR-2606142000 wave).** All four open GAPs above were
+> authored as Clojure-first R0 actors: **kuramori 倉守** (warehouse AGV/AMR) · **soma 杣**
+> (logging) · **madomori 窓守** (façade window cleaning) · **kudamori 管守** (sewer/confined-
+> space). Each encodes the on-site hazard as a *raising* safety gate (fall-zone exclusion ·
+> wind work-stop + fall-arrest redundancy · confined-space atmosphere entry · pipe
+> over-pressure) and is dividend-coupled + tazuna-teleoperable. The named-occupation coverage
+> map is now **closed except the N1-excluded 採掘 (mining)**; remaining work is R0→R1
+> maturation, not coverage.
 
 ## 4. ISCO-based liberation analysis (remote-work lens)
 
@@ -129,9 +138,9 @@ the marginal value of tazuna teleoperation is highest where **autonomy is hard b
 presence is itself the hazard** — i.e. removing the human from the location matters even
 before full autonomy is solved. Ranked by that criterion:
 
-1. 高所・façade window cleaning — fall fatality; **current GAP** (highest unmet remote value).
-2. 下水道 sewer / confined-space cleaning — toxic-gas/confined-space death; **robotics GAP**.
-3. 伐採 logging (soma) — struck-by/crush fatality; roadmapped, **unauthored**.
+1. 高所・façade window cleaning — fall fatality; **now authored → madomori 窓守 (ADR-2606142020)**.
+2. 下水道 sewer / confined-space cleaning — toxic-gas/confined-space death; **now authored → kudamori 管守 (ADR-2606142030)**.
+3. 伐採 logging (soma) — struck-by/crush fatality; **now authored → soma 杣 (ADR-2606142010)**.
 4. Deep-water / seabed (watatsumi, watatsuna) — **covered**; teleop already the design intent.
 5. Hazmat plant decommission (kamado) / mold/biohazard (giemon kabitori) — **covered**.
 
