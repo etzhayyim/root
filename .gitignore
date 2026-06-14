@@ -135,3 +135,7 @@ foundry.lock
 # kotoba is consumed as the external etzhayyim/kotoba repo (the in-tree submodule
 # was removed, ADR-2606131645). CI/dev clone it into this path on demand.
 40-engine/kotoba/
+
+# matsurigoto tax-collect 一次資料は DataLad/git-annex の nested dataset (ADR-2605241500):
+# bytes は annex→IPFS、monorepo git には catalog (80-data/matsurigoto-gensen-sources.md) のみ。
+80-data/matsurigoto-gensen-sources/
