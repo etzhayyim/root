@@ -313,9 +313,25 @@
                                              'maps.tests.test-verify)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:matsurigoto
+  {:doc "matsurigoto 政 — tax-collect 源泉徴収納付 Clojure module (計算/納付/手続き/連絡先/Datom; ADR-2606062300)"
+   :task (do (require 'clojure.test
+                      'matsurigoto.tax-collect.test-withholding
+                      'matsurigoto.tax-collect.test-payment
+                      'matsurigoto.tax-collect.test-procedures
+                      'matsurigoto.tax-collect.test-contacts
+                      'matsurigoto.tax-collect.test-datom-emit)
+             (let [r (clojure.test/run-tests
+                      'matsurigoto.tax-collect.test-withholding
+                      'matsurigoto.tax-collect.test-payment
+                      'matsurigoto.tax-collect.test-procedures
+                      'matsurigoto.tax-collect.test-contacts
+                      'matsurigoto.tax-collect.test-datom-emit)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto]}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test

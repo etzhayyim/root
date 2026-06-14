@@ -24937,6 +24937,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606141200-matsurigoto-tax-collect-jp-withholding-remittance.md",
+      "id": "adr-2606141200-matsurigoto-tax-collect-jp-withholding-remittance",
+      "title": "ADR-2606141200: matsurigoto tax-collect — JP 法人源泉所得税・復興特別所得税の納付処理 (Clojure)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "matsurigoto-tax-collect-jp-withholding-remittance",
+      "authoritative": true,
+      "authoritative_for": [
+        "matsurigoto tax-collect module (源泉徴収納付 / withholding remittance)",
+        "JP corporate 源泉所得税 + 復興特別所得税 reference computation + 納付処理"
+      ],
+      "related": [
+        "adr-2605231525-etzhayyim-no-server-key"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606062300-matsurigoto-egov-execution-commons",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-14",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606142000-kuramori-warehouse-intralogistics-agv-amr.md",
       "id": "adr-2606142000-kuramori-warehouse-intralogistics-agv-amr",
       "title": "ADR-2606142000: kuramori 倉守 — warehouse intralogistics robotics (AGV/AMR) + the Clojure-first GAP-actor wave",
