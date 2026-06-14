@@ -147,6 +147,15 @@ language by D1.
   D2.2 the `.py` shim is **retained** because kanae's Python pipeline
   (`assemble_flows.py` / `test_pipeline.py` / `project_yoro.py`) still imports
   `danjo.methods.budget_ledger`; it will be removed when kanae is ported (Wave 2-adjacent).
+- **Second landed step (same wave).** `danjo/methods/analyze.py` → `analyze.clj` (+ `test_analyze.clj`):
+  the non-adjudicating discrepancy analyzer. `method_cid` is byte-identical (golden
+  `method:single-bidder-streak:955ade7944f2`); the full `render_edn` output is **byte-for-byte**
+  equal to the Python (golden-string test); G4 (no verdict field representable, structural
+  self-check) + G5 (≥2 source CIDs, raises) enforced in code (13/13 green). Note `method_cid`
+  uses Python's DEFAULT `ensure_ascii=True` (non-ASCII → `\uXXXX`), so it needs a *distinct*
+  canonical encoder from budget_ledger's `ensure_ascii=False` — both now live in the danjo clj
+  tree, a reminder that "canonical JSON" is encoder-specific and parity must be proven per call
+  site. The `.py` shim is retained (D2.2): `autorun.py` still imports `from analyze import …`.
 
 # Alternatives Considered
 
