@@ -15,10 +15,10 @@
 (let [corpus (in/load-corpus corpus-path)
       model  (in/ingest-corpus corpus)]
 
-  ;; ── projection shape ──
-  (check "ingest yields 2 revenue-lines" (= 2 (count (:revenue-lines model))))
-  (check "ingest yields 1 transfer"      (= 1 (count (:transfers model))))
-  (check "ingest yields 3 outlays"       (= 3 (count (:outlays model))))
+  ;; ── projection shape (FY2023 + FY2024) ──
+  (check "ingest yields 4 revenue-lines" (= 4 (count (:revenue-lines model))))
+  (check "ingest yields 2 transfers"     (= 2 (count (:transfers model))))
+  (check "ingest yields 6 outlays"       (= 6 (count (:outlays model))))
   (check "account-EARMARK is law (constant), not ingested"
          (= in/account-law (:accounts model)))
 

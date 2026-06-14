@@ -12,10 +12,10 @@ data/gov-revenue-corpus.jp.edn   ── ingest.clj ──▶  model  ── reve
                                                                                key, dry-run default)
 ```
 
-Files: `methods/{revenue_ledger,ingest,discrepancy,kotoba_bridge}.clj` +
+Files: `methods/{revenue_ledger,ingest,discrepancy,coverage,kotoba_bridge}.clj` +
 `data/gov-revenue-{seed,corpus}.jp.edn` (+ ingests danjo's existing `data/gov-fiscal-seed.jp.json`)
-+ `methods/test_{revenue_ledger,ingest,discrepancy,kotoba_bridge}.clj`
-(88 checks, green under `bb` and `clojure`).
++ `methods/test_{revenue_ledger,ingest,discrepancy,coverage,kotoba_bridge}.clj`
+(103 checks, green under `bb` and `clojure`). Coverage: **FY2023 + FY2024**.
 
 Answers, **in Clojure on the kotoba EAVT Datom log**, the question:
 
@@ -138,10 +138,23 @@ cd methods && bb -e '(load-file "kotoba_bridge.clj") \
 # live push (operator-gated): DANJO_KOTOBA_LIVE=1 DANJO_KOTOBA_OPERATOR_DID=did:web:… …
 ```
 
+## Coverage scorecard — `coverage.clj`
+
+`report` computes an HONEST coverage map (matsurigoto G5): fiscal-years, tax-kinds, per-(tax,fy)
+traceability (non-traceable taxes counted as such, not hidden), reconciliation split, datom
+totals. `coverage-md` renders a scorecard; `-main` regenerates `data/REVENUE-COVERAGE.md`. As of
+this iteration: **FY2023+2024, 2/4 tax-years per-yen traceable** (both 復興 residual 0; both 源泉
+honestly non-traceable), 137 datoms.
+
+```bash
+cd methods && bb -e '(load-file "coverage.clj") \
+  ((resolve (symbol "root.danjo.methods.coverage" "-main")))'   # → data/REVENUE-COVERAGE.md
+```
+
 ## Run
 
 ```bash
-# tests (bb: fast / clojure: JVM)   88 checks (ledger 25 + ingest 22 + discrepancy 21 + bridge 20)
+# tests (bb / clojure)  103 checks (ledger 25 + ingest 22 + discrepancy 21 + coverage 15 + bridge 20)
 ./run_tests_clj.sh                  # or: CLJ_RUNNER=clojure ./run_tests_clj.sh
 
 # demo trace for both taxes
