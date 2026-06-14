@@ -208,10 +208,13 @@
   {:egov.service/id "tax.withholding.remit" :egov.service/domain ":taxation" :egov.service/cofog "01.1"
    :egov.service/en "Withholding remittance" :egov.service/ja "源泉徴収納付"
    :egov.service/module "tax-collect"
-   :egov.service/spec-basis ["OECD SAF-T (payroll)" "ISO 20022"]
+   :egov.service/spec-basis ["OECD SAF-T (payroll)" "ISO 20022"
+                             "JP 所得税法181-230条 / 復興財源確保法28条 / 国税通則法36・60・67条"]
    :egov.service/io {:in ["withholder-id" "withheld-amounts" "period"] :out ["remittance-receipt"]}
    :egov.service/invariants {:server-held-authority false :spec-derived true}
-   :egov.service/maturity ":planned"}
+   ;; tax-collect module R0 reference-impl (Clojure): 20-actors/matsurigoto/tax_collect/ (ADR-2606141200)。
+   ;; JP 源泉所得税+復興特別所得税 の計算/納付書/納期限/加算税延滞税/政府手続き/連絡先/Datom化。
+   :egov.service/maturity ":reference-impl"}
 
   ;; ===== CIVIL REGISTRY / RESIDENCY (住所管理・戸籍) — COFOG 01.1 / 01.3 =====
   {:egov.service/id "residency.move-in" :egov.service/domain ":civil-registry" :egov.service/cofog "01.3"

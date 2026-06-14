@@ -91,7 +91,8 @@ are recorded in each profile's `:country-profile/notes`, never silently bound.
 ## Build / test
 
 ```
-./deploy/run_tests.sh                        # all (93 + WIT: 19 std +10 datom +10 sign +19 tax +11 civil +11 corp +13 cred)
+./deploy/run_tests.sh                        # python slices (93 + WIT: 19 std +10 datom +10 sign +19 tax +11 civil +11 corp +13 cred)
+bb test:matsurigoto                          # Clojure tax-collect 源泉徴収納付 (44 tests / 157 assertions)
 cd methods && python3 standard.py            # validate + write out/coverage.md
 cd methods/modules && python3 tax_assess.py  # demo an executable slice
 ```
@@ -102,6 +103,20 @@ cd methods/modules && python3 tax_assess.py  # demo an executable slice
 
 - **`tax-assess`** — pure-function progressive income/corporate tax + VAT, reproducing the JP
   速算表 exactly (14/14). Backs `tax.income.file` / `tax.corporate.file` / `tax.vat.file`.
+- **`tax-collect`** (Clojure, ADR-2606141200) — the **徴収側 sibling** of tax-assess: JP corporate
+  源泉所得税 + 復興特別所得税 (2.1%) withholding remittance. Lives in `tax_collect/` (NOT
+  `methods/modules/` — it is the actor's first babashka-Clojure slice), ns `matsurigoto.tax-collect.*`:
+  `withholding` (報酬204条 10.21%/20.42% · 給与 電算特例 · 賞与 · 退職速算表 · 配当15.315% · 利子 ·
+  非居住者20.42% — 合計税率を ppm 整数で保持し1円未満切捨てを厳密整数演算) · `payment` (所得税
+  徴収高計算書8様式 · 法定納期限 原則翌月10日/納期特例7-10・翌1-20 · 不納付加算税/延滞税 ·
+  納付方法 e-Tax/ダイレクト納付/クレカ/コンビニQR/スマホ/窓口 · unsigned 納付書) · `jp_calendar`
+  (国民の祝日 Happy-Monday/振替休日/国民の休日/春分秋分近似 + 税務署閉庁日) · `procedures`
+  (給与支払事務所開設届/納期特例承認申請/扶養控除等申告/年末調整/源泉徴収票/支払調書/法定調書
+  合計表 + 期限算定) · `contacts` (国税庁 03-3581-4161 / e-Tax ヘルプデスク 0570-01-5901 を
+  :authoritative、12国税局47都道府県管轄 + 税務署法人課税部門を案内; 個別局/署電話は
+  :pending-verification + 出典URL = G5 honesty) · `datom_emit` (EAVT `:gensen.*` canonical state) ·
+  `tax_collect` (module facade)。Backs `tax.withholding.remit`. **44 tests / 157 assertions** —
+  run `bb test:matsurigoto`.
 - **`civil-registry`** — UN CRVS validation + **append-only** record construction (G5, 非終末論)
   for birth/death/marriage + residency, unsigned VC certificates (11/11). Backs `civil.*` +
   `residency.*` (住所管理・戸籍).
