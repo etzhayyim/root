@@ -20,7 +20,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 const OUT_DIR = join(ROOT, "50-infra/etzhayyim-did-web/src/registry");
 // Deterministic stamp (ADR date) so re-running produces no spurious churn.
-const GENERATED_AT = "2026-06-04T00:00:00+00:00";
+const GENERATED_AT = "2026-06-14T00:00:00+00:00";
 
 // ── namespace config ──────────────────────────────────────────────────────
 // Each namespace unions one or more EDN sources. `idKey`/`nameKey` are the EDN
@@ -37,7 +37,7 @@ const NAMESPACES = [
   {
     ns: "corp",
     sources: [
-      { file: "20-actors/kabuto/data/seed-public-companies.kotoba.edn" },
+      { file: "20-actors/kabuto/data/companies.merged.kotoba.edn" },
       { file: "20-actors/tsumugi/data/seed-power-graph.kotoba.edn" },
     ],
     // corp unifies kabuto :company/* + tsumugi :organism/* (both org.corp.*)

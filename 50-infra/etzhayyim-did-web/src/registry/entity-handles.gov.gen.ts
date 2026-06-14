@@ -8,7 +8,7 @@
 // itself (no impersonation; verificationMethod:[]; isMirror=true).
 
 export const GOV_TOTAL_COUNT = 7089;
-export const GOV_GENERATED_AT = "2026-06-04T00:00:00+00:00";
+export const GOV_GENERATED_AT = "2026-06-14T00:00:00+00:00";
 
 // handle → displayName. Membership check is O(1) via .has(); name powers the
 // searchActors short-circuit + getProfile view in the apex Worker.
