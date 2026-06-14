@@ -156,6 +156,21 @@ language by D1.
   canonical encoder from budget_ledger's `ensure_ascii=False` — both now live in the danjo clj
   tree, a reminder that "canonical JSON" is encoder-specific and parity must be proven per call
   site. The `.py` shim is retained (D2.2): `autorun.py` still imports `from analyze import …`.
+- **Third landed step (same wave).** `danjo/methods/kotoba.py` → `kotoba.clj` (+ `test_kotoba.clj`):
+  the local content-addressed commit-DAG log writer (`graph-datoms` / `derived-datoms` /
+  `tx-cid` / `make-tx` / `append-tx` / `read-log` / `head-cid` / `verify-chain`). The
+  content-bearing derived-observation transaction is **byte-identical** with kotoba.py
+  (golden `tx_cid b028f0f845c1…`), with commit-DAG round-trip + tamper-detection proven
+  (16/16). Datoms are modelled with idiomatic Clojure keywords (`:db/add`, `:danjo.obs/*`)
+  whose canonical-JSON rendering equals kotoba.py's `":"`-prefixed string literals, so the
+  CID matches without giving up clj ergonomics; `read-log` uses native `clojure.edn`.
+  `graph-datoms` emission order is canonicalized (sorted by attr) for parser-independent
+  determinism — bb's cheshire does not preserve JSON key order, and a deterministic order is
+  the resume-safety property that matters; the constitutionally-meaningful derived tx is
+  order-independent and byte-exact. After this, danjo's data layer is clj-native; only the
+  thin `autorun.py` orchestrator remains Python (imports `analyze`/`kotoba`; next step).
+  *Cleanup noted*: budget_ledger / analyze / kotoba each carry a small canonical-JSON encoder
+  (two `ensure_ascii=False`, one `=True`) — a shared `danjo` clj util is a future tidy.
 
 # Alternatives Considered
 
