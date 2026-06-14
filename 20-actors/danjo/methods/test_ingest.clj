@@ -16,9 +16,9 @@
       model  (in/ingest-corpus corpus)]
 
   ;; ── projection shape (FY2023 + FY2024) ──
-  (check "ingest yields 4 revenue-lines" (= 4 (count (:revenue-lines model))))
-  (check "ingest yields 2 transfers"     (= 2 (count (:transfers model))))
-  (check "ingest yields 6 outlays"       (= 6 (count (:outlays model))))
+  (check "ingest yields 6 revenue-lines" (= 6 (count (:revenue-lines model))))
+  (check "ingest yields 3 transfers"     (= 3 (count (:transfers model))))
+  (check "ingest yields 9 outlays"       (= 9 (count (:outlays model))))
   (check "account-EARMARK is law (constant), not ingested"
          (= in/account-law (:accounts model)))
 

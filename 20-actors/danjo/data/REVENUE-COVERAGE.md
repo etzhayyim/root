@@ -5,7 +5,7 @@ counted as non-traceable, not hidden (matsurigoto G5 / danjo G5). Verification s
 
 ## Scope
 
-- Fiscal years: 2023, 2024
+- Fiscal years: 2022, 2023, 2024
 - Tax kinds: reconstruction-surtax, withholding-income
 - Accounts: :general (fungible), :special/reconstruction (earmarked)
 
@@ -13,14 +13,16 @@ counted as non-traceable, not hidden (matsurigoto G5 / danjo G5). Verification s
 
 | revenue-lines | transfers | appropriations | outlays | EAVT datoms |
 |---|---|---|---|---|
-| 4 | 2 | 14 | 9 | 221 |
+| 6 | 3 | 14 | 12 | 266 |
 
 ## Per-yen traceability (the honest answer)
 
-Traceable tax-years: **2/4** (50%) · non-traceable (fungible 一般会計): **2/4**
+Traceable tax-years: **3/6** (50%) · non-traceable (fungible 一般会計): **3/6**
 
 | tax | FY | traceable? | per-yen? | residual |
 |---|---|---|---|---|
+| reconstruction-surtax | 2022 | ✅ | ✅ | 0 |
+| withholding-income | 2022 | ❌ non-earmarked-general-account | — | — |
 | reconstruction-surtax | 2023 | ✅ | ✅ | 0 |
 | withholding-income | 2023 | ❌ non-earmarked-general-account | — | — |
 | reconstruction-surtax | 2024 | ✅ | ✅ | 0 |
@@ -28,7 +30,7 @@ Traceable tax-years: **2/4** (50%) · non-traceable (fungible 一般会計): **2
 
 ## Appropriation↔outlay reconciliation
 
-Total program-years: 20 · within-budget: **14** · outlay-exceeds-appropriation: 0 · outlay-without-appropriation-trace: 6 (partial-corpus / timing — a declared false-positive mode, not a verdict)
+Total program-years: 23 · within-budget: **14** · outlay-exceeds-appropriation: 0 · outlay-without-appropriation-trace: 9 (partial-corpus / timing — a declared false-positive mode, not a verdict)
 
 _danjo finds, never judges (G4). Legal characterization → human counsel via chigiri._
 

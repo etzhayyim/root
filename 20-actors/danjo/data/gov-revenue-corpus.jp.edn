@@ -98,4 +98,39 @@
    :program-name "復興庁 行政経費・予備費" :cofog "01.1"
    :recipient-class "復興庁 (aggregate)"
    :fiscal-year 2023 :amount-local 30000000000 :source-sensor "jp_fukko"
+   :source-url "https://www.reconstruction.go.jp/topics/main-cat8/"}
+
+  ;; ── FY2022 (multi-year coverage, 3年連続) ────────────────────────────────────
+  {:record-id "rev-jp-2022-withholding-income" :record-kind :revenue
+   :tax-kind :withholding-income :account :general :fiscal-year 2022
+   :amount-local 13500000000000 :source-sensor "jp_yosan"
+   :program-name "源泉所得税 (源泉徴収による所得税)"
+   :source-url "https://www.bb.mof.go.jp/"}
+  {:record-id "rev-jp-2022-reconstruction-surtax" :record-kind :revenue
+   :tax-kind :reconstruction-surtax :account :general :fiscal-year 2022
+   :amount-local 390000000000 :source-sensor "jp_yosan"
+   :program-name "復興特別所得税 (2.1%付加税)"
+   :source-url "https://www.bb.mof.go.jp/"}
+  {:record-id "xfer-jp-2022-recon-surtax-to-special" :record-kind :transfer
+   :tax-kind :reconstruction-surtax :from :general :to :special/reconstruction
+   :fiscal-year 2022 :amount-local 390000000000 :source-sensor "jp_fukko"
+   :program-name "復興財源繰入 (一般会計 → 東日本大震災復興特別会計)"
+   :source-url "https://www.reconstruction.go.jp/topics/main-cat8/"}
+  {:record-id "out-jp-2022-recon-fukushima" :record-kind :outlay
+   :account :special/reconstruction :program-code "JP-FUKKO-FUKUSHIMA"
+   :program-name "福島再生・原子力災害復興" :cofog "06.6"
+   :recipient-class "福島県・市町村・関連機関 (aggregate)"
+   :fiscal-year 2022 :amount-local 210000000000 :source-sensor "jp_fukko"
+   :source-url "https://www.reconstruction.go.jp/topics/main-cat8/"}
+  {:record-id "out-jp-2022-recon-infra" :record-kind :outlay
+   :account :special/reconstruction :program-code "JP-FUKKO-INFRA"
+   :program-name "インフラ復興・住宅再建・なりわい再生" :cofog "06.1"
+   :recipient-class "被災自治体・事業者 (aggregate)"
+   :fiscal-year 2022 :amount-local 150000000000 :source-sensor "jp_fukko"
+   :source-url "https://www.reconstruction.go.jp/topics/main-cat8/"}
+  {:record-id "out-jp-2022-recon-admin" :record-kind :outlay
+   :account :special/reconstruction :program-code "JP-FUKKO-ADMIN"
+   :program-name "復興庁 行政経費・予備費" :cofog "01.1"
+   :recipient-class "復興庁 (aggregate)"
+   :fiscal-year 2022 :amount-local 30000000000 :source-sensor "jp_fukko"
    :source-url "https://www.reconstruction.go.jp/topics/main-cat8/"}]}

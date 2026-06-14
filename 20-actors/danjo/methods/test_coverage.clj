@@ -15,12 +15,12 @@
       rep   (cov/report model)]
 
   ;; ── multi-year scope ──
-  (check "covers FY2023 + FY2024"        (= [2023 2024] (vec (:fiscal-years rep))))
+  (check "covers FY2022-2024"            (= [2022 2023 2024] (vec (:fiscal-years rep))))
   (check "two tax kinds"                 (= 2 (count (:tax-kinds rep))))
 
   ;; ── honest traceability split ──
-  (check "2 traceable tax-years (復興 ×2)"     (= 2 (:traceable-tax-years rep)))
-  (check "2 non-traceable tax-years (源泉 ×2)" (= 2 (:nontraceable-tax-years rep)))
+  (check "3 traceable tax-years (復興 ×3)"     (= 3 (:traceable-tax-years rep)))
+  (check "3 non-traceable tax-years (源泉 ×3)" (= 3 (:nontraceable-tax-years rep)))
   (check "every 復興 trace residual 0"
          (every? #(or (not= :reconstruction-surtax (:tax %)) (zero? (:residual %))) (:traces rep)))
   (check "every 源泉 trace non-traceable"
@@ -28,12 +28,12 @@
 
   ;; ── reconciliation coverage ──
   (let [r (:reconciliations rep)]
-    (check "8 program-years reconciled"  (= 8 (:total r)))
+    (check "11 program-years reconciled" (= 11 (:total r)))
     (check "MEXT within-budget ×2"       (= 2 (:within r)))
     (check "no false outlay-exceeds"     (= 0 (:outlay-exceeds-appropriation r))))
 
   ;; ── counts grow with multi-year corpus ──
-  (check "4 revenue-lines"               (= 4 (:revenue-lines (:counts rep))))
+  (check "6 revenue-lines"               (= 6 (:revenue-lines (:counts rep))))
   (check "datoms > 100"                  (> (:datoms (:counts rep)) 100))
 
   ;; ── scorecard markdown is honest ──
