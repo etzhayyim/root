@@ -29,6 +29,7 @@ related:
 external_refs:
   - "Robin: A multi-agent system for automating scientific discovery (Nature, s41586-026-10652-y; arXiv 2505.13400)"
   - "AI co-scientist (Google DeepMind, multi-agent generate-debate-evolve)"
+  - "TLT — Taming the Long-Tail: Efficient Reasoning RL Training with Adaptive Drafter (MIT HAN Lab, arXiv 2511.16665) — research input for Tracks B/E"
 supersedes: []
 superseded_by: []
 ---
@@ -161,9 +162,17 @@ substrate*. Tracks (each a measurable experiment, logged to the Datom log):
   the 10 Mac-mini Ollama endpoints, selected by the `tournament` cell (Elo).
   *Metric:* pass@k vs k, Elo vs node-count. *Hypothesis:* k=10 Maxwell ≈
   frontier single-pass on e7m bench.
-- **B. Speculative / draft-verify across tiers.** baien (edge 1.58-bit) drafts,
-  Maxwell verifies; or Maxwell drafts, EVO-X2 `llama3.3:70b` verifies the hard
-  fraction. *Metric:* tok/s × accept-rate, end-to-end latency.
+- **B. Speculative / draft-verify across tiers, with an ADAPTIVE drafter.** baien
+  (edge 1.58-bit) or a Maxwell-E2B MatFormer submodel (Track C) drafts, Maxwell
+  verifies; or Maxwell drafts, EVO-X2 `llama3.3:70b` verifies the hard fraction.
+  Apply **TLT** ("Taming the Long-Tail", MIT HAN Lab, arXiv 2511.16665): keep the
+  drafter from going stale by **continuously retraining it on the fleet's idle
+  Mac-mini cycles** to predict the current Maxwell's outputs, plus an adaptive
+  rollout engine that tunes the spec-decode config to the workload. The fleet's
+  ~10 idle nodes ARE the idle cycles TLT exploits; a stale static drafter is
+  exactly the failure mode it fixes. Murakumo-only (the drafter trains + serves
+  on-fleet, never commercial GPU). *Metric:* tok/s × accept-rate, end-to-end
+  latency, drafter-staleness vs Maxwell generation.
 - **C. MatFormer elastic inference.** Gemma E4B nests an E2B submodel; serve E2B
   for easy turns and E4B for hard ones, right-sizing compute per node capacity.
   *Metric:* quality/Joule per task-difficulty bucket.
@@ -173,7 +182,10 @@ substrate*. Tracks (each a measurable experiment, logged to the Datom log):
 - **E. Verifier-grounded preference (DPO/RL).** Reward = Charter-gate pass +
   microbench delta + **real PR-merge outcome** (Kaizen already reads
   `gh pr state`). Outcome-grounded, never synthetic. *Metric:* win-rate on held
-  pairs after preference tuning.
+  pairs after preference tuning. When this reaches reasoning-RL, the rollout
+  (candidate generation) is ~85% of wall-clock with long-tail stragglers — apply
+  **TLT** (Track B's adaptive drafter) to the rollout to ~2× RL throughput on the
+  fleet; this is TLT's primary target (it is RL-specific, NOT an SFT/M1 speedup).
 - **F. Distillation flywheel (the core).** SFT Maxwell on Loop A's
   tournament-winner traces so the *orchestration collapses into the weights* —
   fewer debate rounds needed next cycle for the same quality. This is the
@@ -229,3 +241,10 @@ drift (mitigate: CACAO leash + no-auto-merge invariant remain hard gates).
    "frontier-teacher" snapshot (one-off, training-only, Charter §2(i) carve-out)
    to avoid self-distillation plateau, or whether outcome-grounded preference
    (Track E) suffices.
+4. TLT (Tracks B/E) was demonstrated on homogeneous GPU clusters where the idle
+   cycles live *inside* the RL training cluster during rollout stalls; our
+   substrate is heterogeneous (single EVO-X2 ROCm trainer + 10 Mac-mini Metal
+   inference nodes). Open: does the adaptive-drafter trainer port cleanly to
+   "drafter retrains on Mac-mini idle cycles while EVO-X2 rolls out", and is the
+   ROCm/Metal split a help (more truly-idle cycles) or a coordination cost? No
+   public code (paper-only) — a from-scratch ROCm/MLX implementation is required.
