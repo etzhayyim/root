@@ -32,6 +32,13 @@ from .fleet_sampler import (
     BestOfNResult,
 )
 from .bench_harness import BenchHarness, BenchTask, BenchReport, KPoint
+from .reward import (
+    RewardComponents,
+    ScoredCandidate,
+    PreferencePair,
+    aggregate_reward,
+    build_preference_pair,
+)
 
 __all__ = [
     # Loop A
@@ -63,4 +70,10 @@ __all__ = [
     "BenchTask",
     "BenchReport",
     "KPoint",
+    # Research Track E — verifier-grounded reward / preference
+    "RewardComponents",
+    "ScoredCandidate",
+    "PreferencePair",
+    "aggregate_reward",
+    "build_preference_pair",
 ]
