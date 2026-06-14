@@ -221,6 +221,17 @@ language by D1.
   ICAO-PKD) + G6 (MRZ fields only) + live-issuance Council/operator gate enforced (5 tests /
   25 assertions; full matsurigoto clj suite **71 tests / 293 assertions green**). matsurigoto
   now **4/7** reference modules clj-native; remaining: `datoms` / `sign_capability` / `standard`.
+- **Wave 1 — matsurigoto `datoms` (the substrate membrane).** `datoms.py` → `datoms.clj`
+  (+ `test_datoms.clj`): the EAVT bridge that ties the four ported reference modules into the
+  kotoba Datom log — converts each module's clj output into append-only `egov-exec-v1` datoms +
+  a `kg.ingest_batch` body. Enforced in code: **G1** (`:egov.tx/server-held-authority false`,
+  cert `:egov.cert/proof` nil, `assert-unsigned!` rejects a signed artifact), **G3** (`:operated-by`
+  / `:authority-mode` allow-lists), **G5** (`:egov.record/immutable true`), **G8** (`kg-ingest-batch`
+  `:published true` RAISES — live ingest Council/operator-gated). Golden count parity with
+  datoms.py (tax-assess → 17 datoms) + correct per-module cert kinds (4 tests / 25 assertions;
+  full matsurigoto clj suite **75 tests / 318 assertions green**). matsurigoto now **5/7**
+  clj-native (the four verticals + the substrate membrane); remaining `sign_capability` /
+  `standard` are capability/COFOG glue.
 
 # Alternatives Considered
 
