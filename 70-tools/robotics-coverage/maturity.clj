@@ -35,8 +35,16 @@
         ;; integration: does any method emit cross-actor :handoff/* chain edges?
         methods-src (apply str (map #(slurp* (str base "/methods/" % ".clj"))
                                     ["handoff" "datom_emit"]))
+        analyze-src (slurp* (str base "/methods/analyze.clj"))
         gates (:actor/gates manifest)
         methods (:actor/methods manifest)
+        ;; pipeline integration: fraction of DOMAIN methods (excl. analyze/datom_emit/
+        ;; coverage) that analyze.clj actually requires (i.e. composes end-to-end)
+        domain-methods (remove #(#{"analyze" "datom_emit" "coverage"} (:method/id %)) methods)
+        wired (when analyze-src
+                (count (filter #(re-find (re-pattern (str "methods\\." (clojure.string/replace (:method/id %) "_" "-")))
+                                         analyze-src)
+                               domain-methods)))
         ;; a "raising" safety gate = its rule mentions raise/refuse/unrepresentable
         raising (->> gates
                      (filter #(re-find #"(?i)raise|refus|unrepresentable|RAISES"
@@ -51,6 +59,8 @@
            :has-datom-emit (boolean (some #(= "datom_emit" (:method/id %)) methods))
            :has-handoff (boolean (and methods-src (re-find #":handoff/" methods-src)))
            :has-coverage (.exists (io/file (str base "/methods/coverage.clj")))
+           :pipeline-frac (when (and wired (pos? (count domain-methods)))
+                            (/ (double wired) (count domain-methods)))
            ;; pull the ACTUAL occupation sub-task coverage fraction from the module
            :occ-coverage (try
                            (when-let [r (requiring-resolve
@@ -62,7 +72,8 @@
 (defn maturity-score
   "A simple 0..1 R0-maturity index per actor across 6 axes (each worth ~equal weight).
    Intentionally coarse — it tracks *direction* of improvement, not a precise grade."
-  [{:keys [methods gates raising-gates deftests has-datom-emit has-handoff has-coverage clojure]}]
+  [{:keys [methods gates raising-gates deftests has-datom-emit has-handoff has-coverage
+           pipeline-frac clojure]}]
   (let [axes [(min 1.0 (/ methods 5.0))        ; ≥5 methods = full
               (min 1.0 (/ gates 8.0))          ; ≥8 gates = full
               (min 1.0 (/ raising-gates 2.0))  ; ≥2 raising safety gates = full
@@ -70,6 +81,7 @@
               (if has-datom-emit 1.0 0.0)
               (if has-handoff 1.0 0.0)         ; cross-actor chain edges (R1 integration)
               (if has-coverage 1.0 0.0)        ; honest occupation sub-task coverage map
+              (or pipeline-frac 0.0)           ; fraction of methods composed in analyze (R1)
               (if clojure 1.0 0.0)]]
     (/ (reduce + axes) (count axes))))
 
@@ -79,16 +91,17 @@
                  "`/loop coverage, 成熟度を向上して` baseline). Closes the GAPs of "
                  "ADR-2606073001 §3/§4. **All R0** — score tracks R0-completeness + the "
                  "direction toward R1; it is NOT an R1 claim.\n\n"
-                 "| Actor | Occupation | Status | methods | gates | raising | deftests | datom | handoff | occ-cov | clj | score |\n"
-                 "|---|---|---|---|---|---|---|---|---|---|---|---|\n")
+                 "| Actor | Occupation | Status | methods | gates | raising | deftests | datom | handoff | occ-cov | pipeline | clj | score |\n"
+                 "|---|---|---|---|---|---|---|---|---|---|---|---|---|\n")
         body (->> rows
                   (map (fn [r]
-                         (format "| %s %s | %s | %s | %d | %d | %d | %d | %s | %s | %s | %s | %.2f |"
+                         (format "| %s %s | %s | %s | %d | %d | %d | %d | %s | %s | %s | %s | %s | %.2f |"
                                  (:id r) (:glyph r) (:occupation r) (:status r)
                                  (:methods r) (:gates r) (:raising-gates r) (:deftests r)
                                  (if (:has-datom-emit r) "✓" "✗")
                                  (if (:has-handoff r) "✓" "✗")
                                  (if (:occ-coverage r) (format "%.0f%%" (* 100.0 (:occ-coverage r))) "✗")
+                                 (if (:pipeline-frac r) (format "%.0f%%" (* 100.0 (:pipeline-frac r))) "✗")
                                  (if (:clojure r) "✓" "✗")
                                  (maturity-score r))))
                   (str/join "\n"))

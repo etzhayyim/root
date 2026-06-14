@@ -423,5 +423,26 @@
         (is (nil? (:method st))
             (str (:id st) " is a gap but names a method"))))))
 
+;; ── run-day full-pipeline integration (R1 — methods compose, not just coexist) ─
+(deftest run-day-exercises-all-domain-methods
+  (testing "the full warehouse-day pipeline threads through every domain method"
+    (let [res (az/run-day seed)]
+      (is (= #{"handoff" "slotting" "replenish" "picking" "packing" "agv_amr" "returns" "cyclecount"}
+             (:methods res)))
+      (is (>= (count (:methods res)) 8))
+      (is (contains? res :slotting))
+      (is (pos? (get-in res [:dispatch :makespan])))
+      (is (= 2 (count (get-in res [:day :inbound]))))
+      (is (pos? (:count (get-in res [:day :cartons]))))
+      (is (= "todoke" (:to-actor (get-in res [:day :outbound]))))
+      (is (= 1 (count (:scrap (get-in res [:day :returns])))))
+      (is (<= 0.0 (:accuracy (get-in res [:day :cyclecount])) 1.0)))))
+
+(deftest run-day-report-lists-pipeline
+  (let [s (az/report-day-str (az/run-day seed))]
+    (is (re-find #"methods exercised" s))
+    (is (re-find #"packing" s))
+    (is (re-find #"cyclecount" s))))
+
 (let [{:keys [fail error]} (run-tests 'kuramori.methods.test-kuramori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))
