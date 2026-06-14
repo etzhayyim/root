@@ -7,6 +7,8 @@
             [clojure.java.io :as io]))
 
 (load-file "coverage.clj")        ; transitively loads revenue_ledger/ingest/discrepancy/taxes/org_actor/transfers
+(load-file "cofog_xcheck.clj")
+(alias 'x  'root.danjo.methods.cofog-xcheck)
 (alias 'rl 'root.danjo.methods.revenue-ledger)
 (alias 'in 'root.danjo.methods.ingest)
 (alias 't  'root.danjo.methods.taxes)
@@ -68,7 +70,10 @@
    {:id :representative-only :gate "G5"
     :desc "no dataset claims authoritative status — all :representative"
     :check (fn [c] (every? #(= "representative" (:verification-status %))
-                           [(:nat c) (:loc c)]))}])
+                           [(:nat c) (:loc c)]))}
+   {:id :cofog-codes-valid :gate "cross-actor"
+    :desc "every COFOG code is valid in matsurigoto's canonical standard"
+    :check (fn [c] (:all-valid? (x/xcheck (:model c) (:xfer c))))}])
 
 (defn run-invariants [c]
   (mapv (fn [iv] (assoc (dissoc iv :check) :ok (boolean ((:check iv) c)))) invariants))

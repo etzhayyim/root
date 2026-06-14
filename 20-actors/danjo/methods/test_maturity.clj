@@ -19,7 +19,7 @@
 
   ;; the scorecard renders + reports the passing count + R0 status
   (let [md (m/scorecard c)]
-    (check "scorecard reports 9/9 passing" (str/includes? md "9/9 passing"))
+    (check "scorecard reports 10/10 passing" (str/includes? md "10/10 passing"))
     (check "scorecard marks Status R0"     (str/includes? md "Status: R0"))
     (check "scorecard lists R1 triggers"   (str/includes? md "R1 activation triggers"))))
 
