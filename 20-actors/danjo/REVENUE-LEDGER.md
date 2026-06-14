@@ -12,10 +12,10 @@ data/gov-revenue-corpus.jp.edn   ── ingest.clj ──▶  model  ── reve
                                                                                key, dry-run default)
 ```
 
-Files: `methods/{revenue_ledger,ingest,discrepancy,taxes,transfers,org_actor,coverage,maturity,kotoba_bridge}.clj` +
+Files: `methods/{revenue_ledger,ingest,discrepancy,taxes,transfers,org_actor,coverage,maturity,autorun,kotoba_bridge}.clj` +
 `data/{gov-revenue-seed,gov-revenue-corpus,jp-national-taxes,jp-local-taxes,jp-fiscal-transfers,jp-fiscal-orgs}.edn`
 (+ ingests danjo's existing `data/gov-fiscal-seed.jp.json`) + matching `test_*.clj`
-(203 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 + 12 地方税 · 9 組織-actor (+国→地方移転)**.
+(210 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 + 12 地方税 · 9 組織-actor (+国→地方移転)**.
 
 Answers, **in Clojure on the kotoba EAVT Datom log**, the question:
 
@@ -113,6 +113,20 @@ known-false-positive-modes, sourcing}`.
 Observations persist + bridge through the same pipeline:
 `(run-cycle! {:seed model :extra-datoms (observation-datoms (observations model 2024))})`.
 
+## Autonomous heartbeat — `autorun.clj` (fleet-runnable, offline)
+
+`heartbeat!` composes the WHOLE pipeline into one content-addressed tx per cycle on the local
+kotoba log: ingest model + national/local tax + org mirror + 国→地方 transfer/grant +
+non-adjudicating reconciliation observation (~679 datoms/cycle). **Deterministic** (two fresh
+runs → byte-identical head CID), **resume-safe** (re-run appends, never corrupts),
+**tamper-evident** (`verify-chain` catches any edited datom), **offline** (no external I/O — the
+danjo autorun.py discipline). Live kotoba transact + publication stay G7/Council-gated.
+
+```bash
+cd methods && bb -e '(load-file "autorun.clj") \
+  ((resolve (symbol "root.danjo.methods.autorun" "-main")) "3")'   # 3 cycles → local commit-DAG
+```
+
 ## kotoba-datomic 永続化 — two layers
 
 1. **LOCAL append-only commit-DAG log** (`revenue_ledger.clj` `run-cycle!`): each cycle = one tx,
@@ -207,8 +221,8 @@ cd methods && bb -e '(load-file "coverage.clj") \
 ## Run
 
 ```bash
-# tests (bb / clojure)  203 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 26 + transfers 20
-#                                   + org-actor 25 + coverage 15 + lexicon 15 + maturity 14 + bridge 20)
+# tests (bb / clojure)  210 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 26 + transfers 20
+#                                   + org-actor 25 + coverage 15 + lexicon 15 + maturity 14 + autorun 7 + bridge 20)
 ./run_tests_clj.sh                  # or: CLJ_RUNNER=clojure ./run_tests_clj.sh
 
 # demo trace for both taxes
