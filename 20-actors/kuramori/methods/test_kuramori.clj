@@ -9,6 +9,7 @@
             [kuramori.methods.analyze :as az]
             [kuramori.methods.datom-emit :as de]
             [kuramori.methods.picking :as pick]
+            [kuramori.methods.packing :as pk]
             [kuramori.methods.handoff :as ho]
             [kuramori.methods.replenish :as rep]
             [kuramori.methods.coverage :as cov]))
@@ -192,6 +193,62 @@
       (let [ovf (pick/congestion-overflows entries 2)]
         (is (= "aisle-1" (:zone (first ovf))))
         (is (= 1 (:over (first ovf))))))))
+
+;; ── packing (cartonization: pack picked items into shipping cartons) ─────────
+(def carton-types
+  [{:id "S" :vol-cm3 8000  :max-kg 3.0}
+   {:id "M" :vol-cm3 27000 :max-kg 10.0}
+   {:id "L" :vol-cm3 64000 :max-kg 25.0}])
+
+(deftest cartonize-small-order-smallest-fitting-carton
+  (testing "a small order fits one SMALLEST carton; utilisation in (0,1]"
+    (let [items [{:id "i1" :vol-cm3 2000 :weight-kg 0.5}
+                 {:id "i2" :vol-cm3 3000 :weight-kg 1.0}]   ; Σvol 5000 ≤ S, Σwt 1.5 ≤ S
+          r (pk/cartonize items carton-types)]
+      (is (= 1 (:count r)))
+      (is (= "S" (:carton-type (first (:cartons r)))))      ; smallest fitting, not M/L
+      (is (= ["i1" "i2"] (:items (first (:cartons r)))))
+      (let [{:keys [vol-util weight-util]} (first (:cartons r))]
+        (is (and (pos? vol-util) (<= vol-util 1.0)))
+        (is (and (pos? weight-util) (<= weight-util 1.0)))))))
+
+(deftest cartonize-oversize-total-multi-carton-split
+  (testing "no single carton holds all → FFD split into largest-type cartons; every item placed exactly once"
+    (let [items [{:id "j1" :vol-cm3 40000 :weight-kg 12.0}
+                 {:id "j2" :vol-cm3 40000 :weight-kg 12.0}  ; j1+j2 vol 80000 > L 64000
+                 {:id "j3" :vol-cm3 30000 :weight-kg 6.0}]
+          r (pk/cartonize items carton-types)
+          placed (mapcat :items (:cartons r))]
+      (is (> (:count r) 1))                                 ; multi-carton
+      (is (every? #(= "L" (:carton-type %)) (:cartons r)))  ; largest type
+      (is (= #{"j1" "j2" "j3"} (set placed)))               ; all items present
+      (is (= 3 (count placed)))                             ; each placed exactly once, no dup/drop
+      ;; every carton respects both bounds (util ≤ 1.0)
+      (is (every? #(and (<= (:vol-util %) 1.0) (<= (:weight-util %) 1.0)) (:cartons r))))))
+
+(deftest cartonize-item-bigger-than-largest-raises
+  (testing "a single item exceeding the LARGEST carton RAISES (unpackable; no phantom pack)"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (pk/cartonize [{:id "huge" :vol-cm3 99999 :weight-kg 1.0}] carton-types))) ; volume over L
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (pk/cartonize [{:id "heavy" :vol-cm3 100 :weight-kg 99.0}] carton-types))))) ; weight over L
+
+(deftest cartonize-weight-vs-volume-bound-selection
+  (testing "carton choice is bounded by weight in one case and by volume in the other"
+    ;; weight-bound: tiny volume but heavy → needs M (S max-kg 3.0 too small), volume alone would fit S
+    (let [wt-bound [{:id "w1" :vol-cm3 100 :weight-kg 4.0}]
+          r (pk/cartonize wt-bound carton-types)]
+      (is (= 1 (:count r)))
+      (is (= "M" (:carton-type (first (:cartons r)))))      ; S rejected on weight, not volume
+      (is (= 0 (int (* 100 (:vol-util (first (:cartons r))))))) ; volume barely used
+      (is (> (:weight-util (first (:cartons r))) 0.0)))
+    ;; volume-bound: light but bulky → needs M (S vol 8000 too small), weight alone would fit S
+    (let [vol-bound [{:id "v1" :vol-cm3 20000 :weight-kg 0.5}]
+          r (pk/cartonize vol-bound carton-types)]
+      (is (= 1 (:count r)))
+      (is (= "M" (:carton-type (first (:cartons r)))))      ; S rejected on volume, not weight
+      (is (and (pk/fits? (first vol-bound) {:id "M" :vol-cm3 27000 :max-kg 10.0})
+               (not (pk/fits? (first vol-bound) {:id "S" :vol-cm3 8000 :max-kg 3.0})))))))
 
 ;; ── handoff (cross-actor chain edges: niyaku→kuramori→todoke) ────────────────
 (deftest inbound-from-niyaku

@@ -11,6 +11,7 @@
             [madomori.methods.datom-emit :as de]
             [madomori.methods.coverage :as cov]
             [madomori.methods.multi-face :as mf]
+            [madomori.methods.water-recovery :as wr]
             [madomori.methods.handoff :as ho]))
 
 ;; ── facade_path ──────────────────────────────────────────────────────────────
@@ -272,6 +273,40 @@
       (is (not-any? (fn [k] (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera"
                                      (name k)))
                     all-keys)))))
+
+;; ── water_recovery (★ G2 eco — runoff/detergent capture water balance) ───────
+(deftest water-balance-fraction-and-loss
+  (testing "recovery-fraction = captured/applied; lost = applied - captured"
+    (let [b (wr/water-balance {:applied-l 8.0 :captured-l 6.0 :detergent-ml 64.0})]
+      (is (= 0.75 (:recovery-fraction b)))
+      (is (= 2.0 (:lost-l b)))
+      ;; a dry pass cannot be balanced
+      (is (thrown? clojure.lang.ExceptionInfo (wr/water-balance {:applied-l 0.0 :captured-l 0.0}))))))
+
+(deftest water-balance-compliance-by-threshold
+  (testing "★ G2 — above the eco floor is compliant?, below is not (non-raising)"
+    (is (:compliant? (wr/water-balance {:applied-l 8.0 :captured-l 6.4})))        ; 80% ≥ 70%
+    (is (not (:compliant? (wr/water-balance {:applied-l 8.0 :captured-l 4.0}))))  ; 50% < 70%
+    ;; an explicit stricter floor flips a borderline pass non-compliant
+    (is (not (:compliant? (wr/water-balance {:applied-l 8.0 :captured-l 6.4 :min-recovery 0.9}))))))
+
+(deftest assert-compliant-raises-below-floor
+  (testing "★ G2 — assert-compliant! RAISES below the floor, returns the balance above"
+    (let [b (wr/assert-compliant! {:applied-l 8.0 :captured-l 6.4 :detergent-ml 64.0})]
+      (is (:compliant? b))
+      (is (= 0.8 (:recovery-fraction b))))
+    ;; a leaky pass that escapes its detergent runoff must surface, not be forced
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (wr/assert-compliant! {:applied-l 8.0 :captured-l 4.0 :detergent-ml 64.0})))))
+
+(deftest water-balance-carries-no-imagery-or-person-data
+  (testing "★ G3 — the balance map is purely fluid quantities; no imagery/person/interior key"
+    (let [b (wr/water-balance {:applied-l 8.0 :captured-l 6.0 :detergent-ml 64.0})
+          ks (keys b)]
+      (is (every? keyword? ks))
+      (is (not-any? (fn [k] (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera"
+                                     (name k)))
+                    ks)))))
 
 (let [{:keys [fail error]} (run-tests 'madomori.methods.test-madomori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

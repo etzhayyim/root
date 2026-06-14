@@ -22,7 +22,7 @@
    {:id :jetting           :desc "hydro-jetting at pipe-material-safe pressure"              :covered? true  :method "jetting"}
    {:id :debris-removal    :desc "debris removal volume estimate"                            :covered? true  :method "jetting"}
    {:id :effluent-handoff  :desc "effluent handoff to mizuho treatment"                      :covered? true  :method "handoff"}
-   {:id :cctv-inspection   :desc "in-pipe condition inspection survey"                       :covered? false :method nil}
+   {:id :cctv-inspection   :desc "in-pipe condition inspection survey"                       :covered? true  :method "inspection"}
    {:id :root-cutting      :desc "root/obstruction cutting"                                  :covered? false :method nil}
    {:id :network-campaign  :desc "network-wide multi-segment cleaning campaign planning"     :covered? true  :method "campaign"}
    {:id :relining          :desc "trenchless relining / spot-repair"                         :covered? false :method nil}])

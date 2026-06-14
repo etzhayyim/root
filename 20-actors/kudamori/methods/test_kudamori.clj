@@ -11,6 +11,7 @@
             [kudamori.methods.datom-emit :as de]
             [kudamori.methods.coverage :as cov]
             [kudamori.methods.campaign :as camp]
+            [kudamori.methods.inspection :as insp]
             [kudamori.methods.handoff :as ho]))
 
 ;; ── atmosphere (★ G5 — the headline confined-space entry gate) ────────────────
@@ -267,6 +268,80 @@
       (is (= 2 (count (:stops topn))))
       ;; the two highest-priority survive (seg-1-2 risk .85/stale, seg-3-4 risk .92)
       (is (= #{"seg-1-2" "seg-3-4"} (set (map :segment-id (:stops topn))))))))
+
+;; ── inspection (in-pipe condition survey + PACP-like grading → campaign seam) ─
+(def insp-survey
+  [{:segment-id "seg-1-2"
+    :observations [{:position-m 2.0 :defect-kind :roots    :severity 5}
+                   {:position-m 7.5 :defect-kind :crack    :severity 2}]}
+   {:segment-id "seg-2-3"
+    :observations [{:position-m 4.0 :defect-kind :deposits :severity 3}]}
+   {:segment-id "seg-3-4"
+    :observations [{:position-m 1.0 :defect-kind :blockage :severity 5}
+                   {:position-m 6.0 :defect-kind :fracture :severity 4}]}
+   {:segment-id "seg-clean"
+    :observations []}])
+
+(deftest grade-is-max-severity-and-risk-in-unit-interval
+  (testing "grade = max observed severity; blockage-risk stays in [0,1]"
+    (let [g (insp/grade-segment "seg-3-4"
+                                [{:position-m 1.0 :defect-kind :blockage :severity 5}
+                                 {:position-m 6.0 :defect-kind :fracture :severity 4}])]
+      (is (= 5 (:grade g)))                       ; max of {5,4}
+      (is (= 2 (:defect-count g)))
+      (is (<= 0.0 (:blockage-risk g) 1.0))
+      ;; a full-severity outright blockage drives risk to the top of the range
+      (is (= 1.0 (:blockage-risk g))))
+    ;; every graded segment in a survey has a unit-interval risk
+    (is (every? #(<= 0.0 (:blockage-risk %) 1.0) (insp/survey insp-survey)))))
+
+(deftest survey-sorts-worst-first
+  (testing "survey returns segments sorted worst-first (highest blockage-risk first)"
+    (let [graded (insp/survey insp-survey)]
+      (is (= (count insp-survey) (count graded)))
+      ;; blockage-risk is non-increasing down the list
+      (is (apply >= (map :blockage-risk graded)))
+      ;; the outright-blockage segment is the worst → first
+      (is (= "seg-3-4" (:segment-id (first graded))))
+      ;; the clean segment is the best → last
+      (is (= "seg-clean" (:segment-id (last graded)))))))
+
+(deftest clean-segment-low-grade-low-risk
+  (testing "a segment with no/low defects → low grade + low blockage-risk"
+    (let [empty-g (insp/grade-segment "seg-clean" [])
+          minor-g (insp/grade-segment "seg-minor"
+                                      [{:position-m 3.0 :defect-kind :crack :severity 1}])]
+      (is (= 1 (:grade empty-g)))                 ; no observations → sound grade 1
+      (is (zero? (:blockage-risk empty-g)))
+      (is (= 0 (:defect-count empty-g)))
+      ;; a single low-severity structural crack: low grade, negligible blockage-risk
+      (is (= 1 (:grade minor-g)))
+      (is (< (:blockage-risk minor-g) 0.1)))))
+
+(deftest survey-feeds-campaign-prioritize
+  (testing "to-campaign-input output is accepted by campaign/prioritize (survey → prioritize)"
+    (let [graded   (insp/survey insp-survey)
+          meta-by  {"seg-1-2"   {:last-cleaned-days 400 :access [10.0 0.0]}
+                    "seg-2-3"   {:last-cleaned-days 120 :access [10.0 12.0]}
+                    "seg-3-4"   {:last-cleaned-days 30  :access [25.0 12.0]}
+                    "seg-clean" {:last-cleaned-days 10  :access [40.0 5.0]}}
+          camp-in  (insp/to-campaign-input graded meta-by)]
+      ;; the adapted shape carries exactly the keys campaign/prioritize reads
+      (is (every? #(every? (set (keys %)) [:segment-id :blockage-risk :last-cleaned-days :access])
+                  camp-in))
+      ;; the integration: prioritize runs without error over the inspection output
+      (let [ranked  (camp/prioritize camp-in)
+            by-id   (into {} (map (juxt :segment-id :priority) ranked))]
+        (is (= (count camp-in) (count ranked)))
+        (is (apply >= (map :priority ranked)))
+        ;; the clean segment (no defects, recently cleaned) ranks LAST for cleaning
+        (is (= "seg-clean" (:segment-id (last ranked))))
+        ;; the worst-condition segment (the outright blockage) outranks the clean one
+        (is (> (by-id "seg-3-4") (by-id "seg-clean"))))
+      ;; and a full plan-campaign consumes it end-to-end
+      (let [plan (camp/plan-campaign camp-in {:risk-threshold 0.5})]
+        (is (seq (:stops plan)))
+        (is (every? #(true? (:atmosphere-recheck-required %)) (:stops plan)))))))
 
 (let [{:keys [fail error]} (run-tests 'kudamori.methods.test-kudamori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

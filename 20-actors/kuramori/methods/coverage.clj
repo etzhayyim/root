@@ -15,7 +15,7 @@
 
 (def sub-tasks
   "The warehouse-intralogistics occupation decomposed into sub-tasks.
-   Methods that exist today: agv_amr, slotting, picking, handoff."
+   Methods that exist today: agv_amr, slotting, picking, handoff, replenish, packing."
   [{:id :receiving-putaway   :desc "inbound putaway to a feasible slot"          :covered? true  :method "slotting"}
    {:id :slotting            :desc "ABC velocity-based slot assignment"          :covered? true  :method "slotting"}
    {:id :picking             :desc "order pick + pick-route"                     :covered? true  :method "slotting/picking"}
@@ -25,7 +25,7 @@
    {:id :congestion-mgmt     :desc "zone-occupancy congestion detection"        :covered? true  :method "picking"}
    {:id :dispatch-outbound   :desc "outbound handoff to todoke"                  :covered? true  :method "handoff"}
    {:id :replenishment       :desc "forward-pick replenishment from bulk"        :covered? true  :method "replenish"}
-   {:id :packing             :desc "carton/parcel packing"                       :covered? false :method nil}
+   {:id :packing             :desc "carton/parcel packing"                       :covered? true  :method "packing"}
    {:id :returns             :desc "returns / reverse-logistics processing"      :covered? false :method nil}
    {:id :cycle-count         :desc "in-aisle cycle-count / inventory audit"      :covered? false :method nil}])
 

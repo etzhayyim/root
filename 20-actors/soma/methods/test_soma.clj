@@ -10,6 +10,7 @@
             [soma.methods.analyze :as az]
             [soma.methods.datom-emit :as de]
             [soma.methods.coverage :as cov]
+            [soma.methods.loadout :as lo]
             [soma.methods.handoff :as ho]))
 
 ;; ── fell_plan: geometry ───────────────────────────────────────────────────────
@@ -242,6 +243,46 @@
       (is (re-find #":handoff/to-actor" out))
       (is (re-find #"en\.handoff\.soma\.tatekata\." out))
       (is (vector? (clojure.edn/read-string out))))))
+
+;; ── loadout: log load-out onto a haul truck (FFD + raising gate) ─────────────
+(deftest loadout-heaviest-first-up-to-cap
+  (testing "FFD loads heaviest logs first up to the weight cap; over-cap → :remaining"
+    (let [truck {:max-weight-kg 24000.0 :max-length-m 13.0 :bunk-count 4}
+          logs [{:log-id "l-1" :length-m 5.0 :weight-kg 9000.0 :grade :sawlog}
+                {:log-id "l-2" :length-m 4.0 :weight-kg 8000.0 :grade :sawlog}
+                {:log-id "l-3" :length-m 3.0 :weight-kg 7000.0 :grade :pulp}
+                {:log-id "l-4" :length-m 3.0 :weight-kg 6000.0 :grade :pulp}]
+          r (lo/load-truck logs truck)]
+      ;; 9000 + 8000 + 7000 = 24000 ≤ cap (heaviest first); the 6000 log won't fit
+      (is (= ["l-1" "l-2" "l-3"] (:loaded r)))
+      (is (= ["l-4"] (:remaining r)))
+      ;; everything is accounted for — nothing silently dropped
+      (is (= (count logs) (+ (count (:loaded r)) (count (:remaining r))))))))
+
+(deftest loadout-weight-util-is-loaded-over-cap
+  (testing "weight-util = loaded weight / max-weight, in (0,1]"
+    (let [truck {:max-weight-kg 24000.0 :max-length-m 13.0 :bunk-count 4}
+          logs [{:log-id "l-1" :length-m 5.0 :weight-kg 9000.0 :grade :sawlog}
+                {:log-id "l-2" :length-m 4.0 :weight-kg 8000.0 :grade :sawlog}
+                {:log-id "l-3" :length-m 3.0 :weight-kg 7000.0 :grade :pulp}
+                {:log-id "l-4" :length-m 3.0 :weight-kg 6000.0 :grade :pulp}]
+          r (lo/load-truck logs truck)]
+      ;; 24000 loaded / 24000 cap = 1.0
+      (is (< (Math/abs (- 1.0 (:weight-util r))) 1e-9))
+      (is (< 0.0 (:weight-util r)))
+      (is (<= (:weight-util r) 1.0)))))
+
+(deftest loadout-over-length-log-raises
+  (testing "G-style refusal — a log longer than the truck bunks cannot be hauled → RAISES"
+    (let [truck {:max-weight-kg 24000.0 :max-length-m 13.0 :bunk-count 4}]
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (lo/load-truck [{:log-id "l-long" :length-m 15.0 :weight-kg 5000.0 :grade :sawlog}] truck))))))
+
+(deftest loadout-over-weight-log-raises
+  (testing "G-style refusal — a single log heavier than the whole payload cannot be hauled → RAISES"
+    (let [truck {:max-weight-kg 24000.0 :max-length-m 13.0 :bunk-count 4}]
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (lo/load-truck [{:log-id "l-heavy" :length-m 5.0 :weight-kg 30000.0 :grade :sawlog}] truck))))))
 
 ;; ── coverage (HONEST occupation sub-task map; G5 sourcing-honesty) ───────────
 (deftest coverage-fraction-honest

@@ -40,7 +40,7 @@
     :covered? false :method nil}
    {:id :load-out
     :desc "log load-out + haul transport"
-    :covered? false :method nil}])
+    :covered? true  :method "loadout"}])
 
 (defn report
   "Honest coverage summary: total, covered count, coverage fraction, and the
