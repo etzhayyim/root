@@ -1,0 +1,65 @@
+;; matsurigoto 政 — tax-collect / 源泉所得税の問い合わせ・連絡先 registry (JPN 国税庁系)。
+;; ADR-2606062300。G5 sourcing-honest: 電話番号は確証ある中央窓口のみ :authoritative。
+;; 国税局・税務署の個別番号は変更され得るため :pending-verification とし、出典URLを示す
+;; (確定値は国税庁「国税局・税務署を調べる」からの live ingest = G7-gated)。
+;; ※ 個別の納税者情報・担当者個人名は含めない (公的窓口の部門のみ; プライバシー)。
+{:jurisdiction "JPN"
+
+ ;; ── 中央窓口 (確証ある安定番号) ──
+ :national-tax-agency
+ {:ja "国税庁 (National Tax Agency)"
+  :postal "100-8978"
+  :address "東京都千代田区霞が関3-1-1"
+  :phone "03-3581-4161"
+  :provenance :authoritative
+  :source-url "https://www.nta.go.jp/about/introduction/shokai/kokuzeicho/index.htm"}
+
+ :etax-helpdesk
+ {:ja "e-Tax・確定申告書等作成コーナー ヘルプデスク"
+  :phone "0570-01-5901"
+  :hours "平日 9:00–17:00 (土日祝・年末年始を除く)"
+  :scope "e-Tax の操作・電子納税 (ダイレクト納付/ネットバンキング) に関する案内"
+  :provenance :authoritative
+  :source-url "https://www.e-tax.nta.go.jp/toiawase/toiawase2.htm"}
+
+ ;; 源泉所得税の一般的な相談は、所轄国税局の「電話相談センター」へ:
+ ;; 所轄税務署の代表番号にかけ、自動音声で「2」(国税に関する相談) → 源泉所得税 を選択。
+ :phone-consultation
+ {:ja "国税局 電話相談センター"
+  :routing "所轄の税務署/国税局の代表番号 → 自動音声ガイダンス「2番」(相談) → 源泉所得税"
+  :provenance :authoritative
+  :source-url "https://www.nta.go.jp/taxes/shiraberu/sodan/denwa_soudan.htm"}
+
+ ;; 税務署で源泉所得税を担当する部門 (法人=法人課税部門 / 個人事業=個人課税部門)
+ :tax-office-division
+ {:gensen-corporate "法人課税(第一)部門"
+  :gensen-individual "個人課税(第一)部門"
+  :note "源泉所得税の届出・納付・相談の所管部門。所轄税務署は給与支払事務所等の所在地で決まる。"
+  :provenance :authoritative
+  :source-url "https://www.nta.go.jp/about/organization/access/map.htm"}
+
+ ;; ── 国税局・国税事務所 (12) — 管轄都道府県は確証あり / 個別電話は要確認 ──
+ :bureaus
+ [{:id :sapporo      :ja "札幌国税局"     :prefectures ["北海道"]}
+  {:id :sendai       :ja "仙台国税局"     :prefectures ["青森" "岩手" "宮城" "秋田" "山形" "福島"]}
+  {:id :kanto-shinetsu :ja "関東信越国税局" :prefectures ["茨城" "栃木" "群馬" "埼玉" "新潟" "長野"]}
+  {:id :tokyo        :ja "東京国税局"     :prefectures ["千葉" "東京" "神奈川" "山梨"]}
+  {:id :kanazawa     :ja "金沢国税局"     :prefectures ["富山" "石川" "福井"]}
+  {:id :nagoya       :ja "名古屋国税局"   :prefectures ["岐阜" "静岡" "愛知" "三重"]}
+  {:id :osaka        :ja "大阪国税局"     :prefectures ["滋賀" "京都" "大阪" "兵庫" "奈良" "和歌山"]}
+  {:id :hiroshima    :ja "広島国税局"     :prefectures ["鳥取" "島根" "岡山" "広島" "山口"]}
+  {:id :takamatsu    :ja "高松国税局"     :prefectures ["徳島" "香川" "愛媛" "高知"]}
+  {:id :fukuoka      :ja "福岡国税局"     :prefectures ["福岡" "佐賀" "長崎"]}
+  {:id :kumamoto     :ja "熊本国税局"     :prefectures ["熊本" "大分" "宮崎" "鹿児島"]}
+  {:id :okinawa      :ja "沖縄国税事務所" :prefectures ["沖縄"]}]
+ :bureaus-provenance :authoritative   ; 管轄区分は確証あり
+ :bureaus-phone-provenance :pending-verification  ; 個別代表番号は live ingest で確定 (G7)
+ :bureaus-source-url "https://www.nta.go.jp/about/organization/index.htm"
+
+ ;; 個別の税務署 (全国約520署) は給与支払事務所の所在地で決まる。市区町村→税務署の対応表は
+ ;; 国税庁サイトからの live ingest (G7-gated)。R0 はルーティング規則のみ提供。
+ :tax-offices
+ {:count-approx 524
+  :resolution "給与支払事務所等の所在地 (市区町村) → 所轄税務署"
+  :provenance :pending-live-ingest
+  :source-url "https://www.nta.go.jp/about/organization/access/chizu.htm"}}
