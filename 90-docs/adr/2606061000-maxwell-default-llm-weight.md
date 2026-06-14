@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: maxwell-default-llm-weight
 authoritative: true
-last_verified: 2026-06-06
+last_verified: 2026-06-13
 priority: 7.0
 axis: ml
 weight: 0.70
@@ -206,10 +206,75 @@ default routing is unchanged (D3) and this ADR is design-only.
 - **Flip the default to Maxwell immediately.** Rejected: violates the
   smoke=destructive honesty rule — no trained weights exist yet (D5).
 
+## D7 — Corpus collection (empirical record, 2026-06-13)
+
+### Wave 1: unit_refactor verified pairs
+
+`90-docs/baien/maxwell-sft-corpus.jsonl` — **27 pairs**, source: `collect_corpus.py` over
+`unit-refactor-results.jsonl` (Wave 1 e4b + Wave 2 12b escalation). Actors covered:
+`hakoniwa`, `hoshimori`. Charter Rider §2 scan: **0 violations**. Format: ChatML
+`system/user/model` with kotoba Datom idiom instruction. Gate: clj-kondo lint +
+Charter Rider scan (both integrated in `70-tools/scripts/maxwell/gate_candidates.py`).
+
+### Wave 2: Opus translate attempt (paused 2026-06-13)
+
+Attempted to use Murakumo Opus proxy (via Workflow + `model: 'opus'`) to translate 30
+Python actor method files (13 actors: hinagata, inochi, itonami, kadode, kaiyaku,
+mimamori, post_quantum-compat, rasen, shiori, tanemaki, tate, tsugite, tsumugi —
+`datom_emit.py` + `coverage_report.py` + selected `analyze.py`) into Clojure.
+
+Results:
+- **140 candidates generated** (62 agents, ~2.47M tokens, ~6.2 min) — translations exist
+  in workflow transcript at `wf_eccccff5-770`
+- **Write step failed** — used `agentType: 'Explore'` (read-only agent) for the
+  candidates file write; only 6 lines written (`hinagata/analyze.py` only)
+- **Resume attempts slow** — agent-based write (3×50-line batches) too slow; workflow
+  ran >10 min on resume without completing; **paused**
+
+**Decision**: pause corpus generation via Murakumo proxy workflow. Correct path for Wave 2:
+
+1. **Direct extract** from workflow transcript JSONL (`wf_eccccff5-770`) via Python — the
+   140 translations are in the cached agent outputs, no re-inference needed.
+2. **OR** a standalone Python script calling Murakumo LiteLLM HTTP directly (synchronous,
+   no agent overhead), using the same few-shot system prompt from `collect_corpus.py`.
+3. Gate via `gate_candidates.py` (clj-kondo + Charter Rider) → `maxwell-sft-corpus.jsonl`.
+
+Target before EVO-X2 training: **≥500 pairs** in `maxwell-sft-corpus.jsonl`.
+EVO-X2 (`192.168.1.70`) was unreachable as of 2026-06-13 (100% packet loss); training
+blocked until machine comes back online. Corpus collection continues independently.
+
+### Wave 3: RSi ecosystem + fleet harvest (2026-06-13)
+
+RSi 自己改善ループ (ADR-2606130900) を実装・稼働開始。`70-tools/scripts/rsi/` に以下を追加:
+
+- `config.py` — 全チューナブル (REPO_ROOT 自動解決, TRAIN_TRIGGER_DELTA=100, DEPLOY_THRESHOLD_PP=0.5)
+- `cid.py` — CIDv1 raw/sha2-256 base32 (ipfs-parity content-addressing)
+- `kotoba_bridge.py` — `:maxwell.corpus/*` / `:maxwell.run/*` / `:maxwell.eval/*` / `:maxwell.checkpoint/*` datom write to :8077
+- `corpus.py` — charter scan + clj-kondo gate + CID dedup + kotoba write
+- `harvest.py` — fleet unit_refactor.py 呼び出し → ingest pipeline
+- `train.py`, `train_sft.py` — EVO-X2 SSH SFT-LoRA (gemma4 vision-tower scope fix + use_reentrant=False)
+- `eval.py` — microbench scoring
+- `deploy.py` — Ollama Modelfile build + fleet push + models.jsonl 更新
+- `loop.py` — 7-step RSi ループ全体
+- `tests/test_rsi.py` — 20 tests, 全 green
+
+**Phase 0 実績 (2026-06-13)**:
+- batch1: 50 Python actor method files → fleet naphtali (gemma4:12b-it-qat) → 99 raw pairs → ingest → **+98 pairs**
+- 合計: **125 / 1000 pairs** (train trigger delta 100 pairs ごと)
+- EVO-X2 (gad): Tailscale 未接続、LAN timeout — **training 未実施**
+- 対応: fleet 全ノードの SSH config を Tailscale IP (100.x.x.x) に更新済み
+- gad が Tailscale に接続次第 `ssh gad` で到達可能になる見込み
+
+`90-docs/baien/maxwell-models.jsonl` に `rsi-p0-batch1` エントリ追加済み。
+
 # References
 
 - `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts` — SSoT registry
 - `90-docs/baien/maxwell-models.jsonl` — Maxwell provenance manifest (this ADR)
+- `90-docs/baien/maxwell-sft-corpus.jsonl` — SFT corpus (27 pairs, Wave 1)
+- `70-tools/scripts/maxwell/collect_corpus.py` — verified-pair extractor (Wave 1)
+- `70-tools/scripts/maxwell/gate_candidates.py` — clj-kondo + Charter Rider gate
+- `70-tools/scripts/fleet-refactor/unit-refactor-results.jsonl` — refactor provenance (35 entries)
 - ADR-2605215000 — Murakumo-only inference (no commercial GPU rental)
 - ADR-2605250400 — gemma-coder-distill recipe (reused)
 - ADR-2605242100 — baien 4-tier ladder; ADR-2605241900 — edge invariant
