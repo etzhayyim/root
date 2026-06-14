@@ -15,7 +15,7 @@ data/gov-revenue-corpus.jp.edn   ── ingest.clj ──▶  model  ── reve
 Files: `methods/{revenue_ledger,ingest,discrepancy,taxes,org_actor,coverage,kotoba_bridge}.clj` +
 `data/{gov-revenue-seed,gov-revenue-corpus,jp-national-taxes,jp-fiscal-orgs}.jp/.edn`
 (+ ingests danjo's existing `data/gov-fiscal-seed.jp.json`) + matching `test_*.clj`
-(135 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 · 6 組織-actor**.
+(142 checks, green under `bb` and `clojure`). Coverage: **FY2023+2024 · 17 国税 · 6 組織-actor**.
 
 Answers, **in Clojure on the kotoba EAVT Datom log**, the question:
 
@@ -165,6 +165,15 @@ cd methods && bb -e '(load-file "kotoba_bridge.clj") \
 `org-view` が各組織の担当スライス(徴収する税 / 所管会計 / per-yen 可否 / 額)を返す。税・組織 datom は
 `run-cycle! :extra-datoms` で同じローカル log → kotoba bridge パイプラインに乗る。
 
+各組織は**解決可能(resolvable)**: `generate-profiles!` が `data/actors/<handle>.profile.json`
+(+ `actors.json` 索引)を生成 — `verificationMethod:[]`(no-server-key)・`keyless:true`・
+`type:gov-fiscal-mirror` の観測ミラー profile(代理・代表しない)。dep-free `->json`(`parse-json` の逆)。
+
+```bash
+cd methods && bb -e '(load-file "org_actor.clj") \
+  ((resolve (symbol "root.danjo.methods.org-actor" "-main")) "generate")'   # → data/actors/*.json
+```
+
 ## Coverage scorecard — `coverage.clj`
 
 `report` computes an HONEST coverage map (matsurigoto G5): fiscal-years, tax-kinds, per-(tax,fy)
@@ -181,8 +190,8 @@ cd methods && bb -e '(load-file "coverage.clj") \
 ## Run
 
 ```bash
-# tests (bb / clojure)  135 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 18
-#                                   + org-actor 14 + coverage 15 + bridge 20)
+# tests (bb / clojure)  142 checks (ledger 25 + ingest 22 + discrepancy 21 + taxes 18
+#                                   + org-actor 21 + coverage 15 + bridge 20)
 ./run_tests_clj.sh                  # or: CLJ_RUNNER=clojure ./run_tests_clj.sh
 
 # demo trace for both taxes

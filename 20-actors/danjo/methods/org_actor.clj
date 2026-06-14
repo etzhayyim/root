@@ -77,9 +77,71 @@
                      :spends-taxes (mapv :id adm)
                      :amount-jpy (reduce + 0 (map :fy2024-amount-jpy adm))}})))
 
+;; ── resolvable profile artifacts (entity-as-actor, ADR-2606042330) ──
+(defn ->json
+  "Minimal dep-free clj → JSON. Inverse of ingest.clj parse-json; bb + clojure."
+  [x]
+  (cond
+    (nil? x)      "null"
+    (boolean? x)  (str x)
+    (number? x)   (str x)
+    (keyword? x)  (->json (subs (str x) 1))     ; :special/reconstruction → "special/reconstruction"
+    (string? x)   (str \" (-> x (str/replace "\\" "\\\\") (str/replace "\"" "\\\"")) \")
+    (map? x)      (str "{" (str/join "," (for [[k v] x]
+                                           (str (->json (if (keyword? k) (subs (str k) 1) (str k)))
+                                                ":" (->json v)))) "}")
+    (sequential? x) (str "[" (str/join "," (map ->json x)) "]")
+    :else         (->json (str x))))
+
+(defn org-profile
+  "The entity-as-actor profile for one org: a keyless (no-server-key) observational mirror of a
+   real public entity. NOT a claim to represent or act for the org (ADR-2606042330)."
+  [org org-reg tax-reg]
+  (let [v (org-view (:id org) org-reg tax-reg)]
+    {:handle (:handle org)
+     :did (:did org)
+     :displayName (:ja org)
+     :displayNameEn (:en org)
+     :type "gov-fiscal-mirror"
+     :actorClass "keyless-mirror"
+     :keyless true
+     :verificationMethod []                       ; no-server-key (ADR-2605231525)
+     :role (:role org)
+     :parent (:parent org)
+     :sourceUrl (:source-url org)
+     :collectsTaxes (mapv (comp #(subs (str %) 1) :id) (get-in v [:collects :taxes]))
+     :perYenTraceableCollected (mapv #(subs (str %) 1) (get-in v [:collects :per-yen-traceable]))
+     :administersAccounts (mapv #(subs (str %) 1) (get-in v [:administers :accounts]))
+     :note (str "Observational mirror of a real public entity (entity-as-actor, ADR-2606042330). "
+                "etzhayyim holds no key and does not represent or act for this org.")
+     :provenance "representative"}))
+
+(defn generate-profiles!
+  "Write one `<handle>.profile.json` per org + an `actors.json` index under `data/actors/`.
+   Returns the list of written paths. Deterministic."
+  [org-reg tax-reg out-dir]
+  (let [dir (io/file (or out-dir "../data/actors"))]
+    (io/make-parents (io/file dir "x"))
+    (let [paths (doall
+                 (for [org (:orgs org-reg)]
+                   (let [f (io/file dir (str (:handle org) ".profile.json"))]
+                     (spit f (->json (org-profile org org-reg tax-reg)))
+                     (.getPath f))))
+          index (io/file dir "actors.json")]
+      (spit index (->json {:actors (mapv (fn [o] {:handle (:handle o) :did (:did o)
+                                                  :displayName (:ja o) :type "gov-fiscal-mirror"
+                                                  :keyless true})
+                                         (:orgs org-reg))
+                           :note "keyless gov-fiscal mirror-actors (ADR-2606042330); observational only."}))
+      (conj (vec paths) (.getPath index)))))
+
 (defn -main [& args]
   (let [orgs  (load-orgs (first args))
         taxes (t/load-taxes nil)]
+    (when (= "generate" (first args))
+      (let [ps (generate-profiles! orgs taxes nil)]
+        (println "wrote" (count ps) "profile artifacts:")
+        (doseq [p ps] (println "  " p))))
     (doseq [org (:orgs orgs)]
       (let [v (org-view (:id org) orgs taxes)]
         (println (:did v) "—" (:ja v) "(" (name (:role v)) ", keyless)")

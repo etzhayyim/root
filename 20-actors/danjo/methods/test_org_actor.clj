@@ -45,6 +45,24 @@
     (check "財務省主計局 administers 一般会計, spends no per-yen-traceable tax (honest)"
            (and (= [:general] (:accounts (:administers mof))) (empty? (:spends-taxes (:administers mof))))))
 
+  ;; ── resolvable profile artifacts (entity-as-actor, keyless) ──
+  (load-file "ingest.clj")
+  (let [in (find-ns 'root.danjo.methods.ingest)
+        prof (o/org-profile (->> (:orgs orgs) (filter #(= :nta (:id %))) first) orgs taxes)]
+    (check "org-profile is keyless"            (true? (:keyless prof)))
+    (check "org-profile has empty verificationMethod (no-server-key)" (= [] (:verificationMethod prof)))
+    (check "org-profile type is gov-fiscal-mirror" (= "gov-fiscal-mirror" (:type prof)))
+    (check "org-profile did matches the org DID"
+           (= "did:web:etzhayyim.com:actor:jp-nta" (:did prof)))
+    (check "->json round-trips through parse-json"
+           (= (get ((ns-resolve in 'parse-json) (o/->json prof)) "did") (:did prof))))
+  (let [dir (str (System/getProperty "java.io.tmpdir") "/danjo-actors-" (rand-int 1000000))
+        paths (o/generate-profiles! orgs taxes dir)]
+    (check "generate-profiles! writes 6 profiles + index (7)" (= 7 (count paths)))
+    (check "every profile file exists"  (every? #(.exists (io/file %)) paths))
+    (doseq [p paths] (.delete (io/file p)))
+    (.delete (io/file dir)))
+
   ;; ── org + tax datoms persist + bridge through the existing pipeline ──
   (let [log (str (System/getProperty "java.io.tmpdir") "/danjo-org-test-" (rand-int 1000000) ".kotoba.edn")
         _   (when (.exists (io/file log)) (.delete (io/file log)))
