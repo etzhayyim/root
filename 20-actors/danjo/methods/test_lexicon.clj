@@ -62,5 +62,14 @@
   (check "manifest honesty invariant states per-yen-iff-special + unrepresentable"
          (str/includes? (get rl "honestyInvariant") "UNREPRESENTABLE")))
 
+;; ── the revenue-ledger ADR exists with the matching id ──
+(let [adr (slurp "../../../90-docs/adr/2606151200-danjo-revenue-ledger-clj.md")]
+  (check "revenue-ledger ADR present" (str/includes? adr "adr-2606151200-danjo-revenue-ledger-clj"))
+  (check "ADR depends on danjo master + kotoba + entity-as-actor"
+         (and (str/includes? adr "2605301600") (str/includes? adr "2605262130")
+              (str/includes? adr "2606042330")))
+  (check "ADR states the honest answer (源泉 not traceable, 復興 traceable)"
+         (and (str/includes? adr "源泉所得税") (str/includes? adr "復興特別所得税"))))
+
 (println (format "── lexicon: %d checks, %d failures ──" @checks @fails))
 (when (pos? @fails) (System/exit 1))

@@ -39,7 +39,8 @@
     "com.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY UBO + parent-subsidiary + officer-edge traversal for cross-reference links (e.g. awardee UBO-linked to a contracting official per public registry). GLEIF L2 (CC0) + OpenCorporates open-data."
   },
   "revenueLedger": {
-    "adr": "etzhayyim:adr:2605301600",
+    "adr": "etzhayyim:adr:2606151200",
+    "masterAdr": "etzhayyim:adr:2605301600",
     "summary": "Clojure revenue-side extension on the kotoba EAVT Datom log. Traces 源泉所得税・復興特別所得税 — and 国全体の税金 (29税: 国17 + 地方12, ≈111兆 representative) — use to the yen, with an HONEST 3-way per-yen-traceability classification: general (一般会計, fungible) / statutory-purpose (目的税, 法定充当だが一般会計内) / special-account (特定財源, per-yen 可). 国→地方 法定率繰入 (地方交付税, ≈16.7兆) modeled as per-yen-traceable transfers. Real fiscal orgs actor-ized as KEYLESS observational mirror-actors (entity-as-actor, ADR-2606042330). Local content-addressed commit-DAG log → live kotoba datomic.transact bridge (no-server-key, dry-run default). 9 honesty invariants verified across all data (REVENUE-MATURITY.md); 192 self-checks (bb + clojure).",
     "methods": ["revenue_ledger", "ingest", "discrepancy", "taxes", "transfers", "org_actor", "coverage", "maturity", "kotoba_bridge"],
     "lexicons": {
