@@ -22,14 +22,16 @@
   {:gate/id "G5" :gate/name "confined-space-atmosphere-gate" :gate/rule "★ entry-permitted? RAISES on ANY unsafe gas reading (O2 19.5–23.5%, H2S <10ppm, CH4 <10%LEL, CO <35ppm); entry without a passing/purged atmosphere is unrepresentable. Removes the human from the confined space"}
   {:gate/id "G6" :gate/name "murakumo-only"          :gate/rule "Inference/narration is Murakumo-only (LiteLLM 127.0.0.1:4000); external LLM prohibited (ADR-2605215000)"}
   {:gate/id "G7" :gate/name "no-pipe-over-pressure"  :gate/rule "★ jet-pressure-safe? RAISES when nozzle pressure exceeds the pipe material's rating (VCP/PVC/concrete/ductile-iron); over-pressure that would damage the pipe is unrepresentable (never clamp-and-proceed)"}
-  {:gate/id "G8" :gate/name "tazuna-operated"        :gate/rule "Remote operation/teleop is via tazuna 手綱 (ADR-2606042100); weaponizable use unrepresentable"}]
+  {:gate/id "G8" :gate/name "tazuna-operated"        :gate/rule "Remote operation/teleop is via tazuna 手綱 (ADR-2606042100); weaponizable use unrepresentable"}
+  {:gate/id "G9" :gate/name "handoff-provenance"     :gate/rule "Every cross-actor handoff 縁 (kudamori→mizuho effluent) names BOTH a source and a destination actor; assert-handoff! RAISES on an orphan handoff — no unattributed chain edge on the Datom log"}]
 
  :actor/methods
  [{:method/id "atmosphere"  :method/lang :clojure :method/pure true :method/desc "★ G5 confined-space entry gate: hazards/entry-permitted?/assert-entry! over O2/H2S/CH4/CO thresholds (raises on unsafe) + purge-to-entry forced-ventilation model"}
   {:method/id "pipe_nav"    :method/lang :clojure :method/pure true :method/desc "In-pipe crawler navigation: diameter-fit check (raises on no-fit) + BFS shortest route over the pipe graph + route-around blocked segments + plan-nav to a target segment"}
   {:method/id "jetting"     :method/lang :clojure :method/pure true :method/desc "★ G7 hydro-jetting: jet-pressure-safe? vs pipe-material rating (raises on over-pressure) + debris-removal volume estimate + water-reuse balance (G2; effluent → mizuho)"}
   {:method/id "analyze"     :method/lang :clojure :method/pure true :method/desc "End-to-end R0 orchestrator: entry gate (purge if needed) → in-pipe nav → pressure-safe jetting → report map; downstream legs GATED when the atmosphere cannot be made safe"}
-  {:method/id "datom_emit"  :method/lang :clojure :method/pure true :method/desc "kotoba EAVT Datom-log emitter (:kuda.node/* :kuda.pipe/* :kuda.robot/* + :cleans 縁 GROUND; :bond/* DERIVED transient)"}]
+  {:method/id "datom_emit"  :method/lang :clojure :method/pure true :method/desc "kotoba EAVT Datom-log emitter (:kuda.node/* :kuda.pipe/* :kuda.robot/* + :cleans 縁 GROUND; :bond/* DERIVED transient)"}
+  {:method/id "handoff"     :method/lang :clojure :method/pure true :method/desc "★ G9 cross-actor chain 縁: outbound effluent handoff (cleaned segment → mizuho 水穂 wastewater TREATMENT) with assert-handoff! provenance gate (raises on orphan) + :handoff/* EAVT emit"}]
 
  :actor/cells
  [{:cell/id "atmosphere_gate" :cell/kind :safety     :cell/runtime :wasm :cell/layer "L0" :cell/method "atmosphere"}

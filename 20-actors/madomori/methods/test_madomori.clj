@@ -8,7 +8,8 @@
             [madomori.methods.wind-envelope :as we]
             [madomori.methods.adhesion :as ad]
             [madomori.methods.analyze :as az]
-            [madomori.methods.datom-emit :as de]))
+            [madomori.methods.datom-emit :as de]
+            [madomori.methods.handoff :as ho]))
 
 ;; ── facade_path ──────────────────────────────────────────────────────────────
 (deftest boustrophedon-visits-every-pane-once
@@ -146,6 +147,56 @@
       (is (re-find #":derived\]" out))
       ;; well-formed EDN vector of datoms
       (is (vector? (clojure.edn/read-string out))))))
+
+;; ── handoff (cross-actor chain edge: madomori→tatekata repair-order) ─────────
+(deftest outbound-to-tatekata
+  (testing "a detected façade defect → tatekata repair-order intent, source-attributed"
+    (let [h (ho/repair-handoff {:pane-id "p-12-04" :defect-kind :cracked-pane :severity :high})]
+      (is (= "madomori" (:from-actor h)))
+      (is (= "tatekata" (:to-actor h)))
+      (is (= :repair-order (:kind h)))
+      (is (= :cracked-pane (get-in h [:payload :defect-kind])))
+      (is (= :high (get-in h [:payload :severity])))
+      (is (= "p-12-04" (get-in h [:payload :pane-id]))))))
+
+(deftest outbound-handoffs-maps-every-defect
+  (testing "every detected defect becomes exactly one tatekata repair-order handoff"
+    (let [hs (ho/outbound-handoffs [{:pane-id "p-1" :defect-kind :cracked-pane :severity :high}
+                                    {:pane-id "p-2" :defect-kind :sealant-failure :severity :medium}
+                                    {:pane-id "p-3" :defect-kind :spalling :severity :low}])]
+      (is (= 3 (count hs)))
+      (is (every? #(= "madomori" (:from-actor %)) hs))
+      (is (every? #(= "tatekata" (:to-actor %)) hs))
+      (is (every? #(= :repair-order (:kind %)) hs)))))
+
+(deftest handoff-provenance-gate
+  (testing "G9 — an orphan handoff (no source/destination) RAISES"
+    (is (thrown? clojure.lang.ExceptionInfo (ho/assert-handoff! {:id "x" :to-actor "tatekata"})))
+    (is (thrown? clojure.lang.ExceptionInfo (ho/assert-handoff! {:id "x" :from-actor "madomori"})))
+    (is (= "madomori" (:from-actor (ho/assert-handoff! {:id "x" :from-actor "madomori" :to-actor "tatekata"}))))))
+
+(deftest handoff-emit-shape
+  (testing "emits well-formed EDN :handoff/* 縁 with actor provenance on every edge"
+    (let [hs (ho/outbound-handoffs [{:pane-id "p-12-04" :defect-kind :cracked-pane :severity :high}
+                                    {:pane-id "p-07-11" :defect-kind :sealant-failure :severity :medium}])
+          out (ho/emit hs 1)]
+      (is (re-find #":handoff/from-actor" out))
+      (is (re-find #":handoff/to-actor" out))
+      (is (re-find #"en\.handoff\.madomori\.tatekata\." out))
+      (is (vector? (edn/read-string out))))))
+
+(deftest handoff-carries-no-imagery-or-person-data
+  (testing "★ G3 — a repair handoff carries ONLY the structural defect descriptor; no imagery/interior/person"
+    (let [h (ho/repair-handoff {:pane-id "p-12-04" :defect-kind :cracked-pane :severity :high})
+          payload-keys (set (keys (:payload h)))]
+      (is (= #{:pane-id :defect-kind :severity} payload-keys))
+      ;; no image/photo/imagery/interior/person/biometric/camera keys are representable
+      (is (not-any? (fn [k] (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera"
+                                     (name k)))
+                    payload-keys))
+      ;; and the same holds through the emitted Datom log (structural defect only)
+      (let [out (ho/emit [h] 1)]
+        (is (nil? (re-find #"(?i)image|photo|imagery|interior|person|biometric|camera" out)))))))
 
 (let [{:keys [fail error]} (run-tests 'madomori.methods.test-madomori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

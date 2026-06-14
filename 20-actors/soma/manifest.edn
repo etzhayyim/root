@@ -22,14 +22,16 @@
   {:gate/id "G5" :gate/name "exclusion-zone-fell-safety" :gate/rule "safe-fell? RAISES when the predicted fall zone (≈1.5× tree height sector) overlaps ANY exclusion/human/road/watercourse point — fall fatality is the #1 logging hazard; never silently planned"}
   {:gate/id "G6" :gate/name "murakumo-only"            :gate/rule "Inference/narration is Murakumo-only (LiteLLM 127.0.0.1:4000); external LLM prohibited (ADR-2605215000)"}
   {:gate/id "G7" :gate/name "protected-species-refusal" :gate/rule "A protected species or a no-cut flag (old-growth / seed-tree) on a tree REFUSES felling (plan-fell RAISES) — never silently forced"}
-  {:gate/id "G8" :gate/name "tazuna-operated"          :gate/rule "Remote operation/teleop is via tazuna 手綱 (ADR-2606042100); weaponizable use unrepresentable"}]
+  {:gate/id "G8" :gate/name "tazuna-operated"          :gate/rule "Remote operation/teleop is via tazuna 手綱 (ADR-2606042100); weaponizable use unrepresentable"}
+  {:gate/id "G9" :gate/name "handoff-provenance"       :gate/rule "A cross-actor handoff 縁 soma→tatekata (graded timber-supply intent) must name both a source and a destination actor; an orphan handoff (missing :from-actor / :to-actor) RAISES — no unattributed chain edge"}]
 
  :actor/methods
  [{:method/id "fell_plan"   :method/lang :clojure :method/pure true :method/desc "Directional tree-felling mechanics: predict fall azimuth from notch-aim biased by lean + perturbed by wind, hinge holding-wood width, 1.5×-height fall-zone sector; safe-fell? + plan-fell RAISE on exclusion overlap (G5) or protected/no-cut tree (G7)"}
   {:method/id "harvester"   :method/lang :clojure :method/pure true :method/desc "Cut-to-length bucking value optimization (unbounded rod-cutting DP over a price-by-length-class table, sawlog>pulp) + grapple/boom reach feasibility (G8)"}
   {:method/id "extraction"  :method/lang :clojure :method/pure true :method/desc "Forwarder/skidder extraction: slope gate (refuse over max grade) + ground-impact gate (refuse over soil bearing / protected soil); plan-route RAISES on over-grade or over-pressure (G2 regenerative-only)"}
   {:method/id "analyze"     :method/lang :clojure :method/pure true :method/desc "End-to-end R0 orchestrator: load seed → per-tree fell (aim into a clear lane, refuse protected/unsafe) → buck → extraction route → report map"}
-  {:method/id "datom_emit"  :method/lang :clojure :method/pure true :method/desc "kotoba EAVT Datom-log emitter (:soma.stand/* :soma.tree/* :soma.exclusion/* :soma.forwarder/* + :felled / :refused-protected 縁 GROUND; :bond/* DERIVED transient)"}]
+  {:method/id "datom_emit"  :method/lang :clojure :method/pure true :method/desc "kotoba EAVT Datom-log emitter (:soma.stand/* :soma.tree/* :soma.exclusion/* :soma.forwarder/* + :felled / :refused-protected 縁 GROUND; :bond/* DERIVED transient)"}
+  {:method/id "handoff"     :method/lang :clojure :method/pure true :method/desc "Cross-actor chain 縁 soma→tatekata 建方: a bucked-log/assortment record {:log-id :grade :length-m :volume-m3} → a :timber-supply lumber intent (grade + volume on the payload); assert-handoff! provenance gate RAISES on an orphan handoff (G9); emit → append-only :handoff/* EAVT datoms"}]
 
  :actor/cells
  [{:cell/id "fell"        :cell/kind :planning :cell/runtime :wasm :cell/layer "L0" :cell/method "fell_plan"}

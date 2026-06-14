@@ -8,7 +8,8 @@
             [kudamori.methods.pipe-nav :as nav]
             [kudamori.methods.jetting :as jet]
             [kudamori.methods.analyze :as az]
-            [kudamori.methods.datom-emit :as de]))
+            [kudamori.methods.datom-emit :as de]
+            [kudamori.methods.handoff :as ho]))
 
 ;; ── atmosphere (★ G5 — the headline confined-space entry gate) ────────────────
 (def safe-air  {:o2-pct 20.9 :h2s-ppm 0.0 :ch4-lel 0.0 :co-ppm 0.0})
@@ -156,6 +157,42 @@
           out (de/emit bad res 1)]
       (is (re-find #":bond/jetting-gated true" out))
       (is (not (re-find #":en/kind :cleans" out)))
+      (is (vector? (edn/read-string out))))))
+
+;; ── handoff (cross-actor chain edges: kudamori→mizuho effluent) ──────────────
+(deftest outbound-to-mizuho
+  (testing "cleaned segments → mizuho wastewater-treatment intents, source-attributed"
+    (let [hs (ho/outbound-handoff [{:segment-id "seg-1-2" :debris-m3 0.42 :effluent-l 540.0}
+                                   {:segment-id "seg-2-3" :debris-m3 0.18 :effluent-l 360.0}])]
+      (is (= 2 (count hs)))
+      (is (every? #(= "kudamori" (:from-actor %)) hs))
+      (is (every? #(= "mizuho" (:to-actor %)) hs))
+      (is (= :effluent (:kind (first hs))))
+      (is (= 0.42 (get-in (first hs) [:payload :debris-m3])))
+      (is (= 540.0 (get-in (first hs) [:payload :effluent-l]))))))
+
+(deftest effluent-handoff-single
+  (testing "a single cleaned segment → one mizuho effluent handoff"
+    (let [h (ho/effluent-handoff {:segment-id "seg-3-4" :debris-m3 0.25 :effluent-l 300.0})]
+      (is (= "kudamori" (:from-actor h)))
+      (is (= "mizuho" (:to-actor h)))
+      (is (= :effluent (:kind h)))
+      (is (= "seg-3-4" (get-in h [:payload :segment-id])))
+      (is (= 300.0 (get-in h [:payload :effluent-l]))))))
+
+(deftest handoff-provenance-gate
+  (testing "G9 — an orphan handoff (no source/destination) RAISES"
+    (is (thrown? clojure.lang.ExceptionInfo (ho/assert-handoff! {:id "x" :to-actor "mizuho"})))
+    (is (thrown? clojure.lang.ExceptionInfo (ho/assert-handoff! {:id "x" :from-actor "kudamori"})))
+    (is (= "kudamori" (:from-actor (ho/assert-handoff! {:id "x" :from-actor "kudamori" :to-actor "mizuho"}))))))
+
+(deftest handoff-emit-shape
+  (testing "emits well-formed EDN :handoff/* 縁 with actor provenance on every edge"
+    (let [hs (ho/outbound-handoff [{:segment-id "seg-1-2" :debris-m3 0.42 :effluent-l 540.0}])
+          out (ho/emit hs 1)]
+      (is (re-find #":handoff/from-actor" out))
+      (is (re-find #":handoff/to-actor" out))
+      (is (re-find #"en\.handoff\.kudamori\.mizuho\." out))
       (is (vector? (edn/read-string out))))))
 
 (let [{:keys [fail error]} (run-tests 'kudamori.methods.test-kudamori)]

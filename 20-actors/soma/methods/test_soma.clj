@@ -7,7 +7,8 @@
             [soma.methods.harvester :as hv]
             [soma.methods.extraction :as ex]
             [soma.methods.analyze :as az]
-            [soma.methods.datom-emit :as de]))
+            [soma.methods.datom-emit :as de]
+            [soma.methods.handoff :as ho]))
 
 ;; ── fell_plan: geometry ───────────────────────────────────────────────────────
 (deftest angle-helpers
@@ -172,6 +173,33 @@
       (is (re-find #":bond/total-value" out))
       (is (re-find #":derived\]" out))
       ;; well-formed EDN vector of datoms
+      (is (vector? (clojure.edn/read-string out))))))
+
+;; ── handoff (cross-actor chain edges: soma→tatekata timber supply) ───────────
+(deftest outbound-to-tatekata
+  (testing "bucked-log assortments → tatekata lumber-supply intents, source-attributed"
+    (let [hs (ho/outbound-handoff [{:log-id "l1" :grade :sawlog :length-m 5.0 :volume-m3 0.42}
+                                   {:log-id "l2" :grade :pulp :length-m 3.0 :volume-m3 0.18}])]
+      (is (= 2 (count hs)))
+      (is (every? #(= "soma" (:from-actor %)) hs))
+      (is (every? #(= "tatekata" (:to-actor %)) hs))
+      (is (= :timber-supply (:kind (first hs))))
+      (is (= :sawlog (get-in (first hs) [:payload :grade])))
+      (is (= 0.42 (get-in (first hs) [:payload :volume-m3]))))))
+
+(deftest handoff-provenance-gate
+  (testing "G9 — an orphan handoff (no source/destination) RAISES"
+    (is (thrown? clojure.lang.ExceptionInfo (ho/assert-handoff! {:id "x" :to-actor "tatekata"})))
+    (is (thrown? clojure.lang.ExceptionInfo (ho/assert-handoff! {:id "x" :from-actor "soma"})))
+    (is (= "soma" (:from-actor (ho/assert-handoff! {:id "x" :from-actor "soma" :to-actor "tatekata"}))))))
+
+(deftest handoff-emit-shape
+  (testing "emits well-formed EDN :handoff/* 縁 with actor provenance on every edge"
+    (let [hs (ho/outbound-handoff [{:log-id "l1" :grade :sawlog :length-m 5.0 :volume-m3 0.42}])
+          out (ho/emit hs 1)]
+      (is (re-find #":handoff/from-actor" out))
+      (is (re-find #":handoff/to-actor" out))
+      (is (re-find #"en\.handoff\.soma\.tatekata\." out))
       (is (vector? (clojure.edn/read-string out))))))
 
 (let [{:keys [fail error]} (run-tests 'soma.methods.test-soma)]

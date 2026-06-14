@@ -22,14 +22,16 @@
   {:gate/id "G5" :gate/name "wind-fall-arrest-safety"   :gate/rule "★ work-permitted? RAISES at/above the wind work-stop threshold (the fall-equivalent gate; not tunable up) OR with <2 independent fall-arrest anchors (a single-anchor descent is refused)"}
   {:gate/id "G6" :gate/name "murakumo-only"             :gate/rule "Inference/narration is Murakumo-only (LiteLLM 127.0.0.1:4000); external LLM prohibited (ADR-2605215000)"}
   {:gate/id "G7" :gate/name "adhesion-factor-of-safety" :gate/rule "★ adhesion-safe? RAISES when the achieved suction/adhesion factor-of-safety is below the required margin (an unsafe adhesion plan = a fall; it must surface, never be silently forced)"}
-  {:gate/id "G8" :gate/name "tazuna-operated"           :gate/rule "Remote operation/teleop is via tazuna 手綱 (ADR-2606042100); weaponizable use unrepresentable"}]
+  {:gate/id "G8" :gate/name "tazuna-operated"           :gate/rule "Remote operation/teleop is via tazuna 手綱 (ADR-2606042100); weaponizable use unrepresentable"}
+  {:gate/id "G9" :gate/name "handoff-provenance"        :gate/rule "A cross-actor handoff 縁 madomori→tatekata (a detected façade defect → repair work-order) names both source and destination actor and carries ONLY the structural defect descriptor (pane id + defect kind + severity), never imagery/interior/person data (G3 preserved). An orphan handoff (missing source/destination) RAISES — no unattributed chain edge"}]
 
  :actor/methods
  [{:method/id "facade_path"   :method/lang :clojure :method/pure true :method/desc "Façade coverage path planning over a rows×cols pane grid: boustrophedon (S-shape) sweep, path length (m), per-pane water + agent budget (G2), and coverage completeness (every pane visited exactly once)"}
   {:method/id "wind_envelope" :method/lang :clojure :method/pure true :method/desc "Rope/BMU pendulum sway model + wind safety. work-permitted? RAISES above the wind work-stop threshold (★ G5) or with <2 independent fall-arrest anchors"}
   {:method/id "adhesion"      :method/lang :clojure :method/pure true :method/desc "Suction/adhesion force vs payload × surface-type factor-of-safety. adhesion-safe? RAISES below the required margin (★ G7)"}
   {:method/id "analyze"       :method/lang :clojure :method/pure true :method/desc "End-to-end R0 orchestrator: load seed → coverage path + budget → wind/sway envelope → adhesion FoS → GO? (both safety gates pass) → report map"}
-  {:method/id "datom_emit"    :method/lang :clojure :method/pure true :method/desc "kotoba EAVT Datom-log emitter (:mado.face/* :mado.pane/* :mado.robot/* + :anchored-by 縁 GROUND; :bond/* DERIVED transient). G3 structural: only the on-device imagery flag is emittable"}]
+  {:method/id "datom_emit"    :method/lang :clojure :method/pure true :method/desc "kotoba EAVT Datom-log emitter (:mado.face/* :mado.pane/* :mado.robot/* + :anchored-by 縁 GROUND; :bond/* DERIVED transient). G3 structural: only the on-device imagery flag is emittable"}
+  {:method/id "handoff"       :method/lang :clojure :method/pure true :method/desc "Cross-actor handoff 縁: a detected façade defect (cracked pane / sealant failure / spalling) → tatekata 建方 repair work-order intent. assert-handoff! RAISES on a handoff missing source/destination actor (G9 provenance); emit produces :handoff/* EAVT datoms (edge entity en.handoff.madomori.tatekata.<id>). G3 structural: the payload carries only the defect descriptor (pane id + defect kind + severity), no imagery/interior/person data"}]
 
  :actor/cells
  [{:cell/id "coverage_path"  :cell/kind :planning :cell/runtime :wasm :cell/layer "L0" :cell/method "facade_path"}
