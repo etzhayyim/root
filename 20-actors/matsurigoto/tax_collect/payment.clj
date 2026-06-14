@@ -100,16 +100,33 @@
                      :else        "不納付加算税 (10%)")})))
 
 ;; ── 延滞税 (国税通則法60条) ─────────────────────────────────────────────────────
-;; 特例基準割合は年次改定 → :representative デフォルト (令和の代表値)。deployment が authoritative 供給。
-(def DEFAULT-DELINQUENCY-RATES
-  {:early-rate 24/1000   ; 納期限の翌日〜2か月以内 (年2.4% 相当, :representative)
-   :late-rate  87/1000   ; 2か月経過後 (年8.7% 相当, :representative)
-   :sourcing :representative
-   :source-url "https://www.nta.go.jp/taxes/nozei/entaizei/keisan/entai.htm"})
+;; 延滞税の割合は年次告示 (特例基準割合連動)。国税庁「延滞税の割合」より :authoritative。
+;; early = 納期限の翌日〜2か月以内 / late = 2か月を経過した日以後。
+;; 出典: https://www.nta.go.jp/taxes/nozei/entaizei/keisan/entai_wariai.htm
+;;       https://www.mof.go.jp/tax_policy/summary/tins/n04_5.pdf
+(def DELINQUENCY-RATES-BY-YEAR
+  {2025 {:early-rate 24/1000 :late-rate 87/1000}   ; 令和7年: 2.4% / 8.7%
+   2026 {:early-rate 28/1000 :late-rate 91/1000}}) ; 令和8年: 2.8% / 9.1% (引上げ)
+
+(def DELINQUENCY-RATES-META
+  {:sourcing :authoritative
+   :source-url "https://www.nta.go.jp/taxes/nozei/entaizei/keisan/entai_wariai.htm"
+   :note "年により割合が異なる。延滞期間が複数年にまたがる場合は期間ごとの割合で按分 (本実装は単一年率)。"})
+
+(defn delinquency-rates-for-year
+  "暦年 y の延滞税割合 {:early-rate :late-rate}。未収載年は直近(最大)年を使用。"
+  [y]
+  (merge (or (get DELINQUENCY-RATES-BY-YEAR y)
+             (get DELINQUENCY-RATES-BY-YEAR (apply max (keys DELINQUENCY-RATES-BY-YEAR))))
+         DELINQUENCY-RATES-META))
+
+;; 後方互換のデフォルト = 当年 (2026) の :authoritative 割合。
+(def DEFAULT-DELINQUENCY-RATES (delinquency-rates-for-year 2026))
 
 (defn delinquency-tax
   "延滞税: 法定納期限の翌日から完納日まで。2か月以内は early-rate、超過分は late-rate。
-   計算基礎は1万円未満切捨て、確定金額は100円未満切捨て、全体が1,000円未満なら全額切捨て。"
+   計算基礎は1万円未満切捨て、確定金額は100円未満切捨て、全体が1,000円未満なら全額切捨て。
+   rates 省略時は当年 (2026) の :authoritative 割合。年指定は delinquency-rates-for-year を渡す。"
   ([^long tax due-date-str paid-date-str]
    (delinquency-tax tax due-date-str paid-date-str DEFAULT-DELINQUENCY-RATES))
   ([^long tax due-date-str paid-date-str rates]

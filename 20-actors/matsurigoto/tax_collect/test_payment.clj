@@ -60,11 +60,17 @@
 (deftest delinquency-tax-calc
   (testing "期限内納付は0"
     (is (= 0 (:delinquency-tax (p/delinquency-tax 1000000 "2026-02-10" "2026-02-10")))))
-  (testing "2か月以内 (early-rate 2.4%, 28日)"
-    (let [r (p/delinquency-tax 1000000 "2026-02-10" "2026-03-10")]
+  (testing "令和7年(2.4%) 2か月以内, 28日"
+    (let [r (p/delinquency-tax 1000000 "2026-02-10" "2026-03-10" (p/delinquency-rates-for-year 2025))]
       (is (= 28 (:days r)))
       ;; floor(1,000,000×24×28 / (1000×365)) = 1841 → 100円未満切捨て = 1,800
       (is (= 1800 (:delinquency-tax r)))))
+  (testing "令和8年(2.8%, 引上げ後) 同条件"
+    ;; floor(1,000,000×28×28 / (1000×365)) = 2147 → 100円未満切捨て = 2,100
+    (is (= 2100 (:delinquency-tax (p/delinquency-tax 1000000 "2026-02-10" "2026-03-10"
+                                                     (p/delinquency-rates-for-year 2026))))))
+  (testing "割合は :authoritative (国税庁告示)"
+    (is (= :authoritative (:sourcing (p/delinquency-rates-for-year 2026)))))
   (testing "1,000円未満は全額切捨て"
     (is (= 0 (:delinquency-tax (p/delinquency-tax 1000000 "2026-02-10" "2026-02-12"))))))
 

@@ -44,9 +44,12 @@
      :national-tax-agency (national-tax-agency registry)
      :bureau (when bureau
                {:ja (:ja bureau)
+                :phone (:phone bureau)
+                :postal (:postal bureau)
+                :address (:address bureau)
                 :prefectures (:prefectures bureau)
                 :phone-provenance (:bureaus-phone-provenance registry)
-                :source-url (:bureaus-source-url registry)})
+                :source-url (:bureaus-phone-source-url registry)})
      :phone-consultation (phone-consultation registry)
      :tax-office {:division (corporate-division registry)
                   :resolution (get-in registry [:tax-offices :resolution])
@@ -56,13 +59,36 @@
      :unresolved (when-not bureau
                    (str "都道府県 " (pr-str prefecture) " は registry 未収載 (要確認)"))}))
 
+(defn tax-offices
+  "registry に取り込み済みの個別税務署レコード (operator ingest 前は空)。"
+  [registry] (get-in registry [:tax-offices :offices] []))
+
+(defn ingest-tax-offices
+  "operator が国税庁ページから整形した個別署レコード列を registry に merge する (G7-gated step)。
+   各 office は :tax-offices/:ingest-format に従う。fabrication は禁止 — 出典付きのみ受理する。"
+  [registry offices]
+  (doseq [o offices]
+    (when-not (and (:id o) (:ja o) (:bureau o) (:source-url o))
+      (throw (ex-info "税務署レコードは :id :ja :bureau :source-url 必須 (G5 出典必須)" {:office o}))))
+  (update-in registry [:tax-offices :offices] (fnil into []) offices))
+
+(defn tax-office-for-ward
+  "市区町村名から所轄税務署を引く (ingest 済みのときのみ)。未 ingest は nil。"
+  [registry ward]
+  (first (filter (fn [o] (some #(= % ward) (:wards o))) (tax-offices registry))))
+
 (defn coverage
-  "連絡先 registry のカバレッジ (honest)。電話番号が :authoritative なのは中央窓口のみ。"
+  "連絡先 registry のカバレッジ (honest)。中央2窓口 + 12局の代表電話が :authoritative。
+   個別の税務署 (約520署) は live ingest 待ち。"
   [registry]
-  {:bureaus (count (bureaus registry))
-   :prefectures-covered (reduce + (map #(count (:prefectures %)) (bureaus registry)))
-   :authoritative-phones (->> [(national-tax-agency registry) (etax-helpdesk registry)]
-                              (filter #(and (:phone %) (= :authoritative (:provenance %))))
-                              count)
-   :bureau-phone-status (:bureaus-phone-provenance registry)
-   :tax-office-status (get-in registry [:tax-offices :provenance])})
+  (let [central-auth (->> [(national-tax-agency registry) (etax-helpdesk registry)]
+                          (filter #(and (:phone %) (= :authoritative (:provenance %))))
+                          count)
+        bureau-auth  (if (= :authoritative (:bureaus-phone-provenance registry))
+                       (count (filter :phone (bureaus registry)))
+                       0)]
+    {:bureaus (count (bureaus registry))
+     :prefectures-covered (reduce + (map #(count (:prefectures %)) (bureaus registry)))
+     :authoritative-phones (+ central-auth bureau-auth)
+     :bureau-phone-status (:bureaus-phone-provenance registry)
+     :tax-office-status (get-in registry [:tax-offices :provenance])}))

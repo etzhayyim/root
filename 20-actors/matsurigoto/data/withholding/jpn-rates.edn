@@ -31,17 +31,22 @@
  ;; 下記は「電子計算機等を使用して源泉徴収税額を計算する方法」の別表構造を表す代表値であり、
  ;; 当年の確定値ではない。テストはアルゴリズムの正しさのみを検証する (値の authoritative 性は非主張)。
  :salary-monthly-kou
- {:sourcing :representative
-  :source-url "https://www.nta.go.jp/publication/pamph/gensen/zeigaku/index.htm"
-  :note "別表第一(給与所得控除)/第二(扶養控除)/第四(税額速算) の構造を表す簡易月額近似。
-         当年の確定値ではない。テストはアルゴリズム合成 (控除→課税→速算→切捨て) のみを検証する。"
-  ;; 別表第一相当(簡易月額近似): 給与所得控除 = floor(社保控除後給与 × 率/1000) + 加減算 (区分線形)
+ {:sourcing :mixed
+  :source-url "https://www.nta.go.jp/publication/pamph/gensen/zeigakuhyo2022/data/denshi_10.pdf"
+  :note "電子計算機計算の特例 (月額表甲欄)。出典=国税庁『月額表の甲欄を適用する給与等に対する
+         税額の電算機計算の特例』(令和3〜7年分, denshi_10.pdf)。
+         :authoritative — :tax-brackets(別表第四 税額速算, 復興込み合計税率) + :dependent-deduction
+                          (別表第二 31,667円/人)。
+         :representative — :salary-deduction-brackets(別表第一 給与所得控除) は簡易月額近似 +
+                          :basic-deduction。別表第一の確定月額区分は denshi_10.pdf から
+                          operator が供給する (G2/G5; テストはアルゴリズム合成のみ検証)。"
+  ;; 別表第一相当(簡易月額近似 :representative): 給与所得控除 = floor(社保控除後給与 × 率/1000) + 加減算
   :salary-deduction-brackets [[0      300 0]        ; ~30% (低中所得帯, 簡易)
                               [550000 100 110000]   ; 高所得帯は逓減・頭打ち
                               [1625000 0 162500]]   ; 上限 162,500円/月相当で頭打ち
-  :dependent-deduction 31667     ; 別表第二相当 (控除対象扶養親族等 1人/月 ≒ 年38万÷12)
-  :basic-deduction     40000     ; 基礎控除 月額相当 (年48万円 ÷ 12)
-  ;; 別表第四相当: 課税給与所得金額 → 税額 = floor(A × 合計税率ppm/1e6 − 控除額)。率は復興込み。
+  :dependent-deduction 31667     ; 別表第二 (控除対象扶養親族等 1人/月) — :authoritative
+  :basic-deduction     40000     ; 基礎控除 月額相当 (年48万円 ÷ 12) — :representative
+  ;; 別表第四 (課税給与所得金額 → 税額 = floor(A × 合計税率ppm/1e6 − 控除額), 復興込み) — :authoritative
   :tax-brackets [[0        51050  0]
                  [162501   102100 8296]
                  [275001   204200 36374]
