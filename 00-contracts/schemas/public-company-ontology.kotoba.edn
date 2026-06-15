@@ -96,7 +96,8 @@
   {:db/ident :company.process/name    :db/valueType :db.type/string}
   {:db/ident :company.process/kind    :db/valueType :db.type/keyword :db/doc ":procurement | :disclosure | :supply-onboarding (generic public workflow templates)"}
   {:db/ident :company.process/bpmn-cid :db/valueType :db.type/string :db/doc "KotobaCid of the framed BPMN 2.0 XML block"}
-  {:db/ident :company.process/sourcing :db/valueType :db.type/keyword :db/doc "BPMN templates are :synthesized (generic models), never asserted as a company's actual internal process"}]
+  {:db/ident :company.process/sourcing :db/valueType :db.type/keyword :db/doc "BPMN templates are :synthesized (generic models), never asserted as a company's actual internal process"}
+  {:db/ident :kabuto/note :db/valueType :db.type/string :db/doc "Free-text provenance/dedup annotation (e.g. placeholder-ref reconciliation, :synthesized/:delisted marking). Declared so seed data conforms (etzhayyim.kotoba.schema)."}]
 
  ;; ───────────────────────────── DERIVED (analyze.py, never stored as raw fact) ────
  ;; kabuto computes these and emits them flagged :derived; not re-ingested as authoritative.
