@@ -3,12 +3,18 @@
 ;; Per ADR-2606142000 (kuramori R0).
 (ns kuramori.methods.test-kuramori
   (:require [clojure.test :refer [deftest is testing run-tests]]
+            [clojure.string :as str]
             [kuramori.methods.agv-amr :as fleet]
             [kuramori.methods.slotting :as slot]
             [kuramori.methods.analyze :as az]
             [kuramori.methods.datom-emit :as de]
             [kuramori.methods.picking :as pick]
-            [kuramori.methods.handoff :as ho]))
+            [kuramori.methods.packing :as pk]
+            [kuramori.methods.handoff :as ho]
+            [kuramori.methods.replenish :as rep]
+            [kuramori.methods.returns :as ret]
+            [kuramori.methods.cyclecount :as cc]
+            [kuramori.methods.coverage :as cov]))
 
 ;; ── agv_amr ──────────────────────────────────────────────────────────────────
 (deftest travel-time-monotonic
@@ -190,6 +196,62 @@
         (is (= "aisle-1" (:zone (first ovf))))
         (is (= 1 (:over (first ovf))))))))
 
+;; ── packing (cartonization: pack picked items into shipping cartons) ─────────
+(def carton-types
+  [{:id "S" :vol-cm3 8000  :max-kg 3.0}
+   {:id "M" :vol-cm3 27000 :max-kg 10.0}
+   {:id "L" :vol-cm3 64000 :max-kg 25.0}])
+
+(deftest cartonize-small-order-smallest-fitting-carton
+  (testing "a small order fits one SMALLEST carton; utilisation in (0,1]"
+    (let [items [{:id "i1" :vol-cm3 2000 :weight-kg 0.5}
+                 {:id "i2" :vol-cm3 3000 :weight-kg 1.0}]   ; Σvol 5000 ≤ S, Σwt 1.5 ≤ S
+          r (pk/cartonize items carton-types)]
+      (is (= 1 (:count r)))
+      (is (= "S" (:carton-type (first (:cartons r)))))      ; smallest fitting, not M/L
+      (is (= ["i1" "i2"] (:items (first (:cartons r)))))
+      (let [{:keys [vol-util weight-util]} (first (:cartons r))]
+        (is (and (pos? vol-util) (<= vol-util 1.0)))
+        (is (and (pos? weight-util) (<= weight-util 1.0)))))))
+
+(deftest cartonize-oversize-total-multi-carton-split
+  (testing "no single carton holds all → FFD split into largest-type cartons; every item placed exactly once"
+    (let [items [{:id "j1" :vol-cm3 40000 :weight-kg 12.0}
+                 {:id "j2" :vol-cm3 40000 :weight-kg 12.0}  ; j1+j2 vol 80000 > L 64000
+                 {:id "j3" :vol-cm3 30000 :weight-kg 6.0}]
+          r (pk/cartonize items carton-types)
+          placed (mapcat :items (:cartons r))]
+      (is (> (:count r) 1))                                 ; multi-carton
+      (is (every? #(= "L" (:carton-type %)) (:cartons r)))  ; largest type
+      (is (= #{"j1" "j2" "j3"} (set placed)))               ; all items present
+      (is (= 3 (count placed)))                             ; each placed exactly once, no dup/drop
+      ;; every carton respects both bounds (util ≤ 1.0)
+      (is (every? #(and (<= (:vol-util %) 1.0) (<= (:weight-util %) 1.0)) (:cartons r))))))
+
+(deftest cartonize-item-bigger-than-largest-raises
+  (testing "a single item exceeding the LARGEST carton RAISES (unpackable; no phantom pack)"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (pk/cartonize [{:id "huge" :vol-cm3 99999 :weight-kg 1.0}] carton-types))) ; volume over L
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (pk/cartonize [{:id "heavy" :vol-cm3 100 :weight-kg 99.0}] carton-types))))) ; weight over L
+
+(deftest cartonize-weight-vs-volume-bound-selection
+  (testing "carton choice is bounded by weight in one case and by volume in the other"
+    ;; weight-bound: tiny volume but heavy → needs M (S max-kg 3.0 too small), volume alone would fit S
+    (let [wt-bound [{:id "w1" :vol-cm3 100 :weight-kg 4.0}]
+          r (pk/cartonize wt-bound carton-types)]
+      (is (= 1 (:count r)))
+      (is (= "M" (:carton-type (first (:cartons r)))))      ; S rejected on weight, not volume
+      (is (= 0 (int (* 100 (:vol-util (first (:cartons r))))))) ; volume barely used
+      (is (> (:weight-util (first (:cartons r))) 0.0)))
+    ;; volume-bound: light but bulky → needs M (S vol 8000 too small), weight alone would fit S
+    (let [vol-bound [{:id "v1" :vol-cm3 20000 :weight-kg 0.5}]
+          r (pk/cartonize vol-bound carton-types)]
+      (is (= 1 (:count r)))
+      (is (= "M" (:carton-type (first (:cartons r)))))      ; S rejected on volume, not weight
+      (is (and (pk/fits? (first vol-bound) {:id "M" :vol-cm3 27000 :max-kg 10.0})
+               (not (pk/fits? (first vol-bound) {:id "S" :vol-cm3 8000 :max-kg 3.0})))))))
+
 ;; ── handoff (cross-actor chain edges: niyaku→kuramori→todoke) ────────────────
 (deftest inbound-from-niyaku
   (testing "niyaku discharge → kuramori putaway intents, source-attributed"
@@ -225,6 +287,183 @@
       (is (re-find #"en\.handoff\.niyaku\.kuramori\." out))
       (is (re-find #"en\.handoff\.kuramori\.todoke\." out))
       (is (vector? (clojure.edn/read-string out))))))
+
+;; ── replenish (forward-pick replenishment from bulk) ─────────────────────────
+(def fwd-slots
+  [{:slot-id "f-g1" :sku-id "sku-fast" :qty 4  :min 10 :max 40}   ; below min
+   {:slot-id "f-g2" :sku-id "sku-med"  :qty 18 :min 12 :max 36}   ; healthy
+   {:slot-id "f-r1" :sku-id "sku-cold" :qty 2  :min 8  :max 24}]) ; below min
+
+(def bulk-src
+  [{:bulk-id "blk-A" :sku-id "sku-fast" :qty 200}
+   {:bulk-id "blk-B" :sku-id "sku-cold" :qty 13}
+   {:bulk-id "blk-C" :sku-id "sku-med"  :qty 50}])
+
+(deftest needs-replenish-only-below-min
+  (testing "only slots whose qty < min are returned"
+    (let [needy (rep/needs-replenish fwd-slots)]
+      (is (= #{"f-g1" "f-r1"} (set (map :slot-id needy))))
+      (is (= 2 (count needy))))))
+
+(deftest replenish-plan-refills-toward-max-respecting-case-pack
+  (testing "refill = round-down(min(max-qty, available)) to case-pack quantum"
+    (let [plan (rep/replenish-plan fwd-slots bulk-src {:case-pack 6})
+          by-slot (into {} (map (juxt :slot-id identity) plan))]
+      ;; f-g1: want = 40-4 = 36, available 200 → min 36, /6 = 36
+      (is (= 36 (:qty (by-slot "f-g1"))))
+      (is (= "blk-A" (:from-bulk (by-slot "f-g1"))))
+      ;; f-r1: want = 24-2 = 22, available 13 → min 13, round down to case-pack 6 → 12
+      (is (= 12 (:qty (by-slot "f-r1"))))
+      (is (= "blk-B" (:from-bulk (by-slot "f-r1"))))
+      ;; healthy slot is never planned
+      (is (nil? (by-slot "f-g2"))))))
+
+(deftest replenish-plan-hard-stockout-raises
+  (testing "G — a SKU absent from all bulk RAISES (no phantom replenishment)"
+    (let [slots [{:slot-id "f-x1" :sku-id "sku-ghost" :qty 0 :min 5 :max 20}]]
+      (is (thrown? clojure.lang.ExceptionInfo (rep/replenish-plan slots bulk-src))))))
+
+(deftest replenish-plan-fully-stocked-is-empty
+  (testing "a face all at/above min yields an empty plan"
+    (let [stocked [{:slot-id "f-a" :sku-id "sku-fast" :qty 40 :min 10 :max 40}
+                   {:slot-id "f-b" :sku-id "sku-cold" :qty 12 :min 8  :max 24}]]
+      (is (empty? (rep/replenish-plan stocked bulk-src {:case-pack 6}))))))
+
+;; ── returns (reverse logistics: disposition by condition grade) ──────────────
+(deftest disposition-by-condition-grade
+  (testing "grade ≥4 → restock, 2-3 → refurbish, 1 → scrap"
+    (is (= :restock   (ret/disposition {:id "a" :sku-id "s" :condition-grade 5})))
+    (is (= :restock   (ret/disposition {:id "b" :sku-id "s" :condition-grade 4})))
+    (is (= :refurbish (ret/disposition {:id "c" :sku-id "s" :condition-grade 3})))
+    (is (= :refurbish (ret/disposition {:id "d" :sku-id "s" :condition-grade 2})))
+    (is (= :scrap     (ret/disposition {:id "e" :sku-id "s" :condition-grade 1})))))
+
+(deftest disposition-missing-grade-raises
+  (testing "no-blind-restock gate — an ungraded return RAISES (never silently restocked)"
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (ret/disposition {:id "x" :sku-id "s"})))
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (ret/disposition {:id "x" :sku-id "s" :condition-grade nil})))))
+
+(deftest process-returns-buckets-correctly
+  (testing "items fold into restock/refurbish/scrap buckets + restock-plan units"
+    (let [items [{:id "r1" :sku-id "s" :condition-grade 5}    ; restock
+                 {:id "r2" :sku-id "s" :condition-grade 4}    ; restock
+                 {:id "r3" :sku-id "s" :condition-grade 3}    ; refurbish
+                 {:id "r4" :sku-id "s" :condition-grade 1}]   ; scrap
+          r (ret/process-returns items)]
+      (is (= #{"r1" "r2"} (set (map :id (:restock r)))))
+      (is (= ["r3"] (mapv :id (:refurbish r))))
+      (is (= ["r4"] (mapv :id (:scrap r))))
+      (is (= 2 (get-in r [:restock-plan :units])))            ; 2 units back to pick face
+      ;; every item placed exactly once across the three buckets
+      (is (= 4 (+ (count (:restock r)) (count (:refurbish r)) (count (:scrap r))))))))
+
+;; ── cyclecount (in-aisle inventory audit) ────────────────────────────────────
+(deftest count-frequency-A-over-B-over-C
+  (testing "A counted more often than B more often than C; unknown degrades to C"
+    (is (> (cc/count-frequency :A) (cc/count-frequency :B)))
+    (is (> (cc/count-frequency :B) (cc/count-frequency :C)))
+    (is (= (cc/count-frequency :C) (cc/count-frequency :Z)))   ; unknown → C cadence
+    (is (= 12 (cc/count-frequency :A {:A 12 :B 4 :C 1})))))
+
+(deftest reconcile-flags-only-mismatched-slots
+  (testing "only slots where counted ≠ expected appear, with signed delta"
+    (let [slots [{:slot-id "s1" :expected 40 :counted 40}      ; match
+                 {:slot-id "s2" :expected 18 :counted 16}      ; short -2
+                 {:slot-id "s3" :expected 8  :counted 9}]      ; over +1
+          {:keys [discrepancies]} (cc/reconcile slots)
+          by-slot (into {} (map (juxt :slot-id :delta) discrepancies))]
+      (is (= 2 (count discrepancies)))                         ; only the 2 mismatches
+      (is (nil? (get by-slot "s1")))                           ; matching slot not flagged
+      (is (= -2 (get by-slot "s2")))
+      (is (= 1  (get by-slot "s3"))))))
+
+(deftest reconcile-accuracy-is-matching-over-total-in-unit-interval
+  (testing "accuracy = matching/total, in [0,1]; all-match = 1.0, empty = 1.0"
+    (let [slots [{:slot-id "s1" :expected 40 :counted 40}      ; match
+                 {:slot-id "s2" :expected 18 :counted 16}      ; mismatch
+                 {:slot-id "s3" :expected 8  :counted 8}       ; match
+                 {:slot-id "s4" :expected 12 :counted 12}]     ; match
+          {:keys [accuracy]} (cc/reconcile slots)]
+      (is (= (/ 3.0 4) accuracy))                              ; 3 of 4 match
+      (is (and (>= accuracy 0.0) (<= accuracy 1.0)))
+      (is (= 1.0 (:accuracy (cc/reconcile [{:slot-id "a" :expected 1 :counted 1}]))))
+      (is (= 1.0 (:accuracy (cc/reconcile [])))))))            ; empty = perfect
+
+;; ── coverage (HONEST occupation sub-task map; G5 sourcing-honesty) ───────────
+(deftest coverage-fraction-is-covered-over-total
+  (testing "coverage fraction is in (0,1] and equals covered/total"
+    (let [{:keys [total covered coverage]} (cov/report)]
+      (is (pos? coverage))
+      (is (<= coverage 1.0))
+      (is (= coverage (/ (double covered) total))))))
+
+(deftest coverage-gaps-are-exactly-the-uncovered
+  (testing "G5 — :gaps are exactly the :covered? false sub-tasks (honest measurement)"
+    (let [{:keys [gaps]} (cov/report)
+          uncovered (remove :covered? cov/sub-tasks)]
+      (is (= (set (map :id gaps)) (set (map :id uncovered))))
+      (is (every? (complement :covered?) gaps)))))
+
+(deftest coverage-is-complete
+  (testing "all 12 warehouse sub-tasks are now covered (100%); no gaps remain"
+    (let [{:keys [total covered coverage gaps]} (cov/report)]
+      (is (= 12 total))
+      (is (= total covered))
+      (is (= 1.0 coverage))
+      (is (empty? gaps)))))
+
+(deftest covered-sub-tasks-name-a-method
+  (testing "every :covered? true sub-task names a non-nil :method (and gaps name none)"
+    (doseq [st cov/sub-tasks]
+      (if (:covered? st)
+        (is (and (:method st) (not (str/blank? (:method st))))
+            (str (:id st) " is covered but names no method"))
+        (is (nil? (:method st))
+            (str (:id st) " is a gap but names a method"))))))
+
+;; ── run-day full-pipeline integration (R1 — methods compose, not just coexist) ─
+(deftest run-day-exercises-all-domain-methods
+  (testing "the full warehouse-day pipeline threads through every domain method"
+    (let [res (az/run-day seed)]
+      (is (= #{"handoff" "slotting" "replenish" "picking" "packing" "agv_amr" "returns" "cyclecount"}
+             (:methods res)))
+      (is (>= (count (:methods res)) 8))
+      (is (contains? res :slotting))
+      (is (pos? (get-in res [:dispatch :makespan])))
+      (is (= 2 (count (get-in res [:day :inbound]))))
+      (is (pos? (:count (get-in res [:day :cartons]))))
+      (is (= "todoke" (:to-actor (get-in res [:day :outbound]))))
+      (is (= 1 (count (:scrap (get-in res [:day :returns])))))
+      (is (<= 0.0 (:accuracy (get-in res [:day :cyclecount])) 1.0)))))
+
+(deftest run-day-report-lists-pipeline
+  (let [s (az/report-day-str (az/run-day seed))]
+    (is (re-find #"methods exercised" s))
+    (is (re-find #"packing" s))
+    (is (re-find #"cyclecount" s))))
+
+(deftest datom-emit-day-captures-full-day
+  (testing "the canonical Datom log records the WHOLE day, not just slotting"
+    (let [day (az/run-day seed)
+          out (de/emit-day seed day 1)]
+      ;; base GROUND still present
+      (is (re-find #":wh\.sku/abc" out))
+      ;; day operations now in the canonical log
+      (is (re-find #":handoff/from-actor" out))           ; inbound + outbound handoffs
+      (is (re-find #"en\.handoff\.kuramori\.todoke" out))
+      (is (re-find #":wh\.replenish/qty" out))            ; replenishment moves
+      (is (re-find #":wh\.return/disposition :scrap" out)) ; returns disposition (by id)
+      (is (re-find #":bond/cyclecount-accuracy" out))     ; day metrics (DERIVED)
+      (is (re-find #":bond/pick-waves" out))
+      ;; returns entity is the item id, not a map literal
+      (is (re-find #"\"ret-3\" :wh\.return/disposition :scrap" out))
+      ;; still a well-formed EDN vector
+      (is (vector? (clojure.edn/read-string out)))
+      ;; emit-day is a superset of base emit
+      (is (> (count (clojure.edn/read-string out))
+             (count (clojure.edn/read-string (de/emit seed day 1))))))))
 
 (let [{:keys [fail error]} (run-tests 'kuramori.methods.test-kuramori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

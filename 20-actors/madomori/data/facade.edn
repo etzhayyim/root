@@ -40,4 +40,32 @@
   :agent-ml-per-pane 4.0
   :agent :deionized-water-surfactant   ; G2 — no prohibited solvents
   ;; imagery (G3 — on-device only, NEVER off-device; no person/interior recognition)
-  :imagery {:on-device-only true :recognition :pane-edge-only}}}
+  :imagery {:on-device-only true :recognition :pane-edge-only}}
+
+ ;; ── day-ops fixtures (R1 full-pipeline run-day; geometric/structural only, G3) ──
+
+ ;; multi-face campaign: a setback tower with three elevations to sequence.
+ ;; Each face = purely positional access-point + a pane grid (no imagery/person).
+ :faces
+ [{:face-id :south :access-point [2 0]  :rows 30 :cols 12}
+  {:face-id :east  :access-point [36 0] :rows 30 :cols 8}
+  {:face-id :north :access-point [2 36] :rows 20 :cols 12}]
+
+ ;; per-pane geometry shared across the campaign faces (metres)
+ :pane {:pane-h-m 4.0 :pane-w-m 3.0}
+
+ ;; working load borne by the descent rig (kN) — for anchor per-anchor load check
+ :working-load-kn 4.0
+
+ ;; rig anchors (anchor/* needs :rated-kn + :reachable?; two adequate, one short)
+ :rig-anchors
+ [{:anchor-id :a1 :rated-kn 12.0 :reachable? true}
+  {:anchor-id :a2 :rated-kn 10.0 :reachable? true}
+  {:anchor-id :a3 :rated-kn 6.0  :reachable? false}]
+
+ ;; runoff/detergent capture water balance for one campaign day (litres / mL)
+ :water {:applied-l 8.0 :captured-l 6.4 :detergent-ml 64.0}
+
+ ;; a structural defect detected mid-sweep → tatekata repair handoff
+ ;; (structural descriptor ONLY — pane id + defect kind + severity; no imagery, G3)
+ :defect {:pane-id "p-12-04" :defect-kind :cracked-pane :severity :high}}

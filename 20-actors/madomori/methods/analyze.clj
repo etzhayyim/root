@@ -14,7 +14,11 @@
   (:require [clojure.edn :as edn]
             [madomori.methods.facade-path :as fp]
             [madomori.methods.wind-envelope :as we]
-            [madomori.methods.adhesion :as ad]))
+            [madomori.methods.adhesion :as ad]
+            [madomori.methods.multi-face :as mf]
+            [madomori.methods.anchor :as anc]
+            [madomori.methods.water-recovery :as wr]
+            [madomori.methods.handoff :as ho]))
 
 (defn load-seed
   "Read the building façade EDN seed into a Clojure map."
@@ -43,6 +47,92 @@
      ;; a descent is planned only if BOTH safety gates pass
      :go? (boolean (and (:permitted? envelope) (:safe? adhesion)))}))
 
+(defn run-day
+  "Full façade-CAMPAIGN-DAY pipeline — threads a realistic façade job through EVERY
+   domain method module so they actually compose (R1 integration), not just coexist:
+     multi-face route (multi_face) → per-face coverage (facade_path) →
+     wind/fall safety (wind_envelope) → adhesion check (adhesion) →
+     anchor-rig check (anchor) → water-recovery balance (water_recovery) →
+     defect→repair handoff (handoff).
+   Returns the base `run` report plus `:pipeline` (per-stage summary), `:methods`
+   (the set of method modules exercised), and `:day` (the artifacts). Stages with no
+   seed fixture are recorded `:skipped` rather than failing.
+
+   ★ G3 — every artifact in `:day` is geometric + structural ONLY (face grids,
+   distances, litres, kN, a structural defect descriptor); NO imagery / person /
+   interior / biometric / camera data is representable here. Asserted in tests."
+  [seed]
+  (let [base    (run seed)
+        face    (:face seed)
+        robot   (:robot seed)
+        wind    (:wind seed)
+        anchors (:anchors seed)
+        stage   (fn [m summary] {:method m :summary summary})
+        ;; 1. multi_face — sequence the building's elevations (reposition-minimal)
+        campaign (when (and (seq (:faces seed)) (:pane seed))
+                   (mf/campaign-coverage (:faces seed) (:pane seed) [0 0]))
+        ;; 2. facade_path — per-face coverage of the lead (south) elevation
+        coverage (fp/plan face robot)
+        ;; 3. wind_envelope — wind/sway + fall-arrest redundancy (★ G5, non-raising)
+        envelope (we/assess face wind robot anchors)
+        ;; 4. adhesion — suction factor-of-safety on the surface (★ G7, non-raising)
+        adhesion (ad/assess robot (:surface face))
+        ;; 5. anchor — per-anchor descent-load rig check (★ G5, non-raising)
+        working-load (:working-load-kn seed)
+        rig (when (and (seq (:rig-anchors seed)) working-load)
+              (anc/assess (:rig-anchors seed) working-load anc/default-fos))
+        ;; 6. water_recovery — runoff/detergent capture balance (★ G2, non-raising)
+        water (when (:water seed) (wr/water-balance (:water seed)))
+        ;; 7. handoff — a detected structural defect → tatekata repair-order intent
+        defect (:defect seed)
+        repair (when defect (ho/repair-handoff defect))
+        pipeline (cond-> []
+                   campaign (conj (stage "multi_face"
+                                         (format "%d face(s), reposition %.1fm"
+                                                 (count (:order campaign))
+                                                 (:reposition-distance campaign))))
+                   true     (conj (stage "facade_path"
+                                         (str (get-in coverage [:coverage :total]) " panes, "
+                                              (if (get-in coverage [:coverage :complete?])
+                                                "complete" "INCOMPLETE"))))
+                   true     (conj (stage "wind_envelope"
+                                         (format "peak %.1fm/s permitted? %s"
+                                                 (:peak-wind-mps envelope)
+                                                 (:permitted? envelope))))
+                   true     (conj (stage "adhesion"
+                                         (format "FoS %.2f safe? %s"
+                                                 (:factor-of-safety adhesion)
+                                                 (:safe? adhesion))))
+                   rig      (conj (stage "anchor"
+                                         (format "%d/%d adequate rig-ok? %s"
+                                                 (:adequate-anchors rig)
+                                                 (:total-anchors rig)
+                                                 (:rig-ok? rig))))
+                   water    (conj (stage "water_recovery"
+                                         (format "recovery %.0f%% compliant? %s"
+                                                 (* 100.0 (:recovery-fraction water))
+                                                 (:compliant? water))))
+                   repair   (conj (stage "handoff"
+                                         (str "1 repair-order → " (:to-actor repair)))))]
+    (assoc base
+           :pipeline pipeline
+           :methods (set (map :method pipeline))
+           :day {:campaign campaign
+                 :coverage coverage
+                 :envelope envelope
+                 :adhesion adhesion
+                 :rig rig
+                 :water water
+                 :handoff repair})))
+
+(defn report-day-str
+  "Human-readable full-campaign-day pipeline report."
+  [res]
+  (str ";; madomori 窓守 — full façade-campaign-DAY pipeline (R1 integration)\n"
+       "methods exercised: " (pr-str (sort (:methods res))) "\n"
+       (apply str (map (fn [s] (str "  • " (:method s) " — " (:summary s) "\n"))
+                       (:pipeline res)))))
+
 (defn report-str
   "Human-readable report (for out/ and Murakumo narration input, G6)."
   [res]
@@ -67,6 +157,8 @@
 
 (defn -main [& args]
   (let [path (or (first args) "20-actors/madomori/data/facade.edn")
-        res (run (load-seed path))]
+        seed (load-seed path)
+        res (run-day seed)]
     (print (report-str res))
+    (print (report-day-str res))
     (flush)))

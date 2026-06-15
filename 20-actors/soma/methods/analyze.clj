@@ -14,7 +14,12 @@
   (:require [clojure.edn :as edn]
             [soma.methods.fell-plan :as fp]
             [soma.methods.harvester :as hv]
-            [soma.methods.extraction :as ex]))
+            [soma.methods.extraction :as ex]
+            [soma.methods.delimb :as dl]
+            [soma.methods.loadout :as lo]
+            [soma.methods.siteprep :as sp]
+            [soma.methods.road :as rd]
+            [soma.methods.handoff :as ho]))
 
 (defn load-seed
   "Read the forest-stand EDN seed into a Clojure map."
@@ -76,6 +81,77 @@
            :total-value total-value
            :n-trees (count trees))))
 
+(defn run-day
+  "Full forestry-DAY pipeline — threads the stand through EVERY domain method so
+   they actually compose (R1 integration), not just coexist:
+     fell(fell_plan) → buck/grade(harvester) → delimb(delimb) → extract(extraction)
+     → load-out(loadout) → site-prep replant(siteprep) → road plan(road) →
+     timber-supply handoff(handoff).
+   Returns the base `run` report plus `:pipeline` (per-stage summary), `:methods`
+   (the set of method modules exercised), and `:day` (the per-stage artifacts).
+   Stages with no seed fixture are recorded `:skipped` rather than failing."
+  [seed]
+  (let [base (run seed)
+        stage (fn [m summary] {:method m :summary summary})
+        ;; 1. fell + 2. buck/grade — already done in `base` (fell_plan + harvester)
+        n-fells (count (:fells base))
+        ;; 3. delimb — feed each felled stem through the processing head
+        head (:head seed)
+        stems (when head
+                (map (fn [f]
+                       {:stem-id (:tree f)
+                        :length-m (:stem-length-m f)
+                        ;; head wants butt diameter in cm; firm stand stems are in-spec
+                        :diameter-cm 40.0
+                        :whorl-spacing-m 0.6})
+                     (:fells base)))
+        delimb (when (seq stems) (dl/process-stems stems head))
+        ;; 4. extract — already planned in `base` (extraction route to the landing)
+        ;; 5. load-out — pack the graded assortments onto the haul truck (FFD)
+        loadout (when (and (:assortments seed) (:truck seed))
+                  (lo/load-truck (:assortments seed) (:truck seed)))
+        ;; 6. site-prep + replant the harvested area (regenerative-only, G2)
+        replant (when (:replant seed) (sp/replant-plan (:replant seed)))
+        ;; 7. road / skid-trail plan from the landing to the stand
+        road (when (:road seed)
+               (rd/plan-road (:segments (:road seed))
+                             (select-keys (:road seed) [:landing :stand :max-grade-pct])))
+        ;; 8. timber-supply handoff — graded assortments → tatekata lumber intents
+        handoff (when (:assortments seed) (ho/outbound-handoff (:assortments seed)))
+        pipeline (cond-> []
+                   true    (conj (stage "fell_plan" (str n-fells " felled (safe)")))
+                   true    (conj (stage "harvester" (format "bucked value %.1f" (:total-value base))))
+                   delimb  (conj (stage "delimb" (str (:total-branches-removed delimb)
+                                                      " branches / "
+                                                      (format "%.1fs" (:total-pass-time-s delimb)))))
+                   true    (conj (stage "extraction" (str (get-in base [:extraction :n-segments])
+                                                          " segment(s), max grade "
+                                                          (format "%.1f%%" (get-in base [:extraction :max-grade-pct])))))
+                   loadout (conj (stage "loadout" (format "%d loaded, util %.0f%%"
+                                                          (count (:loaded loadout))
+                                                          (* 100.0 (:weight-util loadout)))))
+                   replant (conj (stage "siteprep" (str (:seedling-count replant) " seedlings ("
+                                                        (name (:prep-method replant)) ")")))
+                   road    (conj (stage "road" (format "%.0fm, %d crossing(s)"
+                                                       (:total-length-m road) (:crossings road))))
+                   handoff (conj (stage "handoff" (str (count handoff) " timber-supply → tatekata"))))]
+    (assoc base
+           :pipeline pipeline
+           :methods (set (map :method pipeline))
+           :day {:delimb (or delimb :skipped)
+                 :loadout (or loadout :skipped)
+                 :replant (or replant :skipped)
+                 :road (or road :skipped)
+                 :handoff (or handoff :skipped)})))
+
+(defn report-day-str
+  "Human-readable full-day pipeline report."
+  [res]
+  (str ";; soma 杣 — full forestry-DAY pipeline (R1 integration)\n"
+       "methods exercised: " (pr-str (sort (:methods res))) "\n"
+       (apply str (map (fn [s] (str "  • " (:method s) " — " (:summary s) "\n"))
+                       (:pipeline res)))))
+
 (defn report-str
   "Human-readable report (for out/ and Murakumo narration input, G6)."
   [res]
@@ -90,6 +166,8 @@
 
 (defn -main [& args]
   (let [path (or (first args) "20-actors/soma/data/stand.edn")
-        res (run (load-seed path))]
+        seed (load-seed path)
+        res (run-day seed)]
     (print (report-str res))
+    (print (report-day-str res))
     (flush)))

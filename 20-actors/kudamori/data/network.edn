@@ -35,4 +35,40 @@
          :jet {:nozzle-pressure-bar 90.0 :flow-lpm 60.0 :water-reuse-frac 0.7}}
 
  ;; ── a cleaning job: enter at mh-entry, clean the blocked target segment ────────
- :job {:id "job-1" :access "mh-entry" :target-segment "seg-2-3" :debris-frac 0.35}}
+ :job {:id "job-1" :access "mh-entry" :target-segment "seg-2-3" :debris-frac 0.35}
+
+ ;; ── day-operations fixtures (consumed by analyze/run-day full pipeline) ────────
+ ;; CCTV/sonde inspection survey (per-segment defect observations → grade + blockage-risk).
+ ;; This survey FEEDS the cleaning campaign (inspection/to-campaign-input → campaign/prioritize).
+ :inspection-survey
+ [{:segment-id "seg-entry-1" :observations [{:position-m 5.0  :defect-kind :deposits :severity 3}]}
+  {:segment-id "seg-1-2"     :observations [{:position-m 2.0  :defect-kind :roots    :severity 5}
+                                            {:position-m 7.5  :defect-kind :crack    :severity 2}]}
+  {:segment-id "seg-2-3"     :observations [{:position-m 1.0  :defect-kind :blockage :severity 5}
+                                            {:position-m 6.0  :defect-kind :fracture :severity 4}]}
+  {:segment-id "seg-3-4"     :observations []}]   ; a clean segment
+
+ ;; per-segment metadata the survey lacks (last-cleaned + access manhole [x y]); the seam
+ ;; inspection/to-campaign-input merges these to build the campaign input.
+ :survey-meta
+ {"seg-entry-1" {:last-cleaned-days 90  :access [10.0 0.0]}
+  "seg-1-2"     {:last-cleaned-days 400 :access [10.0 12.0]}
+  "seg-2-3"     {:last-cleaned-days 30  :access [25.0 12.0]}
+  "seg-3-4"     {:last-cleaned-days 10  :access [25.0 0.0]}}
+
+ ;; campaign work-set selection (keep segments with blockage-risk ≥ threshold)
+ :campaign-opts {:risk-threshold 0.5}
+
+ ;; ── SAFE/purged atmosphere reading used at the campaign ENTRY GATE (★ G5) ──────
+ ;; The campaign re-checks atmosphere on every confined-space entry (never batched away);
+ ;; this fixture is a verified-safe reading (post-purge) so the happy path runs, but the
+ ;; gate call still fires — an unsafe reading here would refuse entry, never proceed.
+ :entry-air {:o2-pct 20.9 :h2s-ppm 0.0 :ch4-lel 0.0 :co-ppm 0.0}
+
+ ;; ── a root intrusion to cut (rootcut/plan-cut; ★ G7 no over-torque) ───────────
+ ;; ductile-iron host absorbs the cut torque; PVC/VCP at this density would over-torque.
+ :root-intrusion {:root-density 0.6 :pipe-diameter-mm 300 :pipe-material :ductile-iron}
+
+ ;; ── a structural defect to reline (relining/plan-reline; honest-refusal gate) ──
+ ;; host-condition 3 (< collapse-grade 5) is relinable; grade 5 would RAISE (needs replacement).
+ :reline-defect {:pipe-diameter-mm 300 :defect-severity 4 :host-condition 3}}
