@@ -62,6 +62,7 @@ ADR-2606131300). Headlines:
 | **funadaiku 船大工** | voyage_energy · agent (zero-emission propulsion gate G8/N5) |
 | **mitsuho 瑞穂** | agent (food&agriculture — pesticide G9 / soil-carbon G8 / tithe gates) |
 | **ainori 相乗** | pooled_route · agent (SAE-L4 envelope + no-surge cost-share) |
+| **okaimono 御買物** | agent (buyer-side demand commons / Amazon inversion — 3-ring commons→internal→external; commons-first ordering · wellbecoming-not-price ranking · G2 zero-commission · G7 tithe INTERNAL-ring-only (commons none / external none) · SBT-eligibility refusal · G3 affiliate/tracking strip (`strip-affiliate` URL re-encode, byte-identical) · external proxy operator-gated else handoff · G14 member-principal / G15 no-server-key / G9 encrypted-seal) — 45 tests / 116 assertions; hazards handled: urllib URL re-encode (independent clj↔py parity verified) + Python `hash()` non-determinism (seal_encrypted contract-only) |
 | **omise 御店** | agent (seller-side storefront commons — G3 seller-gating refusal · G2 ZERO-commission exact split · G7 tithe · G11 okaimono Ring-1 `:internal` coherence · G12 no-server-key · inventory/oversell-refusal) — 29 tests / 116 assertions; corrected 1 stale py assertion (settlement state intent→executed, R0/R2 drift, like ainori) |
 | **sanae 早苗** | labor_liberation (LPS ranking) |
 | **todoke 届け** | last_mile route core (proven ainori↔todoke one-engine parity in-language) |
