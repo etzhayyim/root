@@ -27,7 +27,7 @@
     "@opentelemetry/sdk-node": "^0.218.0",
     "@opentelemetry/auto-instrumentations-node": "^0.77.0",
     "@opentelemetry/exporter-jaeger": "^2.7.1",
-    "@opentelemetry/exporter-prometheus": "^0.218.0"
+    "@opentelemetry/exporter-prometheus": "^0.219.0"
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
