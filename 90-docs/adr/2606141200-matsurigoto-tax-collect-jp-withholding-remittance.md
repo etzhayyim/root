@@ -5,7 +5,7 @@ status: accepted
 doc_type: adr
 topic: matsurigoto-tax-collect-jp-withholding-remittance
 authoritative: true
-last_verified: 2026-06-14
+last_verified: 2026-06-15
 priority: 5.0
 axis: architecture
 weight: 0.50
@@ -13,12 +13,15 @@ priority_note: ""
 authoritative_for:
   - matsurigoto tax-collect module (源泉徴収納付 / withholding remittance)
   - JP corporate 源泉所得税 + 復興特別所得税 reference computation + 納付処理
+  - matsurigoto-gensen-sources dataset (国税庁/財務省 一次資料 PDF, IPFS 公開)
 depends_on:
   - adr-2606062300-matsurigoto-egov-execution-commons
   - adr-2605312345-kotoba-datom-first-class-canonical-state
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
+  - adr-2605241500-etzhayyim-dataset-cid-substrate
 related:
   - adr-2605231525-etzhayyim-no-server-key
+  - adr-2606091500-kotobase-remote-pin
 supersedes: []
 superseded_by: []
 ---
@@ -106,9 +109,38 @@ matsurigoto の `tax-collect` module の R0 reference implementation を **Cloju
 - **個別税務署の電話番号を seed する** — 変更され得る数百件を fabrication するのは G5 違反。中央2窓口
   のみ :authoritative とし、残りは出典URL + provenance マーカーで honest に未確定を明示。
 
+# 一次資料データセット + IPFS 公開 (2026-06-15 追記)
+
+`:authoritative` 値の根拠とした国税庁・財務省の一次資料 PDF を、DataLad + git-annex の
+provenance 付きデータセット `80-data/matsurigoto-gensen-sources/` に保存し、IPFS へ公開した
+(G7 = PR review による Council attestation で許可; 親 substrate ADR-2605241500 / ADR-2606091500)。
+
+| ファイル | 発行 | IPFS CIDv1 |
+|---|---|---|
+| 電算機計算の特例 (令和3〜7年, denshi_10.pdf) | 国税庁 | `bafkreihadpbxrcs3ctacbut3a3nefgmilnm3o4yyplx7oior5wopuekaqi` |
+| 国税局・税務署一覧 (2024) | 国税庁 | `bafybeift7lxblt55dqgzfg7clcqshknfrihmqe2iych4ymljhctdlwigsu` |
+| 延滞税・加算税の割合 | 財務省 | `bafkreifa4dloqmf5nwoztqhkdkiowm55pbljefdavlow632mwunx7q7zva` |
+
+- **provenance**: `datalad download-url` で取得し、各一次 URL を git-annex に登録 (`git annex whereis`)。`fsck` 整合。
+- **IPFS 公開**: `ipfs add --cid-version=1` → ローカル pin → 公開 DHT へ provide → 公開ゲートウェイ
+  (ipfs.io) から取得確認済 (200, byte一致)。CID は `manifest.edn` + catalog
+  `80-data/matsurigoto-gensen-sources.md` に記録。
+- **bytes は annex→IPFS、monorepo git には catalog のみ track** (dataset 本体は `.gitignore`;
+  ADR-2605241500 の「git は catalog、bytes は annex/IPFS」方針。super は DataLad superdataset では
+  ないため subdataset 登録はせず独立 dataset + catalog 追跡とした)。
+- **durability (現状 = web + local-kubo + IPFS-DHT)**: 永続 off-host 複製は既存の
+  `50-infra/kotoba-b2-pin` の git-annex S3 special remote (Backblaze B2 `etzhayyim-datasets`,
+  prefix `matsurigoto-gensen-sources/`, `embedcreds=no`) へ `git annex copy --to b2` で行う。
+  B2 鍵は 1Password (`op`) から実行時に解決するため、**operator が op をアンロックした shell で**
+  実行する operator step (自動化 shell には op セッションが見えない)。完了後 `git annex whereis` に
+  `b2` location が記録され durable となる。**kotobase.net pin は ADR-2606111330 時点で stalled の
+  ため、durable tier は B2 を採用**。
+
 # References
 
 - ADR-2606062300 — matsurigoto e-gov execution commons (parent; `tax-collect` module 予約)
+- ADR-2605241500 — Dataset CID substrate (DataLad + git-annex + IPFS pinner; B2 cold tier)
+- ADR-2606091500 — kotobase.net remote pin fan-out (現状 stalled, ADR-2606111330)
 - ADR-2605312345 — kotoba Datom = first-class canonical state (`:gensen.*` EAVT)
 - ADR-2605215000 — Murakumo-only inference
 - ADR-2605231525 — no-server-key
