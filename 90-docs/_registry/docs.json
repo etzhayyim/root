@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-14",
+  "updated_at": "2026-06-15",
   "entries": [
     {
       "path": "90-docs/kotodama/260319-kotodama-wit-dodaf-nist-coverage.md",
@@ -25075,6 +25075,38 @@
         "ADR-2605312345 (kotoba Datom = first-class canonical state)"
       ],
       "last_verified": "2026-06-14",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606151000-coverage-live-ingest-and-kotobase-enablement.md",
+      "id": "adr-2606151000-coverage-live-ingest-and-kotobase-enablement",
+      "title": "ADR-2606151000: Council-authorized live coverage ingest + kotobase.net pin/quads enablement + enterprise tier",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "coverage-live-ingest-and-kotobase-enablement",
+      "authoritative": true,
+      "authoritative_for": [
+        "the live public-data coverage of the corp-mirror lineage (kabuto / kanjō / hoshimori / entity-handles registry)",
+        "the kotobase.net pin/quads write path + self-signed CACAO auth recipe (no-server-key)",
+        "the kotobase quota-tier table (free / starter / pro / enterprise)"
+      ],
+      "related": [
+        "ADR-2606111330 (kotobase.net pin-completion / kubo peering stall — operator follow-up)",
+        "ADR-2606111400 (ibuki revocable CACAO leash — the member-signed-capability pattern reused)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606042330 (entity-as-actor mirror registry — corp namespace regenerated here)",
+        "ADR-2606022000 (kabuto — public-company supply-chain KG; live SEC/Wikidata ingest)",
+        "ADR-2606032000 (kanjō — financial-disclosure KG; live EDGAR ingest)",
+        "ADR-2606073600 (hoshimori — orbital stewardship; live CelesTrak ingest, G1 aggregate-only)",
+        "ADR-2605215000 (Murakumo-only inference — no commercial GPU in religious-corp paths)",
+        "ADR-2605231525 (no-server-key; member-signed CACAO capability)",
+        "ADR-2605312345 (kotoba Datom = first-class canonical state)"
+      ],
+      "last_verified": "2026-06-15",
       "amends": [],
       "amended_by": []
     },
