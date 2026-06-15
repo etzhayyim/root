@@ -206,13 +206,14 @@ Target: 1000 pairs (train trigger delta=100 ごとに訓練発火)
 | fleet SSH (naphtali/dan/他 9ノード) | **Tailscale IP (100.x.x.x) で全接続確認** |
 | fleet Ollama (naphtali) | `gemma4:12b-it-qat` / `gemma4:e4b-it-qat` 稼働中 |
 | EVO-X2 (gad) | **オンライン (2026-06-15)** — Ubuntu 24.04.2 LTS 再イメージ; Tailscale SSH `100.82.98.110` (`ssh gad`, keyless); LAN .16 (DHCP); torch 2.10 ROCm6.4 + peft/trl env 稼働 (gfx1151, `HSA_OVERRIDE_GFX_VERSION=11.5.1`); Gemma 4 E4B base キャッシュ済み |
-| 訓練実績 | **ゼロ (env ready)** — 訓練 env 完成・base モデルあり; corpus ≥1000 で M1 発火待ち (現 125/1000) |
+| 訓練実績 | **ゼロ (env ready)** — 訓練 env 完成・base モデルあり; corpus ≥1000 で M1 発火待ち (現 131/1000, harvest 再開) |
 
 ## 対応済み
 
 - `~/.ssh/config` fleet HostName を LAN IP → Tailscale IP に更新 (全ノード `ssh <name>` で接続可)
 - batch2 dedup: unit_refactor が同ファイルを再処理 → `_pair_cid` が正しく弾いた (正常動作)
 - `tests/test_rsi.py` 20 tests green
+- **harvest 再開 (2026-06-15)**: fleet Ollama 停止のため `70-tools/scripts/maxwell/harvest_gad.py` を新設 — gad の llama-server (Gemma 4 26B-a4b, /v1, Murakumo準拠) を teacher に、clj-kondo エラー feedback 再試行 + 閉じ括弧修復で lint-clean な Python→Clojure ペアを収穫。`gate_candidates.py` は warning 許容・**error 基準**に調整。corpus 123→131 (n=8 バッチ 8/8 合格)
 
 ## 残タスク (Phase 0 完了まで)
 
