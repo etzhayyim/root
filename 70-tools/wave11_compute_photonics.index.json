@@ -1,0 +1,259 @@
+{
+  "wave": 11,
+  "title": "Compute & Photonics Frontier",
+  "count": 18,
+  "actors": [
+    {
+      "handle": "nvidia_cosmos-compat",
+      "entities": [
+        "WorldModel",
+        "Tokenizer",
+        "SimRun",
+        "Embodiment",
+        "Prompt",
+        "GuardrailCheck"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreif7uozpd4n4jykpygj22voy3yy524gm47njosnylreu43u2xone64",
+      "tier": "L4"
+    },
+    {
+      "handle": "hbm_memory-compat",
+      "entities": [
+        "MemoryStack",
+        "DramDie",
+        "ThroughSiliconVia",
+        "MemoryChannel",
+        "RefreshPolicy",
+        "TestBin"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreidvi5jymorw3tcfzovwovu277onbfswdsvqi2vsukuq7q227wgtwy",
+      "tier": "L4"
+    },
+    {
+      "handle": "dram_design-compat",
+      "entities": [
+        "DramDevice",
+        "CellArray",
+        "Bank",
+        "TimingProfile",
+        "SpeedBin",
+        "JedecSpec"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreigrk5lqz4f42m7vvisdq4grg3rdehwf3xsabnrrjkmwcyza5jtb3a",
+      "tier": "L4"
+    },
+    {
+      "handle": "gddr_memory-compat",
+      "entities": [
+        "GddrDevice",
+        "MemoryChannel",
+        "SignalingMode",
+        "ThermalProfile",
+        "SpeedGrade",
+        "TestBin"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreiepjzxiofhxix5672ebn2r6osportaonq3v4wsy4ua7vk4ain56au",
+      "tier": "L4"
+    },
+    {
+      "handle": "groq_lpu-compat",
+      "entities": [
+        "LpuChip",
+        "TensorStream",
+        "ScheduleSlot",
+        "Model",
+        "InterconnectLink",
+        "InferenceJob"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreidgbmieuyf2vmwfmha6cyfnbjorc2dlbt5nvo7tqzxvastonxutzm",
+      "tier": "L4"
+    },
+    {
+      "handle": "riscv_cpu-compat",
+      "entities": [
+        "CpuCore",
+        "Pipeline",
+        "RegisterFile",
+        "CacheLevel",
+        "IsaExtension",
+        "Microbench"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreibtgzoj5pwtd2n5qy4i2t7w7o5aqkfk4trdvjnhhkwfkui5od5j34",
+      "tier": "L4"
+    },
+    {
+      "handle": "silicon_photonics-compat",
+      "entities": [
+        "PhotonicDie",
+        "OpticalWaveguide",
+        "Modulator",
+        "Photodetector",
+        "LaserSource",
+        "WavelengthChannel"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreidp5mudilghqxeh6p4tumnyollazenszc7c4zi2l6okrswceajvei",
+      "tier": "L4"
+    },
+    {
+      "handle": "copackaged_optics-compat",
+      "entities": [
+        "OpticalEngine",
+        "ElectroOpticTile",
+        "FiberLink",
+        "SerdesLane",
+        "OpticalSwitch",
+        "LinkBudget"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreic76qauxxfnq4xwdu23i2vkuu6qz5gotpoixmmmed2flkpw7fxtcq",
+      "tier": "L4"
+    },
+    {
+      "handle": "fab_lithography-compat",
+      "entities": [
+        "Wafer",
+        "ProcessStep",
+        "Reticle",
+        "ProcessRecipe",
+        "DefectScan",
+        "Yield"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreifbqzao2hmdmfj4od2q6y2q77odoupjckxd52my74kwfmrmirq2cq",
+      "tier": "L4"
+    },
+    {
+      "handle": "semicon_robotics-compat",
+      "entities": [
+        "WaferRobot",
+        "EfemModule",
+        "TransferJob",
+        "LoadPort",
+        "MotionProgram",
+        "Interlock"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreid55k4zrnofdpat5u6wc7vwceyqd6n3wrfm6efmbenggz7pdgfzgi",
+      "tier": "L4"
+    },
+    {
+      "handle": "optical_compute-compat",
+      "entities": [
+        "PhotonicProcessor",
+        "MziMesh",
+        "OpticalCore",
+        "NonlinearUnit",
+        "WdmBus",
+        "ComputeTile"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreihv6f4huxplh2urieg54zuwcjntx6kasdbsu6chgfk56isomonwnm",
+      "tier": "L4"
+    },
+    {
+      "handle": "photonic_switch-compat",
+      "entities": [
+        "SwitchFabric",
+        "OpticalPort",
+        "WaveguideCross",
+        "MemsMirror",
+        "RoutePath",
+        "LossBudget"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreicszr2bj4z452slzvy6bkqyoqe6eevudbqn6znreciqowvmu56l34",
+      "tier": "L4"
+    },
+    {
+      "handle": "arm_cpu-compat",
+      "entities": [
+        "ArmCore",
+        "Cluster",
+        "NeonUnit",
+        "CacheLevel",
+        "Interrupt",
+        "PowerState"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreiebaetp4hvegfd65ijyuuiv66vfrdzp7njbbpof5nws4fu6b7f2tu",
+      "tier": "L4"
+    },
+    {
+      "handle": "x86_cpu-compat",
+      "entities": [
+        "X86Core",
+        "ExecPort",
+        "MicroOp",
+        "CacheLevel",
+        "TlbLevel",
+        "PowerState"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreigr52jeqtnr54z4vzfnhcncwcof6xpequwjnqwv4kbaice7sov3ei",
+      "tier": "L4"
+    },
+    {
+      "handle": "cxl_memory-compat",
+      "entities": [
+        "CxlDevice",
+        "MemoryRegion",
+        "FlitChannel",
+        "CoherenceDomain",
+        "QosClass",
+        "HotplugEvent"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreifnu3bmupir4p4pi7qfu3m72qocg6bnhinmliohmobp7sssfhzpli",
+      "tier": "L4"
+    },
+    {
+      "handle": "ucie_chiplet-compat",
+      "entities": [
+        "Chiplet",
+        "UcieLink",
+        "BumpArray",
+        "Sideband",
+        "ProtocolLayer",
+        "Package"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreihzxc5zuyeikhuwxm6sc3ajrognlkbawvbd2hbr7tgyxqppkwdzay",
+      "tier": "L4"
+    },
+    {
+      "handle": "nvidia_isaac-compat",
+      "entities": [
+        "SimRobot",
+        "Skill",
+        "SimScene",
+        "Policy",
+        "Sensor",
+        "Trajectory"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreiftp54ebubvlzps4qelc2ee2ucubcwkkigrh3x6sqepewo4dgkq4e",
+      "tier": "L4"
+    },
+    {
+      "handle": "cerebras_wafer-compat",
+      "entities": [
+        "WaferEngine",
+        "ProcessingElement",
+        "Fabric",
+        "MemoryBank",
+        "Kernel",
+        "WaferJob"
+      ],
+      "endpointCount": 30,
+      "wasmCid": "bafkreia3y5abeag7miwakom2lkx2fwcykl6t3idk2bmn77l2xj7nbb4qay",
+      "tier": "L4"
+    }
+  ]
+}

@@ -1,0 +1,539 @@
+{
+  "schemaVersion": "1.0",
+  "graph": "actors-v1",
+  "adr": [
+    "260607",
+    "2606014500",
+    "2605262130",
+    "2605312345"
+  ],
+  "wave": "11/11b/11c \u2014 compute & photonics (clj/Datomic)",
+  "runtime": "kotoba-clj",
+  "exec": "fleet|jvm-bb|browser-local-cljs",
+  "count": 26,
+  "tierCounts": {
+    "L4": 26
+  },
+  "actors": [
+    {
+      "handle": "nvidia_cosmos-compat",
+      "did": "did:web:etzhayyim.com:actor:nvidia_cosmos-compat",
+      "wasmCid": "bafkreig2bcivcedarmf72fs32r62hct6gk7xd3furuauwgrbnes2xsagrq",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "nvidia_cosmos clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "hbm_memory-compat",
+      "did": "did:web:etzhayyim.com:actor:hbm_memory-compat",
+      "wasmCid": "bafkreiedhptznumcn45fepc2og7hojkcwztjybzpdudu5oktuz2ug4tlly",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "hbm_memory clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "dram_design-compat",
+      "did": "did:web:etzhayyim.com:actor:dram_design-compat",
+      "wasmCid": "bafkreiboizizlgzhgn4gjek2histqqdc2cf7i5hj4llbubgkycg3ch43ge",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "dram_design clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "gddr_memory-compat",
+      "did": "did:web:etzhayyim.com:actor:gddr_memory-compat",
+      "wasmCid": "bafkreif6hvznplvvcmgowjs5ndv4bbm3mqvix35zuadkdx2jxhqgdewctu",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "gddr_memory clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "groq_lpu-compat",
+      "did": "did:web:etzhayyim.com:actor:groq_lpu-compat",
+      "wasmCid": "bafkreie5erutmzul3btrh7bqzwnyq7z47k7batoc4kzefx7d66usgrlepa",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "groq_lpu clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "riscv_cpu-compat",
+      "did": "did:web:etzhayyim.com:actor:riscv_cpu-compat",
+      "wasmCid": "bafkreihtid6bnn4gr5sowjxgnaf4erxdl6ncvo6azgl6aclc3bo2czj7j4",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "riscv_cpu clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "silicon_photonics-compat",
+      "did": "did:web:etzhayyim.com:actor:silicon_photonics-compat",
+      "wasmCid": "bafkreifcjvvc2m2apgwwnxjseigkl25z4koiuacciyt2qa54b5u7ku2aie",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "silicon_photonics clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "copackaged_optics-compat",
+      "did": "did:web:etzhayyim.com:actor:copackaged_optics-compat",
+      "wasmCid": "bafkreihlt36lw3dhfrkyp6gn5krqaguup7dxnuikxnwltuhsjgtlz4tiey",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "copackaged_optics clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "fab_lithography-compat",
+      "did": "did:web:etzhayyim.com:actor:fab_lithography-compat",
+      "wasmCid": "bafkreibqwcqkjasxyq6zznuz63rqbuqn4n22bq6j5j7tzjts7um5pz4mvu",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "fab_lithography clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "semicon_robotics-compat",
+      "did": "did:web:etzhayyim.com:actor:semicon_robotics-compat",
+      "wasmCid": "bafkreiesmpazjciy5yail7bajlnnb2rhcwwf2gffjjzcb4s6hb643czlva",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "semicon_robotics clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "optical_compute-compat",
+      "did": "did:web:etzhayyim.com:actor:optical_compute-compat",
+      "wasmCid": "bafkreifda4xxk2pszhkgaemys63qp35zto25xxmb5tcnpseo3ntl3gj5gy",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "optical_compute clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "photonic_switch-compat",
+      "did": "did:web:etzhayyim.com:actor:photonic_switch-compat",
+      "wasmCid": "bafkreiajfsftedgytuxi3773n2bksyuhs3224h675jlng55kivsjevjene",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "photonic_switch clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "arm_cpu-compat",
+      "did": "did:web:etzhayyim.com:actor:arm_cpu-compat",
+      "wasmCid": "bafkreihzwcbz3rvnytc456dujldyzdompirrcap6akkcscgr6bzmh7w2iq",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "arm_cpu clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "x86_cpu-compat",
+      "did": "did:web:etzhayyim.com:actor:x86_cpu-compat",
+      "wasmCid": "bafkreihb2nmyp6ljxptyj3ql4uc7ry4a5n2vxsl7tb75zgkhpkwrnisaty",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "x86_cpu clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "cxl_memory-compat",
+      "did": "did:web:etzhayyim.com:actor:cxl_memory-compat",
+      "wasmCid": "bafkreicjp2en7vhrubhrisvb3gltoa2ttw6cvtn3bszmsvgmhnbrzayphi",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "cxl_memory clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "ucie_chiplet-compat",
+      "did": "did:web:etzhayyim.com:actor:ucie_chiplet-compat",
+      "wasmCid": "bafkreietn7ce5a6hfx4wkjm2opchocjnwwyeznc4ien2lpopseg6mez7zq",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "ucie_chiplet clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "nvidia_isaac-compat",
+      "did": "did:web:etzhayyim.com:actor:nvidia_isaac-compat",
+      "wasmCid": "bafkreicvjldpel57p54r364o4c2h6ysqfxdrx75xawuaad6k4ohs2khaou",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "nvidia_isaac clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "cerebras_wafer-compat",
+      "did": "did:web:etzhayyim.com:actor:cerebras_wafer-compat",
+      "wasmCid": "bafkreiaazauvrlxbfnsuutrshbgkaubajil6yxrbfwrscdovpl5zwgssuu",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "cerebras_wafer clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "gpu_accelerator-compat",
+      "did": "did:web:etzhayyim.com:actor:gpu_accelerator-compat",
+      "wasmCid": "bafkreiepeue5vycxhwaxqmaz3kfvcay4456td57htqmaw6pqjryrhsssta",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "gpu_accelerator clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "npu_accelerator-compat",
+      "did": "did:web:etzhayyim.com:actor:npu_accelerator-compat",
+      "wasmCid": "bafkreiet735qc2v4lwaoiiupeeil2pvudrmtcmdssrucsyyp2jdoqtzwwu",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "npu_accelerator clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "dpu_smartnic-compat",
+      "did": "did:web:etzhayyim.com:actor:dpu_smartnic-compat",
+      "wasmCid": "bafkreifqbhmaymnwgyf2pivrpxwgxcw5q2ti4erwcqracotdaqkppqwf5i",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "dpu_smartnic clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "optical_transceiver-compat",
+      "did": "did:web:etzhayyim.com:actor:optical_transceiver-compat",
+      "wasmCid": "bafkreig73froahtquxq42a5gxvls2wqqu2vjiop6xngdyuasoiddbnz4dy",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "optical_transceiver clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "dwdm_system-compat",
+      "did": "did:web:etzhayyim.com:actor:dwdm_system-compat",
+      "wasmCid": "bafkreieuqxzyinbeouvl2xd54ai2fiujtkvhhatlbcg54c6ebuzj6p3mga",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "dwdm_system clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "serdes_phy-compat",
+      "did": "did:web:etzhayyim.com:actor:serdes_phy-compat",
+      "wasmCid": "bafkreicww2bdxr4oezuuepsw3fj7ke4wssrek2lmodhdmrzjpwoa5jqvzq",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "serdes_phy clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "lpddr_mobile-compat",
+      "did": "did:web:etzhayyim.com:actor:lpddr_mobile-compat",
+      "wasmCid": "bafkreienwelcf4mwguplumna56v5vh2ghz62ykc3hhnaohgli5j3co5iwu",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "lpddr_mobile clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    },
+    {
+      "handle": "cobot_assembly-compat",
+      "did": "did:web:etzhayyim.com:actor:cobot_assembly-compat",
+      "wasmCid": "bafkreigrqomltfxxthofncilfqpahyqr472fewmfzumg6uo7i63een5v2a",
+      "kind": "compat",
+      "wasmProvenance": "program-source-cid-clj",
+      "tier": "L4",
+      "title": "cobot_assembly clean-room actor",
+      "category": "compute_photonics",
+      "capabilities": [
+        "api",
+        "supplychain",
+        "socialpost",
+        "mcp"
+      ],
+      "exec": "fleet|jvm-bb|browser-local-cljs",
+      "runtime": "kotoba-clj",
+      "lang": "clojure",
+      "persistence": "datomic-eavt-kotoba"
+    }
+  ]
+}
