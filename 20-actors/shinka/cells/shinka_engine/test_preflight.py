@@ -11,11 +11,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import inspect  # noqa: E402
+
 from maxwell_rsi import CORPUS_TRAIN_FLOOR, run_rsi  # noqa: E402
 from preflight import (  # noqa: E402
     fleet_preflight,
     rocm_http_probe,
     rsi_state_from_preflight,
+    tailscale_ssh_probe,
 )
 
 _passed = 0
@@ -91,6 +94,16 @@ def test_feeds_run_rsi_ready() -> None:
     check("run_rsi flips on step gate", out.decision["flip_available"] is True)
 
 
+def test_defaults_use_magicdns_not_stale_ip() -> None:
+    # gad is Ubuntu now and its LAN IP changes -> probes must target the
+    # Tailscale MagicDNS name `gad`, never the stale 192.168.1.70 LAN address.
+    rocm_default = inspect.signature(rocm_http_probe).parameters["url"].default
+    check("rocm probe default targets gad MagicDNS", "gad" in rocm_default)
+    check("rocm probe default is not the stale LAN IP", "192.168.1.70" not in rocm_default)
+    ssh_default = inspect.signature(tailscale_ssh_probe).parameters["host"].default
+    check("ssh probe default host is gad", ssh_default == "gad")
+
+
 def main() -> int:
     for fn in (
         test_all_ready,
@@ -100,6 +113,7 @@ def main() -> int:
         test_rocm_probe_transport_injection,
         test_feeds_run_rsi_blocked,
         test_feeds_run_rsi_ready,
+        test_defaults_use_magicdns_not_stale_ip,
     ):
         fn()
     print(f"preflight: passed={_passed} failed={_failed}")
