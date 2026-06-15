@@ -123,6 +123,11 @@ foundry.lock
 # torch.utils.cpp_extension build dirs (kernel shootout, ADR-2605242000)
 **/_build_cpu/
 
+# Clojure tooling caches (classpath cache + claire agent worktree state) — never commit
+.cpcache/
+**/.cpcache/
+.claire/
+
 # ── Charter Rider §2(c) / ADR-2605192115 §1.2 — ad-tech-free build outputs ──
 # Deploy-output snapshots (SvelteKit/Vite client builds) regenerated from source
 # by the deploy pipeline. NOT committed: a bundled GA/gtag dependency would
