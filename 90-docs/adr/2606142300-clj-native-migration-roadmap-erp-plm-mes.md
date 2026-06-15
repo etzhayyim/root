@@ -384,6 +384,16 @@ all ship `.cljc` ports already. So Wave 2 is **finishing the unported tail**, no
   disk-reading data tool, not browser), path-matching ns → auto-discovered by `bb test:actors`
   (4 tests / 20 assertions; worklist tie-order is impl-specific so asserted by length + max
   out-degree, not exact order). Remaining uchiwake tail: `ingest` / `adapters/openfoodfacts`.
+- **uchiwake `adapters/openfoodfacts`.** `adapters/openfoodfacts.py` → `openfoodfacts.clj`
+  (+ `test_openfoodfacts.clj`): the first bulk-ingest adapter — Open Food Facts records (CC-BY-SA,
+  real GTIN + brand + ingredient list) → `:product`/`:material`/`:bom.edge` datoms, reusing the
+  `.cljc` GTIN helpers. **Byte-parity** with the Python: GS1 mod-10 check-digit gate (a bad/missing
+  digit is SKIPPED not admitted — `3017620422004` → `[]`, products-ok 2 / skipped 1 / materials 4),
+  GTIN-14 normalization + `:gtin-13` format + 3-digit GS1 prefix, ingredient→material aliasing
+  (en:fat-reduced-cocoa→mat.cocoa) with honest slug fallback, bounded `:bom.edge/qty "%mass"`
+  estimates (never a confidential recipe), every datom `:sourcing :representative` (G5, never
+  authoritative). 5 tests / 26 assertions, auto-discovered. This **unblocks** the `ingest` port
+  (its OFF branch needs this adapter). Remaining uchiwake tail: `ingest`.
 
 # Alternatives Considered
 
