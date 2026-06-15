@@ -307,6 +307,25 @@
    :actor/service [{"id" "did:web:etzhayyim.com:actor:hotaru#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
                    {"id" "did:web:etzhayyim.com:actor:hotaru#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
 
+  {:actor/handle "masago"
+   :actor/did "did:web:etzhayyim.com:actor:masago"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "真砂"
+   :actor/display-name-ja "真砂 — 公開材料 (open materials-discovery) KG mirror"
+   :actor/display-name-en "Masago — Open Materials-Discovery KG Mirror"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "AI 材料探索の公開コモンズ(Meta FAIR Chemistry Open Materials 2024 / OMat24 CC-BY-4.0 + Materials Project / OQMD / NOMAD / AFLOW / JARVIS)を kotoba Datom log にミラーする materials-science actor。rasen 螺旋(遺伝)・inochi 命(生命圏)の公開科学データ mirror 系譜の materials 版。materials(組成+結晶構造)・元素・計算 PROPERTY(DFT/MLIP)・下流 APPLICATION を weave し、edge-primary な discovery-evidence(material の discovery-priority = 入射する計算プロパティ+候補性 縁 × 開示 confidence の積分)を RESEARCH へルーティング。構造的に charter-clean: open-license source のみ(G4、非 open は拒否)、計算 PROPERTY+結晶構造のみで合成ルート/前駆体/濃縮フィールドは表現不能・兵器化 application class も表現不能(G1, §1.12)、MLIP モデル実行は R2+ 自前/寄付計算のみ(G6、商用GPUレンタル禁止)。Clojure/kotoba-datomic ネイティブ(.cljc, babashka)。AI 駆動 材料探索のカバレッジ空白(ゼロ)を閉じ、iwakura/fuigo・hikari・tatekata・sanae/hataori/kiyome に供給。"
+   :actor/primary-lexicon "com.etzhayyim.masago"
+   :actor/primary-schema "00-contracts/schemas/open-materials-ontology.kotoba.edn"
+   :actor/adr ["2606151027"]
+   :actor/created-at "2026-06-15"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:masago#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:masago#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
   {:actor/handle "kamado"
    :actor/did "did:web:etzhayyim.com:actor:kamado"
    :actor/kind :tier-b
