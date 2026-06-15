@@ -93,7 +93,8 @@
   {:db/ident :cable.fault/detected-at :db/valueType :db.type/instant}
   {:db/ident :cable.fault/restored-at :db/valueType :db.type/instant :db/doc "nil while open"}
   {:db/ident :cable.fault/repair-vessel :db/valueType :db.type/string :db/doc "public AIS-named cable ship, if disclosed"}
-  {:db/ident :cable.fault/sourcing :db/valueType :db.type/keyword}]
+  {:db/ident :cable.fault/sourcing :db/valueType :db.type/keyword}
+  {:db/ident :watatsuna/note :db/valueType :db.type/string :db/doc "Free-text provenance/routing annotation (e.g. landing changes, Team-Telecom objections, reroutes). Declared so seed data conforms (etzhayyim.kotoba.schema)."}]
 
  ;; ───────────────────────────── DERIVED (analyze.py, never stored as raw fact) ────
  ;; watatsuna computes these and emits them flagged as :derived; they are not ingested

@@ -43,7 +43,16 @@
   {:attr :hazard/kind         :doc ":debris-density | :conjunction | :congestion | :asat-debris-event | :space-weather | :deorbit-shortfall"}
 
   ;; service facet (what depends on the regime — the public utility borne)
-  {:attr :service/kind        :doc ":pnt | :broadband | :earth-observation | :weather | :science"}]
+  {:attr :service/kind        :doc ":pnt | :broadband | :earth-observation | :weather | :science"}
+
+  ;; occupancy facet (aggregate counts per regime — congestion lens, NEVER ephemeris)
+  {:attr :occ/regime          :doc "the orbital regime this occupancy count is for (:leo | :meo | :geo | :heo …)"}
+  {:attr :occ/on-orbit-count  :doc "aggregate count of objects on-orbit in the regime (shell/regime-aggregate, no precise ephemeris — G1)"}
+  ;; operator facet (aggregate object counts attributed to a public operator)
+  {:attr :op/object-count       :doc "total tracked objects attributed to the operator (aggregate, public catalog)"}
+  {:attr :op/payload-count      :doc "active/derelict payload count (aggregate)"}
+  {:attr :op/rocket-body-count  :doc "spent rocket-body count (aggregate)"}
+  {:attr :op/debris-count       :doc "tracked debris-fragment count attributed to the operator (aggregate)"}]
 
  ;; ── edges (縁) ───────────────────────────────────────────────────────────────
  :edge/attrs
