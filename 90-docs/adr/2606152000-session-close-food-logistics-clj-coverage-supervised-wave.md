@@ -62,6 +62,7 @@ ADR-2606131300). Headlines:
 | **funadaiku 船大工** | voyage_energy · agent (zero-emission propulsion gate G8/N5) |
 | **mitsuho 瑞穂** | agent (food&agriculture — pesticide G9 / soil-carbon G8 / tithe gates) |
 | **ainori 相乗** | pooled_route · agent (SAE-L4 envelope + no-surge cost-share) |
+| **omise 御店** | agent (seller-side storefront commons — G3 seller-gating refusal · G2 ZERO-commission exact split · G7 tithe · G11 okaimono Ring-1 `:internal` coherence · G12 no-server-key · inventory/oversell-refusal) — 29 tests / 116 assertions; corrected 1 stale py assertion (settlement state intent→executed, R0/R2 drift, like ainori) |
 | **sanae 早苗** | labor_liberation (LPS ranking) |
 | **todoke 届け** | last_mile route core (proven ainori↔todoke one-engine parity in-language) |
 
