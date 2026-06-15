@@ -1,62 +1,329 @@
-# LiteLLM config — etzhayyim Murakumo gateway (Mac-mini Tier-1 per ADR-2605191346).
+# LiteLLM config — etzhayyim Murakumo gateway (ADR-2605215000, ADR-2605191346).
 #
 # Stateless proxy. No database. Substrate state for inference jobs is held in
-# the CF Worker at murakumo.etzhayyim.com via @etzhayyim/sdk (ADR-2605191358);
-# this LiteLLM instance only routes OpenAI-compat requests to backends.
+# the CF Worker at murakumo.etzhayyim.com via @etzhayyim/sdk (ADR-2605191358).
 #
 # Traffic path:
 #   CF Worker (murakumo.etzhayyim.com) → https://murakumo-serve.etzhayyim.com/v1/chat/completions
 #   → LiteLLM (this gateway, loopback port 4000 on the host Mac-mini)
-#   → Backend (RunPod vLLM during transition; Mac-mini Ollama nodes for etzhayyim Tier-1)
+#   → Ollama native /api/chat on each of 10 Mac mini nodes (Tailscale)
 #
 # Required env on the LiteLLM host:
-#   RUNPOD_GEMMA4_OPENAI_BASE  — RunPod serverless endpoint base URL
-#                                (e.g. https://api.runpod.ai/v2/vyp99t9px7h4dl/openai/v1)
-#   RUNPOD_API_KEY             — RunPod API key (transition only; etzhayyim target is Mac-mini Ollama)
-#   LITELLM_MASTER_KEY         — LiteLLM master key (sourced from Keychain on install)
+#   LITELLM_MASTER_KEY  — LiteLLM master key (sourced from Keychain on install)
+#
+# IMPORTANT — callers MUST pass `think: false` in extra_body for QAT models:
+#   {"model": "tier0-general", ..., "extra_body": {"think": false}}
+#   Omitting think:false causes the reasoning trace to consume the context window.
+#
+# IMPORTANT — use ollama_chat/ (native /api/chat) NOT ollama/ (OpenAI-compat):
+#   OpenAI-compat ep silently ignores options.num_ctx → ctx stays at 4096
+#   and long outputs appear truncated ("missing closing brackets").
+#   (ADR-2606120500 finding #1)
+#
+# Model availability (verified 2026-06-13, all 10 nodes):
+#   gemma4:e4b-it-qat  — 5 GiB Q4_0 QAT  ~29-31 tok/s per node
+#   gemma4:12b-it-qat  — 6 GiB Q4_0 QAT  ~9-11 tok/s per node (1 stream/node)
+#   gemma4:e4b         — 8 GiB Q4_K_M     (PTQ, prefer e4b-it-qat for QAT)
+#
+# Concurrency per node (ADR-2606120500 §fleet):
+#   e4b-it-qat: 2 streams/node (serial within node — M4 16GB fills at 1 stream)
+#   12b-it-qat: 1 stream/node (2 streams causes timeout on M4 16GB)
+#
+# Throughput (measured 2026-06-13):
+#   e4b single stream: 29-31 tok/s
+#   fleet aggregate (10 nodes × 1 concurrent task each): ~300 tok/s
+#   fleet 20-task wall: ~2× single-task wall (serial within each node)
 
 model_list:
-  # ── Tier 0 general — default chat model ──
+
+  # ── Tier 0 general — default chat (round-robin 10 nodes, e4b-it-qat) ────────
   - model_name: tier0-general
     litellm_params:
-      model: openai/gemma-4-e4b-it
-      api_base: os.environ/RUNPOD_GEMMA4_OPENAI_BASE
-      api_key: os.environ/RUNPOD_API_KEY
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.101.27.85:11434   # naphtali
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-general
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.81.66.86:11434    # simeon
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-general
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.113.200.45:11434  # judah
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-general
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.66.28.79:11434    # zebulun
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-general
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.102.78.81:11434   # levi
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-general
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.82.123.35:11434   # joseph
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-general
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.89.204.30:11434   # issachar
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-general
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.98.142.59:11434   # dan
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-general
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.75.169.8:11434    # benjamin
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-general
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.96.122.69:11434   # asher
       timeout: 180
       stream_timeout: 240
 
-  # ── Tier 0 fast — latency-sensitive callers ──
+  # ── Tier 0 fast — latency-sensitive (shorter timeout) ──────────────────────
   - model_name: tier0-fast
     litellm_params:
-      model: openai/gemma-4-e4b-it
-      api_base: os.environ/RUNPOD_GEMMA4_OPENAI_BASE
-      api_key: os.environ/RUNPOD_API_KEY
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.101.27.85:11434   # naphtali
+      timeout: 90
+      stream_timeout: 150
+  - model_name: tier0-fast
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.81.66.86:11434    # simeon
+      timeout: 90
+      stream_timeout: 150
+  - model_name: tier0-fast
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.113.200.45:11434  # judah
+      timeout: 90
+      stream_timeout: 150
+  - model_name: tier0-fast
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.66.28.79:11434    # zebulun
+      timeout: 90
+      stream_timeout: 150
+  - model_name: tier0-fast
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.102.78.81:11434   # levi
+      timeout: 90
+      stream_timeout: 150
+  - model_name: tier0-fast
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.82.123.35:11434   # joseph
+      timeout: 90
+      stream_timeout: 150
+  - model_name: tier0-fast
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.89.204.30:11434   # issachar
+      timeout: 90
+      stream_timeout: 150
+  - model_name: tier0-fast
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.98.142.59:11434   # dan
+      timeout: 90
+      stream_timeout: 150
+  - model_name: tier0-fast
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.75.169.8:11434    # benjamin
+      timeout: 90
+      stream_timeout: 150
+  - model_name: tier0-fast
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.96.122.69:11434   # asher
       timeout: 90
       stream_timeout: 150
 
-  # ── Tier 0 structured — JSON / extraction tasks ──
+  # ── Tier 0 structured — JSON / extraction (same e4b-it-qat fleet) ──────────
   - model_name: tier0-structured
     litellm_params:
-      model: openai/gemma-4-e4b-it
-      api_base: os.environ/RUNPOD_GEMMA4_OPENAI_BASE
-      api_key: os.environ/RUNPOD_API_KEY
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.101.27.85:11434   # naphtali
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-structured
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.81.66.86:11434    # simeon
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-structured
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.113.200.45:11434  # judah
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-structured
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.66.28.79:11434    # zebulun
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-structured
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.102.78.81:11434   # levi
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-structured
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.82.123.35:11434   # joseph
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-structured
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.89.204.30:11434   # issachar
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-structured
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.98.142.59:11434   # dan
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-structured
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.75.169.8:11434    # benjamin
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-structured
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.96.122.69:11434   # asher
       timeout: 180
       stream_timeout: 240
 
-  # ── Explicit aliases (backward-compat) ──
+  # ── Tier 1 heavy — 12b-it-qat, 1 stream/node (ADR-2606120500) ──────────────
+  # 12b: +7.4pp accuracy vs e4b on code tasks; use for cascade/escalation paths.
+  # Per-node concurrency MUST be 1 (M4 16GB times out at 2 streams with 12b).
+  - model_name: tier1-heavy
+    litellm_params:
+      model: ollama_chat/gemma4:12b-it-qat
+      api_base: http://100.101.27.85:11434   # naphtali
+      timeout: 600
+      stream_timeout: 600
+  - model_name: tier1-heavy
+    litellm_params:
+      model: ollama_chat/gemma4:12b-it-qat
+      api_base: http://100.81.66.86:11434    # simeon
+      timeout: 600
+      stream_timeout: 600
+  - model_name: tier1-heavy
+    litellm_params:
+      model: ollama_chat/gemma4:12b-it-qat
+      api_base: http://100.113.200.45:11434  # judah
+      timeout: 600
+      stream_timeout: 600
+  - model_name: tier1-heavy
+    litellm_params:
+      model: ollama_chat/gemma4:12b-it-qat
+      api_base: http://100.66.28.79:11434    # zebulun
+      timeout: 600
+      stream_timeout: 600
+  - model_name: tier1-heavy
+    litellm_params:
+      model: ollama_chat/gemma4:12b-it-qat
+      api_base: http://100.102.78.81:11434   # levi
+      timeout: 600
+      stream_timeout: 600
+  - model_name: tier1-heavy
+    litellm_params:
+      model: ollama_chat/gemma4:12b-it-qat
+      api_base: http://100.82.123.35:11434   # joseph
+      timeout: 600
+      stream_timeout: 600
+  - model_name: tier1-heavy
+    litellm_params:
+      model: ollama_chat/gemma4:12b-it-qat
+      api_base: http://100.89.204.30:11434   # issachar
+      timeout: 600
+      stream_timeout: 600
+  - model_name: tier1-heavy
+    litellm_params:
+      model: ollama_chat/gemma4:12b-it-qat
+      api_base: http://100.98.142.59:11434   # dan
+      timeout: 600
+      stream_timeout: 600
+  - model_name: tier1-heavy
+    litellm_params:
+      model: ollama_chat/gemma4:12b-it-qat
+      api_base: http://100.75.169.8:11434    # benjamin
+      timeout: 600
+      stream_timeout: 600
+  - model_name: tier1-heavy
+    litellm_params:
+      model: ollama_chat/gemma4:12b-it-qat
+      api_base: http://100.96.122.69:11434   # asher
+      timeout: 600
+      stream_timeout: 600
+
+  # ── Backward-compat aliases (REDIRECT per ADR-2605215000 §2.2) ─────────────
+  # Former RunPod aliases: model_name kept, backend redirected to fleet.
+  # Callers that used gemma4-runpod / tier0-runpod continue to work unchanged.
   - model_name: gemma4-runpod
     litellm_params:
-      model: openai/gemma-4-e4b-it
-      api_base: os.environ/RUNPOD_GEMMA4_OPENAI_BASE
-      api_key: os.environ/RUNPOD_API_KEY
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.101.27.85:11434   # naphtali (round-robin entry)
+      timeout: 180
+      stream_timeout: 240
+  - model_name: gemma4-runpod
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.81.66.86:11434    # simeon
+      timeout: 180
+      stream_timeout: 240
+  - model_name: gemma4-runpod
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.82.123.35:11434   # joseph
       timeout: 180
       stream_timeout: 240
 
   - model_name: tier0-runpod
     litellm_params:
-      model: openai/gemma-4-e4b-it
-      api_base: os.environ/RUNPOD_GEMMA4_OPENAI_BASE
-      api_key: os.environ/RUNPOD_API_KEY
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.101.27.85:11434   # naphtali (round-robin entry)
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-runpod
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.81.66.86:11434    # simeon
+      timeout: 180
+      stream_timeout: 240
+  - model_name: tier0-runpod
+    litellm_params:
+      model: ollama_chat/gemma4:e4b-it-qat
+      api_base: http://100.82.123.35:11434   # joseph
       timeout: 180
       stream_timeout: 240
 
@@ -66,6 +333,7 @@ router_settings:
   timeout: 180
   allowed_fails: 3
   cooldown_time: 30
+  routing_strategy: least-busy   # prefer idle nodes over strict round-robin
 
 litellm_settings:
   drop_params: true
