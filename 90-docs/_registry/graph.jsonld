@@ -15800,6 +15800,154 @@
       "lastVerified": "2026-06-13"
     },
     {
+      "id": "doc:adr-2606141200-matsurigoto-tax-collect-jp-withholding-remittance",
+      "type": "TechArticle",
+      "title": "ADR-2606141200: matsurigoto tax-collect — JP 法人源泉所得税・復興特別所得税の納付処理 (Clojure)",
+      "status": "accepted",
+      "topic": "matsurigoto-tax-collect-jp-withholding-remittance",
+      "authoritative": true,
+      "authoritativeFor": [
+        "matsurigoto tax-collect module (源泉徴収納付 / withholding remittance)",
+        "JP corporate 源泉所得税 + 復興特別所得税 reference computation + 納付処理"
+      ],
+      "related": "doc:adr-2605231525-etzhayyim-no-server-key",
+      "lastVerified": "2026-06-14"
+    },
+    {
+      "id": "doc:adr-2606142000-kuramori-warehouse-intralogistics-agv-amr",
+      "type": "TechArticle",
+      "title": "ADR-2606142000: kuramori 倉守 — warehouse intralogistics robotics (AGV/AMR) + the Clojure-first GAP-actor wave",
+      "status": "accepted",
+      "topic": "kuramori-warehouse-intralogistics",
+      "authoritative": true,
+      "authoritativeFor": [
+        "warehouse intralogistics robotics actor (AGV/AMR transport + slotting + putaway/picking)",
+        "the reference Clojure-first (babashka-runnable) actor idiom"
+      ],
+      "related": [
+        "doc:ADR-2606042300 (todoke — last-mile sibling)",
+        "doc:ADR-2606032100 (labor-liberation robotics wave — sanae/hataori/kiyome)"
+      ],
+      "lastVerified": "2026-06-14"
+    },
+    {
+      "id": "doc:adr-2606142010-soma-forestry-logging-robotics",
+      "type": "TechArticle",
+      "title": "ADR-2606142010: soma 杣 — forestry / logging robotics (directional felling + bucking + extraction)",
+      "status": "accepted",
+      "topic": "soma-forestry-logging-robotics",
+      "authoritative": true,
+      "authoritativeFor": [
+        "forestry / logging robotics actor (directional felling + cut-to-length bucking + slope/soil-limited extraction)"
+      ],
+      "related": "doc:ADR-2606142000 (kuramori 倉守 — the Clojure-first reference actor soma mirrors)",
+      "lastVerified": "2026-06-14"
+    },
+    {
+      "id": "doc:adr-2606142020-madomori-facade-window-cleaning-robotics",
+      "type": "TechArticle",
+      "title": "ADR-2606142020: madomori 窓守 — high-rise / façade window-cleaning robotics",
+      "status": "accepted",
+      "topic": "madomori-facade-window-cleaning",
+      "authoritative": true,
+      "authoritativeFor": [
+        "high-rise / façade window-cleaning robotics actor (coverage path + wind/sway envelope + adhesion)"
+      ],
+      "related": [
+        "doc:ADR-2606142000 (kuramori — the reference Clojure-first actor idiom this mirrors)",
+        "doc:ADR-2606034800 (manako — on-device browser-local vision; the G3 on-device-no-cloud pattern)"
+      ],
+      "lastVerified": "2026-06-14"
+    },
+    {
+      "id": "doc:adr-2606142030-kudamori-sewer-confined-space-cleaning-robotics",
+      "type": "TechArticle",
+      "title": "ADR-2606142030: kudamori 管守 — sewer / confined-space in-pipe cleaning robotics",
+      "status": "accepted",
+      "topic": "kudamori-sewer-confined-space-cleaning",
+      "authoritative": true,
+      "authoritativeFor": [
+        "sewer / confined-space in-pipe cleaning robotics actor (atmosphere gate + nav + jetting)"
+      ],
+      "related": [
+        "doc:ADR-2606142000 (kuramori — Clojure-first reference actor / sibling)",
+        "doc:ADR-2605263100 (mizuho 水穂 — water + sanitation; treatment counterpart, effluent handoff)"
+      ],
+      "lastVerified": "2026-06-14"
+    },
+    {
+      "id": "doc:adr-2606142200-shinka-self-evolution-engine",
+      "type": "TechArticle",
+      "title": "ADR-2606142200: Shinka — etzhayyim self-evolution engine (Robin + Co-scientist on Murakumo)",
+      "status": "proposed",
+      "topic": "shinka-self-evolution-engine",
+      "authoritative": true,
+      "authoritativeFor": [
+        "self-evolution-loop",
+        "agent-tournament-architecture",
+        "maxwell-frontier-efficiency-program"
+      ],
+      "related": [
+        "doc:2605241900",
+        "doc:2606062100"
+      ],
+      "lastVerified": "2026-06-15"
+    },
+    {
+      "id": "doc:adr-2606142300-clj-native-migration-roadmap-erp-plm-mes",
+      "type": "TechArticle",
+      "title": "ADR-2606142300: clj-native migration roadmap for ERP / PLM / MES actors (kotoba Datom-log + langgraph-clj)",
+      "status": "accepted",
+      "topic": "clj-native-migration-roadmap-erp-plm-mes",
+      "authoritative": true,
+      "authoritativeFor": [
+        "clj-native migration priority/order for the ERP / PLM / MES actor families",
+        "the \"logic-core to Clojure, UI to TS, physics to Rust\" partition rule",
+        "byte-identical port discipline + dependency-ordered (additive) migration rule"
+      ],
+      "related": [
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2606141200-matsurigoto-tax-collect-jp-withholding-remittance",
+        "doc:adr-2606037200-open-kyber-kotoba-datomic-erp-isic-productivity"
+      ],
+      "lastVerified": "2026-06-14"
+    },
+    {
+      "id": "doc:adr-2606151000-coverage-live-ingest-and-kotobase-enablement",
+      "type": "TechArticle",
+      "title": "ADR-2606151000: Council-authorized live coverage ingest + kotobase.net pin/quads enablement + enterprise tier",
+      "status": "accepted",
+      "topic": "coverage-live-ingest-and-kotobase-enablement",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the live public-data coverage of the corp-mirror lineage (kabuto / kanjō / hoshimori / entity-handles registry)",
+        "the kotobase.net pin/quads write path + self-signed CACAO auth recipe (no-server-key)",
+        "the kotobase quota-tier table (free / starter / pro / enterprise)"
+      ],
+      "related": [
+        "doc:ADR-2606111330 (kotobase.net pin-completion / kubo peering stall — operator follow-up)",
+        "doc:ADR-2606111400 (ibuki revocable CACAO leash — the member-signed-capability pattern reused)"
+      ],
+      "lastVerified": "2026-06-15"
+    },
+    {
+      "id": "doc:adr-2606152300-robotics-gap-closure-clojure-first-maturity-loop-session-close",
+      "type": "TechArticle",
+      "title": "ADR-2606152300: Robotics GAP-closure wave + Clojure-first maturity-loop — session close",
+      "status": "accepted",
+      "topic": "robotics-gap-closure-session-close",
+      "authoritative": true,
+      "authoritativeFor": [
+        "robotics-coverage GAP-closure session outcome (4 Clojure-first actors, R0)",
+        "the Clojure-first (babashka-runnable) actor idiom + the robotics-coverage maturity scorecard"
+      ],
+      "related": [
+        "doc:ADR-2606032100 (labor-liberation robotics wave)",
+        "doc:ADR-2605312345 (kotoba Datom = canonical state)"
+      ],
+      "lastVerified": "2026-06-15"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
