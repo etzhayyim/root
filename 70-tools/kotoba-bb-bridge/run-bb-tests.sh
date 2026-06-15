@@ -38,7 +38,10 @@ done
 rm -f "$tmp"
 
 echo "── kotoba-bb-bridge summary ──"
-if [ "$failed" -eq 0 ]; then
+if [ "$n" -eq 0 ]; then
+  echo "no test suites matched (gate: NOT green — expected test file missing)"
+  exit 1
+elif [ "$failed" -eq 0 ]; then
   echo "$n suites green: 0 failures, 0 errors"
   exit 0
 else
