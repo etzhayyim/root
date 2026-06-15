@@ -314,29 +314,51 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:matsurigoto
-  {:doc "matsurigoto 政 — tax-collect 源泉徴収納付 Clojure module (計算/納付/手続き/連絡先/Datom; ADR-2606062300)"
+  {:doc "matsurigoto 政 — tax-collect 源泉徴収納付 + tax-assess 速算表 Clojure modules (計算/納付/手続き/連絡先/Datom; ADR-2606062300 + 2606142300)"
    :task (do (require 'clojure.test
                       'matsurigoto.tax-collect.test-withholding
                       'matsurigoto.tax-collect.test-payment
                       'matsurigoto.tax-collect.test-procedures
                       'matsurigoto.tax-collect.test-contacts
-                      'matsurigoto.tax-collect.test-datom-emit)
+                      'matsurigoto.tax-collect.test-datom-emit
+                      'matsurigoto.methods.modules.test-tax-assess
+                      'matsurigoto.methods.modules.test-corp-registry
+                      'matsurigoto.methods.modules.test-civil-registry
+                      'matsurigoto.methods.modules.test-credential-issue
+                      'matsurigoto.methods.test-datoms
+                      'matsurigoto.methods.test-sign-capability
+                      'matsurigoto.methods.test-standard)
              (let [r (clojure.test/run-tests
                       'matsurigoto.tax-collect.test-withholding
                       'matsurigoto.tax-collect.test-payment
                       'matsurigoto.tax-collect.test-procedures
                       'matsurigoto.tax-collect.test-contacts
-                      'matsurigoto.tax-collect.test-datom-emit)]
+                      'matsurigoto.tax-collect.test-datom-emit
+                      'matsurigoto.methods.modules.test-tax-assess
+                      'matsurigoto.methods.modules.test-corp-registry
+                      'matsurigoto.methods.modules.test-civil-registry
+                      'matsurigoto.methods.modules.test-credential-issue
+                      'matsurigoto.methods.test-datoms
+                      'matsurigoto.methods.test-sign-capability
+                      'matsurigoto.methods.test-standard)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:fuchi
+  {:doc "扶持 fuchi — sustenance allocation + 1 SBT=1 vote governance Clojure modules (ADR-2606052300 + 2606142300)"
+   :task (do (require 'clojure.test 'fuchi.methods.test-allocate 'fuchi.methods.test-vote 'fuchi.methods.test-route 'fuchi.methods.test-book 'fuchi.methods.test-provision 'fuchi.methods.test-couple 'fuchi.methods.test-analyze)
+             (let [r (clojure.test/run-tests 'fuchi.methods.test-allocate 'fuchi.methods.test-vote 'fuchi.methods.test-route 'fuchi.methods.test-book 'fuchi.methods.test-provision 'fuchi.methods.test-couple 'fuchi.methods.test-analyze)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi]}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test
-                      'etzhayyim.tools.test-maturation-agent)
-             (let [r (clojure.test/run-tests 'etzhayyim.tools.test-maturation-agent)]
+                      'etzhayyim.tools.test-maturation-agent
+                      'etzhayyim.tools.test-discovery)
+             (let [r (clojure.test/run-tests 'etzhayyim.tools.test-maturation-agent
+                                              'etzhayyim.tools.test-discovery)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   maturation-agent
