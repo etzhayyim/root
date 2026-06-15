@@ -25173,6 +25173,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606151027-masago-open-materials-discovery-mirror.md",
+      "id": "adr-2606151027-masago-open-materials-discovery-mirror",
+      "title": "ADR-2606151027: 真砂 masago — open materials-discovery KG mirror (Meta OMat24 + Materials Project)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "masago-open-materials-discovery-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "masago actor",
+        "open-materials-ontology"
+      ],
+      "related": [
+        "2605242500",
+        "2605261100",
+        "2606032100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606101000",
+        "2606051200",
+        "2606073000",
+        "2605312345",
+        "2605262400",
+        "2605215000",
+        "2605231525",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-15",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606151430-kotoba-root-side-clj-reference-substrate.md",
       "id": "adr-2606151430-kotoba-root-side-clj-reference-substrate",
       "title": "ADR-2606151430: kotoba root-side Clojure reference substrate (data+impl in root, not the engine)",
