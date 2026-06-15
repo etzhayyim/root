@@ -15969,6 +15969,19 @@
       "lastVerified": "2026-06-15"
     },
     {
+      "id": "doc:adr-2606152000-session-close-food-logistics-clj-coverage-supervised-wave",
+      "type": "TechArticle",
+      "title": "ADR-2606152000: Session close — food/logistics actor kotoba-datomic Clojure coverage wave (Opus-supervised / subagent-authored) + PR",
+      "status": "accepted",
+      "topic": "session-close-food-logistics-clj-coverage-supervised-wave",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606074200-umisachi-seafood-kg-mirror",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "lastVerified": "2026-06-15"
+    },
+    {
       "id": "doc:adr-2606152300-robotics-gap-closure-clojure-first-maturity-loop-session-close",
       "type": "TechArticle",
       "title": "ADR-2606152300: Robotics GAP-closure wave + Clojure-first maturity-loop — session close",
