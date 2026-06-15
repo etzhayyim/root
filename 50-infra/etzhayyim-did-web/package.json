@@ -12,12 +12,12 @@
     "enable-kv": "bash scripts/enable-kv.sh"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260608.1",
+    "@cloudflare/workers-types": "^4.20260613.1",
     "esbuild": "^0.28.1",
     "typescript": "^6.0.3",
-    "wrangler": "^4.98.0"
+    "wrangler": "^4.100.0"
   },
   "dependencies": {
-    "@noble/post-quantum": "^0.5.2"
+    "@noble/post-quantum": "^0.6.1"
   }
 }
