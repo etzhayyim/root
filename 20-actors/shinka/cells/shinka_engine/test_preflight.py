@@ -94,14 +94,15 @@ def test_feeds_run_rsi_ready() -> None:
     check("run_rsi flips on step gate", out.decision["flip_available"] is True)
 
 
-def test_defaults_use_magicdns_not_stale_ip() -> None:
-    # gad is Ubuntu now and its LAN IP changes -> probes must target the
-    # Tailscale MagicDNS name `gad`, never the stale 192.168.1.70 LAN address.
+def test_defaults_use_tailscale_ip_not_stale_lan() -> None:
+    # gad is Ubuntu now and its LAN IP changes -> probes target gad's stable
+    # Tailscale IP (100.82.98.110), never the stale 192.168.1.70 LAN address.
+    GAD_TS = "100.82.98.110"
     rocm_default = inspect.signature(rocm_http_probe).parameters["url"].default
-    check("rocm probe default targets gad MagicDNS", "gad" in rocm_default)
+    check("rocm probe default targets gad Tailscale IP", GAD_TS in rocm_default)
     check("rocm probe default is not the stale LAN IP", "192.168.1.70" not in rocm_default)
     ssh_default = inspect.signature(tailscale_ssh_probe).parameters["host"].default
-    check("ssh probe default host is gad", ssh_default == "gad")
+    check("ssh probe default host is gad Tailscale IP", ssh_default == GAD_TS)
 
 
 def main() -> int:
@@ -113,7 +114,7 @@ def main() -> int:
         test_rocm_probe_transport_injection,
         test_feeds_run_rsi_blocked,
         test_feeds_run_rsi_ready,
-        test_defaults_use_magicdns_not_stale_ip,
+        test_defaults_use_tailscale_ip_not_stale_lan,
     ):
         fn()
     print(f"preflight: passed={_passed} failed={_failed}")

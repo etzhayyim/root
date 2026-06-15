@@ -6,7 +6,7 @@
 - **DID**: shares `did:web:shinka.etzhayyim.com` with the actor's social-evolution scheduler (`../actor-manifest.jsonld`).
 - **ADR**: ADR-2606142200 (`90-docs/adr/2606142200-shinka-self-evolution-engine.md`, proposed).
 - **External basis**: DeepMind co-scientist (generate→debate→evolve, Elo tournament) + Robin (Nature 2026, hypothesis→experiment→analyse→update) + MIT TLT (arXiv 2511.16665, Tracks B/E).
-- **Status**: S0 landed + S1 adapters + training preflight — full engine (both loops + Supervisor + all 7 research tracks) + live-fleet adapters (`live_hooks.py`) + Loop-B readiness gate (`preflight.py`); **376 standalone tests green / 22 suites**; LLM-free deterministic kernel + typed Murakumo/fleet hooks. NOT operationally activated (live Murakumo infer / EVO-X2 training / registry flip / live kotoba transact are all operator/leash-gated; `gad` (EVO-X2, Ubuntu ROCm) reached over Tailscale MagicDNS).
+- **Status**: S0 landed + S1 adapters + training preflight — full engine (both loops + Supervisor + all 7 research tracks) + live-fleet adapters (`live_hooks.py`) + Loop-B readiness gate (`preflight.py`); **376 standalone tests green / 22 suites**; LLM-free deterministic kernel + typed Murakumo/fleet hooks. NOT operationally activated (live Murakumo infer / EVO-X2 training / registry flip / live kotoba transact are all operator/leash-gated; `gad` (EVO-X2, Ubuntu ROCm) reached over Tailscale SSH (IP 100.82.98.110, Ubuntu .16)).
 
 ## What this is (and is not)
 
@@ -65,7 +65,7 @@ It is **NOT** a frontier-beating chase: the thesis is `frontier-class = small we
 | `distill_flywheel.py` | Track F: rounds-to-quality + collapse guards | 16 |
 | `quantization.py` | Track G: tok/s × quality Pareto per node | 15 |
 | `live_hooks.py` | S1: Murakumo infer + kotoba poster (only net I/O) | 15 |
-| `preflight.py` | S1: Loop-B readiness gate (gad/EVO-X2/corpus, MagicDNS) | 18 |
+| `preflight.py` | S1: Loop-B readiness gate (gad/EVO-X2/corpus, Tailscale IP) | 18 |
 
 Integration/coupling suites: `test_flywheel_e2e` (6, Loop A→B), `test_fleet_wiring`
 (12), `test_rag_wiring` (8), `test_generation_wiring` (13), `test_manifest` (13,
