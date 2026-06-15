@@ -52,6 +52,13 @@ from .distill_flywheel import DistillFlywheel, Generation, projected_rounds
 from .quantization import QuantOption, NodeSpec, select_quant, pareto_front, recommend
 from .adaptive import adaptive_best_of_n, AdaptiveResult, DEFAULT_BUDGETS
 from .live_hooks import murakumo_infer, kotoba_poster
+from .preflight import (
+    fleet_preflight,
+    PreflightVerdict,
+    tailscale_ssh_probe,
+    rocm_http_probe,
+    rsi_state_from_preflight,
+)
 
 __all__ = [
     # Loop A
@@ -122,4 +129,10 @@ __all__ = [
     # S1 — live-fleet adapters (Murakumo-only; the only place network I/O lives)
     "murakumo_infer",
     "kotoba_poster",
+    # S1 — Loop-B training-readiness preflight (gad / EVO-X2 / corpus)
+    "fleet_preflight",
+    "PreflightVerdict",
+    "tailscale_ssh_probe",
+    "rocm_http_probe",
+    "rsi_state_from_preflight",
 ]
