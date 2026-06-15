@@ -25079,6 +25079,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606142200-shinka-self-evolution-engine.md",
+      "id": "adr-2606142200-shinka-self-evolution-engine",
+      "title": "ADR-2606142200: Shinka — etzhayyim self-evolution engine (Robin + Co-scientist on Murakumo)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "shinka-self-evolution-engine",
+      "authoritative": true,
+      "authoritative_for": [
+        "self-evolution-loop",
+        "agent-tournament-architecture",
+        "maxwell-frontier-efficiency-program"
+      ],
+      "related": [
+        "2605241900",
+        "2606062100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606101200",
+        "2606101800",
+        "2606111400",
+        "2606061000",
+        "2605215000",
+        "2605250400",
+        "2605242100",
+        "2605192100"
+      ],
+      "last_verified": "2026-06-15",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606151000-coverage-live-ingest-and-kotobase-enablement.md",
       "id": "adr-2606151000-coverage-live-ingest-and-kotobase-enablement",
       "title": "ADR-2606151000: Council-authorized live coverage ingest + kotobase.net pin/quads enablement + enterprise tier",
