@@ -15876,6 +15876,24 @@
       "lastVerified": "2026-06-14"
     },
     {
+      "id": "doc:adr-2606142200-shinka-self-evolution-engine",
+      "type": "TechArticle",
+      "title": "ADR-2606142200: Shinka — etzhayyim self-evolution engine (Robin + Co-scientist on Murakumo)",
+      "status": "proposed",
+      "topic": "shinka-self-evolution-engine",
+      "authoritative": true,
+      "authoritativeFor": [
+        "self-evolution-loop",
+        "agent-tournament-architecture",
+        "maxwell-frontier-efficiency-program"
+      ],
+      "related": [
+        "doc:2605241900",
+        "doc:2606062100"
+      ],
+      "lastVerified": "2026-06-15"
+    },
+    {
       "id": "doc:adr-2606142300-clj-native-migration-roadmap-erp-plm-mes",
       "type": "TechArticle",
       "title": "ADR-2606142300: clj-native migration roadmap for ERP / PLM / MES actors (kotoba Datom-log + langgraph-clj)",
