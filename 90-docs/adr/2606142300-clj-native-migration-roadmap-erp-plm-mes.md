@@ -367,6 +367,24 @@ consumers port. **Next: Wave 2** (PLM graph layer — uchiwake / kabuto / giemon
 (MES Pregel cells → langgraph-clj). The roadmap's worked references (danjo for load-file methods,
 matsurigoto/fuchi for the clojure.test + classpath pattern) are now established for those waves.
 
+## Wave 2 (PLM graph) — kicked off
+
+Checking-for-existing-`.cljc`-first (the danjo lesson), much of the PLM/observatory layer is found
+to be **already `.cljc`**: uchiwake (`uchiwake-edn` + `analyze`), kabuto (`kabuto-edn` + `analyze`),
+and the mirror lineage (asobi/hoshimori/inochi/hokorobi/tsugite/shiori/rasen/keizu/kosatsu/watari/…)
+all ship `.cljc` ports already. So Wave 2 is **finishing the unported tail**, not greenfield.
+
+- **uchiwake `crosscheck`.** `crosscheck.py` → `crosscheck.clj` (+ `test_crosscheck.clj`): the
+  headline uchiwake⇄kabuto coverage-linkage measurement, reusing the canonical `.cljc`
+  `uchiwake.methods.uchiwake-edn` (load-edn + classify). **Byte-identical** with crosscheck.py on
+  every metric: 1719 kabuto companies, 26 distinct refs → 21 resolved = **80.8% linkage**; per-kind
+  totals; the 子会社 ownership-rollup (sony-semicon→sony recovered on two edge-kinds); the honest
+  unresolved gap (5, G5 — "not yet ingested" not "nonexistent"); and reverse coverage (233 supply
+  cos, **6.438%** with product detail, **1.163%** across all kabuto). Written `.clj` (a clj-side
+  disk-reading data tool, not browser), path-matching ns → auto-discovered by `bb test:actors`
+  (4 tests / 20 assertions; worklist tie-order is impl-specific so asserted by length + max
+  out-degree, not exact order). Remaining uchiwake tail: `ingest` / `adapters/openfoodfacts`.
+
 # Alternatives Considered
 
 - **Full clj rewrite of every actor.** Rejected (D4): rewrites open-kyber UI + Rust
