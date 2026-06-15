@@ -1,0 +1,52 @@
+{
+  "$comment": "Bit-identical acceptance vectors for the com.etzhayyim.encrypted.* wire format (ADR-2605181100). FROZEN constitutional artifact: any re-implementation (kotoba-crypto / kotoba-signal, ADR-2605262130 Phase 5 gate) MUST reproduce these exact bytes. Reference impl + generator: 70-tools/src/etzhayyim/kotoba/{crypto,encrypted}.cljc (root-side; NOT in the kotoba subrepo). Validate: bb test:kotoba.",
+  "version": 1,
+  "encoding": "hex for raw bytes; base64 (std, padded) for envelope nonce/ciphertext",
+  "primitives": {
+    "chacha20_permutation": {
+      "source": "RFC 8439 §2.3.2",
+      "note": "20-round ChaCha permutation, AFTER rounds, BEFORE the final state-add. HChaCha20 reuses this exact permutation.",
+      "key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "counter": 1,
+      "nonce12": "000000090000004a00000000",
+      "after20_words_le": "837778abe238d763a67ae21e5950bb2fc4f2d0c7fc62bb2f8fa018fc3f5ec7b7335271c2f29489f3eabda8fc82e46ebdd19c12b4b04e16de9e83d0cb4e3c50a2"
+    },
+    "hchacha20": {
+      "source": "draft-irtf-cfrg-xchacha-00 §2.2.1",
+      "key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "nonce16": "000000090000004a0000000031415927",
+      "subkey": "82413b4227b27bfed30e42508a877d73a0f9e4d58a74a853c12ec41326d3ecdc"
+    },
+    "chacha20poly1305_aead": {
+      "source": "RFC 8439 §2.8.2",
+      "key": "808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f",
+      "nonce12": "070000004041424344454647",
+      "aad": "50515253c0c1c2c3c4c5c6c7",
+      "plaintext_utf8": "Ladies and Gentlemen of the class of '99: If I could offer you only one tip for the future, sunscreen would be it.",
+      "ciphertext": "d31a8d34648e60db7b86afbc53ef7ec2a4aded51296e08fea9e2b5a736ee62d63dbea45e8ca9671282fafb69da92728b1a71de0a9e060b2905d6a5b67ecd3b3692ddbd7f2d778b8c9803aee328091b58fab324e4fad675945585808b4831d7bc3ff4def08e4b7a9de576d26586cec64b6116",
+      "tag": "1ae10b594f09e26a7e902ecbd0600691"
+    }
+  },
+  "envelope": {
+    "$comment": "com.etzhayyim.encrypted.record built by etzhayyim.kotoba.encrypted/seal. AAD = self-ref CID over [innerType sender createdAt keyId]; plaintext encoded as canonical-EDN UTF-8 in the reference (production uses CBOR — pluggable, AEAD framing unaffected).",
+    "sym_key": "808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f",
+    "nonce24": "404142434445464748494a4b4c4d4e4f5051525354555657",
+    "plaintext_edn": "{:msg \"covenant proposal #1\" :n 7}",
+    "opts": {
+      "sender": "did:web:etzhayyim.com",
+      "innerType": "com.etzhayyim.governance.proposal",
+      "createdAt": "2026-06-14T00:00:00Z"
+    },
+    "expected_record": {
+      "v": 1,
+      "alg": "xchacha20poly1305",
+      "nonce": "QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZX",
+      "ciphertext": "ijYehzzQ1jmUZBK9l8DpdUI1HR5qN/2A6pnELm51N6YgC23dwdf+eudmyYWW5O4UmamF",
+      "keyId": "82d86408530b765e",
+      "innerType": "com.etzhayyim.governance.proposal",
+      "sender": "did:web:etzhayyim.com",
+      "createdAt": "2026-06-14T00:00:00Z"
+    },
+    "envelope_cid": "bafkreialexhkbn4fr5ujm33p7ykc23dexnekiemplruu3kpuyohei7ldvm"
+  }
+}
