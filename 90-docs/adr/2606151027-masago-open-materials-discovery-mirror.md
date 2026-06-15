@@ -82,12 +82,17 @@ R0 is datafication-only with **no model execution at all**.
 # Decision
 
 Introduce **真砂 (masago)** as a Tier-B **KG-mirror science-data actor**
-(`20-actors/masago/`), modeled file-for-file on `rasen` (ingest/analyze/datom-emit/
-coverage/cid/publish, pure-stdlib pywasm-runnable) and inheriting `hotaru`'s
-open-IP-only / no-fabrication discipline. The name 真砂 ("the countless grains" — 浜の真砂,
-the innumerable fine particles) is the metaphor for the vast combinatorial materials space
-being mirrored grain-by-grain. _(Working name; rename precedent: 民→継ぎ手. Alternatives
-considered below.)_
+(`20-actors/masago/`), modeled on `rasen` (the analyze/coverage/datom science-data pattern)
+and inheriting `hotaru`'s open-IP-only / no-fabrication discipline. The name 真砂 ("the
+countless grains" — 浜の真砂, the innumerable fine particles) is the metaphor for the vast
+combinatorial materials space being mirrored grain-by-grain. _(Working name; rename precedent:
+民→継ぎ手. Alternatives considered below.)_
+
+**Language: Clojure / kotoba-datomic native** (not Python), matching the Tier-B analyzer
+migration in flight (hotaru/mitooshi/nusa Python→Clojure). Methods are pure `.cljc` run on
+**babashka** (classpath root `20-actors`, namespace `masago.methods.*`), EDN `:…` keywords kept
+as strings through the pipeline, file I/O only at the edges — the shared house style of the
+nusa/hotaru ports.
 
 **Telos**: mirror the PUBLIC computed properties + structures of the open-materials commons
 into the kotoba Datom log, run an **edge-primary discovery-evidence** analysis (where computed
@@ -97,40 +102,51 @@ make/buy decision and never to a synthesis recipe.
 
 ## Vocabulary — `00-contracts/schemas/open-materials-ontology.kotoba.edn`
 
-- **Nodes** `:material/kind` ∈
-  `{:material :element :property :structure :application :dataset-source}`
-  - `:material/*` — formula, source-id (`mp-…` / OMat id), `:material/sourcing`
-    (`:authoritative` = disclosed in source · `:representative` = hand-seed)
-  - `:property/*` — property TYPE (`:formation-energy :band-gap :bulk-modulus
-    :elastic :magnetic :stability-hull` …), units; the VALUE lives on the edge (N1)
-  - `:structure/*` — spacegroup, lattice family, crystal system (public, no privacy concern)
-  - `:application/*` — downstream class (`:battery-cathode :catalyst :semiconductor
-    :structural :photovoltaic` …)
-  - `:dataset-source/*` — `:omat24 :materials-project :oqmd :nomad :aflow`, with license + DOI
+- **Nodes** all keyed by `:mat/id`; `:mat/kind` ∈
+  `{:material :element :property :application :dataset-source}` (crystal structure is a facet on
+  the material node, not a separate kind)
+  - common: `:mat/label`, `:mat/sourcing` (`:authoritative` = disclosed in source ·
+    `:representative` = hand-seed), `:mat/links` (cross-actor)
+  - `:material/*` — `:material/formula`, `:material/spacegroup`, `:material/crystal-system`,
+    `:material/source-id` (`mp-…` / OMat id)
+  - `:element/*` — `:element/symbol`, `:element/z`
+  - `:property/*` — `:property/kind` (`:formation-energy :energy-above-hull :band-gap
+    :bulk-modulus :density :ionic-conductivity :seebeck :magnetization :dielectric
+    :critical-temperature` …), `:property/unit`; the VALUE lives on the edge (N1)
+  - `:application/*` — `:application/class` (`:battery-cathode :catalyst :semiconductor
+    :photovoltaic :structural` …; weaponizable classes are NOT members, G1)
+  - `:source/*` — `:source/license` (open only), `:source/doi`, `:source/url`
+    (`:omat24 :materials-project :oqmd :nomad :aflow :jarvis`)
 - **Edges** `:en/kind` ∈
   `{:composed-of :has-property :candidate-for :derived-from :similar-to}`
+  - `:en/grasping-load` — 0..1 discovery-evidence weight (edge-primary; karma lives HERE, N1)
   - `:en/value` — the computed property value (DISCLOSED, N3) ON the `:has-property` edge
-  - `:en/evidence-load` — 0..1 discovery-evidence burden (edge-primary; karma lives HERE, N1)
-  - `:en/clinsig`-analogue → `:en/confidence` ∈ `{:dft :mlip-predicted :experimental}`
-    (provenance of the value, never a verdict)
+  - `:en/confidence` ∈ `{:experimental :dft :mlip-predicted :mlip-screened :estimated}`
+    (DISCLOSED provenance of the value, never a verdict)
   - `:en/sourcing` ∈ `{:authoritative :representative}`
 - **Derived** (transient, computed on READ, NEVER stored; N1/G2):
-  `:bond/discovery-priority` (material = integral of incident property evidence × confidence),
-  `:bond/application-readiness`, `:bond/composition-breadth` — each `:bond/is-transient true`.
+  `:bond/discovery-priority` (material = integral of incident property + candidacy evidence ×
+  confidence), `:bond/application-readiness`, `:bond/composition-breadth` — flagged transient.
 
-## Cells (pure-stdlib, pywasm-runnable)
+## Cells (Clojure `.cljc`, babashka-runnable)
 
-- `methods/analyze.py` — edge-primary discovery-evidence analyzer → `discovery-report.md`
-- `methods/datom_emit.py` — EAVT Datom-log emitter (ground `:add` + flagged-transient derived)
-- `methods/coverage_report.py` — honest coverage vs the ~10⁸ denominator + gap map (G5)
-- `methods/cid.py` — kotoba IPFS CIDv1 (raw/sha2-256) parity, copied verbatim from rasen
-- `methods/ingest.py` — **OUTWARD (G7)**: bounded public APIs (Materials Project REST,
-  OMat24 / NOMAD / OQMD open dumps) → EDN → Datom → CID
-- `methods/publish.py` — **OUTWARD (G7)**: IPFS pin + IPNS + `80-data/open-materials/` snapshot
-- Seed `data/seed-open-materials-graph.kotoba.edn` — hand-curated OPEN reference (e.g. LiFePO₄,
-  TiO₂, GaN, perovskite exemplars) with full attribution.
+R0 ships one consolidated analyzer (the nusa/hotaru house style — pure fns, file I/O at the
+edges) plus its test suite:
+
+- `methods/analyze.cljc` — EDN reader + `classify` + `screen` (G1/G4 enforcement, raises
+  `ex-info`) + `analyze` (edge-primary integral) + `render-report` (discovery) + `render-coverage`
+  (honest denominator + gap map, G5) + `render-datoms` (canonical EAVT ground `:add` + derived
+  transient, ADR-2605312345) + `-main`.
+- `methods/test_analyze.cljc` — 13 `clojure.test` deftests (network-free): 433 assertions green.
+- Seed `data/seed-open-materials-graph.kotoba.edn` — hand-curated OPEN reference (LiFePO₄, Si,
+  GaN, LLZO, BaTiO₃, MgB₂ … 16 materials, `mp-*` ids) with full attribution.
+- Schema `00-contracts/schemas/open-materials-ontology.kotoba.edn`.
 - Lexicons `00-contracts/lexicons/com/etzhayyim/masago/`:
-  `materialRecord.edn` · `datasetSourceAttestation.edn` · `discoveryCandidateReport.edn`.
+  `materialRecord.json` · `datasetSourceAttestation.json` · `discoveryCandidateReport.json`
+  (enums enforce G1 no-weapon-classes + G4 open-license-only + G3 research-only route).
+- **R1 outward legs (G7-gated, not in R0)**: `methods/ingest.cljc` (live Materials Project REST /
+  OMat24 dumps → EDN → Datom → CID) and `methods/publish.cljc` (IPFS pin + IPNS +
+  `80-data/open-materials/` snapshot). Run via `bb --classpath 20-actors -m masago.methods.analyze`.
 
 ## Hard gates (immutable; enforced in schema `:db/allowed` = lexicon `enum`/`const` = code, machine-checked)
 
@@ -151,7 +167,7 @@ make/buy decision and never to a synthesis recipe.
   Materials Project / OQMD / NOMAD / AFLOW under their open licenses). No proprietary or
   vendor formulations. Attribution preserved per source (feeds G5).
 - **G5 — sourcing + provenance honesty.** Every node carries source + license + DOI/citation;
-  `coverage_report.py` states the mirror is a *tiny representative fraction* of the ~10⁸-scale
+  `render-coverage` states the mirror is a *tiny representative fraction* of the ~10⁸-scale
   commons — never a completeness claim.
 - **G6 — Murakumo-only inference / NO commercial GPU.** Any narration LLM call is
   Murakumo-only (ADR-2605215000). **MLIP/ML model EXECUTION** (running OMat24 potentials) is a
@@ -161,9 +177,9 @@ make/buy decision and never to a synthesis recipe.
 - **G7 — outward-gated, no-server-key.** Live ingest / IPFS pin / IPNS publish require operator
   + Council attestation; the analyzer/datom/coverage loop does **no network I/O** (test-enforced).
   masago holds no signing key.
-- **G8 — content-addressed canonical state.** `datom_emit.py` is the canonical state
-  (ADR-2605312345); `cid.py` CIDv1 byte-parity with `ipfs add --raw-leaves`; large dumps via
-  DataLad → IPFS (ADR-2605262400), **no git-lfs**.
+- **G8 — content-addressed canonical state.** `render-datoms` is the canonical kotoba Datom log
+  (EAVT ground `:add` + derived transient, ADR-2605312345); content-addressing (CIDv1 raw, ipfs
+  parity) + large dumps via DataLad → IPFS (ADR-2605262400) at the R1 publish leg, **no git-lfs**.
 
 # Consequences
 
@@ -172,7 +188,8 @@ make/buy decision and never to a synthesis recipe.
 - Closes the AI-driven materials-discovery gap (was zero-coverage) and gives the silicon /
   energy-battery / robotics / construction actors a charter-clean materials commons to draw on.
 - Extends the proven KG-mirror lineage (rasen/inochi) to a fourth public scientific corpus with
-  no new architectural surface — same ingest/analyze/datom/coverage/cid/publish shape.
+  no new architectural surface — same analyze/coverage/datom shape, in the Tier-B Clojure house
+  style (hotaru/nusa).
 - Datafication-only R0 carries no production, synthesis, or fabrication risk; the dual-use and
   GPU-inference risks are both gated, not hand-waved.
 
