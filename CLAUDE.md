@@ -122,7 +122,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | Actor | Purpose | Status | ADR | Date |
 |---|---|---|---|---|
 | wadachi 轍 | autonomous-mobility R&D (SAE L4 ceiling) | 🟡 R0 | 2605242000 | 05-23 |
-| todoke 届け | last-mile (one-mile) autonomous delivery, curb-to-door ≤25kg SAE-L4 sidewalk; Rust route core w/ refusing safety envelope; no-gig, privacy-by-construction, dividend-coupled (R1 rover sim) | 🟡 R0+R1 | 2606042300 | 06-04 |
+| todoke 届け | last-mile (one-mile) autonomous delivery, curb-to-door ≤25kg SAE-L4 sidewalk; Rust route core w/ refusing safety envelope; no-gig, privacy-by-construction, dividend-coupled (R1 rover sim). **+ clj-native port (06-15)**: `methods/last_mile.clj` (babashka) — the todoke-route core (NN+2-opt stop sequencing + SAE-L4 sidewalk-ODD G7 envelope that REFUSES out-of-ODD/over-speed/SAE>5, never clamps) + courier-liberation sizing; **order-identical to `last_mile.py` AND the Rust crate** (collinear fixture → [0 4 2 3 1]/len 30); `test_last_mile.clj` 9 tests green INCLUDING a cross-actor parity check that **ainori's clj sequencer == todoke's clj `plan-last-mile`** (the ADR-2606071500 'one engine, not a fork' claim now proven in-language) | 🟡 R0+R1 | 2606042300 | 06-04 |
 | yakushi 薬師 | pharmaceutical mfg (eye-drop + OTC APIs) | ✅ W1/1b/1c | 2605250500 | 05-25 |
 | tatekata 建方 | construction (civil + MEP ≤2 story) | 🟡 R0 | 2605250715 | 05-25 |
 | watatsumi 綿津見 | civilian submersible (≤6500m) | 🟡 R0 | 2605252200 | 05-25 |
