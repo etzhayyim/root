@@ -206,7 +206,7 @@ Target: 1000 pairs (train trigger delta=100 ごとに訓練発火)
 | fleet SSH (naphtali/dan/他 9ノード) | **Tailscale IP (100.x.x.x) で全接続確認** |
 | fleet Ollama (naphtali) | `gemma4:12b-it-qat` / `gemma4:e4b-it-qat` 稼働中 |
 | EVO-X2 (gad) | **オンライン (2026-06-15)** — Ubuntu 24.04.2 LTS 再イメージ; Tailscale SSH `100.82.98.110` (`ssh gad`, keyless); LAN .16 (DHCP); torch 2.10 ROCm6.4 + peft/trl env 稼働 (gfx1151, `HSA_OVERRIDE_GFX_VERSION=11.5.1`); Gemma 4 E4B base キャッシュ済み |
-| 訓練実績 | **ゼロ (env ready)** — 訓練 env 完成・base モデルあり; corpus ≥1000 で M1 発火待ち (現 131/1000, harvest 再開) |
+| 訓練実績 | **M1-r1 実走済 (2026-06-16)** — gad/gfx1151 で LoRA SFT 300 steps, **train_loss 3.16→0.3075**, ~15分, deploy ゲート(≥250 steps)**PASS**, adapter 保存 (`maxwell-models.jsonl` m1-r1)。これは検証ラン (corpus 131); 本番 M1 は corpus ≥1000 + microbench eval 後。available:true flip は operator/leash-gated (未実施) |
 
 ## 対応済み
 
