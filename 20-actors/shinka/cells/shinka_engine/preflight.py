@@ -8,11 +8,13 @@ those into one structured, honest verdict that decides whether `run_rsi` may
 proceed or must stay `blocked` — wiring `RSiState.evo_x2_online` to a real probe
 instead of a hand-set flag.
 
-`gad` is addressed by its Tailscale MagicDNS name, NOT a LAN IP: the pod was
-re-imaged Ubuntu and its DHCP address changes, so every probe targets `gad`
-(MagicDNS) and is IP-independent. Probes are INJECTABLE (the live ones do network
-I/O, isolated like live_hooks); a missing probe degrades honestly to
-"unreachable" rather than assuming readiness. Murakumo-only: the probes only ever
+`gad` is addressed by its **Tailscale IP** (`100.82.98.110`), NOT its LAN IP: the
+pod was re-imaged Ubuntu 24.04 and its DHCP LAN address changes (currently .16),
+whereas the Tailscale IP is stable per-node and reachable from any fleet host
+(MagicDNS short-names do not resolve from every client, so the IP is used — same
+convention as ~/.ssh/config and the rest of the fleet). Probes are INJECTABLE (the
+live ones do network I/O, isolated like live_hooks); a missing probe degrades
+honestly to "unreachable" rather than assuming readiness. Murakumo-only: the probes only ever
 touch the fleet (gad over Tailscale), never a commercial host.
 """
 
@@ -47,12 +49,13 @@ class PreflightVerdict:
 
 
 def tailscale_ssh_probe(
-    host: str = "gad", port: int = 22, timeout: float = 3.0
+    host: str = "100.82.98.110", port: int = 22, timeout: float = 3.0
 ) -> Callable[[], bool]:
-    """Build a probe that TCP-connects to `host:port` (gad's OpenSSH over Tailscale).
+    """Build a probe that TCP-connects to `host:port` (gad's SSH over Tailscale).
 
-    Returns a no-arg callable so the verdict stays lazy/injectable. The connection
-    is the only network I/O; it targets the fleet MagicDNS name, never a vendor.
+    Defaults to gad's stable Tailscale IP (`100.82.98.110`). Returns a no-arg
+    callable so the verdict stays lazy/injectable. The connection is the only
+    network I/O; it targets the fleet (Tailscale), never a vendor.
     """
 
     def probe() -> bool:
@@ -66,15 +69,17 @@ def tailscale_ssh_probe(
 
 
 def rocm_http_probe(
-    url: str = "http://gad:11434/v1/models",
+    url: str = "http://100.82.98.110:11434/v1/models",
     transport: Callable[[str], bool] | None = None,
 ) -> Callable[[], bool]:
     """Build a probe for the EVO-X2 ROCm inference endpoint health (/v1/models).
 
-    Defaults to the Tailscale MagicDNS name `gad` (IP-independent — the pod is
-    Ubuntu now and its LAN IP changes). `transport(url) -> bool` is injectable for
-    tests; the default does a minimal stdlib GET and treats a 200 as healthy.
-    Fleet host only.
+    Defaults to gad's stable Tailscale IP (`100.82.98.110`; the Ubuntu pod's LAN
+    IP changes, so the Tailscale IP is used). `transport(url) -> bool` is
+    injectable for tests; the default does a minimal stdlib GET and treats a 200
+    as healthy. Fleet host only. NOTE: the Ollama endpoint awaits Ubuntu
+    re-provision (was a Windows Scheduled Task) — until then this probe fails,
+    and the readiness gate stays honestly blocked.
     """
 
     def probe() -> bool:

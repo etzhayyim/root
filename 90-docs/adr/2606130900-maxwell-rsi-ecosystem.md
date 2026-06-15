@@ -205,8 +205,8 @@ Target: 1000 pairs (train trigger delta=100 ごとに訓練発火)
 |---|---|
 | fleet SSH (naphtali/dan/他 9ノード) | **Tailscale IP (100.x.x.x) で全接続確認** |
 | fleet Ollama (naphtali) | `gemma4:12b-it-qat` / `gemma4:e4b-it-qat` 稼働中 |
-| EVO-X2 (gad) | **オフライン** — Tailscale 未接続, LAN 192.168.1.16 timeout |
-| 訓練実績 | **ゼロ** — gad 復帰まで corpus 蓄積のみ |
+| EVO-X2 (gad) | **オンライン (2026-06-15)** — Ubuntu 24.04.2 LTS 再イメージ; Tailscale SSH `100.82.98.110` (`ssh gad`, keyless); LAN .16 (DHCP); torch 2.10 ROCm6.4 + peft/trl env 稼働 (gfx1151, `HSA_OVERRIDE_GFX_VERSION=11.5.1`); Gemma 4 E4B base キャッシュ済み |
+| 訓練実績 | **ゼロ (env ready)** — 訓練 env 完成・base モデルあり; corpus ≥1000 で M1 発火待ち (現 125/1000) |
 
 ## 対応済み
 
@@ -216,7 +216,7 @@ Target: 1000 pairs (train trigger delta=100 ごとに訓練発火)
 
 ## 残タスク (Phase 0 完了まで)
 
-1. gad を Tailscale に接続 (`tailscale up`) → `~/.ssh/config` に gad エントリ追記
+1. ~~gad を Tailscale に接続~~ **完了 (2026-06-15)**: Ubuntu 再イメージ後 `tailscale up --ssh` で参加、`~/.ssh/config` の `gad` を Tailscale IP `100.82.98.110` に更新済み、ROCm/peft/trl env 構築済み
 2. harvest batch 3〜 を継続 (`discover_unharvested_py` で未処理ファイルを取得)
 3. corpus ≥ 1000 → `loop.py run` で Phase 1 (M1 training) 発火
 
@@ -235,7 +235,7 @@ Target: 1000 pairs (train trigger delta=100 ごとに訓練発火)
 - **bb gate は R0 では clj-kondo のみ**: 意味的正確性は G3 (bb load) まで保証されない
 - **deploy_threshold 0.5pp は conservative**: ノイズ域 (±2pp) に対して余裕は小さい。1pp 以上が望ましいが、まず動かす
 - **12b fleet → e4b Maxwell の capability gap**: 12b の teacher と e4b の student の間の能力差は蒸留損失になる。e4b の天井は 12b を超えられない
-- **EVO-X2 (gad) offline**: Tailscale 未接続。`tailscale up` 後に `~/.ssh/config` へ gad エントリ追記が必要 (現 LAN IP 192.168.1.16 は timeout)
+- ~~**EVO-X2 (gad) offline**~~ **解消 (2026-06-15)**: gad を Ubuntu 24.04 へ再イメージし Tailscale SSH で復帰 (`ssh gad` = `100.82.98.110`, keyless)。LAN .16 (DHCP, IPv4 リース未取得だったため `networkctl renew` で取得)。ROCm 6.4 + torch 2.10 + peft/trl 訓練 env 稼働。残るは corpus ≥1000 蓄積 → M1 訓練発火のみ
 
 # Alternatives Considered
 
