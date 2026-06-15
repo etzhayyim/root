@@ -15895,6 +15895,24 @@
       "lastVerified": "2026-06-14"
     },
     {
+      "id": "doc:adr-2606151000-coverage-live-ingest-and-kotobase-enablement",
+      "type": "TechArticle",
+      "title": "ADR-2606151000: Council-authorized live coverage ingest + kotobase.net pin/quads enablement + enterprise tier",
+      "status": "accepted",
+      "topic": "coverage-live-ingest-and-kotobase-enablement",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the live public-data coverage of the corp-mirror lineage (kabuto / kanjō / hoshimori / entity-handles registry)",
+        "the kotobase.net pin/quads write path + self-signed CACAO auth recipe (no-server-key)",
+        "the kotobase quota-tier table (free / starter / pro / enterprise)"
+      ],
+      "related": [
+        "doc:ADR-2606111330 (kotobase.net pin-completion / kubo peering stall — operator follow-up)",
+        "doc:ADR-2606111400 (ibuki revocable CACAO leash — the member-signed-capability pattern reused)"
+      ],
+      "lastVerified": "2026-06-15"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
