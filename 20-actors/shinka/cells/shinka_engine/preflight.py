@@ -2,16 +2,18 @@
 
 Per ADR-2606142200 (S1) + ADR-2606130900 (Maxwell RSi). Before Loop B can run a
 real EVO-X2 fine-tune, three conditions must hold: the corpus has reached the
-training floor, the EVO-X2 pod (`gad`, Windows ROCm gfx1151) is reachable over the
+training floor, the EVO-X2 pod (`gad`, Ubuntu ROCm gfx1151) is reachable over the
 Tailscale overlay, and its ROCm inference endpoint is healthy. This module turns
 those into one structured, honest verdict that decides whether `run_rsi` may
 proceed or must stay `blocked` — wiring `RSiState.evo_x2_online` to a real probe
 instead of a hand-set flag.
 
-Probes are INJECTABLE (the live ones do network I/O, isolated like live_hooks); a
-missing probe degrades honestly to "unreachable" rather than assuming readiness.
-Murakumo-only: the probes only ever touch the fleet (gad over Tailscale / its LAN
-endpoint), never a commercial host.
+`gad` is addressed by its Tailscale MagicDNS name, NOT a LAN IP: the pod was
+re-imaged Ubuntu and its DHCP address changes, so every probe targets `gad`
+(MagicDNS) and is IP-independent. Probes are INJECTABLE (the live ones do network
+I/O, isolated like live_hooks); a missing probe degrades honestly to
+"unreachable" rather than assuming readiness. Murakumo-only: the probes only ever
+touch the fleet (gad over Tailscale), never a commercial host.
 """
 
 from __future__ import annotations
@@ -64,13 +66,15 @@ def tailscale_ssh_probe(
 
 
 def rocm_http_probe(
-    url: str = "http://192.168.1.70:11434/v1/models",
+    url: str = "http://gad:11434/v1/models",
     transport: Callable[[str], bool] | None = None,
 ) -> Callable[[], bool]:
     """Build a probe for the EVO-X2 ROCm inference endpoint health (/v1/models).
 
-    `transport(url) -> bool` is injectable for tests; the default does a minimal
-    stdlib GET and treats a 200 as healthy. Fleet host only.
+    Defaults to the Tailscale MagicDNS name `gad` (IP-independent — the pod is
+    Ubuntu now and its LAN IP changes). `transport(url) -> bool` is injectable for
+    tests; the default does a minimal stdlib GET and treats a 200 as healthy.
+    Fleet host only.
     """
 
     def probe() -> bool:
