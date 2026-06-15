@@ -144,6 +144,41 @@ All commits content-addressed and recorded (pin records + CIDs); 0 failures.
 - **Relaxing the Worker's 502 error-masking** to reveal upstream status — declined; it is a
   deliberate, test-enforced security boundary in net-kotobase, out of scope for these PRs.
 
+# Operator Runbook (pod-side: enterprise activation + pin completion)
+
+The two remaining items both require the kotoba **pod** (`kotoba-backend.gftd.ai`), which runs as
+an image `ghcr.io/etzhayyim/kotoba` on **Vultr VKE** (k8s), deployed by
+`etzhayyim/kotoba` `scripts/build-push.sh` (Docker buildx → GHCR) + `scripts/deploy.sh <tag>`
+(`kubectl` rollout, namespace `kotoba`, `imagePullSecrets: ghcr-creds`). The Cloudflare Worker
+(net-kotobase) is separate and is the only piece deployable without pod access.
+
+**Why these could not be completed headlessly (2026-06-15):**
+- **No local Docker daemon** (Docker Desktop not installed) → the engine image cannot be built on
+  this machine. There is no CI image-build workflow either (`etzhayyim/kotoba` has only `ci.yml`),
+  and the session token lacks the GitHub `workflow` scope, so one could not be added via the API.
+- **VKE access needs the Vultr API key from 1Password**, whose `op item get --reveal` requires an
+  interactive biometric approval that times out in a non-interactive shell (`op whoami` =
+  "account is not signed in"; reads are intermittent via the desktop-app integration). A stable
+  `eval $(op signin)` session is the prerequisite.
+
+**Item 1 — activate the enterprise tier (after `#160` merged to engine main):**
+1. `eval $(op signin)`; ensure a Docker host is available (`brew install --cask docker && open -a Docker`).
+2. Build + push the new engine image on a Docker host (or via a `workflow`-scoped CI run):
+   `KOTOBA_IMAGE_PLATFORMS=linux/amd64 scripts/build-push.sh sha-<short>` (context = the kotoba repo root).
+3. Fetch the VKE kubeconfig from the Vultr API (`GET /v2/kubernetes/clusters/{id}/config`, key in
+   `op://gftdcojp/gftd.vultr/API_KEY`); `scripts/deploy.sh sha-<short>` to roll out (Recreate strategy).
+4. Deploy net-kotobase `#102`: `pnpm --dir worker deploy` (the live Worker still rejects `enterprise`
+   until this — intentionally matching the pre-rollout pod).
+5. Verify: `accountCreate {tier:"enterprise"}` on a fresh `did:key` → `accountStatus` shows
+   `quota_pins: 5000`, `quota_bytes: 1099511627776` (1 TiB).
+
+**Item 2 — finish pin completion (ADR-2606111330; `kubectl` only, no image build):**
+1. `kubeconfig` as above; `kubectl -n kotoba` inspect the kotoba pod's kubo (`peer_count: 0`).
+2. Add IPFS bootstrap/peering or restart kubo + trigger the CAR-on-B2 packing so blocks replicate.
+3. The 121 pushed pins (and any new ones) move `pinning → pinned`; CIDs become retrievable at
+   `ipfs.gftd.ai/ipfs/<cid>`. The **writes/commits are already recorded**; only public propagation
+   is pending.
+
 # References
 
 - etzhayyim/root **#1744** (coverage ingest), this ADR

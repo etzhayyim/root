@@ -22,13 +22,13 @@
   {:id "s-h1" :zone "z-hazmat" :dist-from-face 30.0 :max-kg 40  :temps #{:ambient}
    :hazmat-rated true :segregate-from #{:oxidizer} :coord [30 25]}]
 
- ;; ── SKUs awaiting putaway (velocity = picks/period) ─────────────────────────
+ ;; ── SKUs awaiting putaway (velocity = picks/period; vol-cm3 for cartonization) ─
  :skus
- [{:id "sku-fast"   :velocity 220 :weight-kg 8   :temp :ambient}
-  {:id "sku-mid"    :velocity 60  :weight-kg 12  :temp :ambient}
-  {:id "sku-slow"   :velocity 5   :weight-kg 500 :temp :ambient}
-  {:id "sku-cold"   :velocity 40  :weight-kg 9   :temp :reefer}
-  {:id "sku-flam"   :velocity 15  :weight-kg 20  :temp :ambient :hazmat :flammable}]
+ [{:id "sku-fast"   :velocity 220 :weight-kg 8   :temp :ambient :vol-cm3 8000}
+  {:id "sku-mid"    :velocity 60  :weight-kg 12  :temp :ambient :vol-cm3 15000}
+  {:id "sku-slow"   :velocity 5   :weight-kg 500 :temp :ambient :vol-cm3 90000}
+  {:id "sku-cold"   :velocity 40  :weight-kg 9   :temp :reefer  :vol-cm3 6000}
+  {:id "sku-flam"   :velocity 15  :weight-kg 20  :temp :ambient :hazmat :flammable :vol-cm3 12000}]
 
  ;; ── fleet (electric AGV + AMR; G2 zero-emission) ───────────────────────────
  :fleet
@@ -37,4 +37,31 @@
   {:id "amr-2" :kind :amr}]
 
  ;; ── a sample outbound order (pick list = slot coords) ──────────────────────
- :order {:id "ord-1" :picks ["s-g1" "s-r1" "s-b1"]}}
+ :order {:id "ord-1" :picks ["s-g1" "s-r1" "s-b1"]}
+
+ ;; ── day-operations fixtures (consumed by analyze/run-day full pipeline) ─────
+ ;; forward pick-face on-hand (replenishment: :qty < :min needs topping up)
+ :forward-slots
+ [{:slot-id "f-g1" :sku-id "sku-fast" :qty 4  :min 10 :max 30}
+  {:slot-id "f-g2" :sku-id "sku-mid"  :qty 18 :min 10 :max 30}]
+ ;; reserve/bulk available to replenish from
+ :bulk
+ [{:bulk-id "blk-1" :sku-id "sku-fast" :qty 48}]
+ ;; shipping carton types for cartonization (vol-cm3 + weight cap)
+ :cartons
+ [{:id "ctn-s" :vol-cm3 20000  :max-kg 15}
+  {:id "ctn-m" :vol-cm3 60000  :max-kg 30}
+  {:id "ctn-l" :vol-cm3 150000 :max-kg 600}]
+ ;; returned items awaiting disposition (condition-grade 1..5)
+ :returns
+ [{:id "ret-1" :sku-id "sku-fast" :condition-grade 5}
+  {:id "ret-2" :sku-id "sku-mid"  :condition-grade 3}
+  {:id "ret-3" :sku-id "sku-cold" :condition-grade 1}]
+ ;; cycle-count audit: system :expected vs physical :counted
+ :count-slots
+ [{:slot-id "s-g1" :expected 30 :counted 30}
+  {:slot-id "s-g2" :expected 22 :counted 19}]
+ ;; inbound discharge from niyaku (box landed on the apron → putaway)
+ :inbound
+ [{:box-id "box-1" :sku-id "sku-fast" :weight-kg 8 :temp :ambient}
+  {:box-id "box-2" :sku-id "sku-cold" :weight-kg 9 :temp :reefer}]}

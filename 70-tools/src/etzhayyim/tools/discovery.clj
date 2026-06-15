@@ -57,17 +57,33 @@
     (or (re-find #"^(mimamori|yobel|ibuki)\." n)
         (str/starts-with? n "etzhayyim.tools."))))
 
+(defn declared-ns
+  "The ns symbol a file actually declares (first top-level form), or nil if it is unreadable or
+  does not start with an `(ns …)` form. Reads with `:read-cond :allow` so `.cljc` files parse."
+  [path]
+  (try
+    (let [form (read-string {:read-cond :allow} (slurp (str path)))]
+      (when (and (seq? form) (= 'ns (first form))) (second form)))
+    (catch Exception _ nil)))
+
 (defn actor-test-nss
-  "Sorted, de-duplicated vector of discovered actor test namespaces."
+  "Sorted, de-duplicated vector of discovered actor test namespaces.
+
+  Only includes a file whose DECLARED ns equals the path-derived ns. This skips
+  `run_tests_clj.sh`-style suites that declare a non-path ns (e.g. `root.danjo.methods.*`)
+  and load their deps via cwd-relative `(load-file …)` — those are owned by their own runner
+  and would crash a classpath `require` from the repo root."
   []
   (->> (concat (fs/glob "20-actors" "**/test_*.clj")
                (fs/glob "20-actors" "**/test_*.cljc")
                (fs/glob "70-tools"  "**/test_*.clj")
                (fs/glob "70-tools"  "**/test_*.cljc"))
-       (map (comp strip-root #(str/replace % #"^\./" "") str))
-       (remove hyphen-dir?)
-       (map rel->ns)
-       (remove excluded?)
+       (map (fn [p] (let [path (str/replace (str p) #"^\./" "")]
+                      {:path path :ns (rel->ns (strip-root path))})))
+       (remove #(hyphen-dir? (strip-root (:path %))))
+       (remove #(excluded? (:ns %)))
+       (filter #(= (:ns %) (declared-ns (:path %))))   ; only path-matching declared ns (classpath-safe)
+       (map :ns)
        distinct
        sort
        vec))

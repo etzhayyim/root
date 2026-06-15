@@ -9,6 +9,11 @@
             [kudamori.methods.jetting :as jet]
             [kudamori.methods.analyze :as az]
             [kudamori.methods.datom-emit :as de]
+            [kudamori.methods.coverage :as cov]
+            [kudamori.methods.campaign :as camp]
+            [kudamori.methods.inspection :as insp]
+            [kudamori.methods.rootcut :as rc]
+            [kudamori.methods.relining :as rl]
             [kudamori.methods.handoff :as ho]))
 
 ;; ── atmosphere (★ G5 — the headline confined-space entry gate) ────────────────
@@ -194,6 +199,255 @@
       (is (re-find #":handoff/to-actor" out))
       (is (re-find #"en\.handoff\.kudamori\.mizuho\." out))
       (is (vector? (edn/read-string out))))))
+
+;; ── coverage (HONEST occupation sub-task map — G5 sourcing-honesty) ──────────
+(deftest coverage-fraction-is-covered-over-total
+  (testing "coverage fraction is in (0,1] and equals covered/total"
+    (let [{:keys [total covered coverage]} (cov/report)]
+      (is (pos? coverage))
+      (is (<= coverage 1.0))
+      (is (= coverage (/ (double covered) total))))))
+
+(deftest coverage-gaps-are-exactly-the-uncovered
+  (testing ":gaps is exactly the uncovered sub-tasks (now empty — 100% covered)"
+    (let [{:keys [gaps coverage]} (cov/report)]
+      (is (= (set gaps) (set (remove :covered? cov/sub-tasks))))
+      (is (every? #(false? (:covered? %)) gaps))
+      ;; the last two GAPs (root-cutting/relining) are now closed → 100% coverage
+      (is (empty? gaps))
+      (is (= 1.0 coverage)))))
+
+(deftest coverage-covered-names-a-method
+  (testing "every covered sub-task names a non-nil :method"
+    (is (every? #(some? (:method %)) (filter :covered? cov/sub-tasks)))))
+
+;; ── campaign (network-wide multi-segment cleaning planning) ──────────────────
+(def network-segs
+  [{:segment-id "seg-1-2" :blockage-risk 0.85 :last-cleaned-days 400 :access [10.0 0.0]}
+   {:segment-id "seg-2-3" :blockage-risk 0.40 :last-cleaned-days 120 :access [10.0 12.0]}
+   {:segment-id "seg-3-4" :blockage-risk 0.92 :last-cleaned-days 30  :access [25.0 12.0]}
+   {:segment-id "seg-4-5" :blockage-risk 0.10 :last-cleaned-days 15  :access [25.0 0.0]}
+   {:segment-id "seg-5-6" :blockage-risk 0.55 :last-cleaned-days 300 :access [40.0 5.0]}])
+
+(deftest prioritize-ranks-higher-blockage-risk-first
+  (testing "prioritize ranks high-blockage-risk segments ahead of low-risk ones"
+    (let [ranked (camp/prioritize network-segs)]
+      (is (= (count network-segs) (count ranked)))
+      ;; scores are non-increasing high-first
+      (is (apply >= (map :priority ranked)))
+      ;; the lowest-risk, freshest segment lands last
+      (is (= "seg-4-5" (:segment-id (last ranked))))
+      ;; the highest-risk segment outranks the lowest-risk one
+      (let [by-id (into {} (map (juxt :segment-id :priority) ranked))]
+        (is (> (by-id "seg-3-4") (by-id "seg-4-5")))))))
+
+(deftest campaign-tour-visits-each-once-positive-travel
+  (testing "the tour visits each selected segment exactly once, travel is positive"
+    (let [selected (filter #(>= (:blockage-risk %) 0.5) network-segs)
+          {:keys [order travel-m]} (camp/campaign-tour selected)]
+      (is (= (set (map :segment-id selected)) (set order)))
+      (is (= (count selected) (count order)))   ; no duplicates / no drops
+      (is (= (count order) (count (distinct order))))
+      (is (pos? travel-m)))))
+
+(deftest every-stop-rechecks-atmosphere-gate
+  (testing "★ G5 — EVERY campaign stop carries :atmosphere-recheck-required true (no entry skips the gas gate)"
+    (let [plan (camp/plan-campaign network-segs {:risk-threshold 0.5})]
+      (is (seq (:stops plan)))
+      (is (every? #(true? (:atmosphere-recheck-required %)) (:stops plan)))
+      ;; and the per-entry gate is the real atmosphere assert (raises on unsafe air)
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (atm/assert-entry! {:o2-pct 18.6 :h2s-ppm 22.0 :ch4-lel 14.0 :co-ppm 12.0}))))))
+
+(deftest threshold-and-top-n-drop-low-priority
+  (testing "risk-threshold and top-N selection drop low-priority segments"
+    ;; risk threshold drops the 0.10 and 0.40 segments
+    (let [thr (camp/plan-campaign network-segs {:risk-threshold 0.5})
+          ids (set (map :segment-id (:stops thr)))]
+      (is (= 3 (count (:stops thr))))
+      (is (not (contains? ids "seg-4-5")))   ; 0.10 risk dropped
+      (is (not (contains? ids "seg-2-3"))))  ; 0.40 risk dropped
+    ;; top-N keeps only the N highest-priority
+    (let [topn (camp/plan-campaign network-segs {:top-n 2})]
+      (is (= 2 (count (:stops topn))))
+      ;; the two highest-priority survive (seg-1-2 risk .85/stale, seg-3-4 risk .92)
+      (is (= #{"seg-1-2" "seg-3-4"} (set (map :segment-id (:stops topn))))))))
+
+;; ── inspection (in-pipe condition survey + PACP-like grading → campaign seam) ─
+(def insp-survey
+  [{:segment-id "seg-1-2"
+    :observations [{:position-m 2.0 :defect-kind :roots    :severity 5}
+                   {:position-m 7.5 :defect-kind :crack    :severity 2}]}
+   {:segment-id "seg-2-3"
+    :observations [{:position-m 4.0 :defect-kind :deposits :severity 3}]}
+   {:segment-id "seg-3-4"
+    :observations [{:position-m 1.0 :defect-kind :blockage :severity 5}
+                   {:position-m 6.0 :defect-kind :fracture :severity 4}]}
+   {:segment-id "seg-clean"
+    :observations []}])
+
+(deftest grade-is-max-severity-and-risk-in-unit-interval
+  (testing "grade = max observed severity; blockage-risk stays in [0,1]"
+    (let [g (insp/grade-segment "seg-3-4"
+                                [{:position-m 1.0 :defect-kind :blockage :severity 5}
+                                 {:position-m 6.0 :defect-kind :fracture :severity 4}])]
+      (is (= 5 (:grade g)))                       ; max of {5,4}
+      (is (= 2 (:defect-count g)))
+      (is (<= 0.0 (:blockage-risk g) 1.0))
+      ;; a full-severity outright blockage drives risk to the top of the range
+      (is (= 1.0 (:blockage-risk g))))
+    ;; every graded segment in a survey has a unit-interval risk
+    (is (every? #(<= 0.0 (:blockage-risk %) 1.0) (insp/survey insp-survey)))))
+
+(deftest survey-sorts-worst-first
+  (testing "survey returns segments sorted worst-first (highest blockage-risk first)"
+    (let [graded (insp/survey insp-survey)]
+      (is (= (count insp-survey) (count graded)))
+      ;; blockage-risk is non-increasing down the list
+      (is (apply >= (map :blockage-risk graded)))
+      ;; the outright-blockage segment is the worst → first
+      (is (= "seg-3-4" (:segment-id (first graded))))
+      ;; the clean segment is the best → last
+      (is (= "seg-clean" (:segment-id (last graded)))))))
+
+(deftest clean-segment-low-grade-low-risk
+  (testing "a segment with no/low defects → low grade + low blockage-risk"
+    (let [empty-g (insp/grade-segment "seg-clean" [])
+          minor-g (insp/grade-segment "seg-minor"
+                                      [{:position-m 3.0 :defect-kind :crack :severity 1}])]
+      (is (= 1 (:grade empty-g)))                 ; no observations → sound grade 1
+      (is (zero? (:blockage-risk empty-g)))
+      (is (= 0 (:defect-count empty-g)))
+      ;; a single low-severity structural crack: low grade, negligible blockage-risk
+      (is (= 1 (:grade minor-g)))
+      (is (< (:blockage-risk minor-g) 0.1)))))
+
+(deftest survey-feeds-campaign-prioritize
+  (testing "to-campaign-input output is accepted by campaign/prioritize (survey → prioritize)"
+    (let [graded   (insp/survey insp-survey)
+          meta-by  {"seg-1-2"   {:last-cleaned-days 400 :access [10.0 0.0]}
+                    "seg-2-3"   {:last-cleaned-days 120 :access [10.0 12.0]}
+                    "seg-3-4"   {:last-cleaned-days 30  :access [25.0 12.0]}
+                    "seg-clean" {:last-cleaned-days 10  :access [40.0 5.0]}}
+          camp-in  (insp/to-campaign-input graded meta-by)]
+      ;; the adapted shape carries exactly the keys campaign/prioritize reads
+      (is (every? #(every? (set (keys %)) [:segment-id :blockage-risk :last-cleaned-days :access])
+                  camp-in))
+      ;; the integration: prioritize runs without error over the inspection output
+      (let [ranked  (camp/prioritize camp-in)
+            by-id   (into {} (map (juxt :segment-id :priority) ranked))]
+        (is (= (count camp-in) (count ranked)))
+        (is (apply >= (map :priority ranked)))
+        ;; the clean segment (no defects, recently cleaned) ranks LAST for cleaning
+        (is (= "seg-clean" (:segment-id (last ranked))))
+        ;; the worst-condition segment (the outright blockage) outranks the clean one
+        (is (> (by-id "seg-3-4") (by-id "seg-clean"))))
+      ;; and a full plan-campaign consumes it end-to-end
+      (let [plan (camp/plan-campaign camp-in {:risk-threshold 0.5})]
+        (is (seq (:stops plan)))
+        (is (every? #(true? (:atmosphere-recheck-required %)) (:stops plan)))))))
+
+;; ── rootcut (★ G7 — no pipe over-torque; root/obstruction cutting) ────────────
+(deftest denser-roots-need-more-passes
+  (testing "passes-needed rises monotonically with root density"
+    (let [cutter {:id "cut-head-01"}
+          light  (rc/plan-cut {:root-density 0.2 :pipe-diameter-mm 300 :pipe-material :ductile-iron} cutter)
+          heavy  (rc/plan-cut {:root-density 0.8 :pipe-diameter-mm 300 :pipe-material :ductile-iron} cutter)]
+      (is (> (:passes-needed heavy) (:passes-needed light)))
+      (is (pos? (:passes-needed light)))
+      (is (= 0 (rc/passes-needed 0.0))))))           ; no roots → no passes
+
+(deftest cut-over-torque-raises
+  (testing "★ G7 — a small/weak pipe choked with dense roots over-torques and RAISES"
+    (let [cutter {:id "cut-head-01"}]
+      ;; dense roots in a wide bore on weak PVC: required torque blows past the limit
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (rc/plan-cut {:root-density 0.9 :pipe-diameter-mm 300 :pipe-material :pvc} cutter)))
+      ;; an unknown material has no torque limit → conservative raise
+      (is (thrown? clojure.lang.ExceptionInfo (rc/torque-limit-for :mystery))))))
+
+(deftest cut-within-torque-limit-plans
+  (testing "a modest cut inside the material's torque limit plans cleanly"
+    (let [cutter {:id "cut-head-01"}
+          plan   (rc/plan-cut {:root-density 0.3 :pipe-diameter-mm 150 :pipe-material :ductile-iron} cutter)]
+      (is (<= (:required-torque-nm plan) (:torque-limit-nm plan)))
+      (is (pos? (:passes-needed plan)))
+      (is (= :ductile-iron (:material plan))))))
+
+;; ── relining (trenchless CIPP / spot repair; honest-refusal on collapse-grade) ─
+(deftest liner-thickness-scales-with-diameter
+  (testing "liner thickness grows with host diameter"
+    (let [thin  (rl/plan-reline {:pipe-diameter-mm 150 :defect-severity 3 :host-condition 2})
+          thick (rl/plan-reline {:pipe-diameter-mm 600 :defect-severity 3 :host-condition 2})]
+      (is (> (:liner-thickness-mm thick) (:liner-thickness-mm thin)))
+      (is (= :cipp (:method thin))))))
+
+(deftest reline-cure-time-positive
+  (testing "cure time is positive and follows from liner thickness"
+    (let [plan (rl/plan-reline {:pipe-diameter-mm 300 :defect-severity 4 :host-condition 3})]
+      (is (pos? (:cure-time-min plan)))
+      (is (pos? (:liner-thickness-mm plan))))))
+
+(deftest collapse-grade-host-raises
+  (testing "★ a collapse-imminent (grade 5) host is NOT relinable → RAISES (needs replacement)"
+    (is (not (rl/relinable? 5)))
+    (is (rl/relinable? 4))
+    (is (thrown? clojure.lang.ExceptionInfo
+                 (rl/plan-reline {:pipe-diameter-mm 300 :defect-severity 4 :host-condition 5})))))
+
+;; ── run-day full-pipeline integration (R1: all 8 domain methods compose) ──────
+(def day-seed
+  (edn/read-string (slurp "20-actors/kudamori/data/network.edn")))
+
+(deftest run-day-exercises-all-domain-methods
+  (testing "run-day threads the day through ALL 8 domain methods end-to-end"
+    (let [res (az/run-day day-seed)
+          ms  (:methods res)]
+      ;; the set of exercised modules ⊇ the 8 domain methods
+      (is (every? ms #{"inspection" "campaign" "atmosphere" "pipe_nav"
+                       "jetting" "rootcut" "relining" "handoff"}))
+      (is (>= (count ms) 8))
+      ;; base `run` keys are preserved (datom_emit depends on them)
+      (is (contains? res :entry))
+      (is (contains? res :navigation))
+      (is (contains? res :jetting))
+      ;; new run-day keys present
+      (is (vector? (:pipeline res)))
+      (is (map? (:day res)))
+      ;; ★ G5 — the atmosphere entry gate stayed a REAL gate (re-checked, passed)
+      (is (true? (get-in res [:day :atmosphere :permitted?]))))))
+
+(deftest run-day-report-lists-pipeline
+  (testing "report-day-str lists the methods exercised and each pipeline method name"
+    (let [res (az/run-day day-seed)
+          rpt (az/report-day-str res)]
+      (is (re-find #"methods exercised" rpt))
+      (doseq [m ["inspection" "campaign" "atmosphere" "pipe_nav"
+                 "jetting" "rootcut" "relining" "handoff"]]
+        (is (re-find (re-pattern m) rpt))))))
+
+;; ── datom_emit-day (the canonical log captures the FULL run-day) ──────────────
+(deftest datom-emit-day-captures-full-day
+  (testing "emit-day projects the whole run-day (handoff 縁 + kudamori-specific day attrs), is a strict superset of emit, and parses as EDN"
+    (let [day-res (az/run-day seed)
+          base    (az/run seed)
+          out-day (de/emit-day seed day-res 1)
+          out     (de/emit seed base 1)]
+      ;; the cross-actor handoff 縁 (same shape as kuramori): provenance + edge id
+      (is (re-find #":handoff/from-actor" out-day))
+      (is (re-find #"en\.handoff\.kudamori\.mizuho\." out-day))
+      ;; at least one kudamori-specific run-day attr the base emit never carries
+      (is (re-find #":kuda\.inspect/grade" out-day))
+      ;; a DERIVED day metric
+      (is (re-find #":bond/inspection-segments" out-day))
+      ;; well-formed EDN vector (load-bearing: must parse)
+      (let [v-day (edn/read-string out-day)
+            v     (edn/read-string out)]
+        (is (vector? v-day))
+        (is (vector? v))
+        ;; strict superset of the base emit: every base datom is present + there are MORE
+        (is (> (count v-day) (count v)))
+        (is (every? (set v-day) v))))))
 
 (let [{:keys [fail error]} (run-tests 'kudamori.methods.test-kudamori)]
   (System/exit (if (pos? (+ fail error)) 1 0)))

@@ -48,4 +48,24 @@
  ;; ── a sample extraction route (segments to the landing) ──────────────────────
  :route {:id "route-1"
          :segments [{:from "t-1" :to "landing" :grade-pct 12.0 :length-m 14.0}
-                    {:from "t-3" :to "landing" :grade-pct 28.0 :length-m 30.0}]}}
+                    {:from "t-3" :to "landing" :grade-pct 28.0 :length-m 30.0}]}
+
+ ;; ── day-operations fixtures (consumed by analyze/run-day full pipeline) ───────
+ ;; processing head that delimbs felled stems (single-grip harvester head, G8)
+ :head {:max-diameter-cm 60.0 :feed-rate-mps 5.0}
+ ;; haul truck for the load-out leg (electric; payload + bunk-length limits)
+ :truck {:max-weight-kg 24000.0 :max-length-m 13.0 :bunk-count 4}
+ ;; graded log assortments to load + hand off to tatekata (bucked + delimbed)
+ :assortments
+ [{:log-id "l-1" :grade :sawlog :length-m 5.0 :weight-kg 9000.0 :volume-m3 0.42}
+  {:log-id "l-2" :grade :sawlog :length-m 4.0 :weight-kg 8000.0 :volume-m3 0.31}
+  {:log-id "l-3" :grade :pulp   :length-m 3.0 :weight-kg 7000.0 :volume-m3 0.18}
+  {:log-id "l-4" :grade :pulp   :length-m 3.0 :weight-kg 6000.0 :volume-m3 0.15}]
+ ;; the harvested area to prepare + replant (regenerative-only, G2)
+ :replant {:area-ha 12.0 :species :cryptomeria :target-stems-per-ha 2500.0 :soil :wet}
+ ;; terrain segments for the skid-trail / forest-road plan (landing → stand)
+ :road {:landing "landing" :stand "stand"
+        :segments [{:from "landing" :to "a" :grade-pct 8.0 :length-m 120.0}
+                   {:from "a" :to "stand" :grade-pct 12.0 :length-m 80.0
+                    :stream-crossing? true :culvert? true}
+                   {:from "landing" :to "stand" :grade-pct 6.0 :length-m 260.0}]}}

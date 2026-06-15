@@ -15894,6 +15894,25 @@
       "lastVerified": "2026-06-15"
     },
     {
+      "id": "doc:adr-2606142300-clj-native-migration-roadmap-erp-plm-mes",
+      "type": "TechArticle",
+      "title": "ADR-2606142300: clj-native migration roadmap for ERP / PLM / MES actors (kotoba Datom-log + langgraph-clj)",
+      "status": "accepted",
+      "topic": "clj-native-migration-roadmap-erp-plm-mes",
+      "authoritative": true,
+      "authoritativeFor": [
+        "clj-native migration priority/order for the ERP / PLM / MES actor families",
+        "the \"logic-core to Clojure, UI to TS, physics to Rust\" partition rule",
+        "byte-identical port discipline + dependency-ordered (additive) migration rule"
+      ],
+      "related": [
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2606141200-matsurigoto-tax-collect-jp-withholding-remittance",
+        "doc:adr-2606037200-open-kyber-kotoba-datomic-erp-isic-productivity"
+      ],
+      "lastVerified": "2026-06-14"
+    },
+    {
       "id": "doc:adr-2606151000-coverage-live-ingest-and-kotobase-enablement",
       "type": "TechArticle",
       "title": "ADR-2606151000: Council-authorized live coverage ingest + kotobase.net pin/quads enablement + enterprise tier",
@@ -15908,6 +15927,23 @@
       "related": [
         "doc:ADR-2606111330 (kotobase.net pin-completion / kubo peering stall — operator follow-up)",
         "doc:ADR-2606111400 (ibuki revocable CACAO leash — the member-signed-capability pattern reused)"
+      ],
+      "lastVerified": "2026-06-15"
+    },
+    {
+      "id": "doc:adr-2606152300-robotics-gap-closure-clojure-first-maturity-loop-session-close",
+      "type": "TechArticle",
+      "title": "ADR-2606152300: Robotics GAP-closure wave + Clojure-first maturity-loop — session close",
+      "status": "accepted",
+      "topic": "robotics-gap-closure-session-close",
+      "authoritative": true,
+      "authoritativeFor": [
+        "robotics-coverage GAP-closure session outcome (4 Clojure-first actors, R0)",
+        "the Clojure-first (babashka-runnable) actor idiom + the robotics-coverage maturity scorecard"
+      ],
+      "related": [
+        "doc:ADR-2606032100 (labor-liberation robotics wave)",
+        "doc:ADR-2605312345 (kotoba Datom = canonical state)"
       ],
       "lastVerified": "2026-06-15"
     },
