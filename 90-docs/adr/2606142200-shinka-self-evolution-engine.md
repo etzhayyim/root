@@ -220,12 +220,13 @@ the edge target" — ADR-2605241900 still holds for baien; Shinka's target is
 - **S3+:** Tracks B–G; CACAO-leashed semi-autonomous proposal cadence under
   Council attestation; ecosystem-style quorum (≥2/3) to promote a generation.
 
-## Implementation status (S0 — landed)
+## Implementation status (S0 landed · S1 adapters landed)
 
 The S0 engine is implemented as a pure-stdlib, LLM-free **deterministic kernel**
 with typed Murakumo/fleet hooks (fail-open), under `20-actors/shinka/cells/`
-(`shinka_engine/`, sibling of the social-evolution scheduler). **305 standalone
-tests green / 18 suites**; see `20-actors/shinka/cells/CLAUDE.md`.
+(`shinka_engine/`, sibling of the social-evolution scheduler). **355 standalone
+tests green / 21 suites**; see `20-actors/shinka/cells/CLAUDE.md`. (S0 = PR #1748;
+the S1 live-fleet adapters below = PR #1752.)
 
 - **Loop A** (`cell.py`) — `ShinkaEvolutionCell`: the 6 co-scientist nodes
   (propose/reflect/cluster/rank-Elo/recombine/synthesize) as one StateGraph
@@ -248,11 +249,21 @@ tests green / 18 suites**; see `20-actors/shinka/cells/CLAUDE.md`.
 - **Entrypoint** (`run_beat.py`) — offline-safe beat runner (ibuki autorun
   analogue); fleet deployment injects the Murakumo infer hook + FleetSampler +
   KotobaBridgeSink (operator/leash-gated).
+- **S1 live-fleet adapters** (`live_hooks.py`) — `murakumo_infer` (OpenAI-
+  compatible `/v1/chat/completions` against the LiteLLM gateway → the Loop-A
+  `infer` hook) and `kotoba_poster` (`datomic.transact` → CIDv1 head, the
+  `KotobaBridgeSink` poster). **The ONLY module with network I/O.** Two guards in
+  code: `_assert_fleet_endpoint` refuses any non-fleet host before any request
+  (Murakumo-only, I3); the poster only PRESENTS the member CACAO in a header
+  (no-server-key, never signs). stdlib `urllib`; an injectable `transport` keeps
+  the contract unit-tested with a fake (no live endpoint, no network in CI).
 
 The invariants (I1 append-only, I2 no-auto-merge, I3 Murakumo-only) are enforced
-in code and asserted by tests. **S1 swaps the deterministic kernels/figures for
-live fleet measurements** (real Murakumo infer + measured tok/s + e7m bench);
-nothing in S0 holds a key, writes the registry, or transacts to the live engine.
+in code and asserted by tests. **S1 then points these adapters at the live fleet**
+(real Murakumo infer + measured tok/s + e7m bench + real kotoba transact +
+registry flip) — every such activation is operator/leash-gated; nothing in the
+landed code holds a key, writes the registry, or transacts to the live engine on
+its own.
 
 ## Consequences
 
