@@ -15931,6 +15931,26 @@
       "lastVerified": "2026-06-15"
     },
     {
+      "id": "doc:adr-2606151430-kotoba-root-side-clj-reference-substrate",
+      "type": "TechArticle",
+      "title": "ADR-2606151430: kotoba root-side Clojure reference substrate (data+impl in root, not the engine)",
+      "status": "proposed",
+      "topic": "kotoba-root-side-clj-reference-substrate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba-root-side-reference-engine",
+        "root-engine-data-boundary",
+        "encrypted-record-bit-identical-vectors"
+      ],
+      "related": [
+        "doc:2606066001",
+        "doc:2606022000",
+        "doc:2606012600",
+        "doc:2606073600"
+      ],
+      "lastVerified": "2026-06-15"
+    },
+    {
       "id": "doc:adr-2606152300-robotics-gap-closure-clojure-first-maturity-loop-session-close",
       "type": "TechArticle",
       "title": "ADR-2606152300: Robotics GAP-closure wave + Clojure-first maturity-loop — session close",
