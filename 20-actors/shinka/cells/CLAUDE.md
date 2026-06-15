@@ -6,7 +6,7 @@
 - **DID**: shares `did:web:shinka.etzhayyim.com` with the actor's social-evolution scheduler (`../actor-manifest.jsonld`).
 - **ADR**: ADR-2606142200 (`90-docs/adr/2606142200-shinka-self-evolution-engine.md`, proposed).
 - **External basis**: DeepMind co-scientist (generate→debate→evolve, Elo tournament) + Robin (Nature 2026, hypothesis→experiment→analyse→update) + MIT TLT (arXiv 2511.16665, Tracks B/E).
-- **Status**: S0 + S1 — engine + research-Track-A eval harness implemented; **150 pure-logic tests green**; LLM-free deterministic kernel + typed Murakumo/fleet hooks. NOT operationally activated (no live Murakumo wiring, EVO-X2 offline, no registry flip, no live kotoba transact — all operator/leash-gated).
+- **Status**: S0 landed + S1 adapters + training preflight — full engine (both loops + Supervisor + all 7 research tracks) + live-fleet adapters (`live_hooks.py`) + Loop-B readiness gate (`preflight.py`); **376 standalone tests green / 22 suites**; LLM-free deterministic kernel + typed Murakumo/fleet hooks. NOT operationally activated (live Murakumo infer / EVO-X2 training / registry flip / live kotoba transact are all operator/leash-gated; `gad` (EVO-X2, Ubuntu ROCm) reached over Tailscale MagicDNS).
 
 ## What this is (and is not)
 
@@ -46,16 +46,30 @@ It is **NOT** a frontier-beating chase: the thesis is `frontier-class = small we
 
 ## Modules
 
+16 source modules; 22 standalone test suites (376 tests). Core + research tracks:
+
 | Module | Role | Tests |
 |---|---|---|
 | `cell.py` | Loop A: ShinkaEvolutionCell + 6 nodes + Elo | 24 |
 | `maxwell_rsi.py` | Loop B: DeployGate, Robin loop, flywheel_ingest | 29 |
-| `orchestrator.py` | Supervisor beat cycle (ibuki), replay/resume | 23 |
-| `fleet_sampler.py` | Track A: fleet best-of-N + Elo, pass@k | 20 |
+| `orchestrator.py` | Supervisor beat cycle (ibuki), replay/resume, generations | 23 |
 | `kotoba_sink.py` | append-only commit-DAG (InMemory + KotobaBridge) | 20 |
-| `bench_harness.py` | Track A: pass@k vs k standing eval (S1) | 16 |
-| `test_flywheel_e2e.py` | Loop A → Loop B coupling | 6 |
-| `test_fleet_wiring.py` | FleetSampler ↔ Loop A propose | 12 |
+| `run_beat.py` | offline-safe beat runner / fleet entrypoint | 14 |
+| `fleet_sampler.py` | Track A: fleet best-of-N + Elo, pass@k | 20 |
+| `bench_harness.py` | Track A: pass@k vs k standing eval | 16 |
+| `speculative.py` | Track B: spec-decode + TLT adaptive-drafter freshness | 26 |
+| `matformer.py` | Track C: MatFormer E2B/E4B routing | 17 |
+| `adaptive.py` | Track C×A: difficulty-adaptive fleet budget | 13 |
+| `datom_rag.py` | Track D: CID-anchored Datom-log RAG grounding | 15 |
+| `reward.py` | Track E: verifier-grounded reward + DPO corpus | 24 |
+| `distill_flywheel.py` | Track F: rounds-to-quality + collapse guards | 16 |
+| `quantization.py` | Track G: tok/s × quality Pareto per node | 15 |
+| `live_hooks.py` | S1: Murakumo infer + kotoba poster (only net I/O) | 15 |
+| `preflight.py` | S1: Loop-B readiness gate (gad/EVO-X2/corpus, MagicDNS) | 18 |
+
+Integration/coupling suites: `test_flywheel_e2e` (6, Loop A→B), `test_fleet_wiring`
+(12), `test_rag_wiring` (8), `test_generation_wiring` (13), `test_manifest` (13,
+loop-A drift guard vs the manifest), `test_e2e` (16, whole-stack smoke).
 
 ## Research tracks (ADR §Research Program)
 
@@ -65,13 +79,9 @@ A fleet test-time compute ✅ (fleet_sampler + bench_harness) · B adaptive-draf
 
 ```bash
 cd 20-actors/shinka/cells
-for t in test_cell test_maxwell_rsi test_flywheel_e2e test_orchestrator \
-         test_fleet_sampler test_fleet_wiring test_kotoba_sink test_bench_harness \
-         test_run_beat test_reward test_matformer test_speculative \
-         test_datom_rag test_distill_flywheel test_quantization; do
-  python3 shinka_engine/$t.py
-done
-# 15 suites; pure-stdlib; no pytest/langgraph required (langgraph used if present, else sequential)
+for t in shinka_engine/test_*.py; do python3 "$t"; done
+# 22 suites / 376 tests; pure-stdlib; no pytest/langgraph required
+# (langgraph used if present, else the sequential super-step driver)
 ```
 
 ## Related files
