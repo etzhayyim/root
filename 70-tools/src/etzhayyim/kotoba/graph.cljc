@@ -49,6 +49,31 @@
 
 (defn nodes [edges] (into #{} (mapcat identity) edges))
 
+(defn components
+  "Weakly-connected components: treat `edges` as undirected and partition the
+   nodes into a set of node-sets. Surfaces network fragmentation — isolated
+   sub-chains / unreachable segments (a resilience-gap signal for watatsuna /
+   kabuto). Only nodes that appear in an edge are included."
+  [edges]
+  (let [adj (reduce (fn [m [f t]]
+                      (-> m (update f (fnil conj #{}) t)
+                            (update t (fnil conj #{}) f)))
+                    {} edges)]
+    (loop [unseen (nodes edges) comps #{}]
+      (if (empty? unseen)
+        comps
+        (let [start (first unseen)
+              comp (loop [frontier [start] seen #{}]
+                     (if (empty? frontier)
+                       seen
+                       (let [n (peek frontier) f (pop frontier)]
+                         (if (seen n)
+                           (recur f seen)
+                           (recur (into f (get adj n)) (conj seen n))))))]
+          (recur (set/difference unseen comp) (conj comps comp)))))))
+
+(defn component-count [edges] (count (components edges)))
+
 (defn betweenness
   "Brandes betweenness centrality for the directed unweighted graph of `edges`.
    {node -> CB} where CB(v) = number of ordered shortest (s,t) paths through v.

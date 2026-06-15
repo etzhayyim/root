@@ -322,7 +322,10 @@
             (is (pos? maxbw)))
           (testing "betweenness surfaces the real Asian cable hubs as chokepoints"
             (is (contains? top "station.sg.changi") "Singapore is a top cable chokepoint")
-            (is (contains? top "station.hk.tseung-kwan-o") "Hong Kong likewise")))
+            (is (contains? top "station.hk.tseung-kwan-o") "Hong Kong likewise"))
+          (testing "the cable network is fragmented (multiple weakly-connected components)"
+            ;; sparse segments → several disconnected cable groups = resilience gaps
+            (is (< 1 (graph/component-count edges)))))
         (finally (io/delete-file tmp true))))))
 
 (def ^:private kabuto-seed "20-actors/kabuto/data/seed-public-companies.kotoba.edn")

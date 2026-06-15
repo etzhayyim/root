@@ -31,7 +31,12 @@
              (into {} (graph/betweenness [["a" "b"] ["b" "c"] ["c" "d"]]))))
       ;; diamond: a→d has two shortest paths, brokers b/c split the credit
       (is (= {"a" 0.0 "b" 0.5 "c" 0.5 "d" 0.0}
-             (into {} (graph/betweenness [["a" "b"] ["a" "c"] ["b" "d"] ["c" "d"]])))))))
+             (into {} (graph/betweenness [["a" "b"] ["a" "c"] ["b" "d"] ["c" "d"]])))))
+    (testing "weakly-connected components (fragmentation)"
+      (is (= #{#{"a" "b" "c" "d"}} (graph/components [["a" "b"] ["b" "c"] ["c" "d"]])))
+      (is (= #{#{"a" "b"} #{"c" "d"}} (graph/components [["a" "b"] ["c" "d"]])))
+      (is (= 2 (graph/component-count [["a" "b"] ["b" "a"] ["x" "y"]]))
+          "a cycle is one component; a separate edge is another"))))
 
 ;; ── cid ──
 (deftest cid-framing
