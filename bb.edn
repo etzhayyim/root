@@ -18,7 +18,34 @@
         {:git/url "https://github.com/com-junkawasaki/langgraph-clj"
          :git/sha "c7daa07d4e50f55d7e2a02e4b89dbeb2b200961d"}}
  :tasks
- {test:mimamori
+ {lint:kotoba-boundary
+  {:doc "Enforce the root↔subrepo data boundary: NO religious-corp data artifacts (*.kotoba.edn / *-datoms / *-graph) inside the kotoba subrepo (ADR-2605262130; data lives in root 00-contracts/80-data)"
+   :task (do (require 'etzhayyim.kotoba.boundary)
+             (apply (resolve 'etzhayyim.kotoba.boundary/-main) *command-line-args*))}
+
+  kotoba:ingest
+  {:doc "Ingest an actor seed into the kotoba Datom log (validated, snapshotted). Args: <schema> <seed> [out] [--validate]"
+   :task (do (require 'etzhayyim.kotoba.ingest)
+             (apply (resolve 'etzhayyim.kotoba.ingest/-main) *command-line-args*))}
+
+  kotoba:roster-report
+  {:doc "Ingest every discovered actor seed into the kotoba engine and print a maturity matrix (entities/datoms/conformance/CID)"
+   :task (do (require 'etzhayyim.kotoba.roster)
+             ((resolve 'etzhayyim.kotoba.roster/-main)))}
+
+  test:kotoba
+  {:doc "etzhayyim.kotoba root-side Datom engine + encrypted-record envelope (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba subrepo stays the generic engine)"
+   :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
+                      'etzhayyim.kotoba.test-crypto 'etzhayyim.kotoba.test-actor
+                      'etzhayyim.kotoba.test-cbor)
+             (let [r (clojure.test/run-tests 'etzhayyim.kotoba.test-engine
+                                             'etzhayyim.kotoba.test-crypto
+                                             'etzhayyim.kotoba.test-actor
+                                             'etzhayyim.kotoba.test-cbor)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+
+  test:mimamori
   {:doc "mimamori 見守り Clojure test suite (port of tests/test_*.py)"
    :task (do (require 'clojure.test
                       'mimamori.tests.test-bond
