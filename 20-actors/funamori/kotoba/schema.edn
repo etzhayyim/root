@@ -35,6 +35,20 @@
  {:db/ident :funamori.measure/meets-r3-gate :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}
  {:db/ident :funamori.measure/witness-quorum :db/valueType :db.type/long :db/cardinality :db.cardinality/one} ;; Council Lv6+ ≥3
 
+ ;; ── stack robotics (install/clean/swap dry-run plans; ADR §5 + ADR-2606091800) ─
+ {:db/ident :funamori.robotics/job-id    :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/ident :funamori.robotics/use       :db/valueType :db.type/string  :db/cardinality :db.cardinality/one} ;; assemble|service|clean|inspect|swap (N1 allowlist)
+ {:db/ident :funamori.robotics/coverage  :db/valueType :db.type/double  :db/cardinality :db.cardinality/one} ;; anti-fouling 被覆率 0..1
+ {:db/ident :funamori.robotics/lanes     :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}
+ {:db/ident :funamori.robotics/membrane-id :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/ident :funamori.robotics/membrane-permitted :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}
+ {:db/ident :funamori.robotics/reachable :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}
+ {:db/ident :funamori.robotics/envelope-ok :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one} ;; motion safety envelope
+ {:db/ident :funamori.robotics/witness-ok :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one} ;; G8 ≥2 robot DIDs
+ {:db/ident :funamori.robotics/member-sig :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/ident :funamori.robotics/server-held-key :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one} ;; G11 invariant — always false
+ {:db/ident :funamori.robotics/dry-run   :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one} ;; R0 no-live-actuation — always true
+
  ;; ── annual review (silenSalinityGradientReview; §1.10) ───────────────────────
  {:db/ident :funamori.review/id          :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
  {:db/ident :funamori.review/site        :db/valueType :db.type/ref     :db/cardinality :db.cardinality/one}

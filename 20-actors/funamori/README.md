@@ -35,15 +35,35 @@ Gates: open-membrane mandatory (§1.1) · no Toray/Hydranautics/GE-Power/Statkra
 no PFAS/Nafion (§1.2) · Δsalinity ≥30 g/L (§1.4) · power-density ≥1 W/m² (§1.6) ·
 ≤50 kW & ≤1 site through R3 (§1.9).
 
+## Robotics design (`methods/stack_robotics.cljc`)
+
+The deploy/maintain layer over the shared **kuni-umi** infra-robotics substrate (ADR-2606091800):
+
+- **Anti-fouling coverage sweep** — boustrophedon raster over each membrane face (ADR §5),
+  turned into a planar-arm IK trajectory + motion-safety-envelope check.
+- **EOL membrane-module swap** — pick-and-place that **reuses the §1/§2 membrane gates**, so a
+  commercial or PFAS replacement membrane is refused at the robotics layer too.
+
+All robotics is R0 dry-run (`server-held-key=false`, `dry-run=true`); civilian-use allowlist +
+member-signature (no-server-key) + ≥2-robot witness quorum enforced.
+
+```clojure
+(require '[funamori.methods.stack-robotics :as r])
+(r/plan-clean-pass {:stack (r/make-stack :rows 4 :cols 4)
+                    :row 0 :col 0 :member-sig "did:key:zMember"
+                    :witness-sigs ["did:key:zRobotA" "did:key:zRobotB"]})
+;; => {:reachable true :coverage 1.0 :witness-ok true :datom {... :dry-run true}}
+```
+
 ## Test
 
 ```sh
-./run_tests.sh    # 24 tests / 57 assertions, babashka
+./run_tests.sh    # 36 tests / 88 assertions, babashka
 ```
 
 ## Status
 
-R0 = design + runnable method + gates + kotoba EAVT schema/seed + 3 lexicons. No hardware;
-bench pilot is R1 (Council + membrane-chemist + mizuho R2 attested site gated). See `MATURITY.md`.
+R0 = design + runnable methods (physics + robotics) + gates + kotoba EAVT schema/seed + 3 lexicons.
+No hardware; bench pilot is R1 (Council + membrane-chemist + mizuho R2 attested site gated). See `MATURITY.md`.
 
 Apache-2.0 + etzhayyim Charter Compliance Rider v3.1.

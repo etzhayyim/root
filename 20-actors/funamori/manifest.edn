@@ -8,7 +8,7 @@
  :actor/purpose   "Marine-renewable salinity-gradient power (淡水化発電) — generating electricity from the Gibbs free energy released when fresh river water mixes with seawater, via two open-membrane methods: PRO (pressure-retarded osmosis, fresh-water osmotic pull lifts brine pressure → turbine) and RED (reverse electrodialysis, salinity-driven ion flux across alternating cation/anion-exchange membranes → current). The `salinity_gradient` method models van't Hoff osmotic pressure, PRO water-flux/power-density (W=A·Δπ²/4 at ΔP=Δπ/2), RED Nernst stack EMF/power-density, and ENFORCES the ADR-2605265600 constitutional gates AS CODE: open-publication/in-house membrane mandatory, commercial proprietary membranes (Toray/Hydranautics/GE-Power/Statkraft) absolutely prohibited, PFAS (Nafion-class) prohibited, Δsalinity ≥30 g/L, power-density ≥1 W/m² R3 floor, ≤50 kW & ≤1 site through R3. Cross-actor: mizuho (river-mouth site + estuary attestation), hikari (microgrid integration), chigiri (estuarine regulatory)."
  :actor/status    :r0
  :actor/adr       "2605265600"
- :actor/related   ["2605264100" "2605263100" "2605261100" "2605263500" "2605192330"]
+ :actor/related   ["2605264100" "2605263100" "2605261100" "2605263500" "2605192330" "2606091800"]
 
  :actor/charter-rider
  {:rider/version "3.1"
@@ -25,14 +25,22 @@
   {:gate/id "G8"  :gate/name "bidirectional-discharge"   :gate/rule "Mixed effluent discharged BACK to estuary at intermediate salinity (salinity-MIXING, small mixing zone; §1.8)"}
   {:gate/id "G9"  :gate/name "murakumo-only"             :gate/rule "Inference is Murakumo-only (LiteLLM 127.0.0.1:4000); external LLM prohibited (ADR-2605215000)"}
   {:gate/id "G10" :gate/name "kotoba-eavt-native"        :gate/rule "State is kotoba EAVT Datoms (:funamori.salinity.*); no SQL/RisingWave/Cypher"}
-  {:gate/id "G11" :gate/name "no-server-key"             :gate/rule "Platform holds no key; operator/robot signs. Methods are pure compute, build no real stack (R0 stops at design intent)"}
-  {:gate/id "G12" :gate/name "annual-review"             :gate/rule "silenSalinityGradientReview Council Lv6+ ≥3 per year (§1.10)"}]
+  {:gate/id "G11" :gate/name "no-server-key"             :gate/rule "Platform holds no key; operator/robot signs. Methods are pure compute, build/move no real stack — robotics plans are R0 dry-run (server-held-key=false, dry-run=true structural; require-member-signature throws)"}
+  {:gate/id "G12" :gate/name "annual-review"             :gate/rule "silenSalinityGradientReview Council Lv6+ ≥3 per year (§1.10)"}
+  {:gate/id "G13" :gate/name "civilian-robotics"         :gate/rule "Install/clean/swap robotics use ∈ {assemble,service,clean,inspect,swap} closed allowlist; forbidden-force uses unrepresentable (assert-civilian throws; N1 / Charter §1.12)"}
+  {:gate/id "G14" :gate/name "witness-quorum"            :gate/rule "≥2 independent robot DIDs per actuation (witness-quorum-ok; G8 / ADR-2606091800)"}
+  {:gate/id "G15" :gate/name "motion-safety-envelope"    :gate/rule "Per-step joint-rate ceiling (lower near humans); check-trajectory gates every plan before actuation"}]
 
  :actor/methods
  [{:method/id "salinity_gradient" :method/lang :clojure :method/pure true
-   :method/desc "淡水化発電 PRO/RED physics + Charter-gate core: van't Hoff osmotic pressure, PRO water-flux/optimal-pressure/max-power-density (A·Δπ²/4), RED Nernst cell-EMF/stack-EMF/internal-resistance/power-density (closed-form E²/8R), technology selection (PRO≥35 g/L / RED), and the constitutional gates as throwing assertions (membrane open-license, no-commercial, no-PFAS, Δsalinity≥30, power-density≥1, ≤50kW/≤1site) + evaluate-site integration."}]
+   :method/desc "淡水化発電 PRO/RED physics + Charter-gate core: van't Hoff osmotic pressure, PRO water-flux/optimal-pressure/max-power-density (A·Δπ²/4), RED Nernst cell-EMF/stack-EMF/internal-resistance/power-density (closed-form E²/8R), technology selection (PRO≥35 g/L / RED), and the constitutional gates as throwing assertions (membrane open-license, no-commercial, no-PFAS, Δsalinity≥30, power-density≥1, ≤50kW/≤1site) + evaluate-site integration."}
+  {:method/id "stack_robotics" :method/lang :clojure :method/pure true
+   :method/desc "Salinity-gradient stack install/maintenance robotics (ADR §5 fouling + ADR-2606091800 shared kuni-umi substrate, reused via hikari.methods.substrate): membrane-stack geometry, boustrophedon anti-fouling COVERAGE-PATH over each module face (full-coverage verified), planar-arm IK service trajectory + motion-safety-envelope check, EOL membrane-module SWAP pick-and-place (re-uses salinity_gradient membrane gates → commercial/PFAS membranes refused), and full-stack clean fold. All R0 dry-run (server-held-key=false, dry-run=true); civilian-use allowlist + member-sig (no-server-key) + ≥2-robot witness quorum enforced."}]
 
- :actor/cells []  ;; R0: no Pregel cells yet — R1 site_qualification / membrane_attestation / power_characterization (Murakumo-only)
+ :actor/depends-on
+ ["hikari.methods.substrate"]  ;; shared kuni-umi infra-robotics substrate Clojure port (ADR-2606091800); kinematics + safety gates
+
+ :actor/cells []  ;; R0: no Pregel cells yet — R1 site_qualification / membrane_attestation / power_characterization / stack_service (Murakumo-only)
 
  :actor/lexicons
  ["com.etzhayyim.funamori.salinityGradientMembraneAttestation"

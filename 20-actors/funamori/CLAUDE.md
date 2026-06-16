@@ -20,12 +20,39 @@ This is the previously-reserved `20-actors/funamori/cells/salinity_gradient_pro_
 
 ## Layout
 
-- `methods/salinity_gradient.cljc` — the only code that *runs* at R0. Pure Clojure
-  (`clojure.core` only), portable `.cljc`. Physics + **Charter gates as throwing assertions**.
-- `methods/test_salinity_gradient.cljc` — 24 tests / 57 assertions (`./run_tests.sh`, babashka).
-- `kotoba/{schema,seed}.edn` — kotoba EAVT Datoms (`:funamori.salinity.*`); seed is `:representative`.
+- `methods/salinity_gradient.cljc` — the physics + **Charter gates as throwing assertions**.
+  Pure Clojure (`clojure.core` only), portable `.cljc`.
+- `methods/stack_robotics.cljc` — install/maintenance robotics DESIGN layer (see below).
+- `methods/test_{salinity_gradient,stack_robotics}.cljc` — **36 tests / 88 assertions**
+  (`./run_tests.sh`, babashka).
+- `kotoba/{schema,seed}.edn` — kotoba EAVT Datoms (`:funamori.salinity.*` / `:funamori.robotics.*`);
+  seed is `:representative`.
 - `lex/` — 3 lexicons (membraneAttestation / siteAttestation / silenSalinityGradientReview), ADR §6.
-- `manifest.edn` — actor manifest + 12 gates.
+- `manifest.edn` — actor manifest + 15 gates.
+
+## Robotics design integration (`methods/stack_robotics.cljc`)
+
+The PRO/RED stack is a rectangular array of membrane modules deployed at a river mouth.
+Two robotics problems, modelled as a thin domain layer over the **shared kuni-umi infra-robotics
+substrate** (ADR-2606091800; its canonical Clojure port currently lives at
+`hikari/methods/substrate.cljc`, required here as `sub`):
+
+1. **Anti-fouling coverage sweep** (ADR §5 fouling concern) — `cleaning-path` generates a
+   boustrophedon (serpentine) raster over each module face given head-width + overlap;
+   full-coverage verified by interval-union. `plan-clean-pass` turns the path into a planar-arm
+   IK trajectory and gates it through the motion-safety envelope. `plan-stack-clean` folds
+   over all modules.
+2. **EOL membrane-module swap** (D2 recyclable) — `plan-module-swap` does pick-and-place from
+   module to recycle bin, and **reuses `salinity-gradient/assert-membrane-permitted`** so a
+   commercial (Toray/…) or PFAS (Nafion) replacement membrane is refused at the robotics layer too.
+
+Reused substrate primitives: `->planar-arm` / `ik2` / `reachable` / `joint-trajectory`
+(kinematics) and `assert-civilian` / `require-member-signature` / `witness-quorum-ok` /
+`->safety-envelope` / `check-trajectory` (safety). funamori's civilian-use allowlist is
+`#{assemble service clean inspect swap}`.
+
+**Robotics is design-only at R0**: every plan carries `:funamori.robotics/server-held-key false`
++ `:funamori.robotics/dry-run true` (G11 no-live-actuation). The methods move no real arm.
 
 ## Hard rules (ADR-2605265600 gates — enforced IN CODE, not just documented)
 
@@ -44,6 +71,9 @@ assertions** that throw `ex-info {:error :charter-gate}`, proven by tests.
 - **G7 mizuho-attested-site** — site MUST be `mizuho.waterSupplySourceRegistry` attested +
   Council Lv6+ ≥3 estuary baseline (§1.3; cross-actor, R2+).
 - **G11 no-server-key** — methods are pure compute, build no real stack. R0 stops at design intent.
+- **G13 civilian-robotics** — `assert-civilian` closed allowlist; forbidden-force uses unrepresentable.
+- **G14 witness-quorum** — ≥2 independent robot DIDs per actuation (`witness-quorum-ok`).
+- **G15 motion-safety-envelope** — `check-trajectory` joint-rate ceiling (lower near humans).
 
 ## Cross-actor mesh (ADR §4)
 
@@ -74,3 +104,7 @@ single-stack pilot. **R2** = ≤10 kW + power-density ≥1 W/m² demonstrated + 
 - Do not weaken the ≥30 g/L salinity floor or the ≥1 W/m² power-density floor (G4/G5 are §1 conditions).
 - Do not raise the 50 kW / 1-site cap without an ADR-2605265600 amendment + Council Lv7+ unanimity.
 - Do not treat the gate numbers as tunable parameters — they are Tier-1 derived from the ADR.
+- Do not call any robotics plan against real hardware — R0 is dry-run; `:dry-run` / `server-held-key`
+  are structural invariants (G11), and `require-member-signature` refuses a server signature.
+- Do not add a robotics `use` outside `#{assemble service clean inspect swap}` (G13 — `assert-civilian` throws).
+- Do not re-port the kuni-umi substrate into funamori — reuse `hikari.methods.substrate` (the shared port).

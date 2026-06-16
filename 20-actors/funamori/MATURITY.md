@@ -6,9 +6,9 @@ path-reserved `cells/salinity_gradient_pro_red/` (ADR §5 R0).
 
 | Dimension | State |
 |---|---|
-| Methods | ✅ `methods/salinity_gradient.cljc` — PRO/RED physics + Charter gates as throwing assertions (pure Clojure, portable `.cljc`) |
-| Tests | ✅ `methods/test_salinity_gradient.cljc` — **24 tests / 57 assertions, green** (`./run_tests.sh`, babashka) |
-| Datoms | ✅ `kotoba/schema.edn` (`:funamori.salinity.*` EAVT) + `kotoba/seed.edn` (`:representative` design site/membrane/measure) |
+| Methods | ✅ `methods/salinity_gradient.cljc` (PRO/RED physics + Charter gates) + `methods/stack_robotics.cljc` (install/maintenance robotics design layer over shared kuni-umi substrate) — pure Clojure, portable `.cljc` |
+| Tests | ✅ `methods/test_{salinity_gradient,stack_robotics}.cljc` — **36 tests / 88 assertions, green** (`./run_tests.sh`, babashka) |
+| Datoms | ✅ `kotoba/schema.edn` (`:funamori.salinity.*` + `:funamori.robotics.*` EAVT) + `kotoba/seed.edn` (`:representative` design site/membrane/measure) |
 | Lexicons | ✅ 3 under `com.etzhayyim.funamori.*` (salinityGradientMembraneAttestation / salinityGradientSiteAttestation / silenSalinityGradientReview) — ADR §6 |
 | Manifest | ✅ `manifest.edn` — 12 gates |
 | Cells | ⛔ none yet (R1 — site_qualification / membrane_attestation / power_characterization Pregel cells, Murakumo-only) |
@@ -30,6 +30,19 @@ path-reserved `cells/salinity_gradient_pro_red/` (ADR §5 R0).
 - **G6 site-cap** — ≤50 kW/site, ≤1 site through R3. `assert-site-cap` / `assert-site-count` throw.
 - **Integration** — `evaluate-site` runs ALL gates and returns `{:permitted false :violation <gate>}`
   for brackish / commercial-membrane / low-power / over-cap inputs (4 rejection paths tested).
+
+## Robotics design layer pinned by the test (`stack_robotics.cljc`, ADR §5 + ADR-2606091800)
+
+- **Anti-fouling coverage** — `cleaning-path` boustrophedon raster gives **>0.999 coverage** of a
+  module face; lane count rises as head-width shrinks; param validation throws.
+- **Reuses shared kuni-umi substrate** — planar-arm IK + safety gates via `hikari.methods.substrate`;
+  funamori adds only the domain layer (coverage path + module-swap sequence).
+- **No-server-key (G11)** — `plan-clean-pass` / `plan-module-swap` throw without a member signature,
+  throw if a server signature is supplied; every plan datom carries `server-held-key=false` + `dry-run=true`.
+- **Civilian-use (G13)** — forbidden `use` ("weapon") throws via `assert-civilian`.
+- **Witness quorum (G14)** — <2 robot DIDs flags `witness-ok=false` + Council escalation.
+- **Membrane gate reused at robotics layer** — `plan-module-swap` refuses a commercial (Toray) or
+  PFAS (Nafion) replacement membrane (cross-method `assert-membrane-permitted`).
 
 ## R0 → R1 gate
 
