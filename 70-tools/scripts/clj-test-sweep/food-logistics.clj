@@ -23,7 +23,7 @@
    "kakaku" "meyasu" "funadaiku" "uchiwake" "kabuto" "watari" "watatsuna" "kawaraban"
    "kanjo" "mitooshi" "sanae" "todoke" "ainori"])
 
-(defn- test-files []
+(defn- actor-test-files []
   (->> actors
        (mapcat (fn [a]
                  (let [d (io/file "20-actors" a)]
@@ -31,7 +31,19 @@
                      (->> (file-seq d)
                           (filter #(and (.isFile %)
                                         (re-matches #"test_.*\.clj" (.getName %))))
-                          (map #(.getPath %)))))))
+                          (map #(.getPath %)))))))))
+
+(defn- cross-actor-invariant-files []
+  ;; substrate-level invariants that span multiple actors live alongside this runner
+  ;; (e.g. canonical_form_invariant.clj) — name pattern *_invariant.clj, not test_*.
+  (let [d (io/file "70-tools" "scripts" "clj-test-sweep")]
+    (when (.isDirectory d)
+      (->> (.listFiles d)
+           (filter #(and (.isFile %) (re-matches #".*_invariant\.clj" (.getName %))))
+           (map #(.getPath %))))))
+
+(defn- test-files []
+  (->> (concat (actor-test-files) (cross-actor-invariant-files))
        sort
        vec))
 
