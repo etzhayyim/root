@@ -99,25 +99,31 @@
 (defn- add [e a v] [":db/add" e a v])
 (defn- round3 [x] (/ (Math/round (* (double x) 1000.0)) 1000.0))
 
-(defn render-datoms
-  "Append-only EAVT datoms for the gate verdicts. Every datom flagged
-  :ugachi/derived + :ugachi/sourcing :synthetic. No :ugachi/actuate or
-  :ugachi/extract attribute is ever emitted (G1)."
+(defn datoms
+  "Append-only EAVT datom VECTORS for the gate verdicts (the persistable form;
+  render-datoms stringifies these; autorun/kotoba append these to the ledger).
+  Every datom flagged :ugachi/derived + :ugachi/sourcing :synthetic. No
+  :ugachi/actuate or :ugachi/extract attribute is ever emitted (G1)."
   [{:strs [projects]}]
-  (let [ds (mapcat
-            (fn [r]
-              (let [e (str "ugachi-project:" (get r "id"))]
-                (concat
-                 [(add e ":ugachi.project/resource" (str (get r "resource")))
-                  (add e ":ugachi.gate/net-irreversibility" (round3 (get r "net_irreversibility")))
-                  (add e ":ugachi.gate/multigen-risk" (round3 (get r "multigen_risk")))
-                  (add e ":ugachi.gate/verdict" (str (get r "verdict")))]
-                 (when (get r "reason") [(add e ":ugachi.gate/reason" (str (get r "reason")))])
-                 (when (get r "route")  [(add e ":ugachi.gate/route" (str (get r "route")))])
-                 [(add e ":ugachi/sourcing" ":synthetic")
-                  (add e ":ugachi/derived" true)])))
-            projects)]
-    (str "[\n " (str/join "\n " (map pr-str ds)) "\n]\n")))
+  (vec
+   (mapcat
+    (fn [r]
+      (let [e (str "ugachi-project:" (get r "id"))]
+        (concat
+         [(add e ":ugachi.project/resource" (str (get r "resource")))
+          (add e ":ugachi.gate/net-irreversibility" (round3 (get r "net_irreversibility")))
+          (add e ":ugachi.gate/multigen-risk" (round3 (get r "multigen_risk")))
+          (add e ":ugachi.gate/verdict" (str (get r "verdict")))]
+         (when (get r "reason") [(add e ":ugachi.gate/reason" (str (get r "reason")))])
+         (when (get r "route")  [(add e ":ugachi.gate/route" (str (get r "route")))])
+         [(add e ":ugachi/sourcing" ":synthetic")
+          (add e ":ugachi/derived" true)])))
+    projects)))
+
+(defn render-datoms
+  "EDN string of the gate-verdict datoms (see `datoms`)."
+  [assessment]
+  (str "[\n " (str/join "\n " (map pr-str (datoms assessment))) "\n]\n"))
 
 ;; ── markdown stewardship gate (resilience/restoration, never a target-list) ──
 
