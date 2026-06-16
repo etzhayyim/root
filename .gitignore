@@ -144,3 +144,7 @@ foundry.lock
 # matsurigoto tax-collect 一次資料は DataLad/git-annex の nested dataset (ADR-2605241500):
 # bytes は annex→IPFS、monorepo git には catalog (80-data/matsurigoto-gensen-sources.md) のみ。
 80-data/matsurigoto-gensen-sources/
+
+# Council-authorised live-ingest DataLad datasets (data → DataLad/git-annex/IPFS, not git).
+# Git-tracked pointer = 80-data/coverage-manifests/<name>-manifest.json (ADR-2605241500 + 2606111330).
+/80-data/*-coverage/
