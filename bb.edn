@@ -258,6 +258,7 @@
                       'mitooshi.methods.test-social 'mitooshi.methods.test-synthesize
                       'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-horizon
                       'mitooshi.methods.test-persist 'mitooshi.methods.test-ingest
+                      'mitooshi.methods.test-bridge
                       'nusa.methods.test-analyze
                       'ake.methods.test-analyze 'ake.methods.test-triage
                       'ake.methods.test-contributor
@@ -315,6 +316,7 @@
                                              'mitooshi.methods.test-horizon
                                              'mitooshi.methods.test-persist
                                              'mitooshi.methods.test-ingest
+                                             'mitooshi.methods.test-bridge
                                              'nusa.methods.test-analyze
                                              'ake.methods.test-analyze
                                              'ake.methods.test-triage
