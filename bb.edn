@@ -414,6 +414,12 @@
   sukashi:fleet-drive
   {:doc "透かし sukashi — (B) interim pseudo-daemon: SSH-run the heartbeat on assigned fleet nodes + record each run as a :fleet.run/* kotoba datom. Pair with /loop for continuity. Args: --nodes issachar"
    :task (apply shell {:dir "20-actors/sukashi"} "python3" "tools/fleet_drive.py" *command-line-args*)}
+  murakumo:deploy
+  {:doc "Murakumo fleet — deploy the pure-stdlib node cell-runner (ONE supervisor/node, reads cells.edn) to a node as a system LaunchDaemon. Args: --node issachar [--dry-run] (needs Tailscale SSH + passwordless sudo). ADR-2606161645"
+   :task (apply shell {:dir "50-infra/cluster/murakumo/cell-runner"} "python3" "deploy_node.py" *command-line-args*)}
+  test:cell-runner
+  {:doc "Murakumo lite cell-runner + deploy_node tests (pure stdlib; offline)"
+   :task (shell {:dir "50-infra/cluster/murakumo/cell-runner"} "python3" "test_lite_runner.py")}
   test:sukashi
   {:doc "透かし sukashi — python invariant/heartbeat/crawler/fleet-drive suites + cljc analyzer tests (no .sh; bb is the runner)"
    :task (do (shell {:dir "20-actors/sukashi"} "python3" "tests/test_sukashi.py")

@@ -130,3 +130,28 @@ Per [ADR-2605172000](../../../../90-docs/adr/2605172000-etzhayyim-rw-free-substr
 - [ADR-2605191559](../../../../90-docs/adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md) — MST checkpoint pipeline
 - [`50-infra/cluster/murakumo/litellm/`](../litellm/) — sibling launchd service (LiteLLM gateway)
 - [`20-actors/first-breath/deploy.sh`](../../../../20-actors/first-breath/deploy.sh) — existing per-tribe deploy script (for the heartbeat anchor daemon, ADR-2605171800)
+
+## lite_runner — pure-stdlib node cell-runner (ADR-2606161645)
+
+`lite_runner.py` is the **deployable** Tier-1 supervisor: same `cells.edn` registry, but **only
+system `python3`** — no `uv` / venv / monorepo / DB migrations (which blocked the canonical
+`kotoba-kotodama-cell-runner` on the unprovisioned fleet Macs, whose cells are pure-stdlib).
+
+- **One supervisor per node, not one daemon per actor.** It reads `cells.edn`, fires every CRON
+  cell assigned to `$ETZHAYYIM_NODE_NAME` whose minute matches, records each fire as a
+  `:cell.run/*` datom on a local kotoba ops commit-DAG, and serves a healthz JSON.
+- **Runs as ONE system LaunchDaemon** (`com.etzhayyim.cell-runner.daemon.plist`, `KeepAlive=true`
+  → crash-restart; system domain → no Aqua GUI session needed). It supersedes the per-actor
+  `*-heartbeat` daemons.
+- **Layering (honest):** tailscale = network · `kotoba` = state/runtime (`kotoba server` :8077) ·
+  `murakumo` (`gftd-murakumo`) = GPU/MLX inference cluster · lite_runner = cron supervision. None
+  duplicates another.
+
+```bash
+bb test:cell-runner                            # offline tests (11)
+bb murakumo:deploy --node issachar --dry-run   # show the plan
+bb murakumo:deploy --node issachar             # stage lite_runner + cells.edn + assigned actors → install daemon (Tailscale SSH + sudo)
+```
+
+Staged on each node under `~/.etzhayyim/`: `lite_runner.py`, `cells.edn`, `cells/<actor>/…`. LIVE
+on **issachar** since 2026-06-16 (healthz 13081 → `cells:[SukashiObservatoryHeartbeatCell]`).
