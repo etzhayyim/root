@@ -71,23 +71,23 @@
   },
   "building-ownership" : {
     "layer" : "building-level ownership KG + company linkage (methods/buildings.cljc)",
-    "gate" : "PUBLIC-RECORD + SYMMETRIC (相互監視 affirmed, Rider v3.1 §2(c)/ADR-2606082400); map-not-target; non-monetized. Natural-person ownership representable from public registries (P31=Q5 → :natural-person, no exclusion).",
+    "gate" : "PUBLIC-RECORD + SYMMETRIC (相互監視, Rider v3.1 §2(c)/ADR-2606082400); map-not-target; non-monetized. Natural-person ownership representable (P31=Q5 → :natural-person); per-jurisdiction bulk-ingestion gated by methods/jurisdiction.cljc",
     "company-link" : "owner LEI (P1278) → kabuto/uchiwake/kanjō; owner Wikidata QID → keizu/tsumugi",
-    "countries" : [ "CA", "IE", "JP", "NO" ],
+    "countries" : [ "CA", "FR", "IE", "JP", "NO" ],
     "snapshot" : {
       "artifact" : "wikidata-buildings.kotoba.edn",
-      "buildings" : 562,
-      "owners" : 178,
-      "natural-person-owners" : 1,
-      "lei-links" : 42,
-      "sha256" : "e07bff8b99f2150c328714a066913ba0e702e2d96a23df747e55de55b8e55d4e",
-      "cidv1" : "bafkreihapp7yxgpscugdfbyuubtjco5a44bofwlkeppxi7sv3zk3rzk5jy"
+      "buildings" : 815,
+      "owners" : 259,
+      "natural-person-owners" : 15,
+      "lei-links" : 58,
+      "sha256" : "57b7984de0cc7fbe652784ab6304641ba1463fbb923b528f10f038066ea21a21",
+      "cidv1" : "bafkreicxw6me3ygmp67gkj4evnrqiza3ufdd7o4shnji6ehqhadg5iq2ee"
     },
     "datom-log" : {
       "artifact" : "building-ownership-datoms.kotoba.edn",
       "gitignored" : true,
-      "sha256" : "d1b80e6822f444a6ece32a822b94dd4c2100669ee0d6dd03d99d3e595dbba8b8",
-      "cidv1" : "bafkreigrxahgqixuistozyzkqivzjxkmeeagnhxa23oqhwm5hzmv3o5ixa"
+      "sha256" : "da1d0095a78c6773831770c2a4f00c9edb370fd6b4c489b1c89aeec935f65e75",
+      "cidv1" : "bafkreig2duajlj4mm5zygf3qykspade63m3q7vvuyse3dse253etl5s6ou"
     }
   },
   "denominator" : {

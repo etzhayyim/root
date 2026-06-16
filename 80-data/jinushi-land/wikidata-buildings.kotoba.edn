@@ -1,6 +1,6 @@
-;; jinushi 地主 — building-level ownership KG (legal-entity + natural-person owners, public record).
-;; PUBLIC-RECORD + SYMMETRIC (相互監視 affirmed); map-not-target; non-monetized. GENERATED.
-{:record-count 562,
+;; jinushi 地主 — building-level ownership KG (legal-entity + natural-person, public record). GENERATED.
+;; PUBLIC-RECORD + SYMMETRIC (相互監視 affirmed); map-not-target; non-monetized.
+{:record-count 815,
  :owners
  {"Q101341"
   {:label "Lillehammer", :lei "5967007LIEEXZXHHG029", :type :org},
@@ -10,12 +10,19 @@
   {:label "Live Nation Entertainment",
    :lei "5493007B9BM9ZXJINO78",
    :type :org},
+  "Q1071978" {:label "Réseau Ferré de France", :lei nil, :type :org},
   "Q1074185"
   {:label "Tokyo Metropolitan Government", :lei nil, :type :org},
   "Q10903965" {:label "Hokuetsu Express", :lei nil, :type :org},
   "Q109499" {:label "Kongsvinger Municipality", :lei nil, :type :org},
   "Q111928256"
   {:label "Toronto Terminals Railway", :lei nil, :type :org},
+  "Q1120203"
+  {:label "Agglomeration community of Le Havre", :lei nil, :type :org},
+  "Q1121170"
+  {:label "Compagnie Nationale du Rhône",
+   :lei "549300Z3FGLXMWMOXN32",
+   :type :org},
   "Q11235089" {:label "Tōyō Rapid Railway", :lei nil, :type :org},
   "Q11259268" {:label "Isumi Railway", :lei nil, :type :org},
   "Q11260966"
@@ -26,6 +33,11 @@
   "Q114568946" {:label "BentallGreenOak", :lei nil, :type :org},
   "Q11527482"
   {:label "Tobu Tower Skytree Co., Ltd.", :lei nil, :type :org},
+  "Q115594910" {:label nil, :lei nil, :type :org},
+  "Q115610385" {:label nil, :lei nil, :type :org},
+  "Q115909556" {:label nil, :lei nil, :type :org},
+  "Q115909775" {:label nil, :lei nil, :type :org},
+  "Q115910040" {:label nil, :lei nil, :type :org},
   "Q11653637" {:label "Nagaragawa Railway", :lei nil, :type :org},
   "Q117059"
   {:label "Associated British Foods",
@@ -33,11 +45,14 @@
    :type :org},
   "Q117090701" {:label "Capitol Theatre", :lei nil, :type :org},
   "Q118139706" {:label "Viking Stadion", :lei nil, :type :org},
+  "Q118525125" {:label "commune de Morzine", :lei nil, :type :org},
   "Q1186804"
   {:label "Norwegian Trekking Association", :lei nil, :type :org},
   "Q1190669"
   {:label "Japan Freight Railway Company", :lei nil, :type :org},
   "Q12008069" {:label nil, :lei nil, :type :org},
+  "Q124156217" {:label nil, :lei nil, :type :org},
+  "Q124156224" {:label nil, :lei nil, :type :org},
   "Q128186" {:label "Saitama Prefecture", :lei nil, :type :org},
   "Q128738"
   {:label "Anheuser-Busch InBev",
@@ -56,6 +71,10 @@
   "Q133924" {:label "Ōita Prefecture", :lei nil, :type :org},
   "Q135325" {:label "Alcoa", :lei "549300T12EZ1F6PWWU29", :type :org},
   "Q1357727" {:label "GO Transit", :lei nil, :type :org},
+  "Q13646"
+  {:label "Société nationale des chemins de fer français",
+   :lei "969500A4MXJ3ESPHK698",
+   :type :org},
   "Q1377135"
   {:label "Tokyo Metropolitan Bureau of Transportation",
    :lei nil,
@@ -65,19 +84,31 @@
    "Society for the Preservation of Ancient Norwegian Monuments",
    :lei nil,
    :type :org},
+  "Q1450662"
+  {:label "Government of the French Republic", :lei nil, :type :org},
   "Q1473374" {:label "Leinster Rugby", :lei nil, :type :org},
   "Q1478917" {:label "Longford Town F.C.", :lei nil, :type :org},
+  "Q1497417"
+  {:label "Gecina", :lei "9695003E4MMA10IBTR26", :type :org},
   "Q1531085"
   {:label "Kintetsu Railway Co., Ltd.", :lei nil, :type :org},
+  "Q155734"
+  {:label "Luis Alejandro Berthier", :lei nil, :type :natural-person},
   "Q156238"
   {:label "ExxonMobil", :lei "J3WHBG0MTS7O8ZVMDC91", :type :org},
   "Q161140" {:label "Diageo", :lei "213800ZVIELEA55JMJ32", :type :org},
   "Q1634522"
   {:label "Université du Québec à Montréal", :lei nil, :type :org},
+  "Q16527309"
+  {:label "Antoine II Bohier", :lei nil, :type :natural-person},
   "Q165684"
   {:label "Rogers Communications",
    :lei "54930030NVF3Y2OL0A78",
    :type :org},
+  "Q16644314"
+  {:label "Jacques-Jean Le Couteulx du Molay",
+   :lei nil,
+   :type :natural-person},
   "Q1672817" {:label "Government of Ireland", :lei nil, :type :org},
   "Q1672926"
   {:label "Irish Rugby Football Union",
@@ -85,7 +116,10 @@
    :type :org},
   "Q167840" {:label "Hydro-Quebec", :lei nil, :type :org},
   "Q1687698" {:label "Jernbaneverket", :lei nil, :type :org},
+  "Q17054" {:label "Martinique", :lei nil, :type :org},
   "Q170616" {:label "Chiba", :lei nil, :type :org},
+  "Q171480"
+  {:label "Joséphine de Beauharnais", :lei nil, :type :natural-person},
   "Q1742118"
   {:label "Kingdom Holding Company",
    :lei "549300ZFG0YO58NZON90",
@@ -103,6 +137,7 @@
   "Q186785" {:label "Rosenborg BK", :lei nil, :type :org},
   "Q1973" {:label "British Columbia", :lei nil, :type :org},
   "Q20" {:label "Norway", :lei nil, :type :org},
+  "Q200686" {:label "French Fifth Republic", :lei nil, :type :org},
   "Q201492" {:label "McGill University", :lei nil, :type :org},
   "Q203013" {:label "Ottawa Senators", :lei nil, :type :org},
   "Q2035496" {:label "Transport Canada", :lei nil, :type :org},
@@ -114,6 +149,7 @@
    :type :org},
   "Q208552" {:label "Molde FK", :lei nil, :type :org},
   "Q2096" {:label "Edmonton", :lei nil, :type :org},
+  "Q21" {:label "England", :lei nil, :type :org},
   "Q21013478" {:label "JERA", :lei nil, :type :org},
   "Q212490" {:label "Tromsø IL", :lei nil, :type :org},
   "Q212708" {:label "Bohemian F.C.", :lei nil, :type :org},
@@ -122,9 +158,17 @@
   "Q2145" {:label "Quebec City", :lei nil, :type :org},
   "Q214992" {:label "Aalesunds FK", :lei nil, :type :org},
   "Q216131" {:label "Fredrikstad FK", :lei nil, :type :org},
+  "Q21704666"
+  {:label "Foncière des 6e et 7e Arrondissements",
+   :lei nil,
+   :type :org},
+  "Q219635"
+  {:label "BlackRock", :lei "549300LRIF3NWCU26A80", :type :org},
   "Q219712" {:label "Imperial Japanese Navy", :lei nil, :type :org},
   "Q22811103"
   {:label "South Hokkaido Railway Company", :lei nil, :type :org},
+  "Q23782080"
+  {:label "departmental council of Vaucluse", :lei nil, :type :org},
   "Q23979144"
   {:label "Bane NOR", :lei "549300TJPY1TN6ETZE45", :type :org},
   "Q244874" {:label "Sligo Rovers F.C.", :lei nil, :type :org},
@@ -135,6 +179,17 @@
   {:label "Roman Catholic Archdiocese of Nagasaki",
    :lei nil,
    :type :org},
+  "Q270363"
+  {:label "Société Générale", :lei "O2RNE8IBXP4R0TD8PU41", :type :org},
+  "Q2733418"
+  {:label "Groupe Galeries Lafayette", :lei nil, :type :org},
+  "Q274591"
+  {:label "Électricité de France",
+   :lei "549300X3UK4GG3FNMO06",
+   :type :org},
+  "Q283339" {:label "Paris Opera", :lei nil, :type :org},
+  "Q2885967"
+  {:label "Barthélemy Hervart", :lei nil, :type :natural-person},
   "Q288727"
   {:label "Sapporo Breweries",
    :lei "353800ITDYV3AD2X5M34",
@@ -144,6 +199,11 @@
   {:label "Caisse de dépôt et placement du Québec",
    :lei nil,
    :type :org},
+  "Q2948486"
+  {:label "Chambéry métropole",
+   :lei "969500KHDYUK2NW8TJ54",
+   :type :org},
+  "Q3001280" {:label "Crown of France", :lei nil, :type :org},
   "Q304962"
   {:label "Mitsubishi Estate",
    :lei "353800KOFMRGOXSJ5Z65",
@@ -151,30 +211,67 @@
   "Q3050566"
   {:label "ESB Group", :lei "635400UFHDIQCDZ6JK11", :type :org},
   "Q3065365" {:label "Molson family", :lei nil, :type :org},
+  "Q30731155" {:label "John Heywood", :lei nil, :type :natural-person},
+  "Q3075628" {:label "Fabrique de Notre Dame", :lei nil, :type :org},
   "Q30850"
   {:label "Nagoya Railroad", :lei "353800P62OOYUY3I8T51", :type :org},
+  "Q3093869"
+  {:label "Gabriel Michel", :lei nil, :type :natural-person},
+  "Q3112596" {:label nil, :lei nil, :type :org},
+  "Q3117359"
+  {:label "Carrefour Group", :lei "549300B8P6MUJ1YWTS08", :type :org},
+  "Q3130604"
+  {:label "Henri Baillardel de Lareinty",
+   :lei nil,
+   :type :natural-person},
   "Q3138970" {:label "Iyotetsu", :lei nil, :type :org},
   "Q3178370"
   {:label "Taisei Corporation",
    :lei "529900TF7XJKIOWMLQ79",
    :type :org},
+  "Q3183252"
+  {:label "Jonas-Philip Hagerman", :lei nil, :type :natural-person},
   "Q3247288" {:label "Office of Public Works", :lei nil, :type :org},
+  "Q3261400"
+  {:label "Louis Raphaël Cahen d'Anvers",
+   :lei nil,
+   :type :natural-person},
   "Q3276951" {:label "Tadashi Yanai", :lei nil, :type :natural-person},
+  "Q3278469" {:label nil, :lei nil, :type :org},
+  "Q3278474" {:label "municipality of Lyon", :lei nil, :type :org},
+  "Q3278475"
+  {:label "municipality of Marseille", :lei nil, :type :org},
+  "Q3278478" {:label "municipality of Paris", :lei nil, :type :org},
   "Q3307451" {:label "Metrolinx", :lei nil, :type :org},
   "Q333894"
   {:label "Tokyo Electric Power Company Holdings",
    :lei "5299004EMJ3R4RVR5Y75",
    :type :org},
+  "Q3347591"
+  {:label "OL Groupe", :lei "969500YG7U0UQDEHBD60", :type :org},
   "Q3352823"
   {:label "Ontario Northland Railway", :lei nil, :type :org},
+  "Q33788" {:label "New Caledonia", :lei nil, :type :org},
   "Q340" {:label "Montreal", :lei nil, :type :org},
   "Q349487" {:label "Parks Canada", :lei nil, :type :org},
+  "Q3524927" {:label "Thomas Bohier", :lei nil, :type :natural-person},
   "Q35765" {:label "Osaka", :lei nil, :type :org},
+  "Q3591845" {:label "French State", :lei nil, :type :org},
+  "Q37935436"
+  {:label "TotalEnergies Actionnariat France", :lei nil, :type :org},
   "Q38283" {:label "Yokohama", :lei nil, :type :org},
+  "Q384602"
+  {:label "Ministry of Culture of France", :lei nil, :type :org},
   "Q386697" {:label "Yamato", :lei nil, :type :org},
   "Q394452"
   {:label "St Patrick's Athletic F.C.", :lei nil, :type :org},
   "Q394474" {:label "Shelbourne F.C.", :lei nil, :type :org},
+  "Q3968369" {:label "Starhotels", :lei nil, :type :org},
+  "Q4075" {:label "Lyon OU", :lei nil, :type :org},
+  "Q4162216"
+  {:label "Energetický a průmyslový holding",
+   :lei "31570010000000090208",
+   :type :org},
   "Q4179186" {:label "BC Transit", :lei nil, :type :org},
   "Q4206709"
   {:label "Cascade Investment",
@@ -189,6 +286,8 @@
   {:label "Canadian Pacific Railway",
    :lei "54930036474DURYNB481",
    :type :org},
+  "Q471969"
+  {:label "Lille metropolis", :lei "96950038RPL7KKR2OW97", :type :org},
   "Q474952"
   {:label "Norwegian Football Federation", :lei nil, :type :org},
   "Q478167" {:label "FK Bodø/Glimt", :lei nil, :type :org},
@@ -219,6 +318,10 @@
    :lei "353800QGUXHZ7EBCR121",
    :type :org},
   "Q5029397" {:label "Canada Lands Company", :lei nil, :type :org},
+  "Q505275"
+  {:label "Capital Group Companies",
+   :lei "5493007PLZSLIFWICM52",
+   :type :org},
   "Q508840" {:label "monarchy of Canada", :lei nil, :type :org},
   "Q51211653" {:label "Osaka Metro", :lei nil, :type :org},
   "Q513679"
@@ -232,6 +335,7 @@
   "Q528446"
   {:label "Andøya Space", :lei "54930015ESJHNM93SQ38", :type :org},
   "Q5352951" {:label "Aoimori Railway Company", :lei nil, :type :org},
+  "Q5408576" {:label "Eugène Pastré", :lei nil, :type :natural-person},
   "Q547924" {:label "Fred. Olsen Cruise Lines", :lei nil, :type :org},
   "Q548520"
   {:label "Gaelic Athletic Association", :lei nil, :type :org},
@@ -239,28 +343,41 @@
   "Q5519452" {:label "Galway & District League", :lei nil, :type :org},
   "Q56306354" {:label "Cominar", :lei nil, :type :org},
   "Q571158" {:label "Sogndal Fotball", :lei nil, :type :org},
+  "Q58296" {:label "French First Republic", :lei nil, :type :org},
   "Q585" {:label "Oslo", :lei nil, :type :org},
   "Q5902934"
   {:label "Hordaland County Municipality",
    :lei "5967007LIEEXZXIVLK08",
    :type :org},
+  "Q59916588"
+  {:label "municipality of Toulouse", :lei nil, :type :org},
   "Q606222"
   {:label "Star Cruises", :lei "0WKKFB7N1TW1Q5WJ1V86", :type :org},
+  "Q608518"
+  {:label "Unibail Rodamco Westfield",
+   :lei "969500SHQITWXSIS7N89",
+   :type :org},
   "Q624798"
   {:label "Canadian National Railway",
    :lei "3SU7BEP7TH9YEQOZCS77",
    :type :org},
+  "Q643290" {:label "RATP", :lei "969500K59E47ULNCAQ69", :type :org},
+  "Q644304" {:label "EnBW", :lei "529900JSFZ4TS59HKD79", :type :org},
   "Q6515314"
   {:label "Norwegian Coastal Administration", :lei nil, :type :org},
   "Q653180"
   {:label "Fujisan Hongū Sengen Taisha", :lei nil, :type :org},
   "Q6548008" {:label "Lillehammer Olympiapark", :lei nil, :type :org},
+  "Q663187" {:label "Chemins de fer de l'Est", :lei nil, :type :org},
+  "Q677459" {:label "Maus Frères", :lei nil, :type :org},
   "Q682894" {:label "Tokyo Metro", :lei nil, :type :org},
   "Q6936341"
   {:label "Municipal government of Toronto", :lei nil, :type :org},
   "Q6936920"
   {:label "Munster Football Association", :lei nil, :type :org},
   "Q7061278" {:label "Norges Statsbaner", :lei nil, :type :org},
+  "Q70972" {:label "Kingdom of France", :lei nil, :type :org},
+  "Q71084" {:label "First French Empire", :lei nil, :type :org},
   "Q73043" {:label "Iarnród Éireann—Irish Rail", :lei nil, :type :org},
   "Q732503"
   {:label "Sony Music Entertainment Japan", :lei nil, :type :org},
@@ -277,6 +394,8 @@
   "Q770328" {:label "Aniplex", :lei nil, :type :org},
   "Q7827542" {:label "Tosa Kuroshio Railway", :lei nil, :type :org},
   "Q791050" {:label "Avinor", :lei "5967007LIEEXZX8ZW078", :type :org},
+  "Q794563"
+  {:label "Groupe ADP", :lei "969500IY667JOE7ERR52", :type :org},
   "Q795723" {:label "BC Ferries", :lei nil, :type :org},
   "Q7988120"
   {:label "Western Norway Emigration Center", :lei nil, :type :org},
@@ -298,18 +417,39 @@
   {:label "Metropolitan Intercity Railway Company",
    :lei nil,
    :type :org},
+  "Q854551"
+  {:label "Bérenger Saunière", :lei nil, :type :natural-person},
   "Q861524" {:label "Sandefjord Fotball", :lei nil, :type :org},
+  "Q86605651"
+  {:label "municipality of Bordeaux", :lei nil, :type :org},
+  "Q86605996" {:label "Ville d'Avignon Chibre", :lei nil, :type :org},
+  "Q86690989" {:label "municipality of Vannes", :lei nil, :type :org},
+  "Q86697566" {:label "Ville d'Aix-en-Provence", :lei nil, :type :org},
+  "Q86697845" {:label nil, :lei nil, :type :org},
+  "Q86698706" {:label "municipality of Nice", :lei nil, :type :org},
+  "Q86698952" {:label "municipality of Bourges", :lei nil, :type :org},
+  "Q86699070" {:label "City of Nîmes", :lei nil, :type :org},
+  "Q86699184" {:label "municipality of Reims", :lei nil, :type :org},
   "Q868679" {:label "The Oriental Land Company", :lei nil, :type :org},
+  "Q87071278" {:label "Ville de Vienne", :lei nil, :type :org},
+  "Q87071500" {:label "municipality of Blois", :lei nil, :type :org},
+  "Q87071505" {:label "Ville d'Arras", :lei nil, :type :org},
+  "Q87071551" {:label nil, :lei nil, :type :org},
+  "Q87072090" {:label "City of Beaucaire", :lei nil, :type :org},
   "Q876720"
   {:label "Via Rail", :lei "549300URO8B2DLPRPF61", :type :org},
+  "Q88851"
+  {:label "Prince Henri, Count of Chambord",
+   :lei nil,
+   :type :natural-person},
   "Q902962" {:label "Bray Wanderers A.F.C.", :lei nil, :type :org},
   "Q906055" {:label "Orix", :lei "35380016EMHNBOVYE123", :type :org},
   "Q934417" {:label "Royal Dublin Society", :lei nil, :type :org},
   "Q97365653" {:label "Groupe Mach", :lei nil, :type :org},
   "Q995313" {:label "Bryne FK", :lei nil, :type :org}},
- :natural-person-owners 1,
+ :natural-person-owners 15,
  :source "wikidata:WDQS",
- :countries ["CA" "IE" "JP" "NO"],
+ :countries ["CA" "FR" "IE" "JP" "NO"],
  :company-link
  {:via
   ["lei (P1278) → kabuto/uchiwake/kanjō"
@@ -703,6 +843,1255 @@
    :cc "CA",
    :floors nil,
    :owner "Q48525",
+   :lei nil}
+  {:building "Q10149",
+   :cc "FR",
+   :floors nil,
+   :owner "Q87071278",
+   :lei nil}
+  {:building "Q10154",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q10180",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q10181",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q10182",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q118955",
+   :cc "FR",
+   :floors nil,
+   :owner "Q115594910",
+   :lei nil}
+  {:building "Q119911",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q119971",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q120303",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q123149",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q127037",
+   :cc "FR",
+   :floors nil,
+   :owner "Q118525125",
+   :lei nil}
+  {:building "Q127372",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86698706",
+   :lei nil}
+  {:building "Q128074",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q130013",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q13205",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3591845",
+   :lei nil}
+  {:building "Q13408",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q13409",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86697566",
+   :lei nil}
+  {:building "Q1376",
+   :cc "FR",
+   :floors nil,
+   :owner "Q59916588",
+   :lei nil}
+  {:building "Q140277",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q143463",
+   :cc "FR",
+   :floors nil,
+   :owner "Q23782080",
+   :lei nil}
+  {:building "Q143463",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86605996",
+   :lei nil}
+  {:building "Q1510",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q154037",
+   :cc "FR",
+   :floors nil,
+   :owner "Q219635",
+   :lei "549300LRIF3NWCU26A80"}
+  {:building "Q154037",
+   :cc "FR",
+   :floors nil,
+   :owner "Q505275",
+   :lei "5493007PLZSLIFWICM52"}
+  {:building "Q154037",
+   :cc "FR",
+   :floors nil,
+   :owner "Q4162216",
+   :lei "31570010000000090208"}
+  {:building "Q154037",
+   :cc "FR",
+   :floors nil,
+   :owner "Q37935436",
+   :lei nil}
+  {:building "Q161787",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3093869",
+   :lei nil}
+  {:building "Q161787",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3261400",
+   :lei nil}
+  {:building "Q163879",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q167371",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q167827",
+   :cc "FR",
+   :floors nil,
+   :owner "Q87072090",
+   :lei nil}
+  {:building "Q168170",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q169369",
+   :cc "FR",
+   :floors nil,
+   :owner "Q5408576",
+   :lei nil}
+  {:building "Q174845",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q174939",
+   :cc "FR",
+   :floors nil,
+   :owner "Q115910040",
+   :lei nil}
+  {:building "Q176582",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q177476",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q179656",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86699070",
+   :lei nil}
+  {:building "Q180274",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3591845",
+   :lei nil}
+  {:building "Q181189",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86697845",
+   :lei nil}
+  {:building "Q181669",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q182992",
+   :cc "FR",
+   :floors nil,
+   :owner "Q33788",
+   :lei nil}
+  {:building "Q182992",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3112596",
+   :lei nil}
+  {:building "Q187840",
+   :cc "FR",
+   :floors nil,
+   :owner "Q283339",
+   :lei nil}
+  {:building "Q188190",
+   :cc "FR",
+   :floors 3,
+   :owner "Q3591845",
+   :lei nil}
+  {:building "Q193215",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3524927",
+   :lei nil}
+  {:building "Q193215",
+   :cc "FR",
+   :floors nil,
+   :owner "Q16527309",
+   :lei nil}
+  {:building "Q19675",
+   :cc "FR",
+   :floors nil,
+   :owner "Q384602",
+   :lei nil}
+  {:building "Q1992",
+   :cc "FR",
+   :floors nil,
+   :owner "Q1071978",
+   :lei nil}
+  {:building "Q199363",
+   :cc "FR",
+   :floors nil,
+   :owner "Q124156224",
+   :lei nil}
+  {:building "Q199363",
+   :cc "FR",
+   :floors nil,
+   :owner "Q124156217",
+   :lei nil}
+  {:building "Q2008",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q2011",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q20113",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q201428",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3591845",
+   :lei nil}
+  {:building "Q2016",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q202150",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278475",
+   :lei nil}
+  {:building "Q2050",
+   :cc "FR",
+   :floors nil,
+   :owner "Q1071978",
+   :lei nil}
+  {:building "Q205367", :cc "FR", :floors nil, :owner "Q21", :lei nil}
+  {:building "Q205367",
+   :cc "FR",
+   :floors nil,
+   :owner "Q58296",
+   :lei nil}
+  {:building "Q205367",
+   :cc "FR",
+   :floors nil,
+   :owner "Q70972",
+   :lei nil}
+  {:building "Q205367",
+   :cc "FR",
+   :floors nil,
+   :owner "Q71084",
+   :lei nil}
+  {:building "Q205367",
+   :cc "FR",
+   :floors nil,
+   :owner "Q88851",
+   :lei nil}
+  {:building "Q205367",
+   :cc "FR",
+   :floors nil,
+   :owner "Q155734",
+   :lei nil}
+  {:building "Q205367",
+   :cc "FR",
+   :floors nil,
+   :owner "Q200686",
+   :lei nil}
+  {:building "Q2059",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q206656",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q214654",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q217599",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3117359",
+   :lei "549300B8P6MUJ1YWTS08"}
+  {:building "Q217708",
+   :cc "FR",
+   :floors 8,
+   :owner "Q1742118",
+   :lei "549300ZFG0YO58NZON90"}
+  {:building "Q218613",
+   :cc "FR",
+   :floors 10,
+   :owner "Q2733418",
+   :lei nil}
+  {:building "Q219462",
+   :cc "FR",
+   :floors nil,
+   :owner "Q1120203",
+   :lei nil}
+  {:building "Q223416",
+   :cc "FR",
+   :floors nil,
+   :owner "Q794563",
+   :lei "969500IY667JOE7ERR52"}
+  {:building "Q223416",
+   :cc "FR",
+   :floors nil,
+   :owner "Q794563",
+   :lei "969500PJMBSFHYC37989"}
+  {:building "Q23274",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3968369",
+   :lei nil}
+  {:building "Q238902",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q243", :cc "FR", :floors 3, :owner "Q1450662", :lei nil}
+  {:building "Q243", :cc "FR", :floors 3, :owner "Q3278478", :lei nil}
+  {:building "Q24425",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q24733",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q247566",
+   :cc "FR",
+   :floors nil,
+   :owner "Q384602",
+   :lei nil}
+  {:building "Q251410",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q254308",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q257342",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86699184",
+   :lei nil}
+  {:building "Q257465",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q261320",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q273476",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q273645",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q274526",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q274528",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86697566",
+   :lei nil}
+  {:building "Q274534",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q278518",
+   :cc "FR",
+   :floors 37,
+   :owner "Q1497417",
+   :lei "9695003E4MMA10IBTR26"}
+  {:building "Q279151",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q279241",
+   :cc "FR",
+   :floors nil,
+   :owner "Q87071551",
+   :lei nil}
+  {:building "Q282600",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q283177",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q284444",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86605996",
+   :lei nil}
+  {:building "Q287559",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q289445",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q289916",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q2946",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3001280",
+   :lei nil}
+  {:building "Q295844",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q2981",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3591845",
+   :lei nil}
+  {:building "Q305421",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q306256",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q309031",
+   :cc "FR",
+   :floors nil,
+   :owner "Q677459",
+   :lei nil}
+  {:building "Q3124",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q31274",
+   :cc "FR",
+   :floors nil,
+   :owner "Q115909775",
+   :lei nil}
+  {:building "Q31276",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86690989",
+   :lei nil}
+  {:building "Q321927",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q3246",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q329852",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3591845",
+   :lei nil}
+  {:building "Q330564",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q334096",
+   :cc "FR",
+   :floors nil,
+   :owner "Q21704666",
+   :lei nil}
+  {:building "Q334186",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q334220",
+   :cc "FR",
+   :floors nil,
+   :owner "Q87071505",
+   :lei nil}
+  {:building "Q334233",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86699184",
+   :lei nil}
+  {:building "Q334277",
+   :cc "FR",
+   :floors nil,
+   :owner "Q30731155",
+   :lei nil}
+  {:building "Q335277",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q337855",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q338898",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q366902",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q367161",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q369234",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q371217",
+   :cc "FR",
+   :floors nil,
+   :owner "Q1071978",
+   :lei nil}
+  {:building "Q373361",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q373449",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q374739",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q377782",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q377811",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q382659",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q384902",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q386547",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86605651",
+   :lei nil}
+  {:building "Q387213",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278469",
+   :lei nil}
+  {:building "Q389487",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q389716",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q390252",
+   :cc "FR",
+   :floors nil,
+   :owner "Q274591",
+   :lei "549300X3UK4GG3FNMO06"}
+  {:building "Q39189",
+   :cc "FR",
+   :floors nil,
+   :owner "Q115610385",
+   :lei nil}
+  {:building "Q400312",
+   :cc "FR",
+   :floors nil,
+   :owner "Q471969",
+   :lei "96950038RPL7KKR2OW97"}
+  {:building "Q400316",
+   :cc "FR",
+   :floors nil,
+   :owner "Q471969",
+   :lei "96950038RPL7KKR2OW97"}
+  {:building "Q400325",
+   :cc "FR",
+   :floors nil,
+   :owner "Q471969",
+   :lei "96950038RPL7KKR2OW97"}
+  {:building "Q400330",
+   :cc "FR",
+   :floors nil,
+   :owner "Q471969",
+   :lei "96950038RPL7KKR2OW97"}
+  {:building "Q402141",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q4055",
+   :cc "FR",
+   :floors nil,
+   :owner "Q87071500",
+   :lei nil}
+  {:building "Q405631",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q4221",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q4233",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q423702",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q426440",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q427992",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q428115",
+   :cc "FR",
+   :floors nil,
+   :owner "Q115909556",
+   :lei nil}
+  {:building "Q428774",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q430759",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q430790",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q431326",
+   :cc "FR",
+   :floors nil,
+   :owner "Q608518",
+   :lei "969500SHQITWXSIS7N89"}
+  {:building "Q46280",
+   :cc "FR",
+   :floors nil,
+   :owner "Q794563",
+   :lei "969500IY667JOE7ERR52"}
+  {:building "Q46280",
+   :cc "FR",
+   :floors nil,
+   :owner "Q794563",
+   :lei "969500PJMBSFHYC37989"}
+  {:building "Q516",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q62554",
+   :cc "FR",
+   :floors nil,
+   :owner "Q2948486",
+   :lei "969500KHDYUK2NW8TJ54"}
+  {:building "Q628695",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q628887",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q630114",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q630601",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q630642",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q631114",
+   :cc "FR",
+   :floors nil,
+   :owner "Q1071978",
+   :lei nil}
+  {:building "Q631405",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q631846",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q632708",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q632881",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q634761",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q635744",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q636329",
+   :cc "FR",
+   :floors nil,
+   :owner "Q86698952",
+   :lei nil}
+  {:building "Q638423",
+   :cc "FR",
+   :floors nil,
+   :owner "Q283339",
+   :lei nil}
+  {:building "Q640806",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q640968",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q641034",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q641301",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q641548",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q641621",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q642288",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q650959",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q652778",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q65326",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q653961",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q657146",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q657183",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q657926",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q658277",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q659867",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q660867",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q660934",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q661723",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3075628",
+   :lei nil}
+  {:building "Q661846",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q662491",
+   :cc "FR",
+   :floors nil,
+   :owner "Q2885967",
+   :lei nil}
+  {:building "Q662491",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3591845",
+   :lei nil}
+  {:building "Q662776",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q662797",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q663055",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q664142",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q664611",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q665369",
+   :cc "FR",
+   :floors nil,
+   :owner "Q17054",
+   :lei nil}
+  {:building "Q665887",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q666009",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q666103",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q666336",
+   :cc "FR",
+   :floors nil,
+   :owner "Q663187",
+   :lei nil}
+  {:building "Q666483",
+   :cc "FR",
+   :floors 35,
+   :owner "Q270363",
+   :lei "O2RNE8IBXP4R0TD8PU41"}
+  {:building "Q666766",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q667061",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q667139",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q667181",
+   :cc "FR",
+   :floors nil,
+   :owner "Q124156224",
+   :lei nil}
+  {:building "Q667435",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q668351",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q669574",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278478",
+   :lei nil}
+  {:building "Q669621",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q669850",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q670081",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q674287",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q675874",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q675938",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q676411",
+   :cc "FR",
+   :floors nil,
+   :owner "Q274591",
+   :lei "549300X3UK4GG3FNMO06"}
+  {:building "Q676411",
+   :cc "FR",
+   :floors nil,
+   :owner "Q644304",
+   :lei "529900JSFZ4TS59HKD79"}
+  {:building "Q677672",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q677714",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q678175",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q679334",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q680195",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q680787",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q681294",
+   :cc "FR",
+   :floors nil,
+   :owner "Q1121170",
+   :lei "549300Z3FGLXMWMOXN32"}
+  {:building "Q681418",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q683208",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q683544",
+   :cc "FR",
+   :floors nil,
+   :owner "Q643290",
+   :lei "969500K59E47ULNCAQ69"}
+  {:building "Q683751",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q684137",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q684229",
+   :cc "FR",
+   :floors nil,
+   :owner "Q854551",
+   :lei nil}
+  {:building "Q684413",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q684846",
+   :cc "FR",
+   :floors nil,
+   :owner "Q171480",
+   :lei nil}
+  {:building "Q684846",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3183252",
+   :lei nil}
+  {:building "Q684846",
+   :cc "FR",
+   :floors nil,
+   :owner "Q16644314",
+   :lei nil}
+  {:building "Q685855",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q8049",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3001280",
+   :lei nil}
+  {:building "Q8238",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q8305",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q8326",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3130604",
+   :lei nil}
+  {:building "Q84007",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q8426",
+   :cc "FR",
+   :floors nil,
+   :owner "Q1450662",
+   :lei nil}
+  {:building "Q8437",
+   :cc "FR",
+   :floors nil,
+   :owner "Q13646",
+   :lei "969500A4MXJ3ESPHK698"}
+  {:building "Q8503",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q8507",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3347591",
+   :lei "969500YG7U0UQDEHBD60"}
+  {:building "Q8600",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q8654",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
+   :lei nil}
+  {:building "Q9478",
+   :cc "FR",
+   :floors nil,
+   :owner "Q608518",
+   :lei "969500SHQITWXSIS7N89"}
+  {:building "Q9491", :cc "FR", :floors nil, :owner "Q4075", :lei nil}
+  {:building "Q9528",
+   :cc "FR",
+   :floors nil,
+   :owner "Q3278474",
    :lei nil}
   {:building "Q1115980",
    :cc "IE",
@@ -3104,7 +4493,7 @@
  {:public-record true,
   :reciprocity :symmetric,
   :note
-  "Wikidata = open public record; SYMMETRIC (every owner equally visible) — 相互監視 the charter AFFIRMS (Rider v3.1 §2(c)/ADR-2606082400, Tier-0 神の監視), NOT asymmetric/monetized surveillance. Natural-person ownership is representable under the SAME public-record gate (P31=Q5 owners marked :natural-person, no exclusion)."},
+  "Wikidata = open public record; SYMMETRIC (相互監視 affirmed, Rider v3.1 §2(c)/ADR-2606082400, Tier-0 神の監視), not asymmetric/monetized surveillance. Natural-person ownership representable under the same gate (P31=Q5 → :natural-person, no exclusion)."},
  :source-id "wikidata-buildings",
  :counts-toward-world-coverage false,
- :owner-count 178}
+ :owner-count 259}

@@ -73,6 +73,9 @@ registry ingest.)
 - `methods/verify.cljc`      — integrity: committed snapshots ↔ `ingest-provenance.json` (CID+sha256).
 - `methods/buildings.cljc`   — building-level ownership KG (owner legal entity + floors) + company
   linkage (owner LEI/QID → kabuto/uchiwake/kanjō/keizu corp KGs); building-取-concentration.
+- `methods/jurisdiction.cljc` — per-jurisdiction PUBLIC-RECORD gate: which cadastres are
+  public/bulk/owner-names-visible → whether natural-person ownership may be BULK-ingested
+  (honest degrade to :unknown; SE/US/GB/IE/NL/NO=bulk-public, JP/KR=per-parcel, DE/AT/CH/FR=restricted).
 - `methods/fetch_wdqs.sh`    — polite, EXPLICIT, operator-only WDQS refresh of the snapshot.
 
 ## Real acquisition + WDQS load discipline (operator directive 2026-06-16)
@@ -126,10 +129,10 @@ bad-data areas dropped (disclosed). Each snapshot is **content-addressed to a CI
 
 jinushi extends from land-AREA coverage to per-BUILDING ownership: who owns which building, how
 many floors, and — via the owner's **LEI (P1278)** / Wikidata QID — the **bridge to the corporate
-KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). Current slice (`wikidata-buildings.kotoba.edn`, two polite country-bound fetches): **562
-buildings · 4 countries (CA/IE/JP/NO) · 178 owners · 42 LEI links · 1 natural-person owner**;
-building-取-concentration HHI 571 — Bane NOR 90, Irish Rail 64, **East Japan Railway 58, Tokyo
-Metro 31, JR Central 16, JR West 13** (rail operators own the most buildings = stations). Emitted
+KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). Current slice (`wikidata-buildings.kotoba.edn`, three polite country-bound fetches): **815
+buildings · 5 countries (CA/FR/IE/JP/NO) · 259 owners · 58 LEI links · 15 natural-person owners**;
+building-取-concentration HHI 403 — Bane NOR, Irish Rail, **East Japan Railway, Tokyo Metro, JR
+Central/West** (rail operators own the most buildings = stations). Emitted
 as a KG Datom log (`:building/*` nodes + `:building/owner` edges + `:owner.org/{wikidata,lei,label}`).
 The single `:natural-person` owner demonstrates the reframed gate in action: a public-registry
 natural-person owner is represented, not excluded.
@@ -148,7 +151,10 @@ reciprocity axis, ADR-2606082400) while **affirming reciprocal/symmetric 相互�
 Natural-person ownership is therefore **representable from a public registry** under P1–P3 (this
 Wikidata slice happens to be all legal entities; `:owner/type :natural-person` is a public-record
 attribute, not a person-exclusion). What stays unrepresentable: covert/inferred ownership,
-asymmetric watch-lists, monetized resale.
+asymmetric watch-lists, monetized resale. **Per-jurisdiction grounding** (`methods/jurisdiction.cljc`):
+natural-person ownership is BULK-ingested only where the registry is public-by-law + bulk +
+owner-names-visible (SE/US/GB/IE/NL/NO); per-parcel-only regimes (JP/KR) and restricted ones
+(DE/AT/CH Grundbuch, FR owner names) are NOT bulk-ingested; unknown jurisdictions degrade honestly.
 
 **「wdqs に負担をかけない」 is enforced by design:**
 
@@ -169,7 +175,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 47 tests / 142 assertions green
+# 52 tests / 203 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
