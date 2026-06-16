@@ -25451,6 +25451,37 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606161800-ugachi-extraction-risk-gate-actor-r0.md",
+      "id": "adr-2606161800-ugachi-extraction-risk-gate-actor-r0",
+      "title": "ADR-2606161800: ugachi (穿ち) — the §2(l) multi-generational extraction RISK-GATE actor (clj-native R0)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ugachi-extraction-risk-gate",
+      "authoritative": true,
+      "authoritative_for": [
+        "ugachi actor identity (name, DID, namespace, scope) — clj-native R0",
+        "the §2(l) extraction-authorization gate as executable code (verdict algebra)",
+        "extraction gates G1..G9 + non-goals N1..N5 (assessment + R0 design only; never digs)"
+      ],
+      "related": [
+        "adr-2606161730-busshi-commodity-materials-observatory",
+        "adr-2605252400-kanayama-circular-metallurgy-r0",
+        "adr-2606051500-kamado-closed-loop-carbon-refining",
+        "adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606161700-multigenerational-extraction-risk-gate",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
