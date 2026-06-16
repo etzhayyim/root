@@ -43,6 +43,21 @@
     (is (every? #(contains? #{:org :natural-person} (:type (val %))) (:owners (snap)))
         "owner type is a public-record attribute, never a person-exclusion")))
 
+(deftest test-floor-concentration
+  ;; vertical-scale (ビルのフロア) 取-concentration: owners ranked by total floors controlled.
+  (let [c (:concentration (b/analyze (snap)))]
+    (is (pos? (:buildings-with-floors c)) "some buildings carry floor counts")
+    (is (seq (:top-by-floors c)) "top owners by floors present")
+    (is (apply >= (map :floors (:top-by-floors c))) "sorted by total floors desc")
+    (is (every? #(pos? (:floors %)) (:top-by-floors c)) "floor leaders actually control floors")))
+
+(deftest test-datoms-floor-concentration
+  (let [s (snap) o (b/datoms s (b/analyze s) 1)]
+    (is (re-find #":jinushi/top-floors-owner :owner\.Q\d+" o) "vertical floor-concentration emitted")
+    (doseq [line (str/split-lines o)
+            :when (and (str/includes? line ":jinushi/top-floors-owner"))]
+      (is (str/includes? line ":bond/is-transient") "floor concentration is transient (G2)"))))
+
 (deftest test-deterministic
   (let [s (snap) a (b/analyze s)]
     (is (= (b/datoms s a 5) (b/datoms s a 5)) "building-KG emit is deterministic")))

@@ -41,6 +41,11 @@
                         (assoc-in [o :lei] (:lei info))
                         (assoc-in [o :type] (or (:type info) :org)))))
                 {} records)
+        ;; vertical-scale (ビルのフロア) 取-concentration: total floors controlled per owner
+        top-floors (->> by-owner
+                        (filter (fn [[_ v]] (pos? (or (:floors v) 0))))
+                        (map (fn [[k v]] {:owner k :label (:label v) :floors (:floors v) :buildings (:count v)}))
+                        (sort-by :floors >) (take 10) vec)
         n (count records)
         shares (into {} (map (fn [[k v]] [k (/ (double (:count v)) (max 1 n))])) by-owner)
         hhi (reduce + 0.0 (map (fn [s] (* 10000.0 s s)) (vals shares)))
@@ -54,7 +59,8 @@
                    (sort-by :label) vec)]
     {:by-owner by-owner
      :concentration {:owner-count (count by-owner) :building-count n
-                     :top-by-buildings top :hhi hhi}
+                     :top-by-buildings top :top-by-floors top-floors :hhi hhi
+                     :buildings-with-floors (count (filter :floors records))}
      :company-links links}))
 
 (defn datoms
@@ -84,7 +90,11 @@
        (conj! L (str "[:building.world :jinushi/building-hhi " (de/fmt (:hhi c)) " " tx " :derived] ;; :bond/is-transient true"))
        (doseq [t (:top-by-buildings analysis)]
          (conj! L (str "[:building.world :jinushi/top-owner :owner." (:owner t)
-                       " " tx " :derived] ;; :bond/is-transient true buildings=" (:buildings t)))))
+                       " " tx " :derived] ;; :bond/is-transient true buildings=" (:buildings t))))
+       ;; vertical-scale: top owners by total FLOORS controlled (ビルのフロア 取-concentration)
+       (doseq [t (:top-by-floors c)]
+         (conj! L (str "[:building.world :jinushi/top-floors-owner :owner." (:owner t)
+                       " " tx " :derived] ;; :bond/is-transient true floors=" (:floors t)))))
      (conj! L "]")
      (str (str/join "\n" (persistent! L)) "\n"))))
 
@@ -108,8 +118,12 @@
            (spit out (datoms snap a 1))
            (println (format "buildings: %d / owners: %d / company-links (LEI): %d / building-HHI %.0f"
                             (:building-count c) (:owner-count c) (count (:company-links a)) (:hhi c)))
+           (println (format "buildings-with-floors: %d" (:buildings-with-floors c)))
            (println "top owners by #buildings:")
-           (doseq [t (take 6 (:top-by-buildings c))]
+           (doseq [t (take 5 (:top-by-buildings c))]
              (println (format "  %-32s %3d buildings, %d floors" (:label t) (:buildings t) (:floors t))))
+           (println "top owners by TOTAL FLOORS controlled (vertical 取-concentration):")
+           (doseq [t (take 5 (:top-by-floors c))]
+             (println (format "  %-32s %5d floors across %d buildings" (:label t) (:floors t) (:buildings t))))
            (println (str "→ " out))))
        0)))

@@ -71,8 +71,8 @@ registry ingest.)
 - `methods/cid.cljc`         — CIDv1 (raw/sha2-256) content-addressing of snapshots (R1).
 - `methods/emit_real.cljc`   — emit the REAL acquisition → canonical kotoba Datom log + CID.
 - `methods/verify.cljc`      — integrity: committed snapshots ↔ `ingest-provenance.json` (CID+sha256).
-- `methods/buildings.cljc`   — building-level ownership KG (owner legal entity + floors) + company
-  linkage (owner LEI/QID → kabuto/uchiwake/kanjō/keizu corp KGs); building-取-concentration.
+- `methods/buildings.cljc`   — building-level ownership KG (owner + floors + height) + company
+  linkage (LEI/QID → corp KGs); 取-concentration by #buildings AND by total floors controlled.
 - `methods/company_link.cljc` — AUTHORITATIVE company linkage: building-owner LEI → GLEIF legal
   entity (legal name/jurisdiction/status) → kabuto/uchiwake/kanjō; QID → keizu/tsumugi.
 - `methods/jurisdiction.cljc` — per-jurisdiction PUBLIC-RECORD gate: which cadastres are
@@ -131,18 +131,21 @@ bad-data areas dropped (disclosed). Each snapshot is **content-addressed to a CI
 
 jinushi extends from land-AREA coverage to per-BUILDING ownership: who owns which building, how
 many floors, and — via the owner's **LEI (P1278)** / Wikidata QID — the **bridge to the corporate
-KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). Current slice (`wikidata-buildings.kotoba.edn`, four polite country-bound fetches): **1,603
-buildings · 6 countries (CA/FR/IE/JP/NO/US) · 839 owners · 152 LEI links · 202 natural-person
-owners · 113 with floors**; building-取-concentration HHI 115 — SNCF 81, 東日本旅客鉄道 (JR East)
-58, RATP 39 (rail operators own the most; the US slice is far more owner-diverse). Emitted
+KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). Current slice (`wikidata-buildings.kotoba.edn`, five polite WDQS fetches): **2,170 buildings · 18
+countries · 1,143 owners · 198 LEI links · 245 natural-person owners · 679 with floors · 157 with
+height**. Two distinct 取-concentration lenses: by **#buildings** = rail operators (Bane NOR, SNCF,
+Irish Rail — many station buildings); by **TOTAL FLOORS controlled (ビルのフロア)** = real-estate
+developers — **Mitsui Fudosan 407F, Mitsubishi Estate 315F, Oxford Properties 283F, JR Central
+222F, Ivanhoe Cambridge 207F** — the vertical real-estate concentration the registry exists to
+surface. Emitted
 as a KG Datom log (`:building/*` nodes + `:building/owner` edges + `:owner.org/{wikidata,lei,label}`).
 **202 `:natural-person` owners** (US/FR-heavy) demonstrate the reframed gate at scale — public-
 registry natural-person owners represented, not excluded.
 
 **Authoritative company linkage** (`methods/company_link.cljc` + `gleif-companies.kotoba.edn`):
 each building-owner LEI is resolved against the **GLEIF public register** to its authoritative
-legal identity (legal name / jurisdiction / status). **152 owners → GLEIF, 537 buildings linked** across 47 jurisdictions (incl. 30+ US states)
-— SNCF 81 · 東日本旅客鉄道 / JR East 58 · RATP 39 · JR Central/West · ADP. The LEI is the cross-actor join key into the corporate KGs (kabuto/uchiwake/kanjō), the QID
+legal identity (legal name / jurisdiction / status). **198 owners → GLEIF, 653 buildings linked** across ~55 jurisdictions (30+ US states + JP/FR/NO/
+GB/IT/FI/PL/IL/…) — SNCF · JR East · RATP · Mitsui Fudosan · Mitsubishi Estate. The LEI is the cross-actor join key into the corporate KGs (kabuto/uchiwake/kanjō), the QID
 into keizu/tsumugi — so "who owns this building" resolves to a real, registry-grounded company.
 GLEIF registers legal persons only, so this layer is corporate by construction.
 
@@ -184,7 +187,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 57 tests / 221 assertions green
+# 59 tests / 236 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
