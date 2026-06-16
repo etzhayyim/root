@@ -419,7 +419,10 @@
                  (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:aburi]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:aburi test:docs-registry]}
+  test:docs-registry
+  {:doc "docs registry generator (70-tools/scripts/docs/regen-registry.clj) — parse-frontmatter / JSON+EDN encoders / byte-parity round-trip + live freshness guard (port of test_regen_registry.py)"
+   :task (shell "bb" "70-tools/scripts/docs/test_regen_registry.clj")}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test

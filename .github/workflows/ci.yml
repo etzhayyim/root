@@ -27,6 +27,14 @@ jobs:
     - name: Install Lefthook
       run: npm install -g @evilmartians/lefthook
 
+    # The docs-registry-freshness pre-commit hook runs the babashka generator
+    # (70-tools/scripts/docs/regen-registry.clj --check); make bb available so
+    # `lefthook run pre-commit` can invoke it on a docs-touching PR.
+    - name: Set up Babashka
+      uses: DeLaGuardo/setup-babashka@v1
+      with:
+        babashka-version: 1.12.218
+
     - name: Run Lefthook pre-commit
       run: lefthook run pre-commit
 
