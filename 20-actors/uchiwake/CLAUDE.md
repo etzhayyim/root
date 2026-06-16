@@ -68,55 +68,53 @@
   reference (brand-owner/supplier/operator/carrier/ownership) against kabuto's ingested company
   universe → MEASURED linkage % + 子会社 rollup recovery + honest not-yet-ingested gap. Measures
   cross-actor supply-chain integration; does not assert it.
-- `cell:uchiwake.autorun` → `methods/autorun.py` (+ `methods/kotoba.py`). The autonomous
-  Murakumo-fleet heartbeat — the same shape kanjō/shionome/ipaddress/watatsuna/watari/kabuto use.
-  Each cycle observes the OFFLINE merged product graph → recursive BOM material-closure → material
-  dependence + processing-jurisdiction load + ultimate-parent rollup (子会社) → **persists a
-  content-addressed transaction** (graph datoms + derived `:concentration`) to the append-only
-  **local** kotoba Datom log (`methods/kotoba.py`), linking the previous tx's CID into a verifiable
-  commit-DAG. Deterministic / resume-safe (cycle drives tx-id + as-of → same CIDs; derived sorted
-  by id → independent of PYTHONHASHSEED set-iteration order); NO external I/O. **G2/G4/G5 hold by
-  construction**: only public trade-item facts + transparent concentration are representable — every
-  derived `:concentration/*` carries `:sourcing :synthesized` + `:derived true` and is never
-  re-ingested as an authoritative product fact; no target-list / clone / recipe attr exists. Live
-  universe ingest + the live-node push stay Council + operator gated (G7). Invariants guarded by
-  `methods/test_autorun.py` (commit-DAG verify, tamper-detect, determinism, append-only, G5
-  derived-:synthesized, G2/G4 not-target/not-recipe, no-external-I/O, G7 gate-refusal,
-  exactly-once cursor).
-- `cell:uchiwake.bridge` → `methods/bridge.py`. LOCAL→LIVE kotoba-node push leg (ibuki pattern):
-  replays an exactly-once `:bridge/*` cursor off the local log, pushes only un-pushed heartbeat
-  txs to the live `datomic.transact` node with `:uchiwake.tx/*` provenance, then appends ONE
-  checkpoint. Gated by `UCHIWAKE_KOTOBA_LIVE=1` (Council + operator); the cursor/replay logic is
-  pure and runs offline (`--status`). no-server-key (unsigned public-DID operator bearer, G12).
+- `cell:uchiwake.autorun` → `methods/autorun.cljc` (+ `methods/kotoba.cljc`) — **clj-native SSoT**
+  (ADR-2606142300 D1: new logic-core is authored in Clojure, no Python twin). The autonomous
+  Murakumo-fleet heartbeat. Each cycle observes the OFFLINE merged product graph → recursive BOM
+  material-closure → material dependence + processing-jurisdiction load + ultimate-parent rollup
+  (子会社) → **persists a content-addressed transaction** (graph datoms + derived `:concentration`)
+  to the append-only **local** kotoba Datom log (`methods/kotoba.cljc`), linking the previous tx's
+  CID into a verifiable commit-DAG. Deterministic / resume-safe (cycle drives tx-id + as-of → same
+  CIDs; derived sorted by id); NO external I/O. **G2/G4/G5 hold by construction**: only public
+  trade-item facts + transparent concentration are representable — every derived `:concentration/*`
+  carries `:sourcing :synthesized` + `:derived true` and is never re-ingested as an authoritative
+  product fact; no target-list / clone / recipe attr exists. Live universe ingest + the live-node
+  push stay Council + operator gated (G7). Invariants guarded by `tests/test_autorun.cljc`
+  (commit-DAG verify, tamper-detect, determinism, append-only, G5 derived-:synthesized, G2/G4
+  not-target/not-recipe, exactly-once cursor, G7 ingest+push gate-refusal, frozen golden CIDs).
+- `cell:uchiwake.bridge` → `methods/bridge.clj` — **clj-native SSoT**. LOCAL→LIVE kotoba-node push
+  leg (ibuki pattern): replays an exactly-once `:bridge/*` cursor off the local log, pushes only
+  un-pushed heartbeat txs to the live `datomic.transact` node with `:uchiwake.tx/*` provenance,
+  then appends ONE checkpoint. Gated by `UCHIWAKE_KOTOBA_LIVE=1` (Council + operator); the
+  cursor/replay logic is pure and runs offline (`--status`). RFC4648 base32 graph-cid. no-server-key
+  (unsigned public-DID operator bearer, G12).
 
-### Clojure port (datomic + clojure substrate parity)
+### Clojure substrate (datomic + clojure)
 
-`methods/kotoba.cljc` + `methods/autorun.cljc` are 1:1 Clojure ports of the heartbeat (alongside
-the existing `uchiwake_edn.cljc` + `analyze.cljc`). The canonical-JSON tx-CID encoder in
-`kotoba.cljc` reproduces Python's `json.dumps(…, sort_keys=True, separators=(",",":"))` **byte for
-byte**, so a Clojure heartbeat and the Python heartbeat build the **identical commit-DAG**
-(`graph_datoms` seed CID + all 3 beat CIDs verified equal — see
-`tests/test_autorun.cljc cid-byte-parity-with-python`). The cljc EDN reader now tracks `::order`
-meta so >8-key datom maps reproduce Python dict insertion order. DEFERRED as separate units
-(inochi/rasen precedent): `ingest`/`crosscheck`/`bridge` + the OFF adapter (network/adapter legs).
+The heartbeat (`kotoba.cljc` + `autorun.cljc`) and the live-node push (`bridge.clj`) are
+**clj-native — Clojure is the source of truth, there is no Python twin** (ADR-2606142300 D1, new
+logic-core authored in Clojure). The canonical-JSON tx-CID encoder in `kotoba.cljc` follows the
+D2.1 content-address bar (`json.dumps(…, sort_keys=True, separators=(",",":"))`-shape, byte-stable);
+golden CIDs are frozen as regression guards in `tests/test_autorun.cljc`. The `ingest`/`crosscheck`
+methods + the OFF adapter remain **Python↔clj parity twins** (`ingest.{py,clj}`,
+`crosscheck.{py,clj}`, `adapters/openfoodfacts.{py,clj}`) — pre-existing methods byte-parity-ported
+under the additive D2.2 rule; `uchiwake_edn.cljc` tracks `::order` meta so >8-key datom maps
+reproduce dict insertion order (CID parity).
 
 ## Run
 
 ```bash
 cd 20-actors/uchiwake
-python3 methods/ingest.py            # offline: bridge data/ingest/*.json + seed (default)
+python3 methods/ingest.py            # offline: bridge data/ingest/*.json + seed (twin: ingest.py↔ingest.clj)
 python3 methods/analyze.py            # → out/intel-report.md + out/product-criticality.kotoba.edn
-python3 methods/autorun.py --cycles 3 --fresh   # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
-python3 methods/bridge.py --status    # inspect the exactly-once push cursor (offline)
-python3 methods/test_autorun.py       # heartbeat + log + gate invariants
-python3 -m unittest tests.test_uchiwake -v   # 21 tests
-# live (G7-gated):
+python3 -m unittest tests.test_uchiwake -v   # 21 tests (twins: ingest/analyze/crosscheck)
+# live ingest (G7-gated, twin):
 UCHIWAKE_OPERATOR_GATE=1 python3 methods/ingest.py --live --gtin 3017620422003  # OFF fetch (Nutella)
-UCHIWAKE_KOTOBA_LIVE=1   python3 methods/bridge.py --push                        # push to live node
 
-# Clojure heartbeat (byte-identical commit-DAG):
-bb -cp 20-actors -e "(require 'uchiwake.tests.test-autorun 'clojure.test) \
-  (clojure.test/run-tests 'uchiwake.tests.test-autorun)"
+# clj-native heartbeat + bridge (SSoT — Clojure, no Python twin):
+bb -cp 20-actors -e "(require 'uchiwake.methods.autorun)(apply uchiwake.methods.autorun/-main [\"--cycles\" \"3\" \"--fresh\"])"
+bb -cp 20-actors -e "(require 'uchiwake.methods.bridge)(apply uchiwake.methods.bridge/-main [\"--status\"])"
+bb -cp 20-actors -e "(require 'uchiwake.tests.test-autorun 'clojure.test)(clojure.test/run-tests 'uchiwake.tests.test-autorun)"
 ```
 
 `python3 methods/analyze.py` with no argument runs the **seed** graph alone.
