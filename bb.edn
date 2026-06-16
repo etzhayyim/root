@@ -60,6 +60,12 @@
                                              'mimamori.tests.test-cell)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:kanae
+  {:doc "kanae 鼎 Clojure test suite (danjo→kanae→yoro fiscal pipeline + charter gates; port of methods/test_pipeline.py)"
+   :task (do (require 'clojure.test 'kanae.methods.test-pipeline)
+             (let [r (clojure.test/run-tests 'kanae.methods.test-pipeline)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:yobel
   {:doc "yobel ヨベル Clojure test suite (langgraph-clj cells + orchestrator E2E)"
    :task (do (require 'clojure.test
@@ -218,6 +224,15 @@
                       'suji.methods.test-datoms 'suji.methods.test-charter-invariants
                       'suji.methods.test-bridge-consistency
                       'kamado.methods.test-kamado
+                      'sanae.methods.test-labor-liberation
+                      'todoke.methods.test-last-mile
+                      'sentei.methods.test-prune
+                      'tazuna.methods.test-teleop-safety
+                      'kakaku.methods.test-kakaku-edn
+                      'meisai.methods.test-kotoba
+                      'niyaku.methods.test-stow-plan
+                      'tedai.methods.test-desktop
+                      'karakuri.methods.test-command
                       'abaki.methods.test-live 'abaki.methods.test-analyze)
              (let [r (clojure.test/run-tests 'kaiyaku.tests.test-analyze
                                              'kadode.tests.test-analyze
@@ -264,6 +279,15 @@
                                              'suji.methods.test-charter-invariants
                                              'suji.methods.test-bridge-consistency
                                              'kamado.methods.test-kamado
+                                             'sanae.methods.test-labor-liberation
+                                             'todoke.methods.test-last-mile
+                                             'sentei.methods.test-prune
+                                             'tazuna.methods.test-teleop-safety
+                                             'kakaku.methods.test-kakaku-edn
+                                             'meisai.methods.test-kotoba
+                                             'niyaku.methods.test-stow-plan
+                                             'tedai.methods.test-desktop
+                                             'karakuri.methods.test-command
                                              'abaki.methods.test-live
                                              'abaki.methods.test-analyze)]
                (when (pos? (+ (:fail r) (:error r)))
