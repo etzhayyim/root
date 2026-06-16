@@ -52,3 +52,11 @@ aburi/wasm/app/_result
 danjo/methods/kotoba/_tokens
 fuchi/methods/route/rider_hit
 fuchi/methods/route/touches_invariant
+aburi/methods/analyze/main
+aburi/methods/kotoba_bridge/push
+danjo/methods/kotoba/_parse
+danjo/methods/kotoba/head_cid
+danjo/methods/kotoba/verify_chain
+futawa/kotoba/ingest_mcp/_top_level_entities
+futawa/kotoba/ingest_mcp/_flatten_entity
+futawa/kotoba/ingest_mcp/main
