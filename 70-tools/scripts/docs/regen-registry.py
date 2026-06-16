@@ -17,10 +17,17 @@ Idempotent. Sorts entries by `id`. Preserves existing non-ADR rows
 (e.g. explanation / how-to / tutorial docs) — they're parsed the same
 way.
 
+Emits TWO sidecars from the same scan (kept in lock-step):
+    docs.json — JSON table (snake_case string keys).
+    docs.edn  — EDN table for babashka / Clojure consumers (kebab-case
+                keyword keys, matching the repo's *.adr.edn convention).
+                Read with `(clojure.edn/read-string (slurp ".../docs.edn"))`.
+
 Usage:
     70-tools/scripts/docs/regen-registry.py
-    70-tools/scripts/docs/regen-registry.py --check   # exits 1 on drift
-    70-tools/scripts/docs/regen-registry.py --json    # plan-only
+    70-tools/scripts/docs/regen-registry.py --check   # exits 1 on drift (json OR edn)
+    70-tools/scripts/docs/regen-registry.py --json    # plan-only JSON (stdout)
+    70-tools/scripts/docs/regen-registry.py --edn     # plan-only EDN (stdout)
 """
 
 from __future__ import annotations
@@ -35,6 +42,7 @@ from typing import Any
 
 REPO = Path(__file__).resolve().parents[3]
 REGISTRY = REPO / "90-docs" / "_registry" / "docs.json"
+REGISTRY_EDN = REPO / "90-docs" / "_registry" / "docs.edn"
 DOCS_ROOT = REPO / "90-docs"
 
 # Keys we surface in the registry. Keep this list minimal and stable.
@@ -151,12 +159,70 @@ def build_registry(entries: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+# ── EDN projection ─────────────────────────────────────────────────────────
+# Faithful EDN of the SAME registry dict, for babashka / Clojure consumers.
+# snake_case string keys → kebab-case keyword keys (repo *.adr.edn convention).
+# Values stay as-is (strings/bools/ints/vectors); unicode is emitted verbatim.
+
+def _edn_keyword(key: str) -> str:
+    return ":" + key.replace("_", "-")
+
+
+def _edn_string(s: str) -> str:
+    out = (
+        s.replace("\\", "\\\\")
+        .replace('"', '\\"')
+        .replace("\r", "\\r")
+        .replace("\n", "\\n")
+        .replace("\t", "\\t")
+    )
+    return f'"{out}"'
+
+
+def _edn_value(v: Any) -> str:
+    if v is None:
+        return "nil"
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    if isinstance(v, (int, float)):
+        return str(v)
+    if isinstance(v, str):
+        return _edn_string(v)
+    if isinstance(v, list):
+        return "[" + " ".join(_edn_value(x) for x in v) + "]"
+    if isinstance(v, dict):
+        return "{" + " ".join(f"{_edn_keyword(k)} {_edn_value(val)}" for k, val in v.items()) + "}"
+    raise TypeError(f"un-encodable EDN value: {v!r}")
+
+
+def render_edn(reg: dict[str, Any]) -> str:
+    """One entry per line under :entries — diffs cleanly per-doc."""
+    lines = [
+        "{:version " + _edn_value(reg["version"]),
+        " :updated-at " + _edn_value(reg["updated_at"]),
+        " :entries",
+    ]
+    entries = reg["entries"]
+    if not entries:
+        lines.append(" []}")
+        return "\n".join(lines) + "\n"
+    body = "\n  ".join(_edn_value(e) for e in entries)
+    lines.append(" [" + body + "]}")
+    return "\n".join(lines) + "\n"
+
+
+def _entries_json(entries: list[dict[str, Any]]) -> str:
+    return json.dumps(entries, sort_keys=True, ensure_ascii=False)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true",
-                    help="exit 1 if on-disk registry differs from what we'd regenerate")
+                    help="exit 1 if either on-disk sidecar (json or edn) differs from what we'd regenerate")
     ap.add_argument("--json", action="store_true",
                     help="emit the planned registry as JSON (stdout) instead of writing")
+    ap.add_argument("--edn", action="store_true",
+                    help="emit the planned registry as EDN (stdout) instead of writing")
     args = ap.parse_args()
 
     entries = scan_docs()
@@ -165,27 +231,43 @@ def main() -> int:
     if args.json:
         print(json.dumps(new_reg, indent=2, ensure_ascii=False))
         return 0
+    if args.edn:
+        print(render_edn(new_reg), end="")
+        return 0
 
     if args.check:
+        # JSON sidecar — compare entries only (updated_at is volatile).
         old = load_existing() or {}
-        # compare entries only (updated_at is volatile)
         old_entries = old.get("entries", [])
-        if json.dumps(old_entries, sort_keys=True, ensure_ascii=False) \
-                != json.dumps(entries, sort_keys=True, ensure_ascii=False):
+        if _entries_json(old_entries) != _entries_json(entries):
             print(f"registry drift detected: disk={len(entries)} entries, file={len(old_entries)} entries",
                   file=sys.stderr)
             print("run: 70-tools/scripts/docs/regen-registry.py", file=sys.stderr)
             return 1
-        print(f"registry in sync ({len(entries)} entries)")
+        # EDN sidecar — compare the entries vector (ignore the volatile :updated-at line).
+        want_edn = render_edn(new_reg)
+        have_edn = REGISTRY_EDN.read_text(encoding="utf-8") if REGISTRY_EDN.exists() else ""
+
+        def _edn_entries_block(text: str) -> str:
+            idx = text.find(" :entries")
+            return text[idx:] if idx != -1 else text
+
+        if _edn_entries_block(have_edn) != _edn_entries_block(want_edn):
+            print("registry EDN drift detected: docs.edn out of sync with docs.json source",
+                  file=sys.stderr)
+            print("run: 70-tools/scripts/docs/regen-registry.py", file=sys.stderr)
+            return 1
+        print(f"registry in sync ({len(entries)} entries; json + edn)")
         return 0
 
-    # write
+    # write both sidecars from the same scan
     REGISTRY.parent.mkdir(parents=True, exist_ok=True)
     REGISTRY.write_text(
         json.dumps(new_reg, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
-    print(f"wrote {REGISTRY.relative_to(REPO)} with {len(entries)} entries")
+    REGISTRY_EDN.write_text(render_edn(new_reg), encoding="utf-8")
+    print(f"wrote {REGISTRY.relative_to(REPO)} + {REGISTRY_EDN.relative_to(REPO)} with {len(entries)} entries")
     return 0
 
 

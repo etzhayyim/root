@@ -26,6 +26,7 @@ on:
     paths:
       - '90-docs/**/*.md'
       - '90-docs/_registry/docs.json'
+      - '90-docs/_registry/docs.edn'
       - '70-tools/scripts/docs/regen-registry.py'
       - '.github/workflows/docs-registry-freshness.yml'
   pull_request:
@@ -33,6 +34,7 @@ on:
     paths:
       - '90-docs/**/*.md'
       - '90-docs/_registry/docs.json'
+      - '90-docs/_registry/docs.edn'
       - '70-tools/scripts/docs/regen-registry.py'
       - '.github/workflows/docs-registry-freshness.yml'
   schedule:
