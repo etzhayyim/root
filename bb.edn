@@ -344,4 +344,12 @@
   adr:render
   {:doc "Render canonical .md.edn → GitHub-displayed .md. Args: <*.md.edn>…"
    :task (do (require 'etzhayyim.tools.adr-mdedn)
-             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "render" *command-line-args*))}}}
+             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "render" *command-line-args*))}
+  adr:index
+  {:doc "Generate 90-docs/adr/adr-index.edn from ADR front matter (SSoT; canonical one-entry-per-line EDN). Replaces the hand-edited single-line blob (ADR-2606162200)."
+   :task (do (require 'etzhayyim.tools.adr-mdedn)
+             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "index" *command-line-args*))}
+  adr:index-check
+  {:doc "Fail if adr-index.edn is stale vs the ADR front matter (lefthook drift gate)."
+   :task (do (require 'etzhayyim.tools.adr-mdedn)
+             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "index-check" *command-line-args*))}}}

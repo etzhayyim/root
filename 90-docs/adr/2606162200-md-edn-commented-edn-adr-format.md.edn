@@ -64,9 +64,17 @@ Adopt **`.md.edn`** as an optional, content-equivalent representation of an ADR:
   generated — the format dogfoods itself.
 
 Markdown stays the canonical *human* source per `90-docs/CLAUDE.md`; `.md.edn` is the
-typed, comment-bearing sibling. The natural payoff (a follow-up, not required here) is
-to **generate** `adr-index.edn` from the `.md.edn` front matter instead of
-hand-maintaining the single-line blob.
+typed, comment-bearing sibling.
+
+**Index generation (landed in this ADR).** `bb adr:index` regenerates
+`90-docs/adr/adr-index.edn` from every ADR's front matter (`.md` YAML or `.md.edn`),
+as a **canonical one-entry-per-line, clojure.edn-parseable** file — replacing the
+hand-edited 2.8 MB single-line blob that *did not even parse* (`Map literal must contain
+an even number of forms` — the deps.edn corruption class). The regeneration is provably
+safe: it covers all 848 ADR files (vs the old 750), drops 87 **orphan** entries that
+pointed at non-existent files (0 entries with a real file were lost), and ships a
+`bb adr:index-check` drift gate (fails when an ADR's front matter and the index diverge)
+for lefthook. `adr-index.edn` is henceforth GENERATED, never hand-edited.
 
 # Consequences
 

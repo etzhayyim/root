@@ -87,6 +87,48 @@
     (is (= "# Just a title\n\nno front matter here" (:body d)))
     (is (= #{:body} (set (keys d))))))
 
+(def ^:private entries
+  [{:id "adr-2606162200-b" :title "B: has a \"quote\"" :status "accepted"
+    :doc-type "adr" :priority 5.0 :authoritative true :depends-on ["adr-x"]
+    :file "2606162200-b.md"}
+   {:id "adr-2606162030-a" :title "A" :status "proposed" :doc-type "adr"
+    :file "2606162030-a.md"}])
+
+(deftest test-emit-index-is-parseable-edn
+  ;; the GENERATED index parses with clojure.edn (the 2.8MB single-line one did NOT)
+  (let [text (m/emit-index entries)
+        parsed (clojure.edn/read-string text)]
+    (is (str/starts-with? text ";;"))            ; header comment
+    (is (= 2 (count parsed)))
+    (is (= "adr-2606162200-b" (:id (first parsed))))
+    (is (= true (:authoritative (first parsed))))  ; typed boolean survives
+    (is (= ["adr-x"] (:depends-on (first parsed))))))
+
+(deftest test-emit-index-one-entry-per-line
+  ;; diff/merge-friendliness: exactly one entry per line between the [ ] brackets
+  (let [lines (str/split-lines (m/emit-index entries))
+        entry-lines (filter #(str/starts-with? % "{") lines)]
+    (is (= 2 (count entry-lines)))))
+
+(deftest test-entry-id-coerced-to-string
+  ;; a bare-numeric front-matter id must not stay a Long (it breaks the id sort)
+  (let [tmp (java.io.File/createTempFile "adr" ".md")]
+    (spit tmp "---\nid: 2605152300\n---\n\n# Numeric id ADR\n")
+    (let [e (m/file->entry (.getPath tmp))]
+      (is (string? (:id e)))
+      (is (= "2605152300" (:id e))))
+    (.delete tmp)))
+
+(deftest test-no-frontmatter-entry-fallbacks
+  (let [tmp (java.io.File/createTempFile "2699010101-foo" ".md")
+        path (.getPath tmp)]
+    (spit tmp "# A Title Without Front Matter\n\nbody\n")
+    (let [e (m/file->entry path)]
+      (is (= "A Title Without Front Matter" (:title e)))
+      (is (= "unknown" (:status e)))
+      (is (= "adr" (:doc-type e))))
+    (.delete tmp)))
+
 (deftest test-edn-comments-and-discard-are-ignored
   ;; a hand-authored .md.edn with ;; comments and #_ discard parses cleanly
   (let [text (str ";; a header comment\n"
