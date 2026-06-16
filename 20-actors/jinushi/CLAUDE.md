@@ -66,6 +66,8 @@ registry ingest.)
 - `methods/ingest.cljc`      — **REAL multi-source acquisition** from COMMITTED snapshots in the
   repo DATA LAYER (`80-data/jinushi-land/*.kotoba.edn`) → `{:owners :parcels}`, offline;
   double-count-honest (only `:counts-toward-world-coverage` sources sum into world coverage).
+- `methods/normalize_wdqs.cljc` — PROCESS raw WDQS (`*.raw.json`) → committed snapshots
+  (canonical unit map km²/ha/decare/dunam/acre/m²/sq-mile/rai/feddan + salvage parse, in code).
 - `methods/cid.cljc`         — CIDv1 (raw/sha2-256) content-addressing of snapshots (R1).
 - `methods/emit_real.cljc`   — emit the REAL acquisition → canonical kotoba Datom log + CID.
 - `methods/fetch_wdqs.sh`    — polite, EXPLICIT, operator-only WDQS refresh of the snapshot.
@@ -79,6 +81,7 @@ actor PROCESSES it later:
 
 ```
 80-data/jinushi-land/
+  *.raw.json                            # RAW WDQS fetches (gitignored; annex/IPFS cold tier)
   wikidata-national-parks.kotoba.edn    # Q46169  — PRIMARY world-coverage source (counts=true)
   wikidata-nature-reserves.kotoba.edn   # Q179049 — observed-only (counts=false; overlap)
   ingest-provenance.json                # sources + derived / sha256 / cidv1 / unit-map / pin path
@@ -86,13 +89,17 @@ actor PROCESSES it later:
   (jinushi-land-datoms.kotoba.edn)      # DERIVED canonical EAVT Datom log (gitignored; CID in provenance)
 ```
 
+Pipeline: `fetch_wdqs.sh` (operator, polite) → `*.raw.json` in the data layer →
+`normalize_wdqs.cljc` (PROCESS later: canonical unit map + salvage parse, in code) → committed
+snapshots → `ingest`/`emit_real` (offline).
+
 | source | class | records | countries | area | counts toward world coverage |
 |---|---|--:|--:|--:|---|
-| national parks | Q46169 | 1524 | 51 | 8.98M km² | **yes** (primary, non-overlapping) |
+| national parks | Q46169 | 1751 | 70 | 9.85M km² | **yes** (primary, non-overlapping) |
 | nature reserves | Q179049 | 497 | 3 | 0.23M km² | **no** (overlaps NP countries NO/IE/CA) |
 
-**World acquisition coverage = 51 countries · 8.98M km² = 6.03% of world land** (0.056% synthetic
-floor → 3.34% → 4.80% → 6.03% over loop iterations). The real acquisition is emitted to the
+**World acquisition coverage = 70 countries · 9.85M km² = 6.61% of world land** (0.056% synthetic
+floor → 3.34% → 4.80% → 6.03% → 6.61% over loop iterations). The real acquisition is emitted to the
 **canonical kotoba Datom log** (`methods/emit_real.cljc` → `jinushi-land-datoms.kotoba.edn`,
 ground `:owner/*`+`:parcel/*` `:add` + derived `:jinushi/*` transient), making the world land
 data first-class canonical state (ADR-2605312345); the log is regenerable + content-addressed
@@ -121,15 +128,16 @@ bad-data areas dropped (disclosed). Each snapshot is **content-addressed to a CI
 
 ```bash
 CP=20-actors
-for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real; do
+for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 31 tests / 101 assertions green
+# 36 tests / 112 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
 bb --classpath 20-actors -m jinushi.methods.ingest       # REAL snapshots → live world coverage (offline)
 bb --classpath 20-actors -m jinushi.methods.cid          # CIDv1 of each committed snapshot
+bb --classpath 20-actors -m jinushi.methods.normalize-wdqs # raw *.raw.json → committed snapshots (process)
 bb --classpath 20-actors -m jinushi.methods.emit-real    # REAL acquisition → kotoba Datom log + CID
 
 # operator-only, rare, polite — refresh the snapshot from WDQS (NOT run by the loop):
@@ -139,10 +147,11 @@ methods/fetch_wdqs.sh 400
 ## Status / roadmap
 
 - **R0 (landed)** — analyze + datom-emit + coverage + ontology + synthetic seed + 16 tests. ✅
-- **R2 (landed)** — REAL multi-source public-land ingest (`ingest.cljc` + `fetch_wdqs.sh`):
-  committed Wikidata snapshots — national parks (1075 / 35 cc / 7.16M km², **counts**; two polite
-  country-bound fetches) + nature reserves (497 / 3 cc, observed-only, overlap-excluded). World
-  coverage **4.80%** (0.056% synthetic floor → 3.34% → 4.80% over loop iterations).
+- **R2 (landed)** — REAL multi-source public-land ingest (`normalize_wdqs.cljc` + `ingest.cljc`
+  + `fetch_wdqs.sh`): committed Wikidata snapshots — national parks (1751 / **70 cc** / 9.85M km²,
+  **counts**; four polite country-bound fetches) + nature reserves (497 / 3 cc, observed-only,
+  overlap-excluded). World coverage **6.61%** (0.056% → 3.34% → 4.80% → 6.03% → 6.61% over loop
+  iterations). Processing is code (canonical unit map + salvage parse in `normalize_wdqs.cljc`).
   Double-count-honest (G2/G4), full unit map (km²/ha/decare/dunam/acre/sq-mile/m²), non-positive
   bad-data dropped, data in 80-data via datalad substrate, WDQS-load-safe (snapshot SoT; loop
   never queries WDQS). +7 tests. ✅

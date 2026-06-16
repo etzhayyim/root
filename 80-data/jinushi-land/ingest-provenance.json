@@ -5,29 +5,31 @@
  :ingest_id "jinushi-land-wdqs-r2",
  :sources
  [{:cidv1
-   "bafkreihgreivogrllef3vpleskunnscmnqpbqm4he7ikvhezbjyzyh24ze",
+   "bafkreiblweik6vx5uodftl3rraj5jh7cfuhv5udy7aqz35egf4hzdoalhi",
    :dropped_nonpositive 8,
-   :countries 51,
-   :records 1524,
+   :countries 70,
+   :records 1751,
    :class "Q46169 national park",
    :sha256
-   "e68911571a2b590bbabd6492a8d6c84c6c1e18338727d0aa9c990a719c1f5cc9",
+   "2bb110af56fda38659af718813d49fe22d0f5ed078f8219df4862f0f91b80b3a",
    :source-id "wikidata-national-parks",
    :artifact "wikidata-national-parks.kotoba.edn",
    :dropped_unknown_unit 0,
    :counts_toward_world_coverage true}
   {:cidv1
-   "bafkreidkfhphyradfeodxw3roeeafxn7gc2xfzfnsft3ifaiq6plcn3e6a",
+   "bafkreih2o3opnhi5hvapi35u56aatoxl5sim2mg4i75lnxku5w6ymst72e",
    :dropped_nonpositive 0,
    :countries 3,
    :records 497,
    :class "Q179049 nature reserve",
    :sha256
-   "6a29de7c4403291c3bdb71710802ddbf30b572e4ad9167b41408879eb13764f0",
+   "fa76dcf69d1d3d40f46fb4ef8009baebec90cd30dc47fab6dd54edbd864a7fd1",
    :source-id "wikidata-nature-reserves",
    :artifact "wikidata-nature-reserves.kotoba.edn",
    :dropped_unknown_unit 0,
    :counts_toward_world_coverage false}],
+ :process
+ "methods/normalize_wdqs.cljc (raw *.raw.json in the data layer → committed snapshots; canonical unit map in code)",
  :adr
  "ADR-2605241500 (datalad + git-annex → IPFS substrate); processed artifacts committed in 80-data (genome convention)",
  :pin
@@ -35,23 +37,24 @@
   :how
   "e7m-dataset add 80-data/jinushi-land → DataLad superdataset 90-docs/baien/datasets (git-annex → IPFS CID map → PDS datasetPin); not auto-run"},
  :load_discipline
- "WDQS queried only by methods/fetch_wdqs.sh (explicit/polite/LIMIT≤800/one attempt); loop re-ingests committed snapshots with zero network I/O; national parks via three country-bound (cheap) fetches",
+ "WDQS queried only by methods/fetch_wdqs.sh (explicit/polite/LIMIT≤800/one attempt); loop re-ingests committed snapshots with zero network I/O; national parks via four country-bound (cheap) fetches",
  :derived
  {:artifact "jinushi-land-datoms.kotoba.edn",
   :what
-  "canonical EAVT Datom log of the world-coverage (counting) dataset; ground :owner/* + :parcel/* :add + derived :jinushi/* transient",
+  "canonical EAVT Datom log of the counting dataset (gitignored; regenerable via methods/emit_real.cljc)",
   :sha256
-  "57133c1a16492e90f69ddf648cea310f093bb363145333507cab9ab2a52e18fd",
+  "516b9c3a21baff27bb88a629b7f9b1f06210cd6c95fb8e7d3117bfa9cd45d07f",
   :cidv1
-  "bafkreicxcm6bufsjf2ipnho7msgoumipbe53gyyukmzva7fltkzkklqy7u"},
+  "bafkreicrnooduin274t3xcfgfg37tmpqmiim23ev7ohh2mixx6u42roqp4"},
  :unit_map
- {"Q712226" "km2=1e6",
-  "Q35852" "hectare=1e4",
-  "Q3396758" "decare=1e3",
-  "Q216795" "dunam=1e3",
-  "Q81292" "acre=4046.8564224",
-  "Q25343" "m2=1",
+ {"Q1399890" "feddan=4200.8334",
+  "Q216795" "dunam=1000.0",
   "Q232291" "sq-mile=2589988.110336",
-  "Q935614" "rai=1600"},
+  "Q25343" "m2=1.0",
+  "Q3396758" "decare=1000.0",
+  "Q35852" "hectare=10000.0",
+  "Q712226" "km2=1000000.0",
+  "Q81292" "acre=4046.8564224",
+  "Q935614" "rai=1600.0"},
  :endpoint "https://query.wikidata.org/sparql",
  :fetched_at "2026-06-16"}
