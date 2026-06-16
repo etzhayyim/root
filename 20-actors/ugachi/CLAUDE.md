@@ -40,20 +40,35 @@ exists; live extraction is Council Lv7+ gated, never performed here.
 ```
 methods/ugachi_edn.cljc   loader + classify
 methods/gate.cljc         verdict → assess → render-datoms → render-report (+ bb CLI)
-methods/test_*.cljc       gate verdicts + refusal/structural invariants
+methods/bridge.cljc       Wave 2: ground monopoly-effect in busshi concentration → ground-and-assess (+ bb CLI)
+methods/test_*.cljc       gate verdicts + refusal/structural + grounding invariants
 kotoba/ontology.ugachi.edn  EAVT schema + enums + refuse-reasons + negative space
 kotoba/seed.edn           synthetic proposed projects spanning all verdicts
 manifest.edn              gates G1–G9 + non-goals N1–N5
 ```
 
+## Wave 2 — busshi grounding bridge (`methods/bridge.cljc`, ADR-2606161830)
+
+The gate's `:monopoly-effect` input was a free project field; the bridge GROUNDS it in
+**busshi 物資's actual concentration observation** (ADR-2606161730): map `:resource` → a busshi
+commodity, pull its observed chokepoint-risk + top-producer-share, and corroborate-or-correct
+the declared effect — `:diversify` on a NON-concentrated commodity is downgraded to `:neutral`
++ flagged `:overclaimed-diversification`; `:diversify`/`:entrench` on a concentrated commodity
+is corroborated. Conservative: grounding **never fabricates** an `:entrench` (no false refusals).
+E.g. copper "diversify" → neutral (busshi cu chokepoint=low 24%); tungsten "diversify" stands
+(busshi w=critical 80%); rare-earth "entrench" → still refused. This composes the OBSERVATION
+layer (busshi) into the EXECUTION layer (ugachi).
+
 ## Run
 
 ```bash
-./20-actors/ugachi/run_tests.sh                                    # both suites (14 tests / 37 assert)
+./20-actors/ugachi/run_tests.sh                                    # 3 suites (21 tests / 56 assert)
 bb --classpath 20-actors 20-actors/ugachi/methods/gate.cljc        # print the stewardship gate
+bb --classpath 20-actors 20-actors/ugachi/methods/bridge.cljc      # print the busshi-grounded gate
 ```
 
-R0 synthetic seed → 3 `:propose-r0`, 1 `:route-to-recovery`, 5 `:refuse`, 2 `:insufficient`.
+R0 synthetic seed → 3 `:propose-r0`, 1 `:route-to-recovery`, 5 `:refuse`, 2 `:insufficient`
+(grounding adjusts the copper diversification overclaim without flipping its permit).
 
 ## Pairs with
 
@@ -63,5 +78,6 @@ R0 synthetic seed → 3 `:propose-r0`, 1 `:route-to-recovery`, 5 `:refuse`, 2 `:
 
 ## R0 → later
 
-Wave 2 wires real inputs (busshi/rare-earth-coverage concentration + kamado carbon-balance)
-behind G7/G9; Murakumo-narrated gate digest; fleet heartbeat. Live actuation stays Council Lv7+.
+- **Wave 2 (landed, ADR-2606161830)**: busshi concentration grounding bridge (above).
+- Wave 2+: rare-earth-coverage detail + kamado carbon-balance as real gate inputs (behind G7/G9);
+  Murakumo-narrated gate digest; fleet heartbeat. Live actuation stays Council Lv7+.

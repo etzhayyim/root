@@ -35,7 +35,8 @@
 
  :actor/methods
  [{:method/id "ugachi_edn" :method/file "methods/ugachi_edn.cljc" :method/role "seed loader + classify"}
-  {:method/id "gate"       :method/file "methods/gate.cljc"       :method/role "verdict → assess → render-datoms → render-report (+ bb CLI)"}]
+  {:method/id "gate"       :method/file "methods/gate.cljc"       :method/role "verdict → assess → render-datoms → render-report (+ bb CLI)"}
+  {:method/id "bridge"     :method/file "methods/bridge.cljc"     :method/role "Wave 2 (ADR-2606161830): ground monopoly-effect in busshi 物資 concentration → ground-and-assess (+ bb CLI)"}]
 
  :actor/lex
  [{:lex/id "extractionVerdict"}
@@ -50,4 +51,4 @@
  :actor/tests
  {:runner "babashka"
   :cmd "./20-actors/ugachi/run_tests.sh"
-  :suites ["methods/test_ugachi_edn.cljc" "methods/test_gate.cljc"]}}
+  :suites ["methods/test_ugachi_edn.cljc" "methods/test_gate.cljc" "methods/test_bridge.cljc"]}}
