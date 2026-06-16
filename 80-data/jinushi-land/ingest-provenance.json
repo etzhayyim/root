@@ -95,6 +95,15 @@
     "status" : "operator-step",
     "how" : "e7m-dataset add 80-data/jinushi-land -> superdataset 90-docs/baien/datasets; not auto-run"
   },
+  "ipfs" : {
+    "status" : "pinned (real, local IPFS node, ipfs 0.41.0)",
+    "directory-cid" : "bafybeieg7zfhc7brk3rfjd5wud2afjqogfnoxefy5uptyigc2pnro6lgzi",
+    "file-count" : 28,
+    "manifest" : "ipfs-pins.kotoba.edn (dir CID + per-file CIDs)",
+    "cid-scheme" : "ipfs add --cid-version=1: single-block→raw bafkrei (== methods/cid.cljc, verified MATCH); multi-block→dag-pb bafybei",
+    "public-availability" : "local-node pin; for public retrieval connect the daemon to peers or push to a remote pinning service (operator)",
+    "datalad" : "working copies git-committed (mergeable PR, tests run on repo state); a formal DataLad dataset/subdataset + IPFS special remote is the operator step (e7m-dataset add → superdataset 90-docs/baien/datasets) and is intentionally NOT a parent submodule here (would break parent tests/clone). Content-addressing is ipfs-compatible so a datalad IPFS-remote can `datalad get` these CIDs."
+  },
   "ingest-id" : "jinushi-land-wdqs-r2",
   "coverage-policy" : "world coverage sums ONLY counts-toward sources, SANITIZED; nature reserves observed-only; non-positive + over-country parcels dropped (G2/G4)",
   "derived" : {

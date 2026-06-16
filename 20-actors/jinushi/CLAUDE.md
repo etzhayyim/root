@@ -215,6 +215,11 @@ Every source is fetched ONCE; the data lives in the repo and is never re-queried
 - **Content-addressed**: every artifact carries a CIDv1 in `ingest-provenance.json` (`verify.cljc`
   re-derives + checks) — the same content hash datalad/IPFS would use.
 
+**IPFS pinned (real)**: every committed artifact is `ipfs add`-ed (CIDv1) + locally pinned;
+`ipfs-pins.kotoba.edn` records the directory CID (`bafybeieg7zfh…`) + per-file CIDs. Single-block
+files' CIDs are byte-identical to `methods/cid.cljc` (verified). Public retrieval = connect the
+daemon to peers / a remote pinning service (operator).
+
 **datalad / IPFS cold tier** (ADR-2605241500): the working copies are plain-git-committed (so
 tests/verify run on the repo state, the genome convention). Registering them into the DataLad
 superdataset + git-annex → IPFS pin is the OPERATOR step (not run here; would need the
