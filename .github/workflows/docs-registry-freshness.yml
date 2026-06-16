@@ -56,33 +56,28 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install pytest
-        run: pip install pytest
-
-      - name: Run generator unit tests (cycle 57; 10/10 must pass)
-        env:
-          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+      - name: Set up Babashka
         run: |
-          python3 -m pytest \
-            70-tools/scripts/docs/test_regen_registry.py \
-            -v
+          curl -sL https://raw.githubusercontent.com/babashka/babashka/master/install -o /tmp/bb-install
+          chmod +x /tmp/bb-install
+          sudo /tmp/bb-install --version 1.12.218
+          bb --version
+
+      - name: Run generator unit tests (regen-registry.clj; 13/13 must pass)
+        run: |
+          bb 70-tools/scripts/docs/test_regen_registry.clj
 
       - name: Check registry freshness (PR gate)
         run: |
-          python3 70-tools/scripts/docs/regen-registry.py --check \
+          bb 70-tools/scripts/docs/regen-registry.clj --check \
             | tee /tmp/registry-check.log
           exit_code=${PIPESTATUS[0]}
           if [ "$exit_code" -ne 0 ]; then
             echo ""
             echo "✘ docs registry is out of sync with 90-docs/**/*.md source-of-truth."
             echo "  Fix: run the regenerator and stage the updated registry:"
-            echo "    python3 70-tools/scripts/docs/regen-registry.py"
-            echo "    git add 90-docs/_registry/docs.json"
+            echo "    bb 70-tools/scripts/docs/regen-registry.clj"
+            echo "    git add 90-docs/_registry/docs.json 90-docs/_registry/docs.edn"
             exit "$exit_code"
           fi
           echo "✓ docs registry in sync"
@@ -91,17 +86,19 @@ jobs:
         if: always()
         run: |
           if [ -f 90-docs/_registry/docs.json ]; then
-            entries=$(python3 -c "import json; print(len(json.load(open('90-docs/_registry/docs.json'))['entries']))")
-            updated=$(python3 -c "import json; print(json.load(open('90-docs/_registry/docs.json'))['updated_at'])")
+            summary=$(bb -e '(let [d (cheshire.core/parse-string (slurp "90-docs/_registry/docs.json") true)]
+                               (println (count (:entries d)) (:updated_at d)))')
+            entries=$(echo "$summary" | awk '{print $1}')
+            updated=$(echo "$summary" | awk '{print $2}')
             {
-              echo "## 90-docs/_registry/docs.json"
+              echo "## 90-docs/_registry/docs.json + docs.edn"
               echo ""
               echo "- **Entries**: ${entries}"
               echo "- **updated_at**: ${updated}"
               echo ""
               echo "Baseline as of ADR-2605271100 closure (2026-05-27 cycle 48):"
               echo "  - 657 entries (registry refresh after cycles 44/45/47 docs landed)"
-              echo "  - Generator: \`70-tools/scripts/docs/regen-registry.py\`"
+              echo "  - Generator: \`70-tools/scripts/docs/regen-registry.clj\` (babashka)"
               echo "  - Idempotent: sorted by \`id\`; entries-only comparison ignores volatile \`updated_at\`"
             } >> "$GITHUB_STEP_SUMMARY"
           fi
