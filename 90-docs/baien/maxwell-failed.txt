@@ -60,3 +60,8 @@ danjo/methods/kotoba/verify_chain
 futawa/kotoba/ingest_mcp/_top_level_entities
 futawa/kotoba/ingest_mcp/_flatten_entity
 futawa/kotoba/ingest_mcp/main
+aburi/methods/ingest/main
+aburi/methods/kotoba_bridge/main
+funadaiku/kotoba/ingest_mcp/main
+gov-municipality/kotoba/ingest_mcp/_top_level_entities
+hakoniwa/methods/ingest/fetch_entity
