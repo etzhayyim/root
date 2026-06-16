@@ -79,6 +79,9 @@ registry ingest.)
   into one 全世界 不動産取得 digest (the headline answer; read-only, content-addressed inputs).
 - `methods/nyc_pluto.cljc`   — government open-data cadastre beyond WDQS: NYC PLUTO (Socrata) →
   parcel owner + floors; US-NY gate-permitted natural persons (anonymized on publish, orgs named).
+- `methods/confidence.cljc`  — per-source reliability (信頼度): trust tiers + trust-weighted
+  conflict resolution (gov/registry > curated-crowd > open-crowd > web; disagreement recorded).
+- `methods/diff.cljc`        — as-of DIFF (差分): added/removed/changed records between snapshots.
 - `methods/jurisdiction.cljc` — per-jurisdiction PUBLIC-RECORD gate: which cadastres are
   public/bulk/owner-names-visible → whether natural-person ownership may be BULK-ingested
   (honest degrade to :unknown; SE/US/GB/IE/NL/NO=bulk-public, JP/KR=per-parcel, DE/AT/CH/FR=restricted).
@@ -211,7 +214,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 68 tests / 273 assertions green
+# 78 tests / 305 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn

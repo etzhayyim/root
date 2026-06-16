@@ -1,0 +1,2541 @@
+{
+  "head" : {
+    "vars" : [ "b", "floors", "height", "owner", "lei" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q212834"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20971386"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "36"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "160"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138752"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q192314"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "153"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "33"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "8I5DZWZKVSZI1NUHU748"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138768"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q245343"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "156.3"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "32"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800LBQA1Y9L22JB70"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138768"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q245343"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "156.3"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "32"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "G5GSEF7VJP5I7OUK5573"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138760"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1101257"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "151"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "32"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q191161"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7398834"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "250"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "41"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18536"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7448605"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "306"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q856319"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117202"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "26"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q814128"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20714225"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "47"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "169"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q503477"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5031201"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "50"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "235"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4754272"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130637"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "19"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6659738"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130637"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4836773"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q593786"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800LRO7NS5CYQMN21"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6786888"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q867530"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "18"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5123466"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1142797"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "30"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "2138001YYBULX5SZ2H24"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5880972"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1709809"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5189540"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4047770"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "17"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2915930"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1273254"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "33"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3756310"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4974584"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "26"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28404263"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q212599"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "39"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "969500QZC2Q0TK11NV07"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q60754464"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q731621"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1146311"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q779754"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q795613"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9531"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "5493000IBP32UQZ0KL24"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q735841"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q160302"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q127383"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q681822"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q635086"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q936287"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q823948"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6901124"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2018393"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1516957"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4165561"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q23635"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3306356"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q333515"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4548426"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880942"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "18"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "5299004LW4QWGZUB8Y96"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3306356"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20751818"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4745959"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q194360"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "R4PP93JZOLY261QX3811"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4707939"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230899"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800L6WZJ6FSGIEJ60"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4799518"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230899"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800L6WZJ6FSGIEJ60"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5038603"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q506160"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800V8IAVKS37D6B88"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5038603"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q506160"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "11"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "R8V1FN4M5ITGZOG7BS19"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4875677"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2425849"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4879789"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4924983"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5419282"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q34433"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "5493009OEHU6YS545T65"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5246784"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q216273"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5316584"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q458393"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5188033"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q739384"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5188033"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1277372"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5188033"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1476542"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5188033"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16996896"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5188033"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q138651002"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5608394"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q160918"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5638097"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q75598615"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5638097"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q76200706"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7092688"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1665181"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6552450"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8766"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "375X9PSJLLOV7F21O626"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6407656"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q34660"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6897487"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q333515"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6773623"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1146631"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6747265"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6747270"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6661591"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56182750"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7798580"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q527881"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7712109"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q936287"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7534775"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1891089"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7698829"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16849442"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7428779"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q103305626"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8023787"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q333515"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8049414"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q333515"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13529107"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4051597"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13529110"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5912194"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15979577"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q467269"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15214843"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q183"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15268257"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q160302"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15248133"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1152847"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "H7FNTJ4851HG0EXQ1Z70"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15221956"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5589389"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15130596"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5941364"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15186849"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16842680"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15186849"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17351562"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15210819"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19609302"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15235677"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q75484588"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15130596"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q100148045"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17020375"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6516227"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16897623"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7252986"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16897636"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7438033"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17540783"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16026997"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17534687"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2925725"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800YCEK6U45JCLH18"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17533776"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5030960"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17530030"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5538127"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17530320"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6129571"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17530030"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q75408070"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17530179"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q75584549"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17529152"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98596755"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17547354"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1702099"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17568156"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2913554"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800JEGHHEAXIJDX34"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17568161"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2913554"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800JEGHHEAXIJDX34"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17568938"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98598293"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17738032"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20748891"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17741203"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56181197"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17738238"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q76236381"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17803964"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2913554"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800JEGHHEAXIJDX34"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17744230"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56178525"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17572192"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7587689"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17572255"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q103301451"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17737924"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6109362"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800CHWARFAAN7UB85"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17645381"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16933921"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18030684"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q629139"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18297847"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q843251"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18297847"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1486303"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18351768"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1501071"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "10"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18030684"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3246355"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18353553"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3305205"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18030684"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4971159"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18162155"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5064127"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18297847"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7503713"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17815653"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1151382"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17830141"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q76055750"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19361337"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6519163"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19600670"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7233699"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20054019"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5599804"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21062063"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3056813"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "21380043I15S3UDE7Y82"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21061729"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18671249"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q22004526"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q503077"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800RPBXRETY4A4C59"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26276518"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q333515"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24023945"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1939537"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800JHYNDNB1NS2W10"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24023945"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1939537"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800V54ZJZKFLXET89"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24060290"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2302252"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24298842"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15902946"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q24022959"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16974340"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25818870"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8037025"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26279938"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21166810"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26279772"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q27898165"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26288676"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7814416"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26294115"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26299011"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26318536"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q100270869"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26313906"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7527795"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26320373"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98692381"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26328872"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98692355"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26358868"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q332464"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26336093"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q328725"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26369098"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q75593847"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26384837"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16741830"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26385283"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26406745"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26392375"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18527223"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26394711"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q76057775"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26404819"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56741212"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26411279"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2469078"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26410885"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3090747"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26411653"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98692382"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26415488"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28921168"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26414907"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q136705896"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26421931"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26213081"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26433544"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q333515"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26428438"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3528190"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26434096"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6258755"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26446652"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2898201"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26443091"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56695614"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26446652"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q76072319"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26450774"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q107642926"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26490435"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7814416"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26483669"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26888"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26483669"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18164289"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26506579"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q75908535"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26527854"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7814416"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26547968"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q99337520"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26542937"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7814416"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26585875"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98966281"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26580946"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96240677"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26617328"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4969432"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26617328"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5344296"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26618070"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q75912067"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26617328"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96185838"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26617328"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q96185839"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26617328"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q98862094"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26632570"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18528396"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26647628"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7814416"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26652789"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1891089"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26656161"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q139438274"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29378816"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5031201"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "57"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29625289"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7233699"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "12"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30622539"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q148"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q38250958"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6391507"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q38602881"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5072394"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q39048789"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q36397301"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42291482"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9531"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "5493000IBP32UQZ0KL24"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47245863"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7568539"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48792857"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7981628"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47012683"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q63883885"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q52164809"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230899"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800L6WZJ6FSGIEJ60"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q58313231"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q333515"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q58454576"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q518624"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q58454576"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q924370"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "95980020140005395317"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56616940"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2689124"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59678839"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q115332734"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q59678839"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q115346457"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q64577851"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1138080"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q75948272"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7374160"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q85836639"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1138080"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q97145241"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q856411"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "10"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "40.5"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800FKA5MF17RJKT63"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q97145241"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q25377639"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "10"
+      },
+      "height" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "40.5"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q90146038"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q34433"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "5493009OEHU6YS545T65"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q94085423"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q230899"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800L6WZJ6FSGIEJ60"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q76435948"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q595906"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q76435948"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4829040"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q76853097"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q22080735"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q112670566"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1164410"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q116745282"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7526786"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117188070"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7814416"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q118965977"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1420500"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117806048"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117805991"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121782678"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q241185"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124478981"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1206709"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131303454"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q876107"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "549300HES5V0C74V4L64"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131303349"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5263338"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q132496654"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15995238"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137800964"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q593786"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800LRO7NS5CYQMN21"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q137800964"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1325334"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3135425"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9617"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q212065"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q32521"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2637274"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q650068"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q540237"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q936287"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q212065"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q21997561"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4215957"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q502316"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "213800G1C9KKVVDN1A60"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4578988"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q539627"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4578988"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q919646"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "RV5B68J2GV3QGMRPW209"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4922887"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q936287"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5594419"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7618164"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7083359"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q35794"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7162913"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1143261"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7746439"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1474019"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7100892"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4590791"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q22312829"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4892023"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "2138001V85JLYR7AUB61"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q22312829"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4892023"
+      },
+      "lei" : {
+        "type" : "literal",
+        "value" : "2138009OQSSLVVHQAL78"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7304884"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5566844"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65665501"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6515870"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "17"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65680097"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6515870"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "10"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65961952"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6515870"
+      },
+      "floors" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "12"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q106207272"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q823917"
+      }
+    }, {
+      "b" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q114702900"
+      },
+      "owner" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17017730"
+      }
+    } ]
+  }
+}
