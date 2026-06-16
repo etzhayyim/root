@@ -24878,8 +24878,12 @@
         "2606101200"
       ],
       "supersedes": [],
-      "superseded_by": "[\"2606161200 (D2 only — single-repo extraction amended by the kotodama 3-layer split)\"]",
-      "amended_by": "[\"2606161200\"]",
+      "superseded_by": [
+        "2606161200"
+      ],
+      "amended_by": [
+        "2606161200"
+      ],
       "depends_on": [
         "2605262130",
         "2605214000",
@@ -25310,6 +25314,42 @@
       "depends_on": [
         "2606131645",
         "2605262130",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606161630-aburi-personal-tracking-exposure-observatory.md",
+      "id": "adr-2606161630-aburi-personal-tracking-exposure-observatory",
+      "title": "ADR-2606161630: aburi 炙り — personal-tracking-exposure observatory (member-side, own-data)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "aburi-tracking-exposure",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/aburi",
+        "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn"
+      ],
+      "related": [
+        "2606122400",
+        "2606013800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2606082400",
+        "2606071601",
+        "2606082100",
+        "2605302130",
+        "2606112201",
+        "2605312500",
+        "2606101400",
+        "2605181100",
+        "2605231902",
+        "2605312345",
         "2605215000"
       ],
       "last_verified": "2026-06-16",

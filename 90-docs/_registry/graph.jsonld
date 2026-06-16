@@ -15774,7 +15774,9 @@
         "doc:2605232345",
         "doc:2606101200"
       ],
-      "lastVerified": "2026-06-13"
+      "supersededBy": "doc:2606161200",
+      "amendedBy": "doc:2606161200",
+      "lastVerified": "2026-06-16"
     },
     {
       "id": "doc:adr-2606131800-session-close-python-to-clojure-tier-b-refactor-arc",
@@ -15997,6 +15999,38 @@
         "doc:ADR-2605312345 (kotoba Datom = canonical state)"
       ],
       "lastVerified": "2026-06-15"
+    },
+    {
+      "id": "doc:adr-2606161200-organism-runtime-3layer-kotodama-split",
+      "type": "TechArticle",
+      "title": "ADR-2606161200: organism runtime 3層分割 — kotodama runtime / root unspsc actor / kotoba substrate (supersedes 2606131645)",
+      "status": "proposed",
+      "topic": "organism-runtime-3layer-kotodama-split",
+      "authoritative": true,
+      "authoritativeFor": [
+        "organism runtime location (com-junkawasaki/kotodama, generic, domain-injected)",
+        "UNSPSC concrete actor location (etzhayyim/root 20-actors/unspsc)",
+        "retirement of the standalone etzhayyim/kototama repo"
+      ],
+      "related": "doc:2606101200",
+      "lastVerified": "2026-06-16"
+    },
+    {
+      "id": "doc:adr-2606161630-aburi-personal-tracking-exposure-observatory",
+      "type": "TechArticle",
+      "title": "ADR-2606161630: aburi 炙り — personal-tracking-exposure observatory (member-side, own-data)",
+      "status": "accepted",
+      "topic": "aburi-tracking-exposure",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/aburi",
+        "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn"
+      ],
+      "related": [
+        "doc:2606122400",
+        "doc:2606013800"
+      ],
+      "lastVerified": "2026-06-16"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",

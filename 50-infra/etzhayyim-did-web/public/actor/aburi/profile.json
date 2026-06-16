@@ -1,0 +1,30 @@
+{
+  "did": "did:web:etzhayyim.com:actor:aburi",
+  "handle": "aburi.etzhayyim.com",
+  "displayName": "Aburi — Personal-Tracking-Exposure Observatory (member-side, own-data)",
+  "description": "Personal-tracking-exposure observatory (member-side, own-data) — answers 「Google・Facebook・X・Apple の規約に同意し権限を許可したとき、自分の情報がどの広告ネットワーク／データブローカーに取得され、どの企業がどれだけ追跡しているか」. The member-side own-data inversion of the ad-tech lineage: where sukashi 透かし maps the FIRM↔FIRM programmatic supply chain (charter-bounded firm-side), aburi maps the MEMBER'S OWN exposure from their OWN consented exports (Google Takeout / Apple App-Privacy Report / Google Play Data-safety / on-device permission dump) and routes it to RELIEF (himotoki DSAR / kaiyaku sever / kurashimori opt-out / tedai revoke). Edge-primary readouts on read: exposure[collector] = Σ inbound :flows-to × DISCLOSED permission-sensitivity (who-tracks-you), surface_leak (leakiest platform), datatype-spread, reciprocity-gap (leaking permission w/ no opt-out). G1 own-data-only (no other person/PII/biometric/raw-id, test-enforced); G3 non-adjudicating (collectors carry PUBLIC catalogue provenance exodus/apple-privacy/play-data-safety/sellers-json/iab — naming an SDK is a disclosed fact, not an accusation); G4 reciprocity-restoring (§2(c) v3.1 ADR-2606082400 — makes the asymmetric ad-watcher visible to the watched; never itself a tracker); G7 local-only + no-server-key (the loop does no network I/O); G8 no credential/raw-id projectable. SYNTHETIC/representative public seed only; member-export ingest + live transact + relief routing Council+operator gated. Per ADR-2606161630.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-16T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "炙",
+  "displayNameJa": "炙り — 個人追跡曝露の観測 (どの広告ネットワークが自分を追跡しているか)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606161630"
+    ],
+    "primaryLexicon": "com.etzhayyim.aburi",
+    "primarySchema": "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn",
+    "didDocument": "https://etzhayyim.com/actor/aburi/did.json",
+    "source": "kotoba"
+  }
+}
