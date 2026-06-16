@@ -29,10 +29,14 @@
   (is (= 0.95 (c/trust-score :dvf)) "DVF is authoritative-gov")
   (is (= :authoritative-gov (:tier (c/trust :dvf)))))
 
-(deftest test-analyze-from-csv
-  (let [a (d/analyze* (d/parse-csv (slurp (io/file repo-root "80-data" "jinushi-land" "fr-dvf-75105.raw.csv"))))]
-    (is (= (:lines a) (:lines (snap))) "re-analysis from raw matches committed snapshot")
-    (is (< (:mutations a) (:lines a)) "mutations deduped below line count (multi-lot)")))
+(deftest test-analyze-from-raw-multi-commune
+  (let [a (d/analyze* (d/load-all (io/file repo-root "80-data" "jinushi-land")))]
+    (is (= (:lines a) (:lines (snap))) "re-analysis from all raw CSVs matches committed snapshot")
+    (is (< (:mutations a) (:lines a)) "mutations deduped below line count (multi-lot)")
+    (is (>= (count (:by-commune a)) 2) "multi-commune (Paris + Saint-Étienne)")
+    ;; the value spread is real: Paris 5e ≫ Saint-Étienne
+    (is (> (:appt-median-eur-m2 (get (:by-commune a) "75105"))
+           (:appt-median-eur-m2 (get (:by-commune a) "42218"))) "Paris €/m² > Saint-Étienne")))
 
 (when (= *file* (System/getProperty "babashka.file"))
   (let [{:keys [fail error]} (run-tests 'jinushi.methods.test-dvf-values)]

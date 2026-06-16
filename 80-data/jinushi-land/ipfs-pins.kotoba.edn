@@ -1,13 +1,11 @@
-;; jinushi 地主 — IPFS pin manifest (real CIDs, ipfs add -r). GENERATED.
+;; jinushi 地主 — IPFS pin manifest. GENERATED.
 {:dataset-id "ipfs-pins",
  :pinned-at "2026-06-16",
  :ipfs-version "0.41.0",
  :cid-version 1,
  :pin-type "recursive (local node)",
- :note
- "Real IPFS pins of every committed jinushi-land artifact. bafkrei=raw(==cid.cljc), bafybei=dag-pb. Local pin; public=peer/remote (operator).",
  :directory-cid
- "bafybeiag7h3ka7jscr7siceywjghcf3pdxvpudt4iembob7embl7ztnug4",
+ "bafybeifbnq3duzagxrpbto4swqfygggkbipzf2og2l3ocndozrfpfbd4ni",
  :file-cids
  {"building-ownership-datoms.kotoba.edn"
   "bafybeib2pgpzq6ffw4sd34mjudk6ov2lewql23x74wpjtronsfet3bwtxy",
@@ -29,20 +27,22 @@
   "bafkreid5tn7vd36lalmtdg7p547fl3ac2lcunnybc762e6orjohi5gotnq",
   "country-areas.raw.json"
   "bafkreidiwmrslge3rnwqexqxdy2hdn2s26lourfphduu6xiezpxgtoc7da",
+  "fr-dvf-42218.raw.csv"
+  "bafybeie3mtmt6dbydw5lvoobtz67xizfkjyayymu6mxdkrexb2n6qdwocq",
   "fr-dvf-75105.raw.csv"
   "bafybeiasdbwtfgvumoepgwb4xfgsdjiujzlifb4d3ptpchqto2jfk6aayq",
   "fr-dvf-values.kotoba.edn"
-  "bafybeiahbbf4estmvae6yhegvqcfcinqtahmeeaulbh2oc7ofc73dp3kei",
+  "bafybeibxik4v3ebeywubayzfnnpaxrf6oglqgwsye7fqjzhb2g3e5plfpy",
   "gleif-companies.kotoba.edn"
   "bafkreidakfd43x2nhqkil4tlzm4ljfai75vun6ld4iut4repwjaw7m5xhi",
   "gleif-resolution.raw.edn"
   "bafkreidtsmne6pce7ufkbkhgmxvfrzu6wmbwqdelnk6a2e4wv7qz5esqae",
   "ingest-provenance.json"
-  "bafkreih255u45yfpxt6yxcy7bqa3pdrcmn42aq3tuncsyk37jxxu5wbpyy",
+  "bafkreihi74coiwn5sepagtlfcedank7yoqs2i7j5bc7rsxgym5dgrrmfzu",
   "ipfs-pins.kotoba.edn"
-  "bafkreif42o3hu6bt57acwolktqgfnyp4flbedcmddmvelysuxth3xyjnsi",
+  "bafkreifj6xvsiut4lcnqbjewjwc5nruayrclvq4y6i7fzuap2ndnjxhaz4",
   "jinushi-digest.md"
-  "bafkreihl5axkqqxnjyere46yfyq3ycgm4erlpyhiylb6a365gywuz6ppsq",
+  "bafkreiabjl2eyywjpmuuoaiidkwx3olmyjpin6cdi7ma4bgajt5swptyly",
   "jinushi-land-datoms.kotoba.edn"
   "bafybeifkge34rvg6rgp5ww2eoirht75qjpjov324hvminz55yo2mealple",
   "national-parks-major.raw.json"

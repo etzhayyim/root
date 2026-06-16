@@ -50,17 +50,34 @@
                              [t {:lines (count ls)
                                  :median-price (median (map :price-eur ls))
                                  :median-eur-m2 (median (map #(/ (:price-eur %) (:surface-bati-m2 %)) ls))}]))
-                      (into (sorted-map)))]
+                      (into (sorted-map)))
+        appt-eur-m2 (fn [ls] (median (->> ls (filter #(and (= "Appartement" (:type %)) (:price-eur %)
+                                                          (:surface-bati-m2 %) (pos? (:surface-bati-m2 %))))
+                                          (map #(/ (:price-eur %) (:surface-bati-m2 %))))))
+        by-commune (->> lines (group-by :commune)
+                        (map (fn [[c ls]] [c {:mutations (count (group-by :mutation ls))
+                                              :appt-median-eur-m2 (appt-eur-m2 ls)}]))
+                        (into (sorted-map)))]
     {:lines (count lines)
      :mutations (count muts)
      :single-lot-mutations (count single-lot)
      :total-value-eur (reduce + 0.0 mutation-values)
      :median-mutation-eur (median mutation-values)
-     :by-type per-type}))
+     :by-type per-type
+     :by-commune by-commune}))
 
 #?(:clj
    (defn load-csv [dir]
      (let [f (io/file dir "fr-dvf-75105.raw.csv")] (when (.exists f) (slurp f)))))
+
+#?(:clj
+   (defn load-all [dir]
+     "Parse every committed fr-dvf-*.raw.csv (multi-commune) → merged transaction lines."
+     (->> (.listFiles (io/file dir))
+          (filter #(re-matches #"fr-dvf-.*\.raw\.csv" (.getName %)))
+          (sort-by #(.getName %))
+          (mapcat #(parse-csv (slurp %)))
+          vec)))
 
 #?(:clj
    (defn -main [& _argv]
@@ -68,12 +85,13 @@
                             .getParentFile .getParentFile) (io/file "20-actors/jinushi"))
            root (or (some-> here .getParentFile .getParentFile) (io/file "."))
            dir (io/file root "80-data" "jinushi-land")
-           csv (load-csv dir)]
-       (if-not csv
+           recs (load-all dir)]
+       (if (empty? recs)
          (println "no fr-dvf-*.raw.csv — operator fetch first (geo-dvf, open licence)")
-         (let [recs (parse-csv csv) a (analyze* recs)]
-           (println (format "DVF (Paris 5e 2023): %d lines / %d mutations / total €%,.0f / median mutation €%,.0f"
-                            (:lines a) (:mutations a) (:total-value-eur a) (or (:median-mutation-eur a) 0.0)))
-           (doseq [[t v] (:by-type a)]
-             (println (format "  %-14s median €%,.0f  (€%,.0f/m², %d lines)" t (:median-price v) (:median-eur-m2 v) (:lines v)))))))
+         (let [a (analyze* recs)]
+           (println (format "DVF: %d lines / %d mutations / total €%,.0f across %d communes"
+                            (:lines a) (:mutations a) (:total-value-eur a) (count (:by-commune a))))
+           (doseq [[c v] (:by-commune a)]
+             (println (format "  commune %s: %d mutations, apartment median €%,.0f/m²"
+                              c (:mutations v) (or (:appt-median-eur-m2 v) 0.0)))))))
      0))

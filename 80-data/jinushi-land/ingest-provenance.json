@@ -151,16 +151,17 @@
   "verify" : "methods/verify.cljc re-derives each artifact CID+sha256 vs this file",
   "fetched-at" : "2026-06-16",
   "fr-dvf" : {
-    "total-value-eur" : 7.926445988399999E8,
-    "mutations" : 1134,
+    "total-value-eur" : 1.3091250375200002E9,
+    "mutations" : 5375,
     "license" : "Licence Ouverte",
-    "jurisdiction" : "FR commune 75105 (Paris 5e), 2023",
-    "lines" : 2123,
+    "jurisdiction" : "FR (75105 Paris-5e + 42218 Saint-Étienne, 2023)",
+    "lines" : 12875,
+    "value-spread" : "Paris-5e €12,707/m² vs Saint-Étienne €1,438/m² (apartment median)",
     "source" : "DGFiP/Etalab geo-dvf",
     "reference" : {
       "artifact" : "fr-dvf-values.kotoba.edn",
-      "sha256" : "71ff11fad7f4bdf99c86180fe8f79c92fd842bd0d43a698531434ba9f94a0b07",
-      "cidv1" : "bafkreidr74i7vv7uxx4zzbqyb7upphes7wccxuguhjuykmkdjou7ssqla4"
+      "sha256" : "fd6fd6b774bebc79afb66734c586a9991bea56a89fd3f10beb2bac8e9331c40c",
+      "cidv1" : "bafkreih5n7llo5f6xr427nthgtcynkmzdpvfnke72pyqx2zlvshjgmoebq"
     },
     "confidence-tier" : ":dvf authoritative-gov 0.95",
     "layer" : "FR DVF property VALUES (methods/dvf_values.cljc) — 6th source, new dimension",
