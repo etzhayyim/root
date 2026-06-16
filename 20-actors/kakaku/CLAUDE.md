@@ -122,6 +122,29 @@ entity は path-based DID で解決する。controller は `did:web:kakaku.etzha
 - `bestOverall`: weighted by `total_price`, `availability`, `delivery_eta`, `merchant.reputation_score`
 - `suspicious`: unusually low price, inactive merchant, missing stock state, or broken source URL
 
+## Autonomous heartbeat (clj-native)
+
+- `py/autorun.clj` (+ `py/kotoba.clj`) — **clj-native SSoT** (ADR-2606142300 D1: new logic-core
+  authored in Clojure, no Python twin). The autonomous price-intel loop: each cycle observes the
+  OFFLINE product/merchant/offer/priceHistory snapshot (`kotoba/seed.edn`, real-EDN, read via
+  `clojure.edn`) → a small adapter builds the handler `state` → derives the cross-merchant price
+  SPREAD (`agent/handle-arbitrage`), the bounded supply/demand index (`agent/handle-supply-demand`),
+  and the present-interest proxy (`agent/handle-demand`) → **persists one content-addressed
+  transaction** of `:kakaku.obs/*` + `:kakaku.region/*` observations to the append-only **local**
+  kotoba Datom log (`py/kotoba.clj`), linking the previous CID into a verifiable commit-DAG.
+  Deterministic / resume-safe (cycle drives tx-id + as-of; fixed snapshot stamp); NO external I/O.
+  **G2 holds by construction**: only price-DIFFERENCE + supply/demand OBSERVATIONS are
+  representable — no buy/sell signal / price target / forecast (forecasting is mitooshi's job);
+  every derived datom carries `:sourcing :synthesized`; `:intent` is `buyer-transparency+supply-
+  resilience`. The LIVE offer ingest (page fetch, `ingest.clj`) + the live social post stay
+  operator-gated (G11, no-server-key) — the loop reads a LOCAL snapshot only. Invariants in
+  `py/test_autorun.clj` (persist, commit-DAG verify, determinism, tamper-detect, G2 non-speculative,
+  G5 :synthesized, append-only, frozen golden head-CID).
+
+  ```bash
+  bb -cp 20-actors -e "(require 'kakaku.py.autorun)(apply kakaku.py.autorun/-main [\"--cycles\" \"3\" \"--fresh\"])"
+  ```
+
 ## Notes
 
 - `offer` is mutable current state.
