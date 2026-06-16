@@ -1,7 +1,7 @@
 ---
 id: adr-2606161630-aburi-personal-tracking-exposure-observatory
 title: "ADR-2606161630: aburi 炙り — personal-tracking-exposure observatory (member-side, own-data)"
-status: proposed
+status: accepted
 doc_type: adr
 topic: aburi-tracking-exposure
 authoritative: true
@@ -35,7 +35,9 @@ superseded_by: []
 
 # ADR-2606161630: aburi 炙り — personal-tracking-exposure observatory (member-side, own-data)
 
-**Status**: proposed
+**Status**: accepted (R0 landed 2026-06-16 — analyzer + ontology + seed + A/B/C legs + bb tasks;
+live ingest of REAL member exports, live transact, IPFS pin, and Worker deploy remain
+operator/Council-gated)
 **Date**: 2026-06-16
 **Deciders**: Jun Kawasaki
 
