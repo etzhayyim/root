@@ -63,27 +63,59 @@ registry ingest.)
 - `methods/datom_emit.cljc`  — canonical EAVT emit: ground `:owner/*` + `:parcel/*` `:add`
   datoms + derived `:jinushi/*` transient aggregates.
 - `methods/coverage.cljc`    — world acquisition-coverage report + self-pruning ingest worklist.
+- `methods/ingest.cljc`      — **REAL acquisition** from a COMMITTED public-data snapshot
+  (`data/acquired/*.kotoba.edn`) → `{:owners :parcels}`, offline (never touches the network).
+  `merge-datasets` combines snapshot + synthetic seed into one acquisition view.
+- `methods/fetch_wdqs.sh`    — polite, EXPLICIT, operator-only WDQS refresh of the snapshot.
+
+## Real acquisition + WDQS load discipline (operator directive 2026-06-16)
+
+The first REAL data leg ingests **national parks (Wikidata `P31=Q46169`)** — which are PUBLIC
+land (owner = the state) → fully G1-safe (public entities, no persons, no coordinates; only
+country + area + a per-country public-owner bucket). Snapshot:
+`data/acquired/wikidata-national-parks.kotoba.edn` — **289 parks · 26 countries · 4.97M km²
+public land = 3.34% of world land** (up from the 0.056% synthetic floor).
+
+**「wdqs に負担をかけない」 is enforced by design:**
+
+- The committed **snapshot is the loop's source of truth**. Each loop iteration re-ingests the
+  snapshot with **ZERO network I/O** (`ingest.cljc`). A 30-min loop hitting WDQS would be abuse;
+  it never does.
+- A live refresh is an **explicit, rare, operator-only** step (`fetch_wdqs.sh`): ONE small
+  LIMITed query, descriptive User-Agent **with a contact address**, `--max-time`, a courtesy
+  sleep, no retry loop, and it **refuses `LIMIT > 800`**. If WDQS hits its 60 s server cap,
+  LOWER the limit — never hammer. The 15-min result cache is honoured by reusing the snapshot.
+- Area is **honest**: rows whose unit could not be resolved are dropped at snapshot time and the
+  dropped count is disclosed in the snapshot (`:dropped-unknown-unit`), never guessed (G4).
 
 ## Run
 
 ```bash
 CP=20-actors
-for ns in test-analyze test-datom-emit test-coverage; do
+for ns in test-analyze test-datom-emit test-coverage test-ingest; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 16 tests / 55 assertions green
+# 21 tests / 71 assertions green
 
-bb --classpath 20-actors -m jinushi.methods.coverage     # → out/coverage.md
+bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
+bb --classpath 20-actors -m jinushi.methods.ingest       # REAL snapshot → live coverage (offline)
+
+# operator-only, rare, polite — refresh the snapshot from WDQS (NOT run by the loop):
+methods/fetch_wdqs.sh 400
 ```
 
 ## Status / roadmap
 
 - **R0 (landed)** — analyze + datom-emit + coverage + ontology + synthetic seed + 16 tests. ✅
+- **R2 (landed)** — REAL public-land ingest: committed Wikidata national-park snapshot
+  (`ingest.cljc` + `fetch_wdqs.sh`), 289 parks / 26 countries / 4.97M km² = **3.34% of world
+  land**. WDQS-load-safe by design (snapshot is SoT; loop never queries WDQS). +5 tests. ✅
 - **R1** — content-address the acquisition snapshot to a kotoba IPFS CIDv1 + append-only
   commit-DAG (`kotodama/src/kotoba/datom.cljc` reuse, `verify_chain` resume-safe).
-- **R2** — live registry/OSM/Wikidata ingest via `70-tools/e7m-dataset` (operator/Council G4),
-  raising real-world coverage off the synthetic floor; per-country normalization rules.
+- **R2+** — broaden real sources (protected areas / public-land registries / OSM landuse) one
+  small polite batch at a time; per-country `country-land-area-km2` table expansion so national
+  fractions resolve for the 26 ingested countries.
 - **R3** — bridge confirmed-donation parcels to the on-chain `LandRegistry` lane (still a member
   donation, no-server-key) + maps.etzhayyim.com `:feature/*` layer.
 - **ADR** — to author: `26xxxxxxxx-jinushi-land-ownership-acquisition-mirror.md` (mirror-lineage
