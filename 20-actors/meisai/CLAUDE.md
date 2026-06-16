@@ -51,6 +51,18 @@ Datom shape: `meisai-stmt:<source>:<YYYY-MM>` entities with `:meisai.stmt/{sourc
 total-jpy,row-count,intake-cid,source-url}`; `meisai-row:<hash16>` entities with
 `:meisai.row/{stmt,index,date,merchant,amount-jpy,note}`. All `:db/add`, no retract.
 
+## Clojure port (datomic + clojure substrate parity)
+
+`methods/{kotoba,ingest,autorun}.cljc` + `methods/test_autorun.cljc` are 1:1 Clojure ports of the
+heartbeat. The canonical-JSON tx-CID encoder reproduces Python's
+`json.dumps(…, sort_keys=True, separators=(",",":"))` **byte for byte**, so the Clojure and Python
+heartbeats build the **identical commit-DAG** (the 2-intake head CID
+`b0f03ac8fd4ddac1f0715278c13d847498f80e09b6102d4164f7a3a834251b62c` is asserted equal in
+`test-autorun cid-byte-parity-with-python`). The **G2 guard** (credential-shaped key / PAN-shaped
+value → raise) is ported and test-enforced. `kotoba.cljc` embeds its own EDN reader (no cross-actor
+dep), matching `parse_edn`. Run: `bb -cp 20-actors -e "(require 'meisai.methods.test-autorun
+'clojure.test)(clojure.test/run-tests 'meisai.methods.test-autorun)"`.
+
 ## Build & Test
 
 ```bash
