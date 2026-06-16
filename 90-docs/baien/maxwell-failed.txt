@@ -42,3 +42,13 @@ fuchi/methods/_edn/load_edn
 fuchi/methods/analyze/main
 fuchi/methods/book/book_toritate
 fuchi/methods/provision/provision
+aburi/methods/analyze/_parse
+aburi/methods/ingest/graph_to_datoms
+aburi/methods/ingest/adapt_apple_app_privacy_report
+aburi/methods/ingest/adapt_play_data_safety
+aburi/methods/ingest/adapt_google_takeout_ads
+aburi/methods/kotoba/tx_cid
+aburi/wasm/app/_result
+danjo/methods/kotoba/_tokens
+fuchi/methods/route/rider_hit
+fuchi/methods/route/touches_invariant
