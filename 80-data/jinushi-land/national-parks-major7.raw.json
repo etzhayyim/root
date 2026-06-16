@@ -1,0 +1,584 @@
+{
+  "head" : {
+    "vars" : [ "p", "area", "unit", "cc" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "cc" : {
+        "type" : "literal",
+        "value" : "LV"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1643261"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "26490"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q35852"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "LV"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q743754"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "91790"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q35852"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "LV"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1395739"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "38165"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q35852"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "LV"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q549295"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "59615"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q35852"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "ME"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1288177"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "62"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "ME"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1288177"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "6220"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q35852"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "ME"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1968953"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "190"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "ME"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1258880"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5650"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q35852"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "ME"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1258880"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "56.5"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "ME"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11955121"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "166.3"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "ME"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3364523"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "400"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "ME"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3364446"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "32100"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q35852"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "ME"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3364446"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "32519"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q35852"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "ME"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3364523"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "40000"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q35852"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "BS"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28952462"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7.84"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "SV"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5351426"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "38.2"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "SV"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6905054"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "19.73"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "AE"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3328522"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "630000"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q25343"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GQ"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4736972"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "80000"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q35852"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GQ"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6063070"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "330"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "KM"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16668918"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "79.14"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GM"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q492185"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "585"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GM"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1740765"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "19"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GM"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q922736"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4940"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GW"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5033548"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "680"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GW"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6206287"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "495"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GW"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5033548"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1057.67"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GW"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7099832"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1582.35"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GW"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56347577"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1315.05"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GW"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q63353200"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "86.04"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GW"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q63353204"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "890"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    }, {
+      "cc" : {
+        "type" : "literal",
+        "value" : "GW"
+      },
+      "p" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q61002042"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "1770"
+      },
+      "unit" : {
+        "type" : "literal",
+        "value" : "Q712226"
+      }
+    } ]
+  }
+}
