@@ -40,11 +40,15 @@
            src-checks (map #(check-artifact dir %) (:sources prov))
            denom (:denominator prov)                 ;; committed country-area reference
            denom-check (when denom (check-artifact dir denom))
+           ;; building-ownership layer: the committed snapshot (the gitignored datom log is skipped if absent)
+           bo-snap (get-in prov [:building-ownership :snapshot])
+           bo-check (when bo-snap (check-artifact dir bo-snap))
            derived (:derived prov)
            ;; the derived Datom log is gitignored/regenerable — verify only if present on disk
            der-check (when (and derived (.exists (io/file dir (:artifact derived))))
                        (check-artifact dir derived))
-           checks (vec (concat src-checks (when denom-check [denom-check]) (when der-check [der-check])))]
+           checks (vec (concat src-checks (when denom-check [denom-check])
+                               (when bo-check [bo-check]) (when der-check [der-check])))]
        {:ok (every? :ok checks) :checks checks})))
 
 #?(:clj

@@ -123,7 +123,10 @@
      (->> (.listFiles (io/file dir))
           (filter #(str/ends-with? (.getName %) ".kotoba.edn"))
           (map #(analyze/parse (slurp %)))
-          (filter #(and (map? %) (:source-id %)))
+          ;; LAND-area snapshots only: a map with :source-id and parcel records (km² area). The
+          ;; building-ownership snapshot (:kind :ownership) is a different shape — buildings.cljc
+          ;; owns it; exclude it here so the land-coverage pipeline never mis-reads it as parcels.
+          (filter #(and (map? %) (:source-id %) (not= :ownership (:kind %))))
           (sort-by :source-id)
           vec)))
 

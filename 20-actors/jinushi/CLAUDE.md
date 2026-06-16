@@ -71,6 +71,8 @@ registry ingest.)
 - `methods/cid.cljc`         — CIDv1 (raw/sha2-256) content-addressing of snapshots (R1).
 - `methods/emit_real.cljc`   — emit the REAL acquisition → canonical kotoba Datom log + CID.
 - `methods/verify.cljc`      — integrity: committed snapshots ↔ `ingest-provenance.json` (CID+sha256).
+- `methods/buildings.cljc`   — building-level ownership KG (owner legal entity + floors) + company
+  linkage (owner LEI/QID → kabuto/uchiwake/kanjō/keizu corp KGs); building-取-concentration.
 - `methods/fetch_wdqs.sh`    — polite, EXPLICIT, operator-only WDQS refresh of the snapshot.
 
 ## Real acquisition + WDQS load discipline (operator directive 2026-06-16)
@@ -120,6 +122,31 @@ bad-data areas dropped (disclosed). Each snapshot is **content-addressed to a CI
 (git-annex local-store → IPFS CID map → PDS `datasetPin`) is the operator step via
 `e7m-dataset add 80-data/jinushi-land` against superdataset `90-docs/baien/datasets` — not auto-run.
 
+## Building-level ownership + company linkage (operator directive 2026-06-16)
+
+jinushi extends from land-AREA coverage to per-BUILDING ownership: who owns which building, how
+many floors, and — via the owner's **LEI (P1278)** / Wikidata QID — the **bridge to the corporate
+KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). First slice
+(`wikidata-buildings.kotoba.edn`): 600 buildings · 123 owner legal entities · 31 LEI links;
+building-取-concentration HHI 799 (e.g. Irish Rail 124, Bane NOR 95). Emitted as a KG Datom log
+(`:building/*` nodes + `:building/owner` edges + `:owner.org/{wikidata,lei,label}`).
+
+**Reframed gate (the charter does NOT ban personal data).** Land/building ownership is PUBLIC
+RECORD. The constitution bans **asymmetric or monetized** surveillance (Rider v3.1 §2(c)
+reciprocity axis, ADR-2606082400) while **affirming reciprocal/symmetric 相互監視** (Tier-0
+神の監視, 村社会 transparency). So the gate is NOT "exclude natural persons" — it is:
+
+- **P1 PUBLIC-RECORD provenance** only (already-disclosed registry / open KG; never covert/inferred).
+- **P2 RECIPROCAL / SYMMETRIC** — the registry is open to all equally; an owner is as visible as
+  anyone. Mirrored transparency, not a one-way watch-feed.
+- **P3 MAP-NOT-TARGET, NON-MONETIZED** — routed to commons-return / transparency, never a
+  seizure / eviction / targeting list, never sold.
+
+Natural-person ownership is therefore **representable from a public registry** under P1–P3 (this
+Wikidata slice happens to be all legal entities; `:owner/type :natural-person` is a public-record
+attribute, not a person-exclusion). What stays unrepresentable: covert/inferred ownership,
+asymmetric watch-lists, monetized resale.
+
 **「wdqs に負担をかけない」 is enforced by design:**
 
 - The committed **snapshot is the loop's source of truth**. Each loop iteration re-ingests the
@@ -139,7 +166,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 42 tests / 127 assertions green
+# 47 tests / 142 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn

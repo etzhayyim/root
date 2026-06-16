@@ -1,14 +1,14 @@
 {
   "unit-map" : {
-    "Q1399890" : "feddan=4200.8334",
-    "Q216795" : "dunam=1000.0",
-    "Q232291" : "sq-mile=2589988.110336",
-    "Q25343" : "m2=1.0",
-    "Q3396758" : "decare=1000.0",
-    "Q35852" : "hectare=10000.0",
     "Q712226" : "km2=1000000.0",
+    "Q935614" : "rai=1600.0",
+    "Q25343" : "m2=1.0",
+    "Q216795" : "dunam=1000.0",
     "Q81292" : "acre=4046.8564224",
-    "Q935614" : "rai=1600.0"
+    "Q1399890" : "feddan=4200.8334",
+    "Q35852" : "hectare=10000.0",
+    "Q3396758" : "decare=1000.0",
+    "Q232291" : "sq-mile=2589988.110336"
   },
   "load-discipline" : "WDQS via methods/fetch_wdqs.sh only (polite/LIMIT<=800); loop re-ingests committed snapshots with zero network I/O",
   "sources" : [ {
@@ -68,6 +68,25 @@
     "what" : "canonical EAVT Datom log of the SANITIZED counting dataset (gitignored; regenerable)",
     "sha256" : "de540c4281a02f912f50bb594e591aa55679c19f9d747c6f52b9932f1c03cda5",
     "cidv1" : "bafkreig6kqgefanaf6is6uf3lfhfsgvfkz44dh45or6g6uvzsmxrya6nuu"
+  },
+  "building-ownership" : {
+    "layer" : "building-level ownership KG + company linkage (methods/buildings.cljc)",
+    "gate" : "PUBLIC-RECORD + SYMMETRIC (相互監視 affirmed, Rider v3.1 §2(c)/ADR-2606082400); map-not-target; non-monetized. Natural-person ownership representable from public registries under the same gate.",
+    "company-link" : "owner LEI (P1278) → kabuto/uchiwake/kanjō; owner Wikidata QID → keizu/tsumugi",
+    "snapshot" : {
+      "artifact" : "wikidata-buildings.kotoba.edn",
+      "buildings" : 600,
+      "owners" : 123,
+      "lei-links" : 31,
+      "sha256" : "40498601a8ab2591e25c1f98ccf42cf25c926dea38a081fd54221a9c0ead97e9",
+      "cidv1" : "bafkreicajgdadkflewi6exa7tdgpilhslsjg32ryuca72vbcdkoa5lmx5e"
+    },
+    "datom-log" : {
+      "artifact" : "building-ownership-datoms.kotoba.edn",
+      "gitignored" : true,
+      "sha256" : "158211535ead27ab1f6dea455e9cdd15e4ede1d557cc4e96faffc791c15975f7",
+      "cidv1" : "bafkreiavqiivgxvne6vr63pkivpjzxiv4tw6dvkxzrhjn6x7y6i4cwlv64"
+    }
   },
   "denominator" : {
     "artifact" : "country-areas.kotoba.edn",
