@@ -1,30 +1,29 @@
----
-id: adr-2606162030-silicon-fab-flow-clj-port
-title: "ADR-2606162030: silicon fab brought to runnable cljc + kotoba-Datom — 8-工程 process-physics flow + wafer-handling robotics + lot ledger"
-status: accepted
-doc_type: adr
-topic: silicon-fab-flow-clj-port
-authoritative: true
-last_verified: 2026-06-16
-priority: 5.5
-axis: architecture
-weight: 0.3
-priority_note: "Implementation record. Closes the gap where the silicon fab was the only manufacturing actor with NO runnable code — its cells raised RuntimeError while niyaku/giemon/sarutahiko had real sims. Brings silicon to the same R0 (design + simulation, live actuation Council-gated) maturity in the cljc + kotoba-Datom stack. No invariant amended; live fab equipment + N5 tape-out stay Phase 2-4 + Council-gated."
-authoritative_for:
-  - "silicon fab-flow runnable methods (20-actors/silicon/methods/*.cljc)"
-depends_on:
-  - adr-2605242500-silicon-charter
-  - adr-2605242545-fab-equipment-charter
-  - adr-2605262130-kotoba-storage-substrate-unification
-  - adr-2606160842-kotoba-code-actor-py-to-clj-port-wave
-related:
-  - adr-2605242515-iwakura-ternary-inference-asic
-  - adr-2606082000-niyaku-port-cargo-handling
-supersedes: []
-superseded_by: []
----
+;; ─────────────────────────────────────────────────────────────────────
+;; adr-2606162030-silicon-fab-flow-clj-port
+;; .md.edn — canonical commented-EDN ADR (ADR-2606162200). Metadata are
+;; typed EDN; :body is a #md tagged markdown string. Edit THIS file; run
+;; `bb adr:render 2606162030-silicon-fab-flow-clj-port.md.edn` to regenerate the GitHub-rendered .md.
+;; ─────────────────────────────────────────────────────────────────────
+{:id                "adr-2606162030-silicon-fab-flow-clj-port"
+ :title             "ADR-2606162030: silicon fab brought to runnable cljc + kotoba-Datom — 8-工程 process-physics flow + wafer-handling robotics + lot ledger"
+ :status            "accepted"
+ :doc-type          "adr"
+ :topic             "silicon-fab-flow-clj-port"
+ :authoritative     true
+ :last-verified     "2026-06-16"
+ :priority          5.5
+ :axis              "architecture"
+ :weight            0.3
+ :priority-note     "Implementation record. Closes the gap where the silicon fab was the only manufacturing actor with NO runnable code — its cells raised RuntimeError while niyaku/giemon/sarutahiko had real sims. Brings silicon to the same R0 (design + simulation, live actuation Council-gated) maturity in the cljc + kotoba-Datom stack. No invariant amended; live fab equipment + N5 tape-out stay Phase 2-4 + Council-gated."
+ :authoritative-for ["silicon fab-flow runnable methods (20-actors/silicon/methods/*.cljc)"]
+ :depends-on        ["adr-2605242500-silicon-charter" "adr-2605242545-fab-equipment-charter" "adr-2605262130-kotoba-storage-substrate-unification" "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave"]
+ :related           ["adr-2605242515-iwakura-ternary-inference-asic" "adr-2606082000-niyaku-port-cargo-handling"]
+ :supersedes        []
+ :superseded-by     []
 
-# ADR-2606162030: silicon fab brought to runnable cljc + kotoba-Datom
+ ;; ── body (markdown — #md verbatim) ──────────────────────────────────
+ :body
+ #md "# ADR-2606162030: silicon fab brought to runnable cljc + kotoba-Datom
 
 **Status**: accepted
 **Date**: 2026-06-16
@@ -38,7 +37,7 @@ RTL → cocotb → yosys/ABC synth → OpenLane2 sky130 GDSII (DRC/LVS/antenna 0
 ADR-2605242515 + 2606012800.
 
 But the **fab process** itself had no runnable code. The actor's `cells/*` are langgraph
-Pregel scaffolds whose `.solve()` raises `RuntimeError("activate via Council ADR")`, and the
+Pregel scaffolds whose `.solve()` raises `RuntimeError(\"activate via Council ADR\")`, and the
 `state_machine.py` per cell only emitted hard-coded mock dictionaries (`mock_deposition`,
 `mock_etching`, …) — no process model, no yield, no traceability. The 8 equipment categories
 under `50-infra/silicon/equipment/` are README charters.
@@ -84,7 +83,7 @@ and Council-gated.**
    lossless) and content-addresses them into a sha256 commit-DAG with byte-identical
    canonicalization to `meisai.methods.kotoba`. `verify-chain` is tamper-evident.
 
-4. **`fab_cell.cljc`** — the orchestration "cell" (datalog/kotoba): reachability →
+4. **`fab_cell.cljc`** — the orchestration \"cell\" (datalog/kotoba): reachability →
    `run-fab-lot` (fab-flow) → `commit-lot` (ledger) → summary, with optional throughput.
    `run-reference` runs the iwakura ternary-PE tile lot on a realistic 8-station layout.
 
@@ -124,4 +123,4 @@ unchanged — not overclaimed.
 - ADR-2605262130 + 2605312345 (kotoba Datom log = canonical state)
 - ADR-2606160842 (kotoba code-actor py→clj port wave)
 - ADR-2606082000 (niyaku — the sibling pattern: clean-room sim, R0, Council-gated actuation)
-- `20-actors/silicon/methods/README.md` · `20-actors/silicon/manifest.edn`
+- `20-actors/silicon/methods/README.md` · `20-actors/silicon/manifest.edn`"}

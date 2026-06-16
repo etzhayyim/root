@@ -324,13 +324,24 @@
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
    :depends [test:mimamori test:yobel test:tools test:ibuki test:stubs test:pywasm test:kanae test:keizu]}
   test:tools
-  {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
+  {:doc "70-tools Clojure test suite (langgraph-clj maturation agent + .md.edn round-trip)"
    :task (do (require 'clojure.test
-                      'etzhayyim.tools.test-maturation-agent)
-             (let [r (clojure.test/run-tests 'etzhayyim.tools.test-maturation-agent)]
+                      'etzhayyim.tools.test-maturation-agent
+                      'etzhayyim.tools.test-adr-mdedn)
+             (let [r (clojure.test/run-tests 'etzhayyim.tools.test-maturation-agent
+                                             'etzhayyim.tools.test-adr-mdedn)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   maturation-agent
   {:doc "LangGraph autonomous maturation agent — upgrade 20-actors *-compat L1→L3 (batch 5)"
    :task (do (require 'etzhayyim.tools.maturation-agent)
-             ((requiring-resolve 'etzhayyim.tools.maturation-agent/-main)))}}}
+             ((requiring-resolve 'etzhayyim.tools.maturation-agent/-main)))}
+
+  adr:to-mdedn
+  {:doc "Convert ADR .md → canonical commented-EDN .md.edn (ADR-2606162200). Args: <*.md>…"
+   :task (do (require 'etzhayyim.tools.adr-mdedn)
+             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "to" *command-line-args*))}
+  adr:render
+  {:doc "Render canonical .md.edn → GitHub-displayed .md. Args: <*.md.edn>…"
+   :task (do (require 'etzhayyim.tools.adr-mdedn)
+             (apply (resolve 'etzhayyim.tools.adr-mdedn/-main) "render" *command-line-args*))}}}
