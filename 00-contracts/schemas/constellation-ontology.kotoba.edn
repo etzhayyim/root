@@ -53,6 +53,9 @@
   {:attr :link/kind            :doc ":ground-uplink | :ground-downlink | :inter-satellite-optical (noroshi) | :feeder"}
   {:attr :link/band            :doc "spectrum band label (coordinated, G6) — e.g. :ku :ka :v :optical"}
   {:attr :link/eirp-dbw        :doc "representative EIRP (dBW), engineering estimate"}
+  {:attr :link/path-loss-db    :doc "representative free-space + atmospheric path loss (dB), engineering estimate"}
+  {:attr :link/gt-dbk          :doc "representative receiver figure-of-merit G/T (dB/K), engineering estimate"}
+  {:attr :link/required-cn-db  :doc "representative required carrier-to-noise (dB) for the service rate"}
 
   ;; ground-station facet
   {:attr :gs/role              :doc ":gateway | :tt-and-c | :user-terminal-class (tsutae-compatible)"}

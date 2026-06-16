@@ -194,18 +194,33 @@ content-addressed, dry-run sim component **cannot** fly a rocket or operate a co
 which is exactly the correct posture for G1/G6/G8. WIT world + build/verify + trust model in
 each actor's `wasm/README.md` (R1).
 
-## 5. R0 deliverables (this ADR)
+## 5. R0 + R1 deliverables (this ADR — all green, still pre-live)
 
-R0 is **design-only** and deliberately ships **no live capability**:
+Both R0 (design) and R1 (offline sim) landed together; neither ships any **live capability**
+(every live leg stays Council + operator-DID gated, G6/G8).
 
+**R0 — design**:
 - ADR (this file)
 - `20-actors/torifune/` and `20-actors/subaru/`: `manifest.jsonld` + `CLAUDE.md`
 - `00-contracts/schemas/launch-vehicle-ontology.kotoba.edn` +
   `constellation-ontology.kotoba.edn`
 
-R1 (separate PR, still pre-live): pure-stdlib methods (`analyze.py` link-budget/Δv/carbon,
-`datom_emit.py` EAVT, `coverage_report.py`), seed graphs (Ama-class engineering seed; subaru
-shell/coverage seed), tests (incl. the two G1 unrepresentability assertions), `wasm/README.md`.
+**R1 — pure-stdlib offline sim (no numpy, kotoba-pywasm-ready)**:
+- torifune: `methods/ascent_sim.py` (staged Tsiolkovsky Δv + G1 `check_g1`),
+  `carbon_balance.py` (G2 net-carbon), `disposal_plan.py` (G5 mandatory-disposal, refuses a
+  mission without one), `datom_emit.py` (EAVT); `data/seed-ama-vehicle.kotoba.edn` (18 nodes /
+  13 縁); `tests/test_torifune.py` — **7 green** incl. `test_g1_no_strike_profile` (a
+  depressed-strike trajectory + a munition payload are both REFUSED). The Ama-class seed shows
+  +3,359 m/s Δv margin to LEO, net 0 kgCO₂e (hydrolox), deorbit-debt 0.
+- subaru: `methods/link_budget.py` (per-link margin + G1/G3 `check_g1`), `coverage.py` (§1.16
+  reach), `stewardship.py` (G5 disposal + darksat, refuses an undisposed occupied shell),
+  `datom_emit.py` (EAVT); `data/seed-constellation.kotoba.edn` (15 nodes / 12 縁);
+  `tests/test_subaru.py` — **8 green** incl. `test_g1_no_surveillance_relay` (a DPI link, a
+  user-location attribute, and a subscription entitlement are all REFUSED). All links close;
+  §1.16 reach counts only unconnected/disaster areas; urban baseline excluded.
+
+**R2+ (separate PRs, gated)**: `wasm/README.md` + componentize-py build, `.cljc` port (the
+ADR-2606131300 corpus arc), live launch/ops legs (Council + operator-DID).
 
 ## 6. Lineage
 

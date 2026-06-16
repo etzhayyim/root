@@ -4,8 +4,8 @@
 §1.13 Wellbecoming) + 2605302357 (Social Security for Humanity — §1.16 in-kind) + 2606073600
 (hoshimori — orbital stewardship) + 2606162355 (torifune — the launch sibling, this wave) +
 2605181100 (com.etzhayyim.encrypted — E2E) + 2606051600 (noroshi — photonics links) +
-2605312345 (Datom = canonical state) + 2605215000 (Murakumo-only). **Status**: 🟡 R0
-design-only.
+2605312345 (Datom = canonical state) + 2605215000 (Murakumo-only). **Status**: 🟡 R0+R1
+(design + offline sim; live legs Council-gated).
 
 subaru ("昴" = the Pleiades star cluster; verb root すばる = "to gather / to unite") is the
 charter-clean inversion of Starlink/OneWeb: a **connectivity COMMONS**, not a subscription ISP.

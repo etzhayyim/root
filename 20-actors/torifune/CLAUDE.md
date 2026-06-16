@@ -4,7 +4,7 @@
 2605192330 (orbital land sovereignty) + 2606073600 (hoshimori — orbital stewardship, the
 observe sibling) + 2606013400 (funadaiku — zero-emission shipbuilding, the build-pattern) +
 2606032130 (Displacement Dividend) + 2605312345 (Datom = canonical state) + 2605215000
-(Murakumo-only). **Status**: 🟡 R0 design-only.
+(Murakumo-only). **Status**: 🟡 R0+R1 (design + offline sim; live legs Council-gated).
 
 torifune ("鳥船" — from 天鳥船 Ame-no-Torifune, the Shinto heavenly bird-boat that flies to
 heaven) is the **船大工 of the sky**: the `funadaiku` / `sarutahiko` / `giemon-factory`

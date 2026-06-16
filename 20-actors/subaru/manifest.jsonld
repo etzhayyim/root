@@ -9,7 +9,7 @@
   "name": "subaru",
   "glyph": "昴",
   "purpose": "Transparent connectivity-commons satellite constellation — the charter-clean inversion of Starlink/OneWeb. Connectivity delivered as §1.16 Social Security in-kind (covenantal-universal, to the unconnected + disaster zones); cash≡0, no ads, no subscription, no surveillance. Operates spacecraft (unlike hoshimori which only observes), but ONLY Transparently. The payload torifune launches; observed by hoshimori for stewardship.",
-  "status": "R0-design-only",
+  "status": "R0+R1-design-and-sim",
   "tier": "B",
   "adr": "2606162355",
   "dependsOnAdr": ["2605192100", "2605302357", "2606073600", "2606162355", "2605181100", "2606051600", "2605312345", "2605215000"],
