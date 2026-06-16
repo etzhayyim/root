@@ -20,6 +20,7 @@
 
  ;; ── supersession / amendment / dependency graph ───────────────────────────
  :supersedes {"2605171300" "empty-stub generation policy (the 18k generated c<code>.py)"}
+ :amended-by {"2606161200" "D2 — single extracted kototama repo replaced by the 3-layer split (kotodama runtime / root unspsc actor / kotoba substrate)"}
  :amends     {"2605214000" "§3 — kotodama portion of the Step-8 atomic-cutover gate (split off; murakumo rename stays separate)"
               "2605262130" "kotoba submodule -> external dependency (substrate ROLE unchanged: still canonical engine)"}
  :depends-on ["2605262130" "2605214000" "2605215000" "2605171300" "2606011500"]

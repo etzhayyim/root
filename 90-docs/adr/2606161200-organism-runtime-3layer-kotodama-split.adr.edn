@@ -1,0 +1,70 @@
+;; ──────────────────────────────────────────────────────────────────────────
+;; ADR-2606161200 — organism runtime 3-layer split
+;;   kotodama runtime / root unspsc actor / kotoba substrate
+;; Machine-readable EDN projection; the canonical NARRATIVE is the sibling .md.
+;; Status: proposed — founder = Council Lv7+ 1/1 (PR review = Council attestation).
+;; supersedes ADR-2606131645 D2 (single extracted kototama repo).
+;; ──────────────────────────────────────────────────────────────────────────
+{:id        "2606161200"
+ :title     "organism runtime 3-layer split — kotodama runtime / root unspsc actor / kotoba substrate"
+ :status    :proposed
+ :date      #inst "2026-06-16"
+ :deciders  ["Jun Kawasaki (founder = Council Lv7+ 1/1)"]
+ :doc-type  :adr
+ :topic     :organism-runtime-3layer-kotodama-split
+ :authoritative true
+ :body-file "2606161200-organism-runtime-3layer-kotodama-split.md"
+
+ :amends     {"2606131645" "D2 — replaces 'extract kototama to a single standalone repo' with the 3-layer split (runtime + concrete + substrate). D1/D3/D5/D6 unchanged."}
+ :depends-on ["2606131645" "2605262130" "2605215000"]
+ :related    ["2606101200"]
+
+ ;; ── context — why ─────────────────────────────────────────────────────────
+ :context
+ {:problem "etzhayyim/kototama (ADR-2606131645) mixed a REUSABLE generic organism runtime with the UNSPSC-specific concrete impl in one repo, blurring the kotoba/root/kototama boundary."
+  :two-things {:runtime  "life (joucho/heartbeat/Stage-D prior-consensus) + validate→reason→emit graph + ReAct template — reusable by any actor family"
+               :concrete "capability (segment domain logic) + taxonomy (18,342-code data) + fleet — one actor, peer of the other root Tier-B actors"}}
+
+ ;; ── decision — D1..D5 ─────────────────────────────────────────────────────
+ :decision
+ {:D1 "Generic organism runtime = com-junkawasaki/kotodama (v0.1.0) — life + organism graph + ReAct, domain INJECTED via :validate/:emit. Sibling of langchain-clj/langgraph-clj; clj, WASM-compilable to run on kotoba."
+  :D2 "Concrete UNSPSC actor = etzhayyim/root 20-actors/unspsc — capability/taxonomy/fleet/data; references kotodama by git coord. A normal 20-actors actor. (REPLACES ADR-2606131645 D2 single-repo extraction.)"
+  :D3 "kotoba = pure Rust substrate, external dependency (ADR-2606131645 D3 kept). NO clj nested in a kotoba crate (avoids the kotoba-kotodama/py embedding lock). 'kototama is kotoba's runtime' is satisfied by WASM-on-kotoba, not by physical co-location."
+  :D4 "Retire the standalone etzhayyim/kototama repo (archive) + remove its top-monorepo submodule; content is split between kotodama (runtime) and root unspsc (concrete)."
+  :D5 :invariants}
+
+ :invariants
+ ["18,342 full coverage maintained" "every actor FUNCTIONAL (empty-stub forbidden)"
+  "DID did:web:etzhayyim.com:actor:c<code>" "Murakumo-only inference (ADR-2605215000)"
+  "kotoba Datom = canonical state (ADR-2605262130 / 2605312345)" "Apache-2.0 + Charter Rider"]
+
+ ;; ── consequences ──────────────────────────────────────────────────────────
+ :consequences
+ {:positive ["kotodama is a reusable organism runtime (ibuki etc. can adopt it)"
+             "UNSPSC becomes a normal root 20-actors actor — the kotoba/root/kototama ambiguity is gone"
+             "kotoba stays pure Rust (untouched)"
+             "layer boundaries = dependency direction (kotoba ◂ kotodama ◂ unspsc), git-coord decoupled"]
+  :risks ["a kotodama generic-API change ripples to downstream actors — mitigated by semver tags + parity tests"]}
+
+ ;; ── alternatives (rejected) ───────────────────────────────────────────────
+ :alternatives
+ [{:option "kotoba-kototama crate (clj nested in the kotoba Rust workspace)" :rejected "reintroduces the kotoba-kotodama/py embedding lock + maintenance friction (D3)"}
+  {:option "keep the kototama monolith repo (ADR-2606131645 as-is)" :rejected "runtime+concrete mix blurs the boundary — the motivation for this ADR"}
+  {:option "keep the concrete inside the kotodama runtime" :rejected "pollutes the runtime with UNSPSC, killing reuse"}]
+
+ ;; ── delivered — verification record (CLI reproducible) ─────────────────────
+ :delivered
+ {:kotodama "com-junkawasaki/kotodama v0.1.0 (802a04d) — kotodama.{life organism react}; 7 tests / 17 assertions green (domain-free mock actor)"
+  :unspsc   "etzhayyim/root 20-actors/unspsc (PR #1826) — kotodama runtime + capability 33/36 + taxonomy 18,342 + fleet; 39 tests / 212 assertions green"
+  :deps     "kotodama -> langgraph-clj v0.2.1 -> langchain-clj v0.1.1 (git coords); kaiyaku-style :dev override"}
+
+ ;; ── gated operator steps ──────────────────────────────────────────────────
+ :gated
+ {:kototama-retirement "remove the etzhayyim/kototama submodule from the top monorepo + archive the standalone repo (D4)"}
+
+ ;; ── references ────────────────────────────────────────────────────────────
+ :references
+ ["ADR-2606131645 (kotodama extraction — D2 replaced here; D1/D3/D5/D6 kept)"
+  "ADR-2605262130 / 2605312345 (kotoba substrate / Datom canonical state)"
+  "ADR-2605215000 §4 (Murakumo-only)" "ADR-2606101200 (ibuki organism reuse)"
+  "com-junkawasaki/kotodama (runtime) / etzhayyim/root 20-actors/unspsc (concrete) / langgraph-clj / langchain-clj"]}
