@@ -5,7 +5,7 @@ status: proposed-pending-council-ratification
 doc_type: adr
 topic: salinity-gradient-pro-red-open-membrane-d-gate-evaluation
 authoritative: true
-last_verified: 2026-05-26
+last_verified: 2026-06-16
 priority: 6.5
 axis: constitutional
 weight: 0.65
@@ -101,7 +101,7 @@ CapMix (capacitor mixing), reverse-flow nanofiltration, dialytic battery — R&D
 
 | Phase | Scope | Cap |
 |---|---|---|
-| **R0** | This ADR; path-reserved `20-actors/funamori/cells/salinity_gradient_pro_red/` import-time RuntimeError | None |
+| **R0** | This ADR; **LANDED 2026-06-16** as a runnable method — `20-actors/funamori/` actor instantiated: `methods/salinity_gradient.cljc` (PRO/RED physics + §1 gates as throwing `ex-info` assertions; 24 cljc tests / 57 assertions green via babashka), `kotoba/{schema,seed}.edn` (`:funamori.salinity.*` EAVT), 3 lexicons (§6), `manifest.edn` (12 gates). Physics validated vs the Table (PRO 2.1 W/m², RED ~1.2 W/m², seawater π≈29 bar). Design only — no hardware. | None |
 | **R1** | post-Council + ≥1 membrane-chemist on Council + Funamori R0 + mizuho R2 river-mouth attested LANDS-marine parcel | Bench ≤1 kW PRO OR ≤500 W RED single-stack pilot; open-membrane R&D + power-density characterization | 1 kW |
 | **R2** | post-R1 + 30-day public + power-density ≥1 W/m² demonstrated | ≤10 kW + ecosystem-impact baseline; PRO vs RED selection per §1.7 | 10 kW |
 | **R3** | post-R2 + Council Lv6+ ≥3 + 1-yr safe operation + Δsalinity site cert | Full §1 cap | 50 kW (1 site) |

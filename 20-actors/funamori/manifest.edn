@@ -1,0 +1,49 @@
+;; funamori 舫 — actor manifest (Gen-3 kotoba-native)
+;; 淡水化発電 / marine-renewable salinity-gradient power (PRO/RED, open-membrane R&D)
+;; ADR-2605265600 (sub-ADR of 2605264100 §4; closes the membrane-IP gap) · R0 · 2026-06-16
+{:actor/id        "funamori"
+ :actor/glyph     "舫"
+ :actor/tier      :tier-b
+ :actor/domain    "funamori.etzhayyim.com"
+ :actor/purpose   "Marine-renewable salinity-gradient power (淡水化発電) — generating electricity from the Gibbs free energy released when fresh river water mixes with seawater, via two open-membrane methods: PRO (pressure-retarded osmosis, fresh-water osmotic pull lifts brine pressure → turbine) and RED (reverse electrodialysis, salinity-driven ion flux across alternating cation/anion-exchange membranes → current). The `salinity_gradient` method models van't Hoff osmotic pressure, PRO water-flux/power-density (W=A·Δπ²/4 at ΔP=Δπ/2), RED Nernst stack EMF/power-density, and ENFORCES the ADR-2605265600 constitutional gates AS CODE: open-publication/in-house membrane mandatory, commercial proprietary membranes (Toray/Hydranautics/GE-Power/Statkraft) absolutely prohibited, PFAS (Nafion-class) prohibited, Δsalinity ≥30 g/L, power-density ≥1 W/m² R3 floor, ≤50 kW & ≤1 site through R3. Cross-actor: mizuho (river-mouth site + estuary attestation), hikari (microgrid integration), chigiri (estuarine regulatory)."
+ :actor/status    :r0
+ :actor/adr       "2605265600"
+ :actor/related   ["2605264100" "2605263100" "2605261100" "2605263500" "2605192330"]
+
+ :actor/charter-rider
+ {:rider/version "3.1"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "open-membrane-mandatory"   :gate/rule "Membrane chemistry MUST be religious-corp in-house OR open-publication-licensed (OpenMTA/Apache-2.0); enforced by assert-membrane-permitted (ADR-2605265600 §1.1 / D5)"}
+  {:gate/id "G2"  :gate/name "no-commercial-membrane"    :gate/rule "Toray/Hydranautics/GE-Power/Statkraft proprietary membranes ABSOLUTELY PROHIBITED; assert-membrane-permitted throws (§2 / D1)"}
+  {:gate/id "G3"  :gate/name "no-pfas-membrane"          :gate/rule "PFAS/Nafion-class perfluorinated membranes PROHIBITED (persistent pollutant; Charter §2(c) + §1.2)"}
+  {:gate/id "G4"  :gate/name "salinity-floor"            :gate/rule "Δsalinity ≥30 g/L required; brackish (≤15 g/L) DEFERRED to R4+; assert-salinity-difference throws (§1.4)"}
+  {:gate/id "G5"  :gate/name "power-density-floor"       :gate/rule "≥1 W/m² demonstrated before R3 scale-up; below = re-design or DEFER; assert-r3-power-density throws (§1.6)"}
+  {:gate/id "G6"  :gate/name "site-cap"                  :gate/rule "≤50 kW per site, ≤1 site religious-corp aggregate through R3; assert-site-cap / assert-site-count throw (§1.9 / parent §4)"}
+  {:gate/id "G7"  :gate/name "mizuho-attested-site"      :gate/rule "River-mouth site MUST be mizuho.waterSupplySourceRegistry attested + Council Lv6+ ≥3 estuarine baseline (§1.3)"}
+  {:gate/id "G8"  :gate/name "bidirectional-discharge"   :gate/rule "Mixed effluent discharged BACK to estuary at intermediate salinity (salinity-MIXING, small mixing zone; §1.8)"}
+  {:gate/id "G9"  :gate/name "murakumo-only"             :gate/rule "Inference is Murakumo-only (LiteLLM 127.0.0.1:4000); external LLM prohibited (ADR-2605215000)"}
+  {:gate/id "G10" :gate/name "kotoba-eavt-native"        :gate/rule "State is kotoba EAVT Datoms (:funamori.salinity.*); no SQL/RisingWave/Cypher"}
+  {:gate/id "G11" :gate/name "no-server-key"             :gate/rule "Platform holds no key; operator/robot signs. Methods are pure compute, build no real stack (R0 stops at design intent)"}
+  {:gate/id "G12" :gate/name "annual-review"             :gate/rule "silenSalinityGradientReview Council Lv6+ ≥3 per year (§1.10)"}]
+
+ :actor/methods
+ [{:method/id "salinity_gradient" :method/lang :clojure :method/pure true
+   :method/desc "淡水化発電 PRO/RED physics + Charter-gate core: van't Hoff osmotic pressure, PRO water-flux/optimal-pressure/max-power-density (A·Δπ²/4), RED Nernst cell-EMF/stack-EMF/internal-resistance/power-density (closed-form E²/8R), technology selection (PRO≥35 g/L / RED), and the constitutional gates as throwing assertions (membrane open-license, no-commercial, no-PFAS, Δsalinity≥30, power-density≥1, ≤50kW/≤1site) + evaluate-site integration."}]
+
+ :actor/cells []  ;; R0: no Pregel cells yet — R1 site_qualification / membrane_attestation / power_characterization (Murakumo-only)
+
+ :actor/lexicons
+ ["com.etzhayyim.funamori.salinityGradientMembraneAttestation"
+  "com.etzhayyim.funamori.salinityGradientSiteAttestation"
+  "com.etzhayyim.funamori.silenSalinityGradientReview"]
+
+ :actor/reference-design
+ {:technology #{:pro :red}
+  :pro/power-density-band-w-m2 [1.0 3.0]
+  :red/power-density-band-w-m2 [0.5 2.0]
+  :site/cap-kw 50
+  :site/max-count-through-r3 1
+  :salinity/min-diff-g-l 30
+  :reference-site "木曽川河口 (Kiso rivermouth, design-only)"}}
