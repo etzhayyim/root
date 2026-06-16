@@ -256,6 +256,7 @@
                       'kaiyaku.methods.test-datom-emit 'kadode.methods.test-datom-emit
                       'tanemaki.methods.test-datom-emit 'itonami.methods.test-datom-emit
                       'tsumugi.tests.test-banner
+                      'tsumugi.methods.test-analyze-scale
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
                       'mitooshi.methods.test-social 'mitooshi.methods.test-synthesize
                       'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-horizon
@@ -312,6 +313,7 @@
                                              'tanemaki.methods.test-datom-emit
                                              'itonami.methods.test-datom-emit
                                              'tsumugi.tests.test-banner
+                      'tsumugi.methods.test-analyze-scale
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
                                              'mitooshi.methods.test-social
