@@ -231,6 +231,9 @@
                       'kakaku.methods.test-kakaku-edn
                       'meisai.methods.test-kotoba
                       'niyaku.methods.test-stow-plan
+                      'silicon.methods.test-fab-flow
+                      'silicon.methods.test-wafer-handler
+                      'silicon.methods.test-lot-ledger
                       'tedai.methods.test-desktop
                       'karakuri.methods.test-command
                       'abaki.methods.test-live 'abaki.methods.test-analyze)
@@ -286,6 +289,9 @@
                                              'kakaku.methods.test-kakaku-edn
                                              'meisai.methods.test-kotoba
                                              'niyaku.methods.test-stow-plan
+                                             'silicon.methods.test-fab-flow
+                                             'silicon.methods.test-wafer-handler
+                                             'silicon.methods.test-lot-ledger
                                              'tedai.methods.test-desktop
                                              'karakuri.methods.test-command
                                              'abaki.methods.test-live
