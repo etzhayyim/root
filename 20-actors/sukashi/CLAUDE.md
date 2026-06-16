@@ -130,10 +130,14 @@ PERSIST a content-addressed transaction to the append-only **local** kotoba Dato
 `methods/kotoba.py`), linking the previous tx's CID into a verifiable commit-DAG. Deterministic /
 resume-safe; NO external I/O. Constitutional posture holds by construction: OBSERVATORY not an ad
 network (G2); every persisted fraud signal stays `:non-adjudicating true` + `:synthesized` (G4) —
-no real entity is implicated. Fleet cells: `sukashi_adsupply_ingest` (cron 42) +
-`sukashi_fraud_weave` (cron 47) on `issachar`, `sukashi_adsupply_persist` (cron 52) on `dan` —
-see `50-infra/murakumo/fleet.toml`. Live full-web crawl (`ingest.py` + `SUKASHI_OPERATOR_GATE`, G7)
-+ the live-node push (`transact.py`, G11) stay one human gate-flip away. Invariants guarded by
+no real entity is implicated. **Fleet placement** is the k3s spec `50-infra/murakumo/fleet.edn` (`sukashi_adsupply_ingest` /
+`sukashi_fraud_weave` / `sukashi_adsupply_persist`). The actually-running Tier-1 **launchd** daemon
+is registered in `50-infra/cluster/murakumo/cell-runner/cells.edn` as
+**`SukashiObservatoryHeartbeatCell`** (module `sukashi.cell`, entry `fire`, node `issachar`, cron
+`42 * * * *`, healthz 13081) — installed per-node via `cell-runner/install.sh --node issachar`
+(the actual launchd load is the operator step). `cell.py::fire()` runs ONE offline heartbeat
+(`autorun.run_cycle`). The worldwide **crawl** (`methods/crawl.py` + `SUKASHI_OPERATOR_GATE`, G7)
+and the live-node push (`transact.py`, G11) stay separate operator-gated invocations. Invariants guarded by
 `methods/test_autorun.py` (commit-DAG verify, tamper-detect, determinism, append-only,
 derived-flagging, **G4 fraud-signals-non-adjudicating**, no-external-I/O).
 
