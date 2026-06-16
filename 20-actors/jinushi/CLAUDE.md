@@ -126,10 +126,13 @@ bad-data areas dropped (disclosed). Each snapshot is **content-addressed to a CI
 
 jinushi extends from land-AREA coverage to per-BUILDING ownership: who owns which building, how
 many floors, and — via the owner's **LEI (P1278)** / Wikidata QID — the **bridge to the corporate
-KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). First slice
-(`wikidata-buildings.kotoba.edn`): 600 buildings · 123 owner legal entities · 31 LEI links;
-building-取-concentration HHI 799 (e.g. Irish Rail 124, Bane NOR 95). Emitted as a KG Datom log
-(`:building/*` nodes + `:building/owner` edges + `:owner.org/{wikidata,lei,label}`).
+KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). Current slice (`wikidata-buildings.kotoba.edn`, two polite country-bound fetches): **562
+buildings · 4 countries (CA/IE/JP/NO) · 178 owners · 42 LEI links · 1 natural-person owner**;
+building-取-concentration HHI 571 — Bane NOR 90, Irish Rail 64, **East Japan Railway 58, Tokyo
+Metro 31, JR Central 16, JR West 13** (rail operators own the most buildings = stations). Emitted
+as a KG Datom log (`:building/*` nodes + `:building/owner` edges + `:owner.org/{wikidata,lei,label}`).
+The single `:natural-person` owner demonstrates the reframed gate in action: a public-registry
+natural-person owner is represented, not excluded.
 
 **Reframed gate (the charter does NOT ban personal data).** Land/building ownership is PUBLIC
 RECORD. The constitution bans **asymmetric or monetized** surveillance (Rider v3.1 §2(c)
