@@ -37,7 +37,8 @@ GATES enforced here:
 
 stdlib only. Usage:
     python3 ingest.py                 # offline: merge data/ingest/*.json (if any) + seed
-    UCHIWAKE_OPERATOR_GATE=1 python3 ingest.py --live   # G7 (refuses unless gated)
+    UCHIWAKE_OPERATOR_GATE=1 python3 ingest.py --live --gtin 3017620422003   # G7: live OFF fetch
+    UCHIWAKE_OPERATOR_GATE=1 python3 ingest.py --live                        # G7 (no GTIN → offline)
 """
 from __future__ import annotations
 import sys
@@ -110,16 +111,77 @@ def bridge_offline():
     return seed_rows, bridged
 
 
+# ── live OFF fetch leg (G7-gated, single polite request per explicit GTIN) ────
+OFF_API = "https://world.openfoodfacts.org/api/v2/product/{gtin}.json"
+OFF_FIELDS = "code,product_name,brands,countries_tags,ingredients"
+OFF_UA = "etzhayyim-uchiwake research (jun@etzhayyim.group)"
+LIVE_FILE = INGEST_DIR / "openfoodfacts.live.json"
+
+
+def fetch_off(gtin: str) -> dict:
+    """LIVE Open Food Facts product fetch — G7-gated, single polite request.
+
+    Mirrors kanjō's `--fetch-edgar CIK` discipline: an EXPLICIT GTIN is required (never an
+    auto-discovery scrape loop), the GS1 mod-10 check digit is validated BEFORE any network
+    call (G5), and the only gate is `UCHIWAKE_OPERATOR_GATE=1` (Council + operator). OFF is
+    CC-BY-SA crowd-sourced, so the resulting datoms stay :representative (G5). Read-only — no
+    GS1/GLEIF/OFF write credential is ever held (G12).
+    """
+    if os.environ.get('UCHIWAKE_OPERATOR_GATE') != '1':
+        sys.exit("REFUSED (G7): live OFF fetch requires UCHIWAKE_OPERATOR_GATE=1 + Council. "
+                 "Offline mode bridges data/ingest/*.json.")
+    digits = ''.join(c for c in str(gtin) if c.isdigit())
+    if not gtin_check_digit_ok(digits):
+        sys.exit(f"REFUSED (G5): {gtin} fails the GS1 mod-10 check digit; not a valid GTIN.")
+    import urllib.request  # imported inside the gated path — autorun/kotoba stay I/O-free (G7)
+    url = OFF_API.format(gtin=digits) + "?fields=" + OFF_FIELDS
+    req = urllib.request.Request(url, headers={"User-Agent": OFF_UA})
+    with urllib.request.urlopen(req, timeout=30) as r:        # noqa: S310 (https, validated host)
+        obj = json.load(r)
+    if obj.get("status") != 1 or not isinstance(obj.get("product"), dict):
+        sys.exit(f"OFF has no product record for GTIN {digits}.")
+    prod = obj["product"]
+    prod.setdefault("code", digits)
+    return prod
+
+
+def _save_live_record(prod: dict) -> int:
+    """Append one fetched OFF record into data/ingest/openfoodfacts.live.json (dedup by code),
+    so the existing offline bridge normalizes + GTIN-validates + merges it (seed wins). Returns
+    the number of records now in the live file."""
+    INGEST_DIR.mkdir(parents=True, exist_ok=True)
+    existing = []
+    if LIVE_FILE.exists():
+        doc = json.loads(LIVE_FILE.read_text(encoding='utf-8'))
+        existing = doc.get("products", doc) if isinstance(doc, dict) else doc
+    by_code = {str(r.get("code")): r for r in existing if isinstance(r, dict)}
+    by_code[str(prod.get("code"))] = prod
+    records = list(by_code.values())
+    LIVE_FILE.write_text(json.dumps({"products": records}, ensure_ascii=False, indent=1),
+                         encoding='utf-8')
+    return len(records)
+
+
 def main(argv):
     live = '--live' in argv
+    gtin = None
+    if '--gtin' in argv:
+        gtin = argv[argv.index('--gtin') + 1]
     if live and os.environ.get('UCHIWAKE_OPERATOR_GATE') != '1':
-        print("REFUSED (G7): live full-universe GS1/GLEIF ingest requires "
-              "UCHIWAKE_OPERATOR_GATE=1 + Council authorization. Running offline instead.",
-              file=sys.stderr)
+        print("REFUSED (G7): live GS1/GLEIF/OFF ingest requires UCHIWAKE_OPERATOR_GATE=1 + "
+              "Council authorization. Running offline instead.", file=sys.stderr)
         live = False
-    if live:
-        print("G7 gate satisfied — live ingest would run here (GS1 GDSN / GLEIF RR / "
-              "Open Product Data). Not wired in R0; falling back to offline bridge.", file=sys.stderr)
+    if live and gtin:
+        # WIRED: a single polite OFF fetch for one explicit GTIN, then normalize+merge offline.
+        prod = fetch_off(gtin)
+        n = _save_live_record(prod)
+        print(f"G7 gate satisfied — fetched OFF GTIN {gtin}: "
+              f"\"{prod.get('product_name') or '(unnamed)'}\" "
+              f"→ {LIVE_FILE.name} ({n} live record{'s' if n != 1 else ''})", file=sys.stderr)
+    elif live:
+        print("G7 gate satisfied, but no --gtin given. The full GS1 GDSN / GLEIF RR universe "
+              "fetch is Council-scoped; the wired live leg fetches ONE explicit --gtin from "
+              "Open Food Facts. Falling back to the offline bridge.", file=sys.stderr)
 
     seed_rows, bridged = bridge_offline()
     g = classify(seed_rows)
