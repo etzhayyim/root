@@ -25482,6 +25482,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606161830-ugachi-busshi-grounding-bridge.md",
+      "id": "adr-2606161830-ugachi-busshi-grounding-bridge",
+      "title": "ADR-2606161830: ugachi × busshi grounding bridge — the §2(l) gate's monopoly-effect grounded in observed concentration (Wave 2)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ugachi-busshi-grounding-bridge",
+      "authoritative": true,
+      "authoritative_for": [
+        "the ugachi→busshi grounding bridge (monopoly-effect from observed concentration)",
+        "the corroborate/downgrade/never-fabricate grounding rule"
+      ],
+      "related": [
+        "adr-2606161700-multigenerational-extraction-risk-gate"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606161800-ugachi-extraction-risk-gate",
+        "adr-2606161730-busshi-commodity-materials-observatory"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

@@ -5,6 +5,7 @@ cd "$(dirname "$0")/../.."   # → repo root (classpath base = 20-actors)
 SUITES=(
   "20-actors/ugachi/methods/test_ugachi_edn.cljc"
   "20-actors/ugachi/methods/test_gate.cljc"
+  "20-actors/ugachi/methods/test_bridge.cljc"
 )
 fail=0
 for s in "${SUITES[@]}"; do
