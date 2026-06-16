@@ -8535,10 +8535,9 @@
       ],
       "related": [
         "doc:wellbecoming-karma-lean-proofs",
-        "doc:wellbecoming-karma-lean-proofs",
-        "doc:wellbecoming-karma-lean-proofs",
-        "doc:wellbecoming-karma-lean-proofs"
+        "doc:adr-2606161700-multigenerational-extraction-risk-gate"
       ],
+      "amendedBy": "doc:adr-2606161700-multigenerational-extraction-risk-gate",
       "lastVerified": "2026-05-25"
     },
     {
@@ -16045,6 +16044,22 @@
         "20-actors/sukashi/deploy"
       ],
       "related": "doc:2606131800",
+      "lastVerified": "2026-06-16"
+    },
+    {
+      "id": "doc:adr-2606161700-multigenerational-extraction-risk-gate",
+      "type": "TechArticle",
+      "title": "ADR-2606161700: Multi-generational (子・孫) × Wellbecoming risk-assessment axis for resource extraction — reframing the blanket mining ban (Charter Rider §2(l)) as a multi-gen harm gate; Rider v3.2",
+      "status": "accepted",
+      "topic": "multigenerational-extraction-risk-gate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "canonical framing of resource extraction / mining under the Charter (risk-gate, NOT blanket ban)",
+        "Charter Compliance Rider §2(l) reframe + version bump to v3.2",
+        "the multi-generational (子・孫) × wellbecoming risk-assessment axis as the test for extractive activity",
+        "kanayama N1 reframe (recycling-first by preference, not extraction-forbidden by constitution)"
+      ],
+      "related": "doc:adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0",
       "lastVerified": "2026-06-16"
     },
     {

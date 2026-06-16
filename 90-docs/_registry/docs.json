@@ -12705,12 +12705,13 @@
       ],
       "related": [
         "wellbecoming-karma-lean-proofs",
-        "wellbecoming-karma-lean-proofs",
-        "wellbecoming-karma-lean-proofs",
-        "wellbecoming-karma-lean-proofs"
+        "adr-2606161700-multigenerational-extraction-risk-gate"
       ],
       "supersedes": [],
       "superseded_by": [],
+      "amended_by": [
+        "adr-2606161700-multigenerational-extraction-risk-gate"
+      ],
       "depends_on": [
         "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
         "adr-2605242000-roso-pattern-frontier-distill",
@@ -12727,8 +12728,7 @@
         "2605191524-ameno-multi-tab-swarm-broadcast"
       ],
       "last_verified": "2026-05-25",
-      "amends": [],
-      "amended_by": []
+      "amends": []
     },
     {
       "path": "90-docs/adr/2605252500-sarutahiko-heavy-truck-manufacturing-r0.md",
@@ -25381,6 +25381,37 @@
         "2605312345",
         "2605215000",
         "2606121225"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606161700-multigenerational-extraction-risk-gate-not-blanket-mining-ban.md",
+      "id": "adr-2606161700-multigenerational-extraction-risk-gate",
+      "title": "ADR-2606161700: Multi-generational (子・孫) × Wellbecoming risk-assessment axis for resource extraction — reframing the blanket mining ban (Charter Rider §2(l)) as a multi-gen harm gate; Rider v3.2",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "multigenerational-extraction-risk-gate",
+      "authoritative": true,
+      "authoritative_for": [
+        "canonical framing of resource extraction / mining under the Charter (risk-gate, NOT blanket ban)",
+        "Charter Compliance Rider §2(l) reframe + version bump to v3.2",
+        "the multi-generational (子・孫) × wellbecoming risk-assessment axis as the test for extractive activity",
+        "kanayama N1 reframe (recycling-first by preference, not extraction-forbidden by constitution)"
+      ],
+      "related": [
+        "adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2606062100-charter-priority-over-specifics-3-tier",
+        "adr-2606082400-charter-rider-reciprocity-axis-v3-1",
+        "adr-2605252400-kanayama-circular-metallurgy-r0",
+        "adr-2606051500-kamado-closed-loop-carbon-refining"
       ],
       "last_verified": "2026-06-16",
       "amends": [],
