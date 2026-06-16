@@ -1,0 +1,186 @@
+{
+  "unit-map" : {
+    "Q712226" : "km2=1000000.0",
+    "Q935614" : "rai=1600.0",
+    "Q25343" : "m2=1.0",
+    "Q216795" : "dunam=1000.0",
+    "Q81292" : "acre=4046.8564224",
+    "Q1399890" : "feddan=4200.8334",
+    "Q35852" : "hectare=10000.0",
+    "Q3396758" : "decare=1000.0",
+    "Q232291" : "sq-mile=2589988.110336"
+  },
+  "load-discipline" : "WDQS via methods/fetch_wdqs.sh only (polite/LIMIT<=800); loop re-ingests committed snapshots with zero network I/O",
+  "sources" : [ {
+    "cidv1" : "bafkreifs2u5dprlpslaulcnx34x5nmytg2gxvefd5kkeo7uj2koxfwos4q",
+    "dropped-unknown-unit" : 0,
+    "countries" : 85,
+    "records" : 1859,
+    "class" : "Q46169 national park",
+    "dropped-nonpositive" : 8,
+    "sha256" : "b2d53a37c56f92c14589b7df2fd6b313368d7a90a3ea94477e89d29d72d9d2e4",
+    "source-id" : "wikidata-national-parks",
+    "artifact" : "wikidata-national-parks.kotoba.edn",
+    "counts-toward-world-coverage" : true
+  }, {
+    "cidv1" : "bafkreih2o3opnhi5hvapi35u56aatoxl5sim2mg4i75lnxku5w6ymst72e",
+    "dropped-unknown-unit" : 0,
+    "countries" : 3,
+    "records" : 497,
+    "class" : "Q179049 nature reserve",
+    "dropped-nonpositive" : 0,
+    "sha256" : "fa76dcf69d1d3d40f46fb4ef8009baebec90cd30dc47fab6dd54edbd864a7fd1",
+    "source-id" : "wikidata-nature-reserves",
+    "artifact" : "wikidata-nature-reserves.kotoba.edn",
+    "counts-toward-world-coverage" : false
+  } ],
+  "process" : "methods/normalize_wdqs.cljc (raw *.raw.json → snapshots); methods/ingest.cljc sanitize (drop parcels > country area, G4)",
+  "sanitize" : {
+    "rule" : "drop parcels whose area > their country total area (impossible — P2046 unit errors / marine megaparks)",
+    "dropped" : 5,
+    "dropped-detail" : [ {
+      "cc" : "NO",
+      "area-km2" : 1818110.39
+    }, {
+      "cc" : "HR",
+      "area-km2" : 972000.0
+    }, {
+      "cc" : "PY",
+      "area-km2" : 514233.0
+    }, {
+      "cc" : "KR",
+      "area-km2" : 274541.0
+    }, {
+      "cc" : "KR",
+      "area-km2" : 154644.0
+    } ],
+    "note" : "coverage corrected 6.67% (raw) → 4.17% (sanitized). Even sanitized coverage is an UPPER BOUND: marine parks below country area + overlapping parks are not geometry-de-duped yet."
+  },
+  "adr" : "ADR-2605241500 (datalad + git-annex → IPFS substrate); processed artifacts committed in 80-data (genome convention)",
+  "pin" : {
+    "status" : "operator-step",
+    "how" : "e7m-dataset add 80-data/jinushi-land -> superdataset 90-docs/baien/datasets; not auto-run"
+  },
+  "ingest-id" : "jinushi-land-wdqs-r2",
+  "coverage-policy" : "world coverage sums ONLY counts-toward sources, SANITIZED; nature reserves observed-only; non-positive + over-country parcels dropped (G2/G4)",
+  "derived" : {
+    "artifact" : "jinushi-land-datoms.kotoba.edn",
+    "what" : "canonical EAVT Datom log of the SANITIZED counting dataset (gitignored; regenerable)",
+    "sha256" : "de540c4281a02f912f50bb594e591aa55679c19f9d747c6f52b9932f1c03cda5",
+    "cidv1" : "bafkreig6kqgefanaf6is6uf3lfhfsgvfkz44dh45or6g6uvzsmxrya6nuu"
+  },
+  "building-ownership" : {
+    "layer" : "building-level ownership KG + floors/height + company linkage (methods/buildings.cljc)",
+    "gate" : "PUBLIC-RECORD + SYMMETRIC (相互監視, ADR-2606082400); map-not-target; non-monetized; per-jurisdiction bulk-ingestion gated",
+    "countries" : [ "AZ", "CA", "DK", "EE", "FI", "FR", "GB", "HR", "HU", "IE", "IL", "JP", "KE", "LU", "MC", "NO", "PL", "UA", "US" ],
+    "vertical-concentration" : "top owners by total FLOORS controlled (ビルのフロア): Mitsui Fudosan/Mitsubishi Estate/Oxford Properties/JR Central — real-estate developers, distinct from building-count leaders (rail)",
+    "snapshot" : {
+      "cidv1" : "bafkreih5sexq6qguxreiqvjglxib3xpt6mcu4clujzp23o6x2gmpp7vtm4",
+      "owners" : 1389,
+      "with-floors" : 722,
+      "buildings" : 2405,
+      "natural-person-owners" : 313,
+      "lei-links" : 221,
+      "sha256" : "fd912f0f40d4bc488855265dd01dddf3f3054e09744e5fadbbd7d198f7feb367",
+      "artifact" : "wikidata-buildings.kotoba.edn",
+      "with-height" : 168
+    },
+    "datom-log" : {
+      "artifact" : "building-ownership-datoms.kotoba.edn",
+      "gitignored" : true,
+      "sha256" : "43929de35fd475ec65de1c76565566b55920db24e9e7e04be8dc65c7f1e43168",
+      "cidv1" : "bafkreicdsko6gx6uoxwglxq4ozlfkzvvleqnwjhj47qex2g4mxd7dzbrna"
+    }
+  },
+  "denominator" : {
+    "artifact" : "country-areas.kotoba.edn",
+    "class" : "Q6256 country · P2046 area (km², max per ISO-2; approximate — may include water/territories)",
+    "countries" : 203,
+    "sha256" : "7d9b7f51efcb02d9319befef3e55ec02d2c546b70117fda279d14b8e8e99d36c",
+    "cidv1" : "bafkreid5tn7vd36lalmtdg7p547fl3ac2lcunnybc762e6orjohi5gotnq"
+  },
+  "cid-scheme" : "CIDv1 raw(0x55)/sha2-256, multibase base32 (bafkrei…)",
+  "verify" : "methods/verify.cljc re-derives each artifact CID+sha256 vs this file",
+  "fetched-at" : "2026-06-16",
+  "company-linkage" : {
+    "layer" : "authoritative company linkage (methods/company_link.cljc): owner LEI → GLEIF → kabuto/uchiwake/kanjō; QID → keizu/tsumugi",
+    "source" : "GLEIF api.gleif.org (public; legal entities only)",
+    "coverage" : {
+      "owners-total" : 1339,
+      "owners-with-lei" : 221,
+      "owners-gleif-linked" : 221,
+      "buildings-linked" : 690,
+      "by-jurisdiction" : {
+        "AT" : 2,
+        "BE" : 1,
+        "BM" : 2,
+        "CA" : 3,
+        "CA-BC" : 1,
+        "CA-NL" : 1,
+        "CA-ON" : 2,
+        "CA-QC" : 3,
+        "CH" : 1,
+        "CZ" : 1,
+        "DE" : 1,
+        "DK" : 3,
+        "ES" : 1,
+        "FI" : 5,
+        "FR" : 14,
+        "GB" : 23,
+        "IE" : 2,
+        "IL" : 3,
+        "IT" : 3,
+        "JP" : 25,
+        "LU" : 1,
+        "NO" : 14,
+        "PL" : 5,
+        "SA" : 1,
+        "US" : 2,
+        "US-AL" : 1,
+        "US-AR" : 2,
+        "US-CA" : 6,
+        "US-CT" : 3,
+        "US-DC" : 3,
+        "US-DE" : 23,
+        "US-FL" : 4,
+        "US-GA" : 1,
+        "US-IL" : 3,
+        "US-IN" : 2,
+        "US-KY" : 1,
+        "US-LA" : 1,
+        "US-MA" : 6,
+        "US-MD" : 2,
+        "US-MI" : 3,
+        "US-MN" : 3,
+        "US-MO" : 1,
+        "US-NC" : 2,
+        "US-NJ" : 2,
+        "US-NV" : 2,
+        "US-NY" : 10,
+        "US-OH" : 4,
+        "US-OK" : 1,
+        "US-OR" : 1,
+        "US-PA" : 3,
+        "US-RI" : 1,
+        "US-TN" : 2,
+        "US-TX" : 2,
+        "US-UT" : 2,
+        "US-WA" : 3,
+        "US-WI" : 1
+      }
+    },
+    "reference" : {
+      "artifact" : "gleif-companies.kotoba.edn",
+      "companies" : 221,
+      "sha256" : "605147cddf4d3c1485f26bcb38b49408ff6b46f963e2293e448fb2416fb3b73a",
+      "cidv1" : "bafkreidakfd43x2nhqkil4tlzm4ljfai75vun6ld4iut4repwjaw7m5xhi"
+    },
+    "datom-log" : {
+      "artifact" : "company-link-datoms.kotoba.edn",
+      "gitignored" : true,
+      "sha256" : "0425aea021d76eaa3e45e9fe549dc9998da7f5b383f40f196ca06de59e35b8a0",
+      "cidv1" : "bafkreiaeewxkaioxn2vd4rpj7zkj3smzrwt7lm4d6qhrs3fanxsz4nnyua"
+    }
+  },
+  "endpoint" : "https://query.wikidata.org/sparql"
+}
