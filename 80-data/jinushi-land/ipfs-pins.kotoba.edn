@@ -1,13 +1,13 @@
-;; jinushi 地主 — IPFS pin manifest (real CIDs, locally pinned via ipfs add -r). GENERATED.
+;; jinushi 地主 — IPFS pin manifest (real CIDs, ipfs add -r). GENERATED.
 {:dataset-id "ipfs-pins",
  :pinned-at "2026-06-16",
  :ipfs-version "0.41.0",
  :cid-version 1,
  :pin-type "recursive (local node)",
  :note
- "Real IPFS pins of every committed jinushi-land artifact. Single-block files use raw codec (bafkrei…, == methods/cid.cljc CIDv1); multi-block use dag-pb (bafybei…). Local-node pin; public availability = connect daemon to peers / remote pinning service (operator).",
+ "Real IPFS pins of every committed jinushi-land artifact. Single-block→raw bafkrei (==methods/cid.cljc); multi-block→dag-pb bafybei. Local-node pin; public = peer/remote-pin (operator).",
  :directory-cid
- "bafybeieg7zfhc7brk3rfjd5wud2afjqogfnoxefy5uptyigc2pnro6lgzi",
+ "bafybeihrzixhxseapey37hjlmkhvzgdfg5b3iiw5miqto2dje6kpl5dvai",
  :file-cids
  {"building-ownership-datoms.kotoba.edn"
   "bafybeib2pgpzq6ffw4sd34mjudk6ov2lewql23x74wpjtronsfet3bwtxy",
@@ -34,7 +34,11 @@
   "gleif-resolution.raw.edn"
   "bafkreidtsmne6pce7ufkbkhgmxvfrzu6wmbwqdelnk6a2e4wv7qz5esqae",
   "ingest-provenance.json"
-  "bafkreiafr37nc53iotby6xc575labdtgreskduni6c3pbw2iaqe7fd76my",
+  "bafkreif4cik6msrqmxfrayvpainjwqqdhgkq6ozptlzxutb5n2jfzmxxw4",
+  "ipfs-pins.kotoba.edn"
+  "bafkreibog3ttgx23usfnlgybyuz5lgdge3ear3ld5tsnw6djkecdngdgrq",
+  "jinushi-digest.md"
+  "bafkreihl5axkqqxnjyere46yfyq3ycgm4erlpyhiylb6a365gywuz6ppsq",
   "jinushi-land-datoms.kotoba.edn"
   "bafybeifkge34rvg6rgp5ww2eoirht75qjpjov324hvminz55yo2mealple",
   "national-parks-major.raw.json"
@@ -49,10 +53,12 @@
   "bafkreid5jcpgzdesd74icpijvxc73id6xtcnxfvrhn6em56qk274bj33hi",
   "nature-reserves.raw.json"
   "bafkreidrebb2ogaqoitfcc75mpeodiu7w6nceeeuk7fe2q4uv5foi3opiu",
+  "nyc-pluto-asof-diff.kotoba.edn"
+  "bafkreig73bqqu4xfcfjveuxklg26truko2cdgcv4k65o2qk6nzir2d4ugm",
   "nyc-pluto-parcels.kotoba.edn"
-  "bafkreifxhobwqo2xqysthla7zxczdwl7v42jrv2znfujixnd7dm2gvwp7y",
+  "bafybeiavohw7dtnysugrdzlmhxd6vpf7rcddlkkktn5xy7xsiyhxjfynee",
   "nyc-pluto.raw.json"
-  "bafkreib4b5ojya7mmjyhg5js6tsakjukxedy7swwjwopb2fq5wukfpfwsy",
+  "bafybeid3lym6bp2ssmzzwpdgmpw6ctkjacxe3k3bhhrjuvww6rpohnhdvy",
   "osm-buildings.kotoba.edn"
   "bafkreie3eoywwbxm4xsv3a7x353qnl37kohkxg3xvz7g7vqw345ymerehu",
   "osm-tokyo.raw.json"

@@ -50,7 +50,7 @@
 
 (deftest test-analyze
   (let [a (p/analyze* (:records (snap)))]
-    (is (= 1000 (:parcels a)) "sample size")
+    (is (>= (:parcels a) 1000) "sample size")
     (is (pos? (get-in a [:owner-types :natural-person])) "natural persons counted")
     (is (pos? (get-in a [:owner-types :org])) "orgs counted")
     (is (seq (:top-org-owners a)) "top org owners ranked + named")))

@@ -1,0 +1,15 @@
+;; jinushi 地主 — as-of DIFF of the PLUTO re-ingest (diff.cljc on real data). GENERATED.
+{:dataset-id "nyc-pluto-asof-diff",
+ :as-of "2026-06-16",
+ :keyed-on :parcel/id,
+ :note
+ "as-of delta of the NYC PLUTO re-ingest (1000 → 2000). Demonstrates methods/diff.cljc on real data; feeds the append-only Datom log (Wellbecoming = trajectory).",
+ :counts {:old 1000, :new 2000, :added 1000, :removed 0, :changed 0},
+ :unchanged 1000,
+ :added-sample
+ ["2024280004.00000000"
+  "2024280006.00000000"
+  "2024280009.00000000"
+  "2024280012.00000000"
+  "2024280015.00000000"],
+ :changed-sample []}

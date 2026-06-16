@@ -37,20 +37,24 @@
   "nyc-pluto" : {
     "license" : "public domain (NYC Open Data)",
     "jurisdiction" : "US-NY (bulk-public per jurisdiction.cljc → natural-person ingest permitted)",
+    "as-of-diff" : {
+      "artifact" : "nyc-pluto-asof-diff.kotoba.edn",
+      "note" : "1000→2000 re-ingest delta via diff.cljc (+1000 added, 0 changed)"
+    },
     "source" : "NYC PLUTO via Socrata SODA (data.cityofnewyork.us)",
     "sample" : "Socrata $limit=1000 (full PLUTO ~860k lots = operator/datalad step)",
     "reference" : {
       "artifact" : "nyc-pluto-parcels.kotoba.edn",
-      "sha256" : "b73b83683b57862533ac1fcdc591d97faf3498d7596968945da3f8d9a356cffe",
-      "cidv1" : "bafkreifxhobwqo2xqysthla7zxczdwl7v42jrv2znfujixnd7dm2gvwp7y"
+      "sha256" : "0ce7c8f6f0bc3af8411f06e84123e034cf341572b127548dee9c87db31fcdfa4",
+      "cidv1" : "bafkreiam47epn4f4hl4echyg5bashybuz42bk4vre5ki33u4q7ntd7g7uq"
     },
     "layer" : "government open-data cadastre beyond WDQS (methods/nyc_pluto.cljc)",
     "owner-types" : {
-      "natural-person" : 775,
-      "org" : 225
+      "natural-person" : 1532,
+      "org" : 468
     },
     "publish-prudence" : "legal entities NAMED; natural persons ANONYMIZED (sha256-prefix); no coordinates (G1)",
-    "parcels" : 1000
+    "parcels" : 2000
   },
   "process" : "methods/normalize_wdqs.cljc (raw *.raw.json → snapshots); methods/ingest.cljc sanitize (drop parcels > country area, G4)",
   "sanitize" : {
@@ -97,12 +101,13 @@
   },
   "ipfs" : {
     "status" : "pinned (real, local IPFS node, ipfs 0.41.0)",
-    "directory-cid" : "bafybeieg7zfhc7brk3rfjd5wud2afjqogfnoxefy5uptyigc2pnro6lgzi",
+    "directory-cid" : "bafybeihrzixhxseapey37hjlmkhvzgdfg5b3iiw5miqto2dje6kpl5dvai",
     "file-count" : 28,
     "manifest" : "ipfs-pins.kotoba.edn (dir CID + per-file CIDs)",
     "cid-scheme" : "ipfs add --cid-version=1: single-block→raw bafkrei (== methods/cid.cljc, verified MATCH); multi-block→dag-pb bafybei",
     "public-availability" : "local-node pin; for public retrieval connect the daemon to peers or push to a remote pinning service (operator)",
-    "datalad" : "working copies git-committed (mergeable PR, tests run on repo state); a formal DataLad dataset/subdataset + IPFS special remote is the operator step (e7m-dataset add → superdataset 90-docs/baien/datasets) and is intentionally NOT a parent submodule here (would break parent tests/clone). Content-addressing is ipfs-compatible so a datalad IPFS-remote can `datalad get` these CIDs."
+    "datalad" : "working copies git-committed (mergeable PR, tests run on repo state); a formal DataLad dataset/subdataset + IPFS special remote is the operator step (e7m-dataset add → superdataset 90-docs/baien/datasets) and is intentionally NOT a parent submodule here (would break parent tests/clone). Content-addressing is ipfs-compatible so a datalad IPFS-remote can `datalad get` these CIDs.",
+    "repinned" : "2026-06-16 (after PLUTO 1000→2000)"
   },
   "ingest-id" : "jinushi-land-wdqs-r2",
   "coverage-policy" : "world coverage sums ONLY counts-toward sources, SANITIZED; nature reserves observed-only; non-positive + over-country parcels dropped (G2/G4)",
