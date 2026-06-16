@@ -1,39 +1,48 @@
-{:coverage_policy
- "world coverage sums ONLY :counts-toward-world-coverage sources; nature reserves overlap the national-park countries (NO/IE/CA) so they are observed-only (no geometry de-dup yet) — never summed (G2/G4 honesty)",
+{:cid_scheme
+ "CIDv1 raw(0x55)/sha2-256, multibase base32 (bafkrei…) — single-block content hash; dag-pb/UnixFS parity is a future leg",
+ :coverage_policy
+ "world coverage sums ONLY :counts-toward-world-coverage sources; nature reserves overlap national-park countries (NO/IE/CA), observed-only — never summed (G2/G4); non-positive (bad-data) areas dropped",
  :ingest_id "jinushi-land-wdqs-r2",
  :sources
- [{:source-id "wikidata-national-parks",
+ [{:cidv1
+   "bafkreihwnr6apdoc2fc4edvjr2sxbgaffqgnr5kex7mfera6sotndghx6a",
+   :dropped_nonpositive 4,
+   :countries 35,
+   :records 1075,
    :class "Q46169 national park",
-   :counts_toward_world_coverage true,
-   :records 294,
-   :countries 26,
-   :dropped_unknown_unit 0,
+   :sha256
+   "f66c7c078dc2d145c20ea98ea57098052c0cd8f544bfd852441e93a6d198f7f0",
+   :source-id "wikidata-national-parks",
    :artifact "wikidata-national-parks.kotoba.edn",
-   :sha256
-   "ba618573b4fa470252f79b77fc30bb406f624e697c1178e0b5fe9259b8e128de"}
-  {:source-id "wikidata-nature-reserves",
-   :class "Q179049 nature reserve",
-   :counts_toward_world_coverage false,
-   :records 499,
-   :countries 3,
    :dropped_unknown_unit 0,
-   :artifact "wikidata-nature-reserves.kotoba.edn",
+   :counts_toward_world_coverage true}
+  {:cidv1
+   "bafkreib3qagwtvtjoowdqm5daoak4j34kbxjcaulvb4fgaflonqfkcbdyq",
+   :dropped_nonpositive 0,
+   :countries 3,
+   :records 497,
+   :class "Q179049 nature reserve",
    :sha256
-   "d18cfbaaa0a1964d9a6dc55437d8e8ca2388b5ecd775d533787bc680e9e457d7"}],
+   "3b800d69d66973ac3833a30380ae277c506e91028ba8785300ab7360550823c4",
+   :source-id "wikidata-nature-reserves",
+   :artifact "wikidata-nature-reserves.kotoba.edn",
+   :dropped_unknown_unit 0,
+   :counts_toward_world_coverage false}],
  :adr
  "ADR-2605241500 (datalad + git-annex → IPFS substrate); processed artifacts committed in 80-data (genome convention)",
  :pin
  {:status "operator-step",
   :how
-  "e7m-dataset add 80-data/jinushi-land → DataLad superdataset 90-docs/baien/datasets (git-annex local-store → IPFS CID map → PDS datasetPin); not auto-run"},
+  "e7m-dataset add 80-data/jinushi-land → DataLad superdataset 90-docs/baien/datasets (git-annex → IPFS CID map → PDS datasetPin); not auto-run"},
  :load_discipline
- "WDQS queried only by methods/fetch_wdqs.sh (explicit/polite/LIMIT≤800/one attempt); the loop re-ingests these committed snapshots with zero network I/O",
+ "WDQS queried only by methods/fetch_wdqs.sh (explicit/polite/LIMIT≤800/one attempt); loop re-ingests committed snapshots with zero network I/O; national parks via two country-bound (cheap) fetches",
  :unit_map
  {"Q712226" "km2=1e6",
   "Q35852" "hectare=1e4",
   "Q3396758" "decare=1e3",
   "Q216795" "dunam=1e3",
   "Q81292" "acre=4046.8564224",
-  "Q25343" "m2=1"},
+  "Q25343" "m2=1",
+  "Q232291" "sq-mile=2589988.110336"},
  :endpoint "https://query.wikidata.org/sparql",
  :fetched_at "2026-06-16"}

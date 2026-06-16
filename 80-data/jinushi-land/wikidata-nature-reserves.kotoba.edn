@@ -1,10 +1,10 @@
 ;; jinushi 地主 — COMMITTED real acquisition snapshot (ADR-2605241500 datalad substrate).
 ;; Loop re-ingests this with ZERO network I/O; WDQS hit only by methods/fetch_wdqs.sh.
-{:record-count 499,
+{:record-count 497,
  :source "wikidata:WDQS",
  :dropped-unknown-unit 0,
  :note
- "Nature reserves = protected PUBLIC land. counts-toward-world-coverage=FALSE: its countries (NO/IE/CA) all overlap the national-park source; summing without geometry would double-count. Observed separately; geometry de-dup is a future leg.",
+ "Nature reserves = protected PUBLIC land. counts-toward-world-coverage=FALSE: countries (NO/IE/CA) overlap the national-park source; summing without geometry would double-count. Observed-only; geometry de-dup is a future leg.",
  :records
  [{:cc "CA", :area-m2 112521.40000000001, :unit-src "Q35852"}
   {:cc "CA", :area-m2 1.89672037E7, :unit-src "Q35852"}
@@ -31,7 +31,6 @@
   {:cc "NO", :area-m2 55000.0, :unit-src "Q3396758"}
   {:cc "NO", :area-m2 55730.1, :unit-src "Q35852"}
   {:cc "NO", :area-m2 55996.8, :unit-src "Q35852"}
-  {:cc "NO", :area-m2 56000.0, :unit-src "Q3396758"}
   {:cc "NO", :area-m2 56000.0, :unit-src "Q3396758"}
   {:cc "NO", :area-m2 58863.399999999994, :unit-src "Q35852"}
   {:cc "NO", :area-m2 59000.0, :unit-src "Q3396758"}
@@ -80,7 +79,6 @@
   {:cc "NO", :area-m2 211000.0, :unit-src "Q3396758"}
   {:cc "NO", :area-m2 211198.2, :unit-src "Q35852"}
   {:cc "NO", :area-m2 211660.9, :unit-src "Q35852"}
-  {:cc "NO", :area-m2 212000.0, :unit-src "Q3396758"}
   {:cc "NO", :area-m2 212000.0, :unit-src "Q3396758"}
   {:cc "NO", :area-m2 212183.30000000002, :unit-src "Q35852"}
   {:cc "NO", :area-m2 229488.8, :unit-src "Q35852"}
@@ -506,6 +504,7 @@
   {:cc "NO", :area-m2 5.5354E10, :unit-src "Q712226"}
   {:cc "NO", :area-m2 5.999E10, :unit-src "Q712226"}],
  :class "Q179049 nature reserve",
+ :dropped-nonpositive 0,
  :retrieved "2026-06-16",
  :source-id "wikidata-nature-reserves",
  :counts-toward-world-coverage false,
@@ -515,5 +514,6 @@
   "Q3396758" "decare",
   "Q216795" "dunam",
   "Q81292" "acre",
-  "Q25343" "m2"},
+  "Q25343" "m2",
+  "Q232291" "sq-mile"},
  :land-kind :public}

@@ -63,9 +63,10 @@ registry ingest.)
 - `methods/datom_emit.cljc`  — canonical EAVT emit: ground `:owner/*` + `:parcel/*` `:add`
   datoms + derived `:jinushi/*` transient aggregates.
 - `methods/coverage.cljc`    — world acquisition-coverage report + self-pruning ingest worklist.
-- `methods/ingest.cljc`      — **REAL acquisition** from a COMMITTED public-data snapshot in the
-  repo DATA LAYER (`80-data/jinushi-land/*.kotoba.edn`) → `{:owners :parcels}`, offline.
-  `merge-datasets` combines snapshot + synthetic seed into one acquisition view.
+- `methods/ingest.cljc`      — **REAL multi-source acquisition** from COMMITTED snapshots in the
+  repo DATA LAYER (`80-data/jinushi-land/*.kotoba.edn`) → `{:owners :parcels}`, offline;
+  double-count-honest (only `:counts-toward-world-coverage` sources sum into world coverage).
+- `methods/cid.cljc`         — CIDv1 (raw/sha2-256) content-addressing of snapshots (R1).
 - `methods/fetch_wdqs.sh`    — polite, EXPLICIT, operator-only WDQS refresh of the snapshot.
 
 ## Real acquisition + WDQS load discipline (operator directive 2026-06-16)
@@ -85,15 +86,17 @@ actor PROCESSES it later:
 
 | source | class | records | countries | area | counts toward world coverage |
 |---|---|--:|--:|--:|---|
-| national parks | Q46169 | 294 | 26 | 4.97M km² | **yes** (primary, non-overlapping) |
-| nature reserves | Q179049 | 499 | 3 | 0.23M km² | **no** (overlaps NP countries NO/IE/CA) |
+| national parks | Q46169 | 1075 | 35 | 7.16M km² | **yes** (primary, non-overlapping) |
+| nature reserves | Q179049 | 497 | 3 | 0.23M km² | **no** (overlaps NP countries NO/IE/CA) |
 
-**World acquisition coverage = 26 countries · 4.97M km² = 3.34% of world land** (up from the
-0.056% synthetic floor). Multi-source is **double-count-honest** (G2/G4): only non-overlapping
-counting sources sum into world coverage; overlapping protected-area classes are observed
-separately until a geometry de-dup leg exists — summing them would inflate coverage. Units
-resolved at snapshot time (km²/hectare/decare/dunam/acre/m²), 0 dropped. Cold tier (git-annex
-local-store → IPFS CID map → PDS `datasetPin`) is the operator step via
+**World acquisition coverage = 35 countries · 7.16M km² = 4.80% of world land** (up from the
+0.056% synthetic floor → 3.34% → 4.80% over loop iterations). Multi-source is
+**double-count-honest** (G2/G4): only non-overlapping counting sources sum into world coverage;
+overlapping protected-area classes are observed separately until a geometry de-dup leg exists.
+Units resolved at snapshot time (km²/hectare/decare/dunam/acre/sq-mile/m²); non-positive
+bad-data areas dropped (disclosed). Each snapshot is **content-addressed to a CIDv1**
+(`methods/cid.cljc`, raw/sha2-256, `bafkrei…`, recorded in `ingest-provenance.json`). Cold tier
+(git-annex local-store → IPFS CID map → PDS `datasetPin`) is the operator step via
 `e7m-dataset add 80-data/jinushi-land` against superdataset `90-docs/baien/datasets` — not auto-run.
 
 **「wdqs に負担をかけない」 is enforced by design:**
@@ -112,14 +115,15 @@ local-store → IPFS CID map → PDS `datasetPin`) is the operator step via
 
 ```bash
 CP=20-actors
-for ns in test-analyze test-datom-emit test-coverage test-ingest; do
+for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 21 tests / 71 assertions green
+# 27 tests / 86 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
-bb --classpath 20-actors -m jinushi.methods.ingest       # REAL snapshot → live coverage (offline)
+bb --classpath 20-actors -m jinushi.methods.ingest       # REAL snapshots → live world coverage (offline)
+bb --classpath 20-actors -m jinushi.methods.cid          # CIDv1 of each committed snapshot
 
 # operator-only, rare, polite — refresh the snapshot from WDQS (NOT run by the loop):
 methods/fetch_wdqs.sh 400
@@ -129,16 +133,19 @@ methods/fetch_wdqs.sh 400
 
 - **R0 (landed)** — analyze + datom-emit + coverage + ontology + synthetic seed + 16 tests. ✅
 - **R2 (landed)** — REAL multi-source public-land ingest (`ingest.cljc` + `fetch_wdqs.sh`):
-  committed Wikidata snapshots — national parks (294 / 26 cc / 4.97M km², **counts**) + nature
-  reserves (499 / 3 cc, observed-only, overlap-excluded). World coverage **3.34%** (up from the
-  0.056% synthetic floor). Double-count-honest (G2/G4), full unit map (km²/ha/decare/dunam/acre/
-  m²), data in 80-data via datalad substrate, WDQS-load-safe (snapshot SoT; loop never queries
-  WDQS). +7 tests. ✅
-- **R1** — content-address the acquisition snapshot to a kotoba IPFS CIDv1 + append-only
-  commit-DAG (`kotodama/src/kotoba/datom.cljc` reuse, `verify_chain` resume-safe).
-- **R2+** — broaden real sources (protected areas / public-land registries / OSM landuse) one
-  small polite batch at a time; per-country `country-land-area-km2` table expansion so national
-  fractions resolve for the 26 ingested countries.
+  committed Wikidata snapshots — national parks (1075 / 35 cc / 7.16M km², **counts**; two polite
+  country-bound fetches) + nature reserves (497 / 3 cc, observed-only, overlap-excluded). World
+  coverage **4.80%** (0.056% synthetic floor → 3.34% → 4.80% over loop iterations).
+  Double-count-honest (G2/G4), full unit map (km²/ha/decare/dunam/acre/sq-mile/m²), non-positive
+  bad-data dropped, data in 80-data via datalad substrate, WDQS-load-safe (snapshot SoT; loop
+  never queries WDQS). +7 tests. ✅
+- **R1 (landed)** — CIDv1 (raw/sha2-256) content-addressing of every snapshot (`methods/cid.cljc`,
+  verified against the canonical empty-block vector; CIDs recorded in `ingest-provenance.json`).
+  Append-only commit-DAG (`kotodama/src/kotoba/datom.cljc` reuse) + dag-pb/UnixFS `ipfs add`
+  parity remain follow-on legs. +4 tests. ✅
+- **R2+** — broaden real sources (more national-park countries: JP/IN/AR/MX missed the LIMIT;
+  protected landscapes / public-land registries / OSM landuse) one small polite batch at a time;
+  geometry de-dup so overlapping protected-area classes can count.
 - **R3** — bridge confirmed-donation parcels to the on-chain `LandRegistry` lane (still a member
   donation, no-server-key) + maps.etzhayyim.com `:feature/*` layer.
 - **ADR** — to author: `26xxxxxxxx-jinushi-land-ownership-acquisition-mirror.md` (mirror-lineage
