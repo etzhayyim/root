@@ -72,12 +72,18 @@
                       'keizu.methods.test-analyze 'keizu.methods.test-edn
                       'keizu.methods.test-weave 'keizu.methods.test-consistency
                       'keizu.methods.test-lexicons 'keizu.methods.test-ingest
-                      'keizu.methods.test-registry 'keizu.methods.test-sources)
+                      'keizu.methods.test-registry 'keizu.methods.test-sources
+                      'keizu.methods.test-autorun 'keizu.methods.test-bridge
+                      'keizu.methods.test-export 'keizu.methods.test-social
+                      'keizu.methods.test-charter-invariants)
              (let [r (clojure.test/run-tests
                       'keizu.methods.test-analyze 'keizu.methods.test-edn
                       'keizu.methods.test-weave 'keizu.methods.test-consistency
                       'keizu.methods.test-lexicons 'keizu.methods.test-ingest
-                      'keizu.methods.test-registry 'keizu.methods.test-sources)]
+                      'keizu.methods.test-registry 'keizu.methods.test-sources
+                      'keizu.methods.test-autorun 'keizu.methods.test-bridge
+                      'keizu.methods.test-export 'keizu.methods.test-social
+                      'keizu.methods.test-charter-invariants)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:yobel
