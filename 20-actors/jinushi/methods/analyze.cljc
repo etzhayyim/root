@@ -40,9 +40,17 @@
 ;; per-country total land area (km²) — only for seeded/known countries; absent ⇒ coverage
 ;; is reported as "country touched, national fraction unknown" rather than guessed (G4).
 (def country-land-area-km2
-  {"JP" 364500   "US" 9147420  "BR" 8358140  "AU" 7682300
+  {;; seed / large reference economies
+   "JP" 364500   "US" 9147420  "BR" 8358140  "AU" 7682300
    "DE" 348560   "KE" 569140   "CN" 9388210  "IN" 2973190
-   "RU" 16376870 "CA" 9093510})
+   "RU" 16376870 "CA" 9093510
+   ;; documented land areas (km²) for countries appearing in the real WDQS acquisition
+   "ES" 498800   "NO" 365268   "UA" 579320  "PL" 304255
+   "HU" 90530    "HR" 55960    "LT" 62674   "IE" 68890
+   "IL" 21640    "DK" 42430    "KH" 176520  "AZ" 82658
+   "UZ" 425400   "PY" 397300   "GT" 107160  "GH" 227540
+   "JM" 10830    "HT" 27560    "MK" 25220   "MD" 32890
+   "FJ" 18270    "WS" 2830})
 
 ;; corporate / form suffix variants → canonical token (for owner_name_norm dedup).
 (def ^:private suffix-canon

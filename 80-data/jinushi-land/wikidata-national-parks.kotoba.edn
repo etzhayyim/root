@@ -1,14 +1,10 @@
-;; jinushi 地主 — COMMITTED real acquisition snapshot (national parks = PUBLIC land).
-;; G4: snapshot is the SoT for the loop; WDQS is queried only by methods/fetch_wdqs.sh
-;; (explicit, polite, rate-limited) — never auto-pulled per loop iteration.
-{:source "wikidata:WDQS",
- :query "P31=Q46169 (national park) · P2046 area · P17→P297 country",
- :retrieved "2026-06-16",
+;; jinushi 地主 — COMMITTED real acquisition snapshot (ADR-2605241500 datalad substrate).
+;; Loop re-ingests this with ZERO network I/O; WDQS hit only by methods/fetch_wdqs.sh.
+{:record-count 294,
+ :source "wikidata:WDQS",
+ :dropped-unknown-unit 0,
  :note
- "Partial WDQS stream salvaged (server 60s cap); unknown-unit rows dropped (honest). Snapshot is committed so the loop re-ingests WITHOUT re-querying WDQS.",
- :units-kept ["Q712226=km2" "Q35852=hectare"],
- :dropped-unknown-unit 5,
- :record-count 289,
+ "National parks = PUBLIC land. PRIMARY world-coverage source. Partial WDQS stream salvaged; all units resolved (0 dropped).",
  :records
  [{:cc "AZ", :area-m2 7830000.0, :unit-src "Q712226"}
   {:cc "AZ", :area-m2 3.39E7, :unit-src "Q712226"}
@@ -118,10 +114,14 @@
   {:cc "IE", :area-m2 1.1E10, :unit-src "Q712226"}
   {:cc "IE", :area-m2 1.3286E10, :unit-src "Q712226"}
   {:cc "IL", :area-m2 30900.0, :unit-src "Q35852"}
+  {:cc "IL", :area-m2 59000.0, :unit-src "Q216795"}
+  {:cc "IL", :area-m2 70000.0, :unit-src "Q216795"}
   {:cc "IL", :area-m2 221000.0, :unit-src "Q712226"}
   {:cc "IL", :area-m2 1085300.0, :unit-src "Q35852"}
+  {:cc "IL", :area-m2 1800000.0, :unit-src "Q216795"}
   {:cc "IL", :area-m2 2420000.0, :unit-src "Q35852"}
   {:cc "IL", :area-m2 2590000.0, :unit-src "Q35852"}
+  {:cc "IL", :area-m2 4800000.0, :unit-src "Q216795"}
   {:cc "IL", :area-m2 5140000.0, :unit-src "Q35852"}
   {:cc "IL", :area-m2 1.6E7, :unit-src "Q712226"}
   {:cc "IL", :area-m2 2.1E7, :unit-src "Q712226"}
@@ -161,6 +161,7 @@
   {:cc "KH", :area-m2 1.423E9, :unit-src "Q712226"}
   {:cc "KH", :area-m2 1.7125E9, :unit-src "Q712226"}
   {:cc "KH", :area-m2 1.447143E10, :unit-src "Q35852"}
+  {:cc "LT", :area-m2 1300000.0, :unit-src "Q216795"}
   {:cc "LT", :area-m2 2.6474E8, :unit-src "Q35852"}
   {:cc "LT", :area-m2 4.057E8, :unit-src "Q712226"}
   {:cc "LT", :area-m2 4.0975E8, :unit-src "Q712226"}
@@ -298,4 +299,16 @@
   {:cc "UZ", :area-m2 2.7851E8, :unit-src "Q35852"}
   {:cc "UZ", :area-m2 1.0E10, :unit-src "Q35852"}
   {:cc "UZ", :area-m2 1.2E10, :unit-src "Q35852"}
-  {:cc "WS", :area-m2 3.75E8, :unit-src "Q712226"}]}
+  {:cc "WS", :area-m2 3.75E8, :unit-src "Q712226"}],
+ :class "Q46169 national park",
+ :retrieved "2026-06-16",
+ :source-id "wikidata-national-parks",
+ :counts-toward-world-coverage true,
+ :units-kept
+ {"Q712226" "km2",
+  "Q35852" "hectare",
+  "Q3396758" "decare",
+  "Q216795" "dunam",
+  "Q81292" "acre",
+  "Q25343" "m2"},
+ :land-kind :public}

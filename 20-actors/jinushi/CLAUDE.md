@@ -70,22 +70,31 @@ registry ingest.)
 
 ## Real acquisition + WDQS load discipline (operator directive 2026-06-16)
 
-The first REAL data leg ingests **national parks (Wikidata `P31=Q46169`)** — which are PUBLIC
-land (owner = the state) → fully G1-safe (public entities, no persons, no coordinates; only
-country + area + a per-country public-owner bucket). **Data lands in the repo DATA LAYER via the
-datalad substrate** (ADR-2605241500; the genome convention) and the actor PROCESSES it later:
+REAL data ingests PUBLIC protected land from Wikidata — G1-safe (public owners, no persons, no
+coordinates; only country + area + a per-source per-country public-owner bucket). **Data lands in
+the repo DATA LAYER via the datalad substrate** (ADR-2605241500; the genome convention) and the
+actor PROCESSES it later:
 
 ```
 80-data/jinushi-land/
-  wikidata-national-parks.kotoba.edn   # processed snapshot (committed; loop's SoT)
-  ingest-provenance.json               # source / WDQS query / date / sha256 / counts / pin path
-  .gitignore                           # *.raw.json (transient operator fetch, annex/IPFS cold-tier)
+  wikidata-national-parks.kotoba.edn    # Q46169  — PRIMARY world-coverage source (counts=true)
+  wikidata-nature-reserves.kotoba.edn   # Q179049 — observed-only (counts=false; overlap)
+  ingest-provenance.json                # sources / WDQS / date / sha256 / unit-map / pin path
+  .gitignore                            # *.raw.json (transient fetch; annex/IPFS cold tier)
 ```
 
-**289 parks · 26 countries · 4.97M km² public land = 3.34% of world land** (up from the 0.056%
-synthetic floor). Cold tier (git-annex local-store → IPFS CID map → PDS `datasetPin`) is the
-operator step via `e7m-dataset add 80-data/jinushi-land` against the DataLad superdataset
-`90-docs/baien/datasets` — not auto-run.
+| source | class | records | countries | area | counts toward world coverage |
+|---|---|--:|--:|--:|---|
+| national parks | Q46169 | 294 | 26 | 4.97M km² | **yes** (primary, non-overlapping) |
+| nature reserves | Q179049 | 499 | 3 | 0.23M km² | **no** (overlaps NP countries NO/IE/CA) |
+
+**World acquisition coverage = 26 countries · 4.97M km² = 3.34% of world land** (up from the
+0.056% synthetic floor). Multi-source is **double-count-honest** (G2/G4): only non-overlapping
+counting sources sum into world coverage; overlapping protected-area classes are observed
+separately until a geometry de-dup leg exists — summing them would inflate coverage. Units
+resolved at snapshot time (km²/hectare/decare/dunam/acre/m²), 0 dropped. Cold tier (git-annex
+local-store → IPFS CID map → PDS `datasetPin`) is the operator step via
+`e7m-dataset add 80-data/jinushi-land` against superdataset `90-docs/baien/datasets` — not auto-run.
 
 **「wdqs に負担をかけない」 is enforced by design:**
 
@@ -119,9 +128,12 @@ methods/fetch_wdqs.sh 400
 ## Status / roadmap
 
 - **R0 (landed)** — analyze + datom-emit + coverage + ontology + synthetic seed + 16 tests. ✅
-- **R2 (landed)** — REAL public-land ingest: committed Wikidata national-park snapshot
-  (`ingest.cljc` + `fetch_wdqs.sh`), 289 parks / 26 countries / 4.97M km² = **3.34% of world
-  land**. WDQS-load-safe by design (snapshot is SoT; loop never queries WDQS). +5 tests. ✅
+- **R2 (landed)** — REAL multi-source public-land ingest (`ingest.cljc` + `fetch_wdqs.sh`):
+  committed Wikidata snapshots — national parks (294 / 26 cc / 4.97M km², **counts**) + nature
+  reserves (499 / 3 cc, observed-only, overlap-excluded). World coverage **3.34%** (up from the
+  0.056% synthetic floor). Double-count-honest (G2/G4), full unit map (km²/ha/decare/dunam/acre/
+  m²), data in 80-data via datalad substrate, WDQS-load-safe (snapshot SoT; loop never queries
+  WDQS). +7 tests. ✅
 - **R1** — content-address the acquisition snapshot to a kotoba IPFS CIDv1 + append-only
   commit-DAG (`kotodama/src/kotoba/datom.cljc` reuse, `verify_chain` resume-safe).
 - **R2+** — broaden real sources (protected areas / public-land registries / OSM landuse) one

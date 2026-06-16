@@ -1,55 +1,39 @@
-{:substrate
- "ADR-2605241500 (DataLad + git-annex → IPFS cold tier); processed artifact committed in 80-data per genome convention",
- :counts {:records 289, :countries 26, :dropped_unknown_unit 5},
- :ingest_id "jinushi-land-wdqs-np-r2",
+{:coverage_policy
+ "world coverage sums ONLY :counts-toward-world-coverage sources; nature reserves overlap the national-park countries (NO/IE/CA) so they are observed-only (no geometry de-dup yet) — never summed (G2/G4 honesty)",
+ :ingest_id "jinushi-land-wdqs-r2",
  :sources
- [{:id "wikidata-wdqs",
-   :url "https://query.wikidata.org/sparql",
-   :query
-   "SELECT ?p ?area ?unit ?cc WHERE { ?p wdt:P31 wd:Q46169 ; p:P2046/psv:P2046 [wikibase:quantityAmount ?area; wikibase:quantityUnit ?u] ; wdt:P17 [wdt:P297 ?cc] }",
-   :scope
-   "national parks (Q46169) = PUBLIC land; area (P2046) + ISO country (P297)",
-   :individual_level false,
-   :note
-   "WDQS streamed partial under its 60s server cap; complete (area,unit,cc) triples salvaged; unknown-unit rows dropped (honest, not guessed)"}],
- :adr "2606111500-pending (jinushi land-acquisition mirror)",
- :countries
- ("AZ"
-  "CA"
-  "DK"
-  "ES"
-  "FJ"
-  "GH"
-  "GL"
-  "GT"
-  "GY"
-  "HR"
-  "HT"
-  "HU"
-  "IE"
-  "IL"
-  "JM"
-  "KE"
-  "KH"
-  "LT"
-  "MD"
-  "MK"
-  "NO"
-  "PL"
-  "PY"
-  "UA"
-  "UZ"
-  "WS"),
+ [{:source-id "wikidata-national-parks",
+   :class "Q46169 national park",
+   :counts_toward_world_coverage true,
+   :records 294,
+   :countries 26,
+   :dropped_unknown_unit 0,
+   :artifact "wikidata-national-parks.kotoba.edn",
+   :sha256
+   "ba618573b4fa470252f79b77fc30bb406f624e697c1178e0b5fe9259b8e128de"}
+  {:source-id "wikidata-nature-reserves",
+   :class "Q179049 nature reserve",
+   :counts_toward_world_coverage false,
+   :records 499,
+   :countries 3,
+   :dropped_unknown_unit 0,
+   :artifact "wikidata-nature-reserves.kotoba.edn",
+   :sha256
+   "d18cfbaaa0a1964d9a6dc55437d8e8ca2388b5ecd775d533787bc680e9e457d7"}],
+ :adr
+ "ADR-2605241500 (datalad + git-annex → IPFS substrate); processed artifacts committed in 80-data (genome convention)",
  :pin
  {:status "operator-step",
   :how
   "e7m-dataset add 80-data/jinushi-land → DataLad superdataset 90-docs/baien/datasets (git-annex local-store → IPFS CID map → PDS datasetPin); not auto-run"},
  :load_discipline
- "WDQS queried ONLY by 20-actors/jinushi/methods/fetch_wdqs.sh (explicit, polite, LIMIT≤800, one attempt); the loop re-ingests this committed snapshot with zero network I/O",
- :artifact
- {:processed_edn "wikidata-national-parks.kotoba.edn",
-  :sha256 "7e8f206ccc805a4fc0bd291c23ebd9ca8c55a59f6125a62eae39c0c0e6d67502",
-  :consumed_by
-  "20-actors/jinushi/methods/ingest.cljc (process later → kotoba Datom log)"},
- :units_kept {"Q712226" "km2", "Q35852" "hectare"},
+ "WDQS queried only by methods/fetch_wdqs.sh (explicit/polite/LIMIT≤800/one attempt); the loop re-ingests these committed snapshots with zero network I/O",
+ :unit_map
+ {"Q712226" "km2=1e6",
+  "Q35852" "hectare=1e4",
+  "Q3396758" "decare=1e3",
+  "Q216795" "dunam=1e3",
+  "Q81292" "acre=4046.8564224",
+  "Q25343" "m2=1"},
+ :endpoint "https://query.wikidata.org/sparql",
  :fetched_at "2026-06-16"}
