@@ -1,0 +1,298 @@
+;; jinushi 地主 — GLEIF authoritative company identity for building-owner LEIs. GENERATED.
+{:dataset-id "gleif-companies",
+ :source "GLEIF (api.gleif.org/api/v1/lei-records)",
+ :retrieved "2026-06-16",
+ :note
+ "Authoritative legal-entity identity (legal name / jurisdiction / status / country) for the LEIs carried by jinushi building owners — the AUTHORITATIVE company-linkage layer (legal persons only; public corporate registry). Resolved from valid-format LEIs (ISO 17442).",
+ :company-count 58,
+ :companies
+ {"0WKKFB7N1TW1Q5WJ1V86"
+  {:legal-name "GENTING HONG KONG LIMITED",
+   :jurisdiction "BM",
+   :status "ACTIVE",
+   :country "BM"},
+  "213800ZVIELEA55JMJ32"
+  {:legal-name "DIAGEO PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "31570010000000090208"
+  {:legal-name "Energetický a průmyslový holding, a.s.",
+   :jurisdiction "CZ",
+   :status "ACTIVE",
+   :country "CZ"},
+  "35380016EMHNBOVYE123"
+  {:legal-name "オリックス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800ITDYV3AD2X5M34"
+  {:legal-name "サッポロホールディングス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800KOFMRGOXSJ5Z65"
+  {:legal-name "三菱地所株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800P62OOYUY3I8T51"
+  {:legal-name "名古屋鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800PQ2C9A7DIM1B47"
+  {:legal-name "四国旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800QGUXHZ7EBCR121"
+  {:legal-name "西日本旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800SENYJ2DSM6PS44"
+  {:legal-name "東日本旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "353800YAR3OVUITHTG64"
+  {:legal-name "東海旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "3SU7BEP7TH9YEQOZCS77"
+  {:legal-name "Canadian National Railway Company",
+   :jurisdiction "CA-QC",
+   :status "ACTIVE",
+   :country "CA"},
+  "5299001O0WJQYB5GYZ19"
+  {:legal-name "CARLSBERG A/S",
+   :jurisdiction "DK",
+   :status "ACTIVE",
+   :country "DK"},
+  "5299002CCI6HLWAN3K50"
+  {:legal-name "九州旅客鉄道株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "5299004EMJ3R4RVR5Y75"
+  {:legal-name "東京電力ホールディングス株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "5299006LO74A8XKRK989"
+  {:legal-name "STATKRAFT ENERGI AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "52990097YFPX9J0H5D87"
+  {:legal-name "PERNOD RICARD",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "5299009RXTX9DN9AKJ98"
+  {:legal-name "Restaurant Brands International Inc.",
+   :jurisdiction "CA-ON",
+   :status "ACTIVE",
+   :country "CA"},
+  "529900JSFZ4TS59HKD79"
+  {:legal-name "EnBW Energie Baden-Württemberg AG",
+   :jurisdiction "DE",
+   :status "ACTIVE",
+   :country "DE"},
+  "529900TF7XJKIOWMLQ79"
+  {:legal-name "大成建設株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "529900VNP95IIHXPCY17"
+  {:legal-name "京成電鉄株式会社",
+   :jurisdiction "JP",
+   :status "ACTIVE",
+   :country "JP"},
+  "54930015ESJHNM93SQ38"
+  {:legal-name "ANDØYA SPACE AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "54930030NVF3Y2OL0A78"
+  {:legal-name "ROGERS COMMUNICATIONS INC.",
+   :jurisdiction "CA-BC",
+   :status "INACTIVE",
+   :country "CA"},
+  "54930036474DURYNB481"
+  {:legal-name "CANADIAN PACIFIC RAILWAY COMPANY",
+   :jurisdiction "CA",
+   :status "ACTIVE",
+   :country "CA"},
+  "5493007B9BM9ZXJINO78"
+  {:legal-name "LIVE NATION ENTERTAINMENT, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "5493007PLZSLIFWICM52"
+  {:legal-name "THE CAPITAL GROUP COMPANIES, INC.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "5493008H3828EMEXB082"
+  {:legal-name "ANHEUSER-BUSCH INBEV",
+   :jurisdiction "BE",
+   :status "ACTIVE",
+   :country "BE"},
+  "549300B8P6MUJ1YWTS08"
+  {:legal-name "CARREFOUR",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "549300F07QRX46LXVI35"
+  {:legal-name "BANE NOR EIENDOM AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "549300LRIF3NWCU26A80"
+  {:legal-name "BlackRock Finance, Inc.",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300T12EZ1F6PWWU29"
+  {:legal-name "ALCOA CORPORATION",
+   :jurisdiction "US-DE",
+   :status "ACTIVE",
+   :country "US"},
+  "549300TJPY1TN6ETZE45"
+  {:legal-name "BANE NOR SF",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "549300URO8B2DLPRPF61"
+  {:legal-name "VIA RAIL CANADA INC.",
+   :jurisdiction "CA",
+   :status "ACTIVE",
+   :country "CA"},
+  "549300X3UK4GG3FNMO06"
+  {:legal-name "ELECTRICITE DE FRANCE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "549300Z3FGLXMWMOXN32"
+  {:legal-name "COMPAGNIE NATIONALE DU RHONE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "549300ZFG0YO58NZON90"
+  {:legal-name "شركة المملكة القابضة",
+   :jurisdiction "SA",
+   :status "ACTIVE",
+   :country "SA"},
+  "5967007LIEEXZX8ZW078"
+  {:legal-name "AVINOR AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXE4AW33"
+  {:legal-name "EVINY FORNYBAR AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXGFMW72"
+  {:legal-name "TRONDHEIM KOMMUNE",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXGVU850"
+  {:legal-name "OSLO KOMMUNE",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXHHG029"
+  {:legal-name "LILLEHAMMER KOMMUNE",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXIVLK08"
+  {:legal-name "HORDALAND FYLKESKOMMUNE",
+   :jurisdiction "NO",
+   :status "INACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXJHZ471"
+  {:legal-name "SPORVEIEN AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "5967007LIEEXZXJMLS49"
+  {:legal-name "SUNNHORDLAND KRAFTLAG AS",
+   :jurisdiction "NO",
+   :status "ACTIVE",
+   :country "NO"},
+  "635400UFHDIQCDZ6JK11"
+  {:legal-name "Electricity Supply Board",
+   :jurisdiction "IE",
+   :status "ACTIVE",
+   :country "IE"},
+  "635400VCLWEPXCNPSD93"
+  {:legal-name "Irish Rugby Football Union",
+   :jurisdiction "IE",
+   :status "ACTIVE",
+   :country "IE"},
+  "96950038RPL7KKR2OW97"
+  {:legal-name "METROPOLE EUROPEENNE DE LILLE",
+   :jurisdiction "FR",
+   :status "INACTIVE",
+   :country "FR"},
+  "9695003E4MMA10IBTR26"
+  {:legal-name "GECINA",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500A4MXJ3ESPHK698"
+  {:legal-name "SOCIETE NATIONALE SNCF",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500IY667JOE7ERR52"
+  {:legal-name "ADP",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500K59E47ULNCAQ69"
+  {:legal-name "REGIE AUTONOME DES TRANSPORTS PARISIENS",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500KHDYUK2NW8TJ54"
+  {:legal-name "CHAMBERY METROPOLE COMMUNAUTE AGGLO.",
+   :jurisdiction "FR",
+   :status "INACTIVE",
+   :country "FR"},
+  "969500SHQITWXSIS7N89"
+  {:legal-name "UNIBAIL-RODAMCO-WESTFIELD SE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "969500YG7U0UQDEHBD60"
+  {:legal-name "EAGLE FOOTBALL GROUP",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"},
+  "GBQKSY6W7G0OHCQ8OQ72"
+  {:legal-name "ASSOCIATED BRITISH FOODS PLC",
+   :jurisdiction "GB",
+   :status "ACTIVE",
+   :country "GB"},
+  "HR0I3LSP7EH9UR2SSH34"
+  {:legal-name "CASCADE INVESTMENT, L.L.C.",
+   :jurisdiction "US-WA",
+   :status "ACTIVE",
+   :country "US"},
+  "J3WHBG0MTS7O8ZVMDC91"
+  {:legal-name "EXXON MOBIL CORPORATION",
+   :jurisdiction "US-NJ",
+   :status "ACTIVE",
+   :country "US"},
+  "O2RNE8IBXP4R0TD8PU41"
+  {:legal-name "SOCIETE GENERALE",
+   :jurisdiction "FR",
+   :status "ACTIVE",
+   :country "FR"}}}

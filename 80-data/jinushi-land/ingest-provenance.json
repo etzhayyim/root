@@ -100,5 +100,47 @@
   "cid-scheme" : "CIDv1 raw(0x55)/sha2-256, multibase base32 (bafkrei…)",
   "verify" : "methods/verify.cljc re-derives each artifact CID+sha256 vs this file",
   "fetched-at" : "2026-06-16",
+  "company-linkage" : {
+    "layer" : "authoritative company linkage (methods/company_link.cljc): building owner LEI → GLEIF legal entity → kabuto/uchiwake/kanjō; QID → keizu/tsumugi",
+    "source" : "GLEIF api.gleif.org/api/v1/lei-records (public; legal entities only)",
+    "coverage" : {
+      "owners-total" : 259,
+      "owners-with-lei" : 58,
+      "owners-gleif-linked" : 58,
+      "buildings-linked" : 381,
+      "by-jurisdiction" : {
+        "BE" : 1,
+        "BM" : 1,
+        "CA" : 2,
+        "CA-BC" : 1,
+        "CA-ON" : 1,
+        "CA-QC" : 1,
+        "CZ" : 1,
+        "DE" : 1,
+        "DK" : 1,
+        "FR" : 13,
+        "GB" : 2,
+        "IE" : 2,
+        "JP" : 12,
+        "NO" : 12,
+        "SA" : 1,
+        "US-DE" : 4,
+        "US-NJ" : 1,
+        "US-WA" : 1
+      }
+    },
+    "reference" : {
+      "artifact" : "gleif-companies.kotoba.edn",
+      "companies" : 58,
+      "sha256" : "54a49105cf99bd99413acc6ebe74d8641fe8984324db254c1a4ccf78d1cf23a9",
+      "cidv1" : "bafkreicuusiqlt4zxwmucowmn27hjwded7ujqqze3msuygsmz54ndtzdve"
+    },
+    "datom-log" : {
+      "artifact" : "company-link-datoms.kotoba.edn",
+      "gitignored" : true,
+      "sha256" : "6f019f04eced2d650a1a12ab8bd22ea6aa064247bdf12a0fbb8978fb34810754",
+      "cidv1" : "bafkreidpagpqj3hnfvsqugqsvof5elvgvideer556eva7o4jpd5tjaihkq"
+    }
+  },
   "endpoint" : "https://query.wikidata.org/sparql"
 }

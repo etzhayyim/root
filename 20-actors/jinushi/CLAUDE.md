@@ -73,6 +73,8 @@ registry ingest.)
 - `methods/verify.cljc`      — integrity: committed snapshots ↔ `ingest-provenance.json` (CID+sha256).
 - `methods/buildings.cljc`   — building-level ownership KG (owner legal entity + floors) + company
   linkage (owner LEI/QID → kabuto/uchiwake/kanjō/keizu corp KGs); building-取-concentration.
+- `methods/company_link.cljc` — AUTHORITATIVE company linkage: building-owner LEI → GLEIF legal
+  entity (legal name/jurisdiction/status) → kabuto/uchiwake/kanjō; QID → keizu/tsumugi.
 - `methods/jurisdiction.cljc` — per-jurisdiction PUBLIC-RECORD gate: which cadastres are
   public/bulk/owner-names-visible → whether natural-person ownership may be BULK-ingested
   (honest degrade to :unknown; SE/US/GB/IE/NL/NO=bulk-public, JP/KR=per-parcel, DE/AT/CH/FR=restricted).
@@ -134,8 +136,16 @@ buildings · 5 countries (CA/FR/IE/JP/NO) · 259 owners · 58 LEI links · 15 na
 building-取-concentration HHI 403 — Bane NOR, Irish Rail, **East Japan Railway, Tokyo Metro, JR
 Central/West** (rail operators own the most buildings = stations). Emitted
 as a KG Datom log (`:building/*` nodes + `:building/owner` edges + `:owner.org/{wikidata,lei,label}`).
-The single `:natural-person` owner demonstrates the reframed gate in action: a public-registry
-natural-person owner is represented, not excluded.
+15 `:natural-person` owners (FR-heavy) demonstrate the reframed gate in action — public-registry
+natural-person owners represented, not excluded.
+
+**Authoritative company linkage** (`methods/company_link.cljc` + `gleif-companies.kotoba.edn`):
+each building-owner LEI is resolved against the **GLEIF public register** to its authoritative
+legal identity (legal name / jurisdiction / status). 58 owners → GLEIF, **381 buildings linked**
+(Bane NOR Eiendom AS 90 · SNCF 81 · 東日本旅客鉄道 / JR East 58 · RATP 39 · JR Central/West ·
+ADP). The LEI is the cross-actor join key into the corporate KGs (kabuto/uchiwake/kanjō), the QID
+into keizu/tsumugi — so "who owns this building" resolves to a real, registry-grounded company.
+GLEIF registers legal persons only, so this layer is corporate by construction.
 
 **Reframed gate (the charter does NOT ban personal data).** Land/building ownership is PUBLIC
 RECORD. The constitution bans **asymmetric or monetized** surveillance (Rider v3.1 §2(c)
@@ -175,7 +185,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 52 tests / 203 assertions green
+# 57 tests / 221 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn

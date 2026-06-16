@@ -43,12 +43,15 @@
            ;; building-ownership layer: the committed snapshot (the gitignored datom log is skipped if absent)
            bo-snap (get-in prov [:building-ownership :snapshot])
            bo-check (when bo-snap (check-artifact dir bo-snap))
+           gleif-ref (get-in prov [:company-linkage :reference])   ;; committed GLEIF company reference
+           gleif-check (when gleif-ref (check-artifact dir gleif-ref))
            derived (:derived prov)
            ;; the derived Datom log is gitignored/regenerable — verify only if present on disk
            der-check (when (and derived (.exists (io/file dir (:artifact derived))))
                        (check-artifact dir derived))
            checks (vec (concat src-checks (when denom-check [denom-check])
-                               (when bo-check [bo-check]) (when der-check [der-check])))]
+                               (when bo-check [bo-check]) (when gleif-check [gleif-check])
+                               (when der-check [der-check])))]
        {:ok (every? :ok checks) :checks checks})))
 
 #?(:clj
