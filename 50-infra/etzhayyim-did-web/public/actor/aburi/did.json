@@ -32,10 +32,11 @@
     "kind": "tier-b",
     "status": "r0",
     "glyph": "炙",
-    "wasmCid": null,
-    "execModel": "wasm-local (componentize-py, build-ready; build is the operator step) OR service",
+    "wasmCid": "bafybeibzwidhvb3nb7khlja7kgzgrfuv72su2v3m5wz6rdvfwv5fnd6pb4",
+    "wasmTier": "T2",
+    "execModel": "wasm dag-pb (18.9 MB, bundles CPython → T2 donated-mesh, ADR-2606014500)",
     "primaryLexicon": "com.etzhayyim.aburi",
     "primarySchema": "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn",
-    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525). wasmCid null until 20-actors/aburi/wasm/build.sh is run by the operator."
+    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525). wasmCid is the build.sh --only-hash CIDv1 of aburi-actor.wasm; the operator must `ipfs add`-pin the artifact + deploy the Worker for /actor/aburi/ to resolve live."
   }
 }

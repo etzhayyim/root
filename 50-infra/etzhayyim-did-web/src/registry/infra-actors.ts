@@ -776,6 +776,7 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     displayName: "Aburi — Personal-Tracking-Exposure Observatory",
     primaryLexicon: "com.etzhayyim.aburi",
     primarySchema: "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn",
+    wasmCid: "bafybeibzwidhvb3nb7khlja7kgzgrfuv72su2v3m5wz6rdvfwv5fnd6pb4",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:aburi#atproto_pds",
