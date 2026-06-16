@@ -49,6 +49,18 @@
  {:db/ident :funamori.robotics/server-held-key :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one} ;; G11 invariant — always false
  {:db/ident :funamori.robotics/dry-run   :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one} ;; R0 no-live-actuation — always true
 
+ ;; ── plant + grid-tie (tidal generation → hikari microgrid; ADR §4) ───────────
+ {:db/ident :funamori.plant/technology   :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one} ;; :pro | :red
+ {:db/ident :funamori.plant/rated-kw     :db/valueType :db.type/double  :db/cardinality :db.cardinality/one} ;; 平均 Δ塩分 定格
+ {:db/ident :funamori.plant/peak-kw      :db/valueType :db.type/double  :db/cardinality :db.cardinality/one} ;; 満潮ピーク ≤50 (§1.9)
+ {:db/ident :funamori.plant/mean-kw      :db/valueType :db.type/double  :db/cardinality :db.cardinality/one}
+ {:db/ident :funamori.plant/capacity-factor :db/valueType :db.type/double :db/cardinality :db.cardinality/one} ;; mean/peak
+ {:db/ident :funamori.plant/delivered-kw :db/valueType :db.type/double  :db/cardinality :db.cardinality/one} ;; 平滑後 一定出力
+ {:db/ident :funamori.plant/battery-kwh  :db/valueType :db.type/double  :db/cardinality :db.cardinality/one}
+ {:db/ident :funamori.plant/fully-smoothed :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}
+ {:db/ident :funamori.plant/microgrid    :db/valueType :db.type/string  :db/cardinality :db.cardinality/one} ;; "hikari" sink (ADR §4)
+ {:db/ident :funamori.plant/model-only   :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one} ;; R0 invariant — always true
+
  ;; ── annual review (silenSalinityGradientReview; §1.10) ───────────────────────
  {:db/ident :funamori.review/id          :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
  {:db/ident :funamori.review/site        :db/valueType :db.type/ref     :db/cardinality :db.cardinality/one}

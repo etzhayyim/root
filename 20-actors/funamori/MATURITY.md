@@ -6,9 +6,9 @@ path-reserved `cells/salinity_gradient_pro_red/` (ADR §5 R0).
 
 | Dimension | State |
 |---|---|
-| Methods | ✅ `methods/salinity_gradient.cljc` (PRO/RED physics + Charter gates) + `methods/stack_robotics.cljc` (install/maintenance robotics design layer over shared kuni-umi substrate) — pure Clojure, portable `.cljc` |
-| Tests | ✅ `methods/test_{salinity_gradient,stack_robotics}.cljc` — **36 tests / 88 assertions, green** (`./run_tests.sh`, babashka) |
-| Datoms | ✅ `kotoba/schema.edn` (`:funamori.salinity.*` + `:funamori.robotics.*` EAVT) + `kotoba/seed.edn` (`:representative` design site/membrane/measure) |
+| Methods | ✅ `salinity_gradient.cljc` (PRO/RED physics + Charter gates) + `stack_robotics.cljc` (install/maintenance robotics) + `plant.cljc` (tidal generation + grid-tie control) — the full kuni-umi 3-layer pattern (plant/control/kinematics), pure Clojure `.cljc` |
+| Tests | ✅ `methods/test_{salinity_gradient,stack_robotics,plant}.cljc` — **46 tests / 115 assertions, green** (`./run_tests.sh`, babashka) |
+| Datoms | ✅ `kotoba/schema.edn` (`:funamori.salinity.*` + `:funamori.robotics.*` + `:funamori.plant.*` EAVT) + `kotoba/seed.edn` (`:representative` design site/membrane/measure) |
 | Lexicons | ✅ 3 under `com.etzhayyim.funamori.*` (salinityGradientMembraneAttestation / salinityGradientSiteAttestation / silenSalinityGradientReview) — ADR §6 |
 | Manifest | ✅ `manifest.edn` — 12 gates |
 | Cells | ⛔ none yet (R1 — site_qualification / membrane_attestation / power_characterization Pregel cells, Murakumo-only) |
@@ -43,6 +43,18 @@ path-reserved `cells/salinity_gradient_pro_red/` (ADR §5 R0).
 - **Witness quorum (G14)** — <2 robot DIDs flags `witness-ok=false` + Council escalation.
 - **Membrane gate reused at robotics layer** — `plan-module-swap` refuses a commercial (Toray) or
   PFAS (Nafion) replacement membrane (cross-method `assert-membrane-permitted`).
+
+## Plant + grid-tie layer pinned by the test (`plant.cljc`, ADR §4 + ADR-2605264200 §3)
+
+- **Tidal modulation** — output peaks at high tide (phase π/2), troughs at low tide; mean-tide
+  output ≈ nameplate rating.
+- **Capacity factor** — `generation-series` reports CF = mean/peak ∈ (0,1] over an M2 tidal cycle.
+- **Peak-power cap reused** — `assert-plant-cap` (via `salinity-gradient/assert-site-cap`) throws
+  when the tidal PEAK exceeds 50 kW, even if the mean would pass.
+- **Grid-tie smoothing** — a large battery fully smooths (shortfall 0); a tiny battery reports an
+  honest non-zero shortfall; bigger battery monotonically reduces shortfall.
+- **hikari handoff** — `couple-to-microgrid` emits a `:funamori.plant/*` datom (sink "hikari",
+  `model-only true`); refuses an over-cap plant.
 
 ## R0 → R1 gate
 

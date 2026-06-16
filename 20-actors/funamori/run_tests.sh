@@ -12,9 +12,11 @@ fi
 # substrate (hikari.methods.substrate, ADR-2606091800) resolve.
 bb -cp .. -e "(require '[clojure.test :as t]
                        'funamori.methods.test-salinity-gradient
-                       'funamori.methods.test-stack-robotics)
+                       'funamori.methods.test-stack-robotics
+                       'funamori.methods.test-plant)
               (let [r (t/run-tests 'funamori.methods.test-salinity-gradient
-                                   'funamori.methods.test-stack-robotics)]
+                                   'funamori.methods.test-stack-robotics
+                                   'funamori.methods.test-plant)]
                 (when (or (pos? (:fail r)) (pos? (:error r))) (System/exit 1)))"
 
 if [ $? -eq 0 ]; then

@@ -55,15 +55,32 @@ member-signature (no-server-key) + ≥2-robot witness quorum enforced.
 ;; => {:reachable true :coverage 1.0 :witness-ok true :datom {... :dry-run true}}
 ```
 
+## Plant + grid-tie (`methods/plant.cljc`)
+
+Completes the kuni-umi **3-layer infra-robotics pattern** (plant / control / kinematics). The
+river-mouth intake's draw-salinity oscillates with the **tide** (M2 semidiurnal) → tidal power
+swing → battery-buffered **grid-tie** smooths it into a steady feed to **hikari**'s microgrid
+(ADR §4). The tidal PEAK is capped at 50 kW (reuses the physics-layer site cap), and the smoother
+reports an **honest shortfall** when the battery is too small.
+
+```clojure
+(require '[funamori.methods.plant :as p])
+(p/couple-to-microgrid (p/make-plant :membrane-area-m2 20000.0 :power-density-w-m2 1.5)
+                       :battery-kwh 1000.0)
+;; => {:funamori.plant/microgrid "hikari" :funamori.plant/capacity-factor 0.97
+;;     :funamori.plant/fully-smoothed true :funamori.plant/model-only true ...}
+```
+
 ## Test
 
 ```sh
-./run_tests.sh    # 36 tests / 88 assertions, babashka
+./run_tests.sh    # 46 tests / 115 assertions, babashka
 ```
 
 ## Status
 
-R0 = design + runnable methods (physics + robotics) + gates + kotoba EAVT schema/seed + 3 lexicons.
-No hardware; bench pilot is R1 (Council + membrane-chemist + mizuho R2 attested site gated). See `MATURITY.md`.
+R0 = design + runnable methods (physics + robotics + plant/grid-tie) + gates + kotoba EAVT
+schema/seed + 3 lexicons. No hardware; bench pilot is R1 (Council + membrane-chemist + mizuho R2
+attested site gated). See `MATURITY.md`.
 
 Apache-2.0 + etzhayyim Charter Compliance Rider v3.1.

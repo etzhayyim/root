@@ -23,7 +23,8 @@ This is the previously-reserved `20-actors/funamori/cells/salinity_gradient_pro_
 - `methods/salinity_gradient.cljc` — the physics + **Charter gates as throwing assertions**.
   Pure Clojure (`clojure.core` only), portable `.cljc`.
 - `methods/stack_robotics.cljc` — install/maintenance robotics DESIGN layer (see below).
-- `methods/test_{salinity_gradient,stack_robotics}.cljc` — **36 tests / 88 assertions**
+- `methods/plant.cljc` — tidal generation + grid-tie control layer (see below).
+- `methods/test_{salinity_gradient,stack_robotics,plant}.cljc` — **46 tests / 115 assertions**
   (`./run_tests.sh`, babashka).
 - `kotoba/{schema,seed}.edn` — kotoba EAVT Datoms (`:funamori.salinity.*` / `:funamori.robotics.*`);
   seed is `:representative`.
@@ -53,6 +54,22 @@ Reused substrate primitives: `->planar-arm` / `ik2` / `reachable` / `joint-traje
 
 **Robotics is design-only at R0**: every plan carries `:funamori.robotics/server-held-key false`
 + `:funamori.robotics/dry-run true` (G11 no-live-actuation). The methods move no real arm.
+
+## Plant + grid-tie integration (`methods/plant.cljc`)
+
+Completes the kuni-umi **3-layer infra-robotics pattern** (plant / control / kinematics) that
+hikari/mizuho/kamado/noroshi follow — funamori already had kinematics (`stack_robotics`) and
+physics (`salinity_gradient`); this adds plant + control:
+
+- **Tidal resource model** — a river-mouth intake's draw-salinity oscillates with the tide
+  (M2 semidiurnal, T≈12.42 h): high tide → seawater intrusion → high Δsalinity → more power.
+  `tidal-source-pair` / `instantaneous-power-kw` / `generation-series` (+ capacity factor).
+- **Peak-power cap** — `assert-plant-cap` reuses `salinity-gradient/assert-site-cap` so the
+  tidal PEAK output ≤50 kW (§1.9), not just the mean.
+- **Grid-tie smoothing** — `grid-tie` buffers the tidal swing in a battery and delivers a steady
+  output, with an **honest shortfall** when the battery is too small (ADR §4 + ADR-2605264200 §3).
+- **`couple-to-microgrid`** — hands the smoothed output to **hikari** (ADR §4 cross-actor sink);
+  `:funamori.plant/model-only true` at R0 (no live grid-tie).
 
 ## Hard rules (ADR-2605265600 gates — enforced IN CODE, not just documented)
 
