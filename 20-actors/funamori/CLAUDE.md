@@ -28,8 +28,10 @@ This is the previously-reserved `20-actors/funamori/cells/salinity_gradient_pro_
   (`./run_tests.sh`, babashka).
 - `kotoba/{schema,seed}.edn` — kotoba EAVT Datoms (`:funamori.salinity.*` / `:funamori.robotics.*`);
   seed is `:representative`.
+- `cells/*.edn` — 4 kotoba-native Pregel cell SPECS (sanae pattern) over the methods;
+  `cells/test_cells.cljc` pins their invariants. `.solve()` is R1 (see `cells/README.md`).
 - `lex/` — 3 lexicons (membraneAttestation / siteAttestation / silenSalinityGradientReview), ADR §6.
-- `manifest.edn` — actor manifest + 15 gates.
+- `manifest.edn` — actor manifest + 15 gates + 3 methods + 4 cells.
 
 ## Robotics design integration (`methods/stack_robotics.cljc`)
 

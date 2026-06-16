@@ -13,10 +13,12 @@ fi
 bb -cp .. -e "(require '[clojure.test :as t]
                        'funamori.methods.test-salinity-gradient
                        'funamori.methods.test-stack-robotics
-                       'funamori.methods.test-plant)
+                       'funamori.methods.test-plant
+                       'funamori.cells.test-cells)
               (let [r (t/run-tests 'funamori.methods.test-salinity-gradient
                                    'funamori.methods.test-stack-robotics
-                                   'funamori.methods.test-plant)]
+                                   'funamori.methods.test-plant
+                                   'funamori.cells.test-cells)]
                 (when (or (pos? (:fail r)) (pos? (:error r))) (System/exit 1)))"
 
 if [ $? -eq 0 ]; then

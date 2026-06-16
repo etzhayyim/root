@@ -42,7 +42,13 @@
  :actor/depends-on
  ["hikari.methods.substrate"]  ;; shared kuni-umi infra-robotics substrate Clojure port (ADR-2606091800); kinematics + safety gates
 
- :actor/cells []  ;; R0: no Pregel cells yet — R1 site_qualification / membrane_attestation / power_characterization / stack_service (Murakumo-only)
+ ;; R0 cell SPECS (kotoba-native EDN, like sanae) — declarative Pregel state-graphs over the
+ ;; .cljc methods. .solve() is R1 (Council + membrane-chemist + mizuho R2); R0 is the spec + gates.
+ :actor/cells
+ [{:cell/id "site_qualification"    :cell/kind :langgraph :cell/runtime :wasm :cell/layer "L0" :cell/method "salinity_gradient"}
+  {:cell/id "membrane_attestation"  :cell/kind :langgraph :cell/runtime :wasm :cell/layer "L1" :cell/method "salinity_gradient"}
+  {:cell/id "power_characterization" :cell/kind :langgraph :cell/runtime :wasm :cell/layer "L2" :cell/method "plant"}
+  {:cell/id "stack_service"         :cell/kind :langgraph :cell/runtime :wasm :cell/layer "L3" :cell/method "stack_robotics"}]
 
  :actor/lexicons
  ["com.etzhayyim.funamori.salinityGradientMembraneAttestation"

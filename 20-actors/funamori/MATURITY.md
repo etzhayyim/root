@@ -7,11 +7,11 @@ path-reserved `cells/salinity_gradient_pro_red/` (ADR §5 R0).
 | Dimension | State |
 |---|---|
 | Methods | ✅ `salinity_gradient.cljc` (PRO/RED physics + Charter gates) + `stack_robotics.cljc` (install/maintenance robotics) + `plant.cljc` (tidal generation + grid-tie control) — the full kuni-umi 3-layer pattern (plant/control/kinematics), pure Clojure `.cljc` |
-| Tests | ✅ `methods/test_{salinity_gradient,stack_robotics,plant}.cljc` — **46 tests / 115 assertions, green** (`./run_tests.sh`, babashka) |
+| Tests | ✅ `methods/test_{salinity_gradient,stack_robotics,plant}.cljc` + `cells/test_cells.cljc` — **53 tests / 224 assertions, green** (`./run_tests.sh`, babashka) |
 | Datoms | ✅ `kotoba/schema.edn` (`:funamori.salinity.*` + `:funamori.robotics.*` + `:funamori.plant.*` EAVT) + `kotoba/seed.edn` (`:representative` design site/membrane/measure) |
 | Lexicons | ✅ 3 under `com.etzhayyim.funamori.*` (salinityGradientMembraneAttestation / salinityGradientSiteAttestation / silenSalinityGradientReview) — ADR §6 |
 | Manifest | ✅ `manifest.edn` — 12 gates |
-| Cells | ⛔ none yet (R1 — site_qualification / membrane_attestation / power_characterization Pregel cells, Murakumo-only) |
+| Cells | ✅ 4 kotoba-native EDN cell SPECS (sanae pattern) — `site_qualification` / `membrane_attestation` / `power_characterization` / `stack_service`; declarative Pregel state-graphs over the `.cljc` methods, validated by `cells/test_cells.cljc` (7 tests / 109 assertions). `.solve()` is R1 (Council + membrane-chemist + mizuho R2) |
 | Hardware | ⛔ none (R1 = bench ≤1 kW PRO / ≤500 W RED, Council + membrane-chemist gated) |
 
 ## Physics validated by the test (vs ADR-2605265600 Table)
