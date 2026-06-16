@@ -31,7 +31,7 @@
 
 (deftest test-render-has-numbers
   (let [txt (d/render (m))]
-    (is (re-find #"world land coverage: \*\*[\d.]+%\*\*" txt) "world coverage % rendered")
+    (is (re-find #"world land: \*\*[\d.]+%\*\*" txt) "national-park land share rendered")
     (is (re-find #"buildings: \*\*\d+\*\*" txt) "building count rendered")
     (is (re-find #"GLEIF: \*\*\d+\*\*" txt) "GLEIF linkage count rendered")))
 

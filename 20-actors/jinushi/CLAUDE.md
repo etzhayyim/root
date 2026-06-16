@@ -125,7 +125,7 @@ snapshots → `ingest`/`emit_real` (offline).
 | national parks | Q46169 | 2153 | 137 | 7.07M km² (sanitized) | **yes** (primary, non-overlapping) |
 | nature reserves | Q179049 | 497 | 3 | 0.23M km² | **no** (overlaps NP countries NO/IE/CA) |
 
-**World acquisition coverage = 137 countries · 7.07M km² = 4.75% of world land** (HONEST, sanitized).
+**National-park (protected public land) coverage = 137 countries · 7.07M km² = 4.75% of world land** (this is protected-public-land, NOT all-land-ownership; owner/value/floor layers are sample-scale — G4 honesty) (HONEST, sanitized).
 A real WDQS country-area denominator (`country-areas.kotoba.edn`, 203 countries) now (a) resolves
 national fractions for every covered country and (b) drives a **data-quality gate (G4)**: parcels
 whose area exceeds their country's total area are dropped (Wikidata P2046 unit errors / ocean-

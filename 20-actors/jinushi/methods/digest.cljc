@@ -48,9 +48,10 @@
     (str/join "\n"
       (concat
        ["# jinushi 地主 — 全世界 不動産取得 (real-estate acquisition) digest" ""
-        "## LAND (national parks = public land; sanitized, real country-area denominator)"
-        (format "- countries: **%d**   acquired: **%,.0f km²**   world land coverage: **%.4g%%**"
+        "## LAND (national parks = protected PUBLIC land; sanitized, real country-area denominator)"
+        (format "- countries: **%d**   acquired: **%,.0f km²**   national-park land ÷ world land: **%.4g%%**"
                 (:countries-touched lc) (:acquired-area-km2 lc) (* 100.0 (:world-coverage-frac lc)))
+        "  (protected-public-land coverage — NOT all-land-ownership; private/urban land is sample-scale, G4 honesty)"
         (format "- land 取-concentration HHI %.0f (top holder %s); RETURN-to-commons candidates: %d"
                 (:hhi con) (if-let [t (:top-holder con)] (format "%.1f%%" (* 100.0 (:share t))) "n/a")
                 (count (:return-candidates land)))
