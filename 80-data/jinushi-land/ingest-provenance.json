@@ -125,7 +125,14 @@
     "artifact" : "jinushi-land-datoms.kotoba.edn",
     "what" : "canonical EAVT Datom log of the SANITIZED counting dataset (gitignored; regenerable)",
     "sha256" : "de540c4281a02f912f50bb594e591aa55679c19f9d747c6f52b9932f1c03cda5",
-    "cidv1" : "bafkreig6kqgefanaf6is6uf3lfhfsgvfkz44dh45or6g6uvzsmxrya6nuu"
+    "cidv1" : "bafkreig6kqgefanaf6is6uf3lfhfsgvfkz44dh45or6g6uvzsmxrya6nuu",
+    "unified" : {
+      "artifact" : "jinushi-unified-datoms.kotoba.edn",
+      "gitignored" : true,
+      "what" : "UNIFIED canonical kotoba Datom log across all 6 sources/4 dimensions (methods/emit_all.cljc); regenerable; source-tagged for confidence weighting",
+      "sha256" : "9526bcda3506c1887cc6a59f4384f2896ecb43244e9dbf53d82b974102b3ac1d",
+      "cidv1" : "bafkreieve26nunigygehzrvft5byj4ujn3fugjcotw7vhwbls5aqfm5mdu"
+    }
   },
   "building-ownership" : {
     "layer" : "building-level ownership KG + floors/height + company linkage (methods/buildings.cljc)",
