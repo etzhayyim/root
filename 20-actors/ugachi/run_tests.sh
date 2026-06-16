@@ -6,6 +6,8 @@ SUITES=(
   "20-actors/ugachi/methods/test_ugachi_edn.cljc"
   "20-actors/ugachi/methods/test_gate.cljc"
   "20-actors/ugachi/methods/test_bridge.cljc"
+  "20-actors/ugachi/methods/test_kotoba.cljc"
+  "20-actors/ugachi/methods/test_autorun.cljc"
 )
 fail=0
 for s in "${SUITES[@]}"; do

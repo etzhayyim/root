@@ -16141,6 +16141,23 @@
       "lastVerified": "2026-06-16"
     },
     {
+      "id": "doc:adr-2606170900-ugachi-stewardship-ledger-persistence-and-heartbeat",
+      "type": "TechArticle",
+      "title": "ADR-2606170900: ugachi 穿ち — content-addressed stewardship-ledger persistence + deterministic heartbeat (Wave 2)",
+      "status": "accepted",
+      "topic": "ugachi-stewardship-ledger",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ugachi stewardship-ledger persistence (content-addressed append-only commit-DAG)",
+        "ugachi deterministic heartbeat (assess → append verdict datoms)"
+      ],
+      "related": [
+        "doc:adr-2606122400-meisai-card-statement-ingestion",
+        "doc:adr-2606161730-busshi-commodity-materials-observatory"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
