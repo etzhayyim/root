@@ -56,7 +56,17 @@
  :delivered
  {:kotodama "com-junkawasaki/kotodama v0.1.0 (802a04d) — kotodama.{life organism react}; 7 tests / 17 assertions green (domain-free mock actor)"
   :unspsc   "etzhayyim/root 20-actors/unspsc (PR #1826) — kotodama runtime + capability 33/36 + taxonomy 18,342 + fleet; 39 tests / 212 assertions green"
-  :deps     "kotodama -> langgraph-clj v0.2.1 -> langchain-clj v0.1.1 (git coords); kaiyaku-style :dev override"}
+  :deps     "kotodama -> langgraph-clj v0.2.1 -> langchain-clj v0.1.1 (git coords); kaiyaku-style :dev override"
+  :wasm-portability
+  {:verified  #inst "2026-06-16"
+   :subject   "kotoba-clj core-module output (import-free MVP wasm; compile_str -> 180B; exports fact/cabi_realloc/memory; 0 imports)"
+   :engines   {:browser-v8 "Node 26 (V8 14.6) + Deno 2.4 — WebAssembly.instantiate; fact(0,1,5,10) all match"
+               :cloudflare "real workerd via wrangler 4.69 dev --local; Worker .wasm module import; GET /?n=5 -> 200 fact(5)=120, n=10 -> 3628800"
+               :wasmedge   "WasmEdge 0.17.0 (brew) --reactor; fact(5)=120 / fact(6)=720 / fact(10)=3628800"
+               :wasmtime   "native runner (kotoba-clj src/run.rs) + kotoba-runtime Component host — the only WIRED host"}
+   :result    "D3 'WASM-on-kotoba' empirically verified at the host-free core-module level on 3 non-wasmtime engines"
+   :caveat    "Verifies HOST-FREE core modules only. Cells needing kotoba:kais / Datom access compile to WASM Components (wasm32-wasip2) whose only wired host is wasmtime; browser=needs jco transpile, Workers=limited, WasmEdge=partial — NOT yet verified."
+   :ci-gap    "CI (.github/workflows/ci.yml) builds no wasm target (native only); per-engine instantiate tests + Component non-wasmtime host verification are follow-up work."}}
 
  ;; ── gated operator steps ──────────────────────────────────────────────────
  :gated

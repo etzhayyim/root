@@ -58,6 +58,8 @@ ADR-2606131645 は 18,343 個の Python `c<code>.py`(90% 空 stub)を撤去し�
 
 kotoba は外部依存のまま(ADR-2606131645 D3 維持)。**clj を kotoba crate に同梱しない**(`kotoba-kotodama/py` の同梱ロック問題を再現しないため)。「kototama は kotoba の runtime」という意味論は、clj runtime が WASM 化されて kotoba 上で動くことで満たす(物理同梱不要)。
 
+**検証 (2026-06-16)**: `kotoba-clj` は clj/EDN-subset を **import なしの MVP core module** にコンパイルする(`compile_str` → 180B, export `fact`/`cabi_realloc`/`memory`, 0 imports)。この host 非依存 core module は wasmtime だけでなく **browser/V8(Node 26 + Deno 2.4 `WebAssembly.instantiate`)・Cloudflare Workers(本物の workerd を `wrangler 4.69 dev --local` で起動、`.wasm` module import → HTTP 200)・WasmEdge 0.17.0(`--reactor`)** の 3 つの非 wasmtime エンジンで同一結果(`fact(5)=120`/`fact(10)=3628800`)を実行確認済み。→「WASM-on-kotoba」は core module レベルで実機実証された。**留保**: host 能力(`kotoba:kais` / Datom アクセス)を要する cell は WASM Component(wasm32-wasip2)になり、配線済み host は wasmtime のみ(browser=要 jco transpile / Workers=制約 / WasmEdge=部分対応、未検証)。
+
 ## D4. 独立 `etzhayyim/kototama` repo は廃止(archive)
 
 内容は kotodama(runtime)+ root `20-actors/unspsc`(concrete)に分配済み。standalone repo と top-monorepo submodule を撤去・archive する。
@@ -79,6 +81,7 @@ kotoba は外部依存のまま(ADR-2606131645 D3 維持)。**clj を kotoba cra
 - **kotodama** `com-junkawasaki/kotodama` v0.1.0(802a04d): `kotodama.{life organism react}`、domain-free mock で **7 tests / 17 assertions green**。
 - **unspsc** `etzhayyim/root 20-actors/unspsc`(PR #1826): kotodama v0.1.0 を runtime に、capability 33/36 + taxonomy 18,342 + fleet、**39 tests / 212 assertions green**。
 - 依存: kotodama → langgraph-clj v0.2.1 → langchain-clj v0.1.1(git 座標)。
+- **wasm portability 検証 (2026-06-16)**: `kotoba-clj` の core-module 出力(import なし MVP wasm)を **browser/V8 (Node 26 + Deno 2.4) / Cloudflare workerd (wrangler 4.69 dev --local) / WasmEdge 0.17.0 (--reactor)** の 3 非 wasmtime エンジンで実走 = 全て同一結果(D3 検証注記参照)。CI は未だ wasm ターゲットをビルドせず(native のみ)— 各エンジンの instantiate テストの CI 追加 + Component(wasm32-wasip2)の非 wasmtime host 検証は残作業。
 - 残: 独立 kototama repo / top-monorepo submodule の撤去・archive(D4 operator step)。
 
 # Alternatives Considered
