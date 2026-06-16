@@ -66,12 +66,15 @@
             (recur i (conj out x)))))
 
       (= t "{")
-      (loop [i i, out {}]
+      ;; Track first-touch key order in ::order meta so maps with >8 keys (which Clojure
+      ;; promotes to an UNORDERED hash-map) still reproduce Python dict insertion order —
+      ;; required for byte-identical kotoba tx CIDs (kotoba.cljc reads keys via keys-in-order).
+      (loop [i i, out (vary-meta {} assoc ::order [])]
         (let [[k i] (parse-step toks i)]
           (if (= k end-marker)
             [out i]
             (let [[v i] (parse-step toks i)]
-              (recur i (assoc out k v))))))
+              (recur i (vary-meta (assoc out k v) update ::order conj k))))))
 
       (or (= t "]") (= t "}"))
       [end-marker i]
@@ -129,6 +132,20 @@
   "EDN-escape a string into a quoted EDN string literal (1:1 with edn_str)."
   [s]
   (str "\"" (-> (str s) (str/replace "\\" "\\\\") (str/replace "\"" "\\\"")) "\""))
+
+(defn py-round
+  "Python round(x, n) — HALF_EVEN (banker's rounding) on the EXACT double value."
+  [x n]
+  (-> (java.math.BigDecimal. (double x))
+      (.setScale n java.math.RoundingMode/HALF_EVEN)
+      .doubleValue))
+
+(defn py-round-2 [x] (py-round x 2))
+
+(defn py-float-str
+  "str(float) — shortest round-trip repr (Double/toString matches Python repr for our values)."
+  [x]
+  (str (double x)))
 
 ;; ── GTIN helpers ─────────────────────────────────────────────────────────────
 (defn- digits

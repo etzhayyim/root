@@ -222,7 +222,9 @@
                       'fuchi.methods.test-couple 'fuchi.methods.test-book
                       'fuchi.methods.test-provision
                       'kasa.tests.test-kasa 'kasa.tests.test-invariants
-                      'uchiwake.tests.test-uchiwake 'sukashi.tests.test-sukashi
+                      'uchiwake.tests.test-uchiwake 'uchiwake.tests.test-autorun
+                      'meisai.methods.test-autorun
+                      'sukashi.tests.test-sukashi
                       'suji.methods.test-load 'suji.methods.test-muscle-strain
                       'suji.methods.test-datoms 'suji.methods.test-charter-invariants
                       'suji.methods.test-bridge-consistency
@@ -282,6 +284,8 @@
                                              'kasa.tests.test-kasa
                                              'kasa.tests.test-invariants
                                              'uchiwake.tests.test-uchiwake
+                                             'uchiwake.tests.test-autorun
+                                             'meisai.methods.test-autorun
                                              'sukashi.tests.test-sukashi
                                              'suji.methods.test-load
                                              'suji.methods.test-muscle-strain
