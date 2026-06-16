@@ -49,7 +49,7 @@ Closed-loop material recovery / circular metallurgy orchestrator. Adopts modern 
 - **G13**: Energy source = renewable + grid-balanced only (captive coal / petcoke prohibited)
 - **G14**: Waste outputs (dross / salt cake / fume filter / leachate) IPFS lot-tracked + quarterly §2(h) report
 
-## 8 Non-Goals (N1–N8, IMMUTABLE R0–R3)
+## 8 Non-Goals (N1 = scope boundary per ADR-2606161700; N2–N8 IMMUTABLE R0–R3)
 
 - **N1**: Primary mining out of kanayama scope (recovery-first by preference; NOT extraction-forbidden — gated by §2(l) multi-gen risk assessment per ADR-2606161700)
 - **N2**: Hall-Héroult primary Al electrolysis + equivalent primary smelting for Wave 2+
