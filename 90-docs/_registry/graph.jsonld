@@ -16063,6 +16063,28 @@
       "lastVerified": "2026-06-16"
     },
     {
+      "id": "doc:adr-2606161730-busshi-commodity-materials-observatory-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606161730: busshi (物資) — world commodity & raw-materials KG-mirror observatory (clj-native R0)",
+      "status": "accepted",
+      "topic": "busshi-commodity-materials-observatory",
+      "authoritative": true,
+      "authoritativeFor": [
+        "busshi actor identity (name, DID, namespace, scope) — clj-native R0",
+        "commodity & raw-materials observation gates G1..G8 + non-goals N1..N5",
+        "§2(l) multi-generational (子・孫) × wellbecoming risk axis as the analytical core",
+        "clj-native method triad (busshi_edn loader + analyze/datoms/coverage) + seed"
+      ],
+      "related": [
+        "doc:adr-2606022000-kabuto-supply-chain-kg",
+        "doc:adr-2606032000-kanjo-financial-disclosure-kg",
+        "doc:adr-2606072201-shionome-capital-flow-observatory",
+        "doc:adr-2605252400-kanayama-circular-metallurgy-r0",
+        "doc:adr-2606051500-kamado-closed-loop-carbon-refining"
+      ],
+      "lastVerified": "2026-06-16"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
