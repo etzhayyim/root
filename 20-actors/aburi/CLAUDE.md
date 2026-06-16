@@ -99,24 +99,34 @@ member-sig + outward-gated (G7).
 ```
 20-actors/aburi/
 ├── CLAUDE.md                              # this file
-├── manifest.jsonld                        # actor manifest (3 cells, 8 gates)
+├── manifest.jsonld                        # actor manifest (cells + 8 gates)
 ├── data/
 │   ├── seed-tracker-exposure.kotoba.edn   # REPRESENTATIVE public-catalogue graph (no real person)
-│   └── local/                             # GITIGNORED — the member's OWN consented exports only (G7)
-├── methods/                               # pure-stdlib (no numpy) → kotoba pywasm-runnable; .py + .cljc
+│   └── local/                             # GITIGNORED — the member's OWN data only (G7)
+│       ├── intake/                        #   consented exports the member drops in (Takeout/Apple/Play/perm)
+│       └── persisted/                     #   the member's append-only exposure commit-DAG
+├── methods/                               # pure-stdlib (no numpy) → kotoba pywasm-runnable
 │   ├── analyze.py / .cljc                 # edge-primary tracking-exposure analyzer
 │   ├── datom_emit.py / .cljc              # kotoba Datom-log (EAVT) emitter — canonical state
-│   └── coverage_report.py / .cljc         # honest coverage + gap map (G5)
-├── tests/                                 # pure stdlib (incl. G1 / G3 / G8 inversions); .py + .cljc
+│   ├── coverage_report.py / .cljc         # honest coverage + gap map (G5)
+│   ├── kotoba.py                          # (A) local content-addressed commit-DAG helpers
+│   ├── ingest.py                          # (B) member exports → exposure graph (G2/G8 guard + adapters)
+│   ├── autorun.py                         # (B) local heartbeat: sweep intake → append tx (dedup by CID)
+│   └── kotoba_bridge.py                   # (A) push local log → live kotoba :8077 (dry-run; injected)
+├── tests/                                 # pure stdlib (incl. G1 / G3 / G8 inversions)
 │   ├── test_analyze.py / .cljc
-│   └── test_coverage.py / .cljc
-├── wasm/
-│   └── README.md                          # kotoba pywasm actor (componentize-py) design
+│   ├── test_coverage.py / .cljc
+│   ├── test_ingest.py                     # (B) adapters + G8 guard + analyzable end-to-end
+│   └── test_bridge.py                     # (A) heartbeat + exactly-once cursor + no-server-key
+├── wasm/                                  # (C) build-ready componentize-py component
+│   ├── wit/world.wit                      #   exports analyze / datoms / coverage
+│   ├── app.py · build.sh · README.md      #   build = operator step (wasmCid null until run)
 └── out/                                   # GENERATED — do not hand-edit
-    ├── tracking-exposure-report.md
-    ├── tracker-exposure-datoms.kotoba.edn
-    └── coverage-report.md
 ```
+
+The published registration (C) lives outside this dir: `00-contracts/schemas/actor-profile-seed.kotoba.edn`
+(SSoT), `50-infra/etzhayyim-did-web/src/registry/infra-actors.ts` (tier-3 fallback), and static
+`50-infra/etzhayyim-did-web/public/actor/aburi/{did,profile}.json`.
 
 ## Run
 
@@ -125,8 +135,33 @@ cd 20-actors/aburi
 python3 methods/analyze.py          # → out/tracking-exposure-report.md  (who tracks you / leakiest platform)
 python3 methods/datom_emit.py       # → out/tracker-exposure-datoms.kotoba.edn (EAVT)
 python3 methods/coverage_report.py  # → out/coverage-report.md
-python3 tests/test_analyze.py && python3 tests/test_coverage.py   # 14 green
+# (B) acquisition — member drops exports in data/local/intake/, then:
+python3 methods/autorun.py --cycles 1     # ingest new exports → append-only local commit-DAG
+# (A) live bridge — dry-run by default (live = ABURI_KOTOBA_LIVE=1 + member-sig + Council):
+python3 methods/kotoba_bridge.py
+./run_tests.sh                      # 31 python tests green (analyze 11 / coverage 3 / ingest 9 / bridge 8)
+# .cljc parity (analyzer): bb -cp ../.. -e "(require 'aburi.tests.test-analyze 'aburi.tests.test-coverage 'clojure.test)(clojure.test/run-tests 'aburi.tests.test-analyze 'aburi.tests.test-coverage)"
 ```
+
+## A/B/C — acquisition, live log, publish
+
+- **(B) acquisition** is the answer to 「実際の取得になっている?」: `ingest.py` parses the member's
+  OWN consented exports — iOS **App Privacy Report** (the ad/tracker DOMAINS each app contacted →
+  catalogued collectors), Google Play **Data-safety** (data shared "for Advertising" → ad
+  collectors), Google **Takeout** ad-settings, on-device **permission dump** — into the same
+  exposure graph the analyzer reads. `autorun.py` dedups by intake CID and appends one content-
+  addressed tx per new export. The **G8 guard raises** on any credential / raw-identifier value
+  (IDFA/GAID/IMEI/email/PAN/UUID); only exposure STRUCTURE is projected. Exports + the log live
+  under `data/local/` (gitignored).
+- **(A) live log** is the answer to 「datomic になっている?」: `kotoba_bridge.py` transacts the local
+  commit-DAG to the live kotoba engine at `:8077` (one `datomic.transact` per tx, exactly-once
+  `:aburi-bridge/*` cursor, `expected_parent` chaining, `:aburi.tx/*` provenance). **Dry-run by
+  default**; live requires `ABURI_KOTOBA_LIVE=1` + member-sig + operator + Council. No-server-key:
+  the operator bearer is unsigned + keyed by a PUBLIC DID; the network leg is injected (tests are
+  offline).
+- **(C) publish** is the answer to 「etzhayyim.com で公開?」: registered in the three homes above +
+  a build-ready WASM component. The componentize-py build, KV/kotoba ingest, and Worker deploy are
+  the **operator steps** — `wasmCid` is `null` until `wasm/build.sh` is run.
 
 ## Cross-links
 

@@ -157,6 +157,45 @@ member's exports, the WASM build, and any relief routing are **R1+ / operator + 
 - **A public per-person tracking registry** — structurally refused (G1): aburi holds no other
   person's data and builds no dossier; that design is unrepresentable.
 
+# Implementation update (2026-06-16) — A/B/C legs landed
+
+The initial R0 shipped the analyzer + ontology + representative seed. This update lands the three
+legs that move it from "analyzer over a public seed" toward "real own-data, on the live log,
+publishable":
+
+- **(A) live kotoba transact bridge** — `methods/kotoba_bridge.py` (the ibuki kotoba_bridge
+  pattern): pushes the member's local exposure commit-DAG to the live engine at
+  `:8077/xrpc/com.etzhayyim.apps.kotoba.datomic.transact`, one tx per `datomic.transact`, oldest
+  first; exactly-once `:aburi-bridge/*` cursor, `expected_parent` commit-DAG chaining,
+  `:aburi.tx/*` provenance, fleet host-allowlist (ADR-2605215000), **no-server-key** (unsigned
+  operator bearer keyed by a PUBLIC DID env var; the network leg is INJECTED so the loop is a pure
+  function). **Dry-run by default**; a live push requires `ABURI_KOTOBA_LIVE=1` + member-sig +
+  operator + Council (the member's exposure leaving the device is an outward act, G7).
+- **(B) real acquisition (ingest)** — `methods/ingest.py` + `methods/autorun.py`: parses the
+  member's OWN consented exports — **iOS App Privacy Report** (per-app data access + the ad/tracker
+  DOMAINS each app contacted → catalogued collectors), **Google Play Data-safety** (data shared
+  "for Advertising or marketing" → ad collectors), **Google Takeout Ads-settings** (ad-
+  personalization + activity controls), **on-device permission dump** — into the same
+  tracker-exposure graph the analyzer reads. The local heartbeat dedups by intake content CID and
+  appends one content-addressed tx per new export (resume-safe, byte-identical). **G8 guard**
+  `raise`s on credential-shaped keys and raw-identifier values (IDFA/GAID/IMEI/email/PAN/UUID);
+  only exposure STRUCTURE is projected (the datom_emit attr allowlist). Exports live under
+  `data/local/` (gitignored, G7); the loop does no network I/O.
+- **(C) publish (etzhayyim.com resolvability)** — registered in the three homes
+  (`actor-profile-seed.kotoba.edn` SSoT, `infra-actors.ts` tier-3 fallback, static
+  `50-infra/etzhayyim-did-web/public/actor/aburi/{did.json,profile.json}`) + a **build-ready WASM
+  component** (`wasm/` world.wit + app.py + build.sh exporting `analyze`/`datoms`/`coverage`,
+  offline python sanity green). `verificationMethod` empty (no-server-key). The actual
+  `componentize-py` build, KV/kotoba ingest, and Worker deploy are the **operator steps**;
+  `wasmCid` stays `null` until the operator runs `wasm/build.sh`.
+
+**Honest boundary**: the live transact, the WASM build/deploy, and ingest of a member's REAL
+exports are all operator/Council-gated outward acts — they are *runnable code with offline tests*,
+not executed here. The new I/O legs are `.py` (the established boundary for I/O-coupled code,
+ADR-2606131800); `.cljc` byte-parity ports of ingest/autorun/bridge (the meisai pattern) are the
+R1 follow-up. **Test count: 31 python (analyze 11 / coverage 3 / ingest 9 / bridge 8) + 14 cljc
+(1369 assertions) green.**
+
 # References
 
 - ADR-2606071601 (sukashi — firm-side ad-tech supply-chain observatory)

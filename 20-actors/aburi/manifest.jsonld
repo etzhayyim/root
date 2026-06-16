@@ -46,8 +46,31 @@
       "output": ["out/coverage-report.md"],
       "pipeline": "surface-kind + permission-kind + collector-kind + collector-catalogue (provenance) + datatype-kind → gap map (thin/missing buckets per wave)",
       "doc": "honest coverage (all-real-surfaces/collectors ~0 BY DESIGN — bounded representative public seed, G1); names thin/missing buckets (G5)"
+    },
+    {
+      "id": "cell:aburi.ingest",
+      "method": "methods/ingest.py + methods/autorun.py",
+      "input": "data/local/intake/*.json|*.edn (the member's OWN consented exports — gitignored, G7)",
+      "output": ["data/local/persisted/aburi.datoms.kotoba.edn"],
+      "pipeline": "(B) sweep intake → per-format adapter (iOS App-Privacy Report domains / Play Data-safety shares / Takeout ad-settings / on-device permission dump) → G2/G8 guard (raise on credential/raw-identifier) → tracker-exposure graph → append-only content-addressed tx (dedup by intake CID, resume-safe)",
+      "doc": "the ACQUISITION leg (実際の取得) — member's own exports → exposure graph; only structure projected (G8 allowlist), local-only (G7), no network I/O"
+    },
+    {
+      "id": "cell:aburi.kotoba-bridge",
+      "method": "methods/kotoba_bridge.py",
+      "input": "data/local/persisted/aburi.datoms.kotoba.edn",
+      "output": ["live kotoba engine :8077 (com.etzhayyim.apps.kotoba.datomic.transact)"],
+      "pipeline": "(A) push un-pushed local txs → datomic.transact, one per tx; exactly-once :aburi-bridge/* cursor + expected_parent commit-DAG chaining + :aburi.tx/* provenance; fleet host-allowlist; dry-run unless ABURI_KOTOBA_LIVE=1 + member-sig + Council",
+      "doc": "the LIVE-LOG leg (datomic) — no-server-key (unsigned operator bearer keyed by a PUBLIC DID; network leg injected → offline tests); outward act, G7/Council-gated"
     }
   ],
+  "publish": {
+    "profileSeed": "00-contracts/schemas/actor-profile-seed.kotoba.edn (SSoT entry)",
+    "infraFallback": "50-infra/etzhayyim-did-web/src/registry/infra-actors.ts (tier-3)",
+    "static": "50-infra/etzhayyim-did-web/public/actor/aburi/{did,profile}.json (verificationMethod empty — no-server-key)",
+    "wasm": "20-actors/aburi/wasm/ (componentize-py world+app+build.sh exporting analyze/datoms/coverage)",
+    "operatorSteps": "componentize-py build (sets wasmCid) + KV/kotoba ingest + Worker deploy — Council/operator-gated (ADR-2606013800); wasmCid null until build.sh is run"
+  },
   "gates": {
     "G1": "OWN-DATA-ONLY / member-principal — aburi maps the MEMBER'S OWN exposure, derived from THEIR OWN consented exports (Google Takeout / Apple App-Privacy / Google Play Data-safety / on-device permission dump). The PUBLIC seed is REPRESENTATIVE/aggregate (real public-catalogue facts, NO real person). NO record of any OTHER person, NO third-party PII, NO biometric, NO raw identifier value. aburi is the himotoki/meisai own-data pattern, NEVER a profiler of others (test: test_g1_own_data_no_other_person)",
     "G2": "edge-primary (N1) — exposure lives only on :flows-to load; collector tracking-exposure + surface leak are integrals computed on read; no :aburi/score-of-collector and no stored per-collector/per-surface score",
