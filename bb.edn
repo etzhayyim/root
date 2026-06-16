@@ -86,6 +86,30 @@
                       'keizu.methods.test-charter-invariants)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:maps
+  {:doc "maps 地図 Clojure test suite — maps3d kotoba-native methods + BPMN-as-actor off Zeebe onto the Datom log + generic BPMN→Datomic engine (ADR-2606162041; py→cljc port wave ADR-2606160842). Net/http tests use injectable I/O seams + an in-process one-shot socket server (no external dependency)."
+   :task (do (require 'clojure.test
+                      'maps.methods.test-methods 'maps.methods.test-avet-roundtrip
+                      'maps.methods.test-e2e-http 'maps.methods.test-transit
+                      'maps.methods.test-search 'maps.methods.test-reverse
+                      'maps.methods.test-chunk 'maps.methods.test-verify
+                      'maps.methods.test-bpmn-generic 'maps.methods.test-ingest-json
+                      'maps.methods.test-kotoba-local 'maps.methods.test-maps3d-bpmn
+                      'maps.methods.test-maps3d-bpmn-fidelity 'maps.methods.test-maps3d-net-http
+                      'maps.methods.test-maps3d-net-tasks 'maps.methods.test-maps3d-persist
+                      'maps.methods.test-maps3d-tasks)
+             (let [r (clojure.test/run-tests
+                      'maps.methods.test-methods 'maps.methods.test-avet-roundtrip
+                      'maps.methods.test-e2e-http 'maps.methods.test-transit
+                      'maps.methods.test-search 'maps.methods.test-reverse
+                      'maps.methods.test-chunk 'maps.methods.test-verify
+                      'maps.methods.test-bpmn-generic 'maps.methods.test-ingest-json
+                      'maps.methods.test-kotoba-local 'maps.methods.test-maps3d-bpmn
+                      'maps.methods.test-maps3d-bpmn-fidelity 'maps.methods.test-maps3d-net-http
+                      'maps.methods.test-maps3d-net-tasks 'maps.methods.test-maps3d-persist
+                      'maps.methods.test-maps3d-tasks)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:yobel
   {:doc "yobel ヨベル Clojure test suite (langgraph-clj cells + orchestrator E2E)"
    :task (do (require 'clojure.test
@@ -322,7 +346,7 @@
                  (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:stubs test:pywasm test:kanae test:keizu]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:stubs test:pywasm test:kanae test:keizu test:maps]}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent + .md.edn round-trip)"
    :task (do (require 'clojure.test
