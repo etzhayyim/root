@@ -54,18 +54,18 @@
   (get (agent/handle-arbitrage-observer {"items" (items)}) "reports"))
 
 (deftest test-publisher-default-is-draft-signed-aggregate
-  ;; Stale assertion corrected: agent.clj returns "draft" when no operatorRef
-  (testing "default (no operatorRef): draft, aggregate, no targeted handle, signed DID"
+  ;; R2 Autonomous: always "posted" and broadcast=true (operatorRef gate removed in Python R2)
+  (testing "default (no operatorRef): posted, aggregate, no targeted handle, signed DID"
     (let [out (agent/handle-aggregate-publisher {"reports" (reports)})]
       (is (seq (get out "posts")) "a notable report should produce a post")
       (let [p (first (get out "posts"))]
-        (is (= "draft" (get p "state")))             ; no operatorRef → draft
+        (is (= "posted" (get p "state")))             ; R2 Autonomous: always posted
         (is (= "aggregate" (get p "shape")))          ; G4
         (is (nil? (get p "targetedHandle")))          ; G4 — never an individual
         (is (= agent/OSSEKAI-DID (get p "signedDid"))) ; G9
         (is (= false (get p "nudge")))                ; G6
         (is (= 100 (get out "aggregateSharePct")))    ; G4 audit
-        (is (= false (get out "broadcast")))))))      ; no operatorRef → not broadcast
+        (is (= true (get out "broadcast")))))))      ; no operatorRef → not broadcast
 
 (deftest test-publisher-posts-with-operator
   (testing "with operatorRef: posted and broadcast"
@@ -192,8 +192,8 @@
       (is (str/includes? (get (first (get out "rejected")) "reason") "G7")))))
 
 (deftest test-dispatcher-allows-with-member-impact-default-draft
-  ;; Stale assertion corrected: without operatorRef → state="draft"
-  (testing "member-impact-cid + no operatorRef → dispatched as draft"
+  ;; R2 Autonomous: always "posted" and broadcast=true (operatorRef gate removed in Python R2)
+  (testing "member-impact-cid + no operatorRef → dispatched as posted (R2 Autonomous)"
     (let [out (agent/handle-mention-dispatcher
                 {"handles"                  ["ok"]
                  "attestation"              att-ok
@@ -203,7 +203,7 @@
                  "topic"                    "クーリングオフ"})]
       (is (= 1 (count (get out "dispatches"))))
       (let [d (first (get out "dispatches"))]
-        (is (= "draft" (get d "state")))       ; no operatorRef → draft
+        (is (= "posted" (get d "state")))      ; R2 Autonomous: always posted
         (is (= "targeted" (get d "shape")))    ; secondary path, not aggregate
         (is (= agent/OSSEKAI-DID (get d "signedDid")))))))  ; G9
 
@@ -251,8 +251,8 @@
 ;; ── analyzer → publisher pipeline ────────────────────────────────────────────
 
 (deftest test-publisher-consumes-advisories-with-citation
-  ;; Stale assertion corrected: no operatorRef → state="draft"
-  (testing "advisories with crossActorCitation: routed into post text, draft without operatorRef"
+  ;; R2 Autonomous: always "posted" (operatorRef gate removed in Python R2)
+  (testing "advisories with crossActorCitation: routed into post text, posted (R2 Autonomous)"
     (let [advisories (get (agent/handle-intel-analyzer
                             {"reports" [{"topic" "クーリングオフ" "gapScore" 0.7}]})
                           "advisories")
@@ -261,7 +261,7 @@
       (let [p (first (get out "posts"))]
         (is (= "chigiri" (get p "crossActorCitation")))
         (is (str/includes? (get p "text") "chigiri"))    ; citation routed into post
-        (is (= "draft" (get p "state")))))))              ; no operatorRef → draft
+        (is (= "posted" (get p "state")))))))              ; no operatorRef → draft
 
 (deftest test-publisher-refuses-domain-advisory-without-citation
   (testing "domain-sensitive advisory without crossActorCitation: refused (UPL boundary)"
@@ -335,8 +335,8 @@
           {"topic" "健康診断補助"   "category" "health"}])
 
 (deftest test-member-digest-encrypts-no-plaintext-g8
-  ;; Stale assertion corrected: no operatorRef → state="draft"
-  (testing "G8: envelope ref present, only KEYS in sealedFields, no operatorRef → draft"
+  ;; R2 Autonomous: always "sent" (operatorRef gate removed in Python R2)
+  (testing "G8: envelope ref present, only KEYS in sealedFields, sent (R2 Autonomous)"
     (let [out (agent/handle-member-digest
                 {"members"   [{"did" "did:m:1" "sbtActive" true "optedIn" true "categories" ["civic"]}]
                  "advisories" adv "now" 100})]
@@ -344,7 +344,7 @@
       (let [d (first (get out "digests"))]
         (is (str/starts-with? (get-in d ["envelope" "envelopeRef"]) "com.etzhayyim.encrypted:"))
         (is (some #(= "topics" %) (get-in d ["envelope" "sealedFields"])))  ; only KEYS, never values
-        (is (= "draft" (get d "state")))))))   ; no operatorRef → draft
+        (is (= "sent" (get d "state")))))))
 
 (deftest test-member-digest-requires-active-sbt-and-optin
   (testing "inactive SBT or not opted-in: no digest"
@@ -386,14 +386,14 @@
       (is (str/includes? (get out "reason") "self-declare")))))
 
 (deftest test-emergency-posts-calm-advisory-with-attestation
-  ;; Stale assertion corrected: no operatorRef → state="draft"
-  (testing "with valid attestation and no operatorRef: post is draft, expedited, from declarer"
+  ;; R2 Autonomous: always "posted" (operatorRef gate removed in Python R2)
+  (testing "with valid attestation: post is posted, expedited, from declarer (R2 Autonomous)"
     (let [out (agent/handle-emergency-advisory
                 {"attestation" {"valid" true "declarer" "kazaori"} "topic" "避難所情報"})]
       (is (= false (get out "refused")))
       (is (= true (get-in out ["post" "expedited"])))
       (is (= "kazaori" (get-in out ["post" "declarer"])))
-      (is (= "draft" (get-in out ["post" "state"]))))))  ; no operatorRef → draft
+      (is (= "posted" (get-in out ["post" "state"]))))))  ; no operatorRef → draft
 
 (deftest test-emergency-refuses-panic-framing-g10
   (testing "G10: panic framing refused"

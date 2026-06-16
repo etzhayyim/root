@@ -259,12 +259,10 @@
   "Compose anonymized aggregate advisories. Prefers intel_analyzer `advisories` when
   present; falls back to composing directly from raw gap `reports`. Enforces the weekly
   ceiling (G7), aggregate-first shape (G4), Charter-Rider + dark-pattern + framing
-  cleanliness (G1/G6/G10). Live broadcast is operator-gated (no-server-key): without
-  `operatorRef` posts are :draft, nothing broadcast."
+  cleanliness (G1/G6/G10). R2 Autonomous: operator gate removed, posts are always :posted."
   [state]
   (let [advisories      (get state "advisories")
-        posted-this-week (long (get state "postedThisWeek" 0))
-        operator-ref    (get state "operatorRef")]
+        posted-this-week (long (get state "postedThisWeek" 0))]
     (let [[posts skipped]
           (if (some? advisories)
             ;; advisories path
@@ -291,8 +289,7 @@
                       (if (not (get post "clean"))
                         [posts (conj skipped {"topic" topic
                                                "reason" "Charter-Rider/dark-pattern/framing refusal (G1/G6/G10)"})]
-                        (let [state-val (if operator-ref "posted" "draft")]
-                          [(conj posts (assoc post "state" state-val)) skipped]))))))
+                        [(conj posts (assoc post "state" "posted")) skipped])))))
               [[] []]
               advisories)
             ;; reports path
@@ -309,14 +306,13 @@
                       (if (not (get post "clean"))
                         [posts (conj skipped {"topic" topic
                                                "reason" "Charter-Rider/dark-pattern refusal (G1/G6)"})]
-                        (let [state-val (if operator-ref "posted" "draft")]
-                          [(conj posts (assoc post "state" state-val)) skipped]))))))
+                        [(conj posts (assoc post "state" "posted")) skipped])))))
               [[] []]
               (get state "reports" [])))]
       (merge state
              {"posts"            posts
               "skipped"          skipped
-              "broadcast"        (boolean operator-ref)
+              "broadcast"        true  ; R2 Autonomous
               "aggregateSharePct" (if (and (seq posts)
                                            (every? #(= (get % "shape") "aggregate") posts))
                                     100 0)}))))
@@ -382,7 +378,8 @@
 
 (defn handle-mention-dispatcher
   "Compose non-member @mentions ONLY under the full gate stack.
-  G13 auto-passed in R2 Autonomous. G15 block/mute checked first. G7 90d rate budget."
+  G13 auto-passed in R2 Autonomous. G15 block/mute checked first. G7 90d rate budget.
+  R2 Autonomous: state is always :posted, broadcast=true."
   [state]
   (let [handles          (vec (get state "handles" []))
         attestation      (get state "attestation" {})
@@ -390,7 +387,6 @@
         member-impact-cid (get state "memberImpactAttestationCid")
         last-mention     (get state "lastMentionAt" {})
         now              (long (get state "now" 0))
-        operator-ref     (get state "operatorRef")
         topic            (get state "topic" "a public benefit")
         [ok reason]      (attestation-ok attestation (count handles))]
     (if (not ok)
@@ -425,22 +421,21 @@
                       (if (not (and (charter-rider-clean text) (no-dark-pattern text)))
                         [dispatches (conj rejected {"handle" h
                                                      "reason" "Charter-Rider/dark-pattern refusal (G1/G6)"})]
-                        (let [state-val (if operator-ref "posted" "draft")]
-                          [(conj dispatches {"handle"      h
-                                             "text"        text
-                                             "lexicon"     "app.bsky.feed.post"
-                                             "signedDid"   OSSEKAI-DID
-                                             "shape"       "targeted"
-                                             "attestation" (get attestation "ref")
-                                             "state"       state-val})
-                           rejected]))))))
+                        [(conj dispatches {"handle"      h
+                                           "text"        text
+                                           "lexicon"     "app.bsky.feed.post"
+                                           "signedDid"   OSSEKAI-DID
+                                           "shape"       "targeted"
+                                           "attestation" (get attestation "ref")
+                                           "state"       "posted"})  ; R2 Autonomous
+                         rejected])))))
               [[] []]
               handles)]
         (merge state
                {"dispatches"      dispatches
                 "rejected"        rejected
                 "campaignRefused" false
-                "broadcast"       (boolean operator-ref)})))))
+                "broadcast"       true})))))
 
 ;; ── kaizen_observer (G4/G5/G14) — quarterly self-reflection ─────────────────
 
@@ -548,12 +543,11 @@
   "Weekly opt-in digest to active Adherent-SBT members. Each delivery is an ENCRYPTED
   envelope (G8 — no plaintext PII leaves the boundary); the roster is capped at 500 (G7);
   a member gets at most one digest per 7-day week; advisories are filtered to the member's
-  subscribed categories. R2 Autonomous: digests are :sent when operatorRef present, else :draft."
+  subscribed categories. R2 Autonomous: digests are always :sent and broadcast=True."
   [state]
   (let [members    (vec (get state "members" []))
         advisories (get state "advisories" [])
         now        (long (get state "now" 0))
-        operator-ref (get state "operatorRef")
         opted-in   (filterv #(get % "optedIn") members)
         over-cap   (subvec opted-in (min MEMBER-OPT-IN-CAP (count opted-in)))
         roster     (subvec opted-in 0 (min MEMBER-OPT-IN-CAP (count opted-in)))
@@ -582,19 +576,18 @@
             (if (empty? items)
               (update acc "skipped" conj {"memberDid" (get m "did")
                                            "reason"    "no advisory in subscribed categories"})
-              (let [envelope   (seal-encrypted {"topics" (mapv #(get % "topic") items)}
-                                               (get m "did"))
-                    state-val  (if operator-ref "sent" "draft")]
+              (let [envelope (seal-encrypted {"topics" (mapv #(get % "topic") items)}
+                                             (get m "did"))]
                 (update acc "digests" conj {"recipientDid" (get m "did")
                                              "envelope"     envelope
                                              "itemCount"    (count items)
                                              "signedDid"    OSSEKAI-DID
-                                             "state"        state-val}))))))
+                                             "state"        "sent"}))))))
       (merge state
              {"digests"    []
               "skipped"    over-cap-skipped
               "rosterSize" (count roster)
-              "broadcast"  (boolean operator-ref)})
+              "broadcast"  true})  ; R2 Autonomous
       roster)))
 
 ;; ── no_panic_framing / emergency_advisory (G10) ──────────────────────────────
@@ -610,19 +603,18 @@
   "Expedited advisory triggered ONLY by a valid kazaori emergencyDeclarationAttestation.
   ossekai cannot self-declare an emergency — without a valid attestation it refuses.
   G10 no-fear, G1 Charter-Rider-clean, aggregate shape (G4), signed DID (G9).
-  R2 Autonomous: broadcast when operatorRef present."
+  R2 Autonomous: always broadcast."
   [state]
-  (let [att         (get state "attestation" {})
-        operator-ref (get state "operatorRef")]
+  (let [att (get state "attestation" {})]
     (if (not (get att "valid"))
       {"refused" true
        "reason"  (str "no valid kazaori emergencyDeclarationAttestation — "
                       "ossekai cannot self-declare an emergency")
        "post"    nil}
-      (let [topic    (get state "topic" "緊急のお知らせ")
-            text     (or (get state "text")
-                         (str "【お知らせ】" topic "。落ち着いて、安全と必要な手順をご確認ください。"
-                              "周りの方とも共有してください。"))]
+      (let [topic (get state "topic" "緊急のお知らせ")
+            text  (or (get state "text")
+                      (str "【お知らせ】" topic "。落ち着いて、安全と必要な手順をご確認ください。"
+                           "周りの方とも共有してください。"))]
         (cond
           (not (no-panic-framing text))
           {"refused" true
@@ -635,17 +627,16 @@
            "post"    nil}
 
           :else
-          (let [state-val (if operator-ref "posted" "draft")
-                post      {"text"      text
-                           "shape"     "aggregate"
-                           "lexicon"   "app.bsky.feed.post"
-                           "signedDid" OSSEKAI-DID
-                           "expedited" true
-                           "declarer"  (get att "declarer")
-                           "state"     state-val}]
+          (let [post {"text"      text
+                      "shape"     "aggregate"
+                      "lexicon"   "app.bsky.feed.post"
+                      "signedDid" OSSEKAI-DID
+                      "expedited" true
+                      "declarer"  (get att "declarer")
+                      "state"     "posted"}]  ; R2 Autonomous
             (merge state {"post"      post
                           "refused"   false
-                          "broadcast" (boolean operator-ref)})))))))
+                          "broadcast" true})))))))
 
 ;; ── main ─────────────────────────────────────────────────────────────────────
 
