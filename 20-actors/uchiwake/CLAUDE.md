@@ -134,3 +134,14 @@ each `/loop` iteration ingests worklist suppliers to raise it (2.6%→6.4% this 
 digit; decompositions are `:representative` public-teardown/label estimates. "Register ALL trade
 items" is the **R1** goal — full GS1 GDSN / GLEIF-RR / Open Product Data universe ingest (hundreds
 of millions of GTINs) is **G7** Council + operator gated. Live atproto posting is **G11** (later).
+
+## Live ingest — Council-authorised (2026-06-16)
+
+The **G7 gate is OPEN** (founder Lv7+ 1/1). A bounded real **Open Food Facts** batch (CC-BY-SA)
+landed via `70-tools/scripts/coverage-publish/off_batch.py` (curated `gtins.txt`): **merged graph
+now 27 products** (was 11) + ~100 real materials, GTIN-validated, `:representative`. Persisted on
+**DataLad + IPFS + kotobase.net** via `coverage-publish/publish.py` — IPFS CID
+`bafkreib7yagcmrxzley2eyho5b2miuncm2n6rjj3tmyvlnxvkpls5ptcfq` (pinned, single-block verified),
+DataLad dataset `80-data/uchiwake-coverage`, IPNS `k51qzi5uqu5dl5fz…`; kotobase = operator-follow-up
+(no token, ADR-2606111330). Pointer: `80-data/coverage-manifests/uchiwake-coverage-manifest.json`.
+Full GS1 GDSN universe remains the continued operator/loop process.
