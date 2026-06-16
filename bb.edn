@@ -223,7 +223,7 @@
                       'fuchi.methods.test-provision
                       'kasa.tests.test-kasa 'kasa.tests.test-invariants
                       'uchiwake.tests.test-uchiwake 'uchiwake.tests.test-autorun
-                      'meisai.methods.test-autorun
+                      'meisai.methods.test-autorun 'meyasu.py.test-autorun
                       'sukashi.tests.test-sukashi
                       'suji.methods.test-load 'suji.methods.test-muscle-strain
                       'suji.methods.test-datoms 'suji.methods.test-charter-invariants
@@ -286,6 +286,7 @@
                                              'uchiwake.tests.test-uchiwake
                                              'uchiwake.tests.test-autorun
                                              'meisai.methods.test-autorun
+                                             'meyasu.py.test-autorun
                                              'sukashi.tests.test-sukashi
                                              'suji.methods.test-load
                                              'suji.methods.test-muscle-strain

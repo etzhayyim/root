@@ -24,6 +24,24 @@ ossekai 御節介 → the aggregate-first publication discipline                
 - `handle_publish` — cards → aggregate-first social post (G3) + planner handoff for attention
   cards (G4). Broadcast operator-gated, default `:draft` (no-server-key).
 
+## Autonomous heartbeat (clj-native)
+
+- `py/autorun.clj` (+ `py/kotoba.clj`) — **clj-native SSoT** (ADR-2606142300 D1: new logic-core
+  authored in Clojure, no Python twin). The autonomous fuse→persist loop: each cycle observes the
+  OFFLINE fused-input snapshot (`kotoba/seed.json`) → `agent/handle-fuse` → **persists one
+  content-addressed transaction** (the cards' Datoms) to the append-only **local** kotoba Datom log
+  (`py/kotoba.clj`), linking the previous CID into a verifiable commit-DAG. Deterministic /
+  resume-safe (cycle drives tx-id + as-of; observed-at is a fixed snapshot stamp → same cycles →
+  same commit-DAG); NO external I/O. **G1/G2 hold by construction**: a point-asserted/speculative
+  forecast is refused at fuse and never persisted; a card's forecast is written as a BAND, never a
+  point; `:trade`/`:speculation` are unrepresentable. Publication / live kakaku·mitooshi ingest /
+  live-node push stay operator-gated (no-server-key). Invariants in `py/test_autorun.clj` (persist,
+  commit-DAG verify, determinism, tamper-detect, G2 refusal, G1 no-trade, frozen golden head-CID).
+
+  ```bash
+  bb -cp 20-actors -e "(require 'meyasu.py.autorun)(apply meyasu.py.autorun/-main [\"--cycles\" \"3\" \"--fresh\"])"
+  ```
+
 ## Gates (the union of its siblings' invariants — do NOT weaken)
 
 - **G1 non-speculative** — intent is `buyer-transparency+supply-resilience`; meyasu never

@@ -1,20 +1,22 @@
 (ns uchiwake.tests.test-autorun
-  "uchiwake 内訳 — autonomous heartbeat + kotoba Datom-log invariants (clojure.test).
-  1:1 Clojure port of the PURE assertions in methods/test_autorun.py (ADR-2606081800).
+  "uchiwake 内訳 — autonomous heartbeat + kotoba Datom-log + bridge/ingest-gate invariants
+  (clojure.test). ADR-2606081800.
 
-  Guards the autonomy + persistence + non-target/non-recipe contract for the Clojure heartbeat:
-  one content-addressed tx per beat to an append-only log; a verifiable commit-DAG (every CID
-  recomputes; tamper detected); deterministic / resume-safe (same cycles → same CIDs); G5
-  derived-:synthesized; G2/G4 resilience-not-target / not-a-recipe; append-only :db/add.
-
-  DEFERRED (network/adapter legs — a separate unit, mirroring the inochi/rasen precedent already
-  noted in test_uchiwake.cljc): the ingest live OFF fetch (G7) + the bridge live-node push (G7)
-  gate assertions live in the Python test_autorun.py; the .cljc heartbeat is the ported unit."
+  The heartbeat (kotoba.cljc + autorun.cljc) + the live-node push (bridge.clj) are **clj-native
+  SSoT** (ADR-2606142300 D1: new logic-core is authored in Clojure, not Python-first) — so this is
+  the canonical test, not a port. Guards: one content-addressed tx per beat to an append-only log;
+  a verifiable commit-DAG (every CID recomputes; tamper detected); deterministic / resume-safe
+  (same cycles → same CIDs); G5 derived-:synthesized; G2/G4 resilience-not-target / not-a-recipe;
+  append-only :db/add; the bridge exactly-once cursor + its G7 push-gate; the ingest G7 fetch-gate.
+  `cid-byte-parity-with-python` is retained as a frozen golden-value regression guard (the value the
+  removed Python reference produced) per the D2.1 byte-parity bar."
   (:require [clojure.test :refer [deftest is testing run-tests]]
             [clojure.string :as str]
             [clojure.java.io :as io]
             [uchiwake.methods.autorun :as autorun]
-            [uchiwake.methods.kotoba :as k]))
+            [uchiwake.methods.kotoba :as k]
+            [uchiwake.methods.bridge :as bridge]
+            [uchiwake.methods.ingest :as ingest]))
 
 (def ^:private seed-path "20-actors/uchiwake/data/seed-products.kotoba.edn")
 
@@ -102,11 +104,44 @@
       (finally (.delete (io/file log))))))
 
 (deftest cid-byte-parity-with-python
-  ;; The graph_datoms CID over the seed must equal the Python value (kotoba.py byte-parity).
+  ;; Frozen golden CID: the value the (removed) Python reference produced — a regression guard
+  ;; that the clj-native SSoT encoder stays byte-stable (D2.1 byte-parity bar).
   (let [rows (uchiwake.methods.uchiwake-edn/load-edn seed-path)]
     (is (= "bccd2fa317cf3c10c9f1834da8155c6c2a0ecdebb3447f083a84355bc3230c67a"
            (k/tx-cid (k/graph-datoms rows) ""))
-        "graph_datoms tx CID is byte-identical to the Python kotoba.py output")))
+        "graph_datoms tx CID stays byte-stable (frozen golden value)")))
+
+(deftest bridge-exactly-once-cursor
+  (let [log (tmp-log)]
+    (try
+      (autorun/run-autonomous 2 seed-path log)
+      (let [txs (k/read-log log)
+            st (bridge/bridge-state txs)
+            pend (bridge/pending-txs txs st)]
+        (is (and (= 0 (:pushed-to st)) (= 2 (count pend))) "fresh log: cursor 0, 2 pending beats")
+        (let [ck (bridge/make-checkpoint pend "uchiwake" "http://x:8077/y" ["br1" "br2"] log)]
+          (k/append-tx ck log)
+          (let [txs2 (k/read-log log)
+                st2 (bridge/bridge-state txs2)]
+            (is (= 2 (:pushed-to st2)) "checkpoint advances cursor to highest pushed tx-id")
+            (is (= 0 (count (bridge/pending-txs txs2 st2))) "exactly-once: nothing re-pushed")
+            (is (:ok (k/verify-chain log)) "checkpoint keeps the commit-DAG intact"))))
+      (finally (.delete (io/file log))))))
+
+(deftest bridge-graph-cid-stable
+  ;; Frozen golden base32 dag-cbor graph CID (the value the removed Python bridge produced).
+  (is (= "bafyreidexpoa2rcwit3dpvxaaw4a5fbry2rqifagser4wxy4s4u67urnca"
+         (bridge/graph-cid "uchiwake")) "graph-cid stays byte-stable (frozen golden value)"))
+
+(deftest bridge-push-gated-G7
+  ;; UCHIWAKE_KOTOBA_LIVE is unset in test → live-node push refuses (G7).
+  (is (thrown? clojure.lang.ExceptionInfo (bridge/push "uchiwake" "http://x:8077/y" (tmp-log)))
+      "bridge/push refuses without the live-node gate (G7)"))
+
+(deftest ingest-fetch-gated-G7
+  ;; UCHIWAKE_OPERATOR_GATE is unset in test → live OFF fetch refuses (G7) before any network call.
+  (is (thrown? clojure.lang.ExceptionInfo (ingest/fetch-off "3017620422003"))
+      "ingest/fetch-off refuses without the operator gate (G7)"))
 
 (when (= *file* (System/getProperty "babashka.file"))
   (let [r (run-tests 'uchiwake.tests.test-autorun)]
