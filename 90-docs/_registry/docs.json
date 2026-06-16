@@ -25451,6 +25451,45 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606162355-torifune-subaru-transparent-space-access-and-connectivity-commons.md",
+      "id": "adr-2606162355-torifune-subaru-transparent-space-access-and-connectivity-commons",
+      "title": "ADR-2606162355: torifune 鳥船 + subaru 昴 — Transparent open space-access + connectivity-commons wave (the SpaceX/Starlink charter-clean inversion)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "torifune-subaru-space-access-and-connectivity-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "torifune 鳥船 actor (zero-net-carbon open launch-vehicle manufacturing + Transparent space access)",
+        "subaru 昴 actor (Transparent connectivity-commons satellite constellation; Starlink/OneWeb inversion)",
+        "launch-vehicle-ontology",
+        "constellation-ontology"
+      ],
+      "related": [
+        "2606012600",
+        "2606041827",
+        "2605261300",
+        "2606062100",
+        "2606082400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2605192330",
+        "2605302357",
+        "2606073600",
+        "2606013400",
+        "2606032130",
+        "2606051600",
+        "2605181100",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
