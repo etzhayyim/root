@@ -229,8 +229,12 @@ files ported to portable `.cljc` (`torifune.methods.*` / `subaru.methods.*` /
 under babashka, and **every report + datom log byte-identical to the python3 oracle** (the
 corpus-arc verification standard; node-insertion order + Python-`:g` float formatting matched).
 
-**R3+ (separate PRs, gated)**: componentize-py build + CID advertisement, live launch/ops legs
-(Council + operator-DID).
+**R3 — live-legs Council-attestation request (separate stacked PR)**: each actor carries a
+`RUNBOOK-LIVE.md` enumerating Leg A (componentize-py build + CID advertisement — safe on
+attestation) and Leg B (live launch / constellation operation — NOT unblocked by merge; each
+mission is its own on-chain-attested, operator-DID, no-server-key event). Per the Bootstrap
+premise (Council attestation = PR review), the R3 PR's review **is** the Council attestation of
+the *procedure*; it authorizes no specific launch and no operator-DID action.
 
 ## 6. Lineage
 
