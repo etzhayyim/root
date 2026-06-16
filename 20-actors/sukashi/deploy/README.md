@@ -29,14 +29,20 @@ session exists — then the canonical `cell-runner/install.sh` LaunchAgent path 
 `tools/fleet_drive.py` (`bb sukashi:fleet-drive`) runs FROM an interactive machine (the founder's
 mac, which HAS a GUI session): each tick it SSHes the sukashi-assigned nodes, runs the heartbeat,
 and records each run as a `:fleet.run/*` datom on a LOCAL kotoba ops Datom log (`data/fleet-ops.kotoba.edn`)
-— kotoba is the canonical record of what ran where. Drive it on an interval with `/loop`:
+— kotoba is the canonical record of what ran where.
 
-```
-/loop 1h bb sukashi:fleet-drive
-```
+**Durable (recommended for B):** install `com.etzhayyim.sukashi-fleet-drive.agent.plist` as a
+per-user **LaunchAgent** on that interactive machine — it loads because the machine is logged into
+the Aqua GUI (the headless fleet Macs are not, which is why they need the LaunchDaemon, path A).
+See the plist header for the `sed` install; it fires hourly at `:42`, survives terminal close, and
+is reversible (`launchctl unload` + `rm`). Its `WorkingDirectory` must be a CURRENT checkout/worktree
+(with `bb.edn` + `tools/fleet_drive.py`) that persists — do not `worktree cleanup` it while loaded.
+(Cloud schedule is NOT an option: a cloud runner has no Tailscale access to the private fleet.)
 
-This is honest interim continuity (alive only while the driving machine is up); **A is the real
-fleet daemon**.
+**Quick/ephemeral:** `/loop 1h bb sukashi:fleet-drive` — runs only while the terminal stays open.
+
+Either way this is honest interim continuity (alive only while the driving machine is up); **A is
+the real fleet daemon**.
 
 ## kotoba-native design
 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  LaunchDAEMON for the pure-stdlib node cell-runner (lite_runner.py) — the ONE Tier-1 supervisor
+  per Murakumo Mac mini (ADR-2606161645 + 2605192415 §7.1). Replaces per-actor daemons: this single
+  daemon reads cells.edn and runs EVERY cron cell assigned to this node.
+
+  Why a Daemon (system domain), not an Agent: the fleet Macs sit at the login window with no Aqua
+  GUI session, so a LaunchAgent cannot load. KeepAlive=true → launchd restarts it on crash
+  (stability). Pure python3 — no uv/venv/monorepo (the heavy canonical kotoba-kotodama-cell-runner
+  needs those; this lite runner deploys with system python3 alone).
+
+  Per-node substitution (operator, with sudo):
+    @@USER@@  — tribe user (e.g. issachar)        @@HOME@@ — /Users/<tribe>
+    @@NODE@@  — Murakumo tribe / node name (e.g. issachar)
+
+  Layout staged under @@HOME@@/.etzhayyim/ (see `bb murakumo:deploy`):
+    @@HOME@@/.etzhayyim/lite_runner.py
+    @@HOME@@/.etzhayyim/cells.edn            (the registry, copied from cell-runner/cells.edn)
+    @@HOME@@/.etzhayyim/cells/<actor>/...    (each assigned actor, e.g. cells/sukashi/cell.py)
+
+  Install / status / remove:
+    sudo cp com.etzhayyim.cell-runner.plist /Library/LaunchDaemons/ && \
+      sudo launchctl bootstrap system /Library/LaunchDaemons/com.etzhayyim.cell-runner.plist
+    sudo launchctl print system/com.etzhayyim.cell-runner | grep -iE 'state|pid'
+    curl -s 127.0.0.1:13081 | python3 -m json.tool      # healthz
+    sudo launchctl bootout system/com.etzhayyim.cell-runner; sudo rm /Library/LaunchDaemons/com.etzhayyim.cell-runner.plist
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.etzhayyim.cell-runner</string>
+  <key>UserName</key>
+  <string>@@USER@@</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>@@HOME@@/.etzhayyim/lite_runner.py</string>
+    <string>--node</string>
+    <string>@@NODE@@</string>
+    <string>--registry</string>
+    <string>@@HOME@@/.etzhayyim/cells.edn</string>
+    <string>--cells-root</string>
+    <string>@@HOME@@/.etzhayyim/cells</string>
+    <string>--ops-log</string>
+    <string>@@HOME@@/.etzhayyim/cells/cell-ops.kotoba.edn</string>
+    <string>--healthz-port</string>
+    <string>13081</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>@@HOME@@/.etzhayyim</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ThrottleInterval</key>
+  <integer>30</integer>
+  <key>StandardOutPath</key>
+  <string>@@HOME@@/.etzhayyim/log/cell-runner.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>@@HOME@@/.etzhayyim/log/cell-runner.err.log</string>
+</dict>
+</plist>
