@@ -223,8 +223,14 @@ Both R0 (design) and R1 (offline sim) landed together; neither ships any **live 
 Each actor also carries `wasm/README.md` — the kotoba pywasm (componentize-py) actor design
 (WIT world + build/verify + trust model), matching the hoshimori sibling.
 
-**R2+ (separate PRs, gated)**: componentize-py build + CID advertisement, `.cljc` port (the
-ADR-2606131300 corpus arc), live launch/ops legs (Council + operator-DID).
+**R2 — `.cljc` port (the ADR-2606131300 corpus arc), landed**: all 8 methods + both test
+files ported to portable `.cljc` (`torifune.methods.*` / `subaru.methods.*` /
+`*.tests.test-*`), auto-discovered by `bb test:actors` — **15 tests / 331 assertions green**
+under babashka, and **every report + datom log byte-identical to the python3 oracle** (the
+corpus-arc verification standard; node-insertion order + Python-`:g` float formatting matched).
+
+**R3+ (separate PRs, gated)**: componentize-py build + CID advertisement, live launch/ops legs
+(Council + operator-DID).
 
 ## 6. Lineage
 
