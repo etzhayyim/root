@@ -1,7 +1,6 @@
-# Derived/regenerable artifacts (re-emit via the methods); the RAW acquired source data
-# (*.raw.json) IS committed to the repo per operator directive (datalad-stored acquired data).
 jinushi-land-datoms.kotoba.edn
 building-ownership-datoms.kotoba.edn
 company-link-datoms.kotoba.edn
 nyc-pluto-datoms.kotoba.edn
+osm-buildings-datoms.kotoba.edn
 jinushi-digest.md

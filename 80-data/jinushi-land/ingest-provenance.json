@@ -75,6 +75,22 @@
     "note" : "coverage corrected 6.67% (raw) → 4.17% (sanitized). Even sanitized coverage is an UPPER BOUND: marine parks below country area + overlapping parks are not geometry-de-duped yet."
   },
   "adr" : "ADR-2605241500 (datalad + git-annex → IPFS substrate); processed artifacts committed in 80-data (genome convention)",
+  "osm-buildings" : {
+    "building-count" : 600,
+    "with-operator" : 15,
+    "with-floors" : 600,
+    "license" : "ODbL",
+    "jurisdiction" : "JP-13 (Tokyo bbox sample)",
+    "source" : "OpenStreetMap via Overpass",
+    "note" : "building:levels (floors) + operator (owner-ish, orgs only); sample 600 (planet/Geofabrik = operator/datalad step); no person dimension (G1)",
+    "reference" : {
+      "artifact" : "osm-buildings.kotoba.edn",
+      "sha256" : "9b23b16b06ece5e55d83f7df7706af7f538eab9b77ae7e6fd616df3b8612243d",
+      "cidv1" : "bafkreie3eoywwbxm4xsv3a7x353qnl37kohkxg3xvz7g7vqw345ymerehu"
+    },
+    "confidence-tier" : ":osm open-crowd 0.6",
+    "layer" : "OSM building stock (methods/osm_buildings.cljc) — 5th source"
+  },
   "pin" : {
     "status" : "operator-step",
     "how" : "e7m-dataset add 80-data/jinushi-land -> superdataset 90-docs/baien/datasets; not auto-run"

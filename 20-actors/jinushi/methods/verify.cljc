@@ -47,13 +47,16 @@
            gleif-check (when gleif-ref (check-artifact dir gleif-ref))
            pluto-ref (get-in prov [:nyc-pluto :reference])         ;; committed NYC PLUTO parcel sample
            pluto-check (when pluto-ref (check-artifact dir pluto-ref))
+           osm-ref (get-in prov [:osm-buildings :reference])       ;; committed OSM building-stock sample
+           osm-check (when osm-ref (check-artifact dir osm-ref))
            derived (:derived prov)
            ;; the derived Datom log is gitignored/regenerable — verify only if present on disk
            der-check (when (and derived (.exists (io/file dir (:artifact derived))))
                        (check-artifact dir derived))
            checks (vec (concat src-checks (when denom-check [denom-check])
                                (when bo-check [bo-check]) (when gleif-check [gleif-check])
-                               (when pluto-check [pluto-check]) (when der-check [der-check])))]
+                               (when pluto-check [pluto-check]) (when osm-check [osm-check])
+                               (when der-check [der-check])))]
        {:ok (every? :ok checks) :checks checks})))
 
 #?(:clj
