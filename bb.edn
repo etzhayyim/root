@@ -405,6 +405,18 @@
   aburi:bridge
   {:doc "炙り aburi — push local exposure log → live kotoba :8077 (dry-run default; live = ABURI_KOTOBA_LIVE=1 + Council)"
    :task (apply shell {:dir "20-actors/aburi"} "python3" "methods/kotoba_bridge.py" *command-line-args*)}
+  sukashi:crawl
+  {:doc "透かし sukashi — worldwide ad-supply-chain crawler (ads.txt/app-ads.txt/sellers.json/RDAP). DRY-RUN unless SUKASHI_OPERATOR_GATE=1 + Council (G7); files → data/live (gitignored)"
+   :task (apply shell {:dir "20-actors/sukashi"} "python3" "methods/crawl.py" *command-line-args*)}
+  test:sukashi
+  {:doc "透かし sukashi — python invariant/heartbeat/crawler suites + cljc analyzer tests (no .sh; bb is the runner)"
+   :task (do (shell {:dir "20-actors/sukashi"} "python3" "tests/test_sukashi.py")
+             (shell {:dir "20-actors/sukashi"} "python3" "methods/test_autorun.py")
+             (shell {:dir "20-actors/sukashi"} "python3" "tests/test_crawl.py")
+             (require 'clojure.test 'sukashi.tests.test-sukashi)
+             (let [r (clojure.test/run-tests 'sukashi.tests.test-sukashi)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
    :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:aburi]}

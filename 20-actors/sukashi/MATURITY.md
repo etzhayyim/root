@@ -39,9 +39,16 @@ Integration / readiness:
 - [ ] add a Murakumo-narration design note (G6) for report summaries (no live call)
 - [ ] viz: render the fraud-cluster as a highlighted sub-graph + a "routed-to" badge per signal
 
-## R1 — gated (Council Lv6+ + operator; an agent cannot flip these)
+## R1 — acquisition leg LANDED; live full-web crawl is the gate-flip (Council Lv6+ + operator)
 
-- [ ] live full-web ads.txt / sellers.json crawl (`SUKASHI_OPERATOR_GATE`) → `data/live/` (G8 gitignored)
+- [x] **CRAWLER built** (`methods/crawl.py`) — frontier walk over real publisher/SSP/exchange
+      domains (`data/frontier-domains.edn`, 33 real domains) → fetch `/ads.txt`/`/app-ads.txt`/
+      `/sellers.json`/RDAP → existing parsers → kotoba rows. Network leg INJECTED (offline tests),
+      GET-only/robots/no-evasion (G2/G12), RDAP org-only (G9), resume-safe (`data/live/` gitignored).
+      **Proven live**: fetched `theguardian.com/ads.txt` (5,679 B) → 131 supply-chain rows parsed.
+      9 tests green; wired as `bb sukashi:crawl`.
+- [ ] **flip the gate** for the FULL run: `SUKASHI_OPERATOR_GATE=1 bb sukashi:crawl` over the full
+      frontier (and enumerate the worldwide frontier from IAB Tech Lab / Common Crawl host lists) → `data/live/`
 - [ ] live RDAP/WHOIS + passive-DNS join for real delivery infra (via tadori, registrant ORG only)
 - [ ] live kotoba write (`--graph <CID>` + operator JWT/CACAO)
 - [ ] live atproto publish (`SUKASHI_LIVE_POST` + Charter Rider §2 scan)

@@ -76,6 +76,13 @@
 
 ## Cells
 
+- `cell:sukashi.crawl` → `methods/crawl.py` — the worldwide ACQUISITION leg. Walks a frontier of
+  real publisher / SSP / exchange domains (`data/frontier-domains.edn`) and FETCHES their PUBLIC
+  IAB files (`/ads.txt`, `/app-ads.txt`, `/sellers.json`, public RDAP) → feeds the `ingest` parsers
+  → kotoba rows. **DRY-RUN unless `SUKASHI_OPERATOR_GATE=1`** (G7); the network leg is INJECTED
+  (`fetcher=`, tests run offline); GET-only honest-UA robots-respecting, no detection-evasion
+  (G2/G12); RDAP keeps registrant ORG only (G9); resume-safe (data/live/ gitignored, fresh-skip).
+  I/O-coupled → `.py` (the ingest.py boundary, ADR-2606131800); the *analyzer* is `.cljc`.
 - `cell:sukashi.ingest` → `methods/ingest.py` — real ads.txt/sellers.json/WHOIS parsers → kotoba
   EAVT bridge (offline default; live G7-gated). WHOIS keeps registrant ORG only (G9).
 - `cell:sukashi.analyze` → `methods/analyze.py` (stdlib). authorization-handshake integrity
@@ -97,14 +104,21 @@ to avoid floats, mirroring kabuto's `criticalityBp`.
 
 ## Run
 
+**bb is the standard runner — no `.sh` in this repo.** Tasks live in the root `bb.edn`.
+
 ```bash
+# from the repo root:
+bb sukashi:crawl                  # DRY-RUN: print the frontier plan (no network). The acquisition leg.
+SUKASHI_OPERATOR_GATE=1 bb sukashi:crawl --max 50   # LIVE worldwide crawl (Council-gated, G7) → data/live/
+bb test:sukashi                   # python invariant/heartbeat/crawler + cljc analyzer suites
+
+# pure reports (methods are python/.cljc, not scripts):
 cd 20-actors/sukashi
-python3 methods/ingest.py --source adstxt --in data/ingest/example.ads.txt --publisher <id>  # G7: bridge a public file (offline default)
+python3 methods/crawl.py --merge                 # parse fetched data/live/* → rows
+python3 methods/ingest.py --source adstxt --in data/live/nytimes.com.ads.txt --publisher <id>  # bridge a fetched file
 python3 methods/analyze.py                       # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
-python3 viz/build_viz_data.py                    # → viz/ad-supply-chain.htm (open in a browser)
-python3 methods/transact.py                      # dry-run; --graph <CID> + KOTOBA_TOKEN to write (G7)
 python3 methods/autorun.py --cycles 3 --fresh    # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
-./run_tests.sh                                   # invariant + analyzer + autonomous-heartbeat tests
+python3 methods/transact.py                      # dry-run; --graph <CID> + KOTOBA_TOKEN to write (G7)
 ```
 
 ### Autonomous on the Murakumo fleet (ADR-2606071600)

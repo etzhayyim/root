@@ -214,6 +214,33 @@ atproto publish, and the live akashi malak handoff. The agent-reachable goal bet
   Charter Rider §2(e) + akashi G9). sukashi is a fraud-protection observatory, never a buying /
   targeting / optimization / detection-evasion tool.
 
+# Implementation update (2026-06-16) — the worldwide ACQUISITION crawler landed
+
+R0 shipped the real parsers (`ingest.parse_ads_txt` / `parse_sellers_json` / `bridge_whois`), the
+analyzer (`.cljc`), the kotoba Datom log + gated live transact, and the autonomous heartbeat — but
+acquisition was limited to bridging a single local `--in` file. The crawler (the "全世界の広告情報
+の取得" leg) was design-only. This update lands it:
+
+- **`methods/crawl.py`** — walks a frontier of REAL publisher / SSP / exchange domains
+  (`data/frontier-domains.edn`, 33 real domains) and FETCHES each one's PUBLIC IAB files
+  (`/ads.txt`, `/app-ads.txt`, `/sellers.json`) + public RDAP, then feeds them through the existing
+  real parsers → kotoba `:adtech` / `:adauth.edge` / `:addelivery.edge` rows. Only those four
+  public paths are constructible (`urls_for`); the network leg is **INJECTED** (`fetcher=`), so the
+  dry-run and the tests run with zero network. **G7**: a live crawl requires `SUKASHI_OPERATOR_GATE=1`
+  + Council — otherwise `crawl()` is a dry-run that returns the URL plan and fetches nothing. **G2/G12**:
+  GET-only, honest identifying UA, robots-respecting, no anti-bot bypass (unrepresentable). **G9**:
+  RDAP keeps registrant ORG only. Resume-safe (`data/live/` gitignored; fresh-skip by ttl).
+- **Proven live**: with the gate set, the crawler fetched `theguardian.com/ads.txt` (5,679 bytes, a
+  real public file) and parsed **131** real ad-supply-chain rows. 9 crawler tests green (offline).
+- **bb is the runner** (no `.sh`): `bb sukashi:crawl` (dry-run / `SUKASHI_OPERATOR_GATE=1` for live)
+  + `bb test:sukashi` (python invariant/heartbeat/crawler + cljc analyzer); `run_tests.sh` removed.
+
+**Honest boundary**: the *capability* for worldwide acquisition is now real and proven on a live
+domain; the *full-world run* (the whole frontier, then the IAB Tech Lab / Common Crawl host-list
+enumeration) is the Council gate-flip (`SUKASHI_OPERATOR_GATE=1`) — a human step, not done here. The
+acquisition leg is `.py` (I/O-coupled, the ingest.py boundary per ADR-2606131800); the analyzer +
+EDN reader are `.cljc`; canonical state is the kotoba Datom log.
+
 # References
 
 - `20-actors/sukashi/` — actor (manifest, CLAUDE.md, README, MATURITY, methods, viz, tests)
