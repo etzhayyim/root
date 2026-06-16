@@ -1,0 +1,92 @@
+;; constellation-ontology — the orbital-CONNECTIVITY vocabulary for subaru 昴
+;; ADR-2606162355 · connectivity-family sibling of watatsuna (submarine cable, ADR-2606012600)
+;; and tsutae (handheld terminal, ADR-2605261300), using noroshi (光電融合 photonics,
+;; ADR-2606051600) for links; the payload torifune 鳥船 launches and hoshimori 星守
+;; (ADR-2606073600) observes for stewardship.
+;;
+;; PURPOSE: model a Transparent connectivity-commons satellite constellation (Starlink/OneWeb
+;; inversion) into the kotoba Datom log. The lens is CONNECTIVITY REACH as §1.16 Social
+;; Security in-kind (ADR-2605302357) — to the unconnected + disaster zones — at cash≡0, no-ads,
+;; no-subscription, no-surveillance.
+;;
+;; CONSTITUTIONAL INVERSION (G1, read first): subaru is a connectivity COMMONS, NEVER a
+;; surveillance / targeting / military-C2 platform. A global comms constellation is — modulo
+;; intent — a military C2 + ISR backbone, so the prohibited mode is STRUCTURALLY UNREPRESENTABLE
+;; here:
+;;   - there is NO :link/inspect / :link/dpi attribute (no deep-packet inspection),
+;;   - there is NO :user/location / :subscriber/geo attribute (no user-geolocation-as-product),
+;;   - there is NO :relay/targeting attribute (no ISR/targeting relay),
+;;   - service is keyed to :service-area (aggregate region), NEVER to a tracked person.
+;; Military-exclusive C2 + jamming-as-weapon are unrepresentable (§1.12 + Rider §2(a),(c)).
+;;
+;; G2 NO PERSON-TRACKING / RECIPROCAL-SYMMETRIC (Rider §2(c) v3.1): subscriber content is E2E
+;; encrypted (com.etzhayyim.encrypted.*, ADR-2605181100); subaru routes ciphertext it cannot
+;; read; no traffic-metadata retention-as-product. Privacy by encryption, not by metadata graph.
+;; G3 cash≡0 / no-ads: connectivity is §1.16 in-kind; :entitlement is covenantal, not a sale.
+;; G5 STEWARDSHIP: every :shell occupied requires a :disposal-plan; footprint feeds hoshimori.
+;; EDGE-PRIMARY (N1): coverage %, link margin, deorbit-debt are computed on READ (transient).
+
+{:schema/id "constellation-ontology"
+ :schema/version "0.1.0"
+ :schema/adr "2606162355"
+
+ ;; ── nodes ──────────────────────────────────────────────────────────────────
+ :node/attrs
+ [{:attr :organism/id        :doc "stable id, e.g. con.constellation.subaru / con.shell.leo-low / con.area.pacific-islands"}
+  {:attr :organism/kind       :doc ":constellation | :bus | :shell | :link | :ground-station | :service-area | :entitlement | :disposal-plan"}
+  {:attr :organism/label      :doc "common/display label"}
+  {:attr :organism/sourcing   :doc ":authoritative (ITU/national coordination fact / published standard) | :representative (engineering estimate seed)"}
+
+  ;; constellation facet
+  {:attr :constellation/sat-count :doc "representative active satellite count (aggregate, engineering estimate)"}
+  {:attr :constellation/open-bus  :doc "boolean — open-source bus + protocol (G4)"}
+
+  ;; bus (spacecraft) facet
+  {:attr :bus/power-w          :doc "representative bus power budget (W)"}
+  {:attr :bus/darksat          :doc "boolean — night-sky brightness mitigation applied (G5, Wellbecoming §1.13)"}
+
+  ;; shell facet (reuses orbit-ontology regimes)
+  {:attr :shell/regime         :doc ":leo-low | :leo-high | :sso | :meo | :geo (low-deorbit-debt regimes preferred, G5)"}
+  {:attr :shell/alt-band-km    :doc "representative altitude band label (NOT a per-object ephemeris)"}
+
+  ;; link facet (G1 — NO :link/inspect / :link/dpi attribute exists)
+  {:attr :link/kind            :doc ":ground-uplink | :ground-downlink | :inter-satellite-optical (noroshi) | :feeder"}
+  {:attr :link/band            :doc "spectrum band label (coordinated, G6) — e.g. :ku :ka :v :optical"}
+  {:attr :link/eirp-dbw        :doc "representative EIRP (dBW), engineering estimate"}
+
+  ;; ground-station facet
+  {:attr :gs/role              :doc ":gateway | :tt-and-c | :user-terminal-class (tsutae-compatible)"}
+
+  ;; service-area facet (G1 — AGGREGATE region; NO :user/location attribute exists)
+  {:attr :area/region          :doc "aggregate region label (e.g. \"Pacific island states\", \"disaster zone\") — NEVER a tracked person"}
+  {:attr :area/unconnected     :doc "boolean — §1.16 connectivity priority (unconnected / underserved)"}
+  {:attr :area/disaster        :doc "boolean — disaster-zone priority (couples kazaori/sonae)"}
+
+  ;; entitlement facet (G3 — §1.16 in-kind, cash≡0; NOT a subscription)
+  {:attr :entitlement/kind     :doc ":social-security-level-0 (covenantal-universal) | :sbt-internal (SBT↔SBT carve-out)  ;; NO :subscription / :ad-supported member — unrepresentable (G3)"}
+
+  ;; disposal-plan facet (G5 — mandatory per occupied shell)
+  {:attr :disposal/method      :doc ":controlled-reentry | :natural-decay-low-debt | :graveyard-orbit | :passivation"}
+  {:attr :disposal/deorbit-debt :doc "representative added orbital-congestion debt (feeds hoshimori; must reduce not add)"}]
+
+ ;; ── edges (縁) — derived load lives here; computed on read (N1) ──────────────
+ :edge/attrs
+ [{:attr :en/kind             :doc ":occupies (constellation→shell) | :relays (link→link, ciphertext only) | :serves (constellation→service-area) | :grants (service-area→entitlement) | :coordinates-spectrum (link→band, ITU/national) | :disposes (shell→disposal-plan)"}
+  {:attr :en/from            :doc "source organism id"}
+  {:attr :en/to              :doc "target organism id"}
+  {:attr :en/coverage-pct    :doc "representative coverage fraction for :serves edges (computed on read)"}
+  {:attr :bond/is-transient  :doc "true for derived readouts (coverage %, link margin, deorbit debt) — computed on read, never persisted (N1)"}]
+
+ ;; ── derived readouts (transient — NEVER stored) ─────────────────────────────
+ :readout/derived
+ [{:readout :con/coverage-reach :doc "Σ served unconnected/disaster service-areas (§1.16 reach, computed on read)"}
+  {:readout :con/link-margin    :doc "link budget margin per :link (EIRP − path-loss + G/T − required, on read)"}
+  {:readout :con/deorbit-debt   :doc "Σ shell deorbit-debt routed to hoshimori stewardship (G5)"}]
+
+ ;; ── constitutional invariants (asserted by R1 tests) ────────────────────────
+ :invariant/gates
+ ["G1: no :link/inspect / :link/dpi / :user/location / :relay/targeting attribute exists (test_g1_no_surveillance_relay); service keyed to :service-area only"
+  "G2: subscriber content modelled only as E2E-encrypted ciphertext; no metadata-retention-as-product attribute"
+  "G3: :entitlement/kind has no :subscription / :ad-supported member (cash≡0, §1.16 in-kind)"
+  "G5: every occupied :shell has a :disposes edge to a :disposal-plan; deorbit-debt feeds hoshimori"
+  "N1: derived load is edge-primary + transient, never a stored node score"]}

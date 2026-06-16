@@ -1,0 +1,93 @@
+;; launch-vehicle-ontology — the space-ACCESS vocabulary for torifune 鳥船
+;; ADR-2606162355 · build-pattern sibling of funadaiku (ships, ADR-2606013400) and the
+;; giemon-factory 4D-BIM plant; the launch leg whose payload subaru 昴 operates and whose
+;; disposal plans hoshimori 星守 (ADR-2606073600) consumes for stewardship.
+;;
+;; PURPOSE: model a reusable, open-design launch vehicle (Ama 天 class, two-stage hydrolox),
+;; its plant, and its ascent/staging/recovery GNC simulation, into the kotoba Datom log. The
+;; lens is CIVILIAN SPACE ACCESS at zero net carbon, with debris-responsibility.
+;;
+;; CONSTITUTIONAL INVERSION (G1, read first): torifune is CIVILIAN LAUNCH ONLY, NEVER a
+;; weapon-delivery / ballistic-strike vehicle. A launch vehicle is — modulo payload — a
+;; ballistic missile, so the weapon mode is made STRUCTURALLY UNREPRESENTABLE here:
+;;   - :traj/class admits ONLY {:ascent :orbit-insertion :rendezvous :deorbit} — there is NO
+;;     :depressed-strike / :suborbital-strike / :fobs member, and none may be added.
+;;   - :payload/class admits ONLY civilian classes — there is NO :munition / :kinetic /
+;;     :reentry-vehicle / :mirv-bus member, and none may be added.
+;; ASAT / kinetic-intercept / fractional-orbital-bombardment uses are unrepresentable
+;; (Charter §1.12 Transparent-Force: open + on-chain + 1 SBT = 1 vote; Rider §2(a)).
+;;
+;; G2 ZERO-NET-CARBON: propellant is green-H₂ hydrolox (primary) or kamado-synthetic methalox
+;; at net≤0; fossil/toxic-hypergolic is representable only as :disfavored. Carbon is MEASURED.
+;; G5 DEBRIS-RESPONSIBILITY: every :mission requires a :disposal-plan (no plan ⇒ refused).
+;; EDGE-PRIMARY (N1): derived readouts (Δv margin, carbon balance, deorbit debt) live on edges
+;; and are computed on READ, flagged :bond/is-transient — never stored scores.
+
+{:schema/id "launch-vehicle-ontology"
+ :schema/version "0.1.0"
+ :schema/adr "2606162355"
+
+ ;; ── nodes ──────────────────────────────────────────────────────────────────
+ :node/attrs
+ [{:attr :organism/id        :doc "stable id, e.g. lv.vehicle.ama / lv.stage.ama-s1 / lv.engine.ringa"}
+  {:attr :organism/kind       :doc ":vehicle | :stage | :engine | :propellant | :plant-cell | :mission | :payload | :trajectory | :disposal-plan"}
+  {:attr :organism/label      :doc "common/display label"}
+  {:attr :organism/sourcing   :doc ":authoritative (published standard / agency rule) | :representative (engineering estimate seed)"}
+
+  ;; vehicle facet
+  {:attr :vehicle/class        :doc "vehicle-class label, e.g. \"Ama 天\""}
+  {:attr :vehicle/reusable     :doc "boolean — stage recovery designed in (G5 preference)"}
+  {:attr :vehicle/stages       :doc "integer stage count"}
+
+  ;; stage facet
+  {:attr :stage/index          :doc "1-based stage index (booster = 1)"}
+  {:attr :stage/dry-mass-kg    :doc "representative dry mass (engineering estimate, G8)"}
+  {:attr :stage/prop-mass-kg   :doc "representative propellant mass (engineering estimate)"}
+  {:attr :stage/recovery       :doc ":propulsive-landing | :downrange-recovery | :expendable (expendable disfavored, G5)"}
+
+  ;; engine facet
+  {:attr :engine/cycle         :doc ":full-flow-staged-combustion | :gas-generator | :expander | :electric-pump"}
+  {:attr :engine/isp-s         :doc "representative specific impulse (s, vacuum), engineering estimate"}
+  {:attr :engine/thrust-kn     :doc "representative thrust (kN), engineering estimate"}
+
+  ;; propellant facet (G2 — zero net carbon)
+  {:attr :propellant/kind      :doc ":hydrolox-green-h2 | :methalox-synthetic-net0 | :disfavored-fossil | :disfavored-hypergolic-toxic"}
+  {:attr :propellant/carbon-balance :doc "measured net kgCO2e per kg propellant (≤0 required for non-:disfavored, G2)"}
+
+  ;; plant facet (the factory — funadaiku/giemon pattern)
+  {:attr :plant-cell/kind      :doc ":tank-fab | :engine-assembly | :integration | :test-stand | :recovery-refurb"}
+
+  ;; mission facet
+  {:attr :mission/payload-to-orbit-kg :doc "representative payload mass to the target regime (engineering estimate)"}
+  {:attr :mission/target-regime :doc ":leo-low | :leo-high | :sso | :meo | :geo | :heo (reuses orbit-ontology regimes)"}
+
+  ;; payload facet (G1 — civilian classes ONLY; no munition/kinetic member exists)
+  {:attr :payload/class        :doc ":connectivity-sat | :earth-observation-sat | :science | :crewed | :cargo  ;; NO :munition / :kinetic / :reentry-vehicle / :mirv-bus — unrepresentable (G1)"}
+
+  ;; trajectory facet (G1 — civilian profiles ONLY; no strike member exists)
+  {:attr :traj/class           :doc ":ascent | :orbit-insertion | :rendezvous | :deorbit  ;; NO :depressed-strike / :suborbital-strike / :fobs — unrepresentable (G1)"}
+
+  ;; disposal-plan facet (G5 — mandatory per mission)
+  {:attr :disposal/method      :doc ":controlled-reentry | :graveyard-orbit | :stage-recovery | :passivation"}
+  {:attr :disposal/deorbit-debt :doc "representative added orbital-congestion debt (feeds hoshimori; ≤ design ceiling required)"}]
+
+ ;; ── edges (縁) — derived load lives here; computed on read (N1) ──────────────
+ :edge/attrs
+ [{:attr :en/kind             :doc ":powers (engine→stage) | :stages-to (stage→stage) | :fuels (propellant→engine) | :builds (plant-cell→stage/vehicle) | :lofts (vehicle→mission) | :carries (mission→payload) | :flies (mission→trajectory) | :disposes (mission→disposal-plan)"}
+  {:attr :en/from            :doc "source organism id"}
+  {:attr :en/to              :doc "target organism id"}
+  {:attr :en/dv-contribution :doc "representative Δv contribution (m/s) for :stages-to edges, engineering estimate"}
+  {:attr :bond/is-transient  :doc "true for derived readouts (Δv margin, carbon balance, deorbit debt) — computed on read, never persisted (N1)"}]
+
+ ;; ── derived readouts (transient — NEVER stored) ─────────────────────────────
+ :readout/derived
+ [{:readout :lv/dv-margin       :doc "Σ stage Δv − required Δv to target regime (computed on read)"}
+  {:readout :lv/carbon-balance  :doc "Σ propellant carbon-balance × mass (≤0 required, G2)"}
+  {:readout :lv/deorbit-debt    :doc "mission disposal deorbit-debt routed to hoshimori stewardship (G5)"}]
+
+ ;; ── constitutional invariants (asserted by R1 tests) ────────────────────────
+ :invariant/gates
+ ["G1: :traj/class has no strike member AND :payload/class has no munition/kinetic member (test_g1_no_strike_profile)"
+  "G2: every non-:disfavored propellant has carbon-balance ≤ 0 (measured)"
+  "G5: every :mission has a :disposes edge to a :disposal-plan (no plan ⇒ refused)"
+  "N1: derived load is edge-primary + transient, never a stored node score"]}
