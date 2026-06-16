@@ -76,7 +76,8 @@
   [{:source-id "wikidata-national-parks" :class "Q46169 national park" :counts true
     :retrieved "2026-06-16"
     :raw ["national-parks.raw.json" "national-parks-major.raw.json"
-          "national-parks-major2.raw.json" "national-parks-major3.raw.json"]
+          "national-parks-major2.raw.json" "national-parks-major3.raw.json"
+          "national-parks-major4.raw.json"]
     :note "National parks = PUBLIC land. PRIMARY world-coverage source. Polite country-bound WDQS fetches merged (initial set + major-country extensions). All units resolved; non-positive bad-data dropped."}
    {:source-id "wikidata-nature-reserves" :class "Q179049 nature reserve" :counts false
     :retrieved "2026-06-16"

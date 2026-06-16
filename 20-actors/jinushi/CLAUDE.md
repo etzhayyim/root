@@ -70,6 +70,7 @@ registry ingest.)
   (canonical unit map km²/ha/decare/dunam/acre/m²/sq-mile/rai/feddan + salvage parse, in code).
 - `methods/cid.cljc`         — CIDv1 (raw/sha2-256) content-addressing of snapshots (R1).
 - `methods/emit_real.cljc`   — emit the REAL acquisition → canonical kotoba Datom log + CID.
+- `methods/verify.cljc`      — integrity: committed snapshots ↔ `ingest-provenance.json` (CID+sha256).
 - `methods/fetch_wdqs.sh`    — polite, EXPLICIT, operator-only WDQS refresh of the snapshot.
 
 ## Real acquisition + WDQS load discipline (operator directive 2026-06-16)
@@ -95,11 +96,11 @@ snapshots → `ingest`/`emit_real` (offline).
 
 | source | class | records | countries | area | counts toward world coverage |
 |---|---|--:|--:|--:|---|
-| national parks | Q46169 | 1751 | 70 | 9.85M km² | **yes** (primary, non-overlapping) |
+| national parks | Q46169 | 1859 | 85 | 9.94M km² | **yes** (primary, non-overlapping) |
 | nature reserves | Q179049 | 497 | 3 | 0.23M km² | **no** (overlaps NP countries NO/IE/CA) |
 
-**World acquisition coverage = 70 countries · 9.85M km² = 6.61% of world land** (0.056% synthetic
-floor → 3.34% → 4.80% → 6.03% → 6.61% over loop iterations). The real acquisition is emitted to the
+**World acquisition coverage = 85 countries · 9.94M km² = 6.67% of world land** (0.056% synthetic
+floor → 3.34% → 4.80% → 6.03% → 6.61% → 6.67% over loop iterations). The real acquisition is emitted to the
 **canonical kotoba Datom log** (`methods/emit_real.cljc` → `jinushi-land-datoms.kotoba.edn`,
 ground `:owner/*`+`:parcel/*` `:add` + derived `:jinushi/*` transient), making the world land
 data first-class canonical state (ADR-2605312345); the log is regenerable + content-addressed
@@ -128,10 +129,10 @@ bad-data areas dropped (disclosed). Each snapshot is **content-addressed to a CI
 
 ```bash
 CP=20-actors
-for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs; do
+for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 36 tests / 112 assertions green
+# 40 tests / 122 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
@@ -139,6 +140,7 @@ bb --classpath 20-actors -m jinushi.methods.ingest       # REAL snapshots → li
 bb --classpath 20-actors -m jinushi.methods.cid          # CIDv1 of each committed snapshot
 bb --classpath 20-actors -m jinushi.methods.normalize-wdqs # raw *.raw.json → committed snapshots (process)
 bb --classpath 20-actors -m jinushi.methods.emit-real    # REAL acquisition → kotoba Datom log + CID
+bb --classpath 20-actors -m jinushi.methods.verify       # snapshots ↔ provenance CID/sha256 integrity
 
 # operator-only, rare, polite — refresh the snapshot from WDQS (NOT run by the loop):
 methods/fetch_wdqs.sh 400
@@ -148,9 +150,9 @@ methods/fetch_wdqs.sh 400
 
 - **R0 (landed)** — analyze + datom-emit + coverage + ontology + synthetic seed + 16 tests. ✅
 - **R2 (landed)** — REAL multi-source public-land ingest (`normalize_wdqs.cljc` + `ingest.cljc`
-  + `fetch_wdqs.sh`): committed Wikidata snapshots — national parks (1751 / **70 cc** / 9.85M km²,
+  + `fetch_wdqs.sh`): committed Wikidata snapshots — national parks (1859 / **85 cc** / 9.94M km²,
   **counts**; four polite country-bound fetches) + nature reserves (497 / 3 cc, observed-only,
-  overlap-excluded). World coverage **6.61%** (0.056% → 3.34% → 4.80% → 6.03% → 6.61% over loop
+  overlap-excluded). World coverage **6.67%** (0.056% → 3.34% → 4.80% → 6.03% → 6.61% → 6.67% over loop
   iterations). Processing is code (canonical unit map + salvage parse in `normalize_wdqs.cljc`).
   Double-count-honest (G2/G4), full unit map (km²/ha/decare/dunam/acre/sq-mile/m²), non-positive
   bad-data dropped, data in 80-data via datalad substrate, WDQS-load-safe (snapshot SoT; loop
