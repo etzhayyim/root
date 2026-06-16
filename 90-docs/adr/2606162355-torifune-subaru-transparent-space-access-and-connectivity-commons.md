@@ -191,8 +191,9 @@ observation-only posture into an operate-but-only-Transparently posture.
 Both actors follow the established posture: pure-stdlib (no numpy) methods → componentize-py
 WASM Component, browser-local (ameno) / mesh (e7m-wasm-runner), no-server-key. A read-only,
 content-addressed, dry-run sim component **cannot** fly a rocket or operate a constellation —
-which is exactly the correct posture for G1/G6/G8. WIT world + build/verify + trust model in
-each actor's `wasm/README.md` (R1).
+which is exactly the correct posture for G1/G6/G8. WIT world + build/verify + trust model
+landed in each actor's `wasm/README.md`; the componentize-py build + CID advertisement is the
+gated operator step.
 
 ## 5. R0 + R1 deliverables (this ADR — all green, still pre-live)
 
@@ -219,7 +220,10 @@ Both R0 (design) and R1 (offline sim) landed together; neither ships any **live 
   user-location attribute, and a subscription entitlement are all REFUSED). All links close;
   §1.16 reach counts only unconnected/disaster areas; urban baseline excluded.
 
-**R2+ (separate PRs, gated)**: `wasm/README.md` + componentize-py build, `.cljc` port (the
+Each actor also carries `wasm/README.md` — the kotoba pywasm (componentize-py) actor design
+(WIT world + build/verify + trust model), matching the hoshimori sibling.
+
+**R2+ (separate PRs, gated)**: componentize-py build + CID advertisement, `.cljc` port (the
 ADR-2606131300 corpus arc), live launch/ops legs (Council + operator-DID).
 
 ## 6. Lineage
