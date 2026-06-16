@@ -25357,6 +25357,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606161645-sukashi-fleet-continuous-operation-kotoba-native.md",
+      "id": "adr-2606161645-sukashi-fleet-continuous-operation-kotoba-native",
+      "title": "ADR-2606161645: sukashi fleet continuous operation (kotoba-native) — LaunchDaemon (A) + /loop driver (B)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "sukashi-fleet-continuous",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/sukashi/tools/fleet_drive.py",
+        "20-actors/sukashi/tools/fleet_stage.py",
+        "20-actors/sukashi/deploy"
+      ],
+      "related": [
+        "2606131800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606071600",
+        "2606071601",
+        "2605192415",
+        "2605312345",
+        "2605215000",
+        "2606121225"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

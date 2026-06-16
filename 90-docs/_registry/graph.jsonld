@@ -16033,6 +16033,21 @@
       "lastVerified": "2026-06-16"
     },
     {
+      "id": "doc:adr-2606161645-sukashi-fleet-continuous-operation-kotoba-native",
+      "type": "TechArticle",
+      "title": "ADR-2606161645: sukashi fleet continuous operation (kotoba-native) — LaunchDaemon (A) + /loop driver (B)",
+      "status": "accepted",
+      "topic": "sukashi-fleet-continuous",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/sukashi/tools/fleet_drive.py",
+        "20-actors/sukashi/tools/fleet_stage.py",
+        "20-actors/sukashi/deploy"
+      ],
+      "related": "doc:2606131800",
+      "lastVerified": "2026-06-16"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
