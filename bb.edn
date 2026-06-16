@@ -254,6 +254,7 @@
                       'tanemaki.methods.test-datom-emit 'itonami.methods.test-datom-emit
                       'tsumugi.tests.test-banner
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
+                      'mitooshi.methods.test-social
                       'nusa.methods.test-analyze
                       'ake.methods.test-analyze 'ake.methods.test-triage
                       'ake.methods.test-contributor
@@ -304,6 +305,7 @@
                                              'tsumugi.tests.test-banner
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
+                                             'mitooshi.methods.test-social
                                              'nusa.methods.test-analyze
                                              'ake.methods.test-analyze
                                              'ake.methods.test-triage
