@@ -147,3 +147,54 @@ def test_json_mode_emits_valid_json(gen):
     assert isinstance(payload["entries"], list)
     # Cycle 55 baseline: 659 entries
     assert len(payload["entries"]) >= 600  # broad lower bound
+
+
+# ── EDN sidecar (babashka / Clojure consumers) ─────────────────────────────
+
+def test_edn_encoder_primitives(gen):
+    """EDN scalar/keyword/collection encoding is correct + injection-safe."""
+    assert gen._edn_keyword("doc_type") == ":doc-type"
+    assert gen._edn_keyword("authoritative_for") == ":authoritative-for"
+    assert gen._edn_value(True) == "true"
+    assert gen._edn_value(False) == "false"
+    assert gen._edn_value(2) == "2"
+    assert gen._edn_value(None) == "nil"
+    assert gen._edn_value([]) == "[]"
+    assert gen._edn_value(["a", "b"]) == '["a" "b"]'
+    # strings: quotes/backslashes/newlines are escaped (no EDN injection)
+    assert gen._edn_value('he said "hi"') == '"he said \\"hi\\""'
+    assert gen._edn_value("a\\b") == '"a\\\\b"'
+    assert gen._edn_value("line1\nline2") == '"line1\\nline2"'
+    # nested map uses kebab keyword keys
+    assert gen._edn_value({"a_b": 1}) == "{:a-b 1}"
+
+
+def test_render_edn_shape(gen):
+    """render_edn emits a top-level map with kebab keyword keys, one entry per line."""
+    reg = gen.build_registry([
+        {"path": "90-docs/a.md", "id": "a", "title": 'A "x"', "doc_type": "adr",
+         "authoritative": True, "authoritative_for": ["x"]},
+    ])
+    out = gen.render_edn(reg)
+    assert out.startswith("{:version 2\n :updated-at ")
+    assert " :entries\n [{" in out
+    assert ":doc-type \"adr\"" in out
+    assert ":doc_type" not in out          # snake_case never leaks into EDN
+    assert out.endswith("]}\n")
+
+
+def test_edn_mode_emits_parseable_edn(gen):
+    """`--edn` mode produces the same shape and round-trips via Python's reader-ish checks."""
+    result = subprocess.run(
+        ["python3", str(_SCRIPT), "--edn"],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0
+    out = result.stdout
+    assert out.startswith("{:version 2\n :updated-at ")
+    assert " :entries\n [" in out
+    assert ":doc_type" not in out          # all keys kebab-cased
+    # balanced delimiters (cheap structural sanity)
+    assert out.count("{") == out.count("}")
+    assert out.count("[") == out.count("]")
