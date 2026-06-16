@@ -24878,8 +24878,12 @@
         "2606101200"
       ],
       "supersedes": [],
-      "superseded_by": "[\"2606161200 (D2 only — single-repo extraction amended by the kotodama 3-layer split)\"]",
-      "amended_by": "[\"2606161200\"]",
+      "superseded_by": [
+        "2606161200"
+      ],
+      "amended_by": [
+        "2606161200"
+      ],
       "depends_on": [
         "2605262130",
         "2605214000",
