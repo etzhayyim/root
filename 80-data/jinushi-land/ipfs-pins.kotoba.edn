@@ -5,7 +5,7 @@
  :cid-version 1,
  :pin-type "recursive (local node)",
  :directory-cid
- "bafybeifbnq3duzagxrpbto4swqfygggkbipzf2og2l3ocndozrfpfbd4ni",
+ "bafybeihivmi2vaxzb43rvuwprrpi7qnyehxvek7vh3voyilnz5gqziwbwe",
  :file-cids
  {"building-ownership-datoms.kotoba.edn"
   "bafybeib2pgpzq6ffw4sd34mjudk6ov2lewql23x74wpjtronsfet3bwtxy",
@@ -29,8 +29,12 @@
   "bafkreidiwmrslge3rnwqexqxdy2hdn2s26lourfphduu6xiezpxgtoc7da",
   "fr-dvf-42218.raw.csv"
   "bafybeie3mtmt6dbydw5lvoobtz67xizfkjyayymu6mxdkrexb2n6qdwocq",
+  "fr-dvf-75105-2022.timeseries.csv"
+  "bafybeicn5tucb4l3yyeb7gmcpwoskhjhyvfbrfdnswznf4um64nlt4w3ey",
   "fr-dvf-75105.raw.csv"
   "bafybeiasdbwtfgvumoepgwb4xfgsdjiujzlifb4d3ptpchqto2jfk6aayq",
+  "fr-dvf-value-trend.kotoba.edn"
+  "bafkreifmur4gvw4acnpqnrkvvad7zzhvwudnrxk53b5chdedvdj43sbkwa",
   "fr-dvf-values.kotoba.edn"
   "bafybeibxik4v3ebeywubayzfnnpaxrf6oglqgwsye7fqjzhb2g3e5plfpy",
   "gleif-companies.kotoba.edn"
@@ -38,11 +42,11 @@
   "gleif-resolution.raw.edn"
   "bafkreidtsmne6pce7ufkbkhgmxvfrzu6wmbwqdelnk6a2e4wv7qz5esqae",
   "ingest-provenance.json"
-  "bafkreihi74coiwn5sepagtlfcedank7yoqs2i7j5bc7rsxgym5dgrrmfzu",
+  "bafkreibarmzio57x477ue4u6spcayt5dco3nwm2gxpgtqya4uta3vw6tru",
   "ipfs-pins.kotoba.edn"
-  "bafkreifj6xvsiut4lcnqbjewjwc5nruayrclvq4y6i7fzuap2ndnjxhaz4",
+  "bafkreibq27p2xl3i4rcq3sdfltstfcofvykxm4kvmdofnu65xpywfmcw3u",
   "jinushi-digest.md"
-  "bafkreiabjl2eyywjpmuuoaiidkwx3olmyjpin6cdi7ma4bgajt5swptyly",
+  "bafkreicklprevmjws4egjc3a37pwm7jln4gjvc2h4lsg44jzn7wsnbiiwm",
   "jinushi-land-datoms.kotoba.edn"
   "bafybeifkge34rvg6rgp5ww2eoirht75qjpjov324hvminz55yo2mealple",
   "national-parks-major.raw.json"

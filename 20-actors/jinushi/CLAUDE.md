@@ -87,6 +87,8 @@ registry ingest.)
 - `methods/dvf_values.cljc`  — FR DVF (DGFiP/Etalab open data): property TRANSACTION VALUES
   (€, €/m²), multi-commune, no owner identity (gate-clean); 6th source, new VALUE dimension
   (Paris-5e €12,707/m² vs Saint-Étienne €1,438/m²). digest.cljc now fuses VALUE + RELIABILITY too.
+- `methods/value_trend.cljc` — property-value as-of trajectory (YoY €/m²; 差分 on the VALUE
+  dimension; Wellbecoming = trajectory). Paris-5e -3.4% 2022→2023.
 - `methods/reconcile.cljc`   — cross-source owner reconciliation (信頼度 payoff): join owners on
   LEI, resolve name by trust (GLEIF authoritative wins over Wikidata crowd label; disagreement recorded).
 - `methods/jurisdiction.cljc` — per-jurisdiction PUBLIC-RECORD gate: which cadastres are
@@ -250,7 +252,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 90 tests / 355 assertions green
+# 93 tests / 363 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn

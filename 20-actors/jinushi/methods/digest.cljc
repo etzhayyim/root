@@ -13,6 +13,7 @@
             [jinushi.methods.company-link :as company]
             [jinushi.methods.jurisdiction :as juris]
             [jinushi.methods.dvf-values :as dvf]
+            [jinushi.methods.value-trend :as vtrend]
             [jinushi.methods.reconcile :as reconcile]
             #?(:clj [clojure.java.io :as io])))
 
@@ -29,17 +30,19 @@
            clink (when (and bsnap gleif) (company/coverage bsnap gleif))
            dvf-recs (dvf/load-all dir)
            dvf-a (when (seq dvf-recs) (dvf/analyze* dvf-recs))
+           vtr (vtrend/trend (vtrend/load-years dir))
            recon (when (and bsnap gleif) (reconcile/report (reconcile/reconcile-owners bsnap gleif)))]
        {:land land
         :buildings (when bsnap {:snap bsnap :a bld})
         :company clink
         :values dvf-a
+        :value-trend vtr
         :reconcile recon
         :jurisdictions (count juris/registry)})))
 
 (defn render
   "Markdown digest from collected metrics."
-  [{:keys [land buildings company values reconcile jurisdictions]}]
+  [{:keys [land buildings company values value-trend reconcile jurisdictions]}]
   (let [lc (:coverage land) con (:concentration land)
         bsnap (:snap buildings) ba (:a buildings) bc (:concentration ba)]
     (str/join "\n"
@@ -81,6 +84,10 @@
           (for [[c v] (:by-commune values)]
             (format "    commune %s: apartment median **€%,.0f/m²** (%d mutations)"
                     c (or (:appt-median-eur-m2 v) 0.0) (:mutations v)))
+          (for [[c v] value-trend :when (seq (:yoy v))]
+            (let [d (last (:yoy v))]
+              (format "    commune %s trajectory %s→%s: %+.1f%% €/m² (vol %+.1f%%)"
+                      c (:from d) (:to d) (:pct d) (or (:vol-pct d) 0.0))))
           [""])
          [])
        (if reconcile

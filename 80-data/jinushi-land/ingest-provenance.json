@@ -11,6 +11,16 @@
     "Q232291" : "sq-mile=2589988.110336"
   },
   "load-discipline" : "WDQS via methods/fetch_wdqs.sh only (polite/LIMIT<=800); loop re-ingests committed snapshots with zero network I/O",
+  "value-trend" : {
+    "layer" : "FR DVF property-value as-of trajectory (methods/value_trend.cljc) — YoY €/m² (差分 on value)",
+    "years" : [ "2022", "2023" ],
+    "example" : "Paris-5e apartment €/m² 2022→2023 -3.4% (vol -12.7%)",
+    "reference" : {
+      "artifact" : "fr-dvf-value-trend.kotoba.edn",
+      "sha256" : "aca4786adb80135f06c555a807fce4f5b506d8dd5dd87a238c83a8d3cdc82ab0",
+      "cidv1" : "bafkreifmur4gvw4acnpqnrkvvad7zzhvwudnrxk53b5chdedvdj43sbkwa"
+    }
+  },
   "sources" : [ {
     "cidv1" : "bafkreifs2u5dprlpslaulcnx34x5nmytg2gxvefd5kkeo7uj2koxfwos4q",
     "dropped-unknown-unit" : 0,
