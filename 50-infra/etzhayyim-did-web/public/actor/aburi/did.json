@@ -10,6 +10,14 @@
   "verificationMethod": [],
   "service": [
     {
+      "id": "did:web:etzhayyim.com:actor:aburi#wasm",
+      "type": "EtzhayyimWasmComponent",
+      "serviceEndpoint": "ipfs://bafybeibzwidhvb3nb7khlja7kgzgrfuv72su2v3m5wz6rdvfwv5fnd6pb4",
+      "x-exec": "donated-mesh",
+      "x-cid-codec": "dag-pb",
+      "x-runtime": "kotoba-wasm"
+    },
+    {
       "id": "did:web:etzhayyim.com:actor:aburi#atproto_pds",
       "type": "AtprotoPersonalDataServer",
       "serviceEndpoint": "https://pds.etzhayyim.com"
@@ -33,10 +41,9 @@
     "status": "r0",
     "glyph": "炙",
     "wasmCid": "bafybeibzwidhvb3nb7khlja7kgzgrfuv72su2v3m5wz6rdvfwv5fnd6pb4",
-    "wasmTier": "T2",
-    "execModel": "wasm dag-pb (18.9 MB, bundles CPython → T2 donated-mesh, ADR-2606014500)",
+    "execModel": "wasm-local (browser/donated-mesh)",
     "primaryLexicon": "com.etzhayyim.aburi",
     "primarySchema": "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn",
-    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525). wasmCid is the build.sh --only-hash CIDv1 of aburi-actor.wasm; the operator must `ipfs add`-pin the artifact + deploy the Worker for /actor/aburi/ to resolve live."
+    "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
   }
 }
