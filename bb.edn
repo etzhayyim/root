@@ -66,6 +66,20 @@
              (let [r (clojure.test/run-tests 'kanae.methods.test-pipeline)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:keizu
+  {:doc "keizu 系図 Clojure test suite (govt power-relations KG; py→cljc port wave, ADR-2606160842)"
+   :task (do (require 'clojure.test
+                      'keizu.methods.test-analyze 'keizu.methods.test-edn
+                      'keizu.methods.test-weave 'keizu.methods.test-consistency
+                      'keizu.methods.test-lexicons 'keizu.methods.test-ingest
+                      'keizu.methods.test-registry 'keizu.methods.test-sources)
+             (let [r (clojure.test/run-tests
+                      'keizu.methods.test-analyze 'keizu.methods.test-edn
+                      'keizu.methods.test-weave 'keizu.methods.test-consistency
+                      'keizu.methods.test-lexicons 'keizu.methods.test-ingest
+                      'keizu.methods.test-registry 'keizu.methods.test-sources)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:yobel
   {:doc "yobel ヨベル Clojure test suite (langgraph-clj cells + orchestrator E2E)"
    :task (do (require 'clojure.test
@@ -300,7 +314,7 @@
                  (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:stubs test:pywasm]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:stubs test:pywasm test:kanae test:keizu]}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test
