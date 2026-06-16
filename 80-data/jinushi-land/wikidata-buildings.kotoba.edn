@@ -1,8 +1,10 @@
 ;; jinushi 地主 — building-level ownership KG (owners + floors/height, public record). GENERATED.
-;; PUBLIC-RECORD + SYMMETRIC (相互監視 affirmed); map-not-target; non-monetized.
-{:record-count 2170,
+;; PUBLIC-RECORD + SYMMETRIC (相互監視); map-not-target; non-monetized.
+{:record-count 2405,
  :owners
- {"Q101095881"
+ {"Q100148045" {:label "James Ewing", :lei nil, :type :natural-person},
+  "Q100270869" {:label "Ann Fearon", :lei nil, :type :natural-person},
+  "Q101095881"
   {:label "Charles Wallace Collins", :lei nil, :type :natural-person},
   "Q1012455" {:label "Alpena", :lei nil, :type :org},
   "Q101341"
@@ -30,6 +32,9 @@
    :type :org},
   "Q1032322" {:label "Canadian Pacific Hotels", :lei nil, :type :org},
   "Q1032324" {:label "Canadian Pacific Limited", :lei nil, :type :org},
+  "Q103301451" {:label "Colin Munro", :lei nil, :type :natural-person},
+  "Q103305626"
+  {:label "Hutchison Mure", :lei nil, :type :natural-person},
   "Q1037888"
   {:label "Carl Frederik Tietgen", :lei nil, :type :natural-person},
   "Q1039380"
@@ -121,6 +126,8 @@
   {:label "Tokyo Metropolitan Government", :lei nil, :type :org},
   "Q107461677"
   {:label "Floyd B. Brown", :lei nil, :type :natural-person},
+  "Q107642926"
+  {:label "Windflower Housing Association", :lei nil, :type :org},
   "Q10793118" {:label "Metro", :lei nil, :type :org},
   "Q108330739"
   {:label "Anne Urquhart Potter", :lei nil, :type :natural-person},
@@ -139,6 +146,7 @@
   "Q109803482" {:label "City of Dayton", :lei nil, :type :org},
   "Q110064625"
   {:label "TK Polska Development II", :lei nil, :type :org},
+  "Q1101257" {:label "Clifford Chance", :lei nil, :type :org},
   "Q110227741" {:label "John Parker", :lei nil, :type :natural-person},
   "Q110250124" {:label "City of Cincinnati", :lei nil, :type :org},
   "Q110661745" {:label "Kay Hill", :lei nil, :type :natural-person},
@@ -195,6 +203,7 @@
   "Q113531686"
   {:label "Earnest Bunnell", :lei nil, :type :natural-person},
   "Q11378215" {:label "Yoyogi Seminar", :lei nil, :type :org},
+  "Q1138080" {:label "Coventry University", :lei nil, :type :org},
   "Q1138374"
   {:label "St. John's University",
    :lei "WFYTXMC3IFIZLSCKDP24",
@@ -206,6 +215,9 @@
   "Q114177121"
   {:label "Conn's Hospitality Group", :lei nil, :type :org},
   "Q11419963" {:label nil, :lei nil, :type :org},
+  "Q1142797"
+  {:label "Schroders", :lei "2138001YYBULX5SZ2H24", :type :org},
+  "Q1143261" {:label "Ministry of Defence", :lei nil, :type :org},
   "Q1143822"
   {:label "Solomon R. Guggenheim Foundation", :lei nil, :type :org},
   "Q11448542"
@@ -215,6 +227,7 @@
   "Q11448745" {:label nil, :lei nil, :type :org},
   "Q114568946" {:label "BentallGreenOak", :lei nil, :type :org},
   "Q114642330" {:label "duCret School of Art", :lei nil, :type :org},
+  "Q1146631" {:label "Lucy Cavendish College", :lei nil, :type :org},
   "Q114742389"
   {:label "Greater Cincinnati Water Works", :lei nil, :type :org},
   "Q114815246" {:label "Earl Santo", :lei nil, :type :natural-person},
@@ -225,12 +238,18 @@
   "Q115086020"
   {:label "Marian Hartwell", :lei nil, :type :natural-person},
   "Q11509260" {:label "Japan Post", :lei nil, :type :org},
+  "Q1151382"
+  {:label "D. and W. Henderson and Company", :lei nil, :type :org},
   "Q1152357" {:label "Mandalay Resort Group", :lei nil, :type :org},
   "Q11526343" {:label "Toyota Fudosan", :lei nil, :type :org},
   "Q11527482"
   {:label "Tobu Tower Skytree Co., Ltd.", :lei nil, :type :org},
   "Q1152847"
   {:label "Lloyds Bank", :lei "H7FNTJ4851HG0EXQ1Z70", :type :org},
+  "Q115332734"
+  {:label "Richard Edward Lee Smith", :lei nil, :type :natural-person},
+  "Q115346457"
+  {:label "Specmat Residential Limited", :lei nil, :type :org},
   "Q11539115" {:label "Mori Trust", :lei nil, :type :org},
   "Q115439017"
   {:label "Crestpoint Real Estate (1010 DLG) Inc.",
@@ -255,6 +274,10 @@
   {:label "Daniel Frohman", :lei nil, :type :natural-person},
   "Q116209941"
   {:label "John Lowe Jr.", :lei nil, :type :natural-person},
+  "Q1164410"
+  {:label "Institution of Engineering and Technology",
+   :lei nil,
+   :type :org},
   "Q11645548"
   {:label "Nomura Real Estate Development", :lei nil, :type :org},
   "Q116456006" {:label "Alfred Toll", :lei nil, :type :natural-person},
@@ -281,10 +304,12 @@
   {:label "J.W. Construction Holding",
    :lei "259400HB4PFX2PA4BT83",
    :type :org},
+  "Q117202" {:label "The Co-operative Group", :lei nil, :type :org},
   "Q11743411" {:label "Wieczorek Coal Mine", :lei nil, :type :org},
   "Q11766632"
   {:label "Maksymilian Goldfeder", :lei nil, :type :natural-person},
   "Q11780399" {:label "Mieroszewscy", :lei nil, :type :org},
+  "Q117805991" {:label "HB Clark", :lei nil, :type :org},
   "Q117814158"
   {:label "Karl. W. Heidemann", :lei nil, :type :natural-person},
   "Q117878479"
@@ -333,6 +358,10 @@
   {:label "Native Sons of the Golden West", :lei nil, :type :org},
   "Q12063654"
   {:label "Nederlander Organization", :lei nil, :type :org},
+  "Q1206709"
+  {:label "International Institute for Strategic Studies",
+   :lei nil,
+   :type :org},
   "Q121087302" {:label "Shorenstein Properties", :lei nil, :type :org},
   "Q122474564" {:label "Revolutionary Spaces", :lei nil, :type :org},
   "Q122549" {:label "Shochiku", :lei nil, :type :org},
@@ -367,12 +396,14 @@
   {:label "The Cane Ridge Shrine, Inc.", :lei nil, :type :org},
   "Q1264366" {:label "Winn-Dixie", :lei nil, :type :org},
   "Q127238" {:label "Jackson County", :lei nil, :type :org},
+  "Q1273254" {:label "David and Simon Reuben", :lei nil, :type :org},
   "Q127693555"
   {:label "Evert Van Wickle", :lei nil, :type :natural-person},
   "Q127693592"
   {:label "Ann Van Wickle", :lei nil, :type :natural-person},
   "Q127711198"
   {:label "Hannah Beach", :lei nil, :type :natural-person},
+  "Q1277372" {:label "Earl of Northampton", :lei nil, :type :org},
   "Q127785347"
   {:label "Lawrence Wells", :lei nil, :type :natural-person},
   "Q127785580"
@@ -406,6 +437,7 @@
   "Q130370749"
   {:label "Andrew Gelles", :lei nil, :type :natural-person},
   "Q130525806" {:label nil, :lei nil, :type :org},
+  "Q130637" {:label "Glasgow City Council", :lei nil, :type :org},
   "Q131320" {:label "Shizuoka Prefecture", :lei nil, :type :org},
   "Q131558528" {:label nil, :lei nil, :type :org},
   "Q131626"
@@ -427,6 +459,7 @@
    :lei "5967007LIEEXZXGFMW72",
    :type :org},
   "Q1324524" {:label "Fenway Sports Group", :lei nil, :type :org},
+  "Q1325334" {:label "General Post Office", :lei nil, :type :org},
   "Q132705" {:label "Niigata Prefecture", :lei nil, :type :org},
   "Q1329058"
   {:label "Elias Hasket Derby", :lei nil, :type :natural-person},
@@ -481,6 +514,8 @@
    :type :org},
   "Q136549160"
   {:label "Alfred M. Glossbrenner", :lei nil, :type :natural-person},
+  "Q136705896"
+  {:label "John George Wilson", :lei nil, :type :natural-person},
   "Q137503" {:label "University of Łódź", :lei nil, :type :org},
   "Q137598725" {:label "Fox Theater Foundation", :lei nil, :type :org},
   "Q1377135"
@@ -503,6 +538,8 @@
   "Q1383295"
   {:label "Francis Ouimet", :lei nil, :type :natural-person},
   "Q1385239" {:label "Horace Tabor", :lei nil, :type :natural-person},
+  "Q138651002"
+  {:label "Christopher Moran", :lei nil, :type :natural-person},
   "Q138656842" {:label "Lowell Observatory", :lei nil, :type :org},
   "Q1387"
   {:label "Rhode Island", :lei "549300TK0QTLW5HQGC62", :type :org},
@@ -526,6 +563,7 @@
   {:label "City of Little Rock",
    :lei "549300ANVM1COXBSWS09",
    :type :org},
+  "Q139438274" {:label "John Hepper & Sons", :lei nil, :type :org},
   "Q139439262"
   {:label "government of Bexar County", :lei nil, :type :org},
   "Q1394594"
@@ -544,6 +582,7 @@
   {:label "City of Philadelphia",
    :lei "549300IVFOPB4AG7UL47",
    :type :org},
+  "Q1420500" {:label "Swansea University", :lei nil, :type :org},
   "Q1424962"
   {:label "IHG Hotels & Resorts",
    :lei "2138007ZFQYRUSLU3J98",
@@ -570,9 +609,14 @@
   "Q14709503"
   {:label "Greenville County Museum of Art", :lei nil, :type :org},
   "Q1473374" {:label "Leinster Rugby", :lei nil, :type :org},
+  "Q1474019" {:label "University of Hull", :lei nil, :type :org},
+  "Q1476542" {:label "Greater London Council", :lei nil, :type :org},
   "Q1478917" {:label "Longford Town F.C.", :lei nil, :type :org},
   "Q1478918"
   {:label "Nippon Yusen", :lei "353800YPW4XM0ZN5I149", :type :org},
+  "Q148" {:label "People's Republic of China", :lei nil, :type :org},
+  "Q1486303"
+  {:label "London and North Western Railway", :lei nil, :type :org},
   "Q14875356"
   {:label "North America Railway Hall of Fame", :lei nil, :type :org},
   "Q149168" {:label "Moss Jernverk", :lei nil, :type :org},
@@ -582,6 +626,7 @@
    :type :org},
   "Q1497417"
   {:label "Gecina", :lei "9695003E4MMA10IBTR26", :type :org},
+  "Q1501071" {:label "Network Rail", :lei nil, :type :org},
   "Q1501657"
   {:label "General Services Administration", :lei nil, :type :org},
   "Q1502859" {:label "Ramada", :lei nil, :type :org},
@@ -595,6 +640,7 @@
   {:label "Tulalip Tribes of Washington",
    :lei "5493002GMRPPKB6SK161",
    :type :org},
+  "Q1516957" {:label "House of Keys", :lei nil, :type :org},
   "Q15211891" {:label "Cowlitz Indian Tribe", :lei nil, :type :org},
   "Q1531085"
   {:label "Kintetsu Railway Co., Ltd.", :lei nil, :type :org},
@@ -616,14 +662,26 @@
   "Q1573416"
   {:label "Madison Square Garden Sports", :lei nil, :type :org},
   "Q1588" {:label "Louisiana", :lei nil, :type :org},
+  "Q15902946"
+  {:label "Greenland Holdings Corp., Ltd.", :lei nil, :type :org},
   "Q1590652"
   {:label "Henry C. Miner", :lei nil, :type :natural-person},
   "Q159846"
   {:label "Paramount Pictures",
    :lei "549300OJ7WHJ5FFDOQ11",
    :type :org},
+  "Q15995238" {:label "KCOM Group", :lei nil, :type :org},
+  "Q16026997"
+  {:label "Hudson Kearley, 1st Viscount Devonport",
+   :lei nil,
+   :type :natural-person},
+  "Q160302" {:label "University of Edinburgh", :lei nil, :type :org},
   "Q16058539"
   {:label "George Henry Wright", :lei nil, :type :natural-person},
+  "Q160918"
+  {:label "Prelature of the Holy Cross and Opus Dei",
+   :lei nil,
+   :type :org},
   "Q16105993"
   {:label "Doug Manchester", :lei nil, :type :natural-person},
   "Q16106025"
@@ -663,16 +721,23 @@
   {:label "Jacques-Jean Le Couteulx du Molay",
    :lei nil,
    :type :natural-person},
+  "Q1665181"
+  {:label "Institution of Civil Engineers", :lei nil, :type :org},
   "Q1672817" {:label "Government of Ireland", :lei nil, :type :org},
   "Q1672926"
   {:label "Irish Rugby Football Union",
    :lei "635400VCLWEPXCNPSD93",
    :type :org},
+  "Q16741830"
+  {:label "Robert Mackreth", :lei nil, :type :natural-person},
   "Q1676303" {:label "J. D. Irving", :lei nil, :type :org},
   "Q1677083"
   {:label "Jack Kent Cooke", :lei nil, :type :natural-person},
   "Q167840" {:label "Hydro-Quebec", :lei nil, :type :org},
   "Q16837590" {:label "Events DC", :lei nil, :type :org},
+  "Q16842680"
+  {:label "Herefordshire County Council", :lei nil, :type :org},
+  "Q16849442" {:label "James Templeton & Co", :lei nil, :type :org},
   "Q16850795" {:label "Jonas Green", :lei nil, :type :natural-person},
   "Q168751"
   {:label "Duke University", :lei "FY5ICUIRRDCHN4HHL592", :type :org},
@@ -683,19 +748,28 @@
   {:label "Swinomish Indian Tribal Community", :lei nil, :type :org},
   "Q169011"
   {:label "John C. Frémont", :lei nil, :type :natural-person},
+  "Q16933921"
+  {:label "Worshipful Company of Tallow Chandlers",
+   :lei nil,
+   :type :org},
   "Q16944468"
   {:label "Legacy Hotels Real Estate Investment Trust",
    :lei nil,
    :type :org},
   "Q16960819" {:label "Live Nation", :lei nil, :type :org},
+  "Q16974340" {:label "Affinity Sutton", :lei nil, :type :org},
   "Q16982436"
   {:label "National Railway Historical Society", :lei nil, :type :org},
   "Q16983500"
   {:label "Petaluma and Santa Rosa Railroad", :lei nil, :type :org},
+  "Q16996896" {:label "London Residuary Body", :lei nil, :type :org},
   "Q17001423"
   {:label "Columbia Amusement Company", :lei nil, :type :org},
   "Q17005697"
   {:label "Local Council of Women of Halifax", :lei nil, :type :org},
+  "Q17017730"
+  {:label "Oldham Metropolitan Borough Council", :lei nil, :type :org},
+  "Q1702099" {:label "John Walter", :lei nil, :type :natural-person},
   "Q17021350"
   {:label "New Jersey Sports and Exposition Authority",
    :lei nil,
@@ -711,6 +785,7 @@
   {:label "New York Institute of Technology",
    :lei "549300RFZE56R3KB5271",
    :type :org},
+  "Q1709809" {:label "Mercure Hotels", :lei nil, :type :org},
   "Q17108049" {:label "Summa Corporation", :lei nil, :type :org},
   "Q17110905" {:label "Old Mutual Holdings", :lei nil, :type :org},
   "Q171480"
@@ -720,6 +795,10 @@
   "Q173" {:label "Alabama", :lei "549300TKZX0YNENZC895", :type :org},
   "Q17308924"
   {:label "Maurice Curtis", :lei nil, :type :natural-person},
+  "Q17351562"
+  {:label "John Hungerford Arkwright",
+   :lei nil,
+   :type :natural-person},
   "Q174081"
   {:label "Meiji Yasuda Life",
    :lei "549300SLU4LP6YMRLK07",
@@ -761,6 +840,8 @@
   "Q1812986"
   {:label "Mitsui Fudosan", :lei "353800ND4ZKNZDYKMF33", :type :org},
   "Q1814972" {:label "Luverne", :lei nil, :type :org},
+  "Q18164289"
+  {:label "Raymond Riesco", :lei nil, :type :natural-person},
   "Q1819101" {:label "Leonardo Hotels", :lei nil, :type :org},
   "Q1820380" {:label "Church of Scientology", :lei nil, :type :org},
   "Q182625" {:label "Windsor", :lei nil, :type :org},
@@ -768,11 +849,16 @@
   "Q183" {:label "Germany", :lei nil, :type :org},
   "Q18509124"
   {:label "Frank Lloyd Wright Foundation", :lei nil, :type :org},
+  "Q18527223"
+  {:label "George Bolton", :lei nil, :type :natural-person},
+  "Q18528396" {:label "Henry Bright", :lei nil, :type :natural-person},
   "Q18575" {:label "Tucson", :lei nil, :type :org},
   "Q18619470"
   {:label "Restaurant Brands International",
    :lei "5299009RXTX9DN9AKJ98",
    :type :org},
+  "Q18671249"
+  {:label "George Stacey Gibson", :lei nil, :type :natural-person},
   "Q186785" {:label "Rosenborg BK", :lei nil, :type :org},
   "Q18785845"
   {:label "William Hancock Sr.", :lei nil, :type :natural-person},
@@ -780,13 +866,24 @@
   {:label "William Hancock Jr.", :lei nil, :type :natural-person},
   "Q1888661"
   {:label "Southern Oregon University", :lei nil, :type :org},
+  "Q1891089" {:label "Mansel family", :lei nil, :type :org},
+  "Q192314"
+  {:label "JPMorgan Chase", :lei "8I5DZWZKVSZI1NUHU748", :type :org},
   "Q192807" {:label "Ramat Gan", :lei nil, :type :org},
   "Q1930" {:label "Ottawa", :lei nil, :type :org},
   "Q193136" {:label "Prada", :lei "8156000FE0A2DC5B7852", :type :org},
+  "Q1939537"
+  {:label "Mitchells & Butlers",
+   :lei "213800JHYNDNB1NS2W10",
+   :type :org},
+  "Q194360"
+  {:label "American Express", :lei "R4PP93JZOLY261QX3811", :type :org},
   "Q194907"
   {:label "United States federal courts", :lei nil, :type :org},
   "Q1951" {:label "Alberta", :lei nil, :type :org},
   "Q1952" {:label "Nova Scotia", :lei nil, :type :org},
+  "Q19609302"
+  {:label "Benjamin Bathurst", :lei nil, :type :natural-person},
   "Q1964784"
   {:label "Prysmian Group", :lei "529900X0H1IO3RS1A464", :type :org},
   "Q19652919"
@@ -830,11 +927,15 @@
    :lei nil,
    :type :org},
   "Q20657741" {:label "RXR Realty", :lei nil, :type :org},
+  "Q20714225" {:label "Yianis Group", :lei nil, :type :org},
   "Q2074516" {:label "Winthrop Ames", :lei nil, :type :natural-person},
+  "Q20748891" {:label "Vaughan family", :lei nil, :type :org},
+  "Q20751818" {:label "Myddelton family", :lei nil, :type :org},
   "Q208552" {:label "Molde FK", :lei nil, :type :org},
   "Q2086257" {:label "Canton", :lei nil, :type :org},
   "Q2093794" {:label "Vassar College", :lei nil, :type :org},
   "Q2096" {:label "Edmonton", :lei nil, :type :org},
+  "Q20971386" {:label "Squeezie", :lei nil, :type :natural-person},
   "Q21" {:label "England", :lei nil, :type :org},
   "Q21013478" {:label "JERA", :lei nil, :type :org},
   "Q21014351"
@@ -843,11 +944,14 @@
   {:label "Hoshino Resorts REIT",
    :lei "353800DF2MUZWFL4IL56",
    :type :org},
+  "Q21166810"
+  {:label "William Philp Perrin", :lei nil, :type :natural-person},
   "Q2124886"
   {:label "Roosevelt University",
    :lei "549300ZPCD2U4FHTDX64",
    :type :org},
   "Q212490" {:label "Tromsø IL", :lei nil, :type :org},
+  "Q212599" {:label "Accor", :lei "969500QZC2Q0TK11NV07", :type :org},
   "Q212708" {:label "Bohemian F.C.", :lei nil, :type :org},
   "Q2140778"
   {:label "Rochester Institute of Technology",
@@ -862,6 +966,7 @@
   "Q21578" {:label "Princeton University", :lei nil, :type :org},
   "Q21592475" {:label "Europa Capital", :lei nil, :type :org},
   "Q216131" {:label "Fredrikstad FK", :lei nil, :type :org},
+  "Q216273" {:label "University of St Andrews", :lei nil, :type :org},
   "Q2164222"
   {:label "Rollins College", :lei "254900STAY03HGZ4ME77", :type :org},
   "Q21704666"
@@ -877,6 +982,10 @@
   "Q219635"
   {:label "BlackRock", :lei "549300LRIF3NWCU26A80", :type :org},
   "Q219712" {:label "Imperial Japanese Navy", :lei nil, :type :org},
+  "Q21997561"
+  {:label "Historic Environment Scotland", :lei nil, :type :org},
+  "Q22080735"
+  {:label "Abu Dhabi Financial Group", :lei nil, :type :org},
   "Q2212932"
   {:label "St. Louis Symphony Orchestra", :lei nil, :type :org},
   "Q223766" {:label "P. T. Barnum", :lei nil, :type :natural-person},
@@ -886,9 +995,14 @@
   "Q22811103"
   {:label "South Hokkaido Railway Company", :lei nil, :type :org},
   "Q22952558" {:label "Jack Entertainment", :lei nil, :type :org},
+  "Q2302252" {:label "Manchester City Council", :lei nil, :type :org},
   "Q2302280"
   {:label "Texas Christian University",
    :lei "549300QJC8FZFLYPJ694",
+   :type :org},
+  "Q230899"
+  {:label "University of Manchester",
+   :lei "213800L6WZJ6FSGIEJ60",
    :type :org},
   "Q2330954" {:label "Supreme Muslim Council", :lei nil, :type :org},
   "Q234061" {:label "Erie", :lei nil, :type :org},
@@ -896,6 +1010,7 @@
   {:label "National Aeronautics and Space Administration",
    :lei nil,
    :type :org},
+  "Q23635" {:label "Bermuda", :lei nil, :type :org},
   "Q2366737" {:label "Finnish Government", :lei nil, :type :org},
   "Q23768" {:label "Las Vegas", :lei nil, :type :org},
   "Q23782080"
@@ -906,12 +1021,18 @@
   {:label "Aarhus Municipality",
    :lei "213800HOSBRZSGDKXZ21",
    :type :org},
+  "Q241185" {:label "Tracey Emin", :lei nil, :type :natural-person},
   "Q2414216" {:label "The Shubert Organization", :lei nil, :type :org},
+  "Q2425849" {:label "Aberdeen City Council", :lei nil, :type :org},
   "Q244874" {:label "Sligo Rovers F.C.", :lei nil, :type :org},
   "Q245110" {:label "Polish Teachers' Union", :lei nil, :type :org},
+  "Q245343"
+  {:label "Barclays", :lei "213800LBQA1Y9L22JB70", :type :org},
   "Q24639" {:label "Vancouver", :lei nil, :type :org},
+  "Q2469078" {:label "Crown Estate", :lei nil, :type :org},
   "Q24861" {:label "Albany", :lei nil, :type :org},
   "Q249591" {:label "Polish State Railways", :lei nil, :type :org},
+  "Q25377639" {:label "HausInvest", :lei nil, :type :org},
   "Q25428761" {:label "SKL", :lei "5967007LIEEXZXJMLS49", :type :org},
   "Q25492101" {:label nil, :lei nil, :type :org},
   "Q2557355" {:label "Université de Moncton", :lei nil, :type :org},
@@ -919,7 +1040,15 @@
   "Q2579947"
   {:label "William L. McKnight", :lei nil, :type :natural-person},
   "Q2597185" {:label "Assuta Medical Center", :lei nil, :type :org},
+  "Q26213081"
+  {:label "James Adam Gordon", :lei nil, :type :natural-person},
+  "Q26299011"
+  {:label "Sir Horace St Paul, 2nd Baronet",
+   :lei nil,
+   :type :natural-person},
   "Q2639344" {:label "Kerry GAA", :lei nil, :type :org},
+  "Q26406745"
+  {:label "Philip Dehany", :lei nil, :type :natural-person},
   "Q26418" {:label "Hakodate", :lei nil, :type :org},
   "Q2642809"
   {:label "Alexander Pantages", :lei nil, :type :natural-person},
@@ -932,6 +1061,8 @@
   "Q266168" {:label "Virovitica", :lei nil, :type :org},
   "Q267081" {:label "Steve Rubell", :lei nil, :type :natural-person},
   "Q267282" {:label "RKO Pictures", :lei nil, :type :org},
+  "Q26888" {:label "London Borough of Croydon", :lei nil, :type :org},
+  "Q2689124" {:label "Landmark Trust", :lei nil, :type :org},
   "Q270363"
   {:label "Société Générale", :lei "O2RNE8IBXP4R0TD8PU41", :type :org},
   "Q2733418"
@@ -945,6 +1076,8 @@
   {:label "First International Bank Of Israel Ltd.",
    :lei "2138002RV6AUUX19F397",
    :type :org},
+  "Q27898165"
+  {:label "Francis Beckford", :lei nil, :type :natural-person},
   "Q27926012" {:label "Ogden Goelet", :lei nil, :type :natural-person},
   "Q27957605"
   {:label "Philadelphia Parks & Recreation", :lei nil, :type :org},
@@ -971,12 +1104,16 @@
   {:label "Sapporo Breweries",
    :lei "353800ITDYV3AD2X5M34",
    :type :org},
+  "Q28921168"
+  {:label "William Campbell", :lei nil, :type :natural-person},
   "Q2892812" {:label "Suntory Global Spirits", :lei nil, :type :org},
   "Q2895789"
   {:label "Benevolent and Protective Order of Elks",
    :lei nil,
    :type :org},
   "Q2897402" {:label "Agudas Chasidei Chabad", :lei nil, :type :org},
+  "Q2898201"
+  {:label "William Stewart Rose", :lei nil, :type :natural-person},
   "Q2902618" {:label "Merkos L'Inyonei Chinuch", :lei nil, :type :org},
   "Q2905086"
   {:label "Africa Israel Investments", :lei nil, :type :org},
@@ -985,7 +1122,11 @@
   {:label "Israel Land Development Company",
    :lei "213800Z7833KR44LCC93",
    :type :org},
+  "Q2913554"
+  {:label "Frasers Group", :lei "213800JEGHHEAXIJDX34", :type :org},
   "Q2923022" {:label "Boyd Gaming", :lei nil, :type :org},
+  "Q2925725"
+  {:label "British Gas", :lei "213800YCEK6U45JCLH18", :type :org},
   "Q2933291"
   {:label "Caisse de dépôt et placement du Québec",
    :lei nil,
@@ -1011,6 +1152,10 @@
    :type :org},
   "Q3050566"
   {:label "ESB Group", :lei "635400UFHDIQCDZ6JK11", :type :org},
+  "Q3056813"
+  {:label "University of Brighton",
+   :lei "21380043I15S3UDE7Y82",
+   :type :org},
   "Q3065365" {:label "Molson family", :lei nil, :type :org},
   "Q3066164" {:label "Free Methodist Church", :lei nil, :type :org},
   "Q30731155" {:label "John Heywood", :lei nil, :type :natural-person},
@@ -1019,6 +1164,7 @@
   "Q30850"
   {:label "Nagoya Railroad", :lei "353800P62OOYUY3I8T51", :type :org},
   "Q308966" {:label "San Francisco Giants", :lei nil, :type :org},
+  "Q3090747" {:label "Fulke Walwyn", :lei nil, :type :natural-person},
   "Q30922193" {:label "The Longaberger Company", :lei nil, :type :org},
   "Q309350"
   {:label "Northwestern University",
@@ -1066,7 +1212,10 @@
    :lei nil,
    :type :org},
   "Q323705" {:label "James Fisk", :lei nil, :type :natural-person},
+  "Q3246355"
+  {:label "British Transport Commission", :lei nil, :type :org},
   "Q3247288" {:label "Office of Public Works", :lei nil, :type :org},
+  "Q32521" {:label "Scottish Government", :lei nil, :type :org},
   "Q3261400"
   {:label "Louis Raphaël Cahen d'Anvers",
    :lei nil,
@@ -1080,6 +1229,7 @@
   "Q3278478" {:label "municipality of Paris", :lei nil, :type :org},
   "Q328067" {:label "Ise", :lei nil, :type :org},
   "Q3285979" {:label "Manitoba Hydro", :lei nil, :type :org},
+  "Q328725" {:label "Thomas Cook", :lei nil, :type :natural-person},
   "Q3291384"
   {:label "Mariano Guadalupe Vallejo",
    :lei nil,
@@ -1089,8 +1239,12 @@
    :lei "UWJKFUJFZ02DKWI3RY53",
    :type :org},
   "Q3303928" {:label "Episcopal High School", :lei nil, :type :org},
+  "Q3305205" {:label "Suffolk County Council", :lei nil, :type :org},
   "Q3307451" {:label "Metrolinx", :lei nil, :type :org},
+  "Q332464"
+  {:label "Banastre Tarleton", :lei nil, :type :natural-person},
   "Q333419" {:label "Luther Burbank", :lei nil, :type :natural-person},
+  "Q333515" {:label "National Trust", :lei nil, :type :org},
   "Q3336808" {:label "Chickasaw Nation", :lei nil, :type :org},
   "Q333894"
   {:label "Tokyo Electric Power Company Holdings",
@@ -1106,6 +1260,10 @@
   "Q33788" {:label "New Caledonia", :lei nil, :type :org},
   "Q340" {:label "Montreal", :lei nil, :type :org},
   "Q3413950" {:label "Quebec Bank", :lei nil, :type :org},
+  "Q34433"
+  {:label "University of Oxford",
+   :lei "5493009OEHU6YS545T65",
+   :type :org},
   "Q3443307"
   {:label "Santa Fe University of Art and Design",
    :lei nil,
@@ -1117,6 +1275,7 @@
   "Q3463495" {:label "Saint-Victor", :lei nil, :type :org},
   "Q3463538"
   {:label "Saint-Zénon-du-Lac-Humqui", :lei nil, :type :org},
+  "Q34660" {:label nil, :lei nil, :type :natural-person},
   "Q3487819" {:label nil, :lei nil, :type :org},
   "Q3487934"
   {:label "Société de développement des entreprises culturelles",
@@ -1131,6 +1290,8 @@
   {:label "Herman Bernstein", :lei nil, :type :natural-person},
   "Q3524927" {:label "Thomas Bohier", :lei nil, :type :natural-person},
   "Q35269" {:label "Jehovah's Witnesses", :lei nil, :type :org},
+  "Q3528190"
+  {:label "Geoffrey Boycott", :lei nil, :type :natural-person},
   "Q35339" {:label "WWE", :lei "549300WZVLSCS3L4L698", :type :org},
   "Q3550750"
   {:label "United States Navy Reserve", :lei nil, :type :org},
@@ -1138,12 +1299,15 @@
   "Q3551675"
   {:label "University of St. Michael's College", :lei nil, :type :org},
   "Q35765" {:label "Osaka", :lei nil, :type :org},
+  "Q35794" {:label "University of Cambridge", :lei nil, :type :org},
   "Q3591845" {:label "French State", :lei nil, :type :org},
   "Q36091"
   {:label "Minneapolis", :lei "54930069TEI1INHRHS55", :type :org},
   "Q3621521"
   {:label "Archibald Selwyn", :lei nil, :type :natural-person},
   "Q3638292" {:label "Benny Binion", :lei nil, :type :natural-person},
+  "Q36397301"
+  {:label "Michael Spink", :lei nil, :type :natural-person},
   "Q364945"
   {:label "Harris Flanagin", :lei nil, :type :natural-person},
   "Q368181" {:label "Vornado Realty Trust", :lei nil, :type :org},
@@ -1181,8 +1345,10 @@
   "Q4043150"
   {:label "London & Regional Properties", :lei nil, :type :org},
   "Q40435" {:label "Buffalo", :lei nil, :type :org},
+  "Q4047770" {:label "Queens Moat Houses", :lei nil, :type :org},
   "Q4050347"
   {:label "Sumitomo Realty & Development", :lei nil, :type :org},
+  "Q4051597" {:label "Topland Group", :lei nil, :type :org},
   "Q4051734" {:label "TriGranit", :lei nil, :type :org},
   "Q4075" {:label "Lyon OU", :lei nil, :type :org},
   "Q41171672"
@@ -1252,12 +1418,16 @@
   {:label "Sporveien", :lei "5967007LIEEXZXJHZ471", :type :org},
   "Q4583816"
   {:label "Peder Juel von Cappelen", :lei nil, :type :natural-person},
+  "Q458393" {:label "Durham University", :lei nil, :type :org},
+  "Q4590791"
+  {:label "Her Majesty's Courts Service", :lei nil, :type :org},
   "Q459991" {:label "Mary Surratt", :lei nil, :type :natural-person},
   "Q461761"
   {:label "Canadian Broadcasting Corporation", :lei nil, :type :org},
   "Q4648071"
   {:label "A. L. Erlanger", :lei nil, :type :natural-person},
   "Q4670567" {:label "AbukumaExpress", :lei nil, :type :org},
+  "Q467269" {:label "Cheltenham College", :lei nil, :type :org},
   "Q468557"
   {:label "Miami-Dade County",
    :lei "549300QG0NBD9HULR263",
@@ -1287,6 +1457,7 @@
   "Q4810766" {:label "Dublin City Council", :lei nil, :type :org},
   "Q482490" {:label "An Post", :lei nil, :type :org},
   "Q482523" {:label "Cottonwood Heights", :lei nil, :type :org},
+  "Q4829040" {:label "Aviva Investors", :lei nil, :type :org},
   "Q4833982" {:label "B.F. Saul Company", :lei nil, :type :org},
   "Q4849719" {:label "Balaban and Katz", :lei nil, :type :org},
   "Q48525"
@@ -1306,6 +1477,10 @@
   "Q488980"
   {:label "Ministry of Patriots' and Veterans' Affairs",
    :lei nil,
+   :type :org},
+  "Q4892023"
+  {:label "Berkeley Group Holdings",
+   :lei "2138001V85JLYR7AUB61",
    :type :org},
   "Q490441" {:label "Concord", :lei nil, :type :org},
   "Q490505" {:label "Hudson County", :lei nil, :type :org},
@@ -1337,10 +1512,13 @@
    :type :org},
   "Q49231" {:label nil, :lei nil, :type :org},
   "Q49233" {:label "Orlando", :lei "G8GZFWRIKS3AFD6AWU52", :type :org},
+  "Q4924983" {:label "Bland Group", :lei nil, :type :org},
   "Q496531"
   {:label "Shikoku Railway Company",
    :lei "353800PQ2C9A7DIM1B47",
    :type :org},
+  "Q4969432" {:label "British Aluminium", :lei nil, :type :org},
+  "Q4971159" {:label "British Transport Hotels", :lei nil, :type :org},
   "Q4972460" {:label "Broadway In Chicago", :lei nil, :type :org},
   "Q4974584" {:label "Brookfield Properties", :lei nil, :type :org},
   "Q498276"
@@ -1370,7 +1548,13 @@
   {:label "West Japan Railway Company",
    :lei "353800QGUXHZ7EBCR121",
    :type :org},
+  "Q502316"
+  {:label "Hammerson", :lei "213800G1C9KKVVDN1A60", :type :org},
   "Q5029397" {:label "Canada Lands Company", :lei nil, :type :org},
+  "Q503077"
+  {:label "Severn Trent", :lei "213800RPBXRETY4A4C59", :type :org},
+  "Q5030960" {:label "Canal & River Trust", :lei nil, :type :org},
+  "Q5031201" {:label "Canary Wharf Group", :lei nil, :type :org},
   "Q503415" {:label "University of Maryland", :lei nil, :type :org},
   "Q503419" {:label "University of Arizona", :lei nil, :type :org},
   "Q50383223" {:label "Carl MacLaren", :lei nil, :type :org},
@@ -1387,7 +1571,13 @@
   {:label "Central Ohio Transit Authority",
    :lei "549300JEENALUDLM0B07",
    :type :org},
+  "Q506160"
+  {:label "Land Securities", :lei "213800V8IAVKS37D6B88", :type :org},
   "Q5063128" {:label "Century Association", :lei nil, :type :org},
+  "Q5064127"
+  {:label "Ceredigion County Council", :lei nil, :type :org},
+  "Q5072394"
+  {:label "Channel Four Television Corporation", :lei nil, :type :org},
   "Q50811"
   {:label "Regional Municipality of Peel", :lei nil, :type :org},
   "Q5083" {:label "Seattle", :lei nil, :type :org},
@@ -1418,6 +1608,7 @@
   "Q5170018" {:label "Cordish Company", :lei nil, :type :org},
   "Q5170680"
   {:label "Corinthia Hotels International", :lei nil, :type :org},
+  "Q518624" {:label "Hinduja Group", :lei nil, :type :org},
   "Q519611"
   {:label "Nippon Life Insurance Company", :lei nil, :type :org},
   "Q5209182" {:label "Daikyo", :lei nil, :type :org},
@@ -1437,8 +1628,11 @@
   {:label "Henry Frederick Busch", :lei nil, :type :natural-person},
   "Q5254663" {:label "Delta Hotels", :lei nil, :type :org},
   "Q5258518" {:label "Dennis Hof", :lei nil, :type :natural-person},
+  "Q5263338" {:label "Derwent London", :lei nil, :type :org},
   "Q5263872"
   {:label "Deseret News Publishing Company", :lei nil, :type :org},
+  "Q527881"
+  {:label "Miranda Seymour", :lei nil, :type :natural-person},
   "Q5284" {:label "Bill Gates", :lei nil, :type :natural-person},
   "Q528446"
   {:label "Andøya Space", :lei "54930015ESJHNM93SQ38", :type :org},
@@ -1452,6 +1646,8 @@
   "Q53268" {:label "Toyota", :lei "5493006W3QUS5LMH6R84", :type :org},
   "Q5342896"
   {:label "Edward A. Filene", :lei nil, :type :natural-person},
+  "Q5344296"
+  {:label "Edward Mackay Edgar", :lei nil, :type :natural-person},
   "Q53454"
   {:label "John III Sobieski", :lei nil, :type :natural-person},
   "Q5352951" {:label "Aoimori Railway Company", :lei nil, :type :org},
@@ -1465,6 +1661,7 @@
   "Q5380649"
   {:label "Entra Eiendom", :lei "549300APU14LQKTYCH34", :type :org},
   "Q5384535" {:label "Equinox Fitness", :lei nil, :type :org},
+  "Q539627" {:label "GIC Private Limited", :lei nil, :type :org},
   "Q5396869"
   {:label "Escanaba and Lake Superior Railroad", :lei nil, :type :org},
   "Q54078" {:label "IKEA", :lei nil, :type :org},
@@ -1493,10 +1690,13 @@
   "Q5519452" {:label "Galway & District League", :lei nil, :type :org},
   "Q552806" {:label "Wayne Newton", :lei nil, :type :natural-person},
   "Q5537942" {:label "George Clarke", :lei nil, :type :natural-person},
+  "Q5538127"
+  {:label "George Cornewall", :lei nil, :type :natural-person},
   "Q5543134"
   {:label "George P. Putnam", :lei nil, :type :natural-person},
   "Q5564147"
   {:label "Girard Brown Henderson", :lei nil, :type :natural-person},
+  "Q5566844" {:label nil, :lei nil, :type :org},
   "Q5583618" {:label "Goodspeed Musicals", :lei nil, :type :org},
   "Q5589234" {:label "City of Los Angeles", :lei nil, :type :org},
   "Q5589236" {:label "County of Los Angeles", :lei nil, :type :org},
@@ -1512,8 +1712,15 @@
    :lei "254900MKIGRAYVDUZ926",
    :type :org},
   "Q5589320" {:label "County of Stanislaus", :lei nil, :type :org},
+  "Q5589389"
+  {:label "Government of the Cayman Islands", :lei nil, :type :org},
+  "Q5599804" {:label "Great Portland Estates", :lei nil, :type :org},
   "Q5607708"
   {:label "Gretchen Osgood Warren", :lei nil, :type :natural-person},
+  "Q56178525" {:label "Holland family", :lei nil, :type :org},
+  "Q56181197"
+  {:label "George Meares", :lei nil, :type :natural-person},
+  "Q56182750" {:label "Rees Powell", :lei nil, :type :natural-person},
   "Q563017"
   {:label "George M. Cohan", :lei nil, :type :natural-person},
   "Q56306354" {:label "Cominar", :lei nil, :type :org},
@@ -1522,6 +1729,10 @@
   "Q5650297" {:label "Hans Kiær", :lei nil, :type :natural-person},
   "Q56599419"
   {:label "Mary Wilson Goelet", :lei nil, :type :natural-person},
+  "Q56695614"
+  {:label "John Slater Pratt", :lei nil, :type :natural-person},
+  "Q56741212"
+  {:label "Robert Westley Hall-Dare", :lei nil, :type :natural-person},
   "Q568532"
   {:label "MGM Resorts International",
    :lei "54930066VBP7DZEGGJ87",
@@ -1552,14 +1763,21 @@
   {:label "Hordaland County Municipality",
    :lei "5967007LIEEXZXIVLK08",
    :type :org},
+  "Q5912194" {:label "Hotel du Vin", :lei nil, :type :org},
   "Q592734"
   {:label "Vernadsky National Library of Ukraine",
    :lei nil,
    :type :org},
   "Q59347827" {:label nil, :lei nil, :type :org},
+  "Q593786"
+  {:label "BT Group", :lei "213800LRO7NS5CYQMN21", :type :org},
+  "Q5941364"
+  {:label "Humphrey Crum-Ewing", :lei nil, :type :natural-person},
   "Q594444" {:label "Israel Police", :lei nil, :type :org},
   "Q5945486"
   {:label "Huntington Theatre Company", :lei nil, :type :org},
+  "Q595906"
+  {:label "Greater Manchester County Council", :lei nil, :type :org},
   "Q59916588"
   {:label "municipality of Toulouse", :lei nil, :type :org},
   "Q60"
@@ -1573,6 +1791,8 @@
   {:label "Hans Ulrich Mølmann", :lei nil, :type :natural-person},
   "Q606222"
   {:label "Star Cruises", :lei "0WKKFB7N1TW1Q5WJ1V86", :type :org},
+  "Q6063"
+  {:label "Government of the United Kingdom", :lei nil, :type :org},
   "Q60788603"
   {:label "City of San José", :lei "549300QHIHSH68W22O38", :type :org},
   "Q608518"
@@ -1581,8 +1801,12 @@
    :type :org},
   "Q6087908" {:label "Isrotel Ltd.", :lei nil, :type :org},
   "Q6106" {:label "Portland", :lei nil, :type :org},
+  "Q6109362"
+  {:label "J D Wetherspoon", :lei "213800CHWARFAAN7UB85", :type :org},
   "Q6116362"
   {:label "Jackie Gaughan", :lei nil, :type :natural-person},
+  "Q6129571"
+  {:label "James Beckford Wildman", :lei nil, :type :natural-person},
   "Q613729"
   {:label "Cabinet of Ministers of Ukraine", :lei nil, :type :org},
   "Q6157871" {:label "Japan Tourism Agency", :lei nil, :type :org},
@@ -1611,10 +1835,16 @@
   {:label "Northern Michigan University",
    :lei "549300Y2Q94GGNQC7X56",
    :type :org},
+  "Q6258755"
+  {:label "John St Leger Douglas", :lei nil, :type :natural-person},
   "Q6262091"
   {:label "John W. Albaugh", :lei nil, :type :natural-person},
   "Q62766" {:label "Jay-Z", :lei nil, :type :natural-person},
   "Q6289885" {:label "Josh Harris", :lei nil, :type :natural-person},
+  "Q629139"
+  {:label "London, Midland and Scottish Railway",
+   :lei nil,
+   :type :org},
   "Q630486"
   {:label "Metsähallitus", :lei "7437008GT8031GL9BJ96", :type :org},
   "Q6305274" {:label "Jujamcyn Theaters", :lei nil, :type :org},
@@ -1632,6 +1862,12 @@
   "Q6369046" {:label "Polsteam", :lei nil, :type :org},
   "Q6378569" {:label "Katz Group of Companies", :lei nil, :type :org},
   "Q6387507" {:label "Ken Davenport", :lei nil, :type :natural-person},
+  "Q63883885"
+  {:label "Percival Murray", :lei nil, :type :natural-person},
+  "Q6391507"
+  {:label "Kensington and Chelsea London Borough Council",
+   :lei nil,
+   :type :org},
   "Q639791"
   {:label "Whitney Museum of American Art", :lei nil, :type :org},
   "Q6398021" {:label "Key Brand Entertainment", :lei nil, :type :org},
@@ -1652,8 +1888,12 @@
   {:label "Las Vegas Convention and Visitors Authority",
    :lei nil,
    :type :org},
+  "Q650068" {:label "Peterhouse", :lei nil, :type :org},
   "Q6515314"
   {:label "Norwegian Coastal Administration", :lei nil, :type :org},
+  "Q6515870" {:label "Leeds City Council", :lei nil, :type :org},
+  "Q6516227" {:label "Leekes", :lei nil, :type :org},
+  "Q6519163" {:label "Leicester City Council", :lei nil, :type :org},
   "Q653180"
   {:label "Fujisan Hongū Sengen Taisha", :lei nil, :type :org},
   "Q654134" {:label "Taiseki-ji Temple", :lei nil, :type :org},
@@ -1685,6 +1925,8 @@
   "Q67130347"
   {:label "C. Temple Emmet", :lei nil, :type :natural-person},
   "Q672170" {:label "Publix", :lei nil, :type :org},
+  "Q6747270"
+  {:label "Manchester Airports Group", :lei nil, :type :org},
   "Q6749316" {:label "Manhattan Theatre Club", :lei nil, :type :org},
   "Q6758076"
   {:label "Marcus Performing Arts Center", :lei nil, :type :org},
@@ -1707,6 +1949,7 @@
   "Q6796463" {:label "May Company California", :lei nil, :type :org},
   "Q6802345" {:label "McMenamins", :lei nil, :type :org},
   "Q6803427" {:label "Meadows Foundation", :lei nil, :type :org},
+  "Q681822" {:label "BBC Scotland", :lei nil, :type :org},
   "Q6819335"
   {:label "Meridian International Center", :lei nil, :type :org},
   "Q6825186"
@@ -1734,6 +1977,7 @@
   {:label "Mizuho Trust & Banking",
    :lei "549300VP92Z696FCLZ96",
    :type :org},
+  "Q6901124" {:label "Monmouth School", :lei nil, :type :org},
   "Q6913556" {:label "Morrin College", :lei nil, :type :org},
   "Q6913633"
   {:label "Morris Cafritz", :lei nil, :type :natural-person},
@@ -1793,6 +2037,8 @@
   "Q722516" {:label "Danubius Hotels Group", :lei nil, :type :org},
   "Q7227384"
   {:label "Pomona College", :lei "549300MR1BYTPTMF0I60", :type :org},
+  "Q7233699"
+  {:label "Post Office Telecommunications", :lei nil, :type :org},
   "Q72360985"
   {:label "Charlton Historical Society, Massachusetts",
    :lei nil,
@@ -1800,6 +2046,7 @@
   "Q723890" {:label "Danish Royal Family", :lei nil, :type :org},
   "Q7243053" {:label "Primaris", :lei nil, :type :org},
   "Q7244088" {:label "Prince Hotels", :lei nil, :type :org},
+  "Q7252986" {:label "M&G Real Estate", :lei nil, :type :org},
   "Q7257673"
   {:label "Public Services and Procurement Canada",
    :lei nil,
@@ -1814,6 +2061,7 @@
    :type :org},
   "Q73043" {:label "Iarnród Éireann—Irish Rail", :lei nil, :type :org},
   "Q7313755" {:label "René Lépine", :lei nil, :type :natural-person},
+  "Q731621" {:label "Joseph Safra", :lei nil, :type :natural-person},
   "Q732503"
   {:label "Sony Music Entertainment Japan", :lei nil, :type :org},
   "Q7330335" {:label "Richardson International", :lei nil, :type :org},
@@ -1828,6 +2076,10 @@
   {:label "Bane NOR Eiendom", :lei "549300F07QRX46LXVI35", :type :org},
   "Q7371225"
   {:label "Roundabout Theatre Company", :lei nil, :type :org},
+  "Q7374160"
+  {:label "Royal Faculty of Procurators in Glasgow",
+   :lei nil,
+   :type :org},
   "Q737947" {:label "IK Start", :lei nil, :type :org},
   "Q7382802"
   {:label "Rutgers Preparatory School", :lei nil, :type :org},
@@ -1837,6 +2089,8 @@
    :type :org},
   "Q7390221" {:label "BroadwaySF", :lei nil, :type :org},
   "Q739024" {:label "Senate Properties", :lei nil, :type :org},
+  "Q739384" {:label "London County Council", :lei nil, :type :org},
+  "Q7398834" {:label "Safra Group", :lei nil, :type :org},
   "Q7401824"
   {:label "Saint Mary's College",
    :lei "549300YPQ6G4ZOG14V92",
@@ -1845,26 +2099,80 @@
   "Q7407581" {:label "Sam H. Harris", :lei nil, :type :natural-person},
   "Q7419320"
   {:label "Santa Clara County Superior Court", :lei nil, :type :org},
+  "Q7438033"
+  {:label "Scottish Widows Investment Partnership",
+   :lei nil,
+   :type :org},
   "Q7442147"
   {:label "Seattle Parks and Recreation", :lei nil, :type :org},
   "Q7443561" {:label "Second Stage Theater", :lei nil, :type :org},
+  "Q7448605" {:label "Sellar Property Group", :lei nil, :type :org},
   "Q7449545"
   {:label "Seminole Tribe of Florida", :lei nil, :type :org},
   "Q7492663" {:label "Sheffield Farms", :lei nil, :type :org},
+  "Q7503713"
+  {:label "Shrewsbury and Birmingham Railway", :lei nil, :type :org},
   "Q75241801"
   {:label "William Cunard", :lei nil, :type :natural-person},
+  "Q7526786"
+  {:label "Sir Frederick Mappin, 1st Baronet",
+   :lei nil,
+   :type :natural-person},
+  "Q7527795"
+  {:label "Sir John Gladstone, 1st Baronet",
+   :lei nil,
+   :type :natural-person},
+  "Q75408070"
+  {:label "Sir George Cornewall, 3rd Bt.",
+   :lei nil,
+   :type :natural-person},
+  "Q75484588"
+  {:label "Gavin Fullarton", :lei nil, :type :natural-person},
+  "Q75584549"
+  {:label "Sir East George Clayton East, 1st Bt.",
+   :lei nil,
+   :type :natural-person},
+  "Q75593847" {:label "John Deacon", :lei nil, :type :natural-person},
+  "Q75598615"
+  {:label "Henry Hobhouse", :lei nil, :type :natural-person},
   "Q7566304" {:label "South Bend Civic Theatre", :lei nil, :type :org},
+  "Q7568539"
+  {:label "South Staffordshire Tramways Company",
+   :lei nil,
+   :type :org},
+  "Q7587689"
+  {:label "St. Cuthbert's Co-operative Society", :lei nil, :type :org},
   "Q75891111"
   {:label "Alida Chanler Emmet", :lei nil, :type :natural-person},
+  "Q75908535"
+  {:label "Sir Thomas Edwards-Moss, 1st Bt.",
+   :lei nil,
+   :type :natural-person},
+  "Q75912067"
+  {:label "Sir Edward Marwood-Elton, 1st Baronet",
+   :lei nil,
+   :type :natural-person},
   "Q75991154"
   {:label "William Salomon", :lei nil, :type :natural-person},
   "Q76039" {:label "Hudson's Bay Company", :lei nil, :type :org},
   "Q7604227" {:label "Station Casinos", :lei nil, :type :org},
+  "Q76055750"
+  {:label "John Henderson", :lei nil, :type :natural-person},
+  "Q76057775" {:label "John Boldero", :lei nil, :type :natural-person},
+  "Q76072319"
+  {:label "William Henry Surman", :lei nil, :type :natural-person},
   "Q761498" {:label "Drogheda United F.C.", :lei nil, :type :org},
   "Q7615784"
   {:label "Stewart F. Lane", :lei nil, :type :natural-person},
+  "Q7618164"
+  {:label "Stockport Metropolitan Borough Council",
+   :lei nil,
+   :type :org},
+  "Q76200706"
+  {:label "Vickris Dickinson", :lei nil, :type :natural-person},
   "Q76206398"
   {:label "Eviny Fornybar", :lei "5967007LIEEXZXE4AW33", :type :org},
+  "Q76236381" {:label "David Trant", :lei nil, :type :natural-person},
   "Q7649428"
   {:label "Sussex County Historical Society", :lei nil, :type :org},
   "Q766145"
@@ -1883,6 +2191,7 @@
   "Q7760100" {:label "The Related Companies", :lei nil, :type :org},
   "Q779730" {:label "Kyodo News", :lei nil, :type :org},
   "Q7814064" {:label "Tokyu Land", :lei nil, :type :org},
+  "Q7814416" {:label "Tolly Cobbold", :lei nil, :type :org},
   "Q7827542" {:label "Tosa Kuroshio Railway", :lei nil, :type :org},
   "Q7842" {:label "University of Tokyo", :lei nil, :type :org},
   "Q7850598"
@@ -1912,6 +2221,7 @@
   {:label "Weinbrenner Shoe Company",
    :lei "4ZLCYJQROKYIYCGT1K86",
    :type :org},
+  "Q7981628" {:label "Wells Cathedral School", :lei nil, :type :org},
   "Q7988120"
   {:label "Western Norway Emigration Center", :lei nil, :type :org},
   "Q7989150" {:label "Westminster College", :lei nil, :type :org},
@@ -1928,6 +2238,8 @@
    :lei nil,
    :type :org},
   "Q80229029" {:label "Tokyu Railways", :lei nil, :type :org},
+  "Q8037025"
+  {:label "Worshipful Company of Drapers", :lei nil, :type :org},
   "Q8040120"
   {:label "Wyndham Hotels & Resorts",
    :lei "549300FE3MQ4RVXXC673",
@@ -1941,6 +2253,7 @@
   {:label "General Motors", :lei "54930070NSV60J38I987", :type :org},
   "Q822314" {:label "Sony Pictures", :lei nil, :type :org},
   "Q822865" {:label "South Dublin", :lei nil, :type :org},
+  "Q823917" {:label "University of Sheffield", :lei nil, :type :org},
   "Q83273" {:label "Ibaraki Prefecture", :lei nil, :type :org},
   "Q834621" {:label "Bono", :lei nil, :type :natural-person},
   "Q83538"
@@ -1964,6 +2277,7 @@
   {:label "Metropolitan Intercity Railway Company",
    :lei nil,
    :type :org},
+  "Q843251" {:label "Great Western Railway", :lei nil, :type :org},
   "Q844652" {:label "Desilu", :lei nil, :type :org},
   "Q84519069"
   {:label "James Donatien Le Ray de Chaumont",
@@ -1981,6 +2295,10 @@
   {:label "NTT DoCoMo", :lei "353800TVPXCGWDZIIU09", :type :org},
   "Q854551"
   {:label "Bérenger Saunière", :lei nil, :type :natural-person},
+  "Q856411"
+  {:label "British American Tobacco",
+   :lei "213800FKA5MF17RJKT63",
+   :type :org},
   "Q85651285"
   {:label "Jedediah Higgins", :lei nil, :type :natural-person},
   "Q85804770" {:label "TLC Casino Enterprises", :lei nil, :type :org},
@@ -2001,6 +2319,8 @@
   "Q86698952" {:label "municipality of Bourges", :lei nil, :type :org},
   "Q86699070" {:label "City of Nîmes", :lei nil, :type :org},
   "Q86699184" {:label "municipality of Reims", :lei nil, :type :org},
+  "Q867530"
+  {:label "Victoria University of Manchester", :lei nil, :type :org},
   "Q867588"
   {:label "Roman Catholic Diocese of Camden", :lei nil, :type :org},
   "Q868679" {:label "The Oriental Land Company", :lei nil, :type :org},
@@ -2011,6 +2331,12 @@
   "Q87071551" {:label nil, :lei nil, :type :org},
   "Q87072090" {:label "City of Beaucaire", :lei nil, :type :org},
   "Q875920" {:label "Toho", :lei "529900IYHHYWU4O3H185", :type :org},
+  "Q876107"
+  {:label "Duchy of Cornwall",
+   :lei "549300HES5V0C74V4L64",
+   :type :org},
+  "Q8766"
+  {:label "British Airways", :lei "375X9PSJLLOV7F21O626", :type :org},
   "Q876720"
   {:label "Via Rail", :lei "549300URO8B2DLPRPF61", :type :org},
   "Q880942"
@@ -2041,9 +2367,16 @@
    :lei "NMH2KF074RKAGTH4CM63",
    :type :org},
   "Q918151" {:label "Hard Rock Cafe", :lei nil, :type :org},
+  "Q919646"
+  {:label "British Land", :lei "RV5B68J2GV3QGMRPW209", :type :org},
+  "Q924370"
+  {:label "Obrascón Huarte Lain",
+   :lei "95980020140005395317",
+   :type :org},
   "Q92791416"
   {:label "Alfonso P. Villa", :lei nil, :type :natural-person},
   "Q934417" {:label "Royal Dublin Society", :lei nil, :type :org},
+  "Q936287" {:label "English Heritage", :lei nil, :type :org},
   "Q9374425"
   {:label "Wilhelm Blumwe", :lei nil, :type :natural-person},
   "Q94121055"
@@ -2062,7 +2395,17 @@
   "Q95024"
   {:label "Florenz Ziegfeld, Jr.", :lei nil, :type :natural-person},
   "Q950380" {:label "CBS Corporation", :lei nil, :type :org},
+  "Q9531"
+  {:label "British Broadcasting Corporation",
+   :lei "5493000IBP32UQZ0KL24",
+   :type :org},
   "Q953458" {:label "Augustin Daly", :lei nil, :type :natural-person},
+  "Q9617" {:label "Arsenal F.C.", :lei nil, :type :org},
+  "Q96185838"
+  {:label "Robert Hibbert", :lei nil, :type :natural-person},
+  "Q96185839"
+  {:label "Thomas Hibbert", :lei nil, :type :natural-person},
+  "Q96240677" {:label "Thomas Parr", :lei nil, :type :natural-person},
   "Q965268" {:label "Elisa", :lei "743700TU2S3DXWGU7H32", :type :org},
   "Q97365653" {:label "Groupe Mach", :lei nil, :type :org},
   "Q973998" {:label "Kilgore", :lei nil, :type :org},
@@ -2072,11 +2415,28 @@
   "Q98011376"
   {:label "Eugenia Almand", :lei nil, :type :natural-person},
   "Q981112" {:label "Los Angeles Music Center", :lei nil, :type :org},
+  "Q98596755"
+  {:label "Charles Gordon of Braco junior",
+   :lei nil,
+   :type :natural-person},
+  "Q98598293"
+  {:label "John Gordon of Aikenhead", :lei nil, :type :natural-person},
   "Q986168" {:label "Cocoa", :lei nil, :type :org},
+  "Q98692355"
+  {:label "Elijah Cobham", :lei nil, :type :natural-person},
+  "Q98692381"
+  {:label "John Frere III", :lei nil, :type :natural-person},
+  "Q98692382"
+  {:label "Edmund Gardiner", :lei nil, :type :natural-person},
+  "Q98862094"
+  {:label "John Nembhard Hibbert", :lei nil, :type :natural-person},
+  "Q98966281" {:label "Robert Inman", :lei nil, :type :natural-person},
   "Q99" {:label "California", :lei nil, :type :org},
+  "Q99337520"
+  {:label "George Kirlew", :lei nil, :type :natural-person},
   "Q995313" {:label "Bryne FK", :lei nil, :type :org}},
- :with-floors 679,
- :natural-person-owners 245,
+ :with-floors 722,
+ :natural-person-owners 313,
  :source "wikidata:WDQS",
  :countries
  ["AZ"
@@ -2085,6 +2445,7 @@
   "EE"
   "FI"
   "FR"
+  "GB"
   "HR"
   "HU"
   "IE"
@@ -2098,9 +2459,7 @@
   "UA"
   "US"],
  :company-link
- {:via
-  ["lei (P1278) → kabuto/uchiwake/kanjō → GLEIF"
-   "qid → keizu/tsumugi"]},
+ {:via ["lei → kabuto/uchiwake/kanjō → GLEIF" "qid → keizu/tsumugi"]},
  :records
  [{:building "Q19714214",
    :cc "AZ",
@@ -5491,6 +5850,1416 @@
    :floors nil,
    :height nil,
    :owner "Q3278474",
+   :lei nil}
+  {:building "Q106207272",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q823917",
+   :lei nil}
+  {:building "Q112670566",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1164410",
+   :lei nil}
+  {:building "Q1146311",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q6063",
+   :lei nil}
+  {:building "Q114702900",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q17017730",
+   :lei nil}
+  {:building "Q116745282",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7526786",
+   :lei nil}
+  {:building "Q117188070",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7814416",
+   :lei nil}
+  {:building "Q117806048",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q117805991",
+   :lei nil}
+  {:building "Q118965977",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1420500",
+   :lei nil}
+  {:building "Q121782678",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q241185",
+   :lei nil}
+  {:building "Q124478981",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1206709",
+   :lei nil}
+  {:building "Q127383",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q681822",
+   :lei nil}
+  {:building "Q131303349",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q5263338",
+   :lei nil}
+  {:building "Q131303454",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q876107",
+   :lei "549300HES5V0C74V4L64"}
+  {:building "Q132496654",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q15995238",
+   :lei nil}
+  {:building "Q13529107",
+   :cc "GB",
+   :floors 7,
+   :height nil,
+   :owner "Q4051597",
+   :lei nil}
+  {:building "Q13529110",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q5912194",
+   :lei nil}
+  {:building "Q137800964",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q593786",
+   :lei "213800LRO7NS5CYQMN21"}
+  {:building "Q137800964",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1325334",
+   :lei nil}
+  {:building "Q138752",
+   :cc "GB",
+   :floors 33,
+   :height 153.0,
+   :owner "Q192314",
+   :lei "8I5DZWZKVSZI1NUHU748"}
+  {:building "Q138760",
+   :cc "GB",
+   :floors 32,
+   :height 151.0,
+   :owner "Q1101257",
+   :lei nil}
+  {:building "Q138768",
+   :cc "GB",
+   :floors 32,
+   :height 156.3,
+   :owner "Q245343",
+   :lei "213800LBQA1Y9L22JB70"}
+  {:building "Q138768",
+   :cc "GB",
+   :floors 32,
+   :height 156.3,
+   :owner "Q245343",
+   :lei "G5GSEF7VJP5I7OUK5573"}
+  {:building "Q15130596",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q5941364",
+   :lei nil}
+  {:building "Q15130596",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q100148045",
+   :lei nil}
+  {:building "Q15186849",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q16842680",
+   :lei nil}
+  {:building "Q15186849",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q17351562",
+   :lei nil}
+  {:building "Q15210819",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q19609302",
+   :lei nil}
+  {:building "Q15214843",
+   :cc "GB",
+   :floors 2,
+   :height nil,
+   :owner "Q183",
+   :lei nil}
+  {:building "Q15221956",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q5589389",
+   :lei nil}
+  {:building "Q15235677",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q75484588",
+   :lei nil}
+  {:building "Q15248133",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1152847",
+   :lei "H7FNTJ4851HG0EXQ1Z70"}
+  {:building "Q15268257",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q160302",
+   :lei nil}
+  {:building "Q15979577",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q467269",
+   :lei nil}
+  {:building "Q16897623",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7252986",
+   :lei nil}
+  {:building "Q16897636",
+   :cc "GB",
+   :floors 7,
+   :height nil,
+   :owner "Q7438033",
+   :lei nil}
+  {:building "Q17020375",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q6516227",
+   :lei nil}
+  {:building "Q17529152",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q98596755",
+   :lei nil}
+  {:building "Q17530030",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q5538127",
+   :lei nil}
+  {:building "Q17530030",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q75408070",
+   :lei nil}
+  {:building "Q17530179",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q75584549",
+   :lei nil}
+  {:building "Q17530320",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q6129571",
+   :lei nil}
+  {:building "Q17533776",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q5030960",
+   :lei nil}
+  {:building "Q17534687",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q2925725",
+   :lei "213800YCEK6U45JCLH18"}
+  {:building "Q17540783",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q16026997",
+   :lei nil}
+  {:building "Q17547354",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1702099",
+   :lei nil}
+  {:building "Q17568156",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q2913554",
+   :lei "213800JEGHHEAXIJDX34"}
+  {:building "Q17568161",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q2913554",
+   :lei "213800JEGHHEAXIJDX34"}
+  {:building "Q17568938",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q98598293",
+   :lei nil}
+  {:building "Q17572192",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7587689",
+   :lei nil}
+  {:building "Q17572255",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q103301451",
+   :lei nil}
+  {:building "Q17645381",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q16933921",
+   :lei nil}
+  {:building "Q17737924",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q6109362",
+   :lei "213800CHWARFAAN7UB85"}
+  {:building "Q17738032",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q20748891",
+   :lei nil}
+  {:building "Q17738238",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q76236381",
+   :lei nil}
+  {:building "Q17741203",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q56181197",
+   :lei nil}
+  {:building "Q17744230",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q56178525",
+   :lei nil}
+  {:building "Q17803964",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q2913554",
+   :lei "213800JEGHHEAXIJDX34"}
+  {:building "Q17815653",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1151382",
+   :lei nil}
+  {:building "Q17830141",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q76055750",
+   :lei nil}
+  {:building "Q18030684",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q629139",
+   :lei nil}
+  {:building "Q18030684",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q3246355",
+   :lei nil}
+  {:building "Q18030684",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q4971159",
+   :lei nil}
+  {:building "Q18162155",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q5064127",
+   :lei nil}
+  {:building "Q18297847",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q843251",
+   :lei nil}
+  {:building "Q18297847",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1486303",
+   :lei nil}
+  {:building "Q18297847",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7503713",
+   :lei nil}
+  {:building "Q18351768",
+   :cc "GB",
+   :floors 10,
+   :height nil,
+   :owner "Q1501071",
+   :lei nil}
+  {:building "Q18353553",
+   :cc "GB",
+   :floors 5,
+   :height nil,
+   :owner "Q3305205",
+   :lei nil}
+  {:building "Q18536",
+   :cc "GB",
+   :floors nil,
+   :height 306.0,
+   :owner "Q7448605",
+   :lei nil}
+  {:building "Q191161",
+   :cc "GB",
+   :floors 41,
+   :height 250.0,
+   :owner "Q7398834",
+   :lei nil}
+  {:building "Q19361337",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q6519163",
+   :lei nil}
+  {:building "Q19600670",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7233699",
+   :lei nil}
+  {:building "Q20054019",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q5599804",
+   :lei nil}
+  {:building "Q2018393",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1516957",
+   :lei nil}
+  {:building "Q21061729",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q18671249",
+   :lei nil}
+  {:building "Q21062063",
+   :cc "GB",
+   :floors 2,
+   :height nil,
+   :owner "Q3056813",
+   :lei "21380043I15S3UDE7Y82"}
+  {:building "Q212065",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q32521",
+   :lei nil}
+  {:building "Q212065",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q21997561",
+   :lei nil}
+  {:building "Q212834",
+   :cc "GB",
+   :floors 36,
+   :height 160.0,
+   :owner "Q20971386",
+   :lei nil}
+  {:building "Q22004526",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q503077",
+   :lei "213800RPBXRETY4A4C59"}
+  {:building "Q22312829",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q4892023",
+   :lei "2138001V85JLYR7AUB61"}
+  {:building "Q22312829",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q4892023",
+   :lei "2138009OQSSLVVHQAL78"}
+  {:building "Q24022959",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q16974340",
+   :lei nil}
+  {:building "Q24023945",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1939537",
+   :lei "213800JHYNDNB1NS2W10"}
+  {:building "Q24023945",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1939537",
+   :lei "213800V54ZJZKFLXET89"}
+  {:building "Q24060290",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q2302252",
+   :lei nil}
+  {:building "Q24298842",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q15902946",
+   :lei nil}
+  {:building "Q25818870",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q8037025",
+   :lei nil}
+  {:building "Q26276518",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q333515",
+   :lei nil}
+  {:building "Q26279772",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q27898165",
+   :lei nil}
+  {:building "Q26279938",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q21166810",
+   :lei nil}
+  {:building "Q26288676",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7814416",
+   :lei nil}
+  {:building "Q26294115",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q26299011",
+   :lei nil}
+  {:building "Q26313906",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7527795",
+   :lei nil}
+  {:building "Q26318536",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q100270869",
+   :lei nil}
+  {:building "Q26320373",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q98692381",
+   :lei nil}
+  {:building "Q26328872",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q98692355",
+   :lei nil}
+  {:building "Q26336093",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q328725",
+   :lei nil}
+  {:building "Q26358868",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q332464",
+   :lei nil}
+  {:building "Q26369098",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q75593847",
+   :lei nil}
+  {:building "Q2637274",
+   :cc "GB",
+   :floors 3,
+   :height nil,
+   :owner "Q650068",
+   :lei nil}
+  {:building "Q26384837",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q16741830",
+   :lei nil}
+  {:building "Q26385283",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q26406745",
+   :lei nil}
+  {:building "Q26392375",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q18527223",
+   :lei nil}
+  {:building "Q26394711",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q76057775",
+   :lei nil}
+  {:building "Q26404819",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q56741212",
+   :lei nil}
+  {:building "Q26410885",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q3090747",
+   :lei nil}
+  {:building "Q26411279",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q2469078",
+   :lei nil}
+  {:building "Q26411653",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q98692382",
+   :lei nil}
+  {:building "Q26414907",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q136705896",
+   :lei nil}
+  {:building "Q26415488",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q28921168",
+   :lei nil}
+  {:building "Q26421931",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q26213081",
+   :lei nil}
+  {:building "Q26428438",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q3528190",
+   :lei nil}
+  {:building "Q26433544",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q333515",
+   :lei nil}
+  {:building "Q26434096",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q6258755",
+   :lei nil}
+  {:building "Q26443091",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q56695614",
+   :lei nil}
+  {:building "Q26446652",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q2898201",
+   :lei nil}
+  {:building "Q26446652",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q76072319",
+   :lei nil}
+  {:building "Q26450774",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q107642926",
+   :lei nil}
+  {:building "Q26483669",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q26888",
+   :lei nil}
+  {:building "Q26483669",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q18164289",
+   :lei nil}
+  {:building "Q26490435",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7814416",
+   :lei nil}
+  {:building "Q26506579",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q75908535",
+   :lei nil}
+  {:building "Q26527854",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7814416",
+   :lei nil}
+  {:building "Q26542937",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7814416",
+   :lei nil}
+  {:building "Q26547968",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q99337520",
+   :lei nil}
+  {:building "Q26580946",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q96240677",
+   :lei nil}
+  {:building "Q26585875",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q98966281",
+   :lei nil}
+  {:building "Q26617328",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q4969432",
+   :lei nil}
+  {:building "Q26617328",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q5344296",
+   :lei nil}
+  {:building "Q26617328",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q96185838",
+   :lei nil}
+  {:building "Q26617328",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q96185839",
+   :lei nil}
+  {:building "Q26617328",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q98862094",
+   :lei nil}
+  {:building "Q26618070",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q75912067",
+   :lei nil}
+  {:building "Q26632570",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q18528396",
+   :lei nil}
+  {:building "Q26647628",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7814416",
+   :lei nil}
+  {:building "Q26652789",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1891089",
+   :lei nil}
+  {:building "Q26656161",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q139438274",
+   :lei nil}
+  {:building "Q28404263",
+   :cc "GB",
+   :floors 39,
+   :height nil,
+   :owner "Q212599",
+   :lei "969500QZC2Q0TK11NV07"}
+  {:building "Q2915930",
+   :cc "GB",
+   :floors 33,
+   :height nil,
+   :owner "Q1273254",
+   :lei nil}
+  {:building "Q29378816",
+   :cc "GB",
+   :floors 57,
+   :height nil,
+   :owner "Q5031201",
+   :lei nil}
+  {:building "Q29625289",
+   :cc "GB",
+   :floors 12,
+   :height nil,
+   :owner "Q7233699",
+   :lei nil}
+  {:building "Q30622539",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q148",
+   :lei nil}
+  {:building "Q3135425",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q9617",
+   :lei nil}
+  {:building "Q3306356",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q333515",
+   :lei nil}
+  {:building "Q3306356",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q20751818",
+   :lei nil}
+  {:building "Q3756310",
+   :cc "GB",
+   :floors 26,
+   :height nil,
+   :owner "Q4974584",
+   :lei nil}
+  {:building "Q38250958",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q6391507",
+   :lei nil}
+  {:building "Q38602881",
+   :cc "GB",
+   :floors 4,
+   :height nil,
+   :owner "Q5072394",
+   :lei nil}
+  {:building "Q39048789",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q36397301",
+   :lei nil}
+  {:building "Q4165561",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q23635",
+   :lei nil}
+  {:building "Q4215957",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q502316",
+   :lei "213800G1C9KKVVDN1A60"}
+  {:building "Q42291482",
+   :cc "GB",
+   :floors 5,
+   :height nil,
+   :owner "Q9531",
+   :lei "5493000IBP32UQZ0KL24"}
+  {:building "Q4548426",
+   :cc "GB",
+   :floors 18,
+   :height nil,
+   :owner "Q880942",
+   :lei "5299004LW4QWGZUB8Y96"}
+  {:building "Q4578988",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q539627",
+   :lei nil}
+  {:building "Q4578988",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q919646",
+   :lei "RV5B68J2GV3QGMRPW209"}
+  {:building "Q47012683",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q63883885",
+   :lei nil}
+  {:building "Q4707939",
+   :cc "GB",
+   :floors 5,
+   :height nil,
+   :owner "Q230899",
+   :lei "213800L6WZJ6FSGIEJ60"}
+  {:building "Q47245863",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7568539",
+   :lei nil}
+  {:building "Q4745959",
+   :cc "GB",
+   :floors 9,
+   :height nil,
+   :owner "Q194360",
+   :lei "R4PP93JZOLY261QX3811"}
+  {:building "Q4754272",
+   :cc "GB",
+   :floors 19,
+   :height nil,
+   :owner "Q130637",
+   :lei nil}
+  {:building "Q4799518",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q230899",
+   :lei "213800L6WZJ6FSGIEJ60"}
+  {:building "Q4836773",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q593786",
+   :lei "213800LRO7NS5CYQMN21"}
+  {:building "Q4875677",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q2425849",
+   :lei nil}
+  {:building "Q48792857",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7981628",
+   :lei nil}
+  {:building "Q4879789",
+   :cc "GB",
+   :floors 3,
+   :height nil,
+   :owner "Q4924983",
+   :lei nil}
+  {:building "Q4922887",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q936287",
+   :lei nil}
+  {:building "Q503477",
+   :cc "GB",
+   :floors 50,
+   :height 235.0,
+   :owner "Q5031201",
+   :lei nil}
+  {:building "Q5038603",
+   :cc "GB",
+   :floors 11,
+   :height nil,
+   :owner "Q506160",
+   :lei "213800V8IAVKS37D6B88"}
+  {:building "Q5038603",
+   :cc "GB",
+   :floors 11,
+   :height nil,
+   :owner "Q506160",
+   :lei "R8V1FN4M5ITGZOG7BS19"}
+  {:building "Q5123466",
+   :cc "GB",
+   :floors 30,
+   :height nil,
+   :owner "Q1142797",
+   :lei "2138001YYBULX5SZ2H24"}
+  {:building "Q5188033",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q739384",
+   :lei nil}
+  {:building "Q5188033",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1277372",
+   :lei nil}
+  {:building "Q5188033",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1476542",
+   :lei nil}
+  {:building "Q5188033",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q16996896",
+   :lei nil}
+  {:building "Q5188033",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q138651002",
+   :lei nil}
+  {:building "Q5189540",
+   :cc "GB",
+   :floors 17,
+   :height nil,
+   :owner "Q4047770",
+   :lei nil}
+  {:building "Q52164809",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q230899",
+   :lei "213800L6WZJ6FSGIEJ60"}
+  {:building "Q5246784",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q216273",
+   :lei nil}
+  {:building "Q5316584",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q458393",
+   :lei nil}
+  {:building "Q540237",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q936287",
+   :lei nil}
+  {:building "Q5419282",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q34433",
+   :lei "5493009OEHU6YS545T65"}
+  {:building "Q5594419",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7618164",
+   :lei nil}
+  {:building "Q5608394",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q160918",
+   :lei nil}
+  {:building "Q5638097",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q75598615",
+   :lei nil}
+  {:building "Q5638097",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q76200706",
+   :lei nil}
+  {:building "Q56616940",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q2689124",
+   :lei nil}
+  {:building "Q58313231",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q333515",
+   :lei nil}
+  {:building "Q58454576",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q518624",
+   :lei nil}
+  {:building "Q58454576",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q924370",
+   :lei "95980020140005395317"}
+  {:building "Q5880972",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1709809",
+   :lei nil}
+  {:building "Q59678839",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q115332734",
+   :lei nil}
+  {:building "Q59678839",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q115346457",
+   :lei nil}
+  {:building "Q60754464",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q731621",
+   :lei nil}
+  {:building "Q635086",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q936287",
+   :lei nil}
+  {:building "Q6407656",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q34660",
+   :lei nil}
+  {:building "Q64577851",
+   :cc "GB",
+   :floors 5,
+   :height nil,
+   :owner "Q1138080",
+   :lei nil}
+  {:building "Q6552450",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q8766",
+   :lei "375X9PSJLLOV7F21O626"}
+  {:building "Q65665501",
+   :cc "GB",
+   :floors 17,
+   :height nil,
+   :owner "Q6515870",
+   :lei nil}
+  {:building "Q65680097",
+   :cc "GB",
+   :floors 10,
+   :height nil,
+   :owner "Q6515870",
+   :lei nil}
+  {:building "Q65961952",
+   :cc "GB",
+   :floors 12,
+   :height nil,
+   :owner "Q6515870",
+   :lei nil}
+  {:building "Q6659738",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q130637",
+   :lei nil}
+  {:building "Q6661591",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q56182750",
+   :lei nil}
+  {:building "Q6747265",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q6747270",
+   :lei nil}
+  {:building "Q6773623",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1146631",
+   :lei nil}
+  {:building "Q6786888",
+   :cc "GB",
+   :floors 18,
+   :height nil,
+   :owner "Q867530",
+   :lei nil}
+  {:building "Q6897487",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q333515",
+   :lei nil}
+  {:building "Q7083359",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q35794",
+   :lei nil}
+  {:building "Q7092688",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1665181",
+   :lei nil}
+  {:building "Q7100892",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q4590791",
+   :lei nil}
+  {:building "Q7162913",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1143261",
+   :lei nil}
+  {:building "Q7304884",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q5566844",
+   :lei nil}
+  {:building "Q735841",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q160302",
+   :lei nil}
+  {:building "Q7428779",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q103305626",
+   :lei nil}
+  {:building "Q7534775",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1891089",
+   :lei nil}
+  {:building "Q75948272",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q7374160",
+   :lei nil}
+  {:building "Q76435948",
+   :cc "GB",
+   :floors 7,
+   :height nil,
+   :owner "Q595906",
+   :lei nil}
+  {:building "Q76435948",
+   :cc "GB",
+   :floors 7,
+   :height nil,
+   :owner "Q4829040",
+   :lei nil}
+  {:building "Q76853097",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q22080735",
+   :lei nil}
+  {:building "Q7698829",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q16849442",
+   :lei nil}
+  {:building "Q7712109",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q936287",
+   :lei nil}
+  {:building "Q7746439",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1474019",
+   :lei nil}
+  {:building "Q779754",
+   :cc "GB",
+   :floors 3,
+   :height nil,
+   :owner "Q6063",
+   :lei nil}
+  {:building "Q7798580",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q527881",
+   :lei nil}
+  {:building "Q795613",
+   :cc "GB",
+   :floors 8,
+   :height nil,
+   :owner "Q9531",
+   :lei "5493000IBP32UQZ0KL24"}
+  {:building "Q8023787",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q333515",
+   :lei nil}
+  {:building "Q8049414",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q333515",
+   :lei nil}
+  {:building "Q814128",
+   :cc "GB",
+   :floors 47,
+   :height 169.0,
+   :owner "Q20714225",
+   :lei nil}
+  {:building "Q823948",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q6901124",
+   :lei nil}
+  {:building "Q856319",
+   :cc "GB",
+   :floors 26,
+   :height nil,
+   :owner "Q117202",
+   :lei nil}
+  {:building "Q85836639",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q1138080",
+   :lei nil}
+  {:building "Q90146038",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q34433",
+   :lei "5493009OEHU6YS545T65"}
+  {:building "Q94085423",
+   :cc "GB",
+   :floors nil,
+   :height nil,
+   :owner "Q230899",
+   :lei "213800L6WZJ6FSGIEJ60"}
+  {:building "Q97145241",
+   :cc "GB",
+   :floors 10,
+   :height 40.5,
+   :owner "Q856411",
+   :lei "213800FKA5MF17RJKT63"}
+  {:building "Q97145241",
+   :cc "GB",
+   :floors 10,
+   :height 40.5,
+   :owner "Q25377639",
    :lei nil}
   {:building "Q1164510",
    :cc "HR",
@@ -15129,8 +16898,8 @@
  {:public-record true,
   :reciprocity :symmetric,
   :note
-  "Wikidata open public record; SYMMETRIC (相互監視, Rider v3.1 §2(c)/ADR-2606082400, Tier-0 神の監視), not asymmetric/monetized. Natural-person ownership representable (P31=Q5 → :natural-person); per-jurisdiction bulk-ingestion gated (methods/jurisdiction.cljc)."},
+  "Wikidata open public record; SYMMETRIC (相互監視, ADR-2606082400); natural-person ownership representable (P31=Q5 → :natural-person); per-jurisdiction bulk-ingestion gated."},
  :source-id "wikidata-buildings",
  :counts-toward-world-coverage false,
- :with-height 157,
- :owner-count 1143}
+ :with-height 168,
+ :owner-count 1339}

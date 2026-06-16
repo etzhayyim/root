@@ -72,24 +72,24 @@
   "building-ownership" : {
     "layer" : "building-level ownership KG + floors/height + company linkage (methods/buildings.cljc)",
     "gate" : "PUBLIC-RECORD + SYMMETRIC (相互監視, ADR-2606082400); map-not-target; non-monetized; per-jurisdiction bulk-ingestion gated",
-    "countries" : [ "AZ", "CA", "DK", "EE", "FI", "FR", "HR", "HU", "IE", "IL", "JP", "KE", "LU", "MC", "NO", "PL", "UA", "US" ],
+    "countries" : [ "AZ", "CA", "DK", "EE", "FI", "FR", "GB", "HR", "HU", "IE", "IL", "JP", "KE", "LU", "MC", "NO", "PL", "UA", "US" ],
     "vertical-concentration" : "top owners by total FLOORS controlled (ビルのフロア): Mitsui Fudosan/Mitsubishi Estate/Oxford Properties/JR Central — real-estate developers, distinct from building-count leaders (rail)",
     "snapshot" : {
-      "cidv1" : "bafkreid7lfpr2dolaikphm7ykqeimxbtz6ugjziay2qtrhxe3mzn6dlqya",
-      "owners" : 1193,
-      "with-floors" : 679,
-      "buildings" : 2170,
-      "natural-person-owners" : 245,
-      "lei-links" : 198,
-      "sha256" : "7f595f1d0dcb0214f3b3f85408865c33cfa864e500c6a1389ee4db32df0d70c0",
+      "cidv1" : "bafkreih5sexq6qguxreiqvjglxib3xpt6mcu4clujzp23o6x2gmpp7vtm4",
+      "owners" : 1389,
+      "with-floors" : 722,
+      "buildings" : 2405,
+      "natural-person-owners" : 313,
+      "lei-links" : 221,
+      "sha256" : "fd912f0f40d4bc488855265dd01dddf3f3054e09744e5fadbbd7d198f7feb367",
       "artifact" : "wikidata-buildings.kotoba.edn",
-      "with-height" : 157
+      "with-height" : 168
     },
     "datom-log" : {
       "artifact" : "building-ownership-datoms.kotoba.edn",
       "gitignored" : true,
-      "sha256" : "061c5ebc35909dcedaace7ba8b2893434225f8ea722b11c3fa4ece008e197874",
-      "cidv1" : "bafkreiagdrplynmqtxhnvlhhxkfsre2diis7r2tsfmi4h6sozyai4glyoq"
+      "sha256" : "43929de35fd475ec65de1c76565566b55920db24e9e7e04be8dc65c7f1e43168",
+      "cidv1" : "bafkreicdsko6gx6uoxwglxq4ozlfkzvvleqnwjhj47qex2g4mxd7dzbrna"
     }
   },
   "denominator" : {
@@ -106,10 +106,10 @@
     "layer" : "authoritative company linkage (methods/company_link.cljc): owner LEI → GLEIF → kabuto/uchiwake/kanjō; QID → keizu/tsumugi",
     "source" : "GLEIF api.gleif.org (public; legal entities only)",
     "coverage" : {
-      "owners-total" : 1143,
-      "owners-with-lei" : 198,
-      "owners-gleif-linked" : 198,
-      "buildings-linked" : 653,
+      "owners-total" : 1339,
+      "owners-with-lei" : 221,
+      "owners-gleif-linked" : 221,
+      "buildings-linked" : 690,
       "by-jurisdiction" : {
         "AT" : 2,
         "BE" : 1,
@@ -123,9 +123,10 @@
         "CZ" : 1,
         "DE" : 1,
         "DK" : 3,
+        "ES" : 1,
         "FI" : 5,
-        "FR" : 13,
-        "GB" : 4,
+        "FR" : 14,
+        "GB" : 23,
         "IE" : 2,
         "IL" : 3,
         "IT" : 3,
@@ -140,7 +141,7 @@
         "US-CA" : 6,
         "US-CT" : 3,
         "US-DC" : 3,
-        "US-DE" : 22,
+        "US-DE" : 23,
         "US-FL" : 4,
         "US-GA" : 1,
         "US-IL" : 3,
@@ -155,7 +156,7 @@
         "US-NC" : 2,
         "US-NJ" : 2,
         "US-NV" : 2,
-        "US-NY" : 9,
+        "US-NY" : 10,
         "US-OH" : 4,
         "US-OK" : 1,
         "US-OR" : 1,
@@ -170,15 +171,15 @@
     },
     "reference" : {
       "artifact" : "gleif-companies.kotoba.edn",
-      "companies" : 198,
-      "sha256" : "aa84a816c28cff53b922e1b010b26d8eee4c9293529f43f01351f34d5c6345a0",
-      "cidv1" : "bafkreifkqsubnqum75j3sixbwaile3mo5zgjfe2st5b7ae2r6ngvyy2fua"
+      "companies" : 221,
+      "sha256" : "605147cddf4d3c1485f26bcb38b49408ff6b46f963e2293e448fb2416fb3b73a",
+      "cidv1" : "bafkreidakfd43x2nhqkil4tlzm4ljfai75vun6ld4iut4repwjaw7m5xhi"
     },
     "datom-log" : {
       "artifact" : "company-link-datoms.kotoba.edn",
       "gitignored" : true,
-      "sha256" : "1fbc82cfa87b2052ca2e2b3c6a4c778d0632cf88d5bed48c5740bf071d9b2e02",
-      "cidv1" : "bafkreia7xsbm7kd3ebjmulrlhrvey54nayzm7cgvx3kiyv2ax4dr3gzoai"
+      "sha256" : "0425aea021d76eaa3e45e9fe549dc9998da7f5b383f40f196ca06de59e35b8a0",
+      "cidv1" : "bafkreiaeewxkaioxn2vd4rpj7zkj3smzrwt7lm4d6qhrs3fanxsz4nnyua"
     }
   },
   "endpoint" : "https://query.wikidata.org/sparql"

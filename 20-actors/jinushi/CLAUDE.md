@@ -75,6 +75,8 @@ registry ingest.)
   linkage (LEI/QID → corp KGs); 取-concentration by #buildings AND by total floors controlled.
 - `methods/company_link.cljc` — AUTHORITATIVE company linkage: building-owner LEI → GLEIF legal
   entity (legal name/jurisdiction/status) → kabuto/uchiwake/kanjō; QID → keizu/tsumugi.
+- `methods/digest.cljc`      — CAPSTONE: fuses LAND + BUILDINGS + floors + COMPANY linkage + gate
+  into one 全世界 不動産取得 digest (the headline answer; read-only, content-addressed inputs).
 - `methods/jurisdiction.cljc` — per-jurisdiction PUBLIC-RECORD gate: which cadastres are
   public/bulk/owner-names-visible → whether natural-person ownership may be BULK-ingested
   (honest degrade to :unknown; SE/US/GB/IE/NL/NO=bulk-public, JP/KR=per-parcel, DE/AT/CH/FR=restricted).
@@ -131,8 +133,8 @@ bad-data areas dropped (disclosed). Each snapshot is **content-addressed to a CI
 
 jinushi extends from land-AREA coverage to per-BUILDING ownership: who owns which building, how
 many floors, and — via the owner's **LEI (P1278)** / Wikidata QID — the **bridge to the corporate
-KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). Current slice (`wikidata-buildings.kotoba.edn`, five polite WDQS fetches): **2,170 buildings · 18
-countries · 1,143 owners · 198 LEI links · 245 natural-person owners · 679 with floors · 157 with
+KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). Current slice (`wikidata-buildings.kotoba.edn`, six polite WDQS fetches): **2,405 buildings · 19
+countries · 1,389 owners · 221 LEI links · 313 natural-person owners · 722 with floors · 168 with
 height**. Two distinct 取-concentration lenses: by **#buildings** = rail operators (Bane NOR, SNCF,
 Irish Rail — many station buildings); by **TOTAL FLOORS controlled (ビルのフロア)** = real-estate
 developers — **Mitsui Fudosan 407F, Mitsubishi Estate 315F, Oxford Properties 283F, JR Central
@@ -144,8 +146,8 @@ registry natural-person owners represented, not excluded.
 
 **Authoritative company linkage** (`methods/company_link.cljc` + `gleif-companies.kotoba.edn`):
 each building-owner LEI is resolved against the **GLEIF public register** to its authoritative
-legal identity (legal name / jurisdiction / status). **198 owners → GLEIF, 653 buildings linked** across ~55 jurisdictions (30+ US states + JP/FR/NO/
-GB/IT/FI/PL/IL/…) — SNCF · JR East · RATP · Mitsui Fudosan · Mitsubishi Estate. The LEI is the cross-actor join key into the corporate KGs (kabuto/uchiwake/kanjō), the QID
+legal identity (legal name / jurisdiction / status). **221 owners → GLEIF, 690 buildings linked** across 56 jurisdictions (30+ US states + JP/FR/NO/GB/
+IT/FI/PL/IL/…) — SNCF · JR East · RATP · Mitsui Fudosan · Mitsubishi Estate. The LEI is the cross-actor join key into the corporate KGs (kabuto/uchiwake/kanjō), the QID
 into keizu/tsumugi — so "who owns this building" resolves to a real, registry-grounded company.
 GLEIF registers legal persons only, so this layer is corporate by construction.
 
@@ -187,7 +189,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 59 tests / 236 assertions green
+# 62 tests / 250 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
@@ -195,6 +197,7 @@ bb --classpath 20-actors -m jinushi.methods.ingest       # REAL snapshots → li
 bb --classpath 20-actors -m jinushi.methods.cid          # CIDv1 of each committed snapshot
 bb --classpath 20-actors -m jinushi.methods.normalize-wdqs # raw *.raw.json → committed snapshots (process)
 bb --classpath 20-actors -m jinushi.methods.emit-real    # REAL acquisition → kotoba Datom log + CID
+bb --classpath 20-actors -m jinushi.methods.digest       # CAPSTONE: whole 不動産取得 picture, one report
 bb --classpath 20-actors -m jinushi.methods.verify       # snapshots ↔ provenance CID/sha256 integrity
 
 # operator-only, rare, polite — refresh the snapshot from WDQS (NOT run by the loop):
