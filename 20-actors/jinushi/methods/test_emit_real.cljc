@@ -9,7 +9,8 @@
 (def actor-dir (-> *file* io/file .getParentFile .getParentFile))
 (def repo-root (-> actor-dir .getParentFile .getParentFile))
 (def data-dir (io/file repo-root "80-data" "jinushi-land"))
-(defn log [] (er/real-datom-log (ingest/load-all-snapshots data-dir) 1))
+(defn areas [] (ingest/load-country-areas data-dir))
+(defn log [] (er/real-datom-log (ingest/load-all-snapshots data-dir) (areas) 1))
 
 (deftest test-g1-no-person-or-worker
   (let [o (log)]
@@ -34,8 +35,8 @@
     (is (not (str/includes? o "nature-reserves")) "observed-only nature reserves excluded (no double-count)")))
 
 (deftest test-deterministic
-  (let [snaps (ingest/load-all-snapshots data-dir)]
-    (is (= (er/real-datom-log snaps 7) (er/real-datom-log snaps 7)) "real Datom-log emit is deterministic")))
+  (let [snaps (ingest/load-all-snapshots data-dir) a (areas)]
+    (is (= (er/real-datom-log snaps a 7) (er/real-datom-log snaps a 7)) "real Datom-log emit is deterministic")))
 
 (when (= *file* (System/getProperty "babashka.file"))
   (let [{:keys [fail error]} (run-tests 'jinushi.methods.test-emit-real)]

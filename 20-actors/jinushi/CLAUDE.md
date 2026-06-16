@@ -63,9 +63,9 @@ registry ingest.)
 - `methods/datom_emit.cljc`  — canonical EAVT emit: ground `:owner/*` + `:parcel/*` `:add`
   datoms + derived `:jinushi/*` transient aggregates.
 - `methods/coverage.cljc`    — world acquisition-coverage report + self-pruning ingest worklist.
-- `methods/ingest.cljc`      — **REAL multi-source acquisition** from COMMITTED snapshots in the
-  repo DATA LAYER (`80-data/jinushi-land/*.kotoba.edn`) → `{:owners :parcels}`, offline;
-  double-count-honest (only `:counts-toward-world-coverage` sources sum into world coverage).
+- `methods/ingest.cljc`      — **REAL multi-source acquisition** from COMMITTED snapshots →
+  `{:owners :parcels}`, offline; double-count-honest (counting sources only) + **`sanitize`**
+  data-quality gate (drops parcels larger than their country, using the real area denominator).
 - `methods/normalize_wdqs.cljc` — PROCESS raw WDQS (`*.raw.json`) → committed snapshots
   (canonical unit map km²/ha/decare/dunam/acre/m²/sq-mile/rai/feddan + salvage parse, in code).
 - `methods/cid.cljc`         — CIDv1 (raw/sha2-256) content-addressing of snapshots (R1).
@@ -85,6 +85,7 @@ actor PROCESSES it later:
   *.raw.json                            # RAW WDQS fetches (gitignored; annex/IPFS cold tier)
   wikidata-national-parks.kotoba.edn    # Q46169  — PRIMARY world-coverage source (counts=true)
   wikidata-nature-reserves.kotoba.edn   # Q179049 — observed-only (counts=false; overlap)
+  country-areas.kotoba.edn              # Q6256 P2046 — real per-country denominator (203 cc)
   ingest-provenance.json                # sources + derived / sha256 / cidv1 / unit-map / pin path
   .gitignore                            # *.raw.json + the derived Datom log (regenerable; cold tier)
   (jinushi-land-datoms.kotoba.edn)      # DERIVED canonical EAVT Datom log (gitignored; CID in provenance)
@@ -99,9 +100,15 @@ snapshots → `ingest`/`emit_real` (offline).
 | national parks | Q46169 | 1859 | 85 | 9.94M km² | **yes** (primary, non-overlapping) |
 | nature reserves | Q179049 | 497 | 3 | 0.23M km² | **no** (overlaps NP countries NO/IE/CA) |
 
-**World acquisition coverage = 85 countries · 9.94M km² = 6.67% of world land** (0.056% synthetic
-floor → 3.34% → 4.80% → 6.03% → 6.61% → 6.67% over loop iterations). The real acquisition is emitted to the
-**canonical kotoba Datom log** (`methods/emit_real.cljc` → `jinushi-land-datoms.kotoba.edn`,
+**World acquisition coverage = 85 countries · 6.20M km² = 4.17% of world land** (HONEST, sanitized).
+A real WDQS country-area denominator (`country-areas.kotoba.edn`, 203 countries) now (a) resolves
+national fractions for every covered country and (b) drives a **data-quality gate (G4)**: parcels
+whose area exceeds their country's total area are dropped (Wikidata P2046 unit errors / ocean-
+spanning marine megaparks). This **corrected the headline 6.67% → 4.17%** — just 5 outlier parks
+had inflated it by ~3.7M km². The earlier loop figures (0.056% → 3.34% → … → 6.67%) were RAW
+(pre-sanitization) upper bounds; 4.17% is the honest current value, itself still an upper bound
+(sub-country marine parks + overlapping parks are not yet geometry-de-duped). The real acquisition
+is emitted to the **canonical kotoba Datom log** (`methods/emit_real.cljc` → `jinushi-land-datoms.kotoba.edn`,
 ground `:owner/*`+`:parcel/*` `:add` + derived `:jinushi/*` transient), making the world land
 data first-class canonical state (ADR-2605312345); the log is regenerable + content-addressed
 (CID in provenance), so it is not committed to git. Multi-source is
@@ -132,7 +139,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 40 tests / 122 assertions green
+# 42 tests / 127 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
@@ -150,10 +157,9 @@ methods/fetch_wdqs.sh 400
 
 - **R0 (landed)** — analyze + datom-emit + coverage + ontology + synthetic seed + 16 tests. ✅
 - **R2 (landed)** — REAL multi-source public-land ingest (`normalize_wdqs.cljc` + `ingest.cljc`
-  + `fetch_wdqs.sh`): committed Wikidata snapshots — national parks (1859 / **85 cc** / 9.94M km²,
+  + `fetch_wdqs.sh`): committed Wikidata snapshots — national parks (1859 / **85 cc**, sanitized 6.20M km²,
   **counts**; four polite country-bound fetches) + nature reserves (497 / 3 cc, observed-only,
-  overlap-excluded). World coverage **6.67%** (0.056% → 3.34% → 4.80% → 6.03% → 6.61% → 6.67% over loop
-  iterations). Processing is code (canonical unit map + salvage parse in `normalize_wdqs.cljc`).
+  overlap-excluded). World coverage **4.17%** HONEST (sanitized; raw 6.67% before dropping 5 over-country outliers). Processing is code (canonical unit map + salvage parse in `normalize_wdqs.cljc`).
   Double-count-honest (G2/G4), full unit map (km²/ha/decare/dunam/acre/sq-mile/m²), non-positive
   bad-data dropped, data in 80-data via datalad substrate, WDQS-load-safe (snapshot SoT; loop
   never queries WDQS). +7 tests. ✅

@@ -63,6 +63,23 @@
     (is (not-any? :parcel/centroid parcels) "no per-parcel coordinate from this source (G1)")
     (is (every? #(pos? (:parcel/area-m2 %)) parcels) "every acquired area is positive")))
 
+(deftest test-sanitize-drops-over-country-area
+  ;; G4 data-quality: a parcel larger than its country is a Wikidata P2046 error / marine megapark.
+  (let [areas {"NO" 385000.0 "JP" 364500.0}   ;; km²
+        ds {:owners [] :parcels [{:parcel/country "NO" :parcel/area-m2 1.8e12}   ;; 1.8M km² > NO → drop
+                                 {:parcel/country "JP" :parcel/area-m2 2.0e9}    ;; 2000 km² < JP → keep
+                                 {:parcel/country "XX" :parcel/area-m2 9.9e15}]} ;; no area for XX → uncapped keep
+        {:keys [dataset dropped dropped-detail]} (ing/sanitize ds areas)]
+    (is (= 1 dropped) "the over-country parcel is dropped")
+    (is (= "NO" (:cc (first dropped-detail))) "drop detail names the country")
+    (is (= 2 (count (:parcels dataset))) "in-country + uncapped parcels kept")))
+
+(deftest test-sanitize-real-snapshot
+  (let [areas (ing/load-country-areas data-dir)
+        {:keys [dropped]} (ing/sanitize (ing/counting-dataset (snaps)) areas)]
+    (is (number? dropped) "sanitize runs on the real dataset")
+    (is (some? areas) "real country-area denominator is present")))
+
 (deftest test-real-coverage-above-synthetic-floor
   (let [cd (ing/counting-dataset (snaps))
         res (a/analyze cd)

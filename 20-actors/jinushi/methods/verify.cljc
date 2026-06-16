@@ -38,11 +38,13 @@
      [dir]
      (let [prov (json/parse-string (slurp (io/file dir "ingest-provenance.json")) true)
            src-checks (map #(check-artifact dir %) (:sources prov))
+           denom (:denominator prov)                 ;; committed country-area reference
+           denom-check (when denom (check-artifact dir denom))
            derived (:derived prov)
            ;; the derived Datom log is gitignored/regenerable — verify only if present on disk
            der-check (when (and derived (.exists (io/file dir (:artifact derived))))
                        (check-artifact dir derived))
-           checks (vec (concat src-checks (when der-check [der-check])))]
+           checks (vec (concat src-checks (when denom-check [denom-check]) (when der-check [der-check])))]
        {:ok (every? :ok checks) :checks checks})))
 
 #?(:clj

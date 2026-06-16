@@ -74,6 +74,24 @@
   [snaps]
   (apply merge-datasets (map snapshot->dataset (filter :counts-toward-world-coverage snaps))))
 
+(defn sanitize
+  "Data-quality gate (G4): drop parcels whose area exceeds their COUNTRY's total area — a parcel
+  cannot be larger than its country. These are Wikidata P2046 unit errors (e.g. a value off by
+  1000×) or ocean-spanning marine megaparks that inflate LAND coverage. Without this, a handful
+  of outliers can over-report coverage by millions of km². `country-area` is {cc → km²}; a
+  country with no documented area is left uncapped (cannot judge). Returns
+  {:dataset {:owners :parcels} :dropped n :dropped-detail [{:cc :area-km2}]}."
+  [{:keys [owners parcels]} country-area]
+  (let [ceil-m2 (fn [cc] (* 1.0e6 (get country-area cc 1.0e18)))
+        over?   (fn [p] (> (:parcel/area-m2 p) (ceil-m2 (:parcel/country p))))
+        keep    (filterv (complement over?) parcels)
+        dropped (filterv over? parcels)]
+    {:dataset {:owners owners :parcels keep}
+     :dropped (count dropped)
+     :dropped-detail (->> dropped
+                          (map #(hash-map :cc (:parcel/country %) :area-km2 (/ (:parcel/area-m2 %) 1.0e6)))
+                          (sort-by :area-km2 >) vec)}))
+
 (defn source-summary
   "Per-source honesty row (counting + non-counting alike)."
   [{:keys [source-id class land-kind counts-toward-world-coverage records dropped-unknown-unit]}]
@@ -88,6 +106,13 @@
 
 #?(:clj
    (defn data-dir [root] (io/file root "80-data" "jinushi-land")))
+
+#?(:clj
+   (defn load-country-areas
+     "Real WDQS-derived denominator {cc → km²} (country-areas.kotoba.edn), or nil if absent."
+     [dir]
+     (let [f (io/file dir "country-areas.kotoba.edn")]
+       (when (.exists f) (:area-km2 (analyze/parse (slurp f)))))))
 
 #?(:clj
    (defn load-all-snapshots
@@ -110,11 +135,15 @@
            root (or (some-> here .getParentFile .getParentFile) (io/file "."))
            dir (data-dir root)
            snaps (load-all-snapshots dir)
-           ds (counting-dataset snaps)
-           res (analyze/analyze ds)
+           areas (load-country-areas dir)
+           {:keys [dataset dropped dropped-detail]} (sanitize (counting-dataset snaps) areas)
+           res (analyze/analyze dataset {:country-area areas})
            cov (:coverage res)]
        (require 'jinushi.methods.coverage)
        (println ((resolve 'jinushi.methods.coverage/render) res))
+       (when (pos? dropped)
+         (println (format ";; data-quality: dropped %d parcel(s) with area > country area (Wikidata P2046 errors / marine): %s"
+                          dropped (str/join ", " (map #(format "%s %,.0fkm²" (:cc %) (:area-km2 %)) (take 6 dropped-detail))))))
        (println)
        (println ";; ── sources (per-source honesty; only counting sources sum into world coverage) ──")
        (doseq [s (map source-summary snaps)]

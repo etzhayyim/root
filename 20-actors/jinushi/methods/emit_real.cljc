@@ -16,11 +16,14 @@
             [jinushi.methods.cid :as cid]))
 
 (defn real-datom-log
-  "Pure-ish: snapshots → canonical EAVT Datom-log text for the world-coverage (counting) dataset."
-  ([snaps] (real-datom-log snaps 1))
-  ([snaps tx]
-   (let [ds (ingest/counting-dataset snaps)]
-     (datom-emit/emit ds (analyze/analyze ds) tx))))
+  "Snapshots → canonical EAVT Datom-log text for the SANITIZED world-coverage (counting) dataset
+  (parcels exceeding their country's area are dropped, G4). `country-area` is {cc → km²} (nil ⇒
+  no cap / built-in table)."
+  ([snaps] (real-datom-log snaps nil 1))
+  ([snaps country-area] (real-datom-log snaps country-area 1))
+  ([snaps country-area tx]
+   (let [ds (:dataset (ingest/sanitize (ingest/counting-dataset snaps) country-area))]
+     (datom-emit/emit ds (analyze/analyze ds {:country-area country-area}) tx))))
 
 (defn -main [& argv]
   (let [here (or (some-> (when (and *file* (not= *file* "NO_SOURCE_PATH")) (io/file *file*))
@@ -30,7 +33,7 @@
         dir (ingest/data-dir root)
         snaps (ingest/load-all-snapshots dir)
         out (io/file dir "jinushi-land-datoms.kotoba.edn")]
-    (spit out (real-datom-log snaps 1))
+    (spit out (real-datom-log snaps (ingest/load-country-areas dir) 1))
     (println (str "real kotoba Datom log → " out))
     (println (str "CIDv1: " (cid/file->cidv1 out)))
     0))

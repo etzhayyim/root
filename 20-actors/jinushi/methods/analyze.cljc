@@ -115,9 +115,15 @@
     :concentration   {:total-area-m2 :hhi :top-holder {:key :share} :owner-count}
     :coverage        {:countries-touched :acquired-area-km2 :world-land-area-km2
                       :world-coverage-frac :per-country {cc → {:area-km2 :national-frac|nil}}}
-    :return-candidates [{:owner :name :type :share}]  (advisory; aggregate; G1)"
-  [{:keys [owners parcels]}]
-  (let [owners-idx (into {} (map (juxt :owner/key identity)) owners)
+    :return-candidates [{:owner :name :type :share}]  (advisory; aggregate; G1)
+
+  opts :country-area — a {cc → km²} map overriding the built-in country-land-area-km2 table
+  (the real WDQS-derived denominator, 80-data/jinushi-land/country-areas.kotoba.edn). When given,
+  national fractions resolve for every covered country, not just the hand-coded reference set."
+  ([data] (analyze data {}))
+  ([{:keys [owners parcels]} {:keys [country-area]}]
+  (let [carea (or country-area country-land-area-km2)
+        owners-idx (into {} (map (juxt :owner/key identity)) owners)
         ;; attach record-id + owner-name-norm, dedup by record-id (last wins / area-merge)
         normed (reduce
                 (fn [acc p]
@@ -161,7 +167,7 @@
         per-country (into {}
                           (map (fn [[cc v]]
                                  (let [acq-km2 (/ (:area-m2 v) 1.0e6)
-                                       nat (get country-land-area-km2 cc)]
+                                       nat (get carea cc)]
                                    [cc {:area-km2 acq-km2
                                         :national-frac (when nat (safe-div acq-km2 nat))}]))
                                by-country))
@@ -186,7 +192,7 @@
                 :world-land-area-km2 world-land-area-km2
                 :world-coverage-frac (safe-div acquired-km2 world-land-area-km2)
                 :per-country per-country}
-     :return-candidates ret}))
+     :return-candidates ret})))
 
 #?(:clj
    (defn -main [& argv]

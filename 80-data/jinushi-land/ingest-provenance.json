@@ -10,7 +10,7 @@
     "Q81292" : "acre=4046.8564224",
     "Q935614" : "rai=1600.0"
   },
-  "load-discipline" : "WDQS queried only by methods/fetch_wdqs.sh (explicit/polite/LIMIT<=800/one attempt); loop re-ingests committed snapshots with zero network I/O; national parks via five country-bound (cheap) fetches",
+  "load-discipline" : "WDQS via methods/fetch_wdqs.sh only (polite/LIMIT<=800); loop re-ingests committed snapshots with zero network I/O",
   "sources" : [ {
     "cidv1" : "bafkreifs2u5dprlpslaulcnx34x5nmytg2gxvefd5kkeo7uj2koxfwos4q",
     "dropped-unknown-unit" : 0,
@@ -34,22 +34,50 @@
     "artifact" : "wikidata-nature-reserves.kotoba.edn",
     "counts-toward-world-coverage" : false
   } ],
-  "process" : "methods/normalize_wdqs.cljc (raw *.raw.json in the data layer → committed snapshots; canonical unit map in code)",
+  "process" : "methods/normalize_wdqs.cljc (raw *.raw.json → snapshots); methods/ingest.cljc sanitize (drop parcels > country area, G4)",
+  "sanitize" : {
+    "rule" : "drop parcels whose area > their country total area (impossible — P2046 unit errors / marine megaparks)",
+    "dropped" : 5,
+    "dropped-detail" : [ {
+      "cc" : "NO",
+      "area-km2" : 1818110.39
+    }, {
+      "cc" : "HR",
+      "area-km2" : 972000.0
+    }, {
+      "cc" : "PY",
+      "area-km2" : 514233.0
+    }, {
+      "cc" : "KR",
+      "area-km2" : 274541.0
+    }, {
+      "cc" : "KR",
+      "area-km2" : 154644.0
+    } ],
+    "note" : "coverage corrected 6.67% (raw) → 4.17% (sanitized). Even sanitized coverage is an UPPER BOUND: marine parks below country area + overlapping parks are not geometry-de-duped yet."
+  },
   "adr" : "ADR-2605241500 (datalad + git-annex → IPFS substrate); processed artifacts committed in 80-data (genome convention)",
   "pin" : {
     "status" : "operator-step",
-    "how" : "e7m-dataset add 80-data/jinushi-land -> DataLad superdataset 90-docs/baien/datasets (git-annex -> IPFS CID map -> PDS datasetPin); not auto-run"
+    "how" : "e7m-dataset add 80-data/jinushi-land -> superdataset 90-docs/baien/datasets; not auto-run"
   },
   "ingest-id" : "jinushi-land-wdqs-r2",
-  "coverage-policy" : "world coverage sums ONLY counts-toward-world-coverage sources; nature reserves overlap NP countries, observed-only — never summed (G2/G4); non-positive bad-data dropped",
+  "coverage-policy" : "world coverage sums ONLY counts-toward sources, SANITIZED; nature reserves observed-only; non-positive + over-country parcels dropped (G2/G4)",
   "derived" : {
     "artifact" : "jinushi-land-datoms.kotoba.edn",
-    "what" : "canonical EAVT Datom log of the counting dataset (gitignored; regenerable via methods/emit_real.cljc)",
-    "sha256" : "7f6cc88aa7f6315b931aceaaeda7a13fa2fdc81835fa3a5c78c0cb75270a551a",
-    "cidv1" : "bafkreid7nteivj7wgfnzggwovlw2pij7ul64qgbv7i5fy6gazn2socsvdi"
+    "what" : "canonical EAVT Datom log of the SANITIZED counting dataset (gitignored; regenerable)",
+    "sha256" : "de540c4281a02f912f50bb594e591aa55679c19f9d747c6f52b9932f1c03cda5",
+    "cidv1" : "bafkreig6kqgefanaf6is6uf3lfhfsgvfkz44dh45or6g6uvzsmxrya6nuu"
   },
-  "cid-scheme" : "CIDv1 raw(0x55)/sha2-256, multibase base32 (bafkrei…) — single-block content hash; dag-pb/UnixFS parity is a future leg",
-  "verify" : "methods/verify.cljc re-derives each artifact CID+sha256 and checks against this file",
+  "denominator" : {
+    "artifact" : "country-areas.kotoba.edn",
+    "class" : "Q6256 country · P2046 area (km², max per ISO-2; approximate — may include water/territories)",
+    "countries" : 203,
+    "sha256" : "7d9b7f51efcb02d9319befef3e55ec02d2c546b70117fda279d14b8e8e99d36c",
+    "cidv1" : "bafkreid5tn7vd36lalmtdg7p547fl3ac2lcunnybc762e6orjohi5gotnq"
+  },
+  "cid-scheme" : "CIDv1 raw(0x55)/sha2-256, multibase base32 (bafkrei…)",
+  "verify" : "methods/verify.cljc re-derives each artifact CID+sha256 vs this file",
   "fetched-at" : "2026-06-16",
   "endpoint" : "https://query.wikidata.org/sparql"
 }
