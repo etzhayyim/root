@@ -5,7 +5,7 @@
  :cid-version 1,
  :pin-type "recursive (local node)",
  :directory-cid
- "bafybeicanspzzwylcb5kyjqdsukhwcfvr3vtg6udo5wu3y7gi24pb7n4be",
+ "bafybeigojttjmglj6sjw42rfeyezzvqu5kfs5yeuazj2tecquzdxy6m5ou",
  :file-cids
  {"building-ownership-datoms.kotoba.edn"
   "bafybeib2pgpzq6ffw4sd34mjudk6ov2lewql23x74wpjtronsfet3bwtxy",
@@ -42,13 +42,13 @@
   "gleif-resolution.raw.edn"
   "bafkreidtsmne6pce7ufkbkhgmxvfrzu6wmbwqdelnk6a2e4wv7qz5esqae",
   "ingest-provenance.json"
-  "bafkreicfapqkdwt4ssy4cxkjh7lkkyeabjjnqcogvz55w4dlnnkcfilhly",
+  "bafkreifjf7gpyvrg3teun64rgu45p7yqohokzyirpz2neqmrkbk7dulyqe",
   "ipfs-pins.kotoba.edn"
-  "bafkreiah7cusjcgfewoupymp4l7yi3gyrkn6da5melx2xip5b7a67jayhe",
+  "bafkreihb7xhc2e6smtuvgnjvp4uxyhl4h6b4amd55hzpxkl434c7honlzy",
   "jinushi-digest.md"
   "bafkreicklprevmjws4egjc3a37pwm7jln4gjvc2h4lsg44jzn7wsnbiiwm",
   "jinushi-land-datoms.kotoba.edn"
-  "bafybeifzpmuaoetwjfsf2flln2elxgc2svswiqzigv36k7ezteipeez76e",
+  "bafybeibk5bbkdvkr3sdfswodegqa2b76lfsynwfrcw3gn2u6wbgd4lgtr4",
   "jinushi-unified-datoms.kotoba.edn"
   "bafybeibrqgctksjcr6ogltss47lzrykfcfakvhowyul5rtcufqzzkausim",
   "national-parks-major.raw.json"
@@ -61,6 +61,8 @@
   "bafkreiahnsa76juahxuxcpp6x7h5aiq7bf5unsrbtn276v2be2mzhelt3u",
   "national-parks-major5.raw.json"
   "bafkreidwjwwexllcmign5cje7dl2f6de73i22fqd36bmbha6opgblhsmr4",
+  "national-parks-major6.raw.json"
+  "bafkreidzgcoewlmqacxajqjz6tieknngidurdqyoibnthqhb7hm5h55oki",
   "national-parks.raw.json"
   "bafkreid5jcpgzdesd74icpijvxc73id6xtcnxfvrhn6em56qk274bj33hi",
   "nature-reserves.raw.json"
@@ -78,7 +80,7 @@
   "wikidata-buildings.kotoba.edn"
   "bafybeigxk2z6zpghyujy5xcmts72pyxntntmchmqgczcsc3r5p6qj3j7my",
   "wikidata-national-parks.kotoba.edn"
-  "bafkreic2f6lk2m4ymvlz57ewf4ujx6bnmbnx2obk5vesstd55e7yeznju4",
+  "bafkreib74hskgkv3giuvcjwg3dik63srhtb63o56rluf4fissvyljby4ii",
   "wikidata-nature-reserves.kotoba.edn"
   "bafkreih2o3opnhi5hvapi35u56aatoxl5sim2mg4i75lnxku5w6ymst72e",
   "wikidata-owner-labels.raw.edn"

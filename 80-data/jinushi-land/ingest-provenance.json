@@ -22,13 +22,13 @@
     }
   },
   "sources" : [ {
-    "cidv1" : "bafkreic2f6lk2m4ymvlz57ewf4ujx6bnmbnx2obk5vesstd55e7yeznju4",
+    "cidv1" : "bafkreib74hskgkv3giuvcjwg3dik63srhtb63o56rluf4fissvyljby4ii",
     "dropped-unknown-unit" : 0,
-    "countries" : 111,
-    "records" : 2056,
+    "countries" : 128,
+    "records" : 2127,
     "class" : "Q46169 national park",
     "dropped-nonpositive" : 8,
-    "sha256" : "5a2f96ad339865579efc962f289bf82d605b7d382aed49294c7de93f8265a9a7",
+    "sha256" : "3fe1e4a32abb32295126c6d8d0af6e513cc3edbbbe8ae85e15129570b4871c42",
     "source-id" : "wikidata-national-parks",
     "artifact" : "wikidata-national-parks.kotoba.edn",
     "counts-toward-world-coverage" : true
