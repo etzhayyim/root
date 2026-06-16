@@ -131,13 +131,18 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=20)
     ap.add_argument("--retries", type=int, default=3)
+    ap.add_argument("--per-file", type=int, default=2,
+                    help="max fns harvested per source file (cross-actor diversity)")
     ap.add_argument("--endpoint", default=ENDPOINT)
     ap.add_argument("--model", default=MODEL)
     args = ap.parse_args()
 
     done = existing_ids()
+    # Skip generated *-compat scaffold dirs (low Charter value, repetitive CRUD);
+    # cap fns/file for cross-actor diversity instead of draining one file.
     py_files = sorted(p for p in ACTORS.rglob("*.py")
-                      if "test" not in p.name and "/tests/" not in str(p))
+                      if "test" not in p.name and "/tests/" not in str(p)
+                      and "-compat" not in str(p))
     harvested = attempts = 0
     with CANDIDATES.open("a") as out:
         for py in py_files:
@@ -147,8 +152,9 @@ def main() -> int:
                 label = label_for(py)
             except ValueError:
                 continue
+            per_file = 0
             for fn_name, py_src in top_level_fns(py):
-                if harvested >= args.n:
+                if harvested >= args.n or per_file >= args.per_file:
                     break
                 eid = f"{label}/{fn_name}"
                 if eid in done or len(py_src) < 60 or len(py_src) > 4000:
@@ -162,7 +168,7 @@ def main() -> int:
                     "label": label, "fn_name": fn_name, "clj_src": clj,
                     "py_src": py_src, "pyPath": str(py),
                 }, ensure_ascii=False) + "\n")
-                out.flush(); done.add(eid); harvested += 1
+                out.flush(); done.add(eid); harvested += 1; per_file += 1
                 print(f"  [{harvested}/{args.n}] {eid}  (lint-clean)", flush=True)
     print(f"harvested {harvested} clean / {attempts} attempted -> {CANDIDATES}")
     return 0
