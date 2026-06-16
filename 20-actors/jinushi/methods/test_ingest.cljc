@@ -7,7 +7,8 @@
             [jinushi.methods.ingest :as ing]))
 
 (def actor-dir (-> *file* io/file .getParentFile .getParentFile))
-(def snap-file (io/file actor-dir "data" "acquired" "wikidata-national-parks.kotoba.edn"))
+(def repo-root (-> actor-dir .getParentFile .getParentFile))
+(def snap-file (io/file repo-root "80-data" "jinushi-land" "wikidata-national-parks.kotoba.edn"))
 (defn snap [] (ing/load-snapshot snap-file))
 
 (def tiny

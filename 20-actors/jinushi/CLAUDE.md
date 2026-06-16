@@ -63,8 +63,8 @@ registry ingest.)
 - `methods/datom_emit.cljc`  — canonical EAVT emit: ground `:owner/*` + `:parcel/*` `:add`
   datoms + derived `:jinushi/*` transient aggregates.
 - `methods/coverage.cljc`    — world acquisition-coverage report + self-pruning ingest worklist.
-- `methods/ingest.cljc`      — **REAL acquisition** from a COMMITTED public-data snapshot
-  (`data/acquired/*.kotoba.edn`) → `{:owners :parcels}`, offline (never touches the network).
+- `methods/ingest.cljc`      — **REAL acquisition** from a COMMITTED public-data snapshot in the
+  repo DATA LAYER (`80-data/jinushi-land/*.kotoba.edn`) → `{:owners :parcels}`, offline.
   `merge-datasets` combines snapshot + synthetic seed into one acquisition view.
 - `methods/fetch_wdqs.sh`    — polite, EXPLICIT, operator-only WDQS refresh of the snapshot.
 
@@ -72,9 +72,20 @@ registry ingest.)
 
 The first REAL data leg ingests **national parks (Wikidata `P31=Q46169`)** — which are PUBLIC
 land (owner = the state) → fully G1-safe (public entities, no persons, no coordinates; only
-country + area + a per-country public-owner bucket). Snapshot:
-`data/acquired/wikidata-national-parks.kotoba.edn` — **289 parks · 26 countries · 4.97M km²
-public land = 3.34% of world land** (up from the 0.056% synthetic floor).
+country + area + a per-country public-owner bucket). **Data lands in the repo DATA LAYER via the
+datalad substrate** (ADR-2605241500; the genome convention) and the actor PROCESSES it later:
+
+```
+80-data/jinushi-land/
+  wikidata-national-parks.kotoba.edn   # processed snapshot (committed; loop's SoT)
+  ingest-provenance.json               # source / WDQS query / date / sha256 / counts / pin path
+  .gitignore                           # *.raw.json (transient operator fetch, annex/IPFS cold-tier)
+```
+
+**289 parks · 26 countries · 4.97M km² public land = 3.34% of world land** (up from the 0.056%
+synthetic floor). Cold tier (git-annex local-store → IPFS CID map → PDS `datasetPin`) is the
+operator step via `e7m-dataset add 80-data/jinushi-land` against the DataLad superdataset
+`90-docs/baien/datasets` — not auto-run.
 
 **「wdqs に負担をかけない」 is enforced by design:**
 

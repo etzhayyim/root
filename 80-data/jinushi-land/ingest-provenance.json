@@ -1,0 +1,55 @@
+{:substrate
+ "ADR-2605241500 (DataLad + git-annex → IPFS cold tier); processed artifact committed in 80-data per genome convention",
+ :counts {:records 289, :countries 26, :dropped_unknown_unit 5},
+ :ingest_id "jinushi-land-wdqs-np-r2",
+ :sources
+ [{:id "wikidata-wdqs",
+   :url "https://query.wikidata.org/sparql",
+   :query
+   "SELECT ?p ?area ?unit ?cc WHERE { ?p wdt:P31 wd:Q46169 ; p:P2046/psv:P2046 [wikibase:quantityAmount ?area; wikibase:quantityUnit ?u] ; wdt:P17 [wdt:P297 ?cc] }",
+   :scope
+   "national parks (Q46169) = PUBLIC land; area (P2046) + ISO country (P297)",
+   :individual_level false,
+   :note
+   "WDQS streamed partial under its 60s server cap; complete (area,unit,cc) triples salvaged; unknown-unit rows dropped (honest, not guessed)"}],
+ :adr "2606111500-pending (jinushi land-acquisition mirror)",
+ :countries
+ ("AZ"
+  "CA"
+  "DK"
+  "ES"
+  "FJ"
+  "GH"
+  "GL"
+  "GT"
+  "GY"
+  "HR"
+  "HT"
+  "HU"
+  "IE"
+  "IL"
+  "JM"
+  "KE"
+  "KH"
+  "LT"
+  "MD"
+  "MK"
+  "NO"
+  "PL"
+  "PY"
+  "UA"
+  "UZ"
+  "WS"),
+ :pin
+ {:status "operator-step",
+  :how
+  "e7m-dataset add 80-data/jinushi-land → DataLad superdataset 90-docs/baien/datasets (git-annex local-store → IPFS CID map → PDS datasetPin); not auto-run"},
+ :load_discipline
+ "WDQS queried ONLY by 20-actors/jinushi/methods/fetch_wdqs.sh (explicit, polite, LIMIT≤800, one attempt); the loop re-ingests this committed snapshot with zero network I/O",
+ :artifact
+ {:processed_edn "wikidata-national-parks.kotoba.edn",
+  :sha256 "7e8f206ccc805a4fc0bd291c23ebd9ca8c55a59f6125a62eae39c0c0e6d67502",
+  :consumed_by
+  "20-actors/jinushi/methods/ingest.cljc (process later → kotoba Datom log)"},
+ :units_kept {"Q712226" "km2", "Q35852" "hectare"},
+ :fetched_at "2026-06-16"}

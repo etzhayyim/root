@@ -16,8 +16,11 @@ set -euo pipefail
 
 LIMIT="${1:-400}"
 UA='etzhayyim-jinushi/0.1 (https://etzhayyim.com; land-acquisition commons research; jun784@gmail.com)'
-HERE="$(cd "$(dirname "$0")/.." && pwd)"
-OUT="$HERE/data/acquired/wikidata-national-parks.raw.json"
+# raw lands in the repo DATA LAYER (80-data/jinushi-land), ingested via the datalad substrate
+# (ADR-2605241500); the actor processes it later. methods → jinushi → 20-actors → repo root.
+ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+OUT="$ROOT/80-data/jinushi-land/wikidata-national-parks.raw.json"
+mkdir -p "$ROOT/80-data/jinushi-land"
 
 if [ "$LIMIT" -gt 800 ]; then
   echo "refusing LIMIT > 800 — keep WDQS queries cheap (be a good citizen)" >&2

@@ -65,9 +65,12 @@
      (let [here (or (some-> (when (and *file* (not= *file* "NO_SOURCE_PATH")) (io/file *file*))
                             .getParentFile .getParentFile)
                     (io/file "20-actors/jinushi"))
+           root (or (some-> here .getParentFile .getParentFile) (io/file "."))
            snap-f (if (and (seq argv) (not (str/starts-with? (first argv) "--")))
                     (io/file (first argv))
-                    (io/file here "data" "acquired" "wikidata-national-parks.kotoba.edn"))
+                    ;; data lives in the repo DATA LAYER (80-data), ingested via the datalad
+                    ;; substrate; the actor PROCESSES it here (ADR-2605241500; genome convention).
+                    (io/file root "80-data" "jinushi-land" "wikidata-national-parks.kotoba.edn"))
            snap (load-snapshot snap-f)
            ds (snapshot->dataset snap)
            res (analyze/analyze ds)
