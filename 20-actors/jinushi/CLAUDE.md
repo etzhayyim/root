@@ -77,6 +77,8 @@ registry ingest.)
   entity (legal name/jurisdiction/status) → kabuto/uchiwake/kanjō; QID → keizu/tsumugi.
 - `methods/digest.cljc`      — CAPSTONE: fuses LAND + BUILDINGS + floors + COMPANY linkage + gate
   into one 全世界 不動産取得 digest (the headline answer; read-only, content-addressed inputs).
+- `methods/nyc_pluto.cljc`   — government open-data cadastre beyond WDQS: NYC PLUTO (Socrata) →
+  parcel owner + floors; US-NY gate-permitted natural persons (anonymized on publish, orgs named).
 - `methods/jurisdiction.cljc` — per-jurisdiction PUBLIC-RECORD gate: which cadastres are
   public/bulk/owner-names-visible → whether natural-person ownership may be BULK-ingested
   (honest degrade to :unknown; SE/US/GB/IE/NL/NO=bulk-public, JP/KR=per-parcel, DE/AT/CH/FR=restricted).
@@ -170,6 +172,26 @@ natural-person ownership is BULK-ingested only where the registry is public-by-l
 owner-names-visible (SE/US/GB/IE/NL/NO); per-parcel-only regimes (JP/KR) and restricted ones
 (DE/AT/CH Grundbuch, FR owner names) are NOT bulk-ingested; unknown jurisdictions degrade honestly.
 
+## Sources beyond WDQS (multi-source ingest)
+
+The ingest is source-agnostic (`{:owners :parcels}` + per-source normalize + provenance/CID +
+jurisdiction gate), so WDQS is just one source. Landed/feasible additions:
+
+- **Government open-data portals** — e.g. NYC PLUTO (Socrata, public domain) → real parcel
+  ownership + floors **including natural persons** (US-NY bulk-public; `methods/nyc_pluto.cljc`,
+  landed as a 1,000-parcel sample). Same pattern fits NL Kadaster BAG, FR Etalab cadastre,
+  data.gov portals — gated per jurisdiction.
+- **OSM** (ODbL) — `building:levels` (floors), `operator`, footprints via Overpass/Geofabrik
+  (the `70-tools/e7m-dataset` OSM fetcher already exists); huge building coverage.
+- **Overture Maps / open building footprints** (CC-BY/ODbL) — geometry + heights, bulk parquet.
+- **GLEIF** (landed) + GLEIF L2 relationships for corporate-group rollup.
+- **CommonCrawl / Internet Archive** — feasible but heavy + low-precision + license/G1 care; best
+  as a *targeted* leg (mine specific public-registry domains, not blind web) — the
+  kotoba-over-CommonCrawl precedent is ADR-2606012300.
+
+Each source lands raw in the data layer (datalad cold tier), is normalized in code, content-
+addressed (CID in provenance, `verify.cljc`), and obeys the per-jurisdiction public-record gate.
+
 **「wdqs に負担をかけない」 is enforced by design:**
 
 - The committed **snapshot is the loop's source of truth**. Each loop iteration re-ingests the
@@ -189,7 +211,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 62 tests / 250 assertions green
+# 68 tests / 273 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
