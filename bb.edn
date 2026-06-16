@@ -250,7 +250,7 @@
                       'shionome.methods.test-weave 'shionome.methods.test-analyze
                       'shionome.methods.test-edn 'shionome.methods.test-registry
                       'shionome.methods.test-export 'shionome.methods.test-social
-                      'shionome.methods.test-kotoba
+                      'shionome.methods.test-kotoba 'shionome.methods.test-autorun
                       'kaiyaku.methods.test-datom-emit 'kadode.methods.test-datom-emit
                       'tanemaki.methods.test-datom-emit 'itonami.methods.test-datom-emit
                       'tsumugi.tests.test-banner
@@ -302,7 +302,7 @@
                                              'shionome.methods.test-analyze
                                              'shionome.methods.test-edn 'shionome.methods.test-registry
                       'shionome.methods.test-export 'shionome.methods.test-social
-                      'shionome.methods.test-kotoba
+                      'shionome.methods.test-kotoba 'shionome.methods.test-autorun
                                              'kaiyaku.methods.test-datom-emit
                                              'kadode.methods.test-datom-emit
                                              'tanemaki.methods.test-datom-emit
