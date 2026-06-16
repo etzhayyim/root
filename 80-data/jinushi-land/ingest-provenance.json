@@ -71,23 +71,23 @@
   },
   "building-ownership" : {
     "layer" : "building-level ownership KG + company linkage (methods/buildings.cljc)",
-    "gate" : "PUBLIC-RECORD + SYMMETRIC (相互監視, Rider v3.1 §2(c)/ADR-2606082400); map-not-target; non-monetized. Natural-person ownership representable (P31=Q5 → :natural-person); per-jurisdiction bulk-ingestion gated by methods/jurisdiction.cljc",
-    "company-link" : "owner LEI (P1278) → kabuto/uchiwake/kanjō; owner Wikidata QID → keizu/tsumugi",
-    "countries" : [ "CA", "FR", "IE", "JP", "NO" ],
+    "gate" : "PUBLIC-RECORD + SYMMETRIC (相互監視, Rider v3.1 §2(c)/ADR-2606082400); map-not-target; non-monetized; per-jurisdiction bulk-ingestion gated (methods/jurisdiction.cljc)",
+    "countries" : [ "CA", "FR", "IE", "JP", "NO", "US" ],
     "snapshot" : {
       "artifact" : "wikidata-buildings.kotoba.edn",
-      "buildings" : 815,
-      "owners" : 259,
-      "natural-person-owners" : 15,
-      "lei-links" : 58,
-      "sha256" : "57b7984de0cc7fbe652784ab6304641ba1463fbb923b528f10f038066ea21a21",
-      "cidv1" : "bafkreicxw6me3ygmp67gkj4evnrqiza3ufdd7o4shnji6ehqhadg5iq2ee"
+      "buildings" : 1603,
+      "owners" : 839,
+      "natural-person-owners" : 202,
+      "with-floors" : 113,
+      "lei-links" : 152,
+      "sha256" : "17a5548071758e52d2bc50d2b7f6763123b071f88d38d7b4afa3bb80e9d89e40",
+      "cidv1" : "bafkreiaxuvkia4lvrzjnfpcq2k37m5rreoyhd6enhdl3jl5dxoaotwe6ia"
     },
     "datom-log" : {
       "artifact" : "building-ownership-datoms.kotoba.edn",
       "gitignored" : true,
-      "sha256" : "da1d0095a78c6773831770c2a4f00c9edb370fd6b4c489b1c89aeec935f65e75",
-      "cidv1" : "bafkreig2duajlj4mm5zygf3qykspade63m3q7vvuyse3dse253etl5s6ou"
+      "sha256" : "f007b497cdae2ef88558da94285f2fb001066df62475142002935c368f317953",
+      "cidv1" : "bafkreihqa62jptnof34ikwg2squf6l5qaedg35reoukcaautlq3i6mlzkm"
     }
   },
   "denominator" : {
@@ -102,12 +102,12 @@
   "fetched-at" : "2026-06-16",
   "company-linkage" : {
     "layer" : "authoritative company linkage (methods/company_link.cljc): building owner LEI → GLEIF legal entity → kabuto/uchiwake/kanjō; QID → keizu/tsumugi",
-    "source" : "GLEIF api.gleif.org/api/v1/lei-records (public; legal entities only)",
+    "source" : "GLEIF api.gleif.org (public; legal entities only)",
     "coverage" : {
-      "owners-total" : 259,
-      "owners-with-lei" : 58,
-      "owners-gleif-linked" : 58,
-      "buildings-linked" : 381,
+      "owners-total" : 839,
+      "owners-with-lei" : 152,
+      "owners-gleif-linked" : 152,
+      "buildings-linked" : 537,
       "by-jurisdiction" : {
         "BE" : 1,
         "BM" : 1,
@@ -119,27 +119,56 @@
         "DE" : 1,
         "DK" : 1,
         "FR" : 13,
-        "GB" : 2,
+        "GB" : 3,
         "IE" : 2,
         "JP" : 12,
         "NO" : 12,
         "SA" : 1,
-        "US-DE" : 4,
-        "US-NJ" : 1,
-        "US-WA" : 1
+        "US" : 1,
+        "US-AL" : 1,
+        "US-AR" : 2,
+        "US-CA" : 6,
+        "US-CT" : 3,
+        "US-DC" : 3,
+        "US-DE" : 21,
+        "US-FL" : 4,
+        "US-GA" : 1,
+        "US-IL" : 3,
+        "US-IN" : 2,
+        "US-KY" : 1,
+        "US-LA" : 1,
+        "US-MA" : 6,
+        "US-MD" : 2,
+        "US-MI" : 3,
+        "US-MN" : 3,
+        "US-MO" : 1,
+        "US-NC" : 2,
+        "US-NJ" : 2,
+        "US-NV" : 2,
+        "US-NY" : 9,
+        "US-OH" : 4,
+        "US-OK" : 1,
+        "US-OR" : 1,
+        "US-PA" : 3,
+        "US-RI" : 1,
+        "US-TN" : 2,
+        "US-TX" : 2,
+        "US-UT" : 2,
+        "US-WA" : 3,
+        "US-WI" : 1
       }
     },
     "reference" : {
       "artifact" : "gleif-companies.kotoba.edn",
-      "companies" : 58,
-      "sha256" : "54a49105cf99bd99413acc6ebe74d8641fe8984324db254c1a4ccf78d1cf23a9",
-      "cidv1" : "bafkreicuusiqlt4zxwmucowmn27hjwded7ujqqze3msuygsmz54ndtzdve"
+      "companies" : 152,
+      "sha256" : "0125e2088d4d71fa2c2f8ccaa50417a075ac016bf5170585598ea8c216da5ae7",
+      "cidv1" : "bafkreiabexrardknoh5cyl4mzksqif5aowwac27vc4cykwmovdbbnws244"
     },
     "datom-log" : {
       "artifact" : "company-link-datoms.kotoba.edn",
       "gitignored" : true,
-      "sha256" : "6f019f04eced2d650a1a12ab8bd22ea6aa064247bdf12a0fbb8978fb34810754",
-      "cidv1" : "bafkreidpagpqj3hnfvsqugqsvof5elvgvideer556eva7o4jpd5tjaihkq"
+      "sha256" : "a9100ed282dd26516c202e5ffccc3debac2a66c6be55ba9be6c74bfa301eccb4",
+      "cidv1" : "bafkreifjcahnfaw5eziwyibol76mypplvqvgnrv6kw5jxzwhjp5dahwmwq"
     }
   },
   "endpoint" : "https://query.wikidata.org/sparql"

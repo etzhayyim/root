@@ -131,19 +131,18 @@ bad-data areas dropped (disclosed). Each snapshot is **content-addressed to a CI
 
 jinushi extends from land-AREA coverage to per-BUILDING ownership: who owns which building, how
 many floors, and — via the owner's **LEI (P1278)** / Wikidata QID — the **bridge to the corporate
-KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). Current slice (`wikidata-buildings.kotoba.edn`, three polite country-bound fetches): **815
-buildings · 5 countries (CA/FR/IE/JP/NO) · 259 owners · 58 LEI links · 15 natural-person owners**;
-building-取-concentration HHI 403 — Bane NOR, Irish Rail, **East Japan Railway, Tokyo Metro, JR
-Central/West** (rail operators own the most buildings = stations). Emitted
+KGs** (kabuto 兜 · uchiwake 内訳 · kanjō 勘定 · keizu 系図 · tsumugi 紡ぎ). Current slice (`wikidata-buildings.kotoba.edn`, four polite country-bound fetches): **1,603
+buildings · 6 countries (CA/FR/IE/JP/NO/US) · 839 owners · 152 LEI links · 202 natural-person
+owners · 113 with floors**; building-取-concentration HHI 115 — SNCF 81, 東日本旅客鉄道 (JR East)
+58, RATP 39 (rail operators own the most; the US slice is far more owner-diverse). Emitted
 as a KG Datom log (`:building/*` nodes + `:building/owner` edges + `:owner.org/{wikidata,lei,label}`).
-15 `:natural-person` owners (FR-heavy) demonstrate the reframed gate in action — public-registry
-natural-person owners represented, not excluded.
+**202 `:natural-person` owners** (US/FR-heavy) demonstrate the reframed gate at scale — public-
+registry natural-person owners represented, not excluded.
 
 **Authoritative company linkage** (`methods/company_link.cljc` + `gleif-companies.kotoba.edn`):
 each building-owner LEI is resolved against the **GLEIF public register** to its authoritative
-legal identity (legal name / jurisdiction / status). 58 owners → GLEIF, **381 buildings linked**
-(Bane NOR Eiendom AS 90 · SNCF 81 · 東日本旅客鉄道 / JR East 58 · RATP 39 · JR Central/West ·
-ADP). The LEI is the cross-actor join key into the corporate KGs (kabuto/uchiwake/kanjō), the QID
+legal identity (legal name / jurisdiction / status). **152 owners → GLEIF, 537 buildings linked** across 47 jurisdictions (incl. 30+ US states)
+— SNCF 81 · 東日本旅客鉄道 / JR East 58 · RATP 39 · JR Central/West · ADP. The LEI is the cross-actor join key into the corporate KGs (kabuto/uchiwake/kanjō), the QID
 into keizu/tsumugi — so "who owns this building" resolves to a real, registry-grounded company.
 GLEIF registers legal persons only, so this layer is corporate by construction.
 
