@@ -84,6 +84,8 @@ registry ingest.)
 - `methods/diff.cljc`        — as-of DIFF (差分): added/removed/changed records between snapshots.
 - `methods/osm_buildings.cljc` — OSM building stock (ODbL, open-crowd 0.60): building:levels
   (floors) + operator at scale; 5th real source.
+- `methods/reconcile.cljc`   — cross-source owner reconciliation (信頼度 payoff): join owners on
+  LEI, resolve name by trust (GLEIF authoritative wins over Wikidata crowd label; disagreement recorded).
 - `methods/jurisdiction.cljc` — per-jurisdiction PUBLIC-RECORD gate: which cadastres are
   public/bulk/owner-names-visible → whether natural-person ownership may be BULK-ingested
   (honest degrade to :unknown; SE/US/GB/IE/NL/NO=bulk-public, JP/KR=per-parcel, DE/AT/CH/FR=restricted).
@@ -216,7 +218,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 83 tests / 326 assertions green
+# 87 tests / 338 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
