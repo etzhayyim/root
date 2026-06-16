@@ -16119,6 +16119,28 @@
       "lastVerified": "2026-06-16"
     },
     {
+      "id": "doc:adr-2606162355-torifune-subaru-transparent-space-access-and-connectivity-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606162355: torifune 鳥船 + subaru 昴 — Transparent open space-access + connectivity-commons wave (the SpaceX/Starlink charter-clean inversion)",
+      "status": "proposed",
+      "topic": "torifune-subaru-space-access-and-connectivity-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "torifune 鳥船 actor (zero-net-carbon open launch-vehicle manufacturing + Transparent space access)",
+        "subaru 昴 actor (Transparent connectivity-commons satellite constellation; Starlink/OneWeb inversion)",
+        "launch-vehicle-ontology",
+        "constellation-ontology"
+      ],
+      "related": [
+        "doc:2606012600",
+        "doc:2606041827",
+        "doc:2605261300",
+        "doc:2606062100",
+        "doc:2606082400"
+      ],
+      "lastVerified": "2026-06-16"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
