@@ -91,11 +91,14 @@
 
 #?(:clj
    (defn load-all-snapshots
-     "Parse every *.kotoba.edn snapshot in the data dir (sorted by source-id)."
+     "Parse every acquisition snapshot in the data dir (sorted by source-id). A snapshot is a map
+     carrying :source-id — this excludes derived artifacts that share the .kotoba.edn extension
+     (e.g. the emitted jinushi-land-datoms.kotoba.edn Datom log, which is a vector)."
      [dir]
      (->> (.listFiles (io/file dir))
           (filter #(str/ends-with? (.getName %) ".kotoba.edn"))
           (map #(analyze/parse (slurp %)))
+          (filter #(and (map? %) (:source-id %)))
           (sort-by :source-id)
           vec)))
 

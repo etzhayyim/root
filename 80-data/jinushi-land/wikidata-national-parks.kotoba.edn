@@ -1,12 +1,50 @@
 ;; jinushi 地主 — COMMITTED real acquisition snapshot (ADR-2605241500 datalad substrate).
 ;; Loop re-ingests this with ZERO network I/O; WDQS hit only by methods/fetch_wdqs.sh.
-{:record-count 1075,
+{:record-count 1524,
  :source "wikidata:WDQS",
  :dropped-unknown-unit 0,
  :note
- "National parks = PUBLIC land. PRIMARY world-coverage source. Two polite country-bound WDQS fetches merged (initial 26-country set + major-country extension US/RU/BR/AU/CN/DE/ID/CL/ZA). All units resolved; non-positive (bad-data) areas dropped.",
+ "National parks = PUBLIC land. PRIMARY world-coverage source. Three polite country-bound WDQS fetches merged (initial 26-country set + two major-country extensions). All units resolved (km2/ha/decare/dunam/acre/m2/sq-mile/rai); non-positive bad-data dropped.",
  :records
- [{:cc "AU", :area-m2 5658.029019832609, :unit-src "Q712226"}
+ [{:cc "AO", :area-m2 6.3E8, :unit-src "Q712226"}
+  {:cc "AO", :area-m2 1.445E9, :unit-src "Q712226"}
+  {:cc "AO", :area-m2 5.95E9, :unit-src "Q712226"}
+  {:cc "AO", :area-m2 6.6E9, :unit-src "Q712226"}
+  {:cc "AO", :area-m2 7.545E9, :unit-src "Q712226"}
+  {:cc "AO", :area-m2 7.772E9, :unit-src "Q712226"}
+  {:cc "AO", :area-m2 9.96E9, :unit-src "Q712226"}
+  {:cc "AO", :area-m2 1.52E10, :unit-src "Q712226"}
+  {:cc "AO", :area-m2 2.261E10, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 1.4981E7, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 3.0E7, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 7.63E7, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 9.901E7, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 1.766E8, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 1.84E8, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 1.9079E8, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 2.7674E8, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 5.1889E8, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 5.2811E8, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 5.66129124E8, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 6.2169E8, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 6.3E8, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 6.4117E8, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 7.2439E8, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 8.9706E8, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 9.5173E8, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 1.18119E9, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 1.28E9, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 1.835E9, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 1.88379E9, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 2.07313E9, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 3.79E9, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 4.459E9, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 6.61416E9, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 7.05E9, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 7.26927E9, :unit-src "Q35852"}
+  {:cc "AR", :area-m2 1.1251E10, :unit-src "Q712226"}
+  {:cc "AR", :area-m2 4.4162E10, :unit-src "Q712226"}
+  {:cc "AU", :area-m2 5658.029019832609, :unit-src "Q712226"}
   {:cc "AU", :area-m2 20849.404335022, :unit-src "Q712226"}
   {:cc "AU", :area-m2 128492.44117736799, :unit-src "Q712226"}
   {:cc "AU", :area-m2 150000.0, :unit-src "Q712226"}
@@ -764,6 +802,42 @@
   {:cc "CN", :area-m2 7.0467E8, :unit-src "Q35852"}
   {:cc "CN", :area-m2 7.2E8, :unit-src "Q35852"}
   {:cc "CN", :area-m2 4.269E9, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 601250.5, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 1421951.5000000002, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 5.43E7, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 7.66E7, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 1.408E8, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 2.25E8, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 2.5E8, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 4.4E8, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 4.7094E8, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 5.48E8, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 5.9288E8, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 6.0032E8, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 6.143408E8, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 7.2E8, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 7.2E8, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 7.66E8, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 8.0E8, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 1.2345461E9, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 1.42112E9, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 1.58125E9, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 2.67241E9, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 3.05879E9, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 3.83E9, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 4.40125E9, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 4.6E9, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 6.1943867E9, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 6.3E9, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 1.002012E10, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 1.056549E10, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 2.0527E10, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 2.763399E10, :unit-src "Q712226"}
+  {:cc "CO", :area-m2 2.782354E10, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 3.98968282E10, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 9.184372E10, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 1.2482838E11, :unit-src "Q35852"}
+  {:cc "CO", :area-m2 2.01875E11, :unit-src "Q712226"}
   {:cc "DE", :area-m2 9.35E7, :unit-src "Q712226"}
   {:cc "DE", :area-m2 5.67E8, :unit-src "Q712226"}
   {:cc "DK", :area-m2 7.8710083E7, :unit-src "Q35852"}
@@ -777,7 +851,40 @@
   {:cc "ES", :area-m2 4.09E8, :unit-src "Q712226"}
   {:cc "ES", :area-m2 6.610490139E8, :unit-src "Q35852"}
   {:cc "ES", :area-m2 6.7127E8, :unit-src "Q35852"}
+  {:cc "ET", :area-m2 5000000.0, :unit-src "Q712226"}
+  {:cc "ET", :area-m2 1.239E8, :unit-src "Q35852"}
+  {:cc "ET", :area-m2 1.36E8, :unit-src "Q35852"}
+  {:cc "ET", :area-m2 4.12E8, :unit-src "Q712226"}
+  {:cc "ET", :area-m2 5.14E8, :unit-src "Q712226"}
+  {:cc "ET", :area-m2 7.526E8, :unit-src "Q712226"}
+  {:cc "ET", :area-m2 8.87E8, :unit-src "Q712226"}
+  {:cc "ET", :area-m2 2.471E9, :unit-src "Q712226"}
+  {:cc "ET", :area-m2 4.068E9, :unit-src "Q712226"}
+  {:cc "ET", :area-m2 4.731E9, :unit-src "Q712226"}
+  {:cc "ET", :area-m2 5.061E9, :unit-src "Q712226"}
   {:cc "FJ", :area-m2 8.5E7, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 2475000.0, :unit-src "Q712226"}
+  {:cc "FR", :area-m2 2665000.0, :unit-src "Q712226"}
+  {:cc "FR", :area-m2 1.73E7, :unit-src "Q712226"}
+  {:cc "FR", :area-m2 2.475E7, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 2.20617695E8, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 4.57E8, :unit-src "Q712226"}
+  {:cc "FR", :area-m2 4.5707E8, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 5.19977298E8, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 5.2E8, :unit-src "Q712226"}
+  {:cc "FR", :area-m2 5.28E8, :unit-src "Q712226"}
+  {:cc "FR", :area-m2 5.2839E8, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 5.6612914E8, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 6.85E8, :unit-src "Q712226"}
+  {:cc "FR", :area-m2 9.1279E8, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 9.18E8, :unit-src "Q712226"}
+  {:cc "FR", :area-m2 9.18E8, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 9.35E8, :unit-src "Q712226"}
+  {:cc "FR", :area-m2 1.05447E9, :unit-src "Q712226"}
+  {:cc "FR", :area-m2 1.055149038E9, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 2.1246328090000002E9, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 2.0235695059E10, :unit-src "Q35852"}
+  {:cc "FR", :area-m2 3.39E10, :unit-src "Q712226"}
   {:cc "GH", :area-m2 3.43E8, :unit-src "Q712226"}
   {:cc "GH", :area-m2 3.75E8, :unit-src "Q712226"}
   {:cc "GH", :area-m2 5.63E8, :unit-src "Q712226"}
@@ -831,6 +938,123 @@
   {:cc "IL", :area-m2 1.6E7, :unit-src "Q712226"}
   {:cc "IL", :area-m2 2.1E7, :unit-src "Q712226"}
   {:cc "IL", :area-m2 1.878E8, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 30000.0, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 717830.0, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 2000000.0, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 2800000.0, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 5030000.0, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 6230000.0, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.126E7, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 2.873E7, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 2.873E7, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 2.9043E7, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 3.123E7, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 3.254E7, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 3.4E7, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 4.0E7, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 7.846E7, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 7.85E7, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 7.86E7, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 8.952E7, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 1.04E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.07E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.27E8, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 1.3388E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.45E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.47E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.6289E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 2.0E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 2.19E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 2.31E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 2.59E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 2.656E8, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 3.089E8, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 3.1767E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 3.21E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 3.52E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 3.91E8, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 3.92E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 4.2623E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 4.2996E8, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 4.4029797875712E8, :unit-src "Q232291"}
+  {:cc "IN", :area-m2 4.48E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 4.9E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 4.9246E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 5.91E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 6.0032E8, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 6.246E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 6.434E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 7.1783E8, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 7.55E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 7.77E8, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 8.0E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 8.7224E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 8.74E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 9.054E8, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 9.4E8, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.14712E9, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 1.258E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.288E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.3301E9, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 1.33012E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.47987E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.7275911E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 1.784E9, :unit-src "Q35852"}
+  {:cc "IN", :area-m2 1.985E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 2.6E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 2.75E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 3.162E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 4.1E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 4.52E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 4.662E9, :unit-src "Q712226"}
+  {:cc "IN", :area-m2 5.14286E9, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 170210.0, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 1235720.0, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 3.86E7, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 3.86E7, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 5.17E7, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 5.17E7, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 5.6E7, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 5.616E7, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 7.259E7, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 7.26E7, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 8.826E7, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 2.0146E8, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 2.0146E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 2.2793E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 2.6149E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 3.1038E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 3.68E8, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 4.968E8, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 4.968E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 5.9741E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 6.2838E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 6.415E8, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 6.4153E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 6.803E8, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 6.8033E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 6.8996E8, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 6.8996E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 6.97E8, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 6.9722E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 7.104E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 7.1044E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 7.3622E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 7.3695E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 7.37E8, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 7.3935E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 7.394E8, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 7.4082E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 7.9168E8, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 8.79E8, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 1.181E9, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 1.18144E9, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 1.30734E9, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 1.48935E9, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 1.71132E9, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 1.78172E9, :unit-src "Q35852"}
+  {:cc "IT", :area-m2 1.811E9, :unit-src "Q712226"}
+  {:cc "IT", :area-m2 1.925E9, :unit-src "Q712226"}
   {:cc "JM", :area-m2 6.268E8, :unit-src "Q712226"}
   {:cc "KE", :area-m2 23600.0, :unit-src "Q35852"}
   {:cc "KE", :area-m2 310000.0, :unit-src "Q35852"}
@@ -866,6 +1090,35 @@
   {:cc "KH", :area-m2 1.423E9, :unit-src "Q712226"}
   {:cc "KH", :area-m2 1.7125E9, :unit-src "Q712226"}
   {:cc "KH", :area-m2 1.447143E10, :unit-src "Q35852"}
+  {:cc "KR", :area-m2 5.622E7, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 7.3474E7, :unit-src "Q35852"}
+  {:cc "KR", :area-m2 7.692E7, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 8.1715E7, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 9.0931E7, :unit-src "Q35852"}
+  {:cc "KR", :area-m2 1.056E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 1.53E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 1.7369E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 1.7567E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 1.8209E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 2.09377E8, :unit-src "Q35852"}
+  {:cc "KR", :area-m2 2.3165E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 3.2238E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 3.26E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 3.2635E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 3.7702E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 3.9824E8, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 1.676E9, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 1.0742E10, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 1.3709E10, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 1.8157E10, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 2.3165E10, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 2.3212E10, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 2.8778E10, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 3.0393E10, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 3.9822E10, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 4.7175E10, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 1.54644E11, :unit-src "Q712226"}
+  {:cc "KR", :area-m2 2.74541E11, :unit-src "Q712226"}
   {:cc "LT", :area-m2 1300000.0, :unit-src "Q216795"}
   {:cc "LT", :area-m2 2.6474E8, :unit-src "Q35852"}
   {:cc "LT", :area-m2 4.057E8, :unit-src "Q712226"}
@@ -975,6 +1228,68 @@
   {:cc "NO", :area-m2 3.0E10, :unit-src "Q712226"}
   {:cc "NO", :area-m2 4.48E10, :unit-src "Q35852"}
   {:cc "NO", :area-m2 1.81811039E12, :unit-src "Q35852"}
+  {:cc "NZ", :area-m2 5.588E7, :unit-src "Q35852"}
+  {:cc "NZ", :area-m2 3.0E8, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 3.417E8, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 7.0696E8, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 7.42E8, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 7.9596E8, :unit-src "Q35852"}
+  {:cc "NZ", :area-m2 7.9596E8, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 1.02E9, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 1.1847E9, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 1.275E9, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 1.683E9, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 2.127E9, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 2.253E9, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 3.55E9, :unit-src "Q712226"}
+  {:cc "NZ", :area-m2 1.25E10, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 6090000.0, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 9830000.0, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 1.155E7, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 2.356E7, :unit-src "Q35852"}
+  {:cc "PH", :area-m2 3.8E7, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 5.676E7, :unit-src "Q35852"}
+  {:cc "PH", :area-m2 2.2202E8, :unit-src "Q35852"}
+  {:cc "PH", :area-m2 2.5676E8, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 3.16E8, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 3.64E8, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 4.68E8, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 7.5445E8, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 8.32E8, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 8.54E8, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 1.316E9, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 3.352E9, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 3.836E9, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 3.923E9, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 3.995E9, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 4.303E9, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 5.803E9, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 7.416E9, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 8.423E9, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 1.1325E10, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 1.3011E10, :unit-src "Q712226"}
+  {:cc "PH", :area-m2 3.1044E10, :unit-src "Q712226"}
+  {:cc "PK", :area-m2 607028.46336, :unit-src "Q81292"}
+  {:cc "PK", :area-m2 1266666.0602112, :unit-src "Q81292"}
+  {:cc "PK", :area-m2 7106280.0, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 3.3119999999999996E7, :unit-src "Q712226"}
+  {:cc "PK", :area-m2 3.312E7, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 4.5E7, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 5.045E7, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 5.625E7, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 6.095E7, :unit-src "Q712226"}
+  {:cc "PK", :area-m2 1.3532E8, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 2.7271E8, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 3.6965E8, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 5.2815E8, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 5.7581E8, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 7.4E8, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 1.14744E9, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 1.63842E9, :unit-src "Q712226"}
+  {:cc "PK", :area-m2 2.33468E9, :unit-src "Q35852"}
+  {:cc "PK", :area-m2 3.087E9, :unit-src "Q712226"}
+  {:cc "PK", :area-m2 3.464E9, :unit-src "Q712226"}
+  {:cc "PK", :area-m2 6.1E9, :unit-src "Q712226"}
   {:cc "PL", :area-m2 8.997E7, :unit-src "Q35852"}
   {:cc "PY", :area-m2 3.5E7, :unit-src "Q712226"}
   {:cc "PY", :area-m2 1.0E9, :unit-src "Q712226"}
@@ -989,6 +1304,128 @@
   {:cc "RU", :area-m2 5.15E9, :unit-src "Q35852"}
   {:cc "RU", :area-m2 8.78174E9, :unit-src "Q712226"}
   {:cc "RU", :area-m2 1.160469E10, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 620.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 24310.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 55420.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 143320.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 157030.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 211160.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 216100.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 354099.99999999994, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 357660.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 365600.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 505760.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 601710.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 659800.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 686000.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 724170.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 791300.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 968900.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1022990.0000000001, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1048470.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1073100.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1097400.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1105900.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1157610.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1895600.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1945360.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1949000.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2103770.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2266600.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2640400.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3024800.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3161100.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3171450.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3261100.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3993800.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 4270990.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 4540700.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 4830200.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 6927160.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 7426900.000000001, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 7874220.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 7929270.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 8696500.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 9548710.0, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.062155E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.099696E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.110488E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.32053E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.38073E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.386195E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.401122E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.515432E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.57558E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.58994E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.6141E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.61968E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.773888E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.824216E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.86925E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.964339E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.007162E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.0506909999999996E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.32329E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.33325E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.37119E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.65334E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.70394E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.71131E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.73991E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.90587E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3.0174699999999996E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3.05708E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3.67643E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3.733467E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 4.198234000000001E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 4.230429E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 4.46388E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 4.543186E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 4.790006E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 6.265439999999999E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 6.687732E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 6.76563E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 7.41069E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 7.43046E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 7.6748E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 7.72055E7, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.035685E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.037802E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.0463790000000001E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.1916959E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.408346E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.548465E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 2.1505222000000003E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3.383132E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3.7646589999999994E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3.7953998E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3.843962E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 3.882386E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 4.931264E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 5.113695E8, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.16076E9, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.2799332E9, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.6606596E9, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.9367532999999998E9, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.9846557E9, :unit-src "Q35852"}
+  {:cc "SE", :area-m2 1.9989757E9, :unit-src "Q35852"}
+  {:cc "TH", :area-m2 5.0E7, :unit-src "Q712226"}
+  {:cc "TH", :area-m2 2.263E9, :unit-src "Q712226"}
+  {:cc "TR", :area-m2 6.64E7, :unit-src "Q35852"}
+  {:cc "TZ", :area-m2 2.0226E7, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 5.0E7, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 5.2E7, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 4.64E8, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 4.8E8, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 5.52E8, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 6.44E8, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 1.153E9, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 1.613E9, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 1.93E9, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 2.6158E9, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 3.23E9, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 3.306E9, :unit-src "Q712226"}
+  {:cc "TZ", :area-m2 4.471E9, :unit-src "Q712226"}
   {:cc "UA", :area-m2 1466000.0, :unit-src "Q712226"}
   {:cc "UA", :area-m2 3.1312E7, :unit-src "Q35852"}
   {:cc "UA", :area-m2 3.35622E7, :unit-src "Q35852"}
@@ -1078,11 +1515,23 @@
   {:cc "UZ", :area-m2 2.7851E8, :unit-src "Q35852"}
   {:cc "UZ", :area-m2 1.0E10, :unit-src "Q35852"}
   {:cc "UZ", :area-m2 1.2E10, :unit-src "Q35852"}
+  {:cc "VN", :area-m2 5.012E7, :unit-src "Q935614"}
+  {:cc "VN", :area-m2 7.1E7, :unit-src "Q712226"}
+  {:cc "VN", :area-m2 1.0048E8, :unit-src "Q712226"}
+  {:cc "VN", :area-m2 1.9156E8, :unit-src "Q712226"}
+  {:cc "VN", :area-m2 2.2E8, :unit-src "Q712226"}
+  {:cc "VN", :area-m2 2.6241000000000003E8, :unit-src "Q712226"}
+  {:cc "VN", :area-m2 2.9865E8, :unit-src "Q712226"}
+  {:cc "VN", :area-m2 4.1862E8, :unit-src "Q712226"}
+  {:cc "VN", :area-m2 4.2057E8, :unit-src "Q712226"}
+  {:cc "VN", :area-m2 5.7512E8, :unit-src "Q712226"}
+  {:cc "VN", :area-m2 7.3878E8, :unit-src "Q712226"}
+  {:cc "VN", :area-m2 1.4735E10, :unit-src "Q712226"}
   {:cc "WS", :area-m2 3.75E8, :unit-src "Q712226"}
   {:cc "ZA", :area-m2 1.156E7, :unit-src "Q712226"}
   {:cc "ZA", :area-m2 6.7E7, :unit-src "Q712226"}],
  :class "Q46169 national park",
- :dropped-nonpositive 4,
+ :dropped-nonpositive 8,
  :retrieved "2026-06-16",
  :source-id "wikidata-national-parks",
  :counts-toward-world-coverage true,
@@ -1093,5 +1542,6 @@
   "Q216795" "dunam",
   "Q81292" "acre",
   "Q25343" "m2",
-  "Q232291" "sq-mile"},
+  "Q232291" "sq-mile",
+  "Q935614" "rai"},
  :land-kind :public}

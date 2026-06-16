@@ -4,7 +4,7 @@
  :source "wikidata:WDQS",
  :dropped-unknown-unit 0,
  :note
- "Nature reserves = protected PUBLIC land. counts-toward-world-coverage=FALSE: countries (NO/IE/CA) overlap the national-park source; summing without geometry would double-count. Observed-only; geometry de-dup is a future leg.",
+ "Nature reserves = protected PUBLIC land. counts-toward-world-coverage=FALSE: countries (NO/IE/CA) overlap national parks; observed-only (geometry de-dup is a future leg).",
  :records
  [{:cc "CA", :area-m2 112521.40000000001, :unit-src "Q35852"}
   {:cc "CA", :area-m2 1.89672037E7, :unit-src "Q35852"}
@@ -515,5 +515,6 @@
   "Q216795" "dunam",
   "Q81292" "acre",
   "Q25343" "m2",
-  "Q232291" "sq-mile"},
+  "Q232291" "sq-mile",
+  "Q935614" "rai"},
  :land-kind :public}

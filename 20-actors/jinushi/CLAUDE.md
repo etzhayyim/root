@@ -67,6 +67,7 @@ registry ingest.)
   repo DATA LAYER (`80-data/jinushi-land/*.kotoba.edn`) → `{:owners :parcels}`, offline;
   double-count-honest (only `:counts-toward-world-coverage` sources sum into world coverage).
 - `methods/cid.cljc`         — CIDv1 (raw/sha2-256) content-addressing of snapshots (R1).
+- `methods/emit_real.cljc`   — emit the REAL acquisition → canonical kotoba Datom log + CID.
 - `methods/fetch_wdqs.sh`    — polite, EXPLICIT, operator-only WDQS refresh of the snapshot.
 
 ## Real acquisition + WDQS load discipline (operator directive 2026-06-16)
@@ -80,17 +81,22 @@ actor PROCESSES it later:
 80-data/jinushi-land/
   wikidata-national-parks.kotoba.edn    # Q46169  — PRIMARY world-coverage source (counts=true)
   wikidata-nature-reserves.kotoba.edn   # Q179049 — observed-only (counts=false; overlap)
-  ingest-provenance.json                # sources / WDQS / date / sha256 / unit-map / pin path
-  .gitignore                            # *.raw.json (transient fetch; annex/IPFS cold tier)
+  ingest-provenance.json                # sources + derived / sha256 / cidv1 / unit-map / pin path
+  .gitignore                            # *.raw.json + the derived Datom log (regenerable; cold tier)
+  (jinushi-land-datoms.kotoba.edn)      # DERIVED canonical EAVT Datom log (gitignored; CID in provenance)
 ```
 
 | source | class | records | countries | area | counts toward world coverage |
 |---|---|--:|--:|--:|---|
-| national parks | Q46169 | 1075 | 35 | 7.16M km² | **yes** (primary, non-overlapping) |
+| national parks | Q46169 | 1524 | 51 | 8.98M km² | **yes** (primary, non-overlapping) |
 | nature reserves | Q179049 | 497 | 3 | 0.23M km² | **no** (overlaps NP countries NO/IE/CA) |
 
-**World acquisition coverage = 35 countries · 7.16M km² = 4.80% of world land** (up from the
-0.056% synthetic floor → 3.34% → 4.80% over loop iterations). Multi-source is
+**World acquisition coverage = 51 countries · 8.98M km² = 6.03% of world land** (0.056% synthetic
+floor → 3.34% → 4.80% → 6.03% over loop iterations). The real acquisition is emitted to the
+**canonical kotoba Datom log** (`methods/emit_real.cljc` → `jinushi-land-datoms.kotoba.edn`,
+ground `:owner/*`+`:parcel/*` `:add` + derived `:jinushi/*` transient), making the world land
+data first-class canonical state (ADR-2605312345); the log is regenerable + content-addressed
+(CID in provenance), so it is not committed to git. Multi-source is
 **double-count-honest** (G2/G4): only non-overlapping counting sources sum into world coverage;
 overlapping protected-area classes are observed separately until a geometry de-dup leg exists.
 Units resolved at snapshot time (km²/hectare/decare/dunam/acre/sq-mile/m²); non-positive
@@ -115,15 +121,16 @@ bad-data areas dropped (disclosed). Each snapshot is **content-addressed to a CI
 
 ```bash
 CP=20-actors
-for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid; do
+for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 27 tests / 86 assertions green
+# 31 tests / 101 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn
 bb --classpath 20-actors -m jinushi.methods.ingest       # REAL snapshots → live world coverage (offline)
 bb --classpath 20-actors -m jinushi.methods.cid          # CIDv1 of each committed snapshot
+bb --classpath 20-actors -m jinushi.methods.emit-real    # REAL acquisition → kotoba Datom log + CID
 
 # operator-only, rare, polite — refresh the snapshot from WDQS (NOT run by the loop):
 methods/fetch_wdqs.sh 400
@@ -143,6 +150,9 @@ methods/fetch_wdqs.sh 400
   verified against the canonical empty-block vector; CIDs recorded in `ingest-provenance.json`).
   Append-only commit-DAG (`kotodama/src/kotoba/datom.cljc` reuse) + dag-pb/UnixFS `ipfs add`
   parity remain follow-on legs. +4 tests. ✅
+- **Datom log (landed)** — `methods/emit_real.cljc`: the REAL acquisition emitted to the canonical
+  kotoba Datom log (counting dataset → analyze → EAVT `:add`/derived), CID in provenance. Makes
+  the world land data first-class canonical state (ADR-2605312345). +4 tests. ✅
 - **R2+** — broaden real sources (more national-park countries: JP/IN/AR/MX missed the LIMIT;
   protected landscapes / public-land registries / OSM landuse) one small polite batch at a time;
   geometry de-dup so overlapping protected-area classes can count.
