@@ -408,11 +408,18 @@
   sukashi:crawl
   {:doc "透かし sukashi — worldwide ad-supply-chain crawler (ads.txt/app-ads.txt/sellers.json/RDAP). DRY-RUN unless SUKASHI_OPERATOR_GATE=1 + Council (G7); files → data/live (gitignored)"
    :task (apply shell {:dir "20-actors/sukashi"} "python3" "methods/crawl.py" *command-line-args*)}
+  sukashi:fleet-stage
+  {:doc "透かし sukashi — stage the pure-stdlib actor to a fleet node's ~/sukashi-run (git-archive + tar over Tailscale SSH). Args: --nodes issachar[,dan]"
+   :task (apply shell {:dir "20-actors/sukashi"} "python3" "tools/fleet_stage.py" *command-line-args*)}
+  sukashi:fleet-drive
+  {:doc "透かし sukashi — (B) interim pseudo-daemon: SSH-run the heartbeat on assigned fleet nodes + record each run as a :fleet.run/* kotoba datom. Pair with /loop for continuity. Args: --nodes issachar"
+   :task (apply shell {:dir "20-actors/sukashi"} "python3" "tools/fleet_drive.py" *command-line-args*)}
   test:sukashi
-  {:doc "透かし sukashi — python invariant/heartbeat/crawler suites + cljc analyzer tests (no .sh; bb is the runner)"
+  {:doc "透かし sukashi — python invariant/heartbeat/crawler/fleet-drive suites + cljc analyzer tests (no .sh; bb is the runner)"
    :task (do (shell {:dir "20-actors/sukashi"} "python3" "tests/test_sukashi.py")
              (shell {:dir "20-actors/sukashi"} "python3" "methods/test_autorun.py")
              (shell {:dir "20-actors/sukashi"} "python3" "tests/test_crawl.py")
+             (shell {:dir "20-actors/sukashi"} "python3" "tests/test_fleet_drive.py")
              (require 'clojure.test 'sukashi.tests.test-sukashi)
              (let [r (clojure.test/run-tests 'sukashi.tests.test-sukashi)]
                (when (pos? (+ (:fail r) (:error r)))
