@@ -18,14 +18,14 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-import analyze  # build.sh copies methods/analyze.py beside this file  # noqa: E402
+import analyze  # `bb aburi:build-wasm` (tools/build.clj) copies methods/analyze.py beside this file  # noqa: E402
 import datom_emit  # noqa: E402
 import coverage_report  # noqa: E402
 
 
 def _seed_text() -> str:
     try:
-        from _seed import SEED_EDN  # build.sh generates _seed.py from the seed file
+        from _seed import SEED_EDN  # `bb aburi:build-wasm` (tools/build.clj) generates _seed.py
         return SEED_EDN
     except Exception:
         return (HERE / "seed-tracker-exposure.kotoba.edn").read_text(encoding="utf-8")

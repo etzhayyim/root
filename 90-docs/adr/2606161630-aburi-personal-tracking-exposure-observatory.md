@@ -184,10 +184,14 @@ publishable":
 - **(C) publish (etzhayyim.com resolvability)** — registered in the three homes
   (`actor-profile-seed.kotoba.edn` SSoT, `infra-actors.ts` tier-3 fallback, static
   `50-infra/etzhayyim-did-web/public/actor/aburi/{did.json,profile.json}`) + a **build-ready WASM
-  component** (`wasm/` world.wit + app.py + build.sh exporting `analyze`/`datoms`/`coverage`,
-  offline python sanity green). `verificationMethod` empty (no-server-key). The actual
-  `componentize-py` build, KV/kotoba ingest, and Worker deploy are the **operator steps**;
-  `wasmCid` stays `null` until the operator runs `wasm/build.sh`.
+  component** (`wasm/` world.wit + app.py exporting `analyze`/`datoms`/`coverage`, offline python
+  sanity green). `verificationMethod` empty (no-server-key). All driven by **bb** (the repo standard
+  — no `.sh`): `bb aburi:build-wasm` (impl `tools/build.clj`), `bb aburi:publish --pin --deploy --kv`
+  (impl `tools/publish.clj`). The `componentize-py` build, IPFS pin, KV/kotoba ingest, and Worker
+  deploy are the **operator steps**. `wasmCid` stays **null** by design: componentize-py is **not
+  byte-reproducible** (verified — two builds gave `bafybeibzwi…` then `bafybeia66s…`), and the apex
+  `/ipfs` gateway re-verifies bytes against the CID, so the operator records the **pinned** CID at
+  `bb aburi:publish --pin` time rather than committing a CID that no fresh build reproduces.
 
 **Honest boundary**: the live transact, the WASM build/deploy, and ingest of a member's REAL
 exports are all operator/Council-gated outward acts — they are *runnable code with offline tests*,

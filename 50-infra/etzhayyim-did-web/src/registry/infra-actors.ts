@@ -776,7 +776,11 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     displayName: "Aburi — Personal-Tracking-Exposure Observatory",
     primaryLexicon: "com.etzhayyim.aburi",
     primarySchema: "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn",
-    wasmCid: "bafybeibzwidhvb3nb7khlja7kgzgrfuv72su2v3m5wz6rdvfwv5fnd6pb4",
+    // wasmCid null by design: componentize-py output is NOT byte-reproducible (each `bb
+    // aburi:build-wasm` yields a different CID), so the CID is recorded by the operator at PIN
+    // time via `bb aburi:publish --pin` — never committed in advance (the apex /ipfs gateway
+    // re-verifies bytes against the CID, so a stale CID would be dead). T2 dag-pb / donated-mesh.
+    wasmCid: null,
     service: [
       {
         id: "did:web:etzhayyim.com:actor:aburi#atproto_pds",

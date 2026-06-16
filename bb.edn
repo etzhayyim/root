@@ -383,9 +383,31 @@
              (let [r (clojure.test/run-tests 'fuchi.methods.test-allocate 'fuchi.methods.test-vote 'fuchi.methods.test-route 'fuchi.methods.test-book 'fuchi.methods.test-provision 'fuchi.methods.test-couple 'fuchi.methods.test-analyze)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:aburi
+  {:doc "炙り aburi — personal-tracking-exposure: cljc analyzer/coverage tests + python ingest/bridge legs (ADR-2606161630)"
+   :task (do (require 'clojure.test 'aburi.tests.test-analyze 'aburi.tests.test-coverage)
+             (shell {:dir "20-actors/aburi"} "python3" "tests/test_ingest.py")
+             (shell {:dir "20-actors/aburi"} "python3" "tests/test_bridge.py")
+             (let [r (clojure.test/run-tests 'aburi.tests.test-analyze 'aburi.tests.test-coverage)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  aburi:build-wasm
+  {:doc "炙り aburi — build the WASM component (componentize-py) + report CID (operator step; ADR-2606014600)"
+   :task (do (require 'aburi.tools.build)
+             (apply (resolve 'aburi.tools.build/-main) *command-line-args*))}
+  aburi:publish
+  {:doc "炙り aburi — one-shot publish orchestrator; flags: --pin --deploy --kv --verify --all (operator; ADR-2606013800)"
+   :task (do (require 'aburi.tools.publish)
+             (apply (resolve 'aburi.tools.publish/-main) *command-line-args*))}
+  aburi:ingest
+  {:doc "炙り aburi — local heartbeat: ingest the member's OWN exports (data/local/intake) → local commit-DAG"
+   :task (apply shell {:dir "20-actors/aburi"} "python3" "methods/autorun.py" *command-line-args*)}
+  aburi:bridge
+  {:doc "炙り aburi — push local exposure log → live kotoba :8077 (dry-run default; live = ABURI_KOTOBA_LIVE=1 + Council)"
+   :task (apply shell {:dir "20-actors/aburi"} "python3" "methods/kotoba_bridge.py" *command-line-args*)}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:aburi]}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test

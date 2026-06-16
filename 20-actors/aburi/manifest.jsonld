@@ -68,8 +68,9 @@
     "profileSeed": "00-contracts/schemas/actor-profile-seed.kotoba.edn (SSoT entry)",
     "infraFallback": "50-infra/etzhayyim-did-web/src/registry/infra-actors.ts (tier-3)",
     "static": "50-infra/etzhayyim-did-web/public/actor/aburi/{did,profile}.json (verificationMethod empty — no-server-key)",
-    "wasm": "20-actors/aburi/wasm/ (componentize-py world+app+build.sh exporting analyze/datoms/coverage)",
-    "operatorSteps": "componentize-py build (sets wasmCid) + KV/kotoba ingest + Worker deploy — Council/operator-gated (ADR-2606013800); wasmCid null until build.sh is run"
+    "wasm": "20-actors/aburi/wasm/ (componentize-py world.wit + app.py exporting analyze/datoms/coverage; built via `bb aburi:build-wasm`, impl tools/build.clj)",
+    "runner": "bb (bb.edn tasks: test:aburi / aburi:ingest / aburi:bridge / aburi:build-wasm / aburi:publish) — no .sh in this repo",
+    "operatorSteps": "`bb aburi:publish --pin --deploy --kv` (impl tools/publish.clj) — Council/operator-gated (ADR-2606013800); wasmCid stays null (componentize-py non-reproducible) until the operator records the PINNED CID at `bb aburi:publish --pin` time"
   },
   "gates": {
     "G1": "OWN-DATA-ONLY / member-principal — aburi maps the MEMBER'S OWN exposure, derived from THEIR OWN consented exports (Google Takeout / Apple App-Privacy / Google Play Data-safety / on-device permission dump). The PUBLIC seed is REPRESENTATIVE/aggregate (real public-catalogue facts, NO real person). NO record of any OTHER person, NO third-party PII, NO biometric, NO raw identifier value. aburi is the himotoki/meisai own-data pattern, NEVER a profiler of others (test: test_g1_own_data_no_other_person)",

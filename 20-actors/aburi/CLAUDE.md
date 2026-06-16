@@ -118,9 +118,12 @@ member-sig + outward-gated (G7).
 │   ├── test_coverage.py / .cljc
 │   ├── test_ingest.py                     # (B) adapters + G8 guard + analyzable end-to-end
 │   └── test_bridge.py                     # (A) heartbeat + exactly-once cursor + no-server-key
+├── tools/                                 # bb task impl (no .sh in this repo)
+│   ├── build.clj                          #   `bb aburi:build-wasm` — componentize-py + CID
+│   └── publish.clj                        #   `bb aburi:publish` — pin/deploy/kv orchestrator
 ├── wasm/                                  # (C) build-ready componentize-py component
 │   ├── wit/world.wit                      #   exports analyze / datoms / coverage
-│   ├── app.py · build.sh · README.md      #   build = operator step (wasmCid null until run)
+│   ├── app.py · README.md                 #   built via `bb aburi:build-wasm` (operator step)
 └── out/                                   # GENERATED — do not hand-edit
 ```
 
@@ -130,17 +133,19 @@ The published registration (C) lives outside this dir: `00-contracts/schemas/act
 
 ## Run
 
+**bb is the standard runner — there are no `.sh` scripts in this repo.** All tasks are `bb.edn`
+tasks run from the repo root; the pure analyzer methods can also be invoked directly with python3.
+
 ```bash
-cd 20-actors/aburi
-python3 methods/analyze.py          # → out/tracking-exposure-report.md  (who tracks you / leakiest platform)
-python3 methods/datom_emit.py       # → out/tracker-exposure-datoms.kotoba.edn (EAVT)
-python3 methods/coverage_report.py  # → out/coverage-report.md
-# (B) acquisition — member drops exports in data/local/intake/, then:
-python3 methods/autorun.py --cycles 1     # ingest new exports → append-only local commit-DAG
-# (A) live bridge — dry-run by default (live = ABURI_KOTOBA_LIVE=1 + member-sig + Council):
-python3 methods/kotoba_bridge.py
-./run_tests.sh                      # 31 python tests green (analyze 11 / coverage 3 / ingest 9 / bridge 8)
-# .cljc parity (analyzer): bb -cp ../.. -e "(require 'aburi.tests.test-analyze 'aburi.tests.test-coverage 'clojure.test)(clojure.test/run-tests 'aburi.tests.test-analyze 'aburi.tests.test-coverage)"
+# from the repo root:
+bb test:aburi                       # cljc analyzer/coverage (14 tests / 1369 assert) + python ingest/bridge (17)
+bb aburi:ingest --cycles 1          # (B) ingest member exports in data/local/intake/ → local commit-DAG
+bb aburi:bridge                     # (A) push local log → live kotoba :8077 (dry-run default)
+bb aburi:build-wasm                 # (C) build the WASM component (componentize-py) + report CID  [operator]
+bb aburi:publish --deploy --pin --kv --verify   # (C) materialize + deploy to etzhayyim.com  [operator, CF auth]
+
+# pure reports (methods are python/.cljc, not scripts):
+cd 20-actors/aburi && python3 methods/analyze.py   # → out/tracking-exposure-report.md
 ```
 
 ## A/B/C — acquisition, live log, publish
@@ -160,8 +165,12 @@ python3 methods/kotoba_bridge.py
   the operator bearer is unsigned + keyed by a PUBLIC DID; the network leg is injected (tests are
   offline).
 - **(C) publish** is the answer to 「etzhayyim.com で公開?」: registered in the three homes above +
-  a build-ready WASM component. The componentize-py build, KV/kotoba ingest, and Worker deploy are
-  the **operator steps** — `wasmCid` is `null` until `wasm/build.sh` is run.
+  a build-ready WASM component, all driven by **bb** (`bb aburi:build-wasm`, `bb aburi:publish`;
+  impl `tools/{build,publish}.clj`). The componentize-py build, IPFS pin, KV/kotoba ingest, and
+  Worker deploy are the **operator steps**. `wasmCid` stays **null** by design — componentize-py is
+  **not byte-reproducible** (each build yields a different CID, and the apex `/ipfs` gateway
+  re-verifies bytes against the CID), so the operator records the **pinned** CID at
+  `bb aburi:publish --pin` time, never committed in advance.
 
 ## Cross-links
 

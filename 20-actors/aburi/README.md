@@ -16,8 +16,14 @@ local-only data, builds no dossier of anyone, never tracks, never sells.
   G5 sourcing-honesty · G6 Murakumo-only · G7 outward-gated + local-only · G8 no-credential/raw-id
 
 ```bash
-cd 20-actors/aburi && ./run_tests.sh          # 14 green
-python3 methods/analyze.py                     # → out/tracking-exposure-report.md
+bb test:aburi                                  # 14 cljc (1369 assert) + 17 python (ingest/bridge) green
+bb aburi:ingest --cycles 1                     # (B) ingest member exports → local commit-DAG
+bb aburi:build-wasm                            # (C) build WASM component + CID (operator)
+cd 20-actors/aburi && python3 methods/analyze.py   # → out/tracking-exposure-report.md
 ```
+
+> **bb is the standard runner — no `.sh` scripts in this repo.** Tasks live in the root `bb.edn`
+> (`test:aburi`, `aburi:ingest`, `aburi:bridge`, `aburi:build-wasm`, `aburi:publish`); impl in
+> `tools/{build,publish}.clj`.
 
 See `CLAUDE.md` for the full constitutional discipline and the relief-routing chain.

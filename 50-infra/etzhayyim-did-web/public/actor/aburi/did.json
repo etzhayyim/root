@@ -10,14 +10,6 @@
   "verificationMethod": [],
   "service": [
     {
-      "id": "did:web:etzhayyim.com:actor:aburi#wasm",
-      "type": "EtzhayyimWasmComponent",
-      "serviceEndpoint": "ipfs://bafybeibzwidhvb3nb7khlja7kgzgrfuv72su2v3m5wz6rdvfwv5fnd6pb4",
-      "x-exec": "donated-mesh",
-      "x-cid-codec": "dag-pb",
-      "x-runtime": "kotoba-wasm"
-    },
-    {
       "id": "did:web:etzhayyim.com:actor:aburi#atproto_pds",
       "type": "AtprotoPersonalDataServer",
       "serviceEndpoint": "https://pds.etzhayyim.com"
@@ -40,8 +32,8 @@
     "kind": "tier-b",
     "status": "r0",
     "glyph": "炙",
-    "wasmCid": "bafybeibzwidhvb3nb7khlja7kgzgrfuv72su2v3m5wz6rdvfwv5fnd6pb4",
-    "execModel": "wasm-local (browser/donated-mesh)",
+    "wasmCid": null,
+    "execModel": "service",
     "primaryLexicon": "com.etzhayyim.aburi",
     "primarySchema": "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn",
     "note": "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"

@@ -661,7 +661,7 @@
    :actor/primary-schema "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn"
    :actor/adr ["2606161630"]
    :actor/created-at "2026-06-16"
-   :actor/wasm-cid "bafybeibzwidhvb3nb7khlja7kgzgrfuv72su2v3m5wz6rdvfwv5fnd6pb4"
+   :actor/wasm-cid nil   ;; componentize-py non-reproducible → operator records the pinned CID (bb aburi:publish --pin)
    :actor/wasm-tier "T2"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:aburi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
