@@ -49,6 +49,8 @@
            pluto-check (when pluto-ref (check-artifact dir pluto-ref))
            osm-ref (get-in prov [:osm-buildings :reference])       ;; committed OSM building-stock sample
            osm-check (when osm-ref (check-artifact dir osm-ref))
+           dvf-ref (get-in prov [:fr-dvf :reference])              ;; committed FR DVF value sample
+           dvf-check (when dvf-ref (check-artifact dir dvf-ref))
            derived (:derived prov)
            ;; the derived Datom log is gitignored/regenerable — verify only if present on disk
            der-check (when (and derived (.exists (io/file dir (:artifact derived))))
@@ -56,7 +58,7 @@
            checks (vec (concat src-checks (when denom-check [denom-check])
                                (when bo-check [bo-check]) (when gleif-check [gleif-check])
                                (when pluto-check [pluto-check]) (when osm-check [osm-check])
-                               (when der-check [der-check])))]
+                               (when dvf-check [dvf-check]) (when der-check [der-check])))]
        {:ok (every? :ok checks) :checks checks})))
 
 #?(:clj

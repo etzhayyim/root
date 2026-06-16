@@ -15,6 +15,7 @@
 (def source-trust
   {:nyc-pluto      {:tier :authoritative-gov      :score 0.95 :note "NYC gov cadastre (Socrata, public domain), official BBL"}
    :registry-api   {:tier :authoritative-gov      :score 0.95 :note "official land-registry API"}
+   :dvf            {:tier :authoritative-gov      :score 0.95 :note "FR DVF (DGFiP/Etalab) — official transaction record"}
    :gleif          {:tier :authoritative-registry :score 0.95 :note "GLEIF — official ISO-17442 LEI register"}
    :wikidata       {:tier :curated-crowd          :score 0.70 :note "Wikidata — curated but crowd-sourced (P-claims)"}
    :municipality-notice {:tier :official-notice    :score 0.80 :note "municipal public notice"}

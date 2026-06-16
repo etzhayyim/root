@@ -5,9 +5,9 @@
  :cid-version 1,
  :pin-type "recursive (local node)",
  :note
- "Real IPFS pins of every committed jinushi-land artifact. Single-block→raw bafkrei (==methods/cid.cljc); multi-block→dag-pb bafybei. Local-node pin; public = peer/remote-pin (operator).",
+ "Real IPFS pins of every committed jinushi-land artifact. bafkrei=raw(==cid.cljc), bafybei=dag-pb. Local pin; public=peer/remote (operator).",
  :directory-cid
- "bafybeihrzixhxseapey37hjlmkhvzgdfg5b3iiw5miqto2dje6kpl5dvai",
+ "bafybeiag7h3ka7jscr7siceywjghcf3pdxvpudt4iembob7embl7ztnug4",
  :file-cids
  {"building-ownership-datoms.kotoba.edn"
   "bafybeib2pgpzq6ffw4sd34mjudk6ov2lewql23x74wpjtronsfet3bwtxy",
@@ -29,14 +29,18 @@
   "bafkreid5tn7vd36lalmtdg7p547fl3ac2lcunnybc762e6orjohi5gotnq",
   "country-areas.raw.json"
   "bafkreidiwmrslge3rnwqexqxdy2hdn2s26lourfphduu6xiezpxgtoc7da",
+  "fr-dvf-75105.raw.csv"
+  "bafybeiasdbwtfgvumoepgwb4xfgsdjiujzlifb4d3ptpchqto2jfk6aayq",
+  "fr-dvf-values.kotoba.edn"
+  "bafybeiahbbf4estmvae6yhegvqcfcinqtahmeeaulbh2oc7ofc73dp3kei",
   "gleif-companies.kotoba.edn"
   "bafkreidakfd43x2nhqkil4tlzm4ljfai75vun6ld4iut4repwjaw7m5xhi",
   "gleif-resolution.raw.edn"
   "bafkreidtsmne6pce7ufkbkhgmxvfrzu6wmbwqdelnk6a2e4wv7qz5esqae",
   "ingest-provenance.json"
-  "bafkreif4cik6msrqmxfrayvpainjwqqdhgkq6ozptlzxutb5n2jfzmxxw4",
+  "bafkreih255u45yfpxt6yxcy7bqa3pdrcmn42aq3tuncsyk37jxxu5wbpyy",
   "ipfs-pins.kotoba.edn"
-  "bafkreibog3ttgx23usfnlgybyuz5lgdge3ear3ld5tsnw6djkecdngdgrq",
+  "bafkreif42o3hu6bt57acwolktqgfnyp4flbedcmddmvelysuxth3xyjnsi",
   "jinushi-digest.md"
   "bafkreihl5axkqqxnjyere46yfyq3ycgm4erlpyhiylb6a365gywuz6ppsq",
   "jinushi-land-datoms.kotoba.edn"

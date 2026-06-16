@@ -150,6 +150,22 @@
   "cid-scheme" : "CIDv1 raw(0x55)/sha2-256, multibase base32 (bafkrei…)",
   "verify" : "methods/verify.cljc re-derives each artifact CID+sha256 vs this file",
   "fetched-at" : "2026-06-16",
+  "fr-dvf" : {
+    "total-value-eur" : 7.926445988399999E8,
+    "mutations" : 1134,
+    "license" : "Licence Ouverte",
+    "jurisdiction" : "FR commune 75105 (Paris 5e), 2023",
+    "lines" : 2123,
+    "source" : "DGFiP/Etalab geo-dvf",
+    "reference" : {
+      "artifact" : "fr-dvf-values.kotoba.edn",
+      "sha256" : "71ff11fad7f4bdf99c86180fe8f79c92fd842bd0d43a698531434ba9f94a0b07",
+      "cidv1" : "bafkreidr74i7vv7uxx4zzbqyb7upphes7wccxuguhjuykmkdjou7ssqla4"
+    },
+    "confidence-tier" : ":dvf authoritative-gov 0.95",
+    "layer" : "FR DVF property VALUES (methods/dvf_values.cljc) — 6th source, new dimension",
+    "dimension" : "transaction VALUE (€, €/m²); NO owner identity (FR owner-names restricted — gate-clean); street address dropped (G1)"
+  },
   "company-linkage" : {
     "layer" : "authoritative company linkage (methods/company_link.cljc): owner LEI → GLEIF → kabuto/uchiwake/kanjō; QID → keizu/tsumugi",
     "source" : "GLEIF api.gleif.org (public; legal entities only)",
