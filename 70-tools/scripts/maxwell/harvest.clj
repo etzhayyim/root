@@ -85,21 +85,29 @@
                   :chat_template_kwargs {:enable_thinking false}})})
       :body (json/parse-string true) :choices first :message :content))
 
-(defn translate [py-src retries]
+(defn translate
+  "Returns the lint-clean clj string on success; :transient when the teacher
+   never produced ANY response (gad flaky/down — caller should NOT record a
+   permanent failure, retry later); nil when the teacher responded but could
+   not be coaxed lint-clean within `retries` (a real, recordable failure)."
+  [py-src retries]
   (loop [msgs [{:role "system" :content SYSTEM}
                {:role "user" :content (str "Convert this Python method to Clojure following kotoba Datom log idioms:\n\n```python\n" py-src "\n```\n\nOutput only the Clojure defn form.")}]
-         tries (inc retries)]
-    (when (pos? tries)
+         tries (inc retries)
+         got-response false]
+    (if-not (pos? tries)
+      (if got-response nil :transient)        ; exhausted: real-fail vs never-responded
       (let [txt (try (chat msgs) (catch Exception e (binding [*out* *err*] (println "  chat err:" (.getMessage e))) nil))]
-        (if (nil? txt) nil
-            (let [clj (extract-defn txt)]
-              (if-not (str/starts-with? (str/triml clj) "(defn")
-                (recur (conj msgs {:role "assistant" :content txt}
-                                  {:role "user" :content "Output ONLY a single (defn ...) form in a ```clojure block."}) (dec tries))
-                (let [[errs out] (lint clj)]
-                  (if (zero? errs) clj
-                      (recur (conj msgs {:role "assistant" :content (str "```clojure\n" clj "\n```")}
-                                        {:role "user" :content (str "clj-kondo reported errors. Fix them, output only the corrected defn:\n" out)}) (dec tries)))))))))))
+        (if (nil? txt)
+          (if got-response (recur msgs (dec tries) true) :transient) ; mid-convo blip: retry once; cold blip: transient
+          (let [clj (extract-defn txt)]
+            (if-not (str/starts-with? (str/triml clj) "(defn")
+              (recur (conj msgs {:role "assistant" :content txt}
+                                {:role "user" :content "Output ONLY a single (defn ...) form in a ```clojure block."}) (dec tries) true)
+              (let [[errs out] (lint clj)]
+                (if (zero? errs) clj
+                    (recur (conj msgs {:role "assistant" :content (str "```clojure\n" clj "\n```")}
+                                      {:role "user" :content (str "clj-kondo reported errors. Fix them, output only the corrected defn:\n" out)}) (dec tries) true))))))))))
 
 (defn charter-ok? [s] (let [low (str/lower-case s)] (not-any? #(str/includes? low %) PROHIBITED)))
 
@@ -108,8 +116,10 @@
         n (parse-long (get opts :n "40"))
         retries (parse-long (get opts :retries "3"))
         per-file (parse-long (get opts :per-file "2"))
+        max-transient (parse-long (get opts :max-transient "12"))
         done (atom (into (corpus-ids) (failed-ids)))
-        harvested (atom 0) attempts (atom 0)
+        harvested (atom 0) attempts (atom 0) transient* (atom 0) consec (atom 0)
+        aborted (atom false)
         py-files (->> (file-seq ACTORS)
                       (filter #(and (.isFile %) (str/ends-with? (str %) ".py")
                                     (not (str/includes? (str %) "-compat"))
@@ -117,19 +127,30 @@
                                     (not (str/includes? (.getName %) "test"))))
                       (sort-by str))]
     (with-open [w (io/writer CORPUS :append true)]
-      (doseq [f py-files :while (< @harvested n)]
+      (doseq [f py-files :while (and (< @harvested n) (not @aborted))]
         (let [label (label-for f)
               fns (try (top-level-fns (slurp f)) (catch Exception _ []))]
           (loop [fns fns pf 0]
-            (when (and (seq fns) (< @harvested n) (< pf per-file))
+            (when (and (seq fns) (< @harvested n) (< pf per-file) (not @aborted))
               (let [[fn-name py-src] (first fns)
                     eid (str label "/" fn-name)]
                 (if (or (@done eid) (< (count py-src) 60) (> (count py-src) 4000))
                   (recur (rest fns) pf)
                   (do (swap! attempts inc)
                       (let [clj (translate py-src retries)]
-                        (if (and clj (charter-ok? (str py-src "\n" clj)))
-                          (do (.write w (str (json/generate-string
+                        (cond
+                          ;; transient teacher failure (gad flaky/down): do NOT record,
+                          ;; retry on a later run; abort the batch if it keeps happening.
+                          (= clj :transient)
+                          (do (swap! transient* inc) (swap! consec inc)
+                              (println (str "  [transient] " eid " (gad flaky, not recorded)"))
+                              (when (>= @consec max-transient)
+                                (reset! aborted true)
+                                (println (format "  !! %d consecutive transient failures — gad appears down, aborting batch" @consec))))
+                          ;; lint-clean + charter-ok: a real harvested pair.
+                          (and (string? clj) (charter-ok? (str py-src "\n" clj)))
+                          (do (reset! consec 0)
+                              (.write w (str (json/generate-string
                                                {:id eid
                                                 :messages [{:role "system" :content SYSTEM}
                                                            {:role "user" :content py-src}
@@ -137,9 +158,12 @@
                                                 :meta {:src (str f) :unit fn-name :teacher MODEL :via "harvest.clj"}}) "\n"))
                               (.flush w) (swap! done conj eid) (swap! harvested inc)
                               (println (format "  [%d/%d] %s (lint-clean)" @harvested n eid)))
-                          (do (record-failed! eid) (swap! done conj eid)
+                          ;; real failure (teacher responded but no clean/charter-ok defn): record + skip.
+                          :else
+                          (do (reset! consec 0) (record-failed! eid) (swap! done conj eid)
                               (println (str "  [skip] " eid " (no clean lint)"))))
-                        (recur (rest fns) (if clj (inc pf) pf))))))))))) ; advance pf only on success
-    (println (format "harvested %d clean / %d attempted -> %s" @harvested @attempts (str CORPUS)))))
+                        (recur (rest fns) (if (string? clj) (inc pf) pf))))))))))) ; advance pf only on a harvested pair
+    (println (format "harvested %d clean / %d attempted / %d transient -> %s"
+                     @harvested @attempts @transient* (str CORPUS)))))
 
 (apply -main *command-line-args*)

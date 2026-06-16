@@ -91,3 +91,4 @@ haraedo/py/agent/_or_opt
 haraedo/py/agent/_local_search
 haraedo/py/agent/_clarke_wright
 hataori/cells/finishing_packing/state_machine/transition_to_lot_attested
+futawa/py/agent/handle_test_dyno_road
