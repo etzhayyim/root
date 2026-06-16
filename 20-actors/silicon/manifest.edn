@@ -35,7 +35,22 @@
   {:cell/id "etch"             :cell/kind :langgraph :cell/runtime :wasm   :cell/status :pending}
   {:cell/id "implant"          :cell/kind :langgraph :cell/runtime :wasm   :cell/status :pending}
   {:cell/id "cmp"              :cell/kind :langgraph :cell/runtime :wasm   :cell/status :pending}
-  {:cell/id "lot_ledger"       :cell/kind :datalog   :cell/runtime :kotoba :cell/status :r0}]
+  {:cell/id "lot_ledger"       :cell/kind :datalog   :cell/runtime :kotoba :cell/status :r0}
+  ;; runnable cljc orchestration cell (ADR-2606160842 port wave): ties the fab-flow
+  ;; process-physics sim + wafer-handling robotics + lot ledger into one lot run.
+  {:cell/id "fab_flow"         :cell/kind :datalog   :cell/runtime :kotoba :cell/status :r0}]
+
+ ;; runnable methods (pure clojure.core, .cljc — the only silicon code that RUNS at
+ ;; R0; cells/* langgraph .solve() stays Council-gated). See methods/README.md.
+ :actor/methods
+ [{:method/id "fab-flow"      :method/file "methods/fab_flow.cljc"
+   :method/desc "8-工程 wafer-lot process-physics sim (Bossung CD / film / etch / LSS implant / CMP / SPC / Poisson yield / assembly); defect-density→yield; G1 force-review + G11 council-gated dispatch"}
+  {:method/id "wafer-handler" :method/file "methods/wafer_handler.cljc"
+   :method/desc "cluster-tool wafer-handling robotics: trapezoidal move profile, loadlock pump/vent, throughput, SCARA 2-link FK/IK + reachability (kami-genesis PlanarChain-iso, pure cljc)"}
+  {:method/id "lot-ledger"    :method/file "methods/lot_ledger.cljc"
+   :method/desc "G8 lot traceability: :silicon.lot/* + :silicon.step/* EAVT datoms, sha256 commit-DAG (meisai/kotoba canonicalization), tamper-evident verify-chain"}
+  {:method/id "fab-cell"      :method/file "methods/fab_cell.cljc"
+   :method/desc "end-to-end orchestration: reachability → fab-flow → lot-ledger commit (run-fab-lot / run-reference)"}]
 
  ;; lexicons already exist under 00-contracts/lexicons/com/etzhayyim/silicon/
  :actor/lex

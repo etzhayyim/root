@@ -248,6 +248,7 @@
                       'silicon.methods.test-fab-flow
                       'silicon.methods.test-wafer-handler
                       'silicon.methods.test-lot-ledger
+                      'silicon.methods.test-fab-cell
                       'tedai.methods.test-desktop
                       'karakuri.methods.test-command
                       'abaki.methods.test-live 'abaki.methods.test-analyze)
@@ -306,6 +307,7 @@
                                              'silicon.methods.test-fab-flow
                                              'silicon.methods.test-wafer-handler
                                              'silicon.methods.test-lot-ledger
+                                             'silicon.methods.test-fab-cell
                                              'tedai.methods.test-desktop
                                              'karakuri.methods.test-command
                                              'abaki.methods.test-live

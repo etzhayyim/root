@@ -10,8 +10,9 @@ the actor that *runs* at R0; the `cells/*` are langgraph Pregel scaffolds whose
 | file | what it does |
 |---|---|
 | `fab_flow.cljc` | 8-工程 wafer-lot **process-physics simulation** — `litho → deposition → etch → implant → cmp → metrology → test → packaging`. Each step is a first-order model (Bossung CD, conformal film, anisotropic etch, LSS implant range, CMP planarization, SPC, Poisson yield `Y=exp(-D·A)`, assembly). `run-lot` threads a lot through the route; defect density accumulates and the test step converts it to die yield. |
-| `wafer_handler.cljc` | **wafer-handling robotics** — single-arm cluster-tool transfer kinematics (trapezoidal move profile), loadlock pump/vent, route cycle-time, and steady-state throughput (wafers/hr) bounded by the bottleneck station. Counterpart to niyaku's `agv_transfer`. |
+| `wafer_handler.cljc` | **wafer-handling robotics** — single-arm cluster-tool transfer kinematics (trapezoidal move profile), loadlock pump/vent, route cycle-time, and steady-state throughput (wafers/hr) bounded by the bottleneck station, plus **SCARA 2-link forward/inverse kinematics + workspace reachability** (kami-genesis PlanarChain-iso, pure cljc). Counterpart to niyaku's `agv_transfer`. |
 | `lot_ledger.cljc` | **lot traceability** (G8) — lowers a completed lot record to append-only `:silicon.lot/*` + `:silicon.step/*` EAVT datoms, content-addressed into a sha256 commit-DAG (byte-identical canonicalization to `meisai.methods.kotoba`). `verify-chain` is tamper-evident. |
+| `fab_cell.cljc` | **orchestration cell** (datalog/kotoba) — `run-fab-lot` ties it together: station reachability → `fab_flow` sim → `lot_ledger` commit, with optional throughput. `run-reference` runs the iwakura ternary-PE tile lot on a realistic 8-station layout. |
 
 ## Hard gates (silicon manifest)
 
@@ -34,7 +35,7 @@ bb -e "(require 'clojure.test 'silicon.methods.test-fab-flow \
 bb test:pywasm
 ```
 
-22 tests / 55 assertions green (within the 644-test `test:pywasm` suite).
+32 tests / 81 assertions green (within the `test:pywasm` suite).
 
 ## Demo
 

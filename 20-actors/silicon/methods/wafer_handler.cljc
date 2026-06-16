@@ -83,6 +83,50 @@
      :wph (r2 wph)
      :foup-time-min (r2 (/ foup-s 60.0))}))
 
+;; ── SCARA arm forward/inverse kinematics ────────────────────────────────────
+;;
+;; The atmospheric wafer-handler is a 2-link planar (SCARA) arm — the same
+;; PlanarChain topology kami-genesis uses (and niyaku's cartpole port), but in
+;; pure cljc so it runs in-stack and is testable. Stations sit on a circle; the
+;; arm must REACH each station's (x,y) before `transfer-time` is meaningful.
+
+(defn scara-fk
+  "Forward kinematics of a 2-link planar arm. Returns the end-effector {:x :y}
+  for joint angles (rad) θ1,θ2 and link lengths l1,l2 (m)."
+  [{:keys [l1 l2 theta1 theta2] :or {l1 0.4 l2 0.35}}]
+  {:x (r3 (+ (* l1 (Math/cos theta1))
+             (* l2 (Math/cos (+ theta1 theta2)))))
+   :y (r3 (+ (* l1 (Math/sin theta1))
+             (* l2 (Math/sin (+ theta1 theta2)))))})
+
+(defn scara-reachable?
+  "True iff point (x,y) lies in the 2-link annular workspace
+  |l1-l2| ≤ r ≤ l1+l2."
+  [{:keys [l1 l2] :or {l1 0.4 l2 0.35}} x y]
+  (let [r (Math/sqrt (+ (* x x) (* y y)))]
+    (and (<= (Math/abs (- l1 l2)) (+ r 1.0e-9))
+         (<= r (+ l1 l2 1.0e-9)))))
+
+(defn scara-ik
+  "Inverse kinematics (elbow-down branch) for a reachable target (x,y).
+  Returns {:theta1 :theta2} (rad), or nil if the target is unreachable.
+  θ2 = acos((r²-l1²-l2²)/(2·l1·l2)); θ1 = atan2(y,x) - atan2(l2·sinθ2, l1+l2·cosθ2)."
+  [{:keys [l1 l2] :or {l1 0.4 l2 0.35} :as arm} x y]
+  (when (scara-reachable? arm x y)
+    (let [r2sq (+ (* x x) (* y y))
+          c2 (max -1.0 (min 1.0 (/ (- r2sq (* l1 l1) (* l2 l2)) (* 2.0 l1 l2))))
+          theta2 (Math/acos c2)
+          theta1 (- (Math/atan2 y x)
+                    (Math/atan2 (* l2 (Math/sin theta2))
+                                (+ l1 (* l2 (Math/cos theta2)))))]
+      {:theta1 (r3 theta1) :theta2 (r3 theta2)})))
+
+(defn station-reachable?
+  "True iff every station {:x :y} is within the arm's workspace — a precondition
+  for the cluster-tool transfer schedule to be physically valid."
+  [arm stations]
+  (every? (fn [{:keys [x y]}] (scara-reachable? arm x y)) stations))
+
 ;; ── collision / scheduling sanity ───────────────────────────────────────────
 
 (defn schedule-feasible?
