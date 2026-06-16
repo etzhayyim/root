@@ -35,11 +35,11 @@ depends_on:
   - 2605191524-ameno-multi-tab-swarm-broadcast
 related:
   - wellbecoming-karma-lean-proofs
-  - wellbecoming-karma-lean-proofs
-  - wellbecoming-karma-lean-proofs
-  - wellbecoming-karma-lean-proofs
+  - adr-2606161700-multigenerational-extraction-risk-gate
 supersedes: []
 superseded_by: []
+amended_by:
+  - adr-2606161700-multigenerational-extraction-risk-gate  # §5 N1 reframed: scope boundary, not constitutional ban
 ---
 
 # ADR-2605252400: kanayama (金山) — Circular Metallurgy Tier-B Actor R0 Scaffold
@@ -118,13 +118,22 @@ Adopted from European integrated recycling-rolling mill practice (Wave 1, alumin
 | **G13** | Energy source = **renewable + grid-balanced only**. Captive coal / petroleum coke prohibited. | §2(g) + non-eschatological |
 | **G14** | Waste outputs (dross / salt cake / fume filter / leachate) tracked per IPFS lot + §2(h) waste-to-recover quarterly report | §2(h) circular |
 
-### 5. Non-Goals (N1–N8, IMMUTABLE R0–R3)
+### 5. Non-Goals (N1 = scope boundary; N2–N8 IMMUTABLE R0–R3)
 
-`kanayama` has a smaller non-goal surface than watatsumi (12 N's) because recycling is constitutionally aligned. The 8 N's below enumerate the specific upstream-mining and weapons-adjacent feedstocks that must remain excluded.
+`kanayama` has a smaller non-goal surface than watatsumi (12 N's) because recycling is constitutionally aligned. The 8 N's below enumerate the upstream-mining and weapons-adjacent feedstocks out of scope.
+
+> **N1 amended by ADR-2606161700 (2026-06-16).** Primary mining is NOT constitutionally
+> forbidden — the Charter gates extraction by a multi-generational (子・孫) × wellbecoming
+> RISK assessment (Rider §2(l) v3.2), not by a blanket ban. N1 is therefore a **scope
+> boundary** for kanayama (the recovery/recycling actor), not an "immutable recycling-only
+> invariant." kanayama stays recovery-first **by design preference** (urban mining at ~5%
+> of primary energy is the lower-risk path), but any primary-extraction capability may be
+> proposed as its OWN actor/ADR and must pass the §2(l) multi-gen risk gate. N2–N8 below
+> are independent concerns and remain immutable R0–R3.
 
 | # | Non-Goal | Constitutional anchor |
 |---|---|---|
-| **N1** | **Bauxite mining** (or any upstream primary mining for Wave 1 Al feedstock; extends to iron ore for Wave 2, copper ore for Wave 3, etc.) — **recycling-only invariant** | §2(g) habitat |
+| **N1** | **Primary mining out of kanayama scope** (bauxite for Wave 1 Al; iron ore Wave 2; copper ore Wave 3, etc.) — kanayama is the recovery actor; **recovery-first by preference, NOT extraction-forbidden** (amended by ADR-2606161700; primary extraction → own actor + §2(l) multi-gen risk gate) | §2(l) multi-gen risk-gate + §2(g) habitat |
 | **N2** | **Hall-Héroult primary Al electrolysis** (new ingot from alumina; petroleum-coke anode; PFC GHG emissions); Wave 2+ equivalent ban on primary smelting | §2(g) energy + GHG |
 | **N3** | Munitions casing / shell case / spent cartridge brass recovery (war-contamination transfer) | §2(a) + watatsumi N7 echo |
 | **N4** | Nuclear-decontamination metal recovery (radiological feedstock) | §1.15 + radiation boundary |

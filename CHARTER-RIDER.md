@@ -9,12 +9,15 @@ proper (Lv7+ lock). Until ADR-2606064700 is ratified, every clause here keeps it
 current binding force and gate. See ADR-2606064700 for the derivation map.
 -->
 ```
-etzhayyim Charter Compliance Rider v3.1
-Last revised: 2026-06-08
-Supersedes: v3.0 (2026-06-06) per ADR-2606082400 — §2(c) reciprocity-axis clarification ONLY
-            (monetized-or-asymmetric surveillance prohibited; reciprocal 相互監視 affirmed);
-            every other clause is byte-identical to v3.0 (2026-06-06, ADR-2606062100),
-            which superseded v2.0 (2026-05-19).
+etzhayyim Charter Compliance Rider v3.2
+Last revised: 2026-06-16
+Supersedes: v3.1 (2026-06-08) per ADR-2606161700 — §2(l) reframed ONLY: from a
+            blanket by-industry-name "commercial mining" ban to a multi-generational
+            (子・孫) × wellbecoming RISK-ASSESSMENT gate (extraction judged by measured
+            multi-gen harm + monopoly/chokepoint entrenchment, not by industry name;
+            symmetric with §2(d)); every other clause is byte-identical to v3.1.
+            v3.1 (2026-06-08, ADR-2606082400) was §2(c) reciprocity-axis clarification
+            ONLY over v3.0 (2026-06-06, ADR-2606062100), which superseded v2.0.
 
 This Rider supplements the Apache License 2.0 ("License") under which this work
 is distributed. Acceptance of the License constitutes acceptance of this Rider.
@@ -194,14 +197,30 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        doctrinal limit is here promoted to an enforced Rider clause). Prohibited
        regardless of revenue share.
 
-   (l) MONOPOLISTIC RESOURCE EXTRACTION / MINING (NEW in v3.0). Operation of
-       commercial mining or extraction of rare metals and other geologically
-       restricted resources. DERIVED FROM: Charter §1.12 (Anti-Monopoly) and
-       mission to avoid dependence. This prohibition is structural: it is designed
-       to create a system that does not depend on monopolistic rare metals or
-       restricted resources, thereby preventing resource monopolies on Earth.
-       Closed-loop recycling (urban mining) and non-monopolistic material
-       recovery are NOT prohibited.
+   (l) MULTI-GENERATIONALLY HARMFUL OR MONOPOLISTIC RESOURCE EXTRACTION
+       (reframed in v3.2 per ADR-2606161700; replaces the v3.0 blanket
+       "commercial mining" ban). Extraction of minerals, metals (including gold,
+       silver, and rare metals / rare earths), hydrocarbons, or other geological
+       resources is NOT prohibited as such — mining is not the wrong. What is
+       prohibited is extraction whose foreseeable expected impact, assessed on the
+       MULTI-GENERATIONAL (子・孫 and beyond) × WELLBECOMING axis by the prudent
+       multi-generational steward (not the present-quarter shareholder), includes:
+         (i) IRREVERSIBLE harm to the habitable environment or biosphere of
+             persons born at least twenty-five (25) years hence — this is the
+             §2(d) standard applied to extraction; the impact is MEASURED, NOT
+             inferred from the industry's name or a political slogan; or
+        (ii) the entrenchment of a resource MONOPOLY or chokepoint dependency
+             that subordinates the wellbecoming of descendants to the rent of a
+             present controller (the legitimate §1.12 anti-monopoly kernel of the
+             old clause; cf. the abaki actor's route-around posture, ADR-2606073100).
+       DERIVED FROM: Charter §1.9 (multi-generational priority) + §1.12 (anti-
+       monopoly) + the Tier-0 wellbecoming priority. EXPRESSLY PERMITTED, and NOT
+       prohibited under this clause: closed-loop recycling / urban mining; and
+       reversible, well-stewarded, remediated, non-monopolistic extraction that
+       PASSES the multi-generational risk assessment — i.e. recovery that REDUCES
+       rather than CREATES dependence. A by-industry-name ban is NOT the rule; the
+       rule is the harm-to-子孫 assessment (symmetric with §2(d): a resource is
+       judged by its measured multi-generational footprint, never by slogan).
 
 3. EFFECT OF VIOLATION
 
@@ -280,9 +299,7 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        are used solely as API-compatibility identifiers (cf. Google LLC v. Oracle
        America, Inc., 593 U.S. ___ (2021)), confined to the delimited compatibility
        facade namespaces (`20-actors/etzhayyim-sdk/src/nv-compat/` and
-       `crates/kotoba-kotodama/py/src/kotodama/nv_compat/` in the external
-       `etzhayyim/kotoba` repo — the in-tree submodule was removed per ADR-2606131645).
-       Canonical implementations
+       `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/nv_compat/`). Canonical implementations
        carry distinct (Japanese) names.
 
 8. SEVERABILITY
@@ -302,7 +319,7 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
    except where this Rider creates additional conditions on use that do not
    contradict the License terms.
 
-— etzhayyim, 2026-06-06 (Tokyo, JST)
-  ADR-2606062100 / Mission Charter ADR-2605192100 / Preamble ADR-2605252300
-  Charter Compliance Rider v3.0
+— etzhayyim, 2026-06-16 (Tokyo, JST)
+  ADR-2606161700 / ADR-2606082400 / ADR-2606062100 / Mission Charter ADR-2605192100 / Preamble ADR-2605252300
+  Charter Compliance Rider v3.2
 ```

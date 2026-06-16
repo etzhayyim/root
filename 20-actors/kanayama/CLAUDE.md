@@ -52,11 +52,11 @@ See `ADR-2605252400` §4 for definitions. Key enforcement:
 - **G13**: Renewable + grid-balanced energy only (captive coal / petcoke prohibited)
 - **G14**: Waste outputs IPFS lot-tracked + quarterly §2(h) report
 
-## Non-Goals (N1–N8)
+## Non-Goals (N1 = scope boundary; N2–N8 excluded)
 
-**EXCLUDED from R0–R3 scope.** Amendment requires Council Lv6+ supermajority + new ADR.
+**N2–N8 EXCLUDED from R0–R3 scope** (amendment requires Council Lv6+ supermajority + new ADR). **N1 amended by ADR-2606161700**: primary mining is NOT constitutionally forbidden — the Charter gates extraction by a multi-generational (子・孫) × wellbecoming RISK assessment (Rider §2(l) v3.2), not by a blanket ban. N1 is a **scope boundary** (kanayama is the recovery actor, recovery-first by preference), not an immutable recycling-only invariant.
 
-- N1: Bauxite + upstream primary mining (recycling-only invariant)
+- N1: Primary mining is **out of kanayama scope** (bauxite / iron ore / copper ore / etc.) — recovery-first by preference, **not extraction-forbidden**; primary extraction → own actor + §2(l) multi-gen risk gate (ADR-2606161700)
 - N2: Hall-Héroult primary Al electrolysis + equivalent primary smelting
 - N3: Munitions casing / brass cartridge recovery
 - N4: Nuclear-decontamination metal recovery
