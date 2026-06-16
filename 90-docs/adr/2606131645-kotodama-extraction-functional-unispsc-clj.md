@@ -25,8 +25,10 @@ related:
   - "2605232345"
   - "2606101200"
 supersedes: []
-superseded_by: ["2606161200 (D2 only — single-repo extraction amended by the kotodama 3-layer split)"]
-amended_by: ["2606161200"]
+superseded_by:
+  - 2606161200
+amended_by:
+  - 2606161200
 ---
 
 # ADR-2606131645: kotodama 抽出 + 18,343 UNSPSC actor の機能化 Clojure 移行 + kotoba submodule 撤去

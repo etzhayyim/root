@@ -1,0 +1,91 @@
+;; tracker-exposure-ontology — the personal-tracking-exposure (自分の情報がどの広告ネットワーク
+;; / データブローカーに取得されているか) vocabulary for aburi 炙り. ADR-2606161630 ·
+;; sibling of ad-supply-chain-ontology (sukashi, ADR-2606071601 — the FIRM-side programmatic
+;; supply chain) and wellbecoming-ontology (shiori, ADR-2606082100 — the structural-detractor
+;; lens). aburi is the MEMBER-side, own-data inversion: where sukashi maps firm↔firm ad-tech and
+;; shiori maps cohort-scale detraction, aburi maps "when I accept the ToS / grant a permission on
+;; Google / Facebook / X / Apple, WHICH ad networks & data brokers collect my data, and HOW MUCH
+;; does each one track me" — and routes that exposure to RELIEF (DSAR / opt-out / sever / revoke).
+;;
+;; PURPOSE: weave the SURFACES the member uses (search / social / app-store / mobile-app / OS),
+;; the PERMISSIONS & ToS data-sharing clauses they grant on each, the COLLECTORS (ad networks /
+;; data brokers / tracker SDKs / analytics) that receive the data, the DATA-TYPES that flow, and
+;; the RELIEF routes that close the gap — into the kotoba Datom log. The lens is EXPOSURE
+;; (asymmetric ad-surveillance) vs RELIEF (reciprocal sight + opt-out), routed to himotoki (DSAR)
+;; / kaiyaku (sever) / kurashimori (consumer opt-out) / tedai (on-device revoke).
+;;
+;; CONSTITUTIONAL INVERSION (G1 + G4, read first):
+;;   G1 — OWN-DATA-ONLY / member-principal. aburi maps the MEMBER'S OWN exposure, derived from
+;;     THEIR OWN consented exports (Google Takeout / Apple "App Privacy" labels / Google Play
+;;     "Data safety" / on-device permission dump). The PUBLIC seed is REPRESENTATIVE/aggregate
+;;     (real public-catalogue facts, NO real person). There are NO records of any OTHER person, NO
+;;     third-party PII, NO biometric. aburi is the himotoki/meisai own-data pattern, not a profiler.
+;;   G4 — RECIPROCITY-RESTORING, not surveillance (§2(c) v3.1, ADR-2606082400). The Charter
+;;     PROHIBITS monetized-OR-asymmetric surveillance and AFFIRMS symmetric 相互監視. Ad-tracking is
+;;     the paradigm asymmetric watcher (they see you; you cannot see them). aburi makes that
+;;     asymmetry VISIBLE TO THE WATCHED — it restores reciprocity. aburi itself never tracks, never
+;;     sells, never builds an asymmetric per-person dossier of anyone (it holds only the member's
+;;     own, local-only data).
+;;
+;; NON-ADJUDICATING (N3 / G3): collector→data-type mappings, collector catalogue membership, and
+;;   data sensitivity bands are DISCLOSED facts (Exodus Privacy / εxodus tracker catalogue, Apple
+;;   App-Privacy "nutrition" labels, Google Play Data-safety section, IAB sellers.json / ads.txt).
+;;   Naming an SDK as an ad collector is a PUBLIC CATALOGUE FACT, never an aburi accusation of
+;;   wrongdoing. aburi judges no company.
+;;
+;; EDGE-PRIMARY (N1 / G2): exposure lives ONLY on edges (:en/load). A collector's tracking-load =
+;;   the INTEGRAL of its incident inbound :flows-to 縁 × disclosed data-sensitivity weight,
+;;   computed on READ — never a stored per-collector score. There is no :aburi/score-of-collector.
+
+{:schema/id "tracker-exposure-ontology"
+ :schema/version "0.1.0"
+ :schema/adr "2606161630"
+
+ ;; ── nodes ──────────────────────────────────────────────────────────────────
+ :node/attrs
+ [{:attr :organism/id         :doc "stable id, e.g. ax.surface.google-android / ax.col.admob / ax.perm.location — OWN-SURFACE / public-catalogue only"}
+  {:attr :organism/kind       :doc ":surface | :permission | :collector | :datatype | :relief"}
+  {:attr :organism/label      :doc "common/display label"}
+  {:attr :organism/sourcing   :doc ":authoritative (Exodus / Apple App-Privacy / Play Data-safety / IAB sellers.json) | :representative (bounded seed)"}
+
+  ;; surface facet (a service / platform / app the member uses — the consent venue)
+  {:attr :surface/kind        :doc ":search | :social | :app-store | :mobile-app | :website | :os"}
+  {:attr :surface/operator    :doc "DISCLOSED operating org (org.corp.* shared id space w/ kabuto/sukashi), e.g. org.corp.alphabet — a public fact, not a target"}
+
+  ;; permission facet (a permission / ToS data-sharing clause the member granted on a surface)
+  {:attr :permission/kind     :doc ":location | :precise-location | :contacts | :camera | :microphone | :photos | :ad-id | :browsing-history | :purchase-history | :app-usage | :health | :tos-data-sharing | :ad-personalization"}
+  {:attr :permission/sensitivity :doc "DISCLOSED sensitivity band — :critical :sensitive :moderate :low (from public privacy taxonomies; NOT an aburi adjudication, N3)"}
+
+  ;; collector facet (an ad network / data broker / tracker SDK / analytics that receives the data)
+  {:attr :collector/kind      :doc ":ad-network | :dsp | :ssp | :exchange | :data-broker | :analytics | :tracker-sdk"}
+  {:attr :collector/org       :doc "DISCLOSED parent org (org.corp.* shared id space), e.g. org.corp.alphabet — public catalogue fact"}
+  {:attr :collector/catalog   :doc "the PUBLIC source that catalogues this collector — :exodus | :apple-privacy | :play-data-safety | :sellers-json | :iab (G3/G5 provenance)"}
+
+  ;; datatype facet (the kind of personal data that flows; never a raw value — G8)
+  {:attr :datatype/kind       :doc ":precise-location | :coarse-location | :device-id | :contacts | :browsing | :purchases | :app-usage | :identifiers | :photos | :health-fitness"}
+  {:attr :datatype/sensitivity :doc "DISCLOSED sensitivity band — :critical :sensitive :moderate :low"}
+
+  ;; relief facet (the route that restores reciprocity / closes the exposure)
+  {:attr :relief/kind         :doc ":dsar | :opt-out | :sever | :permission-revoke | :tracking-off | :data-deletion"}
+  {:attr :relief/actor        :doc "the actor that CARRIES the relief — :himotoki (DSAR) | :kaiyaku (sever) | :kurashimori (consumer opt-out) | :tedai (on-device revoke); aburi only PROPOSES (G7)"}]
+
+ ;; ── edges (縁) ───────────────────────────────────────────────────────────────
+ :edge/attrs
+ [{:attr :en/from            :doc "source organism id"}
+  {:attr :en/to              :doc "target organism id"}
+  {:attr :en/kind            :doc ":grants (surface→permission) | :flows-to (permission→collector, the EXPOSURE edge) | :collects (collector→datatype) | :routes-to (permission→relief, the opt-out path) | :relieves (relief→collector, exposure reduced)"}
+  {:attr :en/load            :doc "0..1 — for :flows-to: how intensively the granted data reaches the collector (the exposure, weighted on read by the source permission's DISCLOSED sensitivity); for :grants: how broadly the surface enables the permission; for :collects: disclosed collection breadth; for :routes-to: applicability of the relief route; for :relieves: relief afforded. karma lives HERE (N1)."}
+  {:attr :en/sourcing        :doc ":authoritative | :representative"}]
+
+ ;; ── derived (transient, computed on READ — NEVER stored; N1/G2) ──────────────
+ :derived/attrs
+ [{:attr :bond/tracking-exposure  :doc "collector integral of incident inbound :flows-to 縁 × disclosed permission-sensitivity weight — 'how much this company tracks you'; THE headline readout"}
+  {:attr :bond/surface-leak       :doc "surface integral of outbound :grants loads (and downstream flow) — 'which platform exposes you most' (Google / Facebook / X / Apple)"}
+  {:attr :bond/datatype-spread    :doc "datatype integral of incident inbound :collects loads — 'what kinds of your data are most widely harvested'"}
+  {:attr :bond/relief-coverage    :doc "permission integral of outbound :routes-to loads — whether an opt-out/DSAR route exists (0 = reciprocity gap)"}
+  {:attr :bond/reciprocity-gap    :doc "permission that leaks (outbound :flows-to > 0) but has NO :routes-to relief route — the asymmetric-surveillance gap routed to himotoki/kaiyaku/kurashimori/tedai"}
+  {:attr :bond/is-transient       :doc "const true — derived readout, not a stored datom"}]
+
+ ;; ── disclosed data/permission-sensitivity → representative weight (NOT a verdict) ──
+ :sensitivity/weight
+ {:critical 1.0 :sensitive 0.8 :moderate 0.5 :low 0.25}}
