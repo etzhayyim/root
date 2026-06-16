@@ -199,6 +199,30 @@ jurisdiction gate), so WDQS is just one source. Landed/feasible additions:
 Each source lands raw in the data layer (datalad cold tier), is normalized in code, content-
 addressed (CID in provenance, `verify.cljc`), and obeys the per-jurisdiction public-record gate.
 
+## Data storage + no-re-query guarantee (operator directive)
+
+Every source is fetched ONCE; the data lives in the repo and is never re-queried in normal use:
+
+- **Downloaded into the repo** (`80-data/jinushi-land/`, git-committed): all raw responses
+  (`*.raw.json` — WDQS parks/buildings/floors, country areas, NYC PLUTO, OSM Overpass) + the
+  resolution caches (`wikidata-owner-labels.raw.edn` = wbgetentities QID→label/is-human;
+  `gleif-resolution.raw.edn` = LEI→legal entity) + the processed snapshots (`*.kotoba.edn`).
+- **No method touches the network** — every `.cljc` reads local files; the ONLY network code is
+  `methods/fetch_wdqs.sh` (explicit, polite, operator-run). The 30-min loop = zero network I/O.
+- **No re-query, even on a from-scratch rebuild**: the raw + the label/GLEIF caches are committed,
+  so regenerating snapshots reads local files only. New fetches are incremental (only genuinely
+  new countries / LEIs / QIDs; already-resolved entities are skipped).
+- **Content-addressed**: every artifact carries a CIDv1 in `ingest-provenance.json` (`verify.cljc`
+  re-derives + checks) — the same content hash datalad/IPFS would use.
+
+**datalad / IPFS cold tier** (ADR-2605241500): the working copies are plain-git-committed (so
+tests/verify run on the repo state, the genome convention). Registering them into the DataLad
+superdataset + git-annex → IPFS pin is the OPERATOR step (not run here; would need the
+superdataset + an annex/IPFS remote):
+`e7m-dataset add 80-data/jinushi-land` against superdataset `90-docs/baien/datasets`. (A bare
+datalad *subdataset* is deliberately NOT used: it would move the data out of the parent repo's
+git into a gitlink, breaking the parent's tests/verify/clone — hence git-committed + CID here.)
+
 **「wdqs に負担をかけない」 is enforced by design:**
 
 - The committed **snapshot is the loop's source of truth**. Each loop iteration re-ingests the
