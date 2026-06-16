@@ -133,6 +133,20 @@
   [s]
   (str "\"" (-> (str s) (str/replace "\\" "\\\\") (str/replace "\"" "\\\"")) "\""))
 
+(defn py-round
+  "Python round(x, n) — HALF_EVEN (banker's rounding) on the EXACT double value."
+  [x n]
+  (-> (java.math.BigDecimal. (double x))
+      (.setScale n java.math.RoundingMode/HALF_EVEN)
+      .doubleValue))
+
+(defn py-round-2 [x] (py-round x 2))
+
+(defn py-float-str
+  "str(float) — shortest round-trip repr (Double/toString matches Python repr for our values)."
+  [x]
+  (str (double x)))
+
 ;; ── GTIN helpers ─────────────────────────────────────────────────────────────
 (defn- digits
   "''.join(ch for ch in str(gtin) if ch.isdigit())"
