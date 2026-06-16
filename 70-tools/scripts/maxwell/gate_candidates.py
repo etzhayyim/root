@@ -1,7 +1,7 @@
 """
 Gate maxwell-candidates.jsonl: clj-kondo + Charter Rider → maxwell-sft-corpus.jsonl
 """
-import json, pathlib, subprocess, sys, tempfile
+import json, pathlib, re, subprocess, sys, tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CANDIDATES = ROOT / "90-docs/baien/maxwell-candidates.jsonl"
@@ -42,7 +42,9 @@ with open(CANDIDATES) as inf, open(CORPUS, "a") as outf:
             tf_path = tf.name
         try:
             r = subprocess.run([str(KONDO), "--lint", tf_path], capture_output=True, text=True)
-            if r.returncode != 0:
+            _m = re.search(r"errors:\s*(\d+)", r.stdout)
+            _errs = int(_m.group(1)) if _m else (0 if r.returncode == 0 else 99)
+            if _errs > 0:  # warnings (e.g. unused-private-var on a standalone defn) are tolerated
                 failed_lint += 1
                 continue
         finally:
