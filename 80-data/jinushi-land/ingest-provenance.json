@@ -22,13 +22,13 @@
     }
   },
   "sources" : [ {
-    "cidv1" : "bafkreifs2u5dprlpslaulcnx34x5nmytg2gxvefd5kkeo7uj2koxfwos4q",
+    "cidv1" : "bafkreic2f6lk2m4ymvlz57ewf4ujx6bnmbnx2obk5vesstd55e7yeznju4",
     "dropped-unknown-unit" : 0,
-    "countries" : 85,
-    "records" : 1859,
+    "countries" : 111,
+    "records" : 2056,
     "class" : "Q46169 national park",
     "dropped-nonpositive" : 8,
-    "sha256" : "b2d53a37c56f92c14589b7df2fd6b313368d7a90a3ea94477e89d29d72d9d2e4",
+    "sha256" : "5a2f96ad339865579efc962f289bf82d605b7d382aed49294c7de93f8265a9a7",
     "source-id" : "wikidata-national-parks",
     "artifact" : "wikidata-national-parks.kotoba.edn",
     "counts-toward-world-coverage" : true
@@ -124,14 +124,14 @@
   "derived" : {
     "artifact" : "jinushi-land-datoms.kotoba.edn",
     "what" : "canonical EAVT Datom log of the SANITIZED counting dataset (gitignored; regenerable)",
-    "sha256" : "de540c4281a02f912f50bb594e591aa55679c19f9d747c6f52b9932f1c03cda5",
-    "cidv1" : "bafkreig6kqgefanaf6is6uf3lfhfsgvfkz44dh45or6g6uvzsmxrya6nuu",
+    "sha256" : "4055cfd7f39103f7b6d9a53a20717b004e1d4851d708847dafe0edf553e88e08",
+    "cidv1" : "bafkreicakxh5p44rap33nwnfhiqhc6yajyouquoxbcch3l7a5x2vh2eoba",
     "unified" : {
       "artifact" : "jinushi-unified-datoms.kotoba.edn",
       "gitignored" : true,
       "what" : "UNIFIED canonical kotoba Datom log across all 6 sources/4 dimensions (methods/emit_all.cljc); regenerable; source-tagged for confidence weighting",
-      "sha256" : "9526bcda3506c1887cc6a59f4384f2896ecb43244e9dbf53d82b974102b3ac1d",
-      "cidv1" : "bafkreieve26nunigygehzrvft5byj4ujn3fugjcotw7vhwbls5aqfm5mdu"
+      "sha256" : "f23084f9c1fb46f9189de23d5cf14be6cabffd5ea3ba4e9ac72f3809e838483e",
+      "cidv1" : "bafkreihsgccptqp3i34rrhpchvopcs7gzk772xvdxjhjvrzphae6qocihy"
     }
   },
   "building-ownership" : {

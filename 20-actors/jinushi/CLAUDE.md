@@ -122,10 +122,10 @@ snapshots → `ingest`/`emit_real` (offline).
 
 | source | class | records | countries | area | counts toward world coverage |
 |---|---|--:|--:|--:|---|
-| national parks | Q46169 | 1859 | 85 | 9.94M km² | **yes** (primary, non-overlapping) |
+| national parks | Q46169 | 2056 | 111 | 6.86M km² (sanitized) | **yes** (primary, non-overlapping) |
 | nature reserves | Q179049 | 497 | 3 | 0.23M km² | **no** (overlaps NP countries NO/IE/CA) |
 
-**World acquisition coverage = 85 countries · 6.20M km² = 4.17% of world land** (HONEST, sanitized).
+**World acquisition coverage = 111 countries · 6.86M km² = 4.61% of world land** (HONEST, sanitized).
 A real WDQS country-area denominator (`country-areas.kotoba.edn`, 203 countries) now (a) resolves
 national fractions for every covered country and (b) drives a **data-quality gate (G4)**: parcels
 whose area exceeds their country's total area are dropped (Wikidata P2046 unit errors / ocean-
