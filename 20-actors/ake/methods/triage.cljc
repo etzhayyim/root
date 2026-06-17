@@ -59,7 +59,9 @@
       last
       str/lower-case))
 
-(defn- verifiable-provenance?
+(defn verifiable-provenance?
+  "True if `p` looks like a verifiable URL/CID (http(s)/ipfs/cid:/bafy/ '://').
+  (Python `_verifiable_provenance`; promote cell imports this.)"
   [p]
   (let [p (-> (str (or p "")) str/trim str/lower-case)]
     (boolean

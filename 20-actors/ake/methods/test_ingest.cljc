@@ -94,37 +94,8 @@
           (is (some? cur))
           (is (= ":authoritative" (get cur ":revision/sourcing"))))))))
 
-;; ── Python↔Clojure parity: the genesis bridge produces the SAME revision history ──
-;; revision.py / ingest.py carry no content-addressing (no sha256+canonical-JSON CID),
-;; so parity is over the plain genesis-revision history shape: run the REAL Python
-;; ingest.py over the same fixture via babashka.process and assert the per-revision
-;; (entity, attr, sourcing, op, value, as-of) tuples are identical on both sides.
-
-(deftest python-clojure-genesis-parity
-  (let [sh (requiring-resolve 'babashka.process/sh)
-        script (str "import sys, json\n"
-                    "import ingest\n"
-                    "res = ingest.genesis_revisions(sys.argv[1])\n"
-                    "rows = [[r[':revision/entity'], r[':revision/attr'],\n"
-                    "         r[':revision/sourcing'], r[':revision/op'],\n"
-                    "         r[':revision/value'], r[':revision/as-of']]\n"
-                    "        for r in res['history']]\n"
-                    "print(json.dumps({'records': res['records'], 'rows': rows},\n"
-                    "                 ensure_ascii=False), end='')\n")
-        r (sh {:dir (str methods-dir)} "python3" "-c" script (str fixture))]
-    (is (zero? (:exit r)) (str "python ingest failed: " (:err r)))
-    (let [parse-json (requiring-resolve 'cheshire.core/parse-string)
-          py (parse-json (:out r))
-          py-rows (get py "rows")
-          py-records (get py "records")
-          cres (ingest/genesis-revisions fixture)
-          clj-rows (mapv (fn [r]
-                           [(get r ":revision/entity")
-                            (get r ":revision/attr")
-                            (get r ":revision/sourcing")
-                            (get r ":revision/op")
-                            (get r ":revision/value")
-                            (get r ":revision/as-of")])
-                         (:history cres))]
-      (is (= py-records (:records cres)))
-      (is (= py-rows clj-rows)))))    ;; byte-identical genesis history, Python ⟷ Clojure
+;; ── (removed) Python↔Clojure genesis-parity ──
+;; The migration-verification deftest shelled out to ingest.py to assert the cljc port matched
+;; the Python byte-for-byte. ake's Python is fully pruned (ADR-2606160842 py->clj port wave), so
+;; the parity reference no longer exists; the cljc genesis bridge is exercised directly above
+;; (genesis-fixture-counts + real-repo-seed-integration-when-registered).
