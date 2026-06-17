@@ -25750,6 +25750,38 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606170840-maxwell-diffusion-weight.md",
+      "id": "adr-2606170840-maxwell-diffusion-weight",
+      "title": "ADR-2606170840: Maxwell-Diffusion — diffusion-LM sibling weight (diffusiongemma-26B-A4B-it fine-tune)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "maxwell-diffusion-weight",
+      "authoritative": true,
+      "authoritative_for": [
+        "diffusion-llm-weight-name",
+        "murakumo-fleet-diffusion-instruct-weight"
+      ],
+      "related": [
+        "2605092350",
+        "2606062100",
+        "2605262200",
+        "2605242400",
+        "2605250005"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606061000",
+        "2605215000",
+        "2605250400",
+        "2605242100",
+        "2605241900"
+      ],
+      "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606170900-ugachi-stewardship-ledger-persistence-and-heartbeat.md",
       "id": "adr-2606170900-ugachi-stewardship-ledger-persistence-and-heartbeat",
       "title": "ADR-2606170900: ugachi 穿ち — content-addressed stewardship-ledger persistence + deterministic heartbeat (Wave 2)",
