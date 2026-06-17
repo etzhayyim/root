@@ -413,9 +413,9 @@
   test:todoke
   {:doc "todoke Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
-                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine)
+                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine)
              (let [r (clojure.test/run-tests
-                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine)]
+                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:uchiwake
@@ -725,7 +725,7 @@
 
                       'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
 
-                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine
+                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
                       'mitooshi.methods.test-social 'mitooshi.methods.test-synthesize
                       'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-horizon
@@ -804,7 +804,7 @@
 
                       'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
 
-                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine
+                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
                                              'mitooshi.methods.test-social
