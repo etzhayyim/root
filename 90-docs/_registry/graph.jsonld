@@ -512,9 +512,10 @@
       "id": "doc:2605171300",
       "type": "TechArticle",
       "title": "Open-UNSPSC Generative Agent Fleet using OpenRouter and Local Fallback",
-      "status": "accepted",
+      "status": "superseded",
       "topic": "open-unispsc-generative-agent-fleet",
-      "authoritative": false
+      "authoritative": false,
+      "supersededBy": "doc:2606172100-retire-unispsc-python-per-code-fleet"
     },
     {
       "id": "doc:2605182312-local-bring-up-murakumo-gemma4",
@@ -16337,6 +16338,46 @@
         "doc:2606130900",
         "doc:2606131645",
         "doc:2605242400"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606172100-retire-unispsc-python-per-code-fleet",
+      "type": "TechArticle",
+      "title": "ADR-2606172100: Retire the open-UNSPSC per-code Python agent fleet — superseded by the clj unspsc actor",
+      "status": "accepted",
+      "topic": "retire-unispsc-python-per-code-fleet",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the retirement of the per-code unispsc_agents Python fleet (kotoba-kotodama/py)",
+        "the kuni-umi planning cells' commodity-classification backend (openUnispsc XRPC, not per-code LAN/libp2p executor shards)"
+      ],
+      "related": [
+        "doc:adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp",
+        "doc:adr-2605232345-unispsc-organism-actor-heartbeat-cadence",
+        "doc:adr-2605201400-etzhayyim-kotodama-kuni-umi-cell-topology",
+        "doc:adr-2606162200-md-edn-commented-edn-adr-format"
+      ],
+      "supersedes": "doc:2605171300-open-unispsc-generative-agent-fleet",
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606172200-shinka-loop-c-architecture-evolution",
+      "type": "TechArticle",
+      "title": "ADR-2606172200: Shinka Loop C — architecture evolution (NAS-via-Co-scientist on Murakumo)",
+      "status": "proposed",
+      "topic": "shinka-architecture-evolution",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shinka-loop-c-architecture-evolution",
+        "architecture-search-governance"
+      ],
+      "related": [
+        "doc:2606061000",
+        "doc:2606171100",
+        "doc:2605250700",
+        "doc:2605092350",
+        "doc:research-2606171800-weight-family-generalization-physics"
       ],
       "lastVerified": "2026-06-17"
     },
