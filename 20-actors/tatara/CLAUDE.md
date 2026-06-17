@@ -5,7 +5,9 @@
 
 ## Identity
 
-- **DID**: `did:web:etzhayyim.com:actor:tatara` (resolvable via INFRA_ACTORS).
+- **DID**: `did:web:etzhayyim.com:actor:tatara` — **registered** in
+  `50-infra/etzhayyim-did-web/src/registry/infra-actors.ts` (`INFRA_ACTORS.tatara`, simeon
+  libp2p host + pds service), so the apex Worker issues its did.json and it appears in `/search`.
 - **Glyph**: 鑪 — the *tatara*, the traditional Japanese ironworks furnace (たたら製鉄): the
   literal heart of making. The kami of the forge, raised to planet scale.
 - **Role**: the *geographic / facility-scale* face of the supply lineage. **kabuto 兜** holds the

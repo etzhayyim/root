@@ -795,6 +795,28 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606161630"],
   },
+  tatara: {
+    description:
+      "鑪 — world manufacturing-plant + logistics GEOGRAPHIC knowledge graph. The geographic / facility-scale layer of the supply lineage: kabuto 兜 holds the org→org SUPPLY edges (who supplies whom) and uchiwake 内訳 the product BOM; tatara places the producing FACILITIES on the planet — where they SIT, at what scale (:plant/headcount-est aggregate employment / :floor-area-m2 / :capacity-value+:capacity-unit production capacity), feeding which logistics corridor. :plant/operator joins kabuto org.corp.* (measured: 17/20 = 85% linkage via the crosscheck). Mirror-lineage sibling of kabuto/tsumugi/inochi: edge-primary geographic CONCENTRATION (per-sector country HHI + single-source flag + chokepoint export-dependence) routed to REDUNDANCY / reshoring — a resilience map, NEVER a target-list (G2). :flow/via reuses watari :lane/chokepoint + watatsuna :station/chokepoint, so manufacturing export-dependence (tatara) + live vessel transit (watari) + cable load (watatsuna) compose into ONE maritime resilience picture. G4 defining gate: :plant/headcount-est is a DISCLOSED AGGREGATE SIZE — NO :worker/* / :person/* attribute exists, an individual worker is structurally unrepresentable (Charter Rider §2(c) reciprocity axis; Wellbecoming §1.13). Per ADR-2606171800.",
+    glyph: "鑪",
+    displayName:
+      "Tatara — World Manufacturing-Plant + Logistics Geographic Knowledge Graph",
+    primaryLexicon: "com.etzhayyim.tatara",
+    primarySchema: "00-contracts/schemas/manufacturing-plant-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:tatara#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tatara#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606171800"],
+  },
 } as const;
 
 // Merged registry: generated Tier-B actors (from manifests) + hand-authored
