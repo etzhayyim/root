@@ -48,6 +48,11 @@
    :task (do (require 'etzhayyim.vitals)
              (apply (resolve 'etzhayyim.vitals/-pulse) *command-line-args*))}
 
+  vitals:joucho
+  {:doc "Emit joucho.json — the organism's 情緒 (mood) + Wellbecoming TRAJECTORY (ADR-2606171500): replays ibuki's representative life (incl. the charter-clean :event/dialogue-reciprocated reward) into a 5-axis mood trajectory + Wellbecoming movement (improving/declining/steady, never a score) for the /organism 情緒 layer. Args: [of=ibuki] [beats=24]"
+   :task (do (require 'etzhayyim.vitals)
+             (apply (resolve 'etzhayyim.vitals/-joucho) *command-line-args*))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + encrypted-record envelope (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba subrepo stays the generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
@@ -456,9 +461,9 @@
   test:todoke
   {:doc "todoke Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
-                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine)
+                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine)
              (let [r (clojure.test/run-tests
-                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine)]
+                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:uchiwake
@@ -770,7 +775,7 @@
 
                       'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
 
-                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine
+                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
                       'mitooshi.methods.test-social 'mitooshi.methods.test-synthesize
                       'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-horizon
@@ -849,7 +854,7 @@
 
                       'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
 
-                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine
+                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
                                              'mitooshi.methods.test-social
