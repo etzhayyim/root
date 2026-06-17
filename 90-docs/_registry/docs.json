@@ -25580,7 +25580,7 @@
       "path": "90-docs/adr/2606162000-jinushi-land-ownership-acquisition-mirror.md",
       "id": "adr-2606162000-jinushi-land-ownership-acquisition-mirror",
       "title": "ADR-2606162000: jinushi 地主 — world land/building ownership ACQUISITION mirror (multi-source, clj-native, public-record gate)",
-      "status": "proposed",
+      "status": "accepted",
       "doc_type": "adr",
       "topic": "jinushi-land-ownership-acquisition-mirror",
       "authoritative": true,
@@ -25605,7 +25605,7 @@
         "adr-2605312345",
         "adr-2606082400"
       ],
-      "last_verified": "2026-06-16",
+      "last_verified": "2026-06-17",
       "amends": [],
       "amended_by": []
     },
