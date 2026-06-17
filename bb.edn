@@ -285,6 +285,7 @@
                       'suji.methods.test-bridge-consistency
                       'kamado.methods.test-kamado
                       'sanae.methods.test-labor-liberation
+                      'kamado.methods.test-ingest
                       'todoke.methods.test-last-mile
                       'sentei.methods.test-prune
                       'tazuna.methods.test-teleop-safety
@@ -363,6 +364,7 @@
                                              'suji.methods.test-bridge-consistency
                                              'kamado.methods.test-kamado
                                              'sanae.methods.test-labor-liberation
+                      'kamado.methods.test-ingest
                                              'todoke.methods.test-last-mile
                                              'sentei.methods.test-prune
                                              'tazuna.methods.test-teleop-safety
