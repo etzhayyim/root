@@ -30,7 +30,9 @@
   (doseq [s stops]
     (let [cap (get zone-speed-cap-mps (:zone s) ::missing)]
       (when (or (= cap ::missing) (nil? cap))
-        (envelope-violation (str "G7: stop " (:id s) " zone " (pr-str (:zone s)) " outside todoke ODD (N2)")))
+        ;; match py's {s.zone!r} repr exactly (Python str repr = single quotes), not clj pr-str's
+        ;; double quotes, so the refusal message is byte-identical across impls (parity-caught).
+        (envelope-violation (str "G7: stop " (:id s) " zone '" (:zone s) "' outside todoke ODD (N2)")))
       (when (> commanded-mps cap)
         (envelope-violation (str "G7: commanded " commanded-mps " m/s exceeds " (:zone s)
                                  " cap " cap " m/s at stop " (:id s)))))))
