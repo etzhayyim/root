@@ -52,18 +52,420 @@
                       'mimamori.tests.test-coverage
                       'mimamori.tests.test-kotoba-autorun
                       'mimamori.tests.test-shakai
-                      'mimamori.tests.test-cell)
+                      'mimamori.tests.test-cell
+                      'mimamori.tests.test-ontology-parity
+                      'mimamori.tests.test-wasm-app)
              (let [r (clojure.test/run-tests 'mimamori.tests.test-bond
                                              'mimamori.tests.test-coverage
                                              'mimamori.tests.test-kotoba-autorun
                                              'mimamori.tests.test-shakai
-                                             'mimamori.tests.test-cell)]
+                                             'mimamori.tests.test-cell
+                                             'mimamori.tests.test-ontology-parity
+                                             'mimamori.tests.test-wasm-app)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:kanae
   {:doc "kanae 鼎 Clojure test suite (danjo→kanae→yoro fiscal pipeline + charter gates; port of methods/test_pipeline.py)"
    :task (do (require 'clojure.test 'kanae.methods.test-pipeline)
              (let [r (clojure.test/run-tests 'kanae.methods.test-pipeline)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:ainori
+  {:doc "ainori Clojure test suite — 1 cljc suite wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'ainori.methods.test-pooled-route)
+             (let [r (clojure.test/run-tests
+                      'ainori.methods.test-pooled-route)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:ake
+  {:doc "ake Clojure test suite — 9 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'ake.methods.test-ingest 'ake.methods.test-analyze
+                      'ake.methods.test-charter-invariants 'ake.methods.test-editwar
+                      'ake.methods.test-contributor 'ake.methods.test-revision
+                      'ake.methods.test-triage 'ake.methods.test-lexicons
+                      'ake.methods.test-consistency)
+             (let [r (clojure.test/run-tests
+                      'ake.methods.test-ingest 'ake.methods.test-analyze
+                      'ake.methods.test-charter-invariants 'ake.methods.test-editwar
+                      'ake.methods.test-contributor 'ake.methods.test-revision
+                      'ake.methods.test-triage 'ake.methods.test-lexicons
+                      'ake.methods.test-consistency)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:danjo
+  {:doc "danjo Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'danjo.methods.test-analyze 'danjo.methods.test-charter-gates
+                      'danjo.methods.test-autorun)
+             (let [r (clojure.test/run-tests
+                      'danjo.methods.test-analyze 'danjo.methods.test-charter-gates
+                      'danjo.methods.test-autorun)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:fuchi
+  {:doc "fuchi Clojure test suite — 10 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'fuchi.methods.test-provision 'fuchi.methods.test-book
+                      'fuchi.methods.test-allocate 'fuchi.methods.test-analyze
+                      'fuchi.methods.test-charter-invariants 'fuchi.methods.test-route
+                      'fuchi.methods.test-lexicons 'fuchi.methods.test-couple
+                      'fuchi.methods.test-consistency 'fuchi.methods.test-vote)
+             (let [r (clojure.test/run-tests
+                      'fuchi.methods.test-provision 'fuchi.methods.test-book
+                      'fuchi.methods.test-allocate 'fuchi.methods.test-analyze
+                      'fuchi.methods.test-charter-invariants 'fuchi.methods.test-route
+                      'fuchi.methods.test-lexicons 'fuchi.methods.test-couple
+                      'fuchi.methods.test-consistency 'fuchi.methods.test-vote)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:funadaiku
+  {:doc "funadaiku Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'funadaiku.methods.test-charter-gates 'funadaiku.methods.test-voyage-energy
+                      'funadaiku.cells.sea-trial.test-cell)
+             (let [r (clojure.test/run-tests
+                      'funadaiku.methods.test-charter-gates 'funadaiku.methods.test-voyage-energy
+                      'funadaiku.cells.sea-trial.test-cell)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:hakoniwa
+  {:doc "hakoniwa Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'hakoniwa.tests.test-distribution 'hakoniwa.tests.test-ingest
+                      'hakoniwa.tests.test-runtime 'hakoniwa.tests.test-simulate)
+             (let [r (clojure.test/run-tests
+                      'hakoniwa.tests.test-distribution 'hakoniwa.tests.test-ingest
+                      'hakoniwa.tests.test-runtime 'hakoniwa.tests.test-simulate)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:hikari
+  {:doc "hikari Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'hikari.methods.test-charter-gates 'hikari.methods.test-microgrid
+                      'hikari.methods.test-panel-install)
+             (let [r (clojure.test/run-tests
+                      'hikari.methods.test-charter-gates 'hikari.methods.test-microgrid
+                      'hikari.methods.test-panel-install)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:himotoki
+  {:doc "himotoki Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'himotoki.methods.test-charter-gates 'himotoki.methods.test-request)
+             (let [r (clojure.test/run-tests
+                      'himotoki.methods.test-charter-gates 'himotoki.methods.test-request)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:hinagata
+  {:doc "hinagata Clojure test suite — 7 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'hinagata.tests.test-esign 'hinagata.tests.test-wasm
+                      'hinagata.tests.test-analyze 'hinagata.tests.test-validate
+                      'hinagata.tests.test-query 'hinagata.tests.test-coverage
+                      'hinagata.tests.test-maturity)
+             (let [r (clojure.test/run-tests
+                      'hinagata.tests.test-esign 'hinagata.tests.test-wasm
+                      'hinagata.tests.test-analyze 'hinagata.tests.test-validate
+                      'hinagata.tests.test-query 'hinagata.tests.test-coverage
+                      'hinagata.tests.test-maturity)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:ipaddress
+  {:doc "ipaddress Clojure test suite — 1 cljc suite wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'ipaddress.methods.test-autorun)
+             (let [r (clojure.test/run-tests
+                      'ipaddress.methods.test-autorun)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:itonami
+  {:doc "itonami Clojure test suite — 10 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'itonami.methods.test-datom-emit 'itonami.tests.test-fleet
+                      'itonami.tests.test-ingest 'itonami.tests.test-trend
+                      'itonami.tests.test-analyze 'itonami.tests.test-digest
+                      'itonami.tests.test-plan 'itonami.tests.test-alert
+                      'itonami.tests.test-inspect 'itonami.tests.test-optimize)
+             (let [r (clojure.test/run-tests
+                      'itonami.methods.test-datom-emit 'itonami.tests.test-fleet
+                      'itonami.tests.test-ingest 'itonami.tests.test-trend
+                      'itonami.tests.test-analyze 'itonami.tests.test-digest
+                      'itonami.tests.test-plan 'itonami.tests.test-alert
+                      'itonami.tests.test-inspect 'itonami.tests.test-optimize)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:kabuto
+  {:doc "kabuto Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'kabuto.methods.test-analyze 'kabuto.methods.test-autorun
+                      'kabuto.methods.test-social)
+             (let [r (clojure.test/run-tests
+                      'kabuto.methods.test-analyze 'kabuto.methods.test-autorun
+                      'kabuto.methods.test-social)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:kadode
+  {:doc "kadode Clojure test suite — 5 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'kadode.methods.test-datom-emit 'kadode.tests.test-wasm
+                      'kadode.tests.test-analyze 'kadode.tests.test-generate
+                      'kadode.tests.test-coverage)
+             (let [r (clojure.test/run-tests
+                      'kadode.methods.test-datom-emit 'kadode.tests.test-wasm
+                      'kadode.tests.test-analyze 'kadode.tests.test-generate
+                      'kadode.tests.test-coverage)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:kaiyaku
+  {:doc "kaiyaku Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'kaiyaku.methods.test-datom-emit 'kaiyaku.tests.test-analyze
+                      'kaiyaku.tests.test-handoff 'kaiyaku.tests.test-plan)
+             (let [r (clojure.test/run-tests
+                      'kaiyaku.methods.test-datom-emit 'kaiyaku.tests.test-analyze
+                      'kaiyaku.tests.test-handoff 'kaiyaku.tests.test-plan)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:kanjo
+  {:doc "kanjo Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'kanjo.methods.test-autorun 'kanjo.tests.test-kanjo
+                      'kanjo.tests.test-invariants)
+             (let [r (clojure.test/run-tests
+                      'kanjo.methods.test-autorun 'kanjo.tests.test-kanjo
+                      'kanjo.tests.test-invariants)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:karakuri
+  {:doc "karakuri Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'karakuri.methods.test-export-and-live-and-datom 'karakuri.methods.test-nl-plan
+                      'karakuri.methods.test-t2-browser 'karakuri.methods.test-command)
+             (let [r (clojure.test/run-tests
+                      'karakuri.methods.test-export-and-live-and-datom 'karakuri.methods.test-nl-plan
+                      'karakuri.methods.test-t2-browser 'karakuri.methods.test-command)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:kawaraban
+  {:doc "kawaraban Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'kawaraban.methods.test-analyze 'kawaraban.methods.test-charter-gates
+                      'kawaraban.methods.test-ingest 'kawaraban.methods.test-route)
+             (let [r (clojure.test/run-tests
+                      'kawaraban.methods.test-analyze 'kawaraban.methods.test-charter-gates
+                      'kawaraban.methods.test-ingest 'kawaraban.methods.test-route)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:kosatsu
+  {:doc "kosatsu Clojure test suite — 6 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'kosatsu.methods.test-analyze 'kosatsu.methods.test-charter-invariants
+                      'kosatsu.methods.test-autorun 'kosatsu.methods.test-lexicons
+                      'kosatsu.methods.test-weave 'kosatsu.methods.test-consistency)
+             (let [r (clojure.test/run-tests
+                      'kosatsu.methods.test-analyze 'kosatsu.methods.test-charter-invariants
+                      'kosatsu.methods.test-autorun 'kosatsu.methods.test-lexicons
+                      'kosatsu.methods.test-weave 'kosatsu.methods.test-consistency)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:matsurigoto
+  {:doc "matsurigoto Clojure test suite — 8 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'matsurigoto.methods.test-datoms 'matsurigoto.methods.test-sign-capability
+                      'matsurigoto.methods.test-lexicons 'matsurigoto.methods.test-standard
+                      'matsurigoto.methods.modules.test-tax-assess 'matsurigoto.methods.modules.test-civil-registry
+                      'matsurigoto.methods.modules.test-credential-issue 'matsurigoto.methods.modules.test-corp-registry)
+             (let [r (clojure.test/run-tests
+                      'matsurigoto.methods.test-datoms 'matsurigoto.methods.test-sign-capability
+                      'matsurigoto.methods.test-lexicons 'matsurigoto.methods.test-standard
+                      'matsurigoto.methods.modules.test-tax-assess 'matsurigoto.methods.modules.test-civil-registry
+                      'matsurigoto.methods.modules.test-credential-issue 'matsurigoto.methods.modules.test-corp-registry)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:meisai
+  {:doc "meisai Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'meisai.methods.test-autorun 'meisai.methods.test-ingest
+                      'meisai.methods.test-kotoba)
+             (let [r (clojure.test/run-tests
+                      'meisai.methods.test-autorun 'meisai.methods.test-ingest
+                      'meisai.methods.test-kotoba)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:mizuho
+  {:doc "mizuho Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'mizuho.methods.test-charter-gates 'mizuho.methods.test-chlorination
+                      'mizuho.methods.test-water-supply)
+             (let [r (clojure.test/run-tests
+                      'mizuho.methods.test-charter-gates 'mizuho.methods.test-chlorination
+                      'mizuho.methods.test-water-supply)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:niyaku
+  {:doc "niyaku Clojure test suite — 5 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'niyaku.methods.test-terminal-cycle 'niyaku.methods.test-stow-plan
+                      'niyaku.methods.test-isaac-sway-sim 'niyaku.methods.test-crane-dynamics
+                      'niyaku.methods.test-agv-transfer)
+             (let [r (clojure.test/run-tests
+                      'niyaku.methods.test-terminal-cycle 'niyaku.methods.test-stow-plan
+                      'niyaku.methods.test-isaac-sway-sim 'niyaku.methods.test-crane-dynamics
+                      'niyaku.methods.test-agv-transfer)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:post_quantum_compat
+  {:doc "post_quantum_compat Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'post-quantum-compat.methods.test-datom-emit 'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry)
+             (let [r (clojure.test/run-tests
+                      'post-quantum-compat.methods.test-datom-emit 'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:rasen
+  {:doc "rasen Clojure test suite — 5 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'rasen.tests.test-datom-emit 'rasen.tests.test-wasm
+                      'rasen.tests.test-ingest 'rasen.tests.test-analyze
+                      'rasen.tests.test-coverage)
+             (let [r (clojure.test/run-tests
+                      'rasen.tests.test-datom-emit 'rasen.tests.test-wasm
+                      'rasen.tests.test-ingest 'rasen.tests.test-analyze
+                      'rasen.tests.test-coverage)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:shomei
+  {:doc "shomei Clojure test suite — 9 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'shomei.methods.test-aggregate 'shomei.methods.test-analyze
+                      'shomei.methods.test-charter-invariants 'shomei.methods.test-blake2b
+                      'shomei.methods.test-claims 'shomei.methods.test-revoke
+                      'shomei.methods.test-verify 'shomei.methods.test-factors
+                      'shomei.methods.test-lexicons)
+             (let [r (clojure.test/run-tests
+                      'shomei.methods.test-aggregate 'shomei.methods.test-analyze
+                      'shomei.methods.test-charter-invariants 'shomei.methods.test-blake2b
+                      'shomei.methods.test-claims 'shomei.methods.test-revoke
+                      'shomei.methods.test-verify 'shomei.methods.test-factors
+                      'shomei.methods.test-lexicons)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:sukashi
+  {:doc "sukashi Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'sukashi.methods.test-autorun 'sukashi.tests.test-sukashi)
+             (let [r (clojure.test/run-tests
+                      'sukashi.methods.test-autorun 'sukashi.tests.test-sukashi)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:tanemaki
+  {:doc "tanemaki Clojure test suite — 5 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'tanemaki.methods.test-datom-emit 'tanemaki.tests.test-wasm
+                      'tanemaki.tests.test-analyze 'tanemaki.tests.test-propose
+                      'tanemaki.tests.test-coverage)
+             (let [r (clojure.test/run-tests
+                      'tanemaki.methods.test-datom-emit 'tanemaki.tests.test-wasm
+                      'tanemaki.tests.test-analyze 'tanemaki.tests.test-propose
+                      'tanemaki.tests.test-coverage)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:tasuke
+  {:doc "tasuke Clojure test suite — 10 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'tasuke.methods.test-intake 'tasuke.methods.test-evidence
+                      'tasuke.methods.test-analyze 'tasuke.methods.test-charter-invariants
+                      'tasuke.methods.test-report-gen 'tasuke.methods.test-triage
+                      'tasuke.methods.test-lexicons 'tasuke.methods.test-packet
+                      'tasuke.methods.test-consistency 'tasuke.methods.test-app-parity)
+             (let [r (clojure.test/run-tests
+                      'tasuke.methods.test-intake 'tasuke.methods.test-evidence
+                      'tasuke.methods.test-analyze 'tasuke.methods.test-charter-invariants
+                      'tasuke.methods.test-report-gen 'tasuke.methods.test-triage
+                      'tasuke.methods.test-lexicons 'tasuke.methods.test-packet
+                      'tasuke.methods.test-consistency 'tasuke.methods.test-app-parity)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:tate
+  {:doc "tate Clojure test suite — 5 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'tate.tests.test-case-actors 'tate.tests.test-site
+                      'tate.tests.test-terms 'tate.tests.test-coverage
+                      'tate.tests.test-respond)
+             (let [r (clojure.test/run-tests
+                      'tate.tests.test-case-actors 'tate.tests.test-site
+                      'tate.tests.test-terms 'tate.tests.test-coverage
+                      'tate.tests.test-respond)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:tedai
+  {:doc "tedai Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'tedai.methods.test-t2-vision-and-live-and-datom 'tedai.methods.test-desktop
+                      'tedai.cells.intent-plan.test-state-machine)
+             (let [r (clojure.test/run-tests
+                      'tedai.methods.test-t2-vision-and-live-and-datom 'tedai.methods.test-desktop
+                      'tedai.cells.intent-plan.test-state-machine)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:todoke
+  {:doc "todoke Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine)
+             (let [r (clojure.test/run-tests
+                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:uchiwake
+  {:doc "uchiwake Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'uchiwake.tests.test-off-adapter 'uchiwake.tests.test-uchiwake)
+             (let [r (clojure.test/run-tests
+                      'uchiwake.tests.test-off-adapter 'uchiwake.tests.test-uchiwake)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:watari
+  {:doc "watari Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'watari.methods.test-ingest 'watari.methods.test-analyze
+                      'watari.methods.test-autorun)
+             (let [r (clojure.test/run-tests
+                      'watari.methods.test-ingest 'watari.methods.test-analyze
+                      'watari.methods.test-autorun)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:watatsuna
+  {:doc "watatsuna Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'watatsuna.methods.test-ingest 'watatsuna.methods.test-analyze
+                      'watatsuna.methods.test-plan 'watatsuna.methods.test-autorun)
+             (let [r (clojure.test/run-tests
+                      'watatsuna.methods.test-ingest 'watatsuna.methods.test-analyze
+                      'watatsuna.methods.test-plan 'watatsuna.methods.test-autorun)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:yabai
+  {:doc "yabai Clojure test suite — 1 cljc suite wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'yabai.methods.test-autorun)
+             (let [r (clojure.test/run-tests
+                      'yabai.methods.test-autorun)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:yadori
+  {:doc "yadori Clojure test suite — 1 cljc suite wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'yadori.methods.test-availability)
+             (let [r (clojure.test/run-tests
+                      'yadori.methods.test-availability)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  test:kuni-umi
+  {:doc "kuni-umi Clojure test suite (site_survey cell port). NOTE: requires the 20-actors/kuni_umi -> kuni-umi directory symlink — Clojure ns munging maps the hyphenated actor name 'kuni-umi' to the underscore path 'kuni_umi', but the actor dir is hyphenated (70+ path refs make a full rename a separate maintainer task). The symlink is the minimal, reversible fix (the repo already uses symlinks, e.g. the site_survey __init__.py). ADR-2606160842."
+   :task (do (require 'clojure.test 'kuni-umi.cells.site-survey.test-cell)
+             (let [r (clojure.test/run-tests 'kuni-umi.cells.site-survey.test-cell)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:noroshi
@@ -321,7 +723,7 @@
 
                       'tsumugi.methods.test-analyze 'tsumugi.methods.test-narrate
 
-                      'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-datom-emit
+                      'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
 
                       'todoke.cells.route-sequencing.test-state-machine
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
@@ -400,7 +802,7 @@
 
                       'tsumugi.methods.test-analyze 'tsumugi.methods.test-narrate
 
-                      'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-datom-emit
+                      'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
 
                       'todoke.cells.route-sequencing.test-state-machine
                                              'hotaru.methods.test-analyze
