@@ -1,0 +1,122 @@
+;; License × Charter-fit scorecard — SSoT data for score.bb
+;;
+;; Evaluation of candidate licenses against the etzhayyim constitution
+;; (Mission Charter ADR-2605192100 + Charter Rider v3.1 + CLAUDE.md substrate
+;; boundary). Scores are reasoned judgement (0..10), NOT empirical measurement.
+;; Weights derive from the Charter and MUST sum to 1.0 (asserted by score.bb).
+;;
+;; Axis = the thing the constitution actually demands of a license; the decisive
+;; axis is :c1 (conduct-based exclusion of Non-Aligned Entities, Rider §2) — the
+;; one capability CC/GPL families structurally lack.
+
+{:meta
+ {:id        "paper-2606171500-license-charter-fit-evaluation"
+  :title     "etzhayyim 憲法適合ライセンス評価 — CC/GPL/RAIL/独自の数値比較"
+  :date      "2026-06-17"
+  :authoritative false
+  :note      "judgement scorecard; rubric mirrors tanemaki DD (weights public, Σ=1.0, screens before weighting)"}
+
+ ;; ── Evaluation axes (Σ weight = 1.0) ──────────────────────────────────────
+ :criteria
+ [{:key :c1 :weight 0.22
+   :label "行い基準の排除"
+   :desc  "Non-Aligned Entity を conduct / declared-doctrine で排除できるか (Rider §2)"}
+  {:key :c2 :weight 0.15
+   :label "profit 軸の正しさ"
+   :desc  "営利/非営利でフィルタ *しない* か (営利非営利関係なく; Rider §4(b)(c))"}
+  {:key :c3 :weight 0.15
+   :label "commons 開放性"
+   :desc  "source-available / fork 可 (IP-free-release Charter §1.5)"}
+  {:key :c4 :weight 0.12
+   :label "利用制限の下流伝播"
+   :desc  "制限が全 downstream に travel するか (Rider §3 incorporation-by-reference)"}
+  {:key :c5 :weight 0.10
+   :label "特許 grant + 終了条項"
+   :desc  "Apache §3 grant + Rider §3(a) 特許 termination 機構"}
+  {:key :c6 :weight 0.10
+   :label "ML 重み適合性"
+   :desc  "model / weights に license として機能するか"}
+  {:key :c7 :weight 0.08
+   :label "Rider/permissive 合成性"
+   :desc  "既存 Rider 機構を載せられるか / 他 permissive コードと mix 可"}
+  {:key :c8 :weight 0.08
+   :label "法的堅牢性・採用実績"
+   :desc  "判例 / 普及 / enforceability"}]
+
+ ;; ── Candidates ────────────────────────────────────────────────────────────
+ ;; scores keyed by axis; 0..10
+ :licenses
+ [{:key :apache-rider
+   :label "Apache 2.0 + Charter Rider (現行)"
+   :family :ethical-source
+   :scores {:c1 10 :c2 10 :c3 9 :c4 9 :c5 10 :c6 7 :c7 10 :c8 6}}
+
+  {:key :ecl-custom
+   :label "ECL — etzhayyim Covenant License (独自・full-custom)"
+   :family :ethical-source
+   :scores {:c1 10 :c2 10 :c3 9 :c4 10 :c5 9 :c6 9 :c7 7 :c8 4}}
+
+  {:key :ecl-on-apache
+   :label "ECL-on-Apache (独自 conduct 層 × Apache 既製 base = 現行構造の正規化)"
+   :family :ethical-source
+   :scores {:c1 10 :c2 10 :c3 9 :c4 10 :c5 10 :c6 9 :c7 9 :c8 6}}
+
+  {:key :openrail-charter
+   :label "OpenRAIL-M + Charter §2 Attachment (hybrid)"
+   :family :rail
+   :scores {:c1 10 :c2 10 :c3 8 :c4 10 :c5 8 :c6 10 :c7 9 :c8 6}}
+
+  {:key :openrail-m
+   :label "OpenRAIL-M (標準)"
+   :family :rail
+   :scores {:c1 8 :c2 10 :c3 8 :c4 10 :c5 7 :c6 10 :c7 8 :c8 6}}
+
+  {:key :hippocratic
+   :label "Hippocratic License 3.0"
+   :family :ethical-source
+   :scores {:c1 7 :c2 10 :c3 7 :c4 9 :c5 5 :c6 6 :c7 7 :c8 4}}
+
+  {:key :apache
+   :label "Apache 2.0 (単体)"
+   :family :permissive
+   :scores {:c1 0 :c2 10 :c3 10 :c4 0 :c5 9 :c6 7 :c7 10 :c8 10}}
+
+  {:key :gpl3
+   :label "GPL-3.0"
+   :family :copyleft
+   :scores {:c1 1 :c2 9 :c3 9 :c4 3 :c5 8 :c6 4 :c7 2 :c8 9}}
+
+  {:key :mit
+   :label "MIT"
+   :family :permissive
+   :scores {:c1 0 :c2 10 :c3 10 :c4 0 :c5 2 :c6 7 :c7 7 :c8 10}}
+
+  {:key :agpl3
+   :label "AGPL-3.0"
+   :family :copyleft
+   :scores {:c1 1 :c2 9 :c3 8 :c4 3 :c5 8 :c6 4 :c7 2 :c8 8}}
+
+  {:key :cc0
+   :label "CC0 1.0"
+   :family :cc
+   :scores {:c1 0 :c2 10 :c3 10 :c4 0 :c5 3 :c6 6 :c7 6 :c8 8}}
+
+  {:key :cc-by-sa
+   :label "CC-BY-SA 4.0"
+   :family :cc
+   :scores {:c1 0 :c2 10 :c3 8 :c4 5 :c5 1 :c6 5 :c7 3 :c8 9}}
+
+  {:key :cc-by
+   :label "CC-BY 4.0"
+   :family :cc
+   :scores {:c1 0 :c2 10 :c3 9 :c4 1 :c5 1 :c6 6 :c7 4 :c8 9}}
+
+  {:key :sspl
+   :label "SSPL"
+   :family :copyleft
+   :scores {:c1 2 :c2 4 :c3 5 :c4 6 :c5 7 :c6 3 :c7 2 :c8 5}}
+
+  {:key :cc-by-nc
+   :label "CC-BY-NC 4.0 (= ImageBind 上流)"
+   :family :cc
+   :scores {:c1 2 :c2 0 :c3 4 :c4 7 :c5 1 :c6 6 :c7 2 :c8 8}}]}
