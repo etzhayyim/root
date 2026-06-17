@@ -21,6 +21,7 @@
   live kotoba node."
   (:require [tatara.methods.analyze :as analyze]
             [tatara.methods.kotoba :as kotoba]
+            [tatara.methods.compose :as compose]
             #?(:clj [clojure.java.io :as io])))
 
 (def base-as-of 20260617)
@@ -46,10 +47,23 @@
      transaction (graph + derived :concentration/* signals). cycle drives tx-id + as-of."
      ([cycle] (run-cycle cycle nil log-default))
      ([cycle graph log-path]
-      (let [rows (analyze/load-edn (graph-path graph))   ; observe — OFFLINE graph (G7)
+      (let [gp (graph-path graph)
+            rows (analyze/load-edn gp)                     ; observe — OFFLINE graph (G7)
             g (analyze/classify rows)
             a (analyze/analyze g)                          ; aggregate resilience signal (G2)
-            datoms (into (kotoba/graph-datoms rows) (kotoba/derived-datoms a))
+            ;; cross-actor composition — sibling seeds resolved OFFLINE relative to the actor dir;
+            ;; absent siblings → empty legs (graceful), still no external I/O (G7)
+            actor-dir (some-> gp clojure.java.io/file .getAbsoluteFile .getParentFile .getParentFile)
+            sib-root (some-> actor-dir .getParentFile)
+            comp (if sib-root
+                   (compose/choke-composition
+                    a
+                    (compose/watari-choke-transit (io/file sib-root "watari" "data" "seed-craft-graph.kotoba.edn"))
+                    (compose/watatsuna-choke-load (io/file sib-root "watatsuna" "data" "cable-graph.merged.kotoba.edn")))
+                   [])
+            datoms (-> (kotoba/graph-datoms rows)
+                       (into (kotoba/derived-datoms a))
+                       (into (compose/composition-eavt comp)))
             tx (kotoba/make-tx datoms :tx-id cycle :as-of (+ base-as-of cycle)
                                :prev-cid (kotoba/head-cid log-path))
             cid (kotoba/append-tx tx log-path)             ; PERSIST to append-only LOCAL kotoba log

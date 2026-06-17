@@ -61,6 +61,18 @@
             (str "forbidden per-individual attribute persisted by heartbeat: " attr))))
     (.delete log)))
 
+(deftest test-heartbeat-persists-cross-actor-composition
+  (let [log (tmp)]
+    (.delete log)
+    (ar/run-cycle 1 seed log)
+    (let [datoms (mapcat :tx/datoms (kt/read-log log))]
+      ;; the autonomous loop now captures the full 静↔動↔cable resilience picture, not just
+      ;; tatara's internal concentration
+      (is (some (fn [[_ _ attr v]] (and (= :composition/chokepoint attr) (= :malacca v))) datoms))
+      (is (some (fn [[_ _ attr v]] (and (= :composition/derived attr) (true? v))) datoms))
+      (is (some (fn [[_ _ attr v]] (and (= :composition/exposure attr) (number? v))) datoms)))
+    (.delete log)))
+
 (deftest test-derived-concentration-signals-flagged
   (let [log (tmp)]
     (.delete log)

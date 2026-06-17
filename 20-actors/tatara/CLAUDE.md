@@ -70,11 +70,12 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   (graph-datoms + derived `:concentration/*`), append-only, verify-chain tamper-evident,
   resume-safe, no external I/O.
 - `cell:tatara.autorun` → `methods/autorun.cljc`. The autonomous heartbeat — same shape as
-  watari/watatsuna: each cycle observes the OFFLINE seed → classify → analyze → **persists a
-  content-addressed tx** (graph + derived `:concentration/*`) to the append-only LOCAL kotoba
+  watari/watatsuna: each cycle observes the OFFLINE seed → classify → analyze → compose (the
+  cross-actor 静↔動↔cable picture, sibling seeds read OFFLINE) → **persists a content-addressed
+  tx** (graph + derived `:concentration/*` + `:composition/*`) to the append-only LOCAL kotoba
   log, linking the previous tx's CID. Deterministic / resume-safe. Live feed + live-node push
-  stay G7-gated. G2/G4 hold by construction (only aggregate concentration is representable;
-  no per-worker datom).
+  stay G7-gated. G2/G4 hold by construction (only aggregate concentration/composition is
+  representable; no per-worker datom, no target attr).
 - `cell:tatara.crosscheck` → `methods/crosscheck.cljc` (uchiwake pattern). MEASURES
   `:plant/operator` ⇄ kabuto `:company/id` linkage (bridging tatara's short `org.corp.tsmc`
   to kabuto's country-qualified `org.corp.tw.tsmc` by normalized id+name token), emits a
@@ -95,7 +96,7 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   Every coordinate DERIVED from a seed (regenerable; none hand-copied).
 
 ```bash
-bb 20-actors/tatara/run_tests.sh                                              # 49 tests / 4,914 assertions
+bb 20-actors/tatara/run_tests.sh                                              # 50 tests / 5,001 assertions
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"  # → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)"      # → the three globes
 bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-main)"  # autonomous heartbeat → LOCAL kotoba log

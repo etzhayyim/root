@@ -67,6 +67,21 @@
              :exposure (+ plants craft cable)}))
         (az/chokes-by-load a)))
 
+;; ── EAVT emission (for the autorun commit-DAG; mirrors kotoba's [:db/add e a v]) ──────
+(defn composition-eavt
+  "Flatten the composition into append-only EAVT assertions, each flagged :composition/derived
+  (aggregate resilience cue recomputed on read, never re-ingested as fact, never a target — G2)."
+  [comp]
+  (vec (mapcat (fn [{:keys [chokepoint plants craft cable exposure]}]
+                 (let [e (str "composition-" (name chokepoint))]
+                   [[:db/add e :composition/chokepoint chokepoint]
+                    [:db/add e :composition/plants plants]
+                    [:db/add e :composition/craft craft]
+                    [:db/add e :composition/cable cable]
+                    [:db/add e :composition/exposure exposure]
+                    [:db/add e :composition/derived true]]))
+               comp)))
+
 ;; ── report ───────────────────────────────────────────────────────────────────────
 (defn render-report [comp]
   (let [P (fn [L s] (conj L s))
