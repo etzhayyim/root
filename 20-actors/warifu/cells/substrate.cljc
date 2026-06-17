@@ -43,6 +43,13 @@
     "Place an escrow hold; return the auth-id. `opts` carries the Python keyword-only
      args as a map {:card-token :amount-usdc :funding :purpose :merchant-did}.
      (Python `place_hold(account, *, card_token, amount_usdc, funding, purpose, merchant_did) -> str`.)")
+  ;; --- holds / captures (capture) ---
+  (load-hold [this auth-id]
+    "Return the auth_hold map for `auth-id`, or nil if absent.
+     (Python `load_hold(auth_id) -> Optional[dict]`.)")
+  (record-capture [this auth-id amount-usdc]
+    "Record a (full/partial) capture against a hold; return the capture-id.
+     (Python `record_capture(auth_id, amount_usdc) -> str`.)")
   ;; --- holds / settlements (refund) ---
   (load-settlement [this settlement-id]
     "Return the settlement map for `settlement-id`, or nil if absent.
@@ -70,6 +77,8 @@
   (usdc-balance [_ _]         (unwired-fail "usdc_balance"))
   (credit-available [_ _]     (unwired-fail "credit_available"))
   (place-hold [_ _ _]         (unwired-fail "place_hold"))
+  (load-hold [_ _]            (unwired-fail "load_hold"))
+  (record-capture [_ _ _]     (unwired-fail "record_capture"))
   (load-settlement [_ _]      (unwired-fail "load_settlement"))
   (reverse-settlement [_ _ _] (unwired-fail "reverse_settlement"))
   (write-facts [_ _]          (unwired-fail "write_facts")))
