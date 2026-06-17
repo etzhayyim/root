@@ -70,8 +70,11 @@ methods/
                        ingest-live! over data/ingest-sources.edn = actor-runtime live fetch leg (G7)
   kotoba.cljc      R1  persist leverage readout → kotoba Datom-log commit-DAG (EAVT, CID-chained,    → data/persisted/ (gitignored)
                        idempotent-by-content, verify-chain tamper-evident; shared kotoba.datom)
+  kotoba_bridge.cljc R1 push local commit-DAG → LIVE kotoba engine :8077 (…datomic.transact)        → remote Datom graph
+                       host allowlist + graph-cid + :kaname.tx/* provenance + :bridge/* exactly-once cursor
 graph.cljc         R1  langgraph-clj StateGraph ACTOR: :perceive-world(世界認識)→:leverage→:route→:osekkai→:persist
 autorun.cljc       R1  autonomous heartbeat (invoke graph; cycle = log length; resume-safe; bb -main)
+cell.cljc          R1  cell-runner entry `fire` (KanameHeartbeatCell, node naphtali, cron 53 * * * *, healthz 13083)
   route.cljc           route the 要 to OPENING; refuses capture (G2)                               → out/opening-route.md
   osekkai.cljc         ossekai handoff proposal (advisory/unsent); refuses person/coordinate (G1)  → out/osekkai-handoff.md
   gates.cljc           constitutional gate assertions (ex-info) — G1/G2/G5
@@ -133,6 +136,18 @@ kaname is now a first-class **langgraph-clj StateGraph actor** (`kaname.graph`, 
   **idempotent-by-content**, **verify-chain** tamper-evident, resume-safe, `data/persisted/` gitignored.
 - **heartbeat**: `kaname.autorun` — `bb 20-actors/kaname/autorun.cljc [base] [log] [--live]`. Verified
   live: beat#0 perceived 6 mirrors (173n/216縁) → 要=OpenAI → persisted; beat#1 `:no-change`.
+
+### LIVE-engine bridge + fleet registration (founder-approved 06-17)
+
+- **`methods/kotoba_bridge.cljc`** (ibuki-R3 pattern): pushes each local commit-DAG tx to the LIVE
+  kotoba engine (`com.etzhayyim.apps.kotoba.datomic.transact`). Host allowlist (loopback + EVO-X2 LAN);
+  `graph-cid` KotobaCid parity; `:kaname.tx/*` provenance; `:bridge/*` exactly-once cursor;
+  `expected_parent`; DRY-RUN default, `KANAME_KOTOBA_LIVE=1` for live. **Verified vs running :8077**:
+  dry-run computed graph CID `bafyrei…`; live POST reached the endpoint, the server parsed the unsigned
+  operator bearer and gated only on the operator-DID value → set `KANAME_KOTOBA_OPERATOR_DID` (the
+  node's public operator DID) to land the authenticated commit (the documented G7 operator step).
+- **fleet**: `KanameHeartbeatCell` in `50-infra/cluster/murakumo/cell-runner/cells.edn` (node naphtali,
+  cron `53 * * * *`, healthz 13083) → `kaname.cell/fire` (one local heartbeat; live legs operator-gated).
 
 ## Run
 

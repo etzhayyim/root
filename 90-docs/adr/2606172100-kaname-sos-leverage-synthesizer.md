@@ -1,6 +1,6 @@
 # ADR-2606172100 — kaname 要 — cross-domain system-of-systems leverage-point (律速) synthesizer + おせっかい proposer
 
-- **Status**: Accepted (R0 + R1 math/join + multi-mirror + web-ingest + langgraph-clj actor on kotoba commit-DAG; founder-approved 2026-06-17)
+- **Status**: Accepted (R0 + R1 math/join + multi-mirror + web-ingest + langgraph-clj actor on kotoba commit-DAG + LIVE-engine bridge + fleet-registered; founder-approved 2026-06-17)
 - **Date**: 2026-06-17
 - **Tier**: Tier-B actor
 - **Parent**: ADR-2605192100 (Mission Charter), ADR-2605262130 (kotoba substrate), ADR-2605312345 (Datom = canonical state)
@@ -200,6 +200,28 @@ to the canonical **kotoba Datom-log commit-DAG**:
 
 46 tests / 192 assertions green (incl. `test_kotoba` clean-datoms + idempotent + verify, `test_graph`
 StateGraph compile + node state-flow + guarded full perceive→persist run).
+
+### LIVE-engine bridge + fleet registration (founder-approved 2026-06-17)
+
+- **`kaname.methods.kotoba-bridge`** (clj, mirrors the ibuki R3 bridge): pushes each local commit-DAG
+  tx to the LIVE kotoba engine via `com.etzhayyim.apps.kotoba.datomic.transact`. Host allowlist
+  (loopback + EVO-X2 LAN only, ADR-2605215000); `graph-cid` = KotobaCid::from_bytes parity; each tx
+  carries `:kaname.tx/*` provenance; a durable `:bridge/*` cursor (keyed by local CID) gives
+  exactly-once; `expected_parent` optimistic concurrency; DRY-RUN by default, live = KANAME_KOTOBA_LIVE=1.
+  **Verified against the running node (:8077)**: dry-run computed the correct graph CID
+  (`bafyrei…`); the live POST reached the endpoint and the server **parsed the unsigned operator
+  bearer, extracted `sub`, and gated only on the operator-DID value** (`Bearer sub … is not the
+  operator DID`) — i.e. the request is well-formed and connectivity is proven; the authenticated
+  commit needs `KANAME_KOTOBA_OPERATOR_DID` (the node's public operator DID — the documented G7
+  operator step, identical to ibuki's gate). Stub-transport tests prove the full push + exactly-once
+  cursor end-to-end.
+- **Fleet-registered**: `KanameHeartbeatCell` in `50-infra/cluster/murakumo/cell-runner/cells.edn`
+  (module `kaname.cell`, entry `fire`, node `naphtali`, cron `53 * * * *`, healthz 13083) — the
+  maturity track of ADR-2605192415. `kaname.cell/fire` runs ONE local heartbeat (no external I/O;
+  the live web-fetch + the live-engine bridge stay operator-gated).
+
+50 tests / 212 assertions green (incl. `test_bridge`: host-allowlist refusal, graph-CID determinism,
+tx_edn provenance, stub-transport live push + exactly-once cursor).
 
 ## Consequences
 
