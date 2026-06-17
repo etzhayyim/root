@@ -53,6 +53,6 @@
            t (trend (load-years dir))]
        (doseq [[c v] t]
          (println (format "commune %s — apartment median €/m² trajectory:" c))
-         (doseq [[y m] (:by-year v)] (println (format "    %s: €%,.0f (%d mutations)" y (:eur-m2 m) (:mutations m))))
+         (doseq [[y m] (:by-year v)] (println (format "    %s: €%,.0f (%d mutations)" y (or (:eur-m2 m) 0.0) (:mutations m))))
          (doseq [d (:yoy v)] (println (format "    %s→%s: %+.1f%% €/m² (vol %+.1f%%)" (:from d) (:to d) (:pct d) (or (:vol-pct d) 0.0))))))
      0))

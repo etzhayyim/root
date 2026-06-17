@@ -210,10 +210,16 @@ addressed (CID in provenance, `verify.cljc`), and obeys the per-jurisdiction pub
 
 Every source is fetched ONCE; the data lives in the repo and is never re-queried in normal use:
 
-- **Downloaded into the repo** (`80-data/jinushi-land/`, git-committed): all raw responses
-  (`*.raw.json` — WDQS parks/buildings/floors, country areas, NYC PLUTO, OSM Overpass) + the
+- **Downloaded into the repo** (`80-data/jinushi-land/`, git-committed): the no-person raw
+  responses (`*.raw.json`/`*.raw.csv` — WDQS parks/buildings/floors, country areas, OSM, FR DVF)
+  + the
   resolution caches (`wikidata-owner-labels.raw.edn` = wbgetentities QID→label/is-human;
   `gleif-resolution.raw.edn` = LEI→legal entity) + the processed snapshots (`*.kotoba.edn`).
+- **PRIVACY carve-out (G1/publish-prudence)**: `nyc-pluto.raw.json` (~1,500 ORDINARY natural
+  persons by name) is **gitignored — NEVER committed** to the public repo; it lives only locally /
+  IPFS cold-tier. The committed `nyc-pluto-parcels.kotoba.edn` is anonymized (persons → sha256-key,
+  no name; verified 0 named persons). Notable public-figure owners from open KGs (e.g. Wikidata,
+  identified by already-public QID) ARE represented per the public-record directive.
 - **No method touches the network** — every `.cljc` reads local files; the ONLY network code is
   `methods/fetch_wdqs.sh` (explicit, polite, operator-run). The 30-min loop = zero network I/O.
 - **No re-query, even on a from-scratch rebuild**: the raw + the label/GLEIF caches are committed,

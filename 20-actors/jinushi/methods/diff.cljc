@@ -8,7 +8,11 @@
   = trajectory, not snapshot). Pure + content-addressable; the diff itself is provenance."
   (:require [clojure.string :as str]))
 
-(defn index-by [key-fn records] (into {} (map (juxt key-fn identity)) records))
+(defn index-by
+  "Index records by key-fn, skipping any record whose key is nil (a record missing the key would
+  otherwise poison the later `sort` of the key set with a nil/heterogeneous comparator)."
+  [key-fn records]
+  (into {} (comp (map (juxt key-fn identity)) (filter (comp some? first))) records))
 
 (defn diff
   "Compare old vs new record seqs keyed by `key-fn`. `compare-fields` (optional) restricts the
