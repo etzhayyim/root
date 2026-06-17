@@ -4,7 +4,8 @@
 (edge-primary karma) · 2605312345 (Datom = canonical state) · 2605262130 (kotoba) · 2605215000
 (Murakumo-only) · 2606091000 (commit-DAG heartbeat) · 2605192415 (cell-runner). **Status**:
 🟢 R1+ (clj-native, kotoba/Datom-native, 常駐化 heartbeat + Murakumo digest + DISCLOSED ingest
-with G7 gate, 53-node seed — all kinds/edges/axes covered, 36 tests / 125 assertions green).
+with G7 gate, on the **root kotoba roster** — 105 entities / 0 drift / 0 violations,
+53-node seed all kinds/edges/axes covered, 39 tests / 130 assertions green).
 
 chie ("智慧" = wisdom/intelligence) is the **AI sibling** of the power-mirror lineage
 (tsumugi / keizu / kabuto / kanjō / kosatsu). It applies the same KG-mirror architecture to
