@@ -82,6 +82,20 @@
     ;; every chokepoint a flow traverses has a geographic node (the shared map anchor)
     (is (every? (:choke-coords a) (keys (:choke-plants a))))))
 
+(deftest test-logistics-modal-and-commodity-split
+  (let [[_ a] (load*)]
+    ;; modal split over all 28 export flows
+    (is (= 21 (get-in a [:flow-modes :sea])))
+    (is (= 3  (get-in a [:flow-modes :air])))
+    (is (= 3  (get-in a [:flow-modes :rail])))
+    (is (= 1  (get-in a [:flow-modes :inland-water])))
+    (is (= 28 (reduce + (vals (:flow-modes a)))))
+    ;; commodity split
+    (is (= 9 (get-in a [:flow-commodities :components])))
+    (is (= 8 (get-in a [:flow-commodities :finished-goods])))
+    (is (= 5 (get-in a [:flow-commodities :vehicles])))
+    (is (= 28 (reduce + (vals (:flow-commodities a)))))))
+
 (deftest test-no-per-worker-attribute-is-representable  ;; ── load-bearing G4 gate ──
   (let [[g _] (load*)]
     (doseq [p (:plants g)]

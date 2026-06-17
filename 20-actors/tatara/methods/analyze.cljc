@@ -128,8 +128,14 @@
                               m (:flow/via f)))))
                 {} flows)
 
-        global-headcount (reduce + 0 (map #(:plant/headcount-est % 0) plants))]
+        global-headcount (reduce + 0 (map #(:plant/headcount-est % 0) plants))
+
+        ;; logistics modal + commodity split over the export flows (seed data analyze previously ignored)
+        flow-modes (frequencies (map :flow/mode flows))
+        flow-commodities (frequencies (map :flow/commodity flows))]
     {:plant-by-id plant-by-id
+     :flow-modes flow-modes
+     :flow-commodities flow-commodities
      :sector-country sector-country
      :sector-count sector-count
      :sector-stats sector-stats
@@ -234,6 +240,21 @@
                       (P L (str "| " (name s) " | " (fmt-num (:value cap)) " | "
                                 (unit-label (:unit cap)) " |"))))
                   L (sectors-by-size a))
+        sort-cm (fn [cm] (sort-by (fn [k] [(- (get cm k)) (name k)]) (keys cm)))
+        L (-> L
+              (P "")
+              (P "## Logistics modal & commodity split (export flows)")
+              (P "")
+              (P "| transport mode | flows |   | commodity | flows |")
+              (P "|---|---:|---|---|---:|"))
+        L (let [modes (sort-cm (:flow-modes a))
+                comms (sort-cm (:flow-commodities a))
+                rows (max (count modes) (count comms))]
+            (reduce (fn [L i]
+                      (let [m (nth modes i nil) c (nth comms i nil)]
+                        (P L (str "| " (if m (str "`" (name m) "` ") "") " | " (if m (get (:flow-modes a) m) "") " |  | "
+                                  (if c (str "`" (name c) "` ") "") " | " (if c (get (:flow-commodities a) c) "") " |"))))
+                    L (range rows)))
         L (-> L
               (P "")
               (P "## Plant inventory snapshot")
