@@ -28045,6 +28045,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/research/2606171800-weight-family-generalization-physics.md",
+      "id": "research-2606171800-weight-family-generalization-physics",
+      "title": "The Physics of Generalization in the etzhayyim Weight Family: three traversal operators on the grokking energy landscape (oka-sheaf / maxwell-diffusion / baien-BitNet)",
+      "status": "active",
+      "doc_type": "explanation",
+      "topic": "weight-family-generalization-physics",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2606171100",
+        "2606061000",
+        "2606130900",
+        "2605250700",
+        "2605092350",
+        "weight-family-viz"
+      ],
+      "last_verified": "2026-06-17",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/atproto/260329-richtext-facet-l1-extension-design.md",
       "id": "richtext-facet-l1-extension",
       "title": "Richtext Facet L1 Extension — Notion-Level Block & Inline Formatting via AT Protocol Facets",
