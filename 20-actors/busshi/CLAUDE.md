@@ -33,11 +33,14 @@ residual excluded) → chokepoint-risk; **multigen-risk** = 0.40·monopoly +
 
 ```
 methods/busshi_edn.cljc   loader + classify (clojure.edn; :clj file I/O)
-methods/analyze.cljc      analyze → render-datoms → coverage → render-report (+ bb CLI)
-methods/test_*.cljc       loader + analytics + G1/G3/G5 invariant tests
+methods/analyze.cljc      analyze → datoms → render-datoms → coverage → render-report (+ bb CLI)
+methods/kotoba.cljc       Wave 2: content-addressed append-only OBSERVATION LEDGER (tamper-evident commit-DAG)
+methods/autorun.cljc      Wave 2: deterministic, idempotent-by-content heartbeat — analyze → append ONLY on change (+ bb CLI)
+methods/test_*.cljc       loader + analytics + G1/G3/G5 + ledger/heartbeat invariants
 kotoba/ontology.busshi.edn  EAVT schema + negative space (unrepresentable attrs)
 kotoba/seed.edn           Wave 1 seed (25 commodities, all 5 classes, :representative)
-manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed registry
+data/ (gitignored)        generated observation ledger — never committed/hand-edited
+manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger registry
 ```
 
 ## Datom convention
@@ -54,13 +57,19 @@ Every DERIVED datom carries `:busshi/derived true` + `:busshi/sourcing ":represe
 bb --classpath 20-actors 20-actors/busshi/methods/test_busshi_edn.cljc   # loader (3 tests)
 bb --classpath 20-actors 20-actors/busshi/methods/test_analyze.cljc      # analytics + invariants (9 tests / 55 assert)
 bb --classpath 20-actors 20-actors/busshi/methods/analyze.cljc           # print the resilience map
-./20-actors/busshi/run_tests.sh                                          # both suites
+bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heartbeat → append observations to ledger
+./20-actors/busshi/run_tests.sh                                          # 4 suites
 ```
 
 ## R0 → later waves
 
-- R0 (this ADR): clj-native scaffold + `:representative` seed + analyze/datoms/coverage + tests.
-- Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama, primary-source ingest behind G7), Murakumo-narrated digest, fleet heartbeat, lexicons.
+- R0 (ADR-2606161730): clj-native scaffold + `:representative` seed + analyze/datoms/coverage + tests.
+- **Wave 2 (landed, ADR-2606171000)**: content-addressed observation-ledger persistence
+  (`kotoba.cljc`) + deterministic, **idempotent-by-content** heartbeat (`autorun.cljc`) —
+  observations appended to a tamper-evident commit-DAG (verify-chain) ONLY when they change
+  (identical beat = no-op); resume-safe, no-server-key, gitignored. Mirrors ugachi (ADR-2606170900).
+- Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama,
+  primary-source ingest behind G7), Murakumo-narrated digest, fleet registration, lexicons.
 
 ## Related
 

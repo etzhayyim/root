@@ -6,6 +6,8 @@ cd "$(dirname "$0")/../.."   # → repo root (classpath base = 20-actors)
 SUITES=(
   "20-actors/busshi/methods/test_busshi_edn.cljc"
   "20-actors/busshi/methods/test_analyze.cljc"
+  "20-actors/busshi/methods/test_kotoba.cljc"
+  "20-actors/busshi/methods/test_autorun.cljc"
 )
 
 fail=0

@@ -16287,6 +16287,20 @@
       "lastVerified": "2026-06-17"
     },
     {
+      "id": "doc:adr-2606171000-busshi-observation-ledger-persistence-and-heartbeat",
+      "type": "TechArticle",
+      "title": "ADR-2606171000: busshi 物資 — content-addressed observation-ledger persistence + idempotent heartbeat (Wave 2)",
+      "status": "accepted",
+      "topic": "busshi-observation-ledger",
+      "authoritative": true,
+      "authoritativeFor": [
+        "busshi observation-ledger persistence (content-addressed append-only commit-DAG)",
+        "busshi deterministic idempotent-by-content heartbeat (analyze → append on change)"
+      ],
+      "related": "doc:adr-2606161800-ugachi-extraction-risk-gate",
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:adr-2606171100-maxwell-diffusion-variant",
       "type": "TechArticle",
       "title": "ADR-2606171100: maxwell-diffusion — diffusion-LM fleet variant (DiffusionGemma 26B-A4B base)",

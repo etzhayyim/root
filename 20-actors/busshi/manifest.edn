@@ -34,7 +34,9 @@
 
  :actor/methods
  [{:method/id "busshi_edn" :method/file "methods/busshi_edn.cljc" :method/role "seed loader + classify"}
-  {:method/id "analyze"    :method/file "methods/analyze.cljc"    :method/role "analyze → render-datoms → coverage → render-report (+ bb CLI)"}]
+  {:method/id "analyze"    :method/file "methods/analyze.cljc"    :method/role "analyze → datoms → render-datoms → coverage → render-report (+ bb CLI)"}
+  {:method/id "kotoba"     :method/file "methods/kotoba.cljc"     :method/role "Wave 2 (ADR-2606171000): content-addressed append-only OBSERVATION LEDGER (tx-cid/append-tx/read-log/verify-chain)"}
+  {:method/id "autorun"    :method/file "methods/autorun.cljc"    :method/role "Wave 2 (ADR-2606171000): deterministic idempotent-by-content heartbeat — analyze → append observation datoms on change (+ bb CLI)"}]
 
  :actor/lex
  [{:lex/id "commodityObservation"}
@@ -46,7 +48,15 @@
   :seed/sourcing :representative
   :seed/classes [:precious-metal :base-metal :rare-metal :energy :ag-soft]}
 
+ :actor/ledger
+ {:ledger/file "data/persisted/busshi.observations.kotoba.edn"
+  :ledger/kind :append-only-content-addressed-commit-dag
+  :ledger/gitignored true
+  :ledger/idempotent-by-content true
+  :ledger/note "Generated observation ledger of resilience observations; tamper-evident (verify-chain); no-server-key; appends only on change; a record of concentration OBSERVATIONS, never a target-list."}
+
  :actor/tests
  {:runner "babashka"
-  :cmd "bb --classpath 20-actors 20-actors/busshi/methods/test_analyze.cljc"
-  :suites ["methods/test_busshi_edn.cljc" "methods/test_analyze.cljc"]}}
+  :cmd "./20-actors/busshi/run_tests.sh"
+  :suites ["methods/test_busshi_edn.cljc" "methods/test_analyze.cljc"
+           "methods/test_kotoba.cljc" "methods/test_autorun.cljc"]}}
