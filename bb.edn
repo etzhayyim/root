@@ -319,7 +319,7 @@
                       'tsumugi.methods.test-coverage-report
                       'tsumugi.methods.test-project-influence-posts
 
-                      'tsumugi.methods.test-analyze
+                      'tsumugi.methods.test-analyze 'tsumugi.methods.test-narrate
 
                       'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-datom-emit
 
@@ -398,7 +398,7 @@
                       'tsumugi.methods.test-coverage-report
                       'tsumugi.methods.test-project-influence-posts
 
-                      'tsumugi.methods.test-analyze
+                      'tsumugi.methods.test-analyze 'tsumugi.methods.test-narrate
 
                       'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-datom-emit
 
