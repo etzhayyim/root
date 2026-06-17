@@ -60,7 +60,11 @@
   (let [a (az/analyze (az/classify (rows)))
         ds (kt/derived-datoms a)]
     (is (some (fn [[_ _ attr v]] (and (= :concentration/derived attr) (true? v))) ds))
-    (is (some (fn [[_ _ attr v]] (and (= :concentration/sector attr) (= :semiconductor v))) ds))))
+    (is (some (fn [[_ _ attr v]] (and (= :concentration/sector attr) (= :semiconductor v))) ds))
+    ;; the logistics modal/commodity split (computed by analyze) is now persisted too
+    (is (some (fn [[_ _ attr v]] (and (= :split/mode attr) (= :sea v))) ds))
+    (is (some (fn [[_ _ attr v]] (and (= :split/commodity attr) (= :components v))) ds))
+    (is (some (fn [[_ _ attr v]] (and (= :split/derived attr) (true? v))) ds))))
 
 #?(:clj
    (defn -main [& _]

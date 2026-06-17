@@ -81,7 +81,20 @@
                           [(add e :concentration/chokepoint cp)
                            (add e :concentration/chokepoint-plants (count (get-in a [:choke-plants cp])))
                            (add e :concentration/derived true)]))
-                      chokes)))))
+                      chokes))
+        ;; logistics modal + commodity split (computed by analyze; now persisted too)
+        (into (mapcat (fn [m]
+                        (let [e (str "split-mode-" (name m))]
+                          [(add e :split/mode m)
+                           (add e :split/flow-count (get-in a [:flow-modes m]))
+                           (add e :split/derived true)]))
+                      (sort-by (fn [m] [(- (get-in a [:flow-modes m])) (name m)]) (keys (:flow-modes a)))))
+        (into (mapcat (fn [c]
+                        (let [e (str "split-commodity-" (name c))]
+                          [(add e :split/commodity c)
+                           (add e :split/flow-count (get-in a [:flow-commodities c]))
+                           (add e :split/derived true)]))
+                      (sort-by (fn [c] [(- (get-in a [:flow-commodities c])) (name c)]) (keys (:flow-commodities a))))))))
 
 ;; ── canonical string for the CID preimage (deterministic) ────────────────────
 (defn- canonical [datoms prev-cid]
