@@ -40,7 +40,8 @@
   {:method/id "digest"           :method/file "methods/digest.cljc"           :method/runtime :clj}
   {:method/id "ingest"           :method/file "methods/ingest.cljc"           :method/runtime :clj}
   {:method/id "query"            :method/file "methods/query.cljc"            :method/runtime :clj}
-  {:method/id "verify"           :method/file "methods/verify.cljc"           :method/runtime :clj}]
+  {:method/id "verify"           :method/file "methods/verify.cljc"           :method/runtime :clj}
+  {:method/id "kqe"              :method/file "methods/kqe.cljc"              :method/runtime :clj}]
 
  :actor/cells
  [{:cell/id "ChieHeartbeatCell" :cell/entry "chie.cell/fire" :cell/runtime :clj :cell/node "gad"
@@ -58,4 +59,4 @@
  ["chie.tests.test-analyze" "chie.tests.test-coverage" "chie.tests.test-schema"
   "chie.tests.test-cell" "chie.tests.test-verify"
   "chie.methods.test-datom-emit" "chie.methods.test-autorun" "chie.methods.test-digest"
-  "chie.methods.test-ingest" "chie.methods.test-query"]}
+  "chie.methods.test-ingest" "chie.methods.test-query" "chie.methods.test-kqe"]}
