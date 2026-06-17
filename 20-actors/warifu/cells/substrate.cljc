@@ -21,13 +21,29 @@
 
 ;; ── SubstratePort (Python Protocol → Clojure protocol) ────────────
 ;;
-;; Only the methods the refund cell actually calls are required by the port
-;; the cell depends on; the full Python Protocol surface (resolve_card,
-;; usdc_balance, place_hold, settle_transfer, open_dispute, …) lives in the
-;; sibling cell ports and is not reproduced here (port what refund.py imports).
+;; Grown incrementally as cells are ported: the refund subset
+;; (load_settlement/reverse_settlement/write_facts) plus the authorize subset
+;; (resolve_card/usdc_balance/credit_available/place_hold). The remaining Python
+;; Protocol surface (load_hold/record_capture/settle_transfer/open_dispute) is
+;; added when capture/settle/dispute are ported.
 
 (defprotocol SubstratePort
-  "The DI seam the refund cell calls into."
+  "The DI seam warifu cells call into (the refund + authorize subset of cells/substrate.py)."
+  ;; --- identity / balances (authorize) ---
+  (resolve-card [this card-token]
+    "Resolve a network card token → holder account, or nil if absent.
+     (Python `resolve_card(card_token) -> Optional[str]`.)")
+  (usdc-balance [this account]
+    "Return the account's USDC minor-unit balance (0 if unknown).
+     (Python `usdc_balance(account) -> int`.)")
+  (credit-available [this account]
+    "Return the account's available 0% CreditLine (0 if unknown).
+     (Python `credit_available(account) -> int`.)")
+  (place-hold [this account opts]
+    "Place an escrow hold; return the auth-id. `opts` carries the Python keyword-only
+     args as a map {:card-token :amount-usdc :funding :purpose :merchant-did}.
+     (Python `place_hold(account, *, card_token, amount_usdc, funding, purpose, merchant_did) -> str`.)")
+  ;; --- holds / settlements (refund) ---
   (load-settlement [this settlement-id]
     "Return the settlement map for `settlement-id`, or nil if absent.
      (Python `load_settlement(settlement_id) -> Optional[dict]`.)")
@@ -50,6 +66,10 @@
 
 (defrecord UnwiredSubstrate []
   SubstratePort
+  (resolve-card [_ _]         (unwired-fail "resolve_card"))
+  (usdc-balance [_ _]         (unwired-fail "usdc_balance"))
+  (credit-available [_ _]     (unwired-fail "credit_available"))
+  (place-hold [_ _ _]         (unwired-fail "place_hold"))
   (load-settlement [_ _]      (unwired-fail "load_settlement"))
   (reverse-settlement [_ _ _] (unwired-fail "reverse_settlement"))
   (write-facts [_ _]          (unwired-fail "write_facts")))

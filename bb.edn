@@ -685,7 +685,7 @@
                       'hotaru.cells.commons-readiness.test-state-machine
                       'keizu.methods.test-edn
                       'tatekata.cells.mep-installation.test-cell
-                      'warifu.cells.test-refund
+                      'warifu.cells.test-refund 'warifu.cells.test-authorize
                       'kakaku.kotoba.test-ingest-mcp
                       'watatsuna.methods.test-ingest
                       'scripts.lint.test-verify-no-modal-labs-calls
@@ -715,7 +715,7 @@
                                              'hotaru.cells.commons-readiness.test-state-machine
                                              'keizu.methods.test-edn
                                              'tatekata.cells.mep-installation.test-cell
-                                             'warifu.cells.test-refund
+                                             'warifu.cells.test-refund 'warifu.cells.test-authorize
                                              'kakaku.kotoba.test-ingest-mcp
                                              'watatsuna.methods.test-ingest
                                              'scripts.lint.test-verify-no-modal-labs-calls
