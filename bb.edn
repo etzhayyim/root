@@ -66,6 +66,24 @@
              (let [r (clojure.test/run-tests 'kanae.methods.test-pipeline)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:noroshi
+  {:doc "noroshi 烽 Clojure test suite — 光電融合 comms-chip / ISAC / photonic packaging (link-budget, ISAC sim, active-alignment, fibre-loop, PIC layout, kami bridge) + charter/governance/lexicon invariants. 11 suites; py→cljc port wave (ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'noroshi.methods.test-active-alignment 'noroshi.methods.test-cable-endpoint
+                      'noroshi.methods.test-charter-invariants 'noroshi.methods.test-consistency
+                      'noroshi.methods.test-fibre-loop 'noroshi.methods.test-governance
+                      'noroshi.methods.test-isac-sim 'noroshi.methods.test-kami-isac-bridge
+                      'noroshi.methods.test-lexicons 'noroshi.methods.test-link-budget
+                      'noroshi.methods.test-pic-layout)
+             (let [r (clojure.test/run-tests
+                      'noroshi.methods.test-active-alignment 'noroshi.methods.test-cable-endpoint
+                      'noroshi.methods.test-charter-invariants 'noroshi.methods.test-consistency
+                      'noroshi.methods.test-fibre-loop 'noroshi.methods.test-governance
+                      'noroshi.methods.test-isac-sim 'noroshi.methods.test-kami-isac-bridge
+                      'noroshi.methods.test-lexicons 'noroshi.methods.test-link-budget
+                      'noroshi.methods.test-pic-layout)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:charter
   {:doc "Charter-gate conformance suites — substrate-native cljc (ADR-2606160842 py→clj port wave; clj+datomic first tier). 34 actors read their lexicons (central JSON / lex.edn) + manifest and pin the const/enum/required charter gates."
    :task (do (require 'clojure.test
@@ -300,6 +318,12 @@
                       'tsumugi.methods.test-publish-ipfs
                       'tsumugi.methods.test-coverage-report
                       'tsumugi.methods.test-project-influence-posts
+
+                      'tsumugi.methods.test-analyze
+
+                      'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-datom-emit
+
+                      'todoke.cells.route-sequencing.test-state-machine
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
                       'mitooshi.methods.test-social 'mitooshi.methods.test-synthesize
                       'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-horizon
@@ -373,6 +397,12 @@
                       'tsumugi.methods.test-publish-ipfs
                       'tsumugi.methods.test-coverage-report
                       'tsumugi.methods.test-project-influence-posts
+
+                      'tsumugi.methods.test-analyze
+
+                      'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-datom-emit
+
+                      'todoke.cells.route-sequencing.test-state-machine
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
                                              'mitooshi.methods.test-social
