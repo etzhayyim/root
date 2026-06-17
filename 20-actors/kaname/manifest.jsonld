@@ -37,6 +37,10 @@
     "com.etzhayyim.kaname.leveragePoint",
     "com.etzhayyim.kaname.osekkaiProposal"
   ],
+  "r1": {
+    "centrality": "methods/centrality.cljc — exact Brandes betweenness + power-iteration eigenvector + ΔΦ percolation/fragmentation sensitivity; L1 = C·(V/D)·(1+B'·)·(1−open) with real betweenness replacing the R0 bridge proxy",
+    "join": "methods/join.cljc — live mirror JOIN: parse a sibling mirror's committed [e a v tx op] Datom log → lift into a domain layer → reconcile-by-label across layers. PROVEN on chie 智慧's real output (39 nodes/39 縁 → :ai layer). Running a mirror = G7-gated; joining a committed output = what kaname does."
+  },
   "license": "Apache-2.0 + etzhayyim Charter Compliance Rider v3.2",
-  "status": "R0"
+  "status": "R0+R1"
 }

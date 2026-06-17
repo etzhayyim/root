@@ -61,16 +61,32 @@ Concentrator out-concentrates the Doctrine instrument yet has **lower** leverage
 ```
 methods/
   sos.cljc             EDN reader + multilayer load + leverage (C/V/bridge/L, on read) + report   → out/leverage-report.md
+  centrality.cljc  R1  exact Brandes betweenness + eigenvector + ΔΦ percolation; L1 (real B inside) → out/centrality-r1.md
+  join.cljc        R1  live mirror JOIN: lift a mirror's committed Datom log into a domain layer    → out/joined-ai-leverage.md
+                       + reconcile-by-label across layers (shared entity → spans domains → 要)
   route.cljc           route the 要 to OPENING; refuses capture (G2)                               → out/opening-route.md
   osekkai.cljc         ossekai handoff proposal (advisory/unsent); refuses person/coordinate (G1)  → out/osekkai-handoff.md
   gates.cljc           constitutional gate assertions (ex-info) — G1/G2/G5
   datom_emit.cljc      kotoba Datom log (GROUND :add + DERIVED :derived leverage integrals)        → out/sos-leverage-datoms.kotoba.edn
   coverage_report.cljc domain/mirror coverage honesty (G6)                                          → out/coverage-report.md
 kotoba/schema.edn      :sos-leverage ontology
-data/seed-sos.kotoba.edn  SYNTHETIC illustrative multilayer seed (13 nodes / 20 縁 / 8 of 10 domains)
-tests/                 test_sos / test_gates / test_route / test_osekkai / test_coverage  (24 tests / 78 assertions)
+data/seed-sos.kotoba.edn        SYNTHETIC illustrative multilayer seed (13 nodes / 20 縁 / 8 of 10 domains)
+data/fixture-mirror-datoms…edn  tiny synthetic mirror Datom-log (join test fixture)
+tests/                 test_{sos,gates,route,osekkai,coverage,centrality,join}  (34 tests / 142 assertions)
 lexicons/              com.etzhayyim.kaname.{leveragePoint,osekkaiProposal}
 ```
+
+### R1 (landed) — real centrality + proven live join
+
+- **centrality.cljc**: exact Brandes betweenness (40.3 ≫ 11.2 on the seed), eigenvector (power
+  iteration), ΔΦ fragmentation sensitivity — all converge on the same 要. `L1 = C·(V/D)·(1+B'·)·(1−open)`
+  with real betweenness replacing the R0 bridge proxy.
+- **join.cljc**: PROVEN on **chie 智慧's REAL committed Datom log** — parsed 39 nodes / 39 縁, lifted
+  into the `:ai` layer (34 kaname 縁; unmapped `:partners`/`:holds-role` dropped — no fabricated axis).
+  Lifted `:ai` concentration reproduces chie's own opening-priority (OpenAI 5.55, Anthropic 4.60);
+  kaname adds its own betweenness (OpenAI 114 / EU-AI-Act 66 / NVIDIA 64). `reconcile-by-label` merges
+  a shared entity across mirrors so it spans layers → versatility grows → it becomes the 要.
+  **Running a mirror to (re)produce output = G7-gated; joining a committed output = what kaname does.**
 
 ## Run
 
@@ -84,8 +100,10 @@ bb -e '(require (quote clojure.test) (quote kaname.tests.test-sos) (quote kaname
 
 ## Roadmap
 
-- **R1** — full multiplex betweenness + eigenvector-versatility (De Domenico et al.) + percolation
-  ΔΦ sensitivity; **live join** over the real mirrors' Datom logs (G7/Council-gated).
+- **R1 (landed 06-17)** — exact Brandes betweenness + eigenvector + ΔΦ percolation sensitivity
+  (`centrality.cljc`); the live mirror-join machinery proven on chie's real output (`join.cljc`).
+  Remaining R1: full multiplex tensor versatility (De Domenico et al.); joining MORE mirrors
+  (kabuto/tsumugi/keizu/…) as their outputs are committed (the run-the-mirror leg stays G7).
 - **R2** — ossekai-carried structural-first intervention loop (on-chain-logged; 1 SBT = 1 vote on
   any proposal touching a real institution).
 

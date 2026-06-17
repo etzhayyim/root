@@ -1,6 +1,6 @@
 # ADR-2606172100 — kaname 要 — cross-domain system-of-systems leverage-point (律速) synthesizer + おせっかい proposer
 
-- **Status**: Accepted (R0 scaffold)
+- **Status**: Accepted (R0 scaffold + R1 math/join landed)
 - **Date**: 2026-06-17
 - **Tier**: Tier-B actor
 - **Parent**: ADR-2605192100 (Mission Charter), ADR-2605262130 (kotoba substrate), ADR-2605312345 (Datom = canonical state)
@@ -114,8 +114,25 @@ the kotoba pywasm target is the Clojure source itself.
 | `kaname.methods.gates` | constitutional gate assertions (ex-info) shared by route/osekkai |
 | `kaname.methods.datom-emit` | kotoba Datom-log emitter (GROUND `:add` durable + DERIVED `:derived` transient leverage integrals) |
 | `kaname.methods.coverage-report` | domain/actor coverage honesty (which mirrors are joined; gaps → next ingest) |
+| `kaname.methods.centrality` (R1) | exact **Brandes betweenness** + power-iteration **eigenvector** + **ΔΦ** percolation/fragmentation sensitivity; `L1 = C·(V/D)·(1+B'·)·(1−open)` with real betweenness inside (replaces the R0 bridge proxy) |
+| `kaname.methods.join` (R1) | **the live mirror JOIN**: parse a sibling mirror's committed `[e a v tx op]` Datom-log output → lift its 縁 into a domain layer → `reconcile-by-label` across layers (shared entity → higher versatility → the 要) |
 
 Lexicons: `com.etzhayyim.kaname.leveragePoint`, `com.etzhayyim.kaname.osekkaiProposal`.
+
+### R1 landed (2026-06-17)
+
+- **Real centrality** (`centrality.cljc`): exact Brandes shortest-path betweenness, load-weighted
+  eigenvector (power iteration), and ΔΦ fragmentation sensitivity — all converge on the same 要 on
+  the seed (Accreditation Interface: betweenness 40.3 ≫ 11.2; ΔΦ + eigenvector top). Full multiplex
+  tensor eigenvector-versatility (De Domenico et al.) remains a future refinement, labelled honestly.
+- **Live mirror join PROVEN on real output** (`join.cljc`): kaname parses **chie 智慧's actual
+  committed Datom log** (39 nodes / 39 縁), lifts it into the `:ai` layer (34 kaname 縁; unmapped
+  `:partners`/`:holds-role` dropped — no fabricated axis), and computes leverage natively. The
+  lifted `:ai` concentration reproduces chie's own opening-priority (OpenAI 5.55, Anthropic 4.60),
+  and kaname adds its own betweenness (OpenAI 114, EU AI Act 66, NVIDIA 64). `reconcile-by-label`
+  merges a shared entity across mirrors → it gains domains across layers (the mechanism by which a
+  cross-domain entity becomes the 要). **Running a mirror to (re)produce its output stays
+  G7/Council-gated; joining a committed output is what kaname does.** 34 tests / 142 assertions green.
 
 ## Consequences
 
@@ -125,9 +142,11 @@ Lexicons: `com.etzhayyim.kaname.leveragePoint`, `com.etzhayyim.kaname.osekkaiPro
   transparent おせっかい carried by ossekai.
 - Complements **junkan** (CLD / Meadows) and feeds **ossekai** (intervention); cross-links the
   whole mirror lineage as its inputs.
-- R1: full multiplex betweenness + eigenvector-versatility + percolation ΔΦ sensitivity; live join
-  over the real mirrors' Datom logs (G7). R2: ossekai-carried structural-first intervention loop
-  (on-chain-logged, 1 SBT = 1 vote on any proposal that touches a real institution).
+- **R1 (landed)**: exact Brandes betweenness + eigenvector + ΔΦ percolation sensitivity; the live
+  mirror-join machinery, proven on chie's real committed output. Remaining R1: full multiplex tensor
+  versatility; joining MORE mirrors (kabuto/tsumugi/keizu/…) as their outputs are committed (the
+  run-the-mirror leg stays G7). R2: ossekai-carried structural-first intervention loop (on-chain-
+  logged, 1 SBT = 1 vote on any proposal that touches a real institution).
 
 ## Non-goals
 
