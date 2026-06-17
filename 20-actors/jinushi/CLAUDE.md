@@ -89,6 +89,9 @@ registry ingest.)
   (Paris-5e €12,707/m² vs Saint-Étienne €1,438/m²). digest.cljc now fuses VALUE + RELIABILITY too.
 - `methods/value_trend.cljc` — property-value as-of trajectory (YoY €/m²; 差分 on the VALUE
   dimension; Wellbecoming = trajectory). Paris-5e -3.4% 2022→2023.
+- `methods/scale_ingest.cljc` — PRODUCTION-SCALE streaming ingest (R2): bounded-memory line-stream
+  of full-bulk CSVs (PLUTO ~860k / nationwide DVF); person names anonymized on-the-fly; aggregates
+  identical to the sample path. Operator-run per `PRODUCTION.md`.
 - `methods/emit_all.cljc`    — UNIFIED canonical kotoba Datom log across ALL 6 sources / 4
   dimensions (land+building+company+pluto+osm+dvf), source-tagged for confidence; 35,669 datoms, CIDv1.
 - `methods/reconcile.cljc`   — cross-source owner reconciliation (信頼度 payoff): join owners on
@@ -260,7 +263,7 @@ CP=20-actors
 for ns in test-analyze test-datom-emit test-coverage test-ingest test-cid test-emit-real test-normalize-wdqs test-verify; do
   bb --classpath $CP -e "(require 'clojure.set 'jinushi.methods.$ns) (clojure.test/run-tests 'jinushi.methods.$ns)"
 done
-# 97 tests / 377 assertions green
+# 100 tests / 388 assertions green
 
 bb --classpath 20-actors -m jinushi.methods.coverage     # synthetic seed → out/coverage.md
 bb --classpath 20-actors -m jinushi.methods.datom-emit   # → out/jinushi-datoms.kotoba.edn

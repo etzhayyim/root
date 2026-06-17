@@ -11,3 +11,5 @@ jinushi-digest.md
 # (The processed nyc-pluto-parcels.kotoba.edn is committed and anonymized: persons → sha256-key,
 # no name. Notable public-figure owners from open KGs — e.g. Wikidata — are a separate case.)
 nyc-pluto.raw.json
+nyc-pluto-full.raw.csv
+nyc-pluto*.raw.csv
