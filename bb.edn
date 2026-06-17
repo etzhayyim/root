@@ -463,9 +463,9 @@
   test:todoke
   {:doc "todoke Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
-                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine)
+                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine 'niyaku.cells.test-state-machine)
              (let [r (clojure.test/run-tests
-                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine)]
+                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine 'niyaku.cells.test-state-machine)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:uchiwake
@@ -537,7 +537,7 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:charter
-  {:doc "Charter-gate conformance suites — substrate-native cljc (ADR-2606160842 py→clj port wave; clj+datomic first tier). 35 actors read their lexicons (central JSON / lex.edn) + manifest and pin the const/enum/required charter gates."
+  {:doc "Charter-gate conformance suites — substrate-native cljc (ADR-2606160842 py→clj port wave; clj+datomic first tier). 36 actors read their lexicons (central JSON / lex.edn) + manifest and pin the const/enum/required charter gates."
    :task (do (require 'clojure.test 'clojure.set
                       'chigiri.methods.test-charter-gates 'danjo.methods.test-charter-gates 'funadaiku.methods.test-charter-gates
                       'hagukumi.methods.test-charter-gates 'hikari.methods.test-charter-gates 'himawari.methods.test-charter-gates
@@ -545,6 +545,7 @@
                       'iyashi.methods.test-charter-gates
                       'kanae.methods.test-charter-gates 'kanayama.methods.test-charter-gates 'kataribe.methods.test-charter-gates
                       'kawaraban.methods.test-charter-gates 'kazaori.methods.test-charter-gates 'kizashi.methods.test-charter-gates
+                      'kokoro.methods.test-charter-gates
                       'kurashimori.methods.test-charter-gates 'makura.methods.test-charter-gates 'manabi.methods.test-charter-gates
                       'mitsuho.methods.test-charter-gates 'mizuho.methods.test-charter-gates 'moushibumi.methods.test-charter-gates
                       'musubi.methods.test-charter-gates 'ooyake.methods.test-charter-gates 'ossekai.methods.test-charter-gates
@@ -559,6 +560,7 @@
                       'iyashi.methods.test-charter-gates
                       'kanae.methods.test-charter-gates 'kanayama.methods.test-charter-gates 'kataribe.methods.test-charter-gates
                       'kawaraban.methods.test-charter-gates 'kazaori.methods.test-charter-gates 'kizashi.methods.test-charter-gates
+                      'kokoro.methods.test-charter-gates
                       'kurashimori.methods.test-charter-gates 'makura.methods.test-charter-gates 'manabi.methods.test-charter-gates
                       'mitsuho.methods.test-charter-gates 'mizuho.methods.test-charter-gates 'moushibumi.methods.test-charter-gates
                       'musubi.methods.test-charter-gates 'ooyake.methods.test-charter-gates 'ossekai.methods.test-charter-gates
@@ -779,7 +781,7 @@
 
                       'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
 
-                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine
+                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine 'niyaku.cells.test-state-machine
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
                       'mitooshi.methods.test-social 'mitooshi.methods.test-synthesize
                       'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-horizon
@@ -858,7 +860,7 @@
 
                       'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
 
-                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine
+                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine 'sanae.cells.autonomous-weeding.test-state-machine 'todoke.cells.handoff-proof.test-state-machine 'kosatsu.cells.social-post.test-state-machine 'nusa.cells.test-state-machine 'kawaraban.cells.test-state-machine 'hotaru.cells.test-state-machine 'shionome.cells.test-state-machine 'shionome.cells.test-membrane-flow 'tedai.cells.test-state-machine 'fuchi.cells.test-state-machine 'niyaku.cells.test-state-machine
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
                                              'mitooshi.methods.test-social
