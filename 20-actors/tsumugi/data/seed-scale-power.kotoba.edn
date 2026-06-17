@@ -1408,4 +1408,13 @@
  {:tie/id "tie.ext.berkshire-hathaway.geico" :tie/kind :custodies :tie/from "org.ext.berkshire-hathaway" :tie/to "org.ext.geico" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "Wikidata item: GEICO (P749 parent → Berkshire Hathaway)"] :tie/sourcing :representative}
  {:tie/id "tie.ext.lvmh.louis-vuitton" :tie/kind :custodies :tie/from "org.ext.lvmh" :tie/to "org.ext.louis-vuitton" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "Wikidata item: Louis Vuitton (P749 parent → LVMH)"] :tie/sourcing :representative}
  {:tie/id "tie.ext.nestl.nespresso" :tie/kind :custodies :tie/from "org.ext.nestl" :tie/to "org.ext.nespresso" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "Wikidata item: Nespresso (P749 parent → Nestlé)"] :tie/sourcing :representative}
- {:tie/id "tie.ext.volkswagen-ag.skoda-auto" :tie/kind :custodies :tie/from "org.ext.volkswagen-ag" :tie/to "org.ext.skoda-auto" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "Wikidata item: Skoda Auto (P749 parent → Volkswagen AG)"] :tie/sourcing :representative}]
+ {:tie/id "tie.ext.volkswagen-ag.skoda-auto" :tie/kind :custodies :tie/from "org.ext.volkswagen-ag" :tie/to "org.ext.skoda-auto" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "Wikidata item: Skoda Auto (P749 parent → Volkswagen AG)"] :tie/sourcing :representative}
+
+ ;; ═══ INGEST PROMOTION 7 — Council-ratified (G7) via PR ═══
+ ;; source: offline-fixture (WDQS HTTP 403 / GLEIF HTTP 403 — cloud env network-blocked per CLAUDE.md §kotoba-native routine)
+ ;; +2 nodes / +2 縁 — Alphabet Inc.→YouTube · Meta Platforms→WhatsApp
+ ;; vet: (a) all :institutional ✓  (b) 0 raw QIDs ✓  (c) tie/from valid (org.ext.alphabet-inc / org.ext.meta-platforms in seed) ✓
+ {:pwr/id "org.ext.youtube" :pwr/label "YouTube" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "us" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:pwr/id "org.ext.whatsapp" :pwr/label "WhatsApp" :pwr/standing :institutional :pwr/scale :national :pwr/sector :san :pwr/locality "us" :pwr/collective-kind :keiretsu :pwr/sourcing :representative}
+ {:tie/id "tie.ext.alphabet-inc.youtube" :tie/kind :custodies :tie/from "org.ext.alphabet-inc" :tie/to "org.ext.youtube" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "https://www.wikidata.org/wiki/Q866"] :tie/sourcing :representative}
+ {:tie/id "tie.ext.meta-platforms.whatsapp" :tie/kind :custodies :tie/from "org.ext.meta-platforms" :tie/to "org.ext.whatsapp" :tie/grasping-load 0.6 :tie/sources ["Wikidata WDQS P749 (parent-organization statement)" "https://www.wikidata.org/wiki/Q44"] :tie/sourcing :representative}]
