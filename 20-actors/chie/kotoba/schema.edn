@@ -30,7 +30,8 @@
   {:a ":organism/nests-in"  :v :string  :doc "child → parent (DeepMind → Google; GPT → OpenAI)"}
   {:a ":ai/sector"          :v :keyword :doc ":frontier-lab :chip :foundry :cloud :vc :swf :regulator :open-weights …"}
   {:a ":ai/open?"           :v :boolean :doc "open-weights / open-compute / public standard — the OPENING-routing basis"}
-  {:a ":ai/role"            :v :string  :doc "public role descriptor for :ai.role/person nodes"}]
+  {:a ":ai/role"            :v :string  :doc "public role descriptor for :ai.role/person nodes"}
+  {:a ":ai/round-amount-usd" :v :long   :doc "DISCLOSED funding-round amount (USD); a fact, never a valuation verdict (N3)"}]
 
  ;; ── 縁 (edges) — 取 lives ONLY here (N1) ─────────────────────────────────────
  :edge/kinds
@@ -48,7 +49,8 @@
   {:a ":en/to"            :v :string}
   {:a ":en/kind"          :v :keyword}
   {:a ":en/grasping-load" :v :double  :doc "∈ [0,1] lock-in/dependency weight — where 取 lives"}
-  {:a ":en/sourcing"      :v :keyword :enum [":representative" ":authoritative"]}]
+  {:a ":en/sourcing"      :v :keyword :enum [":representative" ":authoritative"]}
+  {:a ":en/disclosed-src" :v :string  :doc "primary-source URL backing this 縁 (ingest provenance, G7 leg)"}]
 
  ;; ── derived (transient — computed on read, NEVER persisted; N1/G2) ───────────
  :derived/attrs
