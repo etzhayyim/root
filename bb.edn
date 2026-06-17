@@ -252,6 +252,8 @@
                       'shionome.methods.test-export 'shionome.methods.test-social
                       'shionome.methods.test-kotoba 'shionome.methods.test-autorun
                       'shionome.methods.test-grounding 'shionome.methods.test-ingest
+                      'shionome.methods.test-sources 'shionome.methods.test-lexicons
+                      'shionome.methods.test-consistency 'shionome.methods.test-charter-invariants
                       'utsushie.methods.test-render-plan
                       'kaiyaku.methods.test-datom-emit 'kadode.methods.test-datom-emit
                       'tanemaki.methods.test-datom-emit 'itonami.methods.test-datom-emit
@@ -317,6 +319,8 @@
                       'shionome.methods.test-export 'shionome.methods.test-social
                       'shionome.methods.test-kotoba 'shionome.methods.test-autorun
                       'shionome.methods.test-grounding 'shionome.methods.test-ingest
+                      'shionome.methods.test-sources 'shionome.methods.test-lexicons
+                      'shionome.methods.test-consistency 'shionome.methods.test-charter-invariants
                       'utsushie.methods.test-render-plan
                                              'kaiyaku.methods.test-datom-emit
                                              'kadode.methods.test-datom-emit
