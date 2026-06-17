@@ -23,6 +23,16 @@
 ;; G3 — the planners mitooshi may route a resilience advisory to (it never decides itself).
 (def PLANNERS #{"danjo" "kanae" "watari"})
 
+;; ── py-faithful message rendering ─────────────────────────────────────────────
+;; The refusal messages mirror social.py's f-strings, which render the Python TUPLEs
+;; ALLOWED_USE / PLANNERS as `('a', 'b', …)` (ordered, single-quoted, comma-space) and a
+;; scalar `{x!r}` as `'x'`. clj sets are unordered + pr-str uses double quotes, so we keep the
+;; sets for membership but render the message from these ordered tuples (parity-caught).
+(def ^:private ALLOWED-USE-TUPLE [":resilience" ":planning" ":nowcast" ":early-warning" ":research"])
+(def ^:private PLANNERS-TUPLE ["danjo" "kanae" "watari"])
+(defn- py-repr [x] (str "'" x "'"))
+(defn- py-tuple-repr [xs] (str "(" (str/join ", " (map py-repr xs)) ")"))
+
 (defn- round4
   "Round x to 4 decimal places (mirrors Python's round(x, 4))."
   [x]
@@ -48,11 +58,11 @@
      (throw (ex-info "G1: mitooshi cannot post a point-asserted forecast (distribution-only)"
                      {:gate :G1})))
    (when-not (contains? ALLOWED-USE use)
-     (throw (ex-info (str "G2: use " (pr-str use) " not in the non-speculative set " (pr-str ALLOWED-USE))
+     (throw (ex-info (str "G2: use " (py-repr use) " not in the non-speculative set " (py-tuple-repr ALLOWED-USE-TUPLE))
                      {:gate :G2})))
    (when-not (contains? PLANNERS route-to)
-     (throw (ex-info (str "G3: a resilience advisory must route to a planner " (pr-str PLANNERS)
-                          ", got " (pr-str route-to))
+     (throw (ex-info (str "G3: a resilience advisory must route to a planner " (py-tuple-repr PLANNERS-TUPLE)
+                          ", got " (py-repr route-to))
                      {:gate :G3})))
    (let [lo (round4 (- mean sd))
          hi (round4 (+ mean sd))
