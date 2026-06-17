@@ -18171,6 +18171,21 @@
       "lastVerified": "2026-05-29"
     },
     {
+      "id": "doc:weight-family-viz",
+      "type": "Article",
+      "title": "Maxwell weight-family — visualizations (grokking landscape / traversal / 3D / pipelines)",
+      "status": "active",
+      "topic": "maxwell-weight-family-visualization",
+      "authoritative": false,
+      "related": [
+        "doc:2606171100",
+        "doc:2606061000",
+        "doc:2605250700",
+        "doc:2605092350"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:wellbecoming-karma-lean-proofs",
       "type": "TechArticle",
       "title": "WellBecoming + Karma — Lean 4 Formal Proofs",
