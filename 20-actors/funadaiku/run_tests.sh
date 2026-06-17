@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# funadaiku — charter-gate suite, bb/clj (ADR-2606160842 py→clj port wave; py pruned).
+# funadaiku 船大工 — bb/clj test suite (ADR-2606160842 py->clj port wave; cell+method Python pruned).
 set -euo pipefail
 cd "$(dirname "$0")/../.."
-exec bb -e '(require (quote clojure.test) (quote funadaiku.methods.test-charter-gates))(let [r (clojure.test/run-tests (quote funadaiku.methods.test-charter-gates))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
+exec bb -e '(require (quote clojure.test) (quote funadaiku.cells.test-state-machine) (quote funadaiku.methods.test-charter-gates) (quote funadaiku.methods.test-voyage-energy) (quote funadaiku.cells.sea-trial.test-cell) )(let [r (clojure.test/run-tests (quote funadaiku.cells.test-state-machine) (quote funadaiku.methods.test-charter-gates) (quote funadaiku.methods.test-voyage-energy) (quote funadaiku.cells.sea-trial.test-cell) )](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
