@@ -1,4 +1,13 @@
-"""State-machine tests for todoke cells (R0). .solve() is NOT called (it raises)."""
+"""State-machine tests for todoke cells (R0). .solve() is NOT called (it raises).
+
+NOTE (ADR-2606160842 py→clj port wave): the route_sequencing cell has been ported to
+.cljc — its state machine + tests now live at
+``cells/route_sequencing/state_machine.cljc`` and ``test_state_machine.cljc`` (run under
+``bb``). The Python route_sequencing cell (which imported ``methods.last_mile``) was removed
+so the Python ``methods/last_mile.py`` can be pruned; its behaviour is preserved + proven in
+the .cljc port. This file now covers only the handoff_proof cell, which is pure Python and
+carries no last_mile dependency.
+"""
 
 import pytest
 
@@ -10,70 +19,6 @@ from handoff_proof.state_machine import (
     transition_to_proof_captured,
     transition_to_proof_sealed,
 )
-from route_sequencing.cell import RouteSequencingCell
-from route_sequencing.state_machine import (
-    RoutePhase,
-    transition_to_envelope_checked,
-    transition_to_job_loaded,
-    transition_to_route_emitted,
-    transition_to_sequenced,
-)
-
-# --- route_sequencing -----------------------------------------------------------------
-
-# A scrambled set of collinear stops: optimal open path = ascending x.
-_STOPS = [
-    {"id": 0, "x": 0.0, "y": 0.0, "zone": "sidewalk"},
-    {"id": 1, "x": 30.0, "y": 0.0, "zone": "doorpath"},
-    {"id": 2, "x": 10.0, "y": 0.0, "zone": "sidewalk"},
-    {"id": 3, "x": 20.0, "y": 0.0, "zone": "doorpath"},
-    {"id": 4, "x": 5.0, "y": 0.0, "zone": "crosswalk"},
-]
-
-
-def _run_route(stops=None, sae_level=4, commanded_mps=1.0):
-    s = transition_to_job_loaded(
-        {"stops": stops if stops is not None else _STOPS, "sae_level": sae_level, "commanded_mps": commanded_mps}
-    )
-    s = transition_to_envelope_checked(s)
-    if s["cell_state"]["envelope_ok"]:
-        s = transition_to_sequenced(s)
-        s = transition_to_route_emitted(s)
-    return s
-
-
-def test_route_happy_path_sequences_and_emits():
-    s = _run_route()
-    assert s["cell_state"]["phase"] == RoutePhase.ROUTE_EMITTED.value
-    rec = s["cell_state"]["payload"]["last_mile_route"]
-    assert rec["order"] == [0, 4, 2, 3, 1]      # ascending-x optimal open path
-    assert abs(rec["lengthM"] - 30.0) < 1e-6
-    assert rec["saeWithinCeiling"] is True
-
-
-def test_route_g7_refuses_road_zone():
-    stops = _STOPS + [{"id": 9, "x": 40.0, "y": 0.0, "zone": "road"}]
-    s = _run_route(stops=stops)
-    assert s["cell_state"]["envelope_ok"] is False
-    assert "outside todoke ODD" in s["cell_state"]["refusal"]
-
-
-def test_route_g7_refuses_sae_level_5():
-    s = _run_route(sae_level=5)
-    assert s["cell_state"]["envelope_ok"] is False
-    assert "exceeds ceiling" in s["cell_state"]["refusal"]
-
-
-def test_route_g7_refuses_speed_over_sidewalk_cap():
-    s = _run_route(commanded_mps=3.0)  # > 1.8 sidewalk cap
-    assert s["cell_state"]["envelope_ok"] is False
-    assert "exceeds" in s["cell_state"]["refusal"]
-
-
-def test_route_solve_raises_at_r0():
-    with pytest.raises(RuntimeError, match="R0 scaffold"):
-        RouteSequencingCell().solve({})
-
 
 # --- handoff_proof --------------------------------------------------------------------
 
