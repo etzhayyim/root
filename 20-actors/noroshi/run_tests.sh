@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# noroshi — clj/bb test suite (ADR-2606160842 py->clj port wave). Auto-wired into the fleet
+# green-check; runs all cljc test namespaces via babashka from the repo root.
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+exec bb -e '(require (quote clojure.test) (quote noroshi.methods.test-active-alignment) (quote noroshi.methods.test-cable-endpoint) (quote noroshi.methods.test-charter-invariants) (quote noroshi.methods.test-consistency) (quote noroshi.methods.test-fibre-loop) (quote noroshi.methods.test-governance) (quote noroshi.methods.test-isac-sim) (quote noroshi.methods.test-kami-isac-bridge) (quote noroshi.methods.test-lexicons) (quote noroshi.methods.test-link-budget) (quote noroshi.methods.test-pic-layout))(let [r (apply clojure.test/run-tests (quote [noroshi.methods.test-active-alignment noroshi.methods.test-cable-endpoint noroshi.methods.test-charter-invariants noroshi.methods.test-consistency noroshi.methods.test-fibre-loop noroshi.methods.test-governance noroshi.methods.test-isac-sim noroshi.methods.test-kami-isac-bridge noroshi.methods.test-lexicons noroshi.methods.test-link-budget noroshi.methods.test-pic-layout]))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
