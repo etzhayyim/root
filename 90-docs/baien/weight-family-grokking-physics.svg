@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="860" viewBox="0 0 1200 860" font-family="-apple-system, 'Hiragino Sans', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#555"/>
+    </marker>
+    <style>
+      .title{font-size:26px;font-weight:700;fill:#1a1a2e}
+      .sub{font-size:14px;fill:#555}
+      .hdr{font-size:15px;font-weight:700}
+      .lbl{font-size:13px;fill:#333}
+      .small{font-size:12px;fill:#444}
+      .edge{font-size:12px;fill:#666;font-style:italic}
+      .badge{font-size:12px;font-weight:700}
+      .foot{font-size:11px;fill:#888}
+    </style>
+  </defs>
+
+  <rect width="1200" height="860" fill="#ffffff"/>
+
+  <text x="600" y="40" text-anchor="middle" class="title">etzhayyim weight-family × the physics of grokking</text>
+  <text x="600" y="66" text-anchor="middle" class="sub">grokking = エネルギー地形上で「記憶の広い谷 → 汎化の狭い効率回路」へ相転移する物理（動画の主題）</text>
+
+  <!-- ===== Row 1: physics concepts ===== -->
+  <rect x="40"  y="100" width="340" height="92" rx="10" fill="#eceff4" stroke="#b8c0cc"/>
+  <text x="210" y="126" text-anchor="middle" class="hdr" fill="#2a3142">🌀 energy landscape / topology</text>
+  <text x="210" y="150" text-anchor="middle" class="small">谷 = 記憶  /  尾根 = 汎化</text>
+  <text x="210" y="170" text-anchor="middle" class="small">＝ 地形そのもの（大域構造）</text>
+
+  <rect x="430" y="100" width="340" height="92" rx="10" fill="#eceff4" stroke="#b8c0cc"/>
+  <text x="600" y="126" text-anchor="middle" class="hdr" fill="#2a3142">🌀 phase transition / dynamics</text>
+  <text x="600" y="150" text-anchor="middle" class="small">ボールが谷へ転がる</text>
+  <text x="600" y="170" text-anchor="middle" class="small">＝ 記憶→汎化の相転移（緩和の軌道）</text>
+
+  <rect x="820" y="100" width="340" height="92" rx="10" fill="#eceff4" stroke="#b8c0cc"/>
+  <text x="990" y="126" text-anchor="middle" class="hdr" fill="#2a3142">🌀 circuit efficiency / entropy</text>
+  <text x="990" y="150" text-anchor="middle" class="small">汎化回路は遅いが最小エントロピー</text>
+  <text x="990" y="170" text-anchor="middle" class="small">＝ 行き着く狭く効率的な谷</text>
+
+  <!-- arrows physics -> weight -->
+  <line x1="210" y1="192" x2="210" y2="296" stroke="#555" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="222" y="248" class="edge">大域整合 = 地形の形</text>
+  <line x1="600" y1="192" x2="600" y2="296" stroke="#555" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="612" y="248" class="edge">denoise = 緩和の軌道</text>
+  <line x1="990" y1="192" x2="990" y2="296" stroke="#555" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="1002" y="248" class="edge">最圧縮 = 効率回路</text>
+
+  <!-- ===== Row 2: weights ===== -->
+  <!-- oka -->
+  <rect x="40" y="300" width="340" height="150" rx="12" fill="#e8f0ff" stroke="#5b86c5" stroke-width="1.6"/>
+  <text x="60" y="326" class="hdr" fill="#1f4e9c">oka — MMSheaf</text>
+  <text x="350" y="326" text-anchor="end" class="badge" fill="#c47a00">🟠 R0 scaffold</text>
+  <text x="60" y="352" class="lbl">FP8 server trunk</text>
+  <text x="60" y="374" class="lbl">cellular <tspan font-weight="700">sheaf diffusion</tspan>（MMSheafV4）</text>
+  <text x="60" y="396" class="small">9-modality stalk を大域に接着</text>
+  <text x="60" y="416" class="small">sheaf Laplacian = 地形上の熱拡散</text>
+  <text x="60" y="438" class="small" fill="#a06000">設計のみ・コード未実装（ADR-2605250700）</text>
+
+  <!-- maxwell-diffusion -->
+  <rect x="430" y="300" width="340" height="150" rx="12" fill="#fff0e8" stroke="#d98a4f" stroke-width="1.6"/>
+  <text x="450" y="326" class="hdr" fill="#b5561a">maxwell-diffusion</text>
+  <text x="760" y="326" text-anchor="end" class="badge" fill="#b59000">🟡 R0</text>
+  <text x="450" y="352" class="lbl">server / DiffusionGemma 26B-A4B</text>
+  <text x="450" y="374" class="lbl">block <tspan font-weight="700">diffusion</tspan> LM（uniform 拡散）</text>
+  <text x="450" y="396" class="small">反復 denoise = 地形を降りる軌道</text>
+  <text x="450" y="416" class="small" fill="#2a7d2a">base検証✓ bench 12/15=80%</text>
+  <text x="450" y="438" class="small" fill="#2a7d2a">train機構実証✓ loss 1.07→0.04</text>
+
+  <!-- baien -->
+  <rect x="820" y="300" width="340" height="150" rx="12" fill="#e8ffe8" stroke="#52a052" stroke-width="1.6"/>
+  <text x="840" y="326" class="hdr" fill="#1f7a1f">baien — BitNet 1.58b</text>
+  <text x="1140" y="326" text-anchor="end" class="badge" fill="#1f7a1f">🟢 active</text>
+  <text x="840" y="352" class="lbl">ternary edge（MMSheafV3）</text>
+  <text x="840" y="374" class="lbl">WASM-32 / iPhone12+ / Android4GB</text>
+  <text x="840" y="396" class="small">三値 = 最圧縮回路</text>
+  <text x="840" y="416" class="small">grokking が落ち着く「狭い谷」</text>
+  <text x="840" y="438" class="small" fill="#1f7a1f">edge default（運用中）</text>
+
+  <!-- arrows weight -> RSi -->
+  <line x1="210" y1="450" x2="430" y2="612" stroke="#555" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="600" y1="450" x2="600" y2="612" stroke="#555" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="990" y1="450" x2="770" y2="612" stroke="#555" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <!-- ===== Row 3: RSi loop ===== -->
+  <rect x="300" y="616" width="600" height="120" rx="12" fill="#f5e8ff" stroke="#9b59b6" stroke-width="1.8"/>
+  <text x="600" y="646" text-anchor="middle" class="hdr" fill="#6c2b8f">RSi 自己進化ループ</text>
+  <text x="600" y="672" text-anchor="middle" class="small">= 記憶を越えて回し続ける「継続学習」= grokking を起こす駆動力</text>
+  <text x="600" y="700" text-anchor="middle" class="lbl" fill="#4a2060">corpus  →  train  →  eval  →  deploy</text>
+  <text x="600" y="722" text-anchor="middle" class="small" fill="#777">（maxwell-1 で実証: corpus 281→1016, M1-r2 deploy gate PASS）</text>
+
+  <!-- one-liner -->
+  <text x="600" y="778" text-anchor="middle" class="lbl" fill="#1a1a2e">3つは別物ではなく、同じ「汎化の物理」を別の量子化・別の力学で実装した姉妹：</text>
+  <text x="600" y="800" text-anchor="middle" class="small"><tspan fill="#1f4e9c" font-weight="700">oka = 地形</tspan>（sheaf 拡散で大域接着） ・ <tspan fill="#b5561a" font-weight="700">maxwell-diffusion = 力学</tspan>（denoise 軌道） ・ <tspan fill="#1f7a1f" font-weight="700">baien = 到達点</tspan>（最圧縮の効率回路）</text>
+
+  <text x="600" y="836" text-anchor="middle" class="foot">ref: "The Physics Secret Behind Neural Nets' Weirdest Phenomenon" (grokking / energy-landscape / circuit-efficiency) ・ ADR-2605250700 / 2605092345 / 2605092350 / 2606171100</text>
+</svg>
