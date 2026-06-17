@@ -293,3 +293,32 @@
         "pit_mean" (/ (reduce + 0.0 pit-values) n)
         "deviation" deviation
         "hist" freqs}))))
+
+(defn score-set
+  "Aggregate a set of leak-checked pairs [[fc obs]…] into a scorecard + calibration +
+  (optional) skill vs a parallel baseline score list. The model is `skilled` only if mean
+  skill on the primary metric is > 0 (G12). 1:1 port of score_set (completes the score port)."
+  ([pairs] (score-set pairs nil))
+  ([pairs baseline]
+   (let [rows (mapv (fn [[fc obs]] (score-pair fc obs)) pairs)
+         agg (reduce (fn [m metric]
+                       (let [vals (keep #(get % metric) rows)]
+                         (if (seq vals)
+                           (assoc m metric (/ (reduce + 0.0 vals) (count vals)))
+                           m)))
+                     {} ["crps" "pinball" "log_score" "brier"])
+         calib (calibration-summary (keep #(get % "pit") rows))
+         [skill skilled]
+         (if (seq baseline)
+           (let [primary (cond (contains? agg "crps") "crps"
+                               (contains? agg "pinball") "pinball"
+                               (contains? agg "brier") "brier"
+                               :else nil)
+                 b-vals (when primary (keep #(get % primary) baseline))]
+             (if (and primary (seq b-vals))
+               (let [sk (skill-score (get agg primary) (/ (reduce + 0.0 b-vals) (count b-vals)))]
+                 [sk (> sk 0.0)])
+               [nil nil]))
+           [nil nil])]
+     {"n" (count rows) "metrics" agg "calibration" calib
+      "skill" skill "skilled" skilled "rows" rows})))
