@@ -1,7 +1,7 @@
 ---
 id: adr-2606171200-chie-ai-ecosystem-kg-mirror
 title: "ADR-2606171200: chie 智慧 — AI-ecosystem KG mirror (有力者・組織・投資・政策)"
-status: proposed
+status: accepted
 doc_type: adr
 topic: chie-ai-ecosystem-kg-mirror
 authoritative: true
@@ -27,7 +27,7 @@ superseded_by: []
 
 # ADR-2606171200: chie 智慧 — AI-ecosystem KG mirror
 
-**Status**: proposed
+**Status**: accepted (R1+ landed 2026-06-17 — PR #1913)
 **Date**: 2026-06-17
 **Deciders**: Jun Kawasaki
 
@@ -88,6 +88,36 @@ log.
 - **R1** — 常駐化 (resident): an `autorun` heartbeat cell appending content-addressed Datom
   tx to the append-only kotoba commit-DAG (`verify-chain` tamper-evident, resume-safe;
   ibuki/mimamori pattern), registered in the cell-runner `cells.edn` + a fleet node.
+
+# Implementation record (R1+ landed 2026-06-17 — PR #1913)
+
+Delivered on branch `chie-ai-ecosystem` (PR #1913), clj-native (`.cljc`, no Python twin),
+across a 30-min self-paced loop. The three mandate legs — **clj · datomic · kotoba 常駐化** —
+are all empirically proven:
+
+- **Ontology + seed** — `kotoba/schema.edn` (rich) + `00-contracts/schemas/ai-ecosystem-ontology.kotoba.edn`
+  (db/ident vocab). Seed grew to **66 nodes / 58 縁**; all 11 node kinds, 8 edge kinds, 4 axes covered.
+- **analyze / datom_emit / coverage_report** — edge-primary 取-concentration → OPENING; EAVT
+  GROUND `:add` + DERIVED transient (N1/G2); sourcing-honest gap worklist (G5).
+- **常駐化 (kotoba)** — `autorun.cljc` + `cell.cljc` heartbeat → content-addressed tx on the
+  append-only commit-DAG (`verify-chain` tamper-evident, resume-safe); `ChieHeartbeatCell`
+  registered in cell-runner `cells.edn` (node gad, cron `37 * * * *`, healthz 13082).
+- **Murakumo digest** — deterministic `template-digest` + Murakumo-only `narrate` (fail-open;
+  non-fleet endpoint refused).
+- **DISCLOSED ingest + G7 gate** — `ingest.cljc` upgrades rounds + policy instruments →
+  `:authoritative` with official-source `:en/disclosed-src` (idempotent, concentration-preserving);
+  `ingest-live` refuses without `CHIE_INGEST_LIVE` + operator DID.
+- **root kotoba roster** — `bb kotoba:ingest --validate` = 124 entities / 700 datoms /
+  0 undeclared / 0 value-violations; `roster-report` lists chie.
+- **datomic read path** — `kqe.cljc` queries the REAL `etzhayyim.kotoba.engine` via Datalog
+  `q` + Datomic `pull` (VAET reverse-ref), result == in-memory `query.cljc` (one source of truth).
+- **query + verify + manifest.edn + README** — KG query API, one-shot charter self-audit gate,
+  edn-native manifest, orientation doc.
+- **Tests** — 11 suites · **56 tests / 184 assertions** green (auto-discovered by `bb test:actors`).
+
+Open follow-ups (next R-cycle, all G7/Council-gated): the LIVE network ingest behind the G7
+gate (regulator texts / disclosed rounds / Wikidata), structured per-round capital attribution,
+and a kotoba-clj WASM build.
 
 # Consequences
 

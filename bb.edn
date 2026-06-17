@@ -426,10 +426,44 @@
              (shell {:dir "20-actors/sukashi"} "python3" "methods/test_autorun.py")
              (shell {:dir "20-actors/sukashi"} "python3" "tests/test_crawl.py")
              (shell {:dir "20-actors/sukashi"} "python3" "tests/test_fleet_drive.py")
-             (require 'clojure.test 'sukashi.tests.test-sukashi)
-             (let [r (clojure.test/run-tests 'sukashi.tests.test-sukashi)]
+             (require 'clojure.test 'sukashi.tests.test-sukashi 'sukashi.tests.test-viz)
+             (let [r (clojure.test/run-tests 'sukashi.tests.test-sukashi 'sukashi.tests.test-viz)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  sukashi:viz
+  {:doc "sukashi 透かし — build the ad-tech supply-chain + fraud-network viz payload (ad-supply-chain.json) + self-contained viewer (ad-supply-chain.htm). Arg: [seed-edn]."
+   :task (do (require 'sukashi.methods.viz)
+             (apply (resolve 'sukashi.methods.viz/-main) *command-line-args*))}
+  test:tadori
+  {:doc "tadori 辿 Clojure test suite — autonomous silenTadoriReview self-audit heartbeat + kotoba commit-DAG audit-log invariants (G2/G3/G6/G10/G12) + threat-intel ingest gates/EAVT rendering; port of kotoba/test_autorun.py + test_invariants.py + test_ingest_threat_intel.py (ADR-2605301400 / 2606160842)."
+   :task (do (require 'clojure.test 'tadori.tests.test-autorun 'tadori.tests.test-ingest 'tadori.tests.test-trace 'tadori.tests.test-risk 'tadori.tests.test-malak 'tadori.tests.test-ofac 'tadori.tests.test-malak-contract)
+             (let [r (clojure.test/run-tests 'tadori.tests.test-autorun 'tadori.tests.test-ingest 'tadori.tests.test-trace 'tadori.tests.test-risk 'tadori.tests.test-malak 'tadori.tests.test-ofac 'tadori.tests.test-malak-contract)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  tadori:ofac
+  {:doc "tadori 辿 OFAC SDN digital-currency-address ingest — parse a STAGED public sdn.xml (operator downloads it; G4 public SoR, G7) → attributed :sanctions risk labels (asserter ofac-sdn, non-adjudicating). Args: <staged-sdn.xml> [as-of]."
+   :task (do (require 'tadori.methods.ofac)
+             (let [args *command-line-args*
+                   xml (slurp (first args))
+                   as-of (if (second args) (parse-long (second args)) 0)
+                   r ((resolve 'tadori.methods.ofac/ofac-datoms) xml {:as-of as-of})]
+               (println (format "tadori.ofac: %d sanctioned-address labels (+%d skipped) from %s" (:count r) (:skipped r) (first args)))))}
+  tadori:watch
+  {:doc "tadori 辿 CONTINUOUS watch loop — ingest high-risk/scam/sanctioned BTC+ETH addresses + adversary (attack/surveil/hidden-influence) observations → score + cluster-propagate + 取-concentration → append-only public ledger (相互監視/永久記憶/NEVER-a-throne; person data never inline). SYNTHETIC; live=operator gate. Args: [cycles] [log]."
+   :task (do (require 'tadori.methods.watch)
+             (apply (resolve 'tadori.methods.watch/-main) *command-line-args*))}
+  tadori:trace
+  {:doc "tadori 辿 Phase-0 case trace over a SYNTHETIC authorized case — clusters addresses, detects the mixer, traces stolen funds to the CEX exit, links the onion C2 (no live data; live = operator+case gate)."
+   :task (do (require 'tadori.methods.demo-case)
+             ((resolve 'tadori.methods.demo-case/-main)))}
+  tadori:autorun
+  {:doc "tadori 辿 AUTONOMOUS silenTadoriReview self-audit heartbeat over the kotoba Datom log (Phase 0; counters only, NO case/PII/obs data). Args: [cycles] [seed] [log]."
+   :task (do (require 'tadori.methods.autorun)
+             (apply (resolve 'tadori.methods.autorun/-main) *command-line-args*))}
+  tadori:ingest
+  {:doc "tadori 辿 OPERATOR threat-intel ingest → live kotoba datomic.transact (no-server-key: KOTOBA_SESSION_POP/KOTOBA_TOKEN + TADORI_CASE_ID from env; no credential ⇒ DRY RUN). Args: [seed] [graph] [url]."
+   :task (do (require 'tadori.methods.transact)
+             (apply (resolve 'tadori.methods.transact/-main) *command-line-args*))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
    :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:aburi test:docs-registry]}

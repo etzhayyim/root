@@ -29,6 +29,12 @@ superseded_by: []
 
 # ADR-2605192130: etzhayyim 10% Tithe — donation / kisha 受領時の Public Fund 自動再分配 (constitutional constant)
 
+> **RETAINED through Rider v3.5 (2026-06-17).** 経済 hard rule(非営利のみ/広告/equity)が目的関数へ
+> 移行した wave2/wave3(ADR-2606180001/2606182359)でも、**Tithe → Public Fund 再分配は維持**される。
+> ただし「再分配して個人主義的蓄積を防ぐ」のが priority(collective-over-individual)であり、**10%
+> という*率*は Tier-2 parameter**(governance で調整可)であって priority 自体ではない。再分配機構の
+> 存在は priority、率は parameter — の区別に留意。
+
 **Status**: proposed
 **Date**: 2026-05-19
 **Deciders**: Jun Kawasaki

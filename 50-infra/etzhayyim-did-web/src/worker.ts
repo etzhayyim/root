@@ -616,7 +616,7 @@ ${nodeSvg}
 </div>
 
 <footer>
-自己進化ループ実装: <code>40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/</code> (kaizen / fitness / lifecycle / joucho) · 常駐: <code>50-infra/k8s/unispsc-organism-fleet/</code><br>
+自己進化ループ実装: <code>40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/</code> (kaizen / fitness / lifecycle / joucho)<br>
 ADR-2605240200 (Kaizen self-reflection) + 2605232345 / 2605240000 (organism) + 2605270930 (axes A–H) · アクター一覧: <a href="/actors">/actors</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
 観測者 DID: <code>did:web:etzhayyim.com:actor:kaizen-observer</code> · 状態は kotoba Datom ログ (canonical) · 推論は Murakumo-only (ADR-2605215000)。
 </footer>

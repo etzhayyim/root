@@ -37,6 +37,12 @@ depends_on:
 **Deciders**: Jun Kawasaki (author), Council Lv6+ ≥3 (ratify), 30-day public objection period
 **ADR Hierarchy**: Sibling of ADR-2605192145 (Public Fund Architecture). Funds the Liberation Ladder (ADR-2605261000) + Basic High Income (ADR-2605301020). Operates within — and explicitly does **not** amend — ADR-2605192115 (non-profit / donation-only / no-ads).
 
+> **CONTEXT UPDATE 2026-06-17 (Rider v3.5).** ADR-2605192115 の経済 hard rule は ADR-2606180001
+> (wave2)+ ADR-2606182359 (wave3)で **categorical 固定から ECL 目的関数の net 評価へ**移行した。
+> 本 ADR の「商業 surplus → donation → Public Fund」設計は v3.5 と整合する(私的捕獲を生まず
+> commons/Public Fund に payoff を還元する形は collective-commons 次元で正にスコアされる)。
+> 「non-profit MEANS not profit END / ad-free / no-payroll」の*精神*は目的関数で動的に保持。
+
 ## Context
 
 The mission (ADR-2605192100) — 人類の構造的労働解放, delivered via the Liberation Ladder (ADR-2605261000) and accounted as Basic High Income (ADR-2605301020) — is **expensive**: Public Fund sizing rises to $300B at L6 (ADR-2605261000 §3). The 10% tithe on donations alone will not reach that scale quickly.

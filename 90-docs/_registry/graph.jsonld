@@ -512,9 +512,10 @@
       "id": "doc:2605171300",
       "type": "TechArticle",
       "title": "Open-UNSPSC Generative Agent Fleet using OpenRouter and Local Fallback",
-      "status": "accepted",
+      "status": "superseded",
       "topic": "open-unispsc-generative-agent-fleet",
-      "authoritative": false
+      "authoritative": false,
+      "supersededBy": "doc:2606172100-retire-unispsc-python-per-code-fleet"
     },
     {
       "id": "doc:2605182312-local-bring-up-murakumo-gemma4",
@@ -5608,7 +5609,7 @@
       "title": "ADR-2605192115: etzhayyim Non-profit / Donation-only / No-ads — 営利・広告・購買モデルの構造的排除",
       "status": "proposed",
       "topic": "etzhayyim-non-profit-donation-only-no-ads",
-      "authoritative": true,
+      "authoritative": false,
       "authoritativeFor": [
         "hard rule: etzhayyim/root 配下の全 app は非営利活動 (non-profit) のみ",
         "hard rule: 広告 (advertising) integration の全面禁止 + CI lint",
@@ -5618,9 +5619,11 @@
       ],
       "related": [
         "doc:adr-2605192130-etzhayyim-tithe-redistribution",
-        "doc:adr-2605192145-etzhayyim-public-fund-architecture"
+        "doc:adr-2605192145-etzhayyim-public-fund-architecture",
+        "doc:2606180001",
+        "doc:2606182359"
       ],
-      "lastVerified": "2026-05-19"
+      "lastVerified": "2026-06-17"
     },
     {
       "id": "doc:adr-2605192130-etzhayyim-tithe-redistribution",
@@ -7063,9 +7066,9 @@
       "id": "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
       "type": "TechArticle",
       "title": "ADR-2605215000: etzhayyim inference is Murakumo-fleet-only — RunPod is constitutionally prohibited",
-      "status": "proposed",
+      "status": "superseded",
       "topic": "etzhayyim-inference-murakumo-only-no-runpod",
-      "authoritative": true,
+      "authoritative": false,
       "authoritativeFor": [
         "Inference substrate boundary for etzhayyim religious-corp",
         "RunPod prohibition for all religious-corp workloads",
@@ -7076,7 +7079,8 @@
         "doc:adr-2605202100-etzhayyim-kotodama-cell-runner-launchd",
         "doc:2605182312-local-bring-up-murakumo-gemma4"
       ],
-      "lastVerified": "2026-05-21"
+      "supersededBy": "doc:2606172359",
+      "lastVerified": "2026-06-17"
     },
     {
       "id": "doc:adr-2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet",
@@ -15890,7 +15894,8 @@
       ],
       "related": [
         "doc:2605241900",
-        "doc:2606062100"
+        "doc:2606062100",
+        "doc:2606172200"
       ],
       "lastVerified": "2026-06-15"
     },
@@ -16339,6 +16344,142 @@
         "doc:2605242400"
       ],
       "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606171200-chie-ai-ecosystem-kg-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606171200: chie 智慧 — AI-ecosystem KG mirror (有力者・組織・投資・政策)",
+      "status": "accepted",
+      "topic": "chie-ai-ecosystem-kg-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/chie"
+      ],
+      "related": [
+        "doc:adr-2606066001-keizu-government-power-relations-kg",
+        "doc:adr-2606022000-kabuto-supply-chain-kg",
+        "doc:adr-2606032000-kanjo-financial-disclosure-kg",
+        "doc:adr-2606073000-inochi-living-world-kg-mirror"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606172100-retire-unispsc-python-per-code-fleet",
+      "type": "TechArticle",
+      "title": "ADR-2606172100: Retire the open-UNSPSC per-code Python agent fleet — superseded by the clj unspsc actor",
+      "status": "accepted",
+      "topic": "retire-unispsc-python-per-code-fleet",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the retirement of the per-code unispsc_agents Python fleet (kotoba-kotodama/py)",
+        "the kuni-umi planning cells' commodity-classification backend (openUnispsc XRPC, not per-code LAN/libp2p executor shards)"
+      ],
+      "related": [
+        "doc:adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp",
+        "doc:adr-2605232345-unispsc-organism-actor-heartbeat-cadence",
+        "doc:adr-2605201400-etzhayyim-kotodama-kuni-umi-cell-topology",
+        "doc:adr-2606162200-md-edn-commented-edn-adr-format"
+      ],
+      "supersedes": "doc:2605171300-open-unispsc-generative-agent-fleet",
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606172200-shinka-loop-c-architecture-evolution",
+      "type": "TechArticle",
+      "title": "ADR-2606172200: Shinka Loop C — architecture evolution (NAS-via-Co-scientist on Murakumo)",
+      "status": "proposed",
+      "topic": "shinka-architecture-evolution",
+      "authoritative": true,
+      "authoritativeFor": [
+        "shinka-loop-c-architecture-evolution",
+        "architecture-search-governance"
+      ],
+      "related": [
+        "doc:2606061000",
+        "doc:2606171100",
+        "doc:2605250700",
+        "doc:2605092350",
+        "doc:research-2606171800-weight-family-generalization-physics"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606172300-ecl-etzhayyim-covenant-license",
+      "type": "TechArticle",
+      "title": "ADR-2606172300: ECL — etzhayyim Covenant License (独自 conduct 層 × Apache 既製 base)",
+      "status": "proposed",
+      "topic": "ecl-etzhayyim-covenant-license",
+      "authoritative": false,
+      "authoritativeFor": [
+        "ecl-custom-license-design"
+      ],
+      "related": [
+        "doc:2606082400",
+        "doc:2606061000",
+        "doc:2606170840",
+        "doc:2606171100",
+        "doc:2606122001",
+        "doc:2606162200"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606172359-charter-amendment-compute-and-fossil-to-objective-function",
+      "type": "TechArticle",
+      "title": "ADR-2606172359: 憲法改正 — compute 調達と化石利用を固定ルールから目的関数へ移す (Rider §2(d)+§2(i))",
+      "status": "proposed",
+      "topic": "charter-amendment-compute-and-fossil-to-objective-function",
+      "authoritative": true,
+      "authoritativeFor": [
+        "compute-sourcing-evaluation-policy",
+        "fossil-use-evaluation-policy",
+        "charter-rider-v3.2-amendment"
+      ],
+      "related": [
+        "doc:2606064700",
+        "doc:2606051500",
+        "doc:2606012100"
+      ],
+      "supersedes": "doc:2605215000",
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606180001-charter-amendment-wave2-business-models-and-economic-structure-to-objective-function",
+      "type": "TechArticle",
+      "title": "ADR-2606180001: 憲法改正 wave2 — 事業モデル(§2(a)(b)(c)(e))と経済構造を目的関数へ (個人主義否定=§2(g)は残す)",
+      "status": "proposed",
+      "topic": "charter-amendment-wave2-business-models-and-economic-structure",
+      "authoritative": true,
+      "authoritativeFor": [
+        "business-model-evaluation-policy",
+        "economic-structure-evaluation-policy",
+        "charter-rider-v3.4-amendment"
+      ],
+      "related": [
+        "doc:2605192100",
+        "doc:2605192115",
+        "doc:2605301036",
+        "doc:2606064700"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606182359-charter-amendment-wave3-all-prohibitions-to-objective-function",
+      "type": "TechArticle",
+      "title": "ADR-2606182359: 憲法改正 wave3 — 残る全 categorical 禁止を目的関数へ; 掟リスト廃止, priority のみ非交渉 (catastrophe 項)",
+      "status": "proposed",
+      "topic": "charter-amendment-wave3-all-prohibitions-to-objective-function",
+      "authoritative": true,
+      "authoritativeFor": [
+        "all-conduct-objective-function-assessed",
+        "catastrophe-severity-term",
+        "charter-rider-v3.5-amendment"
+      ],
+      "related": [
+        "doc:2605192100",
+        "doc:2605192200"
+      ],
+      "lastVerified": "2026-06-18"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
@@ -17427,6 +17568,32 @@
       "lastVerified": "2026-05-20"
     },
     {
+      "id": "doc:ecl-etzhayyim-covenant-license-draft",
+      "type": "TechArticle",
+      "title": "ECL — etzhayyim Covenant License (DRAFT, objective-function-primary)",
+      "status": "proposed",
+      "topic": "ecl-etzhayyim-covenant-license",
+      "authoritative": false,
+      "related": [
+        "doc:2606172300",
+        "doc:2606062100",
+        "doc:2605192100",
+        "doc:2605192200",
+        "doc:2606122001"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:ecl-license-dir-readme",
+      "type": "TechArticle",
+      "title": "ECL — etzhayyim Covenant License (draft + objective function)",
+      "status": "proposed",
+      "topic": "ecl-etzhayyim-covenant-license",
+      "authoritative": false,
+      "related": "doc:2606172300",
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:f-plan-lexicon-as-contract",
       "type": "Article",
       "title": "F-Plan — Lexicon-as-Contract: Host Capability SSoT 統合 (WIT 廃止)",
@@ -17874,6 +18041,22 @@
       "lastVerified": "2026-06-11"
     },
     {
+      "id": "doc:paper-2606171500-license-charter-fit-evaluation",
+      "type": "Article",
+      "title": "etzhayyim 憲法適合ライセンス評価 — CC / GPL / RAIL / 独自の数値比較と独自ライセンス計画",
+      "status": "proposed",
+      "topic": "license-charter-fit-evaluation",
+      "authoritative": false,
+      "related": [
+        "doc:2606061000",
+        "doc:2605192100",
+        "doc:2605192200",
+        "doc:2606062100",
+        "doc:2606082400"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:portfolio-timeline",
       "type": "TechArticle",
       "title": "DoDAF PV-2 — Project Timeline & Portfolio Roadmap",
@@ -17945,6 +18128,23 @@
         "shared contract / script path reference standard"
       ],
       "lastVerified": "2026-04-11"
+    },
+    {
+      "id": "doc:research-2606171800-weight-family-generalization-physics",
+      "type": "Article",
+      "title": "The Physics of Generalization in the etzhayyim Weight Family: three traversal operators on the grokking energy landscape (oka-sheaf / maxwell-diffusion / baien-BitNet)",
+      "status": "active",
+      "topic": "weight-family-generalization-physics",
+      "authoritative": false,
+      "related": [
+        "doc:2606171100",
+        "doc:2606061000",
+        "doc:2606130900",
+        "doc:2605250700",
+        "doc:2605092350",
+        "doc:weight-family-viz"
+      ],
+      "lastVerified": "2026-06-17"
     },
     {
       "id": "doc:richtext-facet-l1-extension",
