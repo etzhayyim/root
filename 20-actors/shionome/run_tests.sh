@@ -1,34 +1,33 @@
 #!/usr/bin/env bash
 # 潮目 (shionome) — run the whole test suite with one command.
-# Tests are standalone-runnable (no pytest needed); each prints its own count and exits
-# non-zero on failure. This aggregates them and reports a grand total.
+# The METHOD layer was MIGRATED to Clojure (ADR-2606160842): methods/*.py → *.cljc, and the
+# Python source + tests were pruned once the cljc ports were verified. The method suites now
+# run as Clojure via bb (registered in bb.edn test:pywasm); the cell state-machine tests remain
+# Python. Exits non-zero on any failure.
 set -uo pipefail
-cd "$(dirname "$0")"
-
-SUITES=(
-  "methods/test_weave.py"
-  "methods/test_grounding.py"
-  "methods/test_ingest.py"
-  "methods/test_social.py"
-  "methods/test_export.py"
-  "methods/test_sources.py"
-  "methods/test_registry.py"
-  "methods/test_charter_invariants.py"
-  "methods/test_analyze.py"
-  "methods/test_lexicons.py"
-  "methods/test_consistency.py"
-  "methods/test_kotoba.py"
-  "methods/test_autorun.py"
-  "cells/test_state_machines.py"
-  "cells/test_membrane_flow.py"
-)
-
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 fail=0
-for s in "${SUITES[@]}"; do
-  dir="$(dirname "$s")"; file="$(basename "$s")"
-  if ( cd "$dir" && python3 "$file" ); then :; else
-    echo "FAILED: $s"; fail=1
-  fi
+
+echo "==> shionome method suites (Clojure / bb)"
+( cd "$ROOT" && bb -e "(require 'clojure.test
+   'shionome.methods.test-weave 'shionome.methods.test-analyze 'shionome.methods.test-edn
+   'shionome.methods.test-registry 'shionome.methods.test-export 'shionome.methods.test-social
+   'shionome.methods.test-kotoba 'shionome.methods.test-autorun 'shionome.methods.test-grounding
+   'shionome.methods.test-ingest 'shionome.methods.test-sources 'shionome.methods.test-lexicons
+   'shionome.methods.test-consistency 'shionome.methods.test-charter-invariants)
+   (let [r (clojure.test/run-tests
+     'shionome.methods.test-weave 'shionome.methods.test-analyze 'shionome.methods.test-edn
+     'shionome.methods.test-registry 'shionome.methods.test-export 'shionome.methods.test-social
+     'shionome.methods.test-kotoba 'shionome.methods.test-autorun 'shionome.methods.test-grounding
+     'shionome.methods.test-ingest 'shionome.methods.test-sources 'shionome.methods.test-lexicons
+     'shionome.methods.test-consistency 'shionome.methods.test-charter-invariants)]
+     (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))" ) || fail=1
+
+echo "==> shionome cell suites (Python)"
+for s in cells/test_state_machines.py cells/test_membrane_flow.py; do
+  [ -f "$(dirname "$0")/$s" ] || continue
+  dir="$(dirname "$0")/$(dirname "$s")"; file="$(basename "$s")"
+  if ( cd "$dir" && python3 "$file" >/dev/null 2>&1 ); then echo "  ok  $s"; else echo "  FAIL $s"; fail=1; fi
 done
 
 if [ "$fail" -eq 0 ]; then
