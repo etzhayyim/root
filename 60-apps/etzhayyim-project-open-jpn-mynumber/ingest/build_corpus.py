@@ -17,7 +17,7 @@ import zipfile
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
-from xml.etree import ElementTree
+import defusedxml.ElementTree as ElementTree
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
