@@ -167,4 +167,82 @@
  {:db/id "tadori.indicator/context"
   :db/ident :tadori.indicator/context
   :db/valueType :db.type/string
-  :db/cardinality :db.cardinality/one}]
+  :db/cardinality :db.cardinality/one}
+
+ ;; ── case-anchored tracing (ADR-2606160842 cell activation) ───────────────
+ ;; caseMandate (G3 authorization anchor)
+ {:db/id "tadori.case/case-id" :db/ident :tadori.case/case-id
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/id "tadori.case/phase" :db/ident :tadori.case/phase
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one :db/doc "0 dry-run | 1 live"}
+ {:db/id "tadori.case/transparent-force-logged" :db/ident :tadori.case/transparent-force-logged
+  :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one :db/doc "G5 const true"}
+ {:db/id "tadori.case/authorization-ref" :db/ident :tadori.case/authorization-ref
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.case/authority-did" :db/ident :tadori.case/authority-did
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.case/narrative" :db/ident :tadori.case/narrative
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.case/opened-ts" :db/ident :tadori.case/opened-ts
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ ;; on-chain tx
+ {:db/id "tadori.tx/chain" :db/ident :tadori.tx/chain
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.tx/tx-hash" :db/ident :tadori.tx/tx-hash
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.tx/from" :db/ident :tadori.tx/from
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.tx/to" :db/ident :tadori.tx/to
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.tx/value" :db/ident :tadori.tx/value
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.tx/token" :db/ident :tadori.tx/token
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.tx/ts" :db/ident :tadori.tx/ts
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ ;; attribution cluster + class label
+ {:db/id "tadori.cluster/id" :db/ident :tadori.cluster/id
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/id "tadori.cluster/class" :db/ident :tadori.cluster/class
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one
+  :db/doc ":mixer | :cex-hot | :cex-cold | :bridge | :whale-eoa | :unknown-eoa"}
+ {:db/id "tadori.cluster/heuristic" :db/ident :tadori.cluster/heuristic
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.cluster/size" :db/ident :tadori.cluster/size
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.cluster/member" :db/ident :tadori.cluster/member
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/many}
+ ;; onion / darkweb PASSIVE public indicator (NO de-anon field exists)
+ {:db/id "tadori.onion/id" :db/ident :tadori.onion/id
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/id "tadori.onion/address" :db/ident :tadori.onion/address
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/doc "the public .onion (an indicator, like a domain)"}
+ {:db/id "tadori.onion/class" :db/ident :tadori.onion/class
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one
+  :db/doc ":ransomware-c2 | :mixer-endpoint | :market | :leak-site | :phishing | :unknown — NO de-anon class"}
+ {:db/id "tadori.onion/source" :db/ident :tadori.onion/source
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.onion/case-id" :db/ident :tadori.onion/case-id
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.onion/first-seen" :db/ident :tadori.onion/first-seen
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.onion/last-seen" :db/ident :tadori.onion/last-seen
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ ;; attribution edge (PII-class objects MUST be encrypted, G6)
+ {:db/id "tadori.attribution/id" :db/ident :tadori.attribution/id
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/id "tadori.attribution/subject" :db/ident :tadori.attribution/subject
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.attribution/object" :db/ident :tadori.attribution/object
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.attribution/kind" :db/ident :tadori.attribution/kind
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one
+  :db/doc ":person | :ip | :device | :onion-payment-address | :onion-real-host — PII-class ⇒ encrypted"}
+ {:db/id "tadori.attribution/confidence" :db/ident :tadori.attribution/confidence
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one :db/doc "0..1000 per-mille"}
+ {:db/id "tadori.attribution/encrypted" :db/ident :tadori.attribution/encrypted
+  :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.attribution/evidence" :db/ident :tadori.attribution/evidence
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/many :db/doc "com.etzhayyim.encrypted.* envelope CIDs"}
+ {:db/id "tadori.attribution/case-id" :db/ident :tadori.attribution/case-id
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}]
