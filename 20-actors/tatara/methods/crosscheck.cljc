@@ -104,6 +104,25 @@
                          "a fabricated link (G5).*")))]
        (str (str/join "\n" L) "\n"))))
 
+(defn render-datoms
+  "Flatten the linkage measurement into EAVT assertions, each flagged :linkage/derived — a
+  measurement recomputed on read, never re-ingested as fact (symmetric with analyze/compose).
+  Per-operator resolution + one aggregate coverage datom. Asserts no fabricated link (an
+  unresolved operator persists :linkage/resolved false, never a guessed id — G5)."
+  [cc]
+  (let [per (mapcat (fn [r]
+                      (let [e (str "linkage-" (:operator r))]
+                        [[:db/add e :linkage/operator (:operator r)]
+                         [:db/add e :linkage/kabuto (or (:kabuto r) "")]
+                         [:db/add e :linkage/resolved (boolean (:kabuto r))]
+                         [:db/add e :linkage/derived true]]))
+                    (:rows cc))
+        agg [[:db/add "linkage-aggregate" :linkage/total (:total cc)]
+             [:db/add "linkage-aggregate" :linkage/resolved-count (:resolved cc)]
+             [:db/add "linkage-aggregate" :linkage/coverage (:coverage cc)]
+             [:db/add "linkage-aggregate" :linkage/derived true]]]
+    (vec (concat per agg))))
+
 #?(:clj
    (defn -main [& argv]
      (let [argv (vec argv)
@@ -120,6 +139,9 @@
            outdir (io/file here "out")]
        (.mkdirs outdir)
        (spit (io/file outdir "kabuto-crosscheck.md") (render-report cc))
+       (spit (io/file outdir "kabuto-linkage.kotoba.edn")
+             (str ";; tatara — DERIVED kabuto-linkage datoms (ADR-2606171800). :linkage/derived — NOT fact.\n"
+                  (pr-str (render-datoms cc)) "\n"))
        (println (str "tatara crosscheck: " (:resolved cc) "/" (:total cc) " operators resolve to "
                      "kabuto (" (int (* 100 (:coverage cc))) "% linkage); "
                      (count (:worklist cc)) " on the ingest worklist"))

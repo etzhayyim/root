@@ -79,8 +79,9 @@ missing geographic substrate that ties them together over **shared chokepoint ke
 - `cell:tatara.crosscheck` → `methods/crosscheck.cljc` (uchiwake pattern). MEASURES
   `:plant/operator` ⇄ kabuto `:company/id` linkage (bridging tatara's short `org.corp.tsmc`
   to kabuto's country-qualified `org.corp.tw.tsmc` by normalized id+name token), emits a
-  coverage % + a prioritized **ingest worklist** of unresolved operators. Pure measurement —
-  mutates nothing, fabricates no link; unresolved = honest gap (G5). Current: 24/29 = 83%.
+  coverage % + a prioritized **ingest worklist** of unresolved operators + derived `:linkage/*`
+  datoms (symmetric with analyze/compose — an unresolved operator persists `:linkage/resolved
+  false` + empty kabuto, never a fabricated id, G5). Pure measurement; current: 24/29 = 83%.
 - `cell:tatara.compose` → `methods/compose.cljc`. The cross-actor SSoT for the "one maritime
   resilience picture": fuses 静 tatara plant export-dependence · 動 watari live craft transit ·
   静-infra watatsuna cable load over the SAME chokepoint keyword → `resilience-composition.md`
@@ -96,7 +97,7 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   Every coordinate DERIVED from a seed (regenerable; none hand-copied).
 
 ```bash
-bb 20-actors/tatara/run_tests.sh                                              # 50 tests / 5,001 assertions
+bb 20-actors/tatara/run_tests.sh                                              # 51 tests / 5,007 assertions
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"  # → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)"      # → the three globes
 bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-main)"  # autonomous heartbeat → LOCAL kotoba log

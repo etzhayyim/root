@@ -51,8 +51,8 @@
       "id": "cell:tatara.crosscheck",
       "method": "methods/crosscheck.cljc",
       "input": "data/seed-plant-graph.kotoba.edn + ../kabuto/data/seed-public-companies.kotoba.edn",
-      "output": ["out/kabuto-crosscheck.md"],
-      "pipeline": "measure :plant/operator ⇄ kabuto :company/id linkage (normalized id+name token bridge) → coverage % + prioritized ingest worklist of unresolved operators. Pure measurement; unresolved = honest gap (G5), never a fabricated link. Current: 17/20 = 85%."
+      "output": ["out/kabuto-crosscheck.md", "out/kabuto-linkage.kotoba.edn"],
+      "pipeline": "measure :plant/operator ⇄ kabuto :company/id linkage (normalized id+name token bridge) → coverage % + prioritized ingest worklist of unresolved operators. Pure measurement; unresolved = honest gap (G5), never a fabricated link. Current: 24/29 = 83%."
     },
     {
       "id": "cell:tatara.autorun",
@@ -78,7 +78,7 @@
       "id": "cell:tatara.viz",
       "method": "viz/build_viz.cljc",
       "output": ["viz/plant-globe.htm", "viz/world-supply-globe.htm", "../watari/viz/craft-globe.htm"],
-      "pipeline": "tatara seed (+ watari seed) → analyze → self-contained canvas-globe HTML; every coordinate DERIVED from a seed (regenerable, none hand-copied). The integrated world-supply globe overlays plants + live craft on shared chokepoints."
+      "pipeline": "tatara seed (+ watari seed) → analyze → self-contained canvas-globe HTML; every coordinate DERIVED from a seed (regenerable, none hand-copied). The integrated world-supply globe overlays plants + live craft (watari) + cable stations (watatsuna), 3-way composed per chokepoint."
     }
   ],
   "lexiconNamespaces": [

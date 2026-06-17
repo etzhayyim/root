@@ -64,6 +64,21 @@
     (is (str/includes? md "kabuto-linkage crosscheck"))
     (is (str/includes? md "coverage"))))
 
+(deftest test-linkage-datoms-are-eavt-and-flag-honest-gaps  ;; ── symmetric with analyze/compose ──
+  (let [r (cc/crosscheck [{:plant/id "p1" :plant/operator "org.corp.tsmc"   :plant/name "Fab A"}
+                          {:plant/id "p2" :plant/operator "org.corp.ghostco" :plant/name "Ghost"}]
+                         synth-companies)
+        ds (cc/render-datoms r)]
+    (is (every? (fn [d] (and (= 4 (count d)) (= :db/add (first d)))) ds))
+    ;; resolved operator persists its kabuto id + resolved true
+    (is (some (fn [[_ _ a v]] (and (= :linkage/kabuto a) (= "org.corp.tw.tsmc" v))) ds))
+    ;; unresolved operator persists resolved=false + EMPTY kabuto (never a fabricated id — G5)
+    (is (some (fn [[_ e a v]] (and (= e "linkage-org.corp.ghostco") (= :linkage/resolved a) (false? v))) ds))
+    (is (some (fn [[_ e a v]] (and (= e "linkage-org.corp.ghostco") (= :linkage/kabuto a) (= "" v))) ds))
+    ;; aggregate coverage datom
+    (is (some (fn [[_ _ a v]] (and (= :linkage/coverage a) (= 0.5 v))) ds))
+    (is (some (fn [[_ _ a v]] (and (= :linkage/derived a) (true? v))) ds))))
+
 #?(:clj
    (defn -main [& _]
      (let [{:keys [fail error]} (run-tests 'tatara.methods.test-crosscheck)]
