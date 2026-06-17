@@ -33,6 +33,16 @@
    :task (do (require 'etzhayyim.kotoba.roster)
              ((resolve 'etzhayyim.kotoba.roster/-main)))}
 
+  vitals:report
+  {:doc "Per-actor LIFE-ACTIVITY vitals — scores each manifest-bearing cell on 3 axes (clj 内部代謝 / actor 細胞間シグナル / atproto 外界代謝), RUNS its run_tests.sh reflex, classifies 生/休眠/死, and transacts the vitals into the kotoba Datom log (as-of trajectory). Flags: --no-tests --limit N --actors a,b --timeout-ms N"
+   :task (do (require 'etzhayyim.vitals)
+             (apply (resolve 'etzhayyim.vitals/-main) *command-line-args*))}
+
+  vitals:trajectory
+  {:doc "Read the kotoba Datom log of past vitals runs and show the organism's EVOLUTION (生命進化): per-run 生/休眠/死 cohort distribution + Σscore Δ over time, plus per-actor class/score transitions (休眠→生 等) between the last two runs."
+   :task (do (require 'etzhayyim.vitals)
+             ((resolve 'etzhayyim.vitals/-trajectory)))}
+
   test:kotoba
   {:doc "etzhayyim.kotoba root-side Datom engine + encrypted-record envelope (ADR-2605262130 Phase 1/2 + ADR-2605181100; data+impl in root, kotoba subrepo stays the generic engine)"
    :task (do (require 'clojure.test 'etzhayyim.kotoba.test-engine
@@ -413,9 +423,9 @@
   test:todoke
   {:doc "todoke Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
-                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine)
+                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine)
              (let [r (clojure.test/run-tests
-                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine)]
+                      'todoke.methods.test-last-mile 'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:uchiwake
@@ -725,7 +735,7 @@
 
                       'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
 
-                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine
+                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
                       'mitooshi.methods.test-social 'mitooshi.methods.test-synthesize
                       'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-horizon
@@ -804,7 +814,7 @@
 
                       'post-quantum-compat.methods.test-suite 'post-quantum-compat.methods.test-suite-registry 'post-quantum-compat.methods.test-datom-emit
 
-                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine
+                      'todoke.cells.route-sequencing.test-state-machine 'yadori.cells.availability-check.test-state-machine 'yadori.cells.reservation.test-state-machine 'tazuna.cells.teleop-session.test-state-machine
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
                                              'mitooshi.methods.test-social
