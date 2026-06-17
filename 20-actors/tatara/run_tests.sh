@@ -13,6 +13,7 @@ SUITES=(
   "tatara.methods.test-crosscheck"
   "tatara.methods.test-maturity"
   "tatara.methods.test-seed-integrity"
+  "tatara.methods.test-viz"
 )
 
 fail=0

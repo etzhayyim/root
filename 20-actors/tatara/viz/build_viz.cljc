@@ -127,6 +127,43 @@
                            (str "as-of: " (:craft.fix/observed-at fx ""))]}))
                latest)))))
 
+;; ── watari live craft transit per chokepoint (composes with tatara plant export-dependence) ──
+#?(:clj
+   (defn- watari-choke-transit
+     "Read the watari craft graph → map of chokepoint-keyword-name → distinct live craft whose
+     LATEST fix transits a lane carrying that chokepoint. The 動 (live) half of the composition."
+     [watari-seed]
+     (if-not (.exists (io/file watari-seed))
+       {}
+       (let [rows (edn/read-string (slurp watari-seed))
+             lane->cp (into {} (keep (fn [r] (when (and (:lane/id r) (:lane/chokepoint r))
+                                               [(:lane/id r) (name (:lane/chokepoint r))]))
+                                     rows))
+             fixes (filter :craft.fix/id rows)
+             latest (reduce (fn [m fx]
+                              (let [c (:craft.fix/craft fx) cur (get m c)]
+                                (if (or (nil? cur)
+                                        (pos? (compare (:craft.fix/observed-at fx "")
+                                                       (:craft.fix/observed-at cur ""))))
+                                  (assoc m c fx) m)))
+                            {} fixes)]
+         (reduce (fn [acc [c fx]]
+                   (if-let [cp (lane->cp (:craft.fix/lane fx))]
+                     (update acc cp (fnil conj #{}) c)
+                     acc))
+                 {} latest)))))
+
+(defn- composition-bars
+  "Per-chokepoint composition: tatara plant export-dependence + watari live craft transit.
+  value = plants (primary bar); :sub = craft count (the 動 overlay)."
+  [a craft-transit]
+  (mapv (fn [cp]
+          (let [k (name cp)]
+            {:name k :value (count (get-in a [:choke-plants cp]))
+             :sub (count (get craft-transit k #{}))
+             :col (get choke-colors k "#9ad")}))
+        (az/chokes-by-load a)))
+
 ;; ── HTML template (orthographic canvas globe) ───────────────────────────────────
 (defn- html [{:keys [title ja subtitle source data legend bars-title]}]
   (str "<!DOCTYPE html>
@@ -242,9 +279,13 @@ function showInfo(p){document.getElementById('info').innerHTML=
 const S=document.getElementById('stats');
 S.innerHTML=DATA.stats.map(s=>'<div class=\"stat\"><span>'+s[0]+'</span><b>'+s[1]+'</b></div>').join('');
 const maxBar=Math.max(1,...DATA.bars.map(b=>b.value));
-document.getElementById('bars').innerHTML=DATA.bars.map(b=>
- '<div class=\"bar\"><div class=\"lab\"><span>'+b.name+'</span><span>'+b.value+'</span></div>'+
- '<div class=\"track\"><div class=\"fill\" style=\"width:'+(100*b.value/maxBar)+'%;background:'+b.col+'\"></div></div></div>').join('');
+const maxSub=Math.max(1,...DATA.bars.map(b=>b.sub||0));
+document.getElementById('bars').innerHTML=DATA.bars.map(b=>{
+ const lab=(b.sub!=null)?(b.value+'p · '+b.sub+'c'):(''+b.value);
+ const sub=(b.sub!=null)?('<div class=\"track\" style=\"height:4px;margin-top:2px;background:#0a1422\"><div class=\"fill\" style=\"width:'+(100*b.sub/maxSub)+'%;background:#5ad1a8\"></div></div>'):'';
+ return '<div class=\"bar\"><div class=\"lab\"><span>'+b.name+'</span><span>'+lab+'</span></div>'+
+  '<div class=\"track\"><div class=\"fill\" style=\"width:'+(100*b.value/maxBar)+'%;background:'+b.col+'\"></div></div>'+sub+'</div>';
+}).join('');
 document.getElementById('legend').innerHTML=LEGEND.map(l=>
  '<span><i style=\"background:'+l[1]+'\"></i>'+l[0]+'</span>').join('');
 resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationFrame(loop);})();
@@ -272,6 +313,8 @@ resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationF
            sector-legend (mapv (fn [[s c]] [(name s) c])
                                (sort-by (comp name first) sector-colors))
            craft (or (watari-craft-points watari-seed) [])
+           craft-transit (watari-choke-transit watari-seed)
+           comp-bars (composition-bars a craft-transit)
 
            ;; (C) plant globe
            plant-html
@@ -288,13 +331,13 @@ resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationF
            ;; (A) integrated world supply globe — plants + live craft + composition
            world-html
            (html {:title "world supply" :ja "世界製造・物流"
-                  :subtitle "manufacturing plants (tatara) + live craft (watari) + chokepoint composition"
+                  :subtitle "manufacturing plants (tatara) + live craft (watari) composed per chokepoint"
                   :source "tatara + watari seeds"
-                  :bars-title "Chokepoint plant export-dependence"
+                  :bars-title "Chokepoint composition — plants (静) · live craft (動)"
                   :legend [["manufacturing plant" "#62d0ff"] ["vessel (live)" "#5ad1a8"]
                            ["aircraft (live)" "#ff9f6b"] ["logistics hub" "#8fa9c8"]
                            ["◆ chokepoint" "#ffcf6b"]]
-                  :data {:points (into (into (into pp hp) cps) craft) :arcs arcs :bars bars
+                  :data {:points (into (into (into pp hp) cps) craft) :arcs arcs :bars comp-bars
                          :stats [["plants" (:n-plants a)] ["live craft (watari)" (count craft)]
                                  ["export flows" (:n-flows a)]
                                  ["aggregate employment" (:global-headcount a)]]}})

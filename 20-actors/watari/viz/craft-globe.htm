@@ -111,9 +111,13 @@ function showInfo(p){document.getElementById('info').innerHTML=
 const S=document.getElementById('stats');
 S.innerHTML=DATA.stats.map(s=>'<div class="stat"><span>'+s[0]+'</span><b>'+s[1]+'</b></div>').join('');
 const maxBar=Math.max(1,...DATA.bars.map(b=>b.value));
-document.getElementById('bars').innerHTML=DATA.bars.map(b=>
- '<div class="bar"><div class="lab"><span>'+b.name+'</span><span>'+b.value+'</span></div>'+
- '<div class="track"><div class="fill" style="width:'+(100*b.value/maxBar)+'%;background:'+b.col+'"></div></div></div>').join('');
+const maxSub=Math.max(1,...DATA.bars.map(b=>b.sub||0));
+document.getElementById('bars').innerHTML=DATA.bars.map(b=>{
+ const lab=(b.sub!=null)?(b.value+'p · '+b.sub+'c'):(''+b.value);
+ const sub=(b.sub!=null)?('<div class="track" style="height:4px;margin-top:2px;background:#0a1422"><div class="fill" style="width:'+(100*b.sub/maxSub)+'%;background:#5ad1a8"></div></div>'):'';
+ return '<div class="bar"><div class="lab"><span>'+b.name+'</span><span>'+lab+'</span></div>'+
+  '<div class="track"><div class="fill" style="width:'+(100*b.value/maxBar)+'%;background:'+b.col+'"></div></div>'+sub+'</div>';
+}).join('');
 document.getElementById('legend').innerHTML=LEGEND.map(l=>
  '<span><i style="background:'+l[1]+'"></i>'+l[0]+'</span>').join('');
 resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationFrame(loop);})();
