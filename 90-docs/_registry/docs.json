@@ -669,7 +669,9 @@
       "status": "superseded",
       "doc_type": "adr",
       "topic": "open-unispsc-generative-agent-fleet",
-      "superseded_by": "[\"2606172100-retire-unispsc-python-per-code-fleet\"]",
+      "superseded_by": [
+        "2606172100-retire-unispsc-python-per-code-fleet"
+      ],
       "authoritative": false,
       "authoritative_for": [],
       "related": [],
