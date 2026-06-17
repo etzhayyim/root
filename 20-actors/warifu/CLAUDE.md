@@ -38,10 +38,13 @@ with the existing card ecosystem. Settles on-chain (USDC on Base L2 + ERC-4337).
 20-actors/warifu/
 ├── manifest.toml / manifest.json   # actor metadata + economics + purpose allow-list
 ├── adr.md                          # mirror/pointer to 90-docs/adr/2605302000
-├── cells/                          # kotoba-EAVT-native Pregel/LangGraph cells
-│   ├── authorize.py                # auth (debit hold / credit reserve) -> EAVT auth_hold
-│   ├── settle.py                   # capture -> SettlementRouter USDC transfer -> EAVT settlement
+├── cells/                          # kotoba-EAVT-native cells (cljc; Python pruned per ADR-2606160842)
+│   ├── authorize.cljc              # auth (debit hold / credit reserve) -> EAVT auth_hold
+│   ├── capture.cljc / settle.cljc / refund.cljc / dispute.cljc
+│   ├── substrate.cljc              # SubstratePort DI seam + UnwiredSubstrate sentinel
+│   ├── eavt_schema.cljc / guarded_substrate.cljc  # write contract + fail-closed guard
 │   └── lex/                        # per-cell lexicons (cell I/O contracts)
+│                                   # tests: cells/test_*.cljc + test_lexicons.cljc; run ./run_tests.sh
 └── lex/README.md                   # points to 10-protocol/warifu/ com.etzhayyim.card.* lexicons
 ```
 
