@@ -1,6 +1,9 @@
 # FINDING — autonomous-heartbeat `head-cid` is O(n²) per beat (ADR-2606160842 clj-port wave)
 
-**Status**: ALL 9 heartbeat actors FIXED (2026-06-17). Recipe + per-actor verification below.
+**Status**: 12 of 13 affected actors FIXED (2026-06-17); meisai deferred by design (see note).
+Recipe + per-actor verification below. (An initial pass fixed the 9 actors kanjo's CLAUDE.md
+named as "the same shape"; a follow-up audit of *all* autorun-bearing actors found 4 more —
+danjo/keizu/kosatsu/meisai — carrying the identical pattern.)
 **Severity**: 常駐化 (resident-daemon) scaling defect. Not a correctness bug — the loop stays
 deterministic / resume-safe and the commit-DAG still verifies; only wall-clock degrades, and it
 degrades *with corpus size*, so it is invisible at R0 seed scale and bites after live ingest grows
@@ -70,7 +73,18 @@ EDN reader (`*-edn` / `parse-tokens`) is **not** touched.
 | ipaddress | 32 KB | yes | **FIXED** — test-autorun 6t/23a |
 | yabai | 36 KB | yes | **FIXED** — test-autorun 7t/203a |
 | hakoniwa | 20 KB | yes | **FIXED** — runtime 10t/31a + simulate 7t/154a |
+| danjo | — | yes | **FIXED** — suite 24t/87a |
+| keizu | — | yes | **FIXED** — suite 192t/901a |
+| kosatsu | — | yes | **FIXED** — suite 73t/456a |
+| meisai | local-only | yes (3-arg `get`) | DEFERRED — see note |
 | mimamori | — | no (different head impl) | n/a |
+| ibuki / tsumugi | — | no `kotoba.cljc` (persist differently) | n/a |
+
+**meisai deferral**: meisai's `head-cid` is a plain (non-reader-conditional) defn in a `.cljc`
+with live `:cljs` branches, and its corpus is the member's OWN card statements (G3 local-only,
+structurally small — never the public, ever-growing corpus that made kanjo pathological). Forcing
+the `clojure.java.io`-based fix in would break its cljs compilation for negligible benefit. If
+meisai ever grows a JVM-only large log, apply a cljs-safe variant of the recipe.
 
 All 9 verified green after the fix (the append-only / tamper / persistence tests exercise head-cid
 linkage). The 7 smaller actors were green pre-fix only because their R0 seeds are small; they are
