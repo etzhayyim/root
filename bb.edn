@@ -490,10 +490,10 @@
   {:doc "watatsuna Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
                       'watatsuna.methods.test-ingest 'watatsuna.methods.test-analyze
-                      'watatsuna.methods.test-plan 'watatsuna.methods.test-autorun)
+                      'watatsuna.methods.test-plan 'watatsuna.viz.test-build-viz-data 'watatsuna.methods.test-autorun)
              (let [r (clojure.test/run-tests
                       'watatsuna.methods.test-ingest 'watatsuna.methods.test-analyze
-                      'watatsuna.methods.test-plan 'watatsuna.methods.test-autorun)]
+                      'watatsuna.methods.test-plan 'watatsuna.viz.test-build-viz-data 'watatsuna.methods.test-autorun)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:yabai
