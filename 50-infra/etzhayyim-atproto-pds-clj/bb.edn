@@ -1,0 +1,14 @@
+{;; Independent etzhayyim atproto PDS — babashka runner (no external deps; uses
+ ;; bb built-in org.httpkit.server / cheshire / babashka.http-client).
+ :paths ["src" "test"]
+ :tasks
+ {serve
+  {:doc "Run the PDS HTTP server (PORT, PDS_HOST, KOTOBA_URL env overridable)."
+   :requires ([etzhayyim.pds.server :as server])
+   :task (server/-main)}
+
+  test
+  {:doc "Run the PDS round-trip test suite."
+   :requires ([clojure.test :as t] [etzhayyim.pds.server-test])
+   :task (let [{:keys [fail error]} (t/run-tests 'etzhayyim.pds.server-test)]
+           (System/exit (if (pos? (+ fail error)) 1 0)))}}}
