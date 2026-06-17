@@ -30,16 +30,17 @@
 
 ;; ── classify ────────────────────────────────────────────────────────────────────
 (defn classify
-  "Partition rows into {:plants :hubs :flows}, each a vector in seed order."
+  "Partition rows into {:plants :hubs :flows :chokepoints}, each a vector in seed order."
   [rows]
   (reduce (fn [acc r]
             (cond
-              (not (map? r))       acc
-              (contains? r :plant/id) (update acc :plants conj r)
-              (contains? r :hub/id)   (update acc :hubs conj r)
-              (contains? r :flow/id)  (update acc :flows conj r)
+              (not (map? r))           acc
+              (contains? r :plant/id)  (update acc :plants conj r)
+              (contains? r :hub/id)    (update acc :hubs conj r)
+              (contains? r :flow/id)   (update acc :flows conj r)
+              (contains? r :chokepoint/id) (update acc :chokepoints conj r)
               :else acc))
-          {:plants [] :hubs [] :flows []}
+          {:plants [] :hubs [] :flows [] :chokepoints []}
           rows))
 
 ;; ── helpers ─────────────────────────────────────────────────────────────────────
@@ -69,8 +70,12 @@
 
 (defn analyze
   "Aggregate roll-ups over the plant graph. Returns a keyword-keyed result map."
-  [{:keys [plants hubs flows]}]
+  [{:keys [plants hubs flows chokepoints]}]
   (let [plant-by-id (into {} (map (juxt :plant/id identity) plants))
+        choke-coords (into {} (map (fn [c] [(:chokepoint/keyword c)
+                                            {:lat (:chokepoint/lat c) :lon (:chokepoint/lon c)
+                                             :name (:chokepoint/name c) :id (:chokepoint/id c)}])
+                                   chokepoints))
 
         sector-country
         (reduce (fn [m p]
@@ -132,9 +137,11 @@
      :country-roll country-roll
      :choke-plants choke-plants
      :global-headcount global-headcount
+     :choke-coords choke-coords
      :n-plants (count plants)
      :n-hubs (count hubs)
-     :n-flows (count flows)}))
+     :n-flows (count flows)
+     :n-chokepoints (count chokepoints)}))
 
 ;; ── ordering helpers for deterministic rendering ─────────────────────────────────
 (defn sectors-by-size [a]

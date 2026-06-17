@@ -9,6 +9,7 @@
 | plants | 28 |
 | logistics hubs | 6 |
 | export flows | 28 |
+| chokepoints (geographic nodes) | 7 |
 | sectors | 9 |
 | countries | 12 |
 | aggregate employment (disclosed, never per-worker) | 692000 |

@@ -89,7 +89,7 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   Every coordinate DERIVED from a seed (regenerable; none hand-copied).
 
 ```bash
-bb 20-actors/tatara/run_tests.sh                                              # 39 tests / 4,090 assertions
+bb 20-actors/tatara/run_tests.sh                                              # 41 tests / 4,223 assertions
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"  # → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)"      # → the three globes
 bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-main)"  # autonomous heartbeat → LOCAL kotoba log

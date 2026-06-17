@@ -84,6 +84,20 @@
   :db/doc "Maritime/air chokepoint keyword(s) the flow traverses — SHARED with watari :lane/chokepoint + watatsuna :station/chokepoint (:malacca :luzon-strait :suez-red-sea :hormuz :panama :gibraltar :taiwan-strait). The join key that composes the three maps."}
  {:db/ident :flow/sourcing      :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}
 
+ ;; ───────────────────────────── :chokepoint/* — a first-class maritime chokepoint (geographic anchor) ─────────────────────────────
+ ;; The SHARED join entity: :chokepoint/keyword is the same keyword carried by :flow/via,
+ ;; watari :lane/chokepoint, and watatsuna :station/chokepoint. Promoting it from a bare keyword
+ ;; to a node with coordinates lets the three maps plot the SAME geographic hotspot.
+ {:db/ident :chokepoint/id      :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity
+  :db/doc "Stable id, e.g. \"chokepoint.malacca\"."}
+ {:db/ident :chokepoint/keyword :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+  :db/doc "The shared chokepoint keyword (= :flow/via member = watari :lane/chokepoint = watatsuna :station/chokepoint)."}
+ {:db/ident :chokepoint/name    :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+ {:db/ident :chokepoint/lat     :db/valueType :db.type/double  :db/cardinality :db.cardinality/one
+  :db/doc "Representative latitude of the chokepoint (coarse — a corridor, not a target point; G1/G2)."}
+ {:db/ident :chokepoint/lon     :db/valueType :db.type/double  :db/cardinality :db.cardinality/one}
+ {:db/ident :chokepoint/sourcing :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}
+
  ;; ───────────────────────────── derived :concentration/* — analyzer output (NEVER re-ingested as fact) ─────────────────────────────
  {:db/ident :concentration/sector        :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
   :db/doc "Sector this concentration datom summarizes."}

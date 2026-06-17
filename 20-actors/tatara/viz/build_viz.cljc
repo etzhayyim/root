@@ -84,6 +84,21 @@
            :col (get choke-colors (name cp) "#9ad")})
         (az/chokes-by-load a)))
 
+(defn- choke-points
+  "Plot each first-class chokepoint at its coordinates, sized by export-dependence count."
+  [a]
+  (vec (keep (fn [cp]
+               (when-let [c (get-in a [:choke-coords cp])]
+                 (let [n (count (get-in a [:choke-plants cp]))]
+                   {:lat (:lat c) :lon (:lon c)
+                    :col (get choke-colors (name cp) "#9ad")
+                    :w (* n n) :kind "chokepoint"
+                    :nm (str "⚓ " (:name c)) :cc (name cp)
+                    :info [(str "shared chokepoint keyword: :" (name cp))
+                           (str "plants export-dependent: " n)
+                           "composes with watari (live craft) + watatsuna (cable)"]})))
+             (keys (:choke-coords a)))))
+
 ;; ── watari craft latest positions (real keywords; clojure.edn) ──────────────────
 #?(:clj
    (defn- watari-craft-points [watari-seed]
@@ -179,7 +194,7 @@ function resize(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;
 window.addEventListener('resize',resize);
 function project(lat,lon){let v=rotX(rotY(v3(lat,lon),ry),rx);return{x:cx+R*v[0],y:cy-R*v[1],front:v[2]>0};}
 const maxW=Math.max(1,...DATA.points.map(p=>p.w||0));
-const rOf=p=>(p.kind==='hub')?3.2:(3+11*Math.sqrt((p.w||1)/maxW));
+const rOf=p=>p.kind==='chokepoint'?(4+1.6*Math.sqrt(p.w||1)):(p.kind==='hub')?3.2:(3+11*Math.sqrt((p.w||1)/maxW));
 function draw(){
  ctx.clearRect(0,0,W,H);
  const g=ctx.createRadialGradient(cx-R*0.3,cy-R*0.3,R*0.2,cx,cy,R);
@@ -201,6 +216,10 @@ function draw(){
  const pts=DATA.points.map((p,i)=>({p,i,q:project(p.lat,p.lon)})).filter(o=>o.q.front)
    .sort((u,v)=>u.q.y-v.q.y);
  pts.forEach(({p,q})=>{const r=rOf(p);
+  if(p.kind==='chokepoint'){ctx.save();ctx.translate(q.x,q.y);ctx.rotate(Math.PI/4);
+   ctx.globalAlpha=(hover&&hover!==p)?0.5:0.9;ctx.fillStyle=p.col;ctx.fillRect(-r,-r,2*r,2*r);
+   ctx.globalAlpha=1;ctx.lineWidth=(hover===p)?2:1.4;ctx.strokeStyle=(hover===p)?'#fff':'#04121d';
+   ctx.strokeRect(-r,-r,2*r,2*r);ctx.restore();return;}
   ctx.beginPath();ctx.arc(q.x,q.y,r,0,7);ctx.fillStyle=p.col;
   ctx.globalAlpha=(hover&&hover!==p)?0.55:0.95;ctx.fill();ctx.globalAlpha=1;
   ctx.lineWidth=(hover===p)?2:1;ctx.strokeStyle=(hover===p)?'#fff':(p.kind==='hub'?'#cfe':'#04121d');ctx.stroke();});
@@ -249,6 +268,7 @@ resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationF
            hp (hub-points (:hubs g))
            arcs (flow-arcs plant-by-id hub-by-id (:flows g))
            bars (choke-bars a)
+           cps (choke-points a)
            sector-legend (mapv (fn [[s c]] [(name s) c])
                                (sort-by (comp name first) sector-colors))
            craft (or (watari-craft-points watari-seed) [])
@@ -259,8 +279,8 @@ resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationF
                   :subtitle "world manufacturing plants &amp; logistics flows, by sector"
                   :source "seed-plant-graph.kotoba.edn"
                   :bars-title "Chokepoint export-dependence"
-                  :legend (conj sector-legend ["logistics hub" "#8fa9c8"])
-                  :data {:points (into pp hp) :arcs arcs :bars bars
+                  :legend (conj sector-legend ["logistics hub" "#8fa9c8"] ["◆ chokepoint" "#ffcf6b"])
+                  :data {:points (into (into pp hp) cps) :arcs arcs :bars bars
                          :stats [["plants" (:n-plants a)] ["logistics hubs" (:n-hubs a)]
                                  ["export flows" (:n-flows a)]
                                  ["aggregate employment" (:global-headcount a)]]}})
@@ -272,8 +292,9 @@ resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationF
                   :source "tatara + watari seeds"
                   :bars-title "Chokepoint plant export-dependence"
                   :legend [["manufacturing plant" "#62d0ff"] ["vessel (live)" "#5ad1a8"]
-                           ["aircraft (live)" "#ff9f6b"] ["logistics hub" "#8fa9c8"]]
-                  :data {:points (into (into pp hp) craft) :arcs arcs :bars bars
+                           ["aircraft (live)" "#ff9f6b"] ["logistics hub" "#8fa9c8"]
+                           ["◆ chokepoint" "#ffcf6b"]]
+                  :data {:points (into (into (into pp hp) cps) craft) :arcs arcs :bars bars
                          :stats [["plants" (:n-plants a)] ["live craft (watari)" (count craft)]
                                  ["export flows" (:n-flows a)]
                                  ["aggregate employment" (:global-headcount a)]]}})

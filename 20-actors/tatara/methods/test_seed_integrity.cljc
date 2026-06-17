@@ -48,12 +48,21 @@
     (is (apply distinct? (map :flow/id flows)))))
 
 (deftest test-coordinates-in-range
-  (let [{:keys [plants hubs]} (g)]
-    (doseq [e (concat plants hubs)]
-      (let [lat (or (:plant/lat e) (:hub/lat e))
-            lon (or (:plant/lon e) (:hub/lon e))]
+  (let [{:keys [plants hubs chokepoints]} (g)]
+    (doseq [e (concat plants hubs chokepoints)]
+      (let [lat (or (:plant/lat e) (:hub/lat e) (:chokepoint/lat e))
+            lon (or (:plant/lon e) (:hub/lon e) (:chokepoint/lon e))]
         (is (<= -90.0 (double lat) 90.0))
         (is (<= -180.0 (double lon) 180.0))))))
+
+(deftest test-chokepoint-nodes-cover-every-flow-via  ;; ── referential completeness ──
+  (let [{:keys [flows chokepoints]} (g)
+        ck-kw (set (map :chokepoint/keyword chokepoints))
+        via-used (set (mapcat :flow/via flows))]
+    (is (apply distinct? (map :chokepoint/id chokepoints)))
+    (is (apply distinct? (map :chokepoint/keyword chokepoints)))
+    (doseq [v via-used]
+      (is (contains? ck-kw v) (str "flow via :" (name v) " has no :chokepoint geographic node")))))
 
 (deftest test-each-sector-uses-exactly-one-capacity-unit  ;; ── load-bearing rollup invariant ──
   (let [by-sector (group-by :plant/sector (:plants (g)))]

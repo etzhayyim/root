@@ -62,6 +62,17 @@
  {:hub/id "hub.port.losangeles" :hub/name "Port of Los Angeles"        :hub/country "US" :hub/lat 33.73 :hub/lon -118.26 :hub/kind :seaport :hub/throughput-value 9.0 :hub/throughput-unit :teu-m :hub/sourcing :representative}
  {:hub/id "hub.air.memphis"     :hub/name "Memphis SuperHub (FedEx)"   :hub/country "US" :hub/lat 35.04 :hub/lon -89.98 :hub/kind :airport :hub/throughput-value 4.0 :hub/throughput-unit :tonnes-m :hub/sourcing :representative}
 
+ ;; ───────────────────────────── CHOKEPOINTS (first-class geographic anchors; SHARED with watari + watatsuna) ─────────────────────────────
+ ;; :chokepoint/keyword = the join key carried by :flow/via, watari :lane/chokepoint, watatsuna
+ ;; :station/chokepoint. Coordinates are coarse corridor centroids (a corridor, not a target; G2).
+ {:chokepoint/id "chokepoint.malacca"       :chokepoint/keyword :malacca       :chokepoint/name "Strait of Malacca"   :chokepoint/lat 2.50  :chokepoint/lon 101.00 :chokepoint/sourcing :representative}
+ {:chokepoint/id "chokepoint.luzon-strait"  :chokepoint/keyword :luzon-strait  :chokepoint/name "Luzon Strait"        :chokepoint/lat 20.50 :chokepoint/lon 121.50 :chokepoint/sourcing :representative}
+ {:chokepoint/id "chokepoint.suez-red-sea"  :chokepoint/keyword :suez-red-sea  :chokepoint/name "Suez Canal / Red Sea" :chokepoint/lat 29.00 :chokepoint/lon 32.60 :chokepoint/sourcing :representative}
+ {:chokepoint/id "chokepoint.gibraltar"     :chokepoint/keyword :gibraltar     :chokepoint/name "Strait of Gibraltar" :chokepoint/lat 35.95 :chokepoint/lon -5.60  :chokepoint/sourcing :representative}
+ {:chokepoint/id "chokepoint.panama"        :chokepoint/keyword :panama        :chokepoint/name "Panama Canal"        :chokepoint/lat 9.10  :chokepoint/lon -79.70 :chokepoint/sourcing :representative}
+ {:chokepoint/id "chokepoint.hormuz"        :chokepoint/keyword :hormuz        :chokepoint/name "Strait of Hormuz"    :chokepoint/lat 26.60 :chokepoint/lon 56.40  :chokepoint/sourcing :representative}
+ {:chokepoint/id "chokepoint.taiwan-strait" :chokepoint/keyword :taiwan-strait :chokepoint/name "Taiwan Strait"       :chokepoint/lat 24.50 :chokepoint/lon 119.50 :chokepoint/sourcing :representative}
+
  ;; ───────────────────────────── FLOWS (plant → export gateway, via chokepoints) ─────────────────────────────
  {:flow/id "flow.tsmc-tainan.sg"     :flow/from "plant.tsmc.fab18-tainan"   :flow/to "hub.port.singapore"  :flow/mode :sea :flow/commodity :components     :flow/via [:luzon-strait :malacca] :flow/sourcing :representative}
  {:flow/id "flow.samsung.busan"      :flow/from "plant.samsung.pyeongtaek"  :flow/to "hub.port.busan"      :flow/mode :sea :flow/commodity :finished-goods :flow/via [:malacca]               :flow/sourcing :representative}

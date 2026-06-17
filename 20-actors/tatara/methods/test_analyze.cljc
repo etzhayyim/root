@@ -73,6 +73,15 @@
     ;; automotive total = 1.4M + 0.5M + 0.78M + 0.95M + 0.4M = 4.03M vehicles/yr
     (is (= 4030000.0 (get-in a [:sector-capacity :automotive :value])))))
 
+(deftest test-chokepoints-are-first-class-nodes-with-coords
+  (let [[g a] (load*)]
+    (is (= 7 (count (:chokepoints g))))
+    (is (= 7 (:n-chokepoints a)))
+    (is (= 7 (count (:choke-coords a))))
+    (is (= 101.0 (:lon (get (:choke-coords a) :malacca))))
+    ;; every chokepoint a flow traverses has a geographic node (the shared map anchor)
+    (is (every? (:choke-coords a) (keys (:choke-plants a))))))
+
 (deftest test-no-per-worker-attribute-is-representable  ;; ── load-bearing G4 gate ──
   (let [[g _] (load*)]
     (doseq [p (:plants g)]

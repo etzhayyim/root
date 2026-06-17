@@ -63,7 +63,7 @@ function resize(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;
 window.addEventListener('resize',resize);
 function project(lat,lon){let v=rotX(rotY(v3(lat,lon),ry),rx);return{x:cx+R*v[0],y:cy-R*v[1],front:v[2]>0};}
 const maxW=Math.max(1,...DATA.points.map(p=>p.w||0));
-const rOf=p=>(p.kind==='hub')?3.2:(3+11*Math.sqrt((p.w||1)/maxW));
+const rOf=p=>p.kind==='chokepoint'?(4+1.6*Math.sqrt(p.w||1)):(p.kind==='hub')?3.2:(3+11*Math.sqrt((p.w||1)/maxW));
 function draw(){
  ctx.clearRect(0,0,W,H);
  const g=ctx.createRadialGradient(cx-R*0.3,cy-R*0.3,R*0.2,cx,cy,R);
@@ -85,6 +85,10 @@ function draw(){
  const pts=DATA.points.map((p,i)=>({p,i,q:project(p.lat,p.lon)})).filter(o=>o.q.front)
    .sort((u,v)=>u.q.y-v.q.y);
  pts.forEach(({p,q})=>{const r=rOf(p);
+  if(p.kind==='chokepoint'){ctx.save();ctx.translate(q.x,q.y);ctx.rotate(Math.PI/4);
+   ctx.globalAlpha=(hover&&hover!==p)?0.5:0.9;ctx.fillStyle=p.col;ctx.fillRect(-r,-r,2*r,2*r);
+   ctx.globalAlpha=1;ctx.lineWidth=(hover===p)?2:1.4;ctx.strokeStyle=(hover===p)?'#fff':'#04121d';
+   ctx.strokeRect(-r,-r,2*r,2*r);ctx.restore();return;}
   ctx.beginPath();ctx.arc(q.x,q.y,r,0,7);ctx.fillStyle=p.col;
   ctx.globalAlpha=(hover&&hover!==p)?0.55:0.95;ctx.fill();ctx.globalAlpha=1;
   ctx.lineWidth=(hover===p)?2:1;ctx.strokeStyle=(hover===p)?'#fff':(p.kind==='hub'?'#cfe':'#04121d');ctx.stroke();});

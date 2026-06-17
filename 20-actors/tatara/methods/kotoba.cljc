@@ -31,7 +31,7 @@
      :default (fn [_] (throw (ex-info "bind tatara.methods.kotoba/*sha256-hex* on this host" {})))))
 
 ;; ── EAVT assertion ────────────────────────────────────────────────────────────
-(def id-keys [:plant/id :hub/id :flow/id])
+(def id-keys [:plant/id :hub/id :flow/id :chokepoint/id])
 
 (defn add [entity attr value] [:db/add entity attr value])
 

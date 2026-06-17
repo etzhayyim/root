@@ -28,7 +28,7 @@ bb 20-actors/tatara/run_tests.sh
 # Testing tatara.methods.test-autorun … Ran 5 tests / 1213 assertions. 0 failures.
 # Testing tatara.methods.test-lexicons… Ran 4 tests / 44 assertions.   0 failures.
 # Testing tatara.methods.test-crosscheck Ran 4 tests / 20 assertions.  0 failures.
-# ── tatara: ALL suites green ──   (39 tests / 4,090 assertions)
+# ── tatara: ALL suites green ──   (41 tests / 4,223 assertions)
 
 # kabuto-linkage crosscheck → out/kabuto-crosscheck.md (21/25 = 84% linkage)
 bb -cp 20-actors -e "(require 'tatara.methods.crosscheck)(tatara.methods.crosscheck/-main)"
@@ -55,7 +55,7 @@ bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)
 hynix), automotive (Hyundai, Toyota, VW, Tesla, Ford), battery (CATL, LG, Tesla, Northvolt), steel
 (POSCO, Baowu, Nippon Steel, Tata Steel), chemicals (BASF, SABIC), electronics (Foxconn), aerospace
 (Boeing, Airbus, Embraer), shipbuilding (HD Hyundai), pharma (Pfizer, Serum Institute) — + 6
-logistics hubs + 28 export flows keyed on shared chokepoints.
+logistics hubs + 28 export flows + 7 first-class chokepoint geographic nodes (the shared anchor for watari + watatsuna).
 
 Top chokepoint export-dependence in the seed: **malacca 11 plants · luzon-strait 7 · suez-red-sea 5 ·
 gibraltar 4 · panama 2 · hormuz 1 · taiwan-strait 1** — these compose with watari (live vessel
@@ -73,7 +73,7 @@ transit) and watatsuna (submarine-cable load) over the same keywords.
 | `methods/crosscheck.cljc` | measures :plant/operator ⇄ kabuto :company/id linkage (84%) + ingest worklist |
 | `methods/maturity.cljc` → `MATURITY.md` | generated maturity scorecard (R0→R1 checklist, can't drift) |
 | `00-contracts/lexicons/com/etzhayyim/tatara/*.json` | write surface (registerPlant/registerHub/recordFlow) |
-| `methods/test_{analyze,kotoba,autorun,lexicons,crosscheck,maturity,seed-integrity}.cljc` | 39 tests / 4,090 assertions |
+| `methods/test_{analyze,kotoba,autorun,lexicons,crosscheck,maturity,seed-integrity}.cljc` | 41 tests / 4,223 assertions |
 | `viz/build_viz.cljc` | globe generator (derives all coords from the seeds) |
 | `viz/plant-globe.htm` · `viz/world-supply-globe.htm` | the (C) and (A) globes |
 | `manifest.jsonld` · `CLAUDE.md` | actor manifest + agent rules |
