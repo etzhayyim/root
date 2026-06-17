@@ -26,6 +26,7 @@ depends_on:
 related:
   - "2605241900"   # baien edge invariant (frontier-beating is NOT the edge target)
   - "2606062100"   # 3-tier immutability (Tier-0 fork-only)
+  - "2606172200"   # Loop C — architecture evolution (child; adds the third loop)
 external_refs:
   - "Robin: A multi-agent system for automating scientific discovery (Nature, s41586-026-10652-y; arXiv 2505.13400)"
   - "AI co-scientist (Google DeepMind, multi-agent generate-debate-evolve)"
@@ -74,11 +75,20 @@ Charter, with humans retaining the merge veto.
 
 ## Decision
 
-Stand up **Shinka** as two coupled loops sharing one substrate (the Datom log)
+Stand up **Shinka** as coupled loops sharing one substrate (the Datom log)
 and one compute fabric (Murakumo). Loop A evolves **artifacts** (actors, cells,
 lexicons, code, hypotheses). Loop B evolves **the weight** (Maxwell). The output
 of Loop A is the training corpus for Loop B; the improved weight from Loop B
 makes Loop A cheaper and stronger. This is the flywheel.
+
+A third loop, **Loop C — architecture evolution** (detailed in ADR-2606172200,
+this ADR's child), evolves **the model architecture itself** (the weight family
+AR/diffusion/sheaf/BitNet × config × merge recipes) by reusing Loop A's Co-scientist
+cells over architecture genotypes, with a cost-gated tiered fitness (zero-cost proxy →
+elastic → short-SFT + real loss-landscape sharpness → full RSi for finalists). Because
+architecture self-modification is the deepest self-modification, Loop C carries the
+*strongest* leash (no-auto-merge + member-signed CACAO promotion + append-only datom
+evidence); R0 only ranks the existing family, it invents nothing autonomously.
 
 ```
         ┌──────────────────── Loop A: capability (Co-scientist) ───────────────────┐
@@ -142,6 +152,29 @@ self-improvement loop" (currently 125/1000). Distilling the *orchestrated*
 (multi-agent, frontier-class) traces back into the *single-pass* weight is the
 mechanism by which Maxwell becomes efficient, not just capable (see Research
 Program §F).
+
+### Loop C — architecture evolution (ADR-2606172200)
+
+Loops A/B hold the *architecture* fixed (Gemma 4 E4B base; the family siblings are
+ADR-decided, not searched). **Loop C** makes the architecture itself an evolvable,
+governed object — same Co-scientist cells, population = **architecture genotypes**:
+
+| cell | Loop-C function |
+|---|---|
+| `propose` | emit candidate genotypes (family × config genes × merge recipes) |
+| `critic` | feasibility + Charter §2 scan + cost estimate |
+| `tournament` | Elo over the **tiered cost-gated fitness** (T0 zero-cost proxy → T1 elastic/surrogate → T2 short-SFT + real loss-landscape sharpness + tok/s → T3 full RSi for finalists only) |
+| `recombine` | crossover/merge top-Elo genotypes (incl. evolutionary model-merge) |
+| `synthesize` | ADR + PR draft; **never auto-merge** |
+
+Coupling: a Loop-C winner becomes a Loop-B weight target + a registered family sibling
+(`available:false` until human-gated); Loop-A capability gaps can suggest arch genes.
+Invariants are Loop-A's, tightened: **architecture is the deepest self-modification**, so
+promotion to a trainable/deployable target requires a member's CACAO-signed capability
+(ADR-2606111400); every candidate is a `:db/add` datom; Murakumo-only. **R0 = schema +
+fitness harness + cost gate only; the first exercise just ranks the existing
+AR/diffusion/sheaf/BitNet family on real fitness — it invents no architecture.** Full
+design, search space, and gates: **ADR-2606172200**.
 
 ## Research Program — Maxwell + agents → frontier-class, efficiently, on Murakumo
 
