@@ -1,6 +1,6 @@
 # ADR-2606172100 — kaname 要 — cross-domain system-of-systems leverage-point (律速) synthesizer + おせっかい proposer
 
-- **Status**: Accepted (R0 + R1 math/join + multi-mirror + web-ingest + langgraph-clj actor on kotoba commit-DAG + LIVE-engine bridge + fleet-registered; founder-approved 2026-06-17)
+- **Status**: Accepted + **DEPLOYED 実運用** (R0 + R1 math/join + multi-mirror + web-ingest + langgraph-clj actor on kotoba commit-DAG + LIVE-engine bridge + fleet-registered + LaunchAgent live; founder-approved 2026-06-17)
 - **Date**: 2026-06-17
 - **Tier**: Tier-B actor
 - **Parent**: ADR-2605192100 (Mission Charter), ADR-2605262130 (kotoba substrate), ADR-2605312345 (Datom = canonical state)
@@ -231,6 +231,24 @@ StateGraph compile + node state-flow + guarded full perceive→persist run).
 
 50 tests / 212 assertions green (incl. `test_bridge`: host-allowlist refusal, graph-CID determinism,
 tx_edn provenance, stub-transport live push + exactly-once cursor).
+
+### DEPLOYED — 実運用 (founder-approved 2026-06-17)
+
+kaname runs in real operation on the local machine as a per-user **macOS LaunchAgent**
+(`com.etzhayyim.kaname.heartbeat`) — it must run locally because it depends on the LOCAL kotoba
+engine (`:8077`), the LOCAL committed mirror outputs, and `bb` (a remote/cloud runner can't reach
+`:8077`). Hourly at **:53** (matching the cell-runner cron registration), `deploy/run-heartbeat.sh`
+runs one `autorun … --bridge` beat: 世界認識 → 要 → persist → push to the LIVE engine. The operator
+DID is read dynamically from the running node's env (`KOTOBA_AGENT_DID`, the loopback path); the
+bridge fail-opens if the node is down. **Verified on install**: kickstart beat#0 → `appended=true` +
+`bridge live pushed=1 … datoms=74` (committed to the real Datom graph); a second kickstart →
+`appended=false (:no-change)` + `bridge pushed=0` (idempotent in the deployed context); agent
+`last exit code = 0`. Artifacts committed under `20-actors/kaname/deploy/` (`install.sh` install/
+uninstall/status + plist template + runner + README). The generated plist + log are machine-local
+(not committed); `data/persisted/` stays gitignored. (The eventual fleet home is `KanameHeartbeatCell`
+on node `naphtali` via the cell-runner; the LaunchAgent is the operator-run deployment until that
+runner is live. Worktree caveat: re-run `install.sh install` from the merged checkout after kaname
+lands on `main`.)
 
 ## Consequences
 
