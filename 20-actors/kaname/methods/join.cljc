@@ -75,12 +75,15 @@
 
 (def default-kind-map
   "Generic mirror 縁-kind → kaname kind. Accumulation/dependence/standard-setting map onto kaname
-  vocabulary; reciprocal/structural kinds (:partners) drop (no axis)."
+  vocabulary; reciprocal/structural kinds (:partners) drop (no axis). Identity entries for kaname's
+  own kinds let an already-kaname-form mirror (e.g. the web-ingest output) pass through unchanged."
   {":compute-deal"  ":concentrates"   ":invests-in"   ":concentrates"
    ":talent-flow"   ":concentrates"   ":supplies"     ":concentrates"
    ":controls"      ":concentrates"   ":influences"   ":influences"
    ":governs"       ":gates"          ":sets-standard" ":gates"
-   ":depends-on"    ":depends-on"     ":couples"      ":couples"})
+   ":depends-on"    ":depends-on"     ":couples"      ":couples"
+   ;; identity (kaname-form mirrors)
+   ":concentrates"  ":concentrates"   ":gates"        ":gates"})
 
 (defn lift
   "Lift a mirror {:nodes :edges} into kaname forms (vector of node + edge maps) in `domain`,
@@ -128,8 +131,18 @@
 
 ;; ── reconcile entities across layers by label ─────────────────────────────────
 
-(defn- norm-label [s]
-  (-> (str s) str/lower-case str/trim (str/replace #"\s+" " ")))
+(defn- norm-label
+  "Normalize an entity label for cross-mirror reconciliation: lower-case, drop trailing
+  parentheticals (\"(AWS)\"/\"(Alphabet)\") and common corporate suffixes (Inc/Corp/Group/…), collapse
+  whitespace. Conservative — keeps distinct multi-word names (e.g. \"google deepmind\" ≠ \"google\")."
+  [s]
+  (-> (str s)
+      str/lower-case
+      (str/replace #"\([^)]*\)" " ")
+      (str/replace #"[.,]" " ")
+      (str/replace #"(?i)\b(inc|corp|corporation|co|ltd|limited|llc|plc|group|holdings|platforms|ag|sa|nv)\b" " ")
+      str/trim
+      (str/replace #"\s+" " ")))
 
 (defn reconcile-by-label
   "Merge kaname node-forms that share a normalized label into one canonical node (lowest id wins),
@@ -196,7 +209,13 @@
    :shiori   {:path "shiori/data/seed-wellbecoming-graph.kotoba.edn" :domain ":wellbecoming" :source ":shiori"
               :weight-attr ":en/intensity" :default-load 0.5
               :kind-map {":diminishes" ":concentrates" ":drives" ":concentrates"
-                         ":relieves" ":gates" ":routes-to" ":couples"}}})
+                         ":relieves" ":gates" ":routes-to" ":couples"}}
+   ;; :web — REAL web-ingested mirror (G7 founder-approved): DISCLOSED org relations from public
+   ;; announcement pages (公開投稿) via Murakumo/Ollama gemma-4-E4B, every edge basis'd. Already
+   ;; kaname-form → identity kind-map. See methods/ingest.cljc + data/ingested-pages/.
+   :web      {:path "kaname/data/ingested-web.kotoba.edn" :domain ":economy" :source ":web"
+              :kind-map {":concentrates" ":concentrates" ":depends-on" ":depends-on"
+                         ":couples" ":couples" ":gates" ":gates"}}})
 
 #?(:clj
    (defn join-mirrors

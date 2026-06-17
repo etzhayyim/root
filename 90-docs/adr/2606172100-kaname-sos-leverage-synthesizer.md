@@ -1,6 +1,6 @@
 # ADR-2606172100 — kaname 要 — cross-domain system-of-systems leverage-point (律速) synthesizer + おせっかい proposer
 
-- **Status**: Accepted (R0 + R1 math/join + multi-mirror SoS join landed; founder-approved 2026-06-17)
+- **Status**: Accepted (R0 + R1 math/join + multi-mirror SoS join + real web-ingest; founder-approved 2026-06-17)
 - **Date**: 2026-06-17
 - **Tier**: Tier-B actor
 - **Parent**: ADR-2605192100 (Mission Charter), ADR-2605262130 (kotoba substrate), ADR-2605312345 (Datom = canonical state)
@@ -153,6 +153,28 @@ tsumugi). The whole-multiplex R1 要 = **OpenAI** (L1 1.992); the highest-betwee
 to redundancy/route-around. Output: `out/joined-sos-leverage.md`. **The run-the-mirror leg
 (regenerating a mirror's output) remains G7/Council-gated; kaname only joins committed outputs.**
 36 tests / 150 assertions green (incl. a guarded real-multi-mirror integration test).
+
+### Real web-ingest leg LANDED (founder-approved 2026-06-17)
+
+The user directed ingest from **company homepages and public posts (公開投稿)**. `ingest.cljc` is the
+web → mirror-graph pipeline: fetch a PUBLIC page → extract DISCLOSED organizational relations via
+**Murakumo (local Ollama gemma-4-E4B-it-qat, ADR-2605215000)** → mirror-format forms, **every edge
+carrying an on-the-record `:en/basis` (source URL + the stated phrase)**. Constitutional: G1
+person-excluded (persons dropped at extraction + structurally filtered), G4 DISCLOSED-only +
+non-adjudicating, G5 basis-required, Murakumo-only inference, no-server-key (anonymous public GET).
+Ingested loads are REPRESENTATIVE lock-in weights by relationship kind (an announcement states a
+relation's existence, not its magnitude) — flagged, never a measured number.
+
+**Run on real official sources** (operator fetch = founder-approved; the actor's inference =
+gemma): `anthropic.com/news/anthropic-amazon-compute` + `nvidianews.nvidia.com/...openai-nvidia...`
+→ gemma extracted **10 organisations / 11 basis'd edges** (Amazon→Anthropic invest, Anthropic→AWS/
+Azure/Google-Cloud cloud-dependence, NVIDIA→OpenAI invest, OpenAI↔NVIDIA/Microsoft/Oracle/SoftBank)
+→ committed `data/ingested-web.kotoba.edn` (`:economy` layer, `:authoritative`). Joining it as the
+6th mirror: **OpenAI rises to V=3** (`:ai`+`:economy`+`:organization`, sourced chie+tsumugi+web),
+**L1 1.992 → 3.513** — the cross-domain 要 is now grounded in **cited public data**. NVIDIA / TSMC
+remain the top betweenness bridges. The committed `.kotoba.edn` is the durable artifact; **re-running
+the live fetch+gemma extraction is the G7 operator step**. 41 tests / 174 assertions green (incl.
+fixture-based ingest guards: person-exclusion, basis-required, rel-normalization).
 
 ## Consequences
 

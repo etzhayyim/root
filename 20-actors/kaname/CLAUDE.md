@@ -64,6 +64,9 @@ methods/
   centrality.cljc  R1  exact Brandes betweenness + eigenvector + ΔΦ percolation; L1 (real B inside) → out/centrality-r1.md
   join.cljc        R1  live mirror JOIN: lift a mirror's committed Datom log into a domain layer    → out/joined-ai-leverage.md
                        + reconcile-by-label across layers (shared entity → spans domains → 要)
+                       + mirror-adapters registry + join-mirrors (6 real mirrors)                   → out/joined-sos-leverage.md
+  ingest.cljc      R1  WEB→mirror: fetch public page (homepage/公開投稿) → Murakumo gemma-4-E4B       → data/ingested-web.kotoba.edn
+                       extract DISCLOSED org relations, every edge :en/basis'd (G5), person-excl (G1)
   route.cljc           route the 要 to OPENING; refuses capture (G2)                               → out/opening-route.md
   osekkai.cljc         ossekai handoff proposal (advisory/unsent); refuses person/coordinate (G1)  → out/osekkai-handoff.md
   gates.cljc           constitutional gate assertions (ex-info) — G1/G2/G5
@@ -95,6 +98,15 @@ lexicons/              com.etzhayyim.kaname.{leveragePoint,osekkaiProposal}
   whole-multiplex 要 = **OpenAI** (L1 1.992); top bridges **NVIDIA(betw 523)/TSMC(456)** (compute
   chokepoints). → `out/joined-sos-leverage.md`. Adding a mirror = add an adapter entry; re-running a
   mirror stays G7.
+- **real web-ingest (founder-approved 06-17)**: `ingest.cljc` fetches a PUBLIC page (homepage /
+  公開投稿 / announcement) → extracts DISCLOSED org relations via **Murakumo local Ollama
+  gemma-4-E4B** (ADR-2605215000) → mirror forms, **every edge `:en/basis` = source URL + stated
+  phrase** (G5), person-excluded (G1), DISCLOSED-only (G4), no-server-key. Ran on real official
+  sources (anthropic.com/news, nvidianews.nvidia.com) → **10 orgs / 11 basis'd edges** →
+  `data/ingested-web.kotoba.edn` (`:economy`, `:authoritative`), joined as the 6th mirror. Result:
+  **OpenAI → V=3** (:ai+:economy+:organization), **L1 1.992 → 3.513** — the cross-domain 要 grounded
+  in cited public data. Adding a source = drop a `.txt`+`.url` in `data/ingested-pages/` and re-run
+  (G7 operator step); the committed `.kotoba.edn` is the durable artifact.
 
 ## Run
 
