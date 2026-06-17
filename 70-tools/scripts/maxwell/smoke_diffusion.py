@@ -1,33 +1,54 @@
 """maxwell-diffusion base 動作検証 — load google/diffusiongemma-26B-A4B-it on gad
-(EVO-X2 gfx1151 ROCm, ~94GB unified mem via device_map="auto") and run real
-block-diffusion generation. This proves the diffusion base RUNS on the fleet —
-the prerequisite for maxwell-diffusion-1 (ADR-2606171100 D3). Murakumo-only:
-runs on gad, no commercial GPU / no external inference API (ADR-2605215000).
+(EVO-X2 gfx1151 ROCm) and run real block-diffusion generation. Proves the diffusion
+base RUNS on the fleet (ADR-2606171100 D3). Murakumo-only: gad, no commercial GPU /
+no external inference API (ADR-2605215000).
+
+Modes:
+  (default)  CPU bf16 — verified working (52GB in ~58GB RAM); slow (2-10 tok/s).
+  --4bit     GPU NF4 via bitsandbytes (built for gfx1151, BNB-ROCM-BUILD.md). The
+             4-bit MATMUL is verified; the full 25.2B model load needs >32GB usable
+             VRAM (raise the EVO-X2 UMA framebuffer — see BNB-ROCM-BUILD.md). Run:
+               PYTORCH_HIP_ALLOC_CONF=expandable_segments:True \
+               HSA_OVERRIDE_GFX_VERSION=11.5.1 HF_HUB_OFFLINE=1 \
+               venv-train/bin/python smoke_diffusion.py --4bit
 """
+import argparse
+import os
 import time
+
 import torch
-from transformers import DiffusionGemmaForBlockDiffusion, AutoProcessor
+from transformers import AutoProcessor, DiffusionGemmaForBlockDiffusion
 
 MID = "google/diffusiongemma-26B-A4B-it"
 
+ap = argparse.ArgumentParser()
+ap.add_argument("--4bit", dest="fourbit", action="store_true",
+                help="GPU NF4 via bitsandbytes (needs >32GB usable VRAM; else CPU bf16)")
+ap.add_argument("--max-new-tokens", type=int, default=128)
+args = ap.parse_args()
+
 print(f"torch {torch.__version__} | cuda?={torch.cuda.is_available()} "
-      f"| {torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'cpu'}", flush=True)
-print("loading processor...", flush=True)
+      f"| {torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'cpu'} "
+      f"| mode={'4bit-GPU' if args.fourbit else 'bf16-CPU'}", flush=True)
 proc = AutoProcessor.from_pretrained(MID)
 
-print("loading model (DiffusionGemmaForBlockDiffusion, bf16, CPU)...", flush=True)
-# 52GB bf16 > 34GB VRAM, and device_map="auto" leaves this model class on META
-# tensors (accelerate dispatch no-ops here even with _no_split_modules set).
-# 52GB fits in the ~58GB available CPU RAM, so load plain on CPU (non-meta path,
-# no accelerate) and run block-diffusion on CPU. Slower, but it actually RUNS.
-import os
-os.environ.setdefault("OMP_NUM_THREADS", "16")
-torch.set_num_threads(16)
 t0 = time.time()
-model = DiffusionGemmaForBlockDiffusion.from_pretrained(MID, dtype=torch.bfloat16)
+if args.fourbit:
+    # GPU NF4. bitsandbytes built for ROCm/HIP gfx1151 (BNB-ROCM-BUILD.md); 4-bit
+    # matmul verified. device_map={"":0} keeps the whole model on GPU (no accelerate
+    # auto-infer → avoids the diffusion_gemma meta-tensor bug). Needs the 4-bit
+    # resident (~30GB) + load peak to fit usable VRAM → raise the UMA framebuffer.
+    from transformers import BitsAndBytesConfig
+    qc = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                            bnb_4bit_compute_dtype=torch.float16, bnb_4bit_use_double_quant=True)
+    model = DiffusionGemmaForBlockDiffusion.from_pretrained(MID, quantization_config=qc, device_map={"": 0})
+    print(f"4-bit GPU load {time.time()-t0:.0f}s | VRAM {torch.cuda.memory_allocated()/1e9:.1f}GB", flush=True)
+else:
+    os.environ.setdefault("OMP_NUM_THREADS", "16")
+    torch.set_num_threads(16)
+    model = DiffusionGemmaForBlockDiffusion.from_pretrained(MID, dtype=torch.bfloat16)
+    print(f"CPU bf16 load {time.time()-t0:.0f}s | meta:{next(model.parameters()).is_meta}", flush=True)
 model.eval()
-print(f"model device: {next(model.parameters()).device} | is_meta: {next(model.parameters()).is_meta}", flush=True)
-print(f"loaded in {time.time()-t0:.0f}s", flush=True)
 
 PROMPTS = [
     "Why is the sky blue? Answer in one sentence.",
@@ -35,18 +56,17 @@ PROMPTS = [
 ]
 
 for p in PROMPTS:
-    msg = [{"role": "user", "content": p}]
     ii = proc.apply_chat_template(
-        msg, tokenize=True, add_generation_prompt=True,
+        [{"role": "user", "content": p}], tokenize=True, add_generation_prompt=True,
         return_dict=True, return_tensors="pt",
     ).to(model.device)
     in_len = ii["input_ids"].shape[-1]
     t = time.time()
     with torch.no_grad():
-        out = model.generate(**ii, max_new_tokens=128)
+        out = model.generate(**ii, max_new_tokens=args.max_new_tokens)
     dt = time.time() - t
-    seq = getattr(out, "sequences", out)          # DiffusionGemmaGenerationOutput -> .sequences
-    if not hasattr(seq, "shape"):                  # fall back to first tensor-like attr
+    seq = getattr(out, "sequences", out)
+    if not hasattr(seq, "shape"):
         seq = next(v for v in vars(out).values() if hasattr(v, "shape"))
     ntok = seq.shape[-1] - in_len
     txt = proc.decode(seq[0][in_len:], skip_special_tokens=True)

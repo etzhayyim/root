@@ -56,16 +56,31 @@ def main():
     ap.add_argument("--canvas", type=int, default=48)
     ap.add_argument("--lr", type=float, default=2e-4)
     ap.add_argument("--out", default=str(pathlib.Path.home() / "maxwell" / "out" / "diffusion-m1-smoke"))
+    ap.add_argument("--4bit", dest="fourbit", action="store_true",
+                    help="QLoRA: NF4 base on GPU via bitsandbytes (needs >32GB usable VRAM; "
+                         "raise the EVO-X2 UMA framebuffer — BNB-ROCM-BUILD.md). Else CPU bf16.")
     args = ap.parse_args()
 
     torch.manual_seed(0)
     random.seed(0)
     torch.set_num_threads(16)
 
-    print(f"torch {torch.__version__} | loading {MID} (bf16, CPU)...", flush=True)
     proc = AutoProcessor.from_pretrained(MID)
     tok = getattr(proc, "tokenizer", proc)
-    model = DiffusionGemmaForBlockDiffusion.from_pretrained(MID, dtype=torch.bfloat16)
+    if args.fourbit:
+        # QLoRA: frozen NF4 base on GPU (bnb built for gfx1151) + LoRA adapters in fp16.
+        # device_map={"":0} keeps the model on GPU (no accelerate auto-infer → avoids the
+        # diffusion_gemma meta bug). VRAM-gated: fits once usable VRAM > ~32GB.
+        from transformers import BitsAndBytesConfig
+        from peft import prepare_model_for_kbit_training
+        print(f"torch {torch.__version__} | loading {MID} (NF4 GPU / QLoRA)...", flush=True)
+        qc = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                                bnb_4bit_compute_dtype=torch.bfloat16, bnb_4bit_use_double_quant=True)
+        model = DiffusionGemmaForBlockDiffusion.from_pretrained(MID, quantization_config=qc, device_map={"": 0})
+        model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
+    else:
+        print(f"torch {torch.__version__} | loading {MID} (bf16, CPU)...", flush=True)
+        model = DiffusionGemmaForBlockDiffusion.from_pretrained(MID, dtype=torch.bfloat16)
     model.train()
     model.config.use_cache = False
 
@@ -83,6 +98,7 @@ def main():
     vocab = model.config.text_config.vocab_size
     pad_id = getattr(tok, "pad_token_id", 0) or 0
 
+    dev = next(model.parameters()).device              # cuda:0 (4bit) or cpu
     rows = [json.loads(l) for l in open(CORPUS) if l.strip()][: args.steps]
     opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=args.lr)
 
@@ -98,13 +114,13 @@ def main():
             corrupt[mask] = torch.randint(0, vocab, (n,))
         ts = time.time()
         out = model(
-            input_ids=pii["input_ids"],
-            attention_mask=pii["attention_mask"],
-            decoder_input_ids=corrupt.unsqueeze(0),
+            input_ids=pii["input_ids"].to(dev),
+            attention_mask=pii["attention_mask"].to(dev),
+            decoder_input_ids=corrupt.unsqueeze(0).to(dev),
         )
         logits = out.logits[0].float()                     # (canvas, vocab)
-        labels = clean.clone()
-        labels[~mask] = -100                               # loss only on corrupted positions
+        labels = clean.clone().to(logits.device)
+        labels[~mask.to(logits.device)] = -100             # loss only on corrupted positions
         loss = torch.nn.functional.cross_entropy(logits, labels, ignore_index=-100)
         opt.zero_grad()
         loss.backward()
