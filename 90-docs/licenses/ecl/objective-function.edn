@@ -1,0 +1,120 @@
+;; ECL objective function — SSoT data for evaluate.bb
+;;
+;; ECL は「固定ルール(掟)で制御」せず「目的関数で動的に評価」する (ADR-2606062100:
+;; 固定するのは掟ではなく priority)。本ファイルがその目的関数 J の機械可読定義。
+;;
+;; 基準 (この目的関数の telos):
+;;   ★ 子 (this-generation children) と 孫 (≥25y hence descendants) の
+;;     **Wellbecoming = 静的 wellbeing ではなく動的軌跡** を最大化する。
+;;   他の次元 (commons / 相互監視 / 労働解放) は、子孫の wellbecoming を支える
+;;     enabling condition として、その telos に従属して重みづけられる。
+;;
+;; 3-Tier (ADR-2606062100):
+;;   Tier-0 (fork-only)      : どの次元が存在し、その符号方向 (何が wellbecoming に資する/反する)
+;;   Tier-1 (Council Lv7+)   : :weight / :thresholds / :screens のリスト
+;;   Tier-2 (governance att.) : 個別ケースの :scores (evidence から算出)
+;;
+;; J = Σ_dim (weight · score), score ∈ [-2,+2], Σweight = 1.0  → J ∈ [-2,+2]
+;; route: screens が1つでも発火 → :non-aligned (確定フロア, scoring 不要)
+;;        else J ≥ +0.5 → :aligned / -0.5<J<+0.5 → :hold / J ≤ -0.5 → :non-aligned
+
+{:meta
+ {:id    "ecl-objective-function"
+  :title "ECL 子孫-Wellbecoming 目的関数"
+  :version "0.1-draft"
+  :date  "2026-06-17"
+  :note  "基準 = 子・孫の動的 wellbecoming。固定ルールでなく目的関数で動的評価する。"}
+
+ ;; ── 目的関数の次元 (Tier-0 で固定: 存在と符号方向) ────────────────────────────
+ ;; score の意味: +2 強く資する … 0 中立 … -2 強く反する (子孫 wellbecoming に対して)
+ :dimensions
+ [{:key :ko-wellbecoming :weight 0.25 :scale [-2 2]
+   :label "子 (現世代の子供) の wellbecoming-軌跡"
+   :tier0 "Wellbecoming(動的) + 子 priority"
+   :plus "子供の発達軌跡(認知主権・成長)を上げる"
+   :minus "addictive design / 静的 engagement 搾取で発達を削る"}
+
+  {:key :mago-wellbecoming :weight 0.30 :scale [-2 2]
+   :label "孫・未来世代 (≥25y hence) の wellbecoming-軌跡 (不可逆性で加重)"
+   :tier0 "多世代(子・孫およびそれ以降) priority — 最重要"
+   :plus "孫の代に資源/知識/環境/遺伝健全性/意思決定能力を残す"
+   :minus "不可逆な多世代危害 (環境崩壊 / commons 囲い込み / germline / 注意独占)"}
+
+  {:key :collective-commons :weight 0.20 :scale [-2 2]
+   :label "子孫が育つ関係的 commons (反個人主義 ontology)"
+   :tier0 "collective/relational over isolated individual"
+   :plus "commons/関係的紐帯を強める(子孫が育つ土壌)"
+   :minus "individualist 囲い込み / 私的捕獲"}
+
+  {:key :reciprocal-transparency :weight 0.15 :scale [-2 2]
+   :label "相互監視 (見守り — 子供を守り孤立を断つ村社会)"
+   :tier0 "permanent-memory = 神の監視 + 相互監視 (reciprocal)"
+   :plus "対称的に観測可能(everyone watched) — 子供を守り孤独死を防ぐ見守り"
+   :minus "monetized OR 非対称 surveillance (watcher unwatched / personal-data 売買)"}
+
+  {:key :labor-liberation :weight 0.10 :scale [-2 2]
+   :label "子孫の労働解放 (mission telos)"
+   :tier0 "Charter §1.1 構造的労働解放"
+   :plus "人間を強制労働から解放する"
+   :minus "強制/隷属労働を深める"}]
+
+ ;; ── 確定フロア screens (Tier-1; 子孫 wellbecoming を破滅的に侵すもの) ─────────────
+ ;; これらは「scoring すべきでない」かつ「司法で執行可能な bright-line」である必要が
+ ;; あるため、目的関数の外に列挙された確定ルールとして残す (二層設計の legal backstop)。
+ ;; 1つでも発火 → J を計算せず即 :non-aligned。
+ :screens
+ [{:key :csam :label "児童性的虐待 / 非合意性的コンテンツ" :anchor "Rider §2(k); 子 priority 直接侵害"}
+  {:key :forced-labor :label "強制労働 / 人身取引 / 搾取的児童労働" :anchor "Rider §2(j); mission 直接反"}
+  {:key :aggression-or-covert-force :label "兵器ビジネス / proprietary 兵器 / covert(非透過)武力 / autonomous lethal" :anchor "Rider §2(a) (透過防衛 force は可)"}
+  {:key :monetized-or-asymmetric-surveillance :label "personal-data 売買 OR 非対称(unwatched watcher)監視ビジネス" :anchor "Rider §2(c) (相互監視は可)"}
+  {:key :irreversible-multigen-harm :label "不可逆な多世代危害(環境>±2°C/biosphere崩壊, commons囲い込み, germline)" :anchor "Rider §2(d)(f); 孫 priority 直接侵害"}]
+
+ ;; ── route 閾値 (Tier-1) ────────────────────────────────────────────────────
+ :thresholds {:aligned 0.5 :non-aligned -0.5}
+ :routes [:aligned :hold :non-aligned]
+
+ ;; ── 動的スコアの evidence 供給源 (Tier-2; 観測 actor が score を埋める) ──────────
+ ;; 静的に列挙せず、これらの DISCLOSED 証拠を fuse して :scores を算出する (tanemaki 方式)。
+ :evidence-sources
+ [{:actor "shiori"  :feeds [:ko-wellbecoming :mago-wellbecoming] :what "wellbecoming detractor/relief"}
+  {:actor "tsumugi" :feeds [:collective-commons] :what "取-concentration"}
+  {:actor "danjo"   :feeds [:reciprocal-transparency] :what "accountability/asymmetry"}
+  {:actor "inochi"  :feeds [:mago-wellbecoming] :what "生命圏 pressure (孫の環境)"}
+  {:actor "kanjo"   :feeds [:collective-commons :labor-liberation] :what "disclosed 決算"}]
+
+ ;; ── self-test fixtures (route の :expect を assert) ───────────────────────────
+ ;; :scores は Tier-2 evidence の代理。:screens は発火した確定フロア。
+ :fixtures
+ [{:key :worker-coop-oss
+   :label "労働者協同組合の OSS (子孫に開かれた commons)"
+   :screens []
+   :scores {:ko-wellbecoming 1 :mago-wellbecoming 1 :collective-commons 2
+            :reciprocal-transparency 1 :labor-liberation 2}
+   :expect :aligned}
+
+  {:key :addictive-engagement-app
+   :label "addictive engagement 最適化アプリ (確定フロアには載らないが子の発達を削る)"
+   :screens []
+   :scores {:ko-wellbecoming -2 :mago-wellbecoming -1 :collective-commons -1
+            :reciprocal-transparency 0 :labor-liberation 0}
+   :expect :non-aligned}   ;; ← 目的関数が動的に捕捉 (固定リストにない害)
+
+  {:key :ambiguous-dual-use
+   :label "両義的 dual-use (証拠が拮抗 → 保留)"
+   :screens []
+   :scores {:ko-wellbecoming 0 :mago-wellbecoming 0 :collective-commons 1
+            :reciprocal-transparency -1 :labor-liberation 0}
+   :expect :hold}
+
+  {:key :surveillance-ad-broker
+   :label "personal-data ブローカー (確定フロア発火)"
+   :screens [:monetized-or-asymmetric-surveillance]
+   :scores {:ko-wellbecoming -1 :mago-wellbecoming -1 :collective-commons -1
+            :reciprocal-transparency -2 :labor-liberation 0}
+   :expect :non-aligned}
+
+  {:key :csam-host
+   :label "CSAM ホスト (確定フロア発火, scoring 不要)"
+   :screens [:csam]
+   :scores {}
+   :expect :non-aligned}]}
