@@ -18,7 +18,8 @@
   (:require [kotoba.datom :as kd]
             [chie.methods.analyze :as analyze]
             [chie.methods.datom-emit :as de]
-            [chie.methods.coverage-report :as cov]))
+            [chie.methods.coverage-report :as cov]
+            [chie.methods.digest :as digest]))
 
 (defn ground-datoms
   "GROUND EAVT assertions: one kd/add per (entity, attribute, value) for every node + 縁.
@@ -87,6 +88,7 @@
         :nodes (count nodes)
         :edges (count edges)
         :top-opening (when top [(nth top 0) (double (nth top 2))])
+        :digest (digest/narrate nodes res c)   ;; Murakumo-only narration (template default; fail-open)
         :coverage (select-keys c coverage-keys)})))
 
 #?(:clj

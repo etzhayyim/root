@@ -39,12 +39,24 @@
     (is (pos? (:closed c)))
     (is (= (:n-nodes c) (+ (:open c) (:closed c))) "every node declares :ai/open?")))
 
-(deftest test-gap-worklist-surfaces-absent-kinds
-  (testing "no fabricated coverage — absent kinds are named, not silently zero"
+(deftest test-all-kinds-and-edges-and-axes-covered
+  (testing "coverage growth — every expected node kind, edge kind, and axis is now present"
     (let [c (load-)]
-      ;; the seed has no per-round nodes nor compute-cluster nodes yet
-      (is (some #{":ai.invest/round"} (:missing-kinds c)))
-      (is (some #{":ai.asset/compute"} (:missing-kinds c))))))
+      (is (empty? (:missing-kinds c)) "all 11 :ai.* node kinds present (incl. invest/round + asset/compute)")
+      (is (empty? (:missing-edges c)) "all 8 edge kinds present")
+      (is (empty? (:missing-axes c)) "all 4 concentration axes present")
+      ;; the two previously-absent kinds are now populated
+      (is (pos? (get (:by-kind c) ":ai.invest/round")))
+      (is (pos? (get (:by-kind c) ":ai.asset/compute"))))))
+
+(deftest test-world-coverage-still-honest
+  (testing "G5 — full KIND coverage does NOT claim world coverage; the seed stays representative"
+    (let [c (load-)
+          md (cov/report-md c)]
+      (is (zero? (:authoritative c)))
+      ;; the perpetual world-coverage caveat is always printed (no fabricated coverage)
+      (is (str/includes? md "tiny fraction"))
+      (is (str/includes? md "~0 by design")))))
 
 (deftest test-report-states-coverage-by-design
   (let [c (load-)
