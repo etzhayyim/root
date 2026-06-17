@@ -221,13 +221,15 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:kabuto
-  {:doc "kabuto Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+  {:doc "kabuto Clojure test suite — 6 cljc suites wired into the runner (incl. test-charter-gates; orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
                       'kabuto.methods.test-analyze 'kabuto.methods.test-autorun
-                      'kabuto.methods.test-social 'kabuto.viz.test-build-viz-data 'kabuto.viz.test-build-bpmn-manifest)
+                      'kabuto.methods.test-social 'kabuto.viz.test-build-viz-data 'kabuto.viz.test-build-bpmn-manifest
+                      'kabuto.methods.test-charter-gates)
              (let [r (clojure.test/run-tests
                       'kabuto.methods.test-analyze 'kabuto.methods.test-autorun
-                      'kabuto.methods.test-social 'kabuto.viz.test-build-viz-data 'kabuto.viz.test-build-bpmn-manifest)]
+                      'kabuto.methods.test-social 'kabuto.viz.test-build-viz-data 'kabuto.viz.test-build-bpmn-manifest
+                      'kabuto.methods.test-charter-gates)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:kadode
@@ -685,7 +687,7 @@
                       'hotaru.cells.commons-readiness.test-state-machine
                       'keizu.methods.test-edn
                       'tatekata.cells.mep-installation.test-cell
-                      'warifu.cells.test-refund 'warifu.cells.test-authorize 'warifu.cells.test-capture 'warifu.cells.test-settle
+                      'warifu.cells.test-refund 'warifu.cells.test-authorize 'warifu.cells.test-capture 'warifu.cells.test-settle 'warifu.cells.test-dispute
                       'kakaku.kotoba.test-ingest-mcp
                       'watatsuna.methods.test-ingest
                       'scripts.lint.test-verify-no-modal-labs-calls
@@ -715,7 +717,7 @@
                                              'hotaru.cells.commons-readiness.test-state-machine
                                              'keizu.methods.test-edn
                                              'tatekata.cells.mep-installation.test-cell
-                                             'warifu.cells.test-refund 'warifu.cells.test-authorize 'warifu.cells.test-capture 'warifu.cells.test-settle
+                                             'warifu.cells.test-refund 'warifu.cells.test-authorize 'warifu.cells.test-capture 'warifu.cells.test-settle 'warifu.cells.test-dispute
                                              'kakaku.kotoba.test-ingest-mcp
                                              'watatsuna.methods.test-ingest
                                              'scripts.lint.test-verify-no-modal-labs-calls

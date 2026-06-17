@@ -62,6 +62,11 @@
   (reverse-settlement [this settlement-id amount-usdc]
     "Reverse `amount-usdc` of a settlement; return [refund-id tx].
      (Python `reverse_settlement(settlement_id, amount_usdc) -> (str, str)`.)")
+  ;; --- disputes (dispute) ---
+  (open-dispute [this opts]
+    "Open a chargeback dispute; return the dispute-id. `opts` carries the Python keyword-only
+     args as a map {:settlement-id :reason-code :opened-by-did :amount-usdc :evidence-cids}.
+     (Python `open_dispute(*, settlement_id, reason_code, opened_by_did, amount_usdc, evidence_cids) -> str`.)")
   (write-facts [this facts]
     "Append EAVT facts (a seq of [E A V T] vectors) to the ledger.
      (Python `write_facts(facts) -> None`.)"))
@@ -87,6 +92,7 @@
   (settle-transfer [_ _]      (unwired-fail "settle_transfer"))
   (load-settlement [_ _]      (unwired-fail "load_settlement"))
   (reverse-settlement [_ _ _] (unwired-fail "reverse_settlement"))
+  (open-dispute [_ _]         (unwired-fail "open_dispute"))
   (write-facts [_ _]          (unwired-fail "write_facts")))
 
 (defn unwired-substrate
