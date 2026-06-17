@@ -44,7 +44,7 @@
   (let [plants (filter :plant/id (az/load-edn plant-seed))
         companies (if (.exists kab-seed) (filter :company/id (az/load-edn kab-seed)) synth-companies)
         r (cc/crosscheck plants companies)]
-    (is (= 20 (:total r)))                                 ;; 20 distinct operators in the seed
+    (is (= 25 (:total r)))                                 ;; 25 distinct operators in the seed
     (is (= (:total r) (+ (:resolved r) (count (:worklist r)))))
     (is (<= 0.0 (:coverage r) 1.0))
     ;; every worklist operator is genuinely unresolved in rows

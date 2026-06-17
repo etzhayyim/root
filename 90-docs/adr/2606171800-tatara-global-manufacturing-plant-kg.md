@@ -82,9 +82,9 @@ supply lineage and **composes with watari + watatsuna over shared chokepoint key
 
 ### Seed
 
-22 real, public, well-known plants (TSMC / Samsung / Intel / Hyundai / Toyota / VW / Tesla / CATL
-/ POSCO / Baowu / Foxconn / Boeing / Airbus / HD Hyundai …) across 8 sectors / 9 countries, 6
-logistics hubs, 22 export flows — all `:representative`, coordinates rounded to city/campus scale.
+28 real, public, well-known plants (TSMC ×2 / Samsung / Intel / Hyundai / Toyota / VW / Tesla / CATL
+/ POSCO / Baowu / Tata Steel / Foxconn / Boeing / Airbus / Embraer / HD Hyundai / SABIC / Pfizer /
+Serum …) across 9 sectors (incl. pharma) / 12 countries, 6 logistics hubs, 28 export flows — all `:representative`, coordinates rounded to city/campus scale.
 
 ## Constitutional gates
 
@@ -110,7 +110,7 @@ logistics hubs, 22 export flows — all `:representative`, coordinates rounded t
 
 ## Status
 
-R0 LANDED 2026-06-17 — ontology + seed (22 plants / 6 hubs / 22 flows) + analyze + kotoba
-commit-DAG + autonomous autorun heartbeat + 3 globes + **19 tests / 2,162 assertions green**
+R0 LANDED 2026-06-17 — ontology + seed (28 plants / 6 hubs / 28 flows) + analyze + kotoba
+commit-DAG + autonomous autorun heartbeat + 3 globes + **27 tests / 2,756 assertions green**
 (`bb 20-actors/tatara/run_tests.sh`).
 Council attestation = PR review (founder operational premise, 2026-06-11). Live ingest G7-gated.

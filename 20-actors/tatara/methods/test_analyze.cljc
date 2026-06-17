@@ -18,39 +18,42 @@
 
 (deftest test-classify-buckets-the-seed
   (let [[g _] (load*)]
-    (is (= 22 (count (:plants g))))
+    (is (= 28 (count (:plants g))))
     (is (= 6  (count (:hubs g))))
-    (is (= 22 (count (:flows g))))))
+    (is (= 28 (count (:flows g))))))
 
 (deftest test-sector-counts
   (let [[_ a] (load*)]
-    (is (= 5 (get-in a [:sector-stats :semiconductor :plants])))
+    (is (= 6 (get-in a [:sector-stats :semiconductor :plants])))
     (is (= 5 (get-in a [:sector-stats :automotive :plants])))
     (is (= 4 (get-in a [:sector-stats :battery :plants])))
-    (is (= 3 (get-in a [:sector-stats :steel :plants])))
-    (is (= 8 (count (:sector-stats a))))))
+    (is (= 4 (get-in a [:sector-stats :steel :plants])))
+    (is (= 2 (get-in a [:sector-stats :pharma :plants])))   ;; pharma sector now covered
+    (is (= 9 (count (:sector-stats a))))))
 
 (deftest test-aggregate-employment-is-sum-of-disclosed-figures
   (let [[_ a] (load*)]
     ;; disclosed aggregate facility employment, summed — NEVER per-worker
-    (is (= 610500 (:global-headcount a)))))
+    (is (= 692000 (:global-headcount a)))))
 
 (deftest test-semiconductor-concentration
   (let [[_ a] (load*)
         st (get-in a [:sector-stats :semiconductor])]
-    (is (= 0.36 (:hhi st)))           ;; TW 1, KR 2, US 2 → 0.04+0.16+0.16
-    (is (= "KR" (:top-country st)))   ;; KR/US tie → lexically-smallest (deterministic)
-    (is (= 0.4 (:top-share st)))
-    (is (false? (:single-source st))))) ;; 0.4 < 0.6 threshold — honestly NOT flagged
+    (is (= 0.33 (:hhi st)))           ;; TW 2, KR 2, US 2 → 3×(1/3)² = 0.33
+    (is (= "KR" (:top-country st)))   ;; 3-way tie → lexically-smallest (deterministic)
+    (is (= 0.33 (:top-share st)))
+    (is (false? (:single-source st))))) ;; 0.33 < 0.6 threshold — honestly NOT flagged
 
 (deftest test-chokepoint-export-dependence
   (let [[_ a] (load*)
         n (fn [cp] (count (get-in a [:choke-plants cp])))]
-    (is (= 10 (n :malacca)))
-    (is (= 6  (n :luzon-strait)))
+    (is (= 11 (n :malacca)))
+    (is (= 7  (n :luzon-strait)))
+    (is (= 5  (n :suez-red-sea)))
     (is (= 4  (n :gibraltar)))
-    (is (= 3  (n :suez-red-sea)))
-    (is (= 1  (n :panama)))
+    (is (= 2  (n :panama)))
+    (is (= 1  (n :hormuz)))           ;; exercised by SABIC Jubail
+    (is (= 1  (n :taiwan-strait)))    ;; exercised by TSMC Hsinchu
     ;; malacca is the top export-dependence chokepoint
     (is (= :malacca (first (az/chokes-by-load a))))))
 
@@ -58,8 +61,10 @@
   (let [[_ a] (load*)]
     ;; KR holds 5 charted plants (Samsung, SK hynix, Hyundai, POSCO, HD Hyundai)
     (is (= 5 (get-in a [:country-roll "KR" :plants])))
-    (is (= 5 (get-in a [:country-roll "US" :plants])))
-    (is (= 4 (get-in a [:country-roll "CN" :plants])))))
+    (is (= 6 (get-in a [:country-roll "US" :plants])))   ;; +Pfizer Kalamazoo
+    (is (= 4 (get-in a [:country-roll "CN" :plants])))
+    (is (= 2 (get-in a [:country-roll "IN" :plants])))   ;; Serum + Tata Steel (new geography)
+    (is (= 12 (count (:country-roll a))))))
 
 (deftest test-capacity-rollup-units-are-per-sector-consistent
   (let [[_ a] (load*)]

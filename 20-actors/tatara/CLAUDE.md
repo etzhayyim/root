@@ -78,14 +78,14 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   `:plant/operator` ⇄ kabuto `:company/id` linkage (bridging tatara's short `org.corp.tsmc`
   to kabuto's country-qualified `org.corp.tw.tsmc` by normalized id+name token), emits a
   coverage % + a prioritized **ingest worklist** of unresolved operators. Pure measurement —
-  mutates nothing, fabricates no link; unresolved = honest gap (G5). Current: 17/20 = 85%.
+  mutates nothing, fabricates no link; unresolved = honest gap (G5). Current: 21/25 = 84%.
 - `cell:tatara.viz` → `viz/build_viz.cljc`. Emits three self-contained canvas globes —
   `viz/plant-globe.htm` (C, plants by sector), `viz/world-supply-globe.htm` (A, plants + live
   craft + chokepoint composition), `../watari/viz/craft-globe.htm` (B, watari's first viz).
   Every coordinate DERIVED from a seed (regenerable; none hand-copied).
 
 ```bash
-bb 20-actors/tatara/run_tests.sh                                              # 27 tests / 2,226 assertions
+bb 20-actors/tatara/run_tests.sh                                              # 27 tests / 2,756 assertions
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"  # → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)"      # → the three globes
 bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-main)"  # autonomous heartbeat → LOCAL kotoba log

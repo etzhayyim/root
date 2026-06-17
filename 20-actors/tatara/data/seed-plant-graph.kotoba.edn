@@ -84,4 +84,32 @@
  {:flow/id "flow.foxconn.shanghai"   :flow/from "plant.foxconn.zhengzhou"   :flow/to "hub.port.shanghai"   :flow/mode :sea :flow/commodity :finished-goods :flow/via [:luzon-strait :malacca] :flow/sourcing :representative}
  {:flow/id "flow.boeing.memphis"     :flow/from "plant.boeing.everett"      :flow/to "hub.air.memphis"     :flow/mode :air :flow/commodity :finished-goods :flow/via []                       :flow/sourcing :representative}
  {:flow/id "flow.airbus.rotterdam"   :flow/from "plant.airbus.toulouse"     :flow/to "hub.port.rotterdam"  :flow/mode :sea :flow/commodity :components     :flow/via [:gibraltar]             :flow/sourcing :representative}
- {:flow/id "flow.hdhyundai.busan"    :flow/from "plant.hdhyundai.ulsan"     :flow/to "hub.port.busan"      :flow/mode :sea :flow/commodity :finished-goods :flow/via [:malacca]               :flow/sourcing :representative}]
+ {:flow/id "flow.hdhyundai.busan"    :flow/from "plant.hdhyundai.ulsan"     :flow/to "hub.port.busan"      :flow/mode :sea :flow/commodity :finished-goods :flow/via [:malacca]               :flow/sourcing :representative}
+
+ ;; ═══════════════════════ COVERAGE EXPANSION (ADR-2606171800 R0→R1) ═══════════════════════
+ ;; Adds the :pharma sector (ontology-declared, previously 0 plants), exercises the 3 unused
+ ;; chokepoints (:hormuz :panama :taiwan-strait), and broadens geography (IN / SA / BR).
+
+ ;; ── PHARMA ──
+ {:plant/id "plant.pfizer.kalamazoo" :plant/name "Pfizer Kalamazoo (Portage, MI)" :plant/operator "org.corp.pfizer" :plant/country "US" :plant/region "Portage, MI" :plant/lat 42.20 :plant/lon -85.59 :plant/sector :pharma :plant/products ["sterile injectables" "active pharmaceutical ingredients"] :plant/established 1948 :plant/headcount-est 2500 :plant/floor-area-m2 500000 :plant/capacity-value 800000000.0 :plant/capacity-unit :units-yr :plant/capacity-note "finished doses/yr (sterile injectables)" :plant/sourcing :representative}
+ {:plant/id "plant.serum.pune" :plant/name "Serum Institute of India, Pune" :plant/operator "org.corp.serum" :plant/country "IN" :plant/region "Pune" :plant/lat 18.59 :plant/lon 73.80 :plant/sector :pharma :plant/products ["vaccines"] :plant/established 1966 :plant/headcount-est 8000 :plant/floor-area-m2 600000 :plant/capacity-value 1500000000.0 :plant/capacity-unit :units-yr :plant/capacity-note "vaccine doses/yr; world's largest by volume" :plant/sourcing :representative}
+
+ ;; ── SEMICONDUCTOR (Taiwan concentration; exercises :taiwan-strait) ──
+ {:plant/id "plant.tsmc.fab12-hsinchu" :plant/name "TSMC Fab 12 (Hsinchu Science Park)" :plant/operator "org.corp.tsmc" :plant/country "TW" :plant/region "Hsinchu" :plant/lat 24.78 :plant/lon 121.00 :plant/sector :semiconductor :plant/products ["7nm logic wafers" "16nm logic wafers"] :plant/established 2000 :plant/headcount-est 18000 :plant/floor-area-m2 300000 :plant/capacity-value 100.0 :plant/capacity-unit :wafers-300mm-kpm :plant/capacity-note "mainstream-node logic" :plant/sourcing :representative}
+
+ ;; ── CHEMICALS (Gulf; exercises :hormuz) ──
+ {:plant/id "plant.sabic.jubail" :plant/name "SABIC Jubail Complex" :plant/operator "org.corp.sabic" :plant/country "SA" :plant/region "Jubail" :plant/lat 27.01 :plant/lon 49.66 :plant/sector :chemicals :plant/products ["ethylene" "polymers" "fertilizers"] :plant/established 1980 :plant/headcount-est 10000 :plant/floor-area-m2 8000000 :plant/capacity-value 12000000.0 :plant/capacity-unit :tonnes-yr :plant/capacity-note "integrated petrochemical complex" :plant/sourcing :representative}
+
+ ;; ── AEROSPACE (Americas; exercises :panama) ──
+ {:plant/id "plant.embraer.sjc" :plant/name "Embraer São José dos Campos" :plant/operator "org.corp.embraer" :plant/country "BR" :plant/region "São José dos Campos" :plant/lat -23.18 :plant/lon -45.86 :plant/sector :aerospace :plant/products ["E-Jets" "regional aircraft"] :plant/established 1969 :plant/headcount-est 13000 :plant/floor-area-m2 500000 :plant/capacity-value 100.0 :plant/capacity-unit :aircraft-yr :plant/capacity-note "regional jet FAL" :plant/sourcing :representative}
+
+ ;; ── STEEL (India) ──
+ {:plant/id "plant.tatasteel.jamshedpur" :plant/name "Tata Steel Jamshedpur Works" :plant/operator "org.corp.tata-steel" :plant/country "IN" :plant/region "Jamshedpur" :plant/lat 22.78 :plant/lon 86.20 :plant/sector :steel :plant/products ["crude steel" "flat products"] :plant/established 1907 :plant/headcount-est 30000 :plant/floor-area-m2 10000000 :plant/capacity-value 11000000.0 :plant/capacity-unit :tonnes-yr :plant/capacity-note "India's first integrated steel works" :plant/sourcing :representative}
+
+ ;; ── new export flows ──
+ {:flow/id "flow.pfizer.memphis"     :flow/from "plant.pfizer.kalamazoo"    :flow/to "hub.air.memphis"     :flow/mode :air :flow/commodity :finished-goods :flow/via []                       :flow/sourcing :representative}
+ {:flow/id "flow.serum.rotterdam"    :flow/from "plant.serum.pune"          :flow/to "hub.port.rotterdam"  :flow/mode :sea :flow/commodity :finished-goods :flow/via [:suez-red-sea]          :flow/sourcing :representative}
+ {:flow/id "flow.tsmc-hsinchu.sg"    :flow/from "plant.tsmc.fab12-hsinchu"  :flow/to "hub.port.singapore"  :flow/mode :sea :flow/commodity :components     :flow/via [:taiwan-strait :luzon-strait] :flow/sourcing :representative}
+ {:flow/id "flow.sabic.rotterdam"    :flow/from "plant.sabic.jubail"        :flow/to "hub.port.rotterdam"  :flow/mode :sea :flow/commodity :chemicals      :flow/via [:hormuz :suez-red-sea]  :flow/sourcing :representative}
+ {:flow/id "flow.embraer.la"         :flow/from "plant.embraer.sjc"         :flow/to "hub.port.losangeles" :flow/mode :sea :flow/commodity :finished-goods :flow/via [:panama]                :flow/sourcing :representative}
+ {:flow/id "flow.tatasteel.sg"       :flow/from "plant.tatasteel.jamshedpur" :flow/to "hub.port.singapore" :flow/mode :sea :flow/commodity :raw-material   :flow/via [:malacca]               :flow/sourcing :representative}]

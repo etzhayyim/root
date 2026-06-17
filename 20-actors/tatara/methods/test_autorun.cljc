@@ -23,8 +23,8 @@
       (is (= 3 (:log-length res)))
       (is (:ok (:chain res)))
       (is (= (:head-cid res) (:cid (last (:beats res)))))
-      ;; every beat saw all 22 plants and reported malacca as top chokepoint
-      (is (every? #(= 22 (:plants %)) (:beats res)))
+      ;; every beat saw all 28 plants and reported malacca as top chokepoint
+      (is (every? #(= 28 (:plants %)) (:beats res)))
       (is (= "malacca" (:top-chokepoint (first (:beats res))))))
     (.delete log)))
 
