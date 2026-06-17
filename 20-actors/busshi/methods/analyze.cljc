@@ -107,8 +107,9 @@
 
 (defn- round3 [x] (/ (Math/round (* (double x) 1000.0)) 1000.0))
 
-(defn render-datoms
-  "EDN string of append-only EAVT datoms for the derived observations.
+(defn datoms
+  "Append-only EAVT datom VECTORS for the derived observations (the persistable
+  form; render-datoms stringifies these; autorun/kotoba append these to the ledger).
   Every datom carries :busshi/derived true + :busshi/sourcing :representative —
   derived rows are NEVER re-ingested as authoritative. No :trade / :signal /
   forecast-point attribute is ever emitted (G1/G3)."
@@ -136,7 +137,12 @@
                       (add e ":busshi/derived" true)]))
                  classes)
         all (concat cdatoms kdatoms)]
-    (str "[\n " (str/join "\n " (map pr-str all)) "\n]\n")))
+    (vec all)))
+
+(defn render-datoms
+  "EDN string of the derived-observation datoms (see `datoms`)."
+  [assessment]
+  (str "[\n " (str/join "\n " (map pr-str (datoms assessment))) "\n]\n"))
 
 ;; ── coverage (gap worklist) ──────────────────────────────────────────────────
 
