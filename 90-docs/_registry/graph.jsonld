@@ -8535,10 +8535,9 @@
       ],
       "related": [
         "doc:wellbecoming-karma-lean-proofs",
-        "doc:wellbecoming-karma-lean-proofs",
-        "doc:wellbecoming-karma-lean-proofs",
-        "doc:wellbecoming-karma-lean-proofs"
+        "doc:adr-2606161700-multigenerational-extraction-risk-gate"
       ],
+      "amendedBy": "doc:adr-2606161700-multigenerational-extraction-risk-gate",
       "lastVerified": "2026-05-25"
     },
     {
@@ -10197,7 +10196,7 @@
         "PRO vs RED selection criteria for religious-corp R&D"
       ],
       "related": "doc:adr-2605265000-district-heating-cooling-d-gate-evaluation-r0",
-      "lastVerified": "2026-05-26"
+      "lastVerified": "2026-06-16"
     },
     {
       "id": "doc:adr-2605265700-sodium-sulfur-battery-d-gate-evaluation-r0",
@@ -15774,7 +15773,9 @@
         "doc:2605232345",
         "doc:2606101200"
       ],
-      "lastVerified": "2026-06-13"
+      "supersededBy": "doc:2606161200",
+      "amendedBy": "doc:2606161200",
+      "lastVerified": "2026-06-16"
     },
     {
       "id": "doc:adr-2606131800-session-close-python-to-clojure-tier-b-refactor-arc",
@@ -15997,6 +15998,184 @@
         "doc:ADR-2605312345 (kotoba Datom = canonical state)"
       ],
       "lastVerified": "2026-06-15"
+    },
+    {
+      "id": "doc:adr-2606161200-organism-runtime-3layer-kotodama-split",
+      "type": "TechArticle",
+      "title": "ADR-2606161200: organism runtime 3層分割 — kotodama runtime / root unspsc actor / kotoba substrate (supersedes 2606131645)",
+      "status": "proposed",
+      "topic": "organism-runtime-3layer-kotodama-split",
+      "authoritative": true,
+      "authoritativeFor": [
+        "organism runtime location (com-junkawasaki/kotodama, generic, domain-injected)",
+        "UNSPSC concrete actor location (etzhayyim/root 20-actors/unspsc)",
+        "retirement of the standalone etzhayyim/kototama repo"
+      ],
+      "related": "doc:2606101200",
+      "lastVerified": "2026-06-16"
+    },
+    {
+      "id": "doc:adr-2606161630-aburi-personal-tracking-exposure-observatory",
+      "type": "TechArticle",
+      "title": "ADR-2606161630: aburi 炙り — personal-tracking-exposure observatory (member-side, own-data)",
+      "status": "accepted",
+      "topic": "aburi-tracking-exposure",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/aburi",
+        "00-contracts/schemas/tracker-exposure-ontology.kotoba.edn"
+      ],
+      "related": [
+        "doc:2606122400",
+        "doc:2606013800"
+      ],
+      "lastVerified": "2026-06-16"
+    },
+    {
+      "id": "doc:adr-2606161645-sukashi-fleet-continuous-operation-kotoba-native",
+      "type": "TechArticle",
+      "title": "ADR-2606161645: sukashi fleet continuous operation (kotoba-native) — LaunchDaemon (A) + /loop driver (B)",
+      "status": "accepted",
+      "topic": "sukashi-fleet-continuous",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/sukashi/tools/fleet_drive.py",
+        "20-actors/sukashi/tools/fleet_stage.py",
+        "20-actors/sukashi/deploy"
+      ],
+      "related": "doc:2606131800",
+      "lastVerified": "2026-06-16"
+    },
+    {
+      "id": "doc:adr-2606161700-multigenerational-extraction-risk-gate",
+      "type": "TechArticle",
+      "title": "ADR-2606161700: Multi-generational (子・孫) × Wellbecoming risk-assessment axis for resource extraction — reframing the blanket mining ban (Charter Rider §2(l)) as a multi-gen harm gate; Rider v3.2",
+      "status": "accepted",
+      "topic": "multigenerational-extraction-risk-gate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "canonical framing of resource extraction / mining under the Charter (risk-gate, NOT blanket ban)",
+        "Charter Compliance Rider §2(l) reframe + version bump to v3.2",
+        "the multi-generational (子・孫) × wellbecoming risk-assessment axis as the test for extractive activity",
+        "kanayama N1 reframe (recycling-first by preference, not extraction-forbidden by constitution)"
+      ],
+      "related": "doc:adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0",
+      "lastVerified": "2026-06-16"
+    },
+    {
+      "id": "doc:adr-2606161730-busshi-commodity-materials-observatory-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606161730: busshi (物資) — world commodity & raw-materials KG-mirror observatory (clj-native R0)",
+      "status": "accepted",
+      "topic": "busshi-commodity-materials-observatory",
+      "authoritative": true,
+      "authoritativeFor": [
+        "busshi actor identity (name, DID, namespace, scope) — clj-native R0",
+        "commodity & raw-materials observation gates G1..G8 + non-goals N1..N5",
+        "§2(l) multi-generational (子・孫) × wellbecoming risk axis as the analytical core",
+        "clj-native method triad (busshi_edn loader + analyze/datoms/coverage) + seed"
+      ],
+      "related": [
+        "doc:adr-2606022000-kabuto-supply-chain-kg",
+        "doc:adr-2606032000-kanjo-financial-disclosure-kg",
+        "doc:adr-2606072201-shionome-capital-flow-observatory",
+        "doc:adr-2605252400-kanayama-circular-metallurgy-r0",
+        "doc:adr-2606051500-kamado-closed-loop-carbon-refining"
+      ],
+      "lastVerified": "2026-06-16"
+    },
+    {
+      "id": "doc:adr-2606161800-ugachi-extraction-risk-gate-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606161800: ugachi (穿ち) — the §2(l) multi-generational extraction RISK-GATE actor (clj-native R0)",
+      "status": "accepted",
+      "topic": "ugachi-extraction-risk-gate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ugachi actor identity (name, DID, namespace, scope) — clj-native R0",
+        "the §2(l) extraction-authorization gate as executable code (verdict algebra)",
+        "extraction gates G1..G9 + non-goals N1..N5 (assessment + R0 design only; never digs)"
+      ],
+      "related": [
+        "doc:adr-2606161730-busshi-commodity-materials-observatory",
+        "doc:adr-2605252400-kanayama-circular-metallurgy-r0",
+        "doc:adr-2606051500-kamado-closed-loop-carbon-refining",
+        "doc:adr-2606073100-abaki-anti-monopoly-intelligence-membrane-r0"
+      ],
+      "lastVerified": "2026-06-16"
+    },
+    {
+      "id": "doc:adr-2606161830-ugachi-busshi-grounding-bridge",
+      "type": "TechArticle",
+      "title": "ADR-2606161830: ugachi × busshi grounding bridge — the §2(l) gate's monopoly-effect grounded in observed concentration (Wave 2)",
+      "status": "accepted",
+      "topic": "ugachi-busshi-grounding-bridge",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the ugachi→busshi grounding bridge (monopoly-effect from observed concentration)",
+        "the corroborate/downgrade/never-fabricate grounding rule"
+      ],
+      "related": "doc:adr-2606161700-multigenerational-extraction-risk-gate",
+      "lastVerified": "2026-06-16"
+    },
+    {
+      "id": "doc:adr-2606162355-torifune-subaru-transparent-space-access-and-connectivity-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606162355: torifune 鳥船 + subaru 昴 — Transparent open space-access + connectivity-commons wave (the SpaceX/Starlink charter-clean inversion)",
+      "status": "proposed",
+      "topic": "torifune-subaru-space-access-and-connectivity-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "torifune 鳥船 actor (zero-net-carbon open launch-vehicle manufacturing + Transparent space access)",
+        "subaru 昴 actor (Transparent connectivity-commons satellite constellation; Starlink/OneWeb inversion)",
+        "launch-vehicle-ontology",
+        "constellation-ontology"
+      ],
+      "related": [
+        "doc:2606012600",
+        "doc:2606041827",
+        "doc:2605261300",
+        "doc:2606062100",
+        "doc:2606082400"
+      ],
+      "lastVerified": "2026-06-16"
+    },
+    {
+      "id": "doc:adr-2606170900-ugachi-stewardship-ledger-persistence-and-heartbeat",
+      "type": "TechArticle",
+      "title": "ADR-2606170900: ugachi 穿ち — content-addressed stewardship-ledger persistence + deterministic heartbeat (Wave 2)",
+      "status": "accepted",
+      "topic": "ugachi-stewardship-ledger",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ugachi stewardship-ledger persistence (content-addressed append-only commit-DAG)",
+        "ugachi deterministic heartbeat (assess → append verdict datoms)"
+      ],
+      "related": [
+        "doc:adr-2606122400-meisai-card-statement-ingestion",
+        "doc:adr-2606161730-busshi-commodity-materials-observatory"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606171100-maxwell-diffusion-variant",
+      "type": "TechArticle",
+      "title": "ADR-2606171100: maxwell-diffusion — diffusion-LM fleet variant (DiffusionGemma 26B-A4B base)",
+      "status": "proposed",
+      "topic": "maxwell-diffusion-variant",
+      "authoritative": true,
+      "authoritativeFor": [
+        "maxwell-diffusion-weight-name",
+        "murakumo-fleet-diffusion-throughput-weight"
+      ],
+      "related": [
+        "doc:2605242100",
+        "doc:2605241900",
+        "doc:2606130900",
+        "doc:2606131645",
+        "doc:2605242400"
+      ],
+      "lastVerified": "2026-06-17"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",

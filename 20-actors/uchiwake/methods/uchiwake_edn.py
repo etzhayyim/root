@@ -63,6 +63,12 @@ def load_edn(path: pathlib.Path):
     return _parse(it)
 
 
+def read_str(text: str):
+    """Parse the first top-level form from EDN text (1:1 with read-edn in the .cljc port).
+    Used to read one append-only kotoba Datom-log line back (one tx map per line)."""
+    return _parse(_tokens(text))
+
+
 # ── classify the flat datom vector into entity buckets ───────────────────────
 def classify(rows):
     """Return a dict of entity buckets keyed/listed by uchiwake entity kind."""

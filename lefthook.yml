@@ -394,14 +394,14 @@ pre-commit:
 
 
     docs-registry-freshness:
-      # When any 90-docs/**/*.md changes, verify 90-docs/_registry/docs.json
-      # is in sync (70-tools/scripts/docs/regen-registry.py --check;
-      # ADR-2605271100 cycle 48). Parallel pattern to deps-toml-paths.
-      # Catches operators adding/editing docs without regenerating the
-      # machine-readable sidecar index. ~0.2s overhead.
+      # When any 90-docs/**/*.md changes, verify 90-docs/_registry/{docs.json,docs.edn}
+      # are in sync (70-tools/scripts/docs/regen-registry.clj --check; babashka port
+      # of the former regen-registry.py, ADR-2605271100 cycle 48). Parallel pattern
+      # to deps-toml-paths. Catches operators adding/editing docs without regenerating
+      # the machine-readable sidecar index. ~0.3s overhead.
       glob: "90-docs/**/*.md"
       run: |
-        python3 70-tools/scripts/docs/regen-registry.py --check \
+        bb 70-tools/scripts/docs/regen-registry.clj --check \
           > /tmp/docs-registry-check.$$.txt 2>&1
         rc=$?
         if [ $rc -ne 0 ]; then
@@ -410,8 +410,8 @@ pre-commit:
           rm -f /tmp/docs-registry-check.$$.txt
           echo ""
           echo "  Run the regenerator and stage the result:"
-          echo "    python3 70-tools/scripts/docs/regen-registry.py"
-          echo "    git add 90-docs/_registry/docs.json"
+          echo "    bb 70-tools/scripts/docs/regen-registry.clj"
+          echo "    git add 90-docs/_registry/docs.json 90-docs/_registry/docs.edn"
           exit 1
         fi
         rm -f /tmp/docs-registry-check.$$.txt

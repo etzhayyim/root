@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: kotodama-extraction-functional-unispsc-clj
 authoritative: true
-last_verified: 2026-06-13
+last_verified: 2026-06-16
 priority: 6.0
 axis: architecture
 weight: 0.70
@@ -25,7 +25,10 @@ related:
   - "2605232345"
   - "2606101200"
 supersedes: []
-superseded_by: []
+superseded_by:
+  - 2606161200
+amended_by:
+  - 2606161200
 ---
 
 # ADR-2606131645: kotodama 抽出 + 18,343 UNSPSC actor の機能化 Clojure 移行 + kotoba submodule 撤去
@@ -130,6 +133,30 @@ ADR-2605214000 §3 の Step 8 atomic-cutover のうち、**kotodama runtime 部�
   `bb.edn` test task、`50-infra/murakumo/fleet.toml` + `placement-contract.yaml`、`CHARTER-RIDER.md` (nv_compat パス)、
   `70-tools/scripts/lint/substrate-boundary.mjs`、`deps.toml [[migrations]]`、
   `PYMAGATAMA-MIGRATION-NOTES.md` (新 repo へ移設)。
+
+# 実装記録 — Delivered (2026-06-16 更新)
+
+決定どおり機能版 Clojure UNSPSC actor を **etzhayyim/kototama**(local: `orgs/etzhayyim/kototama`)に抽出済み。
+当初記録(11 tests / 78 assertions)から下記まで前進した(`clojure -X:test` 再現可能)。
+
+- **framework + データ**: `kototama.unspsc.{taxonomy capability organism react life fleet}`、taxonomy 18,342 code
+  (`80-data/unspsc_v26_ucalypt.jsonl` enrichment ⨝ `00-contracts/actor-registry/unispsc.json` SSoT)。
+- **bespoke 能力ライブラリ**: segment 別 capability を **8 → 33/36 segments** に拡張(charter-clean **33/33** 完了;
+  15 fuels / 20 mining / 46 defense-security は charter 設計除外)。各 entry に parity test、空入力は常に reject。
+  **40 tests / 222 assertions green**。
+- **kotoba-Datom backend 配線**: `fleet/sweep!` の `:kotoba` store が `langchain.kotoba-db`(`kotoba-conn` +
+  `kotoba-api` を `:db-api`)経由で checkpoint を永続。operator Bearer JWT(`:kotoba-token`、ADR-2605231525)対応。
+  **ライブノード(127.0.0.1:8077)へ write→read 実証**(actor thread `unspsc-10101500` を Datom log から読戻し)。
+- **Stage-D 学習ループ移植**: Python `unispsc_capabilities/wrapper.py` の `_compute_prior_consensus` を
+  `kototama.unspsc.life/{prior-consensus prior-shortcut?}` に純関数移植(parity test)、organism に opt-in shortcut。
+- **移行先 libs publish**: `langchain-clj v0.1.1`(openai-model adapter)/ `langgraph-clj v0.2.1`(StateGraph
+  checkpointer XRPC)。root 内 clj は kaiyaku 式 git 座標で参照可能。
+- **ツール: kotoba-code**(`com-junkawasaki/kotoba-code`)— model-neutral・test-gated・kotoba-Datom 永続の
+  agentic コーディングエージェント(langchain-clj / langgraph-clj 上)。Phase 2c の能力 authoring の大半を
+  kimi-k2.7-code(OpenRouter)で駆動、各ユニット test-gated + 監督レビュー + PR(#1〜#10)。実運用で
+  retry-on-API-error / rollback-on-throw / gate-feedback(KC_GATE_ROUNDS)と段階的に堅牢化。
+
+未了は本 ADR の `:gated`(operator/production-infra 依存)のまま: submodule 撤去 cutover・py 削除・fleet rollout。
 
 # Alternatives Considered
 

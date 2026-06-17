@@ -91,6 +91,7 @@ superseded_by: []
 | `kotoba_bridge.py` | `:maxwell.*` datom を :8077 へ append-only 書き込み |
 | `corpus.py` | 新ペアの intake: charter scan + clj-kondo gate + dedup + kotoba |
 | `harvest.py` | fleet generator で Python → Clojure unit を生成・収穫 |
+| `harvest.clj` | **canonical harvester (babashka)**: gad teacher で Python actor method → Clojure、clj-kondo gate 込み単一プロセス |
 | `train.py` | EVO-X2 SFT-LoRA 呼び出し、run record → kotoba |
 | `train_sft.py` | EVO 上で動く訓練スクリプト (peft+trl chat-format SFT) |
 | `eval.py` | A/B eval: EVO 生成 + ローカル clj-kondo スコアリング |
@@ -214,11 +215,12 @@ Target: 1000 pairs (train trigger delta=100 ごとに訓練発火)
 - batch2 dedup: unit_refactor が同ファイルを再処理 → `_pair_cid` が正しく弾いた (正常動作)
 - `tests/test_rsi.py` 20 tests green
 - **harvest 再開 (2026-06-15)**: fleet Ollama 停止のため `70-tools/scripts/maxwell/harvest_gad.py` を新設 — gad の llama-server (Gemma 4 26B-a4b, /v1, Murakumo準拠) を teacher に、clj-kondo エラー feedback 再試行 + 閉じ括弧修復で lint-clean な Python→Clojure ペアを収穫。`gate_candidates.py` は warning 許容・**error 基準**に調整。corpus 123→131 (n=8 バッチ 8/8 合格)
+- **harvest を Clojure へ移植 (2026-06-16)**: kotoba-native 方針に合わせ `harvest.clj` (babashka) を canonical harvest tool として新設 — Python の harvest+gate 2段を **1プロセス**に統合 (venv/ラッパーシェル不要)。discover (top-level `def` を indentation で抽出、`*-compat`/test 除外、per-file diversity cap) → gad 翻訳 (`enable_thinking:false`) → clj-kondo error-feedback 再試行 + 閉じ括弧修復 → Charter §2 signal 事前スキャン → `maxwell-sft-corpus.jsonl` へ直接追記、失敗 unit は `maxwell-failed.txt` に記録して再試行を回避。`harvest_gad.py` は本 commit で削除。15分 loop は `bb harvest.clj` を呼ぶよう更新。
 
 ## 残タスク (Phase 0 完了まで)
 
 1. ~~gad を Tailscale に接続~~ **完了 (2026-06-15)**: Ubuntu 再イメージ後 `tailscale up --ssh` で参加、`~/.ssh/config` の `gad` を Tailscale IP `100.82.98.110` に更新済み、ROCm/peft/trl env 構築済み
-2. harvest batch 3〜 を継続 (`discover_unharvested_py` で未処理ファイルを取得)
+2. harvest batch を継続 (`bb 70-tools/scripts/maxwell/harvest.clj --n N` — corpus+failed id を skip して未処理 unit へ前進)
 3. corpus ≥ 1000 → `loop.py run` で Phase 1 (M1 training) 発火
 
 # Consequences

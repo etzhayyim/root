@@ -122,3 +122,15 @@ JGAAP → one canonical vocabulary), JGAAP-only 経常利益, and as-of YoY (Toy
 Figures are publicly-documented HEADLINE numbers, **rounded** — not authoritative line-item XBRL.
 "Register ALL companies' 決算" is the **R1** goal — full EDINET/EDGAR-universe XBRL parse is **G7**
 Council + operator gated. kanjō does not forecast, rate, value, or advise.
+
+## Live ingest — Council-authorised (2026-06-16)
+
+The **G7 gate is OPEN** (founder Lv7+ 1/1). The live EDGAR leg (`70-tools/scripts/coverage-publish/
+edgar_batch.py`, curated `ciks.txt`, **additive** merge — never clobbers prior filings) has
+populated `data/facts.merged.kotoba.edn` to **722 filings / 9,327 `:authoritative` facts** across
+~47 major US filers (primary SEC disclosure only, G1). That graph is persisted on **DataLad + IPFS
++ kotobase.net** via `coverage-publish/publish.py` — IPFS CID
+`bafybeiae7xbotq4m2m55mycpsh3qrn4g67xz52dporyf4sfxoj6hcj7quq` (pinned, multi-block dag-pb), DataLad
+dataset `80-data/kanjo-coverage`, IPNS `k51qzi5uqu5dhf94…`; kotobase = operator-follow-up (no token,
+ADR-2606111330). Pointer: `80-data/coverage-manifests/kanjo-coverage-manifest.json`. Full
+EDINET/EDGAR universe (~thousands of filers) remains the continued operator/loop process.

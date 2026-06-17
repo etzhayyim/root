@@ -76,6 +76,13 @@
 
 ## Cells
 
+- `cell:sukashi.crawl` → `methods/crawl.py` — the worldwide ACQUISITION leg. Walks a frontier of
+  real publisher / SSP / exchange domains (`data/frontier-domains.edn`) and FETCHES their PUBLIC
+  IAB files (`/ads.txt`, `/app-ads.txt`, `/sellers.json`, public RDAP) → feeds the `ingest` parsers
+  → kotoba rows. **DRY-RUN unless `SUKASHI_OPERATOR_GATE=1`** (G7); the network leg is INJECTED
+  (`fetcher=`, tests run offline); GET-only honest-UA robots-respecting, no detection-evasion
+  (G2/G12); RDAP keeps registrant ORG only (G9); resume-safe (data/live/ gitignored, fresh-skip).
+  I/O-coupled → `.py` (the ingest.py boundary, ADR-2606131800); the *analyzer* is `.cljc`.
 - `cell:sukashi.ingest` → `methods/ingest.py` — real ads.txt/sellers.json/WHOIS parsers → kotoba
   EAVT bridge (offline default; live G7-gated). WHOIS keeps registrant ORG only (G9).
 - `cell:sukashi.analyze` → `methods/analyze.py` (stdlib). authorization-handshake integrity
@@ -97,14 +104,21 @@ to avoid floats, mirroring kabuto's `criticalityBp`.
 
 ## Run
 
+**bb is the standard runner — no `.sh` in this repo.** Tasks live in the root `bb.edn`.
+
 ```bash
+# from the repo root:
+bb sukashi:crawl                  # DRY-RUN: print the frontier plan (no network). The acquisition leg.
+SUKASHI_OPERATOR_GATE=1 bb sukashi:crawl --max 50   # LIVE worldwide crawl (Council-gated, G7) → data/live/
+bb test:sukashi                   # python invariant/heartbeat/crawler + cljc analyzer suites
+
+# pure reports (methods are python/.cljc, not scripts):
 cd 20-actors/sukashi
-python3 methods/ingest.py --source adstxt --in data/ingest/example.ads.txt --publisher <id>  # G7: bridge a public file (offline default)
+python3 methods/crawl.py --merge                 # parse fetched data/live/* → rows
+python3 methods/ingest.py --source adstxt --in data/live/nytimes.com.ads.txt --publisher <id>  # bridge a fetched file
 python3 methods/analyze.py                       # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
-python3 viz/build_viz_data.py                    # → viz/ad-supply-chain.htm (open in a browser)
-python3 methods/transact.py                      # dry-run; --graph <CID> + KOTOBA_TOKEN to write (G7)
 python3 methods/autorun.py --cycles 3 --fresh    # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
-./run_tests.sh                                   # invariant + analyzer + autonomous-heartbeat tests
+python3 methods/transact.py                      # dry-run; --graph <CID> + KOTOBA_TOKEN to write (G7)
 ```
 
 ### Autonomous on the Murakumo fleet (ADR-2606071600)
@@ -116,10 +130,14 @@ PERSIST a content-addressed transaction to the append-only **local** kotoba Dato
 `methods/kotoba.py`), linking the previous tx's CID into a verifiable commit-DAG. Deterministic /
 resume-safe; NO external I/O. Constitutional posture holds by construction: OBSERVATORY not an ad
 network (G2); every persisted fraud signal stays `:non-adjudicating true` + `:synthesized` (G4) —
-no real entity is implicated. Fleet cells: `sukashi_adsupply_ingest` (cron 42) +
-`sukashi_fraud_weave` (cron 47) on `issachar`, `sukashi_adsupply_persist` (cron 52) on `dan` —
-see `50-infra/murakumo/fleet.toml`. Live full-web crawl (`ingest.py` + `SUKASHI_OPERATOR_GATE`, G7)
-+ the live-node push (`transact.py`, G11) stay one human gate-flip away. Invariants guarded by
+no real entity is implicated. **Fleet placement** is the k3s spec `50-infra/murakumo/fleet.edn` (`sukashi_adsupply_ingest` /
+`sukashi_fraud_weave` / `sukashi_adsupply_persist`). The actually-running Tier-1 **launchd** daemon
+is registered in `50-infra/cluster/murakumo/cell-runner/cells.edn` as
+**`SukashiObservatoryHeartbeatCell`** (module `sukashi.cell`, entry `fire`, node `issachar`, cron
+`42 * * * *`, healthz 13081) — installed per-node via `cell-runner/install.sh --node issachar`
+(the actual launchd load is the operator step). `cell.py::fire()` runs ONE offline heartbeat
+(`autorun.run_cycle`). The worldwide **crawl** (`methods/crawl.py` + `SUKASHI_OPERATOR_GATE`, G7)
+and the live-node push (`transact.py`, G11) stay separate operator-gated invocations. Invariants guarded by
 `methods/test_autorun.py` (commit-DAG verify, tamper-detect, determinism, append-only,
 derived-flagging, **G4 fraud-signals-non-adjudicating**, no-external-I/O).
 

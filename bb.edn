@@ -222,7 +222,10 @@
                       'fuchi.methods.test-couple 'fuchi.methods.test-book
                       'fuchi.methods.test-provision
                       'kasa.tests.test-kasa 'kasa.tests.test-invariants
-                      'uchiwake.tests.test-uchiwake 'sukashi.tests.test-sukashi
+                      'uchiwake.tests.test-uchiwake 'uchiwake.tests.test-autorun
+                      'meisai.methods.test-autorun 'meyasu.py.test-autorun
+                      'kakaku.py.test-autorun
+                      'sukashi.tests.test-sukashi
                       'suji.methods.test-load 'suji.methods.test-muscle-strain
                       'suji.methods.test-datoms 'suji.methods.test-charter-invariants
                       'suji.methods.test-bridge-consistency
@@ -282,6 +285,10 @@
                                              'kasa.tests.test-kasa
                                              'kasa.tests.test-invariants
                                              'uchiwake.tests.test-uchiwake
+                                             'uchiwake.tests.test-autorun
+                                             'meisai.methods.test-autorun
+                                             'meyasu.py.test-autorun
+                                             'kakaku.py.test-autorun
                                              'sukashi.tests.test-sukashi
                                              'suji.methods.test-load
                                              'suji.methods.test-muscle-strain
@@ -376,9 +383,59 @@
              (let [r (clojure.test/run-tests 'fuchi.methods.test-allocate 'fuchi.methods.test-vote 'fuchi.methods.test-route 'fuchi.methods.test-book 'fuchi.methods.test-provision 'fuchi.methods.test-couple 'fuchi.methods.test-analyze)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:aburi
+  {:doc "炙り aburi — personal-tracking-exposure: cljc analyzer/coverage tests + python ingest/bridge legs (ADR-2606161630)"
+   :task (do (require 'clojure.test 'aburi.tests.test-analyze 'aburi.tests.test-coverage)
+             (shell {:dir "20-actors/aburi"} "python3" "tests/test_ingest.py")
+             (shell {:dir "20-actors/aburi"} "python3" "tests/test_bridge.py")
+             (let [r (clojure.test/run-tests 'aburi.tests.test-analyze 'aburi.tests.test-coverage)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
+  aburi:build-wasm
+  {:doc "炙り aburi — build the WASM component (componentize-py) + report CID (operator step; ADR-2606014600)"
+   :task (do (require 'aburi.tools.build)
+             (apply (resolve 'aburi.tools.build/-main) *command-line-args*))}
+  aburi:publish
+  {:doc "炙り aburi — one-shot publish orchestrator; flags: --pin --deploy --kv --verify --all (operator; ADR-2606013800)"
+   :task (do (require 'aburi.tools.publish)
+             (apply (resolve 'aburi.tools.publish/-main) *command-line-args*))}
+  aburi:ingest
+  {:doc "炙り aburi — local heartbeat: ingest the member's OWN exports (data/local/intake) → local commit-DAG"
+   :task (apply shell {:dir "20-actors/aburi"} "python3" "methods/autorun.py" *command-line-args*)}
+  aburi:bridge
+  {:doc "炙り aburi — push local exposure log → live kotoba :8077 (dry-run default; live = ABURI_KOTOBA_LIVE=1 + Council)"
+   :task (apply shell {:dir "20-actors/aburi"} "python3" "methods/kotoba_bridge.py" *command-line-args*)}
+  sukashi:crawl
+  {:doc "透かし sukashi — worldwide ad-supply-chain crawler (ads.txt/app-ads.txt/sellers.json/RDAP). DRY-RUN unless SUKASHI_OPERATOR_GATE=1 + Council (G7); files → data/live (gitignored)"
+   :task (apply shell {:dir "20-actors/sukashi"} "python3" "methods/crawl.py" *command-line-args*)}
+  sukashi:fleet-stage
+  {:doc "透かし sukashi — stage the pure-stdlib actor to a fleet node's ~/sukashi-run (git-archive + tar over Tailscale SSH). Args: --nodes issachar[,dan]"
+   :task (apply shell {:dir "20-actors/sukashi"} "python3" "tools/fleet_stage.py" *command-line-args*)}
+  sukashi:fleet-drive
+  {:doc "透かし sukashi — (B) interim pseudo-daemon: SSH-run the heartbeat on assigned fleet nodes + record each run as a :fleet.run/* kotoba datom. Pair with /loop for continuity. Args: --nodes issachar"
+   :task (apply shell {:dir "20-actors/sukashi"} "python3" "tools/fleet_drive.py" *command-line-args*)}
+  murakumo:deploy
+  {:doc "Murakumo fleet — deploy the pure-stdlib node cell-runner (ONE supervisor/node, reads cells.edn) to a node as a system LaunchDaemon. Args: --node issachar [--dry-run] (needs Tailscale SSH + passwordless sudo). ADR-2606161645"
+   :task (apply shell {:dir "50-infra/cluster/murakumo/cell-runner"} "python3" "deploy_node.py" *command-line-args*)}
+  test:cell-runner
+  {:doc "Murakumo lite cell-runner + deploy_node tests (pure stdlib; offline)"
+   :task (shell {:dir "50-infra/cluster/murakumo/cell-runner"} "python3" "test_lite_runner.py")}
+  test:sukashi
+  {:doc "透かし sukashi — python invariant/heartbeat/crawler/fleet-drive suites + cljc analyzer tests (no .sh; bb is the runner)"
+   :task (do (shell {:dir "20-actors/sukashi"} "python3" "tests/test_sukashi.py")
+             (shell {:dir "20-actors/sukashi"} "python3" "methods/test_autorun.py")
+             (shell {:dir "20-actors/sukashi"} "python3" "tests/test_crawl.py")
+             (shell {:dir "20-actors/sukashi"} "python3" "tests/test_fleet_drive.py")
+             (require 'clojure.test 'sukashi.tests.test-sukashi)
+             (let [r (clojure.test/run-tests 'sukashi.tests.test-sukashi)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:clj
   {:doc "all Clojure actor tests (fast suites; run test:ibuki:integration separately)"
-   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi]}
+   :depends [test:mimamori test:yobel test:tools test:ibuki test:actors test:matsurigoto test:fuchi test:aburi test:docs-registry]}
+  test:docs-registry
+  {:doc "docs registry generator (70-tools/scripts/docs/regen-registry.clj) — parse-frontmatter / JSON+EDN encoders / byte-parity round-trip + live freshness guard (port of test_regen_registry.py)"
+   :task (shell "bb" "70-tools/scripts/docs/test_regen_registry.clj")}
   test:tools
   {:doc "70-tools Clojure test suite (langgraph-clj maturation agent)"
    :task (do (require 'clojure.test

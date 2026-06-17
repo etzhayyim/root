@@ -1,6 +1,13 @@
 {
   "@context": "https://etzhayyim.com/ns/actor/v1",
   "@id": "did:web:rare-earth-coverage.etzhayyim.com",
+  "riskAssessmentAxis": {
+    "adr": "ADR-2606161700",
+    "kind": "observation-watcher",
+    "summary": "Observation watcher (supply-chain / dependency KG mirror), NOT an extractor. Its analytical core is the multi-generational (子・孫) × wellbecoming risk-assessment axis (Charter Rider §2(l) v3.2): map where rare-metal value chains create (i) monopoly / chokepoint dependency and (ii) irreversible multi-generational environmental risk, routed to RESILIENCE / de-monopolization / restoration.",
+    "prohibited": "NEVER a target-list, an extraction recipe, or a by-industry-name 'mining is forbidden' verdict. Extraction is not banned as such; it is judged by measured harm to 子孫.",
+    "routesTo": ["resilience", "de-monopolization", "restoration"]
+  },
   "actors": [
     {
       "description": "Top-level mineral dependency system covering the rare earth value chain.",
