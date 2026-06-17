@@ -20,7 +20,7 @@
 (def ^:private RDF "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 (def ^:private RDFS "http://www.w3.org/2000/01/rdf-schema#")
 (def ^:private XSD "http://www.w3.org/2001/XMLSchema#")
-(def ^:private PUBLISHER-DID "did:web:etzhayyim.com:actor:tsumugi")
+(def PUBLISHER-DID "did:web:etzhayyim.com:actor:tsumugi")
 (def LICENSE "Apache-2.0 + etzhayyim Charter Compliance Rider v3.1 (/CHARTER-RIDER.md)")
 
 (def ^:private SCALE-JA
