@@ -151,6 +151,7 @@ keep tracking, recording, analyzing malicious / attacking / hidden-influence act
 | `methods/adversary.cljc` | **watch-the-watchers**: attack / scan / surveil / hidden-influence observations recorded RECIPROCALLY + transparently; reflexive `watch-the-watchers` (the watcher is itself in the ledger) | 相互監視 affirmed; person-identity / de-anon field **unrepresentable** (G1/G10) — only behaviour + address + aggregate are public |
 | `methods/watch.cljc` | the CONTINUOUS loop (追跡し続ける/記録し続ける/分析し続ける): ingest → score → propagate → concentration → append ONE content-addressed tx to the **append-only public ledger** (永久記憶, tamper-evident commit-DAG) | runs autonomously over PUBLIC indicators (no PII, no case needed); 公開 (external publish) + person-linkage stay operator/Council-gated |
 | `methods/malak_ingest.cljc` | the **malak → tadori seam** (T1): consolidates a malak `traceReport` (the external pursuit engine's darkweb/onion + wallet-deep-inspect output) into tadori's durable case graph. tadori **RE-DERIVES clusters itself** (SoR), external sources are feature-flagged-only (G4), person findings become encrypted attribution edges (G6), under an active case (G3) | malak = compute / tadori = durable graph: the seam the user flagged (`darkweb は malak`); non-adjudicating, the durable graph is tadori's derivation not malak's assertion |
+| `methods/ofac.cljc` | **REAL public-data ingest leg**: parse a STAGED OFAC SDN `sdn.xml` (`clojure.data.xml`) → `Digital Currency Address` entries → attributed `:sanctions` risk labels (asserter `ofac-sdn`, **G4 public SoR**, non-adjudicating). `bb tadori:ofac <staged.xml> [as-of]`; the download is the operator-gated leg (G7), the loop does no network I/O | first real-source live leg; OFAC SDN = public primary-source sanctions data (kosatsu pattern) |
 
 ```sh
 bb tadori:watch 3   # CONTINUOUS watch loop over a SYNTHETIC batch → append-only public ledger
@@ -216,3 +217,8 @@ nonKotobaStore — any nonzero ⇒ halt + chigiri.disputeMediation). Schemas + m
   surveillance. Evidence-producing only.
 - Do not route LLM classification through any non-Murakumo path (ADR-2605215000).
 - Do not write person/IP/device attribution as plaintext — use `com.etzhayyim.encrypted.*`.
+
+**Live data + fleet + the malak contract:**
+- **OFAC SDN live leg (①)**: `bb tadori:ofac <staged-sdn.xml> [as-of]`. The operator downloads the PUBLIC `sdn.xml` from treasury.gov (G7), tadori parses it offline → attributed `:sanctions` labels. Full-universe / scheduled pull stays operator/Council-gated.
+- **Fleet (②)**: `tadori_watch` (continuous risk/adversary ledger) is registered alongside `tadori_silen_review` on `issachar` in `50-infra/murakumo/fleet.edn` — the 永久記憶 watch loop runs on the Murakumo fleet.
+- **malak contract (③)**: `kotoba/malak-trace-report.contract.edn` is the EXECUTABLE contract the external **malak** pursuit engine's `traceReport` must satisfy (conformance-tested by `tests/test_malak_contract.cljc` through the seam). **malak本体 lives in its own repo** — the active darkweb/onion + wallet pursuit is built there; tadori only consolidates its disclosed output. **Active Tor de-anonymization is out of scope everywhere** (onion = public passive indicator).
