@@ -122,6 +122,93 @@
   (let [result (agent/record_raw_material "sodium cromoglicate" "custom" "low-risk")]
     (is (= true (:blocked result)))))
 
+;; ════════════════════════════════════════════════════════════════════════════════
+;; Wave 2 — disinfectant / antiseptic formulation (ADR-2606171400)
+;; ════════════════════════════════════════════════════════════════════════════════
+
+;; ── G1(Wave 2) reference set ──────────────────────────────────────────────────
+(deftest test-disinfectant-wave2-ok
+  (is (= true (:ok (agent/disinfectant_ok "ethanol")))))
+
+(deftest test-disinfectant-non-wave2
+  ;; a Wave 1 API is NOT a Wave 2 disinfectant
+  (is (= false (:ok (agent/disinfectant_ok "sodium-cromoglicate")))))
+
+;; ── G21 efficacy window ───────────────────────────────────────────────────────
+(deftest test-efficacy-ethanol-in-window
+  ;; 消毒用エタノール 80 vol% — inside [60–90]
+  (is (= true (:ok (agent/disinfectant_efficacy_ok "ethanol" 80.0)))))
+
+(deftest test-efficacy-ethanol-too-weak
+  (is (= false (:ok (agent/disinfectant_efficacy_ok "ethanol" 50.0)))))
+
+(deftest test-efficacy-ethanol-too-strong
+  ;; >90% flash-evaporates before denaturation — blocked
+  (is (= false (:ok (agent/disinfectant_efficacy_ok "ethanol" 99.0)))))
+
+(deftest test-efficacy-hypochlorite-surface-in-window
+  (is (= true (:ok (agent/disinfectant_efficacy_ok "sodium-hypochlorite" 0.1)))))
+
+(deftest test-efficacy-unknown-active
+  (is (= false (:ok (agent/disinfectant_efficacy_ok "bleach-x" 5.0)))))
+
+;; ── G22 no toxic-gas formulation ──────────────────────────────────────────────
+(deftest test-toxic-gas-hypochlorite-acid-refused
+  (is (= false (:ok (agent/no_toxic_gas_ok "sodium-hypochlorite" ["citric-acid"])))))
+
+(deftest test-toxic-gas-hypochlorite-ammonia-refused
+  (is (= false (:ok (agent/no_toxic_gas_ok "sodium-hypochlorite" ["ammonia"])))))
+
+(deftest test-toxic-gas-hypochlorite-water-ok
+  (is (= true (:ok (agent/no_toxic_gas_ok "sodium-hypochlorite" ["water"])))))
+
+(deftest test-toxic-gas-ethanol-acid-ok
+  ;; ethanol + acid is not a toxic-gas combo — only hypochlorite is gated
+  (is (= true (:ok (agent/no_toxic_gas_ok "ethanol" ["citric-acid"])))))
+
+;; ── G24 use class ─────────────────────────────────────────────────────────────
+(deftest test-use-class-valid
+  (is (= true (:ok (agent/use_class_ok "skin-antiseptic")))))
+
+(deftest test-use-class-invalid
+  (is (= false (:ok (agent/use_class_ok "injectable")))))
+
+;; ── G23 flammable label lint ──────────────────────────────────────────────────
+(deftest test-flammable-label-present
+  (is (= true (:ok (agent/flammable_label_ok "ethanol" "用法用量… 火気厳禁")))))
+
+(deftest test-flammable-label-missing
+  (is (= false (:ok (agent/flammable_label_ok "isopropanol" "surface disinfectant")))))
+
+(deftest test-flammable-label-not-required-for-nonflammable
+  ;; povidone-iodine is not flammable — no 火気厳禁 needed
+  (is (= true (:ok (agent/flammable_label_ok "povidone-iodine" "skin antiseptic")))))
+
+;; ── record_formulation (G1/W2 + G21 + G22 + G23 + G24 + G9) ───────────────────
+(deftest test-formulation-povidone-iodine-ok
+  (let [result (agent/record_formulation "povidone-iodine" 10.0 "skin-antiseptic" ["op" "qp"])]
+    (is (not (contains? result :blocked)))))
+
+(deftest test-formulation-ethanol-with-label-ok
+  (let [result (agent/record_formulation "ethanol" 80.0 "hand-hygiene" [] "火気厳禁" ["op" "qp"])]
+    (is (not (contains? result :blocked)))))
+
+(deftest test-formulation-ethanol-no-flammable-label-blocked
+  (let [result (agent/record_formulation "ethanol" 80.0 "hand-hygiene" [] "" ["op" "qp"])]
+    (is (= true (:blocked result)))))
+
+(deftest test-formulation-out-of-window-blocked
+  (let [result (agent/record_formulation "ethanol" 50.0 "hand-hygiene" [] "火気厳禁" ["op" "qp"])]
+    (is (= true (:blocked result)))))
+
+(deftest test-formulation-toxic-gas-blocked
+  (let [result (agent/record_formulation "sodium-hypochlorite" 0.1 "surface" ["citric-acid"] "" ["op" "qp"])]
+    (is (= true (:blocked result)))))
+
+(deftest test-formulation-low-witness-blocked
+  (let [result (agent/record_formulation "povidone-iodine" 10.0 "skin-antiseptic" ["op"])]
+    (is (= true (:blocked result)))))
+
 ;; ── runner ────────────────────────────────────────────────────────────────────
 (when (= *file* (System/getProperty "babashka.file"))
   (let [{:keys [fail error]} (clojure.test/run-tests 'yakushi.py.test-agent)]

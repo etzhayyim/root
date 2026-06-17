@@ -26,6 +26,26 @@ Per [ADR-2605250500](../../90-docs/adr/2605250500-yakushi-pharmaceutical-rd-char
 | Inference | Murakumo fleet only (LiteLLM 127.0.0.1:4000 + EVO-X2 + Mac mini gemma) | RunPod / Vertex / OpenAI direct / Anthropic direct from vendor key (§2(i)) |
 | Advertising / promotion | None for general public; SBT↔SBT `internal-promo` for adherent religious activity only | Third-party ads, SNS-targeted promotion, affiliate, GA4 ad linkage |
 
+## Wave 2 — disinfectants / antiseptics (消毒薬, ADR-2606171400)
+
+Wave 2 adds **disinfectant / antiseptic FORMULATION** (希釈・配合, NOT de-novo synthesis) over
+7 公定書 off-patent actives: `ethanol` (消毒用エタノール) / `isopropanol` / `sodium-hypochlorite`
+(次亜塩素酸ナトリウム) / `benzalkonium-chloride` (逆性石鹸) / `povidone-iodine` (ポビドンヨード) /
+`chlorhexidine-gluconate` / `hydrogen-peroxide` (オキシドール).
+
+- Manufacturing verb = **FORMULATION** (`record_formulation`), distinct from synthesis (`record_synthesis`).
+  Emits `:formulationAttestation/*` via `cells/formulation_attestation.edn` + lex `com.etzhayyim.yakushi.formulationAttestation`.
+- **G21 efficacy-window** — active concentration must fall inside its evidence-based window
+  (ethanol 60–90 / IPA 60–80 / NaOCl 0.05–0.5 / BAK 0.01–0.2 / PVP-I 1–10 / CHG 0.05–0.5 / H₂O₂ 1–6 %).
+  「濃ければ強い」is FALSE — out-of-window is structurally blocked.
+- **G22 no-toxic-gas-formulation** — `sodium-hypochlorite` + any acid (Cl₂) or ammonia (chloramine) is
+  **constitutionally unrepresentable** (Charter §1.12 / Rider §2(a)); `record_formulation` REFUSES it.
+  This is the actor-level implementation of the weaponizable-unrepresentable invariant.
+- **G23 flammable-labeling** — alcohol actives require 火気厳禁 / flammable on the label (extends G11 lint).
+- **G24 use-class** — each product declares `{surface, skin-antiseptic, hand-hygiene}`.
+- clj-native SSoT: Wave 2 logic lives only in `py/agent.clj` + `py/test_agent.clj` (no Python counterpart —
+  the clj-as-SSoT direction). G1..G20 inherited unchanged.
+
 ## Cell pattern (per ADR-2605192415 §B, silicon Wave 1 silicon_* mirror)
 
 ```

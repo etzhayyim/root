@@ -167,6 +167,39 @@
   :db/cardinality :db.cardinality/one
   :db/doc "Buyer signature reference (if executed)"}
 
+ ;; ───────────────────────────── :formulationAttestation/* (Wave 2, ADR-2606171400) ─────────────────────────────
+ ;; Disinfectant / antiseptic FORMULATION (diluted / blended from generic off-patent
+ ;; actives) — distinct from :apiSynthesisAttestation (de-novo synthesis).
+ {:db/ident :formulationAttestation/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "Unique ID for disinfectant formulation attestation"}
+ {:db/ident :formulationAttestation/activeName
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Disinfectant active INN slug (ethanol, sodium-hypochlorite, povidone-iodine, …)"}
+ {:db/ident :formulationAttestation/concPercent
+  :db/valueType :db.type/double
+  :db/cardinality :db.cardinality/one
+  :db/doc "Active concentration in percent (must fall inside G21 efficacy window)"}
+ {:db/ident :formulationAttestation/useClass
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Use class (surface, skin-antiseptic, hand-hygiene) — G24"}
+ {:db/ident :formulationAttestation/coFormulants
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Comma-joined co-formulants (G22 toxic-gas screen — hypochlorite+acid/ammonia refused)"}
+ {:db/ident :formulationAttestation/witness1
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "First witness DID (G9)"}
+ {:db/ident :formulationAttestation/witness2
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Second witness DID (G9)"}
+
  ;; ───────────────────────────── :yakushiSbtEligibility/* ─────────────────────────────
  {:db/ident :yakushiSbtEligibility/did
   :db/valueType :db.type/string

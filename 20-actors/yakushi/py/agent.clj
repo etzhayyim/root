@@ -28,7 +28,8 @@
   :intent (G19).
 
   Run:  bb --classpath 20-actors 20-actors/yakushi/py/agent.clj"
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [clojure.set]))
 
 ;; ── constants ──────────────────────────────────────────────────────────────────
 (def TITHE_BPS 1000)  ; 10% TitheRouter auto-split (G17), basis points
@@ -41,6 +42,45 @@
 (def WAVE_1_APIS #{"sodium-cromoglicate"
                    "naphazoline-hydrochloride"
                    "chlorpheniramine-maleate"})
+
+;; ── Wave 2 — disinfectants / antiseptics (消毒薬・殺菌剤) ──────────────────────────
+;; ADR-2606171400. Unlike Wave 1/1b APIs (de-novo synthesized), Wave 2 actives are
+;; FORMULATED (diluted / blended) from generic off-patent actives — the lowest-IP-risk,
+;; highest-public-health-value category (§2(e) anti-gatekeeping). The manufacturing
+;; verb is FORMULATION, not synthesis. All 7 actives are 公定書 (日局/USP/EP) monograph
+;; grade with multi-generational safety records.
+(def WAVE_2_DISINFECTANTS #{"ethanol"                 ; 消毒用エタノール
+                            "isopropanol"             ; イソプロパノール (IPA)
+                            "sodium-hypochlorite"     ; 次亜塩素酸ナトリウム
+                            "benzalkonium-chloride"   ; 塩化ベンザルコニウム (逆性石鹸)
+                            "povidone-iodine"         ; ポビドンヨード
+                            "chlorhexidine-gluconate" ; クロルヘキシジングルコン酸塩
+                            "hydrogen-peroxide"})     ; オキシドール (過酸化水素)
+
+;; G21 efficacy window — evidence-based active concentration in percent {:min :max}.
+;; Out-of-window formulation is structurally blocked: too-weak = no kill, too-strong =
+;; wasteful / harmful (e.g. ethanol >90% flash-evaporates before protein denaturation).
+(def DISINFECTANT_EFFICACY_WINDOW
+  {"ethanol"                 {:min 60.0  :max 90.0}   ; 消毒用エタノール 76.9–81.4 vol% は窓内
+   "isopropanol"             {:min 60.0  :max 80.0}
+   "sodium-hypochlorite"     {:min 0.05  :max 0.5}    ; surface, available chlorine %
+   "benzalkonium-chloride"   {:min 0.01  :max 0.2}
+   "povidone-iodine"         {:min 1.0   :max 10.0}
+   "chlorhexidine-gluconate" {:min 0.05  :max 0.5}
+   "hydrogen-peroxide"       {:min 1.0   :max 6.0}})  ; オキシドール 2.5–3.5% は窓内
+
+;; G24 use class — each finished disinfectant declares one.
+(def VALID_USE_CLASSES #{"surface" "skin-antiseptic" "hand-hygiene"})
+
+;; G22 toxic-gas co-formulants — hypochlorite + acid → Cl₂ gas; hypochlorite + ammonia →
+;; chloramine. A weaponizable gas formulation is constitutionally unrepresentable
+;; (Charter §1.12 / Rider §2(a)): record_formulation REFUSES these combinations.
+(def HYPOCHLORITE_INCOMPATIBLE
+  #{"acid" "hydrochloric-acid" "citric-acid" "acetic-acid" "vinegar" "sulfuric-acid"
+    "ammonia" "ammonium" "ammonium-chloride" "ammonium-hydroxide"})
+
+;; G23 flammable actives — require 火気厳禁 (keep-away-from-fire) on the label.
+(def FLAMMABLE_ACTIVES #{"ethanol" "isopropanol"})
 
 ;; ── _infer — Murakumo-only inference (G15) ─────────────────────────────────────
 (defn _infer
@@ -192,6 +232,99 @@
         ":adverseEventReport/outcome"  outcome
         ":adverseEventReport/eventCid" (or event-cid "")}))))
 
+;; ════════════════════════════════════════════════════════════════════════════════
+;; Wave 2 — disinfectant / antiseptic formulation (ADR-2606171400)
+;; ════════════════════════════════════════════════════════════════════════════════
+
+;; ── G1(Wave 2) — active is a Wave 2 公定書 disinfectant ───────────────────────────
+(defn disinfectant_ok
+  "Check if active is in the Wave 2 disinfectant reference set."
+  [inn-slug]
+  (if-not (contains? WAVE_2_DISINFECTANTS (str/lower-case inn-slug))
+    {:ok false :reason (str "active " inn-slug " not in Wave 2 disinfectant reference (G1)")}
+    {:ok true :reason "公定書 disinfectant confirmed (Wave 2)"}))
+
+;; ── G21 — efficacy-window check (active concentration in percent) ────────────────
+(defn disinfectant_efficacy_ok
+  "Verify the active concentration falls inside its evidence-based efficacy window."
+  [inn-slug conc-percent]
+  (let [slug   (str/lower-case inn-slug)
+        window (get DISINFECTANT_EFFICACY_WINDOW slug)]
+    (cond
+      (nil? window)
+      {:ok false :reason (str "no efficacy window for " inn-slug " (G21)")}
+
+      (or (nil? conc-percent) (not (number? conc-percent)))
+      {:ok false :reason "concentration (percent) required (G21)"}
+
+      (< (double conc-percent) (:min window))
+      {:ok false :reason (str conc-percent "% below efficacy floor " (:min window) "% — no kill (G21)")}
+
+      (> (double conc-percent) (:max window))
+      {:ok false :reason (str conc-percent "% above efficacy ceiling " (:max window) "% — wasteful/harmful (G21)")}
+
+      :else
+      {:ok true :reason (str conc-percent "% within [" (:min window) "–" (:max window) "]% (G21)")})))
+
+;; ── G22 — no toxic-gas formulation (hypochlorite + acid/ammonia unrepresentable) ─
+(defn no_toxic_gas_ok
+  "Refuse co-formulating sodium hypochlorite with any acid (Cl₂) or ammonia (chloramine).
+  Weaponizable gas is constitutionally unrepresentable (§1.12 / Rider §2(a))."
+  [inn-slug co-formulants]
+  (let [slug (str/lower-case inn-slug)
+        cos  (set (map str/lower-case (or co-formulants [])))]
+    (if (and (= slug "sodium-hypochlorite")
+             (seq (clojure.set/intersection cos HYPOCHLORITE_INCOMPATIBLE)))
+      {:ok false :reason (str "hypochlorite + " (first (clojure.set/intersection cos HYPOCHLORITE_INCOMPATIBLE))
+                              " generates toxic gas — unrepresentable (G22)")}
+      {:ok true :reason "no toxic-gas co-formulation (G22)"})))
+
+;; ── G24 — use-class validation ───────────────────────────────────────────────────
+(defn use_class_ok
+  "Validate the declared use class (surface / skin-antiseptic / hand-hygiene)."
+  [use-class]
+  (if-not (contains? VALID_USE_CLASSES (str/lower-case (or use-class "")))
+    {:ok false :reason (str "use-class " use-class " not in " VALID_USE_CLASSES " (G24)")}
+    {:ok true :reason (str "use-class " use-class " valid (G24)")}))
+
+;; ── G23 — flammable-label lint (alcohol actives require 火気厳禁) ─────────────────
+(defn flammable_label_ok
+  "Alcohol-based products MUST carry a 火気厳禁 / flammable warning on the label."
+  [inn-slug label-text]
+  (let [slug  (str/lower-case inn-slug)
+        label (or label-text "")]
+    (if (and (contains? FLAMMABLE_ACTIVES slug)
+             (not (or (str/includes? label "火気厳禁")
+                      (str/includes? (str/lower-case label) "flammable"))))
+      {:ok false :reason (str slug " is flammable — label MUST contain 火気厳禁 / flammable (G23)")}
+      {:ok true :reason "flammable labelling satisfied (G23)"})))
+
+;; ── record_formulation (gates G1/Wave2 + G21 + G22 + G23 + G24 + G9 enforced) ────
+(defn record_formulation
+  "Record a disinfectant formulation attestation. Wave 2 actives are FORMULATED
+  (diluted/blended), not synthesized. Enforces the efficacy window (G21),
+  toxic-gas refusal (G22), flammable labelling (G23), use class (G24) and the
+  witness invariant (G9) before emitting the attestation datoms."
+  ([inn-slug conc-percent use-class witness-dids]
+   (record_formulation inn-slug conc-percent use-class [] "" witness-dids))
+  ([inn-slug conc-percent use-class co-formulants label-text witness-dids]
+   (let [checks [(disinfectant_ok inn-slug)
+                 (disinfectant_efficacy_ok inn-slug conc-percent)
+                 (no_toxic_gas_ok inn-slug co-formulants)
+                 (use_class_ok use-class)
+                 (flammable_label_ok inn-slug label-text)
+                 (witness_quorum_ok witness-dids)]
+         failed (first (remove :ok checks))]
+     (if failed
+       {:error (:reason failed) :blocked true}
+       {":formulationAttestation/id"          (str "fml:" (str/lower-case inn-slug) ":" conc-percent)
+        ":formulationAttestation/activeName"  (str/lower-case inn-slug)
+        ":formulationAttestation/concPercent" (double conc-percent)
+        ":formulationAttestation/useClass"    use-class
+        ":formulationAttestation/coFormulants" (str/join "," (or co-formulants []))
+        ":formulationAttestation/witness1"    (if (>= (count witness-dids) 1) (nth witness-dids 0) "")
+        ":formulationAttestation/witness2"    (if (>= (count witness-dids) 2) (nth witness-dids 1) "")}))))
+
 ;; ── main (smoke demo) ─────────────────────────────────────────────────────────
 (defn main [& _]
   (println "API OTC check (Wave 1):"
@@ -204,7 +337,17 @@
            (:ok (adverse_event_ok "lot:w1:001" "extreme" "unknown")))
   (println "witness quorum (N=2):"
            (:ok (witness_quorum_ok ["did:web:...op1" "did:web:...qp1"])))
-  (println "settlement intent:" (build_settlement_intent 10000000)))
+  (println "settlement intent:" (build_settlement_intent 10000000))
+  ;; Wave 2 — disinfectants (ADR-2606171400)
+  (println "disinfectant (消毒用エタノール 80%):"
+           (:ok (disinfectant_efficacy_ok "ethanol" 80.0)))
+  (println "disinfectant (ethanol 50% — too weak):"
+           (:ok (disinfectant_efficacy_ok "ethanol" 50.0)))
+  (println "no-toxic-gas (hypochlorite + vinegar — REFUSED):"
+           (:ok (no_toxic_gas_ok "sodium-hypochlorite" ["vinegar"])))
+  (println "formulation (povidone-iodine 10% skin-antiseptic):"
+           (not (:blocked (record_formulation "povidone-iodine" 10.0 "skin-antiseptic"
+                                              ["did:op" "did:qp"])))))
 
 (when (= *file* (System/getProperty "babashka.file"))
   (main))
