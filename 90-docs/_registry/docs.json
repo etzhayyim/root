@@ -27443,6 +27443,46 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/licenses/ecl/ECL.md",
+      "id": "ecl-etzhayyim-covenant-license-draft",
+      "title": "ECL — etzhayyim Covenant License (DRAFT, objective-function-primary)",
+      "status": "proposed",
+      "doc_type": "reference",
+      "topic": "ecl-etzhayyim-covenant-license",
+      "authoritative": false,
+      "related": [
+        "2606172300",
+        "2606062100",
+        "2605192100",
+        "2605192200",
+        "2606122001"
+      ],
+      "last_verified": "2026-06-17",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/licenses/ecl/README.md",
+      "id": "ecl-license-dir-readme",
+      "title": "ECL — etzhayyim Covenant License (draft + objective function)",
+      "status": "proposed",
+      "doc_type": "reference",
+      "topic": "ecl-etzhayyim-covenant-license",
+      "authoritative": false,
+      "related": [
+        "2606172300"
+      ],
+      "last_verified": "2026-06-17",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/atproto/260413-f-plan-lexicon-as-contract.md",
       "id": "f-plan-lexicon-as-contract",
       "title": "F-Plan — Lexicon-as-Contract: Host Capability SSoT 統合 (WIT 廃止)",

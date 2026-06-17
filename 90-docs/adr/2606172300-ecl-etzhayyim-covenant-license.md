@@ -122,6 +122,27 @@ smoke=destructive 規律(ADR-2605242400)に従い、本 ADR は **判断(ECL-on-
 数値根拠 + 骨子**のみ。`ECL.md` 法文は未起草で、D5 ratify までは design-only。現行
 Apache+Rider が引き続き有効ライセンス。
 
+## D7 — ECL は固定ルールでなく目的関数で動的評価する(revision 2026-06-17)
+
+D3 の §2 骨子は当初 Rider §2 の **列挙された禁止カテゴリの移植**(固定ルール)だった。
+これを転回する: ECL の alignment 判定は **原則(掟)の列挙でなく、目的関数 J で動的に評価**
+する。これは Charter 自身の構造の帰結 — **「固定するのは掟ではなく priority」**
+(ADR-2606062100)、かつ **Wellbecoming は静的でなく動的軌跡**。
+
+- **基準(telos)= 子・孫の Wellbecoming(動的軌跡)**。重みもそこに集中(子 0.25 + 孫 0.30 =
+  0.55 が基準を担う)。残り(commons / 相互監視 / 労働解放)は子孫 wellbecoming の enabling
+  condition として従属。
+- **二層**: 目的関数(primary, dynamic)+ **確定フロア screens**(法的 backstop; CSAM / 強制労働 /
+  兵器ビジネス・covert 武力 / personal-data 売買・非対称監視 / 不可逆多世代危害)。screens は
+  目的関数の代替でなく「scoring すべきでない最悪ケースの確定下限」。tanemaki DD
+  (ADR-2606122001)と同型(screens→objective→route)。よって D3 §2 は「COVENANT SCREENS の
+  列挙」から「ALIGNMENT BY OBJECTIVE FUNCTION(§2)+ HARD FLOOR(§3)」へ再構成される。
+- **3-Tier 実装**: 目的関数の*構造*(どの priority を測るか/符号方向)= Tier-0 fork-only /
+  *重み・閾値・screens*= Tier-1 Lv7+ / *個別 score*= Tier-2 evidence attestation。
+- 機械可読 SSoT = `90-docs/licenses/ecl/objective-function.edn`、動的評価器 =
+  `evaluate.bb`(self-test 5/5; 固定リスト外の addictive-app を J=-1.00 で動的に non-aligned 化)。
+  ドラフト全文 = `90-docs/licenses/ecl/ECL.md`(Part I 経緯/考え方 + Part II 本文)。
+
 # Consequences
 
 **Positive**
