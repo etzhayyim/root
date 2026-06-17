@@ -87,6 +87,14 @@ lexicons/              com.etzhayyim.kaname.{leveragePoint,osekkaiProposal}
   kaname adds its own betweenness (OpenAI 114 / EU-AI-Act 66 / NVIDIA 64). `reconcile-by-label` merges
   a shared entity across mirrors so it spans layers → versatility grows → it becomes the 要.
   **Running a mirror to (re)produce output = G7-gated; joining a committed output = what kaname does.**
+- **multi-mirror SoS join (founder-approved 06-17)**: `mirror-adapters` + `join-mirrors` joined **5
+  real committed mirror outputs** — chie(:ai)·tsumugi(:organization)·inochi(:ecology)·hokorobi(:economy)·
+  shiori(:wellbecoming) → ONE reconciled graph (170 nodes / 205 縁 / 5 domains; forms/datom
+  auto-detect via `parse-graph`; per-mirror load-normalized). `reconcile-by-label` surfaced
+  **OpenAI·NVIDIA·Microsoft·TSMC·SoftBank** as cross-domain entities (V=2, :ai+:organization);
+  whole-multiplex 要 = **OpenAI** (L1 1.992); top bridges **NVIDIA(betw 523)/TSMC(456)** (compute
+  chokepoints). → `out/joined-sos-leverage.md`. Adding a mirror = add an adapter entry; re-running a
+  mirror stays G7.
 
 ## Run
 

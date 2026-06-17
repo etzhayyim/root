@@ -63,3 +63,36 @@
           forms (join/lift g ":ai" ":chie")
           edges (filter #(contains? % ":en/from") forms)]
       (is (not-any? #(= ":partners" (get % ":en/kind")) edges)))))
+
+(deftest test-auto-detect-format
+  (testing "parse-graph dispatches: forms-graph (maps) vs Datom log (5-vectors)"
+    (let [forms-g (join/parse-graph [{":organism/id" "x" ":organism/kind" ":sos/entity"}
+                                     {":en/from" "x" ":en/to" "y" ":en/kind" ":concentrates"}])
+          datom-g (join/parse-graph [["x" ":organism/kind" ":sos/entity" 1 ":add"]])]
+      (is (contains? (:nodes forms-g) "x"))
+      (is (= 1 (count (:edges forms-g))))
+      (is (contains? (:nodes datom-g) "x")))))
+
+;; Integration — REAL multi-mirror join. Guarded: verifies only when the sibling mirror outputs are
+;; present on disk (they are committed in this repo); skips gracefully elsewhere (never breaks CI).
+#?(:clj
+   (deftest test-real-multi-mirror-join
+     (let [base (io/file actor-dir ".." )
+           chie (io/file base "chie" "out" "ai-ecosystem-datoms.kotoba.edn")
+           tsum (io/file base "tsumugi" "out" "woven-graph.kotoba.edn")]
+       (if (and (.exists chie) (.exists tsum))
+         (let [{:keys [graph loaded]} (join/join-mirrors base)
+               {:keys [nodes edges]} graph
+               res (sos/leverage nodes edges)
+               cross (->> (:V res) (filter (fn [[_ v]] (>= v 2))) (map first))]
+           (testing "≥2 mirrors load + a multilayer graph is produced"
+             (is (>= (count loaded) 2))
+             (is (pos? (count nodes)))
+             (is (>= (count (distinct (keep #(get % ":en/domain") edges))) 2)))
+           (testing "reconcile surfaces a cross-domain entity sourced from ≥2 mirrors (the SoS payoff)"
+             (is (seq cross))
+             (is (some (fn [nid]
+                         (>= (count (get-in nodes [nid ":sos/source-actors"])) 2))
+                       cross))))
+         (testing "(skipped — sibling mirror outputs not present in this checkout)"
+           (is true))))))

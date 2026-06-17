@@ -1,6 +1,6 @@
 # ADR-2606172100 — kaname 要 — cross-domain system-of-systems leverage-point (律速) synthesizer + おせっかい proposer
 
-- **Status**: Accepted (R0 scaffold + R1 math/join landed)
+- **Status**: Accepted (R0 + R1 math/join + multi-mirror SoS join landed; founder-approved 2026-06-17)
 - **Date**: 2026-06-17
 - **Tier**: Tier-B actor
 - **Parent**: ADR-2605192100 (Mission Charter), ADR-2605262130 (kotoba substrate), ADR-2605312345 (Datom = canonical state)
@@ -133,6 +133,26 @@ Lexicons: `com.etzhayyim.kaname.leveragePoint`, `com.etzhayyim.kaname.osekkaiPro
   merges a shared entity across mirrors → it gains domains across layers (the mechanism by which a
   cross-domain entity becomes the 要). **Running a mirror to (re)produce its output stays
   G7/Council-gated; joining a committed output is what kaname does.** 34 tests / 142 assertions green.
+
+### Multi-mirror SoS join LANDED (founder-approved 2026-06-17)
+
+With founder authorization (Council Lv7+ 1/1; operator premise = PR-review attestation), the join
+was run across **five real committed mirror outputs** via a per-mirror adapter registry
+(`join.cljc` `mirror-adapters` + `join-mirrors`): **chie (:ai) · tsumugi (:organization) · inochi
+(:ecology) · hokorobi (:economy) · shiori (:wellbecoming)** → ONE reconciled multilayer graph of
+**170 nodes / 205 縁 across 5 domain layers**. Each mirror's own 縁-vocabulary is adapter-mapped
+into kaname's (unmapped kinds dropped — no fabricated axis); either input format (forms-graph or
+Datom-log) is auto-detected (`parse-graph`); per-mirror loads are normalized (each mirror's max →
+1.0) for fair cross-domain comparison; mirrors with no native load (shiori/hokorobi) use a flat
+representative 0.5, flagged.
+
+**Result (real data):** `reconcile-by-label` surfaced **OpenAI, NVIDIA, Microsoft, TSMC, SoftBank
+Group** as cross-domain entities (V=2, spanning `:ai` + `:organization`, sourced from BOTH chie AND
+tsumugi). The whole-multiplex R1 要 = **OpenAI** (L1 1.992); the highest-betweenness structural
+**bridges** = **NVIDIA (523) / TSMC (456)** — the compute chokepoints connecting the layers, routed
+to redundancy/route-around. Output: `out/joined-sos-leverage.md`. **The run-the-mirror leg
+(regenerating a mirror's output) remains G7/Council-gated; kaname only joins committed outputs.**
+36 tests / 150 assertions green (incl. a guarded real-multi-mirror integration test).
 
 ## Consequences
 

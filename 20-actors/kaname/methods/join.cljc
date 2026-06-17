@@ -55,6 +55,22 @@
      [path]
      (datoms->graph (sos/read-edn (slurp (str path))))))
 
+(defn parse-graph
+  "Auto-detect a mirror EDN graph: a vector of MAPS is a forms-graph (sos/load-graph); a vector of
+  5-element VECTORS is a [e a v tx op] Datom log (datoms->graph). Returns {:nodes :node-order :edges}."
+  [forms]
+  (let [el (first (filter some? forms))]
+    (cond
+      (map? el)    (sos/load-graph forms)
+      (vector? el) (datoms->graph forms)
+      :else        {:nodes {} :node-order [] :edges []})))
+
+#?(:clj
+   (defn read-graph
+     "Read a mirror EDN file in EITHER format (forms-graph or Datom log) → {:nodes :node-order :edges}."
+     [path]
+     (parse-graph (sos/read-edn (slurp (str path))))))
+
 ;; ── lift a mirror graph into a kaname domain layer ────────────────────────────
 
 (def default-kind-map
@@ -69,10 +85,17 @@
 (defn lift
   "Lift a mirror {:nodes :edges} into kaname forms (vector of node + edge maps) in `domain`,
   tagged `source-actor`. Node ids are namespaced \"<tag>/<id>\" so distinct mirrors never collide
-  pre-reconcile. Person ROLE nodes are kept as :sos/role; everything else as :sos/entity.
-  Edges with an unmapped kind are dropped (honest — no fabricated axis)."
-  [{:keys [nodes node-order edges]} domain source-actor & [kind-map]]
-  (let [km (merge default-kind-map kind-map)
+  pre-reconcile. Person ROLE nodes are kept as :sos/role; everything else as :sos/entity. Edges with
+  an unmapped kind are dropped (honest — no fabricated axis).
+  opts: {:kind-map <merged over default-kind-map>, :weight-attr <load attr, default :en/grasping-load>,
+         :default-load <load for present-but-unweighted edges, default 0.0>,
+         :scale <multiply every lifted load by this — for per-mirror normalization, default 1.0>}."
+  [{:keys [nodes node-order edges]} domain source-actor & [opts]]
+  (let [opts (if (map? opts) opts {:kind-map opts})
+        km (merge default-kind-map (:kind-map opts))
+        watt (:weight-attr opts ":en/grasping-load")
+        dload (double (:default-load opts 0.0))
+        scale (double (:scale opts 1.0))
         tag (str (if (str/starts-with? (str source-actor) ":") (subs source-actor 1) source-actor) "/")
         pfx (fn [id] (str tag id))
         role? (fn [n] (let [k (str (get n ":organism/kind"))]
@@ -93,12 +116,12 @@
         (->> edges
              (keep (fn [e]
                      (when-let [k (get km (get e ":en/kind"))]
-                       (let [l (get e ":en/grasping-load")]
+                       (let [l (get e watt)]
                          {":en/from" (pfx (get e ":en/from"))
                           ":en/to"   (pfx (get e ":en/to"))
                           ":en/kind" k
                           ":en/domain" domain
-                          ":en/grasping-load" (if (number? l) (double l) 0.0)
+                          ":en/grasping-load" (* scale (if (number? l) (double l) dload))
                           ":en/sourcing" ":representative"}))))
              vec)]
     (into node-forms edge-forms)))
@@ -151,30 +174,121 @@
   [forms]
   (sos/load-graph forms))
 
+;; ── per-mirror adapters (paths relative to 20-actors/) ────────────────────────
+;; Each mirror has its OWN 縁 vocabulary; the adapter maps it into kaname's. Unmapped kinds drop
+;; (no fabricated axis). weight-attr/default-load handle mirrors that don't carry :en/grasping-load.
+
+(def mirror-adapters
+  {:chie     {:path "chie/out/ai-ecosystem-datoms.kotoba.edn" :domain ":ai" :source ":chie"
+              :kind-map {":compute-deal" ":concentrates" ":invests-in" ":concentrates"
+                         ":talent-flow" ":concentrates" ":governs" ":gates"
+                         ":sets-standard" ":gates" ":depends-on" ":depends-on"}}
+   :tsumugi  {:path "tsumugi/out/woven-graph.kotoba.edn" :domain ":organization" :source ":tsumugi"
+              :kind-map {":tends" ":concentrates" ":custodies" ":concentrates"
+                         ":depends-on" ":depends-on" ":nests-in" ":couples"}}
+   :inochi   {:path "inochi/data/seed-biosphere-graph.kotoba.edn" :domain ":ecology" :source ":inochi"
+              :kind-map {":pressures" ":concentrates" ":depends-on" ":depends-on"
+                         ":keystone-of" ":gates"}}
+   :hokorobi {:path "hokorobi/data/seed-finrisk-graph.kotoba.edn" :domain ":economy" :source ":hokorobi"
+              :weight-attr ":en/intensity" :default-load 0.5
+              :kind-map {":exposes" ":concentrates" ":backstops" ":gates"
+                         ":interconnects" ":couples" ":capitalizes" ":concentrates"}}
+   :shiori   {:path "shiori/data/seed-wellbecoming-graph.kotoba.edn" :domain ":wellbecoming" :source ":shiori"
+              :weight-attr ":en/intensity" :default-load 0.5
+              :kind-map {":diminishes" ":concentrates" ":drives" ":concentrates"
+                         ":relieves" ":gates" ":routes-to" ":couples"}}})
+
+#?(:clj
+   (defn join-mirrors
+     "Join several committed mirror outputs into ONE reconciled kaname multilayer graph.
+     `base-dir` = the 20-actors directory; `ks` = adapter keys (default all that exist on disk).
+     Returns {:forms reconciled-forms :graph {:nodes :node-order :edges} :loaded [adapter-keys]}."
+     [base-dir & [ks opts]]
+     (let [ks (or ks (keys mirror-adapters))
+           normalize? (get opts :normalize true)   ; per-mirror max-load → 1.0 (fair cross-domain compare)
+           present (filter (fn [k] (.exists (io/file base-dir (:path (mirror-adapters k))))) ks)
+           lifted (mapcat (fn [k]
+                            (let [{:keys [path domain source kind-map weight-attr default-load]} (mirror-adapters k)
+                                  watt (or weight-attr ":en/grasping-load")
+                                  dload (or default-load 0.0)
+                                  g (read-graph (io/file base-dir path))
+                                  maxl (reduce (fn [m e]
+                                                 (let [l (get e watt)]
+                                                   (max m (if (number? l) (double l) (double dload)))))
+                                               0.0 (:edges g))
+                                  scale (if (and normalize? (> maxl 1e-9)) (/ 1.0 maxl) 1.0)]
+                              (lift g domain source {:kind-map kind-map :weight-attr watt
+                                                     :default-load dload :scale scale})))
+                          present)
+           recon (reconcile-by-label (vec lifted))]
+       {:forms recon :graph (forms->graph recon) :loaded (vec present)})))
+
+(defn- lstrip [s] (if (and (string? s) (str/starts-with? s ":")) (subs s 1) s))
+
+(defn joined-report-md
+  "Render the multi-mirror SoS leverage report: cross-domain entities (V≥2) + bridges. `res1` is the
+  R1 result (kaname.methods.centrality/leverage-r1) so betweenness/L1 are available."
+  [nodes edges res1 loaded]
+  (let [cross (->> (:V res1)
+                   (filter (fn [[_ v]] (>= v 2)))
+                   (sort-by (fn [[nid _]] [(- (double (get-in res1 [:leverage-r1 nid] 0.0))) nid]))
+                   (take 12))
+        domstr (fn [nid] (str/join "·" (map lstrip (sort (get-in res1 [:domains nid])))))
+        srcstr (fn [nid] (str/join "," (map lstrip (get-in nodes [nid ":sos/source-actors"]))))
+        L (transient [])]
+    (conj! L "# kaname 要 — JOINED multi-mirror SoS leverage (REAL committed mirror outputs)\n")
+    (conj! L (str "> Mirrors joined: **" (str/join " · " (map #(lstrip (str %)) loaded)) "** — "
+                  (count nodes) " nodes / " (count edges) " 縁 across "
+                  (count (distinct (keep #(get % ":en/domain") edges))) " domain layers. Per-mirror "
+                  "loads NORMALIZED (each mirror's max → 1.0) for fair cross-domain comparison; "
+                  "mirrors with no native 縁-load (shiori/hokorobi) use a flat representative 0.5 "
+                  "(flagged, not a measured magnitude). **Running a mirror to (re)produce its output "
+                  "= G7/Council-gated; joining a committed output = what kaname does.** G1 — "
+                  "structural positions (organisations, not natural persons). G2 — routed to OPENING.\n"))
+    (conj! L "\n## Cross-domain entities (V≥2) — the system-of-systems 要 candidates\n")
+    (conj! L "_An entity reconciled across multiple mirrors spans multiple domain layers — THAT cross-domain spanning is what makes it a system-of-systems leverage point._\n")
+    (conj! L "| rank | entity | domains | source mirrors | betweenness | L1 |")
+    (conj! L "|---:|---|---|---|---:|---:|")
+    (doseq [[i [nid v]] (map-indexed vector cross)]
+      (conj! L (str "| " (inc i) " | " (get-in nodes [nid ":organism/label"] nid)
+                    " | " (domstr nid) " (V=" v ")"
+                    " | " (srcstr nid)
+                    " | " (format "%.1f" (double (get-in res1 [:betweenness nid] 0.0)))
+                    " | " (format "%.3f" (double (get-in res1 [:leverage-r1 nid] 0.0))) " |")))
+    (conj! L "\n## Highest-betweenness structural bridges (cross-layer chokepoints)\n")
+    (conj! L "_The positions most shortest-paths run through — the connective chokepoints, routed to redundancy/route-around._\n")
+    (conj! L "| rank | node | betweenness |")
+    (conj! L "|---:|---|---:|")
+    (doseq [[i [_ label b]] (map-indexed vector (sos/rank (:betweenness res1) nodes 10))]
+      (conj! L (str "| " (inc i) " | " label " | " (format "%.1f" b) " |")))
+    (conj! L (str "\n---\n_kaname 要 · ADR-2606172100 R1 · multi-mirror SoS join over committed mirror "
+                  "outputs · per-mirror normalized · exact Brandes betweenness · map-not-target · "
+                  "opening-only · non-adjudicating._\n"))
+    (str/join "\n" (persistent! L))))
+
 #?(:clj
    (defn -main
-     "Demo: JOIN chie 智慧's real output into kaname's :ai layer and compute leverage over it.
-     Args: [mirror-datom-log] [domain] [source-actor]. Defaults to chie / :ai / :chie."
+     "MULTI-MIRROR JOIN: join every committed sibling-mirror output that exists on disk into ONE
+     reconciled kaname multilayer graph, compute the cross-domain leverage, and surface the entities
+     that span multiple domains (the system-of-systems 要). Writes out/joined-sos-leverage.md."
      [& argv]
-     (let [argv (vec argv)
-           here (-> *file* io/file .getParentFile .getParentFile)
-           mirror (if (and (seq argv) (not (str/starts-with? (first argv) "--")))
-                    (first argv)
-                    (str (io/file here ".." "chie" "out" "ai-ecosystem-datoms.kotoba.edn")))
-           domain (if (>= (count argv) 2) (nth argv 1) ":ai")
-           src    (if (>= (count argv) 3) (nth argv 2) ":chie")
+     (let [here (-> *file* io/file .getParentFile .getParentFile)
+           base (io/file here "..")
            outdir (io/file here "out")
-           g (read-datom-log mirror)
-           lifted (lift g domain src)
-           recon  (reconcile-by-label lifted)
-           {:keys [nodes edges]} (forms->graph recon)
-           res (sos/leverage nodes edges)]
+           {:keys [graph loaded]} (join-mirrors base)
+           {:keys [nodes edges]} graph
+           res (sos/leverage nodes edges)
+           res1 (require 'kaname.methods.centrality)
+           res1 ((resolve 'kaname.methods.centrality/leverage-r1) nodes edges res)]
        (.mkdirs outdir)
-       (spit (io/file outdir "joined-ai-leverage.md") (sos/report-md nodes edges res))
-       (println (str "kaname join: lifted " (count (:nodes g)) " nodes / " (count (:edges g))
-                     " 縁 from " mirror " into layer " domain))
-       (println (str "  joined graph: " (count nodes) " nodes, " (count edges)
-                     " kaname 縁 → out/joined-ai-leverage.md"))
-       (doseq [[nid label v] (sos/rank (:C res) nodes 5)]
-         (println (str "  top " domain " concentration: " label " (" (format "%.3f" v) ")")))
+       (spit (io/file outdir "joined-sos-leverage.md") (joined-report-md nodes edges res1 loaded))
+       (println (str "kaname multi-mirror join: " (pr-str loaded)))
+       (println (str "  reconciled graph: " (count nodes) " nodes, " (count edges) " 縁"))
+       (println "  cross-domain 要 candidates (V≥2):")
+       (doseq [[nid v] (->> (:V res)
+                            (filter (fn [[_ v]] (>= v 2)))
+                            (sort-by (fn [[nid _]] [(- (double (get-in res1 [:leverage-r1 nid] 0.0))) nid]))
+                            (take 6))]
+         (println (str "    " (get-in nodes [nid ":organism/label"] nid)
+                       "  V=" v "  L1=" (format "%.3f" (get-in res1 [:leverage-r1 nid] 0.0)))))
        0)))
