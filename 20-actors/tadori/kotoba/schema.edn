@@ -305,4 +305,22 @@
  {:db/id "tadori.concentration/tainted-count" :db/ident :tadori.concentration/tainted-count
   :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
  {:db/id "tadori.concentration/peak-severity" :db/ident :tadori.concentration/peak-severity
-  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}]
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+
+ ;; ── malak → tadori traceReport seam (T1; tadori = durable SoR, malak = compute) ──
+ {:db/id "tadori.trace-report/id" :db/ident :tadori.trace-report/id
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/id "tadori.trace-report/compute-source" :db/ident :tadori.trace-report/compute-source
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/doc "\"malak\" — the pursuit engine"}
+ {:db/id "tadori.trace-report/system-of-record" :db/ident :tadori.trace-report/system-of-record
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/doc "\"tadori\" — owns the durable graph (re-derived)"}
+ {:db/id "tadori.trace-report/chain" :db/ident :tadori.trace-report/chain
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.trace-report/case-id" :db/ident :tadori.trace-report/case-id
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.trace-report/as-of" :db/ident :tadori.trace-report/as-of
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.trace-report/non-adjudicating" :db/ident :tadori.trace-report/non-adjudicating
+  :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.trace-report/external-source-used" :db/ident :tadori.trace-report/external-source-used
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/many :db/doc "feature-flagged inputs only (G4), never SoR"}]

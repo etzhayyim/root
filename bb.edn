@@ -436,8 +436,8 @@
              (apply (resolve 'sukashi.methods.viz/-main) *command-line-args*))}
   test:tadori
   {:doc "tadori 辿 Clojure test suite — autonomous silenTadoriReview self-audit heartbeat + kotoba commit-DAG audit-log invariants (G2/G3/G6/G10/G12) + threat-intel ingest gates/EAVT rendering; port of kotoba/test_autorun.py + test_invariants.py + test_ingest_threat_intel.py (ADR-2605301400 / 2606160842)."
-   :task (do (require 'clojure.test 'tadori.tests.test-autorun 'tadori.tests.test-ingest 'tadori.tests.test-trace 'tadori.tests.test-risk)
-             (let [r (clojure.test/run-tests 'tadori.tests.test-autorun 'tadori.tests.test-ingest 'tadori.tests.test-trace 'tadori.tests.test-risk)]
+   :task (do (require 'clojure.test 'tadori.tests.test-autorun 'tadori.tests.test-ingest 'tadori.tests.test-trace 'tadori.tests.test-risk 'tadori.tests.test-malak)
+             (let [r (clojure.test/run-tests 'tadori.tests.test-autorun 'tadori.tests.test-ingest 'tadori.tests.test-trace 'tadori.tests.test-risk 'tadori.tests.test-malak)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   tadori:watch
