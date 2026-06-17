@@ -16424,6 +16424,26 @@
       "lastVerified": "2026-06-17"
     },
     {
+      "id": "doc:adr-2606180001-charter-amendment-wave2-business-models-and-economic-structure-to-objective-function",
+      "type": "TechArticle",
+      "title": "ADR-2606180001: 憲法改正 wave2 — 事業モデル(§2(a)(b)(c)(e))と経済構造を目的関数へ (個人主義否定=§2(g)は残す)",
+      "status": "proposed",
+      "topic": "charter-amendment-wave2-business-models-and-economic-structure",
+      "authoritative": true,
+      "authoritativeFor": [
+        "business-model-evaluation-policy",
+        "economic-structure-evaluation-policy",
+        "charter-rider-v3.4-amendment"
+      ],
+      "related": [
+        "doc:2605192100",
+        "doc:2605192115",
+        "doc:2605301036",
+        "doc:2606064700"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
