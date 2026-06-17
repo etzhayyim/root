@@ -2,7 +2,8 @@
 
 **ADR**: 2606171200 · **depends**: 2606011800 (tsumugi 産霊の網 / engi-organism) · 2605081300
 (edge-primary karma) · 2605312345 (Datom = canonical state) · 2605262130 (kotoba) · 2605215000
-(Murakumo-only). **Status**: 🟢 R0 (clj-native, kotoba/Datom-native, tests green).
+(Murakumo-only) · 2606091000 (commit-DAG heartbeat) · 2605192415 (cell-runner). **Status**:
+🟢 R1 (clj-native, kotoba/Datom-native, 常駐化 heartbeat registered, 25 tests / 98 assertions green).
 
 chie ("智慧" = wisdom/intelligence) is the **AI sibling** of the power-mirror lineage
 (tsumugi / keizu / kabuto / kanjō / kosatsu). It applies the same KG-mirror architecture to
