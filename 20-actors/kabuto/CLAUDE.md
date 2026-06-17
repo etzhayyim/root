@@ -85,8 +85,10 @@
   renderable) + `:company.process` datoms with content-CIDs. `:synthesized` generic templates.
 - `cell:kabuto.social` → `methods/social.py` — aggregate-first company/edge/report →
   `app.bsky.feed.post` → Charter §2 scan → kotoba-server `atproto.repo.write`. G11-gated.
-- `cell:kabuto.viz` → `viz/build_viz_data.py` — self-contained supply-chain force-graph;
-  browser-native via the kotoba-wasm node (inlined payload = offline data contract).
+- `cell:kabuto.viz` → `viz/build_viz_data.cljc` — supply-chain force-graph payload + kotoba Datom
+  array (browser-native via the kotoba-wasm node). The BPMN-tab manifest is
+  `viz/build_bpmn_manifest.cljc`. Both ported to cljc (ADR-2606160842); the JSON/HTML render legs
+  were not ported. Logic verified via: bb test:kabuto.
 
 ## Lexicons (kotoba-native)
 
@@ -100,7 +102,8 @@ cd 20-actors/kabuto
 python3 methods/ingest.py                       # G7: bridge data/ingest/*.json + seed (offline default)
 python3 methods/analyze.py                       # → out/intel-report.md + out/supply-criticality.kotoba.edn
 python3 methods/bpmn.py                           # → out/bpmn/*.bpmn + out/processes.kotoba.edn
-python3 viz/build_viz_data.py                     # → viz/supply-chain.htm (open in a browser)
+# viz payload + BPMN manifest builders ported to cljc (viz/*.cljc, ADR-2606160842); the
+# JSON/HTML render legs were not ported. Logic verified via: bb test:kabuto
 python3 methods/social.py --dry-run               # compose atproto posts (dry-run; G11 gate for live)
 ```
 
