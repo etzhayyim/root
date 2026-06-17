@@ -6,43 +6,43 @@
 
 | dimension | count |
 |---|---:|
-| plants | 28 |
+| plants | 33 |
 | logistics hubs | 6 |
-| export flows | 28 |
+| export flows | 33 |
 | chokepoints (geographic nodes) | 7 |
 | sectors | 9 |
-| countries | 12 |
-| aggregate employment (disclosed, never per-worker) | 692000 |
+| countries | 16 |
+| aggregate employment (disclosed, never per-worker) | 825000 |
 
 ## Geographic concentration (per-sector country HHI)
 
 | sector | plants | HHI | top country | single-source? |
 |---|---:|---:|---|:--:|
+| automotive | 6 | 0.17 | CN | no |
 | semiconductor | 6 | 0.33 | KR | no |
-| automotive | 5 | 0.2 | CN | no |
-| battery | 4 | 0.25 | CN | no |
-| steel | 4 | 0.25 | CN | no |
+| battery | 5 | 0.2 | CN | no |
+| steel | 5 | 0.2 | BR | no |
 | aerospace | 3 | 0.33 | BR | no |
-| chemicals | 2 | 0.5 | DE | no |
+| chemicals | 3 | 0.33 | DE | no |
+| electronics | 2 | 0.5 | CN | no |
 | pharma | 2 | 0.5 | IN | no |
-| electronics | 1 | 1.0 | CN | no |
 | shipbuilding | 1 | 1.0 | KR | no |
 
 ## Chokepoint export-dependence (composes with watari + watatsuna)
 
 | chokepoint | plants |
 |---|---:|
-| `malacca` | 11 |
-| `luzon-strait` | 7 |
+| `malacca` | 12 |
+| `luzon-strait` | 8 |
+| `gibraltar` | 5 |
 | `suez-red-sea` | 5 |
-| `gibraltar` | 4 |
-| `panama` | 2 |
+| `panama` | 3 |
 | `hormuz` | 1 |
 | `taiwan-strait` | 1 |
 
 ## Cross-actor linkage (kabuto)
 
-- :plant/operator ⇄ kabuto :company/id: **21/25 = 84%** resolved · **4** on the ingest worklist
+- :plant/operator ⇄ kabuto :company/id: **24/29 = 82%** resolved · **5** on the ingest worklist
 
 ## R0→R1 checklist
 

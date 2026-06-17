@@ -28,9 +28,9 @@ bb 20-actors/tatara/run_tests.sh
 # Testing tatara.methods.test-autorun … Ran 5 tests / 1213 assertions. 0 failures.
 # Testing tatara.methods.test-lexicons… Ran 4 tests / 44 assertions.   0 failures.
 # Testing tatara.methods.test-crosscheck Ran 4 tests / 20 assertions.  0 failures.
-# ── tatara: ALL suites green ──   (45 tests / 4,238 assertions)
+# ── tatara: ALL suites green ──   (46 tests / 4,890 assertions)
 
-# kabuto-linkage crosscheck → out/kabuto-crosscheck.md (21/25 = 84% linkage)
+# kabuto-linkage crosscheck → out/kabuto-crosscheck.md (24/29 = 83% linkage)
 bb -cp 20-actors -e "(require 'tatara.methods.crosscheck)(tatara.methods.crosscheck/-main)"
 
 # concentration report → out/concentration-report.md
@@ -51,14 +51,14 @@ bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)
 
 ## What's in the seed (R0, `:representative`)
 
-28 real public plants across 9 sectors / 12 countries — semiconductor (TSMC ×2, Samsung, Intel, SK
+33 real public plants across 9 sectors / 16 countries — semiconductor (TSMC ×2, Samsung, Intel, SK
 hynix), automotive (Hyundai, Toyota, VW, Tesla, Ford), battery (CATL, LG, Tesla, Northvolt), steel
 (POSCO, Baowu, Nippon Steel, Tata Steel), chemicals (BASF, SABIC), electronics (Foxconn), aerospace
-(Boeing, Airbus, Embraer), shipbuilding (HD Hyundai), pharma (Pfizer, Serum Institute) — + 6
-logistics hubs + 28 export flows + 7 first-class chokepoint geographic nodes (the shared anchor for watari + watatsuna).
+(Boeing, Airbus, Embraer), shipbuilding (HD Hyundai), pharma (Pfizer, Serum Institute) — spanning 16 countries incl. MX/VN/ZA/ID/BR (Nissan, Samsung VN, Sasol, Gerdau, Tsingshan IMIP) — + 6
+logistics hubs + 33 export flows + 7 first-class chokepoint geographic nodes (the shared anchor for watari + watatsuna).
 
-Top chokepoint export-dependence in the seed: **malacca 11 plants · luzon-strait 7 · suez-red-sea 5 ·
-gibraltar 4 · panama 2 · hormuz 1 · taiwan-strait 1** — these compose with watari (live vessel
+Top chokepoint export-dependence in the seed: **malacca 12 plants · luzon-strait 8 · suez-red-sea 5 ·
+gibraltar 5 · panama 3 · hormuz 1 · taiwan-strait 1** — these compose with watari (live vessel
 transit) and watatsuna (submarine-cable load) over the same keywords.
 
 ## Files
@@ -73,7 +73,7 @@ transit) and watatsuna (submarine-cable load) over the same keywords.
 | `methods/crosscheck.cljc` | measures :plant/operator ⇄ kabuto :company/id linkage (84%) + ingest worklist |
 | `methods/maturity.cljc` → `MATURITY.md` | generated maturity scorecard (R0→R1 checklist, can't drift) |
 | `00-contracts/lexicons/com/etzhayyim/tatara/*.json` | write surface (registerPlant/registerHub/recordFlow/registerChokepoint) |
-| `methods/test_{analyze,kotoba,autorun,lexicons,crosscheck,maturity,seed-integrity,viz}.cljc` | 45 tests / 4,238 assertions |
+| `methods/test_{analyze,kotoba,autorun,lexicons,crosscheck,maturity,seed-integrity,viz}.cljc` | 46 tests / 4,890 assertions |
 | `viz/build_viz.cljc` | globe generator (derives all coords from the seeds) |
 | `viz/plant-globe.htm` · `viz/world-supply-globe.htm` | the (C) and (A) globes |
 | `manifest.jsonld` · `CLAUDE.md` | actor manifest + agent rules |

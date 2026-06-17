@@ -79,7 +79,7 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   `:plant/operator` ⇄ kabuto `:company/id` linkage (bridging tatara's short `org.corp.tsmc`
   to kabuto's country-qualified `org.corp.tw.tsmc` by normalized id+name token), emits a
   coverage % + a prioritized **ingest worklist** of unresolved operators. Pure measurement —
-  mutates nothing, fabricates no link; unresolved = honest gap (G5). Current: 21/25 = 84%.
+  mutates nothing, fabricates no link; unresolved = honest gap (G5). Current: 24/29 = 83%.
 - `cell:tatara.maturity` → `methods/maturity.cljc`. Generates `MATURITY.md` — the actor's
   maturity SSoT, derived from the live graph (coverage / concentration / chokepoint / kabuto
   linkage) + an artifact-presence R0→R1 checklist + an honest deferred/gated section. Generated,
@@ -90,7 +90,7 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   Every coordinate DERIVED from a seed (regenerable; none hand-copied).
 
 ```bash
-bb 20-actors/tatara/run_tests.sh                                              # 46 tests / 4,247 assertions
+bb 20-actors/tatara/run_tests.sh                                              # 46 tests / 4,890 assertions
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"  # → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)"      # → the three globes
 bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-main)"  # autonomous heartbeat → LOCAL kotoba log

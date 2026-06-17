@@ -43,7 +43,7 @@
         md-all-done (mat/render sc [["thing A" true] ["thing B" true]])
         md-mixed (mat/render sc [["thing A" true] ["thing B" false]])]
     (is (str/includes? md-all-done "maturity scorecard"))
-    (is (str/includes? md-all-done "| plants | 28 |"))
+    (is (str/includes? md-all-done "| plants | 33 |"))
     (is (str/includes? md-all-done "2/2"))          ;; both landed
     (is (str/includes? md-mixed "1/2"))             ;; one未
     (is (str/includes? md-mixed "| thing B | 未 |"))))

@@ -18,23 +18,23 @@
 
 (deftest test-classify-buckets-the-seed
   (let [[g _] (load*)]
-    (is (= 28 (count (:plants g))))
+    (is (= 33 (count (:plants g))))
     (is (= 6  (count (:hubs g))))
-    (is (= 28 (count (:flows g))))))
+    (is (= 33 (count (:flows g))))))
 
 (deftest test-sector-counts
   (let [[_ a] (load*)]
     (is (= 6 (get-in a [:sector-stats :semiconductor :plants])))
-    (is (= 5 (get-in a [:sector-stats :automotive :plants])))
-    (is (= 4 (get-in a [:sector-stats :battery :plants])))
-    (is (= 4 (get-in a [:sector-stats :steel :plants])))
-    (is (= 2 (get-in a [:sector-stats :pharma :plants])))   ;; pharma sector now covered
+    (is (= 6 (get-in a [:sector-stats :automotive :plants])))
+    (is (= 5 (get-in a [:sector-stats :battery :plants])))
+    (is (= 5 (get-in a [:sector-stats :steel :plants])))
+    (is (= 2 (get-in a [:sector-stats :pharma :plants])))   ;; pharma sector covered
     (is (= 9 (count (:sector-stats a))))))
 
 (deftest test-aggregate-employment-is-sum-of-disclosed-figures
   (let [[_ a] (load*)]
     ;; disclosed aggregate facility employment, summed — NEVER per-worker
-    (is (= 692000 (:global-headcount a)))))
+    (is (= 825000 (:global-headcount a)))))
 
 (deftest test-semiconductor-concentration
   (let [[_ a] (load*)
@@ -47,11 +47,11 @@
 (deftest test-chokepoint-export-dependence
   (let [[_ a] (load*)
         n (fn [cp] (count (get-in a [:choke-plants cp])))]
-    (is (= 11 (n :malacca)))
-    (is (= 7  (n :luzon-strait)))
+    (is (= 12 (n :malacca)))
+    (is (= 8  (n :luzon-strait)))
     (is (= 5  (n :suez-red-sea)))
-    (is (= 4  (n :gibraltar)))
-    (is (= 2  (n :panama)))
+    (is (= 5  (n :gibraltar)))
+    (is (= 3  (n :panama)))
     (is (= 1  (n :hormuz)))           ;; exercised by SABIC Jubail
     (is (= 1  (n :taiwan-strait)))    ;; exercised by TSMC Hsinchu
     ;; malacca is the top export-dependence chokepoint
@@ -61,17 +61,17 @@
   (let [[_ a] (load*)]
     ;; KR holds 5 charted plants (Samsung, SK hynix, Hyundai, POSCO, HD Hyundai)
     (is (= 5 (get-in a [:country-roll "KR" :plants])))
-    (is (= 6 (get-in a [:country-roll "US" :plants])))   ;; +Pfizer Kalamazoo
+    (is (= 6 (get-in a [:country-roll "US" :plants])))
     (is (= 4 (get-in a [:country-roll "CN" :plants])))
-    (is (= 2 (get-in a [:country-roll "IN" :plants])))   ;; Serum + Tata Steel (new geography)
-    (is (= 12 (count (:country-roll a))))))
+    (is (= 2 (get-in a [:country-roll "IN" :plants])))
+    (is (= 16 (count (:country-roll a))))))             ;; +MX/VN/ZA/ID broaden geography
 
 (deftest test-capacity-rollup-units-are-per-sector-consistent
   (let [[_ a] (load*)]
     (is (= :wafers-300mm-kpm (get-in a [:sector-capacity :semiconductor :unit])))
     (is (= :vehicles-yr (get-in a [:sector-capacity :automotive :unit])))
-    ;; automotive total = 1.4M + 0.5M + 0.78M + 0.95M + 0.4M = 4.03M vehicles/yr
-    (is (= 4030000.0 (get-in a [:sector-capacity :automotive :value])))))
+    ;; automotive total = 4.03M + Nissan Aguascalientes 0.6M = 4.63M vehicles/yr
+    (is (= 4630000.0 (get-in a [:sector-capacity :automotive :value])))))
 
 (deftest test-chokepoints-are-first-class-nodes-with-coords
   (let [[g a] (load*)]
@@ -84,17 +84,18 @@
 
 (deftest test-logistics-modal-and-commodity-split
   (let [[_ a] (load*)]
-    ;; modal split over all 28 export flows
-    (is (= 21 (get-in a [:flow-modes :sea])))
+    ;; modal split over all 33 export flows
+    (is (= 25 (get-in a [:flow-modes :sea])))
     (is (= 3  (get-in a [:flow-modes :air])))
     (is (= 3  (get-in a [:flow-modes :rail])))
     (is (= 1  (get-in a [:flow-modes :inland-water])))
-    (is (= 28 (reduce + (vals (:flow-modes a)))))
+    (is (= 1  (get-in a [:flow-modes :road])))           ;; Nissan Aguascalientes → LA (road)
+    (is (= 33 (reduce + (vals (:flow-modes a)))))
     ;; commodity split
     (is (= 9 (get-in a [:flow-commodities :components])))
-    (is (= 8 (get-in a [:flow-commodities :finished-goods])))
-    (is (= 5 (get-in a [:flow-commodities :vehicles])))
-    (is (= 28 (reduce + (vals (:flow-commodities a)))))))
+    (is (= 9 (get-in a [:flow-commodities :finished-goods])))
+    (is (= 6 (get-in a [:flow-commodities :vehicles])))
+    (is (= 33 (reduce + (vals (:flow-commodities a)))))))
 
 (deftest test-no-per-worker-attribute-is-representable  ;; ── load-bearing G4 gate ──
   (let [[g _] (load*)]
