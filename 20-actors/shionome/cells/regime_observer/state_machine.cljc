@@ -111,3 +111,9 @@
                   :no-trade-notice true
                   :phase regime-phase-observed)]
     {:cell-state cs}))
+
+(defn solve
+  "R0 scaffold: .solve() raises until Council activation (ADR-2606072200 §Decision, G8)."
+  [_input-state]
+  (throw (ex-info "shionome R0 scaffold: activate regime_observer via Council ADR (post-2606072200 ratification)"
+                  {:scaffold true})))
