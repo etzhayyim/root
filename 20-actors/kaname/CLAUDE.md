@@ -84,7 +84,7 @@ kotoba/schema.edn      :sos-leverage ontology
 data/seed-sos.kotoba.edn        SYNTHETIC illustrative multilayer seed (13 nodes / 20 縁 / 8 of 10 domains)
 data/fixture-mirror-datoms…edn  tiny synthetic mirror Datom-log (join test fixture)
 tests/                 test_{sos,gates,route,osekkai,coverage,centrality,join}  (34 tests / 142 assertions)
-lexicons/              com.etzhayyim.kaname.{leveragePoint,osekkaiProposal}
+00-contracts/lexicons/com/etzhayyim/kaname/{leveragePoint,osekkaiProposal}.json  (canonical home)
 ```
 
 ### R1 (landed) — real centrality + proven live join
