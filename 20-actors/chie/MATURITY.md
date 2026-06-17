@@ -1,6 +1,6 @@
 # chie 智慧 — maturity scorecard
 
-**ADR-2606171200** · status **🟢 R0** (clj-native · kotoba/Datom-native · tests green).
+**ADR-2606171200** · status **🟢 R1** (clj-native · kotoba/Datom-native · 常駐化 heartbeat · tests green).
 
 ## Scorecard
 
@@ -14,17 +14,17 @@
 | Tests | ✅ | 3 suites · 69 assertions green (`bb test:actors` auto-discovers) |
 | Charter gates G1–G5 | ✅ | test-enforced: open→0 (G1), inbound-integral (G2), representative-only (G5), no-trade/no-score (G4) |
 | Cross-actor bridge | ✅ (declared) | `:bridge` → kanjō/kabuto/handotai/kasa/kenkyusha/keizu/kosatsu/abaki |
-| **常駐化 (resident heartbeat)** | ⏳ R1 | autorun cell + fleet.toml registration + kotoba commit-DAG bridge (ibuki/mimamori pattern) |
+| **常駐化 (resident heartbeat)** | ✅ R1 | `methods/autorun.cljc` + `cell.cljc` (`fire`) → content-addressed Datom tx on append-only kotoba commit-DAG (`verify-chain` tamper-evident, resume-safe); registered `ChieHeartbeatCell` in cell-runner `cells.edn` (node gad, cron `37 * * * *`, healthz 13082). 25 tests / 98 assertions green |
 | Live ingest | ⏳ R2 (G7) | regulator texts (EU AI Act/広島/Bletchley) + disclosed rounds + Wikidata — Council+operator-gated |
 | WASM (pywasm/componentize) | ⏳ R2 | clj source is the pywasm target; build = operator step |
 
 ## Roadmap (loop targets)
 
-- **R1 — 常駐化**: `autorun.cljc` heartbeat → analyze → Murakumo digest (loopback, template
-  fallback) → content-addressed Datom tx appended to the append-only kotoba commit-DAG
-  (`verify-chain` tamper-evident, resume-safe). Register `ChieHeartbeatCell` in the
-  cell-runner `cells.edn` + a fleet node (off-minute cron), mirroring mimamori/ibuki. The
-  heartbeat is STATELESS → host owns the log.
+- **R1 — 常駐化** ✅ (this iteration): `autorun.cljc` heartbeat → analyze → content-addressed
+  Datom tx appended to the append-only kotoba commit-DAG (`verify-chain` tamper-evident,
+  resume-safe; `cell.cljc` `fire` is the runner entry). `ChieHeartbeatCell` registered in the
+  cell-runner `cells.edn` (node gad, cron `37 * * * *`, healthz 13082). _Next: Murakumo digest
+  narration (loopback, template fallback) on the heartbeat._
 - **R1 — coverage growth**: lift node coverage (more labs/funders/policy), add
   `:ai.invest/round` (per-round capital) and `:ai.asset/compute` (clusters → kasa) — both
   currently surfaced as gaps by `coverage_report`.
