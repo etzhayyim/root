@@ -182,6 +182,35 @@ SSoT shared with Maxwell): `kind: "register"`, base coordinates, license, status
 3. **Do nothing / keep it informal.** Rejected — an unnamed fine-tune target silently
    shadows vendor coordinates, the exact anti-pattern ADR-2606061000 exists to prevent.
 
+# Verification (2026-06-17) — base 動作検証 on gad
+
+The diffusion **base** was empirically run on gad (EVO-X2 gfx1151, ROCm7.13, torch
+2.10) via `70-tools/scripts/maxwell/smoke_diffusion.py`, Murakumo-only (no external
+API). Findings, which sharpen D3:
+
+- **transformers 5.12 natively supports `diffusion_gemma`** (`DiffusionGemmaForBlockDiffusion`
+  + `DiffusionGemmaModel` in `CONFIG_MAPPING`). So the "fleet diffusion runtime" (D3) is
+  **transformers itself**, not a bespoke server — a smaller gap than first assumed. The
+  *autoregressive* serving path (llama.cpp/Ollama) still cannot decode it; a
+  transformers-based serve is the path.
+- **It runs and generates coherent text.** "Why is the sky blue?" → a correct Rayleigh-
+  scattering answer (256 tok, 9.6 tok/s); a Python→Clojure prompt → a working conversion
+  + explanation (2.3 tok/s).
+- **bf16 does not fit the 34 GB VRAM** (51.6 GB weights). The model was run **CPU-only**
+  across the APU's ~58 GB RAM. The model card's >1100 tok/s needs GPU residency →
+  **quantization (≈4-bit → ~13 GB) is required** to hit the throughput thesis; that is the
+  real D3 serving work, now scoped.
+- **`device_map="auto"` leaves this model class on META tensors** (empty `hf_device_map`,
+  `generate` fails on `.item()` over meta) even with `_no_split_modules` set and explicit
+  `max_memory`/`offload_folder` — a real accelerate-dispatch gap for `diffusion_gemma`.
+  Plain CPU load (no accelerate) materializes correctly.
+- **The base's Clojure is imperfect** — it emitted `(def add [a b] …)` (should be `defn`).
+  This is precisely the gap the maxwell SFT corpus (D4) targets: the base *runs*, the
+  fine-tune is what makes it *Charter/idiom-correct*.
+
+Net: D3 is **achievable** (transformers CPU run proven); the remaining serving work is
+quantized GPU residency for throughput. `available:false` stands until that + D4 land.
+
 # References
 
 - ADR-2606061000 (Maxwell — default LLM weight; parent, same family + flip discipline)
