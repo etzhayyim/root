@@ -24,7 +24,7 @@
 (deftest test-manifest-namespaces-have-matching-lexicon-files
   (let [m (j/parse-string (slurp manifest))
         declared (get m "lexiconNamespaces")]
-    (is (= 3 (count declared)))
+    (is (= 4 (count declared)))
     (doseq [ns declared]
       (let [short (last (str/split ns #"\."))
             f (io/file lex-dir (str short ".json"))]
@@ -46,6 +46,18 @@
     (is (every? unit-enum (map (comp name :plant/capacity-unit) plants)))
     ;; every chokepoint used in a flow is a legal via enum value
     (is (every? via-enum (map name (mapcat :flow/via flows))))))
+
+(deftest test-chokepoint-lexicon-enum-matches-seed-and-flow-via
+  (let [rows (az/load-edn seed)
+        chokepoints (filter :chokepoint/id rows)
+        kw-enum (set (get-in (lex "registerChokepoint")
+                             ["defs" "main" "input" "schema" "properties" "keyword" "enum"]))
+        via-enum (set (get-in (lex "recordFlow")
+                              ["defs" "main" "input" "schema" "properties" "via" "items" "enum"]))]
+    ;; every seed chokepoint keyword is a legal registerChokepoint enum value
+    (is (every? kw-enum (map (comp name :chokepoint/keyword) chokepoints)))
+    ;; the chokepoint keyword enum and the flow via enum are the SAME shared vocabulary
+    (is (= kw-enum via-enum))))
 
 (deftest test-no-per-worker-field-in-any-lexicon  ;; ── load-bearing G4 gate ──
   (doseq [name ["registerPlant" "registerHub" "recordFlow"]]

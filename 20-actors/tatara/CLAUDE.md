@@ -89,7 +89,7 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   Every coordinate DERIVED from a seed (regenerable; none hand-copied).
 
 ```bash
-bb 20-actors/tatara/run_tests.sh                                              # 41 tests / 4,223 assertions
+bb 20-actors/tatara/run_tests.sh                                              # 42 tests / 4,227 assertions
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"  # → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)"      # → the three globes
 bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-main)"  # autonomous heartbeat → LOCAL kotoba log
@@ -97,7 +97,7 @@ bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-m
 
 ## Lexicons (kotoba-native)
 
-`00-contracts/lexicons/com/etzhayyim/tatara/{registerPlant,registerHub,recordFlow}.json` — the
+`00-contracts/lexicons/com/etzhayyim/tatara/{registerPlant,registerHub,recordFlow,registerChokepoint}.json` — the
 write surface onto the kotoba Datom log. `recordFlow.via` reuses the shared chokepoint enum
 (watari `:lane/chokepoint` + watatsuna `:station/chokepoint`). The G4 boundary lives here too:
 no lexicon carries a per-worker / per-person field (asserted by `test_lexicons`, which also pins

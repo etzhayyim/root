@@ -77,7 +77,8 @@
   "lexiconNamespaces": [
     "com.etzhayyim.tatara.registerPlant",
     "com.etzhayyim.tatara.registerHub",
-    "com.etzhayyim.tatara.recordFlow"
+    "com.etzhayyim.tatara.recordFlow",
+    "com.etzhayyim.tatara.registerChokepoint"
   ],
   "display": {
     "did": "did:web:etzhayyim.com:actor:tatara",
