@@ -171,6 +171,17 @@ on the real DiffusionGemma forward (canvas logits, no internal loss) and a 3-ste
 loss/gradient/LoRA-step/save loop executes (loss 1.07→0.04); a 4-bit GPU path is built
 (`BNB-ROCM-BUILD.md`) but VRAM-bounded on gfx1151.
 
+
+### 4.5 Landscape over training — measured trajectory  (`../baien/maxwell1-landscape-over-training.png`/`.gif`)
+
+We trained a fresh LoRA from base for 600 steps, snapshotting at {0,60,180,360,600}, and measured
+the real loss surface around each snapshot along the **same fixed filter-normalized directions**.
+Measured eval loss: **3.00 → 0.80 (60) → 0.46 (180, min) → 0.77 (360) → 0.80 (600)** — a rapid
+descent then **mild over-fit** on the small fixed eval set; the local basin in the two directions
+stays shallow throughout (Zmax−Zmin ≈ 0.03–0.07). This is an honest *fine-tuning* trajectory, **not**
+a controlled grokking transition (which requires a modular task + weight decay + long training); we
+report it as measured, without forcing a "basin deepens" narrative.
+
 ## 5. Synthesis
 
 The three weights are **not different goals but different routes to the same generalization minimum**:
@@ -195,8 +206,9 @@ the loss-landscape probe after further RSi steps would let us *watch* the basin 
 
 ## 7. Future work
 
-1. **Landscape-over-training series** — re-run `loss_landscape.py` across RSi steps to film the basin
-   deepening (grokking made visible on real weights).
+1. **Landscape-over-training** — *done* (§4.5): the measured trajectory is descent→over-fit, not a
+   grokking transition. A genuine grokking demonstration needs a controlled task (modular arithmetic
+   + weight decay + long training); worth a separate controlled run if a clean transition is wanted.
 2. **oka, made real** — close D3 (fleet diffusion/sheaf runtime) + D4 (diffusion/sheaf SFT) so the
    sheaf physics of §4.1 runs on trained weights, not a constructed instance.
 3. **diffusion-26B real landscape** — the heavier filter-normalised landscape for maxwell-diffusion.
