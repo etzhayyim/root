@@ -28370,6 +28370,27 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/baien/weight-family-viz.md",
+      "id": "weight-family-viz",
+      "title": "Maxwell weight-family — visualizations (grokking landscape / traversal / 3D / pipelines)",
+      "status": "active",
+      "doc_type": "explanation",
+      "topic": "maxwell-weight-family-visualization",
+      "authoritative": false,
+      "related": [
+        "2606171100",
+        "2606061000",
+        "2605250700",
+        "2605092350"
+      ],
+      "last_verified": "2026-06-17",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/proof/README.md",
       "id": "wellbecoming-karma-lean-proofs",
       "title": "WellBecoming + Karma — Lean 4 Formal Proofs",
