@@ -7852,7 +7852,7 @@
       "toolCount": 30,
       "l5Verified": false,
       "verifiedEnumFields": 0,
-      "manifest": "20-actors/post_quantum-compat/manifest.json#/capabilities/mcp"
+      "manifest": "20-actors/post_quantum_compat/manifest.json#/capabilities/mcp"
     },
     {
       "handle": "postman-compat",

@@ -13556,7 +13556,7 @@
       },
       "l5Verified": false,
       "verifiedEnumFields": 0,
-      "openapi": "20-actors/post_quantum-compat/openapi.json"
+      "openapi": "20-actors/post_quantum_compat/openapi.json"
     },
     {
       "handle": "postman-compat",
