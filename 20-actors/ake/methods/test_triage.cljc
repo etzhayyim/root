@@ -143,4 +143,33 @@
         bad (assoc base ":edit/provenance" "trust me")]
     (is (> (triage/assess-quality base "") (triage/assess-quality bad "")))))
 
+;; ── assess-quality SCORE BREAKDOWN — pin every additive branch of the ORES analogue ──
+;; sourcing(0/.15/.5) + rationale(0/.2) + plausibility(0/.3), clamped to 1.0. Mirror of the
+;; Python test_quality_* sweep so the canonical path locks the same auto-accept boundary.
+(def ^:private q-base
+  {":edit/op" ":assert" ":edit/proposed-value" "x"
+   ":edit/rationale" "a clear reason here" ":edit/provenance" "https://example.com/x"})
+
+(deftest test-quality-full-marks-verifiable-rationale-assert-value
+  (is (= 1.0 (triage/assess-quality q-base ""))))
+
+(deftest test-quality-nonverifiable-provenance-scores-partial-sourcing
+  (is (= 0.65 (triage/assess-quality (assoc q-base ":edit/provenance" "trust me") ""))))
+
+(deftest test-quality-empty-provenance-scores-zero-sourcing
+  (is (= 0.5 (triage/assess-quality (assoc q-base ":edit/provenance" "") ""))))
+
+(deftest test-quality-short-rationale-earns-no-clarity-credit
+  (is (= 0.8 (triage/assess-quality (assoc q-base ":edit/rationale" "short") ""))))
+
+(deftest test-quality-retract-and-challenge-need-no-value
+  (is (= 1.0 (triage/assess-quality (assoc q-base ":edit/op" ":retract" ":edit/proposed-value" "") "")))
+  (is (= 1.0 (triage/assess-quality (assoc q-base ":edit/op" ":challenge" ":edit/proposed-value" "") ""))))
+
+(deftest test-quality-oversized-value-earns-no-plausibility-credit
+  (is (= 0.7 (triage/assess-quality (assoc q-base ":edit/proposed-value" (apply str (repeat 4001 "z"))) ""))))
+
+(deftest test-quality-rider-hit-zeroes-the-whole-score
+  (is (= 0.0 (triage/assess-quality q-base "advertis"))))
+
 #?(:clj (defn -main [& _] (run-tests 'ake.methods.test-triage)))
