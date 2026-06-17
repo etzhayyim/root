@@ -48,6 +48,13 @@
       "pipeline": "graph-datoms (EAVT) + derived :concentration/* datoms → content-addressed tx → append-only log (verify-chain tamper-evident, resume-safe). No external I/O."
     },
     {
+      "id": "cell:tatara.crosscheck",
+      "method": "methods/crosscheck.cljc",
+      "input": "data/seed-plant-graph.kotoba.edn + ../kabuto/data/seed-public-companies.kotoba.edn",
+      "output": ["out/kabuto-crosscheck.md"],
+      "pipeline": "measure :plant/operator ⇄ kabuto :company/id linkage (normalized id+name token bridge) → coverage % + prioritized ingest worklist of unresolved operators. Pure measurement; unresolved = honest gap (G5), never a fabricated link. Current: 17/20 = 85%."
+    },
+    {
       "id": "cell:tatara.autorun",
       "method": "methods/autorun.cljc",
       "output": ["local append-only kotoba Datom log (content-addressed commit-DAG)"],

@@ -27,7 +27,11 @@ bb 20-actors/tatara/run_tests.sh
 # Testing tatara.methods.test-kotoba  … Ran 5 tests / 546 assertions.  0 failures.
 # Testing tatara.methods.test-autorun … Ran 5 tests / 1213 assertions. 0 failures.
 # Testing tatara.methods.test-lexicons… Ran 4 tests / 44 assertions.   0 failures.
-# ── tatara: ALL suites green ──   (23 tests / 2,206 assertions)
+# Testing tatara.methods.test-crosscheck Ran 4 tests / 20 assertions.  0 failures.
+# ── tatara: ALL suites green ──   (27 tests / 2,226 assertions)
+
+# kabuto-linkage crosscheck → out/kabuto-crosscheck.md (17/20 = 85% linkage)
+bb -cp 20-actors -e "(require 'tatara.methods.crosscheck)(tatara.methods.crosscheck/-main)"
 
 # concentration report → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"
@@ -62,6 +66,7 @@ suez-red-sea 3 · panama 1** — these compose with watari (live vessel transit)
 | `methods/analyze.cljc` | concentration / HHI / chokepoint / capacity engine |
 | `methods/kotoba.cljc` | content-addressed EAVT commit-DAG persistence |
 | `methods/autorun.cljc` | autonomous heartbeat → content-addressed commit-DAG (resume-safe) |
+| `methods/crosscheck.cljc` | measures :plant/operator ⇄ kabuto :company/id linkage (85%) + ingest worklist |
 | `00-contracts/lexicons/com/etzhayyim/tatara/*.json` | write surface (registerPlant/registerHub/recordFlow) |
 | `methods/test_{analyze,kotoba,autorun,lexicons}.cljc` | 23 tests / 2,206 assertions |
 | `viz/build_viz.cljc` | globe generator (derives all coords from the seeds) |
