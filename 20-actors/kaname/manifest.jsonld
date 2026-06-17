@@ -1,0 +1,42 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:kaname.etzhayyim.com",
+  "name": "kaname",
+  "displayName": "要 — Cross-Domain System-of-Systems Leverage Synthesizer",
+  "displayNameJa": "要",
+  "displayNameEn": "Kaname",
+  "description": "Non-profit religious-corp META synthesis actor — the system-of-systems (SoS) layer above the power-mirror lineage (tsumugi / keizu / kabuto / chie / shiori / abaki / shionome / busshi / hokorobi / kosatsu / inochi). It JOINS their per-domain 取-concentration into ONE multilayer (multiplex) graph — layers = domains (politics / religion / organization / ideology / economy / ecology / security / wellbecoming / ai / information) — reconciles entities across domains, and computes ON READ (edge-primary; no stored score) the single structural position (the 要 / 律速段階) whose release would most improve resilience across the MAXIMUM number of domains at once: L = C·(V/D)·(1+B)·(1−open), the 要 = argmax L. Concentration ALONE is not the bottleneck; domain VERSATILITY is the SoS discriminator. It then ROUTES the 要 to OPENING (route-around / add-redundancy / decentralize) and PROPOSES the intervention (おせっかい) to ossekai (ADR-2605264000), which carries it consent-bound + on-chain-logged + structural-first. kaname NEVER actuates (no-server-key). Distinct from junkan 循環 (ADR-2605290927, the system-dynamics/CLD view, analysis-only) and ossekai (the actuator). G1 leverage-MAP-not-target-list (structural positions only; natural persons person-excluded; no coordinates). G2 OPENING-only routing (capture/seize/control unrepresentable). G3 おせっかい transparent + consent-bound. G4 non-adjudicating + edge-primary. G5 no thought-policing (ideology/religion = structural interfaces with on-the-record basis; belief-content scoring unrepresentable). G6 synthetic seed; live mirror join G7/Council-gated. clj-native (.cljc, babashka). 6 methods / 2 Lexicons / 24 tests / 78 assertions green.",
+  "descriptionJa": "非営利 religious-corp の META 統合 actor — power-mirror 系列 (tsumugi / keizu / kabuto / chie / shiori / abaki / shionome / busshi / hokorobi / kosatsu / inochi) の上に立つ system-of-systems (SoS) 層。各ドメインの 取-concentration を ONE multilayer (multiplex) graph に JOIN し — layer = ドメイン (政治 / 宗教 / 組織 / 思想 / 経済 / 生態 / security / wellbecoming / ai / information) — entity をドメイン横断で reconcile し、ON READ (edge-primary; stored score なし) で、最も多くのドメインで同時に resilience を改善する単一の構造的ポジション (要 / 律速段階) を数理的に特定する: L = C·(V/D)·(1+B)·(1−open)、要 = argmax L。集中度だけでは bottleneck ではない; ドメイン versatility が SoS の弁別子。その 要 を OPENING (route-around / 冗長化 / 分散化) に routing し、おせっかいを ossekai (ADR-2605264000) に PROPOSE する (ossekai が consent-bound + on-chain-logged + structural-first で carry)。kaname 自身は actuate しない (no-server-key)。junkan 循環 (ADR-2605290927, system-dynamics/CLD view, 分析専用) とも ossekai (actuator) とも別物。G1 leverage-地図-not-標的リスト (構造的ポジションのみ; 自然人除外; 座標なし)。G2 OPENING のみ routing (capture/seize/control 表現不能)。G3 おせっかい透明 + 同意拘束。G4 非裁定 + edge-primary。G5 思想警察なし (思想/宗教 = on-record basis を持つ構造的 interface; 信念内容の採点は表現不能)。G6 synthetic seed; live mirror join は G7/Council-gated。clj-native (.cljc, babashka)。6 method / 2 Lexicon / 24 test / 78 assertion green。",
+  "adr": {
+    "master": "etzhayyim:adr:2606172100",
+    "parent": "etzhayyim:adr:2605192100",
+    "r0": "etzhayyim:adr:2606172100",
+    "r1": "reserved",
+    "r2": "reserved",
+    "r3": "reserved"
+  },
+  "tier": "Tier-B",
+  "parentActor": null,
+  "form": "任意団体 internal cross-domain system-of-systems leverage substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)",
+  "leverageInvariant": "L = C·(V/D)·(1+B)·(1−open), computed ON READ (edge-primary; ADR-2605312345); the 要 = argmax L. There is no :kaname/score-of-entity ground datom (N1/G4). Bridge-load is a bounded proxy for inter-layer betweenness (full multiplex betweenness = R1, labelled honestly).",
+  "routeInvariant": "G2 STRUCTURAL — the route enum {open, route-around, add-redundancy, decentralize, insufficient-evidence} has no capture/seize/control/monopolize member; methods/route.cljc assert-route! RAISES on any concentration-increasing intent. The 要 is dissolved, never acquired.",
+  "personExclusion": "G1 STRUCTURAL — the 要 is a structural position. methods/osekkai.cljc assert-not-person! RAISES on :person/private or a coordinate; only public ROLE nodes (:sos/role) are addressable. No per-person target is representable.",
+  "noServerKey": "kaname PROPOSES (advisory:true, sent:false, server-key:false); ossekai CARRIES. No platform-held signing key (ADR-2605231525).",
+  "dataModelInvariant": "kotoba Datom log (EAVT, ADR-2605262130 / 2605312345); GROUND op :add durable, DERIVED op :derived leverage integrals computed on read, never persisted as ground.",
+  "crossActor": {
+    "joins": "chie / tsumugi / keizu / kabuto / shiori / abaki / shionome / busshi / hokorobi / kosatsu / inochi — their DISCLOSED per-domain concentration is the input multilayer graph (live join G7/Council-gated)",
+    "junkan": "ADR-2605290927 — the system-dynamics/CLD view of the same question; complementary, NOT conflated (graph-centrality vs. system-dynamics)",
+    "ossekai": "ADR-2605264000 — the intervention CARRIER; kaname proposes, ossekai carries (consent-bound)",
+    "danjo-keizu-tsumugi": "reach / accountability cross-link — who DRIVES a concentration"
+  },
+  "lexicons": [
+    "com.etzhayyim.kaname.leveragePoint",
+    "com.etzhayyim.kaname.osekkaiProposal"
+  ],
+  "license": "Apache-2.0 + etzhayyim Charter Compliance Rider v3.2",
+  "status": "R0"
+}

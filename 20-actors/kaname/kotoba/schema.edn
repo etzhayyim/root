@@ -1,0 +1,75 @@
+;; kaname 要 — cross-domain system-of-systems leverage ontology / kotoba schema (ADR-2606172100)
+;; The META synthesis layer above the power-mirror lineage (tsumugi / keizu / kabuto / chie /
+;; shiori / abaki / shionome / busshi / hokorobi / kosatsu / inochi). Joins their per-domain
+;; 取-concentration into ONE multilayer graph, computes the 律速 / 要 (leverage point) on read,
+;; routes it to OPENING, and proposes おせっかい via ossekai.
+;; map-not-target · opening-only · non-adjudicating · edge-primary · no-thought-policing · no-server-key.
+
+{:schema/id  :sos-leverage
+ :schema/adr "ADR-2606172100"
+
+ ;; ── domains (the layers of the multiplex) ────────────────────────────────────
+ ;; Every 縁 lives in exactly one domain layer (:en/domain). A node may bear load in many.
+ :domains
+ [:politics :religion :organization :ideology :economy :ecology :security :wellbecoming :ai :information]
+
+ ;; ── node kinds (:organism/kind) ──────────────────────────────────────────────
+ :node/kinds
+ [{:k ":sos/entity"    :doc "an org / institution / market / state — reconciled across the mirrors"}
+  {:k ":sos/interface" :doc "a structural decision-point / standard / clearing-point / gatekeeping institution. The PRIME 要 candidate — mediates flow across many 縁"}
+  {:k ":sos/instrument" :doc "a policy / protocol / doctrine / treaty (a rule that gates flow)"}
+  {:k ":sos/role"      :doc "public-power ROLE only (chair / regulator / accreditor). NO private profile (G1)"}]
+
+ ;; ── node attributes ──────────────────────────────────────────────────────────
+ :node/attrs
+ [{:a ":organism/id"        :v :string  :doc "e.g. kaname.if.accred / kaname.ent.cap-hoard"}
+  {:a ":organism/kind"      :v :keyword}
+  {:a ":organism/label"     :v :string}
+  {:a ":organism/sourcing"  :v :keyword :enum [":representative" ":authoritative"]
+                            :doc "representative = bounded/synthetic seed · authoritative = live mirror join (G7-gated)"}
+  {:a ":sos/source-actors"  :v :vector  :doc "which mirror(s) contributed this node (:chie :tsumugi :kabuto …). Reconciled nodes carry many"}
+  {:a ":sos/open?"          :v :boolean :doc "already-open / redundant / decentralized structural position — the openness discount (scores 0 for routing)"}
+  {:a ":sos/role"           :v :string  :doc "public role descriptor for :sos/role nodes"}]
+
+ ;; ── 縁 (edges) — 取 + connectivity live ONLY here (N1; edge-primary) ──────────
+ :edge/kinds
+ [{:e ":concentrates" :role :concentration :doc "A accumulates 取 over B in this domain (inbound load = 取 onto :en/to)"}
+  {:e ":gates"        :role :both          :doc "interface mediates flow B→…; feeds BOTH concentration (onto the interface) and bridge/fragility"}
+  {:e ":influences"   :role :concentration :doc "ideology/religion projection onto B — ON-THE-RECORD basis only, never belief-content verdict (G5)"}
+  {:e ":depends-on"   :role :fragility     :doc "A depends on B; feeds lock-in/cascade fragility"}
+  {:e ":couples"      :role :bridge        :doc "same entity (or tight pair) load-bearing across TWO domains — the inter-layer multiplex coupling"}]
+
+ :edge/attrs
+ [{:a ":en/from"          :v :string}
+  {:a ":en/to"            :v :string}
+  {:a ":en/kind"          :v :keyword}
+  {:a ":en/domain"        :v :keyword :doc "the domain layer this 縁 lives in (one of :domains)"}
+  {:a ":en/grasping-load" :v :double  :doc "∈ [0,1] — where 取 / connective weight lives"}
+  {:a ":en/basis"         :v :string  :doc "on-the-record source for :influences edges (G5 — required for ideology/religion)"}
+  {:a ":en/sourcing"      :v :keyword :enum [":representative" ":authoritative"]}]
+
+ ;; ── derived (transient — computed on read, NEVER persisted; N1/G4) ───────────
+ :derived/attrs
+ [{:a ":bond/concentration"  :doc "C_i — Σ inbound 取-load across all domains"}
+  {:a ":bond/versatility"    :doc "V_i — # distinct domains node bears load in (the SoS discriminator)"}
+  {:a ":bond/bridge-load"    :doc "B_i — Σ incident inter-layer connective load (couples/gates) — betweenness proxy"}
+  {:a ":bond/leverage"       :doc "L_i = C·(V/D)·(1+B)·(1−open) — the 律速 / 要 score; argmax = the leverage point"}
+  {:a ":bond/reach-imposed"  :doc "Σ outbound 取-load this node imposes (accountability cross-link → danjo/tsumugi/keizu)"}]
+
+ ;; ── routing (G2 — the safety enum; capture is UNREPRESENTABLE) ────────────────
+ :route/enum [:open :route-around :add-redundancy :decentralize :insufficient-evidence]
+ :route/forbidden [:capture :seize :control :exploit :corner :monopolize]
+ :route/note "the 要 is routed to dissolution of concentration ONLY — never to acquiring it (G2)."
+
+ ;; ── UNREPRESENTABLE by construction (G1/G2/G4/G5) ────────────────────────────
+ :forbidden
+ {:edges  [":trade" ":target" ":attack" ":suppress" ":capture"]
+  :attrs  [":kaname/score-of-entity" ":person/private" ":coord/lat" ":coord/lon"
+           ":belief/wrongness" ":faith/rank" ":forecast-point"]
+  :reason "kaname never trades, never targets a person, never scores a soul/belief, never forecasts (G1/G2/G4/G5)."}
+
+ ;; ── cross-actor bridge (kaname JOINS these mirrors; never duplicates them) ────
+ :bridge
+ {:ai :chie :power :tsumugi :gov-power :keizu :supply :kabuto :wellbecoming :shiori
+  :monopoly :abaki :capital :shionome :commodity :busshi :finance-risk :hokorobi
+  :designation :kosatsu :ecology :inochi :cld :junkan :intervention :ossekai}}
