@@ -183,10 +183,26 @@
 
 #?(:clj
    (defn head-cid
-     "The CID of the last tx in the log (\"\" if empty)."
+     "The CID of the last tx in the log (\"\" if empty).
+     Reads + parses ONLY the last tx line — never the whole log. read-log parses every line
+     (each a full-graph tx of ~30k datoms), so calling it once per heartbeat to fetch the
+     previous CID made the autonomous loop O(n²) in log size (cycle k re-parsed k txs); over
+     the grown live-EDGAR corpus a 3-beat run exceeded 300s. Parsing one line keeps the
+     heartbeat's prev-CID lookup O(1) in the number of prior txs. Result is identical to
+     `(get (last (read-log log-path)) \":tx/cid\")`."
      [log-path]
-     (let [txs (read-log log-path)]
-       (if (seq txs) (get (last txs) ":tx/cid") ""))))
+     (let [f (clojure.java.io/file (str log-path))]
+       (if-not (.exists f)
+         ""
+         (let [last-line (->> (str/split-lines (slurp f))
+                              (map str/trim)
+                              (remove (fn [l] (or (str/blank? l) (str/starts-with? l ";"))))
+                              last)]
+           ;; The top-level `:tx/cid "b<hex>"` is serialized (tx-to-edn) BEFORE the huge
+           ;; `:tx/datoms [...]`, so a string scan finds it near the line's head and never
+           ;; EDN-parses the ~30k-datom graph each tx embeds — that parse cost ~7s/tx and is
+           ;; what kept the heartbeat slow even after switching from read-log to a single line.
+           (or (when last-line (second (re-find #":tx/cid \"(b[0-9a-f]+)\"" last-line))) ""))))))
 
 #?(:clj
    (defn verify-chain

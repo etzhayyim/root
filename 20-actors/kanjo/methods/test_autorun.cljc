@@ -24,10 +24,18 @@
        (.delete f)
        f)))
 
+;; Run the invariant suite against the bounded SEED graph, NOT data/facts.merged — the live EDGAR
+;; ingest grows the merged corpus without bound (it reached 1.18 MB / ~2.7k rows / ~30k datoms-per-tx),
+;; and every heartbeat re-emits the WHOLE graph into one tx, so a 3-beat run over it took >5 min.
+;; The autonomy / persistence / commit-DAG / determinism / G2-G4-G5 invariants are dataset-agnostic,
+;; so pinning the small fixture keeps the suite hermetic + fast. The full-corpus run is what the
+;; daemon does in production (head-cid is O(1) so it scales). ADR-2606160842.
+#?(:clj (def ^:private fixture autorun/seed))
+
 (deftest test-heartbeat-persists
   (let [log (tmp-log)]
     (try
-      (let [res (autorun/run-autonomous 3 nil log)]
+      (let [res (autorun/run-autonomous 3 fixture log)]
         (is (= 3 (get res "log_length")) "one tx per heartbeat")
         (is (every? #(> (get % "datoms") 0) (get res "beats")) "every heartbeat persisted datoms")
         (is (every? #(> (get % "metrics") 0) (get res "beats")) "derived ratios computed + persisted")
@@ -38,8 +46,8 @@
 (deftest test-deterministic-resume-safe
   (let [a (tmp-log) b (tmp-log)]
     (try
-      (let [ra (autorun/run-autonomous 3 nil a)
-            rb (autorun/run-autonomous 3 nil b)]
+      (let [ra (autorun/run-autonomous 3 fixture a)
+            rb (autorun/run-autonomous 3 fixture b)]
         (is (= (mapv #(get % "cid") (get ra "beats"))
                (mapv #(get % "cid") (get rb "beats")))
             "same cycles → same CIDs (deterministic / resume-safe)"))
@@ -48,9 +56,9 @@
 (deftest test-append-only-and-tamper
   (let [log (tmp-log)]
     (try
-      (autorun/run-cycle 1 nil log)
+      (autorun/run-cycle 1 fixture log)
       (let [first-log (kotoba/read-log log)]
-        (autorun/run-cycle 2 nil log)
+        (autorun/run-cycle 2 fixture log)
         (let [second-log (kotoba/read-log log)]
           (is (= (count second-log) (inc (count first-log)))
               "second heartbeat appends, does not rewrite")
@@ -75,7 +83,7 @@
   ;; G5: every derived metric/agg must declare :synthesized — never masquerade as a disclosed fact.
   (let [log (tmp-log)]
     (try
-      (autorun/run-cycle 1 nil log)
+      (autorun/run-cycle 1 fixture log)
       (let [tx (nth (kotoba/read-log log) 0)
             datoms (get tx ":tx/datoms")
             ;; group by entity; {entity {attr value}}
@@ -97,7 +105,7 @@
 (deftest test-g2-g4-no-advice-no-forecast
   (let [log (tmp-log)]
     (try
-      (autorun/run-cycle 1 nil log)
+      (autorun/run-cycle 1 fixture log)
       (let [tx (nth (kotoba/read-log log) 0)
             attrs (set (map #(str (nth % 2)) (get tx ":tx/datoms")))]
         (doseq [forbidden [":fin.metric/rating" ":fin.metric/recommendation" ":fin.metric/target-price"
