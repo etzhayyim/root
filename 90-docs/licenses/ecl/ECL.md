@@ -74,10 +74,14 @@ related:
 
 - **Layer A — 目的関数 (primary, dynamic)**: alignment の*決定*はここで動的に行う。
   これが「考え方」の中心。`evaluate.bb` が実装。
-- **Layer B — 確定フロア screens (legal backstop)**: 子孫 wellbecoming を*破滅的*に侵し、
+- **Layer B — 確定フロア screens (legal backstop)**: net に*関わらず* categorically 子孫を侵し、
   かつ司法執行可能な bright-line が必要なもの (CSAM / 強制労働 / 兵器ビジネス・covert 武力 /
-  personal-data 売買・非対称監視 / 不可逆多世代危害) は、**目的関数の外に列挙された確定
-  ルール**として残す。1つでも発火すれば scoring せず即 non-aligned。
+  personal-data 売買・非対称監視) は、**目的関数の外に列挙された確定ルール**として残す。
+  1つでも発火すれば scoring せず即 non-aligned。
+  **改正 (ADR-2606172359)**: 環境/化石(旧「不可逆多世代危害」)と compute 調達(旧 Murakumo-only)は
+  確定フロアから外し、§2 目的関数で *net* 評価する — 化石は燃焼か非燃焼 feedstock かを carbon
+  balance で、compute は lock-in/透明性/carbon で。固定ルールは priority の*手段*を priority
+  そのものとして凍結する誤りだった。残す確定フロアは「net に関わらず子孫を侵すもの」に限る。
 
 これは tanemaki DD (ADR-2606122001) と同型: **screens が weighting の前に発火する**。
 列挙が消えるのではなく、**列挙は『scoring すべきでない最悪のケース』の確定下限に縮小**し、
@@ -164,13 +168,15 @@ DRAFT — not in force until ratified under §11.
        Hard-Floor Conduct;
    (d) the sale or brokerage of personal data, or asymmetric surveillance conducted by
        a watcher that is not itself equally observable — PROVIDED THAT reciprocal,
-       non-monetized mutual transparency (相互監視) is NOT Hard-Floor Conduct;
-   (e) activity whose foreseeable impact is irreversible multi-generational harm,
-       including climate destabilization beyond ±2°C above pre-industrial, biosphere
-       collapse, commons enclosure of foundational knowledge, or germline modification
-       absent multi-generational safety review.
+       non-monetized mutual transparency (相互監視) is NOT Hard-Floor Conduct.
    This §3 is not a substitute for §2; it is the determinate lower bound of conduct
    too severe to leave to scoring.
+   NOTE (ADR-2606172359): environmental and multi-generational impact (including fossil
+   use) and compute sourcing are NOT Hard-Floor Conduct. They are evaluated under §2 by
+   net effect — fossil use by net carbon balance (non-combustion feedstock is not per se
+   harmful), compute by lock-in, transparency, and carbon — through the heavily-weighted
+   Descendant-Wellbecoming dimension. A categorical fossil ban or commercial-compute ban
+   was the wrong instrument: it fixed a means as if it were the priority.
 
 4. EFFECT OF NON-ALIGNMENT
    Becoming Non-Aligned (a) terminates the patent license under Apache §3 as of the

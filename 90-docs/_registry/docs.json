@@ -10303,10 +10303,10 @@
       "path": "90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md",
       "id": "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
       "title": "ADR-2605215000: etzhayyim inference is Murakumo-fleet-only — RunPod is constitutionally prohibited",
-      "status": "proposed",
+      "status": "superseded",
       "doc_type": "adr",
       "topic": "etzhayyim-inference-murakumo-only-no-runpod",
-      "authoritative": true,
+      "authoritative": false,
       "authoritative_for": [
         "Inference substrate boundary for etzhayyim religious-corp",
         "RunPod prohibition for all religious-corp workloads",
@@ -10318,14 +10318,16 @@
         "2605182312-local-bring-up-murakumo-gemma4"
       ],
       "supersedes": [],
-      "superseded_by": [],
+      "superseded_by": [
+        "2606172359"
+      ],
       "depends_on": [
         "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
         "adr-2605172000-etzhayyim-rw-free-substrate",
         "adr-2605202345-evo-x2-gpu-pod-fleet-integration",
         "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules"
       ],
-      "last_verified": "2026-05-21",
+      "last_verified": "2026-06-17",
       "amends": [],
       "amended_by": []
     },
@@ -25957,6 +25959,38 @@
         "2605192200",
         "2605192100",
         "2606062100"
+      ],
+      "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606172359-charter-amendment-compute-and-fossil-to-objective-function.md",
+      "id": "adr-2606172359-charter-amendment-compute-and-fossil-to-objective-function",
+      "title": "ADR-2606172359: 憲法改正 — compute 調達と化石利用を固定ルールから目的関数へ移す (Rider §2(d)+§2(i))",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "charter-amendment-compute-and-fossil-to-objective-function",
+      "authoritative": true,
+      "authoritative_for": [
+        "compute-sourcing-evaluation-policy",
+        "fossil-use-evaluation-policy",
+        "charter-rider-v3.2-amendment"
+      ],
+      "related": [
+        "2606064700",
+        "2606051500",
+        "2606012100"
+      ],
+      "supersedes": [
+        "2605215000"
+      ],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192200",
+        "2606062100",
+        "2606172300",
+        "2605192100"
       ],
       "last_verified": "2026-06-17",
       "amends": [],

@@ -7064,9 +7064,9 @@
       "id": "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
       "type": "TechArticle",
       "title": "ADR-2605215000: etzhayyim inference is Murakumo-fleet-only — RunPod is constitutionally prohibited",
-      "status": "proposed",
+      "status": "superseded",
       "topic": "etzhayyim-inference-murakumo-only-no-runpod",
-      "authoritative": true,
+      "authoritative": false,
       "authoritativeFor": [
         "Inference substrate boundary for etzhayyim religious-corp",
         "RunPod prohibition for all religious-corp workloads",
@@ -7077,7 +7077,8 @@
         "doc:adr-2605202100-etzhayyim-kotodama-cell-runner-launchd",
         "doc:2605182312-local-bring-up-murakumo-gemma4"
       ],
-      "lastVerified": "2026-05-21"
+      "supersededBy": "doc:2606172359",
+      "lastVerified": "2026-06-17"
     },
     {
       "id": "doc:adr-2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet",
@@ -16400,6 +16401,26 @@
         "doc:2606122001",
         "doc:2606162200"
       ],
+      "lastVerified": "2026-06-17"
+    },
+    {
+      "id": "doc:adr-2606172359-charter-amendment-compute-and-fossil-to-objective-function",
+      "type": "TechArticle",
+      "title": "ADR-2606172359: 憲法改正 — compute 調達と化石利用を固定ルールから目的関数へ移す (Rider §2(d)+§2(i))",
+      "status": "proposed",
+      "topic": "charter-amendment-compute-and-fossil-to-objective-function",
+      "authoritative": true,
+      "authoritativeFor": [
+        "compute-sourcing-evaluation-policy",
+        "fossil-use-evaluation-policy",
+        "charter-rider-v3.2-amendment"
+      ],
+      "related": [
+        "doc:2606064700",
+        "doc:2606051500",
+        "doc:2606012100"
+      ],
+      "supersedes": "doc:2605215000",
       "lastVerified": "2026-06-17"
     },
     {
