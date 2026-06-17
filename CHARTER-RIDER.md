@@ -9,13 +9,19 @@ proper (Lv7+ lock). Until ADR-2606064700 is ratified, every clause here keeps it
 current binding force and gate. See ADR-2606064700 for the derivation map.
 -->
 ```
-etzhayyim Charter Compliance Rider v3.2
-Last revised: 2026-06-16
-Supersedes: v3.1 (2026-06-08) per ADR-2606161700 — §2(l) reframed ONLY: from a
-            blanket by-industry-name "commercial mining" ban to a multi-generational
-            (子・孫) × wellbecoming RISK-ASSESSMENT gate (extraction judged by measured
-            multi-gen harm + monopoly/chokepoint entrenchment, not by industry name;
-            symmetric with §2(d)); every other clause is byte-identical to v3.1.
+etzhayyim Charter Compliance Rider v3.3
+Last revised: 2026-06-17
+Supersedes: v3.2 (2026-06-16) per ADR-2606172359 — §2(d) and §2(i) reframed: from
+            categorical FIXED RULES to NET-EFFECT evaluation under the ECL objective
+            function (ADR-2606172300). §2(d): fossil/environmental harm judged by net
+            carbon balance, not by industry/substance name (fossil per se is not
+            prohibited; non-combustion feedstock uses are not harmful). §2(i):
+            Murakumo-only inference is no longer a categorical ban — commercial compute
+            is evaluated by lock-in / transparency / carbon (Murakumo stays the default-
+            preferred path). The means moves to the objective function; the Tier-0
+            priority (子・孫 wellbecoming) is unchanged (固定するのは掟でなく priority,
+            ADR-2606062100). Every other clause is byte-identical to v3.2.
+            (v3.2 had reframed §2(l) symmetrically per ADR-2606161700.)
             v3.1 (2026-06-08, ADR-2606082400) was §2(c) reciprocity-axis clarification
             ONLY over v3.0 (2026-06-06, ADR-2606062100), which superseded v2.0.
 
@@ -113,19 +119,24 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        that the commitment exists. 見守り is not surveillance-capitalism; お天道様
        does not sell what it sees, and お天道様 shines on everyone alike.
 
-   (d) IRREVERSIBLE MULTI-GENERATIONAL ENVIRONMENTAL HARM (reframed in v3.0;
-       replaces the v2.0 "new fossil-fuel extraction" clause). Activities whose
-       foreseeable expected impact includes the irreversible loss of a habitable
-       environment for persons born at least twenty-five (25) years hence —
-       biosphere collapse, or climate destabilization beyond ±2°C global mean above
-       pre-industrial. DERIVED FROM: Charter §1.9 (multi-generational priority).
-       Fossil-fuel combustion is ONE MEASURED INSTANCE, assessed by carbon balance
-       (per the kamado actor, ADR-2606051500: a fossil→combusted pathway is
-       structurally net-positive CO₂e and therefore impermissible), NOT by industry
-       name or political slogan. Closed-loop / biogenic / captured-carbon pathways
-       that pass the carbon-balance test, transition and decommissioning services,
-       and renewable build-out are NOT prohibited. The standard of foreseeability is
-       the prudent multi-generational steward, not the present-quarter shareholder.
+   (d) MULTI-GENERATIONAL ENVIRONMENTAL HARM — OBJECTIVE-FUNCTION ASSESSED (reframed
+       in v3.3 per ADR-2606172359; was a v3.0 prohibited category). Environmental and
+       multi-generational impact is NOT a prohibited category fixed by industry or
+       substance name. It is assessed dynamically by NET EFFECT under the ECL objective
+       function (ADR-2606172300), through the heavily-weighted Descendant-Wellbecoming
+       dimension. Fossil fuel is NOT prohibited per se: non-combustion useful uses
+       (plastics, materials, feedstock) and closed-loop / captured-carbon / biogenic
+       pathways are net-neutral-to-positive; a fossil→combusted pathway that is net-
+       positive CO₂e scores strongly negative (carbon balance per the kamado actor,
+       ADR-2606051500). DERIVED FROM: Charter §1.9 (multi-generational priority) — the
+       priority (a habitable environment for persons born at least twenty-five (25)
+       years hence; the bright line of biosphere collapse or >±2°C remains the worst
+       case the score must reflect) is UNCHANGED; only the instrument changes, from a
+       categorical ban to net-effect scoring. Fixing a means (an industry/substance
+       ban) as if it were the priority was the error this amendment corrects
+       (固定するのは掟でなく priority, ADR-2606062100). The standard of foreseeability
+       is the prudent multi-generational steward, not the present-quarter shareholder.
+       Symmetric with §2(l).
 
    (e) SPECIALIST GATEKEEPING. Operation of business models whose primary revenue
        derives from monopolistic gatekeeping of professional knowledge required for
@@ -170,18 +181,23 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        without provision for the wellbecoming-trajectory of their cognitive
        sovereignty.
 
-   (i) COMMERCIAL GPU RENTAL FOR RELIGIOUS-CORP INFERENCE. etzhayyim inference
-       workloads for religious-corp callable paths (LLM, vision, audio, video,
-       training, fine-tuning, embedding, SAR analysis) MUST execute exclusively on
-       the Murakumo distributed fleet (ADR-2605202345 / 2605215000). Prohibited GPU
-       backends: RunPod, Vertex AI direct-to-vendor, OpenAI direct without Murakumo
-       proxy, Anthropic SDK direct from vendor-billed key, AWS Bedrock direct,
-       Linode GPU, Google Colab paid compute, any commercial or rented GPU inference
-       accessed without the Murakumo dispatch layer. (A train-only carve-out for
-       baien-server-* / baien-XL-* artifacts is pending per ADR-2605262200; until
-       effective, this text binds train + inference.) The vendor (etzhayyim.com)
-       operates a separate commercial GPU pool for paid SaaS workloads; religious-
-       corp callers MUST NOT invoke vendor external GPU paths.
+   (i) COMPUTE SOURCING — OBJECTIVE-FUNCTION ASSESSED (reframed in v3.3 per
+       ADR-2606172359; was a categorical "Murakumo-only inference" ban + ADR-2605215000).
+       etzhayyim compute/inference sourcing is NOT restricted by a categorical backend
+       or vendor-name ban. It is assessed dynamically under the ECL objective function
+       (ADR-2606172300) by harmful LOCK-IN / vendor dependence (collective-commons),
+       TRANSPARENCY / auditability (reciprocal-transparency), and ENERGY / carbon
+       footprint (Descendant-Wellbecoming). The Murakumo distributed fleet
+       (ADR-2605202345) remains the DEFAULT and PREFERRED path — transparent, self-
+       hosted, low lock-in, and therefore high-scoring — but "anything other than
+       Murakumo is per se Non-Aligned" is repealed. Transparent, low-lock-in commercial
+       compute that serves descendant wellbecoming (e.g. open-model research
+       collaboration, in-kind donated compute per ADR-2606012100) can score Aligned;
+       opaque, lock-in-creating, proprietary-dependence compute scores negative. The
+       concern was never the vendor's name but the lock-in, opacity, and carbon — which
+       the objective function measures directly. DERIVED FROM: Charter §1.12 (anti-
+       monopoly / anti-dependence) — the priority is UNCHANGED; only the instrument
+       moves from a fixed ban to net-effect scoring.
 
    (j) FORCED LABOR / HUMAN TRAFFICKING (NEW in v3.0). Use of, or revenue derived
        from, forced labor, bonded labor, exploitative child labor, or human

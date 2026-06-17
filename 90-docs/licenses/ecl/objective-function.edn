@@ -21,9 +21,13 @@
 {:meta
  {:id    "ecl-objective-function"
   :title "ECL 子孫-Wellbecoming 目的関数"
-  :version "0.1-draft"
+  :version "0.2-draft"
   :date  "2026-06-17"
-  :note  "基準 = 子・孫の動的 wellbecoming。固定ルールでなく目的関数で動的評価する。"}
+  :note  "基準 = 子・孫の動的 wellbecoming。固定ルールでなく目的関数で動的評価する。
+          v0.2 (ADR-2606172359 改正): compute 調達(旧 Murakumo-only §2(i))と化石利用(旧 §2(d)
+          燃焼禁止)を固定ルールから本目的関数へ移管。compute lock-in/透明性/carbon は
+          collective-commons + reciprocal-transparency + mago-wellbecoming で scored。
+          化石は産業名でなく net carbon balance で評価(非燃焼 feedstock=中立〜正)。"}
 
  ;; ── 目的関数の次元 (Tier-0 で固定: 存在と符号方向) ────────────────────────────
  ;; score の意味: +2 強く資する … 0 中立 … -2 強く反する (子孫 wellbecoming に対して)
@@ -37,20 +41,24 @@
   {:key :mago-wellbecoming :weight 0.30 :scale [-2 2]
    :label "孫・未来世代 (≥25y hence) の wellbecoming-軌跡 (不可逆性で加重)"
    :tier0 "多世代(子・孫およびそれ以降) priority — 最重要"
-   :plus "孫の代に資源/知識/環境/遺伝健全性/意思決定能力を残す"
-   :minus "不可逆な多世代危害 (環境崩壊 / commons 囲い込み / germline / 注意独占)"}
+   :plus "孫の代に資源/知識/環境/遺伝健全性/意思決定能力を残す。化石を*非燃焼の有用用途*
+          (プラスティック/素材/feedstock)や closed-loop/captured-carbon で使う(net 中立〜正)"
+   :minus "*net* 不可逆危害を carbon BALANCE で評価(産業名でなく net 効果): net-positive CO₂e の
+           燃焼経路 / biosphere 崩壊 / commons 囲い込み / germline 無審査 / 注意独占。
+           compute の energy/carbon footprint もここで net 評価 (ADR-2606172359 改正)"}
 
   {:key :collective-commons :weight 0.20 :scale [-2 2]
    :label "子孫が育つ関係的 commons (反個人主義 ontology)"
    :tier0 "collective/relational over isolated individual"
-   :plus "commons/関係的紐帯を強める(子孫が育つ土壌)"
-   :minus "individualist 囲い込み / 私的捕獲"}
+   :plus "commons/関係的紐帯を強める(子孫が育つ土壌)。open-hardware/donated/低 lock-in compute"
+   :minus "individualist 囲い込み / 私的捕獲 / *有害な compute lock-in・vendor 依存*
+           (旧 Murakumo-only の懸念はここで net 評価 — vendor 名でなく lock-in の度合いで; ADR-2606172359)"}
 
   {:key :reciprocal-transparency :weight 0.15 :scale [-2 2]
    :label "相互監視 (見守り — 子供を守り孤立を断つ村社会)"
    :tier0 "permanent-memory = 神の監視 + 相互監視 (reciprocal)"
-   :plus "対称的に観測可能(everyone watched) — 子供を守り孤独死を防ぐ見守り"
-   :minus "monetized OR 非対称 surveillance (watcher unwatched / personal-data 売買)"}
+   :plus "対称的に観測可能(everyone watched) — 子供を守り孤独死を防ぐ見守り。透明な compute 調達/監査可能性"
+   :minus "monetized OR 非対称 surveillance (watcher unwatched / personal-data 売買) / 不透明な compute 経路"}
 
   {:key :labor-liberation :weight 0.10 :scale [-2 2]
    :label "子孫の労働解放 (mission telos)"
@@ -62,12 +70,15 @@
  ;; これらは「scoring すべきでない」かつ「司法で執行可能な bright-line」である必要が
  ;; あるため、目的関数の外に列挙された確定ルールとして残す (二層設計の legal backstop)。
  ;; 1つでも発火 → J を計算せず即 :non-aligned。
+ ;; 注 (ADR-2606172359): 環境/化石(旧 :irreversible-multigen-harm)は確定フロアから削除し、
+ ;; mago-wellbecoming で net carbon balance により動的評価する。compute(旧 Murakumo-only)も
+ ;; 同様に collective-commons/reciprocal-transparency/mago で scored。確定フロアに残すのは、
+ ;; net に関わらず categorically 子孫を侵すもの(虐待/強制労働)と透過性条件付きの2件のみ。
  :screens
  [{:key :csam :label "児童性的虐待 / 非合意性的コンテンツ" :anchor "Rider §2(k); 子 priority 直接侵害"}
   {:key :forced-labor :label "強制労働 / 人身取引 / 搾取的児童労働" :anchor "Rider §2(j); mission 直接反"}
   {:key :aggression-or-covert-force :label "兵器ビジネス / proprietary 兵器 / covert(非透過)武力 / autonomous lethal" :anchor "Rider §2(a) (透過防衛 force は可)"}
-  {:key :monetized-or-asymmetric-surveillance :label "personal-data 売買 OR 非対称(unwatched watcher)監視ビジネス" :anchor "Rider §2(c) (相互監視は可)"}
-  {:key :irreversible-multigen-harm :label "不可逆な多世代危害(環境>±2°C/biosphere崩壊, commons囲い込み, germline)" :anchor "Rider §2(d)(f); 孫 priority 直接侵害"}]
+  {:key :monetized-or-asymmetric-surveillance :label "personal-data 売買 OR 非対称(unwatched watcher)監視ビジネス" :anchor "Rider §2(c) (相互監視は可)"}]
 
  ;; ── route 閾値 (Tier-1) ────────────────────────────────────────────────────
  :thresholds {:aligned 0.5 :non-aligned -0.5}
@@ -117,4 +128,33 @@
    :label "CSAM ホスト (確定フロア発火, scoring 不要)"
    :screens [:csam]
    :scores {}
-   :expect :non-aligned}]}
+   :expect :non-aligned}
+
+  ;; ── ADR-2606172359 改正の実証: 化石/compute は categorical でなく net で評価 ──
+  {:key :fossil-feedstock-plastics
+   :label "化石を非燃焼 feedstock(プラスティック/素材)で使う — 確定フロア無し, net で評価"
+   :screens []
+   :scores {:ko-wellbecoming 0 :mago-wellbecoming 0 :collective-commons 1
+            :reciprocal-transparency 0 :labor-liberation 0}
+   :expect :hold}   ;; ← 旧 hard-floor なら即拒否。今は「有用な化石利用」を拒否せず評価→保留
+
+  {:key :fossil-combustion-net-positive
+   :label "化石*燃焼*で net-positive CO₂e — 目的関数が孫次元で動的に捕捉"
+   :screens []
+   :scores {:ko-wellbecoming -1 :mago-wellbecoming -2 :collective-commons 0
+            :reciprocal-transparency 0 :labor-liberation 0}
+   :expect :non-aligned}   ;; ← 害は依然捕捉。ただし screen でなく net carbon balance スコアで
+
+  {:key :commercial-gpu-open-transparent
+   :label "商用 GPU だが透明・低 lock-in・open 成果 — 旧 Murakumo-only なら即拒否, 今は可"
+   :screens []
+   :scores {:ko-wellbecoming 1 :mago-wellbecoming 0 :collective-commons 1
+            :reciprocal-transparency 1 :labor-liberation 1}
+   :expect :aligned}   ;; ← vendor 名で禁じない。透明・低 lock-in なら aligned
+
+  {:key :commercial-gpu-monopoly-lockin
+   :label "商用 GPU で有害 lock-in・不透明・proprietary 依存 — 懸念を net でスコア"
+   :screens []
+   :scores {:ko-wellbecoming 0 :mago-wellbecoming -1 :collective-commons -2
+            :reciprocal-transparency -1 :labor-liberation 0}
+   :expect :non-aligned}]}   ;; ← vendor でなく lock-in の度合いが減点される

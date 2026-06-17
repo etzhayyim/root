@@ -1,11 +1,11 @@
 ---
 id: adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 title: "ADR-2605215000: etzhayyim inference is Murakumo-fleet-only — RunPod is constitutionally prohibited"
-status: proposed
+status: superseded
 doc_type: adr
 topic: etzhayyim-inference-murakumo-only-no-runpod
-authoritative: true
-last_verified: 2026-05-21
+authoritative: false
+last_verified: 2026-06-17
 priority: 7.0
 axis: infrastructure
 weight: 0.60
@@ -24,12 +24,19 @@ related:
   - adr-2605202100-etzhayyim-kotodama-cell-runner-launchd
   - 2605182312-local-bring-up-murakumo-gemma4
 supersedes: []
-superseded_by: []
+superseded_by:
+  - "2606172359"   # 憲法改正: Murakumo-only を撤廃, compute 調達を目的関数で評価 (Murakumo は default-preferred に降格)
 ---
 
 # ADR-2605215000: etzhayyim inference is Murakumo-fleet-only — RunPod is constitutionally prohibited
 
-**Status**: proposed
+> **SUPERSEDED 2026-06-17 by ADR-2606172359.** The categorical "Murakumo-only / no
+> commercial GPU" invariant is repealed. Compute sourcing is now assessed by the ECL
+> objective function (lock-in / transparency / carbon); the Murakumo fleet remains the
+> DEFAULT and PREFERRED path (high-scoring), but it is no longer a hard ban. This ADR
+> is retained for history.
+
+**Status**: superseded
 **Date**: 2026-05-21
 **Deciders**: Jun Kawasaki
 
