@@ -21,3 +21,8 @@ unique resourceId + 全件 unverified-seed(G14) + accessUrl/https-provenance/las
 `registry/VERIFICATION.md`(G14 三層チェックリスト: per-field license + free-access 検証 +
 worldwide per-jurisdiction official/recognized-source provenance fail-closed +
 ANTI-CREDENTIALISM 境界 re-check; 機械床として test を引用)を追加。honest: **0 verified**。
+
+### 2026-06-17 (loop) — manifest+lexicon charter-gate test (構造ゲート pin)
+既存テスト(registry-seed)は被覆していなかった **manifest G1–G14 + 7 lexicon の教育ゲート**を新設 `methods/test_charter_gates.cljc`(**6 tests green**, standalone・network-free)で固定: (1) manifest が厳密に G1–G14。(2) **G7 anti-credentialism** — domainMasteryAttestation const `credentialClaimedAttested=false`(学位/単位を主張しない、再現可能な技能実演のみ)。(3) **G6 minor privacy** — learningSession/certPrep が learnerAgeBucket{minor, adult} discriminator(未成年は集計のみ)。(4) **G4 curriculum review** — curriculumAttestation が charterAlignmentAttestations + charterRiderScanResult{pass/fail/warn} + licenseDeclaration{Apache-2.0, CC-BY-SA-4.0}(open content)必須。(5) **G3 anti-addiction** — noAddictionUxAttestationCid + inquiryFractionPct 必須。(6) **海賊版禁止** — personalMaterialImport const `internalOnly=true` + encryptedPayloadCid + licenseAcknowledgment{owner-purchased/authored/public-domain}。`run_tests.sh` 新設。working-tree edits only。
+
+> **2026-06-17 substrate-native migration (ADR-2606160842):** the charter-gate test above was ported Python→Clojure (`methods/test_charter_gates.py` → `methods/test_charter_gates.cljc`, ns `manabi.methods.test-charter-gates`, reads the lexicons via cheshire/edn) and the Python was pruned. Run via `./run_tests.sh` (now `exec bb`) or `bb run test:charter` (all 34 charter suites; 244 tests / 924 assertions green). Assertions unchanged (1:1 port).

@@ -28,7 +28,7 @@ class CertificationState:
     classRegime: str | None = None
     upstreamRecords: dict[str, str] | None = None  # {recordType: CID}
     surveyorReview: dict[str, Any] | None = None
-    kotoba-datomicAnchor: dict[str, Any] | None = None
+    kotoba_datomicAnchor: dict[str, Any] | None = None
 
 
 def transition_to_records_collected(state: dict[str, Any]) -> dict[str, Any]:
@@ -64,9 +64,9 @@ def transition_to_surveyor_review(state: dict[str, Any]) -> dict[str, Any]:
     return {"certification_state": cs.__dict__, "next_node": "anchor"}
 
 
-def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
+def transition_to_kotoba_datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
     cs = CertificationState(**state.get("certification_state", {}))
-    cs.kotoba-datomicAnchor = {
+    cs.kotoba_datomicAnchor = {
         "membraneNamespace": "com.etzhayyim.watatsumi",
         "anchorTxHash": "0xWATATSUMICERT...",
         "l2Chain": "Base Sepolia (R0 dry-run)",
@@ -88,7 +88,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "classRegime": cs.classRegime,
         "upstreamRecords": cs.upstreamRecords,
         "surveyorReview": cs.surveyorReview,
-        "kotoba-datomicAnchor": cs.kotoba-datomicAnchor,
+        "kotoba-datomicAnchor": cs.kotoba_datomicAnchor,
         "g2Compliant": True,
         "recordedAt": "2026-05-27T13:30:00Z",
     }

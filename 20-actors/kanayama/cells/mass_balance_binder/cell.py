@@ -7,7 +7,7 @@ from langgraph.graph import StateGraph, START, END
 from .state_machine import (
     BalancePhase, BalanceState,
     transition_to_records_collected, transition_to_mass_balance_computed,
-    transition_to_kotoba-datomic_anchored, transition_to_record_emitted,
+    transition_to_kotoba_datomic_anchored, transition_to_record_emitted,
 )
 
 
@@ -39,7 +39,7 @@ class MassBalanceBinderCell:
 
     def _collect(self, s): return transition_to_records_collected(s)
     def _compute(self, s): return transition_to_mass_balance_computed(s)
-    def _anchor(self, s): return transition_to_kotoba-datomic_anchored(s)
+    def _anchor(self, s): return transition_to_kotoba_datomic_anchored(s)
     def _record(self, s): return transition_to_record_emitted(s)
 
     def solve(self, input_state: dict[str, Any]) -> dict[str, Any]:

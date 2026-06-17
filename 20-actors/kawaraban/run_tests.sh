@@ -1,27 +1,19 @@
 #!/usr/bin/env bash
-# kawaraban 瓦版 — run the whole test suite with one command.
-# Tests are standalone-runnable (the repo pytest plugin env is broken); each prints its own
-# count and exits non-zero on failure. This aggregates them and reports a grand total.
-set -uo pipefail
-cd "$(dirname "$0")"
-
-SUITES=(
-  "methods/test_route.py"
-  "methods/test_analyze.py"
-  "methods/test_ingest.py"
-  "cells/test_state_machines.py"
-)
-
-fail=0
-for s in "${SUITES[@]}"; do
-  dir="$(dirname "$s")"; file="$(basename "$s")"
-  if ( cd "$dir" && python3 "$file" ); then :; else
-    echo "FAILED: $s"; fail=1
-  fi
-done
-
-if [ "$fail" -eq 0 ]; then
-  echo "── kawaraban: ALL suites green ──"
-else
-  echo "── kawaraban: FAILURES above ──"; exit 1
-fi
+# kawaraban 瓦版 — test runner, bb/clj (ADR-2606160842 py→clj port wave; clj + datomic first tier).
+# The methods suite (route/analyze/ingest/charter-gates) is cljc — run via babashka from the
+# repo root (registered in bb.edn test:pywasm). The Python sources + tests were pruned once the
+# cljc ports verified green. The only remaining Python is cells/test_state_machines.py (the
+# Pregel state-machine guards, not yet ported); it is shelled out so no coverage is lost.
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+exec bb -e '
+(require (quote clojure.test) (quote [babashka.process :as p])
+         (quote kawaraban.methods.test-route) (quote kawaraban.methods.test-analyze)
+         (quote kawaraban.methods.test-ingest) (quote kawaraban.methods.test-charter-gates))
+(let [r (clojure.test/run-tests (quote kawaraban.methods.test-route)
+                                (quote kawaraban.methods.test-analyze)
+                                (quote kawaraban.methods.test-ingest)
+                                (quote kawaraban.methods.test-charter-gates))
+      cells (p/shell {:dir "20-actors/kawaraban/cells" :continue true} "python3" "test_state_machines.py")]
+  (println "cells/test_state_machines.py (py, pending cljc port) exit:" (:exit cells))
+  (System/exit (if (and (zero? (+ (:fail r) (:error r))) (zero? (:exit cells))) 0 1)))'

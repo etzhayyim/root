@@ -9,7 +9,7 @@ phase-gate (no fossil-only R2+); ≤SAE J3016 Level 3 autonomy; no surveillance 
 | Lexicons | ✅ 9 under `com.etzhayyim.suki.*` (chassis / powertrain / electricalEcu / hitchPto / cab / paint / emissionsAudit / fieldTest / silenSukiReview) |
 | Cells | 🟡 9 path-reserved in `40-engine/.../cells/suki_*` (R0) |
 | Manifest | ✅ present (carries G1–G14) |
-| Tests | ✅ `methods/test_charter_gates.py` — **8 tests, green** (added 2026-06-16; previously NO dedicated test) — pins G9/G10 RTR, G7 fuel, G8 emissions, G4 witness, N11 no-surveillance, G3 implement, G12 KPI-cap; `./run_tests.sh` |
+| Tests | ✅ `methods/test_charter_gates.cljc` — **8 tests, green** (added 2026-06-16; previously NO dedicated test) — pins G9/G10 RTR, G7 fuel, G8 emissions, G4 witness, N11 no-surveillance, G3 implement, G12 KPI-cap; `./run_tests.sh` |
 | Methods | ⛔ no offline engine yet (R1 benchtop 50hp loop) |
 
 ## Charter gates pinned by the test
@@ -35,3 +35,5 @@ phase-gate (no fossil-only R2+); ≤SAE J3016 Level 3 autonomy; no surveillance 
 silenSukiReview `r1-benchtop-prototype-50hp-baseline` + Council Lv6+; cell `.solve()` stays
 R0-gated until then. KPI value caps (≤200 hp / road ≤40 / field ≤15 km/h / ≤SAE L3 / axle ≤8 t)
 enforced in the R1 cell logic.
+
+> **2026-06-17 substrate-native migration (ADR-2606160842):** the charter-gate test above was ported Python→Clojure (`methods/test_charter_gates.py` → `methods/test_charter_gates.cljc`, ns `suki.methods.test-charter-gates`, reads the lexicons via cheshire/edn) and the Python was pruned. Run via `./run_tests.sh` (now `exec bb`) or `bb run test:charter` (all 34 charter suites; 244 tests / 924 assertions green). Assertions unchanged (1:1 port).

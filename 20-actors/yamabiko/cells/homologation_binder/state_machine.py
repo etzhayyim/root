@@ -30,7 +30,7 @@ class HomologationState:
     serial: str | None = None
     trainsetDid: str | None = None
     authorityReview: dict[str, Any] | None = None
-    kotoba-datomicAnchor: dict[str, Any] | None = None
+    kotoba_datomicAnchor: dict[str, Any] | None = None
 
 
 def transition_to_records_collected(state: dict[str, Any]) -> dict[str, Any]:
@@ -80,9 +80,9 @@ def transition_to_homologation_authority_review(state: dict[str, Any]) -> dict[s
     return {"homologation_state": s.__dict__, "next_node": "anchor"}
 
 
-def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
+def transition_to_kotoba_datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
     s = HomologationState(**state.get("homologation_state", {}))
-    s.kotoba-datomicAnchor = {
+    s.kotoba_datomicAnchor = {
         "membraneNamespace": "com.etzhayyim.yamabiko",
         "anchorTxHash": "0xYAMABIKOHOMOLOGATION...",
         "l2Chain": "Base Sepolia (R0 dry-run)",
@@ -106,7 +106,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "trainsetDid": s.trainsetDid,
         "upstreamRecords": s.upstreamRecords,
         "authorityReview": s.authorityReview,
-        "kotoba-datomicAnchor": s.kotoba-datomicAnchor,
+        "kotoba-datomicAnchor": s.kotoba_datomicAnchor,
         "recordedAt": "2026-05-27T13:30:00Z",
     }
     return {"homologation_state": s.__dict__, "homologation_record": record, "next_node": "end"}

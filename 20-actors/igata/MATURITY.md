@@ -10,7 +10,7 @@ aerospace/armor parts).
 | Lexicons | ✅ 5 under `com.etzhayyim.igata.*` (alloyAttestation / castShotRecord / dieAttestation / partAttestation / silenIgataReview) |
 | Cells | 🟡 8 path-reserved in `40-engine/.../cells/igata_*` (verify_ingot_provenance / induction_melt / …) |
 | Manifest | ✅ present (carries `igata:constitutionalGates` G1–G14) |
-| Tests | ✅ `methods/test_charter_gates.py` — **7 tests, green** (added 2026-06-16; previously NO dedicated test) — pins G6/G7/G4/G9/G8/G14/G11 schema gates; `./run_tests.sh` |
+| Tests | ✅ `methods/test_charter_gates.cljc` — **7 tests, green** (added 2026-06-16; previously NO dedicated test) — pins G6/G7/G4/G9/G8/G14/G11 schema gates; `./run_tests.sh` |
 | Methods | ⛔ no offline engine yet (R1 benchtop 500-ton loop) |
 
 ## Charter gates pinned by the test (manifest igata:constitutionalGates G1–G14)
@@ -34,3 +34,5 @@ aerospace/armor parts).
 silenIgataReview `r1-benchtop-500ton-baseline` + Council Lv6+ supermajority; cell `.solve()`
 stays R0-gated (no live actuation) until then. G1 clamping ≤6000 ton + G12 rate ≤1 part/90 s
 are value invariants enforced in the R1 cell logic (not schema-expressible).
+
+> **2026-06-17 substrate-native migration (ADR-2606160842):** the charter-gate test above was ported Python→Clojure (`methods/test_charter_gates.py` → `methods/test_charter_gates.cljc`, ns `igata.methods.test-charter-gates`, reads the lexicons via cheshire/edn) and the Python was pruned. Run via `./run_tests.sh` (now `exec bb`) or `bb run test:charter` (all 34 charter suites; 244 tests / 924 assertions green). Assertions unchanged (1:1 port).

@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
-# mitsuho 瑞穂 — run the whole test suite with one command.
-set -uo pipefail
-cd "$(dirname "$0")"
-SUITES=( "methods/test_charter_gates.py" "py/test_agent.py" )
-fail=0
-for s in "${SUITES[@]}"; do
-  [ -f "$s" ] || continue
-  dir="$(dirname "$s")"; file="$(basename "$s")"
-  if ( cd "$dir" && python3 "$file" ); then :; else echo "FAILED: $s"; fail=1; fi
-done
-[ "$fail" -eq 0 ] && echo "── mitsuho: ALL suites green ──" || { echo "── mitsuho: FAILURES ──"; exit 1; }
+# mitsuho — charter-gate suite, bb/clj (ADR-2606160842; py pruned).
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+exec bb -e '(require (quote clojure.test) (quote mitsuho.methods.test-charter-gates))(let [r (clojure.test/run-tests (quote mitsuho.methods.test-charter-gates))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
