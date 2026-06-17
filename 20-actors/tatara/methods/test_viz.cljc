@@ -23,13 +23,16 @@
     (is (= [3 1] (map :value bars)))
     (is (every? :col bars))))
 
-(deftest test-composition-bars-overlay-live-craft
+(deftest test-composition-bars-overlay-craft-and-cable
   (let [transit {"malacca" #{"c1" "c2"} "hormuz" #{}}
-        bars (composition-bars a-fixture transit)]
-    ;; primary value = tatara plant export-dependence (静); :sub = watari live craft (動)
-    (is (= {:name "malacca" :value 3 :sub 2} (-> bars first (select-keys [:name :value :sub]))))
+        cable {"malacca" #{"st1" "st2" "st3"}}
+        bars (composition-bars a-fixture transit cable)]
+    ;; 静 plants (:value) · 動 craft (:sub) · 静-infra cable stations (:sub2) over the SAME keyword
+    (is (= {:name "malacca" :value 3 :sub 2 :sub2 3}
+           (-> bars first (select-keys [:name :value :sub :sub2]))))
     (is (= 0 (:sub (second bars))))                   ;; hormuz: no live craft this wave
-    ;; a chokepoint absent from the transit map still renders (sub 0), never throws
+    (is (= 0 (:sub2 (second bars))))                  ;; hormuz: no cable station this seed
+    ;; a chokepoint absent from the transit/cable maps still renders (0), never throws
     (is (= 2 (count bars)))))
 
 (deftest test-choke-points-are-geographic-markers

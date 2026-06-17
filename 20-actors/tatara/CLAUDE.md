@@ -86,11 +86,11 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   never hand-edited, so it cannot drift.
 - `cell:tatara.viz` → `viz/build_viz.cljc`. Emits three self-contained canvas globes —
   `viz/plant-globe.htm` (C, plants by sector), `viz/world-supply-globe.htm` (A, plants + live
-  craft + chokepoint composition), `../watari/viz/craft-globe.htm` (B, watari's first viz).
+  craft + watatsuna cable stations, 3-way composed per chokepoint), `../watari/viz/craft-globe.htm` (B, watari's first viz).
   Every coordinate DERIVED from a seed (regenerable; none hand-copied).
 
 ```bash
-bb 20-actors/tatara/run_tests.sh                                              # 46 tests / 4,890 assertions
+bb 20-actors/tatara/run_tests.sh                                              # 46 tests / 4,891 assertions
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"  # → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)"      # → the three globes
 bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-main)"  # autonomous heartbeat → LOCAL kotoba log
@@ -111,7 +111,8 @@ keywords (`:malacca :luzon-strait :suez-red-sea :gibraltar :hormuz …`), a chok
 **manufacturing export-dependence** (tatara), **live vessel transit** (watari), and
 **submarine-cable load** (watatsuna) compose into one maritime resilience map — all routed to
 redundancy + safer routing + faster repair, **never to interdiction** (G2). The integrated
-`world-supply-globe.htm` renders the first two layers together.
+`world-supply-globe.htm` renders all THREE layers together (plants · live craft · cable stations),
+with a per-chokepoint composition bar (静 plants · 動 craft · 静-infra cable).
 
 ## Distinct from the factory-building / factory-operating actors (N3)
 

@@ -153,14 +153,43 @@
                      acc))
                  {} latest)))))
 
+#?(:clj
+   (defn- watatsuna-choke-load
+     "Read the watatsuna cable graph → map chokepoint-keyword-name → distinct cable landing
+     stations whose :station/chokepoint carries that keyword. The static-cable leg of the
+     resilience composition (静 infrastructure)."
+     [watatsuna-seed]
+     (if-not (.exists (io/file watatsuna-seed))
+       {}
+       (let [rows (edn/read-string (slurp watatsuna-seed))]
+         (reduce (fn [acc s]
+                   (reduce (fn [acc cp] (update acc (name cp) (fnil conj #{}) (:station/id s)))
+                           acc (:station/chokepoint s)))
+                 {} (filter :station/id rows))))))
+
+#?(:clj
+   (defn- watatsuna-station-points
+     "Cable landing stations as small markers (the third overlay on the world-supply globe)."
+     [watatsuna-seed]
+     (if-not (.exists (io/file watatsuna-seed))
+       []
+       (mapv (fn [s]
+               {:lat (:station/lat s) :lon (:station/lon s) :col "#7fb1c9" :w 0 :kind "station"
+                :nm (str "⌁ " (:station/name s)) :cc (:station/country s "")
+                :info [(str "cable landing station (watatsuna)")
+                       (str "chokepoint(s): " (clojure.string/join ", " (map name (:station/chokepoint s))))]})
+             (filter :station/id (edn/read-string (slurp watatsuna-seed)))))))
+
 (defn- composition-bars
-  "Per-chokepoint composition: tatara plant export-dependence + watari live craft transit.
-  value = plants (primary bar); :sub = craft count (the 動 overlay)."
-  [a craft-transit]
+  "Per-chokepoint resilience composition over the SAME keyword: tatara plant export-dependence
+  (静) · watari live craft transit (動) · watatsuna cable-station load (静 infra).
+  :value = plants (primary bar); :sub = craft; :sub2 = cable stations."
+  [a craft-transit cable-load]
   (mapv (fn [cp]
           (let [k (name cp)]
             {:name k :value (count (get-in a [:choke-plants cp]))
              :sub (count (get craft-transit k #{}))
+             :sub2 (count (get cable-load k #{}))
              :col (get choke-colors k "#9ad")}))
         (az/chokes-by-load a)))
 
@@ -231,7 +260,7 @@ function resize(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;
 window.addEventListener('resize',resize);
 function project(lat,lon){let v=rotX(rotY(v3(lat,lon),ry),rx);return{x:cx+R*v[0],y:cy-R*v[1],front:v[2]>0};}
 const maxW=Math.max(1,...DATA.points.map(p=>p.w||0));
-const rOf=p=>p.kind==='chokepoint'?(4+1.6*Math.sqrt(p.w||1)):(p.kind==='hub')?3.2:(3+11*Math.sqrt((p.w||1)/maxW));
+const rOf=p=>p.kind==='chokepoint'?(4+1.6*Math.sqrt(p.w||1)):(p.kind==='station')?2.6:(p.kind==='hub')?3.2:(3+11*Math.sqrt((p.w||1)/maxW));
 function draw(){
  ctx.clearRect(0,0,W,H);
  const g=ctx.createRadialGradient(cx-R*0.3,cy-R*0.3,R*0.2,cx,cy,R);
@@ -280,11 +309,15 @@ const S=document.getElementById('stats');
 S.innerHTML=DATA.stats.map(s=>'<div class=\"stat\"><span>'+s[0]+'</span><b>'+s[1]+'</b></div>').join('');
 const maxBar=Math.max(1,...DATA.bars.map(b=>b.value));
 const maxSub=Math.max(1,...DATA.bars.map(b=>b.sub||0));
+const maxSub2=Math.max(1,...DATA.bars.map(b=>b.sub2||0));
+const mkbar=(v,mx,col)=>'<div class=\"track\" style=\"height:4px;margin-top:2px;background:#0a1422\"><div class=\"fill\" style=\"width:'+(100*v/mx)+'%;background:'+col+'\"></div></div>';
 document.getElementById('bars').innerHTML=DATA.bars.map(b=>{
- const lab=(b.sub!=null)?(b.value+'p · '+b.sub+'c'):(''+b.value);
- const sub=(b.sub!=null)?('<div class=\"track\" style=\"height:4px;margin-top:2px;background:#0a1422\"><div class=\"fill\" style=\"width:'+(100*b.sub/maxSub)+'%;background:#5ad1a8\"></div></div>'):'';
+ let lab=''+b.value;
+ if(b.sub!=null)lab=b.value+'p · '+b.sub+'c'+(b.sub2!=null?' · '+b.sub2+'s':'');
+ const sub=(b.sub!=null)?mkbar(b.sub,maxSub,'#5ad1a8'):'';
+ const sub2=(b.sub2!=null)?mkbar(b.sub2,maxSub2,'#7fb1c9'):'';
  return '<div class=\"bar\"><div class=\"lab\"><span>'+b.name+'</span><span>'+lab+'</span></div>'+
-  '<div class=\"track\"><div class=\"fill\" style=\"width:'+(100*b.value/maxBar)+'%;background:'+b.col+'\"></div></div>'+sub+'</div>';
+  '<div class=\"track\"><div class=\"fill\" style=\"width:'+(100*b.value/maxBar)+'%;background:'+b.col+'\"></div></div>'+sub+sub2+'</div>';
 }).join('');
 document.getElementById('legend').innerHTML=LEGEND.map(l=>
  '<span><i style=\"background:'+l[1]+'\"></i>'+l[0]+'</span>').join('');
@@ -300,6 +333,7 @@ resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationF
                   (io/file "20-actors"))
            tatara-seed (io/file root "tatara" "data" "seed-plant-graph.kotoba.edn")
            watari-seed (io/file root "watari" "data" "seed-craft-graph.kotoba.edn")
+           watatsuna-seed (io/file root "watatsuna" "data" "cable-graph.merged.kotoba.edn")
            rows (az/load-edn tatara-seed)
            g (az/classify rows)
            a (az/analyze g)
@@ -314,7 +348,9 @@ resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationF
                                (sort-by (comp name first) sector-colors))
            craft (or (watari-craft-points watari-seed) [])
            craft-transit (watari-choke-transit watari-seed)
-           comp-bars (composition-bars a craft-transit)
+           cable-load (watatsuna-choke-load watatsuna-seed)
+           stations (watatsuna-station-points watatsuna-seed)
+           comp-bars (composition-bars a craft-transit cable-load)
 
            ;; (C) plant globe
            plant-html
@@ -331,13 +367,13 @@ resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationF
            ;; (A) integrated world supply globe — plants + live craft + composition
            world-html
            (html {:title "world supply" :ja "世界製造・物流"
-                  :subtitle "manufacturing plants (tatara) + live craft (watari) composed per chokepoint"
-                  :source "tatara + watari seeds"
-                  :bars-title "Chokepoint composition — plants (静) · live craft (動)"
+                  :subtitle "plants (tatara) + live craft (watari) + cable stations (watatsuna) composed per chokepoint"
+                  :source "tatara + watari + watatsuna seeds"
+                  :bars-title "Chokepoint composition — plants (静) · craft (動) · cable (静 infra)"
                   :legend [["manufacturing plant" "#62d0ff"] ["vessel (live)" "#5ad1a8"]
                            ["aircraft (live)" "#ff9f6b"] ["logistics hub" "#8fa9c8"]
-                           ["◆ chokepoint" "#ffcf6b"]]
-                  :data {:points (into (into (into pp hp) cps) craft) :arcs arcs :bars comp-bars
+                           ["⌁ cable station" "#7fb1c9"] ["◆ chokepoint" "#ffcf6b"]]
+                  :data {:points (into (into (into (into pp hp) cps) stations) craft) :arcs arcs :bars comp-bars
                          :stats [["plants" (:n-plants a)] ["live craft (watari)" (count craft)]
                                  ["export flows" (:n-flows a)]
                                  ["aggregate employment" (:global-headcount a)]]}})

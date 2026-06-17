@@ -63,7 +63,7 @@ function resize(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;
 window.addEventListener('resize',resize);
 function project(lat,lon){let v=rotX(rotY(v3(lat,lon),ry),rx);return{x:cx+R*v[0],y:cy-R*v[1],front:v[2]>0};}
 const maxW=Math.max(1,...DATA.points.map(p=>p.w||0));
-const rOf=p=>p.kind==='chokepoint'?(4+1.6*Math.sqrt(p.w||1)):(p.kind==='hub')?3.2:(3+11*Math.sqrt((p.w||1)/maxW));
+const rOf=p=>p.kind==='chokepoint'?(4+1.6*Math.sqrt(p.w||1)):(p.kind==='station')?2.6:(p.kind==='hub')?3.2:(3+11*Math.sqrt((p.w||1)/maxW));
 function draw(){
  ctx.clearRect(0,0,W,H);
  const g=ctx.createRadialGradient(cx-R*0.3,cy-R*0.3,R*0.2,cx,cy,R);
@@ -112,11 +112,15 @@ const S=document.getElementById('stats');
 S.innerHTML=DATA.stats.map(s=>'<div class="stat"><span>'+s[0]+'</span><b>'+s[1]+'</b></div>').join('');
 const maxBar=Math.max(1,...DATA.bars.map(b=>b.value));
 const maxSub=Math.max(1,...DATA.bars.map(b=>b.sub||0));
+const maxSub2=Math.max(1,...DATA.bars.map(b=>b.sub2||0));
+const mkbar=(v,mx,col)=>'<div class="track" style="height:4px;margin-top:2px;background:#0a1422"><div class="fill" style="width:'+(100*v/mx)+'%;background:'+col+'"></div></div>';
 document.getElementById('bars').innerHTML=DATA.bars.map(b=>{
- const lab=(b.sub!=null)?(b.value+'p · '+b.sub+'c'):(''+b.value);
- const sub=(b.sub!=null)?('<div class="track" style="height:4px;margin-top:2px;background:#0a1422"><div class="fill" style="width:'+(100*b.sub/maxSub)+'%;background:#5ad1a8"></div></div>'):'';
+ let lab=''+b.value;
+ if(b.sub!=null)lab=b.value+'p · '+b.sub+'c'+(b.sub2!=null?' · '+b.sub2+'s':'');
+ const sub=(b.sub!=null)?mkbar(b.sub,maxSub,'#5ad1a8'):'';
+ const sub2=(b.sub2!=null)?mkbar(b.sub2,maxSub2,'#7fb1c9'):'';
  return '<div class="bar"><div class="lab"><span>'+b.name+'</span><span>'+lab+'</span></div>'+
-  '<div class="track"><div class="fill" style="width:'+(100*b.value/maxBar)+'%;background:'+b.col+'"></div></div>'+sub+'</div>';
+  '<div class="track"><div class="fill" style="width:'+(100*b.value/maxBar)+'%;background:'+b.col+'"></div></div>'+sub+sub2+'</div>';
 }).join('');
 document.getElementById('legend').innerHTML=LEGEND.map(l=>
  '<span><i style="background:'+l[1]+'"></i>'+l[0]+'</span>').join('');
