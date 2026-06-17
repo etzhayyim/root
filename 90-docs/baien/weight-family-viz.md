@@ -57,3 +57,12 @@ These are computed/grounded from the actual maxwell-1 checkpoint (Gemma 4 E4B + 
 
 `loss_landscape.py` is the honest one — it loads the real adapter and measures the surface; the rest
 use the real *config* (42 layers etc.) but draw the wiring illustratively.
+
+## Solved/measured, not drawn (2026-06-17)
+
+| File | What | Generator |
+|---|---|---|
+| `oka-sheaf-physics.png` | a REAL small cellular-sheaf-diffusion instance **physically computed**: real `L_F=δᵀδ` (60×60) + eigen-spectrum (**harmonic dim=6** = global section) + Dirichlet-energy decay (59.95→1e-12) + edge-disagreement→consensus. oka has no trained weights (R0), so this is a real *instance* of its physics, not the deployed model | `gen_oka_sheaf_compute.py` |
+| `maxwell1-real-tensors.png` | maxwell-1 from **real tensors**: per-layer LoRA ΔW norms (training concentrated in deep-layer MLP) · real q_proj ΔW singular values (low-rank) · real attention probabilities on a real prompt (causal triangle + token-0 sink) · real layer-0 q_proj weight block | `extract_weights.py` (gad) → JSON → render |
+
+**Honesty note:** maxwell-1 figures (`maxwell1-real-tensors`, `maxwell1-real-loss-landscape`) are measured from the actual trained weights. The `maxwell1-layers-3d`/`attention-fan` use the real *config* but draw the wiring illustratively. oka has **no trained model** (R0 scaffold) — `oka-sheaf-physics` computes a real instance of the sheaf operator/physics; the mandala/anim are conceptual.
