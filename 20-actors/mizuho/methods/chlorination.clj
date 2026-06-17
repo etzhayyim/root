@@ -72,8 +72,10 @@
         settling-seconds (if (>= (:settling-step res) 0) (* (:settling-step res) dt) -1.0)]
     {:agent agent
      :target-residual-mgl target-residual-mgl
-     :final-residual-mgl (s/round6 (:final-value res))
-     :max-residual-mgl (s/round6 max-residual)
+     ;; py DosingResult rounds these to 4 dp (round(...,4)); match that contract exactly so the
+     ;; clj port is byte-faithful (was s/round6 → 0.611382 vs py 0.6114; cross-lang parity caught it).
+     :final-residual-mgl (/ (Math/round (* (double (:final-value res)) 1e4)) 1e4)
+     :max-residual-mgl (/ (Math/round (* (double max-residual) 1e4)) 1e4)
      :residual-held (:converged res)
      :ceiling-respected (<= max-residual (+ MAX-RESIDUAL-MGL 1e-9))
      :settling-seconds (/ (Math/round (* settling-seconds 1000.0)) 1000.0)

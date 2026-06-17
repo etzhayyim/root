@@ -42,7 +42,7 @@ methods/ugachi_edn.cljc   loader + classify
 methods/gate.cljc         verdict → assess → render-datoms → render-report (+ bb CLI)
 methods/bridge.cljc       Wave 2: ground monopoly-effect in busshi concentration → ground-and-assess (+ bb CLI)
 methods/kotoba.cljc       Wave 2: content-addressed append-only STEWARDSHIP LEDGER (tamper-evident commit-DAG)
-methods/autorun.cljc      Wave 2: deterministic heartbeat — assess → append verdict datoms to the ledger (+ bb CLI)
+methods/autorun.cljc      Wave 2: deterministic, idempotent-by-content heartbeat — assess → append ONLY on change (+ bb CLI)
 methods/test_*.cljc       gate verdicts + refusal/structural + grounding + ledger/heartbeat invariants
 kotoba/ontology.ugachi.edn  EAVT schema + enums + refuse-reasons + negative space
 kotoba/seed.edn           synthetic proposed projects spanning all verdicts
@@ -65,7 +65,7 @@ layer (busshi) into the EXECUTION layer (ugachi).
 ## Run
 
 ```bash
-./20-actors/ugachi/run_tests.sh                                    # 5 suites (31 tests / 86 assert)
+./20-actors/ugachi/run_tests.sh                                    # 5 suites (32 tests / 94 assert)
 bb --classpath 20-actors 20-actors/ugachi/methods/gate.cljc        # print the stewardship gate
 bb --classpath 20-actors 20-actors/ugachi/methods/bridge.cljc      # print the busshi-grounded gate
 bb --classpath 20-actors 20-actors/ugachi/methods/autorun.cljc \
@@ -85,7 +85,8 @@ R0 synthetic seed → 3 `:propose-r0`, 1 `:route-to-recovery`, 5 `:refuse`, 2 `:
 
 - **Wave 2 (landed, ADR-2606161830)**: busshi concentration grounding bridge (above).
 - **Wave 2 (landed, ADR-2606170900)**: content-addressed stewardship-ledger persistence
-  (`kotoba.cljc`) + deterministic heartbeat (`autorun.cljc`) — verdicts appended to a
-  tamper-evident commit-DAG (verify-chain), resume-safe, no-server-key.
+  (`kotoba.cljc`) + deterministic, **idempotent-by-content** heartbeat (`autorun.cljc`) —
+  verdicts appended to a tamper-evident commit-DAG (verify-chain) ONLY when they change
+  (identical beat = no-op, `:appended false :reason :no-change`); resume-safe, no-server-key.
 - Wave 2+: rare-earth-coverage detail + kamado carbon-balance as real gate inputs (behind G7/G9);
   Murakumo-narrated gate digest; fleet registration; live kotoba-engine bridge. Live actuation stays Council Lv7+.

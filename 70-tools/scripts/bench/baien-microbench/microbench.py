@@ -215,7 +215,7 @@ PROMPTS: list[Prompt] = [
 
 # ----- model adapter ------------------------------------------------------
 
-def load_hf(model_id: str):
+def load_hf(model_id: str, diffusion: bool = False):
     import torch
     try:
         import torch._dynamo as _dyn
@@ -223,6 +223,16 @@ def load_hf(model_id: str):
         _dyn.disable()
     except Exception:
         pass
+    if diffusion:
+        # discrete diffusion LM (e.g. google/diffusiongemma-26B-A4B-it): needs the
+        # DiffusionGemma class + a processor. device_map="auto" leaves it on meta
+        # tensors (accelerate gap), so load plain on CPU (ADR-2606171100 verification).
+        from transformers import DiffusionGemmaForBlockDiffusion, AutoProcessor
+        torch.set_num_threads(16)
+        proc = AutoProcessor.from_pretrained(model_id)
+        model = DiffusionGemmaForBlockDiffusion.from_pretrained(model_id, dtype=torch.bfloat16)
+        model.eval()
+        return proc, model
     from transformers import AutoModelForCausalLM, AutoTokenizer
     tok = AutoTokenizer.from_pretrained(model_id)
     model = AutoModelForCausalLM.from_pretrained(
@@ -232,8 +242,24 @@ def load_hf(model_id: str):
     return tok, model
 
 
-def generate(tok, model, prompt: str, max_new_tokens: int) -> tuple[str, float]:
+def generate(tok, model, prompt: str, max_new_tokens: int, diffusion: bool = False) -> tuple[str, float]:
     import torch
+    if diffusion:
+        enc = tok.apply_chat_template(
+            [{"role": "user", "content": prompt}],
+            tokenize=True, add_generation_prompt=True,
+            return_tensors="pt", return_dict=True,
+        ).to(model.device)
+        in_len = enc["input_ids"].shape[1]
+        t0 = time.perf_counter()
+        with torch.no_grad():
+            out = model.generate(**enc, max_new_tokens=max_new_tokens)  # diffusion: no do_sample/pad
+        dt = time.perf_counter() - t0
+        seq = getattr(out, "sequences", out)
+        if not hasattr(seq, "shape"):
+            seq = next(v for v in vars(out).values() if hasattr(v, "shape"))
+        text = tok.decode(seq[0][in_len:], skip_special_tokens=True)
+        return text, dt
     if hasattr(tok, "apply_chat_template") and tok.chat_template:
         enc = tok.apply_chat_template(
             [{"role": "user", "content": prompt}],
@@ -263,10 +289,12 @@ def main() -> int:
     ap.add_argument("--out", default="results.jsonl")
     ap.add_argument("--limit", type=int, default=0,
                     help="if >0, run only the first N prompts (debug)")
+    ap.add_argument("--diffusion", action="store_true",
+                    help="load as a DiffusionGemma block-diffusion LM (ADR-2606171100)")
     args = ap.parse_args()
 
-    print(f"[load] {args.model}", flush=True)
-    tok, model = load_hf(args.model)
+    print(f"[load] {args.model} (diffusion={args.diffusion})", flush=True)
+    tok, model = load_hf(args.model, diffusion=args.diffusion)
     print(f"[load] done", flush=True)
 
     out_path = Path(args.out)
@@ -281,7 +309,7 @@ def main() -> int:
     with out_path.open("a", encoding="utf-8") as f:
         for p in prompts:
             try:
-                resp, dt = generate(tok, model, p.prompt, p.max_tokens)
+                resp, dt = generate(tok, model, p.prompt, p.max_tokens, diffusion=args.diffusion)
                 ok, reason = p.scorer(resp)
                 row = {
                     "ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),

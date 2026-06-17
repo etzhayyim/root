@@ -1,0 +1,69 @@
+;; ──────────────────────────────────────────────────────────────────────────
+;; ADR-2606162000 — jinushi 地主 — world land/building ownership ACQUISITION mirror
+;;   multi-source · clj-native · public-record gate · IPFS-pinned · production-scale
+;; Machine-readable EDN projection; the canonical NARRATIVE is the sibling .md.
+;; Status: accepted — RATIFIED 2026-06-17 by PR merge (founder = Council Lv7+ 1/1,
+;;   PR review = Council attestation); landed across PR #1820 / #1874 / #1878.
+;; ──────────────────────────────────────────────────────────────────────────
+{:id        "2606162000"
+ :title     "jinushi 地主 — world land/building ownership ACQUISITION mirror (multi-source, clj-native, public-record gate)"
+ :status    :accepted
+ :date      #inst "2026-06-16"
+ :last-verified #inst "2026-06-17"
+ :deciders  ["Jun Kawasaki (founder = Council Lv7+ 1/1)"]
+ :doc-type  :adr
+ :topic     :jinushi-land-ownership-acquisition-mirror
+ :authoritative true
+ :body-file "2606162000-jinushi-land-ownership-acquisition-mirror.md"
+
+ :depends-on ["2605192100" "2605192245" "2605241500" "2605262130" "2605312345" "2606082400"]
+ :related    ["2606013800" "2606022000" "2606032000" "2606101000" "2606111330"]
+ :supersedes []
+ :superseded-by []
+
+ ;; ── context — why ─────────────────────────────────────────────────────────
+ :context
+ {:problem "The on-chain LandRegistry records only DONATED waqf-inalienable land (starts at 0); no upstream actor measured how much of the world's land we have data on, who holds it, or where the 取-concentration is. The legacy crawler→land-owners→maps design was RDBMS/KV and never built."
+  :role "Data-acquisition feeder of the land-sovereignty stack (ADR-2605192100 §1.11 + 2605192245); land-scale sibling of the KG-mirror lineage (inochi/tsumugi/kabuto/kanae/keizu), clj-native on the kotoba Datom log."}
+
+ ;; ── decision — D1..D7 ─────────────────────────────────────────────────────
+ :decision
+ {:D1 "Multi-SOURCE, source-agnostic ingest ({:owners :parcels}); per-source normalize → committed snapshot → kotoba Datom log. Sources: Wikidata parks/reserves/buildings, NYC PLUTO gov cadastre, FR DVF values, GLEIF company identity, OSM building stock + Wikidata country-area denominator."
+  :D2 "REFRAMED public-record gate (the constitution does NOT ban personal data; Rider v3.1 §2(c)/ADR-2606082400 bans ASYMMETRIC/MONETIZED surveillance, affirms reciprocal-symmetric 相互監視): P1 public-record provenance + P2 reciprocal/symmetric + P3 map-not-target/non-monetized. Per-jurisdiction grounding (jurisdiction.cljc): bulk-public juris (SE/US/GB/IE/NL/NO) ingest natural persons; per-parcel-only (JP/KR) and restricted (DE/AT/CH/FR owner-names) do not; unknown degrades honestly."
+  :D3 "INGEST vs PUBLISH distinct: gate permits ingest; the published analytical artifact applies publish-prudence — bulk-cadastre ORDINARY individuals anonymized (sha256-key, no name, raw stays local/IPFS cold-tier); NOTABLE public-figure owners from open KGs (Wikidata, already-public QID) ARE represented. No dwelling coordinates (G1)."
+  :D4 "Per-source RELIABILITY (信頼度) tiers + trust-weighted cross-source reconcile (GLEIF authoritative name wins over Wikidata crowd label, disagreement recorded); as-of DIFF (差分) feeds the append-only log; sanitize (parcel > country area dropped, G4)."
+  :D5 "Content-addressing (cid.cljc CIDv1 raw/sha2-256, verified ipfs-compatible) + integrity verify.cljc (committed-only) + UNIFIED canonical Datom log (emit_all.cljc, source-tagged) + capstone digest.cljc."
+  :D6 "Storage: git-committed working copies + IPFS-pinned (clean public bundle DHT-announced); raw + resolution caches committed so a rebuild never re-queries; full DataLad superdataset + remote IPFS pin = operator cold-tier (ADR-2605241500). 負担をかけない: one polite fetch per increment; the loop re-ingests committed snapshots with zero network I/O."
+  :D7 "PRODUCTION-SCALE (R2, scale_ingest.cljc + PRODUCTION.md): bounded-memory line-streaming for full bulk (PLUTO ~860k / nationwide DVF), aggregates byte-identical to the sample path, person names anonymized on the fly; operator runs the one-shot bulk download, never the loop."
+  :G3 "jinushi asserts NO transfer/mint/donation — only the on-chain LandRegistry moves land, by member donation (no-server-key)."}
+
+ :invariants
+ ["public-record + reciprocal-symmetric + map-not-target + non-monetized (G1/Rider §2(c))"
+  "bulk-cadastre ordinary-person names NEVER in the public repo (gitignored; local/IPFS cold-tier)"
+  "non-adjudicating; concentration/coverage = transient aggregates (G2)"
+  "sourcing honesty: LAND coverage = national-park (protected-public-land) ÷ world land, NOT all-land (G4)"
+  "no transfer/mint asserted (G3)"
+  "Murakumo-only inference (ADR-2605215000) — narration not introduced; pure data methods"
+  "kotoba Datom = canonical state (ADR-2605262130 / 2605312345)"
+  "Apache-2.0 + Charter Rider"]
+
+ ;; ── consequences — landed state (closing 2026-06-17) ──────────────────────
+ :consequences
+ {:sources 6
+  :land     {:countries 137 :area-km2 7090798 :world-share-pct 4.76 :note "national-park protected-public-land, sanitized vs real country-area denominator"}
+  :buildings {:count 2405 :countries 19 :owners 1389 :natural-person-owners 313 :dims [:floors :height]}
+  :company  {:gleif-owners 221 :buildings-linked 690 :join-keys [:lei-> :kabuto :uchiwake :kanjō :qid-> :keizu :tsumugi]}
+  :value    {:source :fr-dvf :spread-eur-m2 [1438 12707] :trajectory "Paris-5e -3.4% 2022->2023"}
+  :reliability {:tiers {:authoritative-gov 0.95 :authoritative-registry 0.95 :curated-crowd 0.70 :open-crowd 0.60 :web 0.40 :unknown 0.30}
+                :reconciled-owners 221}
+  :storage  {:git true :ipfs-pinned true :clean-public-cid "bafybeih33zveijs2zkc35srt25fcvwsegdvjmddlqb6lorrejwopha5pbe"
+             :datalad-superdataset :operator-step :remote-pin :operator-step}
+  :tests    {:tests 100 :assertions 388 :runner "bb clojure.test"}
+  :prs      ["#1820" "#1874" "#1878"]
+  :code-review-fix "high-effort review caught + fixed (pre-merge) a publish-prudence leak: un-ignored *.raw.json would have published ~1,500 ordinary NYC persons by name; re-gitignored, branch deleted, names never persisted in a reachable ref on the public repo."}
+
+ :follow-on
+ ["operator: e7m-dataset add 80-data/jinushi-land → DataLad superdataset 90-docs/baien/datasets + remote IPFS pin for durable public availability (ADR-2605241500 / 2606111330)"
+  "operator: run scale_ingest over full PLUTO/nationwide DVF bulk per PRODUCTION.md"
+  "R3: bridge confirmed-donation parcels to the on-chain LandRegistry lane (member donation, no-server-key) + maps.etzhayyim.com :feature/* layer"
+  "geometry de-dup so overlapping protected-area classes (nature reserves) can count toward world coverage"]}

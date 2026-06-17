@@ -24,12 +24,14 @@
     (is (str/includes? txt "COMPANY LINKAGE") "company section")
     (is (str/includes? txt "PUBLIC-RECORD GATE") "gate section")
     (is (str/includes? txt "ビルのフロア") "vertical floor concentration surfaced")
+    (is (str/includes? txt "VALUE") "DVF value layer (€/m²) fused")
+    (is (str/includes? txt "RELIABILITY") "信頼度 / reconcile layer fused")
     (is (str/includes? txt "相互監視") "charter framing present")
     (is (not (str/includes? txt ":person")) "no person dimension token")))
 
 (deftest test-render-has-numbers
   (let [txt (d/render (m))]
-    (is (re-find #"world land coverage: \*\*[\d.]+%\*\*" txt) "world coverage % rendered")
+    (is (re-find #"world land: \*\*[\d.]+%\*\*" txt) "national-park land share rendered")
     (is (re-find #"buildings: \*\*\d+\*\*" txt) "building count rendered")
     (is (re-find #"GLEIF: \*\*\d+\*\*" txt) "GLEIF linkage count rendered")))
 

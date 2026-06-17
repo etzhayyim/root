@@ -44,7 +44,19 @@ def _wdqs_obj():
 
 def main():
     print("\n=== tsumugi ingest_scale (G7) tests ===")
-    nodes, ties, new_nodes, new_ties, dropped = I.ingest_offline(FIXTURES, SEED)
+    # Hermetic synthetic fixture — independent of the committed fixture/seed convergence state.
+    # The real fixture is consumed into the seed round by round; this synthetic one stays stable.
+    import json as _json
+    with tempfile.TemporaryDirectory() as _td:
+        _sfx = pathlib.Path(_td)
+        (_sfx / "synthetic.json").write_text(_json.dumps({"orgs": [
+            {"child": "Pixar", "parent": "The Walt Disney Company",
+             "country": "United States", "childRef": "Q888"},
+            {"child": "Marvel Studios", "parent": "The Walt Disney Company",
+             "country": "United States"},
+        ]}))
+        nodes, ties, new_nodes, new_ties, dropped = I.ingest_offline(_sfx, SEED)
+        _, _, n2, t2, _ = I.ingest_offline(_sfx, SEED)   # determinism second run
 
     check("offline ingest adds org nodes", len(new_nodes) >= 1)
     check("offline ingest adds :custodies ties", len(new_ties) >= 1)
@@ -143,8 +155,7 @@ def main():
     check("committed seed file NOT mutated by write_merge", before == after)
     check("merge writes artifacts to out dir only", len(out_files) == 2)
 
-    # determinism
-    _, _, n2, t2, _ = I.ingest_offline(FIXTURES, SEED)
+    # determinism (n2/t2 from second run of same synthetic fixture, captured above)
     check("determinism: identical ingest",
           [n[":pwr/id"] for n in new_nodes] == [n[":pwr/id"] for n in n2]
           and [t[":tie/id"] for t in new_ties] == [t[":tie/id"] for t in t2])

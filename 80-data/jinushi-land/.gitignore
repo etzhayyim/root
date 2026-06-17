@@ -1,5 +1,15 @@
-*.raw.json
+# Derived/regenerable artifacts
 jinushi-land-datoms.kotoba.edn
 building-ownership-datoms.kotoba.edn
 company-link-datoms.kotoba.edn
+nyc-pluto-datoms.kotoba.edn
+osm-buildings-datoms.kotoba.edn
+jinushi-unified-datoms.kotoba.edn
 jinushi-digest.md
+# PRIVACY (G1 / publish-prudence): the NYC PLUTO raw holds ~1,500 ORDINARY natural persons by
+# name — it must NEVER be committed to the public repo. It lives only locally / IPFS cold-tier.
+# (The processed nyc-pluto-parcels.kotoba.edn is committed and anonymized: persons → sha256-key,
+# no name. Notable public-figure owners from open KGs — e.g. Wikidata — are a separate case.)
+nyc-pluto.raw.json
+nyc-pluto-full.raw.csv
+nyc-pluto*.raw.csv
