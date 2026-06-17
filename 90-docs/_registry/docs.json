@@ -7997,7 +7997,7 @@
       "status": "proposed",
       "doc_type": "adr",
       "topic": "etzhayyim-non-profit-donation-only-no-ads",
-      "authoritative": true,
+      "authoritative": false,
       "authoritative_for": [
         "hard rule: etzhayyim/root 配下の全 app は非営利活動 (non-profit) のみ",
         "hard rule: 広告 (advertising) integration の全面禁止 + CI lint",
@@ -8007,7 +8007,9 @@
       ],
       "related": [
         "adr-2605192130-etzhayyim-tithe-redistribution",
-        "adr-2605192145-etzhayyim-public-fund-architecture"
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "2606180001",
+        "2606182359"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8016,7 +8018,7 @@
         "adr-2605172000-etzhayyim-rw-free-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only"
       ],
-      "last_verified": "2026-05-19",
+      "last_verified": "2026-06-17",
       "amends": [],
       "amended_by": []
     },
