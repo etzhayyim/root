@@ -16164,6 +16164,26 @@
       "lastVerified": "2026-06-16"
     },
     {
+      "id": "doc:adr-2606162000-jinushi-land-ownership-acquisition-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606162000: jinushi 地主 — world land/building ownership ACQUISITION mirror (multi-source, clj-native, public-record gate)",
+      "status": "proposed",
+      "topic": "jinushi-land-ownership-acquisition-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/jinushi/ (actor: methods, ontology, seed, data layer 80-data/jinushi-land/)",
+        "jinushi public-record ingest gate (public-record + reciprocal-symmetric + map-not-target + non-monetized)",
+        "jinushi multi-source ingest + per-source reliability (信頼度) + as-of diff (差分)"
+      ],
+      "related": [
+        "doc:adr-2606013800",
+        "doc:adr-2606022000",
+        "doc:adr-2606032000",
+        "doc:adr-2606101000"
+      ],
+      "lastVerified": "2026-06-16"
+    },
+    {
       "id": "doc:adr-2606162030-silicon-fab-flow-clj-port",
       "type": "TechArticle",
       "title": "ADR-2606162030: silicon fab brought to runnable cljc + kotoba-Datom — 8-工程 process-physics flow + wafer-handling robotics + lot ledger",

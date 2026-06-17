@@ -25577,6 +25577,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606162000-jinushi-land-ownership-acquisition-mirror.md",
+      "id": "adr-2606162000-jinushi-land-ownership-acquisition-mirror",
+      "title": "ADR-2606162000: jinushi 地主 — world land/building ownership ACQUISITION mirror (multi-source, clj-native, public-record gate)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "jinushi-land-ownership-acquisition-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/jinushi/ (actor: methods, ontology, seed, data layer 80-data/jinushi-land/)",
+        "jinushi public-record ingest gate (public-record + reciprocal-symmetric + map-not-target + non-monetized)",
+        "jinushi multi-source ingest + per-source reliability (信頼度) + as-of diff (差分)"
+      ],
+      "related": [
+        "adr-2606013800",
+        "adr-2606022000",
+        "adr-2606032000",
+        "adr-2606101000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605241500",
+        "adr-2605262130",
+        "adr-2605312345",
+        "adr-2606082400"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606162030-silicon-fab-flow-clj-port.md",
       "id": "adr-2606162030-silicon-fab-flow-clj-port",
       "title": "ADR-2606162030: silicon fab brought to runnable cljc + kotoba-Datom — 8-工程 process-physics flow + wafer-handling robotics + lot ledger",
