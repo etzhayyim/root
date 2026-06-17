@@ -16167,7 +16167,7 @@
       "id": "doc:adr-2606162000-jinushi-land-ownership-acquisition-mirror",
       "type": "TechArticle",
       "title": "ADR-2606162000: jinushi 地主 — world land/building ownership ACQUISITION mirror (multi-source, clj-native, public-record gate)",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "jinushi-land-ownership-acquisition-mirror",
       "authoritative": true,
       "authoritativeFor": [
@@ -16181,7 +16181,7 @@
         "doc:adr-2606032000",
         "doc:adr-2606101000"
       ],
-      "lastVerified": "2026-06-16"
+      "lastVerified": "2026-06-17"
     },
     {
       "id": "doc:adr-2606162030-silicon-fab-flow-clj-port",
