@@ -18,10 +18,10 @@
 
 (def node-attrs
   [":organism/kind" ":organism/label" ":organism/sourcing"
-   ":ai/sector" ":ai/open?" ":ai/role" ":organism/nests-in"])
+   ":ai/sector" ":ai/open?" ":ai/role" ":ai/round-amount-usd" ":organism/nests-in"])
 
 (def edge-attrs
-  [":en/from" ":en/to" ":en/kind" ":en/grasping-load" ":en/sourcing"])
+  [":en/from" ":en/to" ":en/kind" ":en/grasping-load" ":en/sourcing" ":en/disclosed-src"])
 
 (defn- fmt-g
   "Mirror Python f-string {v:g}: 6 significant digits, trailing zeros stripped, integral

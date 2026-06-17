@@ -12,11 +12,12 @@
 | Datom emitter (EAVT) | ✅ | `methods/datom_emit.cljc` — GROUND `:add` + DERIVED `:derived` (transient), deterministic |
 | Coverage / gap honesty | ✅ | `methods/coverage_report.cljc` — sourcing split + gap worklist, "~0 by design" |
 | Murakumo digest | ✅ | `methods/digest.cljc` — deterministic `template-digest` + Murakumo-only `narrate` (fail-open, non-fleet endpoint refused); wired into the heartbeat summary (narration, not persisted) |
-| Tests | ✅ | 6 suites · **31 tests / 114 assertions** green (`bb test:actors` auto-discovers) |
+| DISCLOSED ingest + G7 gate | ✅ | `methods/ingest.cljc` — offline `ingest-file` upgrades round stubs → `:authoritative` + disclosed `:ai/round-amount-usd` + `:en/disclosed-src` provenance (idempotent, concentration-preserving); `ingest-live` REFUSES without `CHIE_INGEST_LIVE` + operator DID (G7, tested) |
+| Tests | ✅ | 7 suites · **36 tests / 125 assertions** green (`bb test:actors` auto-discovers) |
 | Charter gates G1–G5 | ✅ | test-enforced: open→0 (G1), inbound-integral (G2), representative-only (G5), no-trade/no-score (G4) |
 | Cross-actor bridge | ✅ (declared) | `:bridge` → kanjō/kabuto/handotai/kasa/kenkyusha/keizu/kosatsu/abaki |
 | **常駐化 (resident heartbeat)** | ✅ R1 | `methods/autorun.cljc` + `cell.cljc` (`fire`) → content-addressed Datom tx on append-only kotoba commit-DAG (`verify-chain` tamper-evident, resume-safe) + Murakumo digest in the summary; registered `ChieHeartbeatCell` in cell-runner `cells.edn` (node gad, cron `37 * * * *`, healthz 13082) |
-| Live ingest | ⏳ R2 (G7) | regulator texts (EU AI Act/広島/Bletchley) + disclosed rounds + Wikidata — Council+operator-gated |
+| Live ingest | 🟡 R2 — offline leg done (G7) | `ingest.cljc` offline fixture + G7 gate landed; the LIVE network fetch (regulator texts / disclosed rounds / Wikidata) is the Council+operator step |
 | WASM (pywasm/componentize) | ⏳ R2 | clj source is the pywasm target; build = operator step |
 
 ## Roadmap (loop targets)
@@ -30,8 +31,9 @@
 - **R1 — coverage growth** ✅: 39→53 nodes / 52 縁; added `:ai.invest/round` (disclosed
   rounds) + `:ai.asset/compute` (clusters → kasa) + labs/funders/policy — **all 11 kinds, 8
   edge kinds, 4 axes now covered**. _Next: structured round amounts + planet-scale ingest (R2)._
-- **R2 — live leg**: G7/Council-gated ingest from primary sources (kanjō pattern); per-tx
-  provenance + exactly-once cursor.
+- **R2 — live leg** 🟡: offline `ingest.cljc` (disclosed fixture → `:authoritative` upgrade +
+  `:ai/round-amount-usd` + `:en/disclosed-src`) + G7 refusal landed. _Next: the real network
+  fetch behind the G7 gate (kanjō pattern) + per-tx provenance + exactly-once cursor._
 
 ## Invariants the suite locks
 
