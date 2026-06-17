@@ -1,23 +1,14 @@
 #!/usr/bin/env bash
-# meyasu 目安 — run the agent test suite with one command.
-# The repo-wide pytest plugin env is broken (langsmith/pydantic mismatch), so we
-# disable plugin autoload. Exits non-zero on any failure (deploy-gate friendly).
+# meyasu 目安 — run the whole cljc test suite with one command.
+# The Python agent/viz/tests were pruned once fully ported to .cljc (clj-port migration,
+# ADR-2606160842); the cljc namespaces are the SSoT. Runs them via babashka from the repo root
+# (bb.edn :paths includes 20-actors). Exits non-zero on any failure (deploy-gate friendly).
 set -uo pipefail
-ROOT="$(cd "$(dirname "$0")" && pwd)"
-export PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
-rc=0
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$ROOT"
 
-echo "==> meyasu agent tests"
-( cd "$ROOT/py" && python3 -m pytest -q test_agent.py ) || rc=1
-
-echo "==> meyasu cohort e2e (kakaku → mitooshi → meyasu)"
-( cd "$ROOT/py" && python3 -m pytest -q test_cohort_e2e.py ) || rc=1
-
-echo "==> meyasu viz builder tests"
-( cd "$ROOT/viz" && python3 -m pytest -q test_build_viz.py ) || rc=1
-if [[ $rc -eq 0 ]]; then
-  echo "==> meyasu: ALL GREEN"
-else
-  echo "==> meyasu: FAILURES (rc=$rc)" >&2
-fi
-exit $rc
+bb -e "(def nss '(meyasu.py.test-agent meyasu.py.test-cohort-e2e meyasu.viz.test-build-viz))
+       (apply require nss)
+       (let [r (apply clojure.test/run-tests nss)]
+         (println \"==> meyasu:\" (select-keys r [:test :pass :fail :error]))
+         (System/exit (if (or (pos? (:fail r)) (pos? (:error r))) 1 0)))"
