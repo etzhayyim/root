@@ -12,10 +12,10 @@
 | Datom emitter (EAVT) | ✅ | `methods/datom_emit.cljc` — GROUND `:add` + DERIVED `:derived` (transient), deterministic |
 | Coverage / gap honesty | ✅ | `methods/coverage_report.cljc` — sourcing split + gap worklist, "~0 by design" |
 | Murakumo digest | ✅ | `methods/digest.cljc` — deterministic `template-digest` + Murakumo-only `narrate` (fail-open, non-fleet endpoint refused); wired into the heartbeat summary (narration, not persisted) |
-| DISCLOSED ingest + G7 gate | ✅ | `methods/ingest.cljc` — offline `ingest-file` upgrades round stubs → `:authoritative` + disclosed `:ai/round-amount-usd` + `:en/disclosed-src` provenance (idempotent, concentration-preserving); `ingest-live` REFUSES without `CHIE_INGEST_LIVE` + operator DID (G7, tested) |
+| DISCLOSED ingest + G7 gate | ✅ | `methods/ingest.cljc` — offline `ingest-file`/`ingest-files` upgrade **rounds + policy instruments** → `:authoritative` (round amount + official-source `:en/disclosed-src` on rounds/governs edges; idempotent, concentration-preserving). 2 fixtures (rounds + EU-AI-Act/US-EO/広島/CoE w/ real URLs) → **8 :authoritative nodes**; `ingest-live` REFUSES without `CHIE_INGEST_LIVE` + operator DID (G7, tested) |
 | **root kotoba roster** | ✅ | `00-contracts/schemas/ai-ecosystem-ontology.kotoba.edn` (db/ident vocab) + seed names its `vocabulary:` → `bb kotoba:ingest --validate` = **105 entities / 589 datoms / 0 undeclared / 0 value-violations**; `bb kotoba:roster-report` lists chie (27/27 actors clean). Drift-guard test locks seed↔schema |
 | KG query interface | ✅ | `methods/query.cljc` — funders-of / compute-suppliers-of / governed-by / rounds-of / subsidiaries / concentration-in / opening-worklist; reuses the analyze integral (one source of truth) |
-| Tests | ✅ | 9 suites · **44 tests / 146 assertions** green (`bb test:actors` auto-discovers) |
+| Tests | ✅ | 9 suites · **46 tests / 153 assertions** green (`bb test:actors` auto-discovers) |
 | Charter gates G1–G5 | ✅ | test-enforced: open→0 (G1), inbound-integral (G2), representative-only (G5), no-trade/no-score (G4) |
 | Cross-actor bridge | ✅ (declared) | `:bridge` → kanjō/kabuto/handotai/kasa/kenkyusha/keizu/kosatsu/abaki |
 | **常駐化 (resident heartbeat)** | ✅ R1 | `methods/autorun.cljc` + `cell.cljc` (`fire`) → content-addressed Datom tx on append-only kotoba commit-DAG (`verify-chain` tamper-evident, resume-safe) + Murakumo digest in the summary; registered `ChieHeartbeatCell` in cell-runner `cells.edn` (node gad, cron `37 * * * *`, healthz 13082) |

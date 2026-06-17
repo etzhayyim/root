@@ -14,6 +14,7 @@
 #?(:clj (def actor-dir (-> *file* io/file .getParentFile .getParentFile)))
 #?(:clj (def seed (io/file actor-dir "data" "seed-ai-ecosystem.kotoba.edn")))
 #?(:clj (def fixture (io/file actor-dir "data" "ingest" "disclosed-rounds.fixture.edn")))
+#?(:clj (def policy-fixture (io/file actor-dir "data" "ingest" "disclosed-policy.fixture.edn")))
 
 #?(:clj
    (deftest test-fixture-parses
@@ -60,6 +61,32 @@
      (testing "G7 — live ingest refused without the operator gate"
        (is (ingest/g7-violation?
             (try (ingest/ingest-live {:operator-did nil}) (catch Exception e e)))))))
+
+#?(:clj
+   (deftest test-policy-ingest-upgrades-and-stamps-provenance
+     (testing "policy fixture grounds policy nodes :authoritative + stamps :governs provenance"
+       (let [{:keys [graph upgraded]} (ingest/ingest-file seed policy-fixture)
+             eu (get-in graph [:nodes "ai.policy.eu-ai-act"])
+             gov-edge (some #(when (and (= "ai.policy.eu-ai-act" (get % ":en/from"))
+                                        (= "ai.lab.openai" (get % ":en/to"))
+                                        (= ":governs" (get % ":en/kind"))) %)
+                            (:edges graph))]
+         (is (pos? upgraded))
+         (is (= ":authoritative" (get eu ":organism/sourcing")))
+         (is (string? (get gov-edge ":en/disclosed-src")) "governs edge stamped with source")
+         (testing "policy upgrade is concentration-preserving (governs load unchanged)"
+           (let [base (analyze/analyze (:nodes (analyze/load-file* seed)) (:edges (analyze/load-file* seed)))
+                 after (analyze/analyze (:nodes graph) (:edges graph))]
+             (is (= (get-in base [:concentration "ai.lab.openai" :policy])
+                    (get-in after [:concentration "ai.lab.openai" :policy])))))))))
+
+#?(:clj
+   (deftest test-ingest-files-cumulative-and-idempotent
+     (let [r1 (ingest/ingest-files seed [fixture policy-fixture])
+           r2 (ingest/ingest-files seed [fixture policy-fixture fixture policy-fixture])]
+       (is (>= (:upgraded r1) 8) "4 rounds + ≥4 policy nodes upgraded")
+       (is (= (count (:nodes (:graph r1))) (count (:nodes (:graph r2)))) "re-running adds no nodes")
+       (is (= (count (:edges (:graph r1))) (count (:edges (:graph r2)))) "re-running adds no edges"))))
 
 #?(:clj
    (defn -main [& _]
