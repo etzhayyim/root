@@ -539,7 +539,7 @@
   test:charter
   {:doc "Charter-gate conformance suites — substrate-native cljc (ADR-2606160842 py→clj port wave; clj+datomic first tier). 57 actors read their lexicons (central JSON / lex.edn) + manifest and pin the const/enum/required charter gates."
    :task (do (require 'clojure.test 'clojure.set
-                      'akashi.methods.test-charter-gates
+                      'akashi.methods.test-charter-gates 'akashi.adapters.test-lexicon-shape-validator
                       'chigiri.methods.test-charter-gates 'danjo.methods.test-charter-gates 'funadaiku.methods.test-charter-gates 'futawa.methods.test-charter-gates
                       'hagukumi.methods.test-charter-gates 'hataori.methods.test-charter-gates 'hikari.methods.test-charter-gates 'himawari.methods.test-charter-gates
                       'himotoki.methods.test-charter-gates 'hodoki.methods.test-charter-gates 'hotaru.methods.test-charter-gates 'igata.methods.test-charter-gates
@@ -556,7 +556,7 @@
                       'toritate.methods.test-charter-gates 'toritsugi.methods.test-charter-gates 'tsukuroi.methods.test-charter-gates 'tsutae.methods.test-charter-gates 'utsushie.methods.test-charter-gates 'wakai.methods.test-charter-gates 'watari.methods.test-charter-gates 'watatsumi.methods.test-charter-gates
                       'yakushi.methods.test-charter-gates 'yamabiko.methods.test-charter-gates)
              (let [r (clojure.test/run-tests
-                      'akashi.methods.test-charter-gates
+                      'akashi.methods.test-charter-gates 'akashi.adapters.test-lexicon-shape-validator
                       'chigiri.methods.test-charter-gates 'danjo.methods.test-charter-gates 'funadaiku.methods.test-charter-gates 'futawa.methods.test-charter-gates
                       'hagukumi.methods.test-charter-gates 'hataori.methods.test-charter-gates 'hikari.methods.test-charter-gates 'himawari.methods.test-charter-gates
                       'himotoki.methods.test-charter-gates 'hodoki.methods.test-charter-gates 'hotaru.methods.test-charter-gates 'igata.methods.test-charter-gates
