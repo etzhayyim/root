@@ -555,7 +555,7 @@
                       'musubi.methods.test-charter-gates 'nusa.methods.test-charter-gates 'ooyake.methods.test-charter-gates 'ossekai.methods.test-charter-gates
                       'sanae.methods.test-charter-gates 'sarutahiko.methods.test-charter-gates 'seigyo.methods.test-charter-gates 'shidemori.methods.test-charter-gates
                       'suimin.methods.test-charter-gates 'suki.methods.test-charter-gates 'tadori.methods.test-charter-gates 'tadori.kotoba.test-audit-log 'tatekata.methods.test-charter-gates 'tazuna.methods.test-charter-gates 'todoke.methods.test-charter-gates
-                      'toritate.methods.test-charter-gates 'toritsugi.methods.test-charter-gates 'tsukuroi.methods.test-charter-gates 'tsutae.methods.test-charter-gates 'utsushie.methods.test-charter-gates 'wakai.methods.test-charter-gates 'watari.methods.test-charter-gates 'watatsumi.methods.test-charter-gates
+                      'toritate.methods.test-charter-gates 'toritsugi.methods.test-charter-gates 'tsukuroi.methods.test-charter-gates 'tsutae.methods.test-charter-gates 'tsutae.cells.tsutae-pcb-smt.test-state-machine 'utsushie.methods.test-charter-gates 'wakai.methods.test-charter-gates 'watari.methods.test-charter-gates 'watatsumi.methods.test-charter-gates
                       'yakushi.methods.test-charter-gates 'yamabiko.methods.test-charter-gates)
              (let [r (clojure.test/run-tests
                       'akashi.methods.test-charter-gates 'akashi.adapters.test-lexicon-shape-validator 'akashi.adapters.test-regulator-bulk-fixture-parser 'akashi.adapters.test-dry-run-fixtures
@@ -572,7 +572,7 @@
                       'musubi.methods.test-charter-gates 'nusa.methods.test-charter-gates 'ooyake.methods.test-charter-gates 'ossekai.methods.test-charter-gates
                       'sanae.methods.test-charter-gates 'sarutahiko.methods.test-charter-gates 'seigyo.methods.test-charter-gates 'shidemori.methods.test-charter-gates
                       'suimin.methods.test-charter-gates 'suki.methods.test-charter-gates 'tadori.methods.test-charter-gates 'tadori.kotoba.test-audit-log 'tatekata.methods.test-charter-gates 'tazuna.methods.test-charter-gates 'todoke.methods.test-charter-gates
-                      'toritate.methods.test-charter-gates 'toritsugi.methods.test-charter-gates 'tsukuroi.methods.test-charter-gates 'tsutae.methods.test-charter-gates 'utsushie.methods.test-charter-gates 'wakai.methods.test-charter-gates 'watari.methods.test-charter-gates 'watatsumi.methods.test-charter-gates
+                      'toritate.methods.test-charter-gates 'toritsugi.methods.test-charter-gates 'tsukuroi.methods.test-charter-gates 'tsutae.methods.test-charter-gates 'tsutae.cells.tsutae-pcb-smt.test-state-machine 'utsushie.methods.test-charter-gates 'wakai.methods.test-charter-gates 'watari.methods.test-charter-gates 'watatsumi.methods.test-charter-gates
                       'yakushi.methods.test-charter-gates 'yamabiko.methods.test-charter-gates)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
