@@ -9,9 +9,20 @@ proper (Lv7+ lock). Until ADR-2606064700 is ratified, every clause here keeps it
 current binding force and gate. See ADR-2606064700 for the derivation map.
 -->
 ```
-etzhayyim Charter Compliance Rider v3.3
+etzhayyim Charter Compliance Rider v3.4
 Last revised: 2026-06-17
-Supersedes: v3.2 (2026-06-16) per ADR-2606172359 — §2(d) and §2(i) reframed: from
+Supersedes: v3.3 (2026-06-17) per ADR-2606180001 — wave2: §2(a) (partial), §2(b),
+            §2(c) (partial), and §2(e) reframed from categorical business-model bans
+            to NET-EFFECT evaluation under the ECL objective function; etzhayyim's own
+            economic structure (non-profit-only / donation-only inflow / no-equity /
+            ad-exclusion / open-source mandate) likewise moves to objective-function
+            assessment (the non-profit SPIRIT is preserved dynamically by the
+            collective-commons dimension + the retained §2(g)). §2(g) (strict-
+            individualist-ontology exclusion) is EXPLICITLY RETAINED as a core
+            religious value (反個人主義, Charter §1.8 + §4(g)). §2(f)/§2(h)/§2(j)/§2(k)
+            (genuine 子孫 harm) are unchanged. 固定するのは掟でなく priority
+            (ADR-2606062100). v3.4 supersedes v3.3 below.
+Supersedes (v3.3): v3.2 (2026-06-16) per ADR-2606172359 — §2(d) and §2(i) reframed: from
             categorical FIXED RULES to NET-EFFECT evaluation under the ECL objective
             function (ADR-2606172300). §2(d): fossil/environmental harm judged by net
             carbon balance, not by industry/substance name (fossil per se is not
@@ -61,43 +72,53 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
    share ≥ 25% in the trailing 12 months) falls into any category below — OR which
    engages in the conduct named in (a), (j), or (k) regardless of revenue share.
 
-   (a) AGGRESSIVE / PROPRIETARY / FOR-PROFIT FORCE (reframed in v3.0; was the
-       "weapons and military" absolute ban). Manufacture, sale, or distribution of
-       weapons as a commercial business; proprietary (closed-source) weapon design;
-       covert (off-chain, non-attested) force operations; autonomous lethal
-       systems; or force placed in service of aggression or provided primarily to
-       military / paramilitary forces engaged in armed conflict.
-       DERIVED FROM: Charter §1.12.B (Transparent Religious Force — Reformed Just
-       War, NOT Quaker pacifism) + Preamble §0.5. EXPRESSLY PERMITTED, and NOT
-       prohibited under this clause: TRANSPARENT DEFENSIVE FORCE protecting the
-       community, its members, its 子孫 (descendants), temple, or land, where it
-       satisfies the three Charter conditions — (i) full on-chain monitoring,
-       (ii) open-source publication, (iii) 1 SBT = 1 vote authorization. To defend
-       one's children and grandchildren is on the side of 産霊 and the Tree of Life.
-       The prohibition is on weapons-as-business, secrecy, and aggression — NOT on
-       self-defense for the sake of wellbecoming and 子孫.
+   (a) FORCE — HARD-FLOOR CORE + OBJECTIVE-FUNCTION ASSESSED (reframed in v3.4 per
+       ADR-2606180001; was a categorical clause). The genuine-harm CORE remains a
+       HARD FLOOR, prohibited regardless of score: AGGRESSION; AUTONOMOUS LETHAL
+       systems; COVERT (off-chain, non-attested) force; or force provided primarily to
+       military / paramilitary forces engaged in armed conflict. What MOVES to the ECL
+       objective function (ADR-2606172300) is the former business-model framing —
+       "weapons as a commercial business" and "proprietary weapon design" are no longer
+       prohibited by category; dual-use and defensive technology are assessed by net
+       effect (aggression, secrecy, and lethality score strongly negative; transparent
+       defensive capability does not). DERIVED FROM: Charter §1.12.B (Transparent
+       Religious Force — Reformed Just War, NOT Quaker pacifism) + Preamble §0.5.
+       EXPRESSLY PERMITTED: TRANSPARENT DEFENSIVE FORCE protecting the community, its
+       members, its 子孫 (descendants), temple, or land, satisfying (i) full on-chain
+       monitoring, (ii) open-source publication, (iii) 1 SBT = 1 vote authorization. The
+       concern was never "commercial vs not" but aggression, secrecy, and lethality —
+       which the objective function measures directly. To defend one's children and
+       grandchildren is on the side of 産霊 and the Tree of Life.
 
-   (b) SPECULATIVE FINANCE. Operation of speculative financial instruments whose
-       primary revenue derives from price arbitrage, leverage spread, predatory
-       lending (annualized effective interest rate ≥ 36% to retail borrowers), or
-       proprietary high-frequency trading. (Banking utility services, on-chain
-       stablecoin issuance, custodial services to retail users at non-predatory
-       rates, and L1/L2 substrate operators are NOT prohibited under this clause.)
+   (b) FINANCE — OBJECTIVE-FUNCTION ASSESSED (reframed in v3.4 per ADR-2606180001;
+       was a categorical "speculative finance" business-model ban). Financial activity
+       is NOT prohibited by category or business-model name. It is assessed by net
+       effect under the ECL objective function (ADR-2606172300): the genuine harms —
+       PREDATORY LENDING (annualized effective rate ≥ 36% to retail borrowers),
+       extractive leverage, and value-extraction without commons contribution — score
+       strongly negative (ko/mago-wellbecoming + collective-commons); legitimate finance
+       (banking utility, custody at non-predatory rates, on-chain stablecoin issuance,
+       L1/L2 substrate operation, market-making that serves liquidity) is net-evaluated,
+       not banned. The world's financial institutions are not excluded by the name of
+       their sector; the concern is predation and extraction, which the score measures.
 
-   (c) MONETIZED OR ASYMMETRIC SURVEILLANCE (reframed in v3.0; reciprocity axis
-       clarified in v3.1 per ADR-2606082400). The prohibited thing is NOT watching
-       as such — watching is not the wrong. What is prohibited is surveillance that
-       is MONETIZED or ASYMMETRIC:
-         (i) MONETIZED — business models whose revenue derives from the collection,
-             brokerage, or SALE of personal data of natural persons to third
-             parties (ad-tech DSP/SSP operators, data brokers, consumer-surveillance
-             platforms, biometric-identification services sold to law-enforcement or
-             military entities); and
-        (ii) ASYMMETRIC / UNILATERAL — the one-sided accumulation or retention of
-             data about others by a party that is not itself equally observable: the
-             watcher unwatched, surveillance without reciprocity, data hoarded by
-             one over many. This holds EVEN ABSENT SALE: an unwatched watcher
-             hoarding a one-sided record is prohibited.
+   (c) SURVEILLANCE — HARD-FLOOR CORE + OBJECTIVE-FUNCTION ASSESSED (reframed in v3.0;
+       reciprocity axis clarified in v3.1 per ADR-2606082400; split in v3.4 per
+       ADR-2606180001). Watching as such is not the wrong. The two halves now part:
+         (i) ASYMMETRIC / UNILATERAL — HARD FLOOR, prohibited regardless of score: the
+             one-sided accumulation or retention of data about others by a party that
+             is not itself equally observable — the watcher unwatched, surveillance
+             without reciprocity, data hoarded by one over many. This DIRECTLY violates
+             the Tier-0 相互監視 priority and so remains categorical (even absent sale).
+        (ii) MONETIZED — OBJECTIVE-FUNCTION ASSESSED (moved in v3.4): the collection,
+             brokerage, or sale of personal data (ad-tech DSP/SSP, data brokers,
+             consumer-surveillance platforms) is no longer prohibited by business-model
+             name. Its genuine harm — extraction of, and trade in, the personal data of
+             natural persons — scores strongly negative (reciprocal-transparency +
+             ko/mago-wellbecoming); symmetric, reciprocal, consented data processing
+             that serves wellbecoming is net-evaluated, not banned. The concern is
+             asymmetry and wellbecoming-harm, which the score measures — not "monetized
+             vs not" as a category.
        EXPRESSLY AFFIRMED, and NOT prohibited — indeed a POSITIVE constitutional
        value: RECIPROCAL / MUTUAL transparency (相互監視) — the village-society
        (村社会) condition in which everyone is equally known and equally watched.
@@ -138,13 +159,15 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        is the prudent multi-generational steward, not the present-quarter shareholder.
        Symmetric with §2(l).
 
-   (e) SPECIALIST GATEKEEPING. Operation of business models whose primary revenue
-       derives from monopolistic gatekeeping of professional knowledge required for
-       individual rights protection or basic survival (legal / medical / govern-
-       mental-administrative), as detailed in v2.0 §2(e). Legitimate technical
-       safety oversight by qualified practitioners, due-process legal representation
-       in adversarial proceedings, and democratic governmental functions are NOT
-       prohibited under this clause.
+   (e) SPECIALIST KNOWLEDGE ACCESS — OBJECTIVE-FUNCTION ASSESSED (reframed in v3.4 per
+       ADR-2606180001; was a categorical "specialist gatekeeping" business-model ban).
+       Professional services in legal / medical / governmental-administrative knowledge
+       are NOT prohibited by category. The genuine harm — MONOPOLISTIC ENCLOSURE that
+       denies access to knowledge required for individual rights protection or basic
+       survival — scores strongly negative (collective-commons); legitimate professional
+       service, qualified safety oversight, due-process representation, and democratic
+       governmental functions are net-evaluated, not banned. The concern is enclosure of
+       access, not the practice of a profession — which the score measures directly.
 
    (f) MULTI-GENERATIONAL HARM — KNOWLEDGE / GENETIC / DECISION-MAKING. Activities
        whose foreseeable impact on persons born at least twenty-five (25) years
@@ -156,7 +179,11 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        design targeted at developmental stages). (The habitable-environment item is
        now carried by §2(d).)
 
-   (g) STRICT INDIVIDUALIST ONTOLOGY. Operation of entities whose publicly declared
+   (g) STRICT INDIVIDUALIST ONTOLOGY (RETAINED as a categorical clause in v3.4 per
+       ADR-2606180001 — explicitly NOT moved to the objective function). Unlike the
+       business-model clauses, this is a core RELIGIOUS VALUE (反個人主義, Charter §1.8):
+       the negation of strict individualism is doctrinal communion-scope, not a means.
+       Operation of entities whose publicly declared
        mission, governance, or doctrinal commitment explicitly affirms the
        metaphysical doctrine that "the individual" is the constitutive ontological
        and moral unit, independent of and prior to collective / relational /

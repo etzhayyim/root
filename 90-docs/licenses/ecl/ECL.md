@@ -78,10 +78,16 @@ related:
   かつ司法執行可能な bright-line が必要なもの (CSAM / 強制労働 / 兵器ビジネス・covert 武力 /
   personal-data 売買・非対称監視) は、**目的関数の外に列挙された確定ルール**として残す。
   1つでも発火すれば scoring せず即 non-aligned。
-  **改正 (ADR-2606172359)**: 環境/化石(旧「不可逆多世代危害」)と compute 調達(旧 Murakumo-only)は
+  **改正 wave1 (ADR-2606172359)**: 環境/化石(旧「不可逆多世代危害」)と compute 調達(旧 Murakumo-only)は
   確定フロアから外し、§2 目的関数で *net* 評価する — 化石は燃焼か非燃焼 feedstock かを carbon
-  balance で、compute は lock-in/透明性/carbon で。固定ルールは priority の*手段*を priority
-  そのものとして凍結する誤りだった。残す確定フロアは「net に関わらず子孫を侵すもの」に限る。
+  balance で、compute は lock-in/透明性/carbon で。
+  **改正 wave2 (ADR-2606180001)**: 事業モデル(§2(b)金融/§2(e)専門知/§2(a)兵器*商業化*部分/§2(c)*収益化*監視
+  部分)と経済構造(非営利のみ/donation/no-equity/広告排除/open-source強制)も目的関数へ。私的捕獲・
+  attention 搾取・proprietary 囲い込み・gatekeeping・略奪は collective-commons/ko-wellbecoming/
+  reciprocal-transparency で動的に負。**§2(g)反個人主義は宗教価値として categorical 残置**し、それと
+  collective-commons 次元の二重で非営利の精神を保持。固定ルールは priority の*手段*を priority
+  そのものとして凍結する誤りだった。残す確定フロアは「net に関わらず子孫を侵すもの(CSAM/強制労働)」と
+  「Tier-0 直撃核(aggression-lethal-covert / asymmetric-unwatched surveillance)」に限る。
 
 これは tanemaki DD (ADR-2606122001) と同型: **screens が weighting の前に発火する**。
 列挙が消えるのではなく、**列挙は『scoring すべきでない最悪のケース』の確定下限に縮小**し、
