@@ -60,7 +60,8 @@
 | viz: integrated world-supply globe (A) | ✅ |
 | viz: watari craft globe (B) | ✅ |
 | DID registered (INFRA_ACTORS) | ✅ |
-| test suites (analyze/kotoba/autorun/lexicons/crosscheck) | ✅ |
+| static did.json + profile (public/actor) | ✅ |
+| test suites (analyze/kotoba/autorun/lexicons/crosscheck/maturity) | ✅ |
 
 ## Deferred / gated
 
@@ -72,4 +73,4 @@
 | live ingest (disclosures / GLEIF / OSM) | G7 — Council + operator gated; R0 ships a bounded seed only. |
 
 ---
-*R0→R1 checklist: **14/14** landed. R0 design-only; live ingest G7 Council+operator-gated.*
+*R0→R1 checklist: **15/15** landed. R0 design-only; live ingest G7 Council+operator-gated.*

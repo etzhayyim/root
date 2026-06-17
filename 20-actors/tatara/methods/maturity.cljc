@@ -27,7 +27,8 @@
    ["viz: integrated world-supply globe (A)"            ["viz/world-supply-globe.htm"]]
    ["viz: watari craft globe (B)"                       ["../watari/viz/craft-globe.htm"]]
    ["DID registered (INFRA_ACTORS)"                     ["../../50-infra/etzhayyim-did-web/src/registry/infra-actors.ts"]]
-   ["test suites (analyze/kotoba/autorun/lexicons/crosscheck)" ["methods/test_analyze.cljc" "methods/test_kotoba.cljc"]]])
+   ["static did.json + profile (public/actor)"          ["../../50-infra/etzhayyim-did-web/public/actor/tatara/did.json" "../../50-infra/etzhayyim-did-web/public/actor/tatara/profile.json"]]
+   ["test suites (analyze/kotoba/autorun/lexicons/crosscheck/maturity)" ["methods/test_analyze.cljc" "methods/test_maturity.cljc"]]])
 
 (def deferred
   [["Murakumo fleet cell placement" "R1 — the Python cell-runner (cells.edn) imports a Python module; tatara is cljc-native, so a cljc-capable runner path or a Python shim is the prerequisite."]

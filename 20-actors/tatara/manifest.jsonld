@@ -62,6 +62,12 @@
       "gate": "G7 — live disclosure/GLEIF/OSM feed + live-node push require Council + operator; the loop itself runs entirely off the offline seed"
     },
     {
+      "id": "cell:tatara.maturity",
+      "method": "methods/maturity.cljc",
+      "output": ["MATURITY.md"],
+      "pipeline": "derive the maturity scorecard from the live graph (coverage / concentration / chokepoint / kabuto linkage) + an artifact-presence R0→R1 checklist + an honest deferred/gated section. Generated, never hand-edited — cannot drift."
+    },
+    {
       "id": "cell:tatara.viz",
       "method": "viz/build_viz.cljc",
       "output": ["viz/plant-globe.htm", "viz/world-supply-globe.htm", "../watari/viz/craft-globe.htm"],
