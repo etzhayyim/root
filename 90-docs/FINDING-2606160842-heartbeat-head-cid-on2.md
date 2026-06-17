@@ -74,6 +74,6 @@ EDN reader (`*-edn` / `parse-tokens`) is **not** touched.
 
 All 9 verified green after the fix (the append-only / tamper / persistence tests exercise head-cid
 linkage). The 7 smaller actors were green pre-fix only because their R0 seeds are small; they are
-now O(1)/beat so they stay fast as their G7 live ingest grows the log. Note: ipaddress / yabai /
-hakoniwa are not yet wired into the `bb`-runner sweep (no `run_tests.sh` / `bb.edn` test task) —
-they were verified by invoking their test namespaces directly; wiring them in is a follow-up.
+now O(1)/beat so they stay fast as their G7 live ingest grows the log. (Follow-up done: ipaddress /
+yabai / hakoniwa, previously absent from the `bb`-runner sweep, now ship a `run_tests.sh` and are
+covered by the fleet green-check — 57 bb-runner actors.)
