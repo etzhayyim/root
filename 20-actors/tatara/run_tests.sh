@@ -11,6 +11,7 @@ SUITES=(
   "tatara.methods.test-autorun"
   "tatara.methods.test-lexicons"
   "tatara.methods.test-crosscheck"
+  "tatara.methods.test-maturity"
 )
 
 fail=0
