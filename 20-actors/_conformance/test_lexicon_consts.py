@@ -87,14 +87,13 @@ def test_every_actor_has_its_gate_lexicons():
 def test_coded_cells_keep_solve_gated():
     """R0 invariant: every coded cell's .solve() raises (no accidental live activation).
 
-    Scoped to cells still implemented in Python. The ADR-2606160842 py→clj wave migrated
-    sanae + kiyome to .cljc state machines (their langgraph cell.py R0 wrappers were pruned
-    as dead scaffold); their gating now lives in the cljc cell tests. Only hataori's cell.py
-    remains in Python here.
+    Scoped to cells still implemented in Python. The ADR-2606160842 py→clj wave has now
+    migrated all three labour-liberation coded cells — sanae (autonomous_weeding) + kiyome
+    (surface_cleaning) + hataori (finishing_packing) — to .cljc state machines; their langgraph
+    cell.py R0 wrappers were pruned as dead scaffold and their gating now lives in the cljc cell
+    tests (the R0-gating moved with them). No Python coded cells remain in this wave.
     """
-    coded = [
-        ACTORS / "hataori" / "cells" / "finishing_packing" / "cell.py",
-    ]
+    coded = []  # all wave coded cells migrated to cljc; re-add a path here if a Python cell returns
     for p in coded:
         src = p.read_text(encoding="utf-8")
         assert "raise RuntimeError" in src, f"{p}: .solve() must raise RuntimeError at R0"
