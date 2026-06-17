@@ -810,7 +810,7 @@
                       'suji.methods.test-load 'suji.methods.test-muscle-strain
                       'suji.methods.test-datoms 'suji.methods.test-charter-invariants
                       'suji.methods.test-bridge-consistency
-                      'kamado.methods.test-kamado 'kamado.cells.decommission-plan.test-state-machine
+                      'kamado.methods.test-kamado 'kamado.cells.decommission-plan.test-state-machine 'kamado.cells.feedstock-guard.test-state-machine
                       'sanae.methods.test-labor-liberation
                       'kamado.methods.test-ingest
                       'todoke.methods.test-last-mile
@@ -904,7 +904,7 @@
                                              'suji.methods.test-datoms
                                              'suji.methods.test-charter-invariants
                                              'suji.methods.test-bridge-consistency
-                                             'kamado.methods.test-kamado 'kamado.cells.decommission-plan.test-state-machine
+                                             'kamado.methods.test-kamado 'kamado.cells.decommission-plan.test-state-machine 'kamado.cells.feedstock-guard.test-state-machine
                                              'sanae.methods.test-labor-liberation
                       'kamado.methods.test-ingest
                                              'todoke.methods.test-last-mile
