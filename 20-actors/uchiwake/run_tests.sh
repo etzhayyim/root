@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
-# uchiwake 内訳 — test + smoke runner. ADR-2606081800.
+# uchiwake 内訳 — bb/clj test suite (ADR-2606160842 py→clj port wave; Python pruned). ADR-2606081800.
 set -euo pipefail
-cd "$(dirname "$0")"
-echo "== uchiwake tests =="
-python3 -m unittest tests.test_uchiwake -v
-echo "== ingest (offline) =="
-python3 methods/ingest.py
-echo "== analyze (seed) =="
-python3 methods/analyze.py >/dev/null && echo "analyze OK → out/intel-report.md"
-echo "== crosscheck (uchiwake ⇄ kabuto) =="
-python3 methods/crosscheck.py | grep -E "linkage|companies"
+cd "$(dirname "$0")/../.."
+exec bb -e '(require (quote clojure.test) (quote uchiwake.tests.test-off-adapter) (quote uchiwake.tests.test-uchiwake))(let [r (clojure.test/run-tests (quote uchiwake.tests.test-off-adapter) (quote uchiwake.tests.test-uchiwake))](System/exit (if (zero? (+ (:fail r) (:error r))) 0 1)))'
