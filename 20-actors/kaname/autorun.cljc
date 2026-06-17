@@ -11,22 +11,31 @@
   (:require [clojure.string :as str]
             [kaname.graph :as graph]
             [kaname.methods.kotoba :as kkot]
+            [kaname.methods.kotoba-bridge :as bridge]
             [kotoba.datom :as kd]
             #?(:clj [clojure.java.io :as io])))
 
 (defn beat
-  "Run one perceive→…→persist cycle. input keys: {:base-dir :log-path :tx-id :as-of :live?
-  :sources-path}. Returns a compact status map."
-  [{:keys [base-dir log-path] :as input}]
-  (let [out (graph/run input)]
-    {:head      (:head out)
-     :appended  (get-in out [:persist :appended])
-     :reason    (get-in out [:persist :reason])
-     :datoms    (get-in out [:persist :count])
-     :point     (some-> (:point out) second)
-     :mirrors   (:loaded out)
-     :world     {:nodes (count (get-in out [:world :nodes]))
-                 :edges (count (get-in out [:world :edges]))}}))
+  "Run one perceive→…→persist cycle, then (when :bridge?) push the local commit-DAG to the LIVE
+  kotoba engine — FAIL-OPEN (engine down / operator DID absent → the beat still completes locally,
+  reporting :bridge {:error …}; never crashes the heartbeat). input keys: {:base-dir :log-path
+  :tx-id :as-of :live? :sources-path :bridge?}. Returns a compact status map."
+  [{:keys [base-dir log-path bridge?] :as input}]
+  (let [out (graph/run input)
+        br  #?(:clj (when bridge?
+                      (try (let [r (bridge/push log-path {:live true})]
+                             (select-keys r [:mode :pushed :remote-tx-cids :parent-commit :datoms-confirmed]))
+                           (catch Exception e {:error (.getMessage e)})))
+               :default nil)]
+    (cond-> {:head      (:head out)
+             :appended  (get-in out [:persist :appended])
+             :reason    (get-in out [:persist :reason])
+             :datoms    (get-in out [:persist :count])
+             :point     (some-> (:point out) second)
+             :mirrors   (:loaded out)
+             :world     {:nodes (count (get-in out [:world :nodes]))
+                         :edges (count (get-in out [:world :edges]))}}
+      bridge? (assoc :bridge br))))
 
 #?(:clj
    (defn -main
@@ -34,18 +43,25 @@
      [base-dir] [log-path] [--live]. --live refreshes the web mirror by fetching in clj (G7)."
      [& argv]
      (let [pos  (vec (remove #(str/starts-with? (str %) "--") argv))
-           live? (boolean (some #{"--live"} argv))
+           live? (boolean (some #{"--live"} argv))    ;; refresh the web mirror by fetching in clj (G7)
+           bridge? (boolean (some #{"--bridge"} argv)) ;; push the commit-DAG to the LIVE engine (G7)
            base (or (first pos) "20-actors")
            log  (or (second pos) (str (io/file base "kaname" kkot/default-log)))
            n    (count (kd/read-log log))
            r    (beat {:base-dir base :log-path log
                        :tx-id (str "kaname-" n) :as-of (str "as-of:" n)
-                       :live? live?
+                       :live? live? :bridge? bridge?
                        :sources-path (str (io/file base "kaname" "data" "ingest-sources.edn"))})]
        (println (str "kaname beat #" n ": 要=" (:point r)
                      " world=" (:world r) " mirrors=" (pr-str (:mirrors r))
                      " appended=" (:appended r) (when (:reason r) (str " (" (:reason r) ")"))
-                     " head=" (:head r)))
+                     " head=" (:head r)
+                     (when bridge?
+                       (let [b (:bridge r)]
+                         (if (:error b) (str " | bridge ERROR: " (:error b))
+                             (str " | bridge: " (:mode b) " pushed=" (:pushed b)
+                                  (when (seq (:remote-tx-cids b)) (str " remote-tx=" (first (:remote-tx-cids b)))
+                                        ) " datoms=" (:datoms-confirmed b)))))))
        0)))
 
 #?(:clj

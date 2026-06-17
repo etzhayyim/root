@@ -51,3 +51,21 @@
            (is (true? (:ok v)))
            (is (= 1 (:length v)))))
        (.delete (io/file tmp)))))
+
+#?(:clj
+   (deftest test-idempotent-across-bridge-checkpoint
+     (testing "a :bridge/* checkpoint between beats does NOT defeat idempotency (regression)"
+       (let [[nodes res1] (res1-)
+             ds (kkot/leverage->datoms nodes res1 [:chie :web])
+             tmp (str (java.io.File/createTempFile "kaname-kb" ".edn"))]
+         (.delete (io/file tmp))
+         (kkot/persist! ds {:tx-id "kaname-0" :as-of "as-of:0" :log-path tmp})
+         ;; the live-engine bridge interleaves a :bridge/* cursor tx into the same log
+         (let [ck (kd/make-tx [(kd/add "bridge-1" ":bridge/pushed-cid" "bLOCAL")]
+                              {:tx-id "bridge-1" :as-of "as-of:1" :prev-cid (kd/head-cid tmp)})]
+           (kd/append-tx! ck tmp))
+         (testing "re-persisting the SAME leverage datoms is still a no-op (compares past the checkpoint)"
+           (let [r (kkot/persist! ds {:tx-id "kaname-2" :as-of "as-of:2" :log-path tmp})]
+             (is (false? (:appended r)))
+             (is (= :no-change (:reason r)))))
+         (.delete (io/file tmp))))))

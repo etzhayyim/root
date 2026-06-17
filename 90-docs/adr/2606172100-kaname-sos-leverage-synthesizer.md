@@ -221,6 +221,13 @@ StateGraph compile + node state-flow + guarded full perceive→persist run).
   (module `kaname.cell`, entry `fire`, node `naphtali`, cron `53 * * * *`, healthz 13083) — the
   maturity track of ADR-2605192415. `kaname.cell/fire` runs ONE local heartbeat (no external I/O;
   the live web-fetch + the live-engine bridge stay operator-gated).
+- **Heartbeat closes the loop**: `kaname.autorun` `beat` takes `:bridge?` (CLI `--bridge`) — after the
+  local persist it pushes the commit-DAG to the LIVE engine, **FAIL-OPEN** (engine down / DID absent →
+  `:bridge {:error …}`, the beat still completes locally, never crashes). Verified live end-to-end:
+  beat#0 `appended=true` + `bridge: live pushed=1 … datoms=74`; beat#1 `appended=false (:no-change)` +
+  `bridge pushed=0` — **idempotent on BOTH legs**. (The `:bridge/*` checkpoint the bridge interleaves
+  no longer defeats local idempotency: `kotoba/persist!` compares against the last LEVERAGE tx, skipping
+  bridge txs — regression-tested.) The cron cell stays local-only; `--bridge` is the operator-run leg.
 
 50 tests / 212 assertions green (incl. `test_bridge`: host-allowlist refusal, graph-CID determinism,
 tx_edn provenance, stub-transport live push + exactly-once cursor).

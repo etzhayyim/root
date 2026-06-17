@@ -52,9 +52,18 @@
                      cross)]
     (vec (concat summary ents))))
 
-(defn- last-datoms [log-path]
-  (let [txs (kd/read-log log-path)]
-    (when (seq txs) (get (last txs) :tx/datoms))))
+(defn- last-datoms
+  "Datoms of the last LEVERAGE-readout tx — skipping bridge-cursor txs (`:bridge/*`), which the
+  live-engine bridge interleaves into the same log. Without this skip, a bridge checkpoint between
+  two beats would defeat idempotency-by-content (the compare would hit the checkpoint, not the
+  prior readout)."
+  [log-path]
+  (let [txs (kd/read-log log-path)
+        leverage (remove (fn [tx]
+                           (some (fn [[_ _ a _]] (str/starts-with? (str a) ":bridge/"))
+                                 (:tx/datoms tx)))
+                         txs)]
+    (when (seq leverage) (get (last leverage) :tx/datoms))))
 
 (defn persist!
   "Append a leverage-readout tx to the commit-DAG, idempotent-by-content. opts: {:tx-id :as-of
