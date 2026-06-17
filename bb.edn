@@ -263,6 +263,7 @@
                       'tsumugi.methods.test-topics
                       'tsumugi.methods.test-resolve
                       'tsumugi.methods.test-ingest
+                      'tsumugi.methods.test-ingest-scale
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
                       'mitooshi.methods.test-social 'mitooshi.methods.test-synthesize
                       'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-horizon
@@ -327,6 +328,7 @@
                       'tsumugi.methods.test-topics
                       'tsumugi.methods.test-resolve
                       'tsumugi.methods.test-ingest
+                      'tsumugi.methods.test-ingest-scale
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
                                              'mitooshi.methods.test-social
