@@ -62,6 +62,13 @@
       "gate": "G7 — live disclosure/GLEIF/OSM feed + live-node push require Council + operator; the loop itself runs entirely off the offline seed"
     },
     {
+      "id": "cell:tatara.compose",
+      "method": "methods/compose.cljc",
+      "input": "data/seed-plant-graph.kotoba.edn + ../watari + ../watatsuna seeds",
+      "output": ["out/resilience-composition.md", "out/composition-situation.kotoba.edn"],
+      "pipeline": "cross-actor SSoT for the 'one maritime resilience picture': fuse 静 tatara plant export-dependence · 動 watari live craft transit · 静-infra watatsuna cable load over the SAME chokepoint keyword → composition report + derived :composition/* datoms. Routed to redundancy, never interdiction (G2 — only per-chokepoint counts representable). build_viz consumes this fn."
+    },
+    {
       "id": "cell:tatara.maturity",
       "method": "methods/maturity.cljc",
       "output": ["MATURITY.md"],

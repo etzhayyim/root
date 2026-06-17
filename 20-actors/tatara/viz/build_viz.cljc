@@ -15,7 +15,8 @@
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
             #?(:clj [clojure.edn :as edn])
-            [tatara.methods.analyze :as az]))
+            [tatara.methods.analyze :as az]
+            [tatara.methods.compose :as compose]))
 
 ;; ── tiny JSON encoder (deterministic; numbers/strings/bools/maps/vecs/keywords) ──
 (defn- jstr [s] (str "\"" (-> (str s)
@@ -127,45 +128,8 @@
                            (str "as-of: " (:craft.fix/observed-at fx ""))]}))
                latest)))))
 
-;; ── watari live craft transit per chokepoint (composes with tatara plant export-dependence) ──
-#?(:clj
-   (defn- watari-choke-transit
-     "Read the watari craft graph → map of chokepoint-keyword-name → distinct live craft whose
-     LATEST fix transits a lane carrying that chokepoint. The 動 (live) half of the composition."
-     [watari-seed]
-     (if-not (.exists (io/file watari-seed))
-       {}
-       (let [rows (edn/read-string (slurp watari-seed))
-             lane->cp (into {} (keep (fn [r] (when (and (:lane/id r) (:lane/chokepoint r))
-                                               [(:lane/id r) (name (:lane/chokepoint r))]))
-                                     rows))
-             fixes (filter :craft.fix/id rows)
-             latest (reduce (fn [m fx]
-                              (let [c (:craft.fix/craft fx) cur (get m c)]
-                                (if (or (nil? cur)
-                                        (pos? (compare (:craft.fix/observed-at fx "")
-                                                       (:craft.fix/observed-at cur ""))))
-                                  (assoc m c fx) m)))
-                            {} fixes)]
-         (reduce (fn [acc [c fx]]
-                   (if-let [cp (lane->cp (:craft.fix/lane fx))]
-                     (update acc cp (fnil conj #{}) c)
-                     acc))
-                 {} latest)))))
-
-#?(:clj
-   (defn- watatsuna-choke-load
-     "Read the watatsuna cable graph → map chokepoint-keyword-name → distinct cable landing
-     stations whose :station/chokepoint carries that keyword. The static-cable leg of the
-     resilience composition (静 infrastructure)."
-     [watatsuna-seed]
-     (if-not (.exists (io/file watatsuna-seed))
-       {}
-       (let [rows (edn/read-string (slurp watatsuna-seed))]
-         (reduce (fn [acc s]
-                   (reduce (fn [acc cp] (update acc (name cp) (fnil conj #{}) (:station/id s)))
-                           acc (:station/chokepoint s)))
-                 {} (filter :station/id rows))))))
+;; The 動 (watari) + 静-infra (watatsuna) readers + the composition live in tatara.methods.compose
+;; (the canonical SSoT); this viz only ADDS the geographic markers + the bar styling.
 
 #?(:clj
    (defn- watatsuna-station-points
@@ -181,17 +145,13 @@
              (filter :station/id (edn/read-string (slurp watatsuna-seed)))))))
 
 (defn- composition-bars
-  "Per-chokepoint resilience composition over the SAME keyword: tatara plant export-dependence
-  (静) · watari live craft transit (動) · watatsuna cable-station load (静 infra).
+  "Style the canonical compose/choke-composition (静 plants · 動 craft · 静-infra cable) as bars.
   :value = plants (primary bar); :sub = craft; :sub2 = cable stations."
   [a craft-transit cable-load]
-  (mapv (fn [cp]
-          (let [k (name cp)]
-            {:name k :value (count (get-in a [:choke-plants cp]))
-             :sub (count (get craft-transit k #{}))
-             :sub2 (count (get cable-load k #{}))
-             :col (get choke-colors k "#9ad")}))
-        (az/chokes-by-load a)))
+  (mapv (fn [{:keys [chokepoint plants craft cable]}]
+          {:name (name chokepoint) :value plants :sub craft :sub2 cable
+           :col (get choke-colors (name chokepoint) "#9ad")})
+        (compose/choke-composition a craft-transit cable-load)))
 
 ;; ── HTML template (orthographic canvas globe) ───────────────────────────────────
 (defn- html [{:keys [title ja subtitle source data legend bars-title]}]
@@ -347,8 +307,8 @@ resize();(function loop(){if(spin&&!dragging)ry+=0.0016;draw();requestAnimationF
            sector-legend (mapv (fn [[s c]] [(name s) c])
                                (sort-by (comp name first) sector-colors))
            craft (or (watari-craft-points watari-seed) [])
-           craft-transit (watari-choke-transit watari-seed)
-           cable-load (watatsuna-choke-load watatsuna-seed)
+           craft-transit (compose/watari-choke-transit watari-seed)
+           cable-load (compose/watatsuna-choke-load watatsuna-seed)
            stations (watatsuna-station-points watatsuna-seed)
            comp-bars (composition-bars a craft-transit cable-load)
 

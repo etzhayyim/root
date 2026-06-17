@@ -80,6 +80,11 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   to kabuto's country-qualified `org.corp.tw.tsmc` by normalized id+name token), emits a
   coverage % + a prioritized **ingest worklist** of unresolved operators. Pure measurement —
   mutates nothing, fabricates no link; unresolved = honest gap (G5). Current: 24/29 = 83%.
+- `cell:tatara.compose` → `methods/compose.cljc`. The cross-actor SSoT for the "one maritime
+  resilience picture": fuses 静 tatara plant export-dependence · 動 watari live craft transit ·
+  静-infra watatsuna cable load over the SAME chokepoint keyword → `resilience-composition.md`
+  + derived `:composition/*` datoms. Routed to REDUNDANCY, never interdiction (G2 — only
+  per-chokepoint counts representable). build_viz consumes this fn to render the world globe.
 - `cell:tatara.maturity` → `methods/maturity.cljc`. Generates `MATURITY.md` — the actor's
   maturity SSoT, derived from the live graph (coverage / concentration / chokepoint / kabuto
   linkage) + an artifact-presence R0→R1 checklist + an honest deferred/gated section. Generated,
@@ -90,7 +95,7 @@ missing geographic substrate that ties them together over **shared chokepoint ke
   Every coordinate DERIVED from a seed (regenerable; none hand-copied).
 
 ```bash
-bb 20-actors/tatara/run_tests.sh                                              # 46 tests / 4,891 assertions
+bb 20-actors/tatara/run_tests.sh                                              # 49 tests / 4,914 assertions
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"  # → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)"      # → the three globes
 bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-main)"  # autonomous heartbeat → LOCAL kotoba log

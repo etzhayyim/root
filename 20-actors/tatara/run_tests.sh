@@ -14,6 +14,7 @@ SUITES=(
   "tatara.methods.test-maturity"
   "tatara.methods.test-seed-integrity"
   "tatara.methods.test-viz"
+  "tatara.methods.test-compose"
 )
 
 fail=0

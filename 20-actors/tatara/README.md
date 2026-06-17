@@ -28,7 +28,7 @@ bb 20-actors/tatara/run_tests.sh
 # Testing tatara.methods.test-autorun … Ran 5 tests / 1213 assertions. 0 failures.
 # Testing tatara.methods.test-lexicons… Ran 4 tests / 44 assertions.   0 failures.
 # Testing tatara.methods.test-crosscheck Ran 4 tests / 20 assertions.  0 failures.
-# ── tatara: ALL suites green ──   (46 tests / 4,891 assertions)
+# ── tatara: ALL suites green ──   (49 tests / 4,914 assertions)
 
 # kabuto-linkage crosscheck → out/kabuto-crosscheck.md (24/29 = 83% linkage)
 bb -cp 20-actors -e "(require 'tatara.methods.crosscheck)(tatara.methods.crosscheck/-main)"
@@ -70,10 +70,11 @@ transit) and watatsuna (submarine-cable load) over the same keywords.
 | `methods/analyze.cljc` | concentration / HHI / chokepoint / capacity engine |
 | `methods/kotoba.cljc` | content-addressed EAVT commit-DAG persistence |
 | `methods/autorun.cljc` | autonomous heartbeat → content-addressed commit-DAG (resume-safe) |
+| `methods/compose.cljc` → `resilience-composition.md` | cross-actor SSoT: 静 plants · 動 craft · 静-infra cable per chokepoint |
 | `methods/crosscheck.cljc` | measures :plant/operator ⇄ kabuto :company/id linkage (84%) + ingest worklist |
 | `methods/maturity.cljc` → `MATURITY.md` | generated maturity scorecard (R0→R1 checklist, can't drift) |
 | `00-contracts/lexicons/com/etzhayyim/tatara/*.json` | write surface (registerPlant/registerHub/recordFlow/registerChokepoint) |
-| `methods/test_{analyze,kotoba,autorun,lexicons,crosscheck,maturity,seed-integrity,viz}.cljc` | 46 tests / 4,891 assertions |
+| `methods/test_{analyze,kotoba,autorun,lexicons,crosscheck,maturity,seed-integrity,viz,compose}.cljc` | 49 tests / 4,914 assertions |
 | `viz/build_viz.cljc` | globe generator (derives all coords from the seeds) |
 | `viz/plant-globe.htm` · `viz/world-supply-globe.htm` | the (C) and (A) globes |
 | `manifest.jsonld` · `CLAUDE.md` | actor manifest + agent rules |
