@@ -39,7 +39,9 @@
         hits (filterv #(str/includes? desc-lower %) prohibited-patterns)]
     (if (seq hits)
       {:ok false
-       :reason (str "Charter violation: " (pr-str hits) " (G5)")
+       ;; match py's f-string list repr exactly (Python list = single quotes, ", " sep), not
+       ;; clj pr-str's double-quote/space vector form, so the reason is byte-identical (parity-caught).
+       :reason (str "Charter violation: [" (str/join ", " (map #(str "'" % "'") hits)) "] (G5)")
        :status "failed"}
       {:ok true
        :reason "Charter scan passed"
