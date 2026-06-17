@@ -169,3 +169,40 @@
                      (mapv (fn [o] {"child" (get o "child") "parent" (get o "parent")
                                     "country" (get o "country") "childRef" (get o "childRef" "Q")})))]
        (normalize-rows rows seed))))
+
+;; ── 粘菌/菌糸 foraging (offline, derived from the seed itself) ───────────────────────────────
+#?(:clj
+   (defn derive-seed-qids
+     "RING-2 self-expansion: every promoted tie cites its child's Wikidata item URL, so the
+     committed seed ALREADY NAMES the QIDs of orgs in the graph. Returns that set of QIDs."
+     [seed-path]
+     (set (map second (re-seq #"https://www\.wikidata\.org/wiki/(Q\d+)" (slurp (str seed-path)))))))
+
+#?(:clj
+   (defn forage-plan
+     "Offline foraging plan from the seed: an org already a :tie/from is HARVESTED; an org leaf
+     (sector-bearing, no outgoing tie) is a FRONTIER TIP; empty QID frontier ⇒ STARVATION → fruit
+     (switch substrate). Pure-offline + deterministic — the cloud loop reads this to grow toward
+     food, not on a clock. Mirror of the Python forage_plan."
+     [seed-path]
+     (let [[nodes ties] (asc/load-graph seed-path)
+           parents (set (map #(get % ":tie/from") ties))
+           seed-qids (derive-seed-qids seed-path)
+           {:keys [harvested frontier]}
+           (reduce (fn [acc [nid n]]
+                     (cond
+                       (contains? parents nid) (update acc :harvested conj nid)
+                       (and (get n ":pwr/sector") (str/starts-with? nid "org."))
+                       (update acc :frontier conj nid)
+                       :else acc))
+                   {:harvested [] :frontier []} nodes)
+           starving (or (empty? seed-qids) (empty? frontier))]
+       {"harvested_anchors" (count harvested)
+        "frontier_tips" (count frontier)
+        "frontier_sample" (vec (take 15 (sort frontier)))
+        "anchor_qids_available" (count seed-qids)
+        "starving" starving
+        "recommendation" (if starving
+                           "FRUIT → switch substrate (Wikidata exhausted): run --gleif, or add a new registry anchor source"
+                           (str "GROW → next ring anchors on " (count frontier) " frontier tips (--ring2)"))
+        "niche" "植物-producer also publishes (publish.py) — the colony feeds humanity, not only itself"})))
