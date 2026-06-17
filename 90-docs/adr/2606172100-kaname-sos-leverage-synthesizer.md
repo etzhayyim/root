@@ -243,11 +243,11 @@ DID is read dynamically from the running node's env (`KOTOBA_AGENT_DID`, the loo
 bridge fail-opens if the node is down. **Verified on install**: kickstart beat#0 → `appended=true` +
 `bridge live pushed=1 … datoms=74` (committed to the real Datom graph); a second kickstart →
 `appended=false (:no-change)` + `bridge pushed=0` (idempotent in the deployed context); agent
-`last exit code = 0`. Artifacts committed under `20-actors/kaname/deploy/` (`install.sh` install/
+`last exit code = 0`. Artifacts committed under `20-actors/kaname/deploy/` (`install.clj` (bb) install/
 uninstall/status + plist template + runner + README). The generated plist + log are machine-local
 (not committed); `data/persisted/` stays gitignored. (The eventual fleet home is `KanameHeartbeatCell`
 on node `naphtali` via the cell-runner; the LaunchAgent is the operator-run deployment until that
-runner is live. Worktree caveat: re-run `install.sh install` from the merged checkout after kaname
+runner is live. Worktree caveat: re-run `bb install.clj install` from the merged checkout after kaname
 lands on `main`.)
 
 ## Consequences

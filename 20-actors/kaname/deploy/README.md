@@ -22,10 +22,14 @@ Idempotent on both legs: a beat with an unchanged world model is `appended=false
 ## Install / manage
 
 ```bash
-20-actors/kaname/deploy/install.sh install     # render plist → ~/Library/LaunchAgents, load, kickstart once
-20-actors/kaname/deploy/install.sh status      # agent state + tail the log
-20-actors/kaname/deploy/install.sh uninstall   # bootout + remove the plist
+bb 20-actors/kaname/deploy/install.clj install     # render plist → ~/Library/LaunchAgents, load, kickstart once
+bb 20-actors/kaname/deploy/install.clj status      # agent state + tail the log
+bb 20-actors/kaname/deploy/install.clj uninstall   # bootout + remove the plist
 ```
+
+`install.clj` is a babashka script (`babashka.fs` + `babashka.process`) — clj-native deploy, matching
+the actor. (The launchd-invoked runner stays `run-heartbeat.sh` — bash is the natural fit for the
+`pgrep`/`ps` node-DID resolution it does, and it is what the plist's `ProgramArguments` launches.)
 
 - **Label**: `com.etzhayyim.kaname.heartbeat`
 - **Log**: `~/Library/Logs/kaname-heartbeat.log`
@@ -44,6 +48,7 @@ Idempotent on both legs: a beat with an unchanged world model is `appended=false
 
 ## ⚠ Worktree caveat
 
-`install.sh` resolves the repo root from its own location. If installed from a temporary git
-worktree, that path is **ephemeral** — once kaname merges to `main`, **re-run `install.sh install`
-from the merged checkout** so the agent repoints to the stable path (and `uninstall` the old one).
+`install.clj` resolves the repo root from its own location. If installed from a temporary git
+worktree, that path is **ephemeral** — once kaname merges to `main`, **re-run
+`bb install.clj install` from the merged checkout** so the agent repoints to the stable path (and
+`uninstall` the old one).
