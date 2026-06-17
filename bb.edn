@@ -687,7 +687,7 @@
                       'hotaru.cells.commons-readiness.test-state-machine
                       'keizu.methods.test-edn
                       'tatekata.cells.mep-installation.test-cell
-                      'warifu.cells.test-refund 'warifu.cells.test-authorize 'warifu.cells.test-capture 'warifu.cells.test-settle 'warifu.cells.test-dispute 'warifu.cells.test-eavt-schema 'warifu.cells.test-guarded-substrate
+                      'warifu.cells.test-refund 'warifu.cells.test-authorize 'warifu.cells.test-capture 'warifu.cells.test-settle 'warifu.cells.test-dispute 'warifu.cells.test-eavt-schema 'warifu.cells.test-guarded-substrate 'warifu.test-lexicons
                       'kakaku.kotoba.test-ingest-mcp
                       'watatsuna.methods.test-ingest
                       'scripts.lint.test-verify-no-modal-labs-calls
@@ -717,7 +717,7 @@
                                              'hotaru.cells.commons-readiness.test-state-machine
                                              'keizu.methods.test-edn
                                              'tatekata.cells.mep-installation.test-cell
-                                             'warifu.cells.test-refund 'warifu.cells.test-authorize 'warifu.cells.test-capture 'warifu.cells.test-settle 'warifu.cells.test-dispute 'warifu.cells.test-eavt-schema 'warifu.cells.test-guarded-substrate
+                                             'warifu.cells.test-refund 'warifu.cells.test-authorize 'warifu.cells.test-capture 'warifu.cells.test-settle 'warifu.cells.test-dispute 'warifu.cells.test-eavt-schema 'warifu.cells.test-guarded-substrate 'warifu.test-lexicons
                                              'kakaku.kotoba.test-ingest-mcp
                                              'watatsuna.methods.test-ingest
                                              'scripts.lint.test-verify-no-modal-labs-calls
