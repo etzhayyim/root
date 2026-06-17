@@ -8,6 +8,7 @@ cp_root="$(cd "$here/.." && pwd)"   # 20-actors/
 SUITES=(
   "tatara.methods.test-analyze"
   "tatara.methods.test-kotoba"
+  "tatara.methods.test-autorun"
 )
 
 fail=0

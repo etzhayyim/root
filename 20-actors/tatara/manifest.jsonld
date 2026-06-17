@@ -48,6 +48,13 @@
       "pipeline": "graph-datoms (EAVT) + derived :concentration/* datoms → content-addressed tx → append-only log (verify-chain tamper-evident, resume-safe). No external I/O."
     },
     {
+      "id": "cell:tatara.autorun",
+      "method": "methods/autorun.cljc",
+      "output": ["local append-only kotoba Datom log (content-addressed commit-DAG)"],
+      "pipeline": "autonomous heartbeat — observe OFFLINE seed → classify → analyze → persist content-addressed tx (graph + derived :concentration/*) linking the previous CID; deterministic / resume-safe; no external I/O. Live feed + live-node push stay G7-gated.",
+      "gate": "G7 — live disclosure/GLEIF/OSM feed + live-node push require Council + operator; the loop itself runs entirely off the offline seed"
+    },
+    {
       "id": "cell:tatara.viz",
       "method": "viz/build_viz.cljc",
       "output": ["viz/plant-globe.htm", "viz/world-supply-globe.htm", "../watari/viz/craft-globe.htm"],

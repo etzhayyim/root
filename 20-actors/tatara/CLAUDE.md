@@ -66,15 +66,22 @@ missing geographic substrate that ties them together over **shared chokepoint ke
 - `cell:tatara.kotoba` → `methods/kotoba.cljc`. Content-addressed EAVT commit-DAG persistence
   (graph-datoms + derived `:concentration/*`), append-only, verify-chain tamper-evident,
   resume-safe, no external I/O.
+- `cell:tatara.autorun` → `methods/autorun.cljc`. The autonomous heartbeat — same shape as
+  watari/watatsuna: each cycle observes the OFFLINE seed → classify → analyze → **persists a
+  content-addressed tx** (graph + derived `:concentration/*`) to the append-only LOCAL kotoba
+  log, linking the previous tx's CID. Deterministic / resume-safe. Live feed + live-node push
+  stay G7-gated. G2/G4 hold by construction (only aggregate concentration is representable;
+  no per-worker datom).
 - `cell:tatara.viz` → `viz/build_viz.cljc`. Emits three self-contained canvas globes —
   `viz/plant-globe.htm` (C, plants by sector), `viz/world-supply-globe.htm` (A, plants + live
   craft + chokepoint composition), `../watari/viz/craft-globe.htm` (B, watari's first viz).
   Every coordinate DERIVED from a seed (regenerable; none hand-copied).
 
 ```bash
-bb 20-actors/tatara/run_tests.sh                                              # 14 tests / 949 assertions
+bb 20-actors/tatara/run_tests.sh                                              # 19 tests / 2,162 assertions
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"  # → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)"      # → the three globes
+bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-main)"  # autonomous heartbeat → LOCAL kotoba log
 ```
 
 ## Pairing (静 manufacturing ↔ 動 craft ↔ cable) — one resilience picture

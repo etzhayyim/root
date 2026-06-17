@@ -23,12 +23,16 @@ Charter Rider §2(c) reciprocity axis; Wellbecoming §1.13). Enforced by constru
 
 ```bash
 bb 20-actors/tatara/run_tests.sh
-# Testing tatara.methods.test-analyze … Ran 9 tests / 403 assertions. 0 failures.
-# Testing tatara.methods.test-kotoba  … Ran 5 tests / 546 assertions. 0 failures.
-# ── tatara: ALL suites green ──
+# Testing tatara.methods.test-analyze … Ran 9 tests / 403 assertions.  0 failures.
+# Testing tatara.methods.test-kotoba  … Ran 5 tests / 546 assertions.  0 failures.
+# Testing tatara.methods.test-autorun … Ran 5 tests / 1213 assertions. 0 failures.
+# ── tatara: ALL suites green ──   (19 tests / 2,162 assertions)
 
 # concentration report → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"
+
+# autonomous heartbeat → LOCAL append-only kotoba Datom log (commit-DAG)
+bb -cp 20-actors -e "(require 'tatara.methods.autorun)(tatara.methods.autorun/-main)"
 
 # the three globes (open the .htm in a browser)
 bb -cp 20-actors -e "(require 'tatara.viz.build-viz)(tatara.viz.build-viz/-main)"
@@ -56,7 +60,8 @@ suez-red-sea 3 · panama 1** — these compose with watari (live vessel transit)
 | `data/seed-plant-graph.kotoba.edn` | bounded `:representative` seed |
 | `methods/analyze.cljc` | concentration / HHI / chokepoint / capacity engine |
 | `methods/kotoba.cljc` | content-addressed EAVT commit-DAG persistence |
-| `methods/test_analyze.cljc` · `methods/test_kotoba.cljc` | 14 tests / 949 assertions |
+| `methods/autorun.cljc` | autonomous heartbeat → content-addressed commit-DAG (resume-safe) |
+| `methods/test_analyze.cljc` · `test_kotoba.cljc` · `test_autorun.cljc` | 19 tests / 2,162 assertions |
 | `viz/build_viz.cljc` | globe generator (derives all coords from the seeds) |
 | `viz/plant-globe.htm` · `viz/world-supply-globe.htm` | the (C) and (A) globes |
 | `manifest.jsonld` · `CLAUDE.md` | actor manifest + agent rules |

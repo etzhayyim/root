@@ -111,5 +111,6 @@ logistics hubs, 22 export flows — all `:representative`, coordinates rounded t
 ## Status
 
 R0 LANDED 2026-06-17 — ontology + seed (22 plants / 6 hubs / 22 flows) + analyze + kotoba
-commit-DAG + 3 globes + **14 tests / 949 assertions green** (`bb 20-actors/tatara/run_tests.sh`).
+commit-DAG + autonomous autorun heartbeat + 3 globes + **19 tests / 2,162 assertions green**
+(`bb 20-actors/tatara/run_tests.sh`).
 Council attestation = PR review (founder operational premise, 2026-06-11). Live ingest G7-gated.
