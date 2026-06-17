@@ -46,7 +46,7 @@
   (let [fake (fn [_url] {"followersCount" 12})
         [events snap] (perception/events-for-beat
                        1 {:actor "did:web:x" :prev-followers 10 :live true :fetch fake})]
-    (is (= {:followers 12} snap))
+    (is (= {:followers 12 :reactions 0} snap))
     (is (= [":event/idle" ":event/follower-gained" ":event/follower-gained"] events))))
 
 (deftest live-follower-spike-is-capped
@@ -61,7 +61,33 @@
         [events snap] (perception/events-for-beat
                        1 {:actor "did:web:x" :prev-followers nil :live true :fetch fake})]
     (is (= [":event/idle"] events))          ;; baseline, not a spike
-    (is (= {:followers 99} snap))))
+    (is (= {:followers 99 :reactions 0} snap))))
+
+(deftest live-reactions-felt-but-capped
+  ;; ADR-2606171800: reactions on the organism's OWN posts are a reward INPUT — felt, capped.
+  (let [profile {"followersCount" 50}
+        ;; a feed whose posts carry many likes/replies/reposts (a viral beat)
+        viral {"feed" [{"post" {"likeCount" 400 "replyCount" 80 "repostCount" 60}}]}
+        fake (fn [url] (if (re-find #"getAuthorFeed" url) viral profile))
+        [events snap] (perception/events-for-beat
+                       2 {:actor "did:web:x" :prev-followers 50 :prev-reactions 0
+                          :live true :fetch fake})]
+    ;; felt: reaction-received present; capped: never more than reaction-event-cap (engagement
+    ;; can't become the objective — a 540-reaction spike folds at most the cap)
+    (is (= perception/reaction-event-cap
+           (count (filter #{":event/reaction-received"} events))))
+    (is (= 540 (:reactions snap)))))           ;; the raw sum is snapshotted, the FOLD is capped
+
+(deftest live-reaction-fetch-failure-is-resilient
+  ;; if only the feed fetch fails, the organism still observes followers — no spurious reaction
+  (let [fake (fn [url] (if (re-find #"getAuthorFeed" url)
+                         (throw (ex-info "feed down" {}))
+                         {"followersCount" 50}))
+        [events snap] (perception/events-for-beat
+                       2 {:actor "did:web:x" :prev-followers 50 :prev-reactions 5
+                          :live true :fetch fake})]
+    (is (= 5 (:reactions snap)))               ;; no spurious delta on feed failure
+    (is (not-any? #{":event/reaction-received"} events))))
 
 (deftest live-failure-fails-open-to-representative
   (let [boom (fn [_url] (throw (ex-info "network down" {})))

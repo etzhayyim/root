@@ -1,0 +1,507 @@
+;; etzhayyim.vitals — per-actor "life activity" vitals over the kotoba Datom log.
+;;
+;; The roster question is not "how mature is the codebase" (evaluate_maturity.py,
+;; now stale — it assumes the dead *-compat / src/main.py / *.kotoba layout) but
+;; "is each actor ALIVE as an organism cell". An actor metabolizes on three axes:
+;;
+;;   clj      内部代謝 / autopoiesis  — does its own code run (cljc ported off
+;;                                       Python, run_tests.sh green) — the cell's
+;;                                       interior metabolism.
+;;   actor    細胞間シグナリング / symbiosis — does it signal other cells
+;;                                       (manifest :integrates edges, Pregel cells)
+;;                                       — its place in the multicellular body.
+;;   atproto  外界代謝 / social metabolism — does it exchange with the outside
+;;                                       world (app.bsky.feed.post projection,
+;;                                       fresh out/ artifacts) — in-vivo vs in-vitro.
+;;
+;; This walks every manifest-bearing actor, optionally RUNS its suite (real green
+;; reflex, not a static guess), scores the three axes, classifies 生/休眠/死, and
+;; TRANSACTS the vitals as Datoms into the kotoba engine (content-addressed,
+;; as-of history — re-run shows the organism's trajectory over time).
+;;
+;; CLI:  bb vitals:report                 ; full run, suites executed
+;;       bb vitals:report --no-tests       ; static signs only (fast)
+;;       bb vitals:report --limit 5        ; first N actors (smoke)
+;;       bb vitals:report --actors tsumugi,shionome,keizu
+;;       bb vitals:report --timeout-ms 90000
+
+(ns etzhayyim.vitals
+  (:require [clojure.string :as str]
+            [clojure.java.io :as io]
+            [babashka.process :as p]
+            [cheshire.core :as json]
+            [etzhayyim.kotoba.engine :as kt]))
+
+(def ^:private actors-root "20-actors")
+(def ^:private journal "80-data/vitals/journal.edn")
+(def ^:private bsky-re #"app\.bsky\.feed\.post|feed-post|feed_post")
+
+;; ── discovery ───────────────────────────────────────────────────────────────
+
+(defn actor-dirs
+  "Every actor dir under 20-actors that carries a manifest.jsonld — the named
+   organism cells (Tier-B religious-corp actors), not the mass-scaffold mirrors."
+  []
+  (->> (.listFiles (io/file actors-root))
+       (filter #(.isDirectory ^java.io.File %))
+       (filter #(.exists (io/file % "manifest.jsonld")))
+       (sort-by #(.getName ^java.io.File %))
+       vec))
+
+(defn- files-in
+  "Regular files directly under `dir` whose name matches `re` (dir may be absent)."
+  [dir re]
+  (let [d (io/file dir)]
+    (if (.isDirectory d)
+      (filter #(and (.isFile ^java.io.File %) (re-find re (.getName ^java.io.File %)))
+              (.listFiles d))
+      [])))
+
+(defn- subdirs [dir]
+  (let [d (io/file dir)]
+    (if (.isDirectory d) (filter #(.isDirectory ^java.io.File %) (.listFiles d)) [])))
+
+(defn- read-manifest [actor-dir]
+  (try (json/parse-string (slurp (io/file actor-dir "manifest.jsonld")))
+       (catch Exception _ {})))
+
+;; ── axis signals ────────────────────────────────────────────────────────────
+
+(defn- clj-signs
+  "内部代謝: cljc-vs-Python port ratio in methods/, and the cells substrate."
+  [actor-dir]
+  (let [methods (io/file actor-dir "methods")
+        prod    (fn [re] (remove #(str/starts-with? (.getName ^java.io.File %) "test_")
+                                 (files-in methods re)))
+        cljc    (count (prod #"\.cljc$"))
+        py      (count (prod #"\.py$"))
+        cells   (subdirs (io/file actor-dir "cells"))
+        cell-cljc (count (filter #(seq (files-in % #"\.cljc$")) cells))]
+    {:clj/methods-cljc cljc
+     :clj/methods-py   py
+     :clj/port-ratio   (if (pos? (+ cljc py)) (double (/ cljc (+ cljc py))) 0.0)
+     :clj/cells        (count cells)
+     :clj/cells-cljc   cell-cljc}))
+
+(defn integrates-of
+  "Normalized out-edge target names (strips the `actor:` prefix)."
+  [manifest]
+  (let [v (get manifest "integrates")
+        v (cond (sequential? v) v (string? v) [v] :else [])]
+    (mapv #(str/replace (str %) #"^actor:" "") v)))
+
+(defn in-degree-map
+  "Body-wide in-degree: how many cells signal INTO each cell (細胞が体にどれだけ
+   必要とされているか). One global pass over every manifest's :integrates."
+  [actor-dirs]
+  (->> actor-dirs
+       (mapcat #(integrates-of (read-manifest %)))
+       frequencies))
+
+(defn- actor-signs
+  "細胞間シグナリング: out-degree (:integrates) + in-degree (被参照) + Pregel cells."
+  [manifest actor-dir indeg]
+  (let [out (integrates-of manifest)]
+    {:actor/integrates (count out)
+     :actor/integrate-names (vec out)
+     :actor/in-degree (get indeg (.getName ^java.io.File actor-dir) 0)
+     :actor/cells (count (subdirs (io/file actor-dir "cells")))}))
+
+(defn- bio-signs
+  "心拍 / heartbeat: days since the cell last metabolized (newest mtime across
+   methods/ data/ out/) — a stale cell may be green yet not actually living."
+  [actor-dir]
+  (let [newest (->> ["methods" "data" "out"]
+                    (map #(io/file actor-dir %))
+                    (filter #(.isDirectory ^java.io.File %))
+                    (mapcat file-seq)
+                    (filter #(.isFile ^java.io.File %))
+                    (map #(.lastModified ^java.io.File %))
+                    (reduce max 0))]
+    {:bio/heartbeat-mtime newest
+     :bio/heartbeat-days (if (pos? newest)
+                           (quot (- (System/currentTimeMillis) newest) 86400000)
+                           9999)}))
+
+(defn- atproto-signs
+  "外界代謝: does it project app.bsky.feed.post, and has it recently excreted?"
+  [actor-dir]
+  (let [methods (io/file actor-dir "methods")
+        bsky?   (boolean (some #(re-find bsky-re (slurp %))
+                               (files-in methods #"\.(cljc|clj|py)$")))
+        social? (.exists (io/file methods "social.cljc"))
+        out     (io/file actor-dir "out")
+        out-mtime (when (.isDirectory out)
+                    (->> (file-seq out) (filter #(.isFile ^java.io.File %))
+                         (map #(.lastModified ^java.io.File %))
+                         (reduce max 0)))]
+    {:atproto/bsky-post bsky?
+     :atproto/social-method social?
+     :atproto/out-mtime (or out-mtime 0)}))
+
+;; ── vital reflex: actually run the suite ─────────────────────────────────────
+
+(defn- run-suite
+  "Execute ./run_tests.sh with a wall-clock budget. :green | :red | :absent |
+   :timeout | :error — the organism's reflex test."
+  [actor-dir timeout-ms]
+  (let [script (io/file actor-dir "run_tests.sh")]
+    (if-not (.exists script)
+      {:reflex :absent}
+      (let [proc (p/process {:dir "." :out :string :err :string} "bash" (.getPath script))
+            res  (deref (future @proc) timeout-ms ::timeout)]
+        (if (= res ::timeout)
+          (do (try (p/destroy-tree proc) (catch Exception _ nil)) {:reflex :timeout})
+          (try {:reflex (if (zero? (:exit res)) :green :red) :exit (:exit res)}
+               (catch Exception e {:reflex :error :msg (.getMessage e)})))))))
+
+;; ── scoring & classification ─────────────────────────────────────────────────
+
+(defn- score
+  "Vitality 0-100 across the three axes (clj 40 / actor 30 / atproto 30).
+   clj    = port-ratio(15) + reflex(green 20/red 5) + heartbeat-fresh(5, ≤30d)
+   actor  = out-degree(10) + in-degree(10) + cells(10)
+   atproto= bsky(20) + social-method(5) + recent-out(5)"
+  [v]
+  (let [clj (+ (* 15 (:clj/port-ratio v))
+               (case (:reflex v) :green 20 :red 5 0)
+               (if (<= (:bio/heartbeat-days v) 30) 5 0))
+        act (+ (* 10 (min 1.0 (/ (:actor/integrates v) 5.0)))
+               (* 10 (min 1.0 (/ (:actor/in-degree v) 5.0)))
+               (* 10 (min 1.0 (/ (:actor/cells v) 5.0))))
+        atp (+ (if (:atproto/bsky-post v) 20 0)
+               (if (:atproto/social-method v) 5 0)
+               (if (pos? (:atproto/out-mtime v)) 5 0))]
+    {:score/clj (Math/round (double clj))
+     :score/actor (Math/round (double act))
+     :score/atproto (Math/round (double atp))
+     :score (Math/round (double (+ clj act atp)))}))
+
+(defn- classify
+  "生 in-vivo: runs green, signals peers, AND metabolizes outward (bsky).
+   休眠 in-vitro: has interior metabolism but no outward exchange (R0-design-only).
+   死 stub: no running code and no port."
+  [v]
+  (cond
+    (and (= :green (:reflex v)) (pos? (:actor/integrates v)) (:atproto/bsky-post v)) :alive
+    (or (= :green (:reflex v)) (pos? (:clj/port-ratio v)))                           :dormant
+    :else                                                                            :stub))
+
+(def ^:private class-glyph {:alive "生" :dormant "休眠" :stub "死"})
+
+(defn vitals-for [actor-dir indeg run-tests? timeout-ms]
+  (let [name     (.getName ^java.io.File actor-dir)
+        manifest (read-manifest actor-dir)
+        base     (merge {:actor name
+                         :status (or (get manifest "status") "unknown")
+                         :tier   (or (get manifest "tier") "unknown")}
+                        (clj-signs actor-dir)
+                        (actor-signs manifest actor-dir indeg)
+                        (bio-signs actor-dir)
+                        (atproto-signs actor-dir)
+                        (if run-tests? (run-suite actor-dir timeout-ms) {:reflex :skipped}))
+        scored   (merge base (score base))]
+    (assoc scored :class (classify scored))))
+
+;; ── persistence: transact vitals into the kotoba Datom log ───────────────────
+
+(defn- ->entity [run v]
+  {:db/id (str "vitals/" run "/" (:actor v))
+   :vitals/run             run
+   :vitals.actor/name      (:actor v)
+   :vitals.actor/status    (:status v)
+   :vitals.clj/port-ratio  (:clj/port-ratio v)
+   :vitals.clj/methods-cljc (:clj/methods-cljc v)
+   :vitals.clj/methods-py  (:clj/methods-py v)
+   :vitals.clj/reflex      (clojure.core/name (:reflex v))
+   :vitals.actor/integrates (:actor/integrates v)
+   :vitals.actor/in-degree (:actor/in-degree v)
+   :vitals.actor/cells     (:actor/cells v)
+   :vitals.bio/heartbeat-days (:bio/heartbeat-days v)
+   :vitals.atproto/bsky-post (:atproto/bsky-post v)
+   :vitals.atproto/out-mtime (:atproto/out-mtime v)
+   :vitals.score/clj       (:score/clj v)
+   :vitals.score/actor     (:score/actor v)
+   :vitals.score/atproto   (:score/atproto v)
+   :vitals/score           (:score v)
+   :vitals/class           (clojure.core/name (:class v))})
+
+(defn persist!
+  "Transact one observation per actor, keyed by `run`, into the kotoba engine;
+   returns the head CID. Append-only — every run leaves a distinct as-of cohort
+   so the organism's evolution (生命進化) is queryable across runs."
+  [run vitals]
+  (let [conn (kt/connect {:journal journal})]
+    (doseq [v vitals] (kt/transact conn [(->entity run v)]))
+    (kt/head-cid conn)))
+
+;; ── report ───────────────────────────────────────────────────────────────────
+
+(defn report->md [vitals head]
+  (let [by-class (frequencies (map :class vitals))]
+    (str "# etzhayyim — actor vitals (per-cell life activity)\n\n"
+         (format "**%d cells** — 生 %d · 休眠 %d · 死 %d   ·   Datom head `%s…`\n\n"
+                 (count vitals) (:alive by-class 0) (:dormant by-class 0)
+                 (:stub by-class 0) (subs head 0 (min 16 (count head))))
+         "| actor | class | score | clj | actor | atproto | reflex | port | →out | ←in | ♥days | bsky |\n"
+         "|---|:--:|--:|--:|--:|--:|:--:|--:|--:|--:|--:|:--:|\n"
+         (str/join "\n"
+           (for [v (sort-by (juxt (comp - :score)) vitals)]
+             (format "| %s | %s | %d | %d | %d | %d | %s | %.2f | %d | %d | %d | %s |"
+                     (:actor v) (class-glyph (:class v)) (:score v)
+                     (:score/clj v) (:score/actor v) (:score/atproto v)
+                     (clojure.core/name (:reflex v)) (:clj/port-ratio v)
+                     (:actor/integrates v) (:actor/in-degree v) (:bio/heartbeat-days v)
+                     (if (:atproto/bsky-post v) "✅" "·"))))
+         "\n")))
+
+(def ^:private viz-data "60-apps/etzhayyim-project-organism/public/organism.json")
+(def ^:private viz-data-mirror "50-infra/etzhayyim-did-web/public/organism/organism.json")
+
+(defn export-json!
+  "Emit the organism snapshot the /organism ClojureScript view renders:
+   nodes (one per cell, with axis scores + class + in/out degree) + edges
+   (the :integrates signalling graph) + run cohort summary. Written to the
+   project public dir and mirrored into the apex worker's static tree."
+  [run vitals]
+  (let [names (set (map :actor vitals))
+        nodes (for [v vitals]
+                {:id (:actor v) :class (clojure.core/name (:class v))
+                 :score (:score v) :status (:status v)
+                 :clj (:score/clj v) :actor (:score/actor v) :atproto (:score/atproto v)
+                 :reflex (clojure.core/name (:reflex v))
+                 :port (:clj/port-ratio v) :inDeg (:actor/in-degree v)
+                 :outDeg (:actor/integrates v) :cells (:actor/cells v)
+                 :heartbeatDays (:bio/heartbeat-days v) :bsky (:atproto/bsky-post v)})
+        edges (for [v vitals, t (:actor/integrate-names v)
+                    :when (names t)] {:from (:actor v) :to t})
+        fq (frequencies (map :class vitals))
+        payload {:run run :generatedAt (str (java.time.Instant/ofEpochMilli run))
+                 :summary {:cells (count vitals) :alive (:alive fq 0)
+                           :dormant (:dormant fq 0) :stub (:stub fq 0)}
+                 :nodes (vec nodes) :edges (vec edges)}
+        out (json/generate-string payload {:pretty true})]
+    (doseq [p [viz-data viz-data-mirror]]
+      (io/make-parents p)
+      (spit p out))
+    payload))
+
+;; ── pulse: the organism's live activity (息遣い・生産・呼吸) ──────────────────
+;; A cheap, frequently-regenerable feed (no test runs) the /organism page polls
+;; to animate cells in realtime. 生産 = git commits per actor (what it shipped),
+;; 息遣い = working-tree files being edited right now, 呼吸 = Datom-log head.
+
+(def ^:private pulse-paths
+  ["60-apps/etzhayyim-project-organism/public/pulse.json"
+   "50-infra/etzhayyim-did-web/public/organism/pulse.json"])
+
+(defn- git-out [& args]
+  (try (:out (apply p/sh args)) (catch Exception _ "")))
+
+(defn pulse-data
+  "Per-actor live activity over the last `hours`: commit production (newest-first
+   in git log → first occurrence is latest), plus working-tree dirty counts."
+  [hours]
+  (let [now   (System/currentTimeMillis)
+        lines (str/split-lines
+               (git-out "git" "log" (str "--since=" hours " hours ago")
+                        "--name-only" "--pretty=format:C|%ct|%s" "--" actors-root))
+        commits (loop [ls lines, cur nil, acc []]
+                  (if-let [ln (first ls)]
+                    (cond
+                      (str/starts-with? ln "C|")
+                      (let [[_ ct subj] (str/split ln #"\|" 3)]
+                        (recur (rest ls) {:ct (Long/parseLong ct) :subj subj :actors #{}}
+                               (if cur (conj acc cur) acc)))
+                      (str/blank? ln) (recur (rest ls) cur acc)
+                      :else
+                      (let [m (re-find #"^20-actors/([^/]+)/" ln)]
+                        (recur (rest ls) (if (and cur m) (update cur :actors conj (second m)) cur) acc)))
+                    (if cur (conj acc cur) acc)))
+        per (reduce (fn [m c]
+                      (reduce (fn [m a]
+                                (cond-> (update-in m [a "commits"] (fnil inc 0))
+                                  (not (get-in m [a "lastAt"]))
+                                  (-> (assoc-in [a "lastAt"] (* 1000 (:ct c)))
+                                      (assoc-in [a "lastSubject"] (:subj c)))))
+                              m (:actors c)))
+                    {} commits)
+        dirty (->> (str/split-lines (git-out "git" "status" "--porcelain" "--" actors-root))
+                   (keep #(second (re-find #"20-actors/([^/]+)/" %)))
+                   frequencies)
+        per (reduce (fn [m [a n]] (assoc-in m [a "dirty"] n)) per dirty)
+        stream (->> commits (take 20)
+                    (map (fn [c] {"at" (* 1000 (:ct c)) "actor" (first (:actors c)) "subj" (:subj c)})))]
+    {"generatedAt" (str (java.time.Instant/ofEpochMilli now)) "now" now
+     "sinceHours" hours "actors" per "stream" (vec stream)
+     "working" (vec (sort (keys dirty)))
+     "head" (try (kt/head-cid (kt/connect {:journal journal})) (catch Exception _ ""))}))
+
+(defn -pulse
+  "Write pulse.json (default last 48h). Args: [hours]. Cheap — run on a short loop."
+  [& args]
+  (let [hours (if (seq args) (Long/parseLong (first args)) 48)
+        out (json/generate-string (pulse-data hours) {:pretty true})]
+    (doseq [p pulse-paths] (io/make-parents p) (spit p out))
+    (binding [*out* *err*]
+      (println (format "[pulse] %s · %d working" (str (java.time.Instant/now)) (count (re-seq #"\"dirty\"" out)))))))
+
+;; ── joucho 情緒: the organism's mood + Wellbecoming trajectory (ADR-2606171500) ─
+;; Replays ibuki's representative life (perception pattern + the charter-clean reciprocal
+;; event) into a 5-axis mood trajectory + Wellbecoming MOVEMENT, for the /organism 情緒 layer.
+
+(def ^:private joucho-paths
+  ["60-apps/etzhayyim-project-organism/public/joucho.json"
+   "50-infra/etzhayyim-did-web/public/organism/joucho.json"])
+
+(defn- beat-events
+  "The representative life at beat i — an organism that FEELS the world's reward (ADR-2606171800):
+   a post each beat, reactions felt every 2nd, mail exchanged every 4th, warmth every 6th, a
+   follower every 3rd, inbox-pressure every 5th, a reciprocated dialogue every 7th, idle otherwise.
+   Rewards are small + bounded; the objective the loop maximizes stays the wellbecoming gradient."
+  [i]
+  (cond-> [":event/post-emitted"]
+    (zero? (mod i 2)) (conj ":event/reaction-received")
+    (zero? (mod i 3)) (conj ":event/follower-gained")
+    (zero? (mod i 4)) (conj ":event/message-exchanged")
+    (zero? (mod i 5)) (conj ":event/inbox-pressure")
+    (zero? (mod i 6)) (conj ":event/sentiment-warmth")
+    (zero? (mod i 7)) (conj ":event/dialogue-reciprocated")
+    (and (pos? (mod i 2)) (pos? (mod i 3)) (pos? (mod i 5)) (pos? (mod i 7))) (conj ":event/idle")))
+
+(defn joucho-data [of n]
+  (let [baseline ((requiring-resolve 'ibuki.methods.joucho/personality-baseline) of)
+        fold     (requiring-resolve 'ibuki.methods.joucho/fold-event)
+        mood-of  (requiring-resolve 'ibuki.methods.joucho/determine-mood)
+        readout  (requiring-resolve 'ibuki.methods.wellbecoming/readout)
+        beats (loop [i 1, sc baseline, acc []]
+                (if (> i n) acc
+                  (let [sc' (reduce (fn [s e] (fold s e baseline)) sc (beat-events i))]
+                    (recur (inc i) sc' (conj acc (assoc sc' :beat i :mood (mood-of sc')))))))
+        final (last beats)
+        wb (readout of (map #(select-keys % [:joy :calm :stress :gratitude :focus]) beats))]
+    {:generatedAt (str (java.time.Instant/now)) :of of
+     :mood (:mood final) :baseline baseline
+     :axes (select-keys final [:joy :calm :stress :gratitude :focus])
+     :beats beats
+     :wellbecoming {:direction (name (:direction wb)) :net (:net wb) :trajectory (:trajectory wb)}}))
+
+(defn -joucho [& args]
+  (let [of (or (first args) "ibuki")
+        n  (if (second args) (Long/parseLong (second args)) 24)
+        d  (joucho-data of n)
+        out (json/generate-string d {:pretty true})]
+    (doseq [p joucho-paths] (io/make-parents p) (spit p out))
+    (binding [*out* *err*]
+      (println (format "[joucho] %s mood=%s wellbecoming=%s net=%d"
+                       of (:mood d) (get-in d [:wellbecoming :direction])
+                       (get-in d [:wellbecoming :net]))))))
+
+;; ── CLI ──────────────────────────────────────────────────────────────────────
+
+(defn- parse-args [args]
+  (loop [a args, o {:run-tests? true :timeout-ms 120000 :limit nil :only nil}]
+    (if-let [x (first a)]
+      (case x
+        "--no-tests" (recur (rest a) (assoc o :run-tests? false))
+        "--limit"    (recur (drop 2 a) (assoc o :limit (Long/parseLong (second a))))
+        "--actors"   (recur (drop 2 a) (assoc o :only (set (str/split (second a) #","))))
+        "--timeout-ms" (recur (drop 2 a) (assoc o :timeout-ms (Long/parseLong (second a))))
+        (recur (rest a) o))
+      o)))
+
+(defn -main [& args]
+  (let [{:keys [run-tests? timeout-ms limit only]} (parse-args args)
+        all   (actor-dirs)
+        indeg (in-degree-map all)                       ; body-wide, over all cells
+        dirs (cond->> all
+               only  (filter #(only (.getName ^java.io.File %)))
+               limit (take limit))
+        _ (binding [*out* *err*]
+            (println (format "[vitals] %d cells, suites=%s, timeout=%dms"
+                             (count dirs) run-tests? timeout-ms)))
+        vitals (vec (for [d dirs]
+                      (let [v (vitals-for d indeg run-tests? timeout-ms)]
+                        (binding [*out* *err*]
+                          (println (format "  %-14s %-6s score=%d reflex=%s"
+                                           (:actor v) (class-glyph (:class v))
+                                           (:score v) (clojure.core/name (:reflex v)))))
+                        v)))
+        run    (System/currentTimeMillis)
+        head   (persist! run vitals)]
+    (export-json! run vitals)
+    (println (report->md vitals head))))
+
+;; ── trajectory: the organism's evolution across runs (生命進化) ──────────────
+
+(defn load-runs
+  "Every persisted observation as {:run :actor :score :class}, sorted by run."
+  [conn]
+  (->> (kt/q conn '{:find [?run ?name ?score ?class]
+                    :where [[?e :vitals/run ?run]
+                            [?e :vitals.actor/name ?name]
+                            [?e :vitals/score ?score]
+                            [?e :vitals/class ?class]]})
+       (map (fn [[run name score class]] {:run run :actor name :score score :class class}))
+       (sort-by :run)))
+
+(defn- iso [ms] (str (java.time.Instant/ofEpochMilli ms)))
+
+(defn trajectory->md [obs]
+  (let [runs (sort (distinct (map :run obs)))
+        by-run (group-by :run obs)
+        rows (for [r runs]
+               (let [o (by-run r), fq (frequencies (map :class o))]
+                 {:run r :n (count o) :alive (get fq "alive" 0)
+                  :dormant (get fq "dormant" 0) :stub (get fq "stub" 0)
+                  :sum (reduce + (map :score o))}))
+        deltas (cons nil (map (fn [a b] (- (:sum b) (:sum a))) rows (rest rows)))
+        ;; per-actor transitions between the last two runs
+        [prev cur] (take-last 2 runs)
+        cls (fn [r] (into {} (map (juxt :actor :class) (by-run r))))
+        scr (fn [r] (into {} (map (juxt :actor :score) (by-run r))))
+        trans (when (and prev cur (not= prev cur))
+                (let [pc (cls prev), cc (cls cur), ps (scr prev), cs (scr cur)]
+                  (for [a (sort (keys cc))
+                        :let [from (pc a), to (cc a), ds (- (cs a 0) (ps a 0))]
+                        :when (or (and from (not= from to)) (not (zero? ds)))]
+                    (format "| %s | %s → %s | %+d |" a
+                            (class-glyph (or from "—")) (class-glyph to) ds))))]
+    (str "# etzhayyim — vitals trajectory (生命進化)\n\n"
+         (format "%d runs · %d cells observed\n\n" (count runs) (count (distinct (map :actor obs))))
+         "| run | when | cells | 生 | 休眠 | 死 | Σscore | Δ |\n"
+         "|--:|---|--:|--:|--:|--:|--:|--:|\n"
+         (str/join "\n"
+           (map (fn [row d]
+                  (format "| %d | %s | %d | %d | %d | %d | %d | %s |"
+                          (:run row) (iso (:run row)) (:n row) (:alive row)
+                          (:dormant row) (:stub row) (:sum row)
+                          (if d (format "%+d" d) "—")))
+                rows deltas))
+         "\n"
+         (when (seq trans)
+           (str "\n## transitions (last run vs previous)\n\n"
+                "| actor | class | Δscore |\n|---|:--:|--:|\n"
+                (str/join "\n" trans) "\n")))))
+
+(defn trajectory-series
+  "Per-run cohort series for the /organism evolution view (生命進化)."
+  [obs]
+  (let [by-run (group-by :run obs)]
+    (vec (for [r (sort (distinct (map :run obs)))]
+           (let [o (by-run r), fq (frequencies (map :class o))]
+             {:run r :at (iso r) :cells (count o)
+              :alive (get fq "alive" 0) :dormant (get fq "dormant" 0)
+              :stub (get fq "stub" 0) :sum (reduce + (map :score o))})))))
+
+(defn export-trajectory! [obs]
+  (let [out (json/generate-string {:runs (trajectory-series obs)} {:pretty true})]
+    (doseq [p ["60-apps/etzhayyim-project-organism/public/trajectory.json"
+               "50-infra/etzhayyim-did-web/public/organism/trajectory.json"]]
+      (io/make-parents p)
+      (spit p out))))
+
+(defn -trajectory [& _]
+  (let [obs (load-runs (kt/connect {:journal journal}))]
+    (export-trajectory! obs)
+    (println (trajectory->md obs))))

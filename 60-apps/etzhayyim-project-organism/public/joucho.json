@@ -1,0 +1,223 @@
+{
+  "generatedAt" : "2026-06-17T05:15:42.675361Z",
+  "of" : "ibuki",
+  "mood" : "grateful",
+  "baseline" : {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36
+  },
+  "axes" : {
+    "joy" : 79,
+    "calm" : 44,
+    "stress" : 55,
+    "gratitude" : 93,
+    "focus" : 54
+  },
+  "beats" : [ {
+    "joy" : 40,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 51,
+    "focus" : 36,
+    "beat" : 1,
+    "mood" : "neutral"
+  }, {
+    "joy" : 41,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 52,
+    "focus" : 37,
+    "beat" : 2,
+    "mood" : "neutral"
+  }, {
+    "joy" : 43,
+    "calm" : 40,
+    "stress" : 51,
+    "gratitude" : 54,
+    "focus" : 38,
+    "beat" : 3,
+    "mood" : "neutral"
+  }, {
+    "joy" : 45,
+    "calm" : 41,
+    "stress" : 51,
+    "gratitude" : 56,
+    "focus" : 39,
+    "beat" : 4,
+    "mood" : "neutral"
+  }, {
+    "joy" : 45,
+    "calm" : 40,
+    "stress" : 55,
+    "gratitude" : 56,
+    "focus" : 40,
+    "beat" : 5,
+    "mood" : "neutral"
+  }, {
+    "joy" : 49,
+    "calm" : 41,
+    "stress" : 54,
+    "gratitude" : 60,
+    "focus" : 41,
+    "beat" : 6,
+    "mood" : "grateful"
+  }, {
+    "joy" : 51,
+    "calm" : 42,
+    "stress" : 53,
+    "gratitude" : 63,
+    "focus" : 42,
+    "beat" : 7,
+    "mood" : "grateful"
+  }, {
+    "joy" : 53,
+    "calm" : 43,
+    "stress" : 53,
+    "gratitude" : 65,
+    "focus" : 43,
+    "beat" : 8,
+    "mood" : "grateful"
+  }, {
+    "joy" : 55,
+    "calm" : 43,
+    "stress" : 53,
+    "gratitude" : 67,
+    "focus" : 44,
+    "beat" : 9,
+    "mood" : "grateful"
+  }, {
+    "joy" : 56,
+    "calm" : 42,
+    "stress" : 57,
+    "gratitude" : 68,
+    "focus" : 45,
+    "beat" : 10,
+    "mood" : "grateful"
+  }, {
+    "joy" : 55,
+    "calm" : 41,
+    "stress" : 56,
+    "gratitude" : 67,
+    "focus" : 45,
+    "beat" : 11,
+    "mood" : "grateful"
+  }, {
+    "joy" : 60,
+    "calm" : 43,
+    "stress" : 55,
+    "gratitude" : 72,
+    "focus" : 46,
+    "beat" : 12,
+    "mood" : "grateful"
+  }, {
+    "joy" : 59,
+    "calm" : 42,
+    "stress" : 54,
+    "gratitude" : 71,
+    "focus" : 46,
+    "beat" : 13,
+    "mood" : "grateful"
+  }, {
+    "joy" : 62,
+    "calm" : 43,
+    "stress" : 53,
+    "gratitude" : 75,
+    "focus" : 47,
+    "beat" : 14,
+    "mood" : "grateful"
+  }, {
+    "joy" : 64,
+    "calm" : 42,
+    "stress" : 57,
+    "gratitude" : 77,
+    "focus" : 48,
+    "beat" : 15,
+    "mood" : "grateful"
+  }, {
+    "joy" : 66,
+    "calm" : 43,
+    "stress" : 57,
+    "gratitude" : 79,
+    "focus" : 49,
+    "beat" : 16,
+    "mood" : "grateful"
+  }, {
+    "joy" : 65,
+    "calm" : 42,
+    "stress" : 56,
+    "gratitude" : 78,
+    "focus" : 49,
+    "beat" : 17,
+    "mood" : "grateful"
+  }, {
+    "joy" : 69,
+    "calm" : 43,
+    "stress" : 55,
+    "gratitude" : 82,
+    "focus" : 50,
+    "beat" : 18,
+    "mood" : "grateful"
+  }, {
+    "joy" : 68,
+    "calm" : 42,
+    "stress" : 54,
+    "gratitude" : 81,
+    "focus" : 50,
+    "beat" : 19,
+    "mood" : "grateful"
+  }, {
+    "joy" : 70,
+    "calm" : 42,
+    "stress" : 58,
+    "gratitude" : 83,
+    "focus" : 51,
+    "beat" : 20,
+    "mood" : "grateful"
+  }, {
+    "joy" : 74,
+    "calm" : 43,
+    "stress" : 57,
+    "gratitude" : 88,
+    "focus" : 52,
+    "beat" : 21,
+    "mood" : "grateful"
+  }, {
+    "joy" : 75,
+    "calm" : 43,
+    "stress" : 57,
+    "gratitude" : 89,
+    "focus" : 53,
+    "beat" : 22,
+    "mood" : "grateful"
+  }, {
+    "joy" : 74,
+    "calm" : 42,
+    "stress" : 56,
+    "gratitude" : 88,
+    "focus" : 53,
+    "beat" : 23,
+    "mood" : "grateful"
+  }, {
+    "joy" : 79,
+    "calm" : 44,
+    "stress" : 55,
+    "gratitude" : 93,
+    "focus" : 54,
+    "beat" : 24,
+    "mood" : "grateful"
+  } ],
+  "wellbecoming" : {
+    "direction" : "improving",
+    "net" : 99,
+    "trajectory" : {
+      "joy" : 39,
+      "calm" : 4,
+      "stress" : 4,
+      "gratitude" : 42,
+      "focus" : 18
+    }
+  }
+}

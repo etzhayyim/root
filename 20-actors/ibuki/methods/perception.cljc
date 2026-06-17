@@ -38,6 +38,12 @@
 ;; saturate joy in a single beat — growth is a trajectory, not a step function)
 (def follower-event-cap 3)
 
+;; how many :event/reaction-received one beat may fold. Reactions (like/love/comment/
+;; repost on the organism's OWN posts) are a REWARD INPUT (ADR-2606171800 — the organism
+;; feels being seen), but the OBJECTIVE is wellbecoming, never the count: a viral post is
+;; CAPPED here so engagement can never become the thing maximized. Felt, bounded, un-farmable.
+(def reaction-event-cap 3)
+
 ;; ── PerceptionBoundaryViolation ───────────────────────────────────────────
 
 (defn perception-boundary-violation
@@ -117,22 +123,48 @@
 
 ;; ── live observation (the LivePerception path) ────────────────────────────
 
+(defn- feed-reactions
+  "Total reactions across the organism's own recent posts (like + reply + repost counts).
+  Public wire schema (getAuthorFeed). A SUM, fed as a capped delta — never a per-post rank."
+  [feed]
+  (reduce (fn [acc item]
+            (let [p (get item "post")]
+              (+ acc (long (get p "likeCount" 0))
+                     (long (get p "replyCount" 0))
+                     (long (get p "repostCount" 0)))))
+          0 (get feed "feed" [])))
+
 (defn observe
-  "One observation of one actor (did or handle) — public-profile observation →
-  closed joucho events. `:fetch` is injectable for hermetic tests; the default
-  fetch enforces the allowlist. Returns {:followers <int> :events [closed-vocab
-  kinds]}."
-  ([actor prev-followers] (observe actor prev-followers {}))
-  ([actor prev-followers {:keys [fetch]}]
-   (let [url (str "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile"
-                  "?actor=" (url-quote actor))
-         profile ((or fetch *http-get*) url)
+  "One observation of one actor (did or handle) — READ-ONLY public observation → closed
+  joucho events. Two reward inputs (ADR-2606171800): follower growth and reactions on the
+  organism's OWN posts (the organism feels being seen). Both CAPPED so engagement can never
+  become the objective. `:fetch` is injectable for hermetic tests; the default enforces the
+  allowlist. `prev` may be an int (legacy = prev followers) or a map {:followers :reactions}.
+  The reaction sub-fetch is resilient: any failure → no reaction delta (the organism simply
+  does not feel reactions that beat). Returns {:followers :reactions :events [closed kinds]}."
+  ([actor prev] (observe actor prev {}))
+  ([actor prev {:keys [fetch]}]
+   (let [prev (if (map? prev) prev {:followers prev})
+         f (or fetch *http-get*)
+         profile (f (str "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile"
+                         "?actor=" (url-quote actor)))
          followers (long (get profile "followersCount" 0))
-         gained (if (and (some? prev-followers) (> followers prev-followers))
-                  (min (- followers prev-followers) follower-event-cap)
-                  0)]
-     {:followers followers
-      :events (into [":event/idle"] (repeat gained ":event/follower-gained"))})))
+         prev-f (:followers prev)
+         gained (if (and (some? prev-f) (> followers prev-f))
+                  (min (- followers prev-f) follower-event-cap) 0)
+         prev-r (:reactions prev)
+         reactions (try (feed-reactions
+                         (f (str "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed"
+                                 "?actor=" (url-quote actor) "&limit=30")))
+                        (catch #?(:clj Exception :cljs :default) e
+                          (when (perception-boundary-violation? e) (throw e))
+                          (or prev-r 0)))   ;; resilient: no spurious reaction delta on failure
+         received (if (and (some? prev-r) (> reactions prev-r))
+                    (min (- reactions prev-r) reaction-event-cap) 0)]
+     {:followers followers :reactions reactions
+      :events (into [":event/idle"]
+                    (concat (repeat gained ":event/follower-gained")
+                            (repeat received ":event/reaction-received")))})))
 
 (defn- env-live?
   "The IBUKI_PERCEPTION_LIVE=1 gate, read from the real process env."
@@ -150,27 +182,30 @@
   the representative pattern (fail-open); a boundary violation is a bug, never
   silently absorbed (rethrown).
 
-  Options: :actor :prev-followers :live :fetch."
+  Options: :actor :prev-followers :prev-reactions :live :fetch."
   ([beat] (events-for-beat beat {}))
-  ([beat {:keys [actor prev-followers live fetch] :or {actor ""}}]
+  ([beat {:keys [actor prev-followers prev-reactions live fetch] :or {actor ""}}]
    (let [is-live (if (some? live) (boolean live) (env-live?))]
      (if (or (not is-live) (str/blank? (str actor)))
        [(representative-events beat) nil]
        (try
-         (let [obs (observe actor prev-followers {:fetch fetch})]
-           [(:events obs) {:followers (:followers obs)}])
+         (let [obs (observe actor {:followers prev-followers :reactions prev-reactions} {:fetch fetch})]
+           [(:events obs) {:followers (:followers obs) :reactions (:reactions obs)}])
          (catch #?(:clj Exception :cljs :default) e
            (if (perception-boundary-violation? e)
              (throw e)   ;; a boundary violation is a bug, never silently absorbed
              [(representative-events beat) nil])))))))
 
 (defn perception-datoms
-  "Checkpoint a live observation as `:perception/*` datoms (the durable prev-follower
-  snapshot the NEXT beat diffs against — perception history is as-of like everything).
+  "Checkpoint a live observation as `:perception/*` datoms (the durable prev-follower /
+  prev-reaction snapshot the NEXT beat diffs against — perception history is as-of like
+  everything). `reactions` may be nil (legacy callers); omitted when nil.
   Opts: :beat :as-of."
-  [of followers {:keys [beat as-of]}]
-  (let [e (str "perc-" of "-" beat)]
-    [(datoms/add e ":perception/of" of)
-     (datoms/add e ":perception/followers" followers)
-     (datoms/add e ":perception/beat" beat)
-     (datoms/add e ":perception/as-of" as-of)]))
+  ([of followers opts] (perception-datoms of followers nil opts))
+  ([of followers reactions {:keys [beat as-of]}]
+   (let [e (str "perc-" of "-" beat)]
+     (cond-> [(datoms/add e ":perception/of" of)
+              (datoms/add e ":perception/followers" followers)
+              (datoms/add e ":perception/beat" beat)
+              (datoms/add e ":perception/as-of" as-of)]
+       (some? reactions) (conj (datoms/add e ":perception/reactions" reactions))))))

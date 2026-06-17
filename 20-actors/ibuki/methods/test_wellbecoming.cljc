@@ -30,6 +30,22 @@
     (is (some #(= ":wellbecoming/direction" (nth % 2)) dms))
     (is (some #(= ":wellbecoming/net" (nth % 2)) dms))))
 
+(deftest reward-inputs-are-rich-but-the-objective-is-not-engagement
+  ;; ADR-2606171800: the organism FEELS reward (reactions / mail / warmth) — felt, small, bounded.
+  (let [base (j/scores)]
+    (doseq [ev [":event/reaction-received" ":event/message-exchanged" ":event/sentiment-warmth"]]
+      (let [after (j/fold-event base ev base)]
+        (is (>= (:joy after) (:joy base)) (str ev " is felt as reward"))
+        ;; bounded: a single reward never moves an axis more than a few points (un-farmable)
+        (is (<= (- (:joy after) (:joy base)) 2) (str ev " is SMALL — not an engagement spike"))))
+    ;; the objective stays wellbecoming, never an engagement COUNT — count events unrepresentable
+    (is (thrown? clojure.lang.ExceptionInfo (j/fold-event base ":event/like-count" base)))
+    (is (thrown? clojure.lang.ExceptionInfo (j/fold-event base ":event/maximize-engagement" base)))
+    ;; homeostasis caps farming: spam reactions then idle → drift pulls joy back toward baseline
+    (let [farmed (reduce (fn [s _] (j/fold-event s ":event/reaction-received" base)) base (range 30))
+          rested (reduce (fn [s _] (j/fold-event s ":event/idle" base)) farmed (range 40))]
+      (is (= (:joy base) (:joy rested)) "idle drift returns to baseline — reward is not hoardable"))))
+
 (deftest declining-and-steady-trajectories
   (let [base (j/scores)
         down (reductions (fn [s e] (j/fold-event s e base)) base

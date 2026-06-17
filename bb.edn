@@ -641,7 +641,7 @@
                       'ibuki.methods.test-kaizen-outcomes 'ibuki.methods.test-kotoba-bridge
                       'ibuki.methods.test-perception 'ibuki.methods.test-fleet
                       'ibuki.methods.test-charter-invariants
-                      'ibuki.methods.test-sick-colony 'ibuki.methods.test-wellbecoming)
+                      'ibuki.methods.test-sick-colony 'ibuki.methods.test-wellbecoming 'ibuki.methods.test-heir)
              (let [r (clojure.test/run-tests
                       'ibuki.methods.test-datoms 'ibuki.methods.test-joucho
                       'ibuki.methods.test-heartbeat 'ibuki.methods.test-infer
@@ -653,7 +653,7 @@
                       'ibuki.methods.test-kaizen-outcomes 'ibuki.methods.test-kotoba-bridge
                       'ibuki.methods.test-perception 'ibuki.methods.test-fleet
                       'ibuki.methods.test-charter-invariants
-                      'ibuki.methods.test-sick-colony 'ibuki.methods.test-wellbecoming)]
+                      'ibuki.methods.test-sick-colony 'ibuki.methods.test-wellbecoming 'ibuki.methods.test-heir)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:ibuki:integration

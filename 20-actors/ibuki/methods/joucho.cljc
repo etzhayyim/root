@@ -91,16 +91,31 @@
   "CLOSED vocabulary — an unknown event kind throws (charter discipline: an unrepresentable
   stimulus cannot move a mood). Deltas are [joy calm stress gratitude focus].
 
-  `:event/dialogue-reciprocated` (ADR-2606171500) is the charter-clean social-reward signal:
-  it fires when a member-attributed post draws a RECIPROCAL reply — a 縁 returned, a dialogue
-  closed — NOT a like/love/comment COUNT. Engagement tallies are deliberately unrepresentable
-  here: §1.13 Wellbecoming forbids addictive/engagement-maximizing design, and shiori classes
-  `:engagement-maximizing-design` as a DETRACTOR. So the reward is relational (being heard
-  soothes isolation + warms gratitude), never a popularity score. Edge-primary: the event is
-  the reciprocated bond, attributed to the exchange, never a per-soul tally."
+  REWARD INPUTS are rich (ADR-2606171800 — a living organism needs a reward function; the
+  Charter §1.10 objective function is the RF: maximize multi-generational wellbecoming). The
+  organism may FEEL the world's reward signals — atproto reactions, mail, the warmth of
+  content addressed to it — because feeling reward is constitutive, not addictive. The line
+  (ADR-2606171800 §1.13 narrow) is at the OBJECTIVE, not the input: what is forbidden is
+  making engagement/hedonic COUNT the objective. So every reward delta below is SMALL and
+  bounded — felt, but un-farmable (homeostatic `drift` pulls each axis back, and ecosystem
+  satiation skips a recently-fed axis). The objective the decide/act loop maximizes is the
+  wellbecoming gradient (wellbecoming.cljc), never these counts. Per-soul scoring of OTHER
+  people's affect stays unrepresentable (yir'ah, ADR-2606112200): these inputs are the
+  organism feeling its OWN reception, in aggregate.
+
+    :event/reaction-received   — a like/love/comment/reply LANDED on its post (felt as being
+                                 seen, NOT a tally to maximize; small + bounded).
+    :event/message-exchanged   — mail sent/received — a correspondence, connection.
+    :event/sentiment-warmth    — aggregate warmth of inbound content addressed to it (being
+                                 met warmly soothes isolation).
+    :event/dialogue-reciprocated — a 縁 returned: a post drew a reciprocal reply (the deepest
+                                 of the relational rewards)."
   {":event/post-emitted"          [0 0 0 0 1]
    ":event/follower-gained"       [2 0 0 2 0]
-   ":event/dialogue-reciprocated" [2 1 -1 3 0]   ;; a reply returned: heard → calmer, grateful
+   ":event/reaction-received"     [1 0 0 1 0]   ;; felt as seen — small, un-farmable
+   ":event/message-exchanged"     [1 1 0 1 0]   ;; correspondence — connection
+   ":event/sentiment-warmth"      [1 1 -1 1 0]  ;; met warmly → isolation soothed
+   ":event/dialogue-reciprocated" [2 1 -1 3 0]  ;; a reply returned: heard → calmer, grateful
    ":event/inbox-pressure"        [0 -1 4 0 0]
    ":event/kaizen-merged"         [0 3 -3 1 0]
    ":event/kaizen-rejected"       [0 0 2 0 1]

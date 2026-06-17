@@ -1,0 +1,699 @@
+{
+  "generatedAt" : "2026-06-17T05:24:16.607Z",
+  "now" : 1781673856607,
+  "sinceHours" : 48,
+  "actors" : {
+    "post_quantum_compat" : {
+      "commits" : 2,
+      "lastAt" : 1781667612000,
+      "lastSubject" : "feat(clj-port): port post_quantum_compat suite-registry tests → cljc + prune method Python"
+    },
+    "yadori" : {
+      "commits" : 3,
+      "lastAt" : 1781669931000,
+      "lastSubject" : "feat(clj-port): port yadori reservation cell → cljc + prune ALL yadori Python (fully migrated)"
+    },
+    "ainori" : {
+      "commits" : 3,
+      "lastAt" : 1781658804000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 10 fully-migrated actors (ADR-2606160842)"
+    },
+    "noroshi" : {
+      "commits" : 2,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "matsurigoto" : {
+      "commits" : 2,
+      "lastAt" : 1781665501000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from matsurigoto (fully cljc incl. modules/ subtree)"
+    },
+    "kazaori" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "kakaku" : {
+      "commits" : 2,
+      "lastAt" : 1781658804000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 10 fully-migrated actors (ADR-2606160842)"
+    },
+    "kamado" : {
+      "commits" : 1,
+      "lastAt" : 1781654916000,
+      "lastSubject" : "feat(kamado-clj): port ingest.py core → ingest.cljc + cross-lang oracle test"
+    },
+    "tsugite" : {
+      "commits" : 1,
+      "lastAt" : 1781664369000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 5 mirror-lineage actors (inochi/hokorobi/hoshimori/shiori/tsugite)"
+    },
+    "kaiyaku" : {
+      "commits" : 2,
+      "lastAt" : 1781671553000,
+      "lastSubject" : "chore(clj-port): prune Python from 4 more actors via golden-file decoupling (ADR-2606160842/2606131300)"
+    },
+    "kabuto" : {
+      "commits" : 2,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "hinagata" : {
+      "commits" : 4,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "tsutae" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "yamabiko" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "hoshimori" : {
+      "commits" : 3,
+      "lastAt" : 1781664369000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 5 mirror-lineage actors (inochi/hokorobi/hoshimori/shiori/tsugite)"
+    },
+    "kosatsu" : {
+      "commits" : 3,
+      "lastAt" : 1781671997000,
+      "lastSubject" : "feat(clj-port): port kosatsu cells → cljc + prune ALL kosatsu Python (ADR-2606160842)"
+    },
+    "tate" : {
+      "commits" : 2,
+      "lastAt" : 1781671553000,
+      "lastSubject" : "chore(clj-port): prune Python from 4 more actors via golden-file decoupling (ADR-2606160842/2606131300)"
+    },
+    "fab_lithography-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "makura" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "sukashi" : {
+      "commits" : 2,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "kawaraban" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "gddr_memory-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "inochi" : {
+      "commits" : 1,
+      "lastAt" : 1781664369000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 5 mirror-lineage actors (inochi/hokorobi/hoshimori/shiori/tsugite)"
+    },
+    "suki" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "uchiwake" : {
+      "commits" : 2,
+      "lastAt" : 1781665569000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from uchiwake (fully cljc incl. adapters/ + oracle tool)"
+    },
+    "maps" : {
+      "commits" : 3,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "lpddr_mobile-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "photonic_switch-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "seigyo" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "hodoki" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "himawari" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "tsumugi" : {
+      "commits" : 15,
+      "lastAt" : 1781663936000,
+      "lastSubject" : "feat(clj-port): tsumugi/narrate pure core (G6 Murakumo-only assert + prompt/digest/Datom builders)"
+    },
+    "silicon_photonics-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "nusa" : {
+      "commits" : 2,
+      "lastAt" : 1781672751000,
+      "lastSubject" : "feat(clj-port): port nusa cell layer → cljc + prune ALL nusa Python (fully migrated)"
+    },
+    "dpu_smartnic-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "silicon" : {
+      "commits" : 2,
+      "lastAt" : 1781595350000,
+      "lastSubject" : "feat(silicon-clj): fab orchestration cell + SCARA wafer-arm kinematics + ADR + manifest methods"
+    },
+    "yabai" : {
+      "commits" : 2,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "musubi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "nvidia_isaac-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "ucie_chiplet-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "kasa" : {
+      "commits" : 2,
+      "lastAt" : 1781666294000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from kasa — ingest.cljc is a FULL port incl. live leg"
+    },
+    "fuchi" : {
+      "commits" : 5,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "watari" : {
+      "commits" : 2,
+      "lastAt" : 1781664886000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 5 network-free actors (abaki/danjo/kanae/meisai/watari)"
+    },
+    "etzhayyim-sdk" : {
+      "dirty" : 26
+    },
+    "tatekata" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "kadode" : {
+      "commits" : 2,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "shomei" : {
+      "commits" : 2,
+      "lastAt" : 1781672164000,
+      "lastSubject" : "feat(clj-port): port shomei cells → cljc + prune ALL shomei Python (ADR-2606160842)"
+    },
+    "suimin" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "riscv_cpu-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "chigiri" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "funadaiku" : {
+      "commits" : 4,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "itonami" : {
+      "commits" : 2,
+      "lastAt" : 1781668104000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from itonami (fully cljc, network-free)"
+    },
+    "cerebras_wafer-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "hokorobi" : {
+      "commits" : 3,
+      "lastAt" : 1781664369000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 5 mirror-lineage actors (inochi/hokorobi/hoshimori/shiori/tsugite)"
+    },
+    "hakoniwa" : {
+      "commits" : 3,
+      "lastAt" : 1781668189000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from hakoniwa (fully cljc, network full-port)"
+    },
+    "mizuho" : {
+      "commits" : 3,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "mitsuho" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "watatsumi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "meisai" : {
+      "commits" : 3,
+      "lastAt" : 1781664886000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 5 network-free actors (abaki/danjo/kanae/meisai/watari)"
+    },
+    "isco" : {
+      "commits" : 1,
+      "lastAt" : 1781524312000,
+      "lastSubject" : "feat(actors-clj): Tier-B actor method ports to Clojure + kotoba schema conformance"
+    },
+    "manabi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "todoke" : {
+      "commits" : 4,
+      "lastAt" : 1781671011000,
+      "lastSubject" : "feat(clj-port): port todoke handoff_proof cell → cljc + prune ALL todoke Python (fully migrated)"
+    },
+    "futawa" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "kataribe" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "igata" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "tanemaki" : {
+      "commits" : 2,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "ipaddress" : {
+      "commits" : 2,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "watatsuna" : {
+      "commits" : 2,
+      "lastAt" : 1781671553000,
+      "lastSubject" : "chore(clj-port): prune Python from 4 more actors via golden-file decoupling (ADR-2606160842/2606131300)"
+    },
+    "nvidia_cosmos-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "groq_lpu-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "ibuki" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)",
+      "dirty" : 8
+    },
+    "hotaru" : {
+      "commits" : 1,
+      "lastAt" : 1781658804000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 10 fully-migrated actors (ADR-2606160842)"
+    },
+    "wakai" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "hbm_memory-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "ooyake" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "toritate" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "shidemori" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "arm_cpu-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "moushibumi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "apqc" : {
+      "commits" : 1,
+      "lastAt" : 1781524312000,
+      "lastSubject" : "feat(actors-clj): Tier-B actor method ports to Clojure + kotoba schema conformance"
+    },
+    "copackaged_optics-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "optical_transceiver-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "abaki" : {
+      "commits" : 3,
+      "lastAt" : 1781664886000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 5 network-free actors (abaki/danjo/kanae/meisai/watari)"
+    },
+    "himotoki" : {
+      "commits" : 4,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "shionome" : {
+      "commits" : 11,
+      "lastAt" : 1781660191000,
+      "lastSubject" : "fix(clj-port): restore shionome/methods/_t.py — the cell Python tests still need it"
+    },
+    "dram_design-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "cobot_assembly-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "keizu" : {
+      "commits" : 6,
+      "lastAt" : 1781672252000,
+      "lastSubject" : "feat(clj-port): port keizu cells → cljc + prune ALL keizu Python (ADR-2606160842)"
+    },
+    "sentei" : {
+      "commits" : 2,
+      "lastAt" : 1781658804000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 10 fully-migrated actors (ADR-2606160842)"
+    },
+    "rasen" : {
+      "commits" : 1,
+      "lastAt" : 1781586808000,
+      "lastSubject" : "feat(actors-clj): fill .cljc gaps in 14 partial actors (slice 3)"
+    },
+    "tedai" : {
+      "commits" : 2,
+      "lastAt" : 1781610402000,
+      "lastSubject" : "feat(actors-clj): land 9-actor py→cljc port wave source (ADR-2606160842)"
+    },
+    "kurashimori" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "tasuke" : {
+      "commits" : 2,
+      "lastAt" : 1781672317000,
+      "lastSubject" : "feat(clj-port): port tasuke cells → cljc + prune ALL tasuke Python (ADR-2606160842)"
+    },
+    "mitooshi" : {
+      "commits" : 9,
+      "lastAt" : 1781657433000,
+      "lastSubject" : "test(mitooshi-clj)+feat: cross-lang oracle for score.cljc + complete the port (add score-set)"
+    },
+    "shiori" : {
+      "commits" : 1,
+      "lastAt" : 1781664369000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 5 mirror-lineage actors (inochi/hokorobi/hoshimori/shiori/tsugite)"
+    },
+    "serdes_phy-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "optical_compute-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "x86_cpu-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "kizashi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "suji" : {
+      "commits" : 2,
+      "lastAt" : 1781672187000,
+      "lastSubject" : "feat(clj-port): port suji cells → cljc + prune ALL suji Python (ADR-2606160842)"
+    },
+    "ossekai" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "kanjo" : {
+      "commits" : 2,
+      "lastAt" : 1781673699000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from kanjo — suite was green, not RED (ADR-2606160842)"
+    },
+    "npu_accelerator-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "sarutahiko" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "dwdm_system-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "semicon_robotics-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "cxl_memory-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "kanayama" : {
+      "commits" : 2,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "kanae" : {
+      "commits" : 4,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "hikari" : {
+      "commits" : 3,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "gpu_accelerator-compat" : {
+      "commits" : 1,
+      "lastAt" : 1781524311000,
+      "lastSubject" : "feat(wave11): compute & photonics cleanroom actors + scaffolds"
+    },
+    "ake" : {
+      "commits" : 4,
+      "lastAt" : 1781672296000,
+      "lastSubject" : "feat(clj-port): port ake cells → cljc + prune ALL ake Python (ADR-2606160842)"
+    },
+    "niyaku" : {
+      "commits" : 3,
+      "lastAt" : 1781670406000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+    },
+    "sanae" : {
+      "commits" : 3,
+      "lastAt" : 1781670797000,
+      "lastSubject" : "feat(clj-port): port sanae autonomous_weeding cell → cljc + prune ALL sanae Python (fully migrated)"
+    },
+    "utsushie" : {
+      "commits" : 3,
+      "lastAt" : 1781658804000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from 10 fully-migrated actors (ADR-2606160842)"
+    },
+    "karakuri" : {
+      "commits" : 3,
+      "lastAt" : 1781672291000,
+      "lastSubject" : "feat(clj-port): port karakuri cells → cljc + prune ALL karakuri Python (ADR-2606160842)"
+    },
+    "danjo" : {
+      "commits" : 5,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "tazuna" : {
+      "commits" : 3,
+      "lastAt" : 1781670218000,
+      "lastSubject" : "feat(clj-port): port tazuna teleop_session cell → cljc + prune ALL tazuna Python (fully migrated)"
+    },
+    "mimamori" : {
+      "commits" : 2,
+      "lastAt" : 1781671553000,
+      "lastSubject" : "chore(clj-port): prune Python from 4 more actors via golden-file decoupling (ADR-2606160842/2606131300)"
+    },
+    "kotoba-actors-clj" : {
+      "commits" : 1,
+      "lastAt" : 1781524312000,
+      "lastSubject" : "feat(actors-clj): Tier-B actor method ports to Clojure + kotoba schema conformance"
+    },
+    "hagukumi" : {
+      "commits" : 1,
+      "lastAt" : 1781673211000,
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+    },
+    "asobi" : {
+      "commits" : 3,
+      "lastAt" : 1781664262000,
+      "lastSubject" : "chore(clj-port): prune migrated Python from asobi — fully cljc, no importers (ADR-2606160842)"
+    }
+  },
+  "stream" : [ {
+    "at" : 1781673699000,
+    "actor" : "kanjo",
+    "subj" : "chore(clj-port): prune migrated Python from kanjo — suite was green, not RED (ADR-2606160842)"
+  }, {
+    "at" : 1781673211000,
+    "actor" : "kazaori",
+    "subj" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+  }, {
+    "at" : 1781672751000,
+    "actor" : "nusa",
+    "subj" : "feat(clj-port): port nusa cell layer → cljc + prune ALL nusa Python (fully migrated)"
+  }, {
+    "at" : 1781672317000,
+    "actor" : "tasuke",
+    "subj" : "feat(clj-port): port tasuke cells → cljc + prune ALL tasuke Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672296000,
+    "actor" : "ake",
+    "subj" : "feat(clj-port): port ake cells → cljc + prune ALL ake Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672291000,
+    "actor" : "karakuri",
+    "subj" : "feat(clj-port): port karakuri cells → cljc + prune ALL karakuri Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672252000,
+    "actor" : "keizu",
+    "subj" : "feat(clj-port): port keizu cells → cljc + prune ALL keizu Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672187000,
+    "actor" : "suji",
+    "subj" : "feat(clj-port): port suji cells → cljc + prune ALL suji Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672164000,
+    "actor" : "shomei",
+    "subj" : "feat(clj-port): port shomei cells → cljc + prune ALL shomei Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672076000,
+    "actor" : "mizuho",
+    "subj" : "feat(clj-port): port mizuho cell(s) → cljc + prune ALL mizuho Python (ADR-2606160842)"
+  }, {
+    "at" : 1781671997000,
+    "actor" : "kosatsu",
+    "subj" : "feat(clj-port): port kosatsu cells → cljc + prune ALL kosatsu Python (ADR-2606160842)"
+  }, {
+    "at" : 1781671904000,
+    "actor" : "kosatsu",
+    "subj" : "feat(clj-port): port kosatsu cell layer → cljc + prune ALL kosatsu Python (fully migrated)"
+  }, {
+    "at" : 1781671553000,
+    "actor" : "kaiyaku",
+    "subj" : "chore(clj-port): prune Python from 4 more actors via golden-file decoupling (ADR-2606160842/2606131300)"
+  }, {
+    "at" : 1781671011000,
+    "actor" : "todoke",
+    "subj" : "feat(clj-port): port todoke handoff_proof cell → cljc + prune ALL todoke Python (fully migrated)"
+  }, {
+    "at" : 1781670797000,
+    "actor" : "sanae",
+    "subj" : "feat(clj-port): port sanae autonomous_weeding cell → cljc + prune ALL sanae Python (fully migrated)"
+  }, {
+    "at" : 1781670406000,
+    "actor" : "noroshi",
+    "subj" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+  }, {
+    "at" : 1781670218000,
+    "actor" : "tazuna",
+    "subj" : "feat(clj-port): port tazuna teleop_session cell → cljc + prune ALL tazuna Python (fully migrated)"
+  }, {
+    "at" : 1781669931000,
+    "actor" : "yadori",
+    "subj" : "feat(clj-port): port yadori reservation cell → cljc + prune ALL yadori Python (fully migrated)"
+  }, {
+    "at" : 1781669420000,
+    "actor" : "yadori",
+    "subj" : "feat(clj-port): port yadori availability_check cell → cljc (state machine + tests)"
+  }, {
+    "at" : 1781668189000,
+    "actor" : "hakoniwa",
+    "subj" : "chore(clj-port): prune migrated Python from hakoniwa (fully cljc, network full-port)"
+  } ],
+  "working" : [ "etzhayyim-sdk", "ibuki" ],
+  "head" : "bafkreibxn4zy5ppktlxbitou6okukswufk42qckmcjzkqqrjh57rz5upbu"
+}

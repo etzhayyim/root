@@ -1,0 +1,1821 @@
+{
+  "run" : 1781670897059,
+  "generatedAt" : "2026-06-17T04:34:57.059Z",
+  "summary" : {
+    "cells" : 95,
+    "alive" : 3,
+    "dormant" : 74,
+    "stub" : 18
+  },
+  "nodes" : [ {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 4,
+    "status" : "unknown",
+    "id" : "akashi",
+    "class" : "stub",
+    "score" : 7,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 5,
+    "actor" : 2
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.4615384615384615,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "ake",
+    "class" : "dormant",
+    "score" : 42,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 32,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 3,
+    "status" : "R0-design-only",
+    "id" : "asobi",
+    "class" : "dormant",
+    "score" : 32,
+    "outDeg" : 5,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 12
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 2,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "chigiri",
+    "class" : "dormant",
+    "score" : 29,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 4
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 11,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "danjo",
+    "class" : "dormant",
+    "score" : 50,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.9090909090909091,
+    "heartbeatDays" : 1,
+    "status" : "unknown",
+    "id" : "fuchi",
+    "class" : "dormant",
+    "score" : 51,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 39,
+    "actor" : 12
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 5,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "funadaiku",
+    "class" : "dormant",
+    "score" : 55,
+    "outDeg" : 0,
+    "cells" : 9,
+    "clj" : 40,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "futawa",
+    "class" : "stub",
+    "score" : 0,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 0,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "gov-municipality",
+    "class" : "stub",
+    "score" : 6,
+    "outDeg" : 0,
+    "cells" : 3,
+    "clj" : 0,
+    "actor" : 6
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 2,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "hagukumi",
+    "class" : "dormant",
+    "score" : 39,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 25,
+    "actor" : 14
+  }, {
+    "bsky" : true,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 25,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R1-live-operation-and-social-emission-authorized",
+    "id" : "hakoniwa",
+    "class" : "dormant",
+    "score" : 55,
+    "outDeg" : 5,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.4285714285714286,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "hikari",
+    "class" : "dormant",
+    "score" : 43,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 31,
+    "actor" : 12
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "himawari",
+    "class" : "dormant",
+    "score" : 37,
+    "outDeg" : 0,
+    "cells" : 7,
+    "clj" : 25,
+    "actor" : 12
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 8,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "himotoki",
+    "class" : "dormant",
+    "score" : 50,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R1-template-commons-publishable",
+    "id" : "hinagata",
+    "class" : "dormant",
+    "score" : 30,
+    "outDeg" : 4,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "hodoki",
+    "class" : "dormant",
+    "score" : 25,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 3,
+    "status" : "R0-design-only",
+    "id" : "hokorobi",
+    "class" : "dormant",
+    "score" : 30,
+    "outDeg" : 6,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 3,
+    "status" : "R0-design-only",
+    "id" : "hoshimori",
+    "class" : "dormant",
+    "score" : 28,
+    "outDeg" : 4,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 8
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 3,
+    "status" : "unknown",
+    "id" : "hotaru",
+    "class" : "dormant",
+    "score" : 30,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 20,
+    "actor" : 10
+  }, {
+    "bsky" : true,
+    "reflex" : "timeout",
+    "inDeg" : 0,
+    "atproto" : 20,
+    "port" : 0.4883720930232558,
+    "heartbeatDays" : 0,
+    "status" : "R0+R1+R2+R3-live-kotoba-engine-verified",
+    "id" : "ibuki",
+    "class" : "dormant",
+    "score" : 42,
+    "outDeg" : 4,
+    "cells" : 1,
+    "clj" : 12,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "igata",
+    "class" : "dormant",
+    "score" : 25,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "infra-utility-connect",
+    "class" : "stub",
+    "score" : 8,
+    "outDeg" : 0,
+    "cells" : 4,
+    "clj" : 0,
+    "actor" : 8
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 3,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 3,
+    "status" : "R0-design-only",
+    "id" : "inochi",
+    "class" : "dormant",
+    "score" : 36,
+    "outDeg" : 5,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 16
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "itonami",
+    "class" : "dormant",
+    "score" : 30,
+    "outDeg" : 5,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 2,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "iyashi",
+    "class" : "stub",
+    "score" : 4,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 0,
+    "actor" : 4
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "junkan",
+    "class" : "stub",
+    "score" : 0,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 0,
+    "actor" : 0
+  }, {
+    "bsky" : true,
+    "reflex" : "green",
+    "inDeg" : 10,
+    "atproto" : 25,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "kabuto",
+    "class" : "alive",
+    "score" : 85,
+    "outDeg" : 6,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 20
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R0-resignation-concierge",
+    "id" : "kadode",
+    "class" : "dormant",
+    "score" : 30,
+    "outDeg" : 6,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.3636363636363636,
+    "heartbeatDays" : 0,
+    "status" : "R0",
+    "id" : "kamado",
+    "class" : "dormant",
+    "score" : 20,
+    "outDeg" : 0,
+    "cells" : 6,
+    "clj" : 10,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 11,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "kanae",
+    "class" : "dormant",
+    "score" : 50,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "kanayama",
+    "class" : "dormant",
+    "score" : 35,
+    "outDeg" : 0,
+    "cells" : 9,
+    "clj" : 25,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 5,
+    "atproto" : 0,
+    "port" : 0.5,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "kanjo",
+    "class" : "dormant",
+    "score" : 53,
+    "outDeg" : 6,
+    "cells" : 0,
+    "clj" : 33,
+    "actor" : 20
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 1,
+    "status" : "R0-design-only",
+    "id" : "kasa",
+    "class" : "dormant",
+    "score" : 50,
+    "outDeg" : 6,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 2,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "kataribe",
+    "class" : "dormant",
+    "score" : 29,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 4
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.75,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "kawaraban",
+    "class" : "dormant",
+    "score" : 48,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 36,
+    "actor" : 12
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "kawase-yui",
+    "class" : "stub",
+    "score" : 0,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 0,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "kazaori",
+    "class" : "dormant",
+    "score" : 27,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 2
+  }, {
+    "bsky" : true,
+    "reflex" : "green",
+    "inDeg" : 4,
+    "atproto" : 25,
+    "port" : 0.8571428571428571,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "keizu",
+    "class" : "alive",
+    "score" : 91,
+    "outDeg" : 7,
+    "cells" : 5,
+    "clj" : 38,
+    "actor" : 28
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "kizashi",
+    "class" : "dormant",
+    "score" : 25,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 3,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "kokoro",
+    "class" : "stub",
+    "score" : 6,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 0,
+    "actor" : 6
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 5,
+    "port" : 0.5,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "kosatsu",
+    "class" : "dormant",
+    "score" : 56,
+    "outDeg" : 6,
+    "cells" : 3,
+    "clj" : 33,
+    "actor" : 18
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "kuni-umi",
+    "class" : "stub",
+    "score" : 10,
+    "outDeg" : 0,
+    "cells" : 6,
+    "clj" : 0,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "kuni_umi",
+    "class" : "stub",
+    "score" : 10,
+    "outDeg" : 0,
+    "cells" : 6,
+    "clj" : 0,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 2,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "kurashimori",
+    "class" : "dormant",
+    "score" : 29,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 4
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "makura",
+    "class" : "dormant",
+    "score" : 25,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 2,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "manabi",
+    "class" : "dormant",
+    "score" : 39,
+    "outDeg" : 0,
+    "cells" : 6,
+    "clj" : 25,
+    "actor" : 14
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R0 — methods + tests landed (21 green); first source = sumitclub.jp (SuMi TRUST CLUB); lexicon + fleet registration deferred to R1",
+    "id" : "meisai",
+    "class" : "dormant",
+    "score" : 40,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.5,
+    "heartbeatDays" : 0,
+    "status" : "R1-offline (autonomous heartbeat + local kotoba commit-DAG persistence; live legs G7-gated)",
+    "id" : "mimamori",
+    "class" : "dormant",
+    "score" : 21,
+    "outDeg" : 4,
+    "cells" : 0,
+    "clj" : 13,
+    "actor" : 8
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "mitate",
+    "class" : "stub",
+    "score" : 0,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 0,
+    "actor" : 0
+  }, {
+    "bsky" : true,
+    "reflex" : "green",
+    "inDeg" : 5,
+    "atproto" : 25,
+    "port" : 0.4583333333333333,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "mitooshi",
+    "class" : "dormant",
+    "score" : 77,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 32,
+    "actor" : 20
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "mitsuho",
+    "class" : "dormant",
+    "score" : 37,
+    "outDeg" : 0,
+    "cells" : 6,
+    "clj" : 25,
+    "actor" : 12
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.4285714285714286,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "mizuho",
+    "class" : "dormant",
+    "score" : 33,
+    "outDeg" : 0,
+    "cells" : 1,
+    "clj" : 31,
+    "actor" : 2
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "moushibumi",
+    "class" : "dormant",
+    "score" : 25,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 3,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "musubi",
+    "class" : "dormant",
+    "score" : 31,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 6
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.9,
+    "heartbeatDays" : 0,
+    "status" : "R0 proposed",
+    "id" : "noroshi",
+    "class" : "dormant",
+    "score" : 23,
+    "outDeg" : 0,
+    "cells" : 2,
+    "clj" : 19,
+    "actor" : 4
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 3,
+    "status" : "R0",
+    "id" : "nusa",
+    "class" : "dormant",
+    "score" : 30,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 20,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 3,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "ooyake",
+    "class" : "dormant",
+    "score" : 35,
+    "outDeg" : 0,
+    "cells" : 2,
+    "clj" : 25,
+    "actor" : 10
+  }, {
+    "bsky" : true,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 20,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "ossekai",
+    "class" : "dormant",
+    "score" : 47,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 2
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.4545454545454545,
+    "heartbeatDays" : 0,
+    "status" : "R1-public-ingest-live",
+    "id" : "rasen",
+    "class" : "dormant",
+    "score" : 18,
+    "outDeg" : 3,
+    "cells" : 0,
+    "clj" : 12,
+    "actor" : 6
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 1,
+    "status" : "R0",
+    "id" : "sanae",
+    "class" : "dormant",
+    "score" : 22,
+    "outDeg" : 0,
+    "cells" : 1,
+    "clj" : 20,
+    "actor" : 2
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "sarutahiko",
+    "class" : "dormant",
+    "score" : 37,
+    "outDeg" : 0,
+    "cells" : 9,
+    "clj" : 25,
+    "actor" : 12
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "seigyo",
+    "class" : "dormant",
+    "score" : 25,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "sentei",
+    "class" : "dormant",
+    "score" : 40,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "shidemori",
+    "class" : "dormant",
+    "score" : 25,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 0
+  }, {
+    "bsky" : true,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 25,
+    "port" : 0.8333333333333333,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-plus-autonomous-offline",
+    "id" : "shionome",
+    "class" : "alive",
+    "score" : 83,
+    "outDeg" : 7,
+    "cells" : 5,
+    "clj" : 38,
+    "actor" : 20
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 3,
+    "status" : "R0-design-only",
+    "id" : "shiori",
+    "class" : "dormant",
+    "score" : 32,
+    "outDeg" : 8,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 12
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.5294117647058824,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "shomei",
+    "class" : "dormant",
+    "score" : 55,
+    "outDeg" : 5,
+    "cells" : 5,
+    "clj" : 33,
+    "actor" : 22
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 1,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "sonae",
+    "class" : "stub",
+    "score" : 2,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 0,
+    "actor" : 2
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "suimin",
+    "class" : "dormant",
+    "score" : 25,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 5,
+    "port" : 0.4736842105263158,
+    "heartbeatDays" : 0,
+    "status" : "r0",
+    "id" : "suji",
+    "class" : "dormant",
+    "score" : 45,
+    "outDeg" : 0,
+    "cells" : 4,
+    "clj" : 32,
+    "actor" : 8
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "sukashi",
+    "class" : "dormant",
+    "score" : 50,
+    "outDeg" : 8,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "suki",
+    "class" : "dormant",
+    "score" : 25,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 6,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 4,
+    "status" : "unknown",
+    "id" : "tadori",
+    "class" : "dormant",
+    "score" : 35,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 1,
+    "status" : "R0-grant-steward",
+    "id" : "tanemaki",
+    "class" : "dormant",
+    "score" : 30,
+    "outDeg" : 9,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 3,
+    "atproto" : 0,
+    "port" : 0.5,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "tasuke",
+    "class" : "dormant",
+    "score" : 49,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 33,
+    "actor" : 16
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "tatekata",
+    "class" : "dormant",
+    "score" : 35,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 25,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R0 proposed",
+    "id" : "tazuna",
+    "class" : "dormant",
+    "score" : 22,
+    "outDeg" : 0,
+    "cells" : 1,
+    "clj" : 20,
+    "actor" : 2
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 1,
+    "status" : "R0+R1",
+    "id" : "todoke",
+    "class" : "dormant",
+    "score" : 28,
+    "outDeg" : 0,
+    "cells" : 4,
+    "clj" : 20,
+    "actor" : 8
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 3,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "toritate",
+    "class" : "dormant",
+    "score" : 31,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 6
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "toritsugi",
+    "class" : "stub",
+    "score" : 0,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 0,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 3,
+    "status" : "R0-design-only",
+    "id" : "tsugite",
+    "class" : "dormant",
+    "score" : 30,
+    "outDeg" : 6,
+    "cells" : 0,
+    "clj" : 20,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "tsukuroi",
+    "class" : "stub",
+    "score" : 0,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 0,
+    "actor" : 0
+  }, {
+    "bsky" : true,
+    "reflex" : "absent",
+    "inDeg" : 16,
+    "atproto" : 25,
+    "port" : 0.46875,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "tsumugi",
+    "class" : "dormant",
+    "score" : 55,
+    "outDeg" : 4,
+    "cells" : 0,
+    "clj" : 12,
+    "actor" : 18
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "tsutae",
+    "class" : "dormant",
+    "score" : 35,
+    "outDeg" : 0,
+    "cells" : 8,
+    "clj" : 25,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "uchiwake",
+    "class" : "dormant",
+    "score" : 50,
+    "outDeg" : 6,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "utsushie",
+    "class" : "dormant",
+    "score" : 40,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "wadachi",
+    "class" : "stub",
+    "score" : 10,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 0,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 2,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "wakai",
+    "class" : "dormant",
+    "score" : 29,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 25,
+    "actor" : 4
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 2,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "watari",
+    "class" : "dormant",
+    "score" : 54,
+    "outDeg" : 5,
+    "cells" : 0,
+    "clj" : 40,
+    "actor" : 14
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 4,
+    "status" : "unknown",
+    "id" : "watatsumi",
+    "class" : "stub",
+    "score" : 15,
+    "outDeg" : 0,
+    "cells" : 9,
+    "clj" : 5,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 3,
+    "atproto" : 0,
+    "port" : 0.5454545454545455,
+    "heartbeatDays" : 0,
+    "status" : "R0-design-only",
+    "id" : "watatsuna",
+    "class" : "dormant",
+    "score" : 49,
+    "outDeg" : 5,
+    "cells" : 0,
+    "clj" : 33,
+    "actor" : 16
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 1.0,
+    "heartbeatDays" : 1,
+    "status" : "R0",
+    "id" : "yadori",
+    "class" : "dormant",
+    "score" : 24,
+    "outDeg" : 0,
+    "cells" : 2,
+    "clj" : 20,
+    "actor" : 4
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "yakushi",
+    "class" : "stub",
+    "score" : 0,
+    "outDeg" : 0,
+    "cells" : 0,
+    "clj" : 0,
+    "actor" : 0
+  }, {
+    "bsky" : false,
+    "reflex" : "green",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 0,
+    "status" : "unknown",
+    "id" : "yamabiko",
+    "class" : "dormant",
+    "score" : 35,
+    "outDeg" : 0,
+    "cells" : 9,
+    "clj" : 25,
+    "actor" : 10
+  }, {
+    "bsky" : false,
+    "reflex" : "absent",
+    "inDeg" : 0,
+    "atproto" : 0,
+    "port" : 0.0,
+    "heartbeatDays" : 9999,
+    "status" : "unknown",
+    "id" : "yoro-supply",
+    "class" : "stub",
+    "score" : 10,
+    "outDeg" : 0,
+    "cells" : 5,
+    "clj" : 0,
+    "actor" : 10
+  } ],
+  "edges" : [ {
+    "from" : "asobi",
+    "to" : "inochi"
+  }, {
+    "from" : "asobi",
+    "to" : "tsumugi"
+  }, {
+    "from" : "asobi",
+    "to" : "kawaraban"
+  }, {
+    "from" : "asobi",
+    "to" : "kataribe"
+  }, {
+    "from" : "asobi",
+    "to" : "manabi"
+  }, {
+    "from" : "hakoniwa",
+    "to" : "mitooshi"
+  }, {
+    "from" : "hakoniwa",
+    "to" : "sonae"
+  }, {
+    "from" : "hakoniwa",
+    "to" : "kazaori"
+  }, {
+    "from" : "hakoniwa",
+    "to" : "tsumugi"
+  }, {
+    "from" : "hinagata",
+    "to" : "chigiri"
+  }, {
+    "from" : "hinagata",
+    "to" : "musubi"
+  }, {
+    "from" : "hinagata",
+    "to" : "shomei"
+  }, {
+    "from" : "hokorobi",
+    "to" : "kanjo"
+  }, {
+    "from" : "hokorobi",
+    "to" : "kanae"
+  }, {
+    "from" : "hokorobi",
+    "to" : "kabuto"
+  }, {
+    "from" : "hokorobi",
+    "to" : "danjo"
+  }, {
+    "from" : "hokorobi",
+    "to" : "tsumugi"
+  }, {
+    "from" : "hokorobi",
+    "to" : "mitooshi"
+  }, {
+    "from" : "hoshimori",
+    "to" : "watari"
+  }, {
+    "from" : "hoshimori",
+    "to" : "watatsuna"
+  }, {
+    "from" : "hoshimori",
+    "to" : "kabuto"
+  }, {
+    "from" : "hoshimori",
+    "to" : "tsumugi"
+  }, {
+    "from" : "ibuki",
+    "to" : "mitooshi"
+  }, {
+    "from" : "inochi",
+    "to" : "tsumugi"
+  }, {
+    "from" : "inochi",
+    "to" : "danjo"
+  }, {
+    "from" : "inochi",
+    "to" : "kanae"
+  }, {
+    "from" : "inochi",
+    "to" : "keizu"
+  }, {
+    "from" : "inochi",
+    "to" : "ooyake"
+  }, {
+    "from" : "itonami",
+    "to" : "sarutahiko"
+  }, {
+    "from" : "itonami",
+    "to" : "hikari"
+  }, {
+    "from" : "itonami",
+    "to" : "toritate"
+  }, {
+    "from" : "kabuto",
+    "to" : "tsumugi"
+  }, {
+    "from" : "kabuto",
+    "to" : "watatsuna"
+  }, {
+    "from" : "kabuto",
+    "to" : "danjo"
+  }, {
+    "from" : "kabuto",
+    "to" : "kanae"
+  }, {
+    "from" : "kabuto",
+    "to" : "tadori"
+  }, {
+    "from" : "kabuto",
+    "to" : "himawari"
+  }, {
+    "from" : "kadode",
+    "to" : "chigiri"
+  }, {
+    "from" : "kadode",
+    "to" : "hinagata"
+  }, {
+    "from" : "kadode",
+    "to" : "kokoro"
+  }, {
+    "from" : "kadode",
+    "to" : "tasuke"
+  }, {
+    "from" : "kadode",
+    "to" : "kurashimori"
+  }, {
+    "from" : "kadode",
+    "to" : "himotoki"
+  }, {
+    "from" : "kanjo",
+    "to" : "kabuto"
+  }, {
+    "from" : "kanjo",
+    "to" : "toritate"
+  }, {
+    "from" : "kanjo",
+    "to" : "tsumugi"
+  }, {
+    "from" : "kanjo",
+    "to" : "danjo"
+  }, {
+    "from" : "kanjo",
+    "to" : "kanae"
+  }, {
+    "from" : "kanjo",
+    "to" : "himotoki"
+  }, {
+    "from" : "kasa",
+    "to" : "kanjo"
+  }, {
+    "from" : "kasa",
+    "to" : "kabuto"
+  }, {
+    "from" : "kasa",
+    "to" : "mitooshi"
+  }, {
+    "from" : "keizu",
+    "to" : "danjo"
+  }, {
+    "from" : "keizu",
+    "to" : "kanae"
+  }, {
+    "from" : "keizu",
+    "to" : "tsumugi"
+  }, {
+    "from" : "keizu",
+    "to" : "tadori"
+  }, {
+    "from" : "keizu",
+    "to" : "ooyake"
+  }, {
+    "from" : "keizu",
+    "to" : "kabuto"
+  }, {
+    "from" : "keizu",
+    "to" : "kanjo"
+  }, {
+    "from" : "kosatsu",
+    "to" : "tadori"
+  }, {
+    "from" : "kosatsu",
+    "to" : "keizu"
+  }, {
+    "from" : "kosatsu",
+    "to" : "tsumugi"
+  }, {
+    "from" : "kosatsu",
+    "to" : "kanae"
+  }, {
+    "from" : "kosatsu",
+    "to" : "danjo"
+  }, {
+    "from" : "kosatsu",
+    "to" : "tasuke"
+  }, {
+    "from" : "mimamori",
+    "to" : "kokoro"
+  }, {
+    "from" : "mimamori",
+    "to" : "wakai"
+  }, {
+    "from" : "mimamori",
+    "to" : "iyashi"
+  }, {
+    "from" : "mimamori",
+    "to" : "musubi"
+  }, {
+    "from" : "rasen",
+    "to" : "inochi"
+  }, {
+    "from" : "rasen",
+    "to" : "mitsuho"
+  }, {
+    "from" : "rasen",
+    "to" : "himotoki"
+  }, {
+    "from" : "shionome",
+    "to" : "mitooshi"
+  }, {
+    "from" : "shionome",
+    "to" : "kanae"
+  }, {
+    "from" : "shionome",
+    "to" : "kanjo"
+  }, {
+    "from" : "shionome",
+    "to" : "watari"
+  }, {
+    "from" : "shionome",
+    "to" : "kabuto"
+  }, {
+    "from" : "shionome",
+    "to" : "tsumugi"
+  }, {
+    "from" : "shionome",
+    "to" : "keizu"
+  }, {
+    "from" : "shiori",
+    "to" : "ossekai"
+  }, {
+    "from" : "shiori",
+    "to" : "kokoro"
+  }, {
+    "from" : "shiori",
+    "to" : "iyashi"
+  }, {
+    "from" : "shiori",
+    "to" : "hagukumi"
+  }, {
+    "from" : "shiori",
+    "to" : "wakai"
+  }, {
+    "from" : "shiori",
+    "to" : "danjo"
+  }, {
+    "from" : "shiori",
+    "to" : "tsumugi"
+  }, {
+    "from" : "shiori",
+    "to" : "keizu"
+  }, {
+    "from" : "shomei",
+    "to" : "musubi"
+  }, {
+    "from" : "shomei",
+    "to" : "himotoki"
+  }, {
+    "from" : "sukashi",
+    "to" : "akashi"
+  }, {
+    "from" : "sukashi",
+    "to" : "tadori"
+  }, {
+    "from" : "sukashi",
+    "to" : "kurashimori"
+  }, {
+    "from" : "sukashi",
+    "to" : "tasuke"
+  }, {
+    "from" : "sukashi",
+    "to" : "danjo"
+  }, {
+    "from" : "sukashi",
+    "to" : "kabuto"
+  }, {
+    "from" : "sukashi",
+    "to" : "tsumugi"
+  }, {
+    "from" : "sukashi",
+    "to" : "himotoki"
+  }, {
+    "from" : "tanemaki",
+    "to" : "kanjo"
+  }, {
+    "from" : "tanemaki",
+    "to" : "kabuto"
+  }, {
+    "from" : "tanemaki",
+    "to" : "tsumugi"
+  }, {
+    "from" : "tanemaki",
+    "to" : "kosatsu"
+  }, {
+    "from" : "tanemaki",
+    "to" : "ooyake"
+  }, {
+    "from" : "tanemaki",
+    "to" : "shiori"
+  }, {
+    "from" : "tanemaki",
+    "to" : "fuchi"
+  }, {
+    "from" : "tanemaki",
+    "to" : "toritate"
+  }, {
+    "from" : "tanemaki",
+    "to" : "kanae"
+  }, {
+    "from" : "tsugite",
+    "to" : "inochi"
+  }, {
+    "from" : "tsugite",
+    "to" : "asobi"
+  }, {
+    "from" : "tsugite",
+    "to" : "kataribe"
+  }, {
+    "from" : "tsugite",
+    "to" : "manabi"
+  }, {
+    "from" : "tsugite",
+    "to" : "himotoki"
+  }, {
+    "from" : "tsugite",
+    "to" : "hagukumi"
+  }, {
+    "from" : "tsumugi",
+    "to" : "danjo"
+  }, {
+    "from" : "tsumugi",
+    "to" : "kanae"
+  }, {
+    "from" : "tsumugi",
+    "to" : "tadori"
+  }, {
+    "from" : "tsumugi",
+    "to" : "himotoki"
+  }, {
+    "from" : "uchiwake",
+    "to" : "kabuto"
+  }, {
+    "from" : "uchiwake",
+    "to" : "tsumugi"
+  }, {
+    "from" : "watari",
+    "to" : "watatsuna"
+  }, {
+    "from" : "watari",
+    "to" : "kanae"
+  }, {
+    "from" : "watari",
+    "to" : "danjo"
+  }, {
+    "from" : "watari",
+    "to" : "kabuto"
+  }, {
+    "from" : "watari",
+    "to" : "tsumugi"
+  }, {
+    "from" : "watatsuna",
+    "to" : "tsumugi"
+  }, {
+    "from" : "watatsuna",
+    "to" : "danjo"
+  }, {
+    "from" : "watatsuna",
+    "to" : "kanae"
+  }, {
+    "from" : "watatsuna",
+    "to" : "tadori"
+  }, {
+    "from" : "watatsuna",
+    "to" : "himotoki"
+  } ]
+}
