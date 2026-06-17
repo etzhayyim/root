@@ -27,13 +27,17 @@
   `__main__`). The triage ORES-score breakdown (every additive signal), the intake-refusal +
   revision-dedup paths in `analyze.py`, and the EDN reader's atom-level literals (true/false/nil,
   int, float, keyword-as-string, bareword, escaped string) each carry a dedicated, py+cljc-mirrored
-  test so a silent re-weighting or a mis-read literal fails loudly.
-- **135 tests green, HERMETIC** (`./run_tests.sh`): 22 triage (incl. a route_for totality +
-  priority sweep over the whole risk×quality×rider domain — the G2 structural guarantee) + 7
-  revision + 6 edit-war + 13 contributor (incl. per-DID isolation + a no-ranking/no-score-of-soul
-  API lock — the G9 structural guarantee) + 8 ingest + 16 charter-invariants + 6 analyze + 5
-  lexicons + 10
-  consistency/SSoT-drift-lock (methods) + 20 cell state-machine + 7 cell-chain membrane-flow
+  test so a silent re-weighting or a mis-read literal fails loudly. The five **cell** state machines
+  are at full meaningful coverage too (`review_vote`/`propose` 100%, others ≥96% — the only misses
+  are the import-time `sys.path` shim branches): the no-server-key tally refusal, the unknown-
+  mechanism closed-vocab refusal, and the G5 grow-by-one append guard each carry a test.
+- **137 tests green, HERMETIC** (`./run_tests.sh`): 6 EDN-reader + 29 triage (incl. a route_for
+  totality + priority sweep over the whole risk×quality×rider domain — the G2 structural guarantee
+  — and the full assess_quality score breakdown) + 7 revision + 6 edit-war + 13 contributor (incl.
+  per-DID isolation + a no-ranking/no-score-of-soul API lock — the G9 structural guarantee) + 8
+  ingest + 16 charter-invariants + 8 analyze (incl. the intake-refusal + revision-dedup paths) + 5
+  lexicons + 10 consistency/SSoT-drift-lock (methods) + 22 cell state-machine (incl. the
+  unknown-mechanism + G5 grow-by-one cell-level invariant guards) + 7 cell-chain membrane-flow
   integration. The suite is green in any checkout: the ingest genesis bridge is asserted against a
   committed fixture (`data/sample-profile-seed.kotoba.edn`); the real shared SSoT is validated by a
   soft check that no longer hard-couples ake's suite to the (coordination-committed) shared seed.
