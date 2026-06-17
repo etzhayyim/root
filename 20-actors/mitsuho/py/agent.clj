@@ -63,7 +63,11 @@
                        (some #(str/includes? (str/lower-case p) %) prohibited-pesticides))
                      pesticides)]
     (if (seq hits)
-      {:valid false :reason (str "prohibited pesticides: " (vec hits) " (G9)")}
+      ;; match py's f-string list repr exactly (Python list = single quotes, ", " sep) so the
+      ;; rejection_reason is byte-identical across impls (cross-lang parity caught the divergence).
+      {:valid false :reason (str "prohibited pesticides: ["
+                                 (str/join ", " (map #(str "'" % "'") hits))
+                                 "] (G9)")}
       {:valid true  :reason "pesticide manifest approved"})))
 
 ;; ── parcel attestation — baseline soil + water + biodiversity (G7 gate) ──────
