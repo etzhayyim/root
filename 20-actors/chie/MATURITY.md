@@ -14,7 +14,8 @@
 | Murakumo digest | ✅ | `methods/digest.cljc` — deterministic `template-digest` + Murakumo-only `narrate` (fail-open, non-fleet endpoint refused); wired into the heartbeat summary (narration, not persisted) |
 | DISCLOSED ingest + G7 gate | ✅ | `methods/ingest.cljc` — offline `ingest-file` upgrades round stubs → `:authoritative` + disclosed `:ai/round-amount-usd` + `:en/disclosed-src` provenance (idempotent, concentration-preserving); `ingest-live` REFUSES without `CHIE_INGEST_LIVE` + operator DID (G7, tested) |
 | **root kotoba roster** | ✅ | `00-contracts/schemas/ai-ecosystem-ontology.kotoba.edn` (db/ident vocab) + seed names its `vocabulary:` → `bb kotoba:ingest --validate` = **105 entities / 589 datoms / 0 undeclared / 0 value-violations**; `bb kotoba:roster-report` lists chie (27/27 actors clean). Drift-guard test locks seed↔schema |
-| Tests | ✅ | 8 suites · **39 tests / 130 assertions** green (`bb test:actors` auto-discovers) |
+| KG query interface | ✅ | `methods/query.cljc` — funders-of / compute-suppliers-of / governed-by / rounds-of / subsidiaries / concentration-in / opening-worklist; reuses the analyze integral (one source of truth) |
+| Tests | ✅ | 9 suites · **44 tests / 146 assertions** green (`bb test:actors` auto-discovers) |
 | Charter gates G1–G5 | ✅ | test-enforced: open→0 (G1), inbound-integral (G2), representative-only (G5), no-trade/no-score (G4) |
 | Cross-actor bridge | ✅ (declared) | `:bridge` → kanjō/kabuto/handotai/kasa/kenkyusha/keizu/kosatsu/abaki |
 | **常駐化 (resident heartbeat)** | ✅ R1 | `methods/autorun.cljc` + `cell.cljc` (`fire`) → content-addressed Datom tx on append-only kotoba commit-DAG (`verify-chain` tamper-evident, resume-safe) + Murakumo digest in the summary; registered `ChieHeartbeatCell` in cell-runner `cells.edn` (node gad, cron `37 * * * *`, healthz 13082) |
