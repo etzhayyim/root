@@ -43,10 +43,13 @@ Full attribute list → ADR-2605301400 §D2. Reads use the four `kotoba-kqe` arr
 |---|---|
 | `kotoba/schema.edn` | Datomic schema for `tadori.source/*`, `tadori.obs/*`, `tadori.dns/*`, `tadori.ip/*`, and `tadori.indicator/*`. |
 | `kotoba/seed.threat-intel.jsonl` | Operator-staged JSONL sample for public-archive and SecurityTrails-shaped compatibility records. |
-| `kotoba/ingest_threat_intel.py` | JSONL validator + `tx_edn` generator + live `com.etzhayyim.apps.kotoba.datomic.transact` writer with optional `datomic.datoms` readback. |
-| `kotoba/deploy.sh` | Dry-run/live wrapper for a running kotoba node; live runs verify readback. |
-| `kotoba/audit_log.py` | Local content-addressed append-only **silenTadoriReview** Datom log (commit-DAG): `review_datoms` + `make_tx`/`append_tx`/`read_log`/`head_cid`/`verify_chain`; `assert_all_clear` (G12 halt). Holds **audit counters ONLY** — never observation/PII/case data. |
-| `kotoba/autorun.py` | Autonomous Transparent-Force **self-audit heartbeat** (see below). |
+| `methods/ingest.cljc` | **(cljc)** JSONL validator (G3 collection-mode/case, G4 vendor-not-SoR, tier-D) + `tx_edn` generator (`record->datoms` / `datoms->tx-edn` — byte-identical to the retired Python) + `readback-checks`. NO I/O. |
+| `methods/transact.cljc` | **(cljc, operator host edge)** live `com.etzhayyim.apps.kotoba.datomic.transact` writer + session-verify + `datomic.datoms` readback + `-main` CLI (`bb tadori:ingest`). The ONLY tadori ns that does network I/O; holds no key (credential from env). |
+| `kotoba/deploy.sh` | Dry-run/live wrapper for a running kotoba node (drives `bb tadori:ingest`); live runs verify readback. |
+| `methods/audit_log.cljc` | **(cljc, ADR-2606160842)** Local content-addressed append-only **silenTadoriReview** Datom log (commit-DAG): `review-datoms` + `make-tx`/`append-tx`/`read-log`/`head-cid`/`verify-chain`; `assert-all-clear` (G12 halt). Reuses `kotoba.datom` (CIDs byte-compatible with the old Python). Holds **audit counters ONLY** — never observation/PII/case data. |
+| `methods/autorun.cljc` | **(cljc)** Autonomous Transparent-Force **self-audit heartbeat** + runnable `-main` (see below). |
+| `tests/test_autorun.cljc` | **(cljc)** self-audit invariant suite (commit-DAG / G12 / no-I/O / Python-parity CID). |
+| `tests/test_ingest.cljc` | **(cljc)** ingest gate + EAVT-rendering suite (port of test_invariants.py + test_ingest_threat_intel.py). `bb test:tadori` runs both → 19 tests / 46 assertions. |
 
 ### Autonomous on the Murakumo fleet — the Transparent-Force self-audit (ADR-2605301400 §D1)
 
@@ -55,24 +58,28 @@ and **evidence-only / no-enforcement (G7)**, so it may NOT autonomously persist 
 observation / attribution / PII datoms the way ipaddress/yabai do — that needs a `caseMandate`
 (no case → Phase 0 dry-run). The charter-permitted autonomous act is therefore the
 **silenTadoriReview self-audit** (Charter §1.12 Transparent Force, G5): each heartbeat
-`kotoba/autorun.py` loads the OFFLINE operator-staged corpus → validates it against the gates
+`methods/autorun.cljc` loads the OFFLINE operator-staged corpus → validates it against the gates
 (Phase 0, no case) → recomputes the **9 structural zero-counters** (noncaseWrite / plaintextPii /
 proprietarySor / enforcementAction / platformHeldKey / murakumoBypass / massSurveillance /
 adherentDeanon / nonKotobaStore) → **G12 guard: any nonzero counter HALTS, persisting nothing** →
-appends ONE content-addressed audit datom (`kotoba/audit_log.py`) to the local kotoba Datom log.
+appends ONE content-addressed audit datom (`methods/audit_log.cljc`) to the local kotoba Datom log.
 By construction the log holds **only audit counters** — no observation, no PII, no case data ever
 reaches it (G3/G6/G10 structurally honored). Deterministic / resume-safe; NO external I/O, NO live
 fetch, NO LLM inference, NO enforcement.
 
 ```sh
-python3 kotoba/autorun.py --cycles 3 --fresh   # AUTONOMOUS silenTadoriReview self-audit → local kotoba log
+bb tadori:autorun 3   # AUTONOMOUS silenTadoriReview self-audit → local kotoba log (cljc; from repo root)
 ```
 
-Fleet cell: `tadori_silen_review` (cron 37 * * * *) on `issachar` — see `50-infra/murakumo/fleet.toml`.
-Live case-anchored ingest stays in `kotoba/ingest_threat_intel.py` behind the operator credential +
-`TADORI_CASE_ID` gate. Invariants guarded by `kotoba/test_autorun.py` (commit-DAG verify,
-tamper-detect, determinism, append-only, audit-counters-only / no-obs-PII-in-log, **G12 plaintext-PII
-HALT-persists-nothing**, vendor-SoR rejected, no-external-I/O).
+The loop was ported off Python onto the kotoba Datom-log + clojure.test stack (ADR-2606160842);
+the cljc commit-DAG CIDs are byte-compatible with the retired Python (cross-verified: cljc reads +
+verifies a Python-written log and reproduces its head CID). Fleet cell: `tadori_silen_review`
+(cron 37 * * * *) on `issachar` — see `50-infra/murakumo/fleet.toml`. Live case-anchored ingest
+is the operator host edge `methods/transact.cljc` (`bb tadori:ingest`, no-server-key — credential
+from env), behind the operator credential + `TADORI_CASE_ID` gate.
+Invariants guarded by `tests/test_autorun.cljc` (`bb test:tadori` — commit-DAG verify, tamper-detect,
+determinism, append-only, audit-counters-only / no-obs-PII-in-log, **G12 plaintext-PII
+HALT-persists-nothing**, vendor-SoR rejected, no-external-I/O, Python-parity CID).
 
 Dry-run:
 

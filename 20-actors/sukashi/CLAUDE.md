@@ -91,7 +91,7 @@
   Aggregate-first. Idempotent.
 - `cell:sukashi.transact` → `methods/transact.py` — kotoba `datomic.transact` save-path. Dry-run
   default; live write needs operator JWT or CACAO (no platform-held key, ADR-2605231525).
-- `cell:sukashi.viz` → `viz/build_viz_data.py` — self-contained ad-tech supply-chain + fraud
+- `cell:sukashi.viz` → `methods/viz.cljc` (`bb sukashi:viz`; template `viz/template.htm`) — self-contained ad-tech supply-chain + fraud
   force-graph (browser-native via the kotoba-wasm node; inlined payload = offline data contract).
 - `cell:sukashi.fraud-bridge` (design) → hands `:routed-to :akashi-malak` signals to akashi's
   `malakEvidenceCandidate` bridge (candidate-evidence only; G11/G13).
@@ -117,6 +117,7 @@ cd 20-actors/sukashi
 python3 methods/crawl.py --merge                 # parse fetched data/live/* → rows
 python3 methods/ingest.py --source adstxt --in data/live/nytimes.com.ads.txt --publisher <id>  # bridge a fetched file
 python3 methods/analyze.py                       # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
+bb sukashi:viz                                   # → viz/ad-supply-chain.htm (open in a browser)
 python3 methods/autorun.py --cycles 3 --fresh    # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
 python3 methods/transact.py                      # dry-run; --graph <CID> + KOTOBA_TOKEN to write (G7)
 ```
