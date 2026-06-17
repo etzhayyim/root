@@ -9,9 +9,11 @@
   ledger tamper-evident + resume-safe.
 
   Deterministic by construction: the caller supplies tx-id + as-of (no wall clock,
-  no Math/random) → re-running the same beat against the same head is a byte-identical
-  no-op-shaped tx (same datoms → same CID for a given prev). No-server-key: appends to
-  a local file only, no network I/O. ASSESSMENT ONLY — ugachi never digs."
+  no Math/random) → resume-safe. IDEMPOTENT-BY-CONTENT: a beat whose verdict datoms
+  equal the previous beat's is a NO-OP (nothing appended) — the ledger records CHANGES,
+  not a wall-clock liveness tick, so a 30-min loop over a static seed never bloats the
+  chain with identical snapshots. No-server-key: appends to a local file only, no network
+  I/O. ASSESSMENT ONLY — ugachi never digs."
   (:require [ugachi.methods.gate :as gate]
             [ugachi.methods.bridge :as bridge]
             [ugachi.methods.kotoba :as k]
@@ -24,7 +26,11 @@
      :tx-id        deterministic tx id (required)
      :as-of        deterministic as-of stamp (required)
      :log-path     ledger path (required)
-   Returns {:head <cid> :count <n> :verdicts <tally> :grounded <bool>}."
+   IDEMPOTENT-BY-CONTENT: if the new verdict datoms equal the last beat's datoms,
+   the beat is a NO-OP — nothing is appended (the ledger records CHANGES, not a
+   liveness tick, so it never bloats with identical snapshots).
+   Returns {:head <cid> :count <n> :verdicts <tally> :grounded <bool>
+            :appended <bool> :reason <kw|nil>}."
   [{:keys [projects commodities tx-id as-of log-path]}]
   (let [grounded? (boolean (seq commodities))
         assessment (if grounded?
@@ -32,12 +38,15 @@
                      (gate/assess projects))
         ds (gate/datoms assessment)
         prev (k/head-cid log-path)
-        tx (k/make-tx ds tx-id as-of prev)
-        head (k/append-tx tx log-path)]
-    {:head head
-     :count (count ds)
-     :verdicts (get assessment "tally")
-     :grounded grounded?}))
+        last-ds (let [txs (k/read-log log-path)]
+                  (when (seq txs) (get (last txs) ":tx/datoms")))
+        unchanged? (= ds last-ds)
+        base {:count (count ds) :verdicts (get assessment "tally") :grounded grounded?}]
+    (if unchanged?
+      (assoc base :head prev :appended false :reason :no-change)
+      (let [tx (k/make-tx ds tx-id as-of prev)
+            head (k/append-tx tx log-path)]
+        (assoc base :head head :appended true :reason nil)))))
 
 #?(:clj
    (defn -main [& args]
@@ -54,7 +63,9 @@
            r (beat {:projects projects :commodities commodities
                     :tx-id "ugachi-beat-manual" :as-of "manual" :log-path log-path})]
        (println (str "stewardship ledger head=" (:head r)
-                     " datoms=" (:count r) " grounded=" (:grounded r)))
+                     " datoms=" (:count r) " grounded=" (:grounded r)
+                     " appended=" (:appended r)
+                     (when (:reason r) (str " (" (name (:reason r)) ")"))))
        (println (str "verdicts=" (:verdicts r)))
        (println (str "chain=" (k/verify-chain log-path))))))
 

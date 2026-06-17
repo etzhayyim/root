@@ -58,7 +58,12 @@ Two clj-native methods (same proven machinery as `meisai.methods.kotoba`):
   expose the datom **vector** under `datoms`, with `render-datoms` now its stringifier)
   as one tx chained on the current head.
 - Deterministic by construction: the caller supplies `tx-id` + `as-of` (no wall clock,
-  no `Math/random`) → re-running the same beat is byte-identical (resume-safe).
+  no `Math/random`) → resume-safe.
+- **Idempotent-by-content**: a beat whose verdict datoms equal the previous beat's is a
+  NO-OP — nothing is appended (`:appended false :reason :no-change`). The ledger records
+  CHANGES, not a wall-clock liveness tick, so a recurring loop (`/loop 30min ingest`) over
+  a static seed never bloats the chain with identical snapshots; it grows only when the
+  assessment actually changes. (Observed + fixed during the loop's first session.)
 
 The ledger lives under the gitignored `data/` (`20-actors/ugachi/.gitignore`); it is
 generated, never hand-edited, and is a record of extraction DECISIONS — **never a
