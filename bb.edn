@@ -94,19 +94,21 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:ake
-  {:doc "ake Clojure test suite — 9 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+  {:doc "ake Clojure test suite — 11 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
                       'ake.methods.test-ingest 'ake.methods.test-analyze
                       'ake.methods.test-charter-invariants 'ake.methods.test-editwar
                       'ake.methods.test-contributor 'ake.methods.test-revision
                       'ake.methods.test-triage 'ake.methods.test-lexicons
-                      'ake.methods.test-consistency)
+                      'ake.methods.test-consistency
+                      'ake.cells.test-state-machines 'ake.cells.test-membrane-flow)
              (let [r (clojure.test/run-tests
                       'ake.methods.test-ingest 'ake.methods.test-analyze
                       'ake.methods.test-charter-invariants 'ake.methods.test-editwar
                       'ake.methods.test-contributor 'ake.methods.test-revision
                       'ake.methods.test-triage 'ake.methods.test-lexicons
-                      'ake.methods.test-consistency)]
+                      'ake.methods.test-consistency
+                      'ake.cells.test-state-machines 'ake.cells.test-membrane-flow)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:danjo
@@ -254,13 +256,19 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:karakuri
-  {:doc "karakuri Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+  {:doc "karakuri Clojure test suite — 9 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
                       'karakuri.methods.test-export-and-live-and-datom 'karakuri.methods.test-nl-plan
-                      'karakuri.methods.test-t2-browser 'karakuri.methods.test-command)
+                      'karakuri.methods.test-t2-browser 'karakuri.methods.test-command
+                      'karakuri.cells.test-state-machines 'karakuri.cells.test-service-resolve
+                      'karakuri.cells.test-export-roundtrip 'karakuri.cells.test-command-plan
+                      'karakuri.cells.test-adapter-invoke)
              (let [r (clojure.test/run-tests
                       'karakuri.methods.test-export-and-live-and-datom 'karakuri.methods.test-nl-plan
-                      'karakuri.methods.test-t2-browser 'karakuri.methods.test-command)]
+                      'karakuri.methods.test-t2-browser 'karakuri.methods.test-command
+                      'karakuri.cells.test-state-machines 'karakuri.cells.test-service-resolve
+                      'karakuri.cells.test-export-roundtrip 'karakuri.cells.test-command-plan
+                      'karakuri.cells.test-adapter-invoke)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:kawaraban
@@ -310,13 +318,15 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:mizuho
-  {:doc "mizuho Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+  {:doc "mizuho Clojure test suite — 4 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
                       'mizuho.methods.test-charter-gates 'mizuho.methods.test-chlorination
-                      'mizuho.methods.test-water-supply)
+                      'mizuho.methods.test-water-supply
+                      'mizuho.cells.test-state-machines)
              (let [r (clojure.test/run-tests
                       'mizuho.methods.test-charter-gates 'mizuho.methods.test-chlorination
-                      'mizuho.methods.test-water-supply)]
+                      'mizuho.methods.test-water-supply
+                      'mizuho.cells.test-state-machines)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:niyaku
@@ -352,19 +362,21 @@
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:shomei
-  {:doc "shomei Clojure test suite — 9 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+  {:doc "shomei Clojure test suite — 10 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
                       'shomei.methods.test-aggregate 'shomei.methods.test-analyze
                       'shomei.methods.test-charter-invariants 'shomei.methods.test-blake2b
                       'shomei.methods.test-claims 'shomei.methods.test-revoke
                       'shomei.methods.test-verify 'shomei.methods.test-factors
-                      'shomei.methods.test-lexicons)
+                      'shomei.methods.test-lexicons
+                      'shomei.cells.test-cell-scaffolds)
              (let [r (clojure.test/run-tests
                       'shomei.methods.test-aggregate 'shomei.methods.test-analyze
                       'shomei.methods.test-charter-invariants 'shomei.methods.test-blake2b
                       'shomei.methods.test-claims 'shomei.methods.test-revoke
                       'shomei.methods.test-verify 'shomei.methods.test-factors
-                      'shomei.methods.test-lexicons)]
+                      'shomei.methods.test-lexicons
+                      'shomei.cells.test-cell-scaffolds)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:sukashi
@@ -387,20 +399,36 @@
                       'tanemaki.tests.test-coverage)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:suji
+  {:doc "suji Clojure test suite — 6 cljc suites wired into the runner (cell port; py→cljc port wave ADR-2606160842)."
+   :task (do (require 'clojure.test
+                      'suji.cells.test-state-machines
+                      'suji.methods.test-load 'suji.methods.test-muscle-strain
+                      'suji.methods.test-datoms 'suji.methods.test-charter-invariants
+                      'suji.methods.test-bridge-consistency)
+             (let [r (clojure.test/run-tests
+                      'suji.cells.test-state-machines
+                      'suji.methods.test-load 'suji.methods.test-muscle-strain
+                      'suji.methods.test-datoms 'suji.methods.test-charter-invariants
+                      'suji.methods.test-bridge-consistency)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:tasuke
-  {:doc "tasuke Clojure test suite — 10 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
+  {:doc "tasuke Clojure test suite — 11 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
                       'tasuke.methods.test-intake 'tasuke.methods.test-evidence
                       'tasuke.methods.test-analyze 'tasuke.methods.test-charter-invariants
                       'tasuke.methods.test-report-gen 'tasuke.methods.test-triage
                       'tasuke.methods.test-lexicons 'tasuke.methods.test-packet
-                      'tasuke.methods.test-consistency 'tasuke.methods.test-app-parity)
+                      'tasuke.methods.test-consistency 'tasuke.methods.test-app-parity
+                      'tasuke.cells.test-state-machines)
              (let [r (clojure.test/run-tests
                       'tasuke.methods.test-intake 'tasuke.methods.test-evidence
                       'tasuke.methods.test-analyze 'tasuke.methods.test-charter-invariants
                       'tasuke.methods.test-report-gen 'tasuke.methods.test-triage
                       'tasuke.methods.test-lexicons 'tasuke.methods.test-packet
-                      'tasuke.methods.test-consistency 'tasuke.methods.test-app-parity)]
+                      'tasuke.methods.test-consistency 'tasuke.methods.test-app-parity
+                      'tasuke.cells.test-state-machines)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:tate
@@ -540,7 +568,8 @@
                       'keizu.methods.test-registry 'keizu.methods.test-sources
                       'keizu.methods.test-autorun 'keizu.methods.test-bridge
                       'keizu.methods.test-export 'keizu.methods.test-social
-                      'keizu.methods.test-charter-invariants)
+                      'keizu.methods.test-charter-invariants
+                      'keizu.cells.test-state-machines 'keizu.cells.test-membrane-flow)
              (let [r (clojure.test/run-tests
                       'keizu.methods.test-analyze 'keizu.methods.test-edn
                       'keizu.methods.test-weave 'keizu.methods.test-consistency
@@ -548,7 +577,8 @@
                       'keizu.methods.test-registry 'keizu.methods.test-sources
                       'keizu.methods.test-autorun 'keizu.methods.test-bridge
                       'keizu.methods.test-export 'keizu.methods.test-social
-                      'keizu.methods.test-charter-invariants)]
+                      'keizu.methods.test-charter-invariants
+                      'keizu.cells.test-state-machines 'keizu.cells.test-membrane-flow)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:maps
@@ -606,7 +636,7 @@
                       'ibuki.methods.test-kaizen-outcomes 'ibuki.methods.test-kotoba-bridge
                       'ibuki.methods.test-perception 'ibuki.methods.test-fleet
                       'ibuki.methods.test-charter-invariants
-                      'ibuki.methods.test-sick-colony)
+                      'ibuki.methods.test-sick-colony 'ibuki.methods.test-wellbecoming)
              (let [r (clojure.test/run-tests
                       'ibuki.methods.test-datoms 'ibuki.methods.test-joucho
                       'ibuki.methods.test-heartbeat 'ibuki.methods.test-infer
@@ -618,7 +648,7 @@
                       'ibuki.methods.test-kaizen-outcomes 'ibuki.methods.test-kotoba-bridge
                       'ibuki.methods.test-perception 'ibuki.methods.test-fleet
                       'ibuki.methods.test-charter-invariants
-                      'ibuki.methods.test-sick-colony)]
+                      'ibuki.methods.test-sick-colony 'ibuki.methods.test-wellbecoming)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:ibuki:integration
