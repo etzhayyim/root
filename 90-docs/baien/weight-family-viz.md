@@ -66,3 +66,8 @@ use the real *config* (42 layers etc.) but draw the wiring illustratively.
 | `maxwell1-real-tensors.png` | maxwell-1 from **real tensors**: per-layer LoRA ΔW norms (training concentrated in deep-layer MLP) · real q_proj ΔW singular values (low-rank) · real attention probabilities on a real prompt (causal triangle + token-0 sink) · real layer-0 q_proj weight block | `extract_weights.py` (gad) → JSON → render |
 
 **Honesty note:** maxwell-1 figures (`maxwell1-real-tensors`, `maxwell1-real-loss-landscape`) are measured from the actual trained weights. The `maxwell1-layers-3d`/`attention-fan` use the real *config* but draw the wiring illustratively. oka has **no trained model** (R0 scaffold) — `oka-sheaf-physics` computes a real instance of the sheaf operator/physics; the mandala/anim are conceptual.
+
+### Landscape over training (real)
+| File | What | Generator |
+|---|---|---|
+| `maxwell1-landscape-over-training.png/.gif` | real loss surface measured around 5 training snapshots (steps 0/60/180/360/600) along fixed directions; eval loss 3.0→0.46(180)→0.80 = descent→over-fit (honest: not a controlled grokking transition) | `70-tools/scripts/maxwell/series.py` (gad) |
