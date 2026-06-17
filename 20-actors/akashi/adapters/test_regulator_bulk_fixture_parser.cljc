@@ -5,6 +5,7 @@
   Python output (byte-for-byte verified: payloadCid / payloadSha256 / snapshotCid / creativeText*
   / domain) so the port is provably 1:1."
   (:require [clojure.test :refer [deftest is]]
+            [clojure.string :as str]
             [cheshire.core :as json]
             [akashi.adapters.regulator-bulk-fixture-parser :as p]))
 
@@ -60,6 +61,35 @@
     (is (= "public-bulk-export" (get sp "accessMode")))
     (is (= "multi-platform" (get sp "platform")))
     (is (= "cid:akashi:method-note:fixed" (get sp "methodNoteCid")))))
+
+(deftest test-domain-normalization-and-range-aliases
+  ;; mixed-case landing host lowercased; lower/upper aliases map onto min/max (subsumes the
+  ;; Python test_adapters parser cases).
+  (let [payload {"capturedAt" "2026-06-11T00:00:00Z"
+                 "source" {"platform" "p" "sourceUrl" "https://r.test/b" "jurisdiction" "JP"}
+                 "records" [{"sourceRecordId" "r1" "sourceUrl" "https://r.test/r1"
+                             "advertiser" {"displayName" "A"}
+                             "landingUrl" "https://Landing.Example.com/page?q=1"
+                             "creativeText" "body"
+                             "spendRange" {"lower" 100 "upper" 200 "currency" "JPY"}}]}
+        out (p/parse-regulator-bulk-fixture payload opts)
+        spend (get (first (get out "deliveryDisclosure")) "spendRange")]
+    (is (= "landing.example.com" (get (first (get out "landingEvidence")) "domain")))
+    (is (= 100 (get spend "min")))            ; lower → min
+    (is (= 200 (get spend "max")))            ; upper → max
+    (is (= "JPY" (get spend "currency")))))
+
+(deftest test-deterministic-and-content-addressed
+  (let [payload (sample)
+        a (p/parse-regulator-bulk-fixture payload opts)
+        b (p/parse-regulator-bulk-fixture payload opts)
+        cid0 (get (first (get a "adDisclosureSnapshot")) "payloadCid")
+        mutated (assoc-in payload ["records" 0 "creativeText"] "different")
+        c (p/parse-regulator-bulk-fixture mutated opts)]
+    (is (= a b))                                            ; deterministic
+    (is (str/starts-with? cid0 "cid:akashi:payload:"))
+    (is (= 64 (count (get (first (get a "adDisclosureSnapshot")) "payloadSha256"))))
+    (is (not= cid0 (get (first (get c "adDisclosureSnapshot")) "payloadCid")))))  ; content-addressed
 
 (deftest test-verified-status-and-political-flag-defaults
   ;; advertiser without verifiedStatus → "not-disclosed"; creative without flag → "not-applicable"
