@@ -389,9 +389,9 @@
   test:sukashi
   {:doc "sukashi Clojure test suite — 2 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
-                      'sukashi.methods.test-autorun 'sukashi.tests.test-sukashi)
+                      'sukashi.methods.test-autorun 'sukashi.tests.test-sukashi 'sukashi.viz.test-build-viz-data)
              (let [r (clojure.test/run-tests
-                      'sukashi.methods.test-autorun 'sukashi.tests.test-sukashi)]
+                      'sukashi.methods.test-autorun 'sukashi.tests.test-sukashi 'sukashi.viz.test-build-viz-data)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:tanemaki
@@ -804,7 +804,7 @@
                       'fuchi.methods.test-couple 'fuchi.methods.test-book
                       'fuchi.methods.test-provision
                       'kasa.tests.test-kasa 'kasa.tests.test-invariants
-                      'uchiwake.tests.test-uchiwake 'sukashi.tests.test-sukashi
+                      'uchiwake.tests.test-uchiwake 'sukashi.tests.test-sukashi 'sukashi.viz.test-build-viz-data
                       'suji.methods.test-load 'suji.methods.test-muscle-strain
                       'suji.methods.test-datoms 'suji.methods.test-charter-invariants
                       'suji.methods.test-bridge-consistency
@@ -896,7 +896,7 @@
                                              'kasa.tests.test-kasa
                                              'kasa.tests.test-invariants
                                              'uchiwake.tests.test-uchiwake
-                                             'sukashi.tests.test-sukashi
+                                             'sukashi.tests.test-sukashi 'sukashi.viz.test-build-viz-data
                                              'suji.methods.test-load
                                              'suji.methods.test-muscle-strain
                                              'suji.methods.test-datoms
