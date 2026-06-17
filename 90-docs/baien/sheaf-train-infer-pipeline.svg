@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="1000" viewBox="0 0 1480 1000" font-family="-apple-system,Hiragino Sans,Arial,sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" fill="#7a8295"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" fill="#c0392b"/></marker></defs>
+<rect width="1480" height="1000" fill="#ffffff"/>
+<text x="740.0" y="38" text-anchor="middle" font-size="24" font-weight="700" fill="#16213e">oka — MMSheaf (sheaf diffusion): train / infer パイプライン</text>
+<text x="740.0" y="62" text-anchor="middle" font-size="13" fill="#667">なぜ放射構造か = ハブ&amp;スポークの cellular sheaf を「全モダリティが中心で一致」するまで拡散するから（ADR-2605250700）</text>
+<rect x="24" y="84" width="410" height="232" rx="9" fill="#f4f8ff" stroke="#5b86c5" stroke-width="1.4"/>
+<text x="36" y="106" font-size="13" font-weight="700" fill="#1f4e9c">① cellular sheaf の対象</text>
+<circle cx="174" cy="219" r="13" fill="#1f4e9c"/>
+<text x="174" y="253" text-anchor="middle" font-size="9.5" fill="#1f4e9c">entity (大域切断)</text>
+<line x1="174" y1="219" x2="174" y2="155" stroke="#9bb4d8" stroke-width="1.2"/>
+<circle cx="174" cy="155" r="6" fill="#7c9fd6"/>
+<line x1="174" y1="219" x2="215" y2="170" stroke="#9bb4d8" stroke-width="1.2"/>
+<circle cx="215" cy="170" r="6" fill="#7c9fd6"/>
+<line x1="174" y1="219" x2="237" y2="208" stroke="#9bb4d8" stroke-width="1.2"/>
+<circle cx="237" cy="208" r="6" fill="#7c9fd6"/>
+<line x1="174" y1="219" x2="229" y2="251" stroke="#9bb4d8" stroke-width="1.2"/>
+<circle cx="229" cy="251" r="6" fill="#7c9fd6"/>
+<line x1="174" y1="219" x2="196" y2="279" stroke="#9bb4d8" stroke-width="1.2"/>
+<circle cx="196" cy="279" r="6" fill="#7c9fd6"/>
+<line x1="174" y1="219" x2="152" y2="279" stroke="#9bb4d8" stroke-width="1.2"/>
+<circle cx="152" cy="279" r="6" fill="#7c9fd6"/>
+<line x1="174" y1="219" x2="119" y2="251" stroke="#9bb4d8" stroke-width="1.2"/>
+<circle cx="119" cy="251" r="6" fill="#7c9fd6"/>
+<line x1="174" y1="219" x2="111" y2="208" stroke="#9bb4d8" stroke-width="1.2"/>
+<circle cx="111" cy="208" r="6" fill="#7c9fd6"/>
+<line x1="174" y1="219" x2="133" y2="170" stroke="#9bb4d8" stroke-width="1.2"/>
+<circle cx="133" cy="170" r="6" fill="#7c9fd6"/>
+<text x="422" y="142" text-anchor="end" font-size="10.5" fill="#2a2f3a">stalk F(v)=ℝ^d（各モダリティ）</text>
+<text x="422" y="160" text-anchor="end" font-size="10.5" fill="#2a2f3a">edge stalk F(e)=ℝ^d（共有空間）</text>
+<text x="422" y="178" text-anchor="end" font-size="10.5" fill="#2a2f3a">restriction map</text>
+<text x="422" y="194" text-anchor="end" font-size="10.5" fill="#b5561a">F_(v⊴e): F(v)→F(e)（d×d 線形）</text>
+<text x="422" y="294" text-anchor="end" font-size="9.5" fill="#667">spoke=モダリティ / 中心=整合表現</text>
+<rect x="452" y="84" width="506" height="232" rx="9" fill="#f4f8ff" stroke="#5b86c5" stroke-width="1.4"/>
+<text x="464" y="106" font-size="13" font-weight="700" fill="#1f4e9c">② 整合 = sheaf Dirichlet energy 最小 = 調和</text>
+<text x="464" y="126" font-size="11" fill="#2a2f3a">余境界:  (δx)_e = F_(v⊴e)·x_v − F_(u⊴e)·x_u   （2視点の食い違い）</text>
+<text x="464" y="143" font-size="11" fill="#2a2f3a">sheaf Laplacian:  L_F = δᵀδ</text>
+<text x="464" y="160" font-size="11" fill="#2a2f3a">E(x) = ½ xᵀ L_F x = ½ Σ_e ‖F_(v⊴e)x_v − F_(u⊴e)x_u‖²</text>
+<text x="464" y="177" font-size="11" fill="#2a2f3a">ker L_F = 大域切断 = 全モダリティが輸送後に一致する点</text>
+<path d="M470,234 C540,244 590,282 650,284 C710,286 770,284 830,284" fill="none" stroke="#1f4e9c" stroke-width="2"/>
+<circle cx="470" cy="234" r="5" fill="#c0392b"/><text x="476" y="230" font-size="9.5" fill="#c0392b">初期(食い違い大)</text>
+<circle cx="830" cy="284" r="5" fill="#2a7d2a"/><text x="830" y="300" text-anchor="end" font-size="9.5" fill="#2a7d2a">E→0 = ker L_F（整合コア）</text>
+<text x="464" y="308" font-size="9.5" fill="#667">推論 = この energy を下げる場の緩和（grokking 地形図の「oka=大域整合」の中身）</text>
+<rect x="976" y="84" width="480" height="232" rx="9" fill="#fff7f0" stroke="#d98a4f" stroke-width="1.4"/>
+<text x="988" y="106" font-size="13" font-weight="700" fill="#b5561a">③ なぜ「潰れず」構造が残るか</text>
+<text x="988" y="126" font-size="11" fill="#2a2f3a">GNN: エッジ重み=スカラー（1次元輸送）</text>
+<text x="988" y="143" font-size="11" fill="#2a2f3a">  → 全ノードが1点へ収束（over-smoothing）</text>
+<text x="988" y="160" font-size="11" fill="#2a2f3a"></text>
+<text x="988" y="177" font-size="11" fill="#2a2f3a">sheaf: エッジ写像=d×d 行列（向き付き輸送）</text>
+<text x="988" y="194" font-size="11" fill="#2a2f3a">  → モダリティを区別したまま整合できる</text>
+<text x="988" y="211" font-size="11" fill="#2a2f3a">  → ker L_F が高次元 = クラスが分離</text>
+<text x="988" y="228" font-size="11" fill="#2a2f3a"></text>
+<text x="988" y="245" font-size="11" fill="#2a2f3a">∴ ハブ・スポーク+restriction の幾何が</text>
+<text x="988" y="262" font-size="11" fill="#2a2f3a">   放射状の構造として残る（Bodnar 2022）</text>
+<rect x="24" y="338" width="1432" height="186" rx="10" fill="#f0f6ff" stroke="#c9d8ee"/>
+<text x="40" y="360" font-size="15" font-weight="700" fill="#1f4e9c">TRAIN  （★ = 学習対象）</text>
+<rect x="24" y="376" width="190" height="132" rx="9" fill="#ffffff" stroke="#5b86c5" stroke-width="1.4"/>
+<text x="36" y="398" font-size="13" font-weight="700" fill="#1f4e9c">S0 データ</text>
+<text x="36" y="418" font-size="11" fill="#2a2f3a">9 モダリティを</text>
+<text x="36" y="435" font-size="11" fill="#2a2f3a">凍結エンコーダ→</text>
+<text x="36" y="452" font-size="11" fill="#2a2f3a">各 stalk に x_v∈ℝ^d</text>
+<line x1="214" y1="442.0" x2="226" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="226" y="376" width="190" height="132" rx="9" fill="#ffffff" stroke="#d98a4f" stroke-width="1.4"/>
+<text x="238" y="398" font-size="13" font-weight="700" fill="#b5561a">S1 sheaf 生成 ★</text>
+<text x="238" y="418" font-size="11" fill="#2a2f3a">F_(v⊴e)=Φ_θ(x_v,x_u)</text>
+<text x="238" y="435" font-size="11" fill="#2a2f3a">MLP が restriction</text>
+<text x="238" y="452" font-size="11" fill="#2a2f3a">map を生成=幾何学習</text>
+<line x1="416" y1="442.0" x2="428" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="428" y="376" width="190" height="132" rx="9" fill="#ffffff" stroke="#5b86c5" stroke-width="1.4"/>
+<text x="440" y="398" font-size="13" font-weight="700" fill="#1f4e9c">S2 Laplacian</text>
+<text x="440" y="418" font-size="11" fill="#2a2f3a">L_F=δᵀδ を組立</text>
+<text x="440" y="435" font-size="11" fill="#2a2f3a">対角 Σ FᵀF /</text>
+<text x="440" y="452" font-size="11" fill="#2a2f3a">非対角 −FᵀF</text>
+<line x1="618" y1="442.0" x2="630" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="630" y="376" width="190" height="132" rx="9" fill="#ffffff" stroke="#5b86c5" stroke-width="1.4"/>
+<text x="642" y="398" font-size="13" font-weight="700" fill="#1f4e9c">S3 拡散層 ×K</text>
+<text x="642" y="418" font-size="11" fill="#2a2f3a">X_{t+1}=X_t −</text>
+<text x="642" y="435" font-size="11" fill="#2a2f3a">σ((I⊗W₁)L_F X_t W₂)</text>
+<text x="642" y="452" font-size="11" fill="#2a2f3a">輸送+比較 MP</text>
+<line x1="820" y1="442.0" x2="832" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="832" y="376" width="190" height="132" rx="9" fill="#ffffff" stroke="#5b86c5" stroke-width="1.4"/>
+<text x="844" y="398" font-size="13" font-weight="700" fill="#1f4e9c">S4 readout</text>
+<text x="844" y="418" font-size="11" fill="#2a2f3a">拡散後 stalk を</text>
+<text x="844" y="435" font-size="11" fill="#2a2f3a">プール →</text>
+<text x="844" y="452" font-size="11" fill="#2a2f3a">タスクヘッド</text>
+<line x1="1022" y1="442.0" x2="1034" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="1034" y="376" width="190" height="132" rx="9" fill="#ffffff" stroke="#d98a4f" stroke-width="1.4"/>
+<text x="1046" y="398" font-size="13" font-weight="700" fill="#b5561a">S5 loss+backprop ★</text>
+<text x="1046" y="418" font-size="11" fill="#2a2f3a">勾配が拡散層を貫き</text>
+<text x="1046" y="435" font-size="11" fill="#2a2f3a">Φ_θ・W へ流れる</text>
+<text x="1046" y="452" font-size="11" fill="#2a2f3a">(幾何を最適化)</text>
+<line x1="1224" y1="442.0" x2="1236" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="1236" y="376" width="190" height="132" rx="9" fill="#ffffff" stroke="#5b86c5" stroke-width="1.4"/>
+<text x="1248" y="398" font-size="13" font-weight="700" fill="#1f4e9c">S6 潰さない学習</text>
+<text x="1248" y="418" font-size="11" fill="#2a2f3a">Φ が直交写像を学習</text>
+<text x="1248" y="435" font-size="11" fill="#2a2f3a">ker L_F 高次元 →</text>
+<text x="1248" y="452" font-size="11" fill="#2a2f3a">区別+整合 を両立</text>
+<path d="M1129.0,376 C1129.0,344 321.0,344 321.0,376" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arb)"/>
+<text x="725.0" y="352" text-anchor="middle" font-size="10.5" fill="#c0392b">∂loss → Φ_θ, W（restriction map=幾何そのものを学習）</text>
+<rect x="24" y="560" width="1432" height="210" rx="10" fill="#f0fff4" stroke="#bfe3c8"/>
+<text x="40" y="582" font-size="15" font-weight="700" fill="#1f7a1f">INFER  （前向きのみ）</text>
+<rect x="24" y="598" width="268" height="150" rx="9" fill="#ffffff" stroke="#52a052" stroke-width="1.4"/>
+<text x="36" y="620" font-size="13" font-weight="700" fill="#1f7a1f">I0 特徴</text>
+<text x="36" y="640" font-size="11" fill="#2a2f3a">新サンプル → 9 モダリティ</text>
+<text x="36" y="657" font-size="11" fill="#2a2f3a">凍結エンコーダ特徴 x_v</text>
+<line x1="292" y1="673.0" x2="306" y2="673.0" stroke="#5aa86a" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="306" y="598" width="268" height="150" rx="9" fill="#ffffff" stroke="#52a052" stroke-width="1.4"/>
+<text x="318" y="620" font-size="13" font-weight="700" fill="#1f7a1f">I1 sheaf 生成</text>
+<text x="318" y="640" font-size="11" fill="#2a2f3a">Φ_θ がこのサンプルの</text>
+<text x="318" y="657" font-size="11" fill="#2a2f3a">restriction map を生成</text>
+<line x1="574" y1="673.0" x2="588" y2="673.0" stroke="#5aa86a" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="588" y="598" width="268" height="150" rx="9" fill="#ffffff" stroke="#52a052" stroke-width="1.4"/>
+<text x="600" y="620" font-size="13" font-weight="700" fill="#1f7a1f">I2 Laplacian</text>
+<text x="600" y="640" font-size="11" fill="#2a2f3a">L_F=δᵀδ を組立</text>
+<line x1="856" y1="673.0" x2="870" y2="673.0" stroke="#5aa86a" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="870" y="598" width="268" height="150" rx="9" fill="#ffffff" stroke="#52a052" stroke-width="1.4"/>
+<text x="882" y="620" font-size="13" font-weight="700" fill="#1f7a1f">I3 前向き拡散 ×K = 場の緩和</text>
+<text x="882" y="640" font-size="11" fill="#2a2f3a">X←X−σ(L_F(I⊗W)X)</text>
+<text x="882" y="657" font-size="11" fill="#2a2f3a">横方向に拡散 →</text>
+<text x="882" y="674" font-size="11" fill="#2a2f3a">コンセンサス(調和)へ</text>
+<line x1="1138" y1="673.0" x2="1152" y2="673.0" stroke="#5aa86a" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="1152" y="598" width="268" height="150" rx="9" fill="#ffffff" stroke="#52a052" stroke-width="1.4"/>
+<text x="1164" y="620" font-size="13" font-weight="700" fill="#1f7a1f">I4 readout</text>
+<text x="1164" y="640" font-size="11" fill="#2a2f3a">融合表現 →</text>
+<text x="1164" y="657" font-size="11" fill="#2a2f3a">予測 / 生成</text>
+<path d="M884,694 C924,700 954,728 1004,730 C1054,732 1084,730 1116,730" fill="none" stroke="#1f7a1f" stroke-width="1.6"/>
+<circle cx="884" cy="694" r="4" fill="#c0392b"/><circle cx="1116" cy="730" r="4" fill="#2a7d2a"/>
+<text x="1116" y="744" text-anchor="end" font-size="9" fill="#2a7d2a">E→0 整合</text>
+<text x="740.0" y="954" text-anchor="middle" font-size="12" fill="#16213e">train は restriction map Φ_θ（=幾何）を学習 ・ infer はその幾何で K-step 拡散して大域整合へ緩和</text>
+<text x="740.0" y="976" text-anchor="middle" font-size="10.5" fill="#7a8295">MMSheafV4 = FP8 server / V3 = BitNet 1.58 edge ・ Murakumo-only 学習（ROCm+Mac fleet, RunPod 不可）・ ADR-2605250700 / Neural Sheaf Diffusion (Bodnar+ 2022)</text>
+</svg>

@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="1040" viewBox="0 0 1480 1040" font-family="-apple-system,Hiragino Sans,Arial,sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" fill="#7a8295"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" fill="#c0392b"/></marker></defs>
+<rect width="1480" height="1040" fill="#ffffff"/>
+<text x="740.0" y="38" text-anchor="middle" font-size="24" font-weight="700" fill="#16213e">通常の Transformer（decoder-only / 自己回帰 LM = maxwell-1・Gemma 系）: train / infer</text>
+<text x="740.0" y="62" text-anchor="middle" font-size="13" fill="#667">明示グラフ無し・全結合 causal attention・1トークンずつ逐次デコード（sheaf の場の緩和 / diffusion の並列 denoise と対比）</text>
+<rect x="24" y="84" width="410" height="232" rx="9" fill="#f3f5ff" stroke="#4a5fc1" stroke-width="1.4"/>
+<text x="36" y="106" font-size="13" font-weight="700" fill="#2a358f">① decoder-only Transformer の対象</text>
+<rect x="48" y="128" width="300" height="26" rx="5" fill="#cfd8f5" stroke="#5b6fc9"/>
+<text x="198.0" y="145" text-anchor="middle" font-size="10.5" fill="#1a2050">token emb + RoPE 位置</text>
+<rect x="48" y="161" width="300" height="26" rx="5" fill="#aebef0" stroke="#5b6fc9"/>
+<text x="198.0" y="178" text-anchor="middle" font-size="10.5" fill="#1a2050">causal self-attention</text>
+<rect x="48" y="194" width="300" height="26" rx="5" fill="#aebef0" stroke="#5b6fc9"/>
+<text x="198.0" y="211" text-anchor="middle" font-size="10.5" fill="#1a2050">FFN (W₂·σ(W₁x))</text>
+<rect x="48" y="227" width="300" height="26" rx="5" fill="#cfd8f5" stroke="#5b6fc9"/>
+<text x="198.0" y="244" text-anchor="middle" font-size="10.5" fill="#1a2050">…  N× blocks (+RMSNorm/残差)</text>
+<rect x="48" y="260" width="300" height="26" rx="5" fill="#9fb0ec" stroke="#5b6fc9"/>
+<text x="198.0" y="277" text-anchor="middle" font-size="10.5" fill="#1a2050">LM head → logits ℝ^|V|</text>
+<text x="422" y="306" text-anchor="end" font-size="9.5" fill="#667">各トークン = 1ベクトル列（stalk/グラフは無い）</text>
+<rect x="452" y="84" width="506" height="232" rx="9" fill="#f3f5ff" stroke="#4a5fc1" stroke-width="1.4"/>
+<text x="464" y="106" font-size="13" font-weight="700" fill="#2a358f">② 中核 = self-attention（明示グラフの代わり）</text>
+<text x="464" y="126" font-size="11" fill="#2a2f3a">Attention(Q,K,V) = softmax( QKᵀ/√d_k + mask ) V</text>
+<text x="464" y="143" font-size="11" fill="#2a2f3a">  causal mask: 位置 i は j≤i のみ参照</text>
+<text x="464" y="160" font-size="11" fill="#2a2f3a">Multi-Head: h 個を並列 → 連結 → W_O</text>
+<text x="464" y="177" font-size="11" fill="#2a2f3a">FFN: W₂·σ(W₁·x)（位置ごとに独立）</text>
+<text x="464" y="194" font-size="11" fill="#2a2f3a">残差 + RMSNorm で深く積む（N 層）</text>
+<text x="464" y="306" font-size="9.5" fill="#667">「整合」は Laplacian でなく attention の重みとして学習で創発</text>
+<rect x="976" y="84" width="480" height="232" rx="9" fill="#fff7f0" stroke="#d98a4f" stroke-width="1.4"/>
+<text x="988" y="106" font-size="13" font-weight="700" fill="#b5561a">③ sheaf / diffusion との違い</text>
+<text x="988" y="126" font-size="11" fill="#2a2f3a">・グラフ/restriction map を持たない</text>
+<text x="988" y="143" font-size="11" fill="#2a2f3a">  → 全トークン all-to-all（causal）に密結合</text>
+<text x="988" y="160" font-size="11" fill="#2a2f3a">・学習目的 = next-token 予測（CE）</text>
+<text x="988" y="177" font-size="11" fill="#2a2f3a">  energy 最小化でも denoise でもない</text>
+<text x="988" y="194" font-size="11" fill="#2a2f3a">・デコード = 1トークンずつ逐次（autoregressive）</text>
+<text x="988" y="211" font-size="11" fill="#2a2f3a">  ← diffusion は全 canvas を並列 denoise</text>
+<text x="988" y="228" font-size="11" fill="#2a2f3a">  ← sheaf は graph 上を拡散して整合</text>
+<text x="988" y="245" font-size="11" fill="#2a2f3a"></text>
+<text x="988" y="262" font-size="11" fill="#2a2f3a">・maxwell-1 = Gemma4 E4B の LoRA 微調整</text>
+<rect x="24" y="338" width="1432" height="186" rx="10" fill="#eef1fb" stroke="#c9d0ee"/>
+<text x="40" y="360" font-size="15" font-weight="700" fill="#2a358f">TRAIN（teacher forcing・並列）  ★ = 学習対象</text>
+<rect x="24" y="376" width="222" height="132" rx="9" fill="#ffffff" stroke="#4a5fc1" stroke-width="1.4"/>
+<text x="36" y="398" font-size="13" font-weight="700" fill="#2a358f">T0 データ</text>
+<text x="36" y="418" font-size="11" fill="#2a2f3a">text → tokenize</text>
+<text x="36" y="435" font-size="11" fill="#2a2f3a">→ token ids</text>
+<text x="36" y="452" font-size="11" fill="#2a2f3a">（コーパス）</text>
+<line x1="246" y1="442.0" x2="262" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="262" y="376" width="222" height="132" rx="9" fill="#ffffff" stroke="#4a5fc1" stroke-width="1.4"/>
+<text x="274" y="398" font-size="13" font-weight="700" fill="#2a358f">T1 embed</text>
+<text x="274" y="418" font-size="11" fill="#2a2f3a">token emb +</text>
+<text x="274" y="435" font-size="11" fill="#2a2f3a">RoPE 位置符号</text>
+<text x="274" y="452" font-size="11" fill="#2a2f3a">→ X∈ℝ^{L×d}</text>
+<line x1="484" y1="442.0" x2="500" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="500" y="376" width="222" height="132" rx="9" fill="#ffffff" stroke="#d98a4f" stroke-width="1.4"/>
+<text x="512" y="398" font-size="13" font-weight="700" fill="#b5561a">T2 N× block ★</text>
+<text x="512" y="418" font-size="11" fill="#2a2f3a">causal self-attn</text>
+<text x="512" y="435" font-size="11" fill="#2a2f3a">+ FFN(+RMSNorm,残差)</text>
+<text x="512" y="452" font-size="11" fill="#2a2f3a">全位置を並列計算</text>
+<line x1="722" y1="442.0" x2="738" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="738" y="376" width="222" height="132" rx="9" fill="#ffffff" stroke="#d98a4f" stroke-width="1.4"/>
+<text x="750" y="398" font-size="13" font-weight="700" fill="#b5561a">T3 LM head ★</text>
+<text x="750" y="418" font-size="11" fill="#2a2f3a">h_i → logits</text>
+<text x="750" y="435" font-size="11" fill="#2a2f3a">∈ ℝ^|V|</text>
+<text x="750" y="452" font-size="11" fill="#2a2f3a">（各位置）</text>
+<line x1="960" y1="442.0" x2="976" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="976" y="376" width="222" height="132" rx="9" fill="#ffffff" stroke="#4a5fc1" stroke-width="1.4"/>
+<text x="988" y="398" font-size="13" font-weight="700" fill="#2a358f">T4 loss</text>
+<text x="988" y="418" font-size="11" fill="#2a2f3a">next-token CE</text>
+<text x="988" y="435" font-size="11" fill="#2a2f3a">(1 シフト)</text>
+<text x="988" y="452" font-size="11" fill="#2a2f3a">teacher forcing</text>
+<line x1="1198" y1="442.0" x2="1214" y2="442.0" stroke="#7a8295" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="1214" y="376" width="222" height="132" rx="9" fill="#ffffff" stroke="#d98a4f" stroke-width="1.4"/>
+<text x="1226" y="398" font-size="13" font-weight="700" fill="#b5561a">T5 backprop ★</text>
+<text x="1226" y="418" font-size="11" fill="#2a2f3a">AdamW で全weight更新</text>
+<text x="1226" y="435" font-size="11" fill="#2a2f3a">maxwell-1=LoRA r16</text>
+<text x="1226" y="452" font-size="11" fill="#2a2f3a">/Gemma4 E4B</text>
+<path d="M1325.0,376 C1325.0,344 611.0,344 611.0,376" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arb)"/>
+<text x="968.0" y="352" text-anchor="middle" font-size="10.5" fill="#c0392b">∂loss → 全 weight（または LoRA アダプタ）</text>
+<rect x="24" y="560" width="1432" height="178" rx="10" fill="#f0fff4" stroke="#bfe3c8"/>
+<text x="40" y="582" font-size="15" font-weight="700" fill="#1f7a1f">INFER（autoregressive・逐次・1トークンずつ）</text>
+<rect x="24" y="598" width="268" height="124" rx="9" fill="#ffffff" stroke="#52a052" stroke-width="1.4"/>
+<text x="36" y="620" font-size="13" font-weight="700" fill="#1f7a1f">I0 prompt</text>
+<text x="36" y="640" font-size="11" fill="#2a2f3a">prompt → tokens</text>
+<line x1="292" y1="660.0" x2="306" y2="660.0" stroke="#5aa86a" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="306" y="598" width="268" height="124" rx="9" fill="#ffffff" stroke="#52a052" stroke-width="1.4"/>
+<text x="318" y="620" font-size="13" font-weight="700" fill="#1f7a1f">I1 forward</text>
+<text x="318" y="640" font-size="11" fill="#2a2f3a">前向き1パス →</text>
+<text x="318" y="657" font-size="11" fill="#2a2f3a">次トークン logits</text>
+<text x="318" y="674" font-size="11" fill="#2a2f3a">(KV-cache 再利用)</text>
+<line x1="574" y1="660.0" x2="588" y2="660.0" stroke="#5aa86a" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="588" y="598" width="268" height="124" rx="9" fill="#ffffff" stroke="#52a052" stroke-width="1.4"/>
+<text x="600" y="620" font-size="13" font-weight="700" fill="#1f7a1f">I2 sample</text>
+<text x="600" y="640" font-size="11" fill="#2a2f3a">temperature/top-p</text>
+<text x="600" y="657" font-size="11" fill="#2a2f3a">で 1 トークン選択</text>
+<text x="600" y="674" font-size="11" fill="#2a2f3a">(argmax or 標本)</text>
+<line x1="856" y1="660.0" x2="870" y2="660.0" stroke="#5aa86a" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="870" y="598" width="268" height="124" rx="9" fill="#ffffff" stroke="#52a052" stroke-width="1.4"/>
+<text x="882" y="620" font-size="13" font-weight="700" fill="#1f7a1f">I3 append→繰返し</text>
+<text x="882" y="640" font-size="11" fill="#2a2f3a">列に1トークン追加</text>
+<text x="882" y="657" font-size="11" fill="#2a2f3a">→ I1 へ戻る</text>
+<text x="882" y="674" font-size="11" fill="#2a2f3a">(1 token / step)</text>
+<line x1="1138" y1="660.0" x2="1152" y2="660.0" stroke="#5aa86a" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="1152" y="598" width="268" height="124" rx="9" fill="#ffffff" stroke="#52a052" stroke-width="1.4"/>
+<text x="1164" y="620" font-size="13" font-weight="700" fill="#1f7a1f">I4 stop</text>
+<text x="1164" y="640" font-size="11" fill="#2a2f3a">EOS で停止</text>
+<text x="1164" y="657" font-size="11" fill="#2a2f3a">→ 出力テキスト</text>
+<path d="M1004.0,722 C1004.0,744 440.0,744 440.0,722" fill="none" stroke="#1f7a1f" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<rect x="24" y="770" width="1432" height="190" rx="10" fill="#fbfbfe" stroke="#ddd"/>
+<text x="40" y="794" font-size="14" font-weight="700" fill="#16213e">デコードの進め方の違い（3 パラダイム）</text>
+<text x="48" y="828" font-size="12" font-weight="700" fill="#2a358f">Transformer (自己回帰)</text>
+<circle cx="48" cy="852" r="8" fill="#4a5fc1"/>
+<line x1="57" y1="852" x2="69" y2="852" stroke="#4a5fc1" stroke-width="1.6" marker-end="url(#ar)"/>
+<circle cx="78" cy="852" r="8" fill="#4a5fc1"/>
+<line x1="87" y1="852" x2="99" y2="852" stroke="#4a5fc1" stroke-width="1.6" marker-end="url(#ar)"/>
+<circle cx="108" cy="852" r="8" fill="#4a5fc1"/>
+<line x1="117" y1="852" x2="129" y2="852" stroke="#4a5fc1" stroke-width="1.6" marker-end="url(#ar)"/>
+<circle cx="138" cy="852" r="8" fill="#4a5fc1"/>
+<line x1="147" y1="852" x2="159" y2="852" stroke="#4a5fc1" stroke-width="1.6" marker-end="url(#ar)"/>
+<circle cx="168" cy="852" r="8" fill="#4a5fc1"/>
+<line x1="177" y1="852" x2="189" y2="852" stroke="#4a5fc1" stroke-width="1.6" marker-end="url(#ar)"/>
+<circle cx="198" cy="852" r="8" fill="#4a5fc1"/>
+<text x="48" y="878" font-size="10.5" fill="#555">1トークンずつ逐次 / causal / KV-cache（速いが直列）</text>
+<text x="540" y="828" font-size="12" font-weight="700" fill="#b5561a">maxwell-diffusion</text>
+<circle cx="540" cy="852" r="8" fill="#e08a4f" opacity="0.5"/>
+<circle cx="570" cy="852" r="8" fill="#e08a4f" opacity="0.5"/>
+<circle cx="600" cy="852" r="8" fill="#e08a4f" opacity="0.5"/>
+<circle cx="630" cy="852" r="8" fill="#e08a4f" opacity="0.5"/>
+<circle cx="660" cy="852" r="8" fill="#e08a4f" opacity="0.5"/>
+<circle cx="690" cy="852" r="8" fill="#e08a4f" opacity="0.5"/>
+<text x="540" y="878" font-size="10.5" fill="#555">全 canvas を同時に K-step で denoise（並列・温度で探索）</text>
+<text x="540" y="898" font-size="9.5" fill="#999">(256トークンの canvas を 48 step で精錬)</text>
+<text x="1010" y="828" font-size="12" font-weight="700" fill="#1f4e9c">oka — sheaf</text>
+<line x1="1070" y1="856" x2="1104" y2="856" stroke="#5b86c5" stroke-width="1.4"/>
+<circle cx="1104" cy="856" r="5" fill="#7c9fd6"/>
+<line x1="1070" y1="856" x2="1091" y2="873" stroke="#5b86c5" stroke-width="1.4"/>
+<circle cx="1091" cy="873" r="5" fill="#7c9fd6"/>
+<line x1="1070" y1="856" x2="1062" y2="877" stroke="#5b86c5" stroke-width="1.4"/>
+<circle cx="1062" cy="877" r="5" fill="#7c9fd6"/>
+<line x1="1070" y1="856" x2="1039" y2="866" stroke="#5b86c5" stroke-width="1.4"/>
+<circle cx="1039" cy="866" r="5" fill="#7c9fd6"/>
+<line x1="1070" y1="856" x2="1039" y2="846" stroke="#5b86c5" stroke-width="1.4"/>
+<circle cx="1039" cy="846" r="5" fill="#7c9fd6"/>
+<line x1="1070" y1="856" x2="1062" y2="835" stroke="#5b86c5" stroke-width="1.4"/>
+<circle cx="1062" cy="835" r="5" fill="#7c9fd6"/>
+<line x1="1070" y1="856" x2="1091" y2="839" stroke="#5b86c5" stroke-width="1.4"/>
+<circle cx="1091" cy="839" r="5" fill="#7c9fd6"/>
+<circle cx="1070" cy="856" r="7" fill="#1f4e9c"/>
+<text x="1010" y="898" font-size="10.5" fill="#555">graph 上を K-step 拡散し中心で整合（並列・大域整合）</text>
+<text x="740.0" y="1024" text-anchor="middle" font-size="10.5" fill="#7a8295">Transformer=逐次AR・next-token CE ・ diffusion=並列 denoise・温度探索 ・ sheaf=場の緩和・Dirichlet energy ・ Murakumo-only 学習</text>
+</svg>
