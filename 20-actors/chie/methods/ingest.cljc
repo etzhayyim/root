@@ -55,11 +55,36 @@
                   ":en/grasping-load" 0.10 ":en/sourcing" ":authoritative" ":en/disclosed-src" src}))
           (get rec ":disclosed/investors"))))
 
+(defn policy-node
+  "Disclosed policy record → an AUTHORITATIVE policy-instrument node upgrade. The node
+  pre-exists in the seed; merge keeps its label/sector and raises sourcing."
+  [rec]
+  {":organism/id" (get rec ":disclosed/policy-id")
+   ":organism/kind" ":ai.policy/instrument"
+   ":organism/sourcing" ":authoritative"})
+
+(defn policy-edges
+  "Disclosed policy record → :governs edges (policy → each governed node) stamped with
+  primary-source provenance. These edges pre-exist in the seed → upgraded in place (so the
+  policy axis concentration is unchanged; only sourcing + :en/disclosed-src are added)."
+  [rec]
+  (let [src (get rec ":disclosed/src")
+        pid (get rec ":disclosed/policy-id")]
+    (mapv (fn [target]
+            {":en/from" pid ":en/to" target ":en/kind" ":governs"
+             ":en/grasping-load" 0.10 ":en/sourcing" ":authoritative" ":en/disclosed-src" src})
+          (get rec ":disclosed/governs"))))
+
+(defn record-node  [rec] (if (contains? rec ":disclosed/round-id") (round-node rec)  (policy-node rec)))
+(defn record-edges [rec] (if (contains? rec ":disclosed/round-id") (round-edges rec) (policy-edges rec)))
+
 (defn parse-disclosed
-  "Parse a disclosed-source fixture EDN (vector of :disclosed/* records). Keys are the
-  reader's \":disclosed/…\" strings."
+  "Parse a disclosed-source fixture EDN (vector of :disclosed/* records — round or policy).
+  Keys are the reader's \":disclosed/…\" strings."
   [text]
-  (filterv #(and (map? %) (contains? % ":disclosed/round-id")) (analyze/read-edn text)))
+  (filterv #(and (map? %) (or (contains? % ":disclosed/round-id")
+                              (contains? % ":disclosed/policy-id")))
+           (analyze/read-edn text)))
 
 (defn- edge-id [e] (str (get e ":en/from") "|" (get e ":en/kind") "|" (get e ":en/to")))
 
@@ -85,7 +110,7 @@
   (reduce
    (fn [acc rec]
      (let [g (:graph acc)
-           rn (round-node rec)
+           rn (record-node rec)
            rid (get rn ":organism/id")
            had-node? (contains? (:nodes g) rid)
            prev (get-in g [:nodes rid])
@@ -99,7 +124,7 @@
                                    (let [[es' a?] (merge-edge es e)]
                                      [es' (if a? (inc n) n)]))
                                  [(:edges g) 0]
-                                 (round-edges rec))
+                                 (record-edges rec))
            g (assoc g :edges edges)
            upgraded? (and had-node? (not= ":authoritative" (get prev ":organism/sourcing")))]
        (-> acc
@@ -117,6 +142,23 @@
      (let [graph (analyze/load-file* seed-path)
            records (parse-disclosed (slurp (str fixture-path)))]
        (merge-graph graph records))))
+
+#?(:clj
+   (defn ingest-files
+     "Offline ingest of SEVERAL disclosed fixtures into one seed, in order. Cumulative result;
+     idempotent (re-running the same fixtures changes nothing). No network I/O."
+     [seed-path fixture-paths]
+     (let [graph0 (analyze/load-file* seed-path)]
+       (reduce
+        (fn [acc fp]
+          (let [records (parse-disclosed (slurp (str fp)))
+                r (merge-graph (:graph acc) records)]
+            {:graph (:graph r)
+             :upgraded (+ (:upgraded acc) (:upgraded r))
+             :added-nodes (+ (:added-nodes acc) (:added-nodes r))
+             :added-edges (+ (:added-edges acc) (:added-edges r))}))
+        {:graph graph0 :upgraded 0 :added-nodes 0 :added-edges 0}
+        fixture-paths))))
 
 #?(:clj
    (defn ingest-live
@@ -137,9 +179,12 @@
      [& _]
      (let [here (-> *file* io/file .getParentFile .getParentFile)
            seed (io/file here "data" "seed-ai-ecosystem.kotoba.edn")
-           fixture (io/file here "data" "ingest" "disclosed-rounds.fixture.edn")
-           {:keys [graph upgraded added-nodes added-edges]} (ingest-file seed fixture)]
-       (println (str "chie ingest (offline, disclosed fixture): " upgraded " round(s) upgraded to "
+           fixtures [(io/file here "data" "ingest" "disclosed-rounds.fixture.edn")
+                     (io/file here "data" "ingest" "disclosed-policy.fixture.edn")]
+           {:keys [graph upgraded added-nodes added-edges]} (ingest-files seed fixtures)
+           auth (count (filter #(= ":authoritative" (get % ":organism/sourcing")) (vals (:nodes graph))))]
+       (println (str "chie ingest (offline, rounds + policy fixtures): " upgraded " node(s) upgraded to "
                      ":authoritative, " added-nodes " node(s) / " added-edges " 縁 added; merged graph = "
-                     (count (:nodes graph)) " nodes / " (count (:edges graph)) " 縁"))
+                     (count (:nodes graph)) " nodes / " (count (:edges graph)) " 縁, "
+                     auth " :authoritative"))
        0)))
