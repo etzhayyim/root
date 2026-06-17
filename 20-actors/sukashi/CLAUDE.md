@@ -84,7 +84,7 @@
   Aggregate-first. Idempotent.
 - `cell:sukashi.transact` → `methods/transact.py` — kotoba `datomic.transact` save-path. Dry-run
   default; live write needs operator JWT or CACAO (no platform-held key, ADR-2605231525).
-- `cell:sukashi.viz` → `viz/build_viz_data.py` — self-contained ad-tech supply-chain + fraud
+- `cell:sukashi.viz` → `viz/build_viz_data.cljc` — self-contained ad-tech supply-chain + fraud
   force-graph (browser-native via the kotoba-wasm node; inlined payload = offline data contract).
 - `cell:sukashi.fraud-bridge` (design) → hands `:routed-to :akashi-malak` signals to akashi's
   `malakEvidenceCandidate` bridge (candidate-evidence only; G11/G13).
@@ -101,7 +101,8 @@ to avoid floats, mirroring kabuto's `criticalityBp`.
 cd 20-actors/sukashi
 python3 methods/ingest.py --source adstxt --in data/ingest/example.ads.txt --publisher <id>  # G7: bridge a public file (offline default)
 python3 methods/analyze.py                       # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
-python3 viz/build_viz_data.py                    # → viz/ad-supply-chain.htm (open in a browser)
+# viz payload builder ported to cljc (viz/build_viz_data.cljc, ADR-2606160842); the
+# render/HTML legs were not ported. Logic verified via: bb test:sukashi
 python3 methods/transact.py                      # dry-run; --graph <CID> + KOTOBA_TOKEN to write (G7)
 python3 methods/autorun.py --cycles 3 --fresh    # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
 ./run_tests.sh                                   # invariant + analyzer + autonomous-heartbeat tests
