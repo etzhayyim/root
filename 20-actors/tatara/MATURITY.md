@@ -62,16 +62,16 @@
 | viz: watari craft globe (B) | ✅ |
 | DID registered (INFRA_ACTORS) | ✅ |
 | static did.json + profile (public/actor) | ✅ |
-| test suites (analyze/kotoba/autorun/lexicons/crosscheck/maturity) | ✅ |
+| ADR registered in docs.json registry | ✅ |
+| test suites (analyze/kotoba/autorun/lexicons/crosscheck/maturity/compose/viz/seed-integrity) | ✅ |
 
 ## Deferred / gated
 
 | item | note |
 |---|---|
 | Murakumo fleet cell placement | R1 — the Python cell-runner (cells.edn) imports a Python module; tatara is cljc-native, so a cljc-capable runner path or a Python shim is the prerequisite. |
-| docs.json registry entry | 未 — regenerate 90-docs/_registry/docs.{json,edn} via bb 70-tools/scripts/docs/regen-registry.clj. |
 | close the kabuto crosscheck worklist | 未 — the unresolved operators need kabuto org.corp.* entries (cross-actor; kabuto seed edit). |
 | live ingest (disclosures / GLEIF / OSM) | G7 — Council + operator gated; R0 ships a bounded seed only. |
 
 ---
-*R0→R1 checklist: **15/15** landed. R0 design-only; live ingest G7 Council+operator-gated.*
+*R0→R1 checklist: **16/16** landed. R0 design-only; live ingest G7 Council+operator-gated.*

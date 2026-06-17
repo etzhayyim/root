@@ -28,11 +28,11 @@
    ["viz: watari craft globe (B)"                       ["../watari/viz/craft-globe.htm"]]
    ["DID registered (INFRA_ACTORS)"                     ["../../50-infra/etzhayyim-did-web/src/registry/infra-actors.ts"]]
    ["static did.json + profile (public/actor)"          ["../../50-infra/etzhayyim-did-web/public/actor/tatara/did.json" "../../50-infra/etzhayyim-did-web/public/actor/tatara/profile.json"]]
-   ["test suites (analyze/kotoba/autorun/lexicons/crosscheck/maturity)" ["methods/test_analyze.cljc" "methods/test_maturity.cljc"]]])
+   ["ADR registered in docs.json registry"              ["../../90-docs/adr/2606171800-tatara-global-manufacturing-plant-kg.md"]]
+   ["test suites (analyze/kotoba/autorun/lexicons/crosscheck/maturity/compose/viz/seed-integrity)" ["methods/test_analyze.cljc" "methods/test_compose.cljc"]]])
 
 (def deferred
   [["Murakumo fleet cell placement" "R1 — the Python cell-runner (cells.edn) imports a Python module; tatara is cljc-native, so a cljc-capable runner path or a Python shim is the prerequisite."]
-   ["docs.json registry entry" "未 — regenerate 90-docs/_registry/docs.{json,edn} via bb 70-tools/scripts/docs/regen-registry.clj."]
    ["close the kabuto crosscheck worklist" "未 — the unresolved operators need kabuto org.corp.* entries (cross-actor; kabuto seed edit)."]
    ["live ingest (disclosures / GLEIF / OSM)" "G7 — Council + operator gated; R0 ships a bounded seed only."]])
 
