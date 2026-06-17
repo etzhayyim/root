@@ -25933,6 +25933,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606172300-ecl-etzhayyim-covenant-license.md",
+      "id": "adr-2606172300-ecl-etzhayyim-covenant-license",
+      "title": "ADR-2606172300: ECL — etzhayyim Covenant License (独自 conduct 層 × Apache 既製 base)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "ecl-etzhayyim-covenant-license",
+      "authoritative": false,
+      "authoritative_for": [
+        "ecl-custom-license-design"
+      ],
+      "related": [
+        "2606082400",
+        "2606061000",
+        "2606170840",
+        "2606171100",
+        "2606122001",
+        "2606162200"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192200",
+        "2605192100",
+        "2606062100"
+      ],
+      "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
@@ -28003,6 +28033,29 @@
       "superseded_by": [],
       "last_verified": "2026-06-11",
       "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/papers/2606171500-license-charter-fit-evaluation/README.md",
+      "id": "paper-2606171500-license-charter-fit-evaluation",
+      "title": "etzhayyim 憲法適合ライセンス評価 — CC / GPL / RAIL / 独自の数値比較と独自ライセンス計画",
+      "status": "proposed",
+      "doc_type": "explanation",
+      "topic": "license-charter-fit-evaluation",
+      "authoritative": false,
+      "related": [
+        "2606061000",
+        "2605192100",
+        "2605192200",
+        "2606062100",
+        "2606082400"
+      ],
+      "depends_on": [],
+      "last_verified": "2026-06-17",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },

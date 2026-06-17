@@ -16383,6 +16383,26 @@
       "lastVerified": "2026-06-17"
     },
     {
+      "id": "doc:adr-2606172300-ecl-etzhayyim-covenant-license",
+      "type": "TechArticle",
+      "title": "ADR-2606172300: ECL — etzhayyim Covenant License (独自 conduct 層 × Apache 既製 base)",
+      "status": "proposed",
+      "topic": "ecl-etzhayyim-covenant-license",
+      "authoritative": false,
+      "authoritativeFor": [
+        "ecl-custom-license-design"
+      ],
+      "related": [
+        "doc:2606082400",
+        "doc:2606061000",
+        "doc:2606170840",
+        "doc:2606171100",
+        "doc:2606122001",
+        "doc:2606162200"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
@@ -17914,6 +17934,22 @@
         "doc:2606066000"
       ],
       "lastVerified": "2026-06-11"
+    },
+    {
+      "id": "doc:paper-2606171500-license-charter-fit-evaluation",
+      "type": "Article",
+      "title": "etzhayyim 憲法適合ライセンス評価 — CC / GPL / RAIL / 独自の数値比較と独自ライセンス計画",
+      "status": "proposed",
+      "topic": "license-charter-fit-evaluation",
+      "authoritative": false,
+      "related": [
+        "doc:2606061000",
+        "doc:2605192100",
+        "doc:2605192200",
+        "doc:2606062100",
+        "doc:2606082400"
+      ],
+      "lastVerified": "2026-06-17"
     },
     {
       "id": "doc:portfolio-timeline",
