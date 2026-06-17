@@ -1,7 +1,38 @@
-# maxwell mmdiffusion — multimodal image-diffusion graft (R0 scaffold)
+# maxwell mmdiffusion — multimodal image-diffusion graft (R1: real architecture, runnable)
 
-**Status**: R0 scaffold (design + wiring only; NO trained weights, NO real inference).
+**Status**: **R1 — real, runnable architecture** (NumPy DiT computes end-to-end offline;
+torch trainable twin; NO trained weights yet → output is noise-shaped until trained).
+R0 wiring scaffold (`*.py` interfaces + `smoke.py`) is retained beneath it.
 **ADR**: ADR-2606061000 D6 M3 (Maxwell multimodal graft) · license: ADR-2606172300 (ECL).
+
+## R1 — real implementation (LanguageBind + DiT)
+
+The R0 stubs are now backed by a faithful, runnable Diffusion Transformer:
+
+| File | What it really is |
+|---|---|
+| `model.py` | **Real DiT** in NumPy: patch-embed → sinusoidal t-embed → N×[adaLN self-attn + **cross-attn to the joint-embedding context** + MLP] → adaLN final → unpatchify. Real attention/softmax/gelu/layernorm. |
+| `diffusion.py` | **Real DDPM**: cosine β schedule, `q_sample` (forward noising), `p_sample_loop` (reverse sampling), eps-MSE `training_loss`. |
+| `languagebind_encoder.py` | **Real LanguageBind (MIT)** adapter — frozen; imports the real lib when present, deterministic offline fallback embedding otherwise (runs without the multi-GB download). |
+| `projection_np.py` | **Real** trainable ProjectionNP (D=768 → L×C MLP). |
+| `pipeline.py` | Wires encoder → projection → DiT → DDPM; `generate()` runs real reverse diffusion; Charter gates (G1/G3/G4) reused from `conditioning.py`. |
+| `dit_torch.py` | **Trainable torch twin** (real `nn.Module`, adaLN-zero init, real `train_step` = eps-MSE + AdamW) — the training artifact (runs when torch installed). |
+| `smoke_real.py` | **Runs the real computation** — encode→project→DiT→sample; asserts shapes, finiteness, determinism, **conditioning truly flows** (output depends on context + timestep), Charter G3. 16/16. |
+
+```bash
+python3 70-tools/scripts/maxwell/mmdiffusion/smoke_real.py   # real end-to-end (numpy, 16/16)
+python3 70-tools/scripts/maxwell/mmdiffusion/smoke.py        # R0 wiring (17/17)
+```
+
+**Honest status**: the *architecture* is real and computes; weights are seed-initialised
+(untrained), so generated images are noise-like until trained via `dit_torch.py` on the
+baien Move pipeline (Murakumo-preferred, ADR-2606172359). LanguageBind = MIT commons path
+(outputs ECL-on-Apache); ImageBind stays CC-BY-NC internal (Path A).
+
+---
+
+## R0 scaffold (retained)
+
 **Distinct from**: ADR-2606170840 / 2606171100 `maxwell-diffusion` — that is a *text*
 diffusion-LM (DiffusionGemma 26B-A4B). **This** is the *image / any-modality → image*
 diffusion graft conditioned on a frozen joint-embedding encoder (ImageBind / LanguageBind).
