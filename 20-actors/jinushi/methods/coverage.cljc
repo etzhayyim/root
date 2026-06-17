@@ -39,8 +39,12 @@
           ""
           (format "- 取得国数 (countries touched): **%d**" (:countries-touched cov))
           (format "- 取得面積 (acquired land): **%s km²**" (km2 (:acquired-area-km2 cov)))
-          (format "- 世界陸地比 (world land coverage): **%s** (of %s km²)"
+          ;; HONEST (G4): this measures the COUNTING source (national parks = protected PUBLIC
+          ;; land), not all land ownership. It is the share of world land that is national-park
+          ;; land we have data on — NOT a claim that 4.8% of all land ownership is mapped.
+          (format "- 国立公園(保護公有地)/世界陸地 (national-park land ÷ world land): **%s** (of %s km²)"
                   (pct (:world-coverage-frac cov)) (km2 (:world-land-area-km2 cov)))
+          "  _(this is protected-public-land coverage; private/urban/agricultural land is sample-scale only — see building/value layers)_"
           (format "- 取-集中 (land HHI over owners by area): **%.0f**  (top holder share %s)"
                   (:hhi con)
                   (if-let [th (:top-holder con)] (pct (:share th)) "n/a"))

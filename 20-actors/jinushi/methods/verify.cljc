@@ -45,13 +45,20 @@
            bo-check (when bo-snap (check-artifact dir bo-snap))
            gleif-ref (get-in prov [:company-linkage :reference])   ;; committed GLEIF company reference
            gleif-check (when gleif-ref (check-artifact dir gleif-ref))
-           derived (:derived prov)
-           ;; the derived Datom log is gitignored/regenerable — verify only if present on disk
-           der-check (when (and derived (.exists (io/file dir (:artifact derived))))
-                       (check-artifact dir derived))
+           pluto-ref (get-in prov [:nyc-pluto :reference])         ;; committed NYC PLUTO parcel sample
+           pluto-check (when pluto-ref (check-artifact dir pluto-ref))
+           osm-ref (get-in prov [:osm-buildings :reference])       ;; committed OSM building-stock sample
+           osm-check (when osm-ref (check-artifact dir osm-ref))
+           dvf-ref (get-in prov [:fr-dvf :reference])              ;; committed FR DVF value sample
+           dvf-check (when dvf-ref (check-artifact dir dvf-ref))
+           ;; NOTE: derived Datom logs (jinushi-land-datoms / *-datoms / unified) are gitignored +
+           ;; regenerable — their CID is informational provenance (recomputed on emit), NOT a
+           ;; committed-repo integrity concern, so verify does NOT check them (avoids false fails
+           ;; after any re-emit). verify guards the COMMITTED data only.
            checks (vec (concat src-checks (when denom-check [denom-check])
                                (when bo-check [bo-check]) (when gleif-check [gleif-check])
-                               (when der-check [der-check])))]
+                               (when pluto-check [pluto-check]) (when osm-check [osm-check])
+                               (when dvf-check [dvf-check])))]
        {:ok (every? :ok checks) :checks checks})))
 
 #?(:clj
