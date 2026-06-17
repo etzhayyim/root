@@ -25902,6 +25902,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606171300-tokigusuri-pharma-patent-cliff-mirror.md",
+      "id": "adr-2606171300-tokigusuri-pharma-patent-cliff-mirror",
+      "title": "ADR-2606171300: tokigusuri 時薬 — pharmaceutical patent-cliff / off-patent-access observation mirror",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "tokigusuri-pharma-patent-cliff-mirror",
+      "authoritative": true,
+      "authoritative_for": [
+        "tokigusuri 時薬 actor (pharmaceutical patent-cliff / off-patent-access observation mirror)",
+        "pharma-patent-ontology"
+      ],
+      "related": [
+        "2606073200",
+        "2606032000",
+        "2605312700"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606073400",
+        "2606073000",
+        "2605250500",
+        "2604271830",
+        "2606011800",
+        "2605262800",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606172100-retire-unispsc-python-per-code-fleet.md",
       "id": "adr-2606172100-retire-unispsc-python-per-code-fleet",
       "title": "ADR-2606172100: Retire the open-UNSPSC per-code Python agent fleet — superseded by the clj unspsc actor",
