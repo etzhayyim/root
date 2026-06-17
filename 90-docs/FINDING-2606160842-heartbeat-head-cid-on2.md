@@ -1,6 +1,6 @@
 # FINDING — autonomous-heartbeat `head-cid` is O(n²) per beat (ADR-2606160842 clj-port wave)
 
-**Status**: kanjo + kabuto FIXED (2026-06-17); 7 sibling actors LATENT (fix recipe below).
+**Status**: ALL 9 heartbeat actors FIXED (2026-06-17). Recipe + per-actor verification below.
 **Severity**: 常駐化 (resident-daemon) scaling defect. Not a correctness bug — the loop stays
 deterministic / resume-safe and the commit-DAG still verifies; only wall-clock degrades, and it
 degrades *with corpus size*, so it is invisible at R0 seed scale and bites after live ingest grows
@@ -61,17 +61,19 @@ EDN reader (`*-edn` / `parse-tokens`) is **not** touched.
 
 | actor | corpus | head-cid → read-log? | status |
 |---|---|---|---|
-| kanjo | 1.18 MB | yes | **FIXED** (ADR-2606160842) |
-| kabuto | 774 KB | yes | **FIXED** |
-| sukashi | 44 KB | yes | latent |
-| watatsuna | 60 KB | yes | latent |
-| watari | 24 KB | yes | latent |
-| yabai | 36 KB | yes | latent |
-| ipaddress | 32 KB | yes | latent |
-| shionome | 16 KB | yes (uses `peek`) | latent |
-| hakoniwa | 20 KB | yes | latent |
+| kanjo | 1.18 MB | yes | **FIXED** — suite 23t/182a 4.3s (was >300s); hermetic seed |
+| kabuto | 774 KB | yes | **FIXED** — CID-identical; suite 21t/147a 9.5s |
+| shionome | 16 KB | yes (uses `peek`) | **FIXED** — suite 195t/1154a |
+| sukashi | 44 KB | yes | **FIXED** — CID-identical; suite 30t/454a |
+| watatsuna | 60 KB | yes | **FIXED** — CID-identical; suite 34t/125a |
+| watari | 24 KB | yes | **FIXED** — CID-identical; suite 20t/1101a |
+| ipaddress | 32 KB | yes | **FIXED** — test-autorun 6t/23a |
+| yabai | 36 KB | yes | **FIXED** — test-autorun 7t/203a |
+| hakoniwa | 20 KB | yes | **FIXED** — runtime 10t/31a + simulate 7t/154a |
 | mimamori | — | no (different head impl) | n/a |
 
-The 7 latent actors are green only because their R0 seeds are small. Apply the fix recipe above
-when each actor's live ingest is enabled (G7) or as routine hardening — the diff is mechanical and
-the structures are copy-paste-identical to kanjo/kabuto.
+All 9 verified green after the fix (the append-only / tamper / persistence tests exercise head-cid
+linkage). The 7 smaller actors were green pre-fix only because their R0 seeds are small; they are
+now O(1)/beat so they stay fast as their G7 live ingest grows the log. Note: ipaddress / yabai /
+hakoniwa are not yet wired into the `bb`-runner sweep (no `run_tests.sh` / `bb.edn` test task) —
+they were verified by invoking their test namespaces directly; wiring them in is a follow-up.
