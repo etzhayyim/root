@@ -28,6 +28,7 @@
 (def default-endpoint "http://127.0.0.1:8077/xrpc/com.etzhayyim.apps.kotoba.datomic.transact")
 (def default-graph "kaname")
 (def live-env "KANAME_KOTOBA_LIVE")
+(def operator-did-env "KANAME_KOTOBA_OPERATOR_DID")  ;; PUBLIC did:key (1Password: etzhayyim-kaname-did)
 
 (defn kotoba-boundary-violation
   ([msg] (kotoba-boundary-violation msg {}))
@@ -178,7 +179,8 @@
      ([log-path {:keys [graph endpoint transport live http-post operator-did as-of-base]
                  :or {graph default-graph endpoint default-endpoint as-of-base 2606170000}}]
       (assert-kotoba endpoint)
-      (let [graph-id (if (and (str/starts-with? graph "b") (> (count graph) 40)) graph (graph-cid graph))
+      (let [operator-did (or operator-did #?(:clj (System/getenv operator-did-env) :default nil))
+            graph-id (if (and (str/starts-with? graph "b") (> (count graph) 40)) graph (graph-cid graph))
             txs (kd/read-log log-path)
             state (bridge-cursor txs)
             pending (pending-txs txs)
