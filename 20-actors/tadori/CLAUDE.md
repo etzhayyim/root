@@ -115,18 +115,35 @@ in kotoba Datomic state.
 
 Each cutover is dual-write/dual-read → verify set-equality → drop legacy (one R-cycle shadow).
 
-## Cells (6; R0 path-reserved under `40-engine/kotoba/crates/kotoba-kotodama/cells/tadori_*/`)
+## Cells (6) — LOGIC ACTIVATED in cljc (Phase-0); LIVE deploy stays Council-gated
 
-| Cell | Purpose | Key gate |
-|---|---|---|
-| `case_intake` | open/validate an authorized `caseMandate` | G3, G5 |
-| `tx_trace` | wallet deep-inspect → tx/addr/cluster datoms (delegates to malak `wallet_deep_inspect_pursuit`) | G9, G11 |
-| `address_label` | multi-source labeling → label datoms (delegates to malak `address_label_pursuit`) | G4, G9 |
-| `attribution_join` | cross-store join addr/cluster → ip-obs/dns-obs/person (kotoba-kqe VAET); PII encrypted | G6, G10, G11 |
-| `transparent_force_log` | on-chain-anchored audit datom per case action (Charter §1.12) | G5, G7 |
-| `silen_tadori_review` | quarterly Council audit; structural zero-counters | G12 |
+The cell **logic** is now implemented + tested in `methods/*.cljc` and runs in **Phase-0
+(dry-run) over a synthetic authorized case** (`bb tadori:trace`). The **live Pregel deploy
+wrapper** under `40-engine/kotoba/crates/kotoba-kotodama/cells/tadori_*/` stays import-time
+`RuntimeError` until Council Lv6+ ≥3 ratify (G3 authorization-DID), and live data acquisition
+stays operator+case-gated (`methods/transact.cljc`) — activation = real logic behind the gate,
+not a bypass of it (the ibuki R2 pattern).
 
-Each cell is import-time `RuntimeError` until T1 (Council Lv6+ ≥3 ratify post 2026-06-19).
+| Cell | cljc | Purpose | Key gate |
+|---|---|---|---|
+| `case_intake` | `methods/case_intake.cljc` | open/validate an authorized `caseMandate`; Phase-1 needs authorization-ref + authority-did | G3, G5 |
+| `tx_trace` | `methods/trace.cljc` | cluster (common-input + change + temporal) → mixer/peel-chain detection → bounded value-flow trace → tx/addr/cluster datoms | G3, G7, G10 |
+| `address_label` | `methods/trace.cljc` | structural class (mixer/cex/bridge/eoa) + feature-flagged open-source labels (never proprietary SoR) | G4 |
+| `attribution_join` | `methods/attribution.cljc` | cross-store VAET join addr/cluster → ip-obs/dns-obs/**onion**/person; PII-class edges **must** be encrypted | G6, G10 |
+| `onion` (darkweb) | `methods/onion.cljc` | PASSIVE public onion/darkweb indicators (ransomware-c2 / mixer-endpoint / market). **No Tor de-anon / no real-IP field — unrepresentable** | G1, G7, G10 |
+| `transparent_force_log` | `methods/audit_log.cljc` | on-chain-anchored audit datom per case action (Charter §1.12) | G5, G7 |
+| `silen_tadori_review` | `methods/autorun.cljc` | autonomous structural zero-counter self-audit | G12 |
+
+```sh
+bb tadori:trace    # Phase-0 case trace over a SYNTHETIC authorized case (no live data)
+```
+
+**darkweb / onion boundary (hard):** tadori ingests onion/darkweb data only as PUBLIC PASSIVE
+indicators (a `.onion` is an indicator like a domain). It does NOT de-anonymize Tor, run
+hidden-service correlation attacks, crawl darkweb content, or hold any capability to unmask a
+hidden service's real IP — there is **no real-IP field** on an onion observation (rejected at
+load, G10). A hidden-service↔host or ↔person link can only arrive as case-authorized,
+**encrypted** external evidence (G6), never derived here.
 
 ## Constitutional gates (12; IMMUTABLE per ADR-2605301400 §D1)
 

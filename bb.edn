@@ -436,10 +436,14 @@
              (apply (resolve 'sukashi.methods.viz/-main) *command-line-args*))}
   test:tadori
   {:doc "tadori 辿 Clojure test suite — autonomous silenTadoriReview self-audit heartbeat + kotoba commit-DAG audit-log invariants (G2/G3/G6/G10/G12) + threat-intel ingest gates/EAVT rendering; port of kotoba/test_autorun.py + test_invariants.py + test_ingest_threat_intel.py (ADR-2605301400 / 2606160842)."
-   :task (do (require 'clojure.test 'tadori.tests.test-autorun 'tadori.tests.test-ingest)
-             (let [r (clojure.test/run-tests 'tadori.tests.test-autorun 'tadori.tests.test-ingest)]
+   :task (do (require 'clojure.test 'tadori.tests.test-autorun 'tadori.tests.test-ingest 'tadori.tests.test-trace)
+             (let [r (clojure.test/run-tests 'tadori.tests.test-autorun 'tadori.tests.test-ingest 'tadori.tests.test-trace)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  tadori:trace
+  {:doc "tadori 辿 Phase-0 case trace over a SYNTHETIC authorized case — clusters addresses, detects the mixer, traces stolen funds to the CEX exit, links the onion C2 (no live data; live = operator+case gate)."
+   :task (do (require 'tadori.methods.demo-case)
+             ((resolve 'tadori.methods.demo-case/-main)))}
   tadori:autorun
   {:doc "tadori 辿 AUTONOMOUS silenTadoriReview self-audit heartbeat over the kotoba Datom log (Phase 0; counters only, NO case/PII/obs data). Args: [cycles] [seed] [log]."
    :task (do (require 'tadori.methods.autorun)
