@@ -50,6 +50,11 @@
   (record-capture [this auth-id amount-usdc]
     "Record a (full/partial) capture against a hold; return the capture-id.
      (Python `record_capture(auth_id, amount_usdc) -> str`.)")
+  ;; --- settlement (settle) ---
+  (settle-transfer [this opts]
+    "Transfer USDC holder/wakai-float → merchant; return [settlement-id tx]. `opts` carries the
+     Python keyword-only args as a map {:merchant-did :amount-usdc :funding :auth-id}.
+     (Python `settle_transfer(*, merchant_did, amount_usdc, funding, auth_id) -> (str, str)`.)")
   ;; --- holds / settlements (refund) ---
   (load-settlement [this settlement-id]
     "Return the settlement map for `settlement-id`, or nil if absent.
@@ -79,6 +84,7 @@
   (place-hold [_ _ _]         (unwired-fail "place_hold"))
   (load-hold [_ _]            (unwired-fail "load_hold"))
   (record-capture [_ _ _]     (unwired-fail "record_capture"))
+  (settle-transfer [_ _]      (unwired-fail "settle_transfer"))
   (load-settlement [_ _]      (unwired-fail "load_settlement"))
   (reverse-settlement [_ _ _] (unwired-fail "reverse_settlement"))
   (write-facts [_ _]          (unwired-fail "write_facts")))
