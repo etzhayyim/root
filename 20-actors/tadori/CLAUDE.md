@@ -138,6 +138,33 @@ not a bypass of it (the ibuki R2 pattern).
 bb tadori:trace    # Phase-0 case trace over a SYNTHETIC authorized case (no live data)
 ```
 
+## Continuous watch + risk ingest + watch-the-watchers (相互監視 / 永久記憶 / NEVER-a-throne)
+
+The operational form of the charter's affirmed **reciprocal surveillance** (神の監視の社会形態):
+keep tracking, recording, analyzing malicious / attacking / hidden-influence actors — and
+**watch those who try to watch us** — transparently, attributed, append-only, and disclosable.
+
+| Method | Purpose | Doctrine |
+|---|---|---|
+| `methods/address.cljc` | BTC + ETH validation / chain-inference / normalization | rejects malformed input before it becomes a tracked subject |
+| `methods/risk.cljc` | high-risk/scam/sanctioned address ingest as **ATTRIBUTED, NON-ADJUDICATING** label events (asserter + as-of + class + G4 SoR) + risk propagation through clusters + **隠れた影響力 concentration** (取-lens) | 神の監視 = record what a source DISCLOSED; never tadori's verdict (NEVER-a-throne, kosatsu pattern) |
+| `methods/adversary.cljc` | **watch-the-watchers**: attack / scan / surveil / hidden-influence observations recorded RECIPROCALLY + transparently; reflexive `watch-the-watchers` (the watcher is itself in the ledger) | 相互監視 affirmed; person-identity / de-anon field **unrepresentable** (G1/G10) — only behaviour + address + aggregate are public |
+| `methods/watch.cljc` | the CONTINUOUS loop (追跡し続ける/記録し続ける/分析し続ける): ingest → score → propagate → concentration → append ONE content-addressed tx to the **append-only public ledger** (永久記憶, tamper-evident commit-DAG) | runs autonomously over PUBLIC indicators (no PII, no case needed); 公開 (external publish) + person-linkage stay operator/Council-gated |
+
+```sh
+bb tadori:watch 3   # CONTINUOUS watch loop over a SYNTHETIC batch → append-only public ledger
+```
+
+**公開 (disclosure) boundary — charter-grounded:** what is PUBLIC = disclosed indicators
+(public sanctions/scam lists), adversary BEHAVIOUR + on-chain address, and AGGREGATE
+hidden-influence concentration (相互監視 + 神の監視; reciprocal symmetry is affirmed,
+ADR-2606082400). What is NEVER public-inline = any link to a **natural person** — that is a
+`com.etzhayyim.encrypted.*`, case-gated attribution edge (G6/G1, no-doxxing). The watcher is
+itself watched (`silenTadoriReview`) — so the ledger cannot become a hidden throne. Recording +
+disclosing is the response to an attack; **force is separated** to the 1 SBT = 1 vote
+Transparent-Force path (G7, evidence-only). Live ingest of REAL public lists (OFAC SDN crypto,
+public scam DBs) is the operator-gated leg (G4 open-source SoR; vendor feeds never SoR).
+
 **darkweb / onion boundary (hard):** tadori ingests onion/darkweb data only as PUBLIC PASSIVE
 indicators (a `.onion` is an indicator like a domain). It does NOT de-anonymize Tor, run
 hidden-service correlation attacks, crawl darkweb content, or hold any capability to unmask a

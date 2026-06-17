@@ -245,4 +245,64 @@
  {:db/id "tadori.attribution/evidence" :db/ident :tadori.attribution/evidence
   :db/valueType :db.type/string :db/cardinality :db.cardinality/many :db/doc "com.etzhayyim.encrypted.* envelope CIDs"}
  {:db/id "tadori.attribution/case-id" :db/ident :tadori.attribution/case-id
-  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}]
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+
+ ;; ── high-risk / scam ATTRIBUTED labels (ADR — continuous watch; non-adjudicating) ──
+ {:db/id "tadori.risk/id" :db/ident :tadori.risk/id
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/id "tadori.risk/address" :db/ident :tadori.risk/address
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.risk/chain" :db/ident :tadori.risk/chain
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.risk/class" :db/ident :tadori.risk/class
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one
+  :db/doc ":sanctions|:scam|:ransomware|:mixer|:phishing|:darknet-market|:stolen-funds|:ponzi|:fraud|:high-risk|:tor-exit|:hack"}
+ {:db/id "tadori.risk/asserter" :db/ident :tadori.risk/asserter
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/doc "WHO listed it — attribution, not tadori's verdict"}
+ {:db/id "tadori.risk/as-of" :db/ident :tadori.risk/as-of
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.risk/source-role" :db/ident :tadori.risk/source-role
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/doc ":system-of-record (public only, G4) | :feature-flagged-input"}
+ {:db/id "tadori.risk/confidence" :db/ident :tadori.risk/confidence
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.risk/non-adjudicating" :db/ident :tadori.risk/non-adjudicating
+  :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one :db/doc "const true — disclosed event, never a verdict"}
+ {:db/id "tadori.risk/evidence" :db/ident :tadori.risk/evidence
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/many}
+ ;; ── adversary / watch-the-watchers (相互監視; PUBLIC behaviour only, no identity) ──
+ {:db/id "tadori.adversary/id" :db/ident :tadori.adversary/id
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+ {:db/id "tadori.adversary/behavior" :db/ident :tadori.adversary/behavior
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one
+  :db/doc ":attack|:intrusion-attempt|:scan|:surveil|:hidden-influence|:scam-targeting-members|… — NONE is retaliation/de-anon"}
+ {:db/id "tadori.adversary/address" :db/ident :tadori.adversary/address
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.adversary/chain" :db/ident :tadori.adversary/chain
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.adversary/source" :db/ident :tadori.adversary/source
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.adversary/observed-at" :db/ident :tadori.adversary/observed-at
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.adversary/target" :db/ident :tadori.adversary/target
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.adversary/confidence" :db/ident :tadori.adversary/confidence
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.adversary/reciprocal" :db/ident :tadori.adversary/reciprocal
+  :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one :db/doc "const true — the attacker is seen by the same light (相互監視)"}
+ {:db/id "tadori.adversary/non-adjudicating" :db/ident :tadori.adversary/non-adjudicating
+  :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.adversary/self-watch" :db/ident :tadori.adversary/self-watch
+  :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one :db/doc "the watcher writes itself into the ledger (NEVER-a-throne)"}
+ {:db/id "tadori.adversary/watcher-is-watched" :db/ident :tadori.adversary/watcher-is-watched
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.adversary/cycle" :db/ident :tadori.adversary/cycle
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ ;; ── hidden-influence concentration (取-lens; aggregate, map-not-target) ──
+ {:db/id "tadori.concentration/cluster" :db/ident :tadori.concentration/cluster
+  :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.concentration/score" :db/ident :tadori.concentration/score
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.concentration/tainted-count" :db/ident :tadori.concentration/tainted-count
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}
+ {:db/id "tadori.concentration/peak-severity" :db/ident :tadori.concentration/peak-severity
+  :db/valueType :db.type/long :db/cardinality :db.cardinality/one}]
