@@ -5609,7 +5609,7 @@
       "title": "ADR-2605192115: etzhayyim Non-profit / Donation-only / No-ads — 営利・広告・購買モデルの構造的排除",
       "status": "proposed",
       "topic": "etzhayyim-non-profit-donation-only-no-ads",
-      "authoritative": true,
+      "authoritative": false,
       "authoritativeFor": [
         "hard rule: etzhayyim/root 配下の全 app は非営利活動 (non-profit) のみ",
         "hard rule: 広告 (advertising) integration の全面禁止 + CI lint",
@@ -5619,9 +5619,11 @@
       ],
       "related": [
         "doc:adr-2605192130-etzhayyim-tithe-redistribution",
-        "doc:adr-2605192145-etzhayyim-public-fund-architecture"
+        "doc:adr-2605192145-etzhayyim-public-fund-architecture",
+        "doc:2606180001",
+        "doc:2606182359"
       ],
-      "lastVerified": "2026-05-19"
+      "lastVerified": "2026-06-17"
     },
     {
       "id": "doc:adr-2605192130-etzhayyim-tithe-redistribution",

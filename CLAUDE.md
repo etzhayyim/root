@@ -436,9 +436,18 @@ Snapshot artifacts (run results) live under `90-docs/baien/`:
 - **baien-distill Stage 2/3** (YaRN + LoRA, LongRoPE continual) per ADR-2605231600
 - **Core 3 bench strategy revision** — switch from `_generative` (~28h/task) to `_completions` (loglikelihood, ~30 min) for next baien snapshot
 
-## Substrate boundary (CRITICAL — ADRs 2605172000 + 2605172100 + religious-corp wave)
+## Substrate boundary (engineering rules — NOT charter; ADRs 2605172000 + 2605172100 + religious-corp wave)
 
-This repo is **blockchain-self-contained**. Hard rules enforced by ADRs and (future) CI hooks:
+> **These are IMPLEMENTATION decisions, not constitutional doctrine (per ADR-2606182359 lineage).**
+> The charter holds only **Tier-0 priorities (子・孫 wellbecoming / collective-over-individual /
+> 永久記憶) + the ECL objective function**. Substrate/engineering choices — RW-free (no RisingWave),
+> the `payment.sent.purpose` enum, ad-blocklists, Murakumo-as-default, kotoba-as-canonical-state —
+> are **工学・governance 判断であって憲法ではない**: they can change at the implementation/governance
+> layer **without a charter amendment** (固定するのは priority; 手段=実装は固定しない). "CRITICAL"
+> below means "load-bearing engineering rule," not "Tier-0 immutable." Do not elevate a substrate
+> choice to charter status.
+
+This repo is **blockchain-self-contained**. Engineering rules (changeable at the implementation layer):
 
 | Concern | Allowed | Prohibited |
 |---|---|---|
