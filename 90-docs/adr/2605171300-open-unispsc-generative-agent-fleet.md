@@ -5,7 +5,8 @@ status: superseded
 doc_type: adr
 topic: open-unispsc-generative-agent-fleet
 date: 2026-05-17
-superseded_by: ["2606172100-retire-unispsc-python-per-code-fleet"]
+superseded_by:
+  - "2606172100-retire-unispsc-python-per-code-fleet"
 ---
 # ADR 2605171300: Open-UNSPSC Generative Agent Fleet using OpenRouter and Local Fallback
 
