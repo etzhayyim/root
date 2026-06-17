@@ -31,19 +31,38 @@
       (let [r (ar/beat {:projects (projects) :tx-id "t1" :as-of "a1" :log-path p})]
         (is (string? (:head r)))
         (is (pos? (:count r)))
+        (is (true? (:appended r)) "first beat appends")
         (is (false? (:grounded r)) "no commodities → ungrounded")
         (is (= 1 (count (k/read-log p))))
         (is (:ok (k/verify-chain p))))
       (finally (io/delete-file p true)))))
 
-(deftest two-beats-chain-and-verify
+(deftest second-identical-beat-is-noop
+  ;; idempotent-by-content: same verdicts → no append (the chain records CHANGES)
   (let [p (tmp)]
     (try
-      (ar/beat {:projects (projects) :tx-id "t1" :as-of "a1" :log-path p})
-      (ar/beat {:projects (projects) :tx-id "t2" :as-of "a2" :log-path p})
-      (let [v (k/verify-chain p)]
-        (is (:ok v))
-        (is (= 2 (:length v))))
+      (let [r1 (ar/beat {:projects (projects) :tx-id "t1" :as-of "a1" :log-path p})
+            r2 (ar/beat {:projects (projects) :tx-id "t2" :as-of "a2" :log-path p})]
+        (is (true? (:appended r1)))
+        (is (false? (:appended r2)) "identical beat must NOT append")
+        (is (= :no-change (:reason r2)))
+        (is (= (:head r1) (:head r2)) "head unchanged on no-op")
+        (is (= 1 (:length (k/verify-chain p))) "chain stays length 1"))
+      (finally (io/delete-file p true)))))
+
+(deftest changed-assessment-appends
+  ;; when the verdicts actually change, the next beat DOES append (length 2)
+  (let [p (tmp)
+        all (projects)
+        subset (vec (remove #(= "deepsea-nodule-d" (:id %)) all))]
+    (try
+      (let [r1 (ar/beat {:projects all :tx-id "t1" :as-of "a1" :log-path p})
+            r2 (ar/beat {:projects subset :tx-id "t2" :as-of "a2" :log-path p})]
+        (is (true? (:appended r1)))
+        (is (true? (:appended r2)) "different verdict set → append")
+        (let [v (k/verify-chain p)]
+          (is (:ok v))
+          (is (= 2 (:length v)))))
       (finally (io/delete-file p true)))))
 
 (deftest grounded-beat-uses-bridge

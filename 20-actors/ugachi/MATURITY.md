@@ -15,10 +15,10 @@ bb --classpath 20-actors 20-actors/ugachi/methods/test_ugachi_edn.cljc   # 3 tes
 bb --classpath 20-actors 20-actors/ugachi/methods/test_gate.cljc         # 11 tests / 29 assertions
 bb --classpath 20-actors 20-actors/ugachi/methods/test_bridge.cljc       # 7 tests / 19 assertions (busshi grounding)
 bb --classpath 20-actors 20-actors/ugachi/methods/test_kotoba.cljc       # 5 tests / 16 assertions (ledger)
-bb --classpath 20-actors 20-actors/ugachi/methods/test_autorun.cljc      # 5 tests / 14 assertions (heartbeat)
+bb --classpath 20-actors 20-actors/ugachi/methods/test_autorun.cljc      # 6 tests / 22 assertions (heartbeat + idempotency)
 ```
 
-31 tests / 86 assertions green.
+32 tests / 94 assertions green.
 
 ## Invariants held
 
@@ -28,4 +28,5 @@ bb --classpath 20-actors 20-actors/ugachi/methods/test_autorun.cljc      # 5 tes
 - recovery-first preference (viable alt → kanayama) · permits-design only with Transparent-Force + consent
 - clj-native + kotoba-Datom-native; verdict datoms flagged :ugachi/derived + :ugachi/sourcing
 - stewardship ledger: content-addressed, tamper-evident (verify-chain), deterministic/resume-safe, no-server-key, gitignored (never committed)
+- heartbeat idempotent-by-content: an unchanged beat is a no-op (`:appended false`) — a recurring loop never bloats the chain with identical snapshots; it grows only on real change
 - R0 seed :synthetic (real-project assessment + live actuation = operator/Council steps)
