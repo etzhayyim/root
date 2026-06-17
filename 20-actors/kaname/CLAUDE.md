@@ -65,8 +65,13 @@ methods/
   join.cljc        R1  live mirror JOIN: lift a mirror's committed Datom log into a domain layer    → out/joined-ai-leverage.md
                        + reconcile-by-label across layers (shared entity → spans domains → 要)
                        + mirror-adapters registry + join-mirrors (6 real mirrors)                   → out/joined-sos-leverage.md
-  ingest.cljc      R1  WEB→mirror: fetch public page (homepage/公開投稿) → Murakumo gemma-4-E4B       → data/ingested-web.kotoba.edn
-                       extract DISCLOSED org relations, every edge :en/basis'd (G5), person-excl (G1)
+  ingest.cljc      R1  WEB→mirror: fetch public page (homepage/公開投稿) IN CLJ (babashka.http-client) → data/ingested-web.kotoba.edn
+                       → Murakumo gemma-4-E4B extract DISCLOSED org relations, every edge :en/basis'd (G5), person-excl (G1)
+                       ingest-live! over data/ingest-sources.edn = actor-runtime live fetch leg (G7)
+  kotoba.cljc      R1  persist leverage readout → kotoba Datom-log commit-DAG (EAVT, CID-chained,    → data/persisted/ (gitignored)
+                       idempotent-by-content, verify-chain tamper-evident; shared kotoba.datom)
+graph.cljc         R1  langgraph-clj StateGraph ACTOR: :perceive-world(世界認識)→:leverage→:route→:osekkai→:persist
+autorun.cljc       R1  autonomous heartbeat (invoke graph; cycle = log length; resume-safe; bb -main)
   route.cljc           route the 要 to OPENING; refuses capture (G2)                               → out/opening-route.md
   osekkai.cljc         ossekai handoff proposal (advisory/unsent); refuses person/coordinate (G1)  → out/osekkai-handoff.md
   gates.cljc           constitutional gate assertions (ex-info) — G1/G2/G5
@@ -107,6 +112,27 @@ lexicons/              com.etzhayyim.kaname.{leveragePoint,osekkaiProposal}
   **OpenAI → V=3** (:ai+:economy+:organization), **L1 1.992 → 3.513** — the cross-domain 要 grounded
   in cited public data. Adding a source = drop a `.txt`+`.url` in `data/ingested-pages/` and re-run
   (G7 operator step); the committed `.kotoba.edn` is the durable artifact.
+
+### langgraph-clj actor + kotoba commit-DAG + 世界認識 (founder-approved 06-17)
+
+kaname is now a first-class **langgraph-clj StateGraph actor** (`kaname.graph`, loads under bb):
+
+```
+:perceive-world (世界認識)  → join every committed mirror into the cross-domain WORLD MODEL
+                              (+ optional live clj web-fetch when :live?, G7)
+:leverage                   → sos/leverage + R1 centrality → the 要
+:route                      → route the 要 to OPENING (G2)
+:osekkai                    → ossekai handoff proposal (advisory/unsent, G1/G3)
+:persist                    → append the readout to the kotoba Datom-log commit-DAG
+```
+
+- **web-fetch も clj**: `ingest/fetch-text` (babashka.http-client, anonymous GET, no-server-key) +
+  `ingest-live!` over `data/ingest-sources.edn` — the ACTOR runtime fetches, not an operator tool.
+- **datomic kotoba**: `methods/kotoba.cljc` persists to the canonical kotoba Datom-log as a
+  content-addressed commit-DAG (shared `kotoba.datom`): EAVT `[:db/add e a v]`, CID-chained,
+  **idempotent-by-content**, **verify-chain** tamper-evident, resume-safe, `data/persisted/` gitignored.
+- **heartbeat**: `kaname.autorun` — `bb 20-actors/kaname/autorun.cljc [base] [log] [--live]`. Verified
+  live: beat#0 perceived 6 mirrors (173n/216縁) → 要=OpenAI → persisted; beat#1 `:no-change`.
 
 ## Run
 

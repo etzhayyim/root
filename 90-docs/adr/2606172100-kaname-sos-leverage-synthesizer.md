@@ -1,6 +1,6 @@
 # ADR-2606172100 — kaname 要 — cross-domain system-of-systems leverage-point (律速) synthesizer + おせっかい proposer
 
-- **Status**: Accepted (R0 + R1 math/join + multi-mirror SoS join + real web-ingest; founder-approved 2026-06-17)
+- **Status**: Accepted (R0 + R1 math/join + multi-mirror + web-ingest + langgraph-clj actor on kotoba commit-DAG; founder-approved 2026-06-17)
 - **Date**: 2026-06-17
 - **Tier**: Tier-B actor
 - **Parent**: ADR-2605192100 (Mission Charter), ADR-2605262130 (kotoba substrate), ADR-2605312345 (Datom = canonical state)
@@ -175,6 +175,31 @@ Azure/Google-Cloud cloud-dependence, NVIDIA→OpenAI invest, OpenAI↔NVIDIA/Mic
 remain the top betweenness bridges. The committed `.kotoba.edn` is the durable artifact; **re-running
 the live fetch+gemma extraction is the G7 operator step**. 41 tests / 174 assertions green (incl.
 fixture-based ingest guards: person-exclusion, basis-required, rel-normalization).
+
+### langgraph-clj actor on the kotoba commit-DAG + 世界認識 loop (founder-approved 2026-06-17)
+
+Per founder direction "web fetch も clj, datomic kotoba で動くように, langgraph-clj で actor の基本
+要素に, 世界認識を入れて", kaname became a first-class **langgraph-clj StateGraph actor** persisting
+to the canonical **kotoba Datom-log commit-DAG**:
+
+- **`kaname.graph`** (langgraph-clj, loads under bb): the actor's basic element — a compiled
+  StateGraph `:perceive-world → :leverage → :route → :osekkai → :persist`. The entry node
+  **`:perceive-world` is 世界認識**: it builds the actor's cross-domain WORLD MODEL by joining every
+  committed mirror; with `:live?` it FIRST refreshes the web mirror by fetching live **in clj**.
+- **web-fetch in clj** (`ingest/fetch-text` via `babashka.http-client` + `ingest/ingest-live!` over
+  `data/ingest-sources.edn`): the actor RUNTIME fetches public pages itself (anonymous GET,
+  no-server-key) → Murakumo gemma extraction → basis'd forms — no operator fetch tool in the loop.
+  Live fetch is the G7 leg; the committed `ingested-web.kotoba.edn` is the default.
+- **kotoba commit-DAG persistence** (`kaname.methods.kotoba` over the shared `kotoba.datom` binding,
+  ADR-2605312345): each beat projects the leverage readout (the 要, cross-domain entities, route) to
+  EAVT `[:db/add e a v]` datoms and appends one CID-chained tx; **idempotent-by-content**
+  (no append when unchanged), **verify-chain** tamper-evident, resume-safe, `data/persisted/` gitignored.
+- **`kaname.autorun`** heartbeat: one beat = invoke the graph; cycle = log length (no wall clock /
+  no randomness). **Verified live**: beat #0 perceived 6 mirrors (173 nodes / 216 縁) → 要=OpenAI →
+  persisted head CID; beat #1 = `:no-change` (idempotent); `verify-chain {:ok true}`.
+
+46 tests / 192 assertions green (incl. `test_kotoba` clean-datoms + idempotent + verify, `test_graph`
+StateGraph compile + node state-flow + guarded full perceive→persist run).
 
 ## Consequences
 

@@ -22,6 +22,7 @@
   Pure where possible; the two side-effecting edges (HTTP fetch, Ollama call) are isolated. The
   form-building + guards are pure and deterministic (tested on a fixture extraction, no live Ollama)."
   (:require [clojure.string :as str]
+            #?(:clj [clojure.edn :as edn])
             #?(:clj [babashka.http-client :as http])
             #?(:clj [cheshire.core :as json])
             #?(:clj [clojure.java.io :as io])))
@@ -165,6 +166,40 @@
      [{:keys [url text domain source]}]
      (let [page (or text (fetch-text url))]
        (->forms (ollama-extract page) domain source url))))
+
+(defn forms->edn
+  "Serialize kaname forms (string-keyed maps) to kotoba-EDN text the sos reader round-trips:
+  ':…'-strings print as bare keyword tokens, plain strings quoted, vectors recursively."
+  [forms header]
+  (letfn [(emit [v]
+            (cond
+              (and (string? v) (str/starts-with? v ":")) v
+              (string? v) (str "\"" (-> v (str/replace "\\" "\\\\") (str/replace "\"" "\\\"")) "\"")
+              (vector? v) (str "[" (str/join " " (map emit v)) "]")
+              (boolean? v) (str v)
+              :else (str v)))
+          (emit-map [m] (str "{" (str/join " " (map (fn [[k v]] (str (emit k) " " (emit v))) m)) "}"))]
+    (str header "[\n" (str/join "\n" (map emit-map forms)) "\n]\n")))
+
+#?(:clj
+   (defn ingest-live!
+     "G7 LIVE web-fetch leg — runs ENTIRELY in clj (the actor runtime, not an operator tool):
+     read a source manifest EDN [{:url :domain :source}], fetch each PUBLIC page via fetch-text
+     (babashka.http-client, anonymous GET, no-server-key), extract DISCLOSED org relations via
+     Murakumo gemma (ollama-extract), build basis'd mirror forms. Optionally write `out-path`
+     (kotoba-EDN). Returns the forms. (Founder/Council-gated; the committed artifact is the default.)"
+     [sources-path & [out-path]]
+     (let [sources (edn/read-string (slurp (str sources-path)))
+           forms (vec (mapcat (fn [{:keys [url domain source]}]
+                                (->forms (ollama-extract (fetch-text url))
+                                         (str domain) (str source) url))
+                              sources))]
+       (when out-path
+         (spit out-path
+               (forms->edn forms
+                           (str ";; kaname 要 — LIVE web-ingest (clj runtime fetch+extract). DO NOT hand-edit.\n"
+                                ";; fetch-text (babashka.http-client) → Murakumo gemma-4-E4B → basis'd forms (G1/G4/G5).\n"))))
+       forms)))
 
 #?(:clj
    (defn ingest-pages-dir
