@@ -209,7 +209,28 @@ API). Findings, which sharpen D3:
   fine-tune is what makes it *Charter/idiom-correct*.
 
 Net: D3 is **achievable** (transformers CPU run proven); the remaining serving work is
-quantized GPU residency for throughput. `available:false` stands until that + D4 land.
+quantized GPU residency for throughput.
+
+## Eval + Train legs (RSi) verified on gad — 2026-06-17
+
+- **Eval leg ✅** — `70-tools/scripts/bench/baien-microbench/microbench.py --diffusion`
+  scores the base **12/15 = 80%** (IFEval 5/5, General 2/2, Reasoning 1/1, MMLU 4/5,
+  Multilingual 0/2 substring-strict). The RSi eval leg now works for diffusion LMs.
+- **Train leg ✅ (mechanism)** — `70-tools/scripts/maxwell/train_diffusion.py` implements
+  the D4 SFT objective and **runs on the real model**: DiffusionGemma's `forward` returns
+  canvas `logits` with no internal loss, and its sampler inits the canvas with *random*
+  tokens (**uniform** discrete diffusion, not absorbing-mask), so SFT = corrupt a fraction
+  *t* of the target canvas with random tokens → forward → CE on the corrupted positions
+  vs the clean target. PEFT-LoRA `all-linear` (25.7 M trainable, 0.099 %); a 3-step CPU
+  smoke executed cleanly — loss 1.07 → 0.66 → 0.04, backward + LoRA step + adapter save.
+  This **proves the train leg executes**; it is a *mechanism* smoke, not a finished SFT.
+
+So all three RSi legs now exist for maxwell-diffusion: **corpus** (shared maxwell-sft-corpus)
++ **train** (`train_diffusion.py`, mechanism-proven) + **eval** (`microbench --diffusion`).
+Two gates remain before `available:true`: (1) **4-bit GPU residency** (no bnb on ROCm
+gfx1151 yet → CPU-only; full SFT + the >1100 tok/s thesis both need it); (2) **corruption-
+schedule validation** against Google's (unpublished) training recipe — the uniform scheme
+here is a defensible standard objective but not bit-confirmed. `available:false` stands.
 
 # References
 
