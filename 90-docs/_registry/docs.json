@@ -25294,6 +25294,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606160842-kotoba-code-actor-py-to-clj-port-wave.md",
+      "id": "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave",
+      "title": "ADR-2606160842: kotoba-code-driven actor Python→Clojure port wave (9 actors, test-gated)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kotoba-code-actor-port-wave",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors actor-method Python→Clojure port methodology"
+      ],
+      "related": [
+        "ADR-2605262130 (kotoba storage substrate unification)",
+        "ADR-2605312345 (kotoba Datom log first-class canonical state)",
+        "ADR-2605215000 (Murakumo-only inference)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606161200-organism-runtime-3layer-kotodama-split.md",
       "id": "adr-2606161200-organism-runtime-3layer-kotodama-split",
       "title": "ADR-2606161200: organism runtime 3層分割 — kotodama runtime / root unspsc actor / kotoba substrate (supersedes 2606131645)",
@@ -25315,6 +25340,51 @@
         "2606131645",
         "2605262130",
         "2605215000"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606161536-primary-source-to-multilingual-video-atproto-pipeline.md",
+      "id": "adr-2606161536-primary-source-to-multilingual-video-atproto-pipeline",
+      "title": "ADR-2606161536: Primary-source → mirror → multilingual → video → atproto pipeline — composing kawaraban / i18n / utsushie (new) / feed-post membrane, charter-bounded",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "primary-source-to-multilingual-video-atproto-pipeline",
+      "authoritative": true,
+      "authoritative_for": [
+        "End-to-end primary-source → multilingual → video → atproto pipeline composition contract",
+        "utsushie (写し絵) news→video actor scope + charter gates (R0 design)",
+        "The \\\"information-asymmetry / anti-arbitrage\\\" thesis and its charter boundary (G1/G4/G9/G11)"
+      ],
+      "related": [
+        "70-tools/scripts/cc-direct-ingest/",
+        "90-docs/adr/2605312200-open-data-ingest-vendor-cutover-runbook.md",
+        "90-docs/adr/2606111200-cc-wet-direct-datom-ingest-no-parquet.md",
+        "90-docs/adr/2605140740-yoro-gemma-e4b-social-translation-mcp.md",
+        "90-docs/adr/2605220000-shinshi-tiktok-video-pipeline.md",
+        "90-docs/adr/2604231328-animeka-bpmn-l40s-pipeline.md",
+        "20-actors/kawaraban/",
+        "20-actors/i18n/",
+        "20-actors/kataribe/",
+        "40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/",
+        "50-infra/mst-projector/",
+        "70-tools/seed-post/"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606061900-kawaraban-news-medium-actor-r0",
+        "adr-2605263600-kataribe-press-publishing-translation-substrate",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605231500-kotoba-datomic-projection",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-no-server-held-key",
+        "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave",
+        "adr-2605250006-kotoba-common-crawl-ingestion",
+        "adr-2606012300-kotoba-hybrid-web-search"
       ],
       "last_verified": "2026-06-16",
       "amends": [],
@@ -25535,6 +25605,107 @@
         "adr-2605312345",
         "adr-2606082400"
       ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606162030-silicon-fab-flow-clj-port.md",
+      "id": "adr-2606162030-silicon-fab-flow-clj-port",
+      "title": "ADR-2606162030: silicon fab brought to runnable cljc + kotoba-Datom — 8-工程 process-physics flow + wafer-handling robotics + lot ledger",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "silicon-fab-flow-clj-port",
+      "authoritative": true,
+      "authoritative_for": [
+        "silicon fab-flow runnable methods (20-actors/silicon/methods/*.cljc)"
+      ],
+      "related": [
+        "adr-2605242515-iwakura-ternary-inference-asic",
+        "adr-2606082000-niyaku-port-cargo-handling"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605242500-silicon-charter",
+        "adr-2605242545-fab-equipment-charter",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606162041-bpmn-zeebe-to-datomic-clj-engine.md",
+      "id": "adr-2606162041-bpmn-zeebe-to-datomic-clj-engine",
+      "title": "ADR-2606162041: BPMN-as-actor off Zeebe onto kotoba Datom log — maps3d pipeline + a generic BPMN→Datomic execution engine (cljc)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "bpmn-zeebe-to-datomic-clj-engine",
+      "authoritative": true,
+      "authoritative_for": [
+        "maps3d BPMN execution on kotoba/Datomic (20-actors/maps/methods/maps3d_bpmn.cljc)",
+        "the generic BPMN→Datomic engine (20-actors/maps/methods/bpmn_xml.cljc + bpmn_run.cljc)"
+      ],
+      "related": [
+        "adr-2606162030-silicon-fab-flow-clj-port",
+        "adr-2606162200-md-edn-commented-edn-adr-format"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2606064500-maps-kotoba-native-substrate-migration",
+        "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606162200-md-edn-commented-edn-adr-format.md",
+      "id": "adr-2606162200-md-edn-commented-edn-adr-format",
+      "title": "ADR-2606162200: .md.edn — markdown as commented EDN (doc = machine record, no YAML)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "md-edn-commented-edn-adr-format",
+      "authoritative": true,
+      "authoritative_for": [
+        "the .md.edn ADR file format",
+        "etzhayyim.tools.adr-mdedn round-trip bridge"
+      ],
+      "related": [
+        "adr-2606121143-deps-edn-line-split-canonical-format",
+        "adr-2606162030-silicon-fab-flow-clj-port"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home"
+      ],
+      "last_verified": "2026-06-16",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606162330-session-close-silicon-fab-clj-and-md-edn.md",
+      "id": "adr-2606162330-session-close-silicon-fab-clj-and-md-edn",
+      "title": "ADR-2606162330: session close — silicon fab → runnable cljc + .md.edn doc format + generated adr-index",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "session-close-silicon-fab-clj-and-md-edn",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606162030-silicon-fab-flow-clj-port",
+        "adr-2606162200-md-edn-commented-edn-adr-format",
+        "adr-2606160842-kotoba-code-actor-py-to-clj-port-wave"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
       "last_verified": "2026-06-16",
       "amends": [],
       "amended_by": []
