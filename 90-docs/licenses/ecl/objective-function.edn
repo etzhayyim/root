@@ -21,7 +21,7 @@
 {:meta
  {:id    "ecl-objective-function"
   :title "ECL 子孫-Wellbecoming 目的関数"
-  :version "0.3-draft"
+  :version "0.4-draft"
   :date  "2026-06-17"
   :note  "基準 = 子・孫の動的 wellbecoming。固定ルールでなく目的関数で動的評価する。
           v0.2 (ADR-2606172359): compute(旧 Murakumo-only §2(i))と化石(旧 §2(d) 燃焼禁止)を移管。
@@ -29,8 +29,10 @@
           §2(c)収益化監視部分)と経済構造(非営利のみ/donation/no-equity/広告排除/open-source強制)を
           本目的関数へ移管。反個人主義の価値は §2(g)(categorical 残置)+ collective-commons 次元で
           二重保持 — 私的捕獲/個人主義的蓄積/commons 囲い込みは collective-commons で動的に負。
-          残る hard-floor screen は子孫実害 categorical(CSAM/強制労働)+ Tier-0 直撃
-          (aggression-lethal-covert / asymmetric-unwatched surveillance)のみ。"}
+          v0.4 (ADR-2606182359 wave3): 残置していた hard-floor screens(CSAM/強制労働/攻撃武力/
+          非対称監視)も §2(g)反個人主義も全て目的関数で score 化。掟リスト(:screens)を廃止し、
+          子・孫 priority への最大級の害だけを非線形 :catastrophe 項(非交渉)で表現。
+          すべては J で計算される — 固定するのは priority のみ。"}
 
  ;; ── 目的関数の次元 (Tier-0 で固定: 存在と符号方向) ────────────────────────────
  ;; score の意味: +2 強く資する … 0 中立 … -2 強く反する (子孫 wellbecoming に対して)
@@ -57,10 +59,12 @@
    :tier0 "collective/relational over isolated individual"
    :plus "commons/関係的紐帯を強める(子孫が育つ土壌)。open-hardware/donated/低 lock-in compute。
           open-source/commons 公開。collective に payoff が還る形(私的捕獲なし)。知識への open access"
-   :minus "individualist 囲い込み / 私的捕獲 / 個人主義的蓄積(反個人主義 §2(g) の経済的表現 —
-           *非営利の精神はここで動的に enforce*; ADR-2606180001) / *有害な compute lock-in・vendor 依存*
-           (旧 Murakumo-only; ADR-2606172359) / proprietary 囲い込み(旧 open-source 強制) /
-           専門知の独占的 gatekeeping(旧 §2(e)) / commons に還元しない value-extraction(旧 §2(b))"}
+   :minus "individualist 囲い込み / 私的捕獲 / 個人主義的蓄積(反個人主義の経済的表現 —
+           *非営利の精神はここで動的に enforce*; ADR-2606180001) / 宣言された個人主義教義
+           (旧 §2(g) categorical 排除を廃止 — 宣言でなく実効で net 評価, 反個人主義に*反する*寄与;
+           ADR-2606182359 wave3) / *有害な compute lock-in・vendor 依存*(旧 Murakumo-only; ADR-2606172359) /
+           proprietary 囲い込み(旧 open-source 強制) / 専門知の独占的 gatekeeping(旧 §2(e)) /
+           commons に還元しない value-extraction(旧 §2(b))"}
 
   {:key :reciprocal-transparency :weight 0.15 :scale [-2 2]
    :label "相互監視 (見守り — 子供を守り孤立を断つ村社会)"
@@ -76,20 +80,19 @@
    :plus "人間を強制労働から解放する"
    :minus "強制/隷属労働を深める"}]
 
- ;; ── 確定フロア screens (Tier-1; 子孫 wellbecoming を破滅的に侵すもの) ─────────────
- ;; これらは「scoring すべきでない」かつ「司法で執行可能な bright-line」である必要が
- ;; あるため、目的関数の外に列挙された確定ルールとして残す (二層設計の legal backstop)。
- ;; 1つでも発火 → J を計算せず即 :non-aligned。
- ;; 注 (ADR-2606172359 + 2606180001): 環境/化石・compute・事業モデル(金融/専門知/兵器商業化/
- ;; 収益化監視)・経済構造(非営利/広告/equity/open-source)は確定フロアから外し目的関数で net 評価。
- ;; 確定フロアに残すのは「net に関わらず categorically 子孫を侵すもの(虐待/強制労働)」と
- ;; 「Tier-0 を直撃する核(aggression-lethal-covert / asymmetric-unwatched surveillance)」のみ。
- ;; §2(a)/§2(c) は*部分*改正 — 事業モデル枠は目的関数へ、下記の核だけ screen に残す。
- :screens
- [{:key :csam :label "児童性的虐待 / 非合意性的コンテンツ" :anchor "Rider §2(k); 子 priority 直接侵害"}
-  {:key :forced-labor :label "強制労働 / 人身取引 / 搾取的児童労働" :anchor "Rider §2(j); mission 直接反"}
-  {:key :aggression-lethal-covert :label "aggression / autonomous lethal / covert(非透過)force(兵器*商業化*でなく攻撃性・lethality・秘匿性)" :anchor "Rider §2(a) 核 (透過防衛 force は可; 商業化は目的関数へ)"}
-  {:key :asymmetric-unwatched-surveillance :label "ASYMMETRIC unwatched-watcher(相互監視=Tier-0 を侵す。収益化監視自体は目的関数へ)" :anchor "Rider §2(c) 核 (相互監視は可; monetized は目的関数へ)"}]
+ ;; ── catastrophe = 目的関数自身の severity 項 (確定フロア掟リストを廃止; ADR-2606182359 wave3) ──
+ ;; もはや「掟リスト(screens)」は無い。残置していた hard-floor(CSAM/強制労働/攻撃武力/非対称監視)も
+ ;; §2(g)反個人主義も、すべて目的関数で score される。ただし「固定するのは priority」— 子・孫
+ ;; wellbecoming(priority 自体)への*最大級*の害は J の加重和で打ち消せない(非交渉)。これを
+ ;; 外部の掟でなく**目的関数自身の非線形 severity 項**として表現する:
+ ;;   子(ko)または孫(mago)次元の score が threshold 以下(最大級の害)→ J に関わらず :non-aligned。
+ ;; これは新しい掟ではなく「priority は absolute」という目的関数の性質。CSAM/強制児童労働/lethal
+ ;; aggression は ko/mago を最大級に侵すので、score 経由でここに該当する(列挙でなく評価で)。
+ :catastrophe
+ {:dims [:ko-wellbecoming :mago-wellbecoming]
+  :threshold -1.9
+  :rule "子・孫 wellbecoming への最大級の害(score ≤ -1.9)は J で打ち消せず :non-aligned。"
+  :rationale "固定するのは priority。掟リストでなく、priority 非交渉性の目的関数的表現。"}
 
  ;; ── route 閾値 (Tier-1) ────────────────────────────────────────────────────
  :thresholds {:aligned 0.5 :non-aligned -0.5}
@@ -105,123 +108,122 @@
   {:actor "kanjo"   :feeds [:collective-commons :labor-liberation] :what "disclosed 決算"}]
 
  ;; ── self-test fixtures (route の :expect を assert) ───────────────────────────
- ;; :scores は Tier-2 evidence の代理。:screens は発火した確定フロア。
+ ;; :scores は Tier-2 evidence の代理。screens は廃止 — 全て score で評価し、子・孫への
+ ;; 最大級の害(ko/mago ≤ -1.9)のみ :catastrophe 項で非交渉に non-aligned。
  :fixtures
  [{:key :worker-coop-oss
    :label "労働者協同組合の OSS (子孫に開かれた commons)"
-   :screens []
    :scores {:ko-wellbecoming 1 :mago-wellbecoming 1 :collective-commons 2
             :reciprocal-transparency 1 :labor-liberation 2}
    :expect :aligned}
 
   {:key :addictive-engagement-app
-   :label "addictive engagement 最適化アプリ (確定フロアには載らないが子の発達を削る)"
-   :screens []
-   :scores {:ko-wellbecoming -2 :mago-wellbecoming -1 :collective-commons -1
+   :label "addictive engagement 最適化アプリ — 子の発達を net で削る"
+   :scores {:ko-wellbecoming -1 :mago-wellbecoming -1 :collective-commons -1
             :reciprocal-transparency 0 :labor-liberation 0}
-   :expect :non-aligned}   ;; ← 目的関数が動的に捕捉 (固定リストにない害)
+   :expect :non-aligned}   ;; ← J 経由 (-0.75)
 
   {:key :ambiguous-dual-use
    :label "両義的 dual-use (証拠が拮抗 → 保留)"
-   :screens []
    :scores {:ko-wellbecoming 0 :mago-wellbecoming 0 :collective-commons 1
             :reciprocal-transparency -1 :labor-liberation 0}
    :expect :hold}
 
-  {:key :monetized-ad-broker
-   :label "personal-data ブローカー(収益化監視) — v3.4 で screen から目的関数へ。harm は net で捕捉"
-   :screens []
-   :scores {:ko-wellbecoming -1 :mago-wellbecoming -1 :collective-commons -1
-            :reciprocal-transparency -2 :labor-liberation 0}
-   :expect :non-aligned}   ;; ← 旧 §2(c) screen。今は reciprocal-transparency 等で net 非aligned
+  ;; ── ADR-2606182359 wave3: 旧 hard-floor も全て score 化。最大級の子孫害のみ catastrophe ──
+  {:key :csam-host
+   :label "CSAM ホスト — 子への最大級の害。掟でなく ko/mago = -2 が catastrophe 項を発火"
+   :scores {:ko-wellbecoming -2 :mago-wellbecoming -2 :collective-commons -1
+            :reciprocal-transparency 0 :labor-liberation 0}
+   :expect :non-aligned}   ;; ← :catastrophe (priority 非交渉; 列挙でなく評価で)
+
+  {:key :forced-child-labor
+   :label "強制児童労働 — 子への最大級の害。ko = -2 が catastrophe を発火"
+   :scores {:ko-wellbecoming -2 :mago-wellbecoming -1 :collective-commons -1
+            :reciprocal-transparency 0 :labor-liberation -2}
+   :expect :non-aligned}   ;; ← :catastrophe
+
+  {:key :lethal-aggression-arms
+   :label "攻撃的 lethal 武力 — 子・孫への最大級の害。ko/mago = -2 が catastrophe を発火"
+   :scores {:ko-wellbecoming -2 :mago-wellbecoming -2 :collective-commons -1
+            :reciprocal-transparency -1 :labor-liberation 0}
+   :expect :non-aligned}   ;; ← :catastrophe (旧 §2(a) 核も score 化)
 
   {:key :asymmetric-unwatched-watcher
-   :label "非対称 unwatched-watcher(相互監視=Tier-0 を侵す) — 核は screen に残置"
-   :screens [:asymmetric-unwatched-surveillance]
-   :scores {}
-   :expect :non-aligned}
+   :label "非対称 unwatched-watcher(相互監視を侵す) — 旧 §2(c) 核も score 化, J 経由"
+   :scores {:ko-wellbecoming -1 :mago-wellbecoming 0 :collective-commons -2
+            :reciprocal-transparency -2 :labor-liberation 0}
+   :expect :non-aligned}   ;; ← J 経由 (-0.95)。最大級でないので catastrophe でなく score
 
-  {:key :csam-host
-   :label "CSAM ホスト (確定フロア発火, scoring 不要)"
-   :screens [:csam]
-   :scores {}
-   :expect :non-aligned}
+  {:key :individualist-doctrine-serves-children
+   :label "宣言は個人主義だが実効は子供に資する — 旧 §2(g) categorical 排除を廃止, 実効で評価"
+   :scores {:ko-wellbecoming 1 :mago-wellbecoming 1 :collective-commons -1
+            :reciprocal-transparency 0 :labor-liberation 0}
+   :expect :hold}   ;; ← 宣言教義で自動排除しない。実効が資すれば弾かれず評価 (思想は目的関数で)
 
-  ;; ── ADR-2606172359 改正の実証: 化石/compute は categorical でなく net で評価 ──
+  ;; ── ADR-2606172359 wave1: 化石/compute は net 評価 ──
   {:key :fossil-feedstock-plastics
-   :label "化石を非燃焼 feedstock(プラスティック/素材)で使う — 確定フロア無し, net で評価"
-   :screens []
+   :label "化石を非燃焼 feedstock(プラスティック/素材)で使う — net で評価"
    :scores {:ko-wellbecoming 0 :mago-wellbecoming 0 :collective-commons 1
             :reciprocal-transparency 0 :labor-liberation 0}
-   :expect :hold}   ;; ← 旧 hard-floor なら即拒否。今は「有用な化石利用」を拒否せず評価→保留
+   :expect :hold}
 
   {:key :fossil-combustion-net-positive
-   :label "化石*燃焼*で net-positive CO₂e — 目的関数が孫次元で動的に捕捉"
-   :screens []
-   :scores {:ko-wellbecoming -1 :mago-wellbecoming -2 :collective-commons 0
+   :label "化石*燃焼*で net-positive CO₂e — net carbon balance で孫次元が負"
+   :scores {:ko-wellbecoming -1 :mago-wellbecoming -1 :collective-commons 0
             :reciprocal-transparency 0 :labor-liberation 0}
-   :expect :non-aligned}   ;; ← 害は依然捕捉。ただし screen でなく net carbon balance スコアで
+   :expect :non-aligned}   ;; ← J 経由 (-0.55)
 
   {:key :commercial-gpu-open-transparent
-   :label "商用 GPU だが透明・低 lock-in・open 成果 — 旧 Murakumo-only なら即拒否, 今は可"
-   :screens []
+   :label "商用 GPU だが透明・低 lock-in・open 成果 — Murakumo-only でない, net で可"
    :scores {:ko-wellbecoming 1 :mago-wellbecoming 0 :collective-commons 1
             :reciprocal-transparency 1 :labor-liberation 1}
-   :expect :aligned}   ;; ← vendor 名で禁じない。透明・低 lock-in なら aligned
+   :expect :aligned}
 
   {:key :commercial-gpu-monopoly-lockin
-   :label "商用 GPU で有害 lock-in・不透明・proprietary 依存 — 懸念を net でスコア"
-   :screens []
+   :label "商用 GPU で有害 lock-in・不透明・proprietary 依存 — net で減点"
    :scores {:ko-wellbecoming 0 :mago-wellbecoming -1 :collective-commons -2
             :reciprocal-transparency -1 :labor-liberation 0}
-   :expect :non-aligned}   ;; ← vendor でなく lock-in の度合いが減点される
-
-  ;; ── ADR-2606180001 wave2 の実証: 事業モデル/経済構造は categorical でなく net ──
-  {:key :bank-utility-custody
-   :label "正当な金融ユーティリティ(custody/決済) — 旧 §2(b) 投機禁止で巻き込まれず net 評価"
-   :screens []
-   :scores {:ko-wellbecoming 0 :mago-wellbecoming 0 :collective-commons 1
-            :reciprocal-transparency 1 :labor-liberation 0}
-   :expect :hold}   ;; ← 金融を事業名で弾かない。正当業務は評価→保留/可
-
-  {:key :predatory-lender
-   :label "略奪的貸付(≥36%) — §2(b) の*実害*は net で依然捕捉"
-   :screens []
-   :scores {:ko-wellbecoming -2 :mago-wellbecoming -1 :collective-commons -1
-            :reciprocal-transparency 0 :labor-liberation 0}
    :expect :non-aligned}
 
+  ;; ── ADR-2606180001 wave2: 事業モデル/経済構造は net 評価 ──
+  {:key :bank-utility-custody
+   :label "正当な金融ユーティリティ(custody/決済) — 事業名で弾かず net で保留"
+   :scores {:ko-wellbecoming 0 :mago-wellbecoming 0 :collective-commons 1
+            :reciprocal-transparency 1 :labor-liberation 0}
+   :expect :hold}
+
+  {:key :predatory-lender
+   :label "略奪的貸付(≥36%) — 実害を net で捕捉"
+   :scores {:ko-wellbecoming -1 :mago-wellbecoming -1 :collective-commons -2
+            :reciprocal-transparency 0 :labor-liberation 0}
+   :expect :non-aligned}   ;; ← J 経由 (-0.95)
+
   {:key :monopolistic-legal-gatekeeper
-   :label "法律知識の独占的 gatekeeping — §2(e) の*実害*(access 囲い込み)を collective-commons で"
-   :screens []
+   :label "法律知識の独占的 gatekeeping — access 囲い込みを collective-commons で"
    :scores {:ko-wellbecoming 0 :mago-wellbecoming -1 :collective-commons -2
             :reciprocal-transparency 0 :labor-liberation 0}
    :expect :non-aligned}
 
   {:key :transparent-defensive-tech
-   :label "透過的防衛技術(dual-use) — §2(a) 商業化枠は目的関数へ。攻撃/lethal でなければ net 評価"
-   :screens []
+   :label "透過的防衛技術(dual-use) — 攻撃/lethal でなければ net で評価"
    :scores {:ko-wellbecoming 0 :mago-wellbecoming 0 :collective-commons 1
             :reciprocal-transparency 1 :labor-liberation 0}
-   :expect :hold}   ;; ← 兵器*商業化*でなく攻撃性で判定。透過防衛は弾かれず評価
+   :expect :hold}
 
   {:key :ad-funded-attention-extractor
-   :label "広告 attention 搾取モデル — 旧『広告排除』は net へ。attention 搾取の害を捕捉"
-   :screens []
-   :scores {:ko-wellbecoming -2 :mago-wellbecoming 0 :collective-commons -1
+   :label "広告 attention 搾取モデル — attention 搾取の害を net で捕捉"
+   :scores {:ko-wellbecoming -1 :mago-wellbecoming 0 :collective-commons -1
             :reciprocal-transparency -1 :labor-liberation 0}
-   :expect :non-aligned}
+   :expect :non-aligned}   ;; ← J 経由 (-0.60)
 
   {:key :for-profit-commons-contributor
-   :label "営利だが commons に payoff 還元・私的捕獲なし・透過 — 旧『非営利のみ』は net へ"
-   :screens []
+   :label "営利だが commons に payoff 還元・私的捕獲なし・透過 — net で aligned"
    :scores {:ko-wellbecoming 1 :mago-wellbecoming 0 :collective-commons 2
             :reciprocal-transparency 1 :labor-liberation 1}
-   :expect :aligned}   ;; ← 営利を事業名で弾かない。私的捕獲を生まず commons に資すれば aligned
+   :expect :aligned}
 
   {:key :individualist-private-equity-extractor
-   :label "個人主義的私的捕獲(PE 蓄積) — 非営利の精神は collective-commons + §2(g) で動的に enforce"
-   :screens []
+   :label "個人主義的私的捕獲(PE 蓄積) — collective-commons が私的捕獲を負へ"
    :scores {:ko-wellbecoming 0 :mago-wellbecoming -1 :collective-commons -2
             :reciprocal-transparency 0 :labor-liberation -1}
-   :expect :non-aligned}]}   ;; ← 反個人主義の価値が collective-commons 経由で私的捕獲を負へ
+   :expect :non-aligned}]}   ;; ← J 経由 (-0.80)

@@ -12,10 +12,7 @@
         :as-of "2026-06-17"
         :note "労働者協同組合のデータ commons — DISCLOSED 証拠から動的に評価"}
 
- ;; 確定フロア findings (Layer B; 観測 actor が DISCLOSED 事実として検出したもの)
- :screen-findings []
-
- ;; DISCLOSED 証拠 signals (Layer A の入力)
+ ;; DISCLOSED 証拠 signals (掟リストは廃止; 全て score 化し catastrophe 項のみ非交渉)
  :signals
  [{:source "shiori"  :dim :ko-wellbecoming       :sign 1  :magnitude 1.5 :confidence 0.8
    :evidence "youth cohort relief-gap narrowed (DISCLOSED metric)" :cite "shiori:relief/youth-2606"}

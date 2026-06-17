@@ -17,7 +17,7 @@
 (def dims (:dimensions spec))
 (def th   (:thresholds spec))
 (def valid-dims (set (map :key dims)))
-(def valid-screens (set (map :key (:screens spec))))
+(def cata (:catastrophe spec))
 
 (let [s (reduce + (map :weight dims))]
   (when (> (abs (- s 1.0)) 1e-9)
@@ -54,14 +54,11 @@
 (defn r3 [x] (when x (/ (Math/round (* x 1000.0)) 1000.0)))
 
 ;; ── evaluate ─────────────────────────────────────────────────────────────────
-(def findings (vec (:screen-findings ev)))
-(doseq [f findings]
-  (when-not (valid-screens f)
-    (binding [*out* *err*] (println "FATAL: unknown screen" f)) (System/exit 2)))
-
 (def scores (fuse-scores (:signals ev)))
 (def J (objective scores))
-(def route (cond (seq findings)         :non-aligned
+(defn catastrophe? [s] (some (fn [d] (<= (get s d 0) (:threshold cata))) (:dims cata)))
+(def cata? (catastrophe? scores))
+(def route (cond cata?                   :non-aligned
                  (>= J (:aligned th))    :aligned
                  (<= J (:non-aligned th)) :non-aligned
                  :else                   :hold))
@@ -70,27 +67,24 @@
 (def scorecard {:candidate (get-in ev [:meta :candidate])
                 :as-of (get-in ev [:meta :as-of])
                 :scores (into (sorted-map) (map (fn [[k v]] [k (r3 v)]) scores))
-                :screens findings :J (r3 J) :route route})
+                :catastrophe cata? :J (r3 J) :route route})
 (def digest (sha256-hex (pr-str scorecard)))
 
 (if edn-mode
   (prn (assoc scorecard :scorecard-sha256 digest))
   (do
     (println (format "候補: %s  (as-of %s)\n" (:candidate scorecard) (:as-of scorecard)))
-    (if (seq findings)
-      (println (format "確定フロア findings: %s → route = :non-aligned (fuse 不要)"
-                       (str/join ", " (map name findings))))
-      (do
-        (println "DISCLOSED 証拠 → per-dim fuse (基準 = 子孫 wellbecoming):")
-        (doseq [d dims]
-          (let [sigs (filter #(= (:dim %) (:key d)) (:signals ev))
-                contrib (str/join " + " (map #(format "%+.2f(%s)"
-                                                       (* (:sign %) (:magnitude %) (:confidence %))
-                                                       (:source %)) sigs))]
-            (println (format "  %-26s = %+.3f   [%s]" (name (:key d))
-                             (get scores (:key d)) (if (str/blank? contrib) "—" contrib)))))
-        (println (format "\n  J = %+.3f → route = %s (aligned≥%.1f / non-aligned≤%.1f)"
-                         J (name route) (:aligned th) (:non-aligned th)))))
+    (println "DISCLOSED 証拠 → per-dim fuse (基準 = 子孫 wellbecoming):")
+    (doseq [d dims]
+      (let [sigs (filter #(= (:dim %) (:key d)) (:signals ev))
+            contrib (str/join " + " (map #(format "%+.2f(%s)"
+                                                   (* (:sign %) (:magnitude %) (:confidence %))
+                                                   (:source %)) sigs))]
+        (println (format "  %-26s = %+.3f   [%s]" (name (:key d))
+                         (get scores (:key d)) (if (str/blank? contrib) "—" contrib)))))
+    (println (format "\n  J = %+.3f → route = %s%s" J (name route)
+                     (if cata? (format " (catastrophe: 子孫への最大級の害 ≤ %.1f, 非交渉)" (:threshold cata))
+                         (format " (aligned≥%.1f / non-aligned≤%.1f)" (:aligned th) (:non-aligned th)))))
     (println (format "\n  scorecard sha256: %s" digest))
     (println "  (real CIDv1 = rasen methods/cid.py; Council が 1 SBT=1 vote で bytes 検証)")
     ;; self-test against declared expectation

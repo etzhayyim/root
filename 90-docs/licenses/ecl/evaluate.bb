@@ -28,16 +28,23 @@
   "J = Σ_dim (weight · score). Missing dim score = 0 (neutral)."
   (reduce (fn [acc d] (+ acc (* (:weight d) (get scores (:key d) 0)))) 0.0 dims))
 
+(def cata (:catastrophe spec))
+
+(defn catastrophe? [scores]
+  "目的関数自身の severity 項: 子・孫 priority への最大級の害(dim ≤ threshold)は非交渉。
+   外部の掟リストでなく『priority は absolute』の表現 (ADR-2606182359)。"
+  (some (fn [d] (<= (get scores d 0) (:threshold cata))) (:dims cata)))
+
 (defn route [cand]
-  "Dynamic evaluation: hard-floor screens first, else objective-function bands."
-  (let [screens (seq (:screens cand))]
-    (if screens
-      {:route :non-aligned :J nil :reason {:screens (vec screens)}}
-      (let [J (objective (:scores cand))
-            r (cond (>= J (:aligned th))     :aligned
+  "All-objective-function evaluation: compute J always; the catastrophe term (a
+   property of the function, not a screen list) vetoes max-harm-to-子孫; else J bands."
+  (let [J (objective (:scores cand))]
+    (if (catastrophe? (:scores cand))
+      {:route :non-aligned :J J :reason {:catastrophe true}}
+      {:route (cond (>= J (:aligned th))     :aligned
                     (<= J (:non-aligned th)) :non-aligned
-                    :else                    :hold)]
-        {:route r :J J :reason {:objective true}}))))
+                    :else                    :hold)
+       :J J :reason {:objective true}})))
 
 (defn r2 [x] (when x (/ (Math/round (* x 100.0)) 100.0)))
 
@@ -59,18 +66,18 @@
       (do (println "unknown fixture:" k) (System/exit 2))
       (let [v (route f)]
         (println (format "候補: %s — %s\n" (name (:key f)) (:label f)))
-        (if (:screens (:reason v))
-          (println (format "確定フロア発火: %s → route = %s"
-                           (str/join ", " (map name (get-in v [:reason :screens])))
-                           (name (:route v))))
-          (do (println "目的関数 J の内訳 (基準 = 子孫 wellbecoming):")
-              (doseq [d dims]
-                (let [sc (get (:scores f) (:key d) 0)]
-                  (println (format "  %-26s w=%.2f · score=%+d = %+.3f   %s"
-                                   (name (:key d)) (:weight d) sc (* (:weight d) sc)
-                                   (:label d)))))
-              (println (format "\n  J = %+.3f   → route = %s (aligned≥%.1f / non-aligned≤%.1f)"
-                               (:J v) (name (:route v)) (:aligned th) (:non-aligned th))))))))
+        (println "目的関数 J の内訳 (基準 = 子孫 wellbecoming):")
+        (doseq [d dims]
+          (let [sc (get (:scores f) (:key d) 0)]
+            (println (format "  %-26s w=%.2f · score=%+.1f = %+.3f   %s"
+                             (name (:key d)) (:weight d) (double sc) (* (:weight d) sc)
+                             (:label d)))))
+        (println (format "\n  J = %+.3f" (:J v)))
+        (if (:catastrophe (:reason v))
+          (println (format "  catastrophe 項発火 (ko/mago ≤ %.1f, priority 非交渉) → route = %s"
+                           (:threshold cata) (name (:route v))))
+          (println (format "  → route = %s (aligned≥%.1f / non-aligned≤%.1f)"
+                           (name (:route v)) (:aligned th) (:non-aligned th)))))))
 
   :selftest
   (do
@@ -81,10 +88,10 @@
                      (+ (weight :ko-wellbecoming) (weight :mago-wellbecoming))))
     (let [results (for [f (:fixtures spec)]
                     (let [v (route f) ok (= (:route v) (:expect f))]
-                      (println (format "  %-3s %-24s J=%-6s → %-12s (expect %s)"
+                      (println (format "  %-3s %-38s J=%+.2f → %-12s%s"
                                        (if ok "ok" "FAIL") (name (:key f))
-                                       (if (:J v) (format "%+.2f" (:J v)) "n/a")
-                                       (name (:route v)) (name (:expect f))))
+                                       (:J v) (name (:route v))
+                                       (if (:catastrophe (:reason v)) " ⚠catastrophe" "")))
                       ok))
           fails (count (remove true? results))]
       (println (format "\n%d/%d passed" (- (count results) fails) (count results)))

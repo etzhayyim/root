@@ -9,9 +9,24 @@ proper (Lv7+ lock). Until ADR-2606064700 is ratified, every clause here keeps it
 current binding force and gate. See ADR-2606064700 for the derivation map.
 -->
 ```
-etzhayyim Charter Compliance Rider v3.4
-Last revised: 2026-06-17
-Supersedes: v3.3 (2026-06-17) per ADR-2606180001 — wave2: §2(a) (partial), §2(b),
+etzhayyim Charter Compliance Rider v3.5
+Last revised: 2026-06-18
+Supersedes: v3.4 (2026-06-17) per ADR-2606182359 — wave3: the categorical hard-floor
+            is ELIMINATED. All remaining prohibited categories — including the former
+            hard-floor cores (§2(a) aggression/lethal/covert, §2(c) asymmetric-unwatched
+            surveillance, §2(j) forced labor, §2(k) CSAM) AND §2(g) strict-individualist
+            ontology (its wave2 retention is now LIFTED) — are evaluated by the ECL
+            objective function (ADR-2606172300). There is no longer an enumerated list
+            of prohibited conduct. The ONLY non-negotiable is the priority itself:
+            catastrophic harm to 子・孫 wellbecoming (a child/descendant dimension at
+            maximal harm) is vetoed by the objective function's non-linear CATASTROPHE
+            term — a property of the function ("the priority is absolute"), not a
+            separate 掟. CSAM / forced-child-labor / lethal aggression reach non-aligned
+            via that term through their extreme child/descendant scores (by evaluation,
+            not enumeration). 固定するのは掟でなく priority (ADR-2606062100), 最後まで。
+            See ADR-2606182359 §D6 for the honest enforceability limit. v3.5 supersedes
+            v3.4 below.
+Supersedes (v3.4): v3.3 (2026-06-17) per ADR-2606180001 — wave2: §2(a) (partial), §2(b),
             §2(c) (partial), and §2(e) reframed from categorical business-model bans
             to NET-EFFECT evaluation under the ECL objective function; etzhayyim's own
             economic structure (non-profit-only / donation-only inflow / no-equity /
@@ -65,18 +80,29 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
    §1.5 of that Charter: "free release of new technology and intellectual property
    to charter-aligned others."
 
-2. PROHIBITED USE (Tier-1 derived policy)
+2. ALIGNMENT — OBJECTIVE-FUNCTION ASSESSED (Tier-1 derived policy; reframed v3.5)
 
-   You may NOT use, modify, or redistribute this work, in whole or in part, if you
+   As of v3.5 (ADR-2606182359), Section 2 is NOT a categorical list of prohibited
+   conduct. Whether You are a "Non-Aligned Entity" is determined by the ECL objective
+   function (ADR-2606172300), which scores Your actual effect on 子・孫 wellbecoming
+   and the related priorities. The categories enumerated below are SCORING INPUTS and
+   illustrations — describing what tends to score negative — NOT bright-line bans. The
+   only non-negotiable is the priority itself: catastrophic harm to a child/descendant
+   dimension (the CATASTROPHE term) is vetoed regardless of the weighted total. The
+   historical text below is RETAINED as guidance on how each consideration scores.
+
+   (Historical framing, now objective-function-assessed:) The former rule read — You
+   may NOT use, modify, or redistribute this work, in whole or in part, if you
    are an entity (a "Non-Aligned Entity") whose primary business activity (revenue
    share ≥ 25% in the trailing 12 months) falls into any category below — OR which
    engages in the conduct named in (a), (j), or (k) regardless of revenue share.
 
-   (a) FORCE — HARD-FLOOR CORE + OBJECTIVE-FUNCTION ASSESSED (reframed in v3.4 per
-       ADR-2606180001; was a categorical clause). The genuine-harm CORE remains a
-       HARD FLOOR, prohibited regardless of score: AGGRESSION; AUTONOMOUS LETHAL
-       systems; COVERT (off-chain, non-attested) force; or force provided primarily to
-       military / paramilitary forces engaged in armed conflict. What MOVES to the ECL
+   (a) FORCE — OBJECTIVE-FUNCTION ASSESSED + CATASTROPHE TERM (reframed v3.4→v3.5 per
+       ADR-2606180001 + 2606182359; was a categorical clause). The genuine-harm core —
+       AGGRESSION; AUTONOMOUS LETHAL systems; COVERT (off-chain, non-attested) force; or
+       force provided primarily to military / paramilitary forces in armed conflict —
+       reaches :non-aligned via the objective function's CATASTROPHE term (maximal harm
+       to 子・孫), no longer via a separate hard-floor list. What MOVES to the ECL
        objective function (ADR-2606172300) is the former business-model framing —
        "weapons as a commercial business" and "proprietary weapon design" are no longer
        prohibited by category; dual-use and defensive technology are assessed by net
@@ -105,11 +131,14 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
    (c) SURVEILLANCE — HARD-FLOOR CORE + OBJECTIVE-FUNCTION ASSESSED (reframed in v3.0;
        reciprocity axis clarified in v3.1 per ADR-2606082400; split in v3.4 per
        ADR-2606180001). Watching as such is not the wrong. The two halves now part:
-         (i) ASYMMETRIC / UNILATERAL — HARD FLOOR, prohibited regardless of score: the
+         (i) ASYMMETRIC / UNILATERAL — scored, with the worst cases reaching the
+             CATASTROPHE term (v3.5, ADR-2606182359; was a hard-floor in v3.4): the
              one-sided accumulation or retention of data about others by a party that
              is not itself equally observable — the watcher unwatched, surveillance
              without reciprocity, data hoarded by one over many. This DIRECTLY violates
-             the Tier-0 相互監視 priority and so remains categorical (even absent sale).
+             the Tier-0 相互監視 priority and scores strongly negative (reciprocal-
+             transparency + collective-commons), even absent sale; an extreme,
+             society-scale asymmetric panopticon reaches the catastrophe term.
         (ii) MONETIZED — OBJECTIVE-FUNCTION ASSESSED (moved in v3.4): the collection,
              brokerage, or sale of personal data (ad-tech DSP/SSP, data brokers,
              consumer-surveillance platforms) is no longer prohibited by business-model
@@ -179,11 +208,18 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        design targeted at developmental stages). (The habitable-environment item is
        now carried by §2(d).)
 
-   (g) STRICT INDIVIDUALIST ONTOLOGY (RETAINED as a categorical clause in v3.4 per
-       ADR-2606180001 — explicitly NOT moved to the objective function). Unlike the
-       business-model clauses, this is a core RELIGIOUS VALUE (反個人主義, Charter §1.8):
-       the negation of strict individualism is doctrinal communion-scope, not a means.
-       Operation of entities whose publicly declared
+   (g) STRICT INDIVIDUALIST ONTOLOGY — OBJECTIVE-FUNCTION ASSESSED (its v3.4 retention
+       is LIFTED in v3.5 per ADR-2606182359; now moved to the objective function like
+       every other consideration). 反個人主義 remains a core RELIGIOUS VALUE (Charter
+       §1.8), but it is enforced DYNAMICALLY by the collective-commons dimension — which
+       scores private capture, individualist accumulation, and commons enclosure
+       negative — NOT by a categorical exclusion of entities for their DECLARED doctrine.
+       An entity is judged by its actual effect on 子・孫 and the commons, not by the
+       words of its mission statement: an org with individualist-sounding doctrine whose
+       actual activity serves children and the commons is evaluated on that effect, not
+       auto-excluded (思想は目的関数で評価され受け入れられる). The value is kept; the
+       blunt instrument of doctrine-based exclusion is not.
+       (Historical framing:) Operation of entities whose publicly declared
        mission, governance, or doctrinal commitment explicitly affirms the
        metaphysical doctrine that "the individual" is the constitutive ontological
        and moral unit, independent of and prior to collective / relational /
@@ -226,19 +262,25 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        monopoly / anti-dependence) — the priority is UNCHANGED; only the instrument
        moves from a fixed ban to net-effect scoring.
 
-   (j) FORCED LABOR / HUMAN TRAFFICKING (NEW in v3.0). Use of, or revenue derived
-       from, forced labor, bonded labor, exploitative child labor, or human
-       trafficking. DERIVED FROM: Charter §1.1 (the mission of structurally
-       liberating humans from coerced labor). Prohibited regardless of revenue
-       share. A religion whose final purpose is labor liberation cannot license
-       those who coerce labor.
+   (j) FORCED LABOR / HUMAN TRAFFICKING — CATASTROPHE TERM (reframed v3.5 per
+       ADR-2606182359; was a NEW-in-v3.0 categorical clause). Forced labor, bonded
+       labor, exploitative child labor, and human trafficking are not enumerated bans
+       but reach :non-aligned through the objective function's CATASTROPHE term — they
+       inflict maximal harm on the child/descendant dimensions (and directly negate
+       the labor-liberation mission), so the score, not a list, vetoes them. DERIVED
+       FROM: Charter §1.1. A religion whose final purpose is labor liberation cannot
+       license those who coerce labor — and the objective function scores coercion as
+       catastrophic, by evaluation rather than enumeration.
 
-   (k) CHILD SEXUAL ABUSE MATERIAL / NON-CONSENSUAL SEXUAL CONTENT (NEW in v3.0).
-       Production, distribution, or facilitation of child sexual abuse material, or
-       of non-consensual sexual content. DERIVED FROM: Charter §1.9 (protection of
-       子孫) + §1.13 (Eros permitted ONLY as consenting-adult expression; the §1.13
-       doctrinal limit is here promoted to an enforced Rider clause). Prohibited
-       regardless of revenue share.
+   (k) CHILD SEXUAL ABUSE MATERIAL / NON-CONSENSUAL SEXUAL CONTENT — CATASTROPHE TERM
+       (reframed v3.5 per ADR-2606182359; was a NEW-in-v3.0 categorical clause). CSAM
+       and non-consensual sexual content inflict maximal, non-negotiable harm on the
+       child dimension and so reach :non-aligned via the objective function's
+       CATASTROPHE term. DERIVED FROM: Charter §1.9 (protection of 子孫) + §1.13 (Eros
+       permitted ONLY as consenting-adult expression). NOTE (ADR-2606182359 §D6): of
+       all considerations this is the one a real-world counsel review is most likely to
+       re-state as an explicit bright-line for enforceability; the catastrophe term is
+       the principled in-function expression, not a softening of the prohibition.
 
    (l) MULTI-GENERATIONALLY HARMFUL OR MONOPOLISTIC RESOURCE EXTRACTION
        (reframed in v3.2 per ADR-2606161700; replaces the v3.0 blanket
