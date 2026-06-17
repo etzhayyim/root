@@ -66,6 +66,36 @@
              (let [r (clojure.test/run-tests 'kanae.methods.test-pipeline)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
+  test:charter
+  {:doc "Charter-gate conformance suites — substrate-native cljc (ADR-2606160842 py→clj port wave; clj+datomic first tier). 34 actors read their lexicons (central JSON / lex.edn) + manifest and pin the const/enum/required charter gates."
+   :task (do (require 'clojure.test
+                      'chigiri.methods.test-charter-gates 'danjo.methods.test-charter-gates 'funadaiku.methods.test-charter-gates
+                      'hagukumi.methods.test-charter-gates 'hikari.methods.test-charter-gates 'himawari.methods.test-charter-gates
+                      'himotoki.methods.test-charter-gates 'hodoki.methods.test-charter-gates 'igata.methods.test-charter-gates
+                      'kanae.methods.test-charter-gates 'kanayama.methods.test-charter-gates 'kataribe.methods.test-charter-gates
+                      'kawaraban.methods.test-charter-gates 'kazaori.methods.test-charter-gates 'kizashi.methods.test-charter-gates
+                      'kurashimori.methods.test-charter-gates 'makura.methods.test-charter-gates 'manabi.methods.test-charter-gates
+                      'mitsuho.methods.test-charter-gates 'mizuho.methods.test-charter-gates 'moushibumi.methods.test-charter-gates
+                      'musubi.methods.test-charter-gates 'ooyake.methods.test-charter-gates 'ossekai.methods.test-charter-gates
+                      'sarutahiko.methods.test-charter-gates 'seigyo.methods.test-charter-gates 'shidemori.methods.test-charter-gates
+                      'suimin.methods.test-charter-gates 'suki.methods.test-charter-gates 'tatekata.methods.test-charter-gates
+                      'toritate.methods.test-charter-gates 'tsutae.methods.test-charter-gates 'wakai.methods.test-charter-gates
+                      'yamabiko.methods.test-charter-gates)
+             (let [r (clojure.test/run-tests
+                      'chigiri.methods.test-charter-gates 'danjo.methods.test-charter-gates 'funadaiku.methods.test-charter-gates
+                      'hagukumi.methods.test-charter-gates 'hikari.methods.test-charter-gates 'himawari.methods.test-charter-gates
+                      'himotoki.methods.test-charter-gates 'hodoki.methods.test-charter-gates 'igata.methods.test-charter-gates
+                      'kanae.methods.test-charter-gates 'kanayama.methods.test-charter-gates 'kataribe.methods.test-charter-gates
+                      'kawaraban.methods.test-charter-gates 'kazaori.methods.test-charter-gates 'kizashi.methods.test-charter-gates
+                      'kurashimori.methods.test-charter-gates 'makura.methods.test-charter-gates 'manabi.methods.test-charter-gates
+                      'mitsuho.methods.test-charter-gates 'mizuho.methods.test-charter-gates 'moushibumi.methods.test-charter-gates
+                      'musubi.methods.test-charter-gates 'ooyake.methods.test-charter-gates 'ossekai.methods.test-charter-gates
+                      'sarutahiko.methods.test-charter-gates 'seigyo.methods.test-charter-gates 'shidemori.methods.test-charter-gates
+                      'suimin.methods.test-charter-gates 'suki.methods.test-charter-gates 'tatekata.methods.test-charter-gates
+                      'toritate.methods.test-charter-gates 'tsutae.methods.test-charter-gates 'wakai.methods.test-charter-gates
+                      'yamabiko.methods.test-charter-gates)]
+               (when (pos? (+ (:fail r) (:error r)))
+                 (System/exit 1))))}
   test:keizu
   {:doc "keizu 系図 Clojure test suite (govt power-relations KG; py→cljc port wave, ADR-2606160842)"
    :task (do (require 'clojure.test
@@ -269,6 +299,7 @@
                       'tsumugi.methods.test-autorun
                       'tsumugi.methods.test-publish-ipfs
                       'tsumugi.methods.test-coverage-report
+                      'tsumugi.methods.test-project-influence-posts
                       'hotaru.methods.test-analyze 'mitooshi.methods.test-analyze
                       'mitooshi.methods.test-social 'mitooshi.methods.test-synthesize
                       'mitooshi.methods.test-forecast-quantile 'mitooshi.methods.test-horizon
@@ -341,6 +372,7 @@
                       'tsumugi.methods.test-autorun
                       'tsumugi.methods.test-publish-ipfs
                       'tsumugi.methods.test-coverage-report
+                      'tsumugi.methods.test-project-influence-posts
                                              'hotaru.methods.test-analyze
                                              'mitooshi.methods.test-analyze
                                              'mitooshi.methods.test-social
