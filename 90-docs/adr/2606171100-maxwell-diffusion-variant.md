@@ -227,10 +227,29 @@ quantized GPU residency for throughput.
 
 So all three RSi legs now exist for maxwell-diffusion: **corpus** (shared maxwell-sft-corpus)
 + **train** (`train_diffusion.py`, mechanism-proven) + **eval** (`microbench --diffusion`).
-Two gates remain before `available:true`: (1) **4-bit GPU residency** (no bnb on ROCm
-gfx1151 yet → CPU-only; full SFT + the >1100 tok/s thesis both need it); (2) **corruption-
-schedule validation** against Google's (unpublished) training recipe — the uniform scheme
-here is a defensible standard objective but not bit-confirmed. `available:false` stands.
+Two gates remain before `available:true`: (1) **4-bit GPU residency** (full SFT + the
+>1100 tok/s thesis both need it); (2) **corruption-schedule validation** against Google's
+(unpublished) training recipe — the uniform scheme here is a defensible standard objective
+but not bit-confirmed. `available:false` stands.
+
+### 4-bit / QLoRA path — built, kernel works, model-fit walled (2026-06-17)
+
+bitsandbytes was **compiled from source for ROCm/HIP `gfx1151`** (recipe:
+`70-tools/scripts/maxwell/BNB-ROCM-BUILD.md`) — the PyPI wheel ships no ROCm binary.
+A 4-bit GPU matmul (`Linear4bit` on `cuda`) returns finite output, so **the hard infra
+blocker (no 4-bit on ROCm gfx1151) is cleared**. But loading the 25.2B model 4-bit on
+gad's **32 GB usable VRAM** is walled by two independent issues:
+- `device_map={"":0}` (all-GPU): **OOM at the load-materialization peak** (~1 GB over;
+  final 4-bit resident ~30 GB would fit, but fp16 shards materialize on-device before
+  quantizing; `expandable_segments:True` insufficient).
+- `device_map="auto"` / `llm_int8_enable_fp32_cpu_offload`: the **`diffusion_gemma`
+  accelerate meta-tensor bug** (empty `hf_device_map`; generate fails on meta).
+
+Unlocks (operator/one-time, in BNB-ROCM-BUILD.md): (1) raise the EVO-X2 UMA/GTT so
+>32 GB is GPU-usable (the EVO-X2 has ~94 GB unified — the clean fix); (2) load a
+**pre-quantized 4-bit checkpoint** (no fp16 peak); (3) upstream fix for the diffusion_gemma
+accelerate dispatch. Until then, maxwell-diffusion runs **CPU bf16** on gad (bench 80%,
+train smoke loss 1.07→0.04).
 
 # References
 
