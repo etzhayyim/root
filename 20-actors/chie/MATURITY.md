@@ -15,7 +15,9 @@
 | DISCLOSED ingest + G7 gate | ✅ | `methods/ingest.cljc` — offline `ingest-file`/`ingest-files` upgrade **rounds + policy instruments** → `:authoritative` (round amount + official-source `:en/disclosed-src` on rounds/governs edges; idempotent, concentration-preserving). 2 fixtures (rounds + EU-AI-Act/US-EO/広島/CoE w/ real URLs) → **8 :authoritative nodes**; `ingest-live` REFUSES without `CHIE_INGEST_LIVE` + operator DID (G7, tested) |
 | **root kotoba roster** | ✅ | `00-contracts/schemas/ai-ecosystem-ontology.kotoba.edn` (db/ident vocab) + seed names its `vocabulary:` → `bb kotoba:ingest --validate` = **105 entities / 589 datoms / 0 undeclared / 0 value-violations**; `bb kotoba:roster-report` lists chie (27/27 actors clean). Drift-guard test locks seed↔schema |
 | KG query interface | ✅ | `methods/query.cljc` — funders-of / compute-suppliers-of / governed-by / rounds-of / subsidiaries / concentration-in / opening-worklist; reuses the analyze integral (one source of truth) |
-| Tests | ✅ | 9 suites · **46 tests / 153 assertions** green (`bb test:actors` auto-discovers) |
+| Integrity / charter gate | ✅ | `methods/verify.cljc` — one self-audit: struct + kind/edge validity + endpoint resolution + load∈[0,1] + G2 (public-role-only) + G4 (forbidden-token scan) + G5 sourcing + schema drift; adversarial cases test-caught |
+| edn-native manifest | ✅ | `manifest.edn` (kotoba/edn-native canonical manifest — gates / methods / cells / bridge / tests) alongside `manifest.jsonld` |
+| Tests | ✅ | 10 suites · **53 tests / 165 assertions** green (`bb test:actors` auto-discovers) |
 | Charter gates G1–G5 | ✅ | test-enforced: open→0 (G1), inbound-integral (G2), representative-only (G5), no-trade/no-score (G4) |
 | Cross-actor bridge | ✅ (declared) | `:bridge` → kanjō/kabuto/handotai/kasa/kenkyusha/keizu/kosatsu/abaki |
 | **常駐化 (resident heartbeat)** | ✅ R1 | `methods/autorun.cljc` + `cell.cljc` (`fire`) → content-addressed Datom tx on append-only kotoba commit-DAG (`verify-chain` tamper-evident, resume-safe) + Murakumo digest in the summary; registered `ChieHeartbeatCell` in cell-runner `cells.edn` (node gad, cron `37 * * * *`, healthz 13082) |
