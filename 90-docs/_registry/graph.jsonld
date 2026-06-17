@@ -16444,6 +16444,24 @@
       "lastVerified": "2026-06-17"
     },
     {
+      "id": "doc:adr-2606182359-charter-amendment-wave3-all-prohibitions-to-objective-function",
+      "type": "TechArticle",
+      "title": "ADR-2606182359: 憲法改正 wave3 — 残る全 categorical 禁止を目的関数へ; 掟リスト廃止, priority のみ非交渉 (catastrophe 項)",
+      "status": "proposed",
+      "topic": "charter-amendment-wave3-all-prohibitions-to-objective-function",
+      "authoritative": true,
+      "authoritativeFor": [
+        "all-conduct-objective-function-assessed",
+        "catastrophe-severity-term",
+        "charter-rider-v3.5-amendment"
+      ],
+      "related": [
+        "doc:2605192100",
+        "doc:2605192200"
+      ],
+      "lastVerified": "2026-06-18"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

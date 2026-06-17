@@ -26028,6 +26028,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606182359-charter-amendment-wave3-all-prohibitions-to-objective-function.md",
+      "id": "adr-2606182359-charter-amendment-wave3-all-prohibitions-to-objective-function",
+      "title": "ADR-2606182359: 憲法改正 wave3 — 残る全 categorical 禁止を目的関数へ; 掟リスト廃止, priority のみ非交渉 (catastrophe 項)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "charter-amendment-wave3-all-prohibitions-to-objective-function",
+      "authoritative": true,
+      "authoritative_for": [
+        "all-conduct-objective-function-assessed",
+        "catastrophe-severity-term",
+        "charter-rider-v3.5-amendment"
+      ],
+      "related": [
+        "2605192100",
+        "2605192200"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606180001",
+        "2606172359",
+        "2606172300",
+        "2606062100"
+      ],
+      "last_verified": "2026-06-18",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

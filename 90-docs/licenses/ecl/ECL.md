@@ -84,10 +84,15 @@ related:
   **改正 wave2 (ADR-2606180001)**: 事業モデル(§2(b)金融/§2(e)専門知/§2(a)兵器*商業化*部分/§2(c)*収益化*監視
   部分)と経済構造(非営利のみ/donation/no-equity/広告排除/open-source強制)も目的関数へ。私的捕獲・
   attention 搾取・proprietary 囲い込み・gatekeeping・略奪は collective-commons/ko-wellbecoming/
-  reciprocal-transparency で動的に負。**§2(g)反個人主義は宗教価値として categorical 残置**し、それと
-  collective-commons 次元の二重で非営利の精神を保持。固定ルールは priority の*手段*を priority
-  そのものとして凍結する誤りだった。残す確定フロアは「net に関わらず子孫を侵すもの(CSAM/強制労働)」と
-  「Tier-0 直撃核(aggression-lethal-covert / asymmetric-unwatched surveillance)」に限る。
+  reciprocal-transparency で動的に負。(wave2 では §2(g) を宗教価値として残置していた。)
+  **改正 wave3 (ADR-2606182359)**: 残置していた hard-floor(CSAM/強制労働/攻撃武力/非対称監視)も
+  §2(g)反個人主義も**全て目的関数で score 化**。掟リスト(screens)を**完全廃止**し、唯一の非交渉性は
+  **priority 自体**だけ — 子・孫 wellbecoming への*最大級*の害を非線形 **catastrophe 項**(ko/mago ≤
+  threshold → J に関わらず non-aligned)で表現する。これは掟でなく「priority は absolute」という目的
+  関数の性質。CSAM/強制児童労働/lethal aggression は列挙でなく**score 経由**でここに該当する。§2(g)は
+  宣言教義で排除せず実効で評価(individualism を掲げても子供に資すれば弾かれない); 反個人主義の価値は
+  collective-commons 次元が動的に担う。固定ルールは priority の*手段*を priority そのものとして凍結する
+  誤りだった — wave3 でその誤りを最後まで除いた。
 
 これは tanemaki DD (ADR-2606122001) と同型: **screens が weighting の前に発火する**。
 列挙が消えるのではなく、**列挙は『scoring すべきでない最悪のケース』の確定下限に縮小**し、
@@ -136,7 +141,8 @@ DRAFT — not in force until ratified under §11.
    "Descendant Wellbecoming" means the dynamic developmental trajectory (not the
        static state) of children and of persons born at least twenty-five (25) years
        hence. It is the telos of J.
-   "Hard-Floor Conduct" means the conduct enumerated in §3.
+   "Catastrophe Term" means the objective function's non-linear veto on maximal harm to
+       a child/descendant dimension, defined in §3 and objective-function.edn.
    "Council" means the etzhayyim Council (ADR-2605172600).
    "Non-Aligned" means the status assigned to You under §2(c) or §3.
 
@@ -162,27 +168,20 @@ DRAFT — not in force until ratified under §11.
        attestation under §7, which treats J as advisory and verifies the scorecard by
        one-SBT-one-vote. This License proposes a score; the Council decides status.
 
-3. HARD FLOOR (determinate backstop; evaluated before §2)
-   Regardless of J, and regardless of revenue share, You are Non-Aligned if You
-   engage in any of the following Hard-Floor Conduct:
-   (a) child sexual abuse material, or non-consensual sexual content;
-   (b) forced labor, human trafficking, or exploitative child labor;
-   (c) weapons as a commercial business; proprietary (closed-source) weapon design;
-       covert (off-chain, non-attested) force; or autonomous lethal systems —
-       PROVIDED THAT Transparent Defensive Force satisfying (i) on-chain monitoring,
-       (ii) open-source publication, and (iii) one-SBT-one-vote authorization is NOT
-       Hard-Floor Conduct;
-   (d) the sale or brokerage of personal data, or asymmetric surveillance conducted by
-       a watcher that is not itself equally observable — PROVIDED THAT reciprocal,
-       non-monetized mutual transparency (相互監視) is NOT Hard-Floor Conduct.
-   This §3 is not a substitute for §2; it is the determinate lower bound of conduct
-   too severe to leave to scoring.
-   NOTE (ADR-2606172359): environmental and multi-generational impact (including fossil
-   use) and compute sourcing are NOT Hard-Floor Conduct. They are evaluated under §2 by
-   net effect — fossil use by net carbon balance (non-combustion feedstock is not per se
-   harmful), compute by lock-in, transparency, and carbon — through the heavily-weighted
-   Descendant-Wellbecoming dimension. A categorical fossil ban or commercial-compute ban
-   was the wrong instrument: it fixed a means as if it were the priority.
+3. CATASTROPHE TERM (the only non-negotiable; ADR-2606182359 v3.5)
+   There is no enumerated hard-floor and no categorical list of prohibited conduct. All
+   conduct is assessed by the objective function J (§2). The ONLY non-negotiable is the
+   priority itself: where Your effect on a child or descendant dimension reaches maximal
+   harm (a Descendant-Wellbecoming dimension at or below the catastrophe threshold
+   specified in objective-function.edn), You are Non-Aligned regardless of the weighted
+   total. This is a property of the function ("the priority is absolute"), not a separate
+   rule. Conduct historically enumerated as hard-floor — child sexual abuse material,
+   forced labor and trafficking, aggression / autonomous-lethal / covert force, and the
+   asymmetric unwatched-watcher — reaches Non-Aligned through this term by its extreme
+   child/descendant scores, by evaluation rather than enumeration. (Honest limit,
+   ADR-2606182359 §D6: with no enumerated bright-line, the legal anchor is the
+   catastrophe term + Apache; a real-world deployment may re-state the most extreme
+   conduct — notably CSAM — as an explicit bright-line for enforceability.)
 
 4. EFFECT OF NON-ALIGNMENT
    Becoming Non-Aligned (a) terminates the patent license under Apache §3 as of the
@@ -207,7 +206,7 @@ DRAFT — not in force until ratified under §11.
    (a) Whether You are Non-Aligned is determined by the Council (Lv6+, quorum of
        three) via an on-chain attestation, appealable by You for thirty (30) days;
        this does not preclude parallel judicial proceedings.
-   (b) Amendment of the weights, thresholds, or the §3 enumeration requires Council
+   (b) Amendment of the weights, thresholds, or the §3 catastrophe term requires Council
        Lv7+ unanimity plus a priority-conformance attestation demonstrating that the
        amendment serves a Tier-0 priority at least as well as the text it replaces.
        The Tier-0 structure of J — which priorities are measured, and the direction in
@@ -219,11 +218,14 @@ DRAFT — not in force until ratified under §11.
    "Tree of Life", or any associated mark, beyond fair-use attribution under Apache §4.
 
 9. SEVERABILITY AND LEGAL ANCHOR
-   If §2 is held unenforceable in a jurisdiction, then in that jurisdiction §3 (the
-   determinate enumeration) together with Apache 2.0 remains the legal anchor. If §3
-   is also held unenforceable there, the Work is, in that jurisdiction only,
-   distributed under Apache 2.0 alone. The §6 permanent-record doctrine yields to
-   mandatory local erasure law where such law applies.
+   If §2 (and its §3 catastrophe term) is held unenforceable in a jurisdiction, the Work
+   is, in that jurisdiction only, distributed under Apache 2.0 alone, and the Licensor
+   may apply alternative arrangements there. Because v3.5 removed the enumerated bright-
+   line floor, the legal anchor is the catastrophe term + Apache; where a jurisdiction
+   requires a determinate enumeration (notably for the most extreme conduct such as
+   CSAM), the Licensor may re-state an explicit bright-line for that jurisdiction
+   (ADR-2606182359 §D6). The §6 permanent-record doctrine yields to mandatory local
+   erasure law where such law applies.
 
 10. STATUTORY RIGHTS PRESERVED
    Nothing in this License waives a natural person's mandatory statutory rights.
