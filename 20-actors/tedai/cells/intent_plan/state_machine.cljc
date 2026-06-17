@@ -324,3 +324,9 @@
                                           "mutatingCount" (count (filter #(not= (:safety %) safety-read) ops)))
                           :phase plan-phase-planned)
        :next-node "end"})))
+
+(defn solve
+  "R0 scaffold: .solve() raises until Council activation (ADR-2606101400 §Decision, G6)."
+  [_input-state]
+  (throw (ex-info "tedai R0 scaffold: activate intent_plan via Council ADR (post-2606101400 ratification)"
+                  {:scaffold true})))
