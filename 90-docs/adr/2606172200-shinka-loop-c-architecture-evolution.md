@@ -137,6 +137,29 @@ The first exercise is a **tournament over the existing family** (AR vs diffusion
 BitNet) on the real fitness signals → a *ranked PR draft*, not an invented network. Novel-genotype
 search (b)/(c) is a later, leash-gated phase.
 
+## Implementation record — R0 landed (2026-06-17)
+
+R0 (D6) is **landed and runnable** at `20-actors/shinka/loop_c/` (PR #1908):
+
+- `genotypes.edn` — the 4 family genotypes with fitness fields holding **only measured
+  values or nil** (no fabrication).
+- `rank.clj` — the pure-data ranker: tiered weights (Σ=1.0, renormalised over present
+  terms), requires the t2 task signal (`microbench`) to be scoreable, route ∈
+  `{:propose-candidate :insufficient-evidence :excluded}`; emits `scorecard.{edn,md}`.
+- `rank_test.clj` — invariants **ALL PASS**: Σweights=1.0, **no-fabrication**
+  (unmeasured → `insufficient-evidence`), scoreable → `propose-candidate`, ranking order,
+  oka-R0-never-scored.
+
+**First scorecard** (real fitness, this session): only `maxwell-diffusion-1` carries a
+measured task signal (e7m micro 0.80) → `propose-candidate` (score 0.640); `maxwell-1`
+(loss-landscape + train-loss measured, but no microbench), `oka-mmsheaf` (R0, no weights),
+`baien-1.58` (not benched) → `insufficient-evidence`. The harness ranks on real evidence and
+honestly reports that most of the family needs measurement before Loop C could propose;
+**no architecture was invented and nothing was promoted** (promotion stays member-CACAO-gated,
+D5). The empirical fitness signals (loss-landscape sharpness, microbench) come from research
+note 2606171800. R1 (leash-gated): fill the missing t2 signals so the cohort is comparable,
+then exercise `propose`/`recombine` over novel genotypes.
+
 # Consequences
 
 - **Positive** — architecture becomes an *evaluable, evolvable, governed* object under the same
