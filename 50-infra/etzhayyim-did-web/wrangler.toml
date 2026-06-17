@@ -47,10 +47,11 @@ service = "yoro-xrpc-adapter"
 
 # Per-NSID upstream map for /xrpc/* routing. Values are public HTTPS origins
 # (CF Tunnel or LoadBalancer) reachable from the Worker via fetch().
-# Empty string = upstream not yet provisioned → Worker returns a clean 503
+# Empty string = upstream not provisioned → Worker returns a clean 503
 # UpstreamNotConfigured JSON instead of the CF edge's HTML 530.
-# Replace with the actual hostname once `kubectl apply -k 50-infra/k8s/lg-open-unispsc`
-# + CF Tunnel to the lg-open-unispsc Service are live.
+# The legacy per-code Python langserver (lg-open-unispsc) was RETIRED per
+# ADR-2606172100 (superseded by the clj unspsc actor); leave empty until the
+# clj actor is deployed behind unispsc.etzhayyim.com.
 # Add new actors as separate vars; never introduce a new subdomain unless
 # wildcard handle DNS is provisioned per ADR-2605212030 §D2.
 
