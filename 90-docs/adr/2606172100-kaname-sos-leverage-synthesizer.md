@@ -208,13 +208,15 @@ StateGraph compile + node state-flow + guarded full perceive→persist run).
   (loopback + EVO-X2 LAN only, ADR-2605215000); `graph-cid` = KotobaCid::from_bytes parity; each tx
   carries `:kaname.tx/*` provenance; a durable `:bridge/*` cursor (keyed by local CID) gives
   exactly-once; `expected_parent` optimistic concurrency; DRY-RUN by default, live = KANAME_KOTOBA_LIVE=1.
-  **Verified against the running node (:8077)**: dry-run computed the correct graph CID
-  (`bafyrei…`); the live POST reached the endpoint and the server **parsed the unsigned operator
-  bearer, extracted `sub`, and gated only on the operator-DID value** (`Bearer sub … is not the
-  operator DID`) — i.e. the request is well-formed and connectivity is proven; the authenticated
-  commit needs `KANAME_KOTOBA_OPERATOR_DID` (the node's public operator DID — the documented G7
-  operator step, identical to ibuki's gate). Stub-transport tests prove the full push + exactly-once
-  cursor end-to-end.
+  **VERIFIED LIVE against the running node (:8077, 2026-06-17)**: with `KANAME_KOTOBA_OPERATOR_DID`
+  = the node's operator DID (`did:key:z6MkiTBz1ymuepAQ4HEHYSF1H8quG5GLVVQR3djdX3mDooWp`, the loopback
+  node-persists-on-behalf path, ibuki-identical), `KANAME_KOTOBA_LIVE=1` committed the leverage
+  readout to the REAL Datom graph: graph CID `bafyreibtzz…`, **remote tx `bafyreiccor…`, commit head
+  `bafyreigfnz…`, 73 datoms confirmed**. The local `:bridge/*` checkpoint (pushed-cid + remote-tx-cids)
+  was written; a re-push is a **no-op (`:pushed 0`) — exactly-once proven live**. Two distinct DIDs:
+  the loopback bearer uses the NODE's operator DID (the node persists on the actor's behalf); kaname's
+  OWN self-certifying did:key (`did:key:z6Mkie7K…`, 1Password) is its identity + the member-delegation
+  path. Stub-transport tests also cover the full push + cursor.
 - **Fleet-registered**: `KanameHeartbeatCell` in `50-infra/cluster/murakumo/cell-runner/cells.edn`
   (module `kaname.cell`, entry `fire`, node `naphtali`, cron `53 * * * *`, healthz 13083) — the
   maturity track of ADR-2605192415. `kaname.cell/fire` runs ONE local heartbeat (no external I/O;
