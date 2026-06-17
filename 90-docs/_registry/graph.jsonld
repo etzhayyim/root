@@ -16158,6 +16158,26 @@
       "lastVerified": "2026-06-17"
     },
     {
+      "id": "doc:adr-2606171100-maxwell-diffusion-variant",
+      "type": "TechArticle",
+      "title": "ADR-2606171100: maxwell-diffusion — diffusion-LM fleet variant (DiffusionGemma 26B-A4B base)",
+      "status": "proposed",
+      "topic": "maxwell-diffusion-variant",
+      "authoritative": true,
+      "authoritativeFor": [
+        "maxwell-diffusion-weight-name",
+        "murakumo-fleet-diffusion-throughput-weight"
+      ],
+      "related": [
+        "doc:2605242100",
+        "doc:2605241900",
+        "doc:2606130900",
+        "doc:2606131645",
+        "doc:2605242400"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

@@ -25574,6 +25574,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606171100-maxwell-diffusion-variant.md",
+      "id": "adr-2606171100-maxwell-diffusion-variant",
+      "title": "ADR-2606171100: maxwell-diffusion — diffusion-LM fleet variant (DiffusionGemma 26B-A4B base)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "maxwell-diffusion-variant",
+      "authoritative": true,
+      "authoritative_for": [
+        "maxwell-diffusion-weight-name",
+        "murakumo-fleet-diffusion-throughput-weight"
+      ],
+      "related": [
+        "2605242100",
+        "2605241900",
+        "2606130900",
+        "2606131645",
+        "2605242400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606061000",
+        "2605215000",
+        "2605192200"
+      ],
+      "last_verified": "2026-06-17",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
