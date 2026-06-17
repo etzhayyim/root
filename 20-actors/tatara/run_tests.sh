@@ -9,6 +9,7 @@ SUITES=(
   "tatara.methods.test-analyze"
   "tatara.methods.test-kotoba"
   "tatara.methods.test-autorun"
+  "tatara.methods.test-lexicons"
 )
 
 fail=0

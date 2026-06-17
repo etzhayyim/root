@@ -26,7 +26,8 @@ bb 20-actors/tatara/run_tests.sh
 # Testing tatara.methods.test-analyze … Ran 9 tests / 403 assertions.  0 failures.
 # Testing tatara.methods.test-kotoba  … Ran 5 tests / 546 assertions.  0 failures.
 # Testing tatara.methods.test-autorun … Ran 5 tests / 1213 assertions. 0 failures.
-# ── tatara: ALL suites green ──   (19 tests / 2,162 assertions)
+# Testing tatara.methods.test-lexicons… Ran 4 tests / 44 assertions.   0 failures.
+# ── tatara: ALL suites green ──   (23 tests / 2,206 assertions)
 
 # concentration report → out/concentration-report.md
 bb -cp 20-actors -e "(require 'tatara.methods.analyze)(tatara.methods.analyze/-main)"
@@ -61,7 +62,8 @@ suez-red-sea 3 · panama 1** — these compose with watari (live vessel transit)
 | `methods/analyze.cljc` | concentration / HHI / chokepoint / capacity engine |
 | `methods/kotoba.cljc` | content-addressed EAVT commit-DAG persistence |
 | `methods/autorun.cljc` | autonomous heartbeat → content-addressed commit-DAG (resume-safe) |
-| `methods/test_analyze.cljc` · `test_kotoba.cljc` · `test_autorun.cljc` | 19 tests / 2,162 assertions |
+| `00-contracts/lexicons/com/etzhayyim/tatara/*.json` | write surface (registerPlant/registerHub/recordFlow) |
+| `methods/test_{analyze,kotoba,autorun,lexicons}.cljc` | 23 tests / 2,206 assertions |
 | `viz/build_viz.cljc` | globe generator (derives all coords from the seeds) |
 | `viz/plant-globe.htm` · `viz/world-supply-globe.htm` | the (C) and (A) globes |
 | `manifest.jsonld` · `CLAUDE.md` | actor manifest + agent rules |
