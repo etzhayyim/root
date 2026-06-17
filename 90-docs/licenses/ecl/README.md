@@ -20,9 +20,11 @@ related:
 
 | ファイル | 役割 |
 |---|---|
-| `ECL.md` | 設計の考え方・経緯 (Part I, 非規範) + ライセンス本文ドラフト (Part II) |
+| `ECL.md` | 設計の考え方・経緯 (Part I, 非規範) + ライセンス本文ドラフト (Part II, 法文体) |
 | `objective-function.edn` | 目的関数 J の機械可読 SSoT (dimensions / weights / screens / thresholds / fixtures) |
 | `evaluate.bb` | J の動的評価器 (screens→objective→route) + self-test |
+| `evidence.edn` | 観測 actor の DISCLOSED 証拠 signal (fuse 入力) |
+| `evidence-fusion.bb` | 証拠 → per-dim score へ fuse → J → route + sha256 provenance |
 
 ## 使い方
 
@@ -31,7 +33,11 @@ cd 90-docs/licenses/ecl
 bb evaluate.bb                            # 5 fixtures self-test (子+孫=0.55 が基準)
 bb evaluate.bb addictive-engagement-app   # 固定リスト外の害を目的関数が動的に捕捉
 bb evaluate.bb --edn                      # 機械可読 verdict
+bb evidence-fusion.bb                     # 観測 actor 証拠 → fuse → J → route + provenance
 ```
+
+`evaluate.bb` は score を fixture から取る(設計検証)。`evidence-fusion.bb` は score を観測
+actor の DISCLOSED 証拠から動的に fuse する(運用)— ECL の「動的半分」。
 
 ## 設計の核
 

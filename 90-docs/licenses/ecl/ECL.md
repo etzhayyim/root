@@ -103,78 +103,124 @@ danjo=accountability, inochi=孫の環境, kanjo=disclosed 決算) の **DISCLOS
 
 ---
 
-## Part II — License 本文 (DRAFT, normative-intent)
+## Part II — License 本文 (DRAFT, legal-grade for counsel review)
+
+> 法文体ドラフト。弁護士レビュー前提で operative 言語を英語で記す(CHARTER-RIDER.md と同様)。
+> 規範的意図はあるが未発効(§11)。`§2` の目的関数本体は `objective-function.edn` を
+> incorporate-by-reference する。
 
 ```
-ECL — etzhayyim Covenant License, v0.1-draft
-Supplements and incorporates the Apache License 2.0 ("Apache").
-This text is a DRAFT; it is not in force until Council Lv7+ ratification.
+ECL — etzhayyim Covenant License, Version 0.1 (DRAFT)
+A covenant addendum to, and incorporating, the Apache License, Version 2.0.
+DRAFT — not in force until ratified under §11.
 
-§0  NATURE
-    本ライセンスは etzhayyim Charter の Tier-0 priority から*導出*される。固定されるのは
-    priority であって個別の掟ではない (ADR-2606062100)。本ライセンスは alignment を
-    **固定列挙でなく目的関数 J で動的に評価**する。J の telos は子・孫の動的 wellbecoming。
+0. DEFINITIONS
+   "Apache" means the Apache License, Version 2.0.
+   "Work" means the licensed material to which this License is applied, including
+       source, models, weights, embeddings, and generated outputs.
+   "You" means any natural person or entity exercising rights under this License.
+   "Charter" means the etzhayyim Mission Charter (ADR-2605192100) and its Tier-0
+       priorities (ADR-2606062100).
+   "Objective Function" or "J" means the priority-conformance evaluation defined in
+       §2 and specified in the incorporated file objective-function.edn.
+   "Descendant Wellbecoming" means the dynamic developmental trajectory (not the
+       static state) of children and of persons born at least twenty-five (25) years
+       hence. It is the telos of J.
+   "Hard-Floor Conduct" means the conduct enumerated in §3.
+   "Council" means the etzhayyim Council (ADR-2605172600).
+   "Non-Aligned" means the status assigned to You under §2(c) or §3.
 
-§1  GRANT (Apache 継承)
-    Licensor は Apache §2 (copyright) および §3 (patent) を incorporate-by-reference により
-    付与する。本ライセンス固有の条件は、それらに*追加*される使用条件であり、Apache と矛盾
-    しない範囲で効力を持つ (§10)。
+1. GRANT
+   Subject to §2 through §5, Licensor grants You every right granted under Apache §2
+   (copyright) and Apache §3 (patent), incorporated herein by reference. The
+   conditions stated in this License are additional conditions on the exercise of
+   those rights and do not enlarge them.
 
-§2  ALIGNMENT BY OBJECTIVE FUNCTION (primary control)
-    (a) 各使用者・各使用は、目的関数 J = Σ_dim (weight · score) により評価される。
-        dimensions・weights・thresholds は付随する `objective-function.edn` に定義され、
-        その正本は本ライセンスに incorporate される。
-    (b) score は子・孫の wellbecoming(動的軌跡)に対する資する(+)/反する(-)の度合い [-2,+2]。
-        score は観測可能な DISCLOSED 証拠から算出され、content-addressed scorecard として記録
-        される。
-    (c) route: J ≥ +0.5 → aligned (grant 継続) / -0.5 < J < +0.5 → hold (Council 審査) /
-        J ≤ -0.5 → Non-Aligned (§4 により grant 終了)。
-    (d) 決定は Council attestation (§7) による。Council は J の算出を*参考*とし、1 SBT = 1 vote
-        で scorecard の bytes を検証して裁定する。本ライセンスは採点を提案し、決定しない。
+2. ALIGNMENT BY OBJECTIVE FUNCTION (primary determination)
+   (a) Method. Your use of the Work is evaluated by the Objective Function
+       J = Σ_d (w_d · s_d), where the dimensions d, the weights w_d, the score scale,
+       and the route thresholds are those specified in objective-function.edn,
+       incorporated by reference. The telos of J is the maximization of Descendant
+       Wellbecoming.
+   (b) Evidence, not fiat. Each score s_d is determined from disclosed, observable
+       evidence and recorded in a content-addressed scorecard. Licensor does not
+       assert scores at will.
+   (c) Route. If J is at least the aligned threshold, the grant in §1 continues. If J
+       is at most the non-aligned threshold, You are Non-Aligned and §4 applies.
+       Otherwise the determination is held pending Council review under §7.
+   (d) Determination. A binding determination of alignment is made by Council
+       attestation under §7, which treats J as advisory and verifies the scorecard by
+       one-SBT-one-vote. This License proposes a score; the Council decides status.
 
-§3  HARD FLOOR (確定フロア — scoring 不要の bright-line backstop)
-    以下のいずれかに該当する使用は、J の算出を待たず、revenue share を問わず Non-Aligned:
-      (i)   児童性的虐待 / 非合意性的コンテンツ          [子 priority 直接侵害]
-      (ii)  強制労働 / 人身取引 / 搾取的児童労働          [mission 直接反]
-      (iii) 兵器ビジネス / proprietary 兵器 / covert(非透過)武力 / autonomous lethal
-            (※透過的*防衛*力 — on-chain 監視 + open-source + 1 SBT=1 vote — は除外)
-      (iv)  personal-data の売買 OR 非対称(unwatched watcher)監視ビジネス
-            (※対称的*相互監視*/見守り — everyone watched, no one sold — は除外)
-      (v)   不可逆な多世代危害 (環境 >±2°C / biosphere 崩壊 / commons 囲い込み / germline)
-                                                          [孫 priority 直接侵害]
-    これらは目的関数の代替ではなく、その*最悪ケースの確定下限*である。
+3. HARD FLOOR (determinate backstop; evaluated before §2)
+   Regardless of J, and regardless of revenue share, You are Non-Aligned if You
+   engage in any of the following Hard-Floor Conduct:
+   (a) child sexual abuse material, or non-consensual sexual content;
+   (b) forced labor, human trafficking, or exploitative child labor;
+   (c) weapons as a commercial business; proprietary (closed-source) weapon design;
+       covert (off-chain, non-attested) force; or autonomous lethal systems —
+       PROVIDED THAT Transparent Defensive Force satisfying (i) on-chain monitoring,
+       (ii) open-source publication, and (iii) one-SBT-one-vote authorization is NOT
+       Hard-Floor Conduct;
+   (d) the sale or brokerage of personal data, or asymmetric surveillance conducted by
+       a watcher that is not itself equally observable — PROVIDED THAT reciprocal,
+       non-monetized mutual transparency (相互監視) is NOT Hard-Floor Conduct;
+   (e) activity whose foreseeable impact is irreversible multi-generational harm,
+       including climate destabilization beyond ±2°C above pre-industrial, biosphere
+       collapse, commons enclosure of foundational knowledge, or germline modification
+       absent multi-generational safety review.
+   This §3 is not a substitute for §2; it is the determinate lower bound of conduct
+   too severe to leave to scoring.
 
-§4  PROPAGATION (違反の効果)
-    Non-Aligned による使用は本ライセンスの material violation であり、(a) Apache §3 の patent
-    license を即時終了し、(b) Apache §4 により全 grant を終了する。条件は全 downstream および
-    end-user に伝播する (good-faith な aligned downstream の権利は害されない)。
+4. EFFECT OF NON-ALIGNMENT
+   Becoming Non-Aligned (a) terminates the patent license under Apache §3 as of the
+   first such use, as if You had instituted patent litigation against Licensor; and
+   (b) terminates all rights granted under §1, per Apache §4. These conditions
+   propagate to every downstream recipient and end user. The rights of good-faith,
+   aligned downstream recipients are not affected.
 
-§5  MODEL & WEIGHTS
-    重み・embedding・モデル出力を含む ML artifact にも §2/§3 が適用される。ML use-restriction は
-    OpenRAIL-M Attachment 互換の形で、同一の目的関数 J に束ねられる。
+5. MODELS, WEIGHTS, AND OUTPUTS
+   §2 and §3 apply to machine-learning artifacts of the Work — model weights,
+   embeddings, and generated outputs — in addition to source. Use restrictions on such
+   artifacts are expressed compatibly with the OpenRAIL-M Attachment and are bound to
+   the same Objective Function J.
 
-§6  PERMANENT RECORD
-    governance / force authorization / tithe / contribution / attestation の記録は kotoba Datom
-    log に永久・非消去で保持される (お天道様は見ており、人は忘れない)。親密データは暗号化保持
-    (暗号化 ≠ 忘却)。
+6. PERMANENT RECORD
+   Records of governance, force authorization, tithe, contribution, and Council
+   attestation are retained permanently and non-erasably on the kotoba Datom log.
+   Intimate, consented personal data is permanently retained but encrypted; encryption
+   is not erasure. Mandatory statutory erasure rights are preserved under §10.
 
-§7  DISPUTE / ATTESTATION
-    あるエンティティが Non-Aligned か否かは Council (Lv6+, 定足数3) の on-chain attestation で
-    裁定し、30日 appeal 可。J の weights / thresholds / §3 screens の*改定*は Council Lv7+
-    unanimity + priority-conformance attestation を要する (§0)。
+7. DETERMINATION, ATTESTATION, AND AMENDMENT
+   (a) Whether You are Non-Aligned is determined by the Council (Lv6+, quorum of
+       three) via an on-chain attestation, appealable by You for thirty (30) days;
+       this does not preclude parallel judicial proceedings.
+   (b) Amendment of the weights, thresholds, or the §3 enumeration requires Council
+       Lv7+ unanimity plus a priority-conformance attestation demonstrating that the
+       amendment serves a Tier-0 priority at least as well as the text it replaces.
+       The Tier-0 structure of J — which priorities are measured, and the direction in
+       which each serves or harms Descendant Wellbecoming — is not amendable by any
+       Council vote; changing it is founding a different association (a chain fork).
 
-§8  NO TRADEMARK
-    "etzhayyim" / "天御柱" / "עץ חיים" / "Tree of Life" 等の名称・標章の使用権は付与しない
-    (Apache §4 の fair-use attribution を超えて)。
+8. NO TRADEMARK
+   This License grants no right to use "etzhayyim", "天御柱", "עץ חיים", or
+   "Tree of Life", or any associated mark, beyond fair-use attribution under Apache §4.
 
-§9  SEVERABILITY / LEGAL ANCHOR
-    §2 の目的関数評価がある法域で執行不能と判断された場合、その法域では §3 の確定フロア列挙 +
-    Apache 2.0 が legal anchor として残る (目的関数は governance 層、確定フロアは司法 anchor)。
-    §3 全体が執行不能なら、その法域では素の Apache 2.0 として配布される。
+9. SEVERABILITY AND LEGAL ANCHOR
+   If §2 is held unenforceable in a jurisdiction, then in that jurisdiction §3 (the
+   determinate enumeration) together with Apache 2.0 remains the legal anchor. If §3
+   is also held unenforceable there, the Work is, in that jurisdiction only,
+   distributed under Apache 2.0 alone. The §6 permanent-record doctrine yields to
+   mandatory local erasure law where such law applies.
 
-§10 RELATIONSHIP TO APACHE
-    本ライセンスは Apache を*補完*し改変しない。両者が衝突する場合、本ライセンスが Apache に
-    矛盾しない*追加*条件を課す範囲で効力を持ち、それ以外は Apache が優先する。
+10. STATUTORY RIGHTS PRESERVED
+   Nothing in this License waives a natural person's mandatory statutory rights.
+
+11. RATIFICATION AND RELATIONSHIP TO APACHE
+   This License is a DRAFT and takes effect only upon Council Lv7+ ratification under
+   §7(b). It supplements and does not modify Apache; where this License and Apache
+   conflict, Apache prevails except as to the additional, non-conflicting conditions
+   on use stated herein.
 
 — etzhayyim, DRAFT 2026-06-17 (Tokyo, JST)
   ADR-2606172300 / Charter ADR-2605192100 / 3-Tier ADR-2606062100
@@ -189,7 +235,13 @@ cd 90-docs/licenses/ecl
 bb evaluate.bb                      # self-test (5 fixtures, 子+孫=0.55 が基準)
 bb evaluate.bb addictive-engagement-app   # 目的関数が固定リスト外の害を動的に捕捉する例
 bb evaluate.bb --edn               # 機械可読 verdict
+bb evidence-fusion.bb              # 観測 actor の DISCLOSED 証拠 → fuse → J → route + sha256
+bb evidence-fusion.bb --edn        # 機械可読 scorecard + provenance digest
 ```
 
-目的関数の改定は **`objective-function.edn` のみ**を編集 (単一 SSoT)。`evaluate.bb` は
-`Σweight ≠ 1.0` を `System/exit 1` で弾く。
+- 目的関数の改定は **`objective-function.edn` のみ**を編集 (単一 SSoT)。両 bb は
+  `Σweight ≠ 1.0` を `System/exit 1` で弾く。
+- `evaluate.bb` は score を fixture から取る(設計検証用)。`evidence-fusion.bb` は score を
+  **観測 actor (shiori/tsumugi/danjo/inochi/kanjo) の DISCLOSED 証拠 (`evidence.edn`) から動的に
+  fuse** する(運用の動的半分)。fuse 済み scorecard は sha256 で content-address され、Council が
+  1 SBT=1 vote で bytes 検証する(real CIDv1 = rasen `methods/cid.py`)。
