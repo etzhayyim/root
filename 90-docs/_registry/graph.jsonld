@@ -16270,6 +16270,26 @@
       "lastVerified": "2026-06-16"
     },
     {
+      "id": "doc:adr-2606170840-maxwell-diffusion-weight",
+      "type": "TechArticle",
+      "title": "ADR-2606170840: Maxwell-Diffusion — diffusion-LM sibling weight (diffusiongemma-26B-A4B-it fine-tune)",
+      "status": "proposed",
+      "topic": "maxwell-diffusion-weight",
+      "authoritative": true,
+      "authoritativeFor": [
+        "diffusion-llm-weight-name",
+        "murakumo-fleet-diffusion-instruct-weight"
+      ],
+      "related": [
+        "doc:2605092350",
+        "doc:2606062100",
+        "doc:2605262200",
+        "doc:2605242400",
+        "doc:2605250005"
+      ],
+      "lastVerified": "2026-06-17"
+    },
+    {
       "id": "doc:adr-2606170900-ugachi-stewardship-ledger-persistence-and-heartbeat",
       "type": "TechArticle",
       "title": "ADR-2606170900: ugachi 穿ち — content-addressed stewardship-ledger persistence + deterministic heartbeat (Wave 2)",
