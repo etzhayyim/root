@@ -321,23 +321,109 @@
       (.then (fn [j] (cb (js->clj j :keywordize-keys kw))))
       (.catch (fn [_] (cb nil)))))
 
+;; ── kotoba: query the content-addressed .kotoba.edn snapshot IN THE BROWSER (ADR-2606172200 D5)
+;; The snapshot is a vector of [e a v tx op] datoms (EDN — `;;` comments skipped by read-string).
+;; No server projection, no KV: the page reads the kotoba Datom log directly, builds an EAV index,
+;; and projects nodes/edges/pulse/joucho client-side. JSON remains the fail-open fallback.
+
+(defn parse-kotoba [text]
+  (let [datoms (read-string text)]                ;; the live-datom vector (first EDN form)
+    (reduce (fn [idx d]
+              (update-in idx [(nth d 0) (nth d 1)] (fnil conj #{}) (nth d 2)))
+            {} datoms)))
+
+(defn- one [idx e a] (first (get-in idx [e a])))
+(defn- ents-with [idx a] (for [[e attrs] idx :when (contains? attrs a)] e))
+
+(defn kotoba->organism [idx]
+  (let [vents (ents-with idx :vitals.actor/name)
+        runs  (keep #(one idx % :vitals/run) vents)
+        latest (when (seq runs) (apply max runs))
+        cells (filter #(= latest (one idx % :vitals/run)) vents)
+        node (fn [e] {:id (one idx e :vitals.actor/name) :class (one idx e :vitals/class)
+                      :score (one idx e :vitals/score) :status (one idx e :vitals.actor/status)
+                      :clj (one idx e :vitals.score/clj) :actor (one idx e :vitals.score/actor)
+                      :atproto (one idx e :vitals.score/atproto) :reflex (one idx e :vitals.clj/reflex)
+                      :port (one idx e :vitals.clj/port-ratio) :inDeg (one idx e :vitals.actor/in-degree)
+                      :outDeg (one idx e :vitals.actor/integrates) :cells (one idx e :vitals.actor/cells)
+                      :heartbeatDays (one idx e :vitals.bio/heartbeat-days)
+                      :bsky (one idx e :vitals.atproto/bsky-post)})
+        nodes (mapv node cells)
+        names (set (map :id nodes))
+        edges (for [e cells, t (get-in idx [e :vitals.actor/integrate-name]) :when (names t)]
+                {:from (one idx e :vitals.actor/name) :to t})
+        fq (frequencies (map :class nodes))]
+    {:summary {:cells (count nodes) :alive (get fq "alive" 0)
+               :dormant (get fq "dormant" 0) :stub (get fq "stub" 0)}
+     :nodes nodes :edges (vec edges)
+     :generatedAt (str "kotoba Datom log · run " latest)}))
+
+(defn kotoba->pulse [idx]
+  (let [actors (into {} (for [e (ents-with idx :pulse.actor/name)]
+                          [(one idx e :pulse.actor/name)
+                           {"commits" (one idx e :pulse.actor/commits) "dirty" (one idx e :pulse.actor/dirty)
+                            "lastAt" (one idx e :pulse.actor/last-at)
+                            "lastSubject" (one idx e :pulse.actor/last-subject)}]))
+        stream (->> (ents-with idx :pulse.event/idx)
+                    (map (fn [e] {"idx" (one idx e :pulse.event/idx) "at" (one idx e :pulse.event/at)
+                                  "actor" (one idx e :pulse.event/actor) "subj" (one idx e :pulse.event/subj)}))
+                    (sort-by #(get % "idx")) vec)
+        working (->> actors (filter (fn [[_ m]] (and (get m "dirty") (pos? (get m "dirty")))))
+                     (map first) sort vec)]
+    {"actors" actors "stream" stream "working" working}))
+
+(defn kotoba->joucho [idx]
+  (let [bents (ents-with idx :joucho/beat)
+        beats (->> bents
+                   (map (fn [e] {:beat (one idx e :joucho/beat) :mood (one idx e :joucho/mood)
+                                 :joy (one idx e :joucho/joy) :calm (one idx e :joucho/calm)
+                                 :stress (one idx e :joucho/stress) :gratitude (one idx e :joucho/gratitude)
+                                 :focus (one idx e :joucho/focus)}))
+                   (sort-by :beat) vec)
+        final (last beats)
+        we (first (ents-with idx :wellbecoming/direction))]
+    {:of (one idx (first bents) :joucho/of) :mood (:mood final)
+     :axes (select-keys final [:joy :calm :stress :gratitude :focus]) :beats beats
+     :wellbecoming {:direction (one idx we :wellbecoming/direction) :net (one idx we :wellbecoming/net)}}))
+
+(defn fetch-kotoba
+  "Fetch a .kotoba.edn snapshot, project via `proj`; on any failure call `(fallback)`."
+  [url proj cb fallback]
+  (-> (js/fetch (str url "?t=" (.now js/Date)))
+      (.then (fn [r] (if (.-ok r) (.text r) (throw (js/Error. "nf")))))
+      (.then (fn [t] (cb (proj (parse-kotoba t)))))
+      (.catch (fn [_] (fallback)))))
+
 (defn poll-pulse! []
-  (fetchj "pulse.json" false
-    (fn [p] (when p (swap! state assoc :pulse p) (apply-pulse! p)))))
+  (fetch-kotoba "pulse.kotoba.edn" kotoba->pulse
+    (fn [p] (when p (swap! state assoc :pulse p) (apply-pulse! p)))
+    (fn [] (fetchj "pulse.json" false
+             (fn [p] (when p (swap! state assoc :pulse p) (apply-pulse! p)))))))
 
-;; ── boot ──────────────────────────────────────────────────────────────────────
+;; ── boot — read the kotoba Datom log (snapshot) in the browser; JSON is fail-open ──────────────
 
-(fetchj "organism.json" true
-  (fn [d]
-    (swap! state assoc :data d)
-    (fetchj "pulse.json" false
-      (fn [p]
-        (swap! state assoc :pulse p)
-        ;; seed :seen so the first real poll only flashes NEW commits
-        (when p (swap! state assoc :seen
-                       (into {} (map (fn [[k v]] [k (get v "lastAt" 0)]) (get p "actors")))))
-        (paint!)
-        (when p (apply-pulse! p))                 ; glow/badge immediately, no 6s wait
-        (js/setInterval poll-pulse! POLL_MS)))
-    (fetchj "trajectory.json" true (fn [t] (swap! state assoc :traj t) (paint!)))
-    (fetchj "joucho.json" true (fn [jo] (swap! state assoc :joucho jo) (paint!)))))
+(defn boot-pulse [p]
+  (swap! state assoc :pulse p)
+  (when p (swap! state assoc :seen
+                 (into {} (map (fn [[k v]] [k (get v "lastAt" 0)]) (get p "actors")))))
+  (paint!)
+  (when p (apply-pulse! p))
+  (js/setInterval poll-pulse! POLL_MS))
+
+(defn boot []
+  (fetch-kotoba "vitals.kotoba.edn" kotoba->organism
+    (fn [d] (swap! state assoc :data d)
+      (fetch-kotoba "pulse.kotoba.edn" kotoba->pulse boot-pulse
+        (fn [] (fetchj "pulse.json" false boot-pulse)))
+      (fetchj "trajectory.json" true (fn [t] (swap! state assoc :traj t) (paint!)))
+      (fetch-kotoba "joucho.kotoba.edn" kotoba->joucho
+        (fn [jo] (swap! state assoc :joucho jo) (paint!))
+        (fn [] (fetchj "joucho.json" true (fn [jo] (swap! state assoc :joucho jo) (paint!))))))
+    ;; fail-open: no vitals snapshot yet → JSON projection
+    (fn [] (fetchj "organism.json" true
+             (fn [d] (swap! state assoc :data d)
+               (fetchj "pulse.json" false boot-pulse)
+               (fetchj "trajectory.json" true (fn [t] (swap! state assoc :traj t) (paint!)))
+               (fetchj "joucho.json" true (fn [jo] (swap! state assoc :joucho jo) (paint!))))))))
+
+(boot)

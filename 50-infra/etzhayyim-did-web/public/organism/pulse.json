@@ -1,7 +1,88 @@
 {
-  "generatedAt" : "2026-06-17T05:24:16.607Z",
-  "now" : 1781673856607,
   "sinceHours" : 48,
+  "stream" : [ {
+    "at" : 1781675516000,
+    "actor" : "shionome",
+    "subj" : "feat(clj-port): port shionome 4 cells → cljc + prune method+cell Python (regime_observer solve added)"
+  }, {
+    "at" : 1781674649000,
+    "actor" : "hotaru",
+    "subj" : "feat(clj-port): port hotaru 4 cells → cljc + prune ALL hotaru Python (fully migrated)"
+  }, {
+    "at" : 1781674348000,
+    "actor" : "kawaraban",
+    "subj" : "feat(clj-port): port kawaraban cell layer → cljc + prune ALL kawaraban Python (fully migrated)"
+  }, {
+    "at" : 1781673699000,
+    "actor" : "kanjo",
+    "subj" : "chore(clj-port): prune migrated Python from kanjo — suite was green, not RED (ADR-2606160842)"
+  }, {
+    "at" : 1781673211000,
+    "actor" : "kazaori",
+    "subj" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+  }, {
+    "at" : 1781672751000,
+    "actor" : "nusa",
+    "subj" : "feat(clj-port): port nusa cell layer → cljc + prune ALL nusa Python (fully migrated)"
+  }, {
+    "at" : 1781672317000,
+    "actor" : "tasuke",
+    "subj" : "feat(clj-port): port tasuke cells → cljc + prune ALL tasuke Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672296000,
+    "actor" : "ake",
+    "subj" : "feat(clj-port): port ake cells → cljc + prune ALL ake Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672291000,
+    "actor" : "karakuri",
+    "subj" : "feat(clj-port): port karakuri cells → cljc + prune ALL karakuri Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672252000,
+    "actor" : "keizu",
+    "subj" : "feat(clj-port): port keizu cells → cljc + prune ALL keizu Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672187000,
+    "actor" : "suji",
+    "subj" : "feat(clj-port): port suji cells → cljc + prune ALL suji Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672164000,
+    "actor" : "shomei",
+    "subj" : "feat(clj-port): port shomei cells → cljc + prune ALL shomei Python (ADR-2606160842)"
+  }, {
+    "at" : 1781672076000,
+    "actor" : "mizuho",
+    "subj" : "feat(clj-port): port mizuho cell(s) → cljc + prune ALL mizuho Python (ADR-2606160842)"
+  }, {
+    "at" : 1781671997000,
+    "actor" : "kosatsu",
+    "subj" : "feat(clj-port): port kosatsu cells → cljc + prune ALL kosatsu Python (ADR-2606160842)"
+  }, {
+    "at" : 1781671904000,
+    "actor" : "kosatsu",
+    "subj" : "feat(clj-port): port kosatsu cell layer → cljc + prune ALL kosatsu Python (fully migrated)"
+  }, {
+    "at" : 1781671553000,
+    "actor" : "kaiyaku",
+    "subj" : "chore(clj-port): prune Python from 4 more actors via golden-file decoupling (ADR-2606160842/2606131300)"
+  }, {
+    "at" : 1781671011000,
+    "actor" : "todoke",
+    "subj" : "feat(clj-port): port todoke handoff_proof cell → cljc + prune ALL todoke Python (fully migrated)"
+  }, {
+    "at" : 1781670797000,
+    "actor" : "sanae",
+    "subj" : "feat(clj-port): port sanae autonomous_weeding cell → cljc + prune ALL sanae Python (fully migrated)"
+  }, {
+    "at" : 1781670406000,
+    "actor" : "noroshi",
+    "subj" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+  }, {
+    "at" : 1781670218000,
+    "actor" : "tazuna",
+    "subj" : "feat(clj-port): port tazuna teleop_session cell → cljc + prune ALL tazuna Python (fully migrated)"
+  } ],
+  "generatedAt" : "2026-06-17T06:01:33.499Z",
+  "snapshot" : "pulse.kotoba.edn",
   "actors" : {
     "post_quantum_compat" : {
       "commits" : 2,
@@ -104,9 +185,9 @@
       "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
     },
     "kawaraban" : {
-      "commits" : 2,
-      "lastAt" : 1781673211000,
-      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+      "commits" : 3,
+      "lastAt" : 1781674348000,
+      "lastSubject" : "feat(clj-port): port kawaraban cell layer → cljc + prune ALL kawaraban Python (fully migrated)"
     },
     "gddr_memory-compat" : {
       "commits" : 1,
@@ -211,7 +292,8 @@
     "fuchi" : {
       "commits" : 5,
       "lastAt" : 1781670406000,
-      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
+      "lastSubject" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)",
+      "dirty" : 1
     },
     "watari" : {
       "commits" : 2,
@@ -219,7 +301,7 @@
       "lastSubject" : "chore(clj-port): prune migrated Python from 5 network-free actors (abaki/danjo/kanae/meisai/watari)"
     },
     "etzhayyim-sdk" : {
-      "dirty" : 26
+      "dirty" : 30
     },
     "tatekata" : {
       "commits" : 2,
@@ -354,13 +436,12 @@
     "ibuki" : {
       "commits" : 2,
       "lastAt" : 1781673211000,
-      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)",
-      "dirty" : 8
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
     },
     "hotaru" : {
-      "commits" : 1,
-      "lastAt" : 1781658804000,
-      "lastSubject" : "chore(clj-port): prune migrated Python from 10 fully-migrated actors (ADR-2606160842)"
+      "commits" : 2,
+      "lastAt" : 1781674649000,
+      "lastSubject" : "feat(clj-port): port hotaru 4 cells → cljc + prune ALL hotaru Python (fully migrated)"
     },
     "wakai" : {
       "commits" : 2,
@@ -415,7 +496,8 @@
     "abaki" : {
       "commits" : 3,
       "lastAt" : 1781664886000,
-      "lastSubject" : "chore(clj-port): prune migrated Python from 5 network-free actors (abaki/danjo/kanae/meisai/watari)"
+      "lastSubject" : "chore(clj-port): prune migrated Python from 5 network-free actors (abaki/danjo/kanae/meisai/watari)",
+      "dirty" : 3
     },
     "himotoki" : {
       "commits" : 4,
@@ -423,9 +505,9 @@
       "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
     },
     "shionome" : {
-      "commits" : 11,
-      "lastAt" : 1781660191000,
-      "lastSubject" : "fix(clj-port): restore shionome/methods/_t.py — the cell Python tests still need it"
+      "commits" : 12,
+      "lastAt" : 1781675516000,
+      "lastSubject" : "feat(clj-port): port shionome 4 cells → cljc + prune method+cell Python (regime_observer solve added)"
     },
     "dram_design-compat" : {
       "commits" : 1,
@@ -505,12 +587,14 @@
     "ossekai" : {
       "commits" : 1,
       "lastAt" : 1781673211000,
-      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
+      "lastSubject" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)",
+      "dirty" : 3
     },
     "kanjo" : {
       "commits" : 2,
       "lastAt" : 1781673699000,
-      "lastSubject" : "chore(clj-port): prune migrated Python from kanjo — suite was green, not RED (ADR-2606160842)"
+      "lastSubject" : "chore(clj-port): prune migrated Python from kanjo — suite was green, not RED (ADR-2606160842)",
+      "dirty" : 1
     },
     "npu_accelerator-compat" : {
       "commits" : 1,
@@ -613,87 +697,8 @@
       "lastSubject" : "chore(clj-port): prune migrated Python from asobi — fully cljc, no importers (ADR-2606160842)"
     }
   },
-  "stream" : [ {
-    "at" : 1781673699000,
-    "actor" : "kanjo",
-    "subj" : "chore(clj-port): prune migrated Python from kanjo — suite was green, not RED (ADR-2606160842)"
-  }, {
-    "at" : 1781673211000,
-    "actor" : "kazaori",
-    "subj" : "feat(clj-port): port charter-gate + method suites → cljc + repair stub identifiers (ADR-2606160842)"
-  }, {
-    "at" : 1781672751000,
-    "actor" : "nusa",
-    "subj" : "feat(clj-port): port nusa cell layer → cljc + prune ALL nusa Python (fully migrated)"
-  }, {
-    "at" : 1781672317000,
-    "actor" : "tasuke",
-    "subj" : "feat(clj-port): port tasuke cells → cljc + prune ALL tasuke Python (ADR-2606160842)"
-  }, {
-    "at" : 1781672296000,
-    "actor" : "ake",
-    "subj" : "feat(clj-port): port ake cells → cljc + prune ALL ake Python (ADR-2606160842)"
-  }, {
-    "at" : 1781672291000,
-    "actor" : "karakuri",
-    "subj" : "feat(clj-port): port karakuri cells → cljc + prune ALL karakuri Python (ADR-2606160842)"
-  }, {
-    "at" : 1781672252000,
-    "actor" : "keizu",
-    "subj" : "feat(clj-port): port keizu cells → cljc + prune ALL keizu Python (ADR-2606160842)"
-  }, {
-    "at" : 1781672187000,
-    "actor" : "suji",
-    "subj" : "feat(clj-port): port suji cells → cljc + prune ALL suji Python (ADR-2606160842)"
-  }, {
-    "at" : 1781672164000,
-    "actor" : "shomei",
-    "subj" : "feat(clj-port): port shomei cells → cljc + prune ALL shomei Python (ADR-2606160842)"
-  }, {
-    "at" : 1781672076000,
-    "actor" : "mizuho",
-    "subj" : "feat(clj-port): port mizuho cell(s) → cljc + prune ALL mizuho Python (ADR-2606160842)"
-  }, {
-    "at" : 1781671997000,
-    "actor" : "kosatsu",
-    "subj" : "feat(clj-port): port kosatsu cells → cljc + prune ALL kosatsu Python (ADR-2606160842)"
-  }, {
-    "at" : 1781671904000,
-    "actor" : "kosatsu",
-    "subj" : "feat(clj-port): port kosatsu cell layer → cljc + prune ALL kosatsu Python (fully migrated)"
-  }, {
-    "at" : 1781671553000,
-    "actor" : "kaiyaku",
-    "subj" : "chore(clj-port): prune Python from 4 more actors via golden-file decoupling (ADR-2606160842/2606131300)"
-  }, {
-    "at" : 1781671011000,
-    "actor" : "todoke",
-    "subj" : "feat(clj-port): port todoke handoff_proof cell → cljc + prune ALL todoke Python (fully migrated)"
-  }, {
-    "at" : 1781670797000,
-    "actor" : "sanae",
-    "subj" : "feat(clj-port): port sanae autonomous_weeding cell → cljc + prune ALL sanae Python (fully migrated)"
-  }, {
-    "at" : 1781670406000,
-    "actor" : "noroshi",
-    "subj" : "chore(clj-port): prune migrated Python from 11 fully-ported actors (ADR-2606160842)"
-  }, {
-    "at" : 1781670218000,
-    "actor" : "tazuna",
-    "subj" : "feat(clj-port): port tazuna teleop_session cell → cljc + prune ALL tazuna Python (fully migrated)"
-  }, {
-    "at" : 1781669931000,
-    "actor" : "yadori",
-    "subj" : "feat(clj-port): port yadori reservation cell → cljc + prune ALL yadori Python (fully migrated)"
-  }, {
-    "at" : 1781669420000,
-    "actor" : "yadori",
-    "subj" : "feat(clj-port): port yadori availability_check cell → cljc (state machine + tests)"
-  }, {
-    "at" : 1781668189000,
-    "actor" : "hakoniwa",
-    "subj" : "chore(clj-port): prune migrated Python from hakoniwa (fully cljc, network full-port)"
-  } ],
-  "working" : [ "etzhayyim-sdk", "ibuki" ],
-  "head" : "bafkreibxn4zy5ppktlxbitou6okukswufk42qckmcjzkqqrjh57rz5upbu"
+  "head" : "bafkreifz76oo5nafcerwgieqz2nf6dk4ff3avzt2elkj2rfwzjvii6oyhq",
+  "working" : [ "abaki", "etzhayyim-sdk", "fuchi", "kanjo", "ossekai" ],
+  "now" : 1781676093499,
+  "store" : "kotoba-datom-log"
 }

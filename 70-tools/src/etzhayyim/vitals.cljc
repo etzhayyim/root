@@ -215,6 +215,7 @@
    :vitals.clj/methods-py  (:clj/methods-py v)
    :vitals.clj/reflex      (clojure.core/name (:reflex v))
    :vitals.actor/integrates (:actor/integrates v)
+   :vitals.actor/integrate-name (vec (:actor/integrate-names v))  ;; edges IN the log (card-many)
    :vitals.actor/in-degree (:actor/in-degree v)
    :vitals.actor/cells     (:actor/cells v)
    :vitals.bio/heartbeat-days (:bio/heartbeat-days v)
@@ -258,6 +259,21 @@
 (def ^:private viz-data "60-apps/etzhayyim-project-organism/public/organism.json")
 (def ^:private viz-data-mirror "50-infra/etzhayyim-did-web/public/organism/organism.json")
 
+;; ── kotoba Datom log is the SoT for ALL organism feeds (no KV; ADR-2606172200). Each feed
+;;    transacts to its journal, then materializes a content-addressed `.kotoba.edn` snapshot —
+;;    THAT is the canonical artifact served (like public/kotoba/blocks); the JSON is a projection.
+(def ^:private snapshot-dirs
+  ["60-apps/etzhayyim-project-organism/public" "50-infra/etzhayyim-did-web/public/organism"])
+
+(defn- snapshot-to!
+  "Materialize a kotoba log's live state to a content-addressed `.kotoba.edn` under every served
+   dir, and return the head CID. The kotoba-Datomic artifact, not KV."
+  [conn filename]
+  (doseq [d snapshot-dirs]
+    (io/make-parents (str d "/" filename))
+    (kt/snapshot! conn (str d "/" filename)))
+  (kt/head-cid conn))
+
 (defn export-json!
   "Emit the organism snapshot the /organism ClojureScript view renders:
    nodes (one per cell, with axis scores + class + in/out degree) + edges
@@ -295,8 +311,34 @@
   ["60-apps/etzhayyim-project-organism/public/pulse.json"
    "50-infra/etzhayyim-did-web/public/organism/pulse.json"])
 
+;; ── kotoba Datom log is the SoT for ALL organism feeds (no KV; substrate boundary,
+;;    CLAUDE.md). Each feed transacts to its own append-only journal, then materializes a
+;;    content-addressed `.kotoba.edn` snapshot — THAT is the canonical artifact served
+;;    (like public/kotoba/blocks). The JSON is a derived read-model/projection of the log.
+(def ^:private pulse-journal  "80-data/organism/pulse.journal.edn")
+(def ^:private joucho-journal "80-data/organism/joucho.journal.edn")
+
 (defn- git-out [& args]
   (try (:out (apply p/sh args)) (catch Exception _ "")))
+
+(defn pulse->datoms
+  "Turn one pulse observation into kotoba datoms: a per-actor live-state entity + the recent
+   commit stream as events. Append-only, content-addressed — the organism's activity on the log."
+  [run d]
+  (let [actors (for [[a m] (get d "actors")]
+                 {:db/id (str "pulse/" run "/" a)
+                  :pulse/run run :pulse.actor/name a
+                  :pulse.actor/commits (get m "commits" 0)
+                  :pulse.actor/dirty (get m "dirty" 0)
+                  :pulse.actor/last-at (get m "lastAt" 0)
+                  :pulse.actor/last-subject (or (get m "lastSubject") "")})
+        stream (map-indexed
+                (fn [i e] {:db/id (str "pev/" run "/" i)
+                           :pulse.event/run run :pulse.event/idx i
+                           :pulse.event/at (get e "at") :pulse.event/actor (or (get e "actor") "")
+                           :pulse.event/subj (get e "subj")})
+                (get d "stream"))]
+    (vec (concat actors stream))))
 
 (defn pulse-data
   "Per-actor live activity over the last `hours`: commit production (newest-first
@@ -338,13 +380,24 @@
      "head" (try (kt/head-cid (kt/connect {:journal journal})) (catch Exception _ ""))}))
 
 (defn -pulse
-  "Write pulse.json (default last 48h). Args: [hours]. Cheap — run on a short loop."
+  "Persist the live pulse into the kotoba Datom log (SoT), snapshot it content-addressed, and
+   emit pulse.json as the projection. Args: [hours]. Live state → fresh journal each run (the
+   activity HISTORY lives in git + the vitals/joucho logs; pulse is current-state, bounded)."
   [& args]
   (let [hours (if (seq args) (Long/parseLong (first args)) 48)
-        out (json/generate-string (pulse-data hours) {:pretty true})]
-    (doseq [p pulse-paths] (io/make-parents p) (spit p out))
-    (binding [*out* *err*]
-      (println (format "[pulse] %s · %d working" (str (java.time.Instant/now)) (count (re-seq #"\"dirty\"" out)))))))
+        d (pulse-data hours)
+        run (get d "now")]
+    (io/delete-file pulse-journal true)                 ;; live state: bounded, not append-history
+    (let [conn (kt/connect {:journal pulse-journal})]
+      (kt/transact conn (pulse->datoms run d))
+      (let [head (snapshot-to! conn "pulse.kotoba.edn")
+            d (assoc d "head" head "store" "kotoba-datom-log" "snapshot" "pulse.kotoba.edn")
+            out (json/generate-string d {:pretty true})]
+        (doseq [p pulse-paths] (io/make-parents p) (spit p out))
+        (binding [*out* *err*]
+          (println (format "[pulse] kotoba head=%s · %d working"
+                           (subs head 0 (min 16 (count head)))
+                           (count (re-seq #"\"dirty\"" out)))))))))
 
 ;; ── joucho 情緒: the organism's mood + Wellbecoming trajectory (ADR-2606171500) ─
 ;; Replays ibuki's representative life (perception pattern + the charter-clean reciprocal
@@ -374,9 +427,14 @@
         fold     (requiring-resolve 'ibuki.methods.joucho/fold-event)
         mood-of  (requiring-resolve 'ibuki.methods.joucho/determine-mood)
         readout  (requiring-resolve 'ibuki.methods.wellbecoming/readout)
+        vocab    @(requiring-resolve 'ibuki.methods.joucho/event-deltas)  ;; the loaded closed vocab
+        known?   (fn [e] (contains? vocab e))
         beats (loop [i 1, sc baseline, acc []]
                 (if (> i n) acc
-                  (let [sc' (reduce (fn [s e] (fold s e baseline)) sc (beat-events i))]
+                  ;; fold only events present in the loaded vocab — degrade gracefully if the
+                  ;; rich reward inputs (ADR-2606171800) are not yet in this joucho build
+                  (let [evs (or (seq (filter known? (beat-events i))) [":event/idle"])
+                        sc' (reduce (fn [s e] (fold s e baseline)) sc evs)]
                     (recur (inc i) sc' (conj acc (assoc sc' :beat i :mood (mood-of sc')))))))
         final (last beats)
         wb (readout of (map #(select-keys % [:joy :calm :stress :gratitude :focus]) beats))]
@@ -386,16 +444,43 @@
      :beats beats
      :wellbecoming {:direction (name (:direction wb)) :net (:net wb) :trajectory (:trajectory wb)}}))
 
-(defn -joucho [& args]
+(defn joucho->datoms
+  "Per-beat :joucho/* mood entities + a final :wellbecoming/* MOVEMENT entity (engine-native
+   maps — the organism's mood history on the kotoba log, as-of replayable, 縁起). Edge-primary:
+   :wellbecoming/* carries direction + net (movement), never a per-soul score/level."
+  [of d]
+  (let [beats (:beats d)
+        per-beat (map (fn [b]
+                        {:db/id (str "joucho/" of "/" (:beat b))
+                         :joucho/of of :joucho/beat (:beat b) :joucho/mood (:mood b)
+                         :joucho/joy (:joy b) :joucho/calm (:calm b) :joucho/stress (:stress b)
+                         :joucho/gratitude (:gratitude b) :joucho/focus (:focus b)})
+                      beats)
+        wb (:wellbecoming d)
+        wb-ent {:db/id (str "wellbecoming/" of "/" (count beats))
+                :wellbecoming/of of :wellbecoming/beats (count beats)
+                :wellbecoming/direction (:direction wb) :wellbecoming/net (:net wb)}]
+    (vec (conj (vec per-beat) wb-ent))))
+
+(defn -joucho
+  "Persist the 情緒 mood + Wellbecoming trajectory into the kotoba Datom log (SoT), snapshot it
+   content-addressed, and emit joucho.json as the projection. Args: [of=ibuki] [beats=24]."
+  [& args]
   (let [of (or (first args) "ibuki")
         n  (if (second args) (Long/parseLong (second args)) 24)
-        d  (joucho-data of n)
-        out (json/generate-string d {:pretty true})]
-    (doseq [p joucho-paths] (io/make-parents p) (spit p out))
-    (binding [*out* *err*]
-      (println (format "[joucho] %s mood=%s wellbecoming=%s net=%d"
-                       of (:mood d) (get-in d [:wellbecoming :direction])
-                       (get-in d [:wellbecoming :net]))))))
+        d  (joucho-data of n)]
+    (io/delete-file joucho-journal true)               ;; deterministic replay → fresh each run
+    (let [conn (kt/connect {:journal joucho-journal})]
+      (kt/transact conn (joucho->datoms of d))
+      (let [head (snapshot-to! conn "joucho.kotoba.edn")
+            d (assoc d :head head :store "kotoba-datom-log" :snapshot "joucho.kotoba.edn")
+            out (json/generate-string d {:pretty true})]
+        (doseq [p joucho-paths] (io/make-parents p) (spit p out))
+        (binding [*out* *err*]
+          (println (format "[joucho] kotoba head=%s · %s mood=%s wellbecoming=%s net=%d"
+                           (subs head 0 (min 16 (count head)))
+                           of (:mood d) (get-in d [:wellbecoming :direction])
+                           (get-in d [:wellbecoming :net]))))))))
 
 ;; ── CLI ──────────────────────────────────────────────────────────────────────
 
@@ -430,6 +515,8 @@
         run    (System/currentTimeMillis)
         head   (persist! run vitals)]
     (export-json! run vitals)
+    ;; canonical content-addressed snapshot of the vitals Datom log (no KV; D2 of ADR-2606172200)
+    (let [conn (kt/connect {:journal journal})] (snapshot-to! conn "vitals.kotoba.edn"))
     (println (report->md vitals head))))
 
 ;; ── trajectory: the organism's evolution across runs (生命進化) ──────────────
