@@ -24,7 +24,8 @@ cd "$REPO"
 
 bb --classpath 20-actors -e '
 (require (quote [clojure.test :as t]))
-(def nss (quote [ake.methods.test-triage ake.methods.test-revision ake.methods.test-editwar
+(def nss (quote [ake.methods.test--edn
+                 ake.methods.test-triage ake.methods.test-revision ake.methods.test-editwar
                  ake.methods.test-contributor ake.methods.test-ingest
                  ake.methods.test-charter-invariants ake.methods.test-analyze
                  ake.methods.test-lexicons ake.methods.test-consistency]))

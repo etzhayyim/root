@@ -6,6 +6,7 @@ set -uo pipefail
 cd "$(dirname "$0")"
 
 SUITES=(
+  "methods/test__edn.py"
   "methods/test_triage.py"
   "methods/test_revision.py"
   "methods/test_editwar.py"
