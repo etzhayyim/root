@@ -7,7 +7,7 @@
 | Dimension | State | Evidence |
 |---|---|---|
 | Ontology | ✅ | `kotoba/schema.edn` — 11 node kinds · 8 edge kinds · 4 axes · forbidden set |
-| Seed (representative) | ✅ | `data/seed-ai-ecosystem.kotoba.edn` — 53 nodes / 52 縁; **all 11 kinds + 8 edge kinds + 4 axes covered** (incl. invest/round + asset/compute) |
+| Seed (representative) | ✅ | `data/seed-ai-ecosystem.kotoba.edn` — 66 nodes / 58 縁; **all 11 kinds + 8 edge kinds + 4 axes covered** (incl. invest/round + asset/compute) |
 | Analyzer (edge-primary) | ✅ | `methods/analyze.cljc` — opening / reach / fragility + 4-axis concentration, on-read |
 | Datom emitter (EAVT) | ✅ | `methods/datom_emit.cljc` — GROUND `:add` + DERIVED `:derived` (transient), deterministic |
 | Coverage / gap honesty | ✅ | `methods/coverage_report.cljc` — sourcing split + gap worklist, "~0 by design" |
@@ -17,7 +17,7 @@
 | KG query interface | ✅ | `methods/query.cljc` — funders-of / compute-suppliers-of / governed-by / rounds-of / subsidiaries / concentration-in / opening-worklist; reuses the analyze integral (one source of truth) |
 | Integrity / charter gate | ✅ | `methods/verify.cljc` — one self-audit: struct + kind/edge validity + endpoint resolution + load∈[0,1] + G2 (public-role-only) + G4 (forbidden-token scan) + G5 sourcing + schema drift; adversarial cases test-caught |
 | edn-native manifest | ✅ | `manifest.edn` (kotoba/edn-native canonical manifest — gates / methods / cells / bridge / tests) alongside `manifest.jsonld` |
-| Tests | ✅ | 10 suites · **53 tests / 165 assertions** green (`bb test:actors` auto-discovers) |
+| Tests | ✅ | 10 suites · **53 tests / 172 assertions** green (`bb test:actors` auto-discovers) |
 | Charter gates G1–G5 | ✅ | test-enforced: open→0 (G1), inbound-integral (G2), representative-only (G5), no-trade/no-score (G4) |
 | Cross-actor bridge | ✅ (declared) | `:bridge` → kanjō/kabuto/handotai/kasa/kenkyusha/keizu/kosatsu/abaki |
 | **常駐化 (resident heartbeat)** | ✅ R1 | `methods/autorun.cljc` + `cell.cljc` (`fire`) → content-addressed Datom tx on append-only kotoba commit-DAG (`verify-chain` tamper-evident, resume-safe) + Murakumo digest in the summary; registered `ChieHeartbeatCell` in cell-runner `cells.edn` (node gad, cron `37 * * * *`, healthz 13082) |

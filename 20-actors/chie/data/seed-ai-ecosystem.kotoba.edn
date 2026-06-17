@@ -91,6 +91,21 @@
  {:organism/id "ai.compute.rainier"  :organism/kind :ai.asset/compute :organism/label "Amazon Project Rainier" :organism/sourcing :representative :ai/sector :cluster :ai/open? false :organism/nests-in "ai.co.amazon"}
  {:organism/id "ai.compute.tpu-fleet" :organism/kind :ai.asset/compute :organism/label "Google TPU v5/v6 fleet" :organism/sourcing :representative :ai/sector :cluster :ai/open? false :organism/nests-in "ai.co.google"}
 
+ ;; ── coverage wave 2 — more real public AI entities (:representative) ──
+ {:organism/id "ai.lab.huggingface" :organism/kind :ai.org/lab     :organism/label "Hugging Face" :organism/sourcing :representative :ai/sector :open-weights-hub :ai/open? true}
+ {:organism/id "ai.lab.ai21"        :organism/kind :ai.org/lab     :organism/label "AI21 Labs"   :organism/sourcing :representative :ai/sector :frontier-lab :ai/open? false}
+ {:organism/id "ai.lab.perplexity"  :organism/kind :ai.org/lab     :organism/label "Perplexity"  :organism/sourcing :representative :ai/sector :app-layer :ai/open? false}
+ {:organism/id "ai.lab.zhipu"       :organism/kind :ai.org/lab     :organism/label "Zhipu AI (智谱)" :organism/sourcing :representative :ai/sector :frontier-lab :ai/open? true}
+ {:organism/id "ai.co.alibaba"      :organism/kind :ai.org/company :organism/label "Alibaba"     :organism/sourcing :representative :ai/sector :cloud :ai/open? false}
+ {:organism/id "ai.co.baidu"        :organism/kind :ai.org/company :organism/label "Baidu"       :organism/sourcing :representative :ai/sector :platform :ai/open? false}
+ {:organism/id "ai.co.cerebras"     :organism/kind :ai.org/company :organism/label "Cerebras"    :organism/sourcing :representative :ai/sector :chip :ai/open? false}
+ {:organism/id "ai.co.groq"         :organism/kind :ai.org/company :organism/label "Groq"        :organism/sourcing :representative :ai/sector :chip :ai/open? false}
+ {:organism/id "ai.fund.khosla"     :organism/kind :ai.org/funder  :organism/label "Khosla Ventures" :organism/sourcing :representative :ai/sector :vc :ai/open? false}
+ {:organism/id "ai.res.allen-ai"    :organism/kind :ai.org/research :organism/label "Allen Institute for AI (AI2)" :organism/sourcing :representative :ai/sector :academia :ai/open? true}
+ {:organism/id "ai.model.qwen"      :organism/kind :ai.asset/model :organism/label "Qwen (Alibaba)" :organism/sourcing :representative :ai/sector :open-weights :ai/open? true :organism/nests-in "ai.co.alibaba"}
+ {:organism/id "ai.model.olmo"      :organism/kind :ai.asset/model :organism/label "OLMo (AI2)"  :organism/sourcing :representative :ai/sector :open-weights :ai/open? true :organism/nests-in "ai.res.allen-ai"}
+ {:organism/id "ai.model.glm"       :organism/kind :ai.asset/model :organism/label "GLM (Zhipu)" :organism/sourcing :representative :ai/sector :open-weights :ai/open? true :organism/nests-in "ai.lab.zhipu"}
+
  ;; ───────────────────────────── 縁 (edges) — 取 lives here (N1) ─────────────────────────────
  ;; invests-in (capital): funder/company → lab
  {:en/from "ai.co.microsoft"  :en/to "ai.lab.openai"     :en/kind :invests-in   :en/grasping-load 0.90 :en/sourcing :representative}
@@ -164,4 +179,12 @@
  {:en/from "ai.lab.openai"    :en/to "ai.compute.azure-ai" :en/kind :depends-on :en/grasping-load 0.70 :en/sourcing :representative}
  {:en/from "ai.lab.xai"       :en/to "ai.compute.colossus" :en/kind :depends-on :en/grasping-load 0.80 :en/sourcing :representative}
  {:en/from "ai.lab.anthropic" :en/to "ai.compute.rainier"  :en/kind :depends-on :en/grasping-load 0.65 :en/sourcing :representative}
- {:en/from "ai.lab.deepmind"  :en/to "ai.compute.tpu-fleet" :en/kind :depends-on :en/grasping-load 0.70 :en/sourcing :representative}]
+ {:en/from "ai.lab.deepmind"  :en/to "ai.compute.tpu-fleet" :en/kind :depends-on :en/grasping-load 0.70 :en/sourcing :representative}
+
+ ;; ── coverage wave 2 edges (into new / non-asserted nodes only — existing integrals unchanged)
+ {:en/from "ai.fund.khosla"   :en/to "ai.lab.perplexity" :en/kind :invests-in   :en/grasping-load 0.30 :en/sourcing :representative}
+ {:en/from "ai.co.cerebras"   :en/to "ai.lab.ai21"       :en/kind :compute-deal :en/grasping-load 0.40 :en/sourcing :representative}
+ {:en/from "ai.co.groq"       :en/to "ai.lab.perplexity" :en/kind :compute-deal :en/grasping-load 0.30 :en/sourcing :representative}
+ {:en/from "ai.policy.eu-ai-act" :en/to "ai.lab.ai21"    :en/kind :governs      :en/grasping-load 0.40 :en/sourcing :representative}
+ {:en/from "ai.lab.huggingface" :en/to "ai.std.mlcommons" :en/kind :partners    :en/grasping-load 0.15 :en/sourcing :representative}
+ {:en/from "ai.res.allen-ai"  :en/to "ai.std.mlcommons"  :en/kind :partners     :en/grasping-load 0.15 :en/sourcing :representative}]
