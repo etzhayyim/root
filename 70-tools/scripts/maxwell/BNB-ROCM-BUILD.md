@@ -70,3 +70,36 @@ on gad's **32 GB usable VRAM** currently fails two ways:
 
 Until one of these lands, maxwell-diffusion inference/SFT runs **CPU bf16** on gad
 (verified: base bench 12/15=80%, train smoke loss 1.07→0.04); `available:false` stands.
+
+## Operator runbook — VRAM bump (path a), then one-command 4-bit
+
+**Goal:** make >32 GB GPU-usable so the all-GPU NF4 load fits. The EVO-X2 (Ryzen AI
+Max) has ~94–128 GB unified; only the BIOS UMA framebuffer is exposed to torch as VRAM.
+
+1. **BIOS** — reboot → BIOS/UEFI → *Advanced → (UMA Frame Buffer Size / iGPU Memory /
+   "Dedicated VRAM")* → set to **48 GB or 64 GB** (pin a large fixed value, not "Auto").
+   Save + reboot. (Some BIOSes label it "GTT"/"VGA memory"; pick the largest fixed option.)
+2. **Verify the carveout grew** (target >32 GB):
+   ```bash
+   HSA_OVERRIDE_GFX_VERSION=11.5.1 ~/maxwell/venv-train/bin/python -c \
+   "import torch; print(round(torch.cuda.get_device_properties(0).total_memory/1e9,1),'GB VRAM')"
+   ```
+3. **Re-apply the bnb .so name fix** if the venv changed (see "name fix" above).
+4. **4-bit inference** (one command — proves the >1100 tok/s thesis):
+   ```bash
+   sudo systemctl stop llama-server comfyui
+   cd ~/maxwell && PYTORCH_HIP_ALLOC_CONF=expandable_segments:True \
+     HSA_OVERRIDE_GFX_VERSION=11.5.1 HF_HUB_OFFLINE=1 \
+     venv-train/bin/python smoke_diffusion.py --4bit
+   sudo systemctl start llama-server comfyui
+   ```
+5. **4-bit QLoRA SFT** (full diffusion training on GPU — the RSi train leg at speed):
+   ```bash
+   cd ~/maxwell && PYTORCH_HIP_ALLOC_CONF=expandable_segments:True \
+     HSA_OVERRIDE_GFX_VERSION=11.5.1 HF_HUB_OFFLINE=1 \
+     venv-train/bin/python train_diffusion.py --4bit --steps 300 --canvas 256
+   ```
+
+Both scripts ship a `--4bit` flag (default stays CPU bf16). The 4-bit matmul is already
+verified on gfx1151; once step 2 shows >32 GB, steps 4–5 should run without the load-peak
+OOM. Then flip provenance + re-bench to clear the `available:true` gate.
