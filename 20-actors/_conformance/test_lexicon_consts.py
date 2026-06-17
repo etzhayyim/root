@@ -85,11 +85,15 @@ def test_every_actor_has_its_gate_lexicons():
 
 
 def test_coded_cells_keep_solve_gated():
-    """R0 invariant: every coded cell's .solve() raises (no accidental live activation)."""
+    """R0 invariant: every coded cell's .solve() raises (no accidental live activation).
+
+    Scoped to cells still implemented in Python. The ADR-2606160842 py→clj wave migrated
+    sanae + kiyome to .cljc state machines (their langgraph cell.py R0 wrappers were pruned
+    as dead scaffold); their gating now lives in the cljc cell tests. Only hataori's cell.py
+    remains in Python here.
+    """
     coded = [
-        ACTORS / "sanae" / "cells" / "autonomous_weeding" / "cell.py",
         ACTORS / "hataori" / "cells" / "finishing_packing" / "cell.py",
-        ACTORS / "kiyome" / "cells" / "surface_cleaning" / "cell.py",
     ]
     for p in coded:
         src = p.read_text(encoding="utf-8")
