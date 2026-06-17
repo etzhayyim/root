@@ -85,17 +85,14 @@
 (deftest test-claude-md-counts-in-sync
   (let [md (slurp (str (clojure.java.io/file ts/HERE "CLAUDE.md")))
         m1 (re-find #"procedure registry \((\d+) procs" md)
-        m2 (re-find #"clause registry \((\d+) shapes, (\d+) juris" md)
-        n-tests (reduce + (for [f (file-seq (clojure.java.io/file ts/HERE "tests"))
-                                :when (and (.isFile f)
-                                           (str/starts-with? (.getName f) "test_")
-                                           (str/ends-with? (.getName f) ".py"))]
-                            (count (re-seq #"\ndef test_" (slurp f)))))
-        m3 (re-find #"# (\d+) tests, pure stdlib" md)]
+        m2 (re-find #"clause registry \((\d+) shapes, (\d+) juris" md)]
+    ;; (the `# N tests, pure stdlib` Python-test-count assertion was dropped in the
+    ;; ADR-2606160842 py→clj prune wave — it counted `\ndef test_` across the now-pruned
+    ;; Python test files. The registry-count guards below stay: they sync CLAUDE.md against
+    ;; the .edn registries, which are not pruned.)
     (is (and m1 (= (Long/parseLong (nth m1 1)) (count (rp/load-procs)))) "CLAUDE.md proc count drift")
     (is (and m2 (= (Long/parseLong (nth m2 1)) (count (ts/load-patterns)))) "CLAUDE.md pattern count drift")
-    (is (= (Long/parseLong (nth m2 2)) (count (rp/load-jurisdictions))) "CLAUDE.md juris count drift")
-    (is (and m3 (= (Long/parseLong (nth m3 1)) n-tests)) (str "CLAUDE.md test count drift (actual " n-tests ")"))))
+    (is (= (Long/parseLong (nth m2 2)) (count (rp/load-jurisdictions))) "CLAUDE.md juris count drift")))
 
 (deftest test-protective-census
   (let [cov (cr/coverage)

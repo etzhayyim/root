@@ -90,15 +90,13 @@
       (is (every? #(= ":db/add" (first %)) (:tx/datoms (first txs)))))))
 
 (deftest python-cid-parity
-  ;; The Python and Clojure implementations write the SAME content-addressed
-  ;; chain: identical CID for cycle 1, and each side verifies the other's log.
+  ;; Golden-file parity (ADR-2606131300): `golden-py-autorun.log` is the REAL Python
+  ;; autorun.py output (content-addressed Datom DAG over seed-mimamori-bonds.json), frozen
+  ;; byte-for-byte BEFORE the Python prune. Freezing it keeps the cross-language CID guarantee
+  ;; after autorun.py is gone — the cljc cycle must reproduce the SAME head CID, and cljc must
+  ;; still verify the Python-written chain.
   (let [actor-dir (-> (io/resource "mimamori/cell.cljc") io/file .getParentFile)
-        py (str actor-dir "/methods/autorun.py")
-        seed-path (str actor-dir "/data/seed-mimamori-bonds.json")
-        py-log (tmplog)
-        sh (requiring-resolve 'babashka.process/sh)
-        r (sh ["python3" py seed-path "--log" py-log])]
-    (is (zero? (:exit r)) (str "python autorun failed: " (:err r)))
-    (let [s (autorun/run-cycle (seed) (tmplog))]
-      (is (:ok (kd/verify-chain py-log)))    ;; Clojure verifies the Python-written log
-      (is (= (kd/head-cid py-log) (:cid s)))))) ;; byte-identical CID across languages
+        py-log (str actor-dir "/tests/golden_py_autorun.kotoba.edn")
+        s (autorun/run-cycle (seed) (tmplog))]
+    (is (:ok (kd/verify-chain py-log)))    ;; Clojure verifies the Python-written log
+    (is (= (kd/head-cid py-log) (:cid s))))) ;; byte-identical CID across languages

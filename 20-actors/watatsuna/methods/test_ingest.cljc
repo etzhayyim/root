@@ -164,24 +164,18 @@
   (is (thrown? clojure.lang.ExceptionInfo (ingest/-main "--live" "http://example/x"))))
 
 ;; ── Python↔Clojure parity: bridge_source produces the SAME records ─────────
-;; No content-addressing in ingest.py, so parity is over the bridged record shape:
-;; run the REAL Python ingest.bridge_source over the same sample via babashka.process
-;; and assert the (cables, stations, links) record sets are identical on both sides.
+;; Golden-file parity (ADR-2606131300): `test_ingest_golden.json` is the REAL Python
+;; ingest.bridge_source output over telegeography-sample.json, captured byte-for-byte
+;; (json.dumps sort_keys=True) BEFORE the Python prune. Freezing it keeps the cross-language
+;; parity guarantee after ingest.py is gone — the cljc port must still reproduce these exact
+;; (cables, stations, links) record sets.
 
 (deftest python-clojure-bridge-parity
-  (let [sh (requiring-resolve 'babashka.process/sh)
-        script (str "import sys, json, pathlib\n"
-                    "import ingest\n"
-                    "cs, ss, ls = ingest.bridge_source(pathlib.Path(sys.argv[1]))\n"
-                    "print(json.dumps({'cables': cs, 'stations': ss, 'links': ls},\n"
-                    "                 ensure_ascii=False, sort_keys=True), end='')\n")
-        r (sh {:dir (str methods-dir)} "python3" "-c" script (str sample-json))]
-    (is (zero? (:exit r)) (str "python ingest failed: " (:err r)))
-    (let [parse-json (requiring-resolve 'cheshire.core/parse-string)
-          py (parse-json (:out r))
-          clj (ingest/bridge-source sample-json)
-          ;; normalize both sides to sets of attr->value maps (order-independent)
-          norm (fn [recs] (set (map (fn [r] (as-map r)) recs)))]
-      (is (= (set (get py "cables")) (norm (:cables clj))))
-      (is (= (set (get py "stations")) (norm (:stations clj))))
-      (is (= (set (get py "links")) (norm (:links clj)))))))
+  (let [parse-json (requiring-resolve 'cheshire.core/parse-string)
+        py (parse-json (slurp (io/file methods-dir "test_ingest_golden.json")))
+        clj (ingest/bridge-source sample-json)
+        ;; normalize both sides to sets of attr->value maps (order-independent)
+        norm (fn [recs] (set (map (fn [r] (as-map r)) recs)))]
+    (is (= (set (get py "cables")) (norm (:cables clj))))
+    (is (= (set (get py "stations")) (norm (:stations clj))))
+    (is (= (set (get py "links")) (norm (:links clj))))))
