@@ -224,10 +224,10 @@
   {:doc "kabuto Clojure test suite — 3 cljc suites wired into the runner (orphan-test registration; py→cljc port wave ADR-2606160842)."
    :task (do (require 'clojure.test
                       'kabuto.methods.test-analyze 'kabuto.methods.test-autorun
-                      'kabuto.methods.test-social 'kabuto.viz.test-build-viz-data)
+                      'kabuto.methods.test-social 'kabuto.viz.test-build-viz-data 'kabuto.viz.test-build-bpmn-manifest)
              (let [r (clojure.test/run-tests
                       'kabuto.methods.test-analyze 'kabuto.methods.test-autorun
-                      'kabuto.methods.test-social 'kabuto.viz.test-build-viz-data)]
+                      'kabuto.methods.test-social 'kabuto.viz.test-build-viz-data 'kabuto.viz.test-build-bpmn-manifest)]
                (when (pos? (+ (:fail r) (:error r)))
                  (System/exit 1))))}
   test:kadode
