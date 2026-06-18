@@ -85,15 +85,18 @@
 
  ;; ── energy carriers ────────────────────────────────────────────────────────
  {:type :commodity :id "crude" :symbol "WTI/Brent" :name "Crude Oil" :class :energy :unit "USD/bbl"
-  :producers [[:us 20] [:sa 11] [:ru 11] [:ca 6] [:other 52]]
+  :producers [[:us 16] [:sa 12] [:ru 12] [:ca 6] [:other 54]]
   :recyclability 0.0 :carbon-intensity 0.95 :irreversibility 0.9 :ref-level 75
+  :sourcing :authoritative :source "EIA Crude Oil incl. Lease Condensate (Jan 2026, crude-only)"
   :note "Fossil→combusted pathway is net-positive CO₂e (Rider §2(d)); transition routed to kamado."}
  {:type :commodity :id "natgas" :symbol "NG" :name "Natural Gas" :class :energy :unit "USD/MMBtu"
-  :producers [[:us 25] [:ru 17] [:ir 6] [:cn 5] [:other 47]]
-  :recyclability 0.0 :carbon-intensity 0.8 :irreversibility 0.85 :ref-level 3}
+  :producers [[:us 26] [:ru 14] [:ir 7] [:cn 6] [:other 47]]
+  :recyclability 0.0 :carbon-intensity 0.8 :irreversibility 0.85 :ref-level 3
+  :sourcing :authoritative :source "OPEC Annual Statistical Bulletin (2025 marketed production)"}
  {:type :commodity :id "coal" :symbol "Coal" :name "Coal" :class :energy :unit "USD/tonne"
-  :producers [[:cn 50] [:in 10] [:id 8] [:us 6] [:other 26]]
-  :recyclability 0.0 :carbon-intensity 1.0 :irreversibility 0.95 :ref-level 120}
+  :producers [[:cn 50] [:in 11] [:id 9] [:us 5] [:other 25]]
+  :recyclability 0.0 :carbon-intensity 1.0 :irreversibility 0.95 :ref-level 120
+  :sourcing :authoritative :source "EIA international coal production (2024, Mt)"}
  {:type :commodity :id "u3o8" :symbol "U3O8" :name "Uranium" :class :energy :unit "USD/lb"
   :producers [[:kz 39] [:ca 24] [:na 12] [:au 8] [:uz 7] [:other 10]]
   :recyclability 0.10 :carbon-intensity 0.2 :irreversibility 0.7 :ref-level 80

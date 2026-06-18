@@ -39,7 +39,8 @@ methods/autorun.cljc      Wave 2: deterministic, idempotent-by-content heartbeat
 methods/test_*.cljc       loader + analytics + G1/G3/G5 + ledger/heartbeat invariants
 kotoba/ontology.busshi.edn  EAVT schema + negative space (unrepresentable attrs)
 kotoba/seed.edn           seed (26 commodities, all 5 classes); MIXED provenance —
-                          15 :authoritative (14 USGS + 1 WNA uranium), rest :representative
+                          18 :authoritative (14 USGS metals + WNA uranium + EIA/OPEC
+                          crude/gas/coal), the remaining 8 :representative
 data/ (gitignored)        generated observation ledger — never committed/hand-edited
 manifest.edn              gates G1–G8 + non-goals N1–N5 + method/seed/ledger registry
 ```
@@ -81,12 +82,12 @@ bb --classpath 20-actors 20-actors/busshi/methods/autorun.cljc           # heart
   The seed header reserves live ingest for an operator step; this fold was operator-commanded.
   **+ uranium** folded from the **World Nuclear Association** 2024 table (tU): Kazakhstan 39 /
   Canada 24 / Namibia 12 / Australia 8 / Uzbekistan 7 (Canada 15→24 is the big move).
-  Remaining `:representative`: gallium/germanium (USGS gives narrative shares / import sources
-  only, no clean production-by-country table to cite) + REE (defers to rare-earth-coverage) +
-  **crude/gas/coal HELD** — EIA reports *total petroleum liquids* (US 22%), a definitional
-  mismatch with the seed's crude-only (WTI/Brent) row; needs a clean crude-only / consistently
-  defined table (Energy Institute Statistical Review) before an honest authoritative fold +
-  the USDA/FAO ag class.
+  **+ the whole energy class** folded: crude oil (EIA "Crude Oil incl. Lease Condensate",
+  crude-only basis — US 16 / Saudi 12 / Russia 12 — resolving the earlier total-liquids
+  mismatch), natural gas (OPEC ASB 2025 — US 26 / Russia 14 / Iran 7), coal (EIA 2024 — China
+  50 / India 11 / Indonesia 9). The remaining 8 `:representative`: gallium/germanium (no clean
+  production-by-country table to cite) + REE (defers to rare-earth-coverage) + the 5 ag-softs
+  (USDA/FAO — wheat/corn/soybean/coffee/sugar, the next source wave).
 - Wave 2+: per-commodity depth (stocks/curve as facts, recycling-loop linkage to kanayama),
   Murakumo-narrated digest, fleet registration, lexicons.
 

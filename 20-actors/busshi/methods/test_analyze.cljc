@@ -58,8 +58,8 @@
         co  (a/analyze-commodity (by-id "co"))]
     (is (= :authoritative (get co "sourcing")) "cobalt is USGS-sourced")
     (is (str/includes? (get co "source") "USGS MCS 2025"))
-    (is (= :representative (get (a/analyze-commodity (by-id "crude")) "sourcing"))
-        "crude oil (EIA source, not USGS) stays representative")
+    (is (= :representative (get (a/analyze-commodity (by-id "ga")) "sourcing"))
+        "gallium (no clean production-by-country table to cite) stays representative")
     (is (str/includes? edn ":authoritative"))
     (is (str/includes? edn ":busshi/source"))
     (is (str/includes? edn "USGS MCS 2025"))
