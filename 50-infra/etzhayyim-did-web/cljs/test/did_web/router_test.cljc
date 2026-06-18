@@ -44,13 +44,24 @@
     (testing "a slash inside the cid segment is not an ipfs route"
       (is (= :fallback (r "GET" "/ipfs/ab/cd"))))))
 
+(deftest kotoba-cas-routes-method-aware
+  (testing "kotoba block CAS endpoints are method-aware (faithful to worker.ts 2d)"
+    (is (= :kotoba-block-put (r "POST" "/xrpc/com.etzhayyim.apps.kotoba.block.put")))
+    (is (= :kotoba-block-has (r "POST" "/xrpc/com.etzhayyim.apps.kotoba.block.has")))
+    (is (= :kotoba-root  (r "GET"  "/xrpc/com.etzhayyim.apps.kotoba.root")))
+    (is (= :kotoba-stats (r "GET"  "/xrpc/com.etzhayyim.apps.kotoba.stats")))
+    (is (= {:route :kotoba-block-get :cid "bafkreiblk"}
+           (router/route {:method "GET" :path "/kotoba/blocks/bafkreiblk"})))
+    (testing "method mismatch falls through to the generic xrpc proxy (:fallback)"
+      (is (= :fallback (r "GET"  "/xrpc/com.etzhayyim.apps.kotoba.block.put")))
+      (is (= :fallback (r "POST" "/xrpc/com.etzhayyim.apps.kotoba.root")))
+      (is (= :fallback (r "POST" "/kotoba/blocks/bafkreiblk"))))))
+
 (deftest io-plumbing-falls-back
-  (testing "heavy I/O routes still on the legacy TS handler (next batches)"
+  (testing "the generic xrpc proxy + reverse proxy stay on the legacy TS handler"
     (doseq [p ["/"
-               "/kotoba/blocks/bafkreibeta"
-               "/kotoba/stats"
                "/xrpc/app.bsky.feed.getTimeline"
-               "/xrpc/com.etzhayyim.apps.kotoba.block.put"
+               "/xrpc/com.etzhayyim.authz.verifyCacao"
                "/some/spa/route"]]
       (is (= :fallback (r "GET" p)) (str p " should fall through to TS")))))
 

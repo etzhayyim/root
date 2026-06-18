@@ -18,7 +18,8 @@
   `goog.object/get`. Never use `(.-foo deps)` on the injection object."
   (:require [goog.object :as gobj]
             [did-web.router :as router]
-            [did-web.ipfs :as ipfs]))
+            [did-web.ipfs :as ipfs]
+            [did-web.kotoba :as kotoba]))
 
 ;; ─── injected-deps access (rename-safe) ──────────────────────────────────────
 
@@ -251,5 +252,12 @@
         :actor-profile       (actor-profile-route deps env ctx handle)
         :actor-procedures    (actor-procedures-route deps handle)
         :ipfs                (ipfs/handle-ipfs request env cid)
+        ;; kotoba member-signed block CAS (ADR-2605312345 / 2605231525)
+        :kotoba-block-put    (kotoba/handle-block-put request env)
+        :kotoba-block-has    (kotoba/handle-block-has request env)
+        :kotoba-root         (kotoba/handle-root-get url env)
+        :kotoba-stats        (kotoba/handle-stats-get url env)
+        :kotoba-block-get    (.then (kotoba/serve-block-from-kv cid env)
+                                    (fn [r] (or r (fallback request env ctx))))
         ;; :fallback (and any not-yet-mapped route) → legacy TS handler
         (fallback request env ctx)))))

@@ -41,11 +41,25 @@
     :actor-did :actor-profile :actor-procedures  (each + :handle, the RAW path
       segment — the core decodes + lower-cases + validates it)
 
-  Everything else → {:route :fallback} (legacy TS handler: ipfs / kotoba block /
-  xrpc / reverse proxy). As those migrate, add their branch here + a test."
-  [{:keys [path]}]
-  (let [p (strip-trailing-slash path)]
+  Everything else → {:route :fallback} (legacy TS handler: xrpc proxy / reverse
+  proxy). As those migrate, add their branch here + a test."
+  [{:keys [path method]}]
+  (let [p (strip-trailing-slash path)
+        get-head? (or (= method "GET") (= method "HEAD"))]
     (or
+     ;; method-aware kotoba CAS endpoints (matched BEFORE the generic /xrpc
+     ;; fallback, faithful to worker.ts section 2d ordering). A method mismatch
+     ;; falls through to :fallback (the generic xrpc proxy), exactly as in TS.
+     (when (and (= p "/xrpc/com.etzhayyim.apps.kotoba.block.put") (= method "POST"))
+       {:route :kotoba-block-put})
+     (when (and (= p "/xrpc/com.etzhayyim.apps.kotoba.block.has") (= method "POST"))
+       {:route :kotoba-block-has})
+     (when (and (= p "/xrpc/com.etzhayyim.apps.kotoba.root") get-head?)
+       {:route :kotoba-root})
+     (when (and (= p "/xrpc/com.etzhayyim.apps.kotoba.stats") get-head?)
+       {:route :kotoba-stats})
+     (when-let [[_ c] (and get-head? (re-matches #"^/kotoba/blocks/([A-Za-z0-9]+)$" path))]
+       {:route :kotoba-block-get :cid c})
      ;; exact static paths
      (case p
        "/.well-known/did.json"            {:route :did-json}

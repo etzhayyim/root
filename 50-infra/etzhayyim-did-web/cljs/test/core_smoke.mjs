@@ -127,5 +127,101 @@ function mockFetch(bodyBytes, status = 200) {
 }
 globalThis.fetch = realFetch;
 
+// ─── kotoba member-signed block CAS (ed25519 verify + KV CAS) ────────────────
+function base32Decode(s) { // verbatim from kotoba-publish.ts
+  let bits = 0, value = 0; const out = [];
+  for (const ch of s) { const idx = B32.indexOf(ch); if (idx < 0) continue;
+    value = (value << 5) | idx; bits += 5;
+    if (bits >= 8) { out.push((value >>> (bits - 8)) & 0xff); bits -= 8; } }
+  return new Uint8Array(out);
+}
+function hex(bytes) { let s = ""; for (const x of bytes) s += x.toString(16).padStart(2, "0"); return s; }
+function mockKV() {
+  const m = new Map();
+  return { _m: m, get: async (k) => (m.has(k) ? m.get(k) : null), put: async (k, v) => { m.set(k, v); } };
+}
+async function postJson(path, body, env) {
+  const req = new Request("https://etzhayyim.com" + path, {
+    method: "POST", headers: { "content-type": "application/json", "cf-connecting-ip": "203.0.113.7" },
+    body: JSON.stringify(body),
+  });
+  return await handle(req, env, {}, deps, fallback);
+}
+
+let kp, didKey, rootCid, sigHex;
+try {
+  kp = await crypto.subtle.generateKey({ name: "Ed25519" }, true, ["sign", "verify"]);
+  const pubRaw = new Uint8Array(await crypto.subtle.exportKey("raw", kp.publicKey));
+  didKey = "did:key:z" + hex(pubRaw);
+  rootCid = ipfsCid; // a valid bafkrei CID string
+  const rootBytes = base32Decode(rootCid.slice(1));
+  const sig = new Uint8Array(await crypto.subtle.sign({ name: "Ed25519" }, kp.privateKey, rootBytes));
+  sigHex = hex(sig);
+} catch (e) { console.log("(!) Ed25519 webcrypto unavailable in this node — skipping kotoba sig tests:", e.message); }
+
+if (sigHex) {
+  const env = { ACTOR_KV: mockKV() };
+  const blkCid = "bafkreiblockaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+  { // valid member signature → 200, blocks + root stored
+    const r = await postJson("/xrpc/com.etzhayyim.apps.kotoba.block.put",
+      { graph: "yoro-social-v1", root: rootCid, did: didKey, sig: sigHex, blocks: [{ cid: blkCid, hex: "deadbeef" }] }, env);
+    const j = await r.json();
+    check("kotoba block.put valid sig → 200 ok",
+          r.status === 200 && j.ok === true && j.root === rootCid && j.storedBlocks === 1, r.status + " " + JSON.stringify(j));
+    check("kotoba stored block + root in KV",
+          env.ACTOR_KV._m.has("kblk:" + blkCid) && env.ACTOR_KV._m.has("kroot:yoro-social-v1"));
+    check("kotoba attestation recorded (ipHash, no raw IP)",
+          [...env.ACTOR_KV._m.keys()].some(k => k.startsWith("kattest:")) && JSON.stringify(j).includes("ipHash"));
+  }
+  { // tampered signature → 401
+    const r = await postJson("/xrpc/com.etzhayyim.apps.kotoba.block.put",
+      { root: rootCid, did: didKey, sig: "00".repeat(64), blocks: [] }, env);
+    check("kotoba block.put bad sig → 401", r.status === 401);
+  }
+  { // missing fields → 400
+    const r = await postJson("/xrpc/com.etzhayyim.apps.kotoba.block.put", { graph: "x" }, env);
+    check("kotoba block.put missing fields → 400", r.status === 400);
+  }
+  { // CAS conflict: head is now rootCid; a put with mismatched prevRoot → 409
+    const r = await postJson("/xrpc/com.etzhayyim.apps.kotoba.block.put",
+      { root: rootCid, did: didKey, sig: sigHex, prevRoot: "bdifferent", blocks: [] }, env);
+    check("kotoba block.put CAS conflict → 409", r.status === 409);
+  }
+  { // block.has → reports only the missing cid
+    const r = await postJson("/xrpc/com.etzhayyim.apps.kotoba.block.has", { cids: [blkCid, "bafkreimissing"] }, env);
+    const j = await r.json();
+    check("kotoba block.has → missing only", JSON.stringify(j.missing) === JSON.stringify(["bafkreimissing"]));
+  }
+  { // root GET → manifest with the published root
+    const r = await call("GET", "/xrpc/com.etzhayyim.apps.kotoba.root?graph=yoro-social-v1");
+    // call() uses the no-KV deps env; re-issue with KV env:
+    const req = new Request("https://etzhayyim.com/xrpc/com.etzhayyim.apps.kotoba.root?graph=yoro-social-v1");
+    const r2 = await handle(req, env, {}, deps, fallback);
+    const j = await r2.json();
+    check("kotoba root GET → published root", j.root === rootCid);
+  }
+  { // stats GET → advances counter
+    const req = new Request("https://etzhayyim.com/xrpc/com.etzhayyim.apps.kotoba.stats?graph=yoro-social-v1");
+    const r = await handle(req, env, {}, deps, fallback);
+    const j = await r.json();
+    check("kotoba stats GET → advances>=1", (j.advances ?? 0) >= 1 && j.root === rootCid);
+  }
+  { // serve /kotoba/blocks/<cid> from KV → 200 octet-stream
+    const req = new Request("https://etzhayyim.com/kotoba/blocks/" + blkCid);
+    const r = await handle(req, env, {}, deps, fallback);
+    check("kotoba serve block → 200 octet", r.status === 200 && r.headers.get("content-type") === "application/octet-stream");
+  }
+  { // serve missing block → falls back to TS handler (299)
+    const req = new Request("https://etzhayyim.com/kotoba/blocks/bafkreinotstored");
+    const r = await handle(req, env, {}, deps, fallback);
+    check("kotoba serve missing → fallback", r.status === 299);
+  }
+  { // no ACTOR_KV → 503
+    const r = await postJson("/xrpc/com.etzhayyim.apps.kotoba.block.put",
+      { root: rootCid, did: didKey, sig: sigHex, blocks: [] }, {});
+    check("kotoba block.put no KV → 503", r.status === 503);
+  }
+}
+
 console.log(fails === 0 ? "\nALL SMOKE PASS" : `\n${fails} SMOKE FAILS`);
 process.exit(fails === 0 ? 0 : 1);
