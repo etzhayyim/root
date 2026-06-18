@@ -7,6 +7,7 @@
 ;; kotoba Datom log にそのまま流せる素直な EDN (content-addressable)。
 ;; ─────────────────────────────────────────────────────────────────────
 {:theme/id        :be-here-now
+ :theme/storybible "90-docs/be-here-now-storybible.md"  ; A=パイロット+ネーム / B=SiP演出文法 / C=四季の円環
  :theme/lineage   {:jump   ["努力" "友情" "勝利"]            ; 出発点 (換骨奪胎の対象)
                    :reject  "勝利 は終末論的・闘争的・個人主義的 → Charter §1.15/反個人主義と構造衝突"}
 
