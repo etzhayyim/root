@@ -5,7 +5,9 @@
   "description": "ClojureScript core for the etzhayyim did:web Worker (compiled to ../cljs-out/worker_core.mjs)",
   "scripts": {
     "build": "npx shadow-cljs release worker",
-    "watch": "npx shadow-cljs watch worker"
+    "watch": "npx shadow-cljs watch worker",
+    "test": "./run_tests.sh",
+    "test:smoke": "npm run build && node test/core_smoke.mjs"
   },
   "devDependencies": {
     "shadow-cljs": "^2.28.3"

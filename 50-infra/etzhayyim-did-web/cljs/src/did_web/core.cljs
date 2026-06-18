@@ -2,14 +2,13 @@
   "Request-handling core for the etzhayyim did:web Worker, compiled to ESM and
   delegated to by the thin TypeScript shell (src/worker.ts).
 
-  Migration stance (ADR-2606013800 lineage): the cljs core OWNS a growing set of
-  routes; any route it does not own is handed back to `fallback` — the legacy TS
-  handler — so the cut-over is incremental and rollback-safe. When every route is
-  owned, the fallback becomes the 404/proxy tail and the TS routing is deleted.
-
-  `handle` is intentionally a thin dispatcher over pure route fns; the routing
-  decision and any pure transforms live in did-web.routes / did-web.* so they are
-  shareable with bb-run unit tests (.cljc).
+  Migration stance (operator decision 2026-06-18): the cljs core OWNS the local
+  content/identity surface (DID docs, actor records, donation + atlas pages);
+  the heavy I/O plumbing (ipfs gateway, kotoba block CAS, xrpc proxy, reverse
+  proxy) is routed by the same cljs router but still handled by the legacy TS
+  `fallback` until a later batch — so the cut-over is route-by-route and
+  rollback-safe. The route DECISION lives in did-web.router (.cljc, bb-tested);
+  this namespace only adds Response construction + dependency injection.
 
   CRITICAL interop rule (caught by the build pilot): under :advanced compilation
   the Closure compiler RENAMES dotted property access on objects it cannot type
@@ -20,73 +19,235 @@
   (:require [goog.object :as gobj]
             [did-web.router :as router]))
 
+;; ─── injected-deps access (rename-safe) ──────────────────────────────────────
+
 (defn dep
   "Read a field from the injected `deps` object by string key (rename-safe)."
   [deps k]
   (gobj/get deps k))
 
-;; ─── interop helpers ────────────────────────────────────────────────────────
+(defn- call
+  "Invoke an injected closure `deps[k]` with args (rename-safe)."
+  [deps k & args]
+  (apply (gobj/get deps k) args))
 
-(defn- ->url [request] (js/URL. (.-url request)))
-
-(defn json-response
-  "A JSON Response with sane defaults. `opts` may override :status / :content-type
-  / :cache (Cache-Control)."
-  ([body] (json-response body nil))
-  ([body {:keys [status content-type cache]
-          :or   {status 200
-                 content-type "application/json; charset=utf-8"
-                 cache "public, max-age=300"}}]
-   (js/Response.
-    (if (string? body) body (js/JSON.stringify body))
-    #js {:status status
-         :headers #js {"content-type" content-type
-                       "cache-control" cache}})))
-
-;; ─── route: entity DID document ─────────────────────────────────────────────
-;;
-;; First route migrated off TS. The static did.json is injected via `deps`
-;; (the shell owns the JSON import) — the DI seam that mirrors the actor-cell
-;; SubstratePort pattern. Behaviour is byte-for-byte faithful to the TS handler:
-;; pretty JSON (2-space) + trailing newline, content-type application/did+json,
-;; and the full security-header set.
+;; ─── header sets (byte-faithful to worker.ts) ────────────────────────────────
 
 (def ^:private permissions-policy "interest-cohort=(), browsing-topics=()")
 
-(defn- did-json-route
-  "Serve did:web:etzhayyim.com at /.well-known/did.json (GET/HEAD only)."
-  [request deps]
-  (let [method (.-method request)]
-    (if (and (not= method "GET") (not= method "HEAD"))
-      (js/Response. "Method Not Allowed"
-                    #js {:status 405 :headers #js {"allow" "GET, HEAD"}})
-      (js/Response.
-       (str (js/JSON.stringify (dep deps "didDoc") nil 2) "\n")
-       #js {:status 200
-            :headers #js {"content-type" "application/did+json; charset=utf-8"
-                          "cache-control" "public, max-age=300, must-revalidate"
-                          "access-control-allow-origin" "*"
-                          "x-content-type-options" "nosniff"
-                          "strict-transport-security" "max-age=31536000; includeSubDomains"
-                          "permissions-policy" permissions-policy
-                          "x-etzhayyim-no-cookie" "1"}}))))
+;; CORS + the standard security set shared by the local JSON surfaces.
+(def ^:private base-sec
+  {"access-control-allow-origin" "*"
+   "x-content-type-options" "nosniff"
+   "strict-transport-security" "max-age=31536000; includeSubDomains"
+   "permissions-policy" permissions-policy
+   "x-etzhayyim-no-cookie" "1"})
 
-;; ─── dispatcher ─────────────────────────────────────────────────────────────
+;; HTML pages: no CORS (same-origin), CSP set per-route.
+(def ^:private html-sec
+  {"x-content-type-options" "nosniff"
+   "strict-transport-security" "max-age=31536000; includeSubDomains"
+   "permissions-policy" permissions-policy
+   "x-etzhayyim-no-cookie" "1"})
+
+;; ACTOR_JSON_HEADERS — note: max-age=60 and NO permissions-policy (matches TS).
+(def ^:private actor-json-headers
+  {"content-type" "application/json; charset=utf-8"
+   "cache-control" "public, max-age=60, must-revalidate"
+   "access-control-allow-origin" "*"
+   "x-content-type-options" "nosniff"
+   "strict-transport-security" "max-age=31536000; includeSubDomains"
+   "x-etzhayyim-no-cookie" "1"})
+
+(defn- resp
+  "Build a js/Response. `headers` is a Clojure map with string keys (rename-safe
+  via clj->js). `body` may be a string or nil."
+  [body status headers]
+  (js/Response. body #js {:status status :headers (clj->js headers)}))
+
+(defn- json-pretty [x] (str (js/JSON.stringify x nil 2) "\n"))
+(defn- json-compact [x] (str (js/JSON.stringify x) "\n"))
+
+(def ^:private method-not-allowed
+  (delay (js/Response. "Method Not Allowed"
+                       #js {:status 405 :headers #js {"allow" "GET, HEAD"}})))
+
+;; ─── local JSON routes ───────────────────────────────────────────────────────
+
+(defn- did-json-route [deps]
+  (resp (json-pretty (dep deps "didDoc")) 200
+        (assoc base-sec
+               "content-type" "application/did+json; charset=utf-8"
+               "cache-control" "public, max-age=300, must-revalidate")))
+
+(defn- donation-json-route [deps]
+  (resp (json-pretty (dep deps "donationPolicy")) 200
+        (assoc base-sec
+               "content-type" "application/json; charset=utf-8"
+               "cache-control" "public, max-age=300, must-revalidate")))
+
+(defn- actors-json-route
+  "Async: buildActorsJson(env) → Promise. Pretty JSON."
+  [deps env]
+  (.then (call deps "buildActorsJson" env)
+         (fn [obj]
+           (resp (json-pretty obj) 200
+                 (assoc base-sec
+                        "content-type" "application/json; charset=utf-8"
+                        "cache-control" "public, max-age=300, must-revalidate")))))
+
+(defn- gov-units-route
+  "Served from ACTOR_KV (gov-atlas:index). Async kvGet(env, key) → string|nil."
+  [deps env]
+  (.then (call deps "kvGet" env "gov-atlas:index")
+         (fn [raw]
+           (let [body (if raw raw "{\"error\":\"gov-atlas index not provisioned (run gen-gov-atlas-index + kv put gov-atlas:index)\"}")
+                 status (if raw 200 503)]
+             (resp (str body "\n") status
+                   (assoc base-sec
+                          "content-type" "application/json; charset=utf-8"
+                          "cache-control" "public, max-age=300, must-revalidate"))))))
+
+(defn- gov-procedures-route [deps]
+  (let [m (dep deps "govProcMeta")]
+    (resp (json-compact
+           #js {:graph "actors-v1"
+                :adr #js ["2606021600" "2606042330"]
+                :note "Observational mirror: public administrative procedures grouped by owning gov entity-actor handle. NOT the government, NOT an official channel, never filed on anyone's behalf (→ toritsugi, gated). All rows :representative / :unverified-seed (G5)."
+                :generatedAt (gobj/get m "generatedAt")
+                :count (gobj/get m "total")
+                :owners (gobj/get m "owners")
+                :jurisdictions (gobj/get m "jurisdictions")
+                :procedures (dep deps "govProcList")})
+          200
+          (assoc base-sec
+                 "content-type" "application/json; charset=utf-8"
+                 "cache-control" "public, max-age=300, must-revalidate"))))
+
+;; ─── local HTML routes ───────────────────────────────────────────────────────
+
+(defn- html-resp [body csp]
+  (resp body 200
+        (assoc html-sec
+               "content-type" "text/html; charset=utf-8"
+               "cache-control" "public, max-age=300, must-revalidate"
+               "content-security-policy" csp)))
+
+(defn- donate-route [deps]
+  (html-resp (dep deps "donateHtml")
+             "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"))
+
+(defn- actors-html-route [deps]
+  (html-resp (call deps "actorsHtml")
+             "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))
+
+(defn- organism-route [deps]
+  (html-resp (call deps "organismHtml")
+             "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'"))
+
+;; ─── per-actor routes (async, kotoba-first resolution via injected deps) ──────
+
+(defn- norm-handle [raw] (.toLowerCase (js/decodeURIComponent raw)))
+
+(defn- actor-did-route [deps env ctx raw-handle]
+  (let [handle (norm-handle raw-handle)]
+    (cond
+      (not (call deps "handleValid" handle))
+      (resp (js/JSON.stringify
+             #js {:error "HandleInvalid"
+                  :message "handle must be 1-63 chars, lowercase alnum + hyphen, no leading/trailing hyphen"})
+            400 {"content-type" "application/json; charset=utf-8"})
+
+      (not (call deps "isKnownHandle" handle))
+      (resp (js/JSON.stringify
+             #js {:error "HandleNotInRegistry"
+                  :message (str "handle '" handle "' matches a namespaced registry shape but is not registered")
+                  :registry "com.etzhayyim.apps.unispsc"
+                  :registryTotalCount (dep deps "unispscTotal")})
+            404 {"content-type" "application/json; charset=utf-8"
+                 "cache-control" "public, max-age=60, must-revalidate"})
+
+      :else
+      (.then
+       (call deps "resolveActorRecord" handle env ctx)
+       (fn [rec]
+         (let [doc (if rec
+                     (call deps "toDidDoc" rec env)
+                     (call deps "buildPerActorDidDoc" handle env))
+               source (if rec (gobj/get rec "source") "scaffold")
+               base-headers (assoc base-sec
+                                   "content-type" "application/did+json; charset=utf-8"
+                                   "cache-control" "public, max-age=60, must-revalidate"
+                                   "x-etzhayyim-actor-source" source)
+               finish (fn [cid]
+                        (let [hdrs (if cid
+                                     (assoc base-headers
+                                            "x-etzhayyim-did-doc-cid" cid
+                                            "link" (str "<https://etzhayyim.com/ipfs/" cid ">; rel=\"canonical\"; type=\"application/did+json\""))
+                                     base-headers)]
+                          (resp (json-pretty doc) 200 hdrs)))]
+           (if rec
+             (.then (call deps "didDocCid" rec env) finish)
+             (finish nil))))))))
+
+(defn- actor-profile-route [deps env ctx raw-handle]
+  (let [handle (norm-handle raw-handle)]
+    (cond
+      (not (call deps "handleValid" handle))
+      (resp (js/JSON.stringify #js {:error "HandleInvalid"}) 400 actor-json-headers)
+
+      :else
+      (.then
+       (call deps "resolveActorRecord" handle env ctx)
+       (fn [rec]
+         (if-not rec
+           (resp (js/JSON.stringify
+                  #js {:error "ProfileNotFound"
+                       :message (str "'" handle "' is not a registered actor; profiles for free-form handles resolve via the PDS, not the actor registry")})
+                 404 actor-json-headers)
+           (resp (json-pretty (call deps "toGetProfileView" rec)) 200
+                 (assoc actor-json-headers "x-etzhayyim-actor-source" (gobj/get rec "source")))))))))
+
+(defn- actor-procedures-route [deps raw-handle]
+  (let [handle (norm-handle raw-handle)]
+    (if-not (call deps "handleValid" handle)
+      (resp (js/JSON.stringify #js {:error "HandleInvalid"}) 400 actor-json-headers)
+      (let [procs (call deps "govProcsByOwner" handle)]
+        (resp (json-pretty
+               #js {:handle handle
+                    :did (str "did:web:etzhayyim.com:actor:" handle)
+                    :adr #js ["2606021600" "2606042330"]
+                    :note "Observational mirror of public procedures done at this administrative unit. NOT the government, NOT an official channel; never filed on anyone's behalf (→ toritsugi, gated). All rows :representative / :unverified-seed (G5)."
+                    :count (.-length procs)
+                    :procedures procs})
+              200 actor-json-headers)))))
+
+;; ─── dispatcher ──────────────────────────────────────────────────────────────
 
 (defn handle
-  "ESM entry. `deps` is the JS injection object from the shell (static did.json,
-  compiled registries, helpers); `fallback` is the legacy TS fetch handler.
-  Returns a Response or a Promise<Response>.
-
-  The route decision is delegated to the pure did-web.router (.cljc, bb-tested);
-  this fn only maps the decided route → its interop handler, or hands unowned
-  routes back to the TS fallback."
+  "ESM entry. `deps` is the JS injection object from the shell (static data +
+  leaf closures); `fallback` is the legacy TS fetch handler. Returns a Response
+  or a Promise<Response>. The route decision is the pure did-web.router; this fn
+  maps the decided route → its interop handler, enforces GET/HEAD-only where the
+  router says so, and hands unowned routes back to the TS fallback."
   [request env ctx deps fallback]
-  (let [url    (->url request)
+  (let [url    (js/URL. (.-url request))
         method (.-method request)
-        {:keys [route]} (router/route {:method method
-                                       :path   (.-pathname url)})]
-    (case route
-      :did-json (did-json-route request deps)
-      ;; :fallback (and any not-yet-mapped route) → legacy TS handler
-      (fallback request env ctx))))
+        {:keys [route handle]} (router/route {:method method
+                                              :path   (.-pathname url)})]
+    (if-not (router/method-allowed? route method)
+      @method-not-allowed
+      (case route
+        :did-json            (did-json-route deps)
+        :donation-json       (donation-json-route deps)
+        :donate-html         (donate-route deps)
+        :actors-json         (actors-json-route deps env)
+        :actors-html         (actors-html-route deps)
+        :gov-units-json      (gov-units-route deps env)
+        :gov-procedures-json (gov-procedures-route deps)
+        :organism-html       (organism-route deps)
+        :actor-did           (actor-did-route deps env ctx handle)
+        :actor-profile       (actor-profile-route deps env ctx handle)
+        :actor-procedures    (actor-procedures-route deps handle)
+        ;; :fallback (and any not-yet-mapped route) → legacy TS handler
+        (fallback request env ctx)))))

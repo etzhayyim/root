@@ -6,31 +6,58 @@
   (:require [clojure.test :refer [deftest is testing]]
             [did-web.router :as router]))
 
-(deftest did-json-owned
-  (testing "the entity DID document route is owned by the cljs core"
-    (is (= :did-json (:route (router/route {:method "GET"
-                                            :path "/.well-known/did.json"}))))
-    (is (router/owned? {:method "GET" :path "/.well-known/did.json"}))
-    (testing "method does not change ownership (405 is decided in the handler)"
-      (is (= :did-json (:route (router/route {:method "POST"
-                                              :path "/.well-known/did.json"})))))))
+(defn- r [method path] (:route (router/route {:method method :path path})))
 
-(deftest unowned-routes-fall-back
-  (testing "routes the cljs core does not own resolve to :fallback (legacy TS)"
+(deftest local-json-and-html-routes-owned
+  (testing "the local content/identity surface is owned by the cljs core"
+    (is (= :did-json            (r "GET" "/.well-known/did.json")))
+    (is (= :donation-json       (r "GET" "/.well-known/donation.json")))
+    (is (= :donate-html         (r "GET" "/donate")))
+    (is (= :actors-json         (r "GET" "/.well-known/actors.json")))
+    (is (= :actors-html         (r "GET" "/actors")))
+    (is (= :gov-units-json      (r "GET" "/.well-known/gov-units.json")))
+    (is (= :gov-procedures-json (r "GET" "/.well-known/gov-procedures.json")))
+    (is (= :organism-html       (r "GET" "/organism")))))
+
+(deftest actor-routes-extract-handle
+  (testing "per-actor routes resolve + extract the raw handle segment"
+    (is (= {:route :actor-did :handle "tsumugi"}
+           (router/route {:method "GET" :path "/actor/tsumugi/did.json"})))
+    (is (= {:route :actor-profile :handle "ooyake"}
+           (router/route {:method "GET" :path "/actor/ooyake/profile.json"})))
+    (is (= {:route :actor-procedures :handle "gov-jp-somu"}
+           (router/route {:method "GET" :path "/actor/gov-jp-somu/procedures.json"})))
+    (testing "a nested/extra segment is NOT an actor route"
+      (is (= :fallback (r "GET" "/actor/x/y/did.json")))
+      (is (= :fallback (r "GET" "/actor//did.json"))))))
+
+(deftest gov-html-stays-on-fallback-this-batch
+  (testing "/gov (inline HTML) is intentionally still the TS fallback"
+    (is (= :fallback (r "GET" "/gov")))))
+
+(deftest io-plumbing-falls-back
+  (testing "heavy I/O routes resolve to :fallback (legacy TS handler)"
     (doseq [p ["/"
-               "/donate"
-               "/.well-known/donation.json"
-               "/actors"
-               "/actor/tsumugi/did.json"
-               "/xrpc/app.bsky.feed.getTimeline"
                "/ipfs/bafkreialpha"
-               "/kotoba/stats"]]
-      (is (= :fallback (:route (router/route {:method "GET" :path p})))
-          (str p " should fall through to the TS handler")))))
+               "/kotoba/blocks/bafkreibeta"
+               "/kotoba/stats"
+               "/xrpc/app.bsky.feed.getTimeline"
+               "/xrpc/com.etzhayyim.apps.kotoba.block.put"
+               "/some/spa/route"]]
+      (is (= :fallback (r "GET" p)) (str p " should fall through to TS")))))
+
+(deftest method-policy
+  (testing "owned content routes are GET/HEAD-only; others unconstrained here"
+    (is (router/method-allowed? :did-json "GET"))
+    (is (router/method-allowed? :did-json "HEAD"))
+    (is (not (router/method-allowed? :did-json "POST")))
+    (is (not (router/method-allowed? :actor-did "DELETE")))
+    (is (router/method-allowed? :fallback "POST"))
+    (is (router/method-allowed? :fallback "GET"))))
 
 (deftest trailing-slash-normalized
-  (testing "a trailing slash does not change the route (root stays root)"
-    (is (= :fallback (:route (router/route {:method "GET" :path "/"}))))
-    ;; once /donate is owned this will flip; for now it stays fallback either way
-    (is (= (:route (router/route {:method "GET" :path "/donate"}))
-           (:route (router/route {:method "GET" :path "/donate/"}))))))
+  (testing "a trailing slash on a static content route does not change ownership"
+    (is (= :donate-html (r "GET" "/donate/")))
+    (is (= :actors-html (r "GET" "/actors/")))
+    (is (= :organism-html (r "GET" "/organism/")))
+    (is (= :fallback (r "GET" "/")))))

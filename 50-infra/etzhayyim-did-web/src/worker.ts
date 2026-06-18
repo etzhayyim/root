@@ -2130,12 +2130,45 @@ a{color:inherit}
 };
 
 // Dependency-injection object for the cljs core (module scope, built once).
-// The core is PURE over these: the static did.json import + (as routes migrate)
-// the compiled registries and the TS helpers it does not re-implement. Keys are
-// read in cljs via goog.object/get (string access), so they survive Closure
-// :advanced property renaming — see did-web.core's interop rule.
+// The cljs core OWNS the local content/identity routes and reads everything it
+// needs from here: static data (did.json / donation policy / HTML) + leaf
+// closures (registries, actor resolution, KV, codec helpers). Keys are read in
+// cljs via goog.object/get (string access), so they survive Closure :advanced
+// property renaming — see did-web.core's interop rule. Behaviour stays
+// byte-identical because the closures are the very same TS functions the legacy
+// handler used. Env-binding interop (KV, service bindings) is wrapped in
+// closures here so the cljs core never touches non-extern JS APIs directly.
 const cljsDeps = {
+  // static data
   didDoc,
+  donationPolicy: DONATION_POLICY,
+  donateHtml: DONATE_HTML,
+  unispscTotal: UNISPSC_TOTAL_COUNT,
+  govProcMeta: {
+    generatedAt: GOV_PROCEDURES_GENERATED_AT,
+    total: GOV_PROCEDURES_TOTAL,
+    owners: GOV_PROCEDURES_OWNER_COUNT,
+    jurisdictions: GOV_PROCEDURES_JURISDICTION_COUNT,
+  },
+  govProcList: GOV_PROCEDURE_LIST,
+  // HTML builders (referenceable module fns — no extraction needed)
+  actorsHtml: () => buildActorsHtml(),
+  organismHtml: () => buildOrganismHtml(),
+  // async leaves
+  buildActorsJson: (env: Env) => buildActorsJsonWithCids(env),
+  kvGet: (env: Env, key: string): Promise<string | null> =>
+    env.ACTOR_KV ? env.ACTOR_KV.get(key) : Promise.resolve(null),
+  // actor resolution (kotoba-first → compiled, per resolveActorRecordTiered)
+  resolveActorRecord: (handle: string, env: Env, ctx: ExecutionContext) =>
+    resolveActorRecord(handle, env, ctx),
+  toDidDoc: (rec: ActorRecord, env: Env) => toDidDoc(rec, env),
+  buildPerActorDidDoc: (handle: string, env: Env) => buildPerActorDidDoc(handle, env),
+  didDocCid: (rec: ActorRecord, env: Env) => didDocCid(rec, env),
+  toGetProfileView: (rec: ActorRecord) => toGetProfileView(rec),
+  // pure helpers
+  handleValid: (handle: string) => HANDLE_REGEX.test(handle),
+  isKnownHandle: (handle: string) => isKnownHandle(handle),
+  govProcsByOwner: (handle: string) => GOV_PROCEDURES_BY_OWNER.get(handle) ?? [],
 };
 
 export default {
